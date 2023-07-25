@@ -15,31 +15,79 @@
 {
 }
 
-<div class="condolence-banner-placeholder placeholder">
-    <h2>Condolence Banner</h2>
-</div>
+@if (Model.HomepageContent.CondolenceAlerts is not null && Model.HomepageContent.CondolenceAlerts.Any())
+{
+    foreach (var condolence in Model.HomepageContent.CondolenceAlerts)
+    {
+        <div data-test="global-alert">
+            <partial name="CondolenceAlert" model='condolence'/>
+        </div>
+    }
+}
 
 @if (Model.HomepageContent.Alerts is not null && Model.HomepageContent.Alerts.Any())
 {
     foreach (var alert in Model.HomepageContent.Alerts)
     {
-        <div>
+        <div data-cy="global-alert-wrapper">
             <partial name="GlobalAlert" model='alert'/>
         </div>
     }
 }
 
-<section class="section top-tasks-wrapper">
+<section class="section top-tasks-wrapper" data-cy="search-and-top-tasks">
     <div class="grid-container">
         <div class="grid-100">
-            <h1 class="section__title section__title--padded-bottom section__title--margin-top h-xl">Welcome to Stockport</h1>
-            <section class="search-bar">
-                <h2 class="visuallyhidden">Search stockport.gov.uk</h2>
-                <partial name="Search" model='new Tuple<string, string, string, string>("cludo-search-hero-form", "Search on stockport.gov.uk", "cludo-search-bar", "website search")'/>
-            </section>
+            <partial name="Search2023" model='new Tuple<string, string, string, string>("cludo-search-hero-form", "Search on stockport.gov.uk", "cludo-search-bar", "website search")'/>            
+            <partial name="TopTasks" model='Model.HomepageContent.FeaturedTasks'/>
+        </div>
+    </div>
 
-            <div class="top-tasks-placeholder placeholder">
-                <h2>Top tasks</h2>
+    <div class="skyline-wrapper"></div>
+</section>
+
+<section class="section section--white">
+    <div class="grid-container">
+        <div class="grid-100" data-cy="navcard-list">
+            <h2 class="section__title section__title--padded-bottom h-l">Our services</h2>
+            <div class="section__content section__content--no-margin">
+                <partial name="NavCardList" model='Model.HomepageContent.Services'/>
+                <a class="btn btn--center btn--width-30 btn--chevron-right" data-cy="view-more-services" href="topic/our-council-services">View more services</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section section--grey section--padded">
+    <div class="grid-container">
+        <div class="grid-100">
+            <h2 class="section__title section__title--padded-bottom-m h-l">What's happening in Stockport</h2>
+            <p class="section__teaser section__teaser--padded-bottom h-m">Keep up to date with what's happening in Stockport</p>
+            
+            <div class="section__content feature-card">
+                <partial name="FeatureCard" model='new FeatureCardViewModel { 
+                    Title = Model.FeaturedNews.Title, 
+                    Teaser = Model.FeaturedNews.Teaser, 
+                    Date = Model.FeaturedNews.SunriseDate, 
+                    StartTime = string.Empty, 
+                    Image = Model.FeaturedNews.Image, 
+                    ButtonText = "View More News",
+                    Slug = String.Concat("/news/", Model.FeaturedNews.Slug),
+                    ButtonUrl = "Comms",
+                    HeaderText = "Latest news"
+                }'/>
+
+                <partial name="FeatureCard" model='new FeatureCardViewModel { 
+                    Title = Model.FeaturedEvent.Title, 
+                    Teaser = Model.FeaturedEvent.Teaser, 
+                    Date = Model.FeaturedEvent.EventDate, 
+                    StartTime = Model.FeaturedEvent.StartTime, 
+                    Image = Model.FeaturedEvent.ImageUrl, 
+                    ButtonText = "View more events",
+                    Slug = String.Concat("/events/", Model.FeaturedEvent.Slug),
+                    ButtonUrl = "Events",
+                    HeaderText = "Upcoming event"
+                }'/>
             </div>
         </div>
     </div>
@@ -48,33 +96,13 @@
 <section class="section section--white">
     <div class="grid-container">
         <div class="grid-100">
-            <h2 class="section__title section__title--padded-bottom h-l">Our services</h2>
-            <partial name="NavCardList" model='Model.HomepageContent.Services'/>
-            
-            <div class="featured-content-button-wrapper">
-                <a class="button button-outline button-partialrounded button-call-to-action" href="#">View more services</a>
-            </div>
+            <partial name="CallToAction" model='Model.HomepageContent.CallToAction'/>
         </div>
     </div>
 </section>
 
 <div class="large-gray-placeholder placeholder">
-    <h2>What's happening in stockport</h2>
-</div>
-
-<div class="call-to-action-banner-placeholder placeholder">
-    <h2>Call to action</h2>
-</div>
-
-<div class="large-gray-placeholder placeholder">
     <h2>Spotlight on</h2>
 </div>
 
-<section class="personalised-services">
-    <h2 class="visuallyhidden">Subscription </h2>
-    <div class="grid-container">
-        <div class="grid-100 enhanced_service" id="test-email-alerts">
-            <partial name="EmailSubscribe" />
-        </div>
-    </div>
-</section> 
+<partial name="EmailSubscribe2023" />

@@ -30,13 +30,13 @@ public class RssFeedFactoryTest
     {
         var news = new List<News>();
         news.Add(new News("news item  1", "item1-slug", "teser-item1", "purpose", "", "", "", new List<Crumb>(),
-            new DateTime(2016, 09, 01), new DateTime(2016, 09, 01), new List<Alert>(), new List<string>(), new List<Document>()));
+            new DateTime(2016, 09, 01), new DateTime(2016, 09, 01), new DateTime(2016, 09, 01), new List<Alert>(), new List<string>(), new List<Document>()));
         news.Add(new News("news item  2", "item2-slug", "teser-item2", "purpose", "", "", "", new List<Crumb>(),
-            new DateTime(2016, 09, 01), new DateTime(2016, 09, 01), new List<Alert>(), new List<string>(), new List<Document>()));
+            new DateTime(2016, 09, 01), new DateTime(2016, 09, 01), new DateTime(2016, 09, 01), new List<Alert>(), new List<string>(), new List<Document>()));
         news.Add(new News("news item  3", "item3-slug", "teser-item3", "purpose", "", "", "", new List<Crumb>(),
-            new DateTime(2016, 09, 01), new DateTime(2016, 09, 01), new List<Alert>(), new List<string>(), new List<Document>()));
+            new DateTime(2016, 09, 01), new DateTime(2016, 09, 01), new DateTime(2016, 09, 01), new List<Alert>(), new List<string>(), new List<Document>()));
         news.Add(new News("news item  4", "item4-slug", "teser-item4", "purpose", "", "", "", new List<Crumb>(),
-            new DateTime(2016, 09, 01), new DateTime(2016, 09, 01), new List<Alert>(), new List<string>(), new List<Document>()));
+            new DateTime(2016, 09, 01), new DateTime(2016, 09, 01), new DateTime(2016, 09, 01), new List<Alert>(), new List<string>(), new List<Document>()));
 
         var rss = _rssFeedFactory.BuildRssFeed(news, "http://localhost", "email@test.email");
 

@@ -40,3 +40,11 @@ global.js
 /TestResults
 /packages
 /test/StockportWebappTests_UI/Screenshots
+/test/StockportWebappTests/TestCoverageResults
+/test/StockportWebappTests/TestResults
+/test/**/cypress/videos
+/test/**/cypress/screenshots
+/test/**/cypress/mochawesome-report
+/test/**/mochawesome-report
+/test/**/output.json
+**/__diff_output__/**

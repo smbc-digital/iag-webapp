@@ -1,29 +1,94 @@
 ﻿.section {
     margin-bottom: 2em;
 
+    &--no-margin {
+        margin-bottom: 0;
+    }
+
+    &--padded {
+        padding: 2em 0em;
+    }
+
     &--white {
         background-color: white;
     }
 
+    &--grey {
+        background-color: $offWhite;
+    }
+
+    &--teal {
+        background-color: $stockport-teal-darker;
+        color: white;
+    }
+
+    &__content {
+        margin: 0 25px 0 25px;
+
+        &--no-margin {
+            margin: 0px;
+        }
+
+        @media #{$mobile} {
+            margin: 0 5px 0 5px;
+
+            &--no-margin {
+                margin: 0 5px 0 5px;
+            }
+        }
+    }
+
     &__title {
-        margin: 0 0 0 25px;
+        margin: 0 25px 0 25px;
         text-decoration: none;
+
+        @media #{$mobile} {
+            margin: 0 5px 0 5px;
+        }
 
         a:hover {
             text-decoration: underline;
             text-decoration-thickness: 3px;
         }
 
+        &--white {
+            color: white;
+        }
+
         &--padded-bottom {
-            padding-bottom: 1em;
+            padding-bottom: 0.75em;
 
             @media #{$mobile} {
                 padding-bottom: 0.5em;
             }
         }
 
-        &--margin-top{
-            margin-top: 1em;
+        &--padded-bottom-m {
+            padding-bottom: 0.75em;
+        }
+
+        &--margin-top {
+            margin-top: 0.75em;
+        }
+
+        &--no-margin {
+            margin: 0;
+        }
+    }
+
+    &__teaser{
+        margin: 0 25px 0 25px;
+
+        &--padded-bottom {
+            padding-bottom: 1em;
+
+            @media #{$mobile} {
+                padding-bottom: 0.75em;
+            }
+        }
+
+        @media #{$mobile} {
+            margin: 0 5px 0 5px;
         }
     }
 }

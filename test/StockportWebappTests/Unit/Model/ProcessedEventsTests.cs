@@ -10,7 +10,7 @@ public class ProcessedEventsTests
     public void ShouldBeTrueIsAlertSunsetDateIsNotPassed()
     {
         var isAlertDisplayed = processedEvent.IsAlertDisplayed(new Alert("title", "subHeading", "body",
-                                                             "severity", DateTime.Now.AddDays(-5), DateTime.Now.AddDays(5), string.Empty, false));
+                                                             "severity", DateTime.Now.AddDays(-5), DateTime.Now.AddDays(5), string.Empty, false, string.Empty));
         isAlertDisplayed.Should().Be(true);
     }
 
@@ -18,7 +18,7 @@ public class ProcessedEventsTests
     public void ShouldBeFalseIsAlertSunsetDateIsPassed()
     {
         var isAlertDisplayed = processedEvent.IsAlertDisplayed(new Alert("title", "subHeading", "body",
-                                                             "severity", DateTime.Now.AddDays(-5), DateTime.Now.AddDays(-1), string.Empty, false));
+                                                             "severity", DateTime.Now.AddDays(-5), DateTime.Now.AddDays(-1), string.Empty, false, string.Empty));
         isAlertDisplayed.Should().Be(false);
     }
 }

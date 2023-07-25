@@ -1,0 +1,30 @@
+.call-to-action {
+    background-color: $stockport-teal-darker;
+    display: flex;
+    flex-direction: row;
+    border-radius: 3px;
+
+    &__image {
+        width: 40%;
+        object-fit: cover;
+        border-radius: 3px 0 0 3px;
+        
+        @media #{$mobile} {
+            display: none;
+        }
+    }
+
+    &-content {
+        width: 60%;
+        padding: 1.5em;
+
+        @media #{$mobile} {
+            width: 100%;
+        }
+
+        &__teaser {
+            color: white;
+            margin-bottom: 2em;
+        }
+    }
+}

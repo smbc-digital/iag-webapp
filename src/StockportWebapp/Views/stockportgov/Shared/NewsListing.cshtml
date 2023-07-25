@@ -162,12 +162,12 @@
                                 }
                                 <div  class="@(!string.IsNullOrEmpty(subItem.ThumbnailImage) ? "mobile-grid-65 tablet-grid-70 nav-card-news-detail pull-30 tablet-pull-30" : "") grid-70 grid-parent">
                                     <div class="news-date hide-on-mobile">
-                                        <span class="fa fa-clock-o" aria-hidden="true"></span><partial name="FormattedDate" model='subItem.SunriseDate'/>
+                                        <span class="fa fa-clock-o" aria-hidden="true"></span><partial name="FormattedDate" model='subItem.UpdatedAt'/>
                                     </div>
                                     <h2 class="nav-card-news-title" style="margin: 0">@subItem.Title</h2>
                                     <p class="nav-card-news-teaser hide-on-mobile">@subItem.Teaser</p>
                                     <div class="news-date hide-on-desktop hide-on-tablet">
-                                        <span class="fa fa-clock-o" aria-hidden="true"></span><partial name="FormattedDate" model='subItem.SunriseDate'/>
+                                        <span class="fa fa-clock-o" aria-hidden="true"></span><partial name="FormattedDate" model='subItem.UpdatedAt'/>
                                     </div>
                                 </div>
                             </div>

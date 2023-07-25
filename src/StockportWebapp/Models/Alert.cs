@@ -10,8 +10,9 @@ public class Alert
     public DateTime SunsetDate { get; }
     public string Slug { get; }
     public bool IsStatic { get; }
+    public string ImageUrl { get; }
 
-    public Alert(string title, string subHeading, string body, string severity, DateTime sunriseDate, DateTime sunsetDate, string slug, bool isStatic)
+    public Alert(string title, string subHeading, string body, string severity, DateTime sunriseDate, DateTime sunsetDate, string slug, bool isStatic, string imageUrl) 
     {
         Title = title;
         SubHeading = subHeading;
@@ -21,12 +22,13 @@ public class Alert
         SunsetDate = sunsetDate;
         Slug = slug;
         IsStatic = isStatic;
+        ImageUrl = imageUrl;
     }
 }
 
 public class NullAlert : Alert
 {
-    public NullAlert() : base(string.Empty, string.Empty, string.Empty, string.Empty, DateTime.MinValue, DateTime.MinValue, String.Empty, false) { }
+    public NullAlert() : base(string.Empty, string.Empty, string.Empty, string.Empty, DateTime.MinValue, DateTime.MinValue, String.Empty, false, string.Empty) { }
 }
 
 public static class Severity
@@ -35,4 +37,5 @@ public static class Severity
     public const string Error = "Error";
     public const string Information = "Information";
     public const string Success = "Success";
+    public const string Condolence = "Condolence";
 }

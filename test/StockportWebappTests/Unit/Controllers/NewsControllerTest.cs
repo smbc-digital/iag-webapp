@@ -23,7 +23,7 @@ public class NewsControllerTest
         "image.jpg",
         "thumbnail.jpg",
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam gravida eu mauris in consectetur. Nullam nulla urna, sagittis a ex sit amet, ultricies rhoncus mauris. Quisque vel placerat turpis, vitae consectetur mauris.",
-        new List<Crumb>(), new DateTime(2015, 9, 10), new DateTime(2015, 9, 20), new List<Alert>(),
+        new List<Crumb>(), new DateTime(2015, 9, 10), new DateTime(2015, 9, 20), new DateTime(2015, 9, 15), new List<Alert>(),
         new List<string>(), new List<Document>());
 
     private static readonly News NewsItemWithoutImages = new News("News 26th Aug",
@@ -33,7 +33,7 @@ public class NewsControllerTest
         "",
         "",
         "test",
-        new List<Crumb>(), new DateTime(2015, 9, 10), new DateTime(2015, 9, 20), new List<Alert>(),
+        new List<Crumb>(), new DateTime(2015, 9, 10), new DateTime(2015, 9, 20), new DateTime(2015, 9, 15), new List<Alert>(),
         new List<string>(), new List<Document>());
 
     private readonly ProcessedNews _processedNewsArticle = new ProcessedNews("Another news article",
@@ -43,7 +43,7 @@ public class NewsControllerTest
         "image.jpg",
         "thumbnail.jpg",
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam gravida eu mauris in consectetur. Nullam nulla urna, sagittis a ex sit amet, ultricies rhoncus mauris. Quisque vel placerat turpis, vitae consectetur mauris.",
-        new List<Crumb>(), new DateTime(2015, 9, 10), new DateTime(2015, 9, 20), new List<Alert>(),
+        new List<Crumb>(), new DateTime(2015, 9, 10), new DateTime(2015, 9, 20), new DateTime(2015, 9, 15), new List<Alert>(),
         new List<string> { "Events", "Bramall Hall" });
 
     private readonly List<News> _listOfNewsItems = new List<News> { NewsItemWithoutImages, NewsItemWithImages };
@@ -134,6 +134,7 @@ public class NewsControllerTest
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam gravida eu mauris in consectetur. Nullam nulla urna, sagittis a ex sit amet, ultricies rhoncus mauris. Quisque vel placerat turpis, vitae consectetur mauris.");
         news.NewsItem.SunriseDate.Should().Be(new DateTime(2015, 9, 10));
         news.NewsItem.SunsetDate.Should().Be(new DateTime(2015, 9, 20));
+        news.NewsItem.UpdatedAt.Should().Be(new DateTime(2015, 9, 15));
         news.NewsItem.Tags.Should().HaveCount(2);
         news.NewsItem.Tags.First().Should().Be("Events");
 
@@ -424,6 +425,7 @@ public class NewsControllerTest
                 new List<Crumb>(),
                 new DateTime(2015, 9, 10),
                 new DateTime(2015, 9, 20),
+                new DateTime(2015, 9, 15),
                 new List<Alert>(),
                 new List<string>(),
                 new List<Document>());

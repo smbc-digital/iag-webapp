@@ -172,6 +172,10 @@
 
 .global-alert-warning {
   background-color: $carrotOrange;
+
+  a:focus {
+      outline: 3px solid $black !important;
+  }
 }
 
 .global-alert-error {

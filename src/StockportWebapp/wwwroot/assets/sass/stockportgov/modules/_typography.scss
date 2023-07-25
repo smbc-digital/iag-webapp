@@ -11,13 +11,17 @@
 }
 
 .h-l {
-    font-size: 2.25em;
+    font-size: 2.25rem;
     line-height: 1.1111111111;
 
     @media #{$mobile} {
         font-size: 1.5rem;
         line-height: 1.0416666667;
     }
+}
+
+.h-ml {
+    font-size: 1.375em;
 }
 
 .h-m {
@@ -30,8 +34,12 @@
     }
 }
 
+.h-ml {
+    font-size: 1.375em;
+}
+
 .h-s {
-    font-size: 1.1875em;
+    font-size: 1.1875rem;
     line-height: 1.3157894737;
 
     @media #{$mobile} {

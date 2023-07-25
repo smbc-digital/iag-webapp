@@ -1,0 +1,30 @@
+/* 
+    This is a file for new stockport specific input stlyes 
+*/
+
+/* 
+    Input text this style is designed for text area 
+    the (line) height text and sizing should work well with the new button styles
+    .btn and assocaitated extension methods in _buttons.scss
+*/
+.input-text {
+    font-family: $fontStack;
+    border-radius: 3px;
+    padding: 1em;
+    border: solid 1px $stockport-teal;
+    min-width: 50%;
+    box-sizing: border-box;
+    margin: 0 0.5em;
+    line-height: 1.3rem;
+    font-size: 1.2rem;
+
+    @media #{$mobile} {
+        min-width: 100%;
+        margin: 0.5em 0;
+    }
+
+    @media #{$tablet} {
+        min-width: 100%;
+        margin: 0.5em 0;
+    }
+}
