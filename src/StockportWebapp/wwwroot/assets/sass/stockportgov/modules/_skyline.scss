@@ -7,14 +7,14 @@
     margin: auto;
     margin-top: 40px;
 
-    @media #{$mobile} {
-        background: none;
-        height: 0;
-    }
-
     @media #{$tablet} {
         height: 175px;
         width: 98%;
         margin-top: 0px;
+    }
+
+    @media #{$mobile} {
+        background: none;
+        height: 0;
     }
 }
