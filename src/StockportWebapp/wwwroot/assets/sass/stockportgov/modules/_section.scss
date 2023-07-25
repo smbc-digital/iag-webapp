@@ -13,6 +13,10 @@
         background-color: white;
     }
 
+    &--grey {
+        background-color: $offWhite;
+    }
+
     &--teal {
         background-color: $stockport-teal-darker;
         color: white;
@@ -59,7 +63,7 @@
             }
         }
 
-        &--padded-bottom--m {
+        &--padded-bottom-m {
             padding-bottom: 0.75em;
         }
 
@@ -69,6 +73,22 @@
 
         &--no-margin {
             margin: 0;
+        }
+    }
+
+    &__teaser{
+        margin: 0 25px 0 25px;
+
+        &--padded-bottom {
+            padding-bottom: 1em;
+
+            @media #{$mobile} {
+                padding-bottom: 0.75em;
+            }
+        }
+
+        @media #{$mobile} {
+            margin: 0 5px 0 5px;
         }
     }
 }

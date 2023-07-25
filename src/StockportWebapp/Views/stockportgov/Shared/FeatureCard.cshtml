@@ -1,0 +1,35 @@
+﻿@inject StockportWebapp.Utils.ViewHelpers viewHelper
+@model FeatureCardViewModel
+
+<div class="feature-card__wrapper">
+    <div class="feature-card__header">
+        <h3 class="h-ml">@Model.HeaderText</h3>
+    </div>
+
+    <a href="@Model.Slug" class="feature-card__link">
+        <div class="feature-card__content">
+            <div>
+                <h3 class="feature-card__title feature-card__title--padded-bottom">@Model.Title</h3>
+                <p class="feature-card__date feature-card__date--padded-bottom">
+                    @if(!Model.StartTime.Equals(string.Empty)){
+                        @viewHelper.FormatEventDate(Model.Date, Model.StartTime)
+                    }
+                    else{
+                        <partial name="FormattedDate" model='Model.Date'/>
+                    }
+                </p>
+                <p class="feature-card__teaser">@Model.Teaser</p>
+            </div>
+
+            <div class="feature-card__bottom">
+                <img class="feature-card__image" srcset="@Model.Image?w=698&q=89 698w,
+                        @Model.Image?w=915&q=89 915w,
+                        @Model.Image?w=1200&q=89 1200w"
+                    sizes="(max-width: 1023px) calc(100vw - 68.4px),
+                        100vw"
+                    src="@Model.Image?w=698&q=89" loading="lazy" alt="">
+            </div>
+        </div>
+    </a>
+    <a href='@Url.Action("Index", Model.ButtonUrl)' class="btn btn--full btn--inverse btn--on-white btn--bold btn--chevron-right btn--chevron-bold btn--border-grey">@Model.ButtonText</a>
+</div>
