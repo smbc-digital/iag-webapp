@@ -47,3 +47,4 @@ global.js
 /test/**/cypress/mochawesome-report
 /test/**/mochawesome-report
 /test/**/output.json
+**/__diff_output__/**
