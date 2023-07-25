@@ -1,5 +1,7 @@
 /* ------ Cookie Banner : Override WPCC imported style ------- */
 .smbc-cookie-banner {
+  z-index: 10000000 !important;
+
   @media #{$mobile, $tablet} {
     position: initial !important;
     border-radius: initial !important;
