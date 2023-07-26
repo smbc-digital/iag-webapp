@@ -6,7 +6,7 @@
         <h3 class="h-ml">@Model.HeaderText</h3>
     </div>
 
-    <a href="@Model.Slug" class="feature-card__link">
+    <a href="@Model.Slug" data-cy="feature-card-link" class="feature-card__link">
         <div class="feature-card__content">
             <div>
                 <h3 class="feature-card__title feature-card__title--padded-bottom">@Model.Title</h3>
@@ -31,5 +31,5 @@
             </div>
         </div>
     </a>
-    <a href='@Url.Action("Index", Model.ButtonUrl)' class="btn btn--full btn--inverse btn--on-white btn--bold btn--chevron-right btn--chevron-bold btn--border-grey">@Model.ButtonText</a>
+    <a href='@Url.Action("Index", Model.ButtonUrl)' data-cy= "view-more-button" class="btn btn--full btn--inverse btn--on-white btn--bold btn--chevron-right btn--chevron-bold btn--border-grey">@Model.ButtonText</a>
 </div>
