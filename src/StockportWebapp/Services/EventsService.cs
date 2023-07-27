@@ -25,14 +25,14 @@ public class EventsService : IEventsService
     public async Task<Event> GetLatestEventsItem()
     {
         var response = await _eventsRepository.GetLatest<EventCalendar>(1);
-        var newsItems = response.Content as EventCalendar;
-        return newsItems?.Events?.First();
+        var eventCalendar = response.Content as EventCalendar;
+        return eventCalendar?.Events?.First();
     }
 
     public async Task<Event> GetLatestFeaturedEventItem()
     {
         var response = await _eventsRepository.GetLatestOrderByFeatured<EventCalendar>(1);
-        var newsItems = response.Content as EventCalendar;
-        return newsItems?.Events?.First();
+        var eventCalendar = response.Content as EventCalendar;
+        return eventCalendar?.Events?.First();
     }
 }
