@@ -12,7 +12,6 @@
     padding: 1em;
     display: inline-block;
     box-sizing: border-box;
-
     line-height: 1.3rem;
     font-size: 1.2rem;
 
@@ -60,7 +59,19 @@
 
     &--on-white {
         &:hover, &:focus {
-            background-color: rgba($stockport-teal-darker, 0.1);
+            background-color: rgba($stockport-grey, 0.1);
+        }
+    }
+
+    &--pink-outline {
+        color: $stockport-pink;
+        border: 1px solid $stockport-pink;
+        background-color: transparent;
+
+
+        &:hover, &:focus {
+            background-color: $stockport-pink;
+            color: white;
         }
     }
 
@@ -75,14 +86,14 @@
 
     &--chevron-right {
         &:before {
-          content: "\f105";
-          font: normal normal normal 14px/1 FontAwesome;
-          font-size: inherit;
-          text-rendering: auto;
-          -moz-osx-font-smoothing: grayscale;
-          text-align: right;
-          float: right;
-          padding-left: 10px;
+            content: "\f105";
+            font: normal normal normal 14px/1 FontAwesome;
+            font-size: inherit;
+            text-rendering: auto;
+            -moz-osx-font-smoothing: grayscale;
+            text-align: right;
+            float: right;
+            padding-left: 10px;
         }
     }
 
