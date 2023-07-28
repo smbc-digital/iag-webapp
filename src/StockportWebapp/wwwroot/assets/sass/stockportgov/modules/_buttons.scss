@@ -15,7 +15,7 @@
     line-height: 1.3rem;
     font-size: 1.2rem;
 
-    @media #{$mobile} {
+    @media #{$mobile, $tablet} {
         text-decoration: none;
         color: $white;
         width: 100%;
@@ -29,7 +29,7 @@
         width: 30%;
         min-width: 300px;
 
-        @media #{$mobile} {
+        @media #{$mobile, $tablet} {
             width: 100%;
             min-width: unset;
         }
