@@ -1,4 +1,8 @@
-﻿namespace StockportWebapp.Utils;
+﻿using Amazon.S3.Model.Internal.MarshallTransformations;
+using Newtonsoft.Json.Linq;
+using Org.BouncyCastle.Pqc.Crypto.Bike;
+
+namespace StockportWebapp.Utils;
 
 public interface ICookiesHelper
 {
@@ -51,15 +55,23 @@ public class CookiesHelper : ICookiesHelper
     {
         var cookiesAsObject = GetCookiesAsObject(cookieType);
 
-        if (!cookiesAsObject.ContainsKey(typeof(T).ToString()))
-        {
-            cookiesAsObject.Add(typeof(T).ToString(), new List<string>());
-        }
+        //if (!cookiesAsObject.ContainsKey(typeof(T).ToString()))
+        //{
+        //    cookiesAsObject.Add(typeof(T).ToString(), new List<string>());
+        //}
 
-        if (cookiesAsObject[typeof(T).ToString()].All(f => f != slug))
-        {
-            cookiesAsObject[typeof(T).ToString()].Add(slug);
-        }
+        //if (cookiesAsObject[typeof(T).ToString()].All(f => f != slug))
+        //{
+        //    cookiesAsObject[typeof(T).ToString()].Add(slug);
+        //}
+
+        string key = typeof(T).ToString();
+
+        if (!cookiesAsObject.ContainsKey(key))
+            cookiesAsObject[key] = new List<string>();
+
+        if (!cookiesAsObject[key].Contains(slug))
+            cookiesAsObject[key].Add(slug);
 
         UpdateCookies(cookiesAsObject, cookieType);
     }
@@ -97,16 +109,60 @@ public class CookiesHelper : ICookiesHelper
     {
         var result = new List<string>();
         var cookiesAsObject = GetCookiesAsObject(cookieType);
-        cookiesAsObject.TryGetValue(typeof(T).ToString(), out result);
+        foreach(var cookie in cookiesAsObject)
+        {
+            //result.Add(cookie.Value[0].ToString());
+            foreach(var t in cookie.Value)
+            {
+                result.Add(t.ToString());
+            }
+        }
+
         return result;
+    }
+
+    public static Dictionary<string, List<string>> ExtractValuesFromJson(string jsonString)
+    {
+        Dictionary<string, List<string>> alertDictionary = new Dictionary<string, List<string>>();
+        string pattern = "\"([^\"]+)\":\\[\"([^\"]+)\"\\]";
+
+        if (jsonString.Equals(string.Empty)){
+            return alertDictionary;
+        }
+        else
+        {
+            MatchCollection matches = Regex.Matches(jsonString, pattern);
+
+            foreach (Match match in matches)
+            {
+                string key = match.Groups[1].Value;
+                string value = match.Groups[2].Value;
+
+                if (alertDictionary.ContainsKey(key))
+                    alertDictionary[key].Add(value);
+                else
+                    alertDictionary[key] = new List<string> { value };
+            }
+
+            return alertDictionary;
+        }
+        
     }
 
     private Dictionary<string, List<string>> GetCookiesAsObject(string cookieType)
     {
-        var cookies = httpContextAccessor.HttpContext.Request.Cookies[cookieType];
-        return !string.IsNullOrEmpty(cookies)
-            ? JsonConvert.DeserializeObject<Dictionary<string, List<string>>>(cookies)
-            : new Dictionary<string, List<string>>();
+        string jsonString = httpContextAccessor.HttpContext.Request.Cookies[cookieType];
+        //string jsonString = "{\"stockportWebapp.Models.Alert\":[\"dismissible-alert-warning\"],\"stockportWebapp.Models.Alert\":[\"dismissable-alert\"]}";
+        // Deserialize the JSON into a Dictionary<string, List<string>>
+        //Dictionary<string, List<string>> alertDictionary = JsonConvert.DeserializeObject<Dictionary<string, List<string>>>(jsonString);
+        Dictionary<string, List<string>> alertDictionary = new Dictionary<string, List<string>>();
+        
+        if (jsonString != null)
+        {
+            alertDictionary = ExtractValuesFromJson(jsonString);
+        }
+
+        return alertDictionary;
     }
 
     private void UpdateCookies(Dictionary<string, List<string>> cookies, string cookieType)

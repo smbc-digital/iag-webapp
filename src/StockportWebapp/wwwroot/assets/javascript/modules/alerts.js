@@ -1,5 +1,4 @@
 ﻿define(['jquery'], function ($) {
-
     var addCookie = function (slug, cookieType) {
         var url = "/cookies/add?slug=" + slug + "&cookieType=" + cookieType;
         $.post(url, function (data, status) { });
@@ -16,7 +15,9 @@
                     $(this).closest("." + parent).hide();
                 });
 
-                $(".dismiss a").click(function () {
+                // this will need changing to accomodate Semantic alerts
+                $(".global-alert-close-container a").click(function () {
+
                     var slug = $(this).attr("data-slug");
                     var cookieType = "alert";
                     addCookie(slug, cookieType);
@@ -27,7 +28,6 @@
                     alertBox.hide();
 
                     var visibleChildren = alertBoxContainer.children(':visible');
-
                     if (visibleChildren.length === 0) {
                         alertBoxContainer.hide();
                     }
