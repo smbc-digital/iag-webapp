@@ -9,8 +9,22 @@
 		font-size: 0.8em;
 
 		li {
-			margin: 0 0 10px;
-			padding: 0px;
+			box-sizing: border-box;
+			margin: 0;
+			padding-left: 1em;
+			padding-bottom: 0.5em;
+
+			@media #{$mobile} {
+				padding-left: 0;
+			}
+		}
+
+		a {
+			text-decoration: underline;
+
+			&:hover {
+				text-decoration-thickness: 3px;
+			}
 		}
 	}
 
