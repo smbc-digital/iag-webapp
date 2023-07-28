@@ -22,6 +22,7 @@ if (!app.Environment.IsEnvironment("prod") && !app.Environment.IsEnvironment("st
 app.UseSerilogRequestLogging();
 
 app.UseMiddleware<BusinessIdMiddleware>()
+    .UseSecureHeadersMiddleware(SecureHeadersMiddleware.CustomConfiguration())
     .UseMiddleware<ShortUrlRedirectsMiddleware>()
     .UseMiddleware<RobotsMiddleware>()
     .UseMiddleware<SecurityHeaderMiddleware>()
@@ -34,5 +35,6 @@ app.UseMiddleware<BusinessIdMiddleware>()
     {
         endpoints.MapControllers();
     });
+
 
 app.Run();

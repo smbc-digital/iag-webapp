@@ -78,3 +78,4 @@ global using HtmlString = Microsoft.AspNetCore.Html.HtmlString;
 global using HttpResponse = StockportWebapp.Client.HttpResponse;
 global using Event = StockportWebapp.Models.Event;
 global using Group = StockportWebapp.Models.Groups.Group;
+global using OwaspHeaders.Core.Extensions;
