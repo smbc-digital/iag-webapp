@@ -5,8 +5,10 @@
     };
 
     return {
-        Init: function () {
-            $(document).ready(function () {
+        Init: function () { 
+
+                // This gets called for every alert - will generate too many click events
+                console.trace("adding click event")
                 $(".close-alert").click(function () {
                     var slug = $(this).attr("data-slug");
                     var cookieType = "alert";
@@ -18,8 +20,10 @@
                 // this will need changing to accomodate Semantic alerts
                 $(".global-alert-close-container a").click(function () {
 
+                    console.log("adding click event for global alert")
+
                     var slug = $(this).attr("data-slug");
-                    var cookieType = "alert";
+                    var cookieType = "alert"; 
                     addCookie(slug, cookieType);
 
                     var alertBox = $(this).closest("." + $(this).attr("data-parent"));
@@ -32,7 +36,6 @@
                         alertBoxContainer.hide();
                     }
                 });
-            });
         }
     };
 });
