@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
-
-namespace StockportWebapp.Utils;
+﻿namespace StockportWebapp.Utils;
 
 public interface ICookiesHelper
 {

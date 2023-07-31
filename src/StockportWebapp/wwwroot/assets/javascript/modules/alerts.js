@@ -9,9 +9,7 @@
     return {
         Init: function () {
             if (!hasInitialized) {
-                // This gets called for every alert - will generate too many click events
                 hasInitialized = true;
-                console.log("adding click event, ", hasInitialized);
 
                 $(".close-alert").click(function () {
                     var slug = $(this).attr("data-slug");
@@ -21,11 +19,7 @@
                     $(this).closest("." + parent).hide();
                 }); 
 
-                // this will need changing to accomodate Semantic alerts
                 $(".dismiss a").click(function () {
-
-                    console.log("adding click event for global alert")
-
                     var slug = $(this).attr("data-slug");
                     var cookieType = "alert";
                     addCookie(slug, cookieType);
