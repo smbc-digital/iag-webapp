@@ -26,7 +26,7 @@ public class CookiesHelper : ICookiesHelper
 
         if (!cookiesAsObject.Keys.Any()) return items;
 
-        var type = typeof(T).ToString().Replace("Processed", "");
+        var type = typeof(T).ToString().ToLower().Replace("Processed", "");
 
         var cookies = cookiesAsObject[type];
 
@@ -66,12 +66,13 @@ public class CookiesHelper : ICookiesHelper
     public void RemoveFromCookies<T>(string slug, string cookieType)
     {
         var cookiesAsObject = GetCookiesAsObject(cookieType);
+        string key = typeof(T).ToString().ToLower();
 
-        if (!cookiesAsObject.ContainsKey(typeof(T).ToString()))
-            cookiesAsObject.Add(typeof(T).ToString(), new List<string>());
+        if (!cookiesAsObject.ContainsKey(key))
+            cookiesAsObject.Add(key, new List<string>());
 
-        if (cookiesAsObject[typeof(T).ToString()].Any(f => f == slug))
-            cookiesAsObject[typeof(T).ToString()].Remove(slug);
+        if (cookiesAsObject.ContainsKey(key) && cookiesAsObject[key].Contains(slug))
+            cookiesAsObject[key].Remove(slug);
 
         UpdateCookies(cookiesAsObject, cookieType);
     }
@@ -80,8 +81,8 @@ public class CookiesHelper : ICookiesHelper
     {
         var cookiesAsObject = GetCookiesAsObject(cookieType);
 
-        if (cookiesAsObject.ContainsKey(typeof(T).ToString()))
-            cookiesAsObject.Remove(typeof(T).ToString());
+        if (cookiesAsObject.ContainsKey(typeof(T).ToString().ToLower()))
+            cookiesAsObject.Remove(typeof(T).ToString().ToLower());
 
         UpdateCookies(cookiesAsObject, cookieType);
     }
@@ -112,7 +113,7 @@ public class CookiesHelper : ICookiesHelper
         string cookies = httpContextAccessor.HttpContext.Request.Cookies[cookieType];
         Dictionary<string, List<string>> alertDictionary = new Dictionary<string, List<string>>();
         
-        if (cookies != null)
+        if (cookies != null && cookies != string.Empty)
             alertDictionary = ExtractValuesFromJson(cookies);
 
         return alertDictionary;

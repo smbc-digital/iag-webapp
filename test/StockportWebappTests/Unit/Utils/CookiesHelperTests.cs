@@ -8,7 +8,8 @@ public class FakeCookie : IRequestCookieCollection, IResponseCookies
     {
         if (addDefaults)
         {
-            _dictionary.Add("favourites", $"{{ \"{typeof(Group)}\":[\"foo\",\"bar\",\"test1\"] }}");
+            string key = typeof(Group).ToString().ToLower();
+            _dictionary.Add("favourites", $"{{ \"{key}\":[\"foo\",\"bar\",\"test1\"] }}");
         }
     }
 
@@ -126,8 +127,8 @@ public class CookiesHelperTests
         var result = JsonConvert.DeserializeObject<Dictionary<string, List<string>>>(cookies["favourites"]);
 
         // Assert
-        result[typeof(Group).ToString()].Should().Equal(@"test1");
-        result[typeof(Event).ToString()].Should().Equal(@"test2");
+        result[typeof(Group).ToString().ToLower()].Should().Equal(@"test1");
+        result[typeof(Event).ToString().ToLower()].Should().Equal(@"test2");
     }
 
     [Fact]
@@ -145,7 +146,7 @@ public class CookiesHelperTests
         var result = JsonConvert.DeserializeObject<Dictionary<string, List<string>>>(cookies["favourites"]);
 
         // Assert
-        result[typeof(Group).ToString()].Should().Equal(@"test1");
+        result[typeof(Group).ToString().ToLower()].Should().Equal(@"test1");
     }
 
     [Fact]
@@ -162,7 +163,7 @@ public class CookiesHelperTests
         var result = JsonConvert.DeserializeObject<Dictionary<string, List<string>>>(cookies["favourites"]);
 
         // Assert
-        result.ContainsKey(typeof(Group).ToString()).Should().Be(false);
+        result.ContainsKey(typeof(Group).ToString().ToLower()).Should().Be(false);
     }
 
     [Fact]
