@@ -2,7 +2,7 @@
     baseUrl: "/assets/javascript/modules/",
     paths: {
         // STOCKPORT MODULES
-        "alerts": "alerts-93475f72.min",
+        "alerts": "alerts-f29a4a95.min",
         "carousel": "carousel-719cf06c.min",
         "cludo": "cludo-b9f1b125.min",
         "contactUs": "contactUs-e5b6f8a5.min",

@@ -14,7 +14,7 @@
                     <h3>@Model.Title</h3>
                     @Html.Raw(Model.Body)
                 </div>
-                @if(!string.IsNullOrEmpty(Model.ImageUrl))
+                @if (!string.IsNullOrEmpty(Model.ImageUrl))
                 {
                     <div class="condolence_image">
                         <img src="@Model.ImageUrl" alt="" />
@@ -35,3 +35,13 @@
         </div>
     </div>
 }
+
+<script>
+    require(['/assets/javascript/config-0874a8fe.min.js'], function () {
+        require(['alerts'],
+            function (alerts) {
+                alerts.Init();
+            }
+        );
+    });
+</script>
