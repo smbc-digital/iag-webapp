@@ -1,29 +1,37 @@
-﻿@model Alert
+﻿@inject ICookiesHelper CookiesHelper
+@model Alert
+@{
+    var alertCookies = CookiesHelper.GetCookies<Alert>("alerts");
+    var isDismissed = alertCookies != null && alertCookies.Contains(Model.Slug) && !Model.IsStatic;
+}
 
-<div class="condolence" data-cy="condolence">
-    <div class="grid-container">
-        <div class="grid-100 condolence_content">
-            <div class="condolence_text">
-                <h3>@Model.Title</h3>
-                @Html.Raw(Model.Body)
+@if (!isDismissed)
+{
+    <div class="condolence" data-cy="condolence">
+        <div class="grid-container">
+            <div class="grid-100 condolence_content">
+                <div class="condolence_text">
+                    <h3>@Model.Title</h3>
+                    @Html.Raw(Model.Body)
+                </div>
+                @if(!string.IsNullOrEmpty(Model.ImageUrl))
+                {
+                    <div class="condolence_image">
+                        <img src="@Model.ImageUrl" alt="" />
+                    </div>
+                }
+
+                @if (!Model.IsStatic)
+                {
+                    <div class="condolence_close-container">
+                        <a class="close-alert" href="javascript:void(0)" title="Close @Model.Title alert" aria-label="Close @Model.Title alert" data-cy="condolence-alert" data-slug="@Model.Slug" data-parent="condolence">
+                            <div class="condolence_close">
+                                <span></span>
+                            </div>
+                        </a>
+                    </div>
+                }
             </div>
-            @if(!string.IsNullOrEmpty(Model.ImageUrl))
-            {
-                <div class="condolence_image">
-                    <img src="@Model.ImageUrl" alt="" />
-                </div>
-            }
-
-            @if (!Model.IsStatic)
-            {
-                <div class="condolence_close-container">
-                    <a class="close-alert" href="javascript:void(0)" title="Close @Model.Title alert" aria-label="Close @Model.Title alert" data-cy="condolence-alert" data-slug="@Model.Slug" data-parent="condolence">
-                        <div class="condolence_close">
-                            <span></span>
-                        </div>
-                    </a>
-                </div>
-            }
         </div>
     </div>
-</div>
+}
