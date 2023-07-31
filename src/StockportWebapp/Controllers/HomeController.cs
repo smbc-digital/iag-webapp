@@ -1,6 +1,6 @@
 namespace StockportWebapp.Controllers;
 
-//[ResponseCache(Location = ResponseCacheLocation.Any, Duration = Cache.Medium)]
+[ResponseCache(Location = ResponseCacheLocation.Any, Duration = Cache.Medium)]
 public class HomeController : Controller
 {
     private readonly BusinessId _businessId;
