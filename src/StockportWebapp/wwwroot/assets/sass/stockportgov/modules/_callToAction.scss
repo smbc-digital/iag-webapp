@@ -9,7 +9,7 @@
         object-fit: cover;
         border-radius: 3px 0 0 3px;
         
-        @media #{$mobile} {
+        @media #{$tablet} {
             display: none;
         }
     }
@@ -18,7 +18,7 @@
         width: 60%;
         padding: 1.5em;
 
-        @media #{$mobile} {
+        @media #{$tablet} {
             width: 100%;
         }
 
