@@ -4,13 +4,13 @@ public class FakeCookie : IRequestCookieCollection, IResponseCookies
 {
     private Dictionary<string, string> _dictionary = new Dictionary<string, string>();
 
-    public FakeCookie(bool addDefaults = false)
+    public FakeCookie(bool addDefaults = false, bool isAlert = false)
     {
         if (addDefaults)
-        {
-            string key = typeof(Group).ToString().ToLower();
-            _dictionary.Add("favourites", $"{{ \"{key}\":[\"foo\",\"bar\",\"test1\"] }}");
-        }
+            _dictionary.Add("favourites", $"{{ \"{typeof(Group).ToString().ToLower()}\":[\"foo\",\"bar\",\"test1\"] }}");
+
+        if (isAlert)
+            _dictionary.Add("alerts", $"{{ \"{typeof(Alert).ToString().ToLower()}\":[\"foo\",\"bar\",\"test1\"] }}");
     }
 
     public string this[string key]
@@ -18,13 +18,9 @@ public class FakeCookie : IRequestCookieCollection, IResponseCookies
         get
         {
             if (_dictionary.ContainsKey(key))
-            {
                 return _dictionary[key];
-            }
             else
-            {
                 return string.Empty;
-            }
         }
     }
 
@@ -32,10 +28,7 @@ public class FakeCookie : IRequestCookieCollection, IResponseCookies
 
     public ICollection<string> Keys { get; }
 
-    public bool ContainsKey(string key)
-    {
-        return true;
-    }
+    public bool ContainsKey(string key) => true;
 
     public bool TryGetValue(string key, out string value)
     {
@@ -43,40 +36,19 @@ public class FakeCookie : IRequestCookieCollection, IResponseCookies
         return true;
     }
 
-    public IEnumerable<KeyValuePair<string, string>> GetEnumerator()
-    {
-        return new List<KeyValuePair<string, string>>();
-    }
+    public IEnumerable<KeyValuePair<string, string>> GetEnumerator() => new List<KeyValuePair<string, string>>();
 
-    IEnumerator<KeyValuePair<string, string>> IEnumerable<KeyValuePair<string, string>>.GetEnumerator()
-    {
-        throw new NotImplementedException();
-    }
+    IEnumerator<KeyValuePair<string, string>> IEnumerable<KeyValuePair<string, string>>.GetEnumerator() => throw new NotImplementedException();
 
-    IEnumerator IEnumerable.GetEnumerator()
-    {
-        throw new NotImplementedException();
-    }
+    IEnumerator IEnumerable.GetEnumerator() => throw new NotImplementedException();
 
-    public void Append(string key, string value)
-    {
-        _dictionary[key] = value;
-    }
+    public void Append(string key, string value) => _dictionary[key] = value;
 
-    public void Append(string key, string value, CookieOptions options)
-    {
-        _dictionary[key] = value;
-    }
+    public void Append(string key, string value, CookieOptions options) => _dictionary[key] = value;
 
-    public void Delete(string key)
-    {
-        throw new NotImplementedException();
-    }
+    public void Delete(string key) => throw new NotImplementedException();
 
-    public void Delete(string key, CookieOptions options)
-    {
-        throw new NotImplementedException();
-    }
+    public void Delete(string key, CookieOptions options) => throw new NotImplementedException();
 }
 
 public class CookiesHelperTests
@@ -91,10 +63,10 @@ public class CookiesHelperTests
     }
 
     [Fact]
-    public void ShouldPopulateFavouritePropertyToCollectionWhencallingPopulateFavourites()
+    public void PopulateCookies_ShouldPopulateFavouritePropertyToCollection_WhenCallingPopulateFavourites()
     {
         // Arrange
-        var cookies = new FakeCookie(true);
+        var cookies = new FakeCookie(true, false);
 
         var groups = new List<Group>()
         {
@@ -113,7 +85,26 @@ public class CookiesHelperTests
     }
 
     [Fact]
-    public void ShouldAddToFavouritesCollection()
+    public void PopulateCookies_ShouldThrowException_WhenCookiePropOrSlugIsNull()
+    {
+        // Arrange
+        var cookies = new FakeCookie(false, true);
+
+        var alerts = new List<Alert>()
+        {
+            new Alert("alert", "alertSubHeading", "body", string.Empty, new DateTime(), new DateTime(), "alert", true, string.Empty)
+        };
+
+        httpContextAccessor.Setup(_ => _.HttpContext.Request.Cookies).Returns(cookies);
+        httpContextAccessor.Setup(_ => _.HttpContext.Response.Cookies).Returns(cookies);
+
+        // Assert
+        var result = Assert.Throws<Exception>(() => cookiesHelper.PopulateCookies(alerts, "alerts"));
+        Assert.Equal("The object you are adding to favourites does not have either the property 'Favourite' or the property 'Slug'", result.Message);
+    }
+
+    [Fact]
+    public void AddToCookies_ShouldAddToFavouritesCollection()
     {
         // Arrange
         var cookies = new FakeCookie();
@@ -132,10 +123,10 @@ public class CookiesHelperTests
     }
 
     [Fact]
-    public void ShouldRemoveFromFavouritesCollection()
+    public void RemoveFromCookies_ShouldRemoveFromFavouritesCollection()
     {
         // Arrange
-        var cookies = new FakeCookie(true);
+        var cookies = new FakeCookie(true, false);
 
         httpContextAccessor.Setup(_ => _.HttpContext.Request.Cookies).Returns(cookies);
         httpContextAccessor.Setup(_ => _.HttpContext.Response.Cookies).Returns(cookies);
@@ -150,10 +141,27 @@ public class CookiesHelperTests
     }
 
     [Fact]
-    public void ShouldRemoveAllFromFavouritesCollection()
+    public void RemoveFromCookies_ShouldAddNewKeyToDict()
     {
         // Arrange
-        var cookies = new FakeCookie(true);
+        var cookies = new FakeCookie(false, true);
+
+        httpContextAccessor.Setup(_ => _.HttpContext.Request.Cookies).Returns(cookies);
+        httpContextAccessor.Setup(_ => _.HttpContext.Response.Cookies).Returns(cookies);
+
+        // Act
+        cookiesHelper.RemoveFromCookies<Group>("newTest", "favourites");
+        var result = JsonConvert.DeserializeObject<Dictionary<string, List<string>>>(cookies["favourites"]);
+
+        // Assert
+        Assert.Equal(typeof(Group).ToString().ToLower(), result.Keys.First());
+    }
+
+    [Fact]
+    public void RemoveAllFromCookies_ShouldRemoveAllFromFavouritesCollection()
+    {
+        // Arrange
+        var cookies = new FakeCookie(true, false);
 
         httpContextAccessor.Setup(_ => _.HttpContext.Request.Cookies).Returns(cookies);
         httpContextAccessor.Setup(_ => _.HttpContext.Response.Cookies).Returns(cookies);
@@ -167,10 +175,10 @@ public class CookiesHelperTests
     }
 
     [Fact]
-    public void ShouldGetAllFavouritesFromFavouritesCollection()
+    public void GetCookies_ShouldGetAllFavouritesFromFavouritesCollection()
     {
         // Arrange
-        var cookies = new FakeCookie(true);
+        var cookies = new FakeCookie(true, false);
 
         httpContextAccessor.Setup(_ => _.HttpContext.Request.Cookies).Returns(cookies);
         httpContextAccessor.Setup(_ => _.HttpContext.Response.Cookies).Returns(cookies);
