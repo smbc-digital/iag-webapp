@@ -89,13 +89,16 @@
     </div>
 </section>
 
-<section class="section section--white">
-    <div class="grid-container">
-        <div class="grid-100">
-            <partial name="CallToAction" model='Model.HomepageContent.CallToAction'/>
+@if(Model.HomepageContent.CallToAction is not null)
+{
+    <section class="section section--white">
+        <div class="grid-container">
+            <div class="grid-100">
+                <partial name="CallToAction" model='Model.HomepageContent.CallToAction'/>
+            </div>
         </div>
-    </div>
-</section>
+    </section>
+}
 
 <div class="large-gray-placeholder placeholder">
     <h2>Spotlight on</h2>
