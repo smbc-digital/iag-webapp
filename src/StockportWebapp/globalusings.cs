@@ -28,6 +28,7 @@ global using MimeKit;
 global using Newtonsoft.Json;
 global using Newtonsoft.Json.Converters;
 global using Newtonsoft.Json.Serialization;
+global using Newtonsoft.Json.Linq;
 global using ReverseMarkdown;
 global using Serilog;
 global using StackExchange.Redis;

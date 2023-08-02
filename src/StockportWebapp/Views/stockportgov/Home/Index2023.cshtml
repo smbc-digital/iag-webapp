@@ -1,4 +1,5 @@
 ﻿@inject StockportWebapp.Utils.ViewHelpers viewHelper
+@inject ICookiesHelper CookiesHelper
 @model HomepageViewModel
 @{
     ViewData["Title"] = "Welcome to Stockport Council";
@@ -19,11 +20,14 @@
 
 @if (Model.HomepageContent.Alerts is not null && Model.HomepageContent.Alerts.Any())
 {
-    foreach (var alert in Model.HomepageContent.Alerts)
+    var alertCookies = CookiesHelper.GetCookies<Alert>("alerts");
+
+    @foreach (var alert in Model.HomepageContent.Alerts)
     {
-        <div data-cy="global-alert-wrapper">
-            <partial name="GlobalAlert" model='alert'/>
-        </div>
+        if (alertCookies is null || !alertCookies.Contains(alert.Slug))
+        {
+            <partial name="GlobalAlert" model='alert' />
+        }
     }
 }
 
@@ -85,13 +89,16 @@
     </div>
 </section>
 
-<section class="section section--white">
-    <div class="grid-container">
-        <div class="grid-100">
-            <partial name="CallToAction" model='Model.HomepageContent.CallToAction'/>
+@if(Model.HomepageContent.CallToAction is not null)
+{
+    <section class="section section--white">
+        <div class="grid-container">
+            <div class="grid-100">
+                <partial name="CallToAction" model='Model.HomepageContent.CallToAction'/>
+            </div>
         </div>
-    </div>
-</section>
+    </section>
+}
 
 <div class="large-gray-placeholder placeholder">
     <h2>Spotlight on</h2>
