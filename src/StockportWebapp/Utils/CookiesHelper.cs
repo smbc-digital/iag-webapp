@@ -24,7 +24,7 @@ public class CookiesHelper : ICookiesHelper
 
         if (!cookiesAsObject.Keys.Any()) return items;
 
-        var type = typeof(T).ToString().Replace("Processed", "");
+        var type = typeof(T).ToString().ToLower().Replace("Processed", "");
 
         var cookies = cookiesAsObject[type];
 
@@ -50,16 +50,13 @@ public class CookiesHelper : ICookiesHelper
     public void AddToCookies<T>(string slug, string cookieType)
     {
         var cookiesAsObject = GetCookiesAsObject(cookieType);
+        string key = typeof(T).ToString().ToLower();
 
-        if (!cookiesAsObject.ContainsKey(typeof(T).ToString()))
-        {
-            cookiesAsObject.Add(typeof(T).ToString(), new List<string>());
-        }
-
-        if (cookiesAsObject[typeof(T).ToString()].All(f => f != slug))
-        {
-            cookiesAsObject[typeof(T).ToString()].Add(slug);
-        }
+        if (!cookiesAsObject.ContainsKey(key))
+            cookiesAsObject[key] = new List<string>();
+        
+        if (cookiesAsObject.ContainsKey(key) && !cookiesAsObject[key].Contains(slug))
+            cookiesAsObject[key].Add(slug);
 
         UpdateCookies(cookiesAsObject, cookieType);
     }
@@ -67,16 +64,13 @@ public class CookiesHelper : ICookiesHelper
     public void RemoveFromCookies<T>(string slug, string cookieType)
     {
         var cookiesAsObject = GetCookiesAsObject(cookieType);
+        string key = typeof(T).ToString().ToLower();
 
-        if (!cookiesAsObject.ContainsKey(typeof(T).ToString()))
-        {
-            cookiesAsObject.Add(typeof(T).ToString(), new List<string>());
-        }
+        if (!cookiesAsObject.ContainsKey(key))
+            cookiesAsObject.Add(key, new List<string>());
 
-        if (cookiesAsObject[typeof(T).ToString()].Any(f => f == slug))
-        {
-            cookiesAsObject[typeof(T).ToString()].Remove(slug);
-        }
+        if (cookiesAsObject.ContainsKey(key) && cookiesAsObject[key].Contains(slug))
+            cookiesAsObject[key].Remove(slug);
 
         UpdateCookies(cookiesAsObject, cookieType);
     }
@@ -85,28 +79,42 @@ public class CookiesHelper : ICookiesHelper
     {
         var cookiesAsObject = GetCookiesAsObject(cookieType);
 
-        if (cookiesAsObject.ContainsKey(typeof(T).ToString()))
-        {
-            cookiesAsObject.Remove(typeof(T).ToString());
-        }
+        if (cookiesAsObject.ContainsKey(typeof(T).ToString().ToLower()))
+            cookiesAsObject.Remove(typeof(T).ToString().ToLower());
 
         UpdateCookies(cookiesAsObject, cookieType);
     }
 
     public List<string> GetCookies<T>(string cookieType)
     {
-        var result = new List<string>();
         var cookiesAsObject = GetCookiesAsObject(cookieType);
-        cookiesAsObject.TryGetValue(typeof(T).ToString(), out result);
-        return result;
+        return cookiesAsObject.Values.SelectMany(cookieAsObject => cookieAsObject.Select(cookie => cookie.ToString())).ToList();
+    }
+
+    public static Dictionary<string, List<string>> ExtractValuesFromJson(string cookies)
+    {
+        Dictionary<string, List<string>> alertDictionary = new Dictionary<string, List<string>>();
+        JObject cookiesObject = JObject.Parse(cookies);
+
+        foreach (var property in cookiesObject.Properties())
+        {
+            string key = property.Name;
+            List<string> values = property.Value.ToObject<List<string>>();
+            alertDictionary.Add(key, values);
+        }
+
+        return alertDictionary;
     }
 
     private Dictionary<string, List<string>> GetCookiesAsObject(string cookieType)
     {
-        var cookies = httpContextAccessor.HttpContext.Request.Cookies[cookieType];
-        return !string.IsNullOrEmpty(cookies)
-            ? JsonConvert.DeserializeObject<Dictionary<string, List<string>>>(cookies)
-            : new Dictionary<string, List<string>>();
+        string cookies = httpContextAccessor.HttpContext.Request.Cookies[cookieType];
+        Dictionary<string, List<string>> alertDictionary = new Dictionary<string, List<string>>();
+        
+        if (cookies != null && cookies != string.Empty)
+            alertDictionary = ExtractValuesFromJson(cookies);
+
+        return alertDictionary;
     }
 
     private void UpdateCookies(Dictionary<string, List<string>> cookies, string cookieType)
