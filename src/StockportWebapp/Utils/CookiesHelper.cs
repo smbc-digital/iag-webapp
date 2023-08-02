@@ -33,7 +33,7 @@ public class CookiesHelper : ICookiesHelper
             PropertyInfo cookieProp = item.GetType().GetProperty("Favourite");
             PropertyInfo slugProp = item.GetType().GetProperty("Slug");
 
-            if (null != cookieProp && null != slugProp && cookieProp.CanWrite)
+            if (cookieProp is not null && slugProp is not null && cookieProp.CanWrite)
             {
                 var exists = cookies.Any(f => f == slugProp.GetValue(item).ToString());
                 cookieProp.SetValue(item, exists, null);
@@ -111,7 +111,7 @@ public class CookiesHelper : ICookiesHelper
         string cookies = httpContextAccessor.HttpContext.Request.Cookies[cookieType];
         Dictionary<string, List<string>> alertDictionary = new Dictionary<string, List<string>>();
         
-        if (cookies != null && cookies != string.Empty)
+        if (cookies is not null && !cookies.Equals(string.Empty))
             alertDictionary = ExtractValuesFromJson(cookies);
 
         return alertDictionary;
