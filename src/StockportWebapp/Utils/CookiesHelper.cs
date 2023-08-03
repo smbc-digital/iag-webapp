@@ -54,8 +54,8 @@ public class CookiesHelper : ICookiesHelper
 
         if (!cookiesAsObject.ContainsKey(key))
             cookiesAsObject[key] = new List<string>();
-        
-        if (cookiesAsObject.ContainsKey(key) && !cookiesAsObject[key].Contains(slug))
+
+        if (cookiesAsObject.ContainsKey(key) && slug is not null && !cookiesAsObject[key].Contains(slug))
             cookiesAsObject[key].Add(slug);
 
         UpdateCookies(cookiesAsObject, cookieType);
@@ -88,6 +88,7 @@ public class CookiesHelper : ICookiesHelper
     public List<string> GetCookies<T>(string cookieType)
     {
         var cookiesAsObject = GetCookiesAsObject(cookieType);
+
         return cookiesAsObject.Values.SelectMany(cookieAsObject => cookieAsObject.Select(cookie => cookie.ToString())).ToList();
     }
 
