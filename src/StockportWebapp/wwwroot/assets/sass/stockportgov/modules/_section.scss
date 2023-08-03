@@ -1,4 +1,6 @@
-﻿.section {
+﻿
+
+.section {
     margin-bottom: 2em;
 
     &--no-margin {
@@ -39,6 +41,7 @@
     }
 
     &__title {
+        @include h-l;
         margin: 0 25px 0 25px;
         text-decoration: none;
 
@@ -63,6 +66,10 @@
             }
         }
 
+        h1.section__title {
+            @include h-xl;
+        }
+
         &--padded-bottom-m {
             padding-bottom: 0.75em;
         }
@@ -76,7 +83,12 @@
         }
     }
 
+    h1 {
+        @include h-xl;
+    }
+
     &__teaser {
+        @include lead;
         margin: 0 25px 0 25px;
 
         &--padded-bottom {

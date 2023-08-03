@@ -18,13 +18,8 @@
     line-height: 1.3rem;
     font-size: 1.2rem;
 
-    @media #{$mobile} {
-        min-width: 100%;
-        margin: 0.5em 0;
-    }
-
     @media #{$tablet} {
-        min-width: 100%;
-        margin: 0.5em 0;
+        width: 100%;
+        margin: 0.5em 0 0.5em 0;
     }
 }

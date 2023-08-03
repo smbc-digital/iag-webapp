@@ -7,15 +7,20 @@
 }
 
 @mixin body {
-    font: 1.875rem / 1.5 $fontStack;
+    font: 1.1875rem / 1.5 $fontStack;
+}
+
+@mixin body--small {
+    font: 1rem / 1.5 $fontStack;
 }
 
 @mixin lead {
     font-size: 1.5rem;
     line-height: 1.3;
     font-weight: 400;
+
     @media #{$mobile} {
-        font-size: 1.2rem;
+        font-size: 1.1875rem;
         line-height: 1.5;
     }
 }
@@ -38,7 +43,7 @@
     line-height: 1.1111111111;
     font-weight: 600;
     @media #{$mobile} {
-        font-size: 1.5rem;
+        font-size: 1.75rem;
         line-height: 1.25;
     }
 }
@@ -61,29 +66,44 @@
     font-size: 1.5rem;
     line-height: 1.25;
     font-weight: 800;
+
     @media #{$mobile} {
-        // font-size: 1.125rem;
-        font-size: 1.2rem;
+        font-size: 1.1875rem;
         line-height: 1.5;
     }
 }
 
 @mixin h-s {
     @include spacing-reset;
-    // font-size: 1.1875rem;
+    
     font-size: 1.3rem;
     line-height: 1.45;
     font-weight: 800;
 
     @media #{$mobile} {
-        // font-size: 1.125rem;
-        font-size: 1.2rem;
+        font-size: 1.1875rem;
+        line-height: 1.5;
+    }
+}
+
+@mixin h-xs {
+    @include spacing-reset;
+    font-size: 1.1875rem;
+    line-height: 1.5;
+    font-weight: 800;
+
+    @media #{$mobile} {
+        font-size: 1.1875rem;
         line-height: 1.5;
     }
 }
 
 .body {
     @include body;
+}
+
+.body--small {
+    @include body--small;
 }
 
 .lead {
@@ -108,4 +128,8 @@
 
 .h-s {
     @include h-s;
+}
+
+.h-xs {
+    @include h-xs;
 }

@@ -4,6 +4,9 @@
 	padding: 2em 0 1em 0;
 
 
+	@media #{$mobile} {
+		padding: 1em 0 1em 0;
+	}
 
 	&_links {
 		font-size: 0.8em;

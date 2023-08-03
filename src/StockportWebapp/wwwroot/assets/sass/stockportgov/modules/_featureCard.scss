@@ -14,7 +14,8 @@
         padding: 0.75em;
         border-radius: 3px 3px 0 0;
 
-        h3 {
+        h1, h2, h3, h4, h5, h6 {
+            @include h-ml;
             color: white;
             margin: 0;
         }
@@ -22,7 +23,7 @@
 
     &__wrapper {
         flex-basis: 0;
-        flex-grow: 1;     
+        flex-grow: 1;
         display: flex;
         flex-direction: column;
 
@@ -42,12 +43,12 @@
     &__link {
         background-color: white;
         display: flex;
-        flex-direction: column; 
+        flex-direction: column;
         justify-content: space-between;
         flex-grow: 1;
         margin-bottom: 1.5em;
         border-radius: 0 0 3px 3px;
-        
+
         @media #{$mobile} {
             margin-bottom: 1em;
         }
@@ -60,10 +61,10 @@
     }
 
     &__title {
+        @include h-s;
         color: $stockport-green;
         text-decoration: underline;
         margin: 0;
-        font-size: 1.3rem;
 
         &--padded-bottom {
             padding-bottom: 0.5em;
