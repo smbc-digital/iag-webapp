@@ -3,9 +3,9 @@
 @inject BusinessId BusinessId
 @model Footer
 
-<footer class="footer">
-    <div class="grid-container">
-        <div class="grid-100 footer_top">
+<footer class="footer grid-container-full-width">
+    <div class="grid-container grid-100">
+        <div class="footer_top">
             <div class="grid-25 tablet-grid-25 mobile-grid-100">
                 <div class="footer_logo">
                     <a href="https://www.stockport.gov.uk"><img src="@StaticAssets.UrlFor("logo-stockport-footer%402x.png")" alt="Stockport Council Logo Homepage Link" /></a>
@@ -31,21 +31,18 @@
                     <partial name="SocialMediaLinks" model='Model.SocialMediaLinks' />
                 }
             </div>
+            <span class="clear" />
         </div>
-    </div>
-    
-    <div class="grid-container">
-        <div class="grid-100">
-            <div class="grid-50 tablet-grid-50 footer_copyright">
-                <p id="ami-trigger" >
-                    &#xA9; @DateTime.Now.Year Stockport Metropolitan Borough Council
-                </p>
-            </div>
-            <div class="grid-50 tablet-grid-50 footer_attribution">
-                <p>
-                    <a href="@appConfig.GetDigitalStockportLink()">Built by the Digital Team in Stockport</a>
-                </p>
-            </div>
+       
+        <div class="grid-50 tablet-grid-50 footer_copyright">
+            <p id="ami-trigger" >
+                &#xA9; @DateTime.Now.Year Stockport Metropolitan Borough Council
+            </p>
+        </div>
+        <div class="grid-50 tablet-grid-50 footer_attribution">
+            <p>
+                <a href="@appConfig.GetDigitalStockportLink()">Built by the Digital Team in Stockport</a>
+            </p>
         </div>
     </div>
 </footer>
