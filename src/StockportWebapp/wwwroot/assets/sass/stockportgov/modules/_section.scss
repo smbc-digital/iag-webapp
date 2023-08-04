@@ -44,6 +44,7 @@
         @include h-l;
         margin: 0 25px 0 25px;
         text-decoration: none;
+        padding-bottom: 0.5em;
 
         @media #{$mobile} {
             margin: 0 5px 0 5px;
@@ -68,10 +69,6 @@
 
         h1.section__title {
             @include h-xl;
-        }
-
-        &--padded-bottom-m {
-            padding-bottom: 0.75em;
         }
 
         &--margin-top {
