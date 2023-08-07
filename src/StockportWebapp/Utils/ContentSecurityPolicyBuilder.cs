@@ -287,7 +287,6 @@ public class ContentSecurityPolicyBuilder
             .AddSource("*.smbcdigital.net")
             .AddSource("*.meetami.ai/")
             .AddSource("*.chat.meetami.ai/")
-            // .AddSource("*-formbuilder-origin.smbcdigital.net/")
             .AddSource("forms.stockport.gov.uk", true)
             .Finish());
     }
