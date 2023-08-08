@@ -29,6 +29,10 @@
             text-align: left;
             padding: 0.5em;
             padding-left: 11px;
+            -webkit-padding-start: 11px;
+            -webkit-padding-end: 1em;
+            -webkit-padding-before: 1em;
+            -webkit-padding-after: 1em;
             display: flex;
             align-items: center;
         }
