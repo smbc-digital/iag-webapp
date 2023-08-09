@@ -70,7 +70,9 @@ h6 {
 }
 
 .footer-social-links .icon-container {
-    @media #{$desktop, $tablet} {
-        margin: 0 5px 0 5px;
+    margin: 0 5px 0 5px;
+
+    @media #{$mobile} {
+        margin: 0px;
     }
 }

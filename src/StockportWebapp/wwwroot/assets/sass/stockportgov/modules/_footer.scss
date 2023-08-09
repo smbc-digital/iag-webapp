@@ -57,6 +57,9 @@
 
 	&_socials {
 		margin-right: 0;
+		@media #{$mobile} {
+			margin-right:10px;
+		}
 	}
 
 	&_copyright {
