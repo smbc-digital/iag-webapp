@@ -35,6 +35,16 @@
         }
     }
 
+    &--margin-25 {
+        @media #{$tablet} {
+            width: calc(100% - 50px);
+        }
+
+        @media #{$mobile} {
+            width: 100%;
+        }
+    }
+
     &--center {
         display: block;
         margin: auto !important;
