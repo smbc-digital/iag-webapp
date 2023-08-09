@@ -27,14 +27,13 @@
         @media #{$mobile}, #{$tablet} {
             margin: 4.5px 0;
             text-align: left;
-            padding: 0.5em;
-            padding-left: 11px;
-            -webkit-padding-start: 11px;
-            -webkit-padding-end: 1em;
-            -webkit-padding-before: 1em;
-            -webkit-padding-after: 1em;
             display: flex;
             align-items: center;
+            padding-top: 9.6px;
+            padding-bottom: 9.6px;
+            padding-left: 11px;
+            padding-right: 9.6px;
+            height: 32px;
         }
 
         &:hover {
