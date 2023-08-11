@@ -8,7 +8,7 @@
                     <label for="emailAddress">
                         Your email address
                     </label>
-                    <input class="input-text" type="email" id="emailAddress" name="emailAddress" required />
+                    <input type="email" class="input-text" name="emailAddress" title="Enter your email address" required autocomplete="email" />
                     <button type="submit" class="btn btn--inverse btn--bold">Subscribe</button>
                 </form>
             </div>
@@ -16,5 +16,12 @@
     </div>
 </section>
 
-
-
+<script>
+    require(['/assets/javascript/config-5de69769.min.js'], function () {
+        require(['emailSubscribe'],
+            function (alerts) {
+                alerts.Init();
+            }
+        );
+    });
+</script>

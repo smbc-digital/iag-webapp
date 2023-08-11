@@ -3,7 +3,9 @@
 	background-color: $stockport-dark-grey;
 	padding: 2em 0 1em 0;
 
-
+	@media #{$mobile} {
+		padding: 0 0 1em;
+	}
 
 	&_links {
 		li {
@@ -25,7 +27,6 @@
 			}
 		}
 	}
-
 
 	&_top {
 		border-bottom: 2px solid $stockport-grey;
