@@ -1,6 +1,11 @@
 ﻿var builder = WebApplication.CreateBuilder(args);
 
+
 builder.Configuration.SetBasePath(builder.Environment.ContentRootPath + "/app-config");
+
+if(builder.Environment.IsDevelopment())
+    builder.Configuration.AddUserSecrets(Assembly.GetExecutingAssembly(), false);
+
 builder.Configuration
     .AddJsonFile("appsettings.json")
     .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json")
