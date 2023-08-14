@@ -1,10 +1,10 @@
-﻿var builder = WebApplication.CreateBuilder(args);
+﻿using StockportWebapp.Extensions;
 
+var builder = WebApplication.CreateBuilder(args);
 
 builder.Configuration.SetBasePath(builder.Environment.ContentRootPath + "/app-config");
+builder.AddSecrets();
 
-if(builder.Environment.IsDevelopment())
-    builder.Configuration.AddUserSecrets(Assembly.GetExecutingAssembly(), false);
 
 builder.Configuration
     .AddJsonFile("appsettings.json")
