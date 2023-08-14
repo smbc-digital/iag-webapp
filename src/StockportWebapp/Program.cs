@@ -4,8 +4,7 @@ builder.Configuration.SetBasePath(builder.Environment.ContentRootPath + "/app-co
 builder.Configuration
     .AddJsonFile("appsettings.json")
     .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json")
-    .AddJsonFile("appversion.json", true)
-    .AddJsonFile($"{builder.Configuration.GetSection("secrets-location").Value}/appsettings.{builder.Environment.EnvironmentName}.secrets.json");
+    .AddJsonFile("appversion.json", true);
 
 builder.Host.UseSerilog((context, services, configuration) => configuration
     .ReadFrom.Configuration(context.Configuration)
