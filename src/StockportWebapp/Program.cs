@@ -1,6 +1,4 @@
-﻿using StockportWebapp.Extensions;
-
-var builder = WebApplication.CreateBuilder(args);
+﻿var builder = WebApplication.CreateBuilder(args);
 
 builder.Configuration.SetBasePath(builder.Environment.ContentRootPath + "/app-config");
 builder.AddSecrets();

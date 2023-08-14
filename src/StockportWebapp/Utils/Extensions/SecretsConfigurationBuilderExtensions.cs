@@ -4,7 +4,7 @@ using Kralizek.Extensions.Configuration.Internal;
 using Amazon.SecretsManager.Model;
 using StockportWebapp.Configuration;
 
-namespace StockportWebapp.Extensions
+namespace StockportWebapp.Utils.Extensions
 {
     public static class SecretsConfigurationBuilderExtensions
     {
@@ -12,7 +12,7 @@ namespace StockportWebapp.Extensions
         {
             webApplicationBuilder.WebHost.ConfigureAppConfiguration((hostingContext, configBuilder) =>
             {
-                if (hostingContext.HostingEnvironment.IsDevelopment())
+                if (hostingContext.HostingEnvironment.IsDevelopment() || hostingContext.HostingEnvironment.EnvironmentName.Equals("local"))
                 {
                     // Use local secrets for development - need to work out what the difference is between the name/format of local json secrets string
                     configBuilder.AddUserSecrets<Program>();
@@ -43,6 +43,7 @@ namespace StockportWebapp.Extensions
             {
                 opts.SecretFilter = entry => HasPrefix(allowedPrefixes, entry);
                 opts.KeyGenerator = (entry, key) => GenerateKey(allowedPrefixes, key);
+                opts.PollingInterval = TimeSpan.FromMinutes(30);
             });
 
             return configurationBuilder;
