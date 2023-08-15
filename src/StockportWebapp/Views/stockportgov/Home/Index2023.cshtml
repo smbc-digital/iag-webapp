@@ -101,7 +101,7 @@
     </section>
 }
 
-@if(Model.HomepageContent.SpotlightOnBanner is not null)
+@if(Model.HomepageContent.SpotlightOnBanner is not null && Model.HomepageContent.SpotlightOnBanner.Count() > 0)
 {
     <section class="@SpotlightOnClasses">
         <div class="grid-container">
