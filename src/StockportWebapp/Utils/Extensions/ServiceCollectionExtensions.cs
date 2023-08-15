@@ -1,4 +1,5 @@
-﻿using ILogger = Serilog.ILogger;
+﻿using StockportWebapp.Configuration;
+using ILogger = Serilog.ILogger;
 
 namespace StockportWebapp.Utils.Extensions
 {
@@ -8,6 +9,13 @@ namespace StockportWebapp.Utils.Extensions
         {
             services.AddSingleton<IViewRender, ViewRender>();
             services.Configure<RazorViewEngineOptions>(options => { options.ViewLocationExpanders.Add(new ViewLocationExpander()); });
+
+            return services;
+        }
+
+        public static IServiceCollection AddConfigurationOptions(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.Configure<CivicaPayConfiguration>(configuration.GetSection(CivicaPayConfiguration.ConfigValue));
 
             return services;
         }
@@ -221,14 +229,17 @@ namespace StockportWebapp.Utils.Extensions
 
         public static IServiceCollection AddSesEmailConfiguration(this IServiceCollection services, IConfiguration configuration, ILogger logger)
         {
-            if (!string.IsNullOrEmpty(configuration["ses:accessKey"]) &&
-                !string.IsNullOrEmpty(configuration["ses:secretKey"]))
+            services.Configure<SesConfiguration>(configuration.GetSection(SesConfiguration.ConfigValue));
+            var sesConfiguration = new SesConfiguration();
+            configuration.GetSection(SesConfiguration.ConfigValue).Bind(sesConfiguration);
+
+            if (!string.IsNullOrEmpty(sesConfiguration.AccessKey) &&
+                !string.IsNullOrEmpty(sesConfiguration.SecretKey))
             {
-                var amazonSesKeys = new AmazonSESKeys(configuration["ses:accessKey"], configuration["ses:secretKey"]);
+                var amazonSesKeys = new AmazonSESKeys(sesConfiguration.AccessKey, sesConfiguration.SecretKey);
                 services.AddSingleton(amazonSesKeys);
-                var credentals = new BasicAWSCredentials(amazonSesKeys.Accesskey, amazonSesKeys.SecretKey);
                 services.AddTransient<IAmazonSimpleEmailService>(
-                    o => new AmazonSimpleEmailServiceClient(credentals, RegionEndpoint.EUWest1));
+                    implementation => new AmazonSimpleEmailServiceClient(new BasicAWSCredentials(sesConfiguration.AccessKey, sesConfiguration.SecretKey), RegionEndpoint.EUWest1));
             }
             else
             {
