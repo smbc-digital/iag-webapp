@@ -6,6 +6,7 @@
     ViewData["og:title"] = "Welcome to Stockport Council";
     ViewData["Description"] = @Model.HomepageContent.MetaDescription;
     Layout = "../Shared/_LayoutHome2023.cshtml";
+    var SpotlightOnClasses = Model.HomepageContent.CallToAction is not null ? "section section--grey" : "section section--white";
 }
 
 @if (Model.HomepageContent.CondolenceAlerts is not null && Model.HomepageContent.CondolenceAlerts.Any())
@@ -54,7 +55,7 @@
     </div>
 </section>
 
-<section class="section section--grey section--padded">
+<section class="section section--grey section--padded section--no-margin">
     <div class="grid-container">
         <div class="grid-100">
             <h2 class="section__title section__title--padded-bottom-m h-l">What's happening in Stockport</h2>
@@ -91,7 +92,7 @@
 
 @if(Model.HomepageContent.CallToAction is not null)
 {
-    <section class="section section--white">
+    <section class="section section--white section--margin-top">
         <div class="grid-container">
             <div class="grid-100">
                 <partial name="CallToAction" model='Model.HomepageContent.CallToAction'/>
@@ -102,7 +103,7 @@
 
 @if(Model.HomepageContent.SpotlightOnBanner is not null)
 {
-    <section class="section section--grey">
+    <section class="@SpotlightOnClasses">
         <div class="grid-container">
             <div class="grid-100">
                 <h2 class="section__title section__title--margin-top section__title--padded-bottom-m h-l">Spotlight on</h2>
@@ -110,7 +111,7 @@
             
                 @foreach (var spotlight in Model.HomepageContent.SpotlightOnBanner)
                 {
-                    <partial name="SpotlightOnBanner" model='spotlight'/>
+                    <partial name="FeaturedItem" model='spotlight'/>
                 }
             </div>
         </div>
