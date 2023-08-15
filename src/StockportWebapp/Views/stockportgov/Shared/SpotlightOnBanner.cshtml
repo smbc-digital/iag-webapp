@@ -1,0 +1,13 @@
+﻿@model SpotlightOnBanner
+
+<div class="spotlight section__content section--padded-bottom" data-cy="spotlight">
+    <a href="@Model.Link" class="spotlight__link">
+        <img src="@Model.Image?w=500&q=89" class="spotlight__image" loading="lazy" alt="@Model.AltText">
+        <div class="spotlight-content">
+            <div class="spotlight__wrapper">
+                <h3 class="spotlight__title spotlight__title--padded-bottom">@Model.Title</h3>
+                <p class="spotlight-content__teaser">@Model.Teaser</p>
+            </div>
+        </div>
+    </a>
+</div>

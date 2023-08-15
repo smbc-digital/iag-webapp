@@ -100,8 +100,21 @@
     </section>
 }
 
-<div class="large-gray-placeholder placeholder">
-    <h2>Spotlight on</h2>
-</div>
+@if(Model.HomepageContent.SpotlightOnBanner is not null)
+{
+    <section class="section section--grey">
+        <div class="grid-container">
+            <div class="grid-100">
+                <h2 class="section__title section__title--margin-top section__title--padded-bottom-m h-l">Spotlight on</h2>
+                <p class="section__teaser section__teaser--padded-bottom h-m">Keep up to date with what's happening in your local community.</p>
+            
+                @foreach (var spotlight in Model.HomepageContent.SpotlightOnBanner)
+                {
+                    <partial name="SpotlightOnBanner" model='spotlight'/>
+                }
+            </div>
+        </div>
+    </section>
+}
 
 <partial name="EmailSubscribe2023" />

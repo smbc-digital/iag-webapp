@@ -1,0 +1,101 @@
+.spotlight {
+    a {
+        text-decoration: none;
+    }
+
+    &__image {
+        width: 100%;
+        object-fit: cover;
+        border-radius: 3px 3px 0 0;
+        height: 200px;
+        max-height: 300px;
+        object-fit: cover;
+        object-position: top;
+
+        @media #{$tablet} {
+            height: 300px;
+        }
+
+        @media #{$desktop} {
+            width: 40%;
+            height: 300px;
+        }
+    }
+
+    &__link {
+        text-decoration: none;
+        :hover {
+            .spotlight__title {
+                text-decoration-thickness: 3px;
+            }
+        }
+        
+        @media #{$desktop} {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+    }
+
+    &__title {
+        color: $stockport-green;
+        text-decoration: underline;
+        margin: 0;
+        font-size: 1.3rem;
+        padding: 1em;
+
+        &--padded-bottom {
+            padding-bottom: 0.5em;
+        }
+    }
+
+    &-content {
+        background-color: white;
+        width: 60%;
+
+        @media #{$tablet} {
+            width: unset;
+        }
+
+        &__teaser {
+            padding: 0 1em 1em;
+            color: $stockport-black;
+            margin: 0;
+            border-radius: 0 0 3px 3px;
+        }
+    }
+}
+
+.spotlight:nth-child(even) .spotlight__image {
+    order: 2;
+
+    @media #{$mobile} {
+        order: unset;
+    }
+}
+
+.spotlight:nth-of-type(1) .spotlight__wrapper {
+    border-bottom: 8px solid $stockport-orange;
+
+    @media #{$desktop} {
+        margin-left: 1.5em;
+        height: 97.2%;
+    }
+}
+
+.spotlight:nth-of-type(2) .spotlight__wrapper {
+    border-bottom: 8px solid $stockport-pink;
+    @media #{$desktop} {
+        margin-right: 1.5em;
+        height: 97.2%;
+    }
+}
+
+.spotlight:nth-of-type(3) .spotlight__wrapper {
+    border-bottom: 8px solid $stockport-teal;
+    @media #{$desktop} {
+        margin-left: 1.5em;
+        height: 97.2%;
+    }
+}
