@@ -15,7 +15,8 @@
 
         @media #{$desktop} {
             border: none;
-            
+            padding-left: 2em;
+
             &::after {
                 border-bottom: 8px solid rgba($stockport-orange, 0.8);
             }
@@ -28,6 +29,7 @@
         @media #{$desktop} {
             border: none;
             border-radius: 3px 0 0 3px;
+            padding-right: 2em;
 
             &::after {
                 border-bottom: 8px solid rgba($stockport-pink, 0.8);
@@ -36,12 +38,13 @@
             }
         }
     }
-    
+
     &:nth-of-type(3) &-content {
         border-bottom: 8px solid rgba($stockport-teal, 0.8);
 
         @media #{$desktop} {
             border: none;
+            padding-left: 2em;
 
             &::after {
                 border-bottom: 8px solid rgba($stockport-teal, 0.8);
@@ -110,7 +113,7 @@
         position: relative;
         padding: 1em;
         box-sizing: border-box;
-        
+
         &-last-updated {
             color: $stockport-black;
 
