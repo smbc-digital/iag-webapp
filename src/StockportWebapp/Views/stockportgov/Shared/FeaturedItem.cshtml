@@ -1,0 +1,19 @@
+﻿@model SpotlightOnBanner
+
+<div class="featured-item section__content" data-cy="featured-item">
+    <a href="@Model.Link" class="featured-item__link">
+        <img srcset="
+                    @Model.Image?w=698&q=89 698w,
+                    @Model.Image?w=915&q=89 915w,
+                    @Model.Image?w=1200&q=89 1200w"
+                    sizes="(max-width: 1023px) calc(100vw - 68.4px),
+                        100vw" src="@Model.Image?w=500&q=89" class="featured-item__image" loading="lazy" alt="@Model.AltText">
+        <div class="featured-item-content"> 
+            <h3 class="featured-item__title featured-item__title--padded-bottom">@Model.Title</h3>
+            <p class="featured-item-content__teaser">@Model.Teaser</p>
+            <div class="featured-item-content-last-updated"> 
+                <partial name="FormattedDate" model='Model.LastUpdated' />
+            </div>
+        </div>
+    </a>
+</div>

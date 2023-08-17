@@ -5,8 +5,16 @@
         margin-bottom: 0;
     }
 
+    &--margin-top {
+        margin-top: 2em;
+    }
+
     &--padded {
         padding: 2em 0em;
+    }
+
+    &--padded-bottom {
+        padding-bottom: 2em;
     }
 
     &--white {
@@ -64,7 +72,7 @@
         }
 
         &--padded-bottom-m {
-            padding-bottom: 0.75em;
+            padding-bottom: 1rem;
         }
 
         &--margin-top {
@@ -80,10 +88,10 @@
         margin: 0 25px 0 25px;
 
         &--padded-bottom {
-            padding-bottom: 1em;
+            padding-bottom: 2rem;
 
             @media #{$mobile} {
-                padding-bottom: 0.75em;
+                padding-bottom: 1.5rem;
             }
         }
 
