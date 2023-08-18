@@ -15,7 +15,7 @@
 
         @media #{$desktop} {
             border: none;
-            padding-left: 2em;
+            padding: 1.5em;
 
             &::after {
                 border-bottom: 7px solid rgba($stockport-orange, 0.8);
@@ -29,7 +29,7 @@
         @media #{$desktop} {
             border: none;
             border-radius: 3px 0 0 3px;
-            padding-right: 2em;
+            padding: 1.5em;
 
             &::after {
                 border-bottom: 7px solid rgba($stockport-pink, 0.8);
@@ -44,7 +44,7 @@
 
         @media #{$desktop} {
             border: none;
-            padding-left: 2em;
+            padding: 1.5em;
 
             &::after {
                 border-bottom: 7px solid rgba($stockport-teal, 0.8);
@@ -103,7 +103,7 @@
         font-size: 1.3rem;
 
         &--padded-bottom {
-            padding-bottom: 0.5em;
+            padding-bottom: 0.75em;
         }
     }
 
@@ -157,5 +157,11 @@
 .section--white {
     .featured-item {
         border-radius: 3px;
+    }
+
+    .featured-item:nth-of-type(2) .featured-item-content {
+        @media #{$desktop} {
+            padding-left: 0.5em;
+        }
     }
 }
