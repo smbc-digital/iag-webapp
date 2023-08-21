@@ -84,7 +84,7 @@
   }
 
   .global-alert-icon-warning {
-    i:before {
+    span:before {
       content: "\f05a";
       font-family: "FontAwesome";
       font-style: normal;
@@ -93,7 +93,7 @@
   }
 
   .global-alert-icon-information {
-    i:before {
+    span:before {
       content: "\f05a";
       font-family: "FontAwesome";
       font-style: normal;
@@ -103,7 +103,7 @@
   }
 
   .global-alert-icon-error {
-    i:before {
+    span:before {
       content: "\f071";
       font-family: "FontAwesome";
       font-style: normal;
@@ -131,7 +131,7 @@
       text-align: center;
       float: right;
 
-      i:before {
+      span:before {
         content: "\f00d";
         font-family: "FontAwesome";
         font-style: normal;
@@ -150,7 +150,7 @@
         background-color: $whiteOpaque6;
       }
 
-      i:before {
+      span:before {
         color: $blackOpaque7;
       }
     }
@@ -163,7 +163,7 @@
         background-color: $whiteOpaque6;
       }
 
-      i:before {
+      span:before {
         color: $white;
       }
     }
