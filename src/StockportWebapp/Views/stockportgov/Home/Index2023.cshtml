@@ -6,7 +6,9 @@
     ViewData["og:title"] = "Welcome to Stockport Council";
     ViewData["Description"] = @Model.HomepageContent.MetaDescription;
     Layout = "../Shared/_LayoutHome2023.cshtml";
-    var SpotlightOnClasses = Model.HomepageContent.CallToAction is not null ? "section section--no-margin section--padded-bottom section--grey section--padded" : "section section--padded section--white";
+    var SpotlightOnClasses = Model.HomepageContent.CallToAction is not null
+                            ? "section section--no-margin section--padded-bottom section--grey section--padded"
+                            : "section section--padded section--white";
 }
 
 @if (Model.HomepageContent.CondolenceAlerts is not null && Model.HomepageContent.CondolenceAlerts.Any())

@@ -64,8 +64,7 @@
         width: 100%;
         object-fit: cover;
         border-radius: 3px 3px 0 0;
-        height: 200px;
-        max-height: 300px;
+        max-height: 350px;
         object-fit: cover;
         object-position: top;
 
@@ -75,7 +74,6 @@
 
         @media #{$desktop} {
             width: 40%;
-            height: 300px;
             border-radius: 3px 0 0 3px;
         }
     }
