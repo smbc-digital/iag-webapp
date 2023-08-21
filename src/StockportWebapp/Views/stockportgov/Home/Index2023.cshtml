@@ -6,6 +6,7 @@
     ViewData["og:title"] = "Welcome to Stockport Council";
     ViewData["Description"] = @Model.HomepageContent.MetaDescription;
     Layout = "../Shared/_LayoutHome2023.cshtml";
+    var SpotlightOnClasses = Model.HomepageContent.CallToAction is not null ? "section section--no-margin section--padded-bottom section--grey section--padded" : "section section--padded section--white";
 }
 
 @if (Model.HomepageContent.CondolenceAlerts is not null && Model.HomepageContent.CondolenceAlerts.Any())
@@ -54,7 +55,7 @@
     </div>
 </section>
 
-<section class="section section--grey section--padded">
+<section class="section section--grey section--padded section--no-margin">
     <div class="grid-container">
         <div class="grid-100">
             <h2 class="section__title section__title--padded-bottom-m h-l">What's happening in Stockport</h2>
@@ -91,7 +92,7 @@
 
 @if(Model.HomepageContent.CallToAction is not null)
 {
-    <section class="section section--white">
+    <section class="section section--white section--increased-vertical-margin">
         <div class="grid-container">
             <div class="grid-100">
                 <partial name="CallToAction" model='Model.HomepageContent.CallToAction'/>
@@ -100,8 +101,20 @@
     </section>
 }
 
-<div class="large-gray-placeholder placeholder">
-    <h2>Spotlight on</h2>
-</div>
+@if(Model.HomepageContent.SpotlightOnBanner is not null && Model.HomepageContent.SpotlightOnBanner.Count() > 0)
+{
+    <section class="@SpotlightOnClasses">
+        <div class="grid-container">
+            <div class="grid-100">
+                <h2 class="section__title section__title--padded-bottom-m h-l">Spotlight on</h2>
+                <p class="section__teaser section__teaser--padded-bottom h-m">Keep up to date with what's happening in your local community.</p>
+                @foreach (var spotlight in Model.HomepageContent.SpotlightOnBanner)
+                {
+                    <partial name="FeaturedItem" model='spotlight'/>
+                }
+            </div>
+        </div>
+    </section>
+}
 
 <partial name="EmailSubscribe2023" />
