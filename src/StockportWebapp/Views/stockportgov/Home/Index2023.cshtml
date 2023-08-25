@@ -110,10 +110,12 @@
             <div class="grid-100">
                 <h2 class="section__title section__title--padded-bottom-m h-l">Spotlight on</h2>
                 <p class="section__teaser section__teaser--padded-bottom h-m">Keep up to date with what's happening in your local community.</p>
-                @foreach (var spotlight in Model.HomepageContent.SpotlightOnBanner)
-                {
-                    <partial name="FeaturedItem" model='spotlight'/>
-                }
+                <div class="featured-item-container">
+                    @foreach (var spotlight in Model.HomepageContent.SpotlightOnBanner)
+                    {
+                        <partial name="FeaturedItem" model='spotlight'/>
+                    }
+                </div>
             </div>
         </div>
     </section>
