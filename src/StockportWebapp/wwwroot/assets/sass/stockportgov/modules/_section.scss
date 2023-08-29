@@ -12,6 +12,10 @@
 
     &--padded {
         padding: 2em 0em;
+
+        @media #{$mobile} {
+            padding: 1.5em 0em;
+        }
     }
 
     &--padded-bottom {
