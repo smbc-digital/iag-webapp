@@ -128,7 +128,6 @@
         background-color: white;
         position: relative;
         padding: 1em;
-        box-sizing: border-box;
         display: flex;
         flex-direction: column;
         height: 65%;
@@ -145,6 +144,7 @@
             border: none;
             display: flex;
             justify-content: space-between;
+            box-sizing: border-box;
             border-radius: 0 3px 3px 0;
             height: auto;
             width: 60%;
