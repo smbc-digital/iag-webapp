@@ -19,7 +19,8 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "local",
         "BUSINESS_ID": "stockportgov"
-      }
+      },
+      "applicationUrl": "http://localhost:5001/"
     },
     "uitest": {
       "commandName": "Project",

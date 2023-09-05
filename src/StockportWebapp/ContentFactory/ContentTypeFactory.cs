@@ -1,3 +1,5 @@
+using Profile = StockportWebapp.Models.Profile;
+
 namespace StockportWebapp.ContentFactory;
 
 public class ContentTypeFactory

@@ -19,7 +19,7 @@ public class ProfileController : Controller
 
         if (profileEntity != null)
         {
-            var model = new Profile(profileEntity.Title,
+            var model = new Models.Profile(profileEntity.Title,
                 profileEntity.Slug,
                 profileEntity.Subtitle,
                 profileEntity.Quote,

@@ -1,13 +1,18 @@
 ﻿var builder = WebApplication.CreateBuilder(args);
 
 builder.Configuration.SetBasePath(builder.Environment.ContentRootPath + "/app-config");
-builder.AddSecrets();
-
-
 builder.Configuration
     .AddJsonFile("appsettings.json")
     .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json")
     .AddJsonFile("appversion.json", true);
+
+builder.AddSecrets();
+
+Log.Logger = new LoggerConfiguration()
+                .ReadFrom.Configuration(builder.Configuration)
+                    .CreateLogger();
+
+Log.Logger.Information($"STARTING APPLICATION Environment:{builder.Environment.EnvironmentName}, Custom Value: { builder.Configuration.GetValue<string>("MyCustomValue") }, TOKEN STORE SECRET { builder.Configuration.GetValue<string>("TokenStoreUrl") }");
 
 builder.Host.UseSerilog((context, services, configuration) => configuration
     .ReadFrom.Configuration(context.Configuration)
@@ -18,10 +23,10 @@ startup.ConfigureServices(builder.Services);
 
 var app = builder.Build();
 
+app.UseSerilogRequestLogging();
+
 if (!app.Environment.IsEnvironment("prod") && !app.Environment.IsEnvironment("stage"))
     app.UseDeveloperExceptionPage();
-
-app.UseSerilogRequestLogging();
 
 app.UseMiddleware<BusinessIdMiddleware>()
     .UseSecureHeadersMiddleware(SecureHeadersMiddleware.CustomConfiguration())

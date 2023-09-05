@@ -14,11 +14,14 @@ namespace StockportWebapp.Utils.Extensions
             {
                 if (hostingContext.HostingEnvironment.IsDevelopment() || hostingContext.HostingEnvironment.EnvironmentName.Equals("local"))
                 {
+                    Log.Logger.Information($"USING LOCAL SECRETS");
+
                     // Use local secrets for development - need to work out what the difference is between the name/format of local json secrets string
                     configBuilder.AddUserSecrets<Program>();
                 }
                 else
                 {
+                    Log.Logger.Information($"USING AWS SECRETS MANAGER");
                     // In AWS
                     // secrets will take the form of {env}/{group}/{secret__name} e.g. int/iag/MySecret__AccessKey = MySecret:AccessKey in dev secrets
                     configBuilder.AddAwsSecrets(hostingContext);
@@ -34,7 +37,7 @@ namespace StockportWebapp.Utils.Extensions
 
             var secretConfig = new AWSSecretsManagerConfiguration();
             partialConfig
-                .GetSection(nameof(AWSSecretsManagerConfiguration))
+                .GetSection("AWSSecretsManagerConfiguration")
                 .Bind(secretConfig);
 
             var allowedPrefixes = GetSecretPrefixes(secretConfig, hostingContext.HostingEnvironment.EnvironmentName);
