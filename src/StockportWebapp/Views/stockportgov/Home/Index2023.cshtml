@@ -105,7 +105,7 @@
 
 @if(Model.HomepageContent.SpotlightOnBanner is not null && Model.HomepageContent.SpotlightOnBanner.Count() > 0)
 {
-    <section class="@SpotlightOnClasses">
+    <section class="@SpotlightOnClasses" data-cy="feature-item__wrapper">
         <div class="grid-container">
             <div class="grid-100">
                 <h2 class="section__title section__title--padded-bottom-m h-l">Spotlight on</h2>
