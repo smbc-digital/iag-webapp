@@ -4,10 +4,12 @@
 public class AtoZController : Controller
 {
     private readonly IRepository _repository;
+    private readonly IFeatureManager _featureManager;
 
-    public AtoZController(IRepository repository)
+    public AtoZController(IRepository repository, IFeatureManager featureManager)
     {
         _repository = repository;
+        _featureManager = featureManager;
     }
 
     [Route("/atoz/{letter}")]
@@ -38,6 +40,9 @@ public class AtoZController : Controller
             CurrentLetter = letter.ToUpper(),
             Breadcrumbs = new List<Crumb>()
         };
+
+        if(await _featureManager.IsEnabledAsync("SiteRedesign"))
+            return View("Index2023", model);
 
         return View(model);
     }

@@ -1,0 +1,67 @@
+﻿@model AtoZViewModel
+@{
+    ViewData["Title"] = Model.CurrentLetter;
+    ViewData["og:title"] = Model.CurrentLetter;
+    Layout = "../Shared/_Layout.cshtml";
+    ViewData["Description"] = "Stockport Council A to Z";
+}
+
+@section Breadcrumbs {
+    <partial name="Breadcrumb" model='Model.Breadcrumbs'/>
+}
+
+
+
+<div class="grid-container-full-width">
+    <div class="grid-container grid-100">
+        <div class="l-body-section-filled mobile-grid-100 tablet-grid-100 grid-100">
+            <section aria-label="A to Z Listing" class="grid-100 mobile-grid-100">
+                <div class="l-content-container l-article-container">
+                    <h1 tabindex="-1" id="content">@Model.CurrentLetter</h1>
+                    <ul class="atoz-links">
+                        <li><a href="/atoz/a">A</a></li>
+                        <li><a href="/atoz/b">B</a></li>
+                        <li><a href="/atoz/c">C</a></li>
+                        <li><a href="/atoz/d">D</a></li>
+                        <li><a href="/atoz/e">E</a></li>
+                        <li><a href="/atoz/f">F</a></li>
+                        <li><a href="/atoz/g">G</a></li>
+                        <li><a href="/atoz/h">H</a></li>
+                        <li><a href="/atoz/i">I</a></li>
+                        <li><a href="/atoz/j">J</a></li>
+                        <li><a href="/atoz/k">K</a></li>
+                        <li><a href="/atoz/l">L</a></li>
+                        <li><a href="/atoz/m">M</a></li>
+                        <li><a href="/atoz/n">N</a></li>
+                        <li><a href="/atoz/o">O</a></li>
+                        <li><a href="/atoz/p">P</a></li>
+                        <li><a href="/atoz/q">Q</a></li>
+                        <li><a href="/atoz/r">R</a></li>
+                        <li><a href="/atoz/s">S</a></li>
+                        <li><a href="/atoz/t">T</a></li>
+                        <li><a href="/atoz/u">U</a></li>
+                        <li><a href="/atoz/v">V</a></li>
+                        <li><a href="/atoz/w">W</a></li>
+                        <li><a href="/atoz/x">X</a></li>
+                        <li><a href="/atoz/y">Y</a></li>
+                        <li><a href="/atoz/z">Z</a></li>
+                    </ul>
+                    @if (ViewBag.Error != null)
+                    {
+                        <p>No results found</p>
+                    }
+                    <div class="atoz-listing">
+                        @foreach (var item in Model.Items)
+                        {
+                            <div class="atoz-listing-item">
+                                <h2><a href="@item.NavigationLink">@item.Title</a></h2>
+                                <p>@item.Teaser</p>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </section>
+        </div>
+
+    </div>
+</div>
