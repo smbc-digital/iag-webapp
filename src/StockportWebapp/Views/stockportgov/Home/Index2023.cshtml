@@ -57,7 +57,7 @@
     </div>
 </section>
 
-<section class="section section--grey section--padded section--no-margin">
+<section class="section section--grey section--padded section--no-margin" data-cy="feature-card__wrapper">
     <div class="grid-container">
         <div class="grid-100">
             <h2 class="section__title section__title--padded-bottom-m h-l">What's happening in Stockport</h2>
@@ -67,7 +67,7 @@
                 <partial name="FeatureCard" model='new FeatureCardViewModel { 
                     Title = Model.FeaturedNews.Title, 
                     Teaser = Model.FeaturedNews.Teaser, 
-                    Date = Model.FeaturedNews.SunriseDate, 
+                    Date = Model.FeaturedNews.UpdatedAt, 
                     StartTime = string.Empty, 
                     Image = Model.FeaturedNews.Image, 
                     ButtonText = "View more news",
@@ -105,16 +105,16 @@
 
 @if(Model.HomepageContent.SpotlightOnBanner is not null && Model.HomepageContent.SpotlightOnBanner.Count() > 0)
 {
-    <section class="@SpotlightOnClasses">
+    <section class="@SpotlightOnClasses" data-cy="feature-item__wrapper">
         <div class="grid-container">
             <div class="grid-100">
                 <h2 class="section__title section__title--padded-bottom-m h-l">Spotlight on</h2>
                 <p class="section__teaser section__teaser--padded-bottom h-m">Keep up to date with what's happening in your local community.</p>
                 <div class="featured-item-container">
-                @foreach (var spotlight in Model.HomepageContent.SpotlightOnBanner)
-                {
-                    <partial name="FeaturedItem" model='spotlight'/>
-                }
+                    @foreach (var spotlight in Model.HomepageContent.SpotlightOnBanner)
+                    {
+                        <partial name="FeaturedItem" model='spotlight'/>
+                    }
                 </div>
             </div>
         </div>

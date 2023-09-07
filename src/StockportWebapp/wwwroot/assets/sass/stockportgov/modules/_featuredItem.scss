@@ -8,8 +8,6 @@
 }
 
 .featured-item {
-    margin-bottom: 2em;
-
     &:nth-child(even) &__image {
         order: unset;
 
@@ -67,29 +65,43 @@
 
     a {
         text-decoration: none;
-        height: 100%;
+        display: flex;
+        flex-direction: column;
+
+        @media #{$desktop} {
+            flex-direction: row;
+        }
     }
 
     &__image {
         width: 100%;
         object-fit: cover;
-        border-radius: 3px 3px 0 0;
-        max-height: 350px;
+        border-radius: 3px 3px 0 0; 
         object-fit: cover;
         object-position: top;
+        flex-basis: 0;
+        flex-grow: 1;
+
+        @media #{$desktop} {
+            width: 40%;
+            border-radius: 3px 0 0 3px;
+            height: auto;
+            max-height: 300px;
+        }
 
         @media #{$tablet} {
             height: 300px;
         }
 
-        @media #{$desktop} {
-            width: 40%;
-            border-radius: 3px 0 0 3px;
+        @media #{$mobile} {
+            height: 200px;
         }
     }
 
     &__link {
         text-decoration: none;
+        height: 100%;
+
         :hover {
             .featured-item__title {
                 text-decoration-thickness: 3px;
@@ -115,12 +127,20 @@
         }
     }
 
+    &-container {
+        display: grid;
+        grid-row-gap: 2em;
+        grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
+        grid-auto-rows: 1fr;
+    }
+
     &-content {
         background-color: white;
-        width: 60%;
         position: relative;
         padding: 1em;
-        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        height: 65%;
 
         &-last-updated {
             color: $stockport-black;
@@ -133,9 +153,11 @@
         @media #{$desktop} {
             border: none;
             display: flex;
-            flex-direction: column;
             justify-content: space-between;
+            box-sizing: border-box;
             border-radius: 0 3px 3px 0;
+            height: auto;
+            width: 60%;
 
             &::after {
                 content: "";
@@ -151,6 +173,7 @@
         @media #{$tablet} {
             width: unset;
             border-radius: 0 0 3px 3px;
+            height: 60%;
         }
 
         &__teaser {
@@ -159,6 +182,10 @@
             border-radius: 0 0 3px 3px;
             margin-bottom: 1em;
         }
+    }
+
+    &-wrapper {
+        height: 100%;
     }
 }
 
