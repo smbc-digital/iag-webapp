@@ -39,11 +39,11 @@
 
 		img {
 			height: auto;
-			width: 100%;
-		}
+			width: 80%;
 
-		a {
-			display: inline-block;
+			@media #{$mobile} {
+				padding: 0 10px;
+			}
 		}
 
 		@media #{$mobile} {
