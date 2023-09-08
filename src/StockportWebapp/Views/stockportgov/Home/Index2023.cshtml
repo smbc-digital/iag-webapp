@@ -57,20 +57,31 @@
     </div>
 </section>
 
-<section class="section section--grey section--padded section--no-margin" data-cy="feature-card__wrapper">
-    <div class="grid-container">
-        <div class="grid-100">
-            <h2 class="section__title section__title--padded-bottom-m h-l">What's happening in Stockport</h2>
-            <p class="section__teaser section__teaser--padded-bottom h-m">Keep up to date with what's happening in Stockport</p>
-            
-            <div class="section__content feature-card">
-                <partial name="FeatureCard" model='Model.FeaturedNews.MapToFeatureCard()'/>
 
-                <partial name="FeatureCard" model='Model.FeaturedEvent.MapToFeatureCard()' />
+@if (Model.FeaturedEvent is not null || Model.FeaturedNews is not null)
+{
+    <section class="section section--grey section--padded section--no-margin" data-cy="feature-card__wrapper">
+        <div class="grid-container">
+            <div class="grid-100">
+                <h2 class="section__title section__title--padded-bottom-m h-l">What's happening in Stockport</h2>
+                <p class="section__teaser section__teaser--padded-bottom h-m">Keep up to date with what's happening in Stockport</p>
+
+                <div class="section__content feature-card">
+                    @if (Model.FeaturedNews is not null)
+                    {
+                        <partial name="FeatureCard" model='Model.FeaturedNews.MapToFeatureCard()' />
+                    }
+
+                    @if (Model.FeaturedEvent is not null)
+                    {
+                        <partial name="FeatureCard" model='Model.FeaturedEvent.MapToFeatureCard()' />
+                    }
+                </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
+}
+
 
 @if(Model.HomepageContent.CallToAction is not null)
 {
