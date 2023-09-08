@@ -41,7 +41,7 @@ public class AtoZController : Controller
             Breadcrumbs = new List<Crumb>()
         };
 
-        if(await _featureManager.IsEnabledAsync("SiteRedesign"))
+        if (await _featureManager.IsEnabledAsync("SiteRedesign"))
             return View("Index2023", model);
 
         return View(model);

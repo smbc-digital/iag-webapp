@@ -10,8 +10,6 @@
     <partial name="Breadcrumb" model='Model.Breadcrumbs'/>
 }
 
-
-
 <div class="grid-container-full-width">
     <div class="grid-container grid-100">
         <div class="l-body-section-filled mobile-grid-100 tablet-grid-100 grid-100">
@@ -46,7 +44,7 @@
                         <li><a href="/atoz/y">Y</a></li>
                         <li><a href="/atoz/z">Z</a></li>
                     </ul>
-                    @if (ViewBag.Error != null)
+                    @if (ViewBag.Error is not null)
                     {
                         <p>No results found</p>
                     }
@@ -62,6 +60,5 @@
                 </div>
             </section>
         </div>
-
     </div>
 </div>
