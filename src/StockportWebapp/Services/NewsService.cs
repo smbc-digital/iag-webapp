@@ -25,6 +25,6 @@ public class NewsService : INewsService
     {
         var response = await _newsRepository.GetLatest<List<News>>(1);
         var newsItems = response.Content as List<News>;
-        return newsItems?.First();
+        return newsItems?.FirstOrDefault();
     }
 }

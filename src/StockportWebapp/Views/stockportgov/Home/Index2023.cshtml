@@ -64,29 +64,9 @@
             <p class="section__teaser section__teaser--padded-bottom h-m">Keep up to date with what's happening in Stockport</p>
             
             <div class="section__content feature-card">
-                <partial name="FeatureCard" model='new FeatureCardViewModel { 
-                    Title = Model.FeaturedNews.Title, 
-                    Teaser = Model.FeaturedNews.Teaser, 
-                    Date = Model.FeaturedNews.UpdatedAt, 
-                    StartTime = string.Empty, 
-                    Image = Model.FeaturedNews.Image, 
-                    ButtonText = "View more news",
-                    Slug = String.Concat("/news/", Model.FeaturedNews.Slug),
-                    ButtonUrl = "Comms",
-                    HeaderText = "Latest news"
-                }'/>
+                <partial name="FeatureCard" model='Model.FeaturedNews.MapToFeatureCard()'/>
 
-                <partial name="FeatureCard" model='new FeatureCardViewModel { 
-                    Title = Model.FeaturedEvent.Title, 
-                    Teaser = Model.FeaturedEvent.Teaser, 
-                    Date = Model.FeaturedEvent.EventDate, 
-                    StartTime = Model.FeaturedEvent.StartTime, 
-                    Image = Model.FeaturedEvent.ImageUrl, 
-                    ButtonText = "View more events",
-                    Slug = String.Concat("/events/", Model.FeaturedEvent.Slug),
-                    ButtonUrl = "Events",
-                    HeaderText = "Upcoming event"
-                }'/>
+                <partial name="FeatureCard" model='Model.FeaturedEvent.MapToFeatureCard()' />
             </div>
         </div>
     </div>
