@@ -22,7 +22,7 @@
   list-style-type: none;
 
   @media #{$mobile} {
-		flex-wrap: wrap;
+    flex-wrap: wrap;
 
     &::after {
       content:"";
