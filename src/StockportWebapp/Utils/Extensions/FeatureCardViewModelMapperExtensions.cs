@@ -12,7 +12,7 @@
                 Image = featuredEvent.ImageUrl,
                 ButtonText = "View more events",
                 Slug = String.Concat("/events/", featuredEvent.Slug),
-                ButtonUrl = "Events",
+                ButtonTargetController = "Events",
                 HeaderText = "Upcoming event"
             };
 
@@ -26,7 +26,7 @@
                 Image = featuredNews.Image, 
                 ButtonText = "View more news",
                 Slug = String.Concat("/news/", featuredNews.Slug),
-                ButtonUrl = "Comms",
+                ButtonTargetController = "Comms",
                 HeaderText = "Latest news"
             };
     }
