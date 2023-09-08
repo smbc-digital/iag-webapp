@@ -33,6 +33,6 @@ public class EventsService : IEventsService
     {
         var response = await _eventsRepository.GetLatestOrderByFeatured<EventCalendar>(1);
         var eventCalendar = response.Content as EventCalendar;
-        return eventCalendar?.Events?.First();
+        return eventCalendar?.Events?.FirstOrDefault();
     }
 }

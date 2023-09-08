@@ -29,14 +29,31 @@ public class HomeController : Controller
 
         if (homepage == null) return new NotFoundResult();
 
-        var eventsFromApi = !string.IsNullOrEmpty(homepage.EventCategory) ? await _stockportApiEventsService.GetEventsByCategory(homepage.EventCategory) : new List<Event>();
+        var getEventsTask = _eventsService.GetLatestFeaturedEventItem();
+        var getNewsTask = _newsService.GetLatestNewsItem();
+
+        var tasks = new List<Task>
+        {
+            getEventsTask,
+            getNewsTask
+        };
+
+        Task<List<Event>> eventsByCategoryTask = null;
+
+        if (!string.IsNullOrEmpty(homepage.EventCategory))
+        {
+            eventsByCategoryTask = _stockportApiEventsService.GetEventsByCategory(homepage.EventCategory);
+            tasks.Add(eventsByCategoryTask);
+        }
+
+        Task.WaitAll(tasks.ToArray());
 
         var homepageViewModel = new HomepageViewModel
         {
             HomepageContent = homepage,
-            FeaturedEvent = _businessId.ToString() != "healthystockport" ? await _eventsService.GetLatestFeaturedEventItem() : null,
-            FeaturedNews = _businessId.ToString() != "healthystockport" ? await _newsService.GetLatestNewsItem() : null,
-            EventsFromApi = eventsFromApi?.Take(3).ToList()
+            FeaturedEvent = getEventsTask.Result,
+            FeaturedNews = getNewsTask.Result,
+            EventsFromApi = eventsByCategoryTask != null ? eventsByCategoryTask.Result?.Take(3).ToList() : new List<Event>()
         };
 
         if(await _featureManager.IsEnabledAsync("SiteRedesign") && _businessId.ToString().Equals("stockportgov"))
