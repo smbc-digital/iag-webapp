@@ -21,6 +21,19 @@
   justify-content: space-between;
   list-style-type: none;
 
+  @media #{$mobile} {
+    flex-wrap: wrap;
+
+    &::after {
+      content:"";
+      flex-basis:100%;
+    }
+    
+    li:nth-child(n + 14) {
+      order: 2
+    } 
+  }
+
   li {
     margin: 0
   }
