@@ -36,23 +36,6 @@
         }
     }
 
-    &__wrapper:first-child {
-        margin-left: 0;
-
-        @media #{$tablet} {
-            margin: 0;
-            margin-bottom: 25px;
-        }
-    }
-
-    &__wrapper:last-child {
-        margin-right: 0;
-
-        @media #{$tablet} {
-            margin: 0;
-            margin-top: 25px;
-        }
-    }
 
     &__content {
         padding: 1em;
