@@ -1,11 +1,11 @@
 ﻿.feature-card {
     display: flex;
     flex-direction: column;
-    flex-wrap: wrap;
-    justify-content: space-between;
 
     @media #{$desktop} {
+        flex-wrap: wrap;
         flex-direction: row;
+        justify-content: space-between;
     }
 
     &__header {
@@ -20,13 +20,16 @@
     }
 
     &__wrapper {
-        flex-grow: 1;
         display: flex;
         flex-direction: column;
-        flex-basis: 0;
-        flex: 1;
         margin-left: 25px;
         margin-right: 25px;
+
+        @media #{$desktop} {
+            flex: 1;
+            flex-grow: 1;
+            flex-basis: 0;
+        }
 
         a {
             text-decoration: none;
@@ -35,14 +38,16 @@
 
     &__wrapper:first-child {
         margin-left: 0;
+
         @media #{$tablet} {
             margin: 0;
             margin-bottom: 25px;
         }
     }
-  
+
     &__wrapper:last-child {
         margin-right: 0;
+
         @media #{$tablet} {
             margin: 0;
             margin-top: 25px;
@@ -60,12 +65,15 @@
     &__link {
         background-color: white;
         display: flex;
-        flex-direction: column; 
-        justify-content: space-between;
-        flex-grow: 1;
+        flex-direction: column;
         margin-bottom: 1.5em;
         border-radius: 0 0 3px 3px;
-        
+
+        @media #{$desktop} {
+            justify-content: space-between;
+            flex-grow: 1;
+        }
+
         @media #{$mobile} {
             margin-bottom: 1em;
         }
@@ -108,10 +116,9 @@
         object-fit: cover;
         object-position: top;
         border-radius: 3px;
-
-        @media #{$mobile} {
+        /*        @media #{$mobile} {
             height: 200px;
             max-height: 300px;
-        }
+        }*/
     }
 }
