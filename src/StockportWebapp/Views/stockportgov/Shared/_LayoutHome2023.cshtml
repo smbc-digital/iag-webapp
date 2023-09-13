@@ -9,24 +9,21 @@
     <meta charset=utf-8 />
     <meta name=viewport content="width=device-width, initial-scale=1" />
     <title>@ViewData["Title"]</title>
-    <meta property=og:title content="@ViewData["Title"]" />
-    <meta name=Description content="@ViewData["Description"]" />
+    <meta property=og:title content='@ViewData["Title"]' />
+    <meta name=Description content='@ViewData["Description"]' />
 
     <partial name=OwnershipVerificationCodes />
     <partial name=Favicon />
 
     @* PACKAGE / VENDOR STYLESHEETS *@
     <link rel=stylesheet href=~/assets/stylesheets/cludo-search-default.min.css asp-append-version=true />
-    <link rel=stylesheet href=https://customer.cludo.com/css/templates/v2.1/essentials/cludo-search.min.css />
-    <link rel=stylesheet href=~/assets/stylesheets/vendor/slick.min.css asp-append-version=true />
     <link rel=stylesheet href=~/assets/stylesheets/vendor/unsemantic-grid-responsive-tablet-min.css asp-append-version=true />
 
     @* MAIN STYLESHEET(S) *@
     <link rel=stylesheet href=~/assets/stylesheets/site-sg-overrides.min.css asp-append-version=true />
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/v4-font-face.min.css" integrity="sha512-YAIQTShdW1GyO8PvzxYSwqmoNBXWp/vntilAZvBogk0IPJYgyeQqVFwnoFBznX6maNw4emZZWyLLmClRXKDR3A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
+    <link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
     <link rel=alternate type=application/rss+xml href=/news/rss title="Stockport Council News Feed" />
     <link rel=alternate type=application/rss+xml href=/events/rss title="Stockport Council Events Feed" />
 
@@ -47,16 +44,6 @@
         <distributed-cache name=footer2023 expires-after=@TimeSpan.FromMinutes(ApplicationConfiguration.GetFooterCache(BusinessId.ToString())) enabled=true>
             @await Component.InvokeAsync("Footer2023")
         </distributed-cache>
-
-        <script>
-            require(['/assets/javascript/config-5de69769.min.js'], function() {
-                require(['jquery', 'matchbox'],
-                    function ($, matchbox) {
-                        matchbox.Init();
-                    }
-                );
-            });
-        </script>
     </main>
 </body>
 </html>
