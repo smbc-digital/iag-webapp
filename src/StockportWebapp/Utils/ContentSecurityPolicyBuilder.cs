@@ -275,6 +275,7 @@ public class ContentSecurityPolicyBuilder
             .AddSource("http://wpc.196c.planetstream.net/00196C/audio/")
             .AddSource("app.meetami.ai/")
             .AddSource("*.meetami.ai/", false)
+            .AddSource("https://api.reciteme.com/")
             .Finish());
     }
 
