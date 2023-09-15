@@ -66,7 +66,7 @@
                 <h2 class="section__title section__title--padded-bottom-m h-l">What's happening in Stockport</h2>
                 <p class="section__teaser section__teaser--padded-bottom h-m">Keep up to date with what's happening in Stockport</p>
 
-                <div class="section__content feature-card">
+                <div class="feature-card">
                     @if (Model.FeaturedNews is not null)
                     {
                         <partial name="FeatureCard" model='Model.FeaturedNews.MapToFeatureCard()' />
