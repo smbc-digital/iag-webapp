@@ -16,7 +16,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="shortcut icon" type="image/png" href="~/assets/images/ui-images/favicon-sg.png" />
     <title>@ViewData["Title"] - Stockport Council</title>
-    <meta name="Description" content="@ViewData["Description"]" />
+    <meta name="Description" content='@ViewData["Description"]' />
 
     <link rel=stylesheet type=text/css href=@stylesheet.GoogleFonts />
     <link rel=stylesheet type=text/css href=@stylesheet.FontAwesome />
@@ -36,7 +36,7 @@
         @RenderSection("Breadcrumbs", false)
     </header>
 
-    <main id="content" class="@ViewData["FullWidth"]">
+    <main id="content" class='@ViewData["FullWidth"]'>
         @RenderBody()
     </main>
 

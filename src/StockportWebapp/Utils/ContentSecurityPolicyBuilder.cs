@@ -275,6 +275,7 @@ public class ContentSecurityPolicyBuilder
             .AddSource("http://wpc.196c.planetstream.net/00196C/audio/")
             .AddSource("app.meetami.ai/")
             .AddSource("*.meetami.ai/", false)
+            .AddSource("https://api.reciteme.com/")
             .Finish());
     }
 
@@ -288,6 +289,7 @@ public class ContentSecurityPolicyBuilder
             .AddSource("*.meetami.ai/")
             .AddSource("*.chat.meetami.ai/")
             .AddSource("forms.stockport.gov.uk", true)
+            .AddSource("https://app.contentful.com")
             .Finish());
     }
 
