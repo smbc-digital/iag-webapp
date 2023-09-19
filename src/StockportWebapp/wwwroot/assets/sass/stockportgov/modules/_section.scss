@@ -80,10 +80,6 @@
             }
         }
 
-        h1.section__title {
-            @include h-xl;
-        }
-
         &--margin-top {
             margin-top: 0.75em;
         }
@@ -93,7 +89,7 @@
         }
     }
 
-    h1 {
+    h1.section__title {
         @include h-xl;
     }
 
