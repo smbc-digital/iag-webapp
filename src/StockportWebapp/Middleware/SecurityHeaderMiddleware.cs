@@ -16,9 +16,11 @@ public class SecurityHeaderMiddleware
 
         if (isRemoteHost)
         {
-            httpContext.Response.Headers.Add("Strict-Transport-Security", new[] { "max-age=31536000" });
+            var cspBuilder = new ContentSecurityPolicyBuilder();
+            var allowedContent = cspBuilder.BuildPolicy();
+        
+            httpContext.Response.Headers.Add("Content-Security-Policy", new[] { allowedContent });
         }
-
         return _next(httpContext);
     }
 }

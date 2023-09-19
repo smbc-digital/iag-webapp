@@ -80,3 +80,4 @@ global using HttpResponse = StockportWebapp.Client.HttpResponse;
 global using Event = StockportWebapp.Models.Event;
 global using Group = StockportWebapp.Models.Groups.Group;
 global using OwaspHeaders.Core.Extensions;
+global using OwaspHeaders.Core.Models;

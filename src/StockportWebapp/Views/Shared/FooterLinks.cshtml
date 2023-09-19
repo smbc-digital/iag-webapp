@@ -3,6 +3,6 @@
 @foreach (var link in Model)
 {
     <li class="grid-50 tablet-grid-50 mobile-grid-100">
-        <a href="@link.NavigationLink" target="_blank">@link.Title</a>
+        <a data-cy="footer-links" href="@link.NavigationLink">@link.Title</a>
     </li>
 }

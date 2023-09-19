@@ -2,12 +2,16 @@
     background-color: $stockport-teal-darker;
     display: flex;
     flex-direction: row;
-    border-radius: 3px;
+    border-radius: 50px 3px 50px 3px;
+
+    @media #{$mobile} {
+        border-radius: 30px 3px 30px 3px;
+    }
 
     &__image {
         width: 40%;
         object-fit: cover;
-        border-radius: 3px 0 0 3px;
+        border-radius: 50px 0 0 3px;
 
         @media #{$tablet} {
             display: none;

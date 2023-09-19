@@ -121,6 +121,6 @@ public class CookiesHelper : ICookiesHelper
     private void UpdateCookies(Dictionary<string, List<string>> cookies, string cookieType)
     {
         var data = JsonConvert.SerializeObject(cookies);
-        httpContextAccessor.HttpContext.Response.Cookies.Append(cookieType, data, new CookieOptions { Expires = DateTime.Now.AddYears(99) });
+        httpContextAccessor.HttpContext.Response.Cookies.Append(cookieType, data, new CookieOptions { Expires = DateTime.Now.AddMonths(1) });
     }
 }

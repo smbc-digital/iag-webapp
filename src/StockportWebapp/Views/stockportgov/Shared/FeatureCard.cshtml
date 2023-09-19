@@ -25,11 +25,12 @@
                 <img class="feature-card__image" srcset="@Model.Image?w=698&q=89 698w,
                         @Model.Image?w=915&q=89 915w,
                         @Model.Image?w=1200&q=89 1200w"
-                    sizes="(max-width: 1023px) calc(100vw - 68.4px),
-                        100vw"
-                    src="@Model.Image?w=698&q=89" loading="lazy" alt="">
+                    sizes="(max-width: 1023px) calc(100vw - 68.4px), 100vw"
+                    src="@Model.Image?w=698&q=89" loading="lazy" alt=""
+                    height="300"
+                    width="500">
             </div>
         </div>
     </a>
-    <a href='@Url.Action("Index", Model.ButtonUrl)' data-cy= "view-more-button" class="btn btn--full btn--pink-outline btn--border-grey btn--bold btn--chevron-right btn--chevron-bold">@Model.ButtonText</a>
+    <a href='@Url.Action("Index", Model.ButtonTargetController)' data-cy= "view-more-button" class="btn btn--full btn--pink-outline btn--border-grey btn--bold btn--chevron-right btn--chevron-bold">@Model.ButtonText</a>
 </div>

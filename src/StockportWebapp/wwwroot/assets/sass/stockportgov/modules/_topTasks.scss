@@ -27,14 +27,19 @@
         @media #{$mobile}, #{$tablet} {
             margin: 4.5px 0;
             text-align: left;
-            padding: 0.5em;
-            padding-left: 11px;
             display: flex;
             align-items: center;
+            padding-top: 9.6px;
+            padding-bottom: 9.6px;
+            padding-left: 11px;
+            padding-right: 9.6px;
+            height: 32px;
+            display: -webkit-inline-box;
         }
 
         &:hover {
             text-decoration: none;
+            background-color: $stockport-pink-darker;
 
             .top-tasks-block__title {
                 text-decoration: underline;

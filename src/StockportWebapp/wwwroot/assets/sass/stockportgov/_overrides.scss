@@ -62,3 +62,17 @@ h6 {
     height: 200px;
 }
 
+.icon-bordered {
+    @media #{$desktop, $tablet} {
+        border: 0px;
+        padding: 5px;
+    }
+}
+
+.footer-social-links .icon-container {
+    margin: 0 5px 0 5px;
+
+    @media #{$mobile} {
+        margin: 0px;
+    }
+}

@@ -3,13 +3,12 @@
 	background-color: $stockport-dark-grey;
 	padding: 2em 0 1em 0;
 
-
 	@media #{$mobile} {
-		padding: 1em 0 1em 0;
+		padding: 0 0 1em;
 	}
 
-	&_links {
-		font-size: 0.8em;
+	&_links {	
+		margin: -5px 0 0 0;
 
 		li {
 			box-sizing: border-box;
@@ -31,7 +30,6 @@
 		}
 	}
 
-
 	&_top {
 		border-bottom: 2px solid $stockport-grey;
 		padding-bottom: 1em;
@@ -44,10 +42,10 @@
 		img {
 			height: auto;
 			width: 100%;
-		}
 
-		a {
-			display: inline-block;
+			@media #{$mobile} {
+				padding: 0 10px;
+			}
 		}
 
 		@media #{$mobile} {
@@ -62,6 +60,9 @@
 
 	&_socials {
 		margin-right: 0;
+		@media #{$mobile} {
+			margin-right:10px;
+		}
 	}
 
 	&_copyright {

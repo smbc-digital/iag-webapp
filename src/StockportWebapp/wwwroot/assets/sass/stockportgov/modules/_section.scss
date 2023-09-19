@@ -7,8 +7,21 @@
         margin-bottom: 0;
     }
 
+    &--increased-vertical-margin {
+        margin-top: 2.5em;
+        margin-bottom: 2.5em;
+    }
+
     &--padded {
         padding: 2em 0em;
+
+        @media #{$mobile} {
+            padding: 1.5em 0em;
+        }
+    }
+
+    &--padded-bottom {
+        padding-bottom: 2em;
     }
 
     &--white {
@@ -89,10 +102,10 @@
         margin: 0 25px 0 25px;
 
         &--padded-bottom {
-            padding-bottom: 1em;
+            padding-bottom: 2rem;
 
             @media #{$mobile} {
-                padding-bottom: 0.75em;
+                padding-bottom: 1.5rem;
             }
         }
 
