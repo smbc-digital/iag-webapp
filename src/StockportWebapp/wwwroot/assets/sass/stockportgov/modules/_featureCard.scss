@@ -2,6 +2,14 @@
     display: flex;
     flex-direction: column;
 
+    @media #{$tablet} {
+        margin: 0px 25px 0px 25px;
+    }
+
+    @media #{$mobile} {
+        margin: 0px;
+    }
+
     @media #{$desktop} {
         flex-wrap: wrap;
         flex-direction: row;
@@ -22,10 +30,10 @@
     &__wrapper {
         display: flex;
         flex-direction: column;
-        margin-left: 25px;
-        margin-right: 25px;
 
         @media #{$desktop} {
+            margin-left: 25px;
+            margin-right: 25px;
             flex: 1;
             flex-grow: 1;
             flex-basis: 0;
@@ -36,6 +44,11 @@
         }
     }
 
+    &__wrapper:first-child {
+        @media #{$mobile, $tablet} {
+            margin-bottom: 2em;
+        }
+    }
 
     &__content {
         padding: 1em;
@@ -99,5 +112,13 @@
         object-fit: cover;
         object-position: top;
         border-radius: 3px;
+
+        @media #{$desktop} {
+            height: 300px;
+        }
+
+        @media #{$tablet} {
+            max-height: 450px;
+        }
     }
 }
