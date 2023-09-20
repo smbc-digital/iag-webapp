@@ -21,7 +21,7 @@
   justify-content: space-between;
   list-style-type: none;
 
-  @media #{$mobile} {
+  @media #{$tablet} {
     flex-wrap: wrap;
 
     &::after {
@@ -31,7 +31,7 @@
     
     li:nth-child(n + 14) {
       order: 2
-    } 
+    }
   }
 
   li {
