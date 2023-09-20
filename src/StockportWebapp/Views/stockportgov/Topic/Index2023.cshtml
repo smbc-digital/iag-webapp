@@ -1,0 +1,64 @@
+@model TopicViewModel
+@{
+    var topic = Model.Topic;
+    ViewData["Title"] = topic.Name;
+    ViewData["og:title"] = topic.Name;
+    ViewData["Description"] = topic.MetaDescription;
+    Layout = "../Shared/_Layout.cshtml";
+}
+
+@section Breadcrumbs {
+    <partial name="Breadcrumb" model='topic.Breadcrumbs' />
+}
+
+    <div class="l-page-content" id="topic-page-content">
+        <div class="full-width-title">
+            <div class="grid-container grid-parent grid-100">
+                <div class="@(Model.Topic.EmailAlerts ? "grid-70 tablet-grid-70" : "grid-100 tablet-grid-100") mobile-grid-100">
+                    <h1>@topic.Name</h1>
+                    @if (topic.Summary != null)
+                {
+                    @Html.Raw(@topic.Summary)
+                }
+            </div>
+            @if (Model.Topic.EmailAlerts)
+            {
+                <div class="header-right-button grid-30 tablet-grid-30 mobile-grid-100">
+                    <stock-button as-link="true" class="button-outline-white-transparent" href="@Model.EmailAlertsUrl"><span class="fa fa-envelope-o fa-1x" aria-hidden="true"></span>Email alerts</stock-button>
+                </div>
+            }
+        </div>
+    </div>
+
+    <div tabindex="-1" id="content" class="grid-container grid-parent">
+        @if (topic.Alerts is not null)
+        {
+            foreach (var alert in topic.Alerts)
+            {
+                <partial name="DisplayTemplates/Alert" model='alert' />
+            }
+        }
+
+        <partial name="PrimarySubitems" model='topic' />
+
+        @if (Model.Topic.ExpandingLinkBoxes is not null && Model.Topic.ExpandingLinkBoxes.Any())
+        {
+            <partial name="ExpandingLinkBox" model='topic' />
+        }
+
+        @if (!string.IsNullOrEmpty(topic.EventBanner.Title))
+        {
+            <partial name="Events/EventBanner" model='topic.EventBanner' />
+        }
+
+        @if (topic.SecondaryItems.Any())
+        {
+            <partial name="SecondaryItems" model='topic' />
+        }
+
+        @if (topic.TertiaryItems.Any())
+        {
+            <partial name="TertiaryItems" model='topic' />
+        }
+    </div>
+</div>
