@@ -121,6 +121,11 @@ h6 {
     }
 }
 
+// Temporary fix for header styling
+.menu > * { 
+    font-size: 18px !important;
+}
+
 .icon-bordered {
     @media #{$desktop, $tablet} {
         border: 0px;
