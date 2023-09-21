@@ -44,22 +44,81 @@ h6 {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 100%;
 
-    h2 {
-        color: white;
+    &__full-width-block {
+        display: block;
+        position: relative;
+
+        h1, h2, p {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            margin: 0;
+        }
     }
-}
 
-.large-gray-placeholder {
-    background-color: #aaa;
-    height: 500px;
-    margin-bottom: 2em;
-}
+    &__padded-top {
+        padding-top: 30px;
+    }
 
-.call-to-action-banner-placeholder {
-    background-color: $stockport-teal-darker;
-    height: 200px;
+    &__padded-bottom {
+        padding-bottom: 30px;
+    }
+
+    &__left-align {
+        display: block;
+        padding-left: 20px;
+    }
+
+    &-bg-green {
+        background-color: $stockport-green;
+
+        h1, h2, p {
+            color: white !important; 
+        }   
+    }
+
+    &-bg-orange {
+        background-color: $stockport-orange;
+
+        h1, h2, p {
+            color: white !important; 
+        }   
+    }
+
+    &-bg-grey {
+        background-color: $stockport-light-grey;
+    }
+
+    &-topic {
+        &-title {
+            padding: 5px 0;
+            font-size: 2.5em;
+            margin: 0;
+        }
+    
+        &-header-description{
+            font-size: 1.2em;
+            font-weight: 300;
+        }
+    }
+
+    &-xs {
+        height: 100px;
+    }
+
+    &-small {
+        height: 200px;
+    }
+
+    &-medium {
+        height: 400px;
+    }
+
+    &-large {
+        height: 600px;
+    }
 }
 
 .icon-bordered {
