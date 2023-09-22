@@ -1,0 +1,63 @@
+@model TopicViewModel
+@{
+    var topic = Model.Topic;
+    ViewData["Title"] = topic.Name;
+    ViewData["og:title"] = topic.Name;
+    ViewData["Description"] = topic.MetaDescription;
+    Layout = "../Shared/_Layout2023.cshtml";
+}
+
+@section Alerts {
+    <div class="placeholder placeholder-bg-orange placeholder__full-width-block placeholder-xs">
+            <h2>Alerts</h2>
+    </div>
+}
+
+@section Breadcrumbs {
+    <div class="placeholder placeholder-bg-green placeholder__left-align placeholder__padded-top">
+        <div class="grid-container">
+            <p>Breadcrumbs</p>
+        </div>
+    </div>
+}
+
+    <div class="placeholder placeholder-bg-green placeholder__left-align" id="topic-page-content">
+        <div class="grid-container">
+            <h1 class="placeholder-topic-title">Title</h1>
+        </div>
+    </div>
+
+    <div class="placeholder placeholder-bg-green placeholder__left-align placeholder__padded-bottom" id="topic-page-content">
+        <div class="grid-container">
+            <h2 class="placeholder-topic-header-description">Description text</h2>
+        </div>
+    </div>
+
+    <div class="placeholder placeholder-medium">
+        <h2>Primary Navigation</h2>
+    </div>
+
+     <div class="placeholder placeholder-medium placeholder-bg-grey">
+        <h2>Secondary Navigation</h2>
+    </div>
+
+    <div class="placeholder placeholder-small">
+        <h2>Call to action</h2>
+    </div>
+
+    <div class="placeholder placeholder-small placeholder-bg-grey">
+        <h2>Events Link/Banner</h2>
+    </div>
+
+    <div class="placeholder placeholder-small">
+        <h2>Groups Link/Banner</h2>
+    </div>
+
+    <div class="placeholder placeholder-small placeholder-bg-grey">
+        <h2>News Category Link/Banner</h2>
+    </div>
+
+    <div class="placeholder placeholder-small">
+        <h2>Partner Logos</h2>
+    </div>
+</div>

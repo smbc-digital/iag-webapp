@@ -4,6 +4,7 @@ public class TopicControllerTest
 {
     private readonly TopicController _controller;
     private readonly Mock<ITopicRepository> _repository;
+    private readonly Mock<IFeatureManager> _featureToggle;
     private const string BusinessId = "businessId";
     private readonly EventBanner _eventBanner;
     private readonly Mock<IStockportApiEventsService> _stockportApiService = new();
@@ -15,7 +16,8 @@ public class TopicControllerTest
         config.Setup(o => o.GetEmailAlertsNewSubscriberUrl(BusinessId)).Returns(AppSetting.GetAppSetting("email-alerts-url"));
 
         _repository = new Mock<ITopicRepository>();
-        _controller = new TopicController(_repository.Object, config.Object, new BusinessId(BusinessId), _stockportApiService.Object);
+        _featureToggle = new Mock<IFeatureManager>();
+        _controller = new TopicController(_repository.Object, config.Object, new BusinessId(BusinessId), _stockportApiService.Object, _featureToggle.Object);
         _eventBanner = new EventBanner("title", "teaser", "icon", "link");
     }
 
