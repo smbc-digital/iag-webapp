@@ -5,7 +5,6 @@ public interface IApplicationConfiguration
     AppSetting GetEmailAlertsUrl(string businessId);
     AppSetting GetPostcodeSearchUrl(string businessId);
     AppSetting GetGoogleAnalyticsCode(string buisnessId);
-    AppSetting GetAddThisShareId(string businessId);
     AppSetting GetRssEmail(string businessId);
     Uri GetContentApiUri();
     Uri GetContentApiUrlRoot();
@@ -71,11 +70,6 @@ public class ApplicationConfiguration : IApplicationConfiguration
     public Uri GetGoogleAnalyticsUri()
     {
         return new Uri(_appsettings["stockportgov:GoogleAnalyticsApiUrl"]);
-    }
-
-    public AppSetting GetAddThisShareId(string businessId)
-    {
-        return AppSetting.GetAppSetting(_appsettings[$"{businessId}:AddThis"]);
     }
 
     public AppSetting GetRssEmail(string businessId)
