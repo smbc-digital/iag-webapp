@@ -27,10 +27,10 @@
         @media #{$mobile}, #{$tablet} {
             margin: 4.5px 0;
             text-align: left;
+            display: -webkit-inline-box;
             display: flex;
             align-items: center;
             padding: 0.5em;
-            
         }
 
         &:hover {
