@@ -35,7 +35,7 @@ public class TopicController : Controller
         var eventsFromApi = !string.IsNullOrEmpty(processedTopic.EventCategory) ? await _stockportApiEventsService.GetEventsByCategory(processedTopic.EventCategory) : new List<Event>();
         topicViewModel.EventsFromApi = eventsFromApi?.Take(3).ToList();
 
-        if(await _featureManager.IsEnabledAsync("SiteRedesign") && await _featureManager.IsEnabledAsync("TopicRedesign") && _businessId.ToString().Equals("stockportgov"))
+        if(await _featureManager.IsEnabledAsync("TopicRedesign") && _businessId.ToString().Equals("stockportgov"))
             return View("Index2023", topicViewModel);
 
         return View(topicViewModel);
