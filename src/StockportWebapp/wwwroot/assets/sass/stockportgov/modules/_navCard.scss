@@ -12,11 +12,16 @@
 
 .navcard {
     width: calc(25% - 37.5px);
-    margin: 0 0 1em 0;
+    margin: 0 0 2em 0;
     border-top: 7px solid rgba($stockport-teal, 0.8);
     border-radius: 2px;
     list-style: none;
     text-indent: 0;
+    
+
+    @media #{$tablet} {
+        width: calc(33.33333% - 33.33333px);
+    }
 
     @media #{$mobile} {
         width: 100%;
@@ -26,12 +31,13 @@
     }
 
     a {
+        padding-top:1em;
         display: block;
         text-decoration: none;
         height: 100%;
 
         @media #{$mobile} {
-            padding-left: 1em;
+            padding: 0 0 0 1em;
         }
 
         &:hover {
@@ -48,7 +54,7 @@
         @include h-s;
         color: $stockport-green;
         text-decoration: underline;
-        margin: 1em 0 0.5em 0;
+        margin: 0 0 0.5em 0;
     }
 
     &__teaser {
