@@ -2,7 +2,7 @@
   display: table;
   width: 100%;
 
-  .global-alert-text-container {
+  &-text-container {
     display: table;
     height: 55px;
 
@@ -75,43 +75,40 @@
     }
   }
 
-  .global-alert-icon {
+  &-icon {
     display: table-cell;
     text-align: center;
     background-color: $borderDefault;
     width: 45px;
     vertical-align: middle;
-  }
 
-  .global-alert-icon-warning {
-    span:before {
-      content: "\f05a";
+    span:before{
       font-family: "FontAwesome";
       font-style: normal;
       font-size: 25px;
     }
-  }
 
-  .global-alert-icon-information {
-    span:before {
-      content: "\f05a";
-      font-family: "FontAwesome";
-      font-style: normal;
-      font-size: 25px;
-      color: $whiteOpaque3;
+    &-warning {
+      span:before {
+        content: "\f05a";
+      }
+    }
+
+    &-information {
+      span:before {
+        content: "\f05a";
+        color: $whiteOpaque3;
+      }
+    }
+
+    &-error {
+      span:before {
+        content: "\f071";
+      }
     }
   }
 
-  .global-alert-icon-error {
-    span:before {
-      content: "\f071";
-      font-family: "FontAwesome";
-      font-style: normal;
-      font-size: 25px;
-    }
-  }
-
-  .global-alert-close-container {
+  &-close-container {
     display: table-cell;
     vertical-align: middle;
 
@@ -190,5 +187,25 @@
   @media #{$mobile, $tablet} {
     padding-right: 0px;
     padding-left: 0px;
+  }
+}
+
+html[dir="rtl"] {
+  .global-alert {
+    &-close-container{
+      padding-left: 9.6px;
+
+      @media #{$tablet} {
+        padding-left: 24.6px;
+      }
+
+      a {
+        float: left;
+      }
+    }
+    
+    &-text-container{
+      float: right;
+    }
   }
 }

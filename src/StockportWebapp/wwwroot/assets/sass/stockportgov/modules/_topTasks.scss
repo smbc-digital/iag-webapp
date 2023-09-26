@@ -109,3 +109,14 @@
         margin-bottom: 0;
     }
 }
+
+html[dir="rtl"] {
+    .top-tasks-block {
+        &__icon {
+            @media #{$tablet} {
+                margin-left: 0.5em;
+                margin-right: 0;
+            }
+        }
+    }
+}
