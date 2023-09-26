@@ -119,6 +119,19 @@ h6 {
     &-large {
         height: 600px;
     }
+
+    &-close-button {
+        position: absolute;
+        top: 50%;
+        transform: translate(0, -50%);
+        right: 20px;
+
+        button {
+            background: none;
+            border: none;
+            font-size: 1em;
+        }
+    }
 }
 
 // Temporary fix for header styling

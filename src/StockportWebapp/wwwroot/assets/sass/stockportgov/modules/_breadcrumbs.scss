@@ -1,0 +1,23 @@
+.topic-breadcrumb-container {
+    padding: 0 25px;
+    padding-top: 20px;
+    font-size: .875em;
+    background-color: $stockport-teal-darker; 
+    color: white;
+
+    .breadcrumb {
+        .current {
+            font-size: .875em;
+        }
+
+        li > a {
+            color: #fff;
+            font-weight: 400;
+            text-transform: none;
+        }
+
+        @media #{$mobile} {
+            padding: 0px;
+        }
+    }
+}

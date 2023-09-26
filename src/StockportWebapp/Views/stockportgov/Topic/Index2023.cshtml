@@ -8,30 +8,31 @@
 }
 
 @section Alerts {
-    <div class="placeholder placeholder-bg-orange placeholder__full-width-block placeholder-xs">
-            <h2>Alerts</h2>
+    <div id="placeholder-alert" class="placeholder placeholder-bg-orange placeholder__full-width-block placeholder-xs">
+        <h2>Alerts</h2>
+        <span class="placeholder-close-button"><button onclick="hidePlaceholderCloseButton()">&#10006;</button></span>    
     </div>
+
+    <script>
+        function hidePlaceholderCloseButton() {
+            document.getElementById('placeholder-alert').style.display = 'none';
+        }
+    </script>
 }
 
 @section Breadcrumbs {
-    <div class="placeholder placeholder-bg-green placeholder__left-align placeholder__padded-top">
-        <div class="grid-container">
-            <p>Breadcrumbs</p>
-        </div>
-    </div>
+    <partial name="TopicBreadcrumb" model='topic.Breadcrumbs' />
 }
 
-    <div class="placeholder placeholder-bg-green placeholder__left-align" id="topic-page-content">
-        <div class="grid-container">
-            <h1 class="placeholder-topic-title">Title</h1>
+    <section class="topic-title">
+        <div class="grid-container grid-100">
+            <h1 class="h-xl">@topic.Name</h1>
+                    @if (topic.Teaser is not null)
+                {
+                    <p class="lead">@Html.Raw(@topic.Teaser)</p>
+                }
         </div>
-    </div>
-
-    <div class="placeholder placeholder-bg-green placeholder__left-align placeholder__padded-bottom" id="topic-page-content">
-        <div class="grid-container">
-            <h2 class="placeholder-topic-header-description">Description text</h2>
-        </div>
-    </div>
+    </section>
 
     <div class="placeholder placeholder-medium">
         <h2>Primary Navigation</h2>
