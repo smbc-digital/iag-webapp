@@ -11,29 +11,27 @@
 }
 
 .navcard {
+    width: calc(25% - 37.5px);
+    margin: 0 0 1em 0;
+    border-top: 7px solid rgba($stockport-teal, 0.8);
+    border-radius: 2px;
     list-style: none;
     text-indent: 0;
-    margin: 0 0 1em 0;
-    padding: 0;
-    width: 33.3333%;
 
     @media #{$mobile} {
         width: 100%;
-        margin: 0;
+        margin: 0 0 1em 0;
+        border-top: none;
+        border-left: 7px solid rgba($stockport-teal, 0.8);
     }
 
     a {
         display: block;
         text-decoration: none;
-        border-top: 7px solid rgba($stockport-teal, 0.8);
-        margin: 0 25px;
-        border-radius: 2px;
+        height: 100%;
 
         @media #{$mobile} {
-            border-top: none;
-            border-left: 7px solid rgba($stockport-teal, 0.8);
             padding-left: 1em;
-            margin: 0px 0px 1em 0px;
         }
 
         &:hover {
@@ -56,11 +54,6 @@
     &__teaser {
         color: black;
         text-decoration: none;
-        padding-bottom: 1em;
         margin: 0;
-
-        @media #{$mobile} {
-            padding-bottom: 0;
-        }
     }
 }

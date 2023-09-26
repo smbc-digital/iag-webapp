@@ -10,13 +10,13 @@
     &_search-input {
         border: 2px solid $stockport-grey;
         border-radius: 3px;
-        width: calc(100% - 50px);
+        width: 100%;
         font-size: 1.3rem;
         color: $stockport-grey;
         border-radius: 5px;
         padding: 15px 60px 15px 15px;
         background-color: $white;
-        margin: 0 25px;
+        margin: 0px;
         height: 54px;
 
         @media #{$mobile} {
@@ -44,10 +44,10 @@
         padding: 5px;
         position: absolute;
         text-align: center;
-        right: 25px;
         height: 54px;
         width: 54px;
         top: 25px;
+        right:0px;
 
         &:hover {
             background-color: $stockport-green;

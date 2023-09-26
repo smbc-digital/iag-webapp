@@ -33,11 +33,7 @@
         flex-direction: column;
 
         @media #{$desktop} {
-            margin-left: 25px;
-            margin-right: 25px;
-            flex: 1;
-            flex-grow: 1;
-            flex-basis: 0;
+            width: calc(50% - 25px);
         }
 
         a {

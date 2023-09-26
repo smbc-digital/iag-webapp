@@ -76,3 +76,16 @@ h6 {
         margin: 0px;
     }
 }
+
+.l-header-container {
+    width: 100%;
+    border-bottom: 0px;
+
+    #header {
+        max-width: 1260px;
+    }
+}
+
+.grid-container {
+    max-width: 1260px
+}
