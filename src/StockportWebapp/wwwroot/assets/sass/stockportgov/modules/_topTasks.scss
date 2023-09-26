@@ -24,13 +24,11 @@
         padding: 1em;
         border-radius: 3px;
 
-        @media #{$mobile}, #{$tablet} {
+        @media #{$tablet} {
             margin: 4.5px 0;
             text-align: left;
-            display: flex;
             align-items: center;
             padding: 0.5em;
-            display: -webkit-inline-box;
         }
 
         &:hover {
@@ -52,7 +50,7 @@
             margin-bottom: 5px;
             padding: 10px;
 
-            @media #{$mobile}, #{$tablet} {
+            @media #{$tablet} {
                 @include h-l;
                 margin: 0;
                 padding: 0;
@@ -63,7 +61,7 @@
         &__title {
             @include h-s;
 
-            @media #{$mobile, $tablet} {
+            @media #{$tablet} {
                 margin: 0 1em;
                 line-height: 1.75;
             }
@@ -73,7 +71,7 @@
     :first-child {
         margin-left: 0;
 
-        @media #{$mobile}, #{$tablet} {
+        @media #{$tablet} {
             margin-top: 0;
         }
     }
@@ -81,8 +79,9 @@
     :last-child {
         margin-right: 0;
 
-        @media #{$mobile}, #{$tablet} {
+        @media #{$tablet} {
             margin-bottom: 0;
+            float: left;
         }
     }
 }
@@ -100,5 +99,43 @@
         padding-bottom: 1em;
         margin-top: 1em;
         margin-bottom: 0;
+    }
+}
+
+html[dir="rtl"] {
+    .top-tasks{
+        &-block{
+            &__icon {
+                @media #{$tablet} {
+                    margin-left: 0.5em;
+                    margin-right: 0;
+                }
+            }
+
+            &__title{
+                @media #{$tablet} {
+                    margin-right: 1em;
+                }
+            }
+        }
+        
+        :last-child {
+            margin-left: 0;
+            margin-right: 8.5px;
+
+            @media #{$tablet} {
+                float: right;
+                margin-right: 0px;
+            }
+        }
+
+        :first-child{
+            margin-right: 0;
+            margin-left: 8.5px;
+
+            @media #{$tablet} {
+                margin-left: 0px;
+            }
+        }
     }
 }
