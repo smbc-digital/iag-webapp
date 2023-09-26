@@ -21,18 +21,24 @@
     &-content {
         width: 60%;
         padding: 1.5em;
+        color: white;
 
         @media #{$tablet} {
             width: 100%;
         }
 
-        &__teaser {
+        &__title {
+            @include h-ml;
+            margin-bottom: 0.75em;
             color: white;
+        }
+
+        &__teaser {
             margin-bottom: 2em;
+            color: white;
         }
     }
 }
-
 
 html[dir="rtl"] {
     .call-to-action {

@@ -27,14 +27,10 @@
         @media #{$mobile}, #{$tablet} {
             margin: 4.5px 0;
             text-align: left;
+            display: -webkit-inline-box;
             display: flex;
             align-items: center;
-            padding-top: 9.6px;
-            padding-bottom: 9.6px;
-            padding-left: 11px;
-            padding-right: 9.6px;
-            height: 32px;
-            display: -webkit-inline-box;
+            padding: 0.5em;
         }
 
         &:hover {
@@ -52,27 +48,24 @@
         }
 
         &__icon {
-            font-size: 3rem;
+            @include h-xl;
+            margin-bottom: 5px;
+            padding: 10px;
 
             @media #{$mobile}, #{$tablet} {
-                font-size: 2rem;
-                line-height: 0.5;
-                margin-right: 0.5em;
-                margin-left: 0.5em;
+                @include h-l;
+                margin: 0;
+                padding: 0;
                 width: 30px;
             }
         }
 
         &__title {
-            font-size: 1.2rem;
+            @include h-s;
 
-            @media #{$mobile} {
-                font-size: 1rem;
-                margin-top: 0;
-            }
-
-            @media #{$tablet} {
-                margin-top: 0;
+            @media #{$mobile, $tablet} {
+                margin: 0 1em;
+                line-height: 1.75;
             }
         }
     }
@@ -85,7 +78,7 @@
         }
     }
 
-    :last-child {      
+    :last-child {
         margin-right: 0;
 
         @media #{$mobile}, #{$tablet} {
