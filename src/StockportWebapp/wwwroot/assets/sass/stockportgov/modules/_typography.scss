@@ -20,8 +20,8 @@
     font-weight: 400;
 
     @media #{$mobile} {
-        font-size: 1.35rem;
-        line-height: 1.3;
+        font-size: 1.1875rem;
+        line-height: 1.5;
     }
 }
 
@@ -42,6 +42,7 @@
     font-size: 2.25rem;
     line-height: 1.1111111111;
     font-weight: 600;
+
     @media #{$mobile} {
         font-size: 1.75rem;
         line-height: 1.25;
@@ -91,11 +92,6 @@
     font-size: 1.1875rem;
     line-height: 1.5;
     font-weight: 800;
-
-    @media #{$mobile} {
-        font-size: 1.1875rem;
-        line-height: 1.5;
-    }
 }
 
 .body {
@@ -110,23 +106,23 @@
     @include lead;
 }
 
-.h-xl {
+.h-xl, h1 {
     @include h-xl;
 }
 
-.h-l {
+.h-l, h2 {
     @include h-l;
 }
 
-.h-ml {
+.h-ml, h3 {
     @include h-ml;
 }
 
-.h-m {
+.h-m, h4 {
     @include h-m;
 }
 
-.h-s {
+.h-s, h5, h6 {
     @include h-s;
 }
 
