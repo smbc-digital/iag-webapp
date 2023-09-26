@@ -114,15 +114,15 @@
     @include h-l;
 }
 
-.h-ml, h3 {
+.h-ml {
     @include h-ml;
 }
 
-.h-m, h4 {
+.h-m, h3 {
     @include h-m;
 }
 
-.h-s, h5, h6 {
+.h-s, h4, h5, h6 {
     @include h-s;
 }
 
