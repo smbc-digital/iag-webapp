@@ -91,7 +91,7 @@
     }
 
     &--border-grey {
-        border-color: lighten($stockport-grey, 30%);
+        border-color: $stockport-mid-grey;
     }
 
     &--chevron-right {

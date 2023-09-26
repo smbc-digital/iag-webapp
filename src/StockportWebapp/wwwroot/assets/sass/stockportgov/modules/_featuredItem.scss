@@ -71,10 +71,10 @@
     }
 
     &__title {
+        @include h-s;
         color: $stockport-green;
         text-decoration: underline;
-        margin: 0;
-        font-size: 1.3rem;
+        margin: 0;        
 
         &--padded-bottom {
             padding-bottom: 0.75em;
