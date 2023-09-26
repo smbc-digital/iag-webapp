@@ -23,7 +23,7 @@
 
         @media #{$desktop} {
             order: 2;
-            border-radius: 3px 0 0 3px;
+            border-radius: 0 3px 3px 0;
         }
     }
 
@@ -66,7 +66,6 @@
         @media #{$desktop} {
             display: flex;
             flex-direction: row;
-            /*flex-wrap: wrap;*/
             justify-content: space-between;
         }
     }
@@ -80,9 +79,6 @@
         &--padded-bottom {
             padding-bottom: 0.75em;
         }
-    }
-
-    &-container {
     }
 
     &:nth-of-type(1) &-content {
@@ -103,8 +99,10 @@
         }
 
         @media #{$desktop} {
+            border-radius: 3px 0 0 3px;
             &::after {
                 border-bottom: 7px solid rgba($stockport-pink, 0.8);
+                border-radius: 0 0 0 3px;
             }
         }
     }
@@ -143,7 +141,7 @@
             display: flex;
             justify-content: space-between;
             box-sizing: border-box;
-            border-radius: 3px;
+            border-radius: 0 3px 3px 0;
             height: auto;
             width: 60%;
             padding: 1.5em;
@@ -174,7 +172,7 @@
         }
     }
 
-    :nth-of-type(even) &-content {
+    &:nth-of-type(even) &-content {
         @media #{$desktop} {
             &::after {
                 left: 0px;
@@ -187,38 +185,35 @@
     }
 }
 
-    .section--white {
-        .featured-item {
-            border-radius: 3px;
-        }
-
-        .featured-item:nth-of-type(2) .featured-item-content {
-            @media #{$desktop} {
-                padding-left: 0.5em;
-            }
-        }
+.section--white {
+    .featured-item {
+        border-radius: 3px;
     }
 
+    .featured-item:nth-of-type(2) .featured-item-content {
+        @media #{$desktop} {
+            padding-left: 0.5em;
+        }
+    }
+}
 
 html[dir="rtl"] {
     .featured-item {
-        &:nth-child(even) &__image {
+        &__image {
+            @media #{$desktop} {
+                border-radius: 0 3px 3px 0;
+            }
+        }
+
+        &:nth-child(even) .featured-item__image {
             @media #{$desktop} {
                 border-radius: 3px 0 0 3px;
             }
         }
-
-        &__image {
-            /*border-radius: 3px 3px 0 0;*/
-
-            @media #{$desktop} {
-                border-radius: 0px 3px 3px 0px;
-            }
-        }
-
-
+                
         &:nth-of-type(even) .featured-item-content {
             @media #{$desktop} {
+                border-radius: 0 3px 3px 0;
                 &::after {
                     border-radius: 0 0 3px 0;
                     right: 0px;
@@ -229,6 +224,7 @@ html[dir="rtl"] {
 
         &:nth-of-type(odd) .featured-item-content {
             @media #{$desktop} {
+                border-radius: 3px 0 0 3px;
                 &::after {
                     border-radius: 0 0 0 3px;
                     left: 0px;
