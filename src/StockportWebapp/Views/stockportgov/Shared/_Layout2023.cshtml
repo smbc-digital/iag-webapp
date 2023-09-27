@@ -12,15 +12,12 @@
 <!DOCTYPE html>
 <html lang=en-GB>
 <head>
-    @*<partial name="SecurityHeaders" />*@
-    <script type=text/javascript src=@stylesheet.DesignSystemJs></script>
-
     <meta charset=utf-8 />
     <meta name=viewport content="width=device-width, initial-scale=1" />
     <partial name=OwnershipVerificationCodes />
     <partial name=Favicon />
     <title>@ViewData["Title"] - Stockport Council</title>
-    <meta name=Description content="@ViewData["Description"]" />
+    <meta name=description content="@ViewData["Description"]" />
     <meta property=og:title content="@ViewData["og:title"]" />
 
     @if (ViewData["CanonicalUrl"] is not null)
@@ -29,17 +26,15 @@
     }
 
     @* PACKAGE / VENDOR STYLESHEETS *@
-    <link rel=stylesheet href=~/assets/stylesheets/cludo-search-default.min.css asp-append-version=true />
-    <link rel=stylesheet href=https://customer.cludo.com/css/templates/v2.1/essentials/cludo-search.min.css asp-append-version=true />
-    <link rel=stylesheet href=~/assets/stylesheets/vendor/slick.min.css asp-append-version=true />
-    <link rel=stylesheet href=~/assets/stylesheets/vendor/unsemantic-grid-responsive-tablet-min.css asp-append-version=true />
+    <link rel=preload as=style onload="this.onload=null;this.rel='stylesheet'" href=~/assets/stylesheets/cludo-search-default.min.css asp-append-version=true />
+    <link rel=preload as=style onload="this.onload=null;this.rel='stylesheet'" href=https://customer.cludo.com/css/templates/v2.1/essentials/cludo-search.min.css asp-append-version=true />
+    <link rel=preload as=style onload="this.onload=null;this.rel='stylesheet'" href=~/assets/stylesheets/vendor/slick.min.css asp-append-version=true />
+    <link rel=preload as=style onload="this.onload=null;this.rel='stylesheet'" href=~/assets/stylesheets/vendor/unsemantic-grid-responsive-tablet-min.css asp-append-version=true />
 
     @* MAIN STYLESHEET(S) *@
-    <link rel=stylesheet href=~/assets/stylesheets/site-sg-overrides.min.css asp-append-version=true />
+    <link rel=preload as=style onload="this.onload=null;this.rel='stylesheet'" href=~/assets/stylesheets/site-sg-overrides.min.css asp-append-version=true />
 
-    @* OUTDATED *@
-    <link rel=stylesheet href=https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css integrity="sha256-AIodEDkC8V/bHBkfyxzolUMw57jeQ9CauwhVW6YJ9CA= sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1 sha512-4uGZHpbDliNxiAv/QzZNo/yb2FtAX+qiDb7ypBWiEdJQX8Pugp8M6il5SRkN8jQrDLWsh3rrPDSXRf3DwFYM6g==" crossorigin=anonymous>
-
+    <link rel=preload as=style onload="this.onload=null;this.rel='stylesheet'" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />  
     <noscript>
         @*To replace the html class="no-js" as this is just used for a map on Group or Event pages to display or not*@
         <style>
@@ -58,7 +53,7 @@
     <partial name=TagManager/TagManagerDataLayer />
     <partial name=TagManager/TagManager />
 
-    <script type=text/javascript src=@stylesheet.DesignSystemJs asp-append-version=true></script>
+    <script defer type=text/javascript src=@stylesheet.DesignSystemJs asp-append-version=true></script>
     <script type=text/javascript src=~/assets/javascript/vendor/require.min.js asp-append-version=true></Script>
 </head>
 <body class="container-layout-free @(string.Concat("type-", ViewContext.RouteData.Values["controller"].ToString().ToLower()))">
