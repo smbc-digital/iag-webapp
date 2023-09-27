@@ -120,21 +120,20 @@ html[dir="rtl"] {
         }
         
         :last-child {
-            margin-left: 0;
-            margin-right: 8.5px;
-
             @media #{$tablet} {
                 float: right;
-                margin-right: 0px;
+            }
+
+            @media #{$desktop} {
+                margin-left: 0;
+                margin-right: 8.5px;
             }
         }
 
-        :first-child{
-            margin-right: 0;
-            margin-left: 8.5px;
-
-            @media #{$tablet} {
-                margin-left: 0px;
+        :first-child {
+            @media #{$desktop} {
+                margin-right: 0;
+                margin-left: 8.5px;
             }
         }
     }
