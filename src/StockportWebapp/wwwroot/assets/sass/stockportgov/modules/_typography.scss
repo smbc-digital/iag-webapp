@@ -1,8 +1,35 @@
 ﻿/*------ Typography Styles ------*/
 
-.h-xl {
+
+@mixin spacing-reset{
+    // margin: 0px;
+    // padding: 0px;
+}
+
+@mixin body {
+    font: 1.1875rem / 1.5 $fontStack;
+}
+
+@mixin body--small {
+    font: 1rem / 1.5 $fontStack;
+}
+
+@mixin lead {
+    font-size: 1.5rem;
+    line-height: 1.3;
+    font-weight: 400;
+
+    @media #{$mobile} {
+        font-size: 1.1875rem;
+        line-height: 1.5;
+    }
+}
+
+@mixin h-xl {
+    @include spacing-reset;
     font-size: 3rem;
     line-height: 1.0416666667;
+    font-weight: 600;
 
     @media #{$mobile} {
         font-size: 2rem;
@@ -10,40 +37,95 @@
     }
 }
 
-.h-l {
+@mixin h-l {
+    @include spacing-reset;
     font-size: 2.25rem;
     line-height: 1.1111111111;
+    font-weight: 600;
 
     @media #{$mobile} {
-        font-size: 1.5rem;
-        line-height: 1.0416666667;
-    }
-}
-
-.h-ml {
-    font-size: 1.375em;
-}
-
-.h-m {
-    font-size: 1.5rem;
-    line-height: 1.25;
-    
-    @media #{$mobile} {
-        font-size: 1.125rem;
-        line-height: 1.1111111111;
-    }
-}
-
-.h-ml {
-    font-size: 1.375em;
-}
-
-.h-s {
-    font-size: 1.1875rem;
-    line-height: 1.3157894737;
-
-    @media #{$mobile} {
-        font-size: 1rem;
+        font-size: 1.75rem;
         line-height: 1.25;
     }
+}
+
+@mixin h-ml {
+    @include spacing-reset;
+    font-size: 1.65rem;
+    line-height: 1.5;
+    font-weight: 800;
+    line-height: 1.0416666667;
+
+    @media #{$mobile} {
+        font-size: 1.35rem;
+        line-height: 1.3;
+    }
+}
+
+@mixin h-m {
+    @include spacing-reset;
+    font-size: 1.5rem;
+    line-height: 1.25;
+    font-weight: 800;
+
+    @media #{$mobile} {
+        font-size: 1.1875rem;
+        line-height: 1.5;
+    }
+}
+
+@mixin h-s {
+    @include spacing-reset;
+    
+    font-size: 1.3rem;
+    line-height: 1.45;
+    font-weight: 800;
+
+    @media #{$mobile} {
+        font-size: 1.1875rem;
+        line-height: 1.5;
+    }
+}
+
+@mixin h-xs {
+    @include spacing-reset;
+    font-size: 1.1875rem;
+    line-height: 1.5;
+    font-weight: 800;
+}
+
+.body {
+    @include body;
+}
+
+.body--small {
+    @include body--small;
+}
+
+.lead {
+    @include lead;
+}
+
+.h-xl, h1 {
+    @include h-xl;
+}
+
+.h-l, h2 {
+    @include h-l;
+}
+
+.h-ml {
+    @include h-ml;
+}
+
+.h-m, h3 {
+    @include h-m;
+}
+
+.h-s, h4, h5, h6 {
+    @include h-s;
+}
+
+.h-xs {
+    @include h-xs;
 }
