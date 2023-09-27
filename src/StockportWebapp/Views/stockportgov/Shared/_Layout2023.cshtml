@@ -12,13 +12,12 @@
 <!DOCTYPE html>
 <html lang=en-GB>
 <head>
-    @*<partial name="SecurityHeaders" />*@
     <meta charset=utf-8 />
     <meta name=viewport content="width=device-width, initial-scale=1" />
     <partial name=OwnershipVerificationCodes />
     <partial name=Favicon />
     <title>@ViewData["Title"] - Stockport Council</title>
-    <meta name=Description content="@ViewData["Description"]" />
+    <meta name=description content="@ViewData["Description"]" />
     <meta property=og:title content="@ViewData["og:title"]" />
 
     @if (ViewData["CanonicalUrl"] is not null)
@@ -33,10 +32,9 @@
     <link rel=preload as=style onload="this.onload=null;this.rel='stylesheet'" href=~/assets/stylesheets/vendor/unsemantic-grid-responsive-tablet-min.css asp-append-version=true />
 
     @* MAIN STYLESHEET(S) *@
-    <link rel=stylesheet href=~/assets/stylesheets/site-sg-overrides.min.css asp-append-version=true />
+    <link rel=preload as=style onload="this.onload=null;this.rel='stylesheet'" href=~/assets/stylesheets/site-sg-overrides.min.css asp-append-version=true />
 
-    <link rel=preload as=style onload="this.onload=null;this.rel='stylesheet'" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    
+    <link rel=preload as=style onload="this.onload=null;this.rel='stylesheet'" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />  
     <noscript>
         @*To replace the html class="no-js" as this is just used for a map on Group or Event pages to display or not*@
         <style>
