@@ -68,7 +68,6 @@
     <distributed-cache name=footer2023 expires-after=@TimeSpan.FromMinutes(ApplicationConfiguration.GetFooterCache(BusinessId.ToString())) enabled=true>
         @await Component.InvokeAsync("Footer2023")
     </distributed-cache>
-    @await Component.InvokeAsync("AddThis")
 
     <script>
         require(['/assets/javascript/config-5de69769.min.js'], function() {
