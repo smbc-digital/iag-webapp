@@ -6,7 +6,7 @@
         display: flex;
         justify-content: space-between;
 
-        @media #{$mobile, $tablet} {
+        @media #{$tablet} {
             margin: 0 5px;
             width: calc(100% - 10px);
         }
@@ -22,55 +22,56 @@
         }
     }
 
-        &_image {
-            margin-left: 1em;
-            align-self: center;
+    &_image {
+        margin-left: 1em;
+        align-self: center;
 
-            img {
-                max-width: 225px;
-                border: 1px solid $stockport-grey;
-                border-radius: 3px;
-            }
-
-            @media #{$tablet} {
-                padding-right: 10px;
-            }
-
-            @media #{$mobile, $tablet} {
-                display: none;
-            }
+        img {
+            max-width: 225px;
+            border: 1px solid $stockport-grey;
+            border-radius: 3px;
         }
 
-        .condolence_close-container {
-            margin-left: 0.5em;
+        @media #{$tablet} {
+            padding-right: 10px;
+            display: none;
+        }
 
-            a {
-                display: inline-block;
-            }
-            
-            .condolence_close {
-                border: 1px solid white;
-                border-radius: 100%;
-                width: 37px;
-                height: 37px;
+        @media #{$mobile} {
+            display: none;
+        }
+    }
+
+    .condolence_close-container {
+        margin-left: 0.5em;
+
+        a {
+            display: inline-block;
+        }
+        
+        .condolence_close {
+            border: 1px solid white;
+            border-radius: 100%;
+            width: 37px;
+            height: 37px;
+            text-align: center;
+            float: right;
+            text-decoration: none;
+
+            span:before {
+                content: "\f00d";
+                font-family: "FontAwesome";
+                font-style: normal;
+                font-size: 20px;
+                color: $white;
                 text-align: center;
-                float: right;
-                text-decoration: none;
+                position: relative;
+                top: calc(50% - 20px);
+            }
 
-                span:before {
-                    content: "\f00d";
-                    font-family: "FontAwesome";
-                    font-style: normal;
-                    font-size: 20px;
-                    color: $white;
-                    text-align: center;
-                    position: relative;
-                    top: calc(50% - 20px);
-                }
-
-                &:hover {
-                    background-color: rgba($white, .2);
-                }
+            &:hover {
+                background-color: rgba($white, .2);
             }
         }
     }
+}

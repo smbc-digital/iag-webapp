@@ -16,7 +16,7 @@
           display: inline;
         }
 
-        @media #{$mobile, $tablet} {
+        @media #{$tablet} {
           display: block;
           line-height: 0.7em;
         }
@@ -34,7 +34,7 @@
       p {
         margin-bottom: 0;
 
-        @media #{$mobile, $tablet} {
+        @media #{$tablet} {
           line-height: 1.4em;
         }
       }
@@ -112,13 +112,13 @@
     display: table-cell;
     vertical-align: middle;
 
-    @media #{$mobile, $tablet} {
+    @media #{$tablet} {
       padding-right: 10px;
     }
 
     a {
-      display: inline-block;
       float: right;
+      display: inline-block;
     }
 
     .global-alert-close-warning, .global-alert-close-error, .global-alert-close-information {
@@ -184,15 +184,14 @@
 }
 
 .global-alert-container {
-  @media #{$mobile, $tablet} {
-    padding-right: 0px;
-    padding-left: 0px;
+  @media #{$tablet} {
+    padding: 0;
   }
 }
 
 html[dir="rtl"] {
   .global-alert {
-    &-close-container{
+    &-close-container {
       padding-left: 9.6px;
 
       @media #{$tablet} {
@@ -204,7 +203,7 @@ html[dir="rtl"] {
       }
     }
     
-    &-text-container{
+    &-text-container {
       float: right;
     }
   }

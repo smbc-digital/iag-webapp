@@ -3,7 +3,7 @@
     flex-direction: column;
 
     @media #{$tablet} {
-        margin: 0px 25px 0px 25px;
+        margin: 0px 25px;
     }
 
     @media #{$mobile} {
@@ -46,7 +46,7 @@
     }
 
     &__wrapper:first-child {
-        @media #{$mobile, $tablet} {
+        @media #{$tablet} {
             margin-bottom: 2em;
         }
     }
@@ -123,4 +123,3 @@
         }
     }
 }
-
