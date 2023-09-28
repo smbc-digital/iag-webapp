@@ -26,10 +26,10 @@
 
     <section class="topic-title">
         <div class="grid-container grid-100">
-            <h1 class="h-xl">@topic.Name</h1>
-                    @if (topic.Teaser is not null)
+            <h1>@topic.Name</h1>
+                @if (topic.Teaser is not null)
                 {
-                    <p class="lead">@Html.Raw(@topic.Teaser)</p>
+                    <p>@Html.Raw(@topic.Teaser)</p>
                 }
         </div>
     </section>
