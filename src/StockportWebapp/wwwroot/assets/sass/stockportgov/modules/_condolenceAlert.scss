@@ -29,6 +29,7 @@
             img {
                 max-width: 225px;
                 border: 1px solid $stockport-grey;
+                border-radius: 3px;
             }
 
             @media #{$tablet} {
