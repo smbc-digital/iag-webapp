@@ -6,7 +6,6 @@
         "carousel": "carousel-719cf06c.min",
         "cludo": "cludo-b9f1b125.min",
         "contactUs": "contactUs-e5b6f8a5.min",
-        "emailSubscribe": "emailSubscribe-0b8c170e.min",
         "events": "events-af550f37.min",
         "expandingLinks": "expandingLinks-2fa18259.min",
         "favourites": "favourites-9929284b.min",

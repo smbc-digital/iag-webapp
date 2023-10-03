@@ -50,7 +50,7 @@
     }
 
     &__wrapper:first-child {
-        @media #{$mobile, $tablet} {
+        @media #{$tablet} {
             margin-bottom: 2em;
         }
     }
@@ -113,7 +113,6 @@
 
     &__image {
         width: 100%;
-        min-height: 300px;
         object-fit: cover;
         object-position: top;
         border-radius: 3px;
@@ -123,7 +122,8 @@
         }
 
         @media #{$tablet} {
-            max-height: 450px;
+            min-height: 150px;
+            max-height: 400px;
         }
     }
 }

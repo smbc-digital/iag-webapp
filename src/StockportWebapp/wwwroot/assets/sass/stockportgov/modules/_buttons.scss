@@ -21,6 +21,10 @@
         width: 100%;
     }
 
+    &_icon {
+        margin: 0 0.5em;
+    }
+
     &--full {
         width: 100%;
     }
@@ -102,7 +106,16 @@
     }
 }
 
-
+/*
+    Overrides for the specfic use case of vertically centering the button to email subscription area
+*/
+.email-subsciption {
+    .btn {
+        @media #{$desktop} {
+            margin-top: 27px;
+        }
+    }
+}
 /*
     The following are legacys tles theat will hopefully be migrated to the above.
 */

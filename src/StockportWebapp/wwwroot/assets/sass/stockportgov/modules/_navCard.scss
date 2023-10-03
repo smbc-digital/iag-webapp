@@ -79,3 +79,14 @@
         margin: 0;
     }
 }
+
+html[dir="rtl"] {
+    .navcard a {
+        @media #{$mobile} {
+            border-right: 7px solid rgba($stockport-teal, 0.8);
+            border-left: 0;
+            padding-right: 1em;
+            padding-left: 0;
+        }
+    }
+}

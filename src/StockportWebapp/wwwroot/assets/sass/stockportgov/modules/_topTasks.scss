@@ -55,6 +55,8 @@
                 margin: 0;
                 padding: 0;
                 width: 30px;
+                float: left;
+                margin-right: 0.5em;
             }
         }
 
@@ -81,7 +83,6 @@
 
         @media #{$tablet} {
             margin-bottom: 0;
-            float: left;
         }
     }
 }
@@ -103,16 +104,21 @@
 }
 
 html[dir="rtl"] {
-    .top-tasks{
-        &-block{
+    .top-tasks {
+        &-block {
+            @media #{$tablet} {
+                text-align: right;
+            }
+
             &__icon {
                 @media #{$tablet} {
                     margin-left: 0.5em;
                     margin-right: 0;
+                    float: right;
                 }
             }
 
-            &__title{
+            &__title {
                 @media #{$tablet} {
                     margin-right: 1em;
                 }
@@ -120,21 +126,16 @@ html[dir="rtl"] {
         }
         
         :last-child {
-            margin-left: 0;
-            margin-right: 8.5px;
-
-            @media #{$tablet} {
-                float: right;
-                margin-right: 0px;
+            @media #{$desktop} {
+                margin-left: 0;
+                margin-right: 8.5px;
             }
         }
 
-        :first-child{
-            margin-right: 0;
-            margin-left: 8.5px;
-
-            @media #{$tablet} {
-                margin-left: 0px;
+        :first-child {
+            @media #{$desktop} {
+                margin-right: 0;
+                margin-left: 8.5px;
             }
         }
     }
