@@ -85,6 +85,30 @@
         }
     }
 
+    &--pink {
+        color: $stockport-pink;
+        border: 1px solid $stockport-pink;
+
+        &-outline {
+            background-color: transparent;
+
+            &:hover, &:focus {
+                background-color: $stockport-pink;
+                color: white;
+            }
+        }      
+    }
+
+    &--purple {
+        color: $stockport-purple;
+        border: 1px solid $stockport-purple;
+    }
+
+    &--blue {
+        color: $stockport-blue;
+        border: 1px solid $stockport-blue;
+    }
+
     &--border {
         border-width: 1px;
         border-style: solid;
