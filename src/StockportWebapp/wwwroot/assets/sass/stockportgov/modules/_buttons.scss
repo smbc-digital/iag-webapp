@@ -98,7 +98,7 @@
         border-color: $stockport-mid-grey;
     }
 
-    &--chevron-right {
+    &--chevron-forward {
         &:before {
             content: "\f105";
             font: normal normal normal 14px/1 FontAwesome;
@@ -113,6 +113,19 @@
 
     &--bold, &--chevron-bold:before {
         font-weight: 700;
+    }
+}
+
+html[dir="rtl"] {
+    .btn {
+        &--chevron-forward {
+            &:before {
+                content: "\f104";
+                text-align: left;
+                float: left;
+                padding-right: 10px;
+            }
+        }
     }
 }
 
