@@ -1,7 +1,7 @@
 ﻿@model CallToActionBanner
 @{
-    var containerColourClass = !Model.Colour.Equals(string.Empty) && !Model.Colour.Equals("Teal") ? $"call-to-action--{Model.Colour.ToLower()}" : "";
-    var buttonColourClass = !Model.Colour.Equals(string.Empty) && !Model.Colour.Equals("Teal") ? $"btn--{Model.Colour.ToLower()}" : "";
+    var containerColourClass = !Model.Colour.Equals(string.Empty) && !Model.Colour.Equals("Teal") ? $"call-to-action--{Model.Colour.ToLower()}" : String.Empty;
+    var buttonColourClass = !Model.Colour.Equals(string.Empty) && !Model.Colour.Equals("Teal") ? $"btn--{Model.Colour.ToLower()}" : String.Empty;
 }
 
 <div class="call-to-action section__content @containerColourClass" data-cy="call-to-action">
