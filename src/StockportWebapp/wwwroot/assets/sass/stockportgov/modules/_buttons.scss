@@ -73,21 +73,14 @@
         }
     }
 
-    &--pink-outline {
-        color: $stockport-pink;
-        border: 1px solid $stockport-pink;
-        background-color: transparent;
-
-
-        &:hover, &:focus {
-            background-color: $stockport-pink;
-            color: white;
-        }
-    }
-
     &--pink {
         color: $stockport-pink;
         border: 1px solid $stockport-pink;
+
+        &:hover, &:focus {
+            color: darken($stockport-pink, 5%);
+            background-color: rgba(white, 0.9);
+        }
 
         &-outline {
             background-color: transparent;
@@ -102,11 +95,21 @@
     &--purple {
         color: $stockport-purple;
         border: 1px solid $stockport-purple;
+
+        &:hover, &:focus {
+            color: darken($stockport-purple, 5%);
+            background-color: rgba(white, 0.9);
+        }
     }
 
     &--blue {
         color: $stockport-blue;
         border: 1px solid $stockport-blue;
+
+        &:hover, &:focus {
+            color: darken($stockport-blue, 5%);
+            background-color: rgba(white, 0.9);
+        }
     }
 
     &--border {
