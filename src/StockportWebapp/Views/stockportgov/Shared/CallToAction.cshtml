@@ -1,15 +1,15 @@
 ﻿@model CallToActionBanner
 @{
-    var containerColorClass = !Model.Color.Equals(string.Empty) && !Model.Color.Equals("Teal") ? $"call-to-action--{Model.Color.ToLower()}" : "";
-    var buttonColorClass = !Model.Color.Equals(string.Empty) && !Model.Color.Equals("Teal") ? $"btn--{Model.Color.ToLower()}" : "";
+    var containerColourClass = !Model.Colour.Equals(string.Empty) && !Model.Colour.Equals("Teal") ? $"call-to-action--{Model.Colour.ToLower()}" : "";
+    var buttonColourClass = !Model.Colour.Equals(string.Empty) && !Model.Colour.Equals("Teal") ? $"btn--{Model.Colour.ToLower()}" : "";
 }
 
-<div class="call-to-action section__content @containerColorClass" data-cy="call-to-action">
+<div class="call-to-action section__content @containerColourClass" data-cy="call-to-action">
     <img src="@Model.Image?w=500&q=89" class="call-to-action__image" loading="lazy" alt="@Model.AltText" width="452" height="342">
 
     <div class="call-to-action-content">
         <h3 class="call-to-action-content__title ">@Model.Title</h3>
         <p class="call-to-action-content__teaser">@Model.Teaser</p>
-        <a href="@Model.Link" class="btn btn--inverse btn--width-30 btn--chevron-right btn--bold btn--chevron-bold @buttonColorClass" data-cy="call-to-action-link">@Model.ButtonText</a>
+        <a href="@Model.Link" class="btn btn--inverse btn--width-30 btn--chevron-right btn--bold btn--chevron-bold @buttonColourClass" data-cy="call-to-action-link">@Model.ButtonText</a>
     </div> 
 </div>
