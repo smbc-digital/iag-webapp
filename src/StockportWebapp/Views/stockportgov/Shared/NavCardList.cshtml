@@ -1,9 +1,9 @@
 ﻿@model NavCardList
 
 <ul class="navcard-wrapper">
-    @foreach (var navCard in Model.Items.Take(9))
+    @foreach (var navCard in Model.Items.Take(12))
     {
-        <li class="navcard">
+        <li class="navcard navcard--width-25">
             <partial name="NavCard" model="navCard" />
         </li>
     }

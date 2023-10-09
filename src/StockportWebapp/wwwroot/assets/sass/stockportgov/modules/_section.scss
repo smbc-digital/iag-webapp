@@ -36,7 +36,7 @@
     }
 
     &__content {
-        margin: 0 25px 0 25px;
+        margin: 0px;
 
         &--no-margin {
             margin: 0px;
@@ -53,7 +53,7 @@
 
     &__title {
         @include h-l;
-        margin: 0 25px 0 25px;
+        margin: 0px;
         text-decoration: none;
         padding-bottom: 0.5em;
 
@@ -97,7 +97,7 @@
 
     &__teaser {
         @include lead;
-        margin: 0 25px 0 25px;
+        margin: 0px;
 
         &--padded-bottom {
             padding-bottom: 2rem;
