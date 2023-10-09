@@ -21,6 +21,10 @@
         width: 100%;
     }
 
+    &_icon {
+        margin: 0 0.5em;
+    }
+
     &--full {
         width: 100%;
     }
@@ -121,7 +125,7 @@
         border-color: $stockport-mid-grey;
     }
 
-    &--chevron-right {
+    &--chevron-forward {
         &:before {
             content: "\f105";
             font: normal normal normal 14px/1 FontAwesome;
@@ -139,7 +143,29 @@
     }
 }
 
+html[dir="rtl"] {
+    .btn {
+        &--chevron-forward {
+            &:before {
+                content: "\f104";
+                text-align: left;
+                float: left;
+                padding-right: 10px;
+            }
+        }
+    }
+}
 
+/*
+    Overrides for the specfic use case of vertically centering the button to email subscription area
+*/
+.email-subsciption {
+    .btn {
+        @media #{$desktop} {
+            margin-top: 27px;
+        }
+    }
+}
 /*
     The following are legacys tles theat will hopefully be migrated to the above.
 */
