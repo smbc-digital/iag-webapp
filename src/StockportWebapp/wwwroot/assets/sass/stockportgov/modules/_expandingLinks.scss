@@ -1,66 +1,66 @@
 ﻿.expanding-link-box-button {
-  border-radius: 5px;
-  text-align: center;
-  width: auto;
-  color: $greyDarkest;
-  padding: 10px 0;
-  text-decoration: none;
-  font-weight: bold;
-  font-weight: 600;
+    border-radius: 5px;
+    text-align: center;
+    width: auto;
+    color: $greyDarkest;
+    padding: 10px 0;
+    text-decoration: none;
+    font-weight: bold;
+    font-weight: 600;
 
-  h3 {
-    margin: 0;
-    font-family: 'Noto Sans';
-    font-size: 1em;
-  }
-
-  &.button {
-    box-shadow: none;
-  }
-
-  &:before {
-    content: "\f107";
-    font: normal normal normal 14px/1 FontAwesome;
-    font-size: inherit;
-    text-rendering: auto;
-    -moz-osx-font-smoothing: grayscale;
-    text-align: right;
-    float: right;
-    margin-top: 7px;
-    padding-right: 10px;
-  }
-
-  &.is-collapsed-toggle {
-    &:before {
-      content: "\f106";
+    h3 {
+        margin: 0;
+        font-family: $fontStack;
+        font-size: 1em;
     }
-  }
+
+    &.button {
+        box-shadow: none;
+    }
+
+    &:before {
+        content: "\f107";
+        font: normal normal normal 14px/1 FontAwesome;
+        font-size: inherit;
+        text-rendering: auto;
+        -moz-osx-font-smoothing: grayscale;
+        text-align: right;
+        float: right;
+        margin-top: 7px;
+        padding-right: 10px;
+    }
+
+    &.is-collapsed-toggle {
+        &:before {
+            content: "\f106";
+        }
+    }
 }
 
 .expanding-link-box {
-  padding: 0px 10px;
+    padding: 0px 10px;
 
-  @media #{$mobile, $tablet} {
-    margin-top: 25px;
-  }
-
-  .expanding-list {
-    border-top: 4px solid $colorPrimaryPale;
-    border-radius: 5px;
-    background-color: $white;
-
-    .expanding-list-header {
-      padding: 15px;
-
-      h2 {
-        font-size: 1em;
-        font-family: 'Noto Sans';
-        font-weight: bold;
-        letter-spacing: normal;
-        margin: 0;
-      }
+    @media #{$mobile, $tablet} {
+        margin-top: 25px;
     }
-  }
+
+    .expanding-list {
+        border-top: 4px solid $colorPrimaryPale;
+        border-radius: 5px;
+        background-color: $white;
+
+        .expanding-list-header {
+            padding: 15px;
+
+            h2 {
+                font-size: 1em;
+                font-family: $fontStack;
+                font-weight: bold;
+                letter-spacing: normal;
+                margin: 0;
+            }
+        }
+    }
 }
 
 ul.expanding-list-ul {

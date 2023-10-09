@@ -1,214 +1,214 @@
 ﻿.l-filters {
-  margin: 15px 0px 15px 0px;
-
-  @media #{$mobile, $tablet} {
-    background-color: $white;
-    border: 1px solid $greyLight;
-    border-radius: 3px;
-    box-shadow: 0 10px 20px $blackOpaque05;
-  }
-
-  .filters-heading {
-    font-weight: 600;
-    margin: 0;
-    font-size: 1.1em;
-    font-family: 'Noto Sans';
-    letter-spacing: normal;
+    margin: 15px 0px 15px 0px;
 
     @media #{$mobile, $tablet} {
-      display: none;
-    }
-  }
-
-  .filters-active ul {
-    list-style: none;
-    margin-bottom: 0;
-
-    span {
-      padding-right: 5px;
+        background-color: $white;
+        border: 1px solid $greyLight;
+        border-radius: 3px;
+        box-shadow: 0 10px 20px $blackOpaque05;
     }
 
-    @media #{$mobile, $tablet} {
-      li:first-child {
-        padding-top: 10px;
-      }
+    .filters-heading {
+        font-weight: 600;
+        margin: 0;
+        font-size: 1.1em;
+        font-family: $fontStack;
+        letter-spacing: normal;
+
+        @media #{$mobile, $tablet} {
+            display: none;
+        }
     }
 
-    a {
-      padding: 0;
-    }
-  }
+    .filters-active ul {
+        list-style: none;
+        margin-bottom: 0;
 
-  .filters-list {
-    list-style: outside none none;
-    padding: 0px;
-    margin-bottom: 0;
-  }
+        span {
+            padding-right: 5px;
+        }
 
-  .filter-title, .filter-inner-title {
-    margin-bottom: 0;
-    position: relative;
-    cursor: pointer;
-    border-bottom: 1px solid $greyLight;
+        @media #{$mobile, $tablet} {
+            li:first-child {
+                padding-top: 10px;
+            }
+        }
 
-    &.custom-date-title {
-      border-bottom-width: 0px;
-      margin-bottom: 0px;
-      font-weight: normal;
-      padding-top: 0px;
-      padding-bottom: 10px;
+        a {
+            padding: 0;
+        }
     }
 
-    &:after {
-      padding-left: 10px;
-      content: "\f107";
-      font: normal normal normal 14px/1 FontAwesome;
-      font-size: 18px;
-      text-decoration: none;
-      display: inline-block;
-      margin-top: -10px;
-      position: absolute;
-      right: 5px;
-      top: 50%;
-    }
-  }
-
-  .filter-title {
-    font-weight: 600;
-    padding: 10px 0;
-    font-size: 1em;
-    font-family: 'Noto Sans';
-
-    @media #{$desktop} {
-      margin-bottom: 10px;
-    }
-  }
-
-  .filter-inner-title {
-    color: $colorPrimary;
-
-    @media #{$mobile, $tablet} {
-      padding-top: 10px;
-      padding-bottom: 10px;
-    }
-  }
-
-  .mobile-filter-heading {
-    border-top: 1px solid $greyLight;
-    border-bottom: none;
-    text-align: center;
-
-    @media #{$desktop} {
-      display: none;
-    }
-  }
-
-  .filter-title.mobile-filter-heading:after {
-    content: "\f106";
-  }
-
-  .is-collapsed {
-    .mobile-filter-heading:after {
-      content: "\f107";
-    }
-
-    .filter-title {
-      @media #{$mobile, $tablet} {
-        border-top: none;
-      }
+    .filters-list {
+        list-style: outside none none;
+        padding: 0px;
+        margin-bottom: 0;
     }
 
     .filter-title, .filter-inner-title {
-      &:after {
-        content: "\f105";
-      }
+        margin-bottom: 0;
+        position: relative;
+        cursor: pointer;
+        border-bottom: 1px solid $greyLight;
+
+        &.custom-date-title {
+            border-bottom-width: 0px;
+            margin-bottom: 0px;
+            font-weight: normal;
+            padding-top: 0px;
+            padding-bottom: 10px;
+        }
+
+        &:after {
+            padding-left: 10px;
+            content: "\f107";
+            font: normal normal normal 14px/1 FontAwesome;
+            font-size: 18px;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: -10px;
+            position: absolute;
+            right: 5px;
+            top: 50%;
+        }
+    }
+
+    .filter-title {
+        font-weight: 600;
+        padding: 10px 0;
+        font-size: 1em;
+        font-family: $fontStack;
+
+        @media #{$desktop} {
+            margin-bottom: 10px;
+        }
     }
 
     .filter-inner-title {
-      border-bottom: none;
+        color: $colorPrimary;
+
+        @media #{$mobile, $tablet} {
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
     }
 
-    ul {
-      display: none;
+    .mobile-filter-heading {
+        border-top: 1px solid $greyLight;
+        border-bottom: none;
+        text-align: center;
+
+        @media #{$desktop} {
+            display: none;
+        }
     }
-  }
 
-  .filter:last-child.is-collapsed .filter-title {
-    @media #{$mobile, $tablet} {
-      border-bottom: none;
+    .filter-title.mobile-filter-heading:after {
+        content: "\f106";
     }
-  }
 
-  li {
-    margin: 0;
+    .is-collapsed {
+        .mobile-filter-heading:after {
+            content: "\f107";
+        }
 
-    a {
-      display: block;
-      text-decoration: underline;
-      padding-top: 10px;
-      padding-bottom: 10px;
+        .filter-title {
+            @media #{$mobile, $tablet} {
+                border-top: none;
+            }
+        }
 
-      &:hover {
-        text-decoration-thickness: 3px;
-      }
+        .filter-title, .filter-inner-title {
+            &:after {
+                content: "\f105";
+            }
+        }
 
-      @media #{$desktop} {
-        padding-top: 1px;
-        padding-bottom: 1px;
-      }
+        .filter-inner-title {
+            border-bottom: none;
+        }
+
+        ul {
+            display: none;
+        }
     }
-  }
 
-  li.active {
-    a {
-      color: $greyDarkest;
-      font-weight: bold;
-
-      &:after {
-        padding-left: 10px;
-        color: $greyDarkest;
-        content: "\f105";
-        font: normal normal normal 14px/1 FontAwesome;
-        font-size: 18px;
-        text-decoration: none;
-        display: inline-block;
-        font-weight: bold;
-      }
+    .filter:last-child.is-collapsed .filter-title {
+        @media #{$mobile, $tablet} {
+            border-bottom: none;
+        }
     }
-  }
 
-  li.customdateactive {
-    a {
-      color: $greyDarkest;
-      font-weight: bold;
+    li {
+        margin: 0;
 
-      &:after {
-        padding-left: 10px;
-        color: $greyDarkest;
-        font: normal normal normal 14px/1 FontAwesome;
-        font-size: 18px;
-        text-decoration: none;
-        display: inline-block;
-        font-weight: bold;
-      }
+        a {
+            display: block;
+            text-decoration: underline;
+            padding-top: 10px;
+            padding-bottom: 10px;
+
+            &:hover {
+                text-decoration-thickness: 3px;
+            }
+
+            @media #{$desktop} {
+                padding-top: 1px;
+                padding-bottom: 1px;
+            }
+        }
     }
-  }
 
-  .filter li {
-    @media #{$desktop} {
-      margin-right: 50px;
+    li.active {
+        a {
+            color: $greyDarkest;
+            font-weight: bold;
+
+            &:after {
+                padding-left: 10px;
+                color: $greyDarkest;
+                content: "\f105";
+                font: normal normal normal 14px/1 FontAwesome;
+                font-size: 18px;
+                text-decoration: none;
+                display: inline-block;
+                font-weight: bold;
+            }
+        }
     }
-  }
 
-  .filters-inner-list {
-    margin-left: 40px;
+    li.customdateactive {
+        a {
+            color: $greyDarkest;
+            font-weight: bold;
 
-    @media #{$desktop} {
-      li {
-        margin-right: 0;
-      }
+            &:after {
+                padding-left: 10px;
+                color: $greyDarkest;
+                font: normal normal normal 14px/1 FontAwesome;
+                font-size: 18px;
+                text-decoration: none;
+                display: inline-block;
+                font-weight: bold;
+            }
+        }
     }
-  }
+
+    .filter li {
+        @media #{$desktop} {
+            margin-right: 50px;
+        }
+    }
+
+    .filters-inner-list {
+        margin-left: 40px;
+
+        @media #{$desktop} {
+            li {
+                margin-right: 0;
+            }
+        }
+    }
 }
 
 .custom-date {
