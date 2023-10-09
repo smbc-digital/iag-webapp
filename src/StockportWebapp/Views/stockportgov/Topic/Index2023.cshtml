@@ -34,13 +34,24 @@
         </div>
     </section>
 
-    <div class="placeholder placeholder-medium">
+    <div class="placeholder placeholder-medium placeholder-bg-grey">
         <h2>Primary Navigation</h2>
     </div>
 
-     <div class="placeholder placeholder-medium placeholder-bg-grey">
-        <h2>Secondary Navigation</h2>
-    </div>
+    @if (topic.SecondaryItems.Any())
+    {
+        <section class="section grid-container">
+            <div class="grid-100 topic-secondary-items">
+            @foreach(var item in topic.SecondaryItems)
+            {
+                <a class="topic-secondary-item-container">
+                    <p class="topic-secondary-item-title">@item.Title</p>
+                    <p class="topic-secondary-item-teaser">@item.Teaser</p>
+                </a>
+            }
+            </div>
+        </section>
+    }
 
     @if(topic.CallToAction is not null)
     {
