@@ -22,13 +22,14 @@
             </div>
 
             <div class="feature-card__bottom">
-                <img class="feature-card__image" srcset="@Model.Image?w=698&q=89 698w,
-                        @Model.Image?w=915&q=89 915w,
-                        @Model.Image?w=1200&q=89 1200w"
-                    sizes="(max-width: 1023px) calc(100vw - 68.4px), 100vw"
-                    src="@Model.Image?w=698&q=89" loading="lazy" alt=""
-                    height="300"
-                    width="500">
+                <img class="feature-card__image"
+                     srcset="@Model.Image?w=709&q=89 709w,
+                            @Model.Image?w=899&q=89 899w,
+                            @Model.Image?w=502&q=89 502w" 
+                     sizes="(max-width: 767px) 709px,
+                            ((min-width: 768px) and (max-width: 1023px)) 899px,
+                            (min-width: 1024px) 502px"
+                    src="@Model.Image?w=899&q=89" loading="lazy" alt="" height="300" width="500">
             </div>
         </div>
     </a>
