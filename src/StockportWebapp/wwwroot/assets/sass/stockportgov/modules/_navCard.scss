@@ -11,29 +11,49 @@
 }
 
 .navcard {
+    width: 100%;
+    margin: 0 0 2em 0;
+    border-top: 7px solid rgba($stockport-teal, 0.8);
+    box-sizing: border-box;
+    border-radius: 2px;
     list-style: none;
     text-indent: 0;
-    margin: 0 0 1em 0;
-    padding: 0;
-    width: 33.3333%;
+
+    &--width-20 {
+        width: calc(20% - 50px);
+    }
+
+    &--width-25 {
+        width: calc(25% - 37.5px);
+    }
+
+    &--width-33 {
+        width: calc(33.33333% - 33.33333px);
+    }
+
+    &--width-50 {
+        width: calc(50% - 25px);
+    }
+
+    @media #{$tablet} {
+        width: calc(33.33333% - 33.33333px);
+    }
 
     @media #{$mobile} {
         width: 100%;
-        margin: 0;
+        margin: 0 0 1em 0;
+        border-top: none;
+        border-left: 7px solid rgba($stockport-teal, 0.8);
     }
 
     a {
+        padding-top: 1em;
         display: block;
         text-decoration: none;
-        border-top: 7px solid rgba($stockport-teal, 0.8);
-        margin: 0 25px;
-        border-radius: 2px;
+        height: 100%;
 
         @media #{$mobile} {
-            border-top: none;
-            border-left: 7px solid rgba($stockport-teal, 0.8);
-            padding-left: 1em;
-            margin: 0px 0px 1em 0px;
+            padding: 0 0 0 1em;
         }
 
         &:hover {
@@ -50,18 +70,13 @@
         @include h-s;
         color: $stockport-green;
         text-decoration: underline;
-        margin: 1em 0 0.5em 0;
+        margin: 0 0 0.5em 0;
     }
 
     &__teaser {
         color: black;
         text-decoration: none;
-        padding-bottom: 1em;
         margin: 0;
-
-        @media #{$mobile} {
-            padding-bottom: 0;
-        }
     }
 }
 
