@@ -1,19 +1,57 @@
-.topic-title {
-    margin-top: -1px;
-    background-color: $stockport-teal-darker;
-    padding: 0 25px;
-    padding-bottom: 20px;
-
-    h1, p {
-        color: white;
-    }
-
-    h1 {
-        @include h-xl;
-    }
-
-    p {
-        @include lead;
-    }
+.topic {
+    &-title {
+        margin-top: -1px;
+        background-color: $stockport-teal-darker;
+        padding: 0 25px;
+        padding-bottom: 20px;
     
+        h1, p {
+            color: white;
+        }
+    
+        h1 {
+            @include h-xl;
+        }
+    
+        p {
+            @include lead;
+        }
+    }
+
+    &-secondary-items :last-child {
+        border: none;
+    }
+
+    &-secondary-item {
+
+        &-container {
+            display: block;
+            border-bottom: 1px $stockport-mid-grey solid;
+            text-decoration: none;
+            margin-top: 1em;
+            padding-bottom: 1em;
+            cursor: pointer;
+
+            &:hover {
+                text-decoration: none;
+    
+                .topic-secondary-item-title {
+                    text-decoration: underline;
+                    text-decoration-thickness: 3px;
+                }
+            }
+        }
+
+        &-title {
+            @include h-s;
+            color: $stockport-green;
+            text-decoration: underline;
+            margin-bottom: 0.5em;
+        }
+
+        &-teaser {
+            color: black;
+            margin: 0;
+        }
+    }
 }

@@ -34,13 +34,14 @@
         </div>
     </section>
 
-    <div class="placeholder placeholder-medium">
+    <div class="placeholder placeholder-medium placeholder-bg-grey">
         <h2>Primary Navigation</h2>
     </div>
 
-     <div class="placeholder placeholder-medium placeholder-bg-grey">
-        <h2>Secondary Navigation</h2>
-    </div>
+    @if (topic.SecondaryItems.Any())
+    {
+        <partial name="TopicSecondaryItems" model='topic.SecondaryItems'/>
+    }
 
     @if(topic.CallToAction is not null)
     {
