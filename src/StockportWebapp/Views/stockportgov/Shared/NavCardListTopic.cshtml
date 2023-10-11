@@ -1,0 +1,14 @@
+﻿@model NavCardList
+@{
+    var itemCount = Model.Items.Count;
+    string marginClass = (itemCount % 4  == 0) ? "navcard--no-margin" : string.Empty;
+}
+
+<ul class="navcard-wrapper navcard-wrapper--no-margin">
+    @foreach (var navCard in Model.Items)
+    {
+        <li class="navcard navcard--width-25 navcard--grey navcard--border @marginClass">
+            <partial name="NavCardTopic" model="navCard" />
+        </li>
+    }
+</ul>

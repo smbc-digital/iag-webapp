@@ -65,5 +65,30 @@
             EventCategory = eventCategory;
             CallToAction = callToAction;
         }
+
+        public NavCardList Services
+        {
+            get
+            {
+                var result = new NavCardList
+                {
+                    Items = new List<NavCard>()
+                };
+                
+                foreach (var topic in SubItems)
+                {
+                    var item = new NavCard
+                    {
+                        Title = topic.Title,
+                        Url = topic.NavigationLink,
+                        Teaser = topic.Teaser
+                    };
+
+                    result.Items.Add(item);
+                }
+
+                return result;
+            }
+        }
     }
 }
