@@ -66,7 +66,7 @@
             CallToAction = callToAction;
         }
 
-        public NavCardList Services
+        public NavCardList PrimaryItems
         {
             get
             {
