@@ -1,0 +1,13 @@
+﻿@model IEnumerable<SubItem>
+
+<section class="section grid-container">
+    <div class="grid-100 topic-secondary-items">
+    @foreach(var item in Model)
+    {
+        <a class="topic-secondary-item-container">
+            <p class="topic-secondary-item-title">@item.Title</p>
+            <p class="topic-secondary-item-teaser">@item.Teaser</p>
+        </a>
+    }
+    </div>
+</section>

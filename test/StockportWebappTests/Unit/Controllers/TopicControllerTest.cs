@@ -4,8 +4,10 @@ public class TopicControllerTest
 {
     private readonly TopicController _controller;
     private readonly Mock<ITopicRepository> _repository;
+    private readonly Mock<IFeatureManager> _featureToggle;
     private const string BusinessId = "businessId";
     private readonly EventBanner _eventBanner;
+    private readonly CallToActionBanner _callToAction;
     private readonly Mock<IStockportApiEventsService> _stockportApiService = new();
 
     public TopicControllerTest()
@@ -15,8 +17,19 @@ public class TopicControllerTest
         config.Setup(o => o.GetEmailAlertsNewSubscriberUrl(BusinessId)).Returns(AppSetting.GetAppSetting("email-alerts-url"));
 
         _repository = new Mock<ITopicRepository>();
-        _controller = new TopicController(_repository.Object, config.Object, new BusinessId(BusinessId), _stockportApiService.Object);
+        _featureToggle = new Mock<IFeatureManager>();
+        _controller = new TopicController(_repository.Object, config.Object, new BusinessId(BusinessId), _stockportApiService.Object, _featureToggle.Object);
         _eventBanner = new EventBanner("title", "teaser", "icon", "link");
+        _callToAction = new CallToActionBanner()
+        {
+            Title = "title",
+            AltText = "altText",
+            ButtonText = "buttonText",
+            Colour = "colour",
+            Image = "image",
+            Link = "link",
+            Teaser = "teaser"
+        };
     }
 
     public SubItem CreateASubItem(int i)
@@ -32,7 +45,7 @@ public class TopicControllerTest
         var topic = new ProcessedTopic("Name", "slug", "<p>Summary</p>\n", "Teaser", "metaDescription", "Icon", "Image", "Image", subItems, null, null,
             new List<Crumb>(), new List<Alert>(), true, "test-id", _eventBanner, "expandingLinkText",
             new List<ExpandingLinkBox> { new ExpandingLinkBox("title", subItems) }, string.Empty, string.Empty, true,
-            new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty), string.Empty);
+            new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty), string.Empty, _callToAction);
 
         const string slug = "healthy-living";
         _repository.Setup(o => o.Get<ProcessedTopic>(slug)).ReturnsAsync(new HttpResponse(200, topic, string.Empty));
@@ -59,6 +72,13 @@ public class TopicControllerTest
         result.ExpandingLinkTitle.Should().Be("expandingLinkText");
         result.ExpandingLinkBoxes.First().Title.Should().Be("title");
         result.ExpandingLinkBoxes.First().Links[0].Type.Should().Be("topic");
+        result.CallToAction.Title.Should().Be(_callToAction.Title);
+        result.CallToAction.AltText.Should().Be(_callToAction.AltText);
+        result.CallToAction.ButtonText.Should().Be(_callToAction.ButtonText);
+        result.CallToAction.Colour.Should().Be(_callToAction.Colour);
+        result.CallToAction.Image.Should().Be(_callToAction.Image);
+        result.CallToAction.Link.Should().Be(_callToAction.Link);
+        result.CallToAction.Teaser.Should().Be(_callToAction.Teaser);
     }
 
     [Fact]
@@ -68,7 +88,7 @@ public class TopicControllerTest
 
         var topic = new ProcessedTopic("Name", "slug", "<p>Summary</p>", "Teaser", "metaDescription", "Icon", "Image", "Image", subItems, null, null,
           new List<Crumb>(), new List<Alert>(), true, "test-id", _eventBanner, "expandingLinkText", new List<ExpandingLinkBox>(), string.Empty, string.Empty, true,
-           new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty), string.Empty);
+           new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty), string.Empty, _callToAction);
 
         const string slug = "healthy-living";
         _repository.Setup(o => o.Get<ProcessedTopic>(slug)).ReturnsAsync(new HttpResponse(200, topic, string.Empty));
@@ -110,7 +130,7 @@ public class TopicControllerTest
 
         var topic = new ProcessedTopic("Name", "slug", "<p>Summary</p>", "Teaser", "metaDescription", "Icon", "Image", "Image", null, null, null,
            new List<Crumb>(), alerts, true, "test-id", _eventBanner, "expandingLinkText", new List<ExpandingLinkBox>(), string.Empty, string.Empty, true,
-            new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty), string.Empty);
+            new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty), string.Empty, _callToAction);
 
         const string slug = "healthy-living";
         _repository.Setup(o => o.Get<ProcessedTopic>(slug)).ReturnsAsync(new HttpResponse(200, topic, string.Empty));

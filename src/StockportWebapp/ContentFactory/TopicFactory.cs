@@ -20,7 +20,7 @@ public class TopicFactory
         return new ProcessedTopic(topic.Name, topic.Slug, summary, topic.Teaser, topic.MetaDescription, topic.Icon, topic.BackgroundImage,
             topic.Image, topic.SubItems, topic.SecondaryItems, topic.TertiaryItems, topic.Breadcrumbs, topic.Alerts, topic.EmailAlerts,
             topic.EmailAlertsTopicId, topic.EventBanner, topic.ExpandingLinkTitle, topic.ExpandingLinkBoxes, topic.PrimaryItemTitle,
-            topic.Title, topic.DisplayContactUs, topic.CampaignBanner, topic.EventCategory)
+            topic.Title, topic.DisplayContactUs, topic.CampaignBanner, topic.EventCategory, topic.CallToAction)
         {
             TriviaSection = topic.TriviaSection,
             Video = !string.IsNullOrEmpty(topic.Video.VideoEmbedCode) ?

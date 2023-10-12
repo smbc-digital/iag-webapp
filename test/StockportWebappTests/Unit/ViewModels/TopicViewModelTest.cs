@@ -12,7 +12,7 @@ public class TopicViewModelTest
 
         var topic = new ProcessedTopic("name", "slug", "metaDescription", "summary", "teaser", "icon", "backgroundimage", "image", new List<SubItem>(), new List<SubItem>(), new List<SubItem>(),
             new List<Crumb>(), new List<Alert>(), emailAlerts, emailAlertsTopicId, null, "expandingLinkText", new List<ExpandingLinkBox>(), string.Empty, string.Empty, true,
-             new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty), string.Empty);
+             new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty), string.Empty, new CallToActionBanner());
 
         var topicViewModel = new TopicViewModel(topic, EmailAlertsUrl);
 
@@ -29,7 +29,7 @@ public class TopicViewModelTest
             new List<SubItem>(), new List<SubItem>(), new List<SubItem>(),
             new List<Crumb>(), new List<Alert>(), emailAlerts, emailAlertsTopicId, null, "expandingLinkText",
             new List<ExpandingLinkBox>(), string.Empty, string.Empty, true,
-            new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty), string.Empty);
+            new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty), string.Empty, new CallToActionBanner());
 
         var topicViewModel = new TopicViewModel(topic, EmailAlertsUrl);
 

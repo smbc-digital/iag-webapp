@@ -39,6 +39,18 @@
             color: white;
         }
     }
+
+    &--pink {
+        background-color: $stockport-pink;
+    }
+    
+    &--purple {
+        background-color: $stockport-purple;
+    }
+
+    &--blue {
+        background-color: $stockport-blue;
+    }
 }
 
 html[dir="rtl"] {
