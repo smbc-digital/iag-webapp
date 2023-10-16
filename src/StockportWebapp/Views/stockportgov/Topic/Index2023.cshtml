@@ -37,16 +37,7 @@
         </div>
     </section>
 
-    <section class="section section--white section--no-margin">
-        <h2 class="visuallyhidden">@topic.PrimaryItemTitle</h2>
-        <div class="grid-container">
-            <div class="grid-100" data-cy="navcard-list">
-                <div class="section__content section__content--no-margin">
-                    <partial name="TopicNavCardList" model='topic.PrimaryItems'/>
-                </div>
-            </div>
-        </div>
-    </section>
+    <partial name="TopicPrimaryItems"/>
 
     @if (topic.SecondaryItems.Any())
     {
