@@ -8,4 +8,5 @@ public class CallToActionBanner
     public string Link { get; set; }
     public string ButtonText { get; set; }
     public string AltText { get; set; }
+    public string Colour { get; set; }
 }

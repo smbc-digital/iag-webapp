@@ -1,0 +1,74 @@
+@model TopicViewModel
+@{
+    var topic = Model.Topic;
+    ViewData["Title"] = topic.Name;
+    ViewData["og:title"] = topic.Name;
+    ViewData["Description"] = topic.MetaDescription;
+    Layout = "../Shared/_Layout2023.cshtml";
+}
+
+@section Alerts {
+    <div id="placeholder-alert" class="placeholder placeholder-bg-orange placeholder__full-width-block placeholder-xs">
+        <h2>Alerts</h2>
+        <span class="placeholder-close-button"><button onclick="hidePlaceholderCloseButton()">&#10006;</button></span>    
+    </div>
+
+    <script>
+        function hidePlaceholderCloseButton() {
+            document.getElementById('placeholder-alert').style.display = 'none';
+        }
+    </script>
+}
+
+@section Breadcrumbs {
+    <partial name="TopicBreadcrumb" model='topic.Breadcrumbs' />
+}
+
+    <section class="topic-title">
+        <div class="grid-container">
+            <div class="grid-100">
+                <h1>@topic.Name</h1>
+                @if (topic.Teaser is not null)
+                {
+                    <p>@Html.Raw(@topic.Teaser)</p>
+                }
+            </div>
+        </div>
+    </section>
+
+    <div class="placeholder placeholder-medium placeholder-bg-grey">
+        <h2>Primary Navigation</h2>
+    </div>
+
+    @if (topic.SecondaryItems.Any())
+    {
+        <partial name="TopicSecondaryItems" model='topic.SecondaryItems'/>
+    }
+
+    @if(topic.CallToAction is not null)
+    {
+        <section class="section section--white section--increased-vertical-margin">
+            <div class="grid-container">
+                <div class="grid-100">
+                    <partial name="CallToAction" model='topic.CallToAction'/>
+                </div>
+            </div>
+        </section>
+    }
+
+    <div class="placeholder placeholder-small placeholder-bg-grey">
+        <h2>Events Link/Banner</h2>
+    </div>
+
+    <div class="placeholder placeholder-small">
+        <h2>Groups Link/Banner</h2>
+    </div>
+
+    <div class="placeholder placeholder-small placeholder-bg-grey">
+        <h2>News Category Link/Banner</h2>
+    </div>
+
+    <div class="placeholder placeholder-small">
+        <h2>Partner Logos</h2>
+    </div>
+</div>
