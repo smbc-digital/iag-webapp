@@ -21,9 +21,10 @@
         public readonly string MetaDescription;
         public readonly CarouselContent CampaignBanner;
         public readonly CallToActionBanner CallToAction;
+        public readonly CallToActionBanner CallToActionPrimary;
         public readonly IEnumerable<SpotlightOnBanner> SpotlightOnBanner;
 
-        public ProcessedHomepage(IEnumerable<string> popularSearchTerms, string featuredTasksHeading, string featuredTasksSummary, IEnumerable<SubItem> featuredTasks, IEnumerable<SubItem> featuredTopics, IEnumerable<Alert> alerts, IEnumerable<CarouselContent> carouselContents, string backgroundImage, string foregroundImage, string foregroundImageLocation, string foregroundImageLink, string foregroundImageAlt, IEnumerable<News> lastNews, string freeText, Group featuredGroup, string eventCategory, string metaDescription, CarouselContent campaignBanner, CallToActionBanner callToAction, IEnumerable<SpotlightOnBanner> spotlightOnBanner)
+        public ProcessedHomepage(IEnumerable<string> popularSearchTerms, string featuredTasksHeading, string featuredTasksSummary, IEnumerable<SubItem> featuredTasks, IEnumerable<SubItem> featuredTopics, IEnumerable<Alert> alerts, IEnumerable<CarouselContent> carouselContents, string backgroundImage, string foregroundImage, string foregroundImageLocation, string foregroundImageLink, string foregroundImageAlt, IEnumerable<News> lastNews, string freeText, Group featuredGroup, string eventCategory, string metaDescription, CarouselContent campaignBanner, CallToActionBanner callToAction, CallToActionBanner callToActionPrimary, IEnumerable<SpotlightOnBanner> spotlightOnBanner)
         {
             PopularSearchTerms = popularSearchTerms;
             FeaturedTasksHeading = featuredTasksHeading;
@@ -44,6 +45,7 @@
             MetaDescription = metaDescription;
             CampaignBanner = campaignBanner;
             CallToAction = callToAction;
+            CallToActionPrimary = callToActionPrimary;
             SpotlightOnBanner = spotlightOnBanner;
         }
 
