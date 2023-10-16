@@ -39,78 +39,78 @@
 
 
 .modal-overlay {
-  background: $colorPrimary;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  position: fixed;
-  text-align: center;
-  z-index: -800;
-  opacity: 0;
-  overflow-y: scroll;
-  -webkit-transform: scale(0.5);
-  -ms-transform: scale(0.5);
-  transform: scale(0.5);
-  -webkit-transition: all 0.75s cubic-bezier(0.19, 1, 0.22, 1);
-  transition: transform 0.75s cubic-bezier(0.19, 1, 0.22, 1);
-  display: block;
-
-  .modal-header {
-    display: block;
-    text-align: right;
-    height: 70px;
-    margin-bottom: -70px;
-  }
-
-  .fa {
-    font-size: 30px;
-    color: $white;
-    opacity: 0.8;
-  }
-
-  .modal-box {
-    display: table;
-    width: 100%;
-    position: relative;
-    height: 100%;
-    overflow: scroll;
-
-    label {
-      padding-left: 10px;
-      padding-top: 10px;
-      opacity: 1;
-      color: $white;
-      font: 1em "Noto Sans",sans-serif;
-    }
-
-    .mobile-menu {
-      display: table-cell;
-      height: auto;
-      vertical-align: middle;
-      padding-top: 70px;
-    }
-
-    a {
-      text-decoration: none;
-    }
-  }
-
-  .button-overlay {
-    border-color: $white;
-    opacity: 1;
-    border-radius: 5px;
-    box-shadow: none;
-    position: relative;
-    right: 0;
+    background: $colorPrimary;
     top: 0;
-    margin: 10px 10px 0 0;
-    cursor: pointer;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    text-align: center;
+    z-index: -800;
+    opacity: 0;
+    overflow-y: scroll;
+    -webkit-transform: scale(0.5);
+    -ms-transform: scale(0.5);
+    transform: scale(0.5);
+    -webkit-transition: all 0.75s cubic-bezier(0.19, 1, 0.22, 1);
+    transition: transform 0.75s cubic-bezier(0.19, 1, 0.22, 1);
+    display: block;
 
-    label {
-      cursor: pointer;
+    .modal-header {
+        display: block;
+        text-align: right;
+        height: 70px;
+        margin-bottom: -70px;
     }
-  }
+
+    .fa {
+        font-size: 30px;
+        color: $white;
+        opacity: 0.8;
+    }
+
+    .modal-box {
+        display: table;
+        width: 100%;
+        position: relative;
+        height: 100%;
+        overflow: scroll;
+
+        label {
+            padding-left: 10px;
+            padding-top: 10px;
+            opacity: 1;
+            color: $white;
+            font: 1em $fontStack;
+        }
+
+        .mobile-menu {
+            display: table-cell;
+            height: auto;
+            vertical-align: middle;
+            padding-top: 70px;
+        }
+
+        a {
+            text-decoration: none;
+        }
+    }
+
+    .button-overlay {
+        border-color: $white;
+        opacity: 1;
+        border-radius: 5px;
+        box-shadow: none;
+        position: relative;
+        right: 0;
+        top: 0;
+        margin: 10px 10px 0 0;
+        cursor: pointer;
+
+        label {
+            cursor: pointer;
+        }
+    }
 }
 
 input:checked ~ .modal-overlay {

@@ -10,6 +10,10 @@ public class Homepage
     public IEnumerable<Alert> Alerts { get; }
     public IEnumerable<CarouselContent> CarouselContents { get; }
     public string BackgroundImage { get; }
+    public string ForegroundImage { get; }
+    public string ForegroundImageLocation { get; }
+    public string ForegroundImageLink { get; }
+    public string ForegroundImageAlt { get; }
     public IEnumerable<News> LastNews { get; set; }
     public string FreeText { get; }
     public Group FeaturedGroup { get; }
@@ -19,7 +23,7 @@ public class Homepage
     public CallToActionBanner CallToAction { get; set; }
     public IEnumerable<SpotlightOnBanner> SpotlightOnBanner { get; set; }
 
-    public Homepage(IEnumerable<string> popularSearchTerms, string featuredTasksHeading, string featuredTasksSummary, IEnumerable<SubItem> featuredTasks, IEnumerable<SubItem> featuredTopics, IEnumerable<Alert> alerts, IEnumerable<CarouselContent> carouselContents, string backgroundImage, string freeText, Group featuredGroup, string eventCategory, string metaDescription, CarouselContent campaignBanner, CallToActionBanner callToAction, IEnumerable<SpotlightOnBanner> spotlightOnBanner)
+    public Homepage(IEnumerable<string> popularSearchTerms, string featuredTasksHeading, string featuredTasksSummary, IEnumerable<SubItem> featuredTasks, IEnumerable<SubItem> featuredTopics, IEnumerable<Alert> alerts, IEnumerable<CarouselContent> carouselContents, string backgroundImage, string foregroundImage, string foregroundImageLocation, string foregroundImageLink, string foregroundImageAlt, string freeText, Group featuredGroup, string eventCategory, string metaDescription, CarouselContent campaignBanner, CallToActionBanner callToAction, IEnumerable<SpotlightOnBanner> spotlightOnBanner)
     {
         PopularSearchTerms = popularSearchTerms;
         FeaturedTasksHeading = featuredTasksHeading;
@@ -29,6 +33,10 @@ public class Homepage
         Alerts = alerts;
         CarouselContents = carouselContents;
         BackgroundImage = backgroundImage;
+        ForegroundImage = foregroundImage;
+        ForegroundImageLocation = foregroundImageLocation;
+        ForegroundImageLink = foregroundImageLink;
+        ForegroundImageAlt = foregroundImageAlt;
         FreeText = freeText;
         FeaturedGroup = featuredGroup;
         EventCategory = eventCategory;
@@ -41,5 +49,5 @@ public class Homepage
 
 public class NullHomepage : Homepage
 {
-    public NullHomepage() : base(Enumerable.Empty<string>(), string.Empty, string.Empty, new List<SubItem>(), new List<SubItem>(), new List<Alert>(), new List<CarouselContent>(), "", string.Empty, null, string.Empty, string.Empty, new NullCarouselContent(), new CallToActionBanner(), new List<NullSpotlightOnBanner>()) { }
+    public NullHomepage() : base(Enumerable.Empty<string>(), string.Empty, string.Empty, new List<SubItem>(), new List<SubItem>(), new List<Alert>(), new List<CarouselContent>(), "", string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, null, string.Empty, string.Empty, new NullCarouselContent(), new CallToActionBanner(), new List<NullSpotlightOnBanner>()) { }
 }

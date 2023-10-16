@@ -1,14 +1,14 @@
 .home-search {
     width: 100%;
     position: relative;
-    margin: 0 0 2em 0;
+    margin: 0 0 1em 0;
 
     @media #{$tablet} {
         margin: 0 0 1.75em 0;
     }
 
     &_search-input {
-        border: 2px solid $stockport-grey;
+        border: 1px solid $stockport-grey;
         border-radius: 3px;
         width: 100%;
         font-size: 1.3rem;
