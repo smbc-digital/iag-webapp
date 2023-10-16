@@ -1,11 +1,20 @@
 ﻿@model CallToActionBanner
 
-<div class="call-to-action section__content " data-cy="call-to-action">
-    <img src="@Model.Image?w=500&q=89" class="call-to-action__image" loading="lazy" alt="@Model.AltText" width="452" height="342">
+@if (Model is not null)
+{
+    <section class="section section--white section--increased-vertical-margin">
+        <div class="grid-container">
+            <div class="grid-100">
+                <div class="call-to-action section__content " data-cy="call-to-action">
+                    <img src="@Model.Image?w=500&q=89" class="call-to-action__image" loading="lazy" alt="@Model.AltText" width="452" height="342">
 
-    <div class="call-to-action-content">
-        <h3 class="call-to-action-content__title ">@Model.Title</h3>
-        <p class="call-to-action-content__teaser">@Model.Teaser</p>
-        <a href="@Model.Link" class="btn btn--inverse btn--width-30 btn--chevron-forward btn--bold btn--chevron-bold" data-cy="call-to-action-link">@Model.ButtonText</a>
-    </div> 
-</div>
+                    <div class="call-to-action-content">
+                        <h3 class="call-to-action-content__title ">@Model.Title</h3>
+                        <p class="call-to-action-content__teaser">@Model.Teaser</p>
+                        <a href="@Model.Link" class="btn btn--inverse btn--width-30 btn--chevron-forward btn--bold btn--chevron-bold" data-cy="call-to-action-link">@Model.ButtonText</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+}
