@@ -4,14 +4,16 @@
     ViewData["og:title"] = "Welcome to Stockport Council";
     ViewData["Description"] = @Model.HomepageContent.MetaDescription;
     Layout = "../Shared/_LayoutHome2023.cshtml";
+    
 }
 
 <partial name="CondolenceAlerts" model='Model.HomepageContent.CondolenceAlerts' />
 <partial name="GlobalAlerts" model='Model.HomepageContent.Alerts' />
 <partial name="HomepageHero" />
+<partial name="CallToAction" model='Model.HomepageContent.CallToActionPrimary' />
 <partial name="HomepageOurServices" />
 <partial name="HomepageWhatsOn" />
-<partial name="CallToAction" model='Model.HomepageContent.CallToAction' />
+<partial name="CallToAction" model='Model.HomepageContent.CallToAction' view-data='new ViewDataDictionary(ViewData) { { "AdditionalCssClass", "section--increased-vertical-margin"  } }'  />
 <partial name="HomepageSpotlightOn" />
 <partial name="PreFooter" />
 <partial name="EmailSubscribe2023" />

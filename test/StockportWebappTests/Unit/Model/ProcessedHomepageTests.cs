@@ -27,6 +27,7 @@ public class ProcessedHomepageTests
                                                             "meta description",
                                                             null,
                                                             new CallToActionBanner(),
+                                                            new CallToActionBanner(),
                                                             Enumerable.Empty<SpotlightOnBanner>());
 
     [Fact]

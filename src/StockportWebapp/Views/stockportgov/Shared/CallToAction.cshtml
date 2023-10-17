@@ -1,16 +1,18 @@
 ﻿@model CallToActionBanner
 @{
-    var containerColourClass = !string.IsNullOrEmpty(Model.Colour) && !Model.Colour.Equals("Teal") ? $"call-to-action--{Model.Colour.ToLower()}" : String.Empty;
-    var buttonColourClass = !string.IsNullOrEmpty(Model.Colour) && !Model.Colour.Equals("Teal") ? $"btn--{Model.Colour.ToLower()}" : String.Empty;
+    var containerColourClass = !string.IsNullOrEmpty(Model?.Colour) && !Model.Colour.Equals("Teal") ? $"call-to-action--{Model.Colour.ToLower()}" : String.Empty;
+    var buttonColourClass = !string.IsNullOrEmpty(Model?.Colour) && !Model.Colour.Equals("Teal") ? $"btn--{Model.Colour.ToLower()}" : String.Empty;
+    var additionalCSS = string.IsNullOrEmpty((string)ViewData["AdditionalCssClass"]) 
+                        ? string.Empty 
+                        : (string)ViewData["AdditionalCssClass"];
 }
 @if (Model is not null)
 {
-    <section class="section section--white section--increased-vertical-margin">
+    <section class="section section--white @additionalCSS">
         <div class="grid-container">
             <div class="grid-100">
                 <div class="call-to-action section__content @containerColourClass" data-cy="call-to-action">
                     <img src="@Model.Image?w=500&q=89" class="call-to-action__image" loading="lazy" alt="@Model.AltText" width="452" height="342">
-
                     <div class="call-to-action-content">
                         <h3 class="call-to-action-content__title ">@Model.Title</h3>
                         <p class="call-to-action-content__teaser">@Model.Teaser</p>
