@@ -8,7 +8,7 @@ public class ProcessedTopicTests
                                                             "teaser",
                                                             "meta description",
                                                             "icon",
-                                                            "backroundImage",
+                                                            "backgroundImage",
                                                             "image",
                                                             new List<SubItem> {
                                                                 new("primary-items", "Primary Items", "Teaser", "Icon.ico", "Article", string.Empty, new List<SubItem>())
@@ -20,8 +20,8 @@ public class ProcessedTopicTests
                                                             new List<Crumb>(),
                                                             new List<Alert> {
                                                                 new("Test Alert", "Test", "Test Body", "Warning", new DateTime(2020, 1, 1), new DateTime(2040, 1, 1), "test-warning-alert", false, string.Empty),
-                                                                new Alert("Test Alert", "Test", "Test Body", "Error", new DateTime(2020, 1, 1), new DateTime(2040, 1, 1), "test-error-alert", false, string.Empty),
-                                                                new Alert("Test Alert", "Test", "Test Body", "Condolence", new DateTime(2020, 1, 1), new DateTime(2040, 1, 1), "test-condolence-alert", false, string.Empty),
+                                                                new("Test Alert", "Test", "Test Body", "Error", new DateTime(2020, 1, 1), new DateTime(2040, 1, 1), "test-error-alert", false, string.Empty),
+                                                                new("Test Alert", "Test", "Test Body", "Condolence", new DateTime(2020, 1, 1), new DateTime(2040, 1, 1), "test-condolence-alert", false, string.Empty),
                                                             },
                                                             true,
                                                             "email-alerts",
