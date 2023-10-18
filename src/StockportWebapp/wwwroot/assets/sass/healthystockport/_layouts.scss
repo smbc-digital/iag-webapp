@@ -384,37 +384,38 @@ footer .l-dashed-list {
 }
 
 .skip-to-main-content {
-  display: block;
+    display: block;
+    background: white;
 
-  a.skip-main {
-    left: -999px;
-    position: absolute;
-    top: auto;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-    z-index: -999;
-  }
+    a.skip-main {
+        left: -999px;
+        position: absolute;
+        top: auto;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        z-index: -999;
+    }
 
-  a.skip-main:focus, a.skip-main:active {
-    color: $white;
-    background-color: $goldenRod15;
-    left: auto;
-    top: auto;
-    width: 140px;
-    height: auto;
-    overflow: auto;
-    display: inline-block;
-    margin: 0.75em 0 0 30px;
-    padding: 5px;
-    text-align: center;
-    font-size: 1.2em;
-    z-index: 999;
-    color: $dark;
-    line-height: 1.5;
-    font-weight: 400;
-    font-size: .875em;
-  }
+    a.skip-main:focus, a.skip-main:active {
+        color: $white;
+        background-color: $goldenRod15;
+        left: auto;
+        top: auto;
+        width: 140px;
+        height: auto;
+        overflow: auto;
+        display: inline-block;
+        margin: 0.75em 0 0 30px;
+        padding: 5px;
+        text-align: center;
+        font-size: 1.2em;
+        z-index: 999;
+        color: $dark;
+        line-height: 1.5;
+        font-weight: 400;
+        font-size: .875em;
+    }
 }
 
 .grid-22 {
