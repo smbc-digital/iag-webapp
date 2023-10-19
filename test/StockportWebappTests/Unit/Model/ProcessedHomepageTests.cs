@@ -16,12 +16,17 @@ public class ProcessedHomepageTests
                                                             },
                                                             Enumerable.Empty<CarouselContent>(),
                                                             string.Empty,
+                                                            string.Empty,
+                                                            string.Empty,
+                                                            string.Empty,
+                                                            string.Empty,
                                                             Enumerable.Empty<News>(),
                                                             "Free text",
                                                             null,
                                                             "Event category",
                                                             "meta description",
                                                             null,
+                                                            new CallToActionBanner(),
                                                             new CallToActionBanner(),
                                                             Enumerable.Empty<SpotlightOnBanner>());
 

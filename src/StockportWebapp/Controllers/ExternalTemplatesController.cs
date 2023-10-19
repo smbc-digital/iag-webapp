@@ -8,4 +8,10 @@ public class ExternalTemplatesController : Controller
     {
         return View();
     }
+
+    [Route("/ExternalTemplates/DemocracyExtranet")]
+    public IActionResult DemocracyExtranet()
+    {
+        return View();
+    }
 }

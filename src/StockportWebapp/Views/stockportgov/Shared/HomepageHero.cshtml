@@ -1,0 +1,46 @@
+﻿@model HomepageViewModel
+
+@{
+    var foregroundImageLocationClass = string.Empty;
+    switch(Model.HomepageContent.ForegroundImageLocation)
+    {
+        case "End":
+            foregroundImageLocationClass = "homepageHero_image--end";
+            break;
+        case "Middle":
+            foregroundImageLocationClass = "homepageHero_image--center";
+            break;
+        default:
+            foregroundImageLocationClass = "homepageHero_image--start";
+            break;
+    }
+}
+
+<section class="homepageHero" data-cy="search-and-top-tasks">
+    <div class="homepageHero_background" style="background-image: url(@Model.HomepageContent.BackgroundImage)"></div>
+
+    <div class="grid-container homepageHero_wrapper">
+        <div class="grid-100">
+            <div class="homepageHero_image @foregroundImageLocationClass">
+                @if (!string.IsNullOrEmpty(Model.HomepageContent.ForegroundImage))
+                {
+                    @if (!string.IsNullOrEmpty(Model.HomepageContent.ForegroundImageLink))
+                    {
+                        <a href="@Model.HomepageContent.ForegroundImageLink">
+                            <img src="@Model.HomepageContent.ForegroundImage" alt="@Model.HomepageContent.ForegroundImageAlt" />
+                        </a>
+                    }
+                    else
+                    {
+                        <img src="@Model.HomepageContent.ForegroundImage" alt="@Model.HomepageContent.ForegroundImageAlt" />
+                    }
+                }
+            </div>
+            <div class="homepageHero_content">
+                <h1>Welcome to Stockport, creating opportunities for everyone</h1>
+                <partial name="Search2023" model='new Tuple<string, string, string, string>("cludo-search-hero-form", "Search on stockport.gov.uk", "cludo-search-bar", "website search")' />
+                <partial name="TopTasks" model='Model.HomepageContent.FeaturedTasks' />
+            </div>
+        </div>
+    </div>
+</section>

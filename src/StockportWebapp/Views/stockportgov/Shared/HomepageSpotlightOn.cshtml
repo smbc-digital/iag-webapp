@@ -1,0 +1,24 @@
+﻿@model HomepageViewModel
+@{
+    var SpotlightOnClasses = Model.HomepageContent.CallToAction is not null
+                            ? "section section--no-margin section--padded-bottom section--grey section--padded"
+                            : "section section--padded section--white";
+}
+
+@if(Model.HomepageContent.SpotlightOnBanner is not null && Model.HomepageContent.SpotlightOnBanner.Count() > 0)
+{
+<section class="@SpotlightOnClasses" data-cy="feature-item__wrapper">
+    <div class="grid-container">
+        <div class="grid-100">
+            <h2 class="section__title">Spotlight on</h2>
+            <p class="section__teaser section__teaser--padded-bottom">Find out about current campaigns and local projects.</p>
+            <div class="featured-item-container">
+                @foreach (var spotlight in Model.HomepageContent.SpotlightOnBanner)
+                {
+                    <partial name="FeaturedItem" model='spotlight' />
+                }
+            </div>
+        </div>
+    </div>
+</section>
+}

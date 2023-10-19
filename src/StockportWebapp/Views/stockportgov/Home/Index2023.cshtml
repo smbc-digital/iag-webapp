@@ -1,115 +1,19 @@
-﻿@inject StockportWebapp.Utils.ViewHelpers viewHelper
-@inject ICookiesHelper CookiesHelper
-@model HomepageViewModel
+﻿@model HomepageViewModel
 @{
     ViewData["Title"] = "Welcome to Stockport Council";
     ViewData["og:title"] = "Welcome to Stockport Council";
     ViewData["Description"] = @Model.HomepageContent.MetaDescription;
     Layout = "../Shared/_LayoutHome2023.cshtml";
-    var SpotlightOnClasses = Model.HomepageContent.CallToAction is not null
-                            ? "section section--no-margin section--padded-bottom section--grey section--padded"
-                            : "section section--padded section--white";
+    
 }
 
-@if (Model.HomepageContent.CondolenceAlerts is not null && Model.HomepageContent.CondolenceAlerts.Any())
-{
-    foreach (var condolence in Model.HomepageContent.CondolenceAlerts)
-    {
-        <div data-test="global-alert">
-            <partial name="CondolenceAlert" model='condolence'/>
-        </div>
-    }
-}
-
-@if (Model.HomepageContent.Alerts is not null && Model.HomepageContent.Alerts.Any())
-{
-    var alertCookies = CookiesHelper.GetCookies<Alert>("alerts");
-
-    @foreach (var alert in Model.HomepageContent.Alerts)
-    {
-        if (alertCookies is null || !alertCookies.Contains(alert.Slug))
-        {
-            <partial name="GlobalAlert" model='alert' />
-        }
-    }
-}
-
-<section class="section top-tasks-wrapper" data-cy="search-and-top-tasks">
-    <div class="grid-container">
-        <div class="grid-100">
-            <partial name="Search2023" model='new Tuple<string, string, string, string>("cludo-search-hero-form", "Search on stockport.gov.uk", "cludo-search-bar", "website search")'/>            
-            <partial name="TopTasks" model='Model.HomepageContent.FeaturedTasks'/>
-        </div>
-    </div>
-
-    <div class="skyline-wrapper"></div>
-</section>
-
-<section class="section section--white">
-    <div class="grid-container">
-        <div class="grid-100" data-cy="navcard-list">
-            <h2 class="section__title section__title--padded-bottom">Our services</h2>
-            <div class="section__content section__content--no-margin">
-                <partial name="NavCardList" model='Model.HomepageContent.Services'/>
-                <a class="btn btn--center btn--width-30 btn--margin-25 btn--chevron-forward" data-cy="view-more-services" href="topic/our-council-services">View more services</a>
-            </div>
-        </div>
-    </div>
-</section>
-
-
-@if (Model.FeaturedEvent is not null || Model.FeaturedNews is not null)
-{
-    <section class="section section--grey section--padded section--no-margin" data-cy="feature-card__wrapper">
-        <div class="grid-container">
-            <div class="grid-100">
-                <h2 class="section__title section__title--padded-bottom-m">What's happening in Stockport</h2>
-                <p class="section__teaser section__teaser--padded-bottom">Keep up to date with council news and local events.</p>
-
-                <div class="feature-card">
-                    @if (Model.FeaturedNews is not null)
-                    {
-                        <partial name="FeatureCard" model='Model.FeaturedNews.MapToFeatureCard()' />
-                    }
-
-                    @if (Model.FeaturedEvent is not null)
-                    {
-                        <partial name="FeatureCard" model='Model.FeaturedEvent.MapToFeatureCard()' />
-                    }
-                </div>
-            </div>
-        </div>
-    </section>
-}
-
-
-@if(Model.HomepageContent.CallToAction is not null)
-{
-    <section class="section section--white section--increased-vertical-margin">
-        <div class="grid-container">
-            <div class="grid-100">
-                <partial name="CallToAction" model='Model.HomepageContent.CallToAction'/>
-            </div>
-        </div>
-    </section>
-}
-
-@if(Model.HomepageContent.SpotlightOnBanner is not null && Model.HomepageContent.SpotlightOnBanner.Count() > 0)
-{
-    <section class="@SpotlightOnClasses" data-cy="feature-item__wrapper">
-        <div class="grid-container">
-            <div class="grid-100">
-                <h2 class="section__title section__title--padded-bottom-m">Spotlight on</h2>
-                <p class="section__teaser section__teaser--padded-bottom">Find out about current campaigns and local projects.</p>
-                <div class="featured-item-container">
-                    @foreach (var spotlight in Model.HomepageContent.SpotlightOnBanner)
-                    {
-                        <partial name="FeaturedItem" model='spotlight'/>
-                    }
-                </div>
-            </div>
-        </div>
-    </section>
-}
-
+<partial name="CondolenceAlerts" model='Model.HomepageContent.CondolenceAlerts' />
+<partial name="GlobalAlerts" model='Model.HomepageContent.Alerts' />
+<partial name="HomepageHero" />
+<partial name="CallToAction" model='Model.HomepageContent.CallToActionPrimary' />
+<partial name="HomepageOurServices" />
+<partial name="HomepageWhatsOn" />
+<partial name="CallToAction" model='Model.HomepageContent.CallToAction' view-data='new ViewDataDictionary(ViewData) { { "AdditionalCssClass", "section--increased-vertical-margin"  } }'  />
+<partial name="HomepageSpotlightOn" />
+<partial name="PreFooter" />
 <partial name="EmailSubscribe2023" />
