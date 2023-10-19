@@ -9,14 +9,14 @@
             font-size: .875em;
         }
 
-        li > a {
+        a {
             color: #fff;
             font-weight: 400;
             text-transform: none;
         }
 
         @media #{$mobile} {
-            padding: 0px;
+            padding: 5px 0px;
         }
     }
 }
