@@ -81,7 +81,8 @@
                     {
                         Title = topic.Title,
                         Url = topic.NavigationLink,
-                        Teaser = topic.Teaser
+                        Teaser = topic.Teaser,
+                        Image = topic.Image
                     };
 
                     result.Items.Add(item);

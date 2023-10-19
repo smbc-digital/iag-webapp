@@ -42,7 +42,7 @@ public class TopicRepositoryTests
     public async void Get_ShouldReturnHttpResponse_Successful()
     {
         // Arrange
-        var pTopic = new ProcessedTopic("Name", "slug", "<p>Summary</p>\n", "Teaser", "metaDescription", "Icon", "Image", "Image", new List<SubItem>(), null, null,
+        ProcessedTopic processedTopic = new("Name", "slug", "<p>Summary</p>\n", "Teaser", "metaDescription", "Icon", "Image", "Image", new List<SubItem>(), null, null,
             new List<Crumb>(), new List<Alert>(), true, "test-id", null, "expandingLinkText",
             new List<ExpandingLinkBox> { new("title", null) }, string.Empty, string.Empty, true,
             new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty), string.Empty, null)
@@ -50,7 +50,7 @@ public class TopicRepositoryTests
             Video = new()
         };
 
-        var httpResponse = new HttpResponse(200, JsonConvert.SerializeObject(pTopic), "OK");
+        HttpResponse httpResponse = new(200, JsonConvert.SerializeObject(processedTopic), "OK");
         _httpClient.Setup(_ => _.Get(It.IsAny<string>(), It.IsAny<Dictionary<string, string>>()))
                     .ReturnsAsync(httpResponse);
         
@@ -60,6 +60,6 @@ public class TopicRepositoryTests
         // Assert
         Assert.Equal(200, result.StatusCode);
         Assert.NotNull(result.Content);
-        Assert.IsType(pTopic.GetType(), result.Content);
+        Assert.IsType(processedTopic.GetType(), result.Content);
     }
 }

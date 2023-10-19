@@ -1,5 +1,3 @@
-using StockportWebapp.Models;
-
 namespace StockportWebappTests_Unit.Unit.Controllers;
 
 public class TopicControllerTest
@@ -45,7 +43,7 @@ public class TopicControllerTest
         // Arrange
         var subItems = Enumerable.Range(0, 1).Select(CreateASubItem).ToList();
 
-        var topic = new ProcessedTopic("Name", "slug", "<p>Summary</p>\n", "Teaser", "metaDescription", "Icon", "Image", "Image", subItems, null, null,
+        ProcessedTopic topic = new("Name", "slug", "<p>Summary</p>\n", "Teaser", "metaDescription", "Icon", "Image", "Image", subItems, null, null,
             new List<Crumb>(), new List<Alert>(), true, "test-id", _eventBanner, "expandingLinkText",
             new List<ExpandingLinkBox> { new("title", subItems) }, string.Empty, string.Empty, true,
             new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty), string.Empty, _callToAction);
@@ -92,12 +90,11 @@ public class TopicControllerTest
         // Arrange
         var subItems = Enumerable.Range(0, 1).Select(CreateASubItem).ToList();
 
-        var topic = new ProcessedTopic("Name", "slug", "<p>Summary</p>", "Teaser", "metaDescription", "Icon", "Image", "Image", subItems, null, null,
+        ProcessedTopic topic = new("Name", "slug", "<p>Summary</p>", "Teaser", "metaDescription", "Icon", "Image", "Image", subItems, null, null,
           new List<Crumb>(), new List<Alert>(), true, "test-id", _eventBanner, "expandingLinkText", new List<ExpandingLinkBox>(), string.Empty, string.Empty, true,
            new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty), string.Empty, _callToAction);
 
-        const string slug = "healthy-living";
-        _repository.Setup(_ => _.Get<ProcessedTopic>(slug)).ReturnsAsync(new HttpResponse(200, topic, string.Empty));
+        _repository.Setup(_ => _.Get<ProcessedTopic>("healthy-living")).ReturnsAsync(new HttpResponse(200, topic, string.Empty));
 
         // Act
         var indexPage = await _controller.Index("healthy-living") as ViewResult;
@@ -119,7 +116,6 @@ public class TopicControllerTest
     {
         // Arrange
         const string nonExistentTopic = "doesnt-exist";
-
         _repository.Setup(_ => _.Get<ProcessedTopic>(nonExistentTopic)).ReturnsAsync(new HttpResponse(404, null, "No topic found for 'doesnt-exist'"));
 
         // Act
@@ -133,18 +129,17 @@ public class TopicControllerTest
     public async Task Index_GetsAlertsForTopic()
     {
         // Arrange
-        var alerts = new List<Alert>
+        List<Alert> alerts = new()
         {
             new("title", "subheading", "body", Severity.Warning, new DateTime(0001, 1, 1, 0, 0, 0, DateTimeKind.Utc),
-                                                             new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc), string.Empty, false, string.Empty)
+            new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc), string.Empty, false, string.Empty)
         };
 
-        var topic = new ProcessedTopic("Name", "slug", "<p>Summary</p>", "Teaser", "metaDescription", "Icon", "Image", "Image", null, null, null,
-           new List<Crumb>(), alerts, true, "test-id", _eventBanner, "expandingLinkText", new List<ExpandingLinkBox>(), string.Empty, string.Empty, true,
+        ProcessedTopic topic = new("Name", "slug", "<p>Summary</p>", "Teaser", "metaDescription", "Icon", "Image", "Image", null, null, null,
+            new List<Crumb>(), alerts, true, "test-id", _eventBanner, "expandingLinkText", new List<ExpandingLinkBox>(), string.Empty, string.Empty, true,
             new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty), string.Empty, _callToAction);
 
-        const string slug = "healthy-living";
-        _repository.Setup(_ => _.Get<ProcessedTopic>(slug)).ReturnsAsync(new HttpResponse(200, topic, string.Empty));
+        _repository.Setup(_ => _.Get<ProcessedTopic>("healthy-living")).ReturnsAsync(new HttpResponse(200, topic, string.Empty));
 
         // Act
         var indexPage = await _controller.Index("healthy-living") as ViewResult;
@@ -167,17 +162,15 @@ public class TopicControllerTest
         // Arrange
         var subItems = Enumerable.Range(0, 1).Select(CreateASubItem).ToList();
 
-        var topic = new ProcessedTopic("Name", "slug", "<p>Summary</p>", "Teaser", "metaDescription", "Icon", "Image", "Image", subItems, null, null,
+        ProcessedTopic topic = new("Name", "slug", "<p>Summary</p>", "Teaser", "metaDescription", "Icon", "Image", "Image", subItems, null, null,
             new List<Crumb>(), new List<Alert>(), true, "test-id", _eventBanner, "expandingLinkText", new List<ExpandingLinkBox>(), string.Empty, string.Empty, true,
             new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty), "eventCategory", _callToAction);
 
-        const string slug = "healthy-living";
-        _repository.Setup(_ => _.Get<ProcessedTopic>(slug)).ReturnsAsync(new HttpResponse(200, topic, string.Empty));
-
+        _repository.Setup(_ => _.Get<ProcessedTopic>("healthy-living")).ReturnsAsync(new HttpResponse(200, topic, string.Empty));
         _stockportApiService.Setup(_ => _.GetEventsByCategory("eventCategory", true)).ReturnsAsync(new List<Event> { new EventBuilder().Build() });
 
         // Act
-        await _controller.Index(slug);
+        await _controller.Index("healthy-living");
 
         // Assert
         _stockportApiService.Verify(_ => _.GetEventsByCategory(It.IsAny<string>(), It.IsAny<bool>()), Times.Once);
@@ -189,7 +182,7 @@ public class TopicControllerTest
         // Arrange
         var subItems = Enumerable.Range(0, 1).Select(CreateASubItem).ToList();
 
-        var topic = new ProcessedTopic("Name", "slug", "<p>Summary</p>", "Teaser", "metaDescription", "Icon", "Image", "Image", subItems, null, null,
+        ProcessedTopic topic = new("Name", "slug", "<p>Summary</p>", "Teaser", "metaDescription", "Icon", "Image", "Image", subItems, null, null,
             new List<Crumb>(), new List<Alert>(), true, "test-id", _eventBanner, "expandingLinkText", new List<ExpandingLinkBox>(), string.Empty, string.Empty, true,
             new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty), "eventCategory", _callToAction);
 
