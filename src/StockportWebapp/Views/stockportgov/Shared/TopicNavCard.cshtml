@@ -4,14 +4,16 @@
     var borderCssClasses = displayImage ? "navcard__link navcard__link-image navcard__link--image-border" : "navcard__link navcard__link--border";
 }
 <a href="@Model.Url" class="@borderCssClasses" data-cy="nav-card-link">
-    @if(displayImage){
-        <div>
-            <img src="@Model.Image" class="navcard__image">
+    <div class="navcard__content">
+        @if(displayImage){
+            <div>
+                <img src="@Model.Image" class="navcard__image">
+            </div>
+        }
+        
+        <div class="navcard-content--padding">
+            <h3 class="navcard__title navcard__title--black">@Model.Title</h3>
+            <p class="navcard__teaser">@Model.Teaser</p>
         </div>
-    }
-    
-    <div class="navcard-content--padding">
-        <h3 class="navcard__title navcard__title--black">@Model.Title</h3>
-        <p class="navcard__teaser">@Model.Teaser</p>
     </div>
 </a>

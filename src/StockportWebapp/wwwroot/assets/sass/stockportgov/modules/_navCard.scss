@@ -106,6 +106,10 @@
         border-bottom: 10px solid rgba($stockport-teal, 0.6);
         border-radius: 3px;
         border-left: none;
+
+        @media #{$mobile} {
+            margin-bottom: 2em;
+        }
     }
 
     &--border-around {
@@ -192,6 +196,26 @@
             }
         }
     }
+
+    &__image {
+        border-radius: 3px 3px 0 0;
+        height: 215px;
+        width: 100%;
+        object-fit: cover;
+        object-position: top;
+
+        @media #{$mobile} {
+            max-height: 400px;
+            height: unset;
+        }
+    }
+
+    &__content {
+        display: flex;
+        flex-direction: column;
+        flex-basis: 0;
+        justify-content: space-between;
+    }
 }
 
 html[dir="rtl"] {
@@ -209,6 +233,14 @@ html[dir="rtl"] {
                 border-top: 1px solid rgba($stockport-grey, 0.2);
                 border-left: 1px solid rgba($stockport-grey, 0.2);
                 border-bottom: 1px solid rgba($stockport-grey, 0.2);
+            }
+        }
+
+        &--border-bottom {
+            @media #{$mobile} {
+                border-left: none;
+                border-right: none;
+                padding-right: 0;
             }
         }
     }
