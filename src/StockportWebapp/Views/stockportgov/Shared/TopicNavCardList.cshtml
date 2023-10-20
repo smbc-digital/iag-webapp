@@ -1,10 +1,14 @@
 ﻿@model NavCardList
+@{
+    bool displayImage = Model.Items.All(item => !string.IsNullOrEmpty(item.Image));
+    var borderCssClasses = displayImage ? "navcard--border-bottom" : "navcard--border-side navcard--border-top navcard--border-around";
+}
 
 <ul class="navcard-wrapper navcard-wrapper--no-margin">
     @foreach (var navCard in Model.Items)
     {
-        <li class="navcard navcard--width-33 navcard--grey navcard--border-top navcard--border-around">
-            <partial name="TopicNavCard" model="navCard" />
+        <li class="navcard navcard--width-33 navcard--grey @borderCssClasses ">
+            <partial name="TopicNavCard" model="navCard" view-data='new ViewDataDictionary(ViewData) {{"displayImage", @displayImage}}'/>
         </li>
     }
 </ul>

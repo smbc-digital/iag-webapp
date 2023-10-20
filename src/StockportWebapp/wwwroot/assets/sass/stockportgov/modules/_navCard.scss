@@ -101,6 +101,13 @@
         border-radius: 3px;
     }
 
+    &--border-bottom {
+        border-top: 1px solid rgba($stockport-grey, 0.2);
+        border-bottom: 10px solid rgba($stockport-teal, 0.6);
+        border-radius: 3px;
+        border-left: none;
+    }
+
     &--border-around {
         @media #{$mobile} {
             border-left: 10px solid rgba($stockport-teal, 0.6);
@@ -122,13 +129,23 @@
     }
 
     &__link {
-        padding-top: 1em;
         display: block;
         text-decoration: none;
         height: 100%;
 
-        @media #{$mobile} {
-            padding: 0 0 0 1em;
+        &--padding {
+            padding-top: 1em;
+
+            @media #{$mobile} {
+                padding: 0 0 0 1em;
+            }
+        }
+
+        &-image {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            justify-content: space-between;
         }
 
         &:hover {
@@ -140,31 +157,21 @@
             }
         }
 
-        &--padding {
-            padding-right: 0.75em;
-            padding-left: 0.75em;
-            padding-bottom: 1em;
-            height: calc(100% - 2em);
-
-            @media #{$mobile} {
-                padding-top: 1em;
-                padding-left: 1em;
-            }
-        }
-
         &--border {
             border: 1px solid rgba($stockport-grey, 0.2);
             border-top: none;
             border-radius: 0 0 3px 3px;
 
-            border-top-right-radius: 0;
-            border-bottom-right-radius: 3px;
-            border-top-left-radius: 0;
-            border-bottom-left-radius: 3px;
-    
             @media #{$mobile} {
                 border: none;
             }            
+        }
+
+        &--image-border {
+            border: 1px solid rgba($stockport-grey, 0.2);
+            border-top: none;
+            border-bottom: none;
+            border-radius: 3px 3px 0 0;
         }
     }
 
@@ -172,7 +179,19 @@
         color: black;
         text-decoration: none;
         margin: 0;
-    }    
+    }
+
+    &-content {
+        &--padding {
+            flex-grow: 1;
+            padding: 1em 0.75em 1.5em 0.75em;
+
+            @media #{$mobile} {
+                padding-top: 1em;
+                padding-left: 1em;
+            }
+        }
+    }
 }
 
 html[dir="rtl"] {
