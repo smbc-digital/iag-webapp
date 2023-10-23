@@ -7,13 +7,14 @@
     Layout = "../Shared/_Layout2023.cshtml";
 }
 
-@section Alerts {
-    <partial name="GlobalAlerts" model='topic.Alerts' />
-}
+<div class="grid-container-full-width">
+    @section Alerts {
+        <partial name="GlobalAlerts" model='topic.Alerts' />
+    }
 
-@section Breadcrumbs {
-    <partial name="TopicBreadcrumb" model='topic.Breadcrumbs' />
-}
+    @section Breadcrumbs {
+        <partial name="TopicBreadcrumb" model='topic.Breadcrumbs' />
+    }
 
     <section class="topic-title">
         <div class="grid-container">
@@ -31,9 +32,7 @@
         </div>
     </section>
 
-    <div class="placeholder placeholder-medium placeholder-bg-grey">
-        <h2>Primary Navigation</h2>
-    </div>
+    <partial name="TopicPrimaryItems"/>
 
     @if (topic.SecondaryItems.Any())
     {

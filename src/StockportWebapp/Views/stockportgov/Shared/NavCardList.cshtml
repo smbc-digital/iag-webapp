@@ -3,7 +3,7 @@
 <ul class="navcard-wrapper">
     @foreach (var navCard in Model.Items.Take(12))
     {
-        <li class="navcard navcard--width-25">
+        <li class="navcard navcard--width-25 navcard--visible">
             <partial name="NavCard" model="navCard" />
         </li>
     }
