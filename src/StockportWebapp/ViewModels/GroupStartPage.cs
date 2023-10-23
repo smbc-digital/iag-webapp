@@ -19,21 +19,10 @@ public class GroupStartPage
 
     public GroupStartPage() { }
 
-    public GenericFeaturedItemList GenericItemList
+    public GenericFeaturedItemList GenericItemList => new()
     {
-        get
-        {
-            var result = new GenericFeaturedItemList();
-            result.Items = new List<GenericFeaturedItem>();
-            foreach (var cat in Categories)
-            {
-                result.Items.Add(new GenericFeaturedItem { Icon = cat.Icon, Title = cat.Name, Url = $"/groups/results?category={cat.Slug}&order=Name+A-Z" });
-            }
-
-            result.ButtonText = string.Empty;
-            result.HideButton = true;
-
-            return result;
-        }
-    }
+        Items = Categories.Select(cat => new GenericFeaturedItem(cat.Name, $"/groups/results?category={cat.Slug}&order=Name+A-Z", cat.Icon)).ToList(),
+        ButtonText = string.Empty,
+        HideButton = true
+    };
 }

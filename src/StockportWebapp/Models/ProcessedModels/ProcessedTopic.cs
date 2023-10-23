@@ -66,15 +66,9 @@
             CallToAction = callToAction;
         }
 
-        public NavCardList PrimaryItems
+        public NavCardList PrimaryItems => new()
         {
-            get
-            {
-                return new NavCardList
-                {
-                    Items = SubItems.Select(subItem => new NavCard(subItem.Title, subItem.NavigationLink, subItem.Teaser, subItem.Image)).ToList()
-                };
-            }
-        }
+            Items = SubItems.Select(subItem => new NavCard(subItem.Title, subItem.NavigationLink, subItem.Teaser, subItem.Image)).ToList()
+        };
     }
 }

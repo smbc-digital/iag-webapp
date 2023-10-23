@@ -49,62 +49,19 @@
             SpotlightOnBanner = spotlightOnBanner;
         }
 
-        public GenericFeaturedItemList GenericItemList
-        {
-            get
+        public GenericFeaturedItemList GenericItemList => new(){
+            Items = FeaturedTopics.Select(topic => new GenericFeaturedItem(topic.Title, topic.NavigationLink, topic.Icon)
             {
-                var result = new GenericFeaturedItemList();
-                result.Items = new List<GenericFeaturedItem>();
-                foreach (var topic in FeaturedTopics)
-                {
-                    var item = new GenericFeaturedItem
-                    {
-                        Icon = topic.Icon,
-                        Title = topic.Title,
-                        Url = topic.NavigationLink,
-                        SubItems = new List<GenericFeaturedItem>()
-                    };
+                SubItems = topic.SubItems.Select(subItem => new GenericFeaturedItem(subItem.Title, subItem.NavigationLink, subItem.Icon)).ToList()
+            }).ToList(),
+            ButtonText = "View more services",
+            ButtonCssClass = "green"
+        };
 
-                    foreach (var subItem in topic.SubItems)
-                    {
-                        item.SubItems.Add(new GenericFeaturedItem { Title = subItem.Title, Url = subItem.NavigationLink, Icon = subItem.Icon });
-                    }
-
-                    result.Items.Add(item);
-                }
-
-                result.ButtonText = "View more services";
-                result.ButtonCssClass = "green";
-
-                return result;
-            }
-        }
-
-        public NavCardList Services
+        public NavCardList Services => new()
         {
-            get
-            {
-                var result = new NavCardList
-                {
-                    Items = new List<NavCard>()
-                };
-                
-                foreach (var topic in FeaturedTopics)
-                {
-                    var item = new NavCard
-                    {
-                        Title = topic.Title,
-                        Url = topic.NavigationLink,
-                        Teaser = topic.Teaser
-                    };
-
-                    result.Items.Add(item);
-                }
-
-                result.ButtonText = "View more services";
-
-                return result;
-            }
-        }
+            Items = FeaturedTopics.Select(topic => new NavCard(topic.Title, topic.NavigationLink, topic.Teaser, string.Empty)).ToList(),
+            ButtonText = "View more services"
+        };
     }
 }
