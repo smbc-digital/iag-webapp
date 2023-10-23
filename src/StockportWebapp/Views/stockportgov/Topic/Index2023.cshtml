@@ -8,16 +8,7 @@
 }
 
 @section Alerts {
-    <div id="placeholder-alert" class="placeholder placeholder-bg-orange placeholder__full-width-block placeholder-xs">
-        <h2>Alerts</h2>
-        <span class="placeholder-close-button"><button onclick="hidePlaceholderCloseButton()">&#10006;</button></span>    
-    </div>
-
-    <script>
-        function hidePlaceholderCloseButton() {
-            document.getElementById('placeholder-alert').style.display = 'none';
-        }
-    </script>
+    <partial name="GlobalAlerts" model='topic.Alerts' />
 }
 
 @section Breadcrumbs {
