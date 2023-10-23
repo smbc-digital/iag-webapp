@@ -29,7 +29,11 @@
         <div class="grid-container">
             <div class="grid-100">
                 <h1>@topic.Name</h1>
-                @if (topic.Teaser is not null)
+                @if (!string.IsNullOrEmpty(topic.Summary)) 
+                {
+                    <p>@Html.Raw(@topic.Summary)</p>
+                }
+                else if (!string.IsNullOrEmpty(topic.Teaser))
                 {
                     <p>@Html.Raw(@topic.Teaser)</p>
                 }
@@ -46,13 +50,7 @@
 
     @if(topic.CallToAction is not null)
     {
-        <section class="section section--white section--increased-vertical-margin">
-            <div class="grid-container">
-                <div class="grid-100">
-                    <partial name="CallToAction" model='topic.CallToAction'/>
-                </div>
-            </div>
-        </section>
+         <partial name="CallToAction" model='topic.CallToAction'/>
     }
 
     <div class="placeholder placeholder-small placeholder-bg-grey">

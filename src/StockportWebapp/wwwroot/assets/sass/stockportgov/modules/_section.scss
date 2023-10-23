@@ -47,7 +47,7 @@
         @include h-l;
         margin: 0px;
         text-decoration: none;
-        padding-bottom: 0.5em;
+        padding-bottom: 1rem;
 
         @media #{$mobile} {
             margin: 0 5px 0 5px;
@@ -63,15 +63,11 @@
         }
 
         &--padded-bottom {
-            padding-bottom: 0.75em;
+            padding-bottom: 1.5rem;
 
             @media #{$mobile} {
-                padding-bottom: 0.5em;
+                padding-bottom: 1rem;
             }
-        }
-
-        &--padded-bottom-m {
-            padding-bottom: 1rem;
         }
 
         &--margin-top {

@@ -61,11 +61,11 @@
 }
 
 .search-bar-header, .search-bar-mobile-header {
-  input.search-input {
-    @media #{$desktop} {
-      font: 1em/1.3 "Noto Sans",sans-serif;
+    input.search-input {
+        @media #{$desktop} {
+            font: 1em/1.3 $fontStack;
+        }
     }
-  }
 }
 
 .search-bar-mobile-header-container {
@@ -181,7 +181,7 @@
 }
 
 #cludo-search-results *, #cludo-search-form * {
-  font-family: "Noto Sans",sans-serif;
+    font-family: $fontStack;
 }
 
 #cludo-search-results, #cludo-search-form {

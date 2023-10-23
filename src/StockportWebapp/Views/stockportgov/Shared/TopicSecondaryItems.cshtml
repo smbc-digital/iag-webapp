@@ -1,13 +1,17 @@
 ﻿@model IEnumerable<SubItem>
 
 <section class="section grid-container">
-    <div class="grid-100 topic-secondary-items">
-    @foreach(var item in Model)
-    {
-        <a class="topic-secondary-item-container">
-            <p class="topic-secondary-item-title">@item.Title</p>
-            <p class="topic-secondary-item-teaser">@item.Teaser</p>
-        </a>
-    }
-    </div>
+    <nav class="grid-100">
+        <ul class="topic-secondary-item-list">
+        @foreach(var item in Model)
+        {
+            <li class="topic-secondary-item-container">
+                <a href="@item.NavigationLink" class="topic-secondary-item-link">
+                    <p class="topic-secondary-item-title">@item.Title</p>
+                    <p class="topic-secondary-item-teaser">@item.Teaser</p>
+                </a>
+            </li>
+        }
+        </ul>
+    </nav>
 </section>
