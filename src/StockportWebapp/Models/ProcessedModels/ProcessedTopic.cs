@@ -70,25 +70,10 @@
         {
             get
             {
-                var result = new NavCardList
+                return new NavCardList
                 {
-                    Items = new List<NavCard>()
+                    Items = SubItems.Select(subItem => new NavCard(subItem.Title, subItem.NavigationLink, subItem.Teaser, subItem.Image)).ToList()
                 };
-                
-                foreach (var topic in SubItems)
-                {
-                    var item = new NavCard
-                    {
-                        Title = topic.Title,
-                        Url = topic.NavigationLink,
-                        Teaser = topic.Teaser,
-                        Image = topic.Image
-                    };
-
-                    result.Items.Add(item);
-                }
-
-                return result;
             }
         }
     }
