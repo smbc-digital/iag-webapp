@@ -26,25 +26,13 @@
     }
 
     @* PACKAGE / VENDOR STYLESHEETS *@
-    @* <link rel=preload as=style onload="this.onload=null;this.rel='stylesheet'" href=~/assets/stylesheets/cludo-search-default.min.css asp-append-version=true /> *@
-    @* <link rel=preload as=style onload="this.onload=null;this.rel='stylesheet'" href=https://customer.cludo.com/css/templates/v2.1/essentials/cludo-search.min.css asp-append-version=true /> *@
-    @* <link rel=preload as=style onload="this.onload=null;this.rel='stylesheet'" href=~/assets/stylesheets/vendor/slick.min.css asp-append-version=true /> *@
+    <link rel=preload as=style onload="this.onload=null;this.rel='stylesheet'" href=~/assets/stylesheets/cludo-search-default.min.css asp-append-version=true />
     <link rel=preload as=style onload="this.onload=null;this.rel='stylesheet'" href=~/assets/stylesheets/vendor/unsemantic-grid-responsive-tablet-min.css asp-append-version=true />
 
     @* MAIN STYLESHEET(S) *@
     <link rel=stylesheet href=~/assets/stylesheets/site-sg-overrides.min.css asp-append-version=true />
 
     <link rel=preload as=style onload="this.onload=null;this.rel='stylesheet'" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />  
-    <noscript>
-        @*To replace the html class="no-js" as this is just used for a map on Group or Event pages to display or not*@
-        <style>
-            .group-map-container { display: none; }
-            .event-map-container { display: none; }
-            .search-bar, .search-bar-mobile-header-container, .search-bar-header-container, .show-search-button {
-                display:none;
-            }
-        </style>
-    </noscript>
 
     <link rel=alternate type=application/rss+xml href=/news/rss title="Stockport Council News Feed" />
     <link rel=alternate type=application/rss+xml href=/events/rss title="Stockport Council Events Feed" />
@@ -58,7 +46,8 @@
 </head>
 <body class='container-layout-free @(string.Concat("type-", ViewContext.RouteData.Values["controller"].ToString().ToLower()))'>
     <partial name=TagManager/TagManagerNoScript />
-    @* <div id="__ba_launchpad"></div> *@
+    @* NOTE: check if the below div is being used anywhere or if it's needed *@
+    <div id="__ba_launchpad"></div>
     <partial name=Header />
     @RenderSection("Alerts", false)
     @RenderSection("Breadcrumbs", false)
@@ -68,15 +57,5 @@
     <distributed-cache name=footer2023 expires-after=@TimeSpan.FromMinutes(ApplicationConfiguration.GetFooterCache(BusinessId.ToString())) enabled=true>
         @await Component.InvokeAsync("Footer2023")
     </distributed-cache>
-
-    <script>
-        require(['/assets/javascript/config-5de69769.min.js'], function() {
-            require(['jquery', 'matchbox'], 
-                function (_, matchbox) {
-                    matchbox.Init();
-                }
-            );
-        });
-    </script>
 </body>
 </html>

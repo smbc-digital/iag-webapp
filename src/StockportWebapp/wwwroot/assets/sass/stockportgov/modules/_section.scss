@@ -41,6 +41,14 @@
         &--no-margin {
             margin: 0px;
         }
+
+        @media #{$mobile} {
+            margin: 0 5px 0 5px;
+
+            &--no-margin {
+                margin: 0 5px 0 5px;
+            }
+        }
     }
 
     &__title {
