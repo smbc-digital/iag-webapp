@@ -84,8 +84,11 @@
         {
             get
             {
-                var result = new NavCardList();
-                result.Items = new List<NavCard>();
+                var result = new NavCardList
+                {
+                    Items = new List<NavCard>()
+                };
+                
                 foreach (var topic in FeaturedTopics)
                 {
                     var item = new NavCard

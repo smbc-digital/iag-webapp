@@ -5,7 +5,7 @@ public class TopicControllerTest
     private readonly TopicController _controller;
     private readonly Mock<ITopicRepository> _repository;
     private readonly Mock<IFeatureManager> _featureToggle;
-    private const string BusinessId = "businessId";
+    private const string BusinessId = "stockportgov";
     private readonly EventBanner _eventBanner;
     private readonly CallToActionBanner _callToAction;
     private readonly Mock<IStockportApiEventsService> _stockportApiService = new();
@@ -14,7 +14,7 @@ public class TopicControllerTest
     {
         var config = new Mock<IApplicationConfiguration>();
 
-        config.Setup(o => o.GetEmailAlertsNewSubscriberUrl(BusinessId)).Returns(AppSetting.GetAppSetting("email-alerts-url"));
+        config.Setup(_ => _.GetEmailAlertsNewSubscriberUrl(BusinessId)).Returns(AppSetting.GetAppSetting("email-alerts-url"));
 
         _repository = new Mock<ITopicRepository>();
         _featureToggle = new Mock<IFeatureManager>();
@@ -38,22 +38,25 @@ public class TopicControllerTest
     }
 
     [Fact]
-    public async Task GivenNavigateToTopicReturnsTopicWithExpectedProperties()
+    public async Task Index_ReturnsTopicWithExpectedProperties()
     {
+        // Arrange
         var subItems = Enumerable.Range(0, 1).Select(CreateASubItem).ToList();
 
-        var topic = new ProcessedTopic("Name", "slug", "<p>Summary</p>\n", "Teaser", "metaDescription", "Icon", "Image", "Image", subItems, null, null,
+        ProcessedTopic topic = new("Name", "slug", "<p>Summary</p>\n", "Teaser", "metaDescription", "Icon", "Image", "Image", subItems, null, null,
             new List<Crumb>(), new List<Alert>(), true, "test-id", _eventBanner, "expandingLinkText",
-            new List<ExpandingLinkBox> { new ExpandingLinkBox("title", subItems) }, string.Empty, string.Empty, true,
+            new List<ExpandingLinkBox> { new("title", subItems) }, string.Empty, string.Empty, true,
             new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty), string.Empty, _callToAction);
 
         const string slug = "healthy-living";
-        _repository.Setup(o => o.Get<ProcessedTopic>(slug)).ReturnsAsync(new HttpResponse(200, topic, string.Empty));
+        _repository.Setup(_ => _.Get<ProcessedTopic>(slug)).ReturnsAsync(new HttpResponse(200, topic, string.Empty));
 
+        // Act
         var indexPage = await _controller.Index(slug) as ViewResult;
         var viewModel = indexPage.ViewData.Model as TopicViewModel;
         var result = viewModel.Topic;
 
+        // Assert
         Assert.Equal("Name", result.Name);
         Assert.Equal("slug", result.Slug);
         Assert.Equal("<p>Summary</p>\n", result.Summary);
@@ -62,89 +65,138 @@ public class TopicControllerTest
         Assert.Equal("Image", result.BackgroundImage);
         Assert.Equal("Image", result.Image);
         Assert.True(result.DisplayContactUs);
-        result.EmailAlerts.Should().Be(true);
-        result.EmailAlertsTopicId.Should().Be("test-id");
-        result.EventBanner.Title.Should().Be(_eventBanner.Title);
-        result.EventBanner.Teaser.Should().Be(_eventBanner.Teaser);
-        result.MetaDescription.Should().Be("metaDescription");
-        result.EventBanner.Icon.Should().Be(_eventBanner.Icon);
-        result.EventBanner.Link.Should().Be(_eventBanner.Link);
-        result.ExpandingLinkTitle.Should().Be("expandingLinkText");
-        result.ExpandingLinkBoxes.First().Title.Should().Be("title");
-        result.ExpandingLinkBoxes.First().Links[0].Type.Should().Be("topic");
-        result.CallToAction.Title.Should().Be(_callToAction.Title);
-        result.CallToAction.AltText.Should().Be(_callToAction.AltText);
-        result.CallToAction.ButtonText.Should().Be(_callToAction.ButtonText);
-        result.CallToAction.Colour.Should().Be(_callToAction.Colour);
-        result.CallToAction.Image.Should().Be(_callToAction.Image);
-        result.CallToAction.Link.Should().Be(_callToAction.Link);
-        result.CallToAction.Teaser.Should().Be(_callToAction.Teaser);
+        Assert.True(result.EmailAlerts);
+        Assert.Equal("test-id", result.EmailAlertsTopicId);
+        Assert.Equal(_eventBanner.Title, result.EventBanner.Title);
+        Assert.Equal(_eventBanner.Teaser, result.EventBanner.Teaser);
+        Assert.Equal("metaDescription", result.MetaDescription);
+        Assert.Equal(_eventBanner.Icon, result.EventBanner.Icon);
+        Assert.Equal(_eventBanner.Link, result.EventBanner.Link);
+        Assert.Equal("expandingLinkText", result.ExpandingLinkTitle);
+        Assert.Equal("title", result.ExpandingLinkBoxes.First().Title);
+        Assert.Equal("topic", result.ExpandingLinkBoxes.First().Links.First().Type);
+        Assert.Equal(_callToAction.Title, result.CallToAction.Title);
+        Assert.Equal(_callToAction.AltText, result.CallToAction.AltText);
+        Assert.Equal(_callToAction.ButtonText, result.CallToAction.ButtonText);
+        Assert.Equal(_callToAction.Colour, result.CallToAction.Colour);
+        Assert.Equal(_callToAction.Image, result.CallToAction.Image);
+        Assert.Equal(_callToAction.Link, result.CallToAction.Link);
+        Assert.Equal(_callToAction.Teaser, result.CallToAction.Teaser);
     }
 
     [Fact]
-    public async Task GivenNavigateToTopicReturnsListOfSubItemsByTopic()
+    public async Task Index_ReturnsListOfSubItemsByTopic()
     {
+        // Arrange
         var subItems = Enumerable.Range(0, 1).Select(CreateASubItem).ToList();
 
-        var topic = new ProcessedTopic("Name", "slug", "<p>Summary</p>", "Teaser", "metaDescription", "Icon", "Image", "Image", subItems, null, null,
+        ProcessedTopic topic = new("Name", "slug", "<p>Summary</p>", "Teaser", "metaDescription", "Icon", "Image", "Image", subItems, null, null,
           new List<Crumb>(), new List<Alert>(), true, "test-id", _eventBanner, "expandingLinkText", new List<ExpandingLinkBox>(), string.Empty, string.Empty, true,
            new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty), string.Empty, _callToAction);
 
-        const string slug = "healthy-living";
-        _repository.Setup(o => o.Get<ProcessedTopic>(slug)).ReturnsAsync(new HttpResponse(200, topic, string.Empty));
+        _repository.Setup(_ => _.Get<ProcessedTopic>("healthy-living")).ReturnsAsync(new HttpResponse(200, topic, string.Empty));
 
+        // Act
         var indexPage = await _controller.Index("healthy-living") as ViewResult;
         var viewModel = indexPage.ViewData.Model as TopicViewModel;
         var result = viewModel.Topic;
-
         var subItem = result.SubItems.FirstOrDefault();
 
-        subItem.Title.Should().Be("Title0");
-        subItem.NavigationLink.Should().Be("/topic/sub-topic0");
-        subItem.Teaser.Should().Be("Teaser");
-        subItem.Icon.Should().Be("Icon");
-        result.EmailAlerts.Should().Be(true);
-        result.EmailAlertsTopicId.Should().Be("test-id");
+        // Assert
+        Assert.Equal("Title0", subItem.Title);
+        Assert.Equal("/topic/sub-topic0", subItem.NavigationLink);
+        Assert.Equal("Teaser", subItem.Teaser);
+        Assert.Equal("Icon", subItem.Icon);
+        Assert.True(result.EmailAlerts);
+        Assert.Equal("test-id", result.EmailAlertsTopicId);
     }
 
     [Fact]
-    public async Task GivesNotFoundOnRequestForNonExistentTopic()
+    public async Task Index_ReturnsNotFoundOnRequest_For_NonExistentTopic()
     {
+        // Arrange
         const string nonExistentTopic = "doesnt-exist";
+        _repository.Setup(_ => _.Get<ProcessedTopic>(nonExistentTopic)).ReturnsAsync(new HttpResponse(404, null, "No topic found for 'doesnt-exist'"));
 
-        _repository.Setup(o => o.Get<ProcessedTopic>(nonExistentTopic)).ReturnsAsync(new HttpResponse(404, null, "No topic found for 'doesnt-exist'"));
-
+        // Act
         var result = await _controller.Index(nonExistentTopic) as StatusCodeResult;
 
+        // Assert
         Assert.Equal(404, result.StatusCode);
     }
 
     [Fact]
-    public async Task GetsAlertsForTopic()
+    public async Task Index_GetsAlertsForTopic()
     {
-        var alerts = new List<Alert>
+        // Arrange
+        List<Alert> alerts = new()
         {
-            new Alert("title", "subheading", "body", Severity.Warning, new DateTime(0001, 1, 1, 0, 0, 0, DateTimeKind.Utc),
-                                                             new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc),String.Empty, false, string.Empty)
+            new("title", "subheading", "body", Severity.Warning, new DateTime(0001, 1, 1, 0, 0, 0, DateTimeKind.Utc),
+            new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc), string.Empty, false, string.Empty)
         };
 
-        var topic = new ProcessedTopic("Name", "slug", "<p>Summary</p>", "Teaser", "metaDescription", "Icon", "Image", "Image", null, null, null,
-           new List<Crumb>(), alerts, true, "test-id", _eventBanner, "expandingLinkText", new List<ExpandingLinkBox>(), string.Empty, string.Empty, true,
+        ProcessedTopic topic = new("Name", "slug", "<p>Summary</p>", "Teaser", "metaDescription", "Icon", "Image", "Image", null, null, null,
+            new List<Crumb>(), alerts, true, "test-id", _eventBanner, "expandingLinkText", new List<ExpandingLinkBox>(), string.Empty, string.Empty, true,
             new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty), string.Empty, _callToAction);
 
-        const string slug = "healthy-living";
-        _repository.Setup(o => o.Get<ProcessedTopic>(slug)).ReturnsAsync(new HttpResponse(200, topic, string.Empty));
+        _repository.Setup(_ => _.Get<ProcessedTopic>("healthy-living")).ReturnsAsync(new HttpResponse(200, topic, string.Empty));
 
+        // Act
         var indexPage = await _controller.Index("healthy-living") as ViewResult;
         var viewModel = indexPage.ViewData.Model as TopicViewModel;
         var result = viewModel.Topic;
 
-        result.Alerts.Should().HaveCount(1);
-        result.Alerts.First().Title.Should().Be("title");
-        result.Alerts.First().SubHeading.Should().Be("subheading");
-        result.Alerts.First().Body.Should().Be("<p>body</p>\n");
-        result.Alerts.First().Severity.Should().Be(Severity.Warning);
-        result.EmailAlerts.Should().Be(true);
-        result.EmailAlertsTopicId.Should().Be("test-id");
+        // Assert
+        Assert.Single(result.Alerts);
+        Assert.Equal("title", result.Alerts.First().Title);
+        Assert.Equal("subheading", result.Alerts.First().SubHeading);
+        Assert.Equal("<p>body</p>\n", result.Alerts.First().Body);
+        Assert.Equal(Severity.Warning, result.Alerts.First().Severity);
+        Assert.True(result.EmailAlerts);
+        Assert.Equal("test-id", result.EmailAlertsTopicId);
+    }
+
+    [Fact]
+    public async Task Index_Should_CallApiService_IfEventCategoryNotEmpty()
+    {
+        // Arrange
+        var subItems = Enumerable.Range(0, 1).Select(CreateASubItem).ToList();
+
+        ProcessedTopic topic = new("Name", "slug", "<p>Summary</p>", "Teaser", "metaDescription", "Icon", "Image", "Image", subItems, null, null,
+            new List<Crumb>(), new List<Alert>(), true, "test-id", _eventBanner, "expandingLinkText", new List<ExpandingLinkBox>(), string.Empty, string.Empty, true,
+            new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty), "eventCategory", _callToAction);
+
+        _repository.Setup(_ => _.Get<ProcessedTopic>("healthy-living")).ReturnsAsync(new HttpResponse(200, topic, string.Empty));
+        _stockportApiService.Setup(_ => _.GetEventsByCategory("eventCategory", true)).ReturnsAsync(new List<Event> { new EventBuilder().Build() });
+
+        // Act
+        await _controller.Index("healthy-living");
+
+        // Assert
+        _stockportApiService.Verify(_ => _.GetEventsByCategory(It.IsAny<string>(), It.IsAny<bool>()), Times.Once);
+    }
+
+    [Fact]
+    public async Task Index_Should_ReturnIndex2023_WithFeatureToggleEnabled()
+    {
+        // Arrange
+        var subItems = Enumerable.Range(0, 1).Select(CreateASubItem).ToList();
+
+        ProcessedTopic topic = new("Name", "slug", "<p>Summary</p>", "Teaser", "metaDescription", "Icon", "Image", "Image", subItems, null, null,
+            new List<Crumb>(), new List<Alert>(), true, "test-id", _eventBanner, "expandingLinkText", new List<ExpandingLinkBox>(), string.Empty, string.Empty, true,
+            new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty), "eventCategory", _callToAction);
+
+        const string slug = "healthy-living";
+        _repository.Setup(_ => _.Get<ProcessedTopic>(slug)).ReturnsAsync(new HttpResponse(200, topic, string.Empty));
+
+        _featureToggle.Setup(_ => _.IsEnabledAsync("TopicRedesign")).Returns(Task.FromResult(true));
+
+        // Act
+        var indexPage = await _controller.Index("healthy-living") as ViewResult;
+        var page = indexPage.ViewData.Model as TopicViewModel;
+
+        // Assert
+        Assert.True(await _featureToggle.Object.IsEnabledAsync("TopicRedesign"));
+        Assert.Equal("Index2023", indexPage.ViewName);
     }
 }
