@@ -8,10 +8,16 @@
     
         h1, p {
             color: white;
+
+            @media #{$mobile} {
+                margin-left: 5px;
+                margin-right: 5px;
+            }
         }
     
         h1 {
             @include h-xl;
+            letter-spacing: unset;
         }
     
         p {
@@ -29,6 +35,11 @@
 
         &-list {
             list-style-type: none;
+
+            @media #{$mobile} {
+                margin-left: 5px;
+                margin-right: 5px;
+            }
         }
 
         &-link {
