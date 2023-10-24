@@ -7,7 +7,6 @@
     Layout = "../Shared/_Layout2023.cshtml";
 }
 
-<div class="grid-container-full-width">
     @section Alerts {
         <partial name="GlobalAlerts" model='topic.Alerts' />
     }
@@ -44,9 +43,14 @@
          <partial name="CallToAction" model='topic.CallToAction'/>
     }
 
-    <div class="placeholder placeholder-small placeholder-bg-grey">
+    @if(topic.EventBanner is not null)
+    { 
+         <partial name="EventBanner" model='topic.EventBanner'/>
+    }
+
+    @* <div class="placeholder placeholder-small placeholder-bg-grey">
         <h2>Events Link/Banner</h2>
-    </div>
+    </div> *@
 
     <div class="placeholder placeholder-small">
         <h2>Groups Link/Banner</h2>
@@ -59,4 +63,3 @@
     <div class="placeholder placeholder-small">
         <h2>Partner Logos</h2>
     </div>
-</div>

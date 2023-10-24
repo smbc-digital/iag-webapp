@@ -24,7 +24,7 @@
         public IEnumerable<Alert> Alerts { get; }
         public bool EmailAlerts { get; }
         public string EmailAlertsTopicId { get; }
-        public EventBanner EventBanner { get; }
+        public EventCalendarBanner EventBanner { get; }
         public string ExpandingLinkTitle { get; }
         public IEnumerable<ExpandingLinkBox> ExpandingLinkBoxes { get; set; }
         public string PrimaryItemTitle { get; }
@@ -34,7 +34,7 @@
 
         public ProcessedTopic(string name, string slug, string summary, string teaser, string metaDescription, string icon,
             string backgroundImage, string image, IEnumerable<SubItem> subItems, IEnumerable<SubItem> secondaryItems, IEnumerable<SubItem> tertiaryItems,
-            IEnumerable<Crumb> breadcrumbs, IEnumerable<Alert> alerts, bool emailAlerts, string emailAlertsTopicId, EventBanner eventBanner,
+            IEnumerable<Crumb> breadcrumbs, IEnumerable<Alert> alerts, bool emailAlerts, string emailAlertsTopicId, EventCalendarBanner eventBanner,
             string expandingLinkTitle, IEnumerable<ExpandingLinkBox> expandingLinkBoxes, string primaryItemTitle, string title, bool displayContactUs, CarouselContent campaignBanner,
             string eventCategory, CallToActionBanner callToAction)
         {
