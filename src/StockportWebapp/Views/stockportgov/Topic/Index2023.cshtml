@@ -22,7 +22,14 @@
         <div class="grid-container">
             <div class="grid-100">
                 <h1>@topic.Name</h1>
-                @(string.IsNullOrEmpty(topic.Summary) && !string.IsNullOrEmpty(topic.Teaser) ? Html.Raw($"<p>{topic.Teaser}</p>") : Html.Raw(topic.Summary))
+                @if (!string.IsNullOrEmpty(topic.Summary))
+                {
+                    @Html.Raw(@topic.Summary)
+                }
+                else if (!string.IsNullOrEmpty(topic.Teaser))
+                {
+                    <p>@Html.Raw(@topic.Teaser)</p>
+                }
             </div>
         </div>
     </section>
