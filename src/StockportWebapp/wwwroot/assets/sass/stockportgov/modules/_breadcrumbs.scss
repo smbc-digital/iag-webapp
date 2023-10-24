@@ -17,6 +17,18 @@
 
         @media #{$mobile} {
             padding: 5px 0px;
+            margin-left: 5px;
+            margin-right: 5px;
+        }
+
+        li:not(:first-child) {
+            &::before {
+                content: "›";
+                font-family: FontAwesome;
+                margin-left: 5px;
+                margin-right: 8px;
+                font-size: 0.75em;
+            }
         }
     }
 }
