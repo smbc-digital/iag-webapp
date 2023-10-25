@@ -3,7 +3,7 @@
 @if (Model.Topic.PrimaryItems.Items.Any())
 {
     <section class="section section--white section--no-margin">
-        <h2 class="visuallyhidden">@(Model.Topic.PrimaryItemTitle ?? Model.Topic.Name)</h2>
+        @(string.IsNullOrEmpty(Model.Topic.PrimaryItemTitle) ? string.Empty : $"<h2 class=\"visuallyhidden\">{Model.Topic.PrimaryItemTitle}</h2>")
 
         <div class="grid-container">
             <div class="grid-100" data-cy="navcard-list">
