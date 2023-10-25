@@ -1,34 +1,34 @@
 .topic-breadcrumb-container {
     padding-top: 20px;
-    font-size: .875em;
     background-color: $stockport-teal-darker; 
     color: white;
 
     .breadcrumb {
-        .current {
-            font-size: .875em;
-        }
+        font-size: 1rem;
 
-        a {
-            color: #fff;
-            font-weight: 400;
-            text-transform: none;
+        li {
+            a {
+                color: #fff;
+                font-weight: 400;
+                text-transform: none;
+                font-size: 1rem;
+            }
+
+            &:not(:first-child) {
+                &::before {
+                    content: "\f105";
+                    font: normal normal normal 14px/1 FontAwesome;
+                    margin-left: 3px;
+                    margin-right: 6px;
+                    font-size: 14px;
+                }
+            }
         }
 
         @media #{$mobile} {
             padding: 5px 0px;
             margin-left: 5px;
             margin-right: 5px;
-        }
-
-        li:not(:first-child) {
-            &::before {
-                content: "›";
-                font-family: FontAwesome;
-                margin-left: 3px;
-                margin-right: 6px;
-                font-size: 0.75em;
-            }
         }
     }
 }
