@@ -147,9 +147,20 @@ html[dir="rtl"] {
         &--chevron-forward {
             &:before {
                 content: "\f104";
-                text-align: left;
-                float: left;
-                padding-right: 10px;
+                content: "\f104";
+                font: normal normal normal 14px/1 FontAwesome;
+                font-size: inherit;
+                width:20px;
+                height:20px;
+                position: absolute;
+                left: 15px;
+                top: 37.5%;
+                width: 20px;
+                display: inline-block;
+            }
+
+            &::after {
+                content: "";
             }
         }
     }
