@@ -107,6 +107,10 @@
 
         @media #{$mobile} {
             margin-bottom: 2em;
+
+            &:last-of-type {
+                margin-bottom: 1em;
+            }
         }
     }
 

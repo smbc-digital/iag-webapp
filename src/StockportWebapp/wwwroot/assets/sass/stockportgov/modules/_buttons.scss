@@ -116,15 +116,24 @@
     }
 
     &--chevron-forward {
-        &:before {
+        position: relative;
+        
+        span {
+            display: inline-block;
+            width: 80%;
+        }
+
+        &:after {
             content: "\f105";
             font: normal normal normal 14px/1 FontAwesome;
             font-size: inherit;
-            text-rendering: auto;
-            -moz-osx-font-smoothing: grayscale;
-            text-align: right;
-            float: right;
-            padding-left: 10px;
+            width:20px;
+            height:20px;
+            position: absolute;
+            right: 15px;
+            top: 37.5%;
+            width: 20px;
+            display: inline-block;
         }
     }
 
