@@ -3,7 +3,7 @@
 @if (Model.Topic.PrimaryItems.Items.Any())
 {
     <section class="section section--white section--no-margin">
-        @if(string.IsNullOrEmpty(Model.Topic.PrimaryItemTitle)){
+        @if(!string.IsNullOrEmpty(Model.Topic.PrimaryItemTitle)){
             <h2 class="visuallyhidden">@Model.Topic.PrimaryItemTitle</h2>
         }
         

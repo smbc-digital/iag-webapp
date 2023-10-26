@@ -107,6 +107,10 @@
 
         @media #{$mobile} {
             margin-bottom: 2em;
+
+            &:last-of-type {
+                margin-bottom: 1em;
+            }
         }
     }
 
@@ -148,6 +152,10 @@
             flex-direction: column;
             flex-grow: 1;
             justify-content: space-between;
+
+            @media #{$mobile}{
+                display: block;
+            }
         }
 
         &:hover {
