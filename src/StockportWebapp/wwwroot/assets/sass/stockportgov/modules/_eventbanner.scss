@@ -186,6 +186,24 @@
       }
   }
 
+  &-chevron-container {
+    width: 10%; 
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+    text-align: center;
+
+    @media #{$mobile, $tablet} {
+      display: none;
+    }
+}
+
+  &__chevron {
+    color: white;
+    
+  }
+
   &-icon-container {
           width: 20%; 
           display: flex;
@@ -202,23 +220,25 @@
   }
 
   &__icon {
-    font-size: 80px;
+    font-size: 100px;
     color: white;
 }
 
   &-content {
       width: 80%;
-      padding: 1.5em;
+      padding: 2.5em 0;
       color: white;
 
-      @media #{$tablet} {
+      @media #{$tablet, mobile} {
           width: auto;
+          padding: 1.5em;
       }
 
       &__title {
           @include h-ml;
           margin-bottom: 0.75em;
           text-decoration: underline;
+          text-decoration-thickness: 1.5px;
           color: white;
           margin-top: 0;
       }
