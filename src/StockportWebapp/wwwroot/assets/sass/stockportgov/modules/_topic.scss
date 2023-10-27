@@ -35,6 +35,7 @@
 
         &-list {
             list-style-type: none;
+            margin-bottom: 0;
 
             @media #{$mobile} {
                 margin-left: 5px;
@@ -57,12 +58,16 @@
                     text-decoration-thickness: 3px;
                 }
             }
+
+            &:last-child {
+                padding-bottom: 0.5em;
+            }
         }
 
         &-container {
             margin: 0;
             padding: 0;
-            border-bottom: 1px $stockport-mid-grey solid;
+            border-bottom: 1px solid #ccc;
             
         }
 

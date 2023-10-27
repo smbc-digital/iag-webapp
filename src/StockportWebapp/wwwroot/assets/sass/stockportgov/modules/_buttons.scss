@@ -21,6 +21,11 @@
         width: 100%;
     }
 
+    &_text {
+        display: inline-block;
+        width: 80%;
+    }
+
     &_icon {
         margin: 0 0.5em;
     }
@@ -117,11 +122,6 @@
 
     &--chevron-forward {
         position: relative;
-        
-        span {
-            display: inline-block;
-            width: 80%;
-        }
 
         &:after {
             content: "\f105";
@@ -133,6 +133,23 @@
             right: 15px;
             top: 37.5%;
             display: inline-block;
+        }
+    }
+
+    &--envelope {
+        &_text {
+            &::before {
+                content: "\f0e0";
+                font: normal normal normal 14px/1 FontAwesome;
+                font-size: inherit;
+                width:20px;
+                height:20px;
+                left: 15px;
+                top: 37.5%;
+                display: inline-block;
+                margin-left: .5em;
+                margin-right: .5em;
+            }
         }
     }
 
