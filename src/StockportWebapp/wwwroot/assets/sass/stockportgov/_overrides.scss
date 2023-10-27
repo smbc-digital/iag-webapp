@@ -160,10 +160,15 @@ h6 {
 
     #header {
         max-width: 1260px;
-        overflow-y: hidden;
     }
 }
 
 .grid-container {
     max-width: 1260px
+}
+
+html[dir="rtl"] {
+    #header {
+        overflow-y: hidden;
+    }
 }
