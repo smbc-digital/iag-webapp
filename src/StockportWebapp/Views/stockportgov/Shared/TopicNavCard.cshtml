@@ -8,10 +8,10 @@
         @if(displayImage){
             <div>
                 <img src="@Model.Image" class="navcard__image"
-                    srcset="@Model.Image?w=730&q=89 730w,
+                    srcset="@Model.Image?w=720&q=89 720w,
                             @Model.Image?w=294&q=89 294w,
                             @Model.Image?w=378&q=89 378w"
-                     sizes="(max-width: 767px) 730px,
+                     sizes="(max-width: 767px) 720px,
                             ((min-width: 768px) and (max-width: 1023px)) 294px,
                             (min-width: 1024px) 378px"
                     src="@Model.Image?w=730&q=89" loading="lazy" alt="" height="215" width="350">
