@@ -1,5 +1,4 @@
 .topic {
-
     &-title {
         margin-top: -1px;
         background-color: $stockport-teal-darker;
@@ -25,16 +24,14 @@
         }
     }
 
-
-
     &-secondary-item-list :last-child {
         border: none;
     }
 
     &-secondary-item {
-
         &-list {
             list-style-type: none;
+            margin-bottom: 0;
 
             @media #{$mobile} {
                 margin-left: 5px;
@@ -45,7 +42,7 @@
         &-link {
             display: block;
             text-decoration: none;
-            margin-top: 1em;
+            padding-top: 1em;
             padding-bottom: 1em;
             cursor: pointer;
 
@@ -62,8 +59,11 @@
         &-container {
             margin: 0;
             padding: 0;
-            border-bottom: 1px $stockport-mid-grey solid;
+            border-bottom: 1px solid #ccc;
             
+            &:last-child > a {
+                padding-bottom: 0.5em;
+            }
         }
 
         &-title {
