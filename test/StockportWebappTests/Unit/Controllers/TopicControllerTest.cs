@@ -46,7 +46,7 @@ public class TopicControllerTest
         ProcessedTopic topic = new("Name", "slug", "<p>Summary</p>\n", "Teaser", "metaDescription", "Icon", "Image", "Image", subItems, null, null,
             new List<Crumb>(), new List<Alert>(), true, "test-id", _eventBanner, "expandingLinkText",
             new List<ExpandingLinkBox> { new("title", subItems) }, string.Empty, string.Empty, true,
-            new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty), string.Empty, _callToAction);
+            new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty), string.Empty, _callToAction, null, string.Empty);
 
         const string slug = "healthy-living";
         _repository.Setup(_ => _.Get<ProcessedTopic>(slug)).ReturnsAsync(new HttpResponse(200, topic, string.Empty));
@@ -92,7 +92,7 @@ public class TopicControllerTest
 
         ProcessedTopic topic = new("Name", "slug", "<p>Summary</p>", "Teaser", "metaDescription", "Icon", "Image", "Image", subItems, null, null,
           new List<Crumb>(), new List<Alert>(), true, "test-id", _eventBanner, "expandingLinkText", new List<ExpandingLinkBox>(), string.Empty, string.Empty, true,
-           new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty), string.Empty, _callToAction);
+           new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty), string.Empty, _callToAction, null, string.Empty);
 
         _repository.Setup(_ => _.Get<ProcessedTopic>("healthy-living")).ReturnsAsync(new HttpResponse(200, topic, string.Empty));
 
@@ -137,7 +137,7 @@ public class TopicControllerTest
 
         ProcessedTopic topic = new("Name", "slug", "<p>Summary</p>", "Teaser", "metaDescription", "Icon", "Image", "Image", null, null, null,
             new List<Crumb>(), alerts, true, "test-id", _eventBanner, "expandingLinkText", new List<ExpandingLinkBox>(), string.Empty, string.Empty, true,
-            new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty), string.Empty, _callToAction);
+            new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty), string.Empty, _callToAction, null, string.Empty);
 
         _repository.Setup(_ => _.Get<ProcessedTopic>("healthy-living")).ReturnsAsync(new HttpResponse(200, topic, string.Empty));
 
@@ -164,7 +164,7 @@ public class TopicControllerTest
 
         ProcessedTopic topic = new("Name", "slug", "<p>Summary</p>", "Teaser", "metaDescription", "Icon", "Image", "Image", subItems, null, null,
             new List<Crumb>(), new List<Alert>(), true, "test-id", _eventBanner, "expandingLinkText", new List<ExpandingLinkBox>(), string.Empty, string.Empty, true,
-            new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty), "eventCategory", _callToAction);
+            new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty), "eventCategory", _callToAction, null, string.Empty);
 
         _repository.Setup(_ => _.Get<ProcessedTopic>("healthy-living")).ReturnsAsync(new HttpResponse(200, topic, string.Empty));
         _stockportApiService.Setup(_ => _.GetEventsByCategory("eventCategory", true)).ReturnsAsync(new List<Event> { new EventBuilder().Build() });
@@ -184,7 +184,7 @@ public class TopicControllerTest
 
         ProcessedTopic topic = new("Name", "slug", "<p>Summary</p>", "Teaser", "metaDescription", "Icon", "Image", "Image", subItems, null, null,
             new List<Crumb>(), new List<Alert>(), true, "test-id", _eventBanner, "expandingLinkText", new List<ExpandingLinkBox>(), string.Empty, string.Empty, true,
-            new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty), "eventCategory", _callToAction);
+            new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty), "eventCategory", _callToAction, null, string.Empty);
 
         const string slug = "healthy-living";
         _repository.Setup(_ => _.Get<ProcessedTopic>(slug)).ReturnsAsync(new HttpResponse(200, topic, string.Empty));

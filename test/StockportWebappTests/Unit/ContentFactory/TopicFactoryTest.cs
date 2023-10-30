@@ -33,7 +33,7 @@ public class TopicFactoryTest
         _topic = new Topic("name", Slug, Summary, Teaser, MetaDescription, Icon, BackgroundImage, Image, _subItems, _secondaryItems, _tertiaryItems, _breadcrumbs,
             new List<Alert>(), false, "emailAlertsTopic", new EventBanner("title", "teaser", "icon", "link"), "expanding Link Title",
             new List<ExpandingLinkBox>(), "primary Item Title", Title, true, new CarouselContent("Title", "Teaser", "Image", "url"),
-            "event Category")
+            "event Category", null, string.Empty)
         {
             Video = new()
         };

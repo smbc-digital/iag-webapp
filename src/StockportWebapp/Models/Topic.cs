@@ -36,10 +36,8 @@ public class Topic
         }
     }
 
-    private static IEnumerable<SubItem> ConcatSubItems(IEnumerable<SubItem> primary, IEnumerable<SubItem> secondary, int take)
-    {
-        return secondary != null ? primary.Concat(secondary.Take(take)) : primary;
-    }
+    private static IEnumerable<SubItem> ConcatSubItems(IEnumerable<SubItem> primary, IEnumerable<SubItem> secondary, int take) => 
+        secondary != null ? primary.Concat(secondary.Take(take)) : primary;
 
     public IEnumerable<Crumb> Breadcrumbs { get; }
     public IEnumerable<Alert> Alerts { get; }
@@ -52,11 +50,13 @@ public class Topic
     public bool DisplayContactUs { get; set; }
     public CarouselContent CampaignBanner { get; }
     public string EventCategory { get; set; }
+    public List<GroupBranding> TopicBranding { get; init; }
+    public string LogoAreaTitle { get; }
 
     public Topic(string name, string slug, string summary, string teaser, string metaDescription, string icon,
         string backgroundImage, string image, IEnumerable<SubItem> subItems, IEnumerable<SubItem> secondaryItems, IEnumerable<SubItem> tertiaryItems,
         IEnumerable<Crumb> breadcrumbs, IEnumerable<Alert> alerts, bool emailAlerts, string emailAlertsTopicId, EventBanner eventBanner,
-        string expandingLinkTitle, IEnumerable<ExpandingLinkBox> expandingLinkBoxes, string primaryItemTitle, string title, bool displayContactUs, CarouselContent campaignBanner, string eventCategory)
+        string expandingLinkTitle, IEnumerable<ExpandingLinkBox> expandingLinkBoxes, string primaryItemTitle, string title, bool displayContactUs, CarouselContent campaignBanner, string eventCategory, List<GroupBranding> topicBranding, string logoAreaTitle)
     {
         Name = name;
         Title = title;
@@ -83,6 +83,8 @@ public class Topic
         DisplayContactUs = displayContactUs;
         CampaignBanner = campaignBanner;
         EventCategory = eventCategory;
+        TopicBranding = topicBranding;
+        LogoAreaTitle = logoAreaTitle;
     }
 }
 
@@ -91,6 +93,6 @@ public class NullTopic : Topic
     public NullTopic() : base(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty,
         string.Empty, string.Empty, new List<SubItem>(), new List<SubItem>(), new List<SubItem>(),
         new List<Crumb>(), new List<Alert>(), false, string.Empty, null, string.Empty, new List<ExpandingLinkBox>(),
-        string.Empty, string.Empty, true, new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty), string.Empty)
+        string.Empty, string.Empty, true, new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty), string.Empty, null, string.Empty)
     { }
 }
