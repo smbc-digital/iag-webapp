@@ -131,8 +131,12 @@
             height:20px;
             position: absolute;
             right: 15px;
-            top: 37.5%;
+            top: 34.5%;
             display: inline-block;
+            
+            @media #{$tablet} {
+                top: 33.5%;
+            }
         }
     }
 
@@ -140,11 +144,13 @@
         .btn_text {
             &::before {
                 content: "\f0e0";
-                font: normal normal normal 14px/1 FontAwesome;
-                font-size: inherit;
+                font: normal normal normal 14px/1 "Font Awesome 6 Free";
+                font-size: 1.25em;
+                line-height: .05em;
                 display: inline-block;
                 margin-left: .5em;
                 margin-right: .5em;
+                vertical-align: -.075em;
             }
         }
     }
