@@ -25,7 +25,14 @@ public class ProcessedTopicTests
                                                             },
                                                             true,
                                                             "email-alerts",
-                                                            new EventBanner("title", "teaser", "icon", "link"),
+                                                            new EventCalendarBanner()
+                                                            {
+                                                                Title = "title",
+                                                                Teaser = "teaser",
+                                                                Link = "link",
+                                                                Icon = "icon",
+                                                                Colour = "colour"
+                                                            },
                                                             "expandingLinkTitle",
                                                             Enumerable.Empty<ExpandingLinkBox>(),
                                                             "primary item title",

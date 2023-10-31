@@ -1,4 +1,6 @@
 ﻿// @import all the modules
+@import "modules/_typography";
+
 @import "modules/alerts";
 @import "modules/atoz";
 
@@ -42,7 +44,6 @@
 @import "modules/_leaflet";
 @import "modules/_documentPages";
 
-@import "modules/_typography";
 @import "modules/_cludo";
 @import "modules/_section";
 @import "modules/_navCard";
@@ -59,3 +60,5 @@
 @import "modules/featuredItem";
 @import "modules/breadcrumbs";
 @import "modules/topic";
+@import "modules/eventCalendarBanner";
+
