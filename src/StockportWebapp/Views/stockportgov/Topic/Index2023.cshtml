@@ -12,16 +12,18 @@
     }
 
     @section Breadcrumbs {
-        <partial name="TopicBreadcrumb" model='topic.Breadcrumbs' />
+        <div class="grid-container-full-width">
+            <partial name="TopicBreadcrumb" model='topic.Breadcrumbs'/>
+        </div>
     }
 
-    <section class="topic-title">
+    <section class="topic-title" data-cy="title-and-summary">
         <div class="grid-container">
             <div class="grid-100">
                 <h1>@topic.Name</h1>
-                @if (!string.IsNullOrEmpty(topic.Summary)) 
+                @if (!string.IsNullOrEmpty(topic.Summary))
                 {
-                    <p>@Html.Raw(@topic.Summary)</p>
+                    @Html.Raw(@topic.Summary)
                 }
                 else if (!string.IsNullOrEmpty(topic.Teaser))
                 {
