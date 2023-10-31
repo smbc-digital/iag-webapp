@@ -6,7 +6,7 @@ public class TopicControllerTest
     private readonly Mock<ITopicRepository> _repository;
     private readonly Mock<IFeatureManager> _featureToggle;
     private const string BusinessId = "stockportgov";
-    private readonly EventBanner _eventBanner;
+    private readonly EventCalendarBanner _eventBanner;
     private readonly CallToActionBanner _callToAction;
     private readonly Mock<IStockportApiEventsService> _stockportApiService = new();
 
@@ -19,7 +19,14 @@ public class TopicControllerTest
         _repository = new Mock<ITopicRepository>();
         _featureToggle = new Mock<IFeatureManager>();
         _controller = new TopicController(_repository.Object, config.Object, new BusinessId(BusinessId), _stockportApiService.Object, _featureToggle.Object);
-        _eventBanner = new EventBanner("title", "teaser", "icon", "link");
+        _eventBanner = new EventCalendarBanner()
+        {
+            Title = "title",
+            Teaser = "teaser",
+            Icon = "icon",
+            Link = "link",
+            Colour = "colour"
+        };
         _callToAction = new CallToActionBanner()
         {
             Title = "title",
@@ -72,6 +79,7 @@ public class TopicControllerTest
         Assert.Equal("metaDescription", result.MetaDescription);
         Assert.Equal(_eventBanner.Icon, result.EventBanner.Icon);
         Assert.Equal(_eventBanner.Link, result.EventBanner.Link);
+        Assert.Equal(_eventBanner.Colour, result.EventBanner.Colour);
         Assert.Equal("expandingLinkText", result.ExpandingLinkTitle);
         Assert.Equal("title", result.ExpandingLinkBoxes.First().Title);
         Assert.Equal("topic", result.ExpandingLinkBoxes.First().Links.First().Type);
