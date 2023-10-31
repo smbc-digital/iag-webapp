@@ -1,6 +1,6 @@
 ﻿@model EventCalendarBanner
 @{
-    var containerColourClass = !string.IsNullOrEmpty(Model?.Colour) && !Model.Colour.Equals("Teal") ? $"call-to-action--{Model.Colour.ToLower()}" : String.Empty;
+    var containerColourClass = !string.IsNullOrEmpty(Model?.Colour) && !Model.Colour.Equals("Teal") ? $"event-calendar-banner--{Model.Colour.ToLower()}" : String.Empty;
     var additionalCSS = string.IsNullOrEmpty((string)ViewData["AdditionalCssClass"]) 
                         ? string.Empty 
                         : (string)ViewData["AdditionalCssClass"];
@@ -11,17 +11,17 @@
             <div class="grid-container">
                 <div class="grid-100">
                     
-                    <div class="event-banner section__content @containerColourClass" data-cy="event-banner">
-                        <a class="event-banner-link event-banner-container" href="@Model.Link">
-                            <div class="event-banner-icon-container">
-                                <span class="@Model.Icon event-banner__icon" aria-hidden="true"></span>
+                    <div class="event-calendar-banner section__content @containerColourClass" data-cy="event-calendar-banner">
+                        <a class="event-calendar-banner-link event-calendar-banner-container" href="@Model.Link">
+                            <div class="event-calendar-banner-icon-container">
+                                <span class="@Model.Icon event-calendar-banner__icon" aria-hidden="true"></span>
                             </div>
-                            <div class="event-banner-content">
-                                <h3 class="event-banner-content__title ">@Model.Title</h3>
-                                <p class="event-banner-content__teaser">@Model.Teaser</p>
+                            <div class="event-calendar-banner-content">
+                                <h3 class="event-calendar-banner-content__title ">@Model.Title</h3>
+                                <p class="event-calendar-banner-content__teaser">@Model.Teaser</p>
                             </div> 
-                            <div class="event-banner-chevron-container">
-                                <span class="fa fa-2x fa-angle-right event-banner__chevron" aria-hidden="true"></span>
+                            <div class="event-calendar-banner-chevron-container">
+                                <span class="fa fa-2x fa-angle-right event-calendar-banner__chevron" aria-hidden="true"></span>
                             </div>
                         </a>
                     </div>
