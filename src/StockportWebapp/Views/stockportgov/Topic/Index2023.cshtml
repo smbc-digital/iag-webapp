@@ -58,26 +58,5 @@
         <h2>News Category Link/Banner</h2>
     </div>
 
-    <div class="placeholder placeholder-small">
-        <h2>Partner Logos</h2>
-    </div>
-
-    @if(topic.TopicBranding.Any())
-    {
-        <div class="topic-branding">
-            <h2><strong>@topic.LogoAreaTitle</strong></h2>
-
-            @foreach (var branding in topic.TopicBranding)
-            {
-                <div class="topic-branding-item">
-                    <div class="topic-branding-item-image">
-                        <a href="@branding.Url">
-                            <img src="@branding.File.Url" alt="@branding.File.Description" width="125" height="125"/>
-                        </a>
-                    </div>
-                </div>
-            }
-        </div>
-        <hr />
-    }
+    <partial name="LogoArea"/>
 </div>

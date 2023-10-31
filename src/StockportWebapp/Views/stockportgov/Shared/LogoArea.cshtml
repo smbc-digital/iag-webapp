@@ -1,0 +1,32 @@
+﻿@model TopicViewModel
+
+@if(Model.Topic.TopicBranding.Any())
+{
+    <section class="section section--white section--no-margin" data-cy="logo-area">
+        <div class="grid-container">
+            <div class="grid-100">
+                <h2 class="section__title section__title--padded-bottom">@Model.Topic.LogoAreaTitle</h2>
+
+                <div class="section__content section__content--no-margin">
+                    <div class="logo-area">
+                        @foreach (var branding in Model.Topic.TopicBranding)
+                        {
+                            <div class="logo-area__item">
+                                <a href="@branding.Url">
+                                    <img src="@branding.File.Url"
+                                        srcset=""
+                                        sizes=""
+                                        class="logo-area__image"
+                                        alt="@branding.File.Description"
+                                        loading="lazy"
+                                        width="125"
+                                        height="125"/>
+                                </a>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+}
