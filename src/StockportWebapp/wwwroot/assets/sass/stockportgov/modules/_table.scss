@@ -41,20 +41,28 @@
     box-shadow: 0 10px 20px $blackOpaque05;
 
     &.primary-items {
-
       .padding-mobile {
         @media #{$mobile} {
-          padding: 0;
-          padding-bottom: 5px;
+          &:nth-child(odd) {
+            padding-right: 0 !important;
+            padding-left: 0 !important;
+          }
+
+          &:nth-child(even) {
+            padding-right: 0 !important;
+            padding-left: 0 !important;
+          }
         }
 
         @media #{$tablet, $desktop} {
           &:nth-child(odd) {
-            padding-right: 15px;
+            padding-left: 15px;
+            padding-right: 10px;
           }
 
           &:nth-child(even) {
-            padding-left: 15px;
+            padding-right: 15px;
+            padding-left: 10px;
           }
         }
       }
