@@ -8,32 +8,8 @@
     }
 
     &__item {
-        margin: 1em;
+        margin: 0 2.5em 2em 0;
 
-        @media #{$desktop} {
-            width: calc(25% - 28.5px);
-            
-            &:first-child, &:nth-child(4n-3) {
-                margin-left: 0;
-            }
-    
-            &:nth-child(4n) {
-                margin-right: 0;
-            }
-        }
-        
-        @media #{$tablet} {
-            width: calc(33.33333% - 25.33333px);
-
-            &:first-child, &:nth-child(3n+1) {
-                margin-left: 0;
-            }
-    
-            &:nth-child(3n) {
-                margin-right: 0;
-            }
-        }
-        
         @media #{$mobile} {
             margin: 0 0 2em;
         }
