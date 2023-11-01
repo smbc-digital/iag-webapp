@@ -12,7 +12,6 @@ public class SecureHeadersMiddleware
             .UseReferrerPolicy()
             .UseCacheControl()
             .RemovePoweredByHeader()
-            .UseCrossOriginResourcePolicy()
             .UsePermittedCrossDomainPolicies()
             .Build();
 }
