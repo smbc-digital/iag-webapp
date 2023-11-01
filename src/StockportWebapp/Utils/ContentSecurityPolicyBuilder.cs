@@ -256,6 +256,8 @@ public class ContentSecurityPolicyBuilder
             .AddSource("maps.googleapis.com")
             .AddSource("stats.reciteme.com")
             .AddSource("api.reciteme.com")
+            .AddSource("https://s3.eu-west-1.amazonaws.com/maps.stockport.gov.uk/")
+            .AddSource("https://raw.githubusercontent.com/OrdnanceSurvey/")
             .Finish());
     }
 
