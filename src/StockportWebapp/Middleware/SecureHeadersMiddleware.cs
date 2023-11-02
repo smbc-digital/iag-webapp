@@ -9,7 +9,7 @@ public class SecureHeadersMiddleware
             .UseXFrameOptions()
             .UseXssProtection()
             .UseContentTypeOptions()
-            .UseReferrerPolicy()
+            .UseReferrerPolicy(OwaspHeaders.Core.Enums.ReferrerPolicyOptions.strictWhenCrossOrigin)
             .UseCacheControl()
             .RemovePoweredByHeader()
             .UsePermittedCrossDomainPolicies()
