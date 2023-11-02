@@ -41,6 +41,7 @@ public class ProcessedTopicTests
                                                             true,
                                                             null,
                                                             "event category",
+                                                            null,
                                                             new CallToActionBanner());
 
     [Fact]

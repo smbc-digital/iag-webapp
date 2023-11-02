@@ -15,6 +15,7 @@ public class Topic
     public string MetaDescription { get; }
     public string Icon { get; }
     public Video Video { get; init; }
+    public CallToAction CallToActionBanner { get; init; }
     public CallToActionBanner CallToAction { get; init; }
     public string Image { get; }
     public IEnumerable<SubItem> SubItems { get; }

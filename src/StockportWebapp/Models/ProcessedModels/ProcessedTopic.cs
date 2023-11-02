@@ -14,6 +14,7 @@
         public string MetaDescription { get; }
         public string Icon { get; }
         public Video Video { get; init; }
+        public CallToAction CallToActionBanner { get; init; }
         public CallToActionBanner CallToAction { get; init; }
         public string Image { get; }
         public IEnumerable<SubItem> SubItems { get; }
@@ -37,7 +38,7 @@
             string backgroundImage, string image, IEnumerable<SubItem> subItems, IEnumerable<SubItem> secondaryItems, IEnumerable<SubItem> tertiaryItems,
             IEnumerable<Crumb> breadcrumbs, IEnumerable<Alert> alerts, bool emailAlerts, string emailAlertsTopicId, EventBanner eventBanner, EventCalendarBanner eventCalendarBanner,
             string expandingLinkTitle, IEnumerable<ExpandingLinkBox> expandingLinkBoxes, string primaryItemTitle, string title, bool displayContactUs, CarouselContent campaignBanner,
-            string eventCategory, CallToActionBanner callToAction)
+            string eventCategory, CallToAction callToActionBanner, CallToActionBanner callToAction)
         {
             Name = name;
             Title = title;
@@ -66,6 +67,7 @@
             CampaignBanner = campaignBanner;
             EventCategory = eventCategory;
             CallToAction = callToAction;
+            CallToActionBanner = callToActionBanner;
         }
 
         public NavCardList PrimaryItems => new()
