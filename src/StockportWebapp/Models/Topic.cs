@@ -45,8 +45,7 @@ public class Topic
     public IEnumerable<Alert> Alerts { get; }
     public bool EmailAlerts { get; }
     public string EmailAlertsTopicId { get; }
-    public EventCalendarBanner EventCalanderBanner { get; }
-    public EventBanner EventBanner { get; }
+    public EventCalendarBanner EventBanner { get; }
     public string ExpandingLinkTitle { get; }
     public IEnumerable<ExpandingLinkBox> ExpandingLinkBoxes { get; set; }
     public string PrimaryItemTitle { get; }
@@ -56,7 +55,7 @@ public class Topic
 
     public Topic(string name, string slug, string summary, string teaser, string metaDescription, string icon,
         string backgroundImage, string image, IEnumerable<SubItem> subItems, IEnumerable<SubItem> secondaryItems, IEnumerable<SubItem> tertiaryItems,
-        IEnumerable<Crumb> breadcrumbs, IEnumerable<Alert> alerts, bool emailAlerts, string emailAlertsTopicId, EventBanner eventBanner, EventCalendarBanner eventCalendarBanner,
+        IEnumerable<Crumb> breadcrumbs, IEnumerable<Alert> alerts, bool emailAlerts, string emailAlertsTopicId, EventCalendarBanner eventBanner,
         string expandingLinkTitle, IEnumerable<ExpandingLinkBox> expandingLinkBoxes, string primaryItemTitle, string title, bool displayContactUs, CarouselContent campaignBanner, string eventCategory)
     {
         Name = name;
@@ -78,7 +77,6 @@ public class Topic
         NavigationLink = TypeRoutes.GetUrlFor("topic", slug);
         _topSubItems = Enumerable.Empty<SubItem>();
         EventBanner = eventBanner;
-        EventBanner = eventBanner;
         ExpandingLinkTitle = expandingLinkTitle;
         ExpandingLinkBoxes = expandingLinkBoxes;
         PrimaryItemTitle = primaryItemTitle;
@@ -92,7 +90,7 @@ public class NullTopic : Topic
 {
     public NullTopic() : base(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty,
         string.Empty, string.Empty, new List<SubItem>(), new List<SubItem>(), new List<SubItem>(),
-        new List<Crumb>(), new List<Alert>(), false, string.Empty, null, null, string.Empty, new List<ExpandingLinkBox>(),
+        new List<Crumb>(), new List<Alert>(), false, string.Empty, null, string.Empty, new List<ExpandingLinkBox>(),
         string.Empty, string.Empty, true, new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty), string.Empty)
     { }
 }
