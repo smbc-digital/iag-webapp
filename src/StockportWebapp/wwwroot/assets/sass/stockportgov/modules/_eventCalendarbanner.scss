@@ -1,7 +1,7 @@
 ﻿.event-calendar-banner {
   background-color: $stockport-teal-darker;
-  
   border-radius: 50px 3px 50px 3px;
+  padding: 1.5em;
 
   a {
     text-decoration: none;
@@ -29,21 +29,9 @@
     display: flex;
     flex-direction: row;
 
-    @media #{$mobile, $tablet} {
+    @media #{$mobile} {
       flex-direction: column;
     }
-  }
-
-  
-
-  &__image {
-      width: 40%;
-      object-fit: cover;
-      border-radius: 50px 0 0 3px;
-
-      @media #{$tablet} {
-          display: none;
-      }
   }
 
   &-chevron-container {
@@ -54,7 +42,7 @@
     flex-direction: column;
     text-align: center;
 
-    @media #{$mobile, $tablet} {
+    @media #{$mobile, $tablet} { //This will need signing off
       display: none;
     }
 }
@@ -73,9 +61,8 @@
           text-align: center;
           border-radius: 2.5px 0px 0px 2.5px;
 
-          @media #{$mobile, $tablet} {
+          @media #{$mobile} {
             width: 100%;
-            margin-top: 1.5em;
           }
   }
 
@@ -86,12 +73,13 @@
 
   &-content {
       width: 80%;
-      padding: 2.5em 0;
+      padding: 1em 0 1em 1.5em;
       color: white;
 
-      @media #{$tablet, mobile} {
+      @media #{$mobile} {
           width: auto;
-          padding: 1.5em;
+          padding: 0;
+          padding-top: 1.5em;
       }
 
       &__title {
