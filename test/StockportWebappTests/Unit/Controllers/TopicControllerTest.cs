@@ -6,7 +6,8 @@ public class TopicControllerTest
     private readonly Mock<ITopicRepository> _repository;
     private readonly Mock<IFeatureManager> _featureToggle;
     private const string BusinessId = "stockportgov";
-    private readonly EventCalendarBanner _eventBanner;
+    private readonly EventCalendarBanner _eventCalendarBanner;
+    private readonly EventBanner _eventBanner;
     private readonly CallToActionBanner _callToAction;
     private readonly Mock<IStockportApiEventsService> _stockportApiService = new();
 
@@ -19,7 +20,7 @@ public class TopicControllerTest
         _repository = new Mock<ITopicRepository>();
         _featureToggle = new Mock<IFeatureManager>();
         _controller = new TopicController(_repository.Object, config.Object, new BusinessId(BusinessId), _stockportApiService.Object, _featureToggle.Object);
-        _eventBanner = new EventCalendarBanner()
+        _eventCalendarBanner = new EventCalendarBanner()
         {
             Title = "title",
             Teaser = "teaser",
@@ -27,6 +28,7 @@ public class TopicControllerTest
             Link = "link",
             Colour = "colour"
         };
+        _eventBanner = new("title", "teaser", "icon", "link");
         _callToAction = new CallToActionBanner()
         {
             Title = "title",
@@ -51,7 +53,7 @@ public class TopicControllerTest
         var subItems = Enumerable.Range(0, 1).Select(CreateASubItem).ToList();
 
         ProcessedTopic topic = new("Name", "slug", "<p>Summary</p>\n", "Teaser", "metaDescription", "Icon", "Image", "Image", subItems, null, null,
-            new List<Crumb>(), new List<Alert>(), true, "test-id", _eventBanner, "expandingLinkText",
+            new List<Crumb>(), new List<Alert>(), true, "test-id", _eventBanner, _eventCalendarBanner, "expandingLinkText",
             new List<ExpandingLinkBox> { new("title", subItems) }, string.Empty, string.Empty, true,
             new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty), string.Empty, _callToAction);
 
@@ -79,7 +81,6 @@ public class TopicControllerTest
         Assert.Equal("metaDescription", result.MetaDescription);
         Assert.Equal(_eventBanner.Icon, result.EventBanner.Icon);
         Assert.Equal(_eventBanner.Link, result.EventBanner.Link);
-        Assert.Equal(_eventBanner.Colour, result.EventBanner.Colour);
         Assert.Equal("expandingLinkText", result.ExpandingLinkTitle);
         Assert.Equal("title", result.ExpandingLinkBoxes.First().Title);
         Assert.Equal("topic", result.ExpandingLinkBoxes.First().Links.First().Type);
@@ -99,7 +100,7 @@ public class TopicControllerTest
         var subItems = Enumerable.Range(0, 1).Select(CreateASubItem).ToList();
 
         ProcessedTopic topic = new("Name", "slug", "<p>Summary</p>", "Teaser", "metaDescription", "Icon", "Image", "Image", subItems, null, null,
-          new List<Crumb>(), new List<Alert>(), true, "test-id", _eventBanner, "expandingLinkText", new List<ExpandingLinkBox>(), string.Empty, string.Empty, true,
+          new List<Crumb>(), new List<Alert>(), true, "test-id", _eventBanner, _eventCalendarBanner, "expandingLinkText", new List<ExpandingLinkBox>(), string.Empty, string.Empty, true,
            new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty), string.Empty, _callToAction);
 
         _repository.Setup(_ => _.Get<ProcessedTopic>("healthy-living")).ReturnsAsync(new HttpResponse(200, topic, string.Empty));
@@ -144,7 +145,7 @@ public class TopicControllerTest
         };
 
         ProcessedTopic topic = new("Name", "slug", "<p>Summary</p>", "Teaser", "metaDescription", "Icon", "Image", "Image", null, null, null,
-            new List<Crumb>(), alerts, true, "test-id", _eventBanner, "expandingLinkText", new List<ExpandingLinkBox>(), string.Empty, string.Empty, true,
+            new List<Crumb>(), alerts, true, "test-id", _eventBanner, _eventCalendarBanner, "expandingLinkText", new List<ExpandingLinkBox>(), string.Empty, string.Empty, true,
             new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty), string.Empty, _callToAction);
 
         _repository.Setup(_ => _.Get<ProcessedTopic>("healthy-living")).ReturnsAsync(new HttpResponse(200, topic, string.Empty));
@@ -171,7 +172,7 @@ public class TopicControllerTest
         var subItems = Enumerable.Range(0, 1).Select(CreateASubItem).ToList();
 
         ProcessedTopic topic = new("Name", "slug", "<p>Summary</p>", "Teaser", "metaDescription", "Icon", "Image", "Image", subItems, null, null,
-            new List<Crumb>(), new List<Alert>(), true, "test-id", _eventBanner, "expandingLinkText", new List<ExpandingLinkBox>(), string.Empty, string.Empty, true,
+            new List<Crumb>(), new List<Alert>(), true, "test-id", _eventBanner, _eventCalendarBanner, "expandingLinkText", new List<ExpandingLinkBox>(), string.Empty, string.Empty, true,
             new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty), "eventCategory", _callToAction);
 
         _repository.Setup(_ => _.Get<ProcessedTopic>("healthy-living")).ReturnsAsync(new HttpResponse(200, topic, string.Empty));
@@ -191,7 +192,7 @@ public class TopicControllerTest
         var subItems = Enumerable.Range(0, 1).Select(CreateASubItem).ToList();
 
         ProcessedTopic topic = new("Name", "slug", "<p>Summary</p>", "Teaser", "metaDescription", "Icon", "Image", "Image", subItems, null, null,
-            new List<Crumb>(), new List<Alert>(), true, "test-id", _eventBanner, "expandingLinkText", new List<ExpandingLinkBox>(), string.Empty, string.Empty, true,
+            new List<Crumb>(), new List<Alert>(), true, "test-id", _eventBanner, _eventCalendarBanner, "expandingLinkText", new List<ExpandingLinkBox>(), string.Empty, string.Empty, true,
             new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty), "eventCategory", _callToAction);
 
         const string slug = "healthy-living";
