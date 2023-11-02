@@ -18,7 +18,9 @@ public class TopicFactory
         summary = _tagParserContainer.ParseAll(summary, topic.Title);
 
         // 02/11 Hotfix to maintain backwards compatibility 
-        EventBanner oldEventBanner = new (topic.EventBanner.Title, topic.EventBanner.Teaser, topic.EventBanner.Icon, topic.EventBanner.Link);
+        EventBanner oldEventBanner = null;
+        if (topic.EventBanner is not null)
+            oldEventBanner = new (topic.EventBanner.Title, topic.EventBanner.Teaser, topic.EventBanner.Icon, topic.EventBanner.Link);
 
         return new ProcessedTopic(topic.Name, topic.Slug, summary, topic.Teaser, topic.MetaDescription, topic.Icon, topic.BackgroundImage,
             topic.Image, topic.SubItems, topic.SecondaryItems, topic.TertiaryItems, topic.Breadcrumbs, topic.Alerts, topic.EmailAlerts,
