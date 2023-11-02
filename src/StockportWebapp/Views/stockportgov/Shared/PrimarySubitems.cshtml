@@ -16,17 +16,21 @@
                 {
                     <div class="clearfix"></div>
                 }
-                @foreach (var subItem in Model.SubItems)
-                {
-                    <div class="grid-50 tablet-grid-50 mobile-grid-100 padding-mobile">
-                        <stock-button class="subitem matchbox-child" as-link="true" href="@subItem.NavigationLink">
-                            <div>
-                                <h3 class="sub-item-title">@subItem.Title</h3>
-                                <div class="sub-item-teaser">@subItem.Teaser</div>
-                            </div>
-                        </stock-button>
-                    </div>
-                }
+
+                <div class="subitem-wrapper">
+                    @foreach (var subItem in Model.SubItems)
+                    {
+                        <div class="subitem-link-wrapper padding-mobile">
+                            <stock-button class="subitem subitem-link" as-link="true" href="@subItem.NavigationLink">
+                                <div>
+                                    <h3 class="sub-item-title">@subItem.Title</h3>
+                                    <div class="sub-item-teaser">@subItem.Teaser</div>
+                                </div>
+                                <div></div>
+                            </stock-button>
+                        </div>
+                    }
+                </div>
                 <div class="clearfix"></div>
             </div>
 
