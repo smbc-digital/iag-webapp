@@ -41,11 +41,11 @@ else
 {
     for (var i = 0; i < Model.SubItems.Count(); i += 3)
     {
-        <ul class="nav-card-list matchbox-parent">
+        <ul class="nav-card-list">
             @foreach (var subItem in Model.SubItems.Skip(i).Take(3))
             {
                 <li class="nav-card grid-33" style="">
-                    <a href="@subItem.NavigationLink" class="nav-card-item matchbox-child @(!string.IsNullOrEmpty(subItem.Image) ? "with-background-image" : "")">
+                    <a href="@subItem.NavigationLink" class="nav-card-item @(!string.IsNullOrEmpty(subItem.Image) ? "with-background-image" : "")">
 
                         @if (!string.IsNullOrEmpty(subItem.Image))
                         {
