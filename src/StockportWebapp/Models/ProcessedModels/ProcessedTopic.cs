@@ -33,12 +33,14 @@
         public bool DisplayContactUs { get; set; }
         public CarouselContent CampaignBanner { get; }
         public string EventCategory { get; set; }
+        public List<GroupBranding> TopicBranding { get; init; }
+        public string LogoAreaTitle { get; set; }
 
         public ProcessedTopic(string name, string slug, string summary, string teaser, string metaDescription, string icon,
             string backgroundImage, string image, IEnumerable<SubItem> subItems, IEnumerable<SubItem> secondaryItems, IEnumerable<SubItem> tertiaryItems,
             IEnumerable<Crumb> breadcrumbs, IEnumerable<Alert> alerts, bool emailAlerts, string emailAlertsTopicId, EventBanner eventBanner, EventCalendarBanner eventCalendarBanner,
             string expandingLinkTitle, IEnumerable<ExpandingLinkBox> expandingLinkBoxes, string primaryItemTitle, string title, bool displayContactUs, CarouselContent campaignBanner,
-            string eventCategory, CallToAction callToActionBanner, CallToActionBanner callToAction)
+            string eventCategory,  CallToAction callToActionBanner, CallToActionBanner callToAction, List<GroupBranding> topicBranding, string logoAreaTitle)
         {
             Name = name;
             Title = title;
@@ -68,6 +70,8 @@
             EventCategory = eventCategory;
             CallToAction = callToAction;
             CallToActionBanner = callToActionBanner;
+            TopicBranding = topicBranding;
+            LogoAreaTitle = logoAreaTitle;
         }
 
         public NavCardList PrimaryItems => new()

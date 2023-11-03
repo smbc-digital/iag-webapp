@@ -29,7 +29,7 @@ public class TopicFactory
         return new ProcessedTopic(topic.Name, topic.Slug, summary, topic.Teaser, topic.MetaDescription, topic.Icon, topic.BackgroundImage,
             topic.Image, topic.SubItems, topic.SecondaryItems, topic.TertiaryItems, topic.Breadcrumbs, topic.Alerts, topic.EmailAlerts,
             topic.EmailAlertsTopicId, oldEventBanner, topic.EventBanner, topic.ExpandingLinkTitle, topic.ExpandingLinkBoxes, topic.PrimaryItemTitle,
-            topic.Title, topic.DisplayContactUs, topic.CampaignBanner, topic.EventCategory, oldCallToAction, topic.CallToAction)
+            topic.Title, topic.DisplayContactUs, topic.CampaignBanner, topic.EventCategory, oldCallToAction, topic.CallToAction, topic.TopicBranding, topic.LogoAreaTitle)
         {
             TriviaSection = topic.TriviaSection,
             Video = !string.IsNullOrEmpty(topic.Video.VideoEmbedCode) ?
