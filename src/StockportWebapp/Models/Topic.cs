@@ -6,7 +6,6 @@ public class Topic
     public string Title { get; }
     public string Slug { get; }
     public string NavigationLink { get; }
-
     private IEnumerable<SubItem> _topSubItems;
     public string BackgroundImage { get; }
     public TriviaSection TriviaSection { get; init; }
@@ -38,7 +37,7 @@ public class Topic
     }
 
     private static IEnumerable<SubItem> ConcatSubItems(IEnumerable<SubItem> primary, IEnumerable<SubItem> secondary, int take) => 
-        secondary != null ? primary.Concat(secondary.Take(take)) : primary;
+        secondary is not null ? primary.Concat(secondary.Take(take)) : primary;
 
     public IEnumerable<Crumb> Breadcrumbs { get; }
     public IEnumerable<Alert> Alerts { get; }
