@@ -41,14 +41,10 @@ public class ProcessedTopicTests
                                                             true,
                                                             null,
                                                             "event category",
-<<<<<<< HEAD
+                                                            null,
                                                             new CallToActionBanner(),
                                                             null,
                                                             string.Empty);
-=======
-                                                            null,
-                                                            new CallToActionBanner());
->>>>>>> main
 
     [Fact]
     public void PrimaryItems_IsPopulated()
