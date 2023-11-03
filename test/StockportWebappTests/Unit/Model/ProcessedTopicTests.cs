@@ -25,6 +25,7 @@ public class ProcessedTopicTests
                                                             },
                                                             true,
                                                             "email-alerts",
+                                                            new EventBanner("title", "teaser", "link", "icon"),
                                                             new EventCalendarBanner()
                                                             {
                                                                 Title = "title",
@@ -40,6 +41,7 @@ public class ProcessedTopicTests
                                                             true,
                                                             null,
                                                             "event category",
+                                                            null,
                                                             new CallToActionBanner());
 
     [Fact]

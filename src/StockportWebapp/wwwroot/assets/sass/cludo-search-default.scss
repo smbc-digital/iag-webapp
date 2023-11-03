@@ -133,7 +133,7 @@
 #cludo-search-form, .cludo-search-form, .cludo-search_autocomplete {
   position: relative;
   margin: 0;
-  z-index: 9999999
+  z-index: 9999
 }
 
 #cludo-search-form-content {
@@ -318,13 +318,13 @@
 }
 
 #cludo-search-results .cludo-search-modal-header {
-  position: fixed;
-  left: 50%;
-  top: 30px;
-  margin: 0 0 0 -470px;
-  width: 940px;
-  background-color: #fff;
-  z-index: 9999999
+    position: fixed;
+    left: 50%;
+    top: 30px;
+    margin: 0 0 0 -470px;
+    width: 940px;
+    background-color: #fff;
+    z-index: 9999999
 }
 
 @media (max-width:940px) {
@@ -1256,7 +1256,7 @@
 #cludo-search-form, .cludo-search-form, .cludo-search_autocomplete {
   position: relative;
   margin: 0;
-  z-index: 9999999
+  z-index: 9999
 }
 
 #cludo-search-form-content {

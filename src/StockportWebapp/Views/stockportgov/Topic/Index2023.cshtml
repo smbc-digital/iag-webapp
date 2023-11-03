@@ -39,8 +39,8 @@
     @if(topic.CallToAction is not null)
     {
          <partial name="CallToAction" model='topic.CallToAction'/>
-    } else if (!string.IsNullOrEmpty(topic.EventBanner.Title)) {
-        <partial name="EventBanner" model='topic.EventBanner'/>
+    } else if (!string.IsNullOrEmpty(topic.EventCalendarBanner.Title)) {
+        <partial name="EventBanner" model='topic.EventCalendarBanner'/>
     }
 
     @if (topic.SecondaryItems.Any())
@@ -48,9 +48,9 @@
         <partial name="TopicSecondaryItems" model='topic.SecondaryItems'/>
     }
 
-    @if(!string.IsNullOrEmpty(topic.EventBanner.Title) && topic.CallToAction is not null)
+    @if(!string.IsNullOrEmpty(topic.EventCalendarBanner.Title) && topic.CallToAction is not null)
     { 
-         <partial name="EventBanner" model='topic.EventBanner'/>
+         <partial name="EventBanner" model='topic.EventCalendarBanner'/>
     }
 
     <div class="placeholder placeholder-small">
