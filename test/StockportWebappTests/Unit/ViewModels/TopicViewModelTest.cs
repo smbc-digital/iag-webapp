@@ -11,8 +11,13 @@ public class TopicViewModelTest
         const string emailAlertsTopicId = "topic-id";
 
         var topic = new ProcessedTopic("name", "slug", "metaDescription", "summary", "teaser", "icon", "backgroundimage", "image", new List<SubItem>(), new List<SubItem>(), new List<SubItem>(),
+<<<<<<< HEAD
             new List<Crumb>(), new List<Alert>(), emailAlerts, emailAlertsTopicId, null, "expandingLinkText", new List<ExpandingLinkBox>(), string.Empty, string.Empty, true,
              new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty), string.Empty, new CallToActionBanner(), null, string.Empty);
+=======
+            new List<Crumb>(), new List<Alert>(), emailAlerts, emailAlertsTopicId, null, null, "expandingLinkText", new List<ExpandingLinkBox>(), string.Empty, string.Empty, true,
+             new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty), string.Empty, null, new CallToActionBanner());
+>>>>>>> main
 
         var topicViewModel = new TopicViewModel(topic, EmailAlertsUrl);
 
@@ -27,9 +32,13 @@ public class TopicViewModelTest
 
         var topic = new ProcessedTopic("name", "slug", "metaDescription", "summary", "teaser", "icon", "backgroundimage", "image",
             new List<SubItem>(), new List<SubItem>(), new List<SubItem>(),
-            new List<Crumb>(), new List<Alert>(), emailAlerts, emailAlertsTopicId, null, "expandingLinkText",
+            new List<Crumb>(), new List<Alert>(), emailAlerts, emailAlertsTopicId, null, null, "expandingLinkText",
             new List<ExpandingLinkBox>(), string.Empty, string.Empty, true,
+<<<<<<< HEAD
             new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty), string.Empty, new CallToActionBanner(), null, string.Empty);
+=======
+            new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty), string.Empty, null, new CallToActionBanner());
+>>>>>>> main
 
         var topicViewModel = new TopicViewModel(topic, EmailAlertsUrl);
 

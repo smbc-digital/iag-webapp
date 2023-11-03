@@ -14,6 +14,7 @@
         public string MetaDescription { get; }
         public string Icon { get; }
         public Video Video { get; init; }
+        public CallToAction CallToActionBanner { get; init; }
         public CallToActionBanner CallToAction { get; init; }
         public string Image { get; }
         public IEnumerable<SubItem> SubItems { get; }
@@ -25,6 +26,7 @@
         public bool EmailAlerts { get; }
         public string EmailAlertsTopicId { get; }
         public EventBanner EventBanner { get; }
+        public EventCalendarBanner EventCalendarBanner { get; }
         public string ExpandingLinkTitle { get; }
         public IEnumerable<ExpandingLinkBox> ExpandingLinkBoxes { get; set; }
         public string PrimaryItemTitle { get; }
@@ -36,9 +38,9 @@
 
         public ProcessedTopic(string name, string slug, string summary, string teaser, string metaDescription, string icon,
             string backgroundImage, string image, IEnumerable<SubItem> subItems, IEnumerable<SubItem> secondaryItems, IEnumerable<SubItem> tertiaryItems,
-            IEnumerable<Crumb> breadcrumbs, IEnumerable<Alert> alerts, bool emailAlerts, string emailAlertsTopicId, EventBanner eventBanner,
+            IEnumerable<Crumb> breadcrumbs, IEnumerable<Alert> alerts, bool emailAlerts, string emailAlertsTopicId, EventBanner eventBanner, EventCalendarBanner eventCalendarBanner,
             string expandingLinkTitle, IEnumerable<ExpandingLinkBox> expandingLinkBoxes, string primaryItemTitle, string title, bool displayContactUs, CarouselContent campaignBanner,
-            string eventCategory, CallToActionBanner callToAction, List<GroupBranding> topicBranding, string logoAreaTitle)
+            string eventCategory,  CallToAction callToActionBanner, CallToActionBanner callToAction, List<GroupBranding> topicBranding, string logoAreaTitle)
         {
             Name = name;
             Title = title;
@@ -59,6 +61,7 @@
             NavigationLink = TypeRoutes.GetUrlFor("topic", slug);
             _topSubItems = Enumerable.Empty<SubItem>();
             EventBanner = eventBanner;
+            EventCalendarBanner = eventCalendarBanner;
             ExpandingLinkTitle = expandingLinkTitle;
             ExpandingLinkBoxes = expandingLinkBoxes;
             PrimaryItemTitle = primaryItemTitle;
@@ -66,6 +69,7 @@
             CampaignBanner = campaignBanner;
             EventCategory = eventCategory;
             CallToAction = callToAction;
+            CallToActionBanner = callToActionBanner;
             TopicBranding = topicBranding;
             LogoAreaTitle = logoAreaTitle;
         }

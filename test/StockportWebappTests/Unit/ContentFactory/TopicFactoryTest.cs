@@ -18,6 +18,13 @@ public class TopicFactoryTest
     private readonly List<SubItem> _subItems;
     private readonly List<SubItem> _secondaryItems;
     private readonly List<SubItem> _tertiaryItems;
+    private readonly EventCalendarBanner _eventCalendarBanner = new EventCalendarBanner() {
+        Title = "title",
+        Teaser = "teaser",
+        Link = "link",
+        Icon = "icon",
+        Colour = "colour",
+    };
 
     public TopicFactoryTest()
     {
@@ -31,7 +38,7 @@ public class TopicFactoryTest
         _tertiaryItems = new List<SubItem>();
 
         _topic = new Topic("name", Slug, Summary, Teaser, MetaDescription, Icon, BackgroundImage, Image, _subItems, _secondaryItems, _tertiaryItems, _breadcrumbs,
-            new List<Alert>(), false, "emailAlertsTopic", new EventBanner("title", "teaser", "icon", "link"), "expanding Link Title",
+            new List<Alert>(), false, "emailAlertsTopic", _eventCalendarBanner, "expanding Link Title",
             new List<ExpandingLinkBox>(), "primary Item Title", Title, true, new CarouselContent("Title", "Teaser", "Image", "url"),
             "event Category", null, string.Empty)
         {

@@ -43,9 +43,13 @@ public class TopicRepositoryTests
     {
         // Arrange
         ProcessedTopic processedTopic = new("Name", "slug", "<p>Summary</p>\n", "Teaser", "metaDescription", "Icon", "Image", "Image", new List<SubItem>(), null, null,
-            new List<Crumb>(), new List<Alert>(), true, "test-id", null, "expandingLinkText",
+            new List<Crumb>(), new List<Alert>(), true, "test-id", null, null, "expandingLinkText",
             new List<ExpandingLinkBox> { new("title", null) }, string.Empty, string.Empty, true,
+<<<<<<< HEAD
             new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty), string.Empty, null, null, string.Empty)
+=======
+            new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty), string.Empty, null, null)
+>>>>>>> main
         {
             Video = new()
         };

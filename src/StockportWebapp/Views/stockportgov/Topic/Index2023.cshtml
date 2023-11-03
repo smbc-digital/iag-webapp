@@ -36,19 +36,22 @@
 
     <partial name="TopicPrimaryItems"/>
 
+    @if(topic.CallToAction is not null)
+    {
+         <partial name="CallToAction" model='topic.CallToAction'/>
+    } else if (!string.IsNullOrEmpty(topic.EventCalendarBanner.Title)) {
+        <partial name="EventBanner" model='topic.EventCalendarBanner'/>
+    }
+
     @if (topic.SecondaryItems.Any())
     {
         <partial name="TopicSecondaryItems" model='topic.SecondaryItems'/>
     }
 
-    @if(topic.CallToAction is not null)
-    {
-         <partial name="CallToAction" model='topic.CallToAction'/>
+    @if(!string.IsNullOrEmpty(topic.EventCalendarBanner.Title) && topic.CallToAction is not null)
+    { 
+         <partial name="EventBanner" model='topic.EventCalendarBanner'/>
     }
-
-    <div class="placeholder placeholder-small placeholder-bg-grey">
-        <h2>Events Link/Banner</h2>
-    </div>
 
     <div class="placeholder placeholder-small">
         <h2>Groups Link/Banner</h2>

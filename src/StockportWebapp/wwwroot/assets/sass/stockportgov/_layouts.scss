@@ -44,6 +44,10 @@
         height: 1px;
         overflow: hidden;
         z-index: -999;
+        background: white; 
+        display: inline-block;
+        margin: 0.75em 30px 0 30px;
+        padding: 5px;
     }
 
     a.skip-main:focus, a.skip-main:active {
@@ -51,9 +55,6 @@
         background-color: $goldenRod15;
         width: auto;
         height: auto;
-        display: inline-block;
-        margin: 0.75em 30px 0 30px;
-        padding: 5px;
         text-align: center;
         z-index: 999;
         color: $dark;
