@@ -218,6 +218,8 @@ public class ContentSecurityPolicyBuilder
             .AddSource("https://speech.speechstream.net/", true)
             .AddSource("https://www.google-analytics.com/", true)
             .AddSource("api.reciteme.com/")
+            .AddSource("js-eu1.hsforms.net/")
+            .AddSource("js-eu1.hs-scripts.com/")
             .Finish());
     }
 
