@@ -4,14 +4,14 @@
     var user = loggedInHelper.GetLoggedInPerson();
 }
 
-<div class="l-header-container">
+<div class="site-header grid-container-full-width">
     <nav aria-label="Skip to main content">
         <div class="skip-to-main-content">
             <a href="#content" class="skip-main">Skip to main content</a>
         </div>
     </nav>
-    <header role="banner" id="header" class="grid-container grid-100">
-        <div class="grid-50 mobile-grid-50 tablet-grid-50 logo-main">
+    <header role="banner" id="header" class="grid-container">
+        <div class="grid-50 mobile-grid-100 tablet-grid-50">
             <a href="https://www.stockport.gov.uk">
                 <img src='@StaticAssets.UrlFor("logo-stockport-full%402x.png")'
                     data-mobile-image='@StaticAssets.UrlFor("logo-stockport-mobile%402x.png")'
@@ -22,9 +22,9 @@
                     height="60">
             </a>
         </div>
-        <div class="grid-50 mobile-grid-50 tablet-grid-50 grid-parent">
+        <div class="grid-50 mobile-grid-100 tablet-grid-50">
             <div class="header-container grid-100 grid-parent">
-                <div class="grid-50 grid-parent header-myaccount">
+                <div class="grid-50 mobile-grid-100 grid-parent header-myaccount">
                     <div class="menu">
                         @if (!string.IsNullOrEmpty(user.Email))
                         {
