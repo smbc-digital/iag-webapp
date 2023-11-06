@@ -3,23 +3,11 @@
     flex-direction: row;
     flex-wrap: wrap;
 
-    @media #{$mobile} {
-        display: block;
-    }
-
     &__item {
         margin: 0 2.5em 1.5em 0;
 
         &:last-child {
             margin-bottom: 2.5em;
-        }
-
-        @media #{$mobile} {
-            margin: 0 0 1.5em;
-            
-            &:last-child {
-                margin-bottom: 2.5em;
-            }
         }
     }
 
