@@ -85,6 +85,11 @@
         &--no-margin {
             margin: 0;
         }
+
+        &--border-top {
+            border-top: 1px solid $stockport-mid-grey;
+            padding-top: 1em;
+        }
     }
 
     h1.section__title {

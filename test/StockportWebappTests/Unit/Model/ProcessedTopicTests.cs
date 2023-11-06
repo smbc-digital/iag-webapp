@@ -25,6 +25,7 @@ public class ProcessedTopicTests
                                                             },
                                                             true,
                                                             "email-alerts",
+                                                            new EventBanner("title", "teaser", "link", "icon"),
                                                             new EventCalendarBanner()
                                                             {
                                                                 Title = "title",
@@ -40,7 +41,10 @@ public class ProcessedTopicTests
                                                             true,
                                                             null,
                                                             "event category",
-                                                            new CallToActionBanner());
+                                                            null,
+                                                            new CallToActionBanner(),
+                                                            null,
+                                                            string.Empty);
 
     [Fact]
     public void PrimaryItems_IsPopulated()

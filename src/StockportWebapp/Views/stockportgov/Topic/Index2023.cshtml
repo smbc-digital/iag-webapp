@@ -7,6 +7,7 @@
     Layout = "../Shared/_Layout2023.cshtml";
 }
 
+<div class="grid-container-full-width">
     @section Alerts {
         <partial name="GlobalAlerts" model='topic.Alerts' />
     }
@@ -49,9 +50,9 @@
         <partial name="TopicSecondaryItems" model='topic.SecondaryItems'/>
     }
 
-    @if(!string.IsNullOrEmpty(topic.EventBanner.Title) && topic.CallToAction is not null)
+    @if(!string.IsNullOrEmpty(topic.EventCalendarBanner.Title) && topic.CallToAction is not null)
     { 
-         <partial name="EventBanner" model='topic.EventBanner'/>
+         <partial name="EventBanner" model='topic.EventCalendarBanner'/>
     }
 
     <div class="placeholder placeholder-small">
@@ -62,6 +63,5 @@
         <h2>News Category Link/Banner</h2>
     </div>
 
-    <div class="placeholder placeholder-small">
-        <h2>Partner Logos</h2>
-    </div>
+    <partial name="LogoArea"/>
+</div>

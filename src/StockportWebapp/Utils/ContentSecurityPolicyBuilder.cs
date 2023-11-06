@@ -218,6 +218,8 @@ public class ContentSecurityPolicyBuilder
             .AddSource("https://speech.speechstream.net/", true)
             .AddSource("https://www.google-analytics.com/", true)
             .AddSource("api.reciteme.com/")
+            .AddSource("js-eu1.hsforms.net/")
+            .AddSource("js-eu1.hs-scripts.com/")
             .Finish());
     }
 
@@ -256,6 +258,9 @@ public class ContentSecurityPolicyBuilder
             .AddSource("maps.googleapis.com")
             .AddSource("stats.reciteme.com")
             .AddSource("api.reciteme.com")
+            .AddSource("https://s3.eu-west-1.amazonaws.com/maps.stockport.gov.uk/")
+            .AddSource("https://raw.githubusercontent.com/OrdnanceSurvey/")
+            .AddSource("https://api.os.uk/")
             .Finish());
     }
 

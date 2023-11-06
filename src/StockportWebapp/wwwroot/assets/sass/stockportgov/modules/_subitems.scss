@@ -1,4 +1,28 @@
-﻿.subitems {
+﻿.subitem-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+
+  @media #{$mobile} {
+    display: block;
+  }
+}
+
+.subitem-link-wrapper {
+  width: calc(50% - 25px);
+  display: flex;
+  flex-direction: column;
+
+  @media #{$mobile} {
+    display: block;
+    width: 100%;
+  }
+}
+
+.subitem-link{
+  flex-grow: 1;
+}
+
+.subitems {
   margin-top: -15px;
 
   @media #{$mobile, $tablet} {
@@ -10,7 +34,6 @@
 }
 
 .primary-items-no-margin {
-
   @media #{$mobile} {
     .sk-table-outer-container {
       margin: 0 0 0 0;

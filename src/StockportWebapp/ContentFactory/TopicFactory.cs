@@ -17,14 +17,24 @@ public class TopicFactory
         var summary = _markdownWrapper.ConvertToHtml(topic.Summary ?? "");
         summary = _tagParserContainer.ParseAll(summary, topic.Title);
 
+        // 02/11 Hotfix to maintain backwards compatibility 
+        EventBanner oldEventBanner = null;
+        if (topic.EventBanner is not null)
+            oldEventBanner = new (topic.EventBanner.Title, topic.EventBanner.Teaser, topic.EventBanner.Icon, topic.EventBanner.Link);
+
+        CallToAction oldCallToAction = null;
+        if (topic.CallToActionBanner is not null)
+            oldCallToAction = new(topic.CallToActionBanner.Title, topic.CallToActionBanner.Text, topic.CallToActionBanner.Link, topic.CallToActionBanner.ImageUrl);
+
         return new ProcessedTopic(topic.Name, topic.Slug, summary, topic.Teaser, topic.MetaDescription, topic.Icon, topic.BackgroundImage,
             topic.Image, topic.SubItems, topic.SecondaryItems, topic.TertiaryItems, topic.Breadcrumbs, topic.Alerts, topic.EmailAlerts,
-            topic.EmailAlertsTopicId, topic.EventBanner, topic.ExpandingLinkTitle, topic.ExpandingLinkBoxes, topic.PrimaryItemTitle,
-            topic.Title, topic.DisplayContactUs, topic.CampaignBanner, topic.EventCategory, topic.CallToAction)
+            topic.EmailAlertsTopicId, oldEventBanner, topic.EventBanner, topic.ExpandingLinkTitle, topic.ExpandingLinkBoxes, topic.PrimaryItemTitle,
+            topic.Title, topic.DisplayContactUs, topic.CampaignBanner, topic.EventCategory, oldCallToAction, topic.CallToAction, topic.TopicBranding, topic.LogoAreaTitle)
         {
             TriviaSection = topic.TriviaSection,
             Video = !string.IsNullOrEmpty(topic.Video.VideoEmbedCode) ?
                 new Video(topic.Video.Heading, topic.Video.Text, _tagParserContainer.ParseAll(topic.Video.VideoEmbedCode)) : null,
+            CallToActionBanner = topic.CallToActionBanner,
             CallToAction = topic.CallToAction
         };
     }
