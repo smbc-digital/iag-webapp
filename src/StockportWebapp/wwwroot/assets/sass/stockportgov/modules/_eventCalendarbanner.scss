@@ -42,7 +42,7 @@
     flex-direction: column;
     text-align: center;
 
-    @media #{$mobile, $tablet} { //This will need signing off
+    @media #{$mobile} {
       display: none;
     }
 }
