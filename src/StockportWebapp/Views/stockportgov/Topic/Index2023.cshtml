@@ -8,9 +8,6 @@
 }
 
 <div class="grid-container-full-width">
-    @section Alerts {
-        <partial name="GlobalAlerts" model='topic.Alerts' />
-    }
 
     @section Breadcrumbs {
         <div class="grid-container-full-width">
@@ -33,6 +30,10 @@
             </div>
         </div>
     </section>
+
+    <div class="topic-alerts">
+        <partial name="GlobalAlerts" model='topic.Alerts' />
+    </div>
 
     <partial name="TopicPrimaryItems"/>
 
