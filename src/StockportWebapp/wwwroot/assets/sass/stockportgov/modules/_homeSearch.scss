@@ -100,11 +100,13 @@
         transition: none;
         margin: 0px;
         padding-left: 1em;
-
+        list-style: none;
+        padding: 0.5em;
 
         &:hover {
             transition: none;
             background-color: $stockport-teal-darker;
+            color: white;
         }
 
         &:last-child {
