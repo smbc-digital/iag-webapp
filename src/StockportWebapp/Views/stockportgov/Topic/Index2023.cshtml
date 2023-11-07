@@ -8,9 +8,6 @@
 }
 
 <div class="grid-container-full-width">
-    @section Alerts {
-        <partial name="GlobalAlerts" model='topic.Alerts' />
-    }
 
     @section Breadcrumbs {
         <div class="grid-container-full-width">
@@ -34,6 +31,7 @@
         </div>
     </section>
 
+    <partial name="GlobalAlerts" model='topic.Alerts' />
     <partial name="TopicPrimaryItems"/>
 
     @if (!(topic.CallToAction is null && string.IsNullOrEmpty(topic.EventCalendarBanner.Title))) 

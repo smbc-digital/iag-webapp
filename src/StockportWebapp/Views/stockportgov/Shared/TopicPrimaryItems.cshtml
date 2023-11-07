@@ -5,7 +5,7 @@
 }
 @if (Model.Topic.PrimaryItems.Items.Any())
 {
-    <section class="section section--white section--no-margin" data-cy="@dataCy">
+    <section class="section section--white section--no-margin section--margin-top" data-cy="@dataCy">
         @if(!string.IsNullOrEmpty(Model.Topic.PrimaryItemTitle)){
             <h2 class="visuallyhidden">@Model.Topic.PrimaryItemTitle</h2>
         }
