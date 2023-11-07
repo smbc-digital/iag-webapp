@@ -1,5 +1,14 @@
 ﻿$header-accent: rgba(255, 255, 255, 0.7);
 
+#cludo-mobile-form {
+    position: relative;
+}
+
+#cludo-mobile-form * {
+    box-sizing: border-box;
+    text-align: left;
+    text-shadow: none;
+}
 
 .site-header {
     background-color: $stockport-green;
@@ -17,12 +26,17 @@
     }
 
     &_search-input {
+        color: $stockport-grey;
         font-size: 1.2rem;
         padding: 15px 60px 15px 15px;
         border-radius: 3px;
         border: 0px;
         width: 100%;
         max-width: 100%;
+
+        &:focus {
+            background-color: white;
+        }
     }
 
 
@@ -34,8 +48,7 @@
         font-size: 24px;
         margin: 20px 0 10px 10px;
         padding: 0 12px;
-        line-height:42px;
-        
+        line-height: 42px;
     }
 
     &_mobile-search {
@@ -43,25 +56,43 @@
     }
 
 
+
+    .site-header_search-button {
+        border: none;
+        overflow: auto;
+        padding: 0;
+        transition: none;
+        font-size: 1.3rem;
+
+        span:before {
+            font-family: FontAwesome;
+        }
+    }
+
+
     #cludo-search-form {
         .site-header_search-button {
-            background: 0 0;
-            border: none;
-            color: #333;
-            overflow: auto;
-            padding: 0;
-            position: absolute;
+            top: 27%;
             right: 0;
+            color: $stockport-grey;
+            width: 60px;
+            background: 0 0;
+            position: absolute;
             text-align: center;
             text-indent: 0;
-            top: 27%;
-            transition: none;
-            width: 60px;
-            font-size: 1.3rem;
+        }
+    }
 
-            span:before {
-                font-family: FontAwesome;
-            }
+    #cludo-mobile-form {
+        .site-header_search-button {
+            top: 35%;
+            right: 0;
+            color: $stockport-grey;
+            width: 60px;
+            background: 0 0;
+            position: absolute;
+            text-align: center;
+            text-indent: 0;
         }
     }
 
@@ -254,4 +285,14 @@
   .menu .menu-logged-out:not(:first-of-type) {
     padding-right: 0;
   }
+}
+
+.no-header-search {
+    .site-header_menu-wrapper {
+        width: 100%;
+    }
+
+    .site-header_mobile-search-button, .site-header_search-wrapper {
+        display: none;
+    }
 }
