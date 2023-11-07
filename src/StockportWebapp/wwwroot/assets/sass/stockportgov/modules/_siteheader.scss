@@ -1,4 +1,7 @@
-﻿.site-header {
+﻿$header-accent: rgba(255, 255, 255, 0.7);
+
+
+.site-header {
     background-color: $stockport-green;
 
     &_logo {
@@ -21,6 +24,22 @@
         width: 100%;
         max-width: 100%;
     }
+
+
+    &_mobile-search-button {
+        border: 1px solid $header-accent;
+        border-radius: 3px;
+        color: $header-accent;
+        float: right;
+        font-size: 24px;
+        margin: 10px 0 10px 10px;
+        padding: 0 12px;
+    }
+
+    &_mobile-search {
+        display: none;
+    }
+
 
     #cludo-search-form {
         .site-header_search-button {
@@ -86,7 +105,7 @@
                 }
 
                 span {
-                    color: #83aeac;
+                    color: $header-accent;
                     padding-right: 10px;
                 }
             }

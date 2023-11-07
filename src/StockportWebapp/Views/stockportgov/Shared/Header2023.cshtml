@@ -21,64 +21,16 @@
                     width="245"
                     height="60">
             </a>
+            <partial name="MobileSearchBar2023" />
         </div>
+
         <div class="grid-70 tablet-grid-70 mobile-grid-100 grid-parent">
-            
-                
-                    @*                        @if (!string.IsNullOrEmpty(user.Email))
-                        {
-                            <div class="menu-logged-in hide-on-mobile hide-on-tablet">
-                                <div class="menu-account-button">
-                                    <span class="fa fa-user" aria-hidden="true"></span>
-                                    <p>Welcome @user.Name</p>
-                                    <a href="https://myaccount.stockport.gov.uk/">My Account</a>
-                                    <span class="fa fa-angle-down" aria-hidden="true"></span>
-                                </div>
-                                <div class="menu-tooltip">
-                                    <span class="fa fa-caret-up" aria-hidden="true"></span>
-                                    <div class="menu-links">
-                                        <a href="https://myaccount.stockport.gov.uk/">My Account</a>
-                                        <a href="https://myaccount.stockport.gov.uk/account/settings">Account settings</a>
-                                        <a class="sign-out" href="https://myaccount.stockport.gov.uk/account/logout">Sign out</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="menu-logged-in hide-on-desktop">
-                                <div class="modal">
-                                    <input id="modal" type="checkbox" name="modal">
-                                    <label for="modal"><span class="fa fa-user" aria-hidden="true"></span></label>
-
-                                    <div class="modal-overlay">
-                                        <div class="modal-header">
-                                            <div class="button button-outline button-close button-overlay">
-                                                <label for="modal"><span class="fa fa-times" aria-hidden="true"></span>Close</label>
-                                            </div>
-                                        </div>
-                                        <div class="modal-box">
-                                            <nav class="mobile-menu">
-                                                <ul>
-                                                    <li><a href="https://myaccount.stockport.gov.uk/">My Account</a></li>
-                                                    <li><a href="https://myaccount.stockport.gov.uk/account/settings">Account settings</a></li>
-                                                    <li><a class="sign-out" href="https://myaccount.stockport.gov.uk/account/logout">Sign out</a></li>
-                                                </ul>
-                                            </nav>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        }
-                        else
-                        {*@
-
-                            @*<partial name="MobileSearchBar" />*@
-
-                            <div class="grid-50 tablet-grid-70 site-header_menu-wrapper">
-                                <partial name="HeaderMenu" />
-                            </div>
-                            <div class="grid-50 tablet-grid-30 site-header_search-wrapper">
-                                <partial name="HeaderSearchBar2023" />
-                            </div>
-            @*   } *@
+            <div class="grid-50 tablet-grid-70 site-header_menu-wrapper">
+                <partial name="HeaderMenu" />
+            </div>
+            <div class="grid-50 tablet-grid-30 site-header_search-wrapper">
+                <partial name="HeaderSearchBar2023" />
+            </div>
         </div>
     </header>
 </div>
@@ -87,7 +39,7 @@
 <partial name="BrowserCheck" />
 
 <script>
-    require(['/assets/javascript/config-5de69769.min.js'], function() {
+    require(['/assets/javascript/config-1f826b90.min.js'], function() {
         require(['startup', 'utils', 'reciteMe', 'cludo', 'Cludo'],
             function(startup, utils, reciteMe, cludo, _) {
                 reciteMe.Init();

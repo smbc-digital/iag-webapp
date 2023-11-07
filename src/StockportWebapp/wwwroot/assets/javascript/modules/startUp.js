@@ -4,9 +4,15 @@
 
         utils.SwapLogo();
 
+        /*Duplicating this to work with newer header - this will need removing as needed*/
         $(".show-search-button").click(function () {
             $("#mobileSearchInput").slideToggle(220);
             $(".show-search-button").toggleClass("arrow");
+        });
+
+        /*This is the behaviour for the new header search - potentially for the "mege menu" */
+        $(".site-header_mobile-search-button").click(function () {
+            $("#siteHeaderMobileSearchInput").slideToggle(220);
         });
         
         if (isIE()) {

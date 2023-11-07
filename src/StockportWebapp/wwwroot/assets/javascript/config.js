@@ -18,7 +18,7 @@
         "primaryFilter": "primaryFilter-18bf75d0.min",
         "reciteMe": "reciteMe-70c3df4d.min",
         "refineByBar": "refineByBar-c71a5d69.min",
-        "startup": "startUp-874d5290.min",
+        "startup": "startUp-13db142b.min",
         "utils": "utils-e9b96aa5.min",
         "viewMoreSlider": "viewMoreSlider-18c0a669.min",
 
