@@ -11,22 +11,21 @@
         </div>
     </nav>
     <header role="banner" id="header" class="grid-container">
-        <div class="grid-50 mobile-grid-100 tablet-grid-50">
+        <div class="grid-30 tablet-grid-30 mobile-grid-100">
             <a href="https://www.stockport.gov.uk">
                 <img src='@StaticAssets.UrlFor("logo-stockport-full%402x.png")'
                     data-mobile-image='@StaticAssets.UrlFor("logo-stockport-mobile%402x.png")'
                     data-desktop-image='@StaticAssets.UrlFor("logo-stockport-full%402x.png")'
                     alt="Stockport Council Logo Homepage Link"
-                    class="logo-main-image"
+                    class="site-header_logo"
                     width="245"
                     height="60">
             </a>
         </div>
-        <div class="grid-50 mobile-grid-100 tablet-grid-50">
-            <div class="header-container grid-100 grid-parent">
-                <div class="grid-50 mobile-grid-100 grid-parent header-myaccount">
-                    <div class="menu">
-                        @if (!string.IsNullOrEmpty(user.Email))
+        <div class="grid-70 tablet-grid-70 mobile-grid-100 grid-parent">
+            
+                
+                    @*                        @if (!string.IsNullOrEmpty(user.Email))
                         {
                             <div class="menu-logged-in hide-on-mobile hide-on-tablet">
                                 <div class="menu-account-button">
@@ -69,25 +68,22 @@
                             </div>
                         }
                         else
-                        {
-                            <div class="menu-logged-out">
-                                <a href="#" id="reciteMe"><span class="fa fa-headphones hide-on-mobile" aria-hidden="true"></span>Accessibility</a>
-                            </div>
+                        {*@
 
-                            <div class="menu-logged-out">
-                                <a href="https://myaccount.stockport.gov.uk/" aria-label="Go to My Account"><span class="fa fa-user hide-on-mobile" aria-hidden="true"></span>My Account</a>
+                            @*<partial name="MobileSearchBar" />*@
+
+                            <div class="grid-50 tablet-grid-70 site-header_menu-wrapper">
+                                <partial name="HeaderMenu" />
                             </div>
-                        }
-                    </div>
-                </div>
-                <div class="grid-50 grid-parent pull-right header-search-bar">
-                    <partial name="HeaderSearchBar" />
-                </div>
-            </div>
+                            <div class="grid-50 tablet-grid-30 site-header_search-wrapper">
+                                <partial name="HeaderSearchBar2023" />
+                            </div>
+            @*   } *@
         </div>
     </header>
 </div>
-<partial name="MobileSearchBar" />
+
+
 <partial name="BrowserCheck" />
 
 <script>
