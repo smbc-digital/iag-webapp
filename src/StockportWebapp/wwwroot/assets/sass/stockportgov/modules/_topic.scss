@@ -3,7 +3,7 @@
         margin-top: -1px;
         background-color: $stockport-teal-darker;
         padding-bottom: 20px;
-        margin-bottom: 2em;
+        margin-bottom: 0em;
     
         h1, p {
             color: white;
@@ -76,6 +76,16 @@
         &-teaser {
             color: black;
             margin: 0;
+        }
+    }
+
+    &-banner {
+        &--margin-top {
+            margin-top: 1em;
+
+            @media #{$mobile} {
+                margin-top: 2em;
+            }
         }
     }
 }
