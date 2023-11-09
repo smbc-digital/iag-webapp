@@ -1,17 +1,12 @@
 ﻿$header-accent: rgba(255, 255, 255, 0.7);
 
-#cludo-mobile-form {
-    position: relative;
-}
-
-#cludo-mobile-form * {
-    box-sizing: border-box;
-    text-align: left;
-    text-shadow: none;
-}
-
 .site-header {
     background-color: $stockport-green;
+
+    #search_autocomplete {
+        top: 80px !important;
+        border-top: 1px solid $stockport-grey;
+    }
 
     &_logo {
         height: 50px;
@@ -33,12 +28,12 @@
         border: 0px;
         width: 100%;
         max-width: 100%;
+        box-sizing: border-box;
 
         &:focus {
             background-color: white;
         }
     }
-
 
     &_mobile-search-button {
         border: 1px solid $header-accent;
@@ -55,45 +50,46 @@
         display: none;
     }
 
+    #cludo-search-form, #cludo-mobile-form {
+        position: relative;
+        margin: 0;
+        display: block;
+        box-sizing: border-box;
+        z-index: 9999;
 
-
-    .site-header_search-button {
-        border: none;
-        overflow: auto;
-        padding: 0;
-        transition: none;
-        font-size: 1.3rem;
-
-        span:before {
-            font-family: FontAwesome;
-        }
-    }
-
-
-    #cludo-search-form {
         .site-header_search-button {
-            top: 27%;
-            right: 0;
-            color: $stockport-grey;
-            width: 60px;
-            background: 0 0;
             position: absolute;
+            top: 32%;
+            right: 0;
+            width: 60px;
+            border: none;
+            padding: 0;
+            color: $stockport-grey;
+            font-size: 1.3rem;
+            background: 0 0;
             text-align: center;
             text-indent: 0;
+            overflow: auto;
+            transition: none;
+
+            span:before {
+                font-family: FontAwesome;
+            }
         }
     }
 
     #cludo-mobile-form {
+        position: relative;
+
         .site-header_search-button {
             top: 35%;
-            right: 0;
-            color: $stockport-grey;
-            width: 60px;
-            background: 0 0;
-            position: absolute;
-            text-align: center;
-            text-indent: 0;
         }
+    }
+
+    #cludo-mobile-form * {
+        box-sizing: border-box;
+        text-align: left;
+        text-shadow: none;
     }
 
     &_menu {
