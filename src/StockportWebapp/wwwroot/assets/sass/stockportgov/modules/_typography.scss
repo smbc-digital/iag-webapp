@@ -1,11 +1,5 @@
 ﻿/*------ Typography Styles ------*/
 
-
-@mixin spacing-reset{
-    // margin: 0px;
-    // padding: 0px;
-}
-
 @mixin body {
     font: 1.1875rem / 1.5 $fontStack;
 }
@@ -26,10 +20,10 @@
 }
 
 @mixin h-xl {
-    @include spacing-reset;
     font-size: 3rem;
     line-height: 1.0416666667;
     font-weight: 600;
+    letter-spacing: -1px;
 
     @media #{$mobile} {
         font-size: 2rem;
@@ -38,10 +32,10 @@
 }
 
 @mixin h-l {
-    @include spacing-reset;
     font-size: 2.25rem;
     line-height: 1.1111111111;
     font-weight: 600;
+    letter-spacing: -1px;
 
     @media #{$mobile} {
         font-size: 1.75rem;
@@ -50,7 +44,6 @@
 }
 
 @mixin h-ml {
-    @include spacing-reset;
     font-size: 1.65rem;
     line-height: 1.5;
     font-weight: 800;
@@ -62,7 +55,6 @@
 }
 
 @mixin h-m {
-    @include spacing-reset;
     font-size: 1.5rem;
     line-height: 1.25;
     font-weight: 800;
@@ -74,8 +66,6 @@
 }
 
 @mixin h-s {
-    @include spacing-reset;
-    
     font-size: 1.3rem;
     line-height: 1.45;
     font-weight: 800;
@@ -87,7 +77,6 @@
 }
 
 @mixin h-xs {
-    @include spacing-reset;
     font-size: 1.1875rem;
     line-height: 1.5;
     font-weight: 800;
