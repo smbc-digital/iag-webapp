@@ -1,22 +1,18 @@
-﻿// @import all the modules for homepage/topics
-@import "modules/_typography";
-
-@import "modules/siteheader";
-@import "modules/search";
-
+﻿@import "modules/_typography";
+@import "modules/header";
+@import "modules/preFooter";
+@import "modules/footer";
+@import "modules/buttons";
 
 // homepage and topics pages
-@import "modules/_cludo";
-@import "modules/_section";
-@import "modules/_navCard";
-@import "modules/_homepageHero";
-@import "modules/_topTasks";
-@import "modules/_condolenceAlert";
-@import "modules/_preFooter";
-@import "modules/_buttons";
-@import "modules/_inputs";
-@import "modules/_homeSearch";
-@import "modules/_footer";
+@import "modules/searchAutocomplete";
+@import "modules/section";
+@import "modules/navCard";
+@import "modules/homepageHero";
+@import "modules/topTasks";
+@import "modules/condolenceAlert";
+@import "modules/inputs";
+@import "modules/homeSearch";
 @import "modules/callToAction";
 @import "modules/featureCard";
 @import "modules/featuredItem";
@@ -24,4 +20,3 @@
 @import "modules/topic";
 @import "modules/logoArea";
 @import "modules/eventCalendarBanner";
-
