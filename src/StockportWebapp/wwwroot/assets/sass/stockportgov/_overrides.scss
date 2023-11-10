@@ -6,6 +6,10 @@ body {
     background-color: white;
 }
 
+html {
+    -webkit-text-size-adjust: 100%; /* Prevent font scaling in landscape while allowing user zoom */
+}
+
 .btn,
 h1,
 h2,
@@ -14,6 +18,18 @@ h4,
 h5,
 h6 {
     font-family: $fontStack;
+}
+
+a {
+    color: $colorPrimary;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: .1em;
+  
+    &:hover {
+      text-decoration-thickness: 3px;
+      text-decoration-skip-ink: none;
+    }
 }
 
 /*------ Alerts ------*/
@@ -152,6 +168,20 @@ h6 {
 
 .grid-container {
     max-width: 1260px
+}
+
+.hidden {
+    display: none;
+}
+
+.grid-container-full-width .grid-container {
+    @media #{$mobile, $tablet} {
+      padding: 0;
+    }
+}
+
+.logo-main {
+    padding: 0;
 }
 
 html[dir="rtl"] {
