@@ -3,7 +3,7 @@
 @{
     var alertCookies = CookiesHelper.GetCookies<Alert>("alerts");
     var isDismissed = alertCookies != null && alertCookies.Contains(Model.Slug) && !Model.IsStatic;
-    var alertType = ViewData["alertType"] is not null ? $"{ViewData["alertType"]}-alert-{Model.Severity.ToLowerInvariant()}" : "";
+    var alertType = ViewData["AlertType"] is not null ? $"{ViewData["AlertType"]}-alert-{Model.Severity.ToLowerInvariant()}" : "";
 }
 
 @if (!isDismissed)
