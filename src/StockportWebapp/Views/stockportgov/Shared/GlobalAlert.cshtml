@@ -3,11 +3,12 @@
 @{
     var alertCookies = CookiesHelper.GetCookies<Alert>("alerts");
     var isDismissed = alertCookies != null && alertCookies.Contains(Model.Slug) && !Model.IsStatic;
+    var alertType = ViewData["AlertType"] is not null ? $"{ViewData["AlertType"]}-alert-{Model.Severity.ToLowerInvariant()}" : "";
 }
 
 @if (!isDismissed)
 {
-    <div class="global-alert-@Model.Severity.ToLowerInvariant()" data-cy="global-alert-wrapper">
+    <div class="global-alert-@Model.Severity.ToLowerInvariant() @alertType" data-cy="global-alert-wrapper">
         <div class="grid-container grid-100 global-alert-container">
             <div class="grid-100 mobile-grid-100 tablet-grid-100 global-alert grid-parent">
                 <div class="hide-on-mobile hide-on-tablet global-alert-icon global-alert-icon-@Model.Severity.ToLowerInvariant()" data-cy="alert-icon">

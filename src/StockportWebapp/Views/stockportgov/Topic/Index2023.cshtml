@@ -4,7 +4,8 @@
     ViewData["Title"] = topic.Name;
     ViewData["og:title"] = topic.Name;
     ViewData["Description"] = topic.MetaDescription;
-    Layout = "../Shared/_Layout2023.cshtml";
+    ViewData["AlertType"] = "topic";
+    Layout = "../Shared/_Layout2023.cshtml"; 
 }
 
 <div class="grid-container-full-width">
