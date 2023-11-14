@@ -1,13 +1,23 @@
-/*------ Footer, Overrides some base stlye int he styleguide footer ------*/
+/*------ Footer, Overrides some base style in the styleguide footer ------*/
 .footer {
 	background-color: $stockport-dark-grey;
 	padding: 2em 0 1em 0;
+	width: 100%;
+    position: relative;
+    z-index: 5;
+    color: $white;
+
+    ul {
+        list-style: none;
+    }
 
 	@media #{$mobile} {
 		padding: 0 0 1em;
 	}
 
-	&_links {
+	&_links {	
+		margin: -5px 0 0 0;
+
 		li {
 			box-sizing: border-box;
 			margin: 0;
@@ -40,10 +50,11 @@
 		img {
 			height: auto;
 			width: 100%;
-		}
+			max-width: 275px;
 
-		a {
-			display: inline-block;
+			@media #{$mobile} {
+				padding: 0 10px;
+			}
 		}
 
 		@media #{$mobile} {
@@ -77,6 +88,10 @@
 		a {
 			font-weight: normal;
 			text-decoration-line: underline;
+
+			&:hover {
+				text-decoration-thickness: 3px;
+			}
 		}
 	}
 }

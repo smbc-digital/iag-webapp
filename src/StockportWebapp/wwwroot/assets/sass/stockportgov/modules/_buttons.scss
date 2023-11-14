@@ -21,27 +21,26 @@
         width: 100%;
     }
 
+    &_text {
+        display: inline-block;
+        width: 80%;
+    }
+
+    &_icon {
+        margin: 0 0.5em;
+    }
+
     &--full {
         width: 100%;
     }
 
     &--width-30 {
-        width: 30%;
+        width: 33.3333%;
         min-width: 300px;
 
         @media #{$mobile, $tablet} {
             width: 100%;
             min-width: unset;
-        }
-    }
-
-    &--margin-25 {
-        @media #{$tablet} {
-            width: calc(100% - 50px);
-        }
-
-        @media #{$mobile} {
-            width: 100%;
         }
     }
 
@@ -73,15 +72,42 @@
         }
     }
 
-    &--pink-outline {
+    &--pink {
         color: $stockport-pink;
         border: 1px solid $stockport-pink;
-        background-color: transparent;
-
 
         &:hover, &:focus {
-            background-color: $stockport-pink;
-            color: white;
+            color: darken($stockport-pink, 5%);
+            background-color: rgba(white, 0.9);
+        }
+
+        &-outline {
+            background-color: transparent;
+
+            &:hover, &:focus {
+                background-color: $stockport-pink;
+                color: white;
+            }
+        }      
+    }
+
+    &--purple {
+        color: $stockport-purple;
+        border: 1px solid $stockport-purple;
+
+        &:hover, &:focus {
+            color: darken($stockport-purple, 5%);
+            background-color: rgba(white, 0.9);
+        }
+    }
+
+    &--blue {
+        color: $stockport-blue;
+        border: 1px solid $stockport-blue;
+
+        &:hover, &:focus {
+            color: darken($stockport-blue, 5%);
+            background-color: rgba(white, 0.9);
         }
     }
 
@@ -91,19 +117,41 @@
     }
 
     &--border-grey {
-        border-color: lighten($stockport-grey, 30%);
+        border-color: $stockport-mid-grey;
     }
 
-    &--chevron-right {
-        &:before {
+    &--chevron-forward {
+        position: relative;
+
+        &:after {
             content: "\f105";
             font: normal normal normal 14px/1 FontAwesome;
             font-size: inherit;
-            text-rendering: auto;
-            -moz-osx-font-smoothing: grayscale;
-            text-align: right;
-            float: right;
-            padding-left: 10px;
+            width:20px;
+            height:20px;
+            position: absolute;
+            right: 15px;
+            top: 34.5%;
+            display: inline-block;
+            
+            @media #{$tablet} {
+                top: 33.5%;
+            }
+        }
+    }
+
+    &--envelope {
+        .btn_text {
+            &::before {
+                content: "\f0e0";
+                font: normal normal normal 14px/1 "Font Awesome 6 Free";
+                font-size: 1.25em;
+                line-height: .05em;
+                display: inline-block;
+                margin-left: .5em;
+                margin-right: .5em;
+                vertical-align: -.075em;
+            }
         }
     }
 
@@ -112,7 +160,38 @@
     }
 }
 
+html[dir="rtl"] {
+    .btn {
+        &--chevron-forward {
+            &:before {
+                content: "\f104";
+                font: normal normal normal 14px/1 FontAwesome;
+                font-size: inherit;
+                height:20px;
+                position: absolute;
+                left: 15px;
+                top: 37.5%;
+                width: 20px;
+                display: inline-block;
+            }
 
+            &::after {
+                content: "";
+            }
+        }
+    }
+}
+
+/*
+    Overrides for the specfic use case of vertically centering the button to email subscription area
+*/
+.email-subsciption {
+    .btn {
+        @media #{$desktop} {
+            margin-top: 27px;
+        }
+    }
+}
 /*
     The following are legacys tles theat will hopefully be migrated to the above.
 */

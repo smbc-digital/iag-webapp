@@ -1,0 +1,25 @@
+.logo-area {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    &__item {
+        margin: 0 2.5em 1.5em 0;
+
+        &:last-child {
+            margin-bottom: 2.5em;
+        }
+    }
+
+    &__image{
+        height: 125px;
+    }
+}
+
+
+html[dir="rtl"] {
+    .logo-area__item {
+        margin-right: 0;
+        margin-left: 2.5em;
+    }
+}

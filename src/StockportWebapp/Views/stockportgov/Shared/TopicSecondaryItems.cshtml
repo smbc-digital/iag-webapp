@@ -1,0 +1,18 @@
+﻿@model IEnumerable<SubItem>
+
+<section class="section grid-container" data-cy="secondary-items">
+    <nav class="grid-100" aria-label="secondary items navigation">
+        <h2 class="section__title">More in @ViewData["Title"]</h2>
+        <ul class="topic-secondary-item-list">
+        @foreach(var item in Model)
+        {
+            <li class="topic-secondary-item-container">
+                <a href="@item.NavigationLink" class="topic-secondary-item-link" data-cy="secondary-item-link">
+                    <p class="topic-secondary-item-title">@item.Title</p>
+                    <p class="topic-secondary-item-teaser">@item.Teaser</p>
+                </a>
+            </li>
+        }
+        </ul>
+    </nav>
+</section>

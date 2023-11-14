@@ -1,11 +1,14 @@
 ﻿.feature-card {
     display: flex;
     flex-direction: column;
-    flex-wrap: wrap;
-    justify-content: space-between;
 
     @media #{$desktop} {
         flex-direction: row;
+        justify-content: space-between;
+    }
+
+    @media #{$mobile} {
+        margin: 0px 5px;
     }
 
     &__header {
@@ -13,20 +16,29 @@
         padding: 0.75em;
         border-radius: 3px 3px 0 0;
 
-        h3 {
+        h1, h2, h3, h4, h5, h6 {
+            @include h-ml;
             color: white;
             margin: 0;
         }
     }
 
     &__wrapper {
-        flex-grow: 1;
         display: flex;
         flex-direction: column;
-        flex-basis: 0;
-        flex: 1;
-        margin-left: 25px;
-        margin-right: 25px;
+
+        @media #{$desktop} {
+            width: calc(50% - 25px);
+
+            &--width-33 {
+                width: calc(33.33333% - 33.33333px);
+
+                .feature-card__image {
+                    min-height: 200px;
+                    height: 200px;
+                }
+            }
+        }
 
         a {
             text-decoration: none;
@@ -34,19 +46,8 @@
     }
 
     &__wrapper:first-child {
-        margin-left: 0;
         @media #{$tablet} {
-            margin: 0;
-            margin-bottom: 25px;
-        }
-    }
-
-    
-    &__wrapper:last-child {
-        margin-right: 0;
-        @media #{$tablet} {
-            margin: 0;
-            margin-top: 25px;
+            margin-bottom: 2em;
         }
     }
 
@@ -61,12 +62,15 @@
     &__link {
         background-color: white;
         display: flex;
-        flex-direction: column; 
-        justify-content: space-between;
-        flex-grow: 1;
+        flex-direction: column;
         margin-bottom: 1.5em;
         border-radius: 0 0 3px 3px;
-        
+
+        @media #{$desktop} {
+            justify-content: space-between;
+            flex-grow: 1;
+        }
+
         @media #{$mobile} {
             margin-bottom: 1em;
         }
@@ -79,10 +83,10 @@
     }
 
     &__title {
+        @include h-s;
         color: $stockport-green;
         text-decoration: underline;
         margin: 0;
-        font-size: 1.3rem;
 
         &--padded-bottom {
             padding-bottom: 0.5em;
@@ -105,14 +109,17 @@
 
     &__image {
         width: 100%;
-        height: 300px;
         object-fit: cover;
         object-position: top;
         border-radius: 3px;
 
-        @media #{$mobile} {
-            height: 200px;
-            max-height: 300px;
+        @media #{$desktop} {
+            height: 300px;
+        }
+
+        @media #{$tablet} {
+            min-height: 150px;
+            max-height: 400px;
         }
     }
 }

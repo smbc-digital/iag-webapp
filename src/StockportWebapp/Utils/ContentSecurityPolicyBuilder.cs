@@ -37,7 +37,6 @@ public class ContentSecurityPolicyBuilder
         _stringBuilder.Append(
             new ContentSecurityPolicyElement
                 ("child-src")
-            .AddSource("http://s7.addthis.com")
             .AddSource("https://www.youtube.com")
             .AddSource("https://www.google.com/")
             .AddSource("https://www.google.com/maps/")
@@ -67,6 +66,7 @@ public class ContentSecurityPolicyBuilder
                 ("font-src")
             .AddSource("font.googleapis.com")
             .AddSource("maxcdn.bootstrapcdn.com/font-awesome/")
+            .AddSource("cdnjs.cloudflare.com/ajax/libs/font-awesome/")
             .AddSource("fonts.gstatic.com/")
             .AddSource("stockportgov-design-system.s3-eu-west-1.amazonaws.com/")
             .AddSource("design-system.stockport.gov.uk/")
@@ -139,6 +139,7 @@ public class ContentSecurityPolicyBuilder
             .AddSource("stockportgov-design-system.s3-eu-west-1.amazonaws.com/")
             .AddSource("s3-eu-west-1.amazonaws.com/")
             .AddSource("maxcdn.bootstrapcdn.com/font-awesome/")
+            .AddSource("cdnjs.cloudflare.com/ajax/libs/font-awesome/")
             .AddSource("fonts.googleapis.com/")
             .AddSource("cdnjs.cloudflare.com/ajax/libs/cookieconsent2/")
             .AddSource("maps.stockport.gov.uk/")
@@ -169,8 +170,6 @@ public class ContentSecurityPolicyBuilder
             .AddSource("https://ajax.googleapis.com/ajax/libs/jquery/")
             .AddSource("maps.googleapis.com")
             .AddSource("apis.google.com")
-            .AddSource("m.addthisedge.com/live/boost/")
-            .AddSource("v1.addthisedge.com/live/boost/")
             .AddSource("www.google-analytics.com/analytics.js")
             .AddSource("tagmanager.google.com/")
             .AddSource("api.cludo.com/scripts/")
@@ -178,11 +177,8 @@ public class ContentSecurityPolicyBuilder
             .AddSource("cdnjs.cloudflare.com/ajax/libs/cookieconsent2/")
             .AddSource("design-system.stockport.gov.uk/")
             .AddSource("s3.eu-west-1.amazonaws.com/")
-            .AddSource("s7.addthis.com/")
             .AddSource("maps.stockport.gov.uk/")
             .AddSource("js.buto.tv/video/")
-            .AddSource("s7.addthis.com/js/300/addthis_widget.js")
-            .AddSource("m.addthis.com/live/")
             .AddSource("siteimproveanalytics.com/js/")
             .AddSource("logo-net.co.uk/Delivery/")
             .AddSource("https://www.opinionstage.com/assets/loader.js")
@@ -222,6 +218,8 @@ public class ContentSecurityPolicyBuilder
             .AddSource("https://speech.speechstream.net/", true)
             .AddSource("https://www.google-analytics.com/", true)
             .AddSource("api.reciteme.com/")
+            .AddSource("js-eu1.hsforms.net/")
+            .AddSource("js-eu1.hs-scripts.com/")
             .Finish());
     }
 
@@ -232,7 +230,6 @@ public class ContentSecurityPolicyBuilder
                 ("connect-src")
             .AddSource("https://api.cludo.com/")
             .AddSource("buto-ping-middleman.buto.tv/")
-            .AddSource("m.addthis.com/live/")
             .AddSource("http://kinesis-ping-middleman.buto.tv")
             .AddSource("https://kinesis.eu-west-1.amazonaws.com/")
             .AddSource("https://zldiarvaya.execute-api.eu-west-1.amazonaws.com/prod/")
@@ -261,6 +258,9 @@ public class ContentSecurityPolicyBuilder
             .AddSource("maps.googleapis.com")
             .AddSource("stats.reciteme.com")
             .AddSource("api.reciteme.com")
+            .AddSource("https://s3.eu-west-1.amazonaws.com/maps.stockport.gov.uk/")
+            .AddSource("https://raw.githubusercontent.com/OrdnanceSurvey/")
+            .AddSource("https://api.os.uk/")
             .Finish());
     }
 
@@ -275,6 +275,7 @@ public class ContentSecurityPolicyBuilder
             .AddSource("http://wpc.196c.planetstream.net/00196C/audio/")
             .AddSource("app.meetami.ai/")
             .AddSource("*.meetami.ai/", false)
+            .AddSource("https://api.reciteme.com/")
             .Finish());
     }
 
@@ -288,6 +289,7 @@ public class ContentSecurityPolicyBuilder
             .AddSource("*.meetami.ai/")
             .AddSource("*.chat.meetami.ai/")
             .AddSource("forms.stockport.gov.uk", true)
+            .AddSource("https://app.contentful.com")
             .Finish());
     }
 

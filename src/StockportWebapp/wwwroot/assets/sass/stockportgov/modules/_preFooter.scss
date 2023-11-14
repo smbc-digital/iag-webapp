@@ -1,0 +1,28 @@
+.pre-footer {
+
+    &_image {
+        background-image: url("/assets/images/content/markup-cropped.svg");
+        background-position: center bottom;
+        background-repeat: no-repeat;
+        width: calc(100% - 100px);
+        position: relative;
+        margin: auto;
+        margin-bottom: -25px;
+        height: 200px;
+
+        @media #{$tablet} {
+            height: 175px;
+            width: calc(100% - 50px);
+        }
+
+        @media #{$mobile} {
+            width: 100%;
+            margin-bottom: -15px;
+            height: 100px;
+        }
+    }
+}
+
+.section--grey + .pre-footer {
+    background-color: $stockport-light-grey;
+}

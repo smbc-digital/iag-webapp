@@ -9,6 +9,6 @@ public class FeatureCardViewModel
     public string StartTime { get; set; }
     public string Image { get; set; }
     public string Slug { get; set; }
-    public string ButtonUrl { get; set; }
+    public string ButtonTargetController { get; set; }
     public string HeaderText { get; set; }
 }

@@ -19,21 +19,11 @@
 
         public ProcessedGroupHomepage() { }
 
-        public GenericFeaturedItemList GenericItemList
+        public GenericFeaturedItemList GenericItemList => new()
         {
-            get
-            {
-                var result = new GenericFeaturedItemList();
-                result.Items = new List<GenericFeaturedItem>();
-                foreach (var cat in Categories)
-                {
-                    result.Items.Add(new GenericFeaturedItem { Icon = cat.Icon, Title = cat.Name, Url = $"/groups/results?category={cat.Slug}&order=Name+A-Z" });
-                }
-
-                result.ButtonText = "View more categories";
-                return result;
-            }
-        }
+            Items = Categories.Select(cat => new GenericFeaturedItem(cat.Name, $"/groups/results?category={cat.Slug}&order=Name+A-Z", cat.Icon)).ToList(),
+            ButtonText = "View more categories"
+        };
 
         public ProcessedGroupHomepage(string title, string metaDescription, string backgroundImage, string featuredGroupsHeading, List<Group> featuredGroups,
             GroupCategory featuredGroupsCategory, GroupSubCategory featuredGroupsSubCategory, List<Alert> alerts, string bodyHeading, string body, string secondaryBodyHeading, string secondaryBody, EventBanner eventBanner)

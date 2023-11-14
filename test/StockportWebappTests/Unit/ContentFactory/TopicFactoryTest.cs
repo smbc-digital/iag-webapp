@@ -18,6 +18,13 @@ public class TopicFactoryTest
     private readonly List<SubItem> _subItems;
     private readonly List<SubItem> _secondaryItems;
     private readonly List<SubItem> _tertiaryItems;
+    private readonly EventCalendarBanner _eventCalendarBanner = new EventCalendarBanner() {
+        Title = "title",
+        Teaser = "teaser",
+        Link = "link",
+        Icon = "icon",
+        Colour = "colour",
+    };
 
     public TopicFactoryTest()
     {
@@ -31,50 +38,55 @@ public class TopicFactoryTest
         _tertiaryItems = new List<SubItem>();
 
         _topic = new Topic("name", Slug, Summary, Teaser, MetaDescription, Icon, BackgroundImage, Image, _subItems, _secondaryItems, _tertiaryItems, _breadcrumbs,
-            new List<Alert>(), false, "emailAlertsTopic", new EventBanner("title", "teaser", "icon", "link"), "expanding Link Title",
+            new List<Alert>(), false, "emailAlertsTopic", _eventCalendarBanner, "expanding Link Title",
             new List<ExpandingLinkBox>(), "primary Item Title", Title, true, new CarouselContent("Title", "Teaser", "Image", "url"),
-            "event Category")
+            "event Category", null, string.Empty)
         {
             Video = new()
         };
 
-        _markdownWrapper.Setup(o => o.ConvertToHtml(Summary)).Returns(Summary);
-        _tagParserContainer.Setup(o => o.ParseAll(Summary, Title, It.IsAny<bool>())).Returns(Summary);
+        _markdownWrapper.Setup(_ => _.ConvertToHtml(Summary)).Returns(Summary);
+        _tagParserContainer.Setup(_ => _.ParseAll(Summary, Title, It.IsAny<bool>())).Returns(Summary);
     }
 
-
     [Fact]
-    public void ShouldSetTheCorrespondingFieldsForAProcessedTopic()
+    public void Build_ShouldSetTheCorrespondingFields_For_AProcessedTopic()
     {
+        // Act
         var result = _topicFactory.Build(_topic);
 
-        result.Title.Should().Be(Title);
-        result.NavigationLink.Should().Be("/topic/" + Slug);
-        result.Summary.Should().Be(Summary);
-        result.Teaser.Should().Be(Teaser);
-        result.MetaDescription.Should().Be(MetaDescription);
-        result.Icon.Should().Be(Icon);
-        result.Image.Should().Be(Image);
-        result.BackgroundImage.Should().Be(BackgroundImage);
-        result.Breadcrumbs.ToList().Should().BeEquivalentTo(_breadcrumbs);
-        result.SubItems.ToList().Should().BeEquivalentTo(_subItems);
-        result.SecondaryItems.ToList().Should().BeEquivalentTo(_secondaryItems);
-        result.TertiaryItems.ToList().Should().BeEquivalentTo(_tertiaryItems);
-    }
-
-
-    [Fact]
-    public void ShouldProcessSummaryWithMarkdown()
-    {
-        _topicFactory.Build(_topic);
-        _markdownWrapper.Verify(o => o.ConvertToHtml(Summary), Times.Once);
+        // Assert
+        Assert.Equal(Title, result.Title);
+        Assert.Equal("/topic/" + Slug, result.NavigationLink);
+        Assert.Equal(Summary, result.Summary);
+        Assert.Equal(Teaser, result.Teaser);
+        Assert.Equal(MetaDescription, result.MetaDescription);
+        Assert.Equal(Icon, result.Icon);
+        Assert.Equal(Image, result.Image);
+        Assert.Equal(BackgroundImage, result.BackgroundImage);
+        Assert.Equal(_breadcrumbs, result.Breadcrumbs.ToList());
+        Assert.Equal(_subItems, result.SubItems.ToList());
+        Assert.Equal(_secondaryItems, result.SecondaryItems.ToList());
+        Assert.Equal(_tertiaryItems, result.TertiaryItems.ToList());
     }
 
     [Fact]
-    public void ShouldProcessSummaryWithStaticTagParsing()
+    public void Build_ShouldProcessSummaryWithMarkdown()
     {
+        // Act
         _topicFactory.Build(_topic);
 
-        _tagParserContainer.Verify(o => o.ParseAll(Summary, Title, It.IsAny<bool>()), Times.Once);
+        // Assert
+        _markdownWrapper.Verify(_ => _.ConvertToHtml(Summary), Times.Once);
+    }
+
+    [Fact]
+    public void Build_ShouldProcessSummaryWithStaticTagParsing()
+    {
+        // Act
+        _topicFactory.Build(_topic);
+
+        // Assert
+        _tagParserContainer.Verify(_ => _.ParseAll(Summary, Title, It.IsAny<bool>()), Times.Once);
     }
 }

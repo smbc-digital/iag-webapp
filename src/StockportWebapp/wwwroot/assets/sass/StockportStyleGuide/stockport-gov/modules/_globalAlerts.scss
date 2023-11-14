@@ -2,7 +2,7 @@
   display: table;
   width: 100%;
 
-  .global-alert-text-container {
+  &-text-container {
     display: table;
     height: 55px;
 
@@ -16,7 +16,7 @@
           display: inline;
         }
 
-        @media #{$mobile, $tablet} {
+        @media #{$tablet} {
           display: block;
           line-height: 0.7em;
         }
@@ -34,17 +34,13 @@
       p {
         margin-bottom: 0;
 
-        @media #{$mobile, $tablet} {
+        @media #{$tablet} {
           line-height: 1.4em;
         }
       }
 
       a {
         color: $white;
-      }
-
-      a:hover {
-        color: $greyLight;
       }
     }
 
@@ -56,16 +52,6 @@
       a {
         color: $black;
       }
-
-      a:hover {
-        color: $greyDark;
-      }
-    }
-
-    .global-alert-text-error {
-      a:hover {
-        color: $whiteOpaque8;
-      }
     }
 
     .global-alert-text-error, .global-alert-text-information {
@@ -75,53 +61,50 @@
     }
   }
 
-  .global-alert-icon {
+  &-icon {
     display: table-cell;
     text-align: center;
     background-color: $borderDefault;
     width: 45px;
     vertical-align: middle;
-  }
 
-  .global-alert-icon-warning {
-    i:before {
-      content: "\f05a";
+    span:before{
       font-family: "FontAwesome";
       font-style: normal;
       font-size: 25px;
     }
-  }
 
-  .global-alert-icon-information {
-    i:before {
-      content: "\f05a";
-      font-family: "FontAwesome";
-      font-style: normal;
-      font-size: 25px;
-      color: $whiteOpaque3;
+    &-warning {
+      span:before {
+        content: "\f05a";
+      }
+    }
+
+    &-information {
+      span:before {
+        content: "\f05a";
+        color: $whiteOpaque3;
+      }
+    }
+
+    &-error {
+      span:before {
+        content: "\f071";
+      }
     }
   }
 
-  .global-alert-icon-error {
-    i:before {
-      content: "\f071";
-      font-family: "FontAwesome";
-      font-style: normal;
-      font-size: 25px;
-    }
-  }
-
-  .global-alert-close-container {
+  &-close-container {
     display: table-cell;
     vertical-align: middle;
 
-    @media #{$mobile, $tablet} {
+    @media #{$tablet} {
       padding-right: 10px;
     }
 
     a {
-      display: inline-block;
       float: right;
+      display: inline-block;
     }
 
     .global-alert-close-warning, .global-alert-close-error, .global-alert-close-information {
@@ -131,7 +114,7 @@
       text-align: center;
       float: right;
 
-      i:before {
+      span:before {
         content: "\f00d";
         font-family: "FontAwesome";
         font-style: normal;
@@ -150,7 +133,7 @@
         background-color: $whiteOpaque6;
       }
 
-      i:before {
+      span:before {
         color: $blackOpaque7;
       }
     }
@@ -163,7 +146,7 @@
         background-color: $whiteOpaque6;
       }
 
-      i:before {
+      span:before {
         color: $white;
       }
     }
@@ -187,8 +170,27 @@
 }
 
 .global-alert-container {
-  @media #{$mobile, $tablet} {
-    padding-right: 0px;
-    padding-left: 0px;
+  @media #{$tablet} {
+    padding: 0;
+  }
+}
+
+html[dir="rtl"] {
+  .global-alert {
+    &-close-container {
+      padding-left: 9.6px;
+
+      @media #{$tablet} {
+        padding-left: 24.6px;
+      }
+
+      a {
+        float: left;
+      }
+    }
+    
+    &-text-container {
+      float: right;
+    }
   }
 }

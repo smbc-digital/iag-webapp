@@ -164,109 +164,109 @@
 }
 
 #getLocation {
-  display: none;
-  position: absolute;
-
-  @media #{$desktop, $tablet} {
-    left: 113px;
-  }
-
-  z-index: 10;
-  background-color: white;
-  color: $black;
-  box-shadow: 0 10px 20px $blackOpaque5;
-  margin-top: 10px;
-  padding: 15px;
-  text-align: left;
-  font-size: 0.8em;
-  font-weight: normal;
-  line-height: 1.5;
-
-  &:before {
-    position: absolute;
-    font: normal normal normal 14px/1 FontAwesome;
-    content: "\f0d8";
-    z-index: 15;
-    color: $white;
-    visibility: visible;
-    font-size: 50px;
-    line-height: 29px;
-    width: 25px;
-    height: 35px;
-    padding-bottom: 10px;
-    margin-top: -34px;
-    margin-left: -10px;
-  }
-
-  .location-search-label {
-    color: $black;
-    font-size: .875em;
-  }
-
-  .search-all {
     display: none;
-  }
+    position: absolute;
 
-  .current-location, .all-locations {
-    color: $colorBrand;
-    font-size: .875em;
-
-    span {
-      margin-left: 5px;
-      color: $colorBrand;
+    @media #{$desktop, $tablet} {
+        left: 113px;
     }
-  }
 
-  .location-search-input {
-    border-radius: 2px;
-    height: 40px;
-    width: 100%;
-    border: 1px solid $darkerEbbGrey;
-    margin-bottom: 10px;
-    margin-right: 12px;
-    padding: 5px;
-    font-family: "Noto Sans";
-    cursor: auto;
-    box-sizing: border-box;
-  }
+    z-index: 10;
+    background-color: white;
+    color: $black;
+    box-shadow: 0 10px 20px $blackOpaque5;
+    margin-top: 10px;
+    padding: 15px;
+    text-align: left;
+    font-size: 0.8em;
+    font-weight: normal;
+    line-height: 1.5;
 
-  .location-search-button {
-    background-color: $greyDark;
-    width: 100%;
-    font-weight: 600;
-    margin-top: 15px;
-  }
+    &:before {
+        position: absolute;
+        font: normal normal normal 14px/1 FontAwesome;
+        content: "\f0d8";
+        z-index: 15;
+        color: $white;
+        visibility: visible;
+        font-size: 50px;
+        line-height: 29px;
+        width: 25px;
+        height: 35px;
+        padding-bottom: 10px;
+        margin-top: -34px;
+        margin-left: -10px;
+    }
+
+    .location-search-label {
+        color: $black;
+        font-size: .875em;
+    }
+
+    .search-all {
+        display: none;
+    }
+
+    .current-location, .all-locations {
+        color: $colorBrand;
+        font-size: .875em;
+
+        span {
+            margin-left: 5px;
+            color: $colorBrand;
+        }
+    }
+
+    .location-search-input {
+        border-radius: 2px;
+        height: 40px;
+        width: 100%;
+        border: 1px solid $darkerEbbGrey;
+        margin-bottom: 10px;
+        margin-right: 12px;
+        padding: 5px;
+        font-family: $fontStack;
+        cursor: auto;
+        box-sizing: border-box;
+    }
+
+    .location-search-button {
+        background-color: $greyDark;
+        width: 100%;
+        font-weight: 600;
+        margin-top: 15px;
+    }
 }
 
 // this is used outside of the parent selector, so need to be placed outside of nesting
 .primary-filter-select {
-  transition-duration: .5s;
-  padding-left: 10px;
-  padding-right: 10px;
-  height: 52px;
-  border-radius: 4px;
-  font-size: 24px;
-  color: $colorBrand;
-  font-weight: 600;
-  font-family: 'Source Sans Pro';
+    transition-duration: .5s;
+    padding-left: 10px;
+    padding-right: 10px;
+    height: 52px;
+    border-radius: 4px;
+    font-size: 24px;
+    color: $colorBrand;
+    font-weight: 600;
+    font-family: 'Source Sans Pro';
 
-  @media #{$mobile} {
-    padding-right: 30px;
-  }
-
-  &:focus {
-    outline: none;
-  }
-
-  option {
-    color: $black;
-    font-size: 16px;
-    font-family: 'Noto Sans';
+    @media #{$mobile} {
+        padding-right: 30px;
+    }
 
     &:focus {
-      outline: none;
+        outline: none;
     }
-  }
+
+    option {
+        color: $black;
+        font-size: 16px;
+        font-family: $fontStack;
+
+        &:focus {
+            outline: none;
+        }
+    }
 }
 
 // change the default arrow (will still show default in IE9)

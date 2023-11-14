@@ -5,8 +5,25 @@
         margin-bottom: 0;
     }
 
+    &--margin-top {
+        margin-top: 2em;
+    }
+
+    &--increased-vertical-margin {
+        margin-top: 2.5em;
+        margin-bottom: 2.5em;
+    }
+
     &--padded {
         padding: 2em 0em;
+
+        @media #{$mobile} {
+            padding: 1.5em 0em;
+        }
+    }
+
+    &--padded-bottom {
+        padding-bottom: 2em;
     }
 
     &--white {
@@ -23,7 +40,7 @@
     }
 
     &__content {
-        margin: 0 25px 0 25px;
+        margin: 0px;
 
         &--no-margin {
             margin: 0px;
@@ -39,8 +56,10 @@
     }
 
     &__title {
-        margin: 0 25px 0 25px;
+        @include h-l;
+        margin: 0px;
         text-decoration: none;
+        padding-bottom: 1rem;
 
         @media #{$mobile} {
             margin: 0 5px 0 5px;
@@ -56,15 +75,11 @@
         }
 
         &--padded-bottom {
-            padding-bottom: 0.75em;
+            padding-bottom: 1.5rem;
 
             @media #{$mobile} {
-                padding-bottom: 0.5em;
+                padding-bottom: 1rem;
             }
-        }
-
-        &--padded-bottom-m {
-            padding-bottom: 0.75em;
         }
 
         &--margin-top {
@@ -74,16 +89,26 @@
         &--no-margin {
             margin: 0;
         }
+
+        &--border-top {
+            border-top: 1px solid $stockport-mid-grey;
+            padding-top: 1em;
+        }
+    }
+
+    h1.section__title {
+        @include h-xl;
     }
 
     &__teaser {
-        margin: 0 25px 0 25px;
+        @include lead;
+        margin: 0px;
 
         &--padded-bottom {
-            padding-bottom: 1em;
+            padding-bottom: 2rem;
 
             @media #{$mobile} {
-                padding-bottom: 0.75em;
+                padding-bottom: 1.5rem;
             }
         }
 

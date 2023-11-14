@@ -1,5 +1,5 @@
 .top-tasks {
-    margin: 0 25px;
+    margin: 0px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -24,21 +24,16 @@
         padding: 1em;
         border-radius: 3px;
 
-        @media #{$mobile}, #{$tablet} {
+        @media #{$tablet} {
             margin: 4.5px 0;
             text-align: left;
-            display: flex;
             align-items: center;
-            padding-top: 9.6px;
-            padding-bottom: 9.6px;
-            padding-left: 11px;
-            padding-right: 9.6px;
-            height: 32px;
-            display: -webkit-inline-box;
+            padding: 0.5em;
         }
 
         &:hover {
             text-decoration: none;
+            background-color: $stockport-pink-darker;
 
             .top-tasks-block__title {
                 text-decoration: underline;
@@ -51,27 +46,26 @@
         }
 
         &__icon {
-            font-size: 3rem;
+            @include h-xl;
+            margin-bottom: 5px;
+            padding: 10px;
 
-            @media #{$mobile}, #{$tablet} {
-                font-size: 2rem;
-                line-height: 0.5;
-                margin-right: 0.5em;
-                margin-left: 0.5em;
+            @media #{$tablet} {
+                @include h-l;
+                margin: 0;
+                padding: 0;
                 width: 30px;
+                float: left;
+                margin-right: 0.5em;
             }
         }
 
         &__title {
-            font-size: 1.2rem;
-
-            @media #{$mobile} {
-                font-size: 1rem;
-                margin-top: 0;
-            }
+            @include h-s;
 
             @media #{$tablet} {
-                margin-top: 0;
+                margin: 0 1em;
+                line-height: 1.75;
             }
         }
     }
@@ -79,15 +73,15 @@
     :first-child {
         margin-left: 0;
 
-        @media #{$mobile}, #{$tablet} {
+        @media #{$tablet} {
             margin-top: 0;
         }
     }
 
-    :last-child {      
+    :last-child {
         margin-right: 0;
 
-        @media #{$mobile}, #{$tablet} {
+        @media #{$tablet} {
             margin-bottom: 0;
         }
     }
@@ -106,5 +100,43 @@
         padding-bottom: 1em;
         margin-top: 1em;
         margin-bottom: 0;
+    }
+}
+
+html[dir="rtl"] {
+    .top-tasks {
+        &-block {
+            @media #{$tablet} {
+                text-align: right;
+            }
+
+            &__icon {
+                @media #{$tablet} {
+                    margin-left: 0.5em;
+                    margin-right: 0;
+                    float: right;
+                }
+            }
+
+            &__title {
+                @media #{$tablet} {
+                    margin-right: 1em;
+                }
+            }
+        }
+        
+        :last-child {
+            @media #{$desktop} {
+                margin-left: 0;
+                margin-right: 8.5px;
+            }
+        }
+
+        :first-child {
+            @media #{$desktop} {
+                margin-right: 0;
+                margin-left: 8.5px;
+            }
+        }
     }
 }

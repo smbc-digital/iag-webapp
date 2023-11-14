@@ -1,0 +1,62 @@
+@model TopicViewModel
+@{
+    var topic = Model.Topic;
+    ViewData["Title"] = topic.Name;
+    ViewData["og:title"] = topic.Name;
+    ViewData["Description"] = topic.MetaDescription;
+    ViewData["AlertType"] = "topic";
+    Layout = "../Shared/_Layout2023.cshtml"; 
+}
+
+<div class="grid-container-full-width">
+
+    @section Breadcrumbs {
+        <div class="grid-container-full-width">
+            <partial name="TopicBreadcrumb" model='topic.Breadcrumbs'/>
+        </div>
+    }
+
+    <section class="topic-title" data-cy="title-and-summary">
+        <div class="grid-container">
+            <div class="grid-100">
+                <h1>@topic.Name</h1>
+                @if (!string.IsNullOrEmpty(topic.Summary))
+                {
+                    @Html.Raw(@topic.Summary)
+                }
+                else if (!string.IsNullOrEmpty(topic.Teaser))
+                {
+                    <p>@Html.Raw(@topic.Teaser)</p>
+                }
+            </div>
+        </div>
+    </section>
+
+    <partial name="GlobalAlerts" model='topic.Alerts' />
+    <partial name="TopicPrimaryItems"/>
+
+    @if (!(topic.CallToAction is null && string.IsNullOrEmpty(topic.EventCalendarBanner.Title))) 
+    {
+        <div class="topic-banner--margin-top"> 
+            @if(topic.CallToAction is not null)
+            {
+                <partial name="CallToAction" model='topic.CallToAction'/>
+            } else {
+                <partial name="EventBanner" model='topic.EventCalendarBanner'/>
+            }
+        </div>
+    }
+    
+
+    @if (topic.SecondaryItems.Any())
+    {
+        <partial name="TopicSecondaryItems" model='topic.SecondaryItems'/>
+    }
+
+    @if(!string.IsNullOrEmpty(topic.EventCalendarBanner.Title) && topic.CallToAction is not null)
+    { 
+         <partial name="EventBanner" model='topic.EventCalendarBanner'/>
+    }
+
+    <partial name="LogoArea"/>
+</div>

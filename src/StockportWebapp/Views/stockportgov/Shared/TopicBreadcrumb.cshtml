@@ -1,0 +1,21 @@
+﻿@model IEnumerable<Crumb>
+
+<nav aria-label="Breadcrumb" data-cy="breadcrumb-navigation">
+    <div class="topic-breadcrumb-container">
+        <div class="grid-container">
+            <div class="grid-100">
+                <ul class="breadcrumb">
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    @{string title = ViewBag.Title is not null ? ViewBag.Title.ToString() : String.Empty;}
+
+                    @foreach (var crumb in Model)
+                    {
+                        <li><a href="@crumb.NavigationLink">@crumb.Title</a></li>
+                    }
+                    
+                    <li class="current"><span>@ViewBag.Title</span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>

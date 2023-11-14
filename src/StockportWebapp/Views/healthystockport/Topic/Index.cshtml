@@ -1,7 +1,7 @@
 @model TopicViewModel
 @{
     var topic = Model.Topic;
-    var callToAction = topic.CallToAction;
+    var callToAction = topic.CallToActionBanner;
     ViewData["Title"] = topic.Name;
     Layout = "../Shared/_Layout.cshtml";
     ViewData["Description"] = topic.Teaser;

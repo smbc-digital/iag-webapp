@@ -1,11 +1,16 @@
-﻿$fontStack: "Noto Sans", sans-serif;
+﻿$fontStack: 'Lexend', 'Noto Sans', sans-serif;
 
 /*------ Base Styles ------*/
 body {
-    font: 1.2em / 1.5 $fontStack;
+    font: 1.1875em / 1.5 $fontStack;
     background-color: white;
 }
 
+html {
+    -webkit-text-size-adjust: 100%; /* Prevent font scaling in landscape while allowing user zoom */
+}
+
+.btn,
 h1,
 h2,
 h3,
@@ -13,6 +18,18 @@ h4,
 h5,
 h6 {
     font-family: $fontStack;
+}
+
+a {
+    color: $colorPrimary;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: .1em;
+  
+    &:hover {
+      text-decoration-thickness: 3px;
+      text-decoration-skip-ink: none;
+    }
 }
 
 /*------ Alerts ------*/
@@ -44,22 +61,99 @@ h6 {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 100%;
 
-    h2 {
-        color: white;
+    &__full-width-block {
+        display: block;
+        position: relative;
+
+        h1, h2, p {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            margin: 0;
+        }
+    }
+
+    &__padded-top {
+        padding-top: 30px;
+    }
+
+    &__padded-bottom {
+        padding-bottom: 30px;
+    }
+
+    &__left-align {
+        display: block;
+        padding-left: 20px;
+    }
+
+    &-bg-green {
+        background-color: $stockport-green;
+
+        h1, h2, p {
+            color: white !important; 
+        }   
+    }
+
+    &-bg-orange {
+        background-color: $stockport-orange;
+
+        h1, h2, p {
+            color: white !important; 
+        }   
+    }
+
+    &-bg-grey {
+        background-color: $stockport-light-grey;
+    }
+
+    &-topic {
+        &-title {
+            padding: 5px 0;
+            font-size: 2.5em;
+            margin: 0;
+        }
+    
+        &-header-description{
+            font-size: 1.2em;
+            font-weight: 300;
+        }
+    }
+
+    &-xs {
+        height: 100px;
+    }
+
+    &-small {
+        height: 200px;
+    }
+
+    &-medium {
+        height: 400px;
+    }
+
+    &-large {
+        height: 600px;
+    }
+
+    &-close-button {
+        position: absolute;
+        top: 50%;
+        transform: translate(0, -50%);
+        right: 20px;
+
+        button {
+            background: none;
+            border: none;
+            font-size: 1em;
+        }
     }
 }
 
-.large-gray-placeholder {
-    background-color: #aaa;
-    height: 500px;
-    margin-bottom: 2em;
-}
-
-.call-to-action-banner-placeholder {
-    background-color: $stockport-teal-darker;
-    height: 200px;
+// Temporary fix for header styling
+.menu > * { 
+    font-size: 18px !important;
 }
 
 .icon-bordered {
@@ -74,5 +168,47 @@ h6 {
 
     @media #{$mobile} {
         margin: 0px;
+    }
+}
+
+.l-header-container {
+    width: 100%;
+    border-bottom: 0px;
+
+    #header {
+        max-width: 1260px;
+    }
+}
+
+.grid-container {
+    max-width: 1260px
+}
+
+.hidden {
+    display: none;
+}
+
+.grid-container-full-width .grid-container {
+    @media #{$mobile, $tablet} {
+      padding: 0;
+    }
+}
+
+.logo-main {
+    padding: 0;
+}
+
+.banner-header {
+    margin: 0;
+
+    @media #{$tablet} {
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+}
+
+html[dir="rtl"] {
+    #header {
+        overflow-y: hidden;
     }
 }
