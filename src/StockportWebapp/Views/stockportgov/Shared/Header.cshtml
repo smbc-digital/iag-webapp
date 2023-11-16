@@ -26,58 +26,13 @@
             <div class="header-container grid-100 grid-parent">
                 <div class="grid-50 grid-parent header-myaccount">
                     <div class="menu">
-                        @if (!string.IsNullOrEmpty(user.Email))
-                        {
-                            <div class="menu-logged-in hide-on-mobile hide-on-tablet">
-                                <div class="menu-account-button">
-                                    <span class="fa fa-user" aria-hidden="true"></span>
-                                    <p>Welcome @user.Name</p>
-                                    <a href="https://myaccount.stockport.gov.uk/">My Account</a>
-                                    <span class="fa fa-angle-down" aria-hidden="true"></span>
-                                </div>
-                                <div class="menu-tooltip">
-                                    <span class="fa fa-caret-up" aria-hidden="true"></span>
-                                    <div class="menu-links">
-                                        <a href="https://myaccount.stockport.gov.uk/">My Account</a>
-                                        <a href="https://myaccount.stockport.gov.uk/account/settings">Account settings</a>
-                                        <a class="sign-out" href="https://myaccount.stockport.gov.uk/account/logout">Sign out</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="menu-logged-in hide-on-desktop">
-                                <div class="modal">
-                                    <input id="modal" type="checkbox" name="modal">
-                                    <label for="modal"><span class="fa fa-user" aria-hidden="true"></span></label>
+                        <div class="menu-logged-out">
+                            <a href="#" id="reciteMe"><span class="fa fa-headphones hide-on-mobile" aria-hidden="true"></span>Accessibility</a>
+                        </div>
 
-                                    <div class="modal-overlay">
-                                        <div class="modal-header">
-                                            <div class="button button-outline button-close button-overlay">
-                                                <label for="modal"><span class="fa fa-times" aria-hidden="true"></span>Close</label>
-                                            </div>
-                                        </div>
-                                        <div class="modal-box">
-                                            <nav class="mobile-menu">
-                                                <ul>
-                                                    <li><a href="https://myaccount.stockport.gov.uk/">My Account</a></li>
-                                                    <li><a href="https://myaccount.stockport.gov.uk/account/settings">Account settings</a></li>
-                                                    <li><a class="sign-out" href="https://myaccount.stockport.gov.uk/account/logout">Sign out</a></li>
-                                                </ul>
-                                            </nav>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        }
-                        else
-                        {
-                            <div class="menu-logged-out">
-                                <a href="#" id="reciteMe"><span class="fa fa-headphones hide-on-mobile" aria-hidden="true"></span>Accessibility</a>
-                            </div>
-
-                            <div class="menu-logged-out">
-                                <a href="https://myaccount.stockport.gov.uk/" aria-label="Go to My Account"><span class="fa fa-user hide-on-mobile" aria-hidden="true"></span>My Account</a>
-                            </div>
-                        }
+                        <div class="menu-logged-out">
+                            <a href="/our-accounts" aria-label="Account log in"><span class="fa fa-user hide-on-mobile" aria-hidden="true"></span>Account log in</a>
+                        </div>
                     </div>
                 </div>
                 <div class="grid-50 grid-parent pull-right header-search-bar">

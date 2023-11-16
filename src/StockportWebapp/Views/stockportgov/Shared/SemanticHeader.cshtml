@@ -16,47 +16,9 @@
             <span class="fa fa-headphones hide-on-mobile" aria-hidden="true"></span>
             Accessibility
         </a>
-        @if (!string.IsNullOrEmpty(user.Email))
-        {
-            <div class="menu-container">
-                <div class="menu">
-                    <p>Welcome @user.Name</p>
-                    <span class="fa fa-user" aria-hidden="true"></span>
-                    <a href="/dashboard">My Account</a>
-                    <span class="fa fa-angle-down" aria-hidden="true"></span>
-                </div>
-                <nav class="menu-tooltip">
-                    <span class="fa fa-caret-up" aria-hidden="true"></span>
-                    @Html.ActionLink("My Account", "Index", "Dashboard")
-                    @Html.ActionLink("Account settings", "Settings", "Account")
-                    @Html.ActionLink("Sign out", "Logout", "Account", null, new { @class = "sign-out" })
-                </nav>
-            </div>
-            <div class="modal">
-                <input id="modal" type="checkbox" name="modal" />
-                <label for="modal">
-                    <span class="fa fa-user" aria-hidden="true"></span>
-                    <span class="hidden">Open account menu</span>
-                </label>
-                <div class="modal-overlay">
-                    <label for="modal" class="button button-outline button-close button-overlay">
-                        <span class="fa fa-times" aria-hidden="true"></span>
-                        Close
-                    </label>
-                    <nav class="mobile-menu">
-                        <ul>
-                            <li>@Html.ActionLink("My Account", "Index", "Dashboard")</li>
-                            <li>@Html.ActionLink("Account settings", "Settings", "Account")</li>
-                            <li>@Html.ActionLink("Sign out", "Logout", "Account", null, new { @class = "sign-out" })</li>
-                        </ul>
-                    </nav>
-                </div>
-            </div>
-        }
-        else
-        {
-            <a id="form-myaccount-link" href="https://myaccount.stockport.gov.uk"><span class="fa fa-user" aria-hidden="true"></span>My Account</a>
-        }
+
+        <a id="form-myaccount-link"  href="/our-accounts" aria-label="Account log in"><span class="fa fa-user" aria-hidden="true"></span>Account log in</a>
+
         <a href="#" class="show-search-button hide-on-desktop">
             <span class="visuallyhidden"> submit search</span>
             <span class="fa fa-search" style="display: inline-block !important; color: #83aeac;" aria-hidden="true"></span>
