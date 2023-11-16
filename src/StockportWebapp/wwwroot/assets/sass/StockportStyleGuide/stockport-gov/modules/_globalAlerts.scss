@@ -55,6 +55,8 @@
     }
 
     .global-alert-text-error, .global-alert-text-information {
+      color: $white;
+      
       h3, p {
         color: $white;
       }
