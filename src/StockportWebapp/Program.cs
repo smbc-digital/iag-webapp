@@ -8,7 +8,6 @@ builder.Configuration
     .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json")
     .AddJsonFile("appversion.json", true);
 
-
 var useAwsSecretManager = bool.Parse(builder.Configuration.GetSection("UseAWSSecretManager").Value);
 if(useAwsSecretManager)
 {
@@ -18,7 +17,6 @@ else
 {
     builder.Configuration.AddJsonFile($"{builder.Configuration.GetSection("secrets-location").Value}/appsettings.{builder.Environment.EnvironmentName}.secrets.json");
 }
-
 
 Log.Logger = new LoggerConfiguration()
                 .ReadFrom.Configuration(builder.Configuration)
