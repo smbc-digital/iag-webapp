@@ -1,7 +1,7 @@
 ﻿@inject StockportWebapp.Utils.ILoggedInHelper loggedInHelper
 @{
-    var user = loggedInHelper.GetLoggedInPerson();
-    var headerClass = !string.IsNullOrEmpty(user.Email) ? "logged-in" : string.Empty;
+    //var user = loggedInHelper.GetLoggedInPerson();
+    //var headerClass = !string.IsNullOrEmpty(user.Email) ? "logged-in" : string.Empty;
 }
 
 <div class="skip-to-main-content" role="navigation">
@@ -11,7 +11,7 @@
     <div id="header-logo">
         <a href="https://www.stockport.gov.uk">Stockport Metropolitan Borough Council Homepage</a>
     </div>
-    <div class="@headerClass" id="header-my-account">
+    <div id="header-my-account">
         <a href="#" id="reciteMe">
             <span class="fa fa-headphones hide-on-mobile" aria-hidden="true"></span>
             Accessibility
