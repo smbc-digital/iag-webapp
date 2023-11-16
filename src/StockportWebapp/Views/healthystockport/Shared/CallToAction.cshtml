@@ -1,9 +1,8 @@
-﻿@model CallToAction
+﻿@model CallToActionBanner
 @if (Model is null) return;
 @{
-    string target = Model.Link.IsExternal ? "_blank" : "_self";
     string containerClass = string.Empty;
-    if (string.IsNullOrEmpty(Model.ImageUrl))
+    if (string.IsNullOrEmpty(Model.Image))
     {
         containerClass = "call-to-action__text-container no-image";
     }
@@ -14,18 +13,18 @@
 }
 
 <div class="topic-container-holder-item">
-    <a href=@Model.Link.Url target=@target class=call-to-action>
+    <a href=@Model.Link class=call-to-action>
         <div class="@containerClass">
             <h2 class=call-to-action__text-header>@Model.Title</h2>
-            @if (string.IsNullOrEmpty(Model.ImageUrl))
+            @if (string.IsNullOrEmpty(Model.Image))
             {
-                <p class=call-to-action__text-paragraph>@Model.Text</p>
+                <p class=call-to-action__text-paragraph>@Model.Teaser</p>
             }
-            <div class=call-to-action__text-button>@Model.Link.Text</div>
+            <div class=call-to-action__text-button>@Model.ButtonText</div>
         </div>
-        @if (!string.IsNullOrEmpty(Model.ImageUrl))
+        @if (!string.IsNullOrEmpty(Model.Image))
         {
-            <img src=@Model.ImageUrl alt="" class=call-to-action__image />
+            <img src=@Model.Image alt=@Model.AltText class=call-to-action__image />
         }
     </a>
 </div>

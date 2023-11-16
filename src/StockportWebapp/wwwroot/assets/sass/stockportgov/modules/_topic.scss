@@ -4,8 +4,9 @@
         background-color: $stockport-teal-darker;
         padding-bottom: 20px;
         margin-bottom: 0em;
+        color: white;
     
-        h1, p {
+        h1, p, a {
             color: white;
 
             @media #{$mobile} {
@@ -84,8 +85,12 @@
             margin-top: 1em;
 
             @media #{$mobile} {
-                margin-top: 2em;
+                margin-top: 1.5em;
             }
         }
+    }
+
+    &-alert-information {
+        background-color: $stockport-blue;
     }
 }
