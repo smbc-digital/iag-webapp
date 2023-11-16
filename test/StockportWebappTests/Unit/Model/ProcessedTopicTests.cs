@@ -41,7 +41,6 @@ public class ProcessedTopicTests
                                                             true,
                                                             null,
                                                             "event category",
-                                                            null,
                                                             new CallToActionBanner(),
                                                             null,
                                                             string.Empty);
