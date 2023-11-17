@@ -5,6 +5,10 @@
     &-text-container {
       display: table;
       height: 55px;
+
+      @media #{$mobile} {
+        padding: 0px 5px;
+      }
   
       .global-alert-text-error, .global-alert-text-information, .global-alert-text-warning {
         display: table-cell;
@@ -102,6 +106,10 @@
       @media #{$tablet} {
         padding-right: 10px;
       }
+
+      @media #{$mobile} {
+        padding-right: 15px !important;  
+      }
   
       a {
         float: right;
@@ -175,6 +183,10 @@
       padding: 0;
     }
   }
+
+  .close-alert {
+    line-height: 2;
+  }
   
   html[dir="rtl"] {
     .global-alert {
@@ -195,3 +207,4 @@
       }
     }
   }
+
