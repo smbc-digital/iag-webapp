@@ -20,7 +20,6 @@
 @import "modules/search";
 @import "modules/events";
 @import "modules/filters";
-@import "modules/siteheader";
 @import "modules/group";
 @import "modules/payment";
 @import "modules/showcase";
@@ -45,6 +44,8 @@
 @import "modules/_documentPages";
 
 @import "modules/_cludo";
+@import "modules/_searchAutocomplete";
+@import "modules/_siteheader";
 @import "modules/_section";
 @import "modules/_navCard";
 @import "modules/_homepageHero";

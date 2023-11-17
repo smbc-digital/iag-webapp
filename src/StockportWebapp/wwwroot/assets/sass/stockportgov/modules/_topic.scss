@@ -4,8 +4,9 @@
         background-color: $stockport-teal-darker;
         padding-bottom: 20px;
         margin-bottom: 0em;
+        color: white;
     
-        h1, p {
+        h1, p, a {
             color: white;
 
             @media #{$mobile} {
@@ -16,11 +17,13 @@
     
         h1 {
             @include h-xl;
+            margin: 10px 0 20px 0;
             letter-spacing: unset;
         }
     
         p {
             @include lead;
+            margin-bottom: 20px;
         }
     }
 
@@ -84,7 +87,7 @@
             margin-top: 1em;
 
             @media #{$mobile} {
-                margin-top: 2em;
+                margin-top: 1.5em;
             }
         }
     }
