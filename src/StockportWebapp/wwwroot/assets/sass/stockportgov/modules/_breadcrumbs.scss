@@ -5,8 +5,13 @@
 
     .breadcrumb {
         font-size: 1rem;
+        padding: 5px 0;
+        margin-bottom: 0;
 
         li {
+            display: inline-block;
+            margin-left: 0;
+            
             a {
                 color: #fff;
                 font-weight: 400;

@@ -17,11 +17,13 @@
     
         h1 {
             @include h-xl;
+            margin: 10px 0 20px 0;
             letter-spacing: unset;
         }
     
         p {
             @include lead;
+            margin-bottom: 20px;
         }
     }
 

@@ -112,6 +112,7 @@
         object-fit: cover;
         object-position: top;
         border-radius: 3px;
+        height: auto;
 
         @media #{$desktop} {
             height: 300px;

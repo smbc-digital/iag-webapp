@@ -1,8 +1,11 @@
-﻿@import "modules/typography";
+﻿@import "modules/text";
+@import "modules/typography";
 @import "modules/header";
 @import "modules/preFooter";
 @import "modules/footer";
 @import "modules/buttons";
+@import "modules/icons";
+@import "modules/globalAlerts";
 
 // homepage and topics pages
 @import "modules/searchAutocomplete";

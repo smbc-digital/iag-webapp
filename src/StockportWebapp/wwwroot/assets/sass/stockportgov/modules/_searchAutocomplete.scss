@@ -9,6 +9,7 @@
     line-height: 1.5;
     position: absolute;
     z-index: 9999;
+    box-sizing: border-box;
 
     @media #{$tablet} {
         top: 60px !important;
