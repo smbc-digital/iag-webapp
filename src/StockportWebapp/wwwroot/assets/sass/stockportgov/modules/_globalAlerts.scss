@@ -11,7 +11,7 @@
         vertical-align: middle;
         padding: 10px;
   
-        h3, p {
+        h2, p {
           @media #{$desktop} {
             display: inline;
           }
@@ -22,7 +22,7 @@
           }
         }
   
-        h3 {
+        h2 {
           margin-top: 0;
           line-height: 1em;
   
@@ -40,12 +40,12 @@
         }
   
         a {
-          color: $white;
+          color: white;
         }
       }
   
       .global-alert-text-warning {
-        h3, p {
+        h2, p {
           color: $black;
         }
   
@@ -55,8 +55,9 @@
       }
   
       .global-alert-text-error, .global-alert-text-information {
-        h3, p {
-          color: $white;
+        color: white;
+        h2, p {
+          color: white;
         }
       }
     }
@@ -119,7 +120,7 @@
           font-family: "FontAwesome";
           font-style: normal;
           font-size: 20px;
-          color: $white;
+          color: white;
           text-align: center;
           position: relative;
           top: calc(50% - 20px);
@@ -147,7 +148,7 @@
         }
   
         span:before {
-          color: $white;
+          color: white;
         }
       }
     }
