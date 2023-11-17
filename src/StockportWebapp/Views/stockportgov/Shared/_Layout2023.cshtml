@@ -28,7 +28,6 @@
     }
 
     @* PACKAGE / VENDOR STYLESHEETS *@
-    <link rel=preload as=style onload="this.onload=null;this.rel='stylesheet'" href=~/assets/stylesheets/cludo-search-default.min.css asp-append-version=true />
     <link rel=preload as=style onload="this.onload=null;this.rel='stylesheet'" href=~/assets/stylesheets/vendor/unsemantic-grid-responsive-tablet-min.css asp-append-version=true />
 
     @* MAIN STYLESHEET(S) *@
@@ -51,7 +50,8 @@
 <body class='container-layout-free @(string.Concat("type-", ViewContext.RouteData.Values["controller"].ToString().ToLower()))'>
     <partial name=TagManager/TagManagerNoScript />
     <div id="__ba_launchpad"></div>
-    <partial name=Header />
+    <partial name="Header2023" />
+
     @RenderSection("Breadcrumbs", false)
     <main id="content">
         @RenderBody()

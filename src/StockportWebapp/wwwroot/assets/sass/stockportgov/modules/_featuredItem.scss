@@ -31,6 +31,7 @@
         border-radius: 3px 3px 0 0;
         object-position: top;
         flex-grow: 1;
+        height: auto;
 
         @media #{$desktop} {
             width: 40%;
