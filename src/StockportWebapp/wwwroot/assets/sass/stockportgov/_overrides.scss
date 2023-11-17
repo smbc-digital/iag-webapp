@@ -184,6 +184,15 @@ a {
     padding: 0;
 }
 
+.banner-header {
+    margin: 0;
+
+    @media #{$tablet} {
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+}
+
 html[dir="rtl"] {
     #header {
         overflow-y: hidden;

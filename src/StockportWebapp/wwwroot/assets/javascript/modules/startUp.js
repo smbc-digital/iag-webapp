@@ -4,7 +4,7 @@
 
         utils.SwapLogo();
 
-        /*Duplicating this to work with newer header - this will need removing as needed*/
+        /*Duplicating this to work with newer header - this will need removing as needed - this is also used in HS so need to be aware*/
         $(".show-search-button").click(function () {
             $("#mobileSearchInput").slideToggle(220);
             $(".show-search-button").toggleClass("arrow");

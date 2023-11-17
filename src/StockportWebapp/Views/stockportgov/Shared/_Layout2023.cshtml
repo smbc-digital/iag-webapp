@@ -14,11 +14,13 @@
 <head>
     <meta charset=utf-8 />
     <meta name=viewport content="width=device-width, initial-scale=1" />
-    <partial name=OwnershipVerificationCodes />
-    <partial name=Favicon />
     <title>@ViewData["Title"] - Stockport Council</title>
     <meta name=description content='@ViewData["Description"]' />
     <meta property=og:title content='@ViewData["og:title"]' />
+
+    <partial name=OwnershipVerificationCodes />
+    <partial name=Favicon />
+    <partial name=NoScriptStyles />
 
     @if (ViewData["CanonicalUrl"] is not null)
     {
@@ -43,11 +45,10 @@
     <partial name=TagManager/TagManager />
 
     <script defer type=text/javascript src=@stylesheet.DesignSystemJs asp-append-version=true></script>
-    <script type=text/javascript src=~/assets/javascript/vendor/require.min.js asp-append-version=true></Script>
+    <script type=text/javascript src=~/assets/javascript/vendor/require.min.js asp-append-version=true></script>
 </head>
 <body class='container-layout-free @(string.Concat("type-", ViewContext.RouteData.Values["controller"].ToString().ToLower()))'>
     <partial name=TagManager/TagManagerNoScript />
-    @* NOTE: check if the below div is being used anywhere or if it's needed *@
     <div id="__ba_launchpad"></div>
     <partial name="Header2023" />
 

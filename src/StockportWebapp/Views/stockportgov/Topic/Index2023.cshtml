@@ -4,7 +4,9 @@
     ViewData["Title"] = topic.Name;
     ViewData["og:title"] = topic.Name;
     ViewData["Description"] = topic.MetaDescription;
-    Layout = "../Shared/_Layout2023.cshtml";
+    ViewData["AlertType"] = "topic";
+    ViewData["DisplayTitle"] = topic.CallToAction is null && string.IsNullOrEmpty(topic.EventCalendarBanner.Title);
+    Layout = "../Shared/_Layout2023.cshtml"; 
 }
 
 <div class="grid-container-full-width">
