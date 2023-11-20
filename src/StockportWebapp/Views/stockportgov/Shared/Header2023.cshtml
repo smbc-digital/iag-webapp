@@ -1,4 +1,6 @@
 ﻿@inject IStaticAssets StaticAssets
+@model bool
+@*Model value determines whether search shown true=visible*@
 
 <div class="site-header grid-container-full-width">
     <nav aria-label="Skip to main content">
@@ -18,16 +20,22 @@
                     width="245"
                     height="60">
             </a>
-            <partial name="MobileSearchBar2023" />
+            @if(Model)
+            {
+                <partial name="MobileSearchBar2023" />
+            }
         </div>
 
         <div class="grid-70 tablet-grid-70 mobile-grid-100 grid-parent">
             <div class="grid-50 tablet-grid-70 site-header_menu-wrapper">
                 <partial name="HeaderMenu" />
             </div>
-            <div class="grid-50 tablet-grid-30 site-header_search-wrapper">
-                <partial name="HeaderSearchBar2023" />
-            </div>
+            @if(Model)
+            {
+                <div class="grid-50 tablet-grid-30 site-header_search-wrapper">
+                    <partial name="HeaderSearchBar2023" />
+                </div>
+            }
         </div>
     </header>
 </div>

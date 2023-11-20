@@ -50,7 +50,7 @@
 <body class='container-layout-free @(string.Concat("type-", ViewContext.RouteData.Values["controller"].ToString().ToLower()))'>
     <partial name=TagManager/TagManagerNoScript />
     <div id="__ba_launchpad"></div>
-    <partial name="Header2023" />
+    <partial name=Header2023 model=true />
 
     @RenderSection("Breadcrumbs", false)
     <main id="content">
