@@ -235,6 +235,7 @@ public class ContentSecurityPolicyBuilder
             .AddSource("https://zldiarvaya.execute-api.eu-west-1.amazonaws.com/prod/")
             .AddSource("https://13bg9nmobj.execute-api.eu-west-1.amazonaws.com/production/player-analytics")
             .AddSource("https://core-api-eu1.cludo.com/")
+            .AddSource("https://api-eu1.cludo.com/")
             .AddSource("https://event-collector.buto.tv/")
             .AddSource("app.meetami.ai/")
             .AddSource("https://chat.meetami.ai/")
