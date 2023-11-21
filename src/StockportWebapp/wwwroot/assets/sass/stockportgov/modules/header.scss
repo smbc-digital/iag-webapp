@@ -59,7 +59,7 @@
 
         .site-header_search-button {
             position: absolute;
-            top: 32%;
+            top: 35%;
             right: 0;
             width: 60px;
             border: none;
@@ -97,7 +97,7 @@
         border-top: solid 1px $stockport-teal-darker;
         padding: 0.5rem;
 
-        @media #{$non-mobile} {
+        @media #{$desktop} {
             text-align: right;
             background-color: $stockport-green;
             padding: 0;
@@ -114,12 +114,12 @@
             box-sizing: border-box;
             display: inline-block;
 
-            @media #{$mobile} {
+            @media #{$mobile, $tablet} {
                 margin-right: 2em;
             }
 
 
-            @media #{$non-mobile} {
+            @media #{$desktop} {
                 margin-left: 1rem;
                 margin-bottom: 0em;
             }
@@ -128,7 +128,7 @@
                 display: inline-block;
                 color: white;
 
-                @media #{$non-mobile} {
+                @media #{$desktop} {
                     height: 82px;
                     line-height: 82px;
                 }
