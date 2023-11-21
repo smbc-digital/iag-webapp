@@ -70,13 +70,13 @@
       display: table-cell;
       text-align: center;
       background-color: $borderDefault;
-      width: 45px;
+      width: 2.5em;
       vertical-align: middle;
   
       span:before{
         font-family: "FontAwesome";
         font-style: normal;
-        font-size: 25px;
+        font-size: 1.4em;
       }
   
       &-warning {
@@ -118,8 +118,8 @@
   
       .global-alert-close-warning, .global-alert-close-error, .global-alert-close-information {
         border-radius: 100%;
-        width: 37px;
-        height: 37px;
+        width: 2.06em;
+        height: 2.06em;
         text-align: center;
         float: right;
   
@@ -127,11 +127,11 @@
           content: "\f00d";
           font-family: "FontAwesome";
           font-style: normal;
-          font-size: 20px;
+          font-size: 1.115em;
           color: white;
           text-align: center;
           position: relative;
-          top: calc(50% - 20px);
+          top: calc(50% - 1.115em);
         }
       }
   

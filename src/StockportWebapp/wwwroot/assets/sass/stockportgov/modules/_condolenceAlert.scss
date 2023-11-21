@@ -54,8 +54,8 @@
         .condolence_close {
             border: 1px solid white;
             border-radius: 100%;
-            width: 37px;
-            height: 37px;
+            width: 2.06em;
+            height: 2.06em;
             text-align: center;
             float: right;
             text-decoration: none;
@@ -64,11 +64,11 @@
                 content: "\f00d";
                 font-family: "FontAwesome";
                 font-style: normal;
-                font-size: 20px;
+                font-size: 1.115em;
                 color: $white;
                 text-align: center;
                 position: relative;
-                top: calc(50% - 20px);
+                top: calc(50% - 1.115em);
             }
 
             &:hover {
