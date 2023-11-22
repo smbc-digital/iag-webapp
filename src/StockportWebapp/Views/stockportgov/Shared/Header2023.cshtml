@@ -1,0 +1,56 @@
+﻿@inject IStaticAssets StaticAssets
+@model bool
+@*Model value determines whether search shown true=visible*@
+
+<div class="site-header grid-container-full-width">
+    <nav aria-label="Skip to main content">
+        <div class="skip-to-main-content">
+            <a href="#content" class="skip-main">Skip to main content</a>
+        </div>
+    </nav>
+    <header role="banner" id="header" class="grid-container">
+        <div class="grid-30 tablet-grid-100 mobile-grid-100">
+            <a href="https://www.stockport.gov.uk">
+                <img src='@StaticAssets.UrlFor("logo-stockport-full%402x.png")'
+                    data-mobile-image='@StaticAssets.UrlFor("logo-stockport-mobile%402x.png")'
+                    data-desktop-image='@StaticAssets.UrlFor("logo-stockport-full%402x.png")'
+                    alt="Stockport Council Logo Homepage Link"
+                    class="site-header_logo"
+                    width="245"
+                    height="60">
+            </a>
+            @if(Model)
+            {
+                <partial name="MobileSearchBar2023" />
+            }
+        </div>
+
+        <div class="grid-70 tablet-grid-100 mobile-grid-100 grid-parent">
+            <div class="grid-60 site-header_menu-wrapper">
+                <partial name="HeaderMenu" />
+            </div>
+            @if(Model)
+            {
+                <div class="grid-40 site-header_search-wrapper">
+                    <partial name="HeaderSearchBar2023" />
+                </div>
+            }
+        </div>
+    </header>
+</div>
+
+
+<partial name="BrowserCheck" />
+
+<script>
+    require(['/assets/javascript/config-c916768c.min.js'], function() {
+        require(['startup', 'utils', 'reciteMe', 'cludo', 'Cludo'],
+            function(startup, utils, reciteMe, cludo, _) {
+                reciteMe.Init();
+                startup.Init();
+                utils.Init();
+                cludo.Init();
+            }
+        );
+    });
+</script>

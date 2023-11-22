@@ -3,12 +3,11 @@
     bool displayImage = Model.Topic.PrimaryItems.Items.All(item => !string.IsNullOrEmpty(item.Image));
     var dataCy = displayImage ? "primary-items-images" : "primary-items";
 }
+
 @if (Model.Topic.PrimaryItems.Items.Any())
 {
     <section class="section section--white section--no-margin section--margin-top" data-cy="@dataCy">
-        @if(!string.IsNullOrEmpty(Model.Topic.PrimaryItemTitle)){
-            <h2 class="visuallyhidden">@Model.Topic.PrimaryItemTitle</h2>
-        }
+        <h2 class="visuallyhidden">Popular in @Model.Topic.Name</h2>
         
         <div class="grid-container">
             <div class="grid-100" data-cy="navcard-list">

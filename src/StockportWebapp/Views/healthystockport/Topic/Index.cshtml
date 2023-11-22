@@ -1,7 +1,7 @@
 @model TopicViewModel
 @{
     var topic = Model.Topic;
-    var callToAction = topic.CallToActionBanner;
+    var callToAction = topic.CallToAction;
     ViewData["Title"] = topic.Name;
     Layout = "../Shared/_Layout.cshtml";
     ViewData["Description"] = topic.Teaser;
@@ -109,7 +109,7 @@ else if (!string.IsNullOrEmpty(topic.BackgroundImage))
 
         <partial name=@nameof(Video) model=Model.Topic.Video />
 
-        <partial name=@nameof(CallToAction) model=callToAction />
+        <partial name="../Shared/CallToAction" model=callToAction />
 
         @if (topic.DisplayContactUs)
         {

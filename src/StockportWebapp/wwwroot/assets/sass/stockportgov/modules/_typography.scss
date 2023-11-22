@@ -1,5 +1,7 @@
 ﻿/*------ Typography Styles ------*/
 
+$fontStack: "Open Sans", Arial, sans-serif;
+
 @mixin body {
     font: 1.1875rem / 1.5 $fontStack;
 }

@@ -42,6 +42,10 @@
         @media #{$mobile} {
             display: none;
         }
+
+        img {
+            width: auto;
+        }
     }
 
     &_wrapper {

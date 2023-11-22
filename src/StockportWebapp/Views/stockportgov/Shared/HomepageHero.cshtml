@@ -27,12 +27,12 @@
                     @if (!string.IsNullOrEmpty(Model.HomepageContent.ForegroundImageLink))
                     {
                         <a href="@Model.HomepageContent.ForegroundImageLink">
-                            <img src="@Model.HomepageContent.ForegroundImage" alt="@Model.HomepageContent.ForegroundImageAlt" height="300px" width="300px;"/>
+                            <img src="@Model.HomepageContent.ForegroundImage" srcset="@Model.HomepageContent.ForegroundImage?fm=webp" alt="@Model.HomepageContent.ForegroundImageAlt" height="300px" width="300px;"/>
                         </a>
                     }
                     else
                     {
-                        <img src="@Model.HomepageContent.ForegroundImage" alt="@Model.HomepageContent.ForegroundImageAlt" height="300px" width="300px;" />
+                        <img src="@Model.HomepageContent.ForegroundImage" srcset="@Model.HomepageContent.ForegroundImage?fm=webp" alt="@Model.HomepageContent.ForegroundImageAlt" height="300px" width="300px;" />
                     }
                 }
             </div>

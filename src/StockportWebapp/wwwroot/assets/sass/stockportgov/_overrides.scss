@@ -32,22 +32,6 @@ a {
     }
 }
 
-/*------ Alerts ------*/
-.close-alert {
-    line-height: 2;
-}
-
-@media #{$mobile} {
-    .global-alert-text-container {
-        padding-left: 5px;
-        padding-right: 5px;
-    }
-
-    .global-alert-close-container {
-        padding-right: 15px !important;
-    }
-}
-
 /*------ View more services button spacing ------*/
 @media #{$mobile} {
     .featured-content-button-wrapper {
@@ -151,11 +135,6 @@ a {
     }
 }
 
-// Temporary fix for header styling
-.menu > * { 
-    font-size: 18px !important;
-}
-
 .icon-bordered {
     @media #{$desktop, $tablet} {
         border: 0px;
@@ -168,15 +147,6 @@ a {
 
     @media #{$mobile} {
         margin: 0px;
-    }
-}
-
-.l-header-container {
-    width: 100%;
-    border-bottom: 0px;
-
-    #header {
-        max-width: 1260px;
     }
 }
 
@@ -212,3 +182,8 @@ html[dir="rtl"] {
         overflow-y: hidden;
     }
 }
+
+.wpcc-btn {
+    box-sizing: border-box;
+}
+

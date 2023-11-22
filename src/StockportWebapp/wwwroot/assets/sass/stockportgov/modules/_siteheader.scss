@@ -1,4 +1,6 @@
-﻿.type-home .header-myaccount {
+﻿
+/*Legacy styles form older header below - these should embed removed when new header is fully rolled out*/
+.type-home .header-myaccount {
   width: 100%;
 }
 
@@ -136,4 +138,14 @@
   .menu .menu-logged-out:not(:first-of-type) {
     padding-right: 0;
   }
+}
+
+.no-header-search {
+    .site-header_menu-wrapper {
+        width: 100%;
+    }
+
+    .site-header_mobile-search-button, .site-header_search-wrapper {
+        display: none;
+    }
 }

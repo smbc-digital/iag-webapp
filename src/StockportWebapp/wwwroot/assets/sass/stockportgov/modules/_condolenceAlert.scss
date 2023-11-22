@@ -13,11 +13,13 @@
     }
 
     &_text {
-        h3, p, a {
+        color: white;
+
+        h2, p, a {
            color: white;
         }
 
-        h3 {
+        h2 {
             margin-bottom: 0.5em;
         }
     }

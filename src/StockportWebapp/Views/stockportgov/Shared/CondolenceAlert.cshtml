@@ -11,14 +11,14 @@
         <div class="grid-container">
             <div class="grid-100 condolence_content">
                 <div class="condolence_text">
-                    <h3>@Model.Title</h3>
+                    <h2 class="h-m">@Model.Title</h2>
                     @Html.Raw(Model.Body)
                 </div>
                 @if (!string.IsNullOrEmpty(Model.ImageUrl))
                 {
                     <div class="condolence_image">
                         <img src="@Model.ImageUrl?w=225&q=89"
-                        srcset="@Model.ImageUrl?w=225&q=89 225w"
+                        srcset="@Model.ImageUrl?w=225&q=89&fm=webp 225w"
                         sizes="(min-width: 1024px) 225px"
                         alt=""
                         width="226"
@@ -42,7 +42,7 @@
 }
 
 <script>
-    require(['/assets/javascript/config-5de69769.min.js'], function () {
+    require(['/assets/javascript/config-c916768c.min.js'], function () {
         require(['alerts'],
             function (alerts) {
                 alerts.Init();
