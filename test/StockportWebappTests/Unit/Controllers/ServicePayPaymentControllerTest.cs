@@ -1,11 +1,14 @@
-﻿namespace StockportWebappTests_Unit.Unit.Controllers;
+﻿using Microsoft.Extensions.Options;
+using StockportWebapp.Configuration;
+
+namespace StockportWebappTests_Unit.Unit.Controllers;
 
 public class ServicePayPaymentControllerTest
 {
-    private readonly Mock<IProcessedContentRepository> _fakeRepository = new Mock<IProcessedContentRepository>();
+    private readonly Mock<IProcessedContentRepository> _fakeRepository = new();
     private readonly ServicePayPaymentController _paymentController;
-    private readonly Mock<ICivicaPayGateway> _civicaPayGateway = new Mock<ICivicaPayGateway>();
-    private readonly Mock<IConfiguration> _configuration = new Mock<IConfiguration>();
+    private readonly Mock<ICivicaPayGateway> _civicaPayGateway = new();
+    private readonly Mock<IOptions<CivicaPayConfiguration>> _configuration = new();
     private readonly ProcessedServicePayPayment _processedPayment = new ProcessedServicePayPayment("title", "slug", "teaser", "description", "paymentDetailsText",
         "Reference Number", new List<Crumb>(), EPaymentReferenceValidation.None,
         "metaDescription", "returnUrl", "1233455", "40000000", "paymentDescription", new List<Alert>(), "20.65");
@@ -24,11 +27,15 @@ public class ServicePayPaymentControllerTest
             .Setup(_ => _.Get<ServicePayPayment>(It.IsAny<string>(), It.IsAny<List<Query>>()))
             .ReturnsAsync(new HttpResponse((int)HttpStatusCode.OK, _processedPayment, string.Empty));
 
-        _paymentController = new ServicePayPaymentController(_fakeRepository.Object, _civicaPayGateway.Object, _configuration.Object, new Mock<ILogger<ServicePayPaymentController>>().Object);
-
         _configuration
-            .Setup(_ => _.GetSection(It.IsAny<string>()))
-            .Returns(new Mock<IConfigurationSection>().Object);
+            .Setup(_ => _.Value)
+            .Returns(new CivicaPayConfiguration{
+                ApiPassword="Password",
+                CustomerID = "CustomerId",
+                CallingAppIdentifier = "WebApp"
+            });
+
+        _paymentController = new ServicePayPaymentController(_fakeRepository.Object, _civicaPayGateway.Object, _configuration.Object, new Mock<ILogger<ServicePayPaymentController>>().Object);
 
         var objectValidator = new Mock<IObjectModelValidator>();
         objectValidator.Setup(_ => _.Validate(
