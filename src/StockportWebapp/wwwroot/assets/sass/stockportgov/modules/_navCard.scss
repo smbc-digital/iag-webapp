@@ -95,13 +95,13 @@
     }
 
     &--border-top {
-        border-top: 10px solid rgba($stockport-teal, 0.6);
+        border-top: 0.55em solid rgba($stockport-teal, 0.6);
         border-radius: 3px;
     }
 
     &--border-bottom {
         border-top: 1px solid rgba($stockport-grey, 0.2);
-        border-bottom: 10px solid rgba($stockport-teal, 0.6);
+        border-bottom: 0.55em solid rgba($stockport-teal, 0.6);
         border-radius: 3px;
         border-left: none;
 
@@ -120,7 +120,7 @@
 
     &--border-around {
         @media #{$mobile} {
-            border-left: 10px solid rgba($stockport-teal, 0.6);
+            border-left: 0.55em solid rgba($stockport-teal, 0.6);
             border-bottom: 1px solid rgba($stockport-grey, 0.2);
             border-top: 1px solid rgba($stockport-grey, 0.2);
             border-right: 1px solid rgba($stockport-grey, 0.2);
@@ -239,7 +239,7 @@ html[dir="rtl"] {
 
         &--border-around {
             @media #{$mobile} {
-                border-right: 10px solid rgba($stockport-teal, 0.6);
+                border-right: 0.55em solid rgba($stockport-teal, 0.6);
                 border-top: 1px solid rgba($stockport-grey, 0.2);
                 border-left: 1px solid rgba($stockport-grey, 0.2);
                 border-bottom: 1px solid rgba($stockport-grey, 0.2);
