@@ -81,7 +81,7 @@
 
     &:nth-of-type(1) &-content {
         @media #{$tablet} {
-            border-bottom: .389em solid rgba($stockport-orange, 0.8);
+            border-bottom: 0.368em solid rgba($stockport-orange, 0.8);
         }
 
         @media #{$desktop} {
@@ -93,7 +93,7 @@
 
     &:nth-of-type(2) &-content {
         @media #{$tablet} {
-            border-bottom: .389em solid rgba($stockport-pink, 0.8);
+            border-bottom: 0.368em solid rgba($stockport-pink, 0.8);
         }
 
         @media #{$desktop} {
@@ -107,7 +107,7 @@
 
     &:nth-of-type(3) &-content {
         @media #{$tablet} {
-            border-bottom: .389em solid rgba($stockport-teal, 0.8);
+            border-bottom: 0.368em solid rgba($stockport-teal, 0.8);
         }
 
         @media #{$desktop} {
