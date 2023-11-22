@@ -1,4 +1,6 @@
-﻿namespace StockportWebapp.TagParsers;
+﻿using Profile = StockportWebapp.Models.Profile;
+
+namespace StockportWebapp.TagParsers;
 
 public class ProfileTagParser : IDynamicTagParser<Profile>
 {

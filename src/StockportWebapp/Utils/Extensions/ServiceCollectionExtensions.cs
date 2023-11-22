@@ -1,4 +1,6 @@
-﻿using ILogger = Serilog.ILogger;
+﻿using StockportWebapp.Configuration;
+using ILogger = Serilog.ILogger;
+using Profile = StockportWebapp.Models.Profile;
 
 namespace StockportWebapp.Utils.Extensions
 {
@@ -8,6 +10,13 @@ namespace StockportWebapp.Utils.Extensions
         {
             services.AddSingleton<IViewRender, ViewRender>();
             services.Configure<RazorViewEngineOptions>(options => { options.ViewLocationExpanders.Add(new ViewLocationExpander()); });
+
+            return services;
+        }
+
+        public static IServiceCollection AddConfigurationOptions(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.Configure<CivicaPayConfiguration>(configuration.GetSection(CivicaPayConfiguration.ConfigValue));
 
             return services;
         }
@@ -221,14 +230,17 @@ namespace StockportWebapp.Utils.Extensions
 
         public static IServiceCollection AddSesEmailConfiguration(this IServiceCollection services, IConfiguration configuration, ILogger logger)
         {
-            if (!string.IsNullOrEmpty(configuration["ses:accessKey"]) &&
-                !string.IsNullOrEmpty(configuration["ses:secretKey"]))
+            services.Configure<SesConfiguration>(configuration.GetSection(SesConfiguration.ConfigValue));
+            var sesConfiguration = new SesConfiguration();
+            configuration.GetSection(SesConfiguration.ConfigValue).Bind(sesConfiguration);
+
+            if (!string.IsNullOrEmpty(sesConfiguration.AccessKey) &&
+                !string.IsNullOrEmpty(sesConfiguration.SecretKey))
             {
-                var amazonSesKeys = new AmazonSESKeys(configuration["ses:accessKey"], configuration["ses:secretKey"]);
+                var amazonSesKeys = new AmazonSESKeys(sesConfiguration.AccessKey, sesConfiguration.SecretKey);
                 services.AddSingleton(amazonSesKeys);
-                var credentals = new BasicAWSCredentials(amazonSesKeys.Accesskey, amazonSesKeys.SecretKey);
                 services.AddTransient<IAmazonSimpleEmailService>(
-                    o => new AmazonSimpleEmailServiceClient(credentals, RegionEndpoint.EUWest1));
+                    implementation => new AmazonSimpleEmailServiceClient(new BasicAWSCredentials(sesConfiguration.AccessKey, sesConfiguration.SecretKey), RegionEndpoint.EUWest1));
             }
             else
             {
@@ -240,12 +252,21 @@ namespace StockportWebapp.Utils.Extensions
 
         public static IServiceCollection AddRedis(this IServiceCollection services, IConfiguration configuration, bool useRedisSession, ILogger logger)
         {
+            logger.Information($"Configure redis for session management - TokenStoreUrl: {configuration["TokenStoreUrl"]} Enabled: {useRedisSession}");
+
             if (useRedisSession)
             {
-                var redisUrl = configuration["TokenStoreUrl"];
-                var redisIp = GetHostEntryForUrl(redisUrl, logger);
-                logger.Information($"Using redis for session management - url {redisUrl}, ip {redisIp}");
-                services.AddDataProtection().PersistKeysToRedis(redisIp);
+                var redisUrl = configuration.GetValue<string>("TokenStoreUrl");
+                try
+                {
+                    var redisIp = GetHostEntryForUrl(redisUrl, logger);
+                    logger.Information($"Using redis for session management - url {redisUrl}, ip {redisIp}");
+                    services.AddDataProtection().PersistKeysToRedis(redisIp);
+                }
+                catch(Exception ex)
+                {
+                    logger.Error(ex, $"Unable to setup Using redis for session management - url {redisUrl}");
+                }
             }
             else
             {
@@ -257,18 +278,22 @@ namespace StockportWebapp.Utils.Extensions
 
         private static string GetHostEntryForUrl(string host, ILogger logger)
         {
+            if(string.IsNullOrEmpty(host))
+                throw new ArgumentNullException("GetHostEntryForUrl: host can not be null");
+
+            logger.Information($"GetHostEntryForUrl: Attempting to resolve {host}");
 
             var addresses = Dns.GetHostEntryAsync(host).Result.AddressList;
 
             if (!addresses.Any())
             {
-                logger.Error($"Could not resolve IP address for redis instance : {host}");
-                throw new Exception($"No redis instance could be found for host {host}");
+                logger.Error($"GetHostEntryForUrl: Could not resolve IP address for redis instance : {host}");
+                throw new Exception($"GetHostEntryForUrl: No redis instance could be found for host {host}");
             }
 
             if (addresses.Length > 1)
             {
-                logger.Warning($"Multple IP address for redis instance : {host} attempting to use first");
+                logger.Warning($"GetHostEntryForUrl: Multple IP address for redis instance : {host} attempting to use first");
             }
 
             return addresses.First().ToString();

@@ -1,4 +1,6 @@
-﻿namespace StockportWebapp.ContentFactory;
+﻿using Profile = StockportWebapp.Models.Profile;
+
+namespace StockportWebapp.ContentFactory;
 
 public class ArticleFactory
 {

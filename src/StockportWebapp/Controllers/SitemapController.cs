@@ -189,8 +189,8 @@ public class SitemapController : Controller
                 break;
 
             case "profile":
-                var responseProfiles = await _repository.Get<List<Profile>>();
-                var profiles = responseProfiles.Content as List<Profile>;
+                var responseProfiles = await _repository.Get<List<Models.Profile>>();
+                var profiles = responseProfiles.Content as List<Models.Profile>;
                 var listOfProfileSitemaps =
                     profiles.Select(
                         n =>

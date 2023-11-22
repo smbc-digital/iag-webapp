@@ -1,22 +1,25 @@
-﻿namespace StockportWebapp.Controllers;
+﻿using Microsoft.Extensions.Options;
+using StockportWebapp.Configuration;
+
+namespace StockportWebapp.Controllers;
 
 [ResponseCache(Location = ResponseCacheLocation.None, Duration = 0, NoStore = true)]
 public class ServicePayPaymentController : Controller
 {
     private readonly IProcessedContentRepository _repository;
     private readonly ICivicaPayGateway _civicaPayGateway;
-    private readonly IConfiguration _configuration;
+    private readonly CivicaPayConfiguration _civicaPayConfiguration;
     private readonly ILogger<ServicePayPaymentController> _logger;
 
     public ServicePayPaymentController(
         IProcessedContentRepository repository,
         ICivicaPayGateway civicaPayGateway,
-        IConfiguration configuration,
+        IOptions<CivicaPayConfiguration> configuration,
         ILogger<ServicePayPaymentController> logger)
     {
         _repository = repository;
         _civicaPayGateway = civicaPayGateway;
-        _configuration = configuration;
+        _civicaPayConfiguration = configuration.Value;
         _logger = logger;
     }
 
@@ -68,9 +71,9 @@ public class ServicePayPaymentController : Controller
 
         var immediateBasketResponse = new CreateImmediateBasketRequest
         {
-            CallingAppIdentifier = _configuration.GetValue<string>("CivicaPayCallingAppIdentifier"),
-            CustomerID = _configuration.GetValue<string>("CivicaPayCustomerID"),
-            ApiPassword = _configuration.GetValue<string>("CivicaPayApiPassword"),
+            CallingAppIdentifier = _civicaPayConfiguration.CallingAppIdentifier,
+            CustomerID = _civicaPayConfiguration.CustomerID,
+            ApiPassword = _civicaPayConfiguration.ApiPassword,
             ReturnURL = !string.IsNullOrEmpty(payment.ReturnUrl) ? payment.ReturnUrl : $"{Request.Scheme}://{Request.Host}/service-pay-payment/{slug}/result",
             NotifyURL = string.Empty,
             CallingAppTranReference = paymentSubmission.Reference,

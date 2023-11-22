@@ -20,6 +20,8 @@ public class Startup
 
     public virtual void ConfigureServices(IServiceCollection services)
     {
+        Log.Logger.Information($"STARTUP: Configuring services");
+
         services.AddControllersWithViews(options =>
         {
             options.ModelBinderProviders.Insert(0, new DateTimeFormatConverterModelBinderProvider());

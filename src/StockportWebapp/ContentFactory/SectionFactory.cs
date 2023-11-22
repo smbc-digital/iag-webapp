@@ -9,7 +9,7 @@ public class SectionFactory : ISectionFactory
 {
     private readonly MarkdownWrapper _markdownWrapper;
     private readonly ISimpleTagParserContainer _tagParserContainer;
-    private readonly IDynamicTagParser<Profile> _profileTagParser;
+    private readonly IDynamicTagParser<StockportWebapp.Models.Profile> _profileTagParser;
     private readonly IDynamicTagParser<Document> _documentTagParser;
     private readonly IDynamicTagParser<Alert> _alertsInlineTagParser;
     private readonly IDynamicTagParser<S3BucketSearch> _searchTagParser;
@@ -17,7 +17,7 @@ public class SectionFactory : ISectionFactory
     private readonly IRepository _repository;
 
 
-    public SectionFactory(ISimpleTagParserContainer tagParserContainer, IDynamicTagParser<Profile> profileTagParser, MarkdownWrapper markdownWrapper,
+    public SectionFactory(ISimpleTagParserContainer tagParserContainer, IDynamicTagParser<StockportWebapp.Models.Profile> profileTagParser, MarkdownWrapper markdownWrapper,
         IDynamicTagParser<Document> documentTagParser, IDynamicTagParser<Alert> alertsInlineTagParser, IDynamicTagParser<S3BucketSearch> searchTagParser, IDynamicTagParser<PrivacyNotice> privacyNoticeTagParser, IRepository repository)
     {
         _tagParserContainer = tagParserContainer;
