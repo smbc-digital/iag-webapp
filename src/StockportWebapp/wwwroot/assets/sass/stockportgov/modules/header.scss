@@ -4,7 +4,7 @@
     background-color: $stockport-green;
 
     #search_autocomplete {
-        top: 80px !important;
+        top: 4.21em !important;
         border-top: 1px solid $stockport-grey;
     }
 
@@ -24,7 +24,7 @@
         color: $stockport-grey;
         font-size: 1.2rem;
         padding: 15px 60px 15px 15px;
-        border-radius: 3px;
+        border-radius: 3px 0 0 3px;
         border: 0px;
         width: 100%;
         max-width: 100%;
@@ -37,7 +37,7 @@
 
     &_mobile-search-button {
         border: 1px solid $header-accent;
-        border-radius: 3px;
+        border-radius: 0 3px 3px 0;
         color: $header-accent;
         float: right;
         font-size: 24px;
@@ -53,36 +53,27 @@
     #cludo-search-form, #cludo-mobile-form {
         position: relative;
         margin: 0;
-        display: block;
+        display: flex;
         box-sizing: border-box;
         z-index: 9999;
+        margin-top: 0.778em;
+        margin-bottom: 0.778em;
 
         .site-header_search-button {
-            position: absolute;
-            top: 35%;
-            right: 0;
             width: 3.15em;
             border: none;
             padding: 0;
             color: $stockport-grey;
             font-size: 1.3rem;
-            background: 0 0;
+            background: white;
             text-align: center;
             text-indent: 0;
-            overflow: auto;
+            overflow: hidden;
             transition: none;
 
             span:before {
                 font-family: FontAwesome;
             }
-        }
-    }
-
-    #cludo-mobile-form {
-        position: relative;
-
-        .site-header_search-button {
-            top: 35%;
         }
     }
 
