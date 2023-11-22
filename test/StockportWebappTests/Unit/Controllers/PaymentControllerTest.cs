@@ -1,13 +1,17 @@
-﻿namespace StockportWebappTests_Unit.Unit.Controllers;
+﻿using Microsoft.Extensions.Options;
+using StockportWebapp.Configuration;
+
+namespace StockportWebappTests_Unit.Unit.Controllers;
 
 public class PaymentControllerTest
 {
-    private readonly Mock<IProcessedContentRepository> _fakeRepository = new Mock<IProcessedContentRepository>();
+    private readonly Mock<IProcessedContentRepository> _fakeRepository = new();
     private readonly PaymentController _paymentController;
     private readonly PaymentController _paymentControllerWithServicePayPaymentPath;
-    private readonly Mock<ICivicaPayGateway> _civicaPayGateway = new Mock<ICivicaPayGateway>();
-    private readonly Mock<IConfiguration> _configuration = new Mock<IConfiguration>();
-    private readonly Mock<IObjectModelValidator> _objectValidator = new Mock<IObjectModelValidator>();
+    private readonly Mock<ICivicaPayGateway> _civicaPayGateway = new();
+
+    private readonly Mock<IOptions<CivicaPayConfiguration>> _configuration = new();
+    private readonly Mock<IObjectModelValidator> _objectValidator = new();
 
     private readonly ProcessedPayment _processedPayment = new ProcessedPayment(
         "title",
@@ -69,8 +73,12 @@ public class PaymentControllerTest
             .ReturnsAsync(new HttpResponse((int)HttpStatusCode.OK, _processedServicePayPayment, string.Empty));
 
         _configuration
-            .Setup(_ => _.GetSection(It.IsAny<string>()))
-            .Returns(new Mock<IConfigurationSection>().Object);
+            .Setup(_ => _.Value)
+            .Returns(new CivicaPayConfiguration{
+                ApiPassword="Password",
+                CustomerID = "CustomerId",
+                CallingAppIdentifier = "WebApp"
+            });
 
         _objectValidator
             .Setup(o => o.Validate(
