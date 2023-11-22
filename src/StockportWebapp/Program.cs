@@ -9,20 +9,21 @@ builder.Configuration
     .AddJsonFile("appversion.json", true);
 
 var useAwsSecretManager = bool.Parse(builder.Configuration.GetSection("UseAWSSecretManager").Value);
-if(useAwsSecretManager)
-{
-    builder.AddSecrets();
-}
-else
-{
-    builder.Configuration.AddJsonFile($"{builder.Configuration.GetSection("secrets-location").Value}/appsettings.{builder.Environment.EnvironmentName}.secrets.json");
-}
-
 Log.Logger = new LoggerConfiguration()
                 .ReadFrom.Configuration(builder.Configuration)
                     .CreateLogger();
 
-Log.Logger.Information($"STARTING APPLICATION Environment:{builder.Environment.EnvironmentName}, Custom Value: { builder.Configuration.GetValue<string>("MyCustomValue") }, TOKEN STORE SECRET { builder.Configuration.GetValue<string>("TokenStoreUrl") }");
+
+if (useAwsSecretManager)
+{
+    builder.AddSecrets();
+    Log.Logger.Information($"INITIALISE SECRETS: AWS Secrets Manager");
+}
+else
+{
+    builder.Configuration.AddJsonFile($"{builder.Configuration.GetSection("secrets-location").Value}/appsettings.{builder.Environment.EnvironmentName}.secrets.json");
+    Log.Logger.Information($"INITIALISE SECRETS: Load JSON Secrets from file system");
+}
 
 builder.Host.UseSerilog((context, services, configuration) => configuration
     .ReadFrom.Configuration(context.Configuration)
