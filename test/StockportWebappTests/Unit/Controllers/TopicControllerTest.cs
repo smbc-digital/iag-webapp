@@ -4,7 +4,6 @@ public class TopicControllerTest
 {
     private readonly TopicController _controller;
     private readonly Mock<ITopicRepository> _repository;
-    private readonly Mock<IFeatureManager> _featureToggle;
     private const string BusinessId = "stockportgov";
     private readonly EventCalendarBanner _eventCalendarBanner;
     private readonly EventBanner _eventBanner;
@@ -18,8 +17,7 @@ public class TopicControllerTest
         config.Setup(_ => _.GetEmailAlertsNewSubscriberUrl(BusinessId)).Returns(AppSetting.GetAppSetting("email-alerts-url"));
 
         _repository = new Mock<ITopicRepository>();
-        _featureToggle = new Mock<IFeatureManager>();
-        _controller = new TopicController(_repository.Object, config.Object, new BusinessId(BusinessId), _stockportApiService.Object, _featureToggle.Object);
+        _controller = new TopicController(_repository.Object, config.Object, new BusinessId(BusinessId), _stockportApiService.Object);
         _eventCalendarBanner = new EventCalendarBanner()
         {
             Title = "title",
@@ -183,29 +181,5 @@ public class TopicControllerTest
 
         // Assert
         _stockportApiService.Verify(_ => _.GetEventsByCategory(It.IsAny<string>(), It.IsAny<bool>()), Times.Once);
-    }
-
-    [Fact]
-    public async Task Index_Should_ReturnIndex2023_WithFeatureToggleEnabled()
-    {
-        // Arrange
-        var subItems = Enumerable.Range(0, 1).Select(CreateASubItem).ToList();
-
-        ProcessedTopic topic = new("Name", "slug", "<p>Summary</p>", "Teaser", "metaDescription", "Icon", "Image", "Image", subItems, null, null,
-            new List<Crumb>(), new List<Alert>(), true, "test-id", _eventBanner, _eventCalendarBanner, "expandingLinkText", new List<ExpandingLinkBox>(), string.Empty, string.Empty, true,
-            new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty), "eventCategory", _callToAction, null, string.Empty);
-
-        const string slug = "healthy-living";
-        _repository.Setup(_ => _.Get<ProcessedTopic>(slug)).ReturnsAsync(new HttpResponse(200, topic, string.Empty));
-
-        _featureToggle.Setup(_ => _.IsEnabledAsync("TopicRedesign")).Returns(Task.FromResult(true));
-
-        // Act
-        var indexPage = await _controller.Index("healthy-living") as ViewResult;
-        var page = indexPage.ViewData.Model as TopicViewModel;
-
-        // Assert
-        Assert.True(await _featureToggle.Object.IsEnabledAsync("TopicRedesign"));
-        Assert.Equal("Index2023", indexPage.ViewName);
     }
 }

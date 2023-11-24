@@ -4,62 +4,59 @@
     ViewData["Title"] = topic.Name;
     ViewData["og:title"] = topic.Name;
     ViewData["Description"] = topic.MetaDescription;
-    Layout = "../Shared/_Layout.cshtml";
+    ViewData["AlertType"] = "topic";
+    ViewData["DisplayTitle"] = topic.CallToAction is null && string.IsNullOrEmpty(topic.EventCalendarBanner.Title);
+    Layout = "../Shared/_Layout2023.cshtml"; 
 }
 
-@section Breadcrumbs {
-    <partial name="Breadcrumb" model='topic.Breadcrumbs' />
-}
+<div class="grid-container-full-width">
+    @section Breadcrumbs {
+        <div class="grid-container-full-width">
+            <partial name="TopicBreadcrumb" model='topic.Breadcrumbs'/>
+        </div>
+    }
 
-    <div class="l-page-content" id="topic-page-content">
-
-        <div class="full-width-title">
-            <div class="grid-container grid-parent grid-100">
-                <div class="@(Model.Topic.EmailAlerts ? "grid-70 tablet-grid-70" : "grid-100 tablet-grid-100") mobile-grid-100">
-                    <h1>@topic.Name</h1>
-                    @if (topic.Summary != null)
+    <section class="topic-title" data-cy="title-and-summary">
+        <div class="grid-container">
+            <div class="grid-100">
+                <h1>@topic.Name</h1>
+                @if (!string.IsNullOrEmpty(topic.Summary))
                 {
                     @Html.Raw(@topic.Summary)
                 }
+                else if (!string.IsNullOrEmpty(topic.Teaser))
+                {
+                    <p>@Html.Raw(@topic.Teaser)</p>
+                }
             </div>
-            @if (Model.Topic.EmailAlerts)
+        </div>
+    </section>
+
+    <partial name="GlobalAlerts" model='topic.Alerts' />
+    <partial name="TopicPrimaryItems"/>
+
+    @if (!(topic.CallToAction is null && string.IsNullOrEmpty(topic.EventCalendarBanner.Title))) 
+    {
+        <div class="topic-banner--margin-top"> 
+            @if(topic.CallToAction is not null)
             {
-                <div class="header-right-button grid-30 tablet-grid-30 mobile-grid-100">
-                    <stock-button as-link="true" class="button-outline-white-transparent" href="@Model.EmailAlertsUrl"><span class="fa fa-envelope-o fa-1x" aria-hidden="true"></span>Email alerts</stock-button>
-                </div>
+                <partial name="CallToAction" model='topic.CallToAction'/>
+            } else {
+                <partial name="EventBanner" model='topic.EventCalendarBanner'/>
             }
         </div>
-    </div>
+    }
+    
 
-    <div tabindex="-1" id="content" class="grid-container grid-parent">
-        @if (topic.Alerts is not null)
-        {
-            foreach (var alert in topic.Alerts)
-            {
-                <partial name="DisplayTemplates/Alert" model='alert' />
-            }
-        }
+    @if (topic.SecondaryItems.Any())
+    {
+        <partial name="TopicSecondaryItems" model='topic.SecondaryItems'/>
+    }
 
-        <partial name="PrimarySubitems" model='topic' />
+    @if(!string.IsNullOrEmpty(topic.EventCalendarBanner.Title) && topic.CallToAction is not null)
+    { 
+         <partial name="EventBanner" model='topic.EventCalendarBanner'/>
+    }
 
-        @if (Model.Topic.ExpandingLinkBoxes is not null && Model.Topic.ExpandingLinkBoxes.Any())
-        {
-            <partial name="ExpandingLinkBox" model='topic' />
-        }
-
-        @if (!string.IsNullOrEmpty(topic.EventBanner.Title))
-        {
-            <partial name="Events/EventBanner" model='topic.EventBanner' />
-        }
-
-        @if (topic.SecondaryItems.Any())
-        {
-            <partial name="SecondaryItems" model='topic' />
-        }
-
-        @if (topic.TertiaryItems.Any())
-        {
-            <partial name="TertiaryItems" model='topic' />
-        }
-    </div>
+    <partial name="LogoArea"/>
 </div>
