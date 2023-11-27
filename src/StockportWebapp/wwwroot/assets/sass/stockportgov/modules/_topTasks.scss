@@ -52,9 +52,9 @@
 
             @media #{$tablet} {
                 @include h-l;
-                margin: 0;
+                margin: 0 .5em 0 0;
                 padding: 0;
-                width: 1.67em;
+                width: 1.2em;
                 float: left;
             }
         }
