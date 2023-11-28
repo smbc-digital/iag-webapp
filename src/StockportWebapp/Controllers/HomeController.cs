@@ -57,7 +57,6 @@ public class HomeController : Controller
         return View(homepageViewModel);
     }
 
-    // I don't think this is used anymore, but need to double check with JH!!
     [Route("/subscribe")]
     public async Task<IActionResult> EmailSubscribe(string emailAddress, string emailAlertsTopicId)
     {

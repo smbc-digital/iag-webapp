@@ -49,15 +49,6 @@
             SpotlightOnBanner = spotlightOnBanner;
         }
 
-        public GenericFeaturedItemList GenericItemList => new(){
-            Items = FeaturedTopics.Select(topic => new GenericFeaturedItem(topic.Title, topic.NavigationLink, topic.Icon)
-            {
-                SubItems = topic.SubItems.Select(subItem => new GenericFeaturedItem(subItem.Title, subItem.NavigationLink, subItem.Icon)).ToList()
-            }).ToList(),
-            ButtonText = "View more services",
-            ButtonCssClass = "green"
-        };
-
         public NavCardList Services => new()
         {
             Items = FeaturedTopics.Select(topic => new NavCard(topic.Title, topic.NavigationLink, topic.Teaser, string.Empty)).ToList(),
