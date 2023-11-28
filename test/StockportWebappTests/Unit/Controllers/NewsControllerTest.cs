@@ -24,7 +24,7 @@ public class NewsControllerTest
         "thumbnail.jpg",
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam gravida eu mauris in consectetur. Nullam nulla urna, sagittis a ex sit amet, ultricies rhoncus mauris. Quisque vel placerat turpis, vitae consectetur mauris.",
         new List<Crumb>(), new DateTime(2015, 9, 10), new DateTime(2015, 9, 20), new DateTime(2015, 9, 15), new List<Alert>(),
-        new List<string>(), new List<Document>());
+        new List<string>(), new List<Document>(), new List<Profile>());
 
     private static readonly News NewsItemWithoutImages = new News("News 26th Aug",
         "news-26th-aug",
@@ -34,7 +34,7 @@ public class NewsControllerTest
         "",
         "test",
         new List<Crumb>(), new DateTime(2015, 9, 10), new DateTime(2015, 9, 20), new DateTime(2015, 9, 15), new List<Alert>(),
-        new List<string>(), new List<Document>());
+        new List<string>(), new List<Document>(), new List<Profile>());
 
     private readonly ProcessedNews _processedNewsArticle = new ProcessedNews("Another news article",
         "another-news-article",
@@ -428,7 +428,8 @@ public class NewsControllerTest
                 new DateTime(2015, 9, 15),
                 new List<Alert>(),
                 new List<string>(),
-                new List<Document>());
+                new List<Document>(),
+                new List<Profile>());
 
             listofNewsItems.Add(NewsItem);
         }

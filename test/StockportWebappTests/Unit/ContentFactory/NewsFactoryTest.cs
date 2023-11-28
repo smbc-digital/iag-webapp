@@ -6,6 +6,7 @@ public class NewsFactoryTest
     private readonly Mock<MarkdownWrapper> _markdownWrapper;
     private readonly Mock<ISimpleTagParserContainer> _tagParserContainer;
     private readonly Mock<IDynamicTagParser<Document>> _documentTagParser;
+    private readonly Mock<IDynamicTagParser<Profile>> _profileTagParser;
     private readonly News _news;
     private const string Title = "News 26th Aug";
     private const string Slug = "news-26th-aug";
@@ -28,8 +29,9 @@ public class NewsFactoryTest
         _markdownWrapper = new Mock<MarkdownWrapper>();
         _tagParserContainer = new Mock<ISimpleTagParserContainer>();
         _documentTagParser = new Mock<IDynamicTagParser<Document>>();
-        _factory = new NewsFactory(_tagParserContainer.Object, _markdownWrapper.Object, _documentTagParser.Object);
-        _news = new News(Title, Slug, Teaser, Purpose, Image, ThumbnailImage, Body, _breadcrumbs, _sunrise, _sunset, _updatedAt, _alerts, _tags, _documents);
+        _profileTagParser = new Mock<IDynamicTagParser<Profile>>();
+        _factory = new NewsFactory(_tagParserContainer.Object, _markdownWrapper.Object, _documentTagParser.Object, _profileTagParser.Object);
+        _news = new News(Title, Slug, Teaser, Purpose, Image, ThumbnailImage, Body, _breadcrumbs, _sunrise, _sunset, _updatedAt, _alerts, _tags, _documents, new List<Profile>());
 
         _tagParserContainer.Setup(o => o.ParseAll(Body, It.IsAny<string>(), It.IsAny<bool>())).Returns(Body);
         _markdownWrapper.Setup(o => o.ConvertToHtml(Body)).Returns(Body);
