@@ -16,7 +16,7 @@ User-agent: BLEXBot
 User-agent: AhrefsBot
 User-agent: petalbot
 User-agent: paqlebot
-User-agent: claudebot
+User-agent: ClaudeBot
 Disallow: /
 
 User-agent: GPTBot
