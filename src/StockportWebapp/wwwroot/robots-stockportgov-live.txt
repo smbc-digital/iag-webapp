@@ -23,5 +23,9 @@ User-agent: GPTBot
 Disallow: /news/
 Disallow: /events/
 
+User-agent: BingBot
+Disallow: /news/
+Disallow: /events/
+
 User-agent: *
 Crawl-delay: 10
