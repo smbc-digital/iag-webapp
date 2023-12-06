@@ -1,4 +1,5 @@
-﻿@model ChangeGroupInfoViewModel
+﻿@inject Microsoft.FeatureManagement.IFeatureManager FeatureManager
+@model ChangeGroupInfoViewModel
 @{
     ViewData["Title"] = "Changes to a group's information";
     ViewData["og:title"] = "Changes to a group's information";
@@ -37,17 +38,21 @@
                                 </div>
                             </div>
                         }
-                        <noscript>
-                            <div id="recaptchaJsError" class="grid-100 tablet-grid-100 mobile-grid-100 alert alert-error contact-validation-error">
-                                <div class="alert-icon">
-                                    <span class="fa fa-exclamation fa-3x" aria-hidden="true"></span>
+
+                        @if (await FeatureManager.IsEnabledAsync("EnableReCaptchaValidation"))
+                        {
+                            <noscript>
+                                <div id="recaptchaJsError" class="grid-100 tablet-grid-100 mobile-grid-100 alert alert-error contact-validation-error">
+                                    <div class="alert-icon">
+                                        <span class="fa fa-exclamation fa-3x" aria-hidden="true"></span>
+                                    </div>
+                                    <div class="alert-content grid-80 tablet-grid-80 mobile-grid-80">
+                                        <h3>There has been a problem: </h3>
+                                        <p>For security reasons, you can’t use our contact forms with JavaScript turned off. Please enable JavaScript to use the form or alternatively send your enquiry to webcontent@stockport.gov.uk<br></p>
+                                    </div>
                                 </div>
-                                <div class="alert-content grid-80 tablet-grid-80 mobile-grid-80">
-                                    <h3>There has been a problem: </h3>
-                                    <p>For security reasons, you can’t use our contact forms with JavaScript turned off. Please enable JavaScript to use the form or alternatively send your enquiry to webcontent@stockport.gov.uk<br></p>
-                                </div>
-                            </div>
-                        </noscript>
+                            </noscript>
+                        }
                         <form asp-controller="Groups" asp-action="ChangeGroupInfo" method="post" role="form">
                             <input type="hidden" asp-for="@Model.GroupName" />
                             <div class="form">
@@ -69,9 +74,11 @@
                                         <textarea asp-for="@Model.Message" class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control-deep" title="Enter a Description"></textarea>
                                         <span role="alert" aria-atomic="true" asp-validation-for="@Model.Message" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
 
-                                        <div class="g-recaptcha reCaptcha" data-sitekey="6LfAeSIUAAAAAGsx6tYHz4MIvhP0pSx9Tq7Hf8Yx"></div>
-                                        <div Class="clearfix"></div>
-
+                                        @if (await FeatureManager.IsEnabledAsync("EnableReCaptchaValidation"))
+                                        {
+                                            <div class="g-recaptcha reCaptcha" data-sitekey="6LfAeSIUAAAAAGsx6tYHz4MIvhP0pSx9Tq7Hf8Yx"></div>
+                                            <div Class="clearfix"></div>
+                                        }
                                         <stock-button id="uitest-contact-form-submit" class="button-contact-us">Send your enquiry</stock-button>
                                     </fieldset>
                                 </div>
