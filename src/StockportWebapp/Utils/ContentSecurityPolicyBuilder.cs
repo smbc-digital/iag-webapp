@@ -1,4 +1,6 @@
-﻿namespace StockportWebapp.Utils;
+﻿using static System.Net.WebRequestMethods;
+
+namespace StockportWebapp.Utils;
 
 public class ContentSecurityPolicyBuilder
 {
@@ -125,6 +127,7 @@ public class ContentSecurityPolicyBuilder
             .AddSource("https://www.gstatic.com/")
             .AddSource("https://lh3.googleusercontent.com/")
             .AddSource("api.reciteme.com/")
+            .AddSource("aomg-sr-app-live.s3.eu-west-1.amazonaws.com/")
             .Finish());
     }
 
@@ -220,6 +223,10 @@ public class ContentSecurityPolicyBuilder
             .AddSource("api.reciteme.com/")
             .AddSource("js-eu1.hsforms.net/")
             .AddSource("js-eu1.hs-scripts.com/")
+            .AddSource("js-eu1.hscollectedforms.net/")
+            .AddSource("js-eu1.hs-analytics.net/")
+            .AddSource("js-eu1.hs-banner.com/")
+            .AddSource("js-eu1.hsadspixel.net/")
             .Finish());
     }
 
@@ -262,6 +269,8 @@ public class ContentSecurityPolicyBuilder
             .AddSource("https://s3.eu-west-1.amazonaws.com/maps.stockport.gov.uk/")
             .AddSource("https://raw.githubusercontent.com/OrdnanceSurvey/")
             .AddSource("https://api.os.uk/")
+            .AddSource("forms-eu1.hsforms.com")
+            .AddSource("hubspot-forms-static-embed-eu1.s3.amazonaws.com/")
             .Finish());
     }
 
