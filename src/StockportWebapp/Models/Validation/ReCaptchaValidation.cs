@@ -9,7 +9,7 @@ public class ValidateReCaptchaAttribute : ActionFilterAttribute
     private readonly IHttpClient _httpClient;
     private readonly IFeatureManager _featureManager;
 
-    public ValidateReCaptchaAttribute(IApplicationConfiguration config, IHttpClient httpClient, IFeatureManager featureManager=null)
+    public ValidateReCaptchaAttribute(IApplicationConfiguration config, IHttpClient httpClient, IFeatureManager featureManager = null)
     {
         _reCaptchaSecret = config.GetReCaptchaKey().ToString();
         _httpClient = httpClient;
