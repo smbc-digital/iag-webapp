@@ -73,6 +73,14 @@
 
     &--width-33 {
         width: calc(33.33333% - 33.33333px);
+
+        @media #{$tablet} {
+            width: calc(33.33333% - 20px);
+        }
+
+        @media #{$mobile} {
+            width: calc(33.33333% - 33.33333px);
+        }
     }
 
     @media #{$tablet} {
