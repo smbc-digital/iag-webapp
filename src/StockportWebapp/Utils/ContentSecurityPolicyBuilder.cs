@@ -1,6 +1,4 @@
-﻿using static System.Net.WebRequestMethods;
-
-namespace StockportWebapp.Utils;
+﻿namespace StockportWebapp.Utils;
 
 public class ContentSecurityPolicyBuilder
 {
