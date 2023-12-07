@@ -1,4 +1,6 @@
-﻿@model GroupSubmission
+﻿@inject Microsoft.FeatureManagement.IFeatureManager FeatureManager
+
+@model GroupSubmission
 @{
     ViewData["Title"] = "Add your group or service";
     ViewData["og:title"] = "Add your group or service";
@@ -9,7 +11,7 @@
     <partial name="Breadcrumb" model='new List<Crumb> { new Crumb("Stockport Local", "groups", "groups") }' />
 }
 
-<div class="grid-container-full-width">
+<div class="grid-container-full-width" data-cy="add-a-group">
     <div class="grid-container grid-100">
         <div class="l-body-section-filled mobile-grid-100 tablet-grid-100 grid-100">
             <section aria-label="add a group form" class="grid-100 mobile-grid-100">
@@ -30,17 +32,21 @@
                                 </div>
                             </div>
                         }
-                        <noscript>
-                            <div id="recaptchaJsError" class="grid-100 tablet-grid-100 mobile-grid-100 alert alert-error contact-validation-error">
-                                <div class="alert-icon">
-                                    <span class="fa fa-exclamation fa-3x" aria-hidden="true"></span>
+
+                        @if (await FeatureManager.IsEnabledAsync("EnableReCaptchaValidation"))
+                        {
+                            <noscript>
+                                <div id="recaptchaJsError" class="grid-100 tablet-grid-100 mobile-grid-100 alert alert-error contact-validation-error">
+                                    <div class="alert-icon">
+                                        <span class="fa fa-exclamation fa-3x" aria-hidden="true"></span>
+                                    </div>
+                                    <div class="alert-content grid-80 tablet-grid-80 mobile-grid-80">
+                                        <h3>There has been a problem: </h3>
+                                        <p>For security reasons, you can’t use our contact forms with JavaScript turned off. Please enable JavaScript to use the form or alternatively send your enquiry to webcontent@stockport.gov.uk<br></p>
+                                    </div>
                                 </div>
-                                <div class="alert-content grid-80 tablet-grid-80 mobile-grid-80">
-                                    <h3>There has been a problem: </h3>
-                                    <p>For security reasons, you can’t use our contact forms with JavaScript turned off. Please enable JavaScript to use the form or alternatively send your enquiry to webcontent@stockport.gov.uk<br></p>
-                                </div>
-                            </div>
-                        </noscript>
+                            </noscript>
+                        }
                         <form id="multistep-form" asp-controller="Groups" asp-action="AddAGroup" method="post" role="form" enctype="multipart/form-data">
                             <div class="form">
                                 <div id="multistep-form-sections-wrapper" class="form-section">
@@ -207,9 +213,11 @@
                                             </div>
                                         </div>
 
-                                        <div class="g-recaptcha reCaptcha" data-sitekey="6LfAeSIUAAAAAGsx6tYHz4MIvhP0pSx9Tq7Hf8Yx"></div>
-                                        <div class="clearfix"></div>
-
+                                        @if (await FeatureManager.IsEnabledAsync("EnableReCaptchaValidation"))
+                                        {
+                                            <div class="g-recaptcha reCaptcha" data-sitekey="6LfAeSIUAAAAAGsx6tYHz4MIvhP0pSx9Tq7Hf8Yx"></div>
+                                            <div class="clearfix"></div>
+                                        }
                                         <stock-button id="uitest-contact-form-submit" class="button-contact-us">Add your group or service</stock-button>
                                     </section>
                                 </div>

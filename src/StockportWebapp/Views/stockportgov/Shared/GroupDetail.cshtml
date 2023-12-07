@@ -22,7 +22,7 @@
 
     @Html.HiddenFor(_ => _.ConfirmedUpToDate)
 
-    <article aria-label="@Model.Group.Name content" class="grid-container group-detail">
+    <article aria-label="@Model.Group.Name content" class="grid-container group-detail" data-cy="group-page">
         <div class="grid-70 tablet-grid-100 mobile-grid-100 main-content">
         @if (Model.Group.Alerts is not null)
         {
