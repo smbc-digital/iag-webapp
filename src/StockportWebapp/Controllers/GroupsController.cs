@@ -311,8 +311,8 @@ public class GroupsController : Controller
 
         var successCode = _emailBuilder.SendEmailReportGroup(submission).Result;
         if (successCode == HttpStatusCode.OK)
-
             return RedirectToAction("ReportGroupInfoConfirmation", new { slug, groupName = submission.GroupName });
+        
         ViewBag.SubmissionError = "There was a problem submitting the report, please try again.";
         return View(submission);
 

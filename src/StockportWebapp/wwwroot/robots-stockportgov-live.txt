@@ -9,8 +9,23 @@ Disallow: /*.pdf$
 Disallow: /*.svg$
 Disallow: /*_hidden
 Disallow: /events/add-to-calendar/
+Disallow: /events/add-to-calendar
 
 User-agent: SemrushBot
 User-agent: BLEXBot
 User-agent: AhrefsBot
+User-agent: petalbot
+User-agent: paqlebot
+User-agent: ClaudeBot
 Disallow: /
+
+User-agent: GPTBot
+Disallow: /news/
+Disallow: /events/
+
+User-agent: BingBot
+Disallow: /news/
+Disallow: /events/
+
+User-agent: *
+Crawl-delay: 10

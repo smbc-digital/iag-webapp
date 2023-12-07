@@ -63,6 +63,7 @@ public class Startup
         services.AddHelpers();
         services.AddGroupConfiguration(Configuration, Log.Logger);
         services.AddSesEmailConfiguration(Configuration, Log.Logger);
+        services.AddConfigurationOptions(Configuration);
         services.AddRedis(Configuration, _useRedisSession, Log.Logger);
 
         services.AddFeatureManagement();
