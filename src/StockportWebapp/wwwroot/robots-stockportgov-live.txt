@@ -26,6 +26,6 @@ Disallow: /events/
 Crawl-delay: 10
 
 User-agent: Bingbot
-Disallow: /news/
-Disallow: /events/
+Disallow: /news
+Disallow: /events
 Crawl-delay: 10
