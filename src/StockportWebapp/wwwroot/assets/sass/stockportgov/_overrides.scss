@@ -159,7 +159,11 @@ a {
 }
 
 .grid-container-full-width .grid-container {
-    @media #{$mobile, $tablet} {
+    @media #{$tablet} {
+        padding: 0 10px 0 10px;
+    }
+
+    @media #{$mobile} {
       padding: 0;
     }
 }
