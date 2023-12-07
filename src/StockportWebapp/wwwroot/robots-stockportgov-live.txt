@@ -10,6 +10,7 @@ Disallow: /*.svg$
 Disallow: /*_hidden
 Disallow: /events/add-to-calendar/
 Disallow: /events/add-to-calendar
+Crawl-delay: 10
 
 User-agent: SemrushBot
 User-agent: BLEXBot
@@ -22,10 +23,9 @@ Disallow: /
 User-agent: GPTBot
 Disallow: /news/
 Disallow: /events/
+Crawl-delay: 10
 
-User-agent: BingBot
+User-agent: Bingbot
 Disallow: /news/
 Disallow: /events/
-
-User-agent: *
 Crawl-delay: 10
