@@ -3,6 +3,7 @@
     ViewData["Title"] = Model.Title;
     ViewData["og:title"] = Model.Title;
     Layout = "../Shared/_Layout.cshtml";
+    var dataCy = string.Empty;
 }
 
 @if (Model.Crumbs.Any())
@@ -12,8 +13,14 @@
     }
 }
 
+@if(Model.Title == "Report this page as inappropriate"){
+    dataCy = "report-a-group-confirmation";
+}
+else if(Model.Title == "Changes to a group's information"){
+    dataCy = "change-groups-confirmation";
+}
 
-<div class="grid-container grid-100">
+<div class="grid-container grid-100" data-cy=@dataCy>
     <section role="region" aria-label="main body content" class="l-content-container l-body-section-filled l-article-container grid-100 mobile-grid-100 grid-parent content">
         <h1 class="centered">@Model.Title</h1>
         <div class="grid-container container-heading">
