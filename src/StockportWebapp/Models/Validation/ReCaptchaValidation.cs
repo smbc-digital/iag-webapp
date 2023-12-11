@@ -7,16 +7,20 @@ public class ValidateReCaptchaAttribute : ActionFilterAttribute
     private const string ApiVerificationEndpoint = "https://www.google.com/recaptcha/api/siteverify";
     private readonly string _reCaptchaSecret;
     private readonly IHttpClient _httpClient;
+    private readonly IFeatureManager _featureManager;
 
-    public ValidateReCaptchaAttribute(IApplicationConfiguration config, IHttpClient httpClient)
+    public ValidateReCaptchaAttribute(IApplicationConfiguration config, IHttpClient httpClient, IFeatureManager featureManager = null)
     {
         _reCaptchaSecret = config.GetReCaptchaKey().ToString();
         _httpClient = httpClient;
+        _featureManager = featureManager;
     }
 
     public override async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
     {
-        await DoReCaptchaValidation(context);
+        if(await _featureManager.IsEnabledAsync("EnableReCaptchaValidation")){
+            await DoReCaptchaValidation(context);
+        }
 
         await base.OnActionExecutionAsync(context, next);
     }

@@ -7,10 +7,13 @@ public class ReCaptchaValidationTests
     private ValidateReCaptchaAttribute validationMethod;
     private ModelStateDictionary modelState;
     private ActionExecutingContext actionExcecutingContext;
+    private readonly Mock<IFeatureManager> _featureManager;
 
     public ReCaptchaValidationTests()
     {
         _httpClient = new Mock<IHttpClient>();
+        _featureManager = new Mock<IFeatureManager>();
+        _featureManager.Setup(_ => _.IsEnabledAsync("EnableReCaptchaValidation")).Returns(Task.FromResult(true));
         _config.Setup(x => x.GetReCaptchaKey()).Returns(AppSetting.GetAppSetting("recaptchakey"));
     }
 
@@ -54,7 +57,7 @@ public class ReCaptchaValidationTests
 
     private void SetUpParameters()
     {
-        validationMethod = new ValidateReCaptchaAttribute(_config.Object, _httpClient.Object);
+        validationMethod = new ValidateReCaptchaAttribute(_config.Object, _httpClient.Object, _featureManager.Object);
         modelState = new ModelStateDictionary();
         var httpContenxt = new DefaultHttpContext();
 

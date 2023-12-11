@@ -25,7 +25,7 @@
         border-radius: 3px;
 
         @media #{$tablet} {
-            margin: 4.5px 0;
+            margin: .3em 0;
             text-align: left;
             align-items: center;
             padding: 0.5em;
@@ -52,11 +52,10 @@
 
             @media #{$tablet} {
                 @include h-l;
-                margin: 0;
+                margin: 0 .5em 0 0;
                 padding: 0;
-                width: 30px;
+                width: 1.2em;
                 float: left;
-                margin-right: 0.5em;
             }
         }
 

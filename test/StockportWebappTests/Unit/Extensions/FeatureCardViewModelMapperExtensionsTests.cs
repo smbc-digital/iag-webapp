@@ -48,7 +48,8 @@ public class FeatureCardViewModelMapperExtensionsTests
             DateTime.Today.AddDays(-1),
             new List<Alert>(),
             new List<string>(),
-            new List<StockportWebapp.Models.Document>());
+            new List<StockportWebapp.Models.Document>(),
+            new List<Profile>());
 
 
         var result = featuredNews.MapToFeatureCard();
