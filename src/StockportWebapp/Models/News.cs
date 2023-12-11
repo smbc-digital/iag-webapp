@@ -16,8 +16,9 @@ public class News
     public List<Alert> Alerts { get; }
     public List<string> Tags { get; }
     public IEnumerable<Document> Documents { get; set; }
+    public IEnumerable<Profile> Profiles { get; set; }
 
-    public News(string title, string slug, string teaser, string purpose, string image, string thumbnailImage, string body, List<Crumb> breadcrumbs, DateTime sunriseDate, DateTime sunsetDate, DateTime updatedAt, List<Alert> alerts, List<string> tags, IEnumerable<Document> documents)
+    public News(string title, string slug, string teaser, string purpose, string image, string thumbnailImage, string body, List<Crumb> breadcrumbs, DateTime sunriseDate, DateTime sunsetDate, DateTime updatedAt, List<Alert> alerts, List<string> tags, IEnumerable<Document> documents, IEnumerable<Profile> profiles)
     {
         Title = title;
         Slug = slug;
@@ -33,5 +34,6 @@ public class News
         Alerts = alerts;
         Tags = tags;
         Documents = documents;
+        Profiles = profiles;
     }
 }
