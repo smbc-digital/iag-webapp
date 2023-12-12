@@ -73,10 +73,20 @@
 
     &--width-33 {
         width: calc(33.33333% - 33.33333px);
+
+        @media #{$tablet} {
+            width: calc(33.33333% - 20px);
+            margin: 0 15px 2em 15px;
+        }
+
+        @media #{$mobile} {
+            width: calc(33.33333% - 33.33333px);
+        }
     }
 
     @media #{$tablet} {
-        width: calc(33.33333% - 33.33333px);
+        width: calc(33.33333% - 20px);
+        margin: 0 15px 2em 15px;
     }
     
     &--width-50 {
