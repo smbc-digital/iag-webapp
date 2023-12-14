@@ -13,7 +13,7 @@
 <html lang=en-GB>
 <head>
     @*<partial name="SecurityHeaders" />*@
-    <script type=text/javascript src=@stylesheet.DesignSystemJs></script>
+    @*<script type=text/javascript src=@stylesheet.DesignSystemJs></script>*@
 
     <meta charset=utf-8 />
     <meta name=viewport content="width=device-width, initial-scale=1" />
@@ -58,7 +58,7 @@
     <partial name=TagManager/TagManagerDataLayer />
     <partial name=TagManager/TagManager />
 
-    <script type=text/javascript src=@stylesheet.DesignSystemJs asp-append-version=true></script>
+    @*<script type=text/javascript src=@stylesheet.DesignSystemJs asp-append-version=true></script>*@
     <script type=text/javascript src=~/assets/javascript/vendor/require.min.js asp-append-version=true></Script>
 </head>
 <body class="container-layout-free @(string.Concat("type-", ViewContext.RouteData.Values["controller"].ToString().ToLower()))">
