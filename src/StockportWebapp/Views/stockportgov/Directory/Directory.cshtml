@@ -1,0 +1,19 @@
+@model DirectoryViewModel
+@{
+    var directory = Model.Directory;
+    ViewData["Title"] = directory.Title;
+    ViewData["og:title"] = directory.Title;
+    ViewData["Description"] = directory.MetaDescription;
+    Layout = "../Shared/_Layout2023.cshtml"; 
+}
+<div class="grid-container-full-width">
+    <div class="placeholder placeholder__search">
+        PLACEHOLDER SEARCH
+    </div>
+    <div class="placeholder placeholder__breadcrumbs">
+        PLACEHOLDER BREADCRUMBS
+    </div>
+    <div class="placeholder placeholder__results">
+        PLACEHOLDER RESULTS
+    </div>
+</div>

@@ -1,3 +1,5 @@
+using Directory = StockportWebapp.Models.Directory;
+
 namespace StockportWebapp.Utils;
 
 public interface IStubToUrlConverter
@@ -55,7 +57,9 @@ public class UrlGenerator : IStubToUrlConverter
         {typeof(List<PrivacyNotice>), "privacy-notices/"},
         {typeof(ContactUsArea), "contactusarea"},
         {typeof(CommsHomepage), "comms"},
-        {typeof(DocumentPage), "document-page/"}
+        {typeof(DocumentPage), "document-page/"},
+        {typeof(Directory), "directory/"},
+
     };
 
     public UrlGenerator(IApplicationConfiguration config, BusinessId businessId)
