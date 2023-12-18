@@ -5,12 +5,10 @@ public class DirectoryFactory
 {
     public DirectoryFactory() {}
 
-    public virtual ProcessedDirectory Build(Directory directory)
+    public virtual ProcessedDirectory Build(Directory directory) => new(directory.Title, directory.Slug,
+                directory.ContentfulId, directory.Teaser, directory.MetaDescription, directory.BackgroundImage,
+                directory.Body, directory.CallToAction, directory.Alerts, directory.Entries)
     {
-        return new ProcessedDirectory(directory.Title, directory.Slug, directory.ContentfulId, directory.Teaser, directory.MetaDescription, directory.BackgroundImage, directory.Body,
-                directory.CallToAction, directory.Alerts, directory.Entries)
-        {
-            CallToAction = directory.CallToAction
-        };
-    }
+        CallToAction = directory.CallToAction
+    };
 }

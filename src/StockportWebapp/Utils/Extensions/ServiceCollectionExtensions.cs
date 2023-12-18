@@ -114,6 +114,7 @@ namespace StockportWebapp.Utils.Extensions
                 p.GetService<MarkdownWrapper>()));
             
             services.AddTransient<DirectoryFactory>();
+            services.AddTransient<DirectoryEntryFactory>();
 
             return services;
         }
@@ -148,7 +149,11 @@ namespace StockportWebapp.Utils.Extensions
             services.AddTransient<IRepository>(p => new Repository(p.GetService<UrlGenerator>(), p.GetService<IHttpClient>(), p.GetService<IApplicationConfiguration>(), p.GetService<IUrlGeneratorSimple>()));
             services.AddTransient<IStockportApiRepository>(p => new StockportApiRepository(p.GetService<IHttpClient>(), p.GetService<IApplicationConfiguration>(), p.GetService<IUrlGeneratorSimple>(), p.GetService<ILogger<BaseRepository>>()));
             services.AddTransient<IContentApiRepository>(p => new ContentApiRepository(p.GetService<IHttpClient>(), p.GetService<IApplicationConfiguration>(), p.GetService<IUrlGeneratorSimple>(), p.GetService<ILogger<BaseRepository>>()));
-
+            services.AddTransient<IDirectoryRepository>(p =>
+                new DirectoryRepository(p.GetService<DirectoryFactory>(), p.GetService<UrlGenerator>(), p.GetService<IHttpClient>(), p.GetService<IApplicationConfiguration>()));
+            services.AddTransient<IDirectoryEntryRepository>(p =>
+                new DirectoryEntryRepository(p.GetService<DirectoryEntryFactory>(), p.GetService<UrlGenerator>(), p.GetService<IHttpClient>(), p.GetService<IApplicationConfiguration>()));
+            
             return services;
         }
 
@@ -172,7 +177,7 @@ namespace StockportWebapp.Utils.Extensions
                     p.GetService<IDynamicTagParser<Alert>>(),
                     p.GetService<ITriviaFactory>(),
                     p.GetService<IDynamicTagParser<InlineQuote>>()));
-
+            
             return services;
         }
 
@@ -208,8 +213,6 @@ namespace StockportWebapp.Utils.Extensions
                         p.GetService<DocumentPageFactory>(), p.GetService<IApplicationConfiguration>()));
             services.AddSingleton<IEventFactory>(p => new EventFactory(p.GetService<ISimpleTagParserContainer>(), p.GetService<MarkdownWrapper>(), p.GetService<IDynamicTagParser<Document>>()));
             services.AddTransient<ILoggedInHelper>(p => new LoggedInHelper(p.GetService<IHttpContextAccessor>(), p.GetService<CurrentEnvironment>(), p.GetService<IJwtDecoder>(), p.GetService<ILogger<LoggedInHelper>>()));
-            services.AddTransient<IDirectoryRepository>(p =>
-                new DirectoryRepository(p.GetService<DirectoryFactory>(), p.GetService<UrlGenerator>(), p.GetService<IHttpClient>(), p.GetService<IApplicationConfiguration>()));
             
             return services;
         }
