@@ -4,13 +4,14 @@
     ViewData["Description"] = Model.MetaDescription;
     ViewData["og:title"] = Model.OgTitleMetaData;
     Layout = "../Shared/_Layout.cshtml";
+    var dataCy = Model.DisplayedSection is null ? "flat-article" : "article-with-sections";
 }
 
 @section Breadcrumbs {
     <partial name="Breadcrumb" model="Model.Article.Breadcrumbs" />
 }
 
-    <div class="grid-container-full-width">
+    <div class="grid-container-full-width" data-cy="@dataCy">
         <div class="grid-container grid-100 article-cols">
             <div tabindex="-1" id="content"></div>
             <article id="uitest-page-has-loaded" class="article-col l-body-section-filled grid-parent mobile-grid-100 tablet-grid-100 @(Model.HasParentTopicWithSubItems() ? "grid-70" : "grid-100")">
