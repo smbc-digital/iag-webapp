@@ -13,7 +13,7 @@
     <partial name="../Shared/SemanticBreadcrumb.cshtml" model='@crumbsList' />
 }
 
-<div class="comms-homepage">
+<div class="comms-homepage" data-cy="news-room">
     <h1 class="comms-homepage-header">@Model.Homepage.Title</h1>
     
     @if (Model.Homepage.CallToActionBanner is not null)
