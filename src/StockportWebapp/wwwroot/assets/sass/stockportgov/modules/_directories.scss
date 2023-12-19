@@ -1,16 +1,3 @@
 .placeholder {
-    background-color: #aaa;
-    height: 500px;
-    padding: 2rem;
-
-    &__search {
-        height: 300px;
-        background-color: $stockport-teal;
-        color: white;
-    }
-
-    &__breadcrumbs {
-        height: 30px;
-        background-color: $stockport-light-grey;
-    }
+    background-color: white;
 }

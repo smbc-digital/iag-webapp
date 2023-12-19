@@ -4,7 +4,7 @@ namespace StockportWebapp.Models
     {
         public string Slug { get; set; }
         public string Title { get; set; }
-        public string Body { get; set; }
+        public string Body { get; set; } = string.Empty;
         public string Teaser { get; set; }
         public string MetaDescription { get; set; }
         public IEnumerable<FilterTheme> Themes { get; set; }
@@ -16,6 +16,6 @@ namespace StockportWebapp.Models
         public string Twitter { get; set; } = string.Empty;
         public string Facebook { get; set; } = string.Empty;
         public string Address { get; set; } = string.Empty;
-        public IEnumerable<Alert> Alerts { get; }
+        public IEnumerable<Alert> Alerts { get; set; }
     }
 }
