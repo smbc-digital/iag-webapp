@@ -59,8 +59,7 @@ public class UrlGenerator : IStubToUrlConverter
         {typeof(CommsHomepage), "comms"},
         {typeof(DocumentPage), "document-page/"},
         {typeof(Directory), "directory/"},
-        {typeof(DirectoryEntry), "directory/{directorySlug}/directory-entry/"},
-
+        {typeof(DirectoryEntry), "directory-entry/"},
     };
 
     public UrlGenerator(IApplicationConfiguration config, BusinessId businessId)
