@@ -5,12 +5,10 @@ namespace StockportWebapp.Controllers;
 public class DirectoryController : Controller
 {
     private readonly IDirectoryRepository _directoryRepository;
-    private readonly IDirectoryEntryRepository _directoryEntryRepository;
 
-    public DirectoryController(IDirectoryRepository directoryRepository, IDirectoryEntryRepository directoryEntryRepository)
+    public DirectoryController(IDirectoryRepository directoryRepository)
     {
         _directoryRepository = directoryRepository;
-        _directoryEntryRepository = directoryEntryRepository;
     }
 
     [Route("/directories/{slug}")]
@@ -34,7 +32,7 @@ public class DirectoryController : Controller
     public async Task<IActionResult> DirectoryEntry(string slug, string directoryEntrySlug)
     {
         var directoryHttpResponse = await _directoryRepository.Get<Directory>(slug);
-        var directoryEntryHttpResponse = await _directoryEntryRepository.Get<DirectoryEntry>(directoryEntrySlug);
+        var directoryEntryHttpResponse = await _directoryRepository.GetEntry<DirectoryEntry>(directoryEntrySlug);
         if (!directoryHttpResponse.IsSuccessful())
             return directoryHttpResponse;
 

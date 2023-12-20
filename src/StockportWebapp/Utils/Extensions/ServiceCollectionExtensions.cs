@@ -151,8 +151,6 @@ namespace StockportWebapp.Utils.Extensions
             services.AddTransient<IContentApiRepository>(p => new ContentApiRepository(p.GetService<IHttpClient>(), p.GetService<IApplicationConfiguration>(), p.GetService<IUrlGeneratorSimple>(), p.GetService<ILogger<BaseRepository>>()));
             services.AddTransient<IDirectoryRepository>(p =>
                 new DirectoryRepository(p.GetService<DirectoryFactory>(), p.GetService<UrlGenerator>(), p.GetService<IHttpClient>(), p.GetService<IApplicationConfiguration>()));
-            services.AddTransient<IDirectoryEntryRepository>(p =>
-                new DirectoryEntryRepository(p.GetService<DirectoryEntryFactory>(), p.GetService<UrlGenerator>(), p.GetService<IHttpClient>(), p.GetService<IApplicationConfiguration>()));
             
             return services;
         }

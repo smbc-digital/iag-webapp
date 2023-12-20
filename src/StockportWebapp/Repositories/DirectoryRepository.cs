@@ -4,6 +4,7 @@ namespace StockportWebapp.Repositories;
 public interface IDirectoryRepository
 {
     Task<HttpResponse> Get<T>(string slug = "");
+    Task<HttpResponse> GetEntry<T>(string slug = "");
 }
 
 public class DirectoryRepository : IDirectoryRepository
@@ -35,6 +36,21 @@ public class DirectoryRepository : IDirectoryRepository
         var directory = (Directory)model.Content;
 
         var processedModel = _directoryFactory.Build(directory);
+        return HttpResponse.Successful(200, processedModel);
+    }
+
+    public async Task<HttpResponse> GetEntry<T>(string slug = "")
+    {
+        var url = _urlGenerator.UrlFor<DirectoryEntry>(slug);
+        var httpResponse = await _httpClient.Get(url, _authenticationHeaders);
+
+        if (!httpResponse.IsSuccessful())
+            return httpResponse;
+
+        var model = HttpResponse.Build<DirectoryEntry>(httpResponse);
+        var directoryEntry = (DirectoryEntry)model.Content;
+
+        var processedModel = _directoryFactory.Build(directoryEntry);
         return HttpResponse.Successful(200, processedModel);
     }
 }
