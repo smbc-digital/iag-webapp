@@ -8,10 +8,10 @@
         public string Teaser { get; }
         public string MetaDescription { get; }
         public IEnumerable<FilterTheme> Themes { get; }
-        public IEnumerable<Directory> Directories { get; }
+        public IEnumerable<MinimalDirectory> Directories { get; }
 
         public ProcessedDirectoryEntry(string slug, string title, string body, string teaser,
-            string metaDescription, IEnumerable<FilterTheme> themes, IEnumerable<Directory> directories)
+            string metaDescription, IEnumerable<FilterTheme> themes, IEnumerable<MinimalDirectory> directories)
         {
             Slug = slug;
             Title = title;

@@ -1,3 +1,4 @@
+using System.Net.Mime;
 using Directory = StockportWebapp.Models.Directory;
 namespace StockportWebapp.Controllers;
 
@@ -26,6 +27,19 @@ public class DirectoryController : Controller
         };
 
         return View(directoryViewModel);
+    }
+
+    [Route("/directories/kml/{slug}")]
+    [Produces(MediaTypeNames.Application.Xml)]
+    public async Task<IActionResult> DirectoryAsKml(string slug)
+    {
+        var directoryHttpResponse = await _directoryRepository.Get<Directory>(slug);
+        if (!directoryHttpResponse.IsSuccessful())
+            return directoryHttpResponse;
+
+        var processedDirectory = directoryHttpResponse.Content as ProcessedDirectory;
+
+        return Ok(processedDirectory.ToKml());
     }
 
     [Route("/directories/{slug}/directory-entry/{directoryEntrySlug}")]

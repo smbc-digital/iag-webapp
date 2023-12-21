@@ -1,10 +1,28 @@
-﻿namespace StockportWebapp.Extensions
+﻿using SharpKml.Base;
+using SharpKml.Dom;
+using SharpKml.Engine;
+
+namespace StockportWebapp.Extensions;
+public static class DirectoryExtensions
 {
-    public static class DirectoryExtensions
+    public static string GetKmlForList(this IEnumerable<DirectoryEntry> directoryEntries)
     {
-        public static string GetKmlForList(this IEnumerable<DirectoryEntry> directoryEntries)
+        var placemark = new Placemark
         {
-            return string.Empty;
-        }
+            Geometry = new Point
+            {
+                Coordinate = new Vector(-13.163959, -72.545992),
+            },
+            Name = "Machu Picchu"
+        };
+
+        var kml = KmlFile.Create(placemark, false);
+        MemoryStream stream = new MemoryStream();
+        kml.Save(stream);
+
+        StreamReader reader = new StreamReader(stream);
+        string kmlAsString = reader.ReadToEnd();
+
+        return kmlAsString;
     }
 }

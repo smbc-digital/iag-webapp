@@ -28,5 +28,7 @@
             Alerts = alerts;
             Entries = entries;
         }
+        public string ToKml() => Entries.GetKmlForList();
+
     }
 }

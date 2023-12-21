@@ -17,7 +17,5 @@ namespace StockportWebapp.Models
         public IEnumerable<Directory> SubDirectories { get; set; } = new List<Directory>();
         public IEnumerable<DirectoryEntry> AllEntries => SubDirectories.Any() ? Entries?.Concat(SubDirectories.SelectMany(sub => sub.AllEntries)).Distinct() : Entries;
         public IEnumerable<FilterTheme> AllFilterThemes => AllEntries.Where(entry => entry.Themes is not null).SelectMany(entry => entry.Themes).OrderBy(theme => theme.Title);
-
-        public string ToKml() => DirectoryExtensions.GetKmlForList(Entries);  
     }
 }
