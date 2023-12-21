@@ -33,7 +33,7 @@ public class DirectoryController : Controller
     {
         var directoryHttpResponse = await _directoryRepository.Get<Directory>(slug);
         var directoryEntryHttpResponse = await _directoryRepository.GetEntry<DirectoryEntry>(directoryEntrySlug);
-        if (!directoryHttpResponse.IsSuccessful())
+        if (!directoryHttpResponse.IsSuccessful() || !directoryEntryHttpResponse.IsSuccessful())
             return directoryHttpResponse;
 
         var processedDirectory = directoryHttpResponse.Content as ProcessedDirectory;
