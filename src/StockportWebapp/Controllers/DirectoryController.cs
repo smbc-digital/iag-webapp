@@ -37,9 +37,9 @@ public class DirectoryController : Controller
         if (!directoryHttpResponse.IsSuccessful())
             return directoryHttpResponse;
 
-        var processedDirectory = directoryHttpResponse.Content as ProcessedDirectory;
-
-        return Ok(processedDirectory.ToKml());
+        var processedDirectory = (ProcessedDirectory)directoryHttpResponse.Content;
+        var kmlString = processedDirectory.ToKml();
+        return Content(kmlString);
     }
 
     [Route("/directories/{slug}/directory-entry/{directoryEntrySlug}")]

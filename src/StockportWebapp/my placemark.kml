@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Placemark xmlns="http://www.opengis.net/kml/2.2">
+  <name>Machu Picchu</name>
+  <Point>
+    <coordinates>-72.545991999999998,-13.163959</coordinates>
+  </Point>
+</Placemark>

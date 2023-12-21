@@ -17,12 +17,11 @@ public static class DirectoryExtensions
         };
 
         var kml = KmlFile.Create(placemark, false);
-        MemoryStream stream = new MemoryStream();
-        kml.Save(stream);
-
-        StreamReader reader = new StreamReader(stream);
-        string kmlAsString = reader.ReadToEnd();
-
-        return kmlAsString;
+        using (var stream = new MemoryStream())
+        {
+            kml.Save(stream);
+            stream.Seek(0, SeekOrigin.Begin);
+            return new StreamReader(stream).ReadToEnd();
+        }
     }
 }
