@@ -114,7 +114,6 @@ namespace StockportWebapp.Utils.Extensions
                 p.GetService<MarkdownWrapper>()));
             
             services.AddTransient<DirectoryFactory>();
-            services.AddTransient<DirectoryEntryFactory>();
 
             return services;
         }

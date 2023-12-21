@@ -1,4 +1,6 @@
-﻿namespace StockportWebapp.Models.ProcessedModels
+﻿using StockportWebapp.Extensions;
+
+namespace StockportWebapp.Models.ProcessedModels
 {
     public class ProcessedDirectory
     {
