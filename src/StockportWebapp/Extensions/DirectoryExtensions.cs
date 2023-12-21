@@ -4,7 +4,7 @@
     {
         public static string GetKmlForList(this IEnumerable<DirectoryEntry> directoryEntries)
         {
-            return String.Empty;
+            return string.Empty;
         }
     }
 }
