@@ -1,4 +1,3 @@
-using System.Runtime.CompilerServices;
 
 namespace StockportWebapp.Models
 {
@@ -18,7 +17,6 @@ namespace StockportWebapp.Models
         public IEnumerable<DirectoryEntry> AllEntries => SubDirectories.Any() ? Entries?.Concat(SubDirectories.SelectMany(sub => sub.AllEntries)).Distinct() : Entries;
         public IEnumerable<FilterTheme> AllFilterThemes => AllEntries.Where(entry => entry.Themes is not null).SelectMany(entry => entry.Themes).OrderBy(theme => theme.Title);
 
-        public string ToKml() => Entries.GetKmlForList();
-       
+        public string ToKml() => Entries.GetKmlForList();  
     }
 }
