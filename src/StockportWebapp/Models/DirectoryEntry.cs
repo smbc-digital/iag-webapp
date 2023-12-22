@@ -1,3 +1,7 @@
+using SharpKml.Base;
+using SharpKml.Dom;
+using SharpKml.Dom.Atom;
+
 namespace StockportWebapp.Models
 {
     public class DirectoryEntry
@@ -18,5 +22,22 @@ namespace StockportWebapp.Models
         public string Twitter { get; set; } = string.Empty;
         public string Facebook { get; set; } = string.Empty;
         public string Address { get; set; } = string.Empty;
+
+        public Placemark ToKmlPlacemark => new Placemark
+        {
+            // Ref
+            // https://developers.google.com/kml/documentation/kml_tut?csw=1#descriptive_html
+            // https://github.com/samcragg/sharpkml/blob/main/docs/BasicUsage.md
+
+            Geometry = new Point
+            {
+                Coordinate = new Vector(this.MapPosition.Lat, this.MapPosition.Lon),
+            },
+            Name = Name,
+            Description = new Description() { Text = $@"<![CDATA[{ this.Teaser }]]>" },
+            PhoneNumber = this.PhoneNumber,
+            Address = this.Address,
+            AtomLink = new SharpKml.Dom.Atom.Link { Href = new Uri("https://www.stockport.gov.uk"), Title=$"Visit {this.Name}" }
+        };
     }
 }

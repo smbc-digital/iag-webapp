@@ -1,43 +1,49 @@
-.topic-breadcrumb-container {
-    padding-top: 20px;
-    background-color: $stockport-teal-darker; 
-    color: white;
+.breadcrumb {
+    font-size: 1rem;
+    padding: 5px 0;
+    margin-bottom: 0;
 
-    .breadcrumb {
-        font-size: 1rem;
-        padding: 5px 0;
-        margin-bottom: 0;
+    li {
+        display: inline-block;
+        margin-left: 0;
 
-        li {
-            display: inline-block;
-            margin-left: 0;
-            
-            a {
-                color: #fff;
-                font-weight: 400;
-                text-transform: none;
-                font-size: 1rem;
-            }
-
-            &:not(:first-child) {
-                &::before {
-                    content: "\f105";
-                    font: normal normal normal 14px/1 FontAwesome;
-                    margin-left: 0.157em;
-                    margin-right: 0.315em;
-                    font-size: 0.736em;
-                }
-            }
+        a {
+            font-weight: 400;
+            text-transform: none;
+            font-size: 1rem;
         }
 
-        @media #{$mobile} {
-            padding: 5px 0px;
-            margin-left: 5px;
-            margin-right: 5px;
+        &:not(:first-child) {
+            &::before {
+                content: "\f105";
+                font: normal normal normal 14px/1 FontAwesome;
+                margin-left: 0.157em;
+                margin-right: 0.315em;
+                font-size: 0.736em;
+            }
         }
+    }
+
+    @media #{$mobile} {
+        padding: 5px 0px;
+        margin-left: 5px;
+        margin-right: 5px;
     }
 }
 
+.topic-breadcrumb-container {
+    padding-top: 20px;
+    background-color: $stockport-teal-darker;
+    color: white;
+
+    .breadcrumb {
+        li {
+            a {
+                color: #fff;
+            }
+        }
+    }
+}
 
 html[dir="rtl"] {
     .topic-breadcrumb-container {

@@ -1,5 +1,4 @@
-﻿using SharpKml.Base;
-using SharpKml.Dom;
+﻿using SharpKml.Dom;
 using SharpKml.Engine;
 
 namespace StockportWebapp.Extensions;
@@ -7,19 +6,23 @@ public static class DirectoryExtensions
 {
     public static string GetKmlForList(this IEnumerable<DirectoryEntry> directoryEntries)
     {
-        var placemark = new Placemark
+        // Ref 
+        // https://github.com/samcragg/sharpkml/blob/main/docs/BasicUsage.md
+
+        var kml = new Kml();
+        var mainFolder = new Folder()
         {
-            Geometry = new Point
-            {
-                Coordinate = new Vector(-13.163959, -72.545992),
-            },
-            Name = "Machu Picchu"
+            Name = "Directory Entries for ..."
         };
 
-        var kml = KmlFile.Create(placemark, false);
+        directoryEntries.ToList().ForEach(entry =>  mainFolder.AddFeature(entry.ToKmlPlacemark));
+        
+        kml.Feature = mainFolder;
+
+        var kmlStream = KmlFile.Create(kml, false);
         using (var stream = new MemoryStream())
         {
-            kml.Save(stream);
+            kmlStream.Save(stream);
             stream.Seek(0, SeekOrigin.Begin);
             return new StreamReader(stream).ReadToEnd();
         }

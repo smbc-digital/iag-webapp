@@ -26,10 +26,30 @@ public class DirectoryController : Controller
             Directory = processedDirectory
         };
 
-        return View(directoryViewModel);
+        if(processedDirectory.SubDirectories.Any())
+            return View(directoryViewModel);
+
+        return View("results", directoryViewModel);
     }
 
-    [Route("/directories/kml/{slug}")]
+    [Route("/directories/results/{slug}")]
+    public async Task<IActionResult> DirectoryResults(string slug)
+    {
+        var directoryHttpResponse = await _directoryRepository.Get<Directory>(slug);
+        if (!directoryHttpResponse.IsSuccessful())
+            return directoryHttpResponse;
+
+        var processedDirectory = directoryHttpResponse.Content as ProcessedDirectory;
+
+        DirectoryViewModel directoryViewModel = new()
+        {
+            Directory = processedDirectory
+        };
+
+        return View("results", directoryViewModel);
+    }
+
+    [Route("/directories/results/kml/{slug}")]
     [Produces(MediaTypeNames.Application.Xml)]
     public async Task<IActionResult> DirectoryAsKml(string slug)
     {

@@ -1,0 +1,41 @@
+@model DirectoryViewModel
+@{
+    var directory = Model.Directory;
+    ViewData["Title"] = directory.Title;
+    ViewData["og:title"] = directory.Title;
+    ViewData["Description"] = directory.MetaDescription;
+    Layout = "../Shared/_Layout2023.cshtml"; 
+}
+<div class="grid-container-full-width background-grey">
+    
+    <div class="directory-title">
+        <div class="grid-container">
+            <div class="grid-100">
+                <h1>Parent Directory Title</h1>
+                <div class="directory-title_search">search block</div>
+            </div>
+        </div>
+    </div>
+
+    <partial name="Breadcrumb2023" model='new List<Crumb>()' />
+
+    <div class="grid-container">
+        <div class="grid-100 directory-sub-title">
+            <h2>Results for {Directory Title}</h2>
+            <span class="directory-result-count">Showing ## results in {Directory Title}</span>
+        </div>
+    </div>
+
+    <div class="grid-container">
+        <div class="grid-30">
+            <h3>Filter you results</h3>
+            <p>Choose one or more options to filter your results.</p>
+        </div>
+
+        <div class="grid-70">
+            <div class="placeholder placeholder-large">
+                DIRECTORY ENTRIES
+            </div>
+        </div>
+    </div>
+</div>

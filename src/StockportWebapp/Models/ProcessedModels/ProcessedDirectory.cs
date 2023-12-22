@@ -14,11 +14,14 @@ namespace StockportWebapp.Models.ProcessedModels
         public CallToActionBanner CallToAction { get; init; }
         public IEnumerable<Alert> Alerts { get; }
         public IEnumerable<DirectoryEntry> Entries { get; }
+        public IEnumerable<DirectoryEntry> AllEntries { get; }
+        public IEnumerable<FilterTheme> AllFilterThemes { get; }
         public IEnumerable<Directory> SubDirectories { get; }
 
         public ProcessedDirectory(string title, string slug, string contentfulId, string teaser,
             string metaDescription, string backgroundImage, string body, CallToActionBanner callToAction,
-            IEnumerable<Alert> alerts, IEnumerable<DirectoryEntry> entries, IEnumerable<Directory> subDirectories)
+            IEnumerable<Alert> alerts, IEnumerable<DirectoryEntry> entries, IEnumerable<Directory> subDirectories, 
+            IEnumerable<DirectoryEntry> allEntries, IEnumerable<FilterTheme> allFilterThemes)
         {
             Title = title;
             Slug = slug;
@@ -31,8 +34,10 @@ namespace StockportWebapp.Models.ProcessedModels
             Alerts = alerts;
             Entries = entries;
             SubDirectories = subDirectories;
+            AllEntries = allEntries;
+            AllFilterThemes = allFilterThemes;
         }
-        public string ToKml() => Entries.GetKmlForList();
 
+        public string ToKml() => Entries.GetKmlForList();
     }
 }

@@ -1,3 +1,27 @@
 .placeholder {
     background-color: white;
 }
+
+.directory-title {
+    background-color: $stockport-teal-darker;
+    color: white;
+    padding-top: 1rem;
+    margin-bottom: 1rem;
+
+    h1 {
+        color: white;
+    }
+
+    &_search {
+        margin-bottom: 1rem;
+    }
+}
+
+.directory-sub-title
+{
+    margin-bottom: 2em;
+
+    h2 {
+        margin-bottom: 0.25em;
+    }
+}
