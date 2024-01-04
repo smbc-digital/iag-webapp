@@ -1,5 +1,3 @@
-using StockportWebapp.Extensions;
-
 namespace StockportWebapp.Models
 {
     public class Directory

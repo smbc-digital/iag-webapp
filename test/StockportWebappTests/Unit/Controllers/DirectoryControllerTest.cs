@@ -93,4 +93,30 @@ public class DirectoryControllerTest
         Assert.NotNull(result);
         Assert.Equal("slug", model.Directory.Slug);
     }
+
+    [Fact]
+    public async Task DirectoryAsKml_ShouldReturnUnsuccessfulStatusCode(){
+        // Arrange
+        _directoryRepository.Setup(_ => _.Get<Directory>(It.IsAny<string>()))
+            .ReturnsAsync(new HttpResponse((int)HttpStatusCode.NotFound, null, string.Empty));
+
+        // Act
+        var result = await _directoryController.DirectoryAsKml("slug") as HttpResponse;
+
+        // Assert
+        Assert.Equal((int)HttpStatusCode.NotFound, result.StatusCode);
+    }
+
+    [Fact]
+    public async Task DirectoryAsKml_ShouldReturnContentInKmlFormat(){
+        // Arrange
+        _directoryRepository.Setup(_ => _.Get<Directory>(It.IsAny<string>()))
+            .ReturnsAsync(new HttpResponse((int)HttpStatusCode.OK, processedDirectory, string.Empty));
+
+        // Act
+        var result = await _directoryController.DirectoryAsKml("slug");
+
+        // Assert
+        Assert.NotNull(result);
+    }
 }
