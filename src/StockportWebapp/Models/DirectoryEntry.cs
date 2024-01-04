@@ -3,8 +3,8 @@ namespace StockportWebapp.Models
     public class DirectoryEntry
     {
         public string Slug { get; set; }
-        public string Title { get; set; }
-        public string Body { get; set; } = string.Empty;
+        public string Name { get; set; }
+        public string Description { get; set; }
         public string Teaser { get; set; }
         public string MetaDescription { get; set; }
         public IEnumerable<FilterTheme> Themes { get; set; }

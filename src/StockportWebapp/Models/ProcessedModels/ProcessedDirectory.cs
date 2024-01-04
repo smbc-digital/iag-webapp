@@ -14,10 +14,11 @@ namespace StockportWebapp.Models.ProcessedModels
         public CallToActionBanner CallToAction { get; init; }
         public IEnumerable<Alert> Alerts { get; }
         public IEnumerable<DirectoryEntry> Entries { get; }
+        public IEnumerable<Directory> SubDirectories { get; }
 
         public ProcessedDirectory(string title, string slug, string contentfulId, string teaser,
             string metaDescription, string backgroundImage, string body, CallToActionBanner callToAction,
-            IEnumerable<Alert> alerts, IEnumerable<DirectoryEntry> entries)
+            IEnumerable<Alert> alerts, IEnumerable<DirectoryEntry> entries, IEnumerable<Directory> subDirectories)
         {
             Title = title;
             Slug = slug;
@@ -29,6 +30,7 @@ namespace StockportWebapp.Models.ProcessedModels
             CallToAction = callToAction;
             Alerts = alerts;
             Entries = entries;
+            SubDirectories = subDirectories;
         }
         public string ToKml() => Entries.GetKmlForList();
 

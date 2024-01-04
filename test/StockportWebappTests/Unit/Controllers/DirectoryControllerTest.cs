@@ -16,18 +16,28 @@ public class DirectoryControllerTest
         "body",
         new CallToActionBanner(),
         new List<Alert>(),
-        new List<DirectoryEntry>()
+        new List<DirectoryEntry>(),
+        new List<Directory>()
     );
 
     private readonly ProcessedDirectoryEntry processedDirectoryEntry = new
    (
         "slug",
-        "title",
-        "body",
+        "name",
+        "description",
         "teaser",
         "metaDescription",
         new List<FilterTheme>(),
-        new List<MinimalDirectory>()
+        new List<MinimalDirectory>(),
+        new List<Alert>(),
+        new List<GroupBranding>(),
+        new MapPosition(),
+        "phone number",
+        "email",
+        "website",
+        "twitter",
+        "facebook",
+        "address"
    );
 
     public DirectoryControllerTest()

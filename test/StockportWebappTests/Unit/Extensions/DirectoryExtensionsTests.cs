@@ -12,8 +12,8 @@ public class DirectoryExtensionsTests
         {
             new(){
                 Slug = "slug",
-                Title = "Title",
-                Body = "Body",
+                Name = "Name",
+                Description = "Description",
                 Teaser = "Teaser",
                 MetaDescription = "MetaDescription",
                 Themes = new List<FilterTheme>(),

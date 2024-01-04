@@ -36,7 +36,7 @@ public class DirectoryRepositoryTests
     public async void Get_ShouldReturnHttpResponse_Successful()
     {
         // Arrange
-        ProcessedDirectory processedDirectory = new("title", "slug", "contentfulId", "teaser", "metaDescription", "backgroundImage", "body", null, null, null);
+        ProcessedDirectory processedDirectory = new("title", "slug", "contentfulId", "teaser", "metaDescription", "backgroundImage", "body", null, null, null, null);
 
         HttpResponse httpResponse = new(200, JsonConvert.SerializeObject(processedDirectory), "OK");
         _httpClient.Setup(_ => _.Get(It.IsAny<string>(), It.IsAny<Dictionary<string, string>>()))
@@ -69,7 +69,8 @@ public class DirectoryRepositoryTests
     public async void GetEntry_ShouldReturnHttpResponse_Successful()
     {
         // Arrange
-        ProcessedDirectoryEntry processedDirectoryEntry = new("slug", "title", "body", "teaser", "metaDescription", null, null);
+        ProcessedDirectoryEntry processedDirectoryEntry = new("slug", "name", "description", "teaser", "metaDescription", null, null, null, null, null, "phone number",
+            "email", "website", "twitter", "facebook", "address");
 
         HttpResponse httpResponse = new(200, JsonConvert.SerializeObject(processedDirectoryEntry), "OK");
         _httpClient.Setup(_ => _.Get(It.IsAny<string>(), It.IsAny<Dictionary<string, string>>()))
