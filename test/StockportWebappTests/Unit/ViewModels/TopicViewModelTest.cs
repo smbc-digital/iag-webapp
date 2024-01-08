@@ -10,8 +10,8 @@ public class TopicViewModelTest
         const bool emailAlerts = true;
         const string emailAlertsTopicId = "topic-id";
 
-        var topic = new ProcessedTopic("name", "slug", "metaDescription", "summary", "teaser", "icon", "backgroundimage", "image", new List<SubItem>(), new List<SubItem>(), new List<SubItem>(),
-            new List<Crumb>(), new List<Alert>(), emailAlerts, emailAlertsTopicId, null, null, "expandingLinkText", new List<ExpandingLinkBox>(), string.Empty, string.Empty, true,
+        var topic = new ProcessedTopic("name", "slug", "metaDescription", "summary", "teaser", "icon", "backgroundimage", "image", new List<SubItem>(), new List<SubItem>(),
+            new List<Crumb>(), new List<Alert>(), emailAlerts, emailAlertsTopicId, null, null, string.Empty, true,
              new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty), string.Empty, new CallToActionBanner(), null, string.Empty);
 
         var topicViewModel = new TopicViewModel(topic, EmailAlertsUrl);
@@ -26,9 +26,9 @@ public class TopicViewModelTest
         const string emailAlertsTopicId = "";
 
         var topic = new ProcessedTopic("name", "slug", "metaDescription", "summary", "teaser", "icon", "backgroundimage", "image",
-            new List<SubItem>(), new List<SubItem>(), new List<SubItem>(),
-            new List<Crumb>(), new List<Alert>(), emailAlerts, emailAlertsTopicId, null, null, "expandingLinkText",
-            new List<ExpandingLinkBox>(), string.Empty, string.Empty, true,
+            new List<SubItem>(), new List<SubItem>(),
+            new List<Crumb>(), new List<Alert>(), emailAlerts, emailAlertsTopicId, null, null,
+            string.Empty, true,
             new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty), string.Empty, new CallToActionBanner(), null, string.Empty);
 
         var topicViewModel = new TopicViewModel(topic, EmailAlertsUrl);

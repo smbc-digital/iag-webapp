@@ -9,9 +9,8 @@ public class HomeController : Controller
     private readonly IEventsService _eventsService;
     private readonly IHomepageService _homepageService;
     private readonly IStockportApiEventsService _stockportApiEventsService;
-    private readonly IFeatureManager _featureManager;
 
-    public HomeController(BusinessId businessId, IApplicationConfiguration applicationConfiguration, INewsService newsService, IEventsService eventsService, IHomepageService homepageService, IStockportApiEventsService stockportApiService, IFeatureManager featureManager)
+    public HomeController(BusinessId businessId, IApplicationConfiguration applicationConfiguration, INewsService newsService, IEventsService eventsService, IHomepageService homepageService, IStockportApiEventsService stockportApiService)
     {
         _config = applicationConfiguration;
         _businessId = businessId;
@@ -19,7 +18,6 @@ public class HomeController : Controller
         _eventsService = eventsService;
         _homepageService = homepageService;
         _stockportApiEventsService = stockportApiService;
-        _featureManager = featureManager;
     }
 
     [Route("/")]
@@ -32,7 +30,7 @@ public class HomeController : Controller
         var getEventsTask = _eventsService.GetLatestFeaturedEventItem();
         var getNewsTask = _newsService.GetLatestNewsItem();
 
-        var tasks = new List<Task>
+        List<Task> tasks = new()
         {
             getEventsTask,
             getNewsTask
@@ -55,9 +53,6 @@ public class HomeController : Controller
             FeaturedNews = getNewsTask.Result,
             EventsFromApi = eventsByCategoryTask != null ? eventsByCategoryTask.Result?.Take(3).ToList() : new List<Event>()
         };
-
-        if(await _featureManager.IsEnabledAsync("SiteRedesign") && _businessId.ToString().Equals("stockportgov"))
-            return View("Index2023", homepageViewModel);
 
         return View(homepageViewModel);
     }
