@@ -17,7 +17,9 @@ public class DirectoryControllerTest
         new CallToActionBanner(),
         new List<Alert>(),
         new List<DirectoryEntry>(),
-        new List<Directory>()
+        new List<Directory>(),
+        new List<DirectoryEntry>(),
+        new List<FilterTheme>()
     );
 
     private readonly ProcessedDirectoryEntry processedDirectoryEntry = new
