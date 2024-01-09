@@ -34,13 +34,12 @@ public class DirectoryController : Controller
         return View("results", directoryViewModel);
     }
 
-    // TODO This is commented out - it's experiment to try and impose a heirachy in both breacrumb and URL structure - but not sure whether this really necessary 
     [HttpGet]
     [Route("/directories/results/{slug}")]
-    //[Route("/directories/{parentSlug1}/results/{slug}")]
-    //[Route("/directories/{parentSlug1}/{parentSlug2}/results/{slug}")]
-    //[Route("/directories/{parentSlug1}/{parentSlug2}/{parentSlug3}/results/{slug}")]
-    //[Route("/directories/{parentSlug1}/{parentSlug2}/{parentSlug3}/{parentSlug4}/results/{slug}")]
+    [Route("/directories/results/{parentSlug1}/{slug}")]
+    [Route("/directories/results/{parentSlug2}/{parentSlug1}/{slug}")]
+    [Route("/directories/results/{parentSlug3}/{parentSlug2}/{parentSlug1}/{slug}")]
+    [Route("/directories/results/{parentSlug4}/{parentSlug3}/{parentSlug2}/{parentSlug1}/{slug}")]
     public async Task<IActionResult> DirectoryResults([Required][FromRoute]string slug, string parentSlug1, string parentSlug2, string parentSlug3, string parentSlug4)
     {
         var directoryHttpResponse = await _directoryRepository.Get<Directory>(slug);
@@ -110,12 +109,16 @@ public class DirectoryController : Controller
         return Content(kmlString);
     }
 
-    [Route("/directory-entry/{directoryEntrySlug}")]
-    [Route("/directories/{slug}/directory-entry/{directoryEntrySlug}")]
-    public async Task<IActionResult> DirectoryEntry(string slug, string directoryEntrySlug)
+    [Route("/directories/entry/{parentSlug1}/{slug}")]
+    [Route("/directories/entry/{parentSlug2}/{parentSlug1}/{slug}")]
+    [Route("/directories/entry/{parentSlug3}/{parentSlug2}/{parentSlug1}/{slug}")]
+    [Route("/directories/entry/{parentSlug4}/{parentSlug3}/{parentSlug2}/{parentSlug1}/{slug}")]
+    [Route("/directories/entry/{parentSlug5}/{parentSlug4}/{parentSlug3}/{parentSlug2}/{parentSlug1}/{slug}")]
+    [Route("/directory-entry/{slug}")]
+    public async Task<IActionResult> DirectoryEntry(string parentSlug, string slug)
     {
-        var directoryHttpResponse = await _directoryRepository.Get<Directory>(slug);
-        var directoryEntryHttpResponse = await _directoryRepository.GetEntry<DirectoryEntry>(directoryEntrySlug);
+        var directoryHttpResponse = await _directoryRepository.Get<Directory>(parentSlug);
+        var directoryEntryHttpResponse = await _directoryRepository.GetEntry<DirectoryEntry>(slug);
         if (!directoryHttpResponse.IsSuccessful() || !directoryEntryHttpResponse.IsSuccessful())
             return directoryHttpResponse;
 
