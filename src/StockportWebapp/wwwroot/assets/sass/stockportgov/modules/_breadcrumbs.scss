@@ -1,4 +1,4 @@
-.topic-breadcrumb-container {
+.breadcrumb-wrapper {
     padding-top: 20px;
     background-color: $stockport-teal-darker; 
     color: white;
@@ -38,9 +38,8 @@
     }
 }
 
-
 html[dir="rtl"] {
-    .topic-breadcrumb-container {
+    .breadcrumb-wrapper {
         .breadcrumb {
             li:not(:first-child) {
                 &:before {

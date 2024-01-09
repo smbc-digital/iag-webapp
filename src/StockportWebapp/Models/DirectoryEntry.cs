@@ -4,8 +4,8 @@ namespace StockportWebapp.Models
     {
         public string Slug { get; set; }
         public string Name { get; set; }
-        public string Description { get; set; }
         public string Teaser { get; set; }
+        public string Description { get; set; }
         public string MetaDescription { get; set; }
         public IEnumerable<FilterTheme> Themes { get; set; }
         public IEnumerable<MinimalDirectory> Directories { get; set; }

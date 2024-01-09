@@ -1,6 +1,6 @@
 @model DirectoryViewModel
 @{
-    var directory = Model.Directory;
+    var directory = Model.SubDirectory;
     ViewData["Title"] = directory.Title;
     ViewData["og:title"] = directory.Title;
     ViewData["Description"] = directory.MetaDescription;
@@ -11,7 +11,7 @@
         <h1>@directory.Title</h1>
     </div>
     <div class="grid-container-full-width">
-        <partial name="DirectoryBreadcrumb" model='new List<Crumb>()'/>
+        <partial name="DirectoryBreadcrumb" model='@Model.Breadcrumbs'/>
     </div>
     <div class="placeholder placeholder-small placeholder-bg-green">
         <p>CALL TO ACTION</p>
