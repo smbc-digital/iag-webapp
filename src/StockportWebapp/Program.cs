@@ -53,6 +53,8 @@ app.UseMiddleware<BusinessIdMiddleware>()
     {
         endpoints.MapControllers();
     });
+    
+//app.MapControllerRoute(name: "directory", pattern: "directory/results/{slug}", defaults: new { controller = "Directory", action = "DirectoryResults" })
 
 
 app.Run();

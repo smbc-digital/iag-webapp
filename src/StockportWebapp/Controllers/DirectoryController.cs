@@ -13,43 +13,91 @@ public class DirectoryController : Controller
     }
 
     [Route("/directories/{slug}")]
+
     public async Task<IActionResult> Directory(string slug)
     {
         var directoryHttpResponse = await _directoryRepository.Get<Directory>(slug);
         if (!directoryHttpResponse.IsSuccessful())
             return directoryHttpResponse;
 
-        var processedDirectory = directoryHttpResponse.Content as ProcessedDirectory;
+        var directory = directoryHttpResponse.Content as Directory;
 
         DirectoryViewModel directoryViewModel = new()
         {
-            Directory = processedDirectory
+            Directory = directory,
+            FilteredEntries = _directoryRepository.GetFilteredEntryForDirectories(directory)
         };
 
-        if(processedDirectory.SubDirectories.Any())
+        if(directory.SubDirectories.Any())
             return View(directoryViewModel);
 
         return View("results", directoryViewModel);
     }
 
+    // TODO This is commented out - it's experiment to try and impose a heirachy in both breacrumb and URL structure - but not sure whether this really necessary 
+    [HttpGet]
     [Route("/directories/results/{slug}")]
-    public async Task<IActionResult> DirectoryResults(string slug)
+    //[Route("/directories/{parentSlug1}/results/{slug}")]
+    //[Route("/directories/{parentSlug1}/{parentSlug2}/results/{slug}")]
+    //[Route("/directories/{parentSlug1}/{parentSlug2}/{parentSlug3}/results/{slug}")]
+    //[Route("/directories/{parentSlug1}/{parentSlug2}/{parentSlug3}/{parentSlug4}/results/{slug}")]
+    public async Task<IActionResult> DirectoryResults([Required][FromRoute]string slug, string parentSlug1, string parentSlug2, string parentSlug3, string parentSlug4)
+    {
+        var directoryHttpResponse = await _directoryRepository.Get<Directory>(slug);
+        
+        if (!directoryHttpResponse.IsSuccessful())
+            return directoryHttpResponse;
+
+        var directory = directoryHttpResponse.Content as Directory;
+
+        DirectoryViewModel directoryViewModel = new()
+        {
+            Directory = directory,
+            FilteredEntries = _directoryRepository.GetFilteredEntryForDirectories(directory)
+        };
+        
+        
+        //directoryViewModel.Directory.AddToRouteValuesIfNotNullOrEmpty(processedDirectory.Slug, true);
+        //directoryViewModel.Directory.AddToRouteValuesIfNotNullOrEmpty(parentSlug1);
+        //directoryViewModel.Directory.AddToRouteValuesIfNotNullOrEmpty(parentSlug2);
+        //directoryViewModel.Directory.AddToRouteValuesIfNotNullOrEmpty(parentSlug3);
+        //directoryViewModel.Directory.AddToRouteValuesIfNotNullOrEmpty(parentSlug4);
+
+        //if (!string.IsNullOrEmpty(parentSlug1))
+        //{
+        //    var directoryLookupHttpResponse = await _directoryRepository.Get<Directory>(parentSlug1);
+
+        //    if (directoryLookupHttpResponse.IsSuccessful())
+        //    {
+        //        var lookedUpDirectory = directoryLookupHttpResponse.Content as Directory;
+        //        directoryViewModel.Breadcrumbs.Add(new Crumb(lookedUpDirectory.Title, parentSlug1, "Directories"));
+        //    }
+        //}
+        
+        
+        return View("results", directoryViewModel);
+    }
+
+    [HttpPost]
+    [Route("/directories/results/{slug}")]
+    public async Task<IActionResult> FilterResults(string slug)
     {
         var directoryHttpResponse = await _directoryRepository.Get<Directory>(slug);
         if (!directoryHttpResponse.IsSuccessful())
             return directoryHttpResponse;
 
-        var processedDirectory = directoryHttpResponse.Content as ProcessedDirectory;
+        var directory = directoryHttpResponse.Content as Directory;
 
         DirectoryViewModel directoryViewModel = new()
         {
-            Directory = processedDirectory
+            Directory = directory,
+            FilteredEntries = _directoryRepository.GetFilteredEntryForDirectories(directory)
         };
 
         return View("results", directoryViewModel);
     }
 
-    [Route("/directories/results/kml/{slug}")]
+    [Route("/directories/results/kml/{slug}")]  
     [Produces(MediaTypeNames.Application.Xml)]
     public async Task<IActionResult> DirectoryAsKml(string slug)
     {
@@ -57,11 +105,12 @@ public class DirectoryController : Controller
         if (!directoryHttpResponse.IsSuccessful())
             return directoryHttpResponse;
 
-        var processedDirectory = (ProcessedDirectory)directoryHttpResponse.Content;
-        var kmlString = processedDirectory.ToKml();
+        var directory = (Directory)directoryHttpResponse.Content;
+        var kmlString = directory.ToKml();
         return Content(kmlString);
     }
 
+    [Route("/directory-entry/{directoryEntrySlug}")]
     [Route("/directories/{slug}/directory-entry/{directoryEntrySlug}")]
     public async Task<IActionResult> DirectoryEntry(string slug, string directoryEntrySlug)
     {
@@ -70,15 +119,13 @@ public class DirectoryController : Controller
         if (!directoryHttpResponse.IsSuccessful() || !directoryEntryHttpResponse.IsSuccessful())
             return directoryHttpResponse;
 
-        var processedDirectory = directoryHttpResponse.Content as ProcessedDirectory;
-        var processedEntryDirectory = directoryEntryHttpResponse.Content as ProcessedDirectoryEntry;
+        var directory = directoryHttpResponse.Content as Directory;
+        var processedDirectoryEntry = directoryEntryHttpResponse.Content as DirectoryEntry;
 
-        DirectoryViewModel directoryViewModel = new()
+        return View(new DirectoryViewModel()
         {
-            Directory = processedDirectory,
-            DirectoryEntry = processedEntryDirectory
-        };
-
-        return View(directoryViewModel);
+            Directory = directory,
+            DirectoryEntry = processedDirectoryEntry
+        });
     }
 }

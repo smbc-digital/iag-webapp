@@ -1,8 +1,14 @@
-﻿namespace StockportWebapp.ViewModels;
+﻿using Directory = StockportWebapp.Models.Directory;
+
+namespace StockportWebapp.ViewModels;
 
 public class DirectoryViewModel
 {
-    public ProcessedDirectory Directory { get; set; }
+    public Directory Directory { get; set; }
 
-    public ProcessedDirectoryEntry DirectoryEntry { get; set; }
+    public IEnumerable<DirectoryEntry> FilteredEntries { get; set; }
+
+    public IEnumerable<Filter> AppliedFilters { get; set; }
+
+    public DirectoryEntry DirectoryEntry { get; set; }
 }

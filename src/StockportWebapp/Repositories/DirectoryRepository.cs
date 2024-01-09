@@ -5,6 +5,7 @@ public interface IDirectoryRepository
 {
     Task<HttpResponse> Get<T>(string slug = "");
     Task<HttpResponse> GetEntry<T>(string slug = "");
+    IEnumerable<DirectoryEntry> GetFilteredEntryForDirectories(Directory directory);
 }
 
 public class DirectoryRepository : IDirectoryRepository
@@ -35,8 +36,8 @@ public class DirectoryRepository : IDirectoryRepository
         var model = HttpResponse.Build<Directory>(httpResponse);
         var directory = (Directory)model.Content;
 
-        var processedModel = _directoryFactory.Build(directory);
-        return HttpResponse.Successful(200, processedModel);
+        //var processedModel = _directoryFactory.Build(directory);
+        return HttpResponse.Successful(200, directory);
     }
 
     public async Task<HttpResponse> GetEntry<T>(string slug = "")
@@ -52,5 +53,10 @@ public class DirectoryRepository : IDirectoryRepository
 
         var processedModel = _directoryFactory.Build(directoryEntry);
         return HttpResponse.Successful(200, processedModel);
+    }
+
+    public IEnumerable<DirectoryEntry> GetFilteredEntryForDirectories(Directory directory)
+    {
+        return directory.AllEntries.Select(directoryEntry => directoryEntry);
     }
 }
