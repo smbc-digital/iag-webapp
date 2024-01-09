@@ -2,7 +2,7 @@ using System.Net.Mime;
 using Directory = StockportWebapp.Models.Directory;
 namespace StockportWebapp.Controllers;
 
-[ResponseCache(Location = ResponseCacheLocation.Any, Duration = Cache.Short)]
+[ResponseCache(Location = ResponseCacheLocation.Any, Duration = Cache.Medium)]
 public class DirectoryController : Controller
 {
     private readonly IDirectoryRepository _directoryRepository;
@@ -33,14 +33,9 @@ public class DirectoryController : Controller
 
         return View("results", directoryViewModel);
     }
-
-    // TODO This is commented out - it's experiment to try and impose a heirachy in both breacrumb and URL structure - but not sure whether this really necessary 
+    
     [HttpGet]
     [Route("/directories/results/{slug}")]
-    //[Route("/directories/{parentSlug1}/results/{slug}")]
-    //[Route("/directories/{parentSlug1}/{parentSlug2}/results/{slug}")]
-    //[Route("/directories/{parentSlug1}/{parentSlug2}/{parentSlug3}/results/{slug}")]
-    //[Route("/directories/{parentSlug1}/{parentSlug2}/{parentSlug3}/{parentSlug4}/results/{slug}")]
     public async Task<IActionResult> DirectoryResults([Required][FromRoute]string slug, string parentSlug1, string parentSlug2, string parentSlug3, string parentSlug4)
     {
         var directoryHttpResponse = await _directoryRepository.Get<Directory>(slug);
@@ -54,26 +49,7 @@ public class DirectoryController : Controller
         {
             Directory = directory,
             FilteredEntries = _directoryRepository.GetFilteredEntryForDirectories(directory)
-        };
-        
-        
-        //directoryViewModel.Directory.AddToRouteValuesIfNotNullOrEmpty(processedDirectory.Slug, true);
-        //directoryViewModel.Directory.AddToRouteValuesIfNotNullOrEmpty(parentSlug1);
-        //directoryViewModel.Directory.AddToRouteValuesIfNotNullOrEmpty(parentSlug2);
-        //directoryViewModel.Directory.AddToRouteValuesIfNotNullOrEmpty(parentSlug3);
-        //directoryViewModel.Directory.AddToRouteValuesIfNotNullOrEmpty(parentSlug4);
-
-        //if (!string.IsNullOrEmpty(parentSlug1))
-        //{
-        //    var directoryLookupHttpResponse = await _directoryRepository.Get<Directory>(parentSlug1);
-
-        //    if (directoryLookupHttpResponse.IsSuccessful())
-        //    {
-        //        var lookedUpDirectory = directoryLookupHttpResponse.Content as Directory;
-        //        directoryViewModel.Breadcrumbs.Add(new Crumb(lookedUpDirectory.Title, parentSlug1, "Directories"));
-        //    }
-        //}
-        
+        };        
         
         return View("results", directoryViewModel);
     }
