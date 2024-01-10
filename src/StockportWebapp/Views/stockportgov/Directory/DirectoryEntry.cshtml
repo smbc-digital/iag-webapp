@@ -11,7 +11,8 @@
         <h1>@directory.Name</h1>
     </div>
     <div class="placeholder placeholder-bg-orange placeholder-xs">
-        <p>BREADCRUMBS</p>
+        @* <partial class="TopicBreadcrumb" model="model.Breadcrumb" /> *@
+            <p>BREADCRUMBS</p>
     </div>
     <h2>@directory.Name</h2>
     <div class="grid-container">
@@ -46,28 +47,20 @@
         <div class="grid-70">
             <div class="">
                 <h2>ABOUT US</h2>
-                <p>@directory.Description</p>
+                @Html.Raw(directory.Description)
             </div>
 
-            <div class="placeholder placeholder-medium placeholder-bg-grey">
-                <p>DATE AND TIMES</p>
-            </div>
+            <div class="">
+                @foreach (var theme in directory.Themes)
+                {
 
-            <div class="placeholder placeholder-medium placeholder-bg-teal">
-                <p>RANGE</p>
-            </div>
-
-            <div class="placeholder placeholder-medium placeholder-bg-grey">
-                <p>COST</p>
-            </div>
-            <hr>
-
-            <div class="placeholder placeholder-medium placeholder-bg-teal">
-                <p>FACILITIES AVAILABLE</p>
-            </div>
-
-            <div class="placeholder placeholder-medium placeholder-bg-grey">
-                <p>HOW TO FIND US</p>
+                    <h2>@theme.Title</h2>
+                    
+                    foreach(var filter in theme.Filters)
+                    {
+                        <p>@filter.DisplayName</p>
+                    }
+                }
             </div>
         </div>
     </div>

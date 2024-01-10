@@ -6,10 +6,12 @@ namespace StockportWebapp.Controllers;
 public class DirectoryController : Controller
 {
     private readonly IDirectoryRepository _directoryRepository;
+    private readonly MarkdownWrapper _markdownWrapper;
 
-    public DirectoryController(IDirectoryRepository directoryRepository)
+    public DirectoryController(IDirectoryRepository directoryRepository, MarkdownWrapper markdownWrapper)
     {
         _directoryRepository = directoryRepository;
+        _markdownWrapper = markdownWrapper;
     }
 
     [Route("/directories/{slug}")]
@@ -98,6 +100,7 @@ public class DirectoryController : Controller
 
         var directory = directoryHttpResponse.Content as Directory;
         var processedDirectoryEntry = directoryEntryHttpResponse.Content as DirectoryEntry;
+        processedDirectoryEntry.Description = _markdownWrapper.ConvertToHtml(processedDirectoryEntry.Description ?? "");
 
         return View(new DirectoryViewModel()
         {
