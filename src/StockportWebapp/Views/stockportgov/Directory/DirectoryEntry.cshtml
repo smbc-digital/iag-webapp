@@ -13,20 +13,40 @@
     <div class="placeholder placeholder-bg-orange placeholder-xs">
         <p>BREADCRUMBS</p>
     </div>
-    <div class=" grid-container">
+    <h2>@directory.Name</h2>
+    <div class="grid-container">
         <div class="grid-30">
-            <div class="placeholder placeholder-small placeholder-bg-grey">
-                <p>LOGO</p>
+            <div class="">
+                <img src="@directory.Branding.First().File.Url?w=340&q=89"
+                    srcset="@directory.Branding.First().File.Url?w=340&q=89&fm=webp 340w"
+                    class="logo-area__image"
+                    alt="@directory.Branding.First().File.Description"
+                    loading="lazy"
+                    width="200"
+                    height="125"/>
+                </a>
             </div>
 
-            <div class="placeholder placeholder-large placeholder-bg-teal">
-                <p>ORGANISATION DETAILS</p>
+            <div class="">
+                <h2>Our details</h2>
+                <h3>Organisation</h3>
+                <p>@directory.Name</p>
+                <h3>Address</h3>
+                <p>@directory.Address</p>
+                <h3>Contact us</h3>
+                <p>Phone: <b>@directory.PhoneNumber</b></p>
+                <p>Email: <b>@directory.Email</b></p>
+                <p><b>Visit:</b></p>
+                <p><a href="@directory.Website">@directory.Website</a></p>
+                <p><a href="@directory.Facebook">@directory.Facebook</a></p>
+                <p><a href="@directory.Twitter">@directory.Twitter</a></p>
             </div>
         </div>
 
         <div class="grid-70">
-            <div class="placeholder placeholder-medium placeholder-bg-teal">
-                <p>ABOUT US</p>
+            <div class="">
+                <h2>ABOUT US</h2>
+                <p>@directory.Description</p>
             </div>
 
             <div class="placeholder placeholder-medium placeholder-bg-grey">
