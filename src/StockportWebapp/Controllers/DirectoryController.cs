@@ -94,14 +94,12 @@ public class DirectoryController : Controller
             parentDirectories.Add(p);
         }
 
-        // Create breadcrumbs for the parent
         List<Crumb> breadcrumbs = new();
-        for (int i =0; i < parentDirectories.Count; i++)
+        for (int i = 0; i < parentDirectories.Count; i++)
         {
             var directory = parentDirectories[i];
-            var relativeParentDirectories = parentDirectories.GetRange(0, i);
-            var directorySlug = string.Join("/", relativeParentDirectories);
-            breadcrumbs.Add(new(directory.Title, directorySlug, "Directories"));
+            var relativeUrl = string.Join("/", parentDirectories.Take(i + 1).Select(_ => _.Slug));
+            breadcrumbs.Add(new Crumb(directory.Title, $"directories/{relativeUrl}", "Directories"));
         }
 
         DirectoryViewModel directoryViewModel = new()

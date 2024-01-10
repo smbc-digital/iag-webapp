@@ -54,13 +54,4 @@ app.UseMiddleware<BusinessIdMiddleware>()
         endpoints.MapControllers();
     });
 
-// app.UseEndpoints(endpoints =>
-// {
-//     endpoints.MapControllerRoute(
-//         name: "directoryRoute",
-//         pattern: "directory/{directorySlug}/{entrySlug}/{*subdirectoryPath}",
-//         defaults: new { controller = "Directory", action = "DirectoryEntry" }
-//     );
-// });
-
 app.Run();
