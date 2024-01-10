@@ -86,13 +86,14 @@ public class DirectoryController : Controller
         return Content(kmlString);
     }
 
-    [Route("/directory-entry/{directoryEntrySlug}")]
-    [Route("/directories/{slug}/directory-entry/{directoryEntrySlug}")]
-    public async Task<IActionResult> DirectoryEntry(string slug, string directoryEntrySlug)
+    // [Route("/directories/{slug}/directory-entry/{directoryEntrySlug}")]
+    [Route("/directory-entry/{entrySlug}")]
+    [Route("/directories/entry/{directorySlug}/{entrySlug}")]
+    public async Task<IActionResult> DirectoryEntry(string directorySlug, string entrySlug)
     {
-        var directoryHttpResponse = await _directoryRepository.Get<Directory>(slug);
-        var directoryEntryHttpResponse = await _directoryRepository.GetEntry<DirectoryEntry>(directoryEntrySlug);
-        if (!directoryHttpResponse.IsSuccessful() || !directoryEntryHttpResponse.IsSuccessful())
+        var directoryHttpResponse = await _directoryRepository.Get<Directory>(directorySlug);
+         var directoryEntryHttpResponse = await _directoryRepository.GetEntry<DirectoryEntry>(entrySlug);
+        if (!directoryEntryHttpResponse.IsSuccessful())
             return directoryHttpResponse;
 
         var directory = directoryHttpResponse.Content as Directory;
