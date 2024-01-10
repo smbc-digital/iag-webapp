@@ -1,14 +1,14 @@
 @model DirectoryViewModel
 @{
-    var directory = Model.Directory;
-    ViewData["Title"] = directory.Title;
-    ViewData["og:title"] = directory.Title;
+    var directory = Model.DirectoryEntry;
+    ViewData["Title"] = directory.Name;
+    ViewData["og:title"] = directory.Name;
     ViewData["Description"] = directory.MetaDescription;
     Layout = "../Shared/_Layout2023.cshtml"; 
 }
 <div class="grid-container-full-width">
     <div class="placeholder placeholder-bg-teal placeholder-small">
-        <h1>@directory.Title</h1><br>
+        <h1>@directory.Name</h1><br>
     </div>
 
     <div class="grid-container-full-width">

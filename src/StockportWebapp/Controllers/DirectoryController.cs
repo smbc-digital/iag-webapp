@@ -62,54 +62,51 @@ public class DirectoryController : Controller
         return View(directoryViewModel);
     }
 
-
-    [Route("directory/{directorySlug}/{entrySlug}/{*subdirectoryPath}")]
-    public async Task<IActionResult> DirectoryEntry(string directorySlug, string entrySlug, string subdirectoryPath="")
+    [Route("directories/entry/{**slug}")]
+    public async Task<IActionResult> DirectoryEntry(string slug)
     {
-        var directoryHttpResponse = await _directoryRepository.Get<Directory>(directorySlug);
-        
-        var directoryEntryHttpResponse = await _directoryRepository.GetEntry<DirectoryEntry>(entrySlug);
-        if (!directoryHttpResponse.IsSuccessful() || !directoryEntryHttpResponse.IsSuccessful())
-            return directoryHttpResponse;
+        // Get slug values from catch all
+        var slugValues = slug?.Split('/') ?? Array.Empty<string>();
 
-        var processedDirectory = directoryHttpResponse.Content as ProcessedDirectory;
+        // Last value will always be the entry slug
+        var entrySlug = slugValues.Last();
+
+        // Get the requested entry
+        var directoryEntryHttpResponse = await _directoryRepository.GetEntry<DirectoryEntry>(entrySlug);
+        if (!directoryEntryHttpResponse.IsSuccessful())
+            return directoryEntryHttpResponse;
+
         var processedEntryDirectory = directoryEntryHttpResponse.Content as ProcessedDirectoryEntry;
 
-        var subdirectories = subdirectoryPath?.Split('/') ?? Array.Empty<string>();
-        List<Crumb> breadcrumbs = new()
+        // Anything before the (last) entry slug is directory hierarchy
+        var directorySlugs = slugValues.SkipLast(1).ToList();
+        List<ProcessedDirectory> parentDirectories = new();
+
+        // Get the parent directories
+        HttpResponse directoryHttpResponse;
+        foreach (var directorySlug in directorySlugs)
         {
-            new(processedDirectory.Title, processedDirectory.Slug, "Directories"),
-            new(processedEntryDirectory.Name, processedEntryDirectory.Slug, "Directories")
-        };
+            directoryHttpResponse = await _directoryRepository.Get<Directory>(directorySlug);
+            if (!directoryHttpResponse.IsSuccessful())
+                return directoryEntryHttpResponse;
 
-        // Fetch information for each subdirectory
-        
-        foreach (var subdirectory in subdirectories)
+            var p = directoryHttpResponse.Content as ProcessedDirectory;
+            parentDirectories.Add(p);
+        }
+
+        // Create breadcrumbs for the parent
+        List<Crumb> breadcrumbs = new();
+        for (int i =0; i < parentDirectories.Count; i++)
         {
-            var subdirectoryHttpResponse = await _directoryRepository.Get<Directory>(subdirectory);
-
-            if (subdirectoryHttpResponse.IsSuccessful())
-            {
-                var processedSubdirectory = subdirectoryHttpResponse.Content as ProcessedDirectory;
-                // breadcrumbs.Add(
-                //     new(processedSubdirectory.Title, processedSubdirectory.Slug, "Directories")
-                // );
-
-                DirectoryViewModel subdirectoryViewModel = new()
-                {
-                    Directory = processedDirectory,
-                    DirectoryEntry = processedEntryDirectory,
-                    SubDirectory = processedSubdirectory,
-                    Breadcrumbs = breadcrumbs
-                };
-
-                return View("SubDirectory", subdirectoryViewModel);
-            }
+            var directory = parentDirectories[i];
+            var relativeParentDirectories = parentDirectories.GetRange(0, i);
+            var directorySlug = string.Join("/", relativeParentDirectories);
+            breadcrumbs.Add(new(directory.Title, directorySlug, "Directories"));
         }
 
         DirectoryViewModel directoryViewModel = new()
         {
-            Directory = processedDirectory,
+            Directory = parentDirectories.First(),
             DirectoryEntry = processedEntryDirectory,
             Breadcrumbs = breadcrumbs
         };
