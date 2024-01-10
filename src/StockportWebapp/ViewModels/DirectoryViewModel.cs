@@ -11,4 +11,6 @@ public class DirectoryViewModel
     public IEnumerable<Filter> AppliedFilters { get; set; }
 
     public DirectoryEntry DirectoryEntry { get; set; }
+
+    public IEnumerable<Crumb> Breadcrumbs { get; set; }
 }

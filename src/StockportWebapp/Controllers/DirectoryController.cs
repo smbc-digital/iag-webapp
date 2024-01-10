@@ -109,26 +109,55 @@ public class DirectoryController : Controller
         return Content(kmlString);
     }
 
-    [Route("/directories/entry/{parentSlug1}/{slug}")]
-    [Route("/directories/entry/{parentSlug2}/{parentSlug1}/{slug}")]
-    [Route("/directories/entry/{parentSlug3}/{parentSlug2}/{parentSlug1}/{slug}")]
-    [Route("/directories/entry/{parentSlug4}/{parentSlug3}/{parentSlug2}/{parentSlug1}/{slug}")]
-    [Route("/directories/entry/{parentSlug5}/{parentSlug4}/{parentSlug3}/{parentSlug2}/{parentSlug1}/{slug}")]
-    [Route("/directory-entry/{slug}")]
-    public async Task<IActionResult> DirectoryEntry(string parentSlug, string slug)
+    [Route("directories/entry/{**slug}")]
+    public async Task<IActionResult> DirectoryEntry(string slug)
     {
-        var directoryHttpResponse = await _directoryRepository.Get<Directory>(parentSlug);
-        var directoryEntryHttpResponse = await _directoryRepository.GetEntry<DirectoryEntry>(slug);
-        if (!directoryHttpResponse.IsSuccessful() || !directoryEntryHttpResponse.IsSuccessful())
-            return directoryHttpResponse;
+        // Get slug values from catch all
+        var slugValues = slug?.Split('/') ?? Array.Empty<string>();
 
-        var directory = directoryHttpResponse.Content as Directory;
-        var processedDirectoryEntry = directoryEntryHttpResponse.Content as DirectoryEntry;
+        // Last value will always be the entry slug
+        var entrySlug = slugValues.Last();
 
-        return View(new DirectoryViewModel()
+        // Get the requested entry
+        var directoryEntryHttpResponse = await _directoryRepository.GetEntry<DirectoryEntry>(entrySlug);
+        if (!directoryEntryHttpResponse.IsSuccessful())
+            return directoryEntryHttpResponse;
+
+        var processedEntryDirectory = directoryEntryHttpResponse.Content as DirectoryEntry;
+
+        // Anything before the (last) entry slug is directory hierarchy
+        var directorySlugs = slugValues.SkipLast(1).ToList();
+        List<Directory> parentDirectories = new();
+
+        // Get the parent directories
+        HttpResponse directoryHttpResponse;
+        foreach (var directorySlug in directorySlugs)
         {
-            Directory = directory,
-            DirectoryEntry = processedDirectoryEntry
-        });
+            directoryHttpResponse = await _directoryRepository.Get<Directory>(directorySlug);
+            if (!directoryHttpResponse.IsSuccessful())
+                return directoryEntryHttpResponse;
+
+            var p = directoryHttpResponse.Content as Directory;
+            parentDirectories.Add(p);
+        }
+
+        // Create breadcrumbs for the parent
+        List<Crumb> breadcrumbs = new();
+        for (int i = 0; i < parentDirectories.Count; i++)
+        {
+            var directory = parentDirectories[i];
+            var relativeParentDirectories = parentDirectories.GetRange(0, i);
+            var directorySlug = string.Join('/', relativeParentDirectories);
+            breadcrumbs.Add(new(directory.Title, directorySlug, "Directories"));
+        }
+
+        DirectoryViewModel directoryViewModel = new()
+        {
+            Directory = parentDirectories.First(),
+            DirectoryEntry = processedEntryDirectory,
+            Breadcrumbs = breadcrumbs
+        };
+
+        return View(directoryViewModel);
     }
 }
