@@ -28,7 +28,7 @@
         </div>
     </div>
 
-    <partial name="Breadcrumb2023" model='new List<Crumb>()' />
+    <partial name="Breadcrumb2023" model=@Model.Breadcrumbs />
     <form asp-controller="Directory" method="post">
         <div class="grid-container">
             <div class="grid-100 directory-sub-title">
