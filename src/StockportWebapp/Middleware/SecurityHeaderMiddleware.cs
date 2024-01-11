@@ -18,9 +18,10 @@ public class SecurityHeaderMiddleware
         {
             var cspBuilder = new ContentSecurityPolicyBuilder();
             var allowedContent = cspBuilder.BuildPolicy();
-        
+
             httpContext.Response.Headers.Add("Content-Security-Policy", new[] { allowedContent });
         }
+
         return _next(httpContext);
     }
 }

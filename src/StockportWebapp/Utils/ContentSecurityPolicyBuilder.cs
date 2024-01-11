@@ -56,6 +56,7 @@ public class ContentSecurityPolicyBuilder
             .AddSource("https://vars.hotjar.com/")
             .AddSource("https://embed.buto.tv/")
             .AddSource("https://butoembed.twentythree.net/")
+            .AddSource("forms-eu1.hsforms.com")
             .Finish());
     }
 
@@ -220,13 +221,14 @@ public class ContentSecurityPolicyBuilder
             .AddSource("https://plus.browsealoud.com/")
             .AddSource("https://speech.speechstream.net/", true)
             .AddSource("https://www.google-analytics.com/", true)
-            .AddSource("api.reciteme.com/")
-            .AddSource("js-eu1.hsforms.net/")
-            .AddSource("js-eu1.hs-scripts.com/")
-            .AddSource("js-eu1.hscollectedforms.net/")
-            .AddSource("js-eu1.hs-analytics.net/")
-            .AddSource("js-eu1.hs-banner.com/")
-            .AddSource("js-eu1.hsadspixel.net/")
+            .AddSource("api.reciteme.com")
+            .AddSource("js-eu1.hsforms.net")
+            .AddSource("js-eu1.hs-scripts.com")
+            .AddSource("js-eu1.hscollectedforms.net")
+            .AddSource("js-eu1.hs-analytics.net")
+            .AddSource("js-eu1.hs-banner.com")
+            .AddSource("js-eu1.hsadspixel.net")
+            .AddSource("forms-eu1.hsforms.com")
             .Finish());
     }
 
@@ -300,9 +302,10 @@ public class ContentSecurityPolicyBuilder
             .AddSource("*.stockport.gov.uk")
             .AddSource("*.smbcdigital.net")
             .AddSource("*.meetami.ai/")
-            .AddSource("*.chat.meetami.ai/")
+            .AddSource("*.chat.meetami.ai/") 
             .AddSource("forms.stockport.gov.uk", true)
-            .AddSource("https://app.contentful.com")
+            .AddSource("app.contentful.com")
+            .AddSource("forms-eu1.hsforms.com")
             .Finish());
     }
 
