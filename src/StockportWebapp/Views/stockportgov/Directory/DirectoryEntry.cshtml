@@ -37,11 +37,11 @@
 
     <div class="grid-container">
         <div class="grid-100">
-            <div class="grid-30">
-                <div class="directory-details">
+            <section class="directory">
+                <div class="directory__profile">
                     <img src="@directory.Branding.First().File.Url?w=340&q=89"
                         srcset="@directory.Branding.First().File.Url?w=340&q=89&fm=webp 340w"
-                        class=""
+                        class="directory__logo"
                         alt="@directory.Branding.First().File.Description"
                         loading="lazy"
                         width="300"
@@ -64,25 +64,27 @@
                     <p><a href="@directory.Facebook">@directory.Facebook</a></p>
                     <p><a href="@directory.Twitter">@directory.Twitter</a></p>
                 </div>
-            </div>
+                
+                <div class="directory__info">
+                    <div class="directory__description">
+                        <h2>ABOUT US</h2>
+                        @Html.Raw(directory.Description)
+                    </div>
 
-            <div class="grid-70">
-                <div class="directory-info">
-                    <h2>ABOUT US</h2>
-                    @Html.Raw(directory.Description)
-
-                    @foreach (var theme in directory.Themes)
-                    {
-
-                        <h2>@theme.Title</h2>
-                        
-                        foreach(var filter in theme.Filters)
+                    <div class="directory__filters">
+                        @foreach (var theme in directory.Themes)
                         {
-                            <p>@filter.DisplayName</p>
+
+                            <h2>@theme.Title</h2>
+                            
+                            foreach(var filter in theme.Filters)
+                            {
+                                <p>@filter.DisplayName</p>
+                            }
                         }
-                    }
+                    </div>
                 </div>
-            </div>
+            </section>
         </div>
     </div>
 </div>
