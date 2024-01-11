@@ -2,20 +2,35 @@
     background-color: white;
 }
 
-.directory-title {
+.directory-search {
+    margin: 2rem 0 1rem;
+    padding: 2rem;
     background-color: $stockport-teal-darker;
     color: white;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-    margin-bottom: 1rem;
+
+    img {
+        max-height: 150px;
+    }
 
     h1 {
         color: white;
     }
 
-    &_search {
-        margin-bottom: 1rem;
+    &--one-stockport {
+        background-color: $one-stockport-purple;
     }
+}
+.vertical-center-container {
+    min-height: 150px;
+    position: relative;
+}
+
+.vertical-center {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
 }
 
 .directory-sub-title
