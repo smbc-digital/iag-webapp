@@ -2,35 +2,6 @@
     background-color: white;
 }
 
-.directory-search {
-    margin: 2rem 0 1rem;
-    padding: 2rem;
-    background-color: $stockport-teal-darker;
-    color:white;
-
-    &--one-stockport {
-        background-color: $one-stockport-purple;    
-    }
-
-    
-}
-
-.directory-title {
-    background-color: $stockport-teal-darker;
-    color: white;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-    margin-bottom: 1rem;
-
-    h1 {
-        color: white;
-    }
-
-    &_search {
-        margin-bottom: 1rem;
-    }
-}
-
 .directory-sub-title
 {
     margin-bottom: 2em;
