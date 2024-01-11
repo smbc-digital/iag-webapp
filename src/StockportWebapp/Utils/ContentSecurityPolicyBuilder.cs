@@ -302,7 +302,8 @@ public class ContentSecurityPolicyBuilder
             .AddSource("*.meetami.ai/")
             .AddSource("*.chat.meetami.ai/")
             .AddSource("forms.stockport.gov.uk", true)
-            .AddSource("https://app.contentful.com")
+            .AddSource("app.contentful.com")
+            .AddSource("forms-eu1.hsforms.com")
             .Finish());
     }
 
