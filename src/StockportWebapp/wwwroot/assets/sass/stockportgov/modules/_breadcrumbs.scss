@@ -12,6 +12,10 @@
             text-transform: none;
             font-size: 1.5rem;
             color: $stockport-black;
+
+            @media #{$mobile} {
+                font-size: 1rem;
+            }
         }
 
         &:not(:first-child) {
@@ -29,6 +33,7 @@
         padding: 5px 0px;
         margin-left: 5px;
         margin-right: 5px;
+        font-size: 1rem;
     }
 }
 

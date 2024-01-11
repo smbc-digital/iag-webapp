@@ -43,16 +43,34 @@
         padding-left: 1.5em;
         padding-right: 1.5em;
         margin-bottom: 2em;
+
+        @media #{$mobile} {
+            border-top: 17px solid $stockport-teal;
+            margin-bottom: 1.2em;
+        }
     }
 
     &__profile {
         margin-right: 1em;
+        padding-top: 1em;
         width: calc(30% - 1em);
+
+        @media #{$mobile} {
+            width: calc(90% - 1em);
+        }
     }
 
     &__info {
         margin-left: 1em;
         width: calc(70% - 1em);
+    }
+
+    &__description, &__filters
+    {
+        @media #{$mobile} {
+            width: 130%;
+            margin-left: -1em;
+        }
     }
 
     &__title {
@@ -61,6 +79,11 @@
 
     &__logo {
         width: 100%;
+        box-sizing: border-box;
+
+        @media #{$mobile} {
+            height: 100%;
+        }
     }
 
     &__filter {
