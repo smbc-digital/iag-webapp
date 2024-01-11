@@ -126,6 +126,8 @@ public class ContentSecurityPolicyBuilder
             .AddSource("https://lh3.googleusercontent.com/")
             .AddSource("api.reciteme.com/")
             .AddSource("aomg-sr-app-live.s3.eu-west-1.amazonaws.com/")
+            .AddSource("forms.hsforms.com")
+            .AddSource("forms-eu1.hsforms.com")
             .Finish());
     }
 
@@ -268,6 +270,9 @@ public class ContentSecurityPolicyBuilder
             .AddSource("https://raw.githubusercontent.com/OrdnanceSurvey/")
             .AddSource("https://api.os.uk/")
             .AddSource("forms-eu1.hsforms.com")
+            .AddSource("forms.hsforms.com")
+            .AddSource("forms-eu1.hscollectedforms.net")
+            .AddSource("api-eu1.hubapi.com")
             .AddSource("hubspot-forms-static-embed-eu1.s3.amazonaws.com/")
             .Finish());
     }
