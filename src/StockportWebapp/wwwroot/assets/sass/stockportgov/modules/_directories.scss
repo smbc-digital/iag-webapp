@@ -18,11 +18,15 @@
     }
 }
 
-.directory-sub-title
-{
+.directory-sub-title {
     margin-bottom: 2em;
 
     h2 {
         margin-bottom: 0.25em;
     }
+}
+
+.directory-details {
+    background-color: white;
+    border-top: 7px solid $stockport-teal;
 }

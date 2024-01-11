@@ -101,6 +101,7 @@ public class DirectoryController : Controller
         var directory = directoryHttpResponse.Content as Directory;
         var processedDirectoryEntry = directoryEntryHttpResponse.Content as DirectoryEntry;
         processedDirectoryEntry.Description = _markdownWrapper.ConvertToHtml(processedDirectoryEntry.Description ?? "");
+        processedDirectoryEntry.Address = _markdownWrapper.ConvertToHtml(processedDirectoryEntry.Address ?? "");
 
         return View(new DirectoryViewModel()
         {

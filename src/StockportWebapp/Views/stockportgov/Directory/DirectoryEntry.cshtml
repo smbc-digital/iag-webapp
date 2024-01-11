@@ -7,60 +7,83 @@
     Layout = "../Shared/_Layout2023.cshtml"; 
 }
 <div class="grid-container-full-width">
-    <div class="placeholder placeholder-bg-teal placeholder-small">
-        <h1>@directory.Name</h1>
-    </div>
-    <div class="placeholder placeholder-bg-orange placeholder-xs">
-        @* <partial class="TopicBreadcrumb" model="model.Breadcrumb" /> *@
-            <p>BREADCRUMBS</p>
-    </div>
-    <h2>@directory.Name</h2>
-    <div class="grid-container">
-        <div class="grid-30">
-            <div class="">
-                <img src="@directory.Branding.First().File.Url?w=340&q=89"
-                    srcset="@directory.Branding.First().File.Url?w=340&q=89&fm=webp 340w"
-                    class="logo-area__image"
-                    alt="@directory.Branding.First().File.Description"
-                    loading="lazy"
-                    width="200"
-                    height="125"/>
-                </a>
-            </div>
+    <section class="directories-search">
+        <div class="grid-container">
+            <div class="grid-100">
+                @if(Model.Directory is not null){
+                    <h1>Welcome to the @Model.Directory.Title</h1>
+                }
+                else{
+                    <h1>Welcome to the @directory.Name</h1>
+                }
 
-            <div class="">
-                <h2>Our details</h2>
-                <h3>Organisation</h3>
-                <p>@directory.Name</p>
-                <h3>Address</h3>
-                <p>@directory.Address</p>
-                <h3>Contact us</h3>
-                <p>Phone: <b>@directory.PhoneNumber</b></p>
-                <p>Email: <b>@directory.Email</b></p>
-                <p><b>Visit:</b></p>
-                <p><a href="@directory.Website">@directory.Website</a></p>
-                <p><a href="@directory.Facebook">@directory.Facebook</a></p>
-                <p><a href="@directory.Twitter">@directory.Twitter</a></p>
+                <partial name="Search2023" model='new Tuple<string, string, string, string>("cludo-search-hero-form", "Keyword or search phrase", "cludo-search-bar", "directories search")' />
             </div>
         </div>
+    </section>
 
-        <div class="grid-70">
-            <div class="">
-                <h2>ABOUT US</h2>
-                @Html.Raw(directory.Description)
+    @if(Model.Directory is not null){
+        <partial name="TopicBreadcrumb" model='new List<Crumb> { new Crumb(Model.Directory.Title, "directories/" + Model.Directory.Slug, "Directory")}'/>
+    }
+    else{
+        <partial name="TopicBreadcrumb" model='new List<Crumb>()'/>
+    }
+
+    <div class="grid-container">
+        <div class="grid-100">
+            <h2 class="h-l">@directory.Name</h2>
+        </div>
+    </div>
+
+    <div class="grid-container">
+        <div class="grid-100">
+            <div class="grid-30">
+                <div class="directory-details">
+                    <img src="@directory.Branding.First().File.Url?w=340&q=89"
+                        srcset="@directory.Branding.First().File.Url?w=340&q=89&fm=webp 340w"
+                        class=""
+                        alt="@directory.Branding.First().File.Description"
+                        loading="lazy"
+                        width="300"
+                        height="150"/>
+                    </a>
+
+                    <h2 class="h-ml">Our details</h2>
+
+                    <h3 class="h-m">Organisation</h3>
+                    <p>@directory.Name</p>
+                    
+                    <h3 class="h-m">Address</h3>
+                    @Html.Raw(@directory.Address)
+
+                    <h3 class="h-m">Contact us</h3>
+                    <p>Phone: <b>@directory.PhoneNumber</b></p>
+                    <p>Email: <b>@directory.Email</b></p>
+                    <p><b>Visit:</b></p>
+                    <p></p><a href="@directory.Website">@directory.Website</a></p>
+                    <p><a href="@directory.Facebook">@directory.Facebook</a></p>
+                    <p><a href="@directory.Twitter">@directory.Twitter</a></p>
+                </div>
             </div>
 
-            <div class="">
-                @foreach (var theme in directory.Themes)
-                {
+            <div class="grid-70">
+                <div class="">
+                    <h2>ABOUT US</h2>
+                    @Html.Raw(directory.Description)
+                </div>
 
-                    <h2>@theme.Title</h2>
-                    
-                    foreach(var filter in theme.Filters)
+                <div class="">
+                    @foreach (var theme in directory.Themes)
                     {
-                        <p>@filter.DisplayName</p>
+
+                        <h2>@theme.Title</h2>
+                        
+                        foreach(var filter in theme.Filters)
+                        {
+                            <p>@filter.DisplayName</p>
+                        }
                     }
-                }
+                </div>
             </div>
         </div>
     </div>
