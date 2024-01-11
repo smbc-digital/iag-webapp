@@ -31,7 +31,7 @@
 
     <div class="grid-container">
         <div class="grid-100">
-            <h2 class="h-l">@directory.Name</h2>
+            <h2 class="h-l directory__title">@directory.Name</h2>
         </div>
     </div>
 
@@ -67,12 +67,10 @@
             </div>
 
             <div class="grid-70">
-                <div class="">
+                <div class="directory-info">
                     <h2>ABOUT US</h2>
                     @Html.Raw(directory.Description)
-                </div>
 
-                <div class="">
                     @foreach (var theme in directory.Themes)
                     {
 

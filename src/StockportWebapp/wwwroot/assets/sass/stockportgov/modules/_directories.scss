@@ -26,7 +26,15 @@
     }
 }
 
-.directory-details {
+.directory-details, .directory-info {
     background-color: white;
-    border-top: 7px solid $stockport-teal;
+    border-radius: 3px 3px 0 0;
+    border: 1px solid $stockport-teal-lighter;
+    border-top: 9px solid $stockport-teal;
+    padding-left: 1.5em;
+    padding-right: 1.5em;
+}
+
+.directory__title{
+    color: $stockport-green;
 }
