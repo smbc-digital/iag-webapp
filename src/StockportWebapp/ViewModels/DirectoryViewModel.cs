@@ -4,6 +4,7 @@ namespace StockportWebapp.ViewModels;
 
 public class DirectoryViewModel
 {
+    public string Slug { get; set; }
     public Directory Directory { get; set; }
 
     public IEnumerable<DirectoryEntry> FilteredEntries { get; set; }

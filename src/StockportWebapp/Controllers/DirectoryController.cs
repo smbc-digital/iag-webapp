@@ -50,7 +50,8 @@ public class DirectoryController : Controller
             {
                 Directory = directory,
                 FilteredEntries = _directoryRepository.GetFilteredEntryForDirectories(directory),
-                Breadcrumbs = GetBreadcrumbsForDirectories(parentDirectories)
+                Breadcrumbs = GetBreadcrumbsForDirectories(parentDirectories),
+                Slug = slug
             });
     }
 
@@ -103,8 +104,9 @@ public class DirectoryController : Controller
         {
             Directory = parentDirectories.First(),
             DirectoryEntry = directoryEntryHttpResponse.Content as DirectoryEntry,
-            Breadcrumbs = GetBreadcrumbsForDirectories(parentDirectories)
-    };
+            Breadcrumbs = GetBreadcrumbsForDirectories(parentDirectories),
+            Slug = slug
+        };
 
         return View(directoryViewModel);
     }

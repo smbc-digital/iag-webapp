@@ -2,6 +2,19 @@
     background-color: white;
 }
 
+.directory-search {
+    margin: 2rem 0 1rem;
+    padding: 2rem;
+    background-color: $stockport-teal-darker;
+    color:white;
+
+    &--one-stockport {
+        background-color: $one-stockport-purple;    
+    }
+
+    
+}
+
 .directory-title {
     background-color: $stockport-teal-darker;
     color: white;

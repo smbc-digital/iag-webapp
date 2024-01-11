@@ -7,23 +7,37 @@
     Layout = "../Shared/_Layout2023.cshtml"; 
 }
 <div class="grid-container-full-width background-grey">
-    <div class="directory-title">
-        <div class="grid-container">
-            <div class="grid-100">
-                <h1>Welcome to the Stockport Local Directory</h1>
-                <div class="directory-title_search">I'm looking for...</div>
-                <section class="home-search">
-                    <h2 class="visuallyhidden">Search stockport local directory</h2>
-                    <form method="get" id="cludo-search-hero-form">
-                        <label class="visuallyhidden" for="cludo-search-bar">
-                            search input box
-                        </label>
-                        <input class="grid-100 tablet-grid-100 mobile-grid-100 home-search_search-input" id="cludo-search-bar" data-cy="search-bar" type="text" name="query" placeholder="Keyword or search phrase" autocomplete="off">
-                        <button value="Submit search" class="home-search_search-button" data-cy="search-submit" type="submit">
-                            <span class="fa fa-search" aria-hidden="true"></span><span class="visuallyhidden"> Submit Search</span>
-                        </button>
-                    </form>
-                </section>
+@*    <div class="directory-title grid-container">
+        <div class="grid-100">
+            <h1>Welcome to the Stockport Local Directory</h1>
+            <div class="directory-title_search">I'm looking for...</div>
+            <section class="home-search">
+                <h2 class="visuallyhidden">Search stockport local directory</h2>
+                <form method="get" id="cludo-search-hero-form">
+                    <label class="visuallyhidden" for="cludo-search-bar">
+                        search input box
+                    </label>
+                    <input class="grid-100 tablet-grid-100 mobile-grid-100 home-search_search-input" id="cludo-search-bar" data-cy="search-bar" type="text" name="query" placeholder="Keyword or search phrase" autocomplete="off">
+                    <button value="Submit search" class="home-search_search-button" data-cy="search-submit" type="submit">
+                        <span class="fa fa-search" aria-hidden="true"></span><span class="visuallyhidden"> Submit Search</span>
+                    </button>
+                </form>
+            </section>
+        </div>
+    </div>*@
+
+    <div class="grid-container">
+        <div class="grid-100">
+            <div class="directory-search directory-search--one-stockport">
+                <div class="grid-container">
+                    <div class="grid-30">
+                        Logo
+                    </div>
+
+                    <div class="grid-70">
+                        Content
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -61,7 +75,7 @@
                                     <h4>Category</h4>
                                     @foreach(var subDirectory in Model.Directory.SubDirectories)
                                     {
-                                        <p><a href="@Url.Action("DirectoryResults", "Directory", new { slug = subDirectory.Slug })">@subDirectory.Title</a></p>
+                                        <p><a href="@Url.Action("DirectoryResults", "Directory", new { slug = $"{Model.Slug}/{subDirectory.Slug}" })">@subDirectory.Title</a></p>
                                     }
                                 }
                                 <hr />
@@ -76,7 +90,7 @@
                     @foreach(var entry in Model.FilteredEntries)
                     {
                         <li class="navcard navcard--white navcard--width-100">
-                            <partial name="DirectorySearchResult" model=@(new DirectorySearchResultViewModel {DirectorySlug = Model.Directory.Slug, Entry = entry}) />
+                            <partial name="DirectorySearchResult" model=@(new DirectorySearchResultViewModel { DirectorySlug = Model.Slug, Entry = entry}) />
                         </li>
                     }
                 </ul>
