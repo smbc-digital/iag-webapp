@@ -1,5 +1,5 @@
 .breadcrumb {
-    font-size: 1rem;
+    font-size: 1.5rem;
     padding: 5px 0;
     margin-bottom: 0;
 
@@ -10,7 +10,8 @@
         a {
             font-weight: 400;
             text-transform: none;
-            font-size: 1rem;
+            font-size: 1.5rem;
+            color: $stockport-black;
         }
 
         &:not(:first-child) {

@@ -53,7 +53,7 @@
 
                     <h3 class="h-m">Contact us</h3>
                     <p>Phone: <b>@directory.PhoneNumber</b></p>
-                    <p>Email: <b>@directory.Email</b></p>
+                    <p>Email: <a href="mailto:@directory.Email">@directory.Email</a></p>
                     <p><b>Visit:</b></p>
                     <p></p><a href="@directory.Website">@directory.Website</a></p>
                     <p><a href="@directory.Facebook">@directory.Facebook</a></p>
@@ -66,15 +66,15 @@
                         @Html.Raw(directory.Description)
                     </div>
 
-                    @foreach (var theme in directory.Themes)
-                    {
+                    <div class="directory__filters">
+                        @foreach (var theme in directory.Themes)
+                        {
 
                             <h2>@theme.Title</h2>
                             
                             foreach(var filter in theme.Filters)
                             {
-                                <span class="fa fa-check" aria-hidden="true"></span>
-                                <p>@filter.DisplayName</p>
+                                <p class="directory__filter"><span class="fa fa-check" aria-hidden="true"></span> @filter.DisplayName</p>
                             }
                         }
                     </div>
