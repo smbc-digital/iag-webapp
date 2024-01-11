@@ -4,29 +4,24 @@
     ViewData["Title"] = directory.Name;
     ViewData["og:title"] = directory.Name;
     ViewData["Description"] = directory.MetaDescription;
-    Layout = "../Shared/_Layout2023.cshtml"; 
+    Layout = "../Shared/_Layout2023.cshtml";
 }
+
 <div class="grid-container-full-width">
     <section class="directories-search">
-        <div class="grid-container">
-            <div class="grid-100">
-                @if(Model.Directory is not null){
-                    <h1>Welcome to the @Model.Directory.Title</h1>
-                }
-                else{
-                    <h1>Welcome to the @directory.Name</h1>
-                }
-
-                <partial name="Search2023" model='new Tuple<string, string, string, string>("cludo-search-hero-form", "Keyword or search phrase", "cludo-search-bar", "directories search")' />
-            </div>
-        </div>
+        @if(Model.Directory is not null){
+            <partial name="DirectorySearch" model="@Model.Directory.Title"/>
+        }
+        else{
+            <partial name="DirectorySearch" model="@directory.Name" />
+        }
     </section>
 
     @if(Model.Directory is not null){
-        <partial name="TopicBreadcrumb" model='new List<Crumb> { new Crumb(Model.Directory.Title, "directories/" + Model.Directory.Slug, "Directory")}'/>
+        <partial name="Breadcrumb2023" model='new List<Crumb> { new Crumb(Model.Directory.Title, "directories/" + Model.Directory.Slug, "Directory")}'/>
     }
     else{
-        <partial name="TopicBreadcrumb" model='new List<Crumb>()'/>
+        <partial name="Breadcrumb2023" model='new List<Crumb>()'/>
     }
 
     <div class="grid-container">
