@@ -40,7 +40,7 @@
         border-top: 9px solid $stockport-teal;
         margin-bottom: 2em;
 
-        @media #{$mobile} {
+        @media #{$tablet} {
             margin-bottom: 1.2em;
         }
     }
@@ -53,7 +53,7 @@
             margin-top: 2.5em;
         }
 
-        @media #{$mobile} {
+        @media #{$tablet} {
             width: 100%;
             margin-left: 0;
             margin-right: 0;
@@ -66,7 +66,7 @@
         margin-left: 1em;
         width: calc(70% - 1em);
 
-        @media #{$mobile} {
+        @media #{$tablet} {
             width: 100%;
             margin-left: 0;
             padding: 0;
@@ -75,7 +75,7 @@
 
     &__description, &__filters
     {
-        @media #{$mobile} {
+        @media #{$tablet} {
             width: 100%;
             margin-left: 0;
             padding: 0;
@@ -90,7 +90,7 @@
         width: 100%;
         box-sizing: border-box;
 
-        @media #{$mobile} {
+        @media #{$tablet} {
             height: 100%;
             max-height: 150px;
             object-fit: contain;
@@ -104,7 +104,7 @@
             font-size: 1.5em;
             vertical-align: bottom;
 
-            @media #{$mobile} {
+            @media #{$tablet} {
                 margin-right: .5em;
             }
         }
@@ -116,7 +116,7 @@
         padding-top: 1em;
         background-color: white;
 
-        @media #{$mobile}{
+        @media #{$tablet}{
             padding-left: 1em;
             padding-right: 1em;
         }
@@ -144,6 +144,10 @@
 
     &__values {
         width: 70%;
+
+        p {
+            font-weight: 900;
+        }
     }
 
     &__address {
