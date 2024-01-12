@@ -36,40 +36,49 @@
     }
 
     &__profile, &__description, &__filters {
-        background-color: white;
-        border-radius: 3px 3px 0 0;
-        border: 1px solid $stockport-teal-lighter;
+        border-radius: 3px;
         border-top: 9px solid $stockport-teal;
-        padding-left: 1.5em;
-        padding-right: 1.5em;
         margin-bottom: 2em;
 
         @media #{$mobile} {
-            border-top: 17px solid $stockport-teal;
             margin-bottom: 1.2em;
         }
     }
 
     &__profile {
         margin-right: 1em;
-        padding-top: 1em;
         width: calc(30% - 1em);
 
+        &--margin-top {
+            margin-top: 2.5em;
+        }
+
         @media #{$mobile} {
-            width: calc(90% - 1em);
+            width: 100%;
+            margin-left: 0;
+            margin-right: 0;
+            padding: 0;
+            
         }
     }
 
     &__info {
         margin-left: 1em;
         width: calc(70% - 1em);
+
+        @media #{$mobile} {
+            width: 100%;
+            margin-left: 0;
+            padding: 0;
+        }
     }
 
     &__description, &__filters
     {
         @media #{$mobile} {
-            width: 130%;
-            margin-left: -1em;
+            width: 100%;
+            margin-left: 0;
+            padding: 0;
         }
     }
 
@@ -83,6 +92,8 @@
 
         @media #{$mobile} {
             height: 100%;
+            max-height: 150px;
+            object-fit: contain;
         }
     }
 
@@ -92,6 +103,56 @@
             margin-right: 0.75em;
             font-size: 1.5em;
             vertical-align: bottom;
+
+            @media #{$mobile} {
+                margin-right: .5em;
+            }
         }
+    }
+
+    &__wrapper {
+        padding-left: 1.5em;
+        padding-right: 1.5em;
+        padding-top: 1em;
+        background-color: white;
+
+        @media #{$mobile}{
+            padding-left: 1em;
+            padding-right: 1em;
+        }
+
+        border: 1px solid $stockport-teal-lighter;
+        border-top: none;
+        border-radius: 0 0 3px 3px;
+    }
+
+    &__contact {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        word-break: break-word;
+    }
+
+    &__labels {
+        width: 30%;
+        font-weight: 900;
+    }
+
+    &__visit-label {
+        font-weight: 900;
+    }
+
+    &__values {
+        width: 70%;
+    }
+
+    &__address {
+        p {
+            margin-bottom: 0;
+        }
+    }
+
+    &__facebook, &__twitter, &__website {
+        width: 100%;
     }
 }

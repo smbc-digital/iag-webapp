@@ -34,49 +34,64 @@
         <div class="grid-100">
             <section class="directory">
                 <div class="directory__profile">
-                    <img src="@directory.Branding.First().File.Url?w=340&q=89"
-                        srcset="@directory.Branding.First().File.Url?w=340&q=89&fm=webp 340w"
-                        class="directory__logo"
-                        alt="@directory.Branding.First().File.Description"
-                        loading="lazy"
-                        width="300"
-                        height="150"/>
-                    </a>
+                    <div class="directory__wrapper">
+                        <img src="@directory.Branding.First().File.Url?w=340&q=89"
+                            srcset="@directory.Branding.First().File.Url?w=340&q=89&fm=webp 340w"
+                            class="directory__logo"
+                            alt="@directory.Branding.First().File.Description"
+                            loading="lazy"
+                            width="300"
+                            height="150"/>
+                        </a>
 
-                    <h2 class="h-ml">Our details</h2>
+                        <h2 class="h-ml directory__profile--margin-top">Our details</h2>
 
-                    <h3 class="h-m">Organisation</h3>
-                    <p>@directory.Name</p>
-                    
-                    <h3 class="h-m">Address</h3>
-                    @Html.Raw(@directory.Address)
+                        <h3 class="h-m">Organisation</h3>
+                        <p>@directory.Name</p>
+                        
+                        <h3 class="h-m">Address</h3>
+                        <div class="directory__address">@Html.Raw(@directory.Address)</div>
 
-                    <h3 class="h-m">Contact us</h3>
-                    <p>Phone: <b>@directory.PhoneNumber</b></p>
-                    <p>Email: <a href="mailto:@directory.Email">@directory.Email</a></p>
-                    <p><b>Visit:</b></p>
-                    <p></p><a href="@directory.Website">@directory.Website</a></p>
-                    <p><a href="@directory.Facebook">Facebook</a></p>
-                    <p><a href="@directory.Twitter">Twitter</a></p>
+                        <h3 class="h-m">Contact us</h3>
+                        <div class="directory__contact">
+                            <div class="directory__labels">
+                                <p>Phone:</p>
+                                <p>Email:</p>
+                            </div>
+
+                            <div class="directory__values">
+                                <b>@directory.PhoneNumber</b>
+                                <a href="mailto:@directory.Email">@directory.Email</a>
+                            </div>
+
+                            <p class="directory__visit-label">Visit:</p>
+                            <p class="directory__website"><a href="@directory.Website">@directory.Website</a></p>
+                            <p class="directory__facebook"><a href="@directory.Facebook">Facebook</a></p>
+                            <p class="directory__twitter"><a href="@directory.Twitter">Twitter</a></p>
+                        </div>
+                    </div>
                 </div>
                 
                 <div class="directory__info">
                     <div class="directory__description">
-                        <h2>About us</h2>
-                        @Html.Raw(directory.Description)
+                        <div class="directory__wrapper">
+                            <h2>About us</h2>
+                            @Html.Raw(directory.Description)
+                        </div>
                     </div>
 
                     <div class="directory__filters">
-                        @foreach (var theme in directory.Themes)
-                        {
-
-                            <h2>@theme.Title</h2>
-                            
-                            foreach(var filter in theme.Filters)
+                        <div class="directory__wrapper">
+                            @foreach (var theme in directory.Themes)
                             {
-                                <p class="directory__filter"><span class="fa fa-check" aria-hidden="true"></span> @filter.DisplayName</p>
+                                <h2>@theme.Title</h2>
+                                
+                                foreach(var filter in theme.Filters)
+                                {
+                                    <p class="directory__filter"><span class="fa fa-check" aria-hidden="true"></span> @filter.DisplayName</p>
+                                }
                             }
-                        }
+                        </div>
                     </div>
                 </div>
             </section>
