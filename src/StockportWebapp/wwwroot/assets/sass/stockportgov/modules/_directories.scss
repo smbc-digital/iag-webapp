@@ -20,6 +20,7 @@
         background-color: $one-stockport-purple;
     }
 }
+
 .vertical-center-container {
     min-height: 150px;
     position: relative;
@@ -39,5 +40,32 @@
 
     h2 {
         margin-bottom: 0.25em;
+    }
+}
+
+.directory-filters__checkbox {
+    margin-bottom: 2em;
+    margin-right: 1em;
+    margin-left: 0.5em;
+
+    &::before {
+        content: "";
+        display: block;
+        width: 10px;
+        height: 10px;
+        border: 1px solid $stockport-black;
+        display: block;
+        transform: scale(2);
+        background-color: #fff;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: 15px;
+        padding: 2px;
+    }
+}
+
+.directory-results__filters {
+    h3 {
+        margin-bottom: 1em;
     }
 }

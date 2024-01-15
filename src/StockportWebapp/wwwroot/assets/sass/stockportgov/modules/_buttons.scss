@@ -158,6 +158,14 @@
     &--bold, &--chevron-bold:before {
         font-weight: 700;
     }
+
+    &--black-text {
+        color: $stockport-black;
+    }
+
+    &--margin-bottom {
+        margin-bottom: 1em;
+    }
 }
 
 html[dir="rtl"] {

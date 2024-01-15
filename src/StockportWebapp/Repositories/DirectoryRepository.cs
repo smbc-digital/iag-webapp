@@ -36,7 +36,6 @@ public class DirectoryRepository : IDirectoryRepository
         var model = HttpResponse.Build<Directory>(httpResponse);
         var directory = (Directory)model.Content;
 
-        //var processedModel = _directoryFactory.Build(directory);
         return HttpResponse.Successful(200, directory);
     }
 
@@ -51,8 +50,7 @@ public class DirectoryRepository : IDirectoryRepository
         var model = HttpResponse.Build<DirectoryEntry>(httpResponse);
         var directoryEntry = (DirectoryEntry)model.Content;
 
-        var processedModel = _directoryFactory.Build(directoryEntry);
-        return HttpResponse.Successful(200, processedModel);
+        return HttpResponse.Successful(200, directoryEntry);
     }
 
     public IEnumerable<DirectoryEntry> GetFilteredEntryForDirectories(Directory directory)

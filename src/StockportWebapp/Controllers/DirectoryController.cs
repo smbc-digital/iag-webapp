@@ -56,7 +56,7 @@ public class DirectoryController : Controller
 
     [HttpPost]
     [Route("/directories/results/{slug}")]
-    public async Task<IActionResult> FilterResults(string slug)
+    public async Task<IActionResult> FilterResults(string slug, [FromQuery] List<string> filters)
     {
         var directoryHttpResponse = await _directoryRepository.Get<Directory>(slug);
         if (!directoryHttpResponse.IsSuccessful())
