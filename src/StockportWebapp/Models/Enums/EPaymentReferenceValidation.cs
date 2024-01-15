@@ -10,5 +10,6 @@ public enum EPaymentReferenceValidation
     CameraCar,
     BusLane,
     Applications,
-    ParkingPermit
+    ParkingPermit,
+    BRS
 }
