@@ -27,30 +27,28 @@
     <div class="grid-container">
         <div class="grid-100">
             <h2 class="h-l directory__title">@directory.Name</h2>
-        </div>
-    </div>
-
-    <div class="grid-container">
-        <div class="grid-100">
             <section class="directory">
                 <div class="directory__profile">
                     <div class="directory__wrapper">
-                        <img src="@directory.Branding.First().File.Url?w=340&q=89"
-                            srcset="@directory.Branding.First().File.Url?w=340&q=89&fm=webp 340w"
-                            class="directory__logo"
-                            alt="@directory.Branding.First().File.Description"
-                            loading="lazy"
-                            width="300"
-                            height="150"/>
-                        </a>
-
-                        <h2 class="h-ml directory__profile--margin-top">Our details</h2>
-
-                        <h3 class="h-m">Organisation</h3>
-                        <p>@directory.Name</p>
+                        @if(directory.Branding.Any()){
+                            <img src="@directory.Branding.First().File.Url?w=340&q=89"
+                                srcset="@directory.Branding.First().File.Url?w=340&q=89&fm=webp 340w"
+                                class="directory__logo"
+                                alt="@directory.Branding.First().File.Description"
+                                width="300"
+                                height="150"/>
+                        }
                         
-                        <h3 class="h-m">Address</h3>
-                        <div class="directory__address">@Html.Raw(@directory.Address)</div>
+                        <h2 class="h-ml directory__profile--margin-top">Our details</h2>
+                        <div class="directory__organisation">
+                            <h3 class="h-m">Organisation</h3>
+                            <p>@directory.Name</p>
+                        </div>
+
+                        <div class="directory__address">
+                            <h3 class="h-m">Address</h3>
+                            <div>@Html.Raw(@directory.Address)</div>
+                        </div>
 
                         <h3 class="h-m">Contact us</h3>
                         <div class="directory__contact">
@@ -60,14 +58,17 @@
                             </div>
 
                             <div class="directory__values">
-                               <p>@directory.PhoneNumber</p>
+                                <p>@directory.PhoneNumber</p>
                                 <a href="mailto:@directory.Email">@directory.Email</a>
                             </div>
 
-                            <p class="directory__visit-label">Visit:</p>
-                            <p class="directory__website"><a href="@directory.Website">@directory.Website</a></p>
-                            <p class="directory__facebook"><a href="@directory.Facebook">Facebook</a></p>
-                            <p class="directory__twitter"><a href="@directory.Twitter">Twitter</a></p>
+                            <div class="directory__social">
+                                <p>Visit:</p>
+
+                                <a href="@directory.Website">@directory.Website</a>
+                                <a href="@directory.Facebook">Facebook</a>
+                                <a href="@directory.Twitter">Twitter</a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -84,7 +85,7 @@
                         <div class="directory__wrapper">
                             @foreach (var theme in directory.Themes)
                             {
-                                <h2>@theme.Title</h2>
+                                <h2 class="directory__filters-title">@theme.Title</h2>
                                 
                                 foreach(var filter in theme.Filters)
                                 {

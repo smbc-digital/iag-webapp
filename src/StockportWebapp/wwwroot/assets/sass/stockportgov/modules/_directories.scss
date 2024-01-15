@@ -5,10 +5,6 @@
 
     @media #{$tablet} {
         display: block;
-
-        &-info {
-            margin-top: 1em;
-        }
     }
 
     &-title {
@@ -57,8 +53,7 @@
             width: 100%;
             margin-left: 0;
             margin-right: 0;
-            padding: 0;
-            
+            padding: 0; 
         }
     }
 
@@ -73,8 +68,7 @@
         }
     }
 
-    &__description, &__filters
-    {
+    &__description, &__filters {
         @media #{$tablet} {
             width: 100%;
             margin-left: 0;
@@ -89,6 +83,7 @@
     &__logo {
         width: 100%;
         box-sizing: border-box;
+        object-position: left;
 
         @media #{$tablet} {
             height: 100%;
@@ -111,9 +106,7 @@
     }
 
     &__wrapper {
-        padding-left: 1.5em;
-        padding-right: 1.5em;
-        padding-top: 1em;
+        padding: 1em 1.5em;
         background-color: white;
 
         @media #{$tablet}{
@@ -125,38 +118,82 @@
         border-top: none;
         border-radius: 0 0 3px 3px;
     }
+    
+    &__organisation {
+        p {
+            margin-bottom: 2em;
+            margin-top: 0.75em;
+        }
+    }
+
+    &__address {
+        div {
+            margin-bottom: 2em;
+            margin-top: 0.75em;
+
+            p {
+                margin-bottom: 0;
+            }
+        }
+    }
 
     &__contact {
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
         word-break: break-word;
+        margin-top: .75em;
     }
 
     &__labels {
-        width: 30%;
-        font-weight: 900;
-    }
+        font-weight: 700;
 
-    &__visit-label {
-        font-weight: 900;
+        @media #{$tablet} {
+            width: 10%;
+        }
+
+        @media #{$mobile, $desktop} {
+            width: 31%;
+        }
     }
 
     &__values {
-        width: 70%;
+        @media #{$tablet} {
+            width: 90%;
+        }
+
+        @media #{$mobile, $desktop} {
+            width: 69%;
+        }
 
         p {
-            font-weight: 900;
+            font-weight: 700;
+            padding-left: 0.5em;
+        }
+
+        a {
+            padding-left: 0.5em;
         }
     }
 
-    &__address {
-        p {
-            margin-bottom: 0;
-        }
-    }
-
-    &__facebook, &__twitter, &__website {
+    &__social {
+        margin-top: 0.75em;
         width: 100%;
+
+        p {
+            font-weight: 700;
+            margin: 0;
+        }
+
+        a {
+            display: block;
+            margin-bottom: 1em;
+        }
+    }
+
+    &__filters {
+        h2:not(:first-of-type) {
+            margin-top: 1em;
+        }
     }
 }
