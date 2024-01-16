@@ -6,10 +6,10 @@ public enum EPaymentReferenceValidation
     ParkingFine,
     BusLaneAndCamera,
     FPN,
-    FPN4or5,
     CameraCar,
     BusLane,
     Applications,
     ParkingPermit,
+    FPN4or5,
     BRS
 }
