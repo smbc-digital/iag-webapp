@@ -1,5 +1,5 @@
 .breadcrumb {
-    font-size: 1.5rem;
+    font-size: 1rem;
     padding: 5px 0;
     margin-bottom: 0;
 
@@ -10,12 +10,8 @@
         a {
             font-weight: 400;
             text-transform: none;
-            font-size: 1.5rem;
+            font-size: 1rem;
             color: $stockport-black;
-
-            @media #{$mobile} {
-                font-size: 1rem;
-            }
         }
 
         &:not(:first-child) {
@@ -33,7 +29,6 @@
         padding: 5px 0px;
         margin-left: 5px;
         margin-right: 5px;
-        font-size: 1rem;
     }
 }
 
