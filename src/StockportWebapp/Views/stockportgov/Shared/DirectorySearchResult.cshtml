@@ -1,7 +1,7 @@
 ﻿@model DirectorySearchResultViewModel
 
 <div class="navcard__content">
-    <a href=@Url.ActionLink("DirectoryEntry", "Directory", new { slug=@Model.DirectorySlug, directoryEntrySlug=@Model.Entry.Slug }) data-cy="nav-card-link" class="navcard__link navcard__link--border navcard-content--padding">
+    <a href=@Url.ActionLink("DirectoryEntry", "Directory", new { directorySlug=@Model.DirectorySlug, entrySlug=@Model.Entry.Slug }) data-cy="nav-card-link" class="navcard__link navcard__link--border navcard-content--padding">
         <div class="grid-container">
             <div class="grid-70">
                 <h3 class="navcard__title navcard__title--large">
