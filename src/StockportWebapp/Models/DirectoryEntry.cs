@@ -1,6 +1,5 @@
 using SharpKml.Base;
 using SharpKml.Dom;
-using SharpKml.Dom.Atom;
 
 namespace StockportWebapp.Models
 {

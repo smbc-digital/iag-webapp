@@ -1,54 +1,101 @@
 @model DirectoryViewModel
 @{
-    var directory = Model.Directory;
-    ViewData["Title"] = directory.Title;
-    ViewData["og:title"] = directory.Title;
+    var directory = Model.DirectoryEntry;
+    ViewData["Title"] = directory.Name;
+    ViewData["og:title"] = directory.Name;
     ViewData["Description"] = directory.MetaDescription;
-    Layout = "../Shared/_Layout2023.cshtml"; 
+    Layout = "../Shared/_Layout2023.cshtml";
 }
+
 <div class="grid-container-full-width">
-    <div class="placeholder placeholder-bg-teal placeholder-small">
-        <h1>TITLE & SEARCH</h1>
-    </div>
-    <div class="placeholder placeholder-bg-orange placeholder-xs">
-        <p>BREADCRUMBS</p>
-    </div>
-    <div class=" grid-container">
-        <div class="grid-30">
-            <div class="placeholder placeholder-small placeholder-bg-grey">
-                <p>LOGO</p>
-            </div>
+    <section class="directories-search">
+        @if(Model.Directory is not null){
+            <partial name="DirectorySearch" model="@Model.Directory.Title"/>
+        }
+        else{
+            <partial name="DirectorySearch" model="@directory.Name" />
+        }
+    </section>
 
-            <div class="placeholder placeholder-large placeholder-bg-teal">
-                <p>ORGANISATION DETAILS</p>
-            </div>
-        </div>
+    @if(Model.Directory is not null){
+        <partial name="Breadcrumb2023" model='new List<Crumb> { new Crumb(Model.Directory.Title, "directories/" + Model.Directory.Slug, "Directory")}'/>
+    }
+    else{
+        <partial name="Breadcrumb2023" model='new List<Crumb>()'/>
+    }
 
-        <div class="grid-70">
-            <div class="placeholder placeholder-medium placeholder-bg-teal">
-                <p>ABOUT US</p>
-            </div>
+    <div class="grid-container">
+        <div class="grid-100">
+            <h2 class="h-l directory__title">@directory.Name</h2>
+            <section class="directory">
+                <div class="directory__profile">
+                    <div class="directory__wrapper">
+                        @if(directory.Branding.Any()){
+                            <img src="@directory.Branding.First().File.Url?w=340&q=89"
+                                srcset="@directory.Branding.First().File.Url?w=340&q=89&fm=webp 340w"
+                                class="directory__logo"
+                                alt="@directory.Branding.First().File.Description"
+                                width="300"
+                                height="150"/>
+                        }
+                        
+                        <h2 class="h-ml directory__profile--margin-top">Our details</h2>
+                        <div class="directory__organisation">
+                            <h3 class="h-m">Organisation</h3>
+                            <p>@directory.Name</p>
+                        </div>
 
-            <div class="placeholder placeholder-medium placeholder-bg-grey">
-                <p>DATE AND TIMES</p>
-            </div>
+                        <div class="directory__address">
+                            <h3 class="h-m">Address</h3>
+                            <div>@Html.Raw(@directory.Address)</div>
+                        </div>
 
-            <div class="placeholder placeholder-medium placeholder-bg-teal">
-                <p>RANGE</p>
-            </div>
+                        <h3 class="h-m">Contact us</h3>
+                        <div class="directory__contact">
+                            <div class="directory__labels">
+                                <p>Phone:</p>
+                                <p>Email:</p>
+                            </div>
 
-            <div class="placeholder placeholder-medium placeholder-bg-grey">
-                <p>COST</p>
-            </div>
-            <hr>
+                            <div class="directory__values">
+                                <p>@directory.PhoneNumber</p>
+                                <a href="mailto:@directory.Email">@directory.Email</a>
+                            </div>
 
-            <div class="placeholder placeholder-medium placeholder-bg-teal">
-                <p>FACILITIES AVAILABLE</p>
-            </div>
+                            <div class="directory__social">
+                                <p>Visit:</p>
 
-            <div class="placeholder placeholder-medium placeholder-bg-grey">
-                <p>HOW TO FIND US</p>
-            </div>
+                                <a href="@directory.Website">@directory.Website</a>
+                                <a href="@directory.Facebook">Facebook</a>
+                                <a href="@directory.Twitter">Twitter</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="directory__info">
+                    <div class="directory__description">
+                        <div class="directory__wrapper">
+                            <h2>About us</h2>
+                            @Html.Raw(directory.Description)
+                        </div>
+                    </div>
+
+                    <div class="directory__filters">
+                        <div class="directory__wrapper">
+                            @foreach (var theme in directory.Themes)
+                            {
+                                <h2 class="h-ml directory__filters-title">@theme.Title</h2>
+                                
+                                foreach(var filter in theme.Filters)
+                                {
+                                    <p class="directory__filter"><span class="fa fa-check" aria-hidden="true"></span> @filter.DisplayName</p>
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+            </section>
         </div>
     </div>
 </div>
