@@ -17,7 +17,6 @@ public class TopicFactoryTest
     private readonly List<Crumb> _breadcrumbs;
     private readonly List<SubItem> _subItems;
     private readonly List<SubItem> _secondaryItems;
-    private readonly List<SubItem> _tertiaryItems;
     private readonly EventCalendarBanner _eventCalendarBanner = new EventCalendarBanner() {
         Title = "title",
         Teaser = "teaser",
@@ -35,11 +34,10 @@ public class TopicFactoryTest
 
         _subItems = new List<SubItem>();
         _secondaryItems = new List<SubItem>();
-        _tertiaryItems = new List<SubItem>();
 
-        _topic = new Topic("name", Slug, Summary, Teaser, MetaDescription, Icon, BackgroundImage, Image, _subItems, _secondaryItems, _tertiaryItems, _breadcrumbs,
-            new List<Alert>(), false, "emailAlertsTopic", _eventCalendarBanner, "expanding Link Title",
-            new List<ExpandingLinkBox>(), "primary Item Title", Title, true, new CarouselContent("Title", "Teaser", "Image", "url"),
+        _topic = new Topic("name", Slug, Summary, Teaser, MetaDescription, Icon, BackgroundImage, Image, _subItems, _secondaryItems, _breadcrumbs,
+            new List<Alert>(), false, "emailAlertsTopic", _eventCalendarBanner,
+            Title, true, new CarouselContent("Title", "Teaser", "Image", "url"),
             "event Category", null, string.Empty)
         {
             Video = new()
@@ -67,7 +65,6 @@ public class TopicFactoryTest
         Assert.Equal(_breadcrumbs, result.Breadcrumbs.ToList());
         Assert.Equal(_subItems, result.SubItems.ToList());
         Assert.Equal(_secondaryItems, result.SecondaryItems.ToList());
-        Assert.Equal(_tertiaryItems, result.TertiaryItems.ToList());
     }
 
     [Fact]

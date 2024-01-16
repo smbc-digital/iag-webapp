@@ -56,6 +56,7 @@ public class ContentSecurityPolicyBuilder
             .AddSource("https://vars.hotjar.com/")
             .AddSource("https://embed.buto.tv/")
             .AddSource("https://butoembed.twentythree.net/")
+            .AddSource("forms-eu1.hsforms.com")
             .Finish());
     }
 
@@ -126,6 +127,8 @@ public class ContentSecurityPolicyBuilder
             .AddSource("https://lh3.googleusercontent.com/")
             .AddSource("api.reciteme.com/")
             .AddSource("aomg-sr-app-live.s3.eu-west-1.amazonaws.com/")
+            .AddSource("forms.hsforms.com")
+            .AddSource("forms-eu1.hsforms.com")
             .Finish());
     }
 
@@ -218,13 +221,14 @@ public class ContentSecurityPolicyBuilder
             .AddSource("https://plus.browsealoud.com/")
             .AddSource("https://speech.speechstream.net/", true)
             .AddSource("https://www.google-analytics.com/", true)
-            .AddSource("api.reciteme.com/")
-            .AddSource("js-eu1.hsforms.net/")
-            .AddSource("js-eu1.hs-scripts.com/")
-            .AddSource("js-eu1.hscollectedforms.net/")
-            .AddSource("js-eu1.hs-analytics.net/")
-            .AddSource("js-eu1.hs-banner.com/")
-            .AddSource("js-eu1.hsadspixel.net/")
+            .AddSource("api.reciteme.com")
+            .AddSource("js-eu1.hsforms.net")
+            .AddSource("js-eu1.hs-scripts.com")
+            .AddSource("js-eu1.hscollectedforms.net")
+            .AddSource("js-eu1.hs-analytics.net")
+            .AddSource("js-eu1.hs-banner.com")
+            .AddSource("js-eu1.hsadspixel.net")
+            .AddSource("forms-eu1.hsforms.com")
             .Finish());
     }
 
@@ -268,6 +272,9 @@ public class ContentSecurityPolicyBuilder
             .AddSource("https://raw.githubusercontent.com/OrdnanceSurvey/")
             .AddSource("https://api.os.uk/")
             .AddSource("forms-eu1.hsforms.com")
+            .AddSource("forms.hsforms.com")
+            .AddSource("forms-eu1.hscollectedforms.net")
+            .AddSource("api-eu1.hubapi.com")
             .AddSource("hubspot-forms-static-embed-eu1.s3.amazonaws.com/")
             .Finish());
     }
@@ -295,9 +302,10 @@ public class ContentSecurityPolicyBuilder
             .AddSource("*.stockport.gov.uk")
             .AddSource("*.smbcdigital.net")
             .AddSource("*.meetami.ai/")
-            .AddSource("*.chat.meetami.ai/")
+            .AddSource("*.chat.meetami.ai/") 
             .AddSource("forms.stockport.gov.uk", true)
-            .AddSource("https://app.contentful.com")
+            .AddSource("app.contentful.com")
+            .AddSource("forms-eu1.hsforms.com")
             .Finish());
     }
 
