@@ -1,5 +1,7 @@
 using System.Net.Mime;
 using Directory = StockportWebapp.Models.Directory;
+using Filter = StockportWebapp.Model.Filter;
+
 namespace StockportWebapp.Controllers;
 
 [ResponseCache(Location = ResponseCacheLocation.Any, Duration = Cache.Medium)]
@@ -56,8 +58,9 @@ public class DirectoryController : Controller
 
     [HttpPost]
     [Route("/directories/results/{slug}")]
-    public async Task<IActionResult> FilterResults(string slug, [FromQuery] List<string> filters)
+    public async Task<IActionResult> FilterResults(string slug, [FromQuery] List<Filter> filters)
     {
+
         var directoryHttpResponse = await _directoryRepository.Get<Directory>(slug);
         if (!directoryHttpResponse.IsSuccessful())
             return directoryHttpResponse;
