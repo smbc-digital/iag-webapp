@@ -99,61 +99,90 @@
   text-align: right;
 }
 
-h1.centered {
-  text-align: center;
-  color: $colorPrimary;
-  font-size: 50px;
+.mobile-text-align-right {
+    @media #{$mobile} {
+        text-align: right;
+    }
 }
 
-a:focus, button:focus, input:focus, textarea:focus, select:focus, label:focus {
-  outline: #ef8a16 solid 3px !important;
+.tablet-text-align-right {
+    @media #{$tablet} {
+        text-align: right;
+    }
 }
 
-// trumbowyg-editor is the wysiwyg editor
-.focusable, .trumbowyg-editor {
-  &:focus {
-    outline: #ef8a16 solid 3px !important;
-  }
+.text-align-center {
+    text-align: center
 }
 
-.notification {
-  text-align: center;
+.mobile-text-align-center {
+    @media #{$mobile} {
+        text-align: center
+    }
+}
 
-  .icon-bordered {
-    width: 80px;
+.tablet-text-align-center {
+    @media #{$tablet} {
+        text-align: center
+    }
+}
 
-    &.red {
-      color: $tallPoppyRed;
+
+
+    h1.centered {
+        text-align: center;
+        color: $colorPrimary;
+        font-size: 50px;
     }
 
-    &.green {
-      color: $green;
+    a:focus, button:focus, input:focus, textarea:focus, select:focus, label:focus {
+        outline: #ef8a16 solid 3px !important;
     }
-  }
-}
-
-.digital-link {
-  text-align: right;
-
-  @media #{$mobile} {
-    text-align: center;
-  }
-
-  p {
-
-    a {
-      font-weight: normal;
-      text-decoration-line: underline;
+    // trumbowyg-editor is the wysiwyg editor
+    .focusable, .trumbowyg-editor {
+        &:focus {
+            outline: #ef8a16 solid 3px !important;
+        }
     }
-  }
-}
 
-.copyright {
-  text-align: left;
-}
+    .notification {
+        text-align: center;
 
-#prefix-overlay-step1 {
-  p {
-    font-size: 0.9em;
-  }
-}
+        .icon-bordered {
+            width: 80px;
+
+            &.red {
+                color: $tallPoppyRed;
+            }
+
+            &.green {
+                color: $green;
+            }
+        }
+    }
+
+    .digital-link {
+        text-align: right;
+
+        @media #{$mobile} {
+            text-align: center;
+        }
+
+        p {
+
+            a {
+                font-weight: normal;
+                text-decoration-line: underline;
+            }
+        }
+    }
+
+    .copyright {
+        text-align: left;
+    }
+
+    #prefix-overlay-step1 {
+        p {
+            font-size: 0.9em;
+        }
+    }

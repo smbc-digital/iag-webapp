@@ -10,15 +10,14 @@ public interface IDirectoryRepository
 
 public class DirectoryRepository : IDirectoryRepository
 {
-    private readonly DirectoryFactory _directoryFactory;
+    
     private readonly UrlGenerator _urlGenerator;
     private readonly IHttpClient _httpClient;
     private readonly IApplicationConfiguration _config;
     private Dictionary<string, string> _authenticationHeaders;
 
-    public DirectoryRepository(DirectoryFactory directoryFactory, UrlGenerator urlGenerator, IHttpClient httpClient, IApplicationConfiguration config)
+    public DirectoryRepository(UrlGenerator urlGenerator, IHttpClient httpClient, IApplicationConfiguration config)
     {
-        _directoryFactory = directoryFactory;
         _urlGenerator = urlGenerator;
         _httpClient = httpClient;
         _config = config;

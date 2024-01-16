@@ -12,7 +12,7 @@ namespace StockportWebapp.Models
         public string MetaDescription { get; set; }
         public IEnumerable<FilterTheme> Themes { get; set; }
         public IEnumerable<MinimalDirectory> Directories { get; set; }
-        public IEnumerable<Alert> Alerts { get; }
+        public IEnumerable<Alert> Alerts { get; set; }
         public IEnumerable<GroupBranding> Branding { get; set; } = new List<GroupBranding>();
         public MapPosition MapPosition { get; set; } = new MapPosition();
         public string PhoneNumber { get; set; } = string.Empty;
@@ -22,7 +22,7 @@ namespace StockportWebapp.Models
         public string Facebook { get; set; } = string.Empty;
         public string Address { get; set; } = string.Empty;
 
-        public Placemark ToKmlPlacemark => new Placemark
+        public Placemark ToKmlPlacemark() => new Placemark
         {
             // Ref
             // https://developers.google.com/kml/documentation/kml_tut?csw=1#descriptive_html
