@@ -7,16 +7,9 @@
     Layout = "../Shared/_Layout2023.cshtml"; 
 }
 <div class="grid-container-full-width background-grey">
-<<<<<<< HEAD
     <section class="directories-search">
         <partial name="DirectorySearch" model="@Model.Directory.Title"/>
     </section>
-=======
-@*  
-    <partial name="DirectorySearchOneStockport" />
-    <partial name="DirectorySearch" />
-*@
->>>>>>> directories
 
     <partial name="Breadcrumb2023" model='new List<Crumb>()' />
     <form asp-controller="Directory" method="post">
