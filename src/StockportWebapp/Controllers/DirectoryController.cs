@@ -36,7 +36,7 @@ public class DirectoryController : Controller
     
     [HttpGet]
     [Route("/directories/results/{slug}")]
-    public async Task<IActionResult> DirectoryResults([Required][FromRoute]string slug, string parentSlug1, string parentSlug2, string parentSlug3, string parentSlug4)
+    public async Task<IActionResult> DirectoryResults([Required][FromRoute]string slug)
     {
         var directoryHttpResponse = await _directoryRepository.Get<Directory>(slug);
         
