@@ -16,7 +16,7 @@ public static class DirectoryExtensions
             Name = "Directory Entries for ..."
         };
 
-        directoryEntries.ToList().ForEach(entry =>  mainFolder.AddFeature(entry.ToKmlPlacemark));
+        directoryEntries.ToList().ForEach(entry =>  mainFolder.AddFeature(entry.ToKmlPlacemark()));
         
         kml.Feature = mainFolder;
 

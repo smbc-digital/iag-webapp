@@ -23,7 +23,7 @@ namespace StockportWebapp.Models
         public string Facebook { get; set; } = string.Empty;
         public string Address { get; set; } = string.Empty;
 
-        public Placemark ToKmlPlacemark => new Placemark
+        public Placemark ToKmlPlacemark() => new Placemark
         {
             // Ref
             // https://developers.google.com/kml/documentation/kml_tut?csw=1#descriptive_html
