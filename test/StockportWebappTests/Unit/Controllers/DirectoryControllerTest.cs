@@ -5,46 +5,61 @@ public class DirectoryControllerTest
     private readonly DirectoryController _directoryController;
     private Mock<IDirectoryRepository> _directoryRepository = new();
 
-    private readonly ProcessedDirectory processedDirectory = new
-    (
-        "title",
-        "slug",
-        "contentfulId",
-        "teaser",
-        "metaDescription",
-        "backgroundImage",
-        "body",
-        new CallToActionBanner(),
-        new List<Alert>(),
-        new List<DirectoryEntry>(),
-        new List<Directory>(),
-        new List<DirectoryEntry>(),
-        new List<FilterTheme>()
-    );
+    private readonly DirectoryEntry processedDirectoryEntry = new()
+    {
+        Slug = "slug",
+        Name = "name",
+        Description = "description",
+        Teaser = "teaser",
+        MetaDescription = "metaDescription",
+        Themes = new List<FilterTheme>(),
+        Directories = new List<MinimalDirectory>(),
+        Alerts = new List<Alert>(),
+        Branding = new List<GroupBranding>(),
+        MapPosition = new MapPosition(),
+        PhoneNumber = "phone number",
+        Email = "email",
+        Website = "website",
+        Twitter = "twitter",
+        Facebook = "facebook",
+        Address = "address"
+    };
 
-    private readonly ProcessedDirectoryEntry processedDirectoryEntry = new
-   (
-        "slug",
-        "name",
-        "description",
-        "teaser",
-        "metaDescription",
-        new List<FilterTheme>(),
-        new List<MinimalDirectory>(),
-        new List<Alert>(),
-        new List<GroupBranding>(),
-        new MapPosition(),
-        "phone number",
-        "email",
-        "website",
-        "twitter",
-        "facebook",
-        "address"
-   );
+    private readonly Directory processedDirectory = new()
+    {
+        Title = "title",
+        Slug = "slug",
+        ContentfulId = "contentfulId",
+        Teaser = "teaser",
+        MetaDescription = "metaDescription",
+        BackgroundImage = "backgroundImage",
+        Body = "body",
+        CallToAction = new CallToActionBanner(),
+        Alerts = new List<Alert>(),
+        Entries  = new List<DirectoryEntry>(),
+        SubDirectories = new List<Directory>(),
+    };
+
+    private readonly Directory processedDirectoryWithSubdirectories = new()
+    {
+        Title = "title",
+        Slug = "slug",
+        ContentfulId = "contentfulId",
+        Teaser = "teaser",
+        MetaDescription = "metaDescription",
+        BackgroundImage = "backgroundImage",
+        Body = "body",
+        CallToAction = new CallToActionBanner(),
+        Alerts = new List<Alert>(),
+        Entries = new List<DirectoryEntry>() {  } ,
+        SubDirectories = new List<Directory>(),
+    };
 
     public DirectoryControllerTest()
     {
         _directoryController = new DirectoryController(_directoryRepository.Object);
+        processedDirectoryWithSubdirectories.Entries = new List<DirectoryEntry>() { processedDirectoryEntry };
+        processedDirectoryWithSubdirectories.SubDirectories = new List<Directory>() { processedDirectory };
     }
 
     [Fact]
@@ -60,11 +75,12 @@ public class DirectoryControllerTest
         Assert.Equal((int)HttpStatusCode.NotFound, result.StatusCode);
     }
 
+
     [Fact]
     public async Task Directory_ShouldReturnViewModel(){
         // Arrange
         _directoryRepository.Setup(_ => _.Get<Directory>(It.IsAny<string>()))
-            .ReturnsAsync(new HttpResponse((int)HttpStatusCode.OK, processedDirectory, string.Empty));
+            .ReturnsAsync(new HttpResponse((int)HttpStatusCode.OK, processedDirectoryWithSubdirectories, string.Empty));
 
         // Act
         var result = await _directoryController.Directory("slug") as ViewResult;
@@ -73,10 +89,57 @@ public class DirectoryControllerTest
         // Assert
         Assert.NotNull(result);
         Assert.Equal("slug", model.Directory.Slug);
+        Assert.Null(result.ViewName);
     }
 
     [Fact]
-    public async Task DirectoryEntry_ShouldReturnUnsuccessfulStatusCode(){
+    public async Task Directory_ShouldReturnCorrectView()
+    {
+        // Arrange
+        _directoryRepository.Setup(_ => _.Get<Directory>(It.IsAny<string>()))
+            .ReturnsAsync(new HttpResponse((int)HttpStatusCode.OK, processedDirectory, string.Empty));
+
+        // Act
+        var result = await _directoryController.Directory("slug") as ViewResult;
+        var model = result.ViewData.Model as DirectoryViewModel;
+
+        // Assert
+        Assert.Equal("results", result.ViewName);
+    }
+
+    [Fact]
+    public async Task DirectoryResults_ShouldReturnCorrectView_RegardlessOfSubdirectories()
+    {
+        // Arrange
+        _directoryRepository.Setup(_ => _.Get<Directory>(It.IsAny<string>()))
+            .ReturnsAsync(new HttpResponse((int)HttpStatusCode.OK, processedDirectory, string.Empty));
+
+        // Act
+        var result = await _directoryController.DirectoryResults("slug") as ViewResult;
+        var model = result.ViewData.Model as DirectoryViewModel;
+
+        // Assert
+        Assert.Equal("results", result.ViewName);
+    }
+
+    [Fact]
+    public async Task DirectoryResults_ShouldReturnCorrectView_WithoutSubdirectories()
+    {
+        // Arrange
+        _directoryRepository.Setup(_ => _.Get<Directory>(It.IsAny<string>()))
+            .ReturnsAsync(new HttpResponse((int)HttpStatusCode.OK, processedDirectoryWithSubdirectories, string.Empty));
+
+        // Act
+        var result = await _directoryController.DirectoryResults("slug") as ViewResult;
+        var model = result.ViewData.Model as DirectoryViewModel;
+
+        // Assert
+        Assert.Equal("results", result.ViewName);
+
+    }
+
+    [Fact]
+    public async Task DirectoryResults_ShouldReturnCorrectView_WithSubdirectories(){
         // Arrange
         _directoryRepository.Setup(_ => _.Get<Directory>(It.IsAny<string>()))
             .ReturnsAsync(new HttpResponse((int)HttpStatusCode.NotFound, null, string.Empty));
@@ -104,6 +167,7 @@ public class DirectoryControllerTest
         // Assert
         Assert.NotNull(result);
         Assert.Equal("slug", model.Directory.Slug);
+        Assert.Null(result.ViewName);
     }
 
     [Fact]

@@ -1,7 +1,6 @@
 ﻿@model DirectorySearchResultViewModel
 
 <div class="navcard__content">
-    <div class="navcard_content--padding">
         <a href=@Url.ActionLink("DirectoryEntry", "Directory", new { slug=@Model.Slug }) data-cy="directory-entry-nav-card-link" class="navcard__link navcard__link--border navcard-content--padding">
             <div class="grid-container">
                 <div class="grid-70">
@@ -20,6 +19,12 @@
                     }
                 </div>
             </div>
-        </a>
-    </div>
+            <div class="grid-30 navcard-content__brand">
+                @if (Model.Entry.Branding.Any())
+                {
+                    <img class="navcard__brand" alt="" src="@Model.Entry.Branding.FirstOrDefault()?.File.Url" />
+                }
+            </div>
+        </div>
+    </a>
 </div>

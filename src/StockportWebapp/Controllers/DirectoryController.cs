@@ -2,7 +2,7 @@ using System.Net.Mime;
 using Directory = StockportWebapp.Models.Directory;
 namespace StockportWebapp.Controllers;
 
-[ResponseCache(Location = ResponseCacheLocation.Any, Duration = Cache.Short)]
+[ResponseCache(Location = ResponseCacheLocation.Any, Duration = Cache.Medium)]
 public class DirectoryController : Controller
 {
     private readonly IDirectoryRepository _directoryRepository;
@@ -46,6 +46,7 @@ public class DirectoryController : Controller
         List<Directory> parentDirectories = await GetParentDirectories(pageLocation.ParentSlugs);
 
         var directory = directoryHttpResponse.Content as Directory;
+
         return View("results", new DirectoryViewModel()
             {
                 Directory = directory,

@@ -7,30 +7,26 @@
     Layout = "../Shared/_Layout2023.cshtml"; 
 }
 <div class="grid-container-full-width background-grey">
-    <partial name="Breadcrumb2023" model=@Model.Breadcrumbs />
+
+@*  
+    <partial name="DirectorySearchOneStockport" />
+    <partial name="DirectorySearch" />
+*@
+    <partial name="Breadcrumb2023" model='new List<Crumb>()' />
+
     <form asp-controller="Directory" method="post">
         <div class="grid-container">
             <div class="grid-100 directory-sub-title">
-                <h2>Results for @Model.Directory.Title</h2>
+                <h1>Results for @Model.Directory.Title</h1>
                 <span class="directory-result-count">Showing @Model.FilteredEntries.Count() results in @Model.Directory.Title</span>
             </div>
         </div>
 
         <div class="grid-container">
-            <div class="grid-30">
-                <section class="navcard-wrapper">
-                    <div class="navcard navcard--white navcard--width-100">
-                        <div class="navcard_content">
-                            <div class="navcard-content--padding">
-                                <h3>Filter by postcode</h3>
-                                <p>Enter a full postcode to find results near you. Or use the filters below to find all the results in a particular area.</p>
-                            </div>
-                        </div>
-                    </div>
-                </section>
+            <div class="grid-30 tablet-grid-100">
                 <section class="navcard-wrapper">
                     <div class="navcard navcard--white navcard--width-100 navcard--no-border">
-                        <div class="navcard_content">
+                        <div class="navcard-content">
                             <div class="navcard-content--padding">
                                 <h3>Filter you results</h3>
                                 <p>Choose one or more options to filter your results.</p>
@@ -50,11 +46,11 @@
                 </section>
             </div>
 
-            <div class="grid-70">
+            <div class="grid-70 tablet-grid-100">
                 <ul class="navcard-wrapper">
                     @foreach(var entry in Model.FilteredEntries)
                     {
-                        <li class="navcard navcard--white navcard--width-100">
+                        <li class="navcard navcard--white navcard--force-border-top navcard--width-100">
                             <partial name="DirectorySearchResult" model=@(new DirectorySearchResultViewModel { DirectorySlug = Model.Slug, Entry = entry}) />
                         </li>
                     }
