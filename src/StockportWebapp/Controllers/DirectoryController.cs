@@ -22,6 +22,7 @@ public class DirectoryController : Controller
             return directoryHttpResponse;
 
         var directory = directoryHttpResponse.Content as Directory;
+        directory.Body = _markdownWrapper.ConvertToHtml(directory.Body ?? "");
 
         DirectoryViewModel directoryViewModel = new()
         {
@@ -48,6 +49,7 @@ public class DirectoryController : Controller
         List<Directory> parentDirectories = await GetParentDirectories(pageLocation.ParentSlugs);
 
         var directory = directoryHttpResponse.Content as Directory;
+        directory.Body = _markdownWrapper.ConvertToHtml(directory.Body ?? "");
 
         return View("results", new DirectoryViewModel()
             {
@@ -67,6 +69,8 @@ public class DirectoryController : Controller
             return directoryHttpResponse;
 
         var directory = directoryHttpResponse.Content as Directory;
+        directory.Body = _markdownWrapper.ConvertToHtml(directory.Body ?? "");
+
 
         DirectoryViewModel directoryViewModel = new()
         {
