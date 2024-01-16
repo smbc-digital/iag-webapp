@@ -6,10 +6,12 @@ namespace StockportWebapp.Controllers;
 public class DirectoryController : Controller
 {
     private readonly IDirectoryRepository _directoryRepository;
+    private readonly MarkdownWrapper _markdownWrapper;
 
-    public DirectoryController(IDirectoryRepository directoryRepository)
+    public DirectoryController(IDirectoryRepository directoryRepository, MarkdownWrapper markdownWrapper)
     {
         _directoryRepository = directoryRepository;
+        _markdownWrapper = markdownWrapper;
     }
 
     [Route("/directories/{**slug}")]
@@ -88,6 +90,7 @@ public class DirectoryController : Controller
         return Content(kmlString);
     }
 
+
     [Route("directories/entry/{**slug}")]
     public async Task<IActionResult> DirectoryEntry(string slug)
     {
@@ -98,13 +101,17 @@ public class DirectoryController : Controller
         if (!directoryEntryHttpResponse.IsSuccessful())
             return directoryEntryHttpResponse;
 
+        var processedDirectoryEntry = directoryEntryHttpResponse.Content as DirectoryEntry;
+        processedDirectoryEntry.Description = _markdownWrapper.ConvertToHtml(processedDirectoryEntry.Description ?? "");
+        processedDirectoryEntry.Address = _markdownWrapper.ConvertToHtml(processedDirectoryEntry.Address ?? "");
+
         // Get the parent directories
         List<Directory> parentDirectories = await GetParentDirectories(pageLocation.ParentSlugs);
 
         DirectoryViewModel directoryViewModel = new()
         {
             Directory = parentDirectories.First(),
-            DirectoryEntry = directoryEntryHttpResponse.Content as DirectoryEntry,
+            DirectoryEntry = processedDirectoryEntry,
             Breadcrumbs = GetBreadcrumbsForDirectories(parentDirectories),
             Slug = slug
         };

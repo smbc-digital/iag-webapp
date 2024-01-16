@@ -16,7 +16,6 @@ public class ProcessedTopicTests
                                                             new List<SubItem> {
                                                                 new("test-slug", "Featured Item", "Teaser", "Icon.ico", "Article", string.Empty, new List<SubItem>())
                                                             },
-                                                            Enumerable.Empty<SubItem>(),
                                                             new List<Crumb>(),
                                                             new List<Alert> {
                                                                 new("Test Alert", "Test", "Test Body", "Warning", new DateTime(2020, 1, 1), new DateTime(2040, 1, 1), "test-warning-alert", false, string.Empty),
@@ -34,9 +33,6 @@ public class ProcessedTopicTests
                                                                 Icon = "icon",
                                                                 Colour = "colour"
                                                             },
-                                                            "expandingLinkTitle",
-                                                            Enumerable.Empty<ExpandingLinkBox>(),
-                                                            "primary item title",
                                                             "title",
                                                             true,
                                                             null,

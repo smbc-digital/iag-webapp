@@ -7,15 +7,13 @@ public class TopicController : Controller
     private readonly BusinessId _businessId;
     private readonly ITopicRepository _topicRepository;
     private readonly IStockportApiEventsService _stockportApiEventsService;
-    private readonly IFeatureManager _featureManager;
 
-    public TopicController(ITopicRepository repository, IApplicationConfiguration config, BusinessId businessId, IStockportApiEventsService stockportApiService, IFeatureManager featureManager)
+    public TopicController(ITopicRepository repository, IApplicationConfiguration config, BusinessId businessId, IStockportApiEventsService stockportApiService)
     {
         _config = config;
         _businessId = businessId;
         _topicRepository = repository;
         _stockportApiEventsService = stockportApiService;
-        _featureManager = featureManager;
     }
 
     [Route("/topic/{topicSlug}")]
@@ -30,13 +28,10 @@ public class TopicController : Controller
 
         var urlSetting = _config.GetEmailAlertsNewSubscriberUrl(_businessId.ToString());
 
-        var topicViewModel = new TopicViewModel(processedTopic, urlSetting.ToString());
+        TopicViewModel topicViewModel = new(processedTopic, urlSetting.ToString());
 
         var eventsFromApi = !string.IsNullOrEmpty(processedTopic.EventCategory) ? await _stockportApiEventsService.GetEventsByCategory(processedTopic.EventCategory) : new List<Event>();
         topicViewModel.EventsFromApi = eventsFromApi?.Take(3).ToList();
-
-        if(await _featureManager.IsEnabledAsync("TopicRedesign") && _businessId.ToString().Equals("stockportgov"))
-            return View("Index2023", topicViewModel);
 
         return View(topicViewModel);
     }
