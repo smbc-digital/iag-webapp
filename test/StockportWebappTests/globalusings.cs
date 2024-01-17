@@ -61,3 +61,4 @@ global using QueryString = Microsoft.AspNetCore.Http.QueryString;
 global using HttpResponse = StockportWebapp.Client.HttpResponse;
 global using DataProtectionBuilderExtensions = StockportWebapp.DataProtection.DataProtectionBuilderExtensions;
 global using Group = StockportWebapp.Models.Groups.Group;
+global using Directory = StockportWebapp.Models.Directory;

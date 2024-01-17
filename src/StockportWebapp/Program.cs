@@ -53,6 +53,5 @@ app.UseMiddleware<BusinessIdMiddleware>()
     {
         endpoints.MapControllers();
     });
-
-
+    
 app.Run();
