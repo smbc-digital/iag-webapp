@@ -172,7 +172,7 @@ namespace StockportWebapp.Utils.Extensions
                     p.GetService<IDynamicTagParser<Alert>>(),
                     p.GetService<ITriviaFactory>(),
                     p.GetService<IDynamicTagParser<InlineQuote>>()));
-            
+    
             return services;
         }
 
