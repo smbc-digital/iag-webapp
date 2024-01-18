@@ -7,7 +7,7 @@ public interface IDirectoryRepository
     Task<HttpResponse> Get<T>(string slug = "");
     Task<HttpResponse> GetEntry<T>(string slug = "");
     IEnumerable<DirectoryEntry> GetFilteredEntryForDirectories(Directory directory);
-    IEnumerable<DirectoryEntry> GetFilteredEntryForDirectories(Directory directory, string filters);
+    IEnumerable<DirectoryEntry> GetFilteredEntryForDirectories(Directory directory, string[] filters);
 }
 
 public class DirectoryRepository : IDirectoryRepository
@@ -60,23 +60,27 @@ public class DirectoryRepository : IDirectoryRepository
         return directory.AllEntries.Select(directoryEntry => directoryEntry);
     }
 
-    public IEnumerable<DirectoryEntry> GetFilteredEntryForDirectories(Directory directory, string filters)
+    public IEnumerable<DirectoryEntry> GetFilteredEntryForDirectories(Directory directory, string[] filters)
     {
         var allEntries = new List<DirectoryEntry>();
-        foreach(var entry in directory.AllEntries)
+        
+        foreach (var slug in filters)
         {
-            if(entry is not null)
+            foreach (var entry in directory.AllEntries)
             {
-                if (entry.Themes is not null)
+                if (entry is not null)
                 {
-                    foreach (var theme in entry.Themes)
+                    if (entry.Themes is not null)
                     {
-                        if (theme is not null)
+                        foreach (var theme in entry.Themes)
                         {
-                            foreach (var filter in theme.Filters)
+                            if (theme is not null)
                             {
-                                if (filter.Slug.Equals(filters))
-                                    allEntries.Add(entry);
+                                foreach (var filter in theme.Filters)
+                                {
+                                    if (filter.Slug.Equals(slug))
+                                        allEntries.Add(entry);
+                                }
                             }
                         }
                     }
@@ -84,8 +88,21 @@ public class DirectoryRepository : IDirectoryRepository
             }
         }
 
-        var directoriesWithThemes = directory.AllEntries.Where(_ => _.Themes is not null);
-        var t = directoriesWithThemes.Where(entry => entry.Themes.Any(theme => theme.Filters.Any(filter => filter.Slug == filters)));
+
+        foreach (var filter in filters)
+        {
+            var directoriesWithThemes = directory.AllEntries.Where(_ => _.Themes is not null);
+            var f = directoriesWithThemes.Where(entry => entry.Themes.Any(theme => theme.Filters.Any(filter => filter.Slug.Equals(filter))));
+
+            var test = directory.AllEntries
+                .Where(_ => _.Themes is not null)
+                .Where(entry => entry.Themes.Any(theme => theme.Filters.Any(filter => filter.Slug.Equals(filter))));
+
+            foreach(var t in test)
+            {
+                allEntries.Add(t);
+            }
+        }
 
         return allEntries;
     }
