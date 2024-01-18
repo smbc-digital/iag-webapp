@@ -13,7 +13,7 @@
 *@
 
     <partial name="Breadcrumb2023" model='new List<Crumb>()' />
-    <form asp-controller="Directory" method="post">
+    <form asp-controller="Directory" method="get">
         <div class="grid-container">
             <div class="grid-100 directory-sub-title">
                 <h1>Results for @Model.Directory.Title</h1>
@@ -48,11 +48,7 @@
 
                                             foreach(var filter in theme.Filters)
                                             {
-                                                @* <input class="directory-filters__checkbox" type="checkbox" name="filter" value="@filter.DisplayName">*@
-
-                                                <input class="" asp-for="@filter.Selected" type="checkbox">
-                                                <label for="@filter.Selected"> @filter.DisplayName</label>
-                                                <input type="hidden" asp-for="@filter.Slug" />
+                                                <input class="" type="checkbox" name="filters" value="@filter.Slug">
                                                 <br>
                                             }
                                             <hr/>

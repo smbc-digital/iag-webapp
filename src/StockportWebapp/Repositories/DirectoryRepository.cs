@@ -6,6 +6,7 @@ public interface IDirectoryRepository
     Task<HttpResponse> Get<T>(string slug = "");
     Task<HttpResponse> GetEntry<T>(string slug = "");
     IEnumerable<DirectoryEntry> GetFilteredEntryForDirectories(Directory directory);
+    IEnumerable<DirectoryEntry> GetFilteredEntryForDirectories(Directory directory, string filters);
 }
 
 public class DirectoryRepository : IDirectoryRepository
@@ -56,5 +57,13 @@ public class DirectoryRepository : IDirectoryRepository
     public IEnumerable<DirectoryEntry> GetFilteredEntryForDirectories(Directory directory)
     {
         return directory.AllEntries.Select(directoryEntry => directoryEntry);
+    }
+
+    public IEnumerable<DirectoryEntry> GetFilteredEntryForDirectories(Directory directory, string filters)
+    {
+        // filters == slug
+        // directory  has allEntries field, that returns IEnumerable<DirectoryEntry>. each directoryEntry has a field Themes, which returns IEnumerable<FilterTheme> Themes. fitler theme has field  IEnumerable<Filter> Filters and filter has public string Slug { get; set; }
+        // if filters == filter.slug, then return that entry
+        return (IEnumerable<DirectoryEntry>)directory.AllEntries.Select(directoryEntry => directoryEntry.Themes.Any());
     }
 }

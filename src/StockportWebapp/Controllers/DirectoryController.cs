@@ -1,17 +1,18 @@
 using System.Net.Mime;
-using Directory = StockportWebapp.Models.Directory;
 using Filter = StockportWebapp.Model.Filter;
-
+using Directory = StockportWebapp.Models.Directory;
 namespace StockportWebapp.Controllers;
 
 [ResponseCache(Location = ResponseCacheLocation.Any, Duration = Cache.Medium)]
 public class DirectoryController : Controller
 {
     private readonly IDirectoryRepository _directoryRepository;
+    private readonly MarkdownWrapper _markdownWrapper;
 
-    public DirectoryController(IDirectoryRepository directoryRepository)
+    public DirectoryController(IDirectoryRepository directoryRepository, MarkdownWrapper markdownWrapper)
     {
         _directoryRepository = directoryRepository;
+        _markdownWrapper = markdownWrapper;
     }
 
     [Route("/directories/{slug}")]
@@ -38,7 +39,7 @@ public class DirectoryController : Controller
     
     [HttpGet]
     [Route("/directories/results/{slug}")]
-    public async Task<IActionResult> DirectoryResults([Required][FromRoute]string slug, string parentSlug1, string parentSlug2, string parentSlug3, string parentSlug4)
+    public async Task<IActionResult> DirectoryResults([Required][FromRoute]string slug, [FromQuery]string filters)
     {
         var directoryHttpResponse = await _directoryRepository.Get<Directory>(slug);
         
@@ -50,7 +51,7 @@ public class DirectoryController : Controller
         DirectoryViewModel directoryViewModel = new()
         {
             Directory = directory,
-            FilteredEntries = _directoryRepository.GetFilteredEntryForDirectories(directory)
+            FilteredEntries = _directoryRepository.GetFilteredEntryForDirectories(directory, filters)
         };        
         
         return View("results", directoryViewModel);
@@ -58,9 +59,10 @@ public class DirectoryController : Controller
 
     [HttpPost]
     [Route("/directories/results/{slug}")]
-    public async Task<IActionResult> FilterResults(string slug, [FromQuery] List<Filter> filters)
+    public async Task<IActionResult> FilterResults(string slug, string[] filters)
     {
-
+        var x = Request.Query;
+        var y = Request.QueryString;
         var directoryHttpResponse = await _directoryRepository.Get<Directory>(slug);
         if (!directoryHttpResponse.IsSuccessful())
             return directoryHttpResponse;
@@ -89,17 +91,20 @@ public class DirectoryController : Controller
         return Content(kmlString);
     }
 
-    [Route("/directory-entry/{directoryEntrySlug}")]
-    [Route("/directories/{slug}/directory-entry/{directoryEntrySlug}")]
-    public async Task<IActionResult> DirectoryEntry(string slug, string directoryEntrySlug)
+    // [Route("/directories/{slug}/directory-entry/{directoryEntrySlug}")]
+    [Route("/directory-entry/{entrySlug}")]
+    [Route("/directories/entry/{directorySlug}/{entrySlug}")]
+    public async Task<IActionResult> DirectoryEntry(string directorySlug, string entrySlug)
     {
-        var directoryHttpResponse = await _directoryRepository.Get<Directory>(slug);
-        var directoryEntryHttpResponse = await _directoryRepository.GetEntry<DirectoryEntry>(directoryEntrySlug);
-        if (!directoryHttpResponse.IsSuccessful() || !directoryEntryHttpResponse.IsSuccessful())
+        var directoryHttpResponse = await _directoryRepository.Get<Directory>(directorySlug);
+         var directoryEntryHttpResponse = await _directoryRepository.GetEntry<DirectoryEntry>(entrySlug);
+        if (!directoryEntryHttpResponse.IsSuccessful())
             return directoryHttpResponse;
 
         var directory = directoryHttpResponse.Content as Directory;
         var processedDirectoryEntry = directoryEntryHttpResponse.Content as DirectoryEntry;
+        processedDirectoryEntry.Description = _markdownWrapper.ConvertToHtml(processedDirectoryEntry.Description ?? "");
+        processedDirectoryEntry.Address = _markdownWrapper.ConvertToHtml(processedDirectoryEntry.Address ?? "");
 
         return View(new DirectoryViewModel()
         {
