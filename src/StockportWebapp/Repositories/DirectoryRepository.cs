@@ -60,50 +60,9 @@ public class DirectoryRepository : IDirectoryRepository
         return directory.AllEntries.Select(directoryEntry => directoryEntry);
     }
 
-    public IEnumerable<DirectoryEntry> GetFilteredEntryForDirectories(Directory directory, string[] filters)
-    {
-        var allEntries = new List<DirectoryEntry>();
-        
-        foreach (var slug in filters)
-        {
-            foreach (var entry in directory.AllEntries)
-            {
-                if (entry is not null)
-                {
-                    if (entry.Themes is not null)
-                    {
-                        foreach (var theme in entry.Themes)
-                        {
-                            if (theme is not null)
-                            {
-                                foreach (var filter in theme.Filters)
-                                {
-                                    if (filter.Slug.Equals(slug))
-                                        allEntries.Add(entry);
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
+    public IEnumerable<DirectoryEntry> GetFilteredEntryForDirectories(Directory directory, string[] filters) =>
+        directory.AllEntries.Where(entry => entry.Themes != null && entry.Themes
+            .Any(theme => theme.Filters != null && theme.Filters
+            .Any(filter => filters.Contains(filter.Slug)))).ToList();
 
-
-        foreach (var filter in filters)
-        {
-            var directoriesWithThemes = directory.AllEntries.Where(_ => _.Themes is not null);
-            var f = directoriesWithThemes.Where(entry => entry.Themes.Any(theme => theme.Filters.Any(filter => filter.Slug.Equals(filter))));
-
-            var test = directory.AllEntries
-                .Where(_ => _.Themes is not null)
-                .Where(entry => entry.Themes.Any(theme => theme.Filters.Any(filter => filter.Slug.Equals(filter))));
-
-            foreach(var t in test)
-            {
-                allEntries.Add(t);
-            }
-        }
-
-        return allEntries;
-    }
 }

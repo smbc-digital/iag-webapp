@@ -61,27 +61,6 @@ public class DirectoryController : Controller
         return View("results", directoryViewModel);
     }
 
-    [HttpPost]
-    [Route("/directories/results/{slug}")]
-    public async Task<IActionResult> FilterResults(string slug, string[] filters)
-    {
-        var x = Request.Query;
-        var y = Request.QueryString;
-        var directoryHttpResponse = await _directoryRepository.Get<Directory>(slug);
-        if (!directoryHttpResponse.IsSuccessful())
-            return directoryHttpResponse;
-
-        var directory = directoryHttpResponse.Content as Directory;
-
-        DirectoryViewModel directoryViewModel = new()
-        {
-            Directory = directory,
-            FilteredEntries = _directoryRepository.GetFilteredEntryForDirectories(directory)
-        };
-
-        return View("results", directoryViewModel);
-    }
-
     [Route("/directories/results/kml/{slug}")]  
     [Produces(MediaTypeNames.Application.Xml)]
     public async Task<IActionResult> DirectoryAsKml(string slug)
