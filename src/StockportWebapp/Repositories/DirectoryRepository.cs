@@ -1,4 +1,5 @@
 ﻿using Directory = StockportWebapp.Models.Directory;
+using Filter = StockportWebapp.Model.Filter;
 namespace StockportWebapp.Repositories;
 
 public interface IDirectoryRepository
@@ -61,9 +62,31 @@ public class DirectoryRepository : IDirectoryRepository
 
     public IEnumerable<DirectoryEntry> GetFilteredEntryForDirectories(Directory directory, string filters)
     {
-        // filters == slug
-        // directory  has allEntries field, that returns IEnumerable<DirectoryEntry>. each directoryEntry has a field Themes, which returns IEnumerable<FilterTheme> Themes. fitler theme has field  IEnumerable<Filter> Filters and filter has public string Slug { get; set; }
-        // if filters == filter.slug, then return that entry
-        return (IEnumerable<DirectoryEntry>)directory.AllEntries.Select(directoryEntry => directoryEntry.Themes.Any());
+        var allEntries = new List<DirectoryEntry>();
+        foreach(var entry in directory.AllEntries)
+        {
+            if(entry is not null)
+            {
+                if (entry.Themes is not null)
+                {
+                    foreach (var theme in entry.Themes)
+                    {
+                        if (theme is not null)
+                        {
+                            foreach (var filter in theme.Filters)
+                            {
+                                if (filter.Slug.Equals(filters))
+                                    allEntries.Add(entry);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        var directoriesWithThemes = directory.AllEntries.Where(_ => _.Themes is not null);
+        var t = directoriesWithThemes.Where(entry => entry.Themes.Any(theme => theme.Filters.Any(filter => filter.Slug == filters)));
+
+        return allEntries;
     }
 }
