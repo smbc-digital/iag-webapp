@@ -50,9 +50,10 @@
 
     &::before {
         content: "";
+        cursor: pointer;
         display: block;
-        width: 10px;
-        height: 10px;
+        width: 15px;
+        height: 15px;
         border: 1px solid $stockport-black;
         display: block;
         transform: scale(2);
@@ -60,7 +61,17 @@
         background-position: center;
         background-repeat: no-repeat;
         background-size: 15px;
-        padding: 2px;
+    }
+
+    &:checked::before {
+        font: normal normal normal 14px/1 FontAwesome;
+        text-align: center;
+        content: "\f00c";
+    }
+
+    &:focus::before 
+    {
+        outline: 1.5px solid $brandSecondary;
     }
 }
 
