@@ -107,7 +107,7 @@
     }
 
     &--force-border-top {
-        @media #{$mobile, $tablet} {
+        @media #{$tablet} {
             border-left: 0px;
             right: 0px;
             border-bottom: 0px;
