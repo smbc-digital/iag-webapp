@@ -26,23 +26,28 @@
 
     <div class="grid-container">
         <div class="grid-100">
-            <h2 class="h-l directory__title">@directory.Name</h2>
+            <h1 class="directory__title">@directory.Name</h2>
             <section class="directory">
                 <div class="directory__profile">
                     <div class="directory__wrapper">
                         @if(directory.Branding.Any()){
-                            <img src="@directory.Branding.First().File.Url?w=340&q=89"
-                                srcset="@directory.Branding.First().File.Url?w=340&q=89&fm=webp 340w"
+                            <img src="@directory.Branding.First().File.Url?w=350&q=89"
+                                srcset="@directory.Branding.First().File.Url?w=350&q=89&fm=webp 350w"
                                 class="directory__logo"
                                 alt="@directory.Branding.First().File.Description"
-                                width="300"
+                                width="350"
                                 height="150"/>
                         }
                         
-                        <h2 class="h-ml directory__profile--margin-top">Our details</h2>
+                        <h2 class="directory__profile--margin-top">Our details</h2>
                         <div class="directory__organisation">
                             <h3 class="h-m">Organisation</h3>
-                            <p>@directory.Name</p>
+                            @if(string.IsNullOrEmpty(directory.Provider)) {
+                                <p>@directory.Name</p>
+                            }
+                            else{
+                                <p>@directory.Provider</p>
+                            }
                         </div>
 
                         <div class="directory__address">
@@ -53,21 +58,32 @@
                         <h3 class="h-m">Contact us</h3>
                         <div class="directory__contact">
                             <div class="directory__labels">
-                                <p>Phone:</p>
-                                <p>Email:</p>
+                                <p class="directory__labels--no-margin">Phone:</p>
+                                <p class="directory__phone">@directory.PhoneNumber</p>
+                                <p class="directory__labels--no-margin">Email:</p>
+                                <a class="directory__email" href="mailto:@directory.Email">@directory.Email</a>
                             </div>
 
-                            <div class="directory__values">
-                                <p>@directory.PhoneNumber</p>
-                                <a href="mailto:@directory.Email">@directory.Email</a>
+                            <div class="directory__contact--tablet">
+                                <div class="directory__labels--tablet">
+                                    <p>Phone:</p>
+                                    <p>Email:</p>
+                                </div>
+
+                                <div class="directory__values--tablet">
+                                    <p>@directory.PhoneNumber</p>
+                                    <a href="mailto:@directory.Email">@directory.Email</a>
+                                </div>
                             </div>
 
                             <div class="directory__social">
                                 <p>Visit:</p>
-
-                                <a href="@directory.Website">@directory.Website</a>
-                                <a href="@directory.Facebook">Facebook</a>
-                                <a href="@directory.Twitter">Twitter</a>
+        
+                                <div class="directory__social--tablet">
+                                    <a href="@directory.Website">@directory.Website</a>
+                                    <a href="@directory.Facebook">Facebook</a>
+                                    <a href="@directory.Twitter">Twitter</a>
+                                </div>
                             </div>
                         </div>
                     </div>

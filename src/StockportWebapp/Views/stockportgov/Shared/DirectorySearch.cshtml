@@ -1,4 +1,4 @@
-@model string
+﻿@model string
  
     <div class="grid-container">
         <div class="grid-100">
@@ -30,12 +30,12 @@
         <div class="grid-100">
             <h1>Welcome to the @Model</h1>
             <section class="home-search">
-            <h2 class="visuallyhidden">Search @Model.ToLower()</h2>
-                <form method="get" id="cludo-search-hero-form">
-                    <label class="visuallyhidden" for="cludo-search-bar">
+            <h2 class="visuallyhidden">Search the stockport directory</h2>
+                <form method="get" id="stockport-local-search">
+                    <label class="visuallyhidden" for="stockport-local-search">
                         search input box
                     </label>
-                    <input class="grid-100 tablet-grid-100 mobile-grid-100 home-search_search-input" id="cludo-search-bar" data-cy="search-bar" type="text" name="query" placeholder="Keyword or search phrase" autocomplete="off">
+                    <input class="grid-100 tablet-grid-100 mobile-grid-100 home-search_search-input" id="stockport-local-search" data-cy="search-bar" type="text" name="query" placeholder="Keyword or search phrase" autocomplete="off">
                     <button value="Submit search" class="home-search_search-button" data-cy="search-submit" type="submit">
                         <span class="fa fa-search" aria-hidden="true"></span><span class="visuallyhidden">Submit Search</span>
                     </button>
