@@ -85,6 +85,7 @@ public class DirectoryRepositoryTests
         {
             Slug = "slug",
             Name = "name",
+            Provider = "provider",
             Description = "description",
             Teaser = "teaser",
             MetaDescription = "metaDescription",

@@ -9,6 +9,7 @@ public class DirectoryControllerTest
     {
         Slug = "slug",
         Name = "name",
+        Provider = "provider",
         Description = "description",
         Teaser = "teaser",
         MetaDescription = "metaDescription",

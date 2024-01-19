@@ -47,7 +47,8 @@
     <script defer type=text/javascript src=@stylesheet.DesignSystemJs asp-append-version=true></script>
     <script type=text/javascript src=~/assets/javascript/vendor/require.min.js asp-append-version=true></script>
 </head>
-<body class='container-layout-free @(string.Concat("type-", ViewContext.RouteData.Values["controller"].ToString().ToLower())) background-grey'>
+
+<body class='container-layout-free @(string.Concat("type-", ViewContext.RouteData.Values["controller"].ToString().ToLower())) background-grey directory-no-header-search'>
     <partial name=TagManager/TagManagerNoScript />
     <div id="__ba_launchpad"></div>
     @if(ViewContext.RouteData.Values["controller"].ToString().ToLower().Equals("directory")) {
