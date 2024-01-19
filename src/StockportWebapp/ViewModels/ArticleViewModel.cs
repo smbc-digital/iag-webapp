@@ -77,9 +77,9 @@ public class ArticleViewModel
         return Article.ParentTopic != null && Article.ParentTopic.SubItems.Any();
     }
 
-    public bool HasSecondaryOrTertiarySubItems()
+    public bool HasSecondarySubItems()
     {
-        return Article.ParentTopic.SecondaryItems.Any() || Article.ParentTopic.TertiaryItems.Any();
+        return Article.ParentTopic.SecondaryItems.Any();
     }
 
     private int IndexForDisplayedSection()

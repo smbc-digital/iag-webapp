@@ -3,14 +3,12 @@
 public class AtoZControllerTest
 {
     private readonly Mock<IRepository> _repository;
-    private readonly Mock<IFeatureManager> _featureManager;
     private readonly AtoZController _controller;
     
     public AtoZControllerTest()
     {
         _repository = new Mock<IRepository>();
-        _featureManager = new Mock<IFeatureManager>();
-        _controller = new AtoZController(_repository.Object, _featureManager.Object);
+        _controller = new AtoZController(_repository.Object);
     }
 
     [Fact]

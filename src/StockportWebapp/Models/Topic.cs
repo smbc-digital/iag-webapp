@@ -18,7 +18,6 @@ public class Topic
     public string Image { get; }
     public IEnumerable<SubItem> SubItems { get; }
     public IEnumerable<SubItem> SecondaryItems { get; }
-    public IEnumerable<SubItem> TertiaryItems { get; }
     public IEnumerable<SubItem> TopSubItems
     {
         get
@@ -28,7 +27,6 @@ public class Topic
 
             _topSubItems = ConcatSubItems(_topSubItems, SubItems, take);
             _topSubItems = ConcatSubItems(_topSubItems, SecondaryItems, take);
-            _topSubItems = ConcatSubItems(_topSubItems, TertiaryItems, take);
             _topSubItems = _topSubItems.Take(take);
 
             return _topSubItems;
@@ -43,9 +41,6 @@ public class Topic
     public bool EmailAlerts { get; }
     public string EmailAlertsTopicId { get; }
     public EventCalendarBanner EventBanner { get; }
-    public string ExpandingLinkTitle { get; }
-    public IEnumerable<ExpandingLinkBox> ExpandingLinkBoxes { get; set; }
-    public string PrimaryItemTitle { get; }
     public bool DisplayContactUs { get; set; }
     public CarouselContent CampaignBanner { get; }
     public string EventCategory { get; set; }
@@ -53,9 +48,9 @@ public class Topic
     public string LogoAreaTitle { get; }
 
     public Topic(string name, string slug, string summary, string teaser, string metaDescription, string icon,
-        string backgroundImage, string image, IEnumerable<SubItem> subItems, IEnumerable<SubItem> secondaryItems, IEnumerable<SubItem> tertiaryItems,
+        string backgroundImage, string image, IEnumerable<SubItem> subItems, IEnumerable<SubItem> secondaryItems,
         IEnumerable<Crumb> breadcrumbs, IEnumerable<Alert> alerts, bool emailAlerts, string emailAlertsTopicId, EventCalendarBanner eventBanner,
-        string expandingLinkTitle, IEnumerable<ExpandingLinkBox> expandingLinkBoxes, string primaryItemTitle, string title, bool displayContactUs, CarouselContent campaignBanner, string eventCategory, List<GroupBranding> topicBranding, string logoAreaTitle)
+        string title, bool displayContactUs, CarouselContent campaignBanner, string eventCategory, List<GroupBranding> topicBranding, string logoAreaTitle)
     {
         Name = name;
         Title = title;
@@ -68,7 +63,6 @@ public class Topic
         Image = image;
         SubItems = subItems;
         SecondaryItems = secondaryItems;
-        TertiaryItems = tertiaryItems;
         Breadcrumbs = breadcrumbs;
         Alerts = alerts;
         EmailAlerts = emailAlerts;
@@ -76,9 +70,6 @@ public class Topic
         NavigationLink = TypeRoutes.GetUrlFor("topic", slug);
         _topSubItems = Enumerable.Empty<SubItem>();
         EventBanner = eventBanner;
-        ExpandingLinkTitle = expandingLinkTitle;
-        ExpandingLinkBoxes = expandingLinkBoxes;
-        PrimaryItemTitle = primaryItemTitle;
         DisplayContactUs = displayContactUs;
         CampaignBanner = campaignBanner;
         EventCategory = eventCategory;
@@ -90,8 +81,8 @@ public class Topic
 public class NullTopic : Topic
 {
     public NullTopic() : base(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty,
-        string.Empty, string.Empty, new List<SubItem>(), new List<SubItem>(), new List<SubItem>(),
-        new List<Crumb>(), new List<Alert>(), false, string.Empty, null, string.Empty, new List<ExpandingLinkBox>(),
-        string.Empty, string.Empty, true, new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty), string.Empty, null, string.Empty)
+        string.Empty, string.Empty, new List<SubItem>(), new List<SubItem>(),
+        new List<Crumb>(), new List<Alert>(), false, string.Empty, null,
+        string.Empty, true, new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty), string.Empty, null, string.Empty)
     { }
 }

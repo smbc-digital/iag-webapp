@@ -18,7 +18,6 @@
         public string Image { get; }
         public IEnumerable<SubItem> SubItems { get; }
         public IEnumerable<SubItem> SecondaryItems { get; }
-        public IEnumerable<SubItem> TertiaryItems { get; }
         public IEnumerable<SubItem> TopSubItems { get; }
         public IEnumerable<Crumb> Breadcrumbs { get; }
         public IEnumerable<Alert> Alerts { get; }
@@ -26,9 +25,6 @@
         public string EmailAlertsTopicId { get; }
         public EventBanner EventBanner { get; }
         public EventCalendarBanner EventCalendarBanner { get; }
-        public string ExpandingLinkTitle { get; }
-        public IEnumerable<ExpandingLinkBox> ExpandingLinkBoxes { get; set; }
-        public string PrimaryItemTitle { get; }
         public bool DisplayContactUs { get; set; }
         public CarouselContent CampaignBanner { get; }
         public string EventCategory { get; set; }
@@ -36,9 +32,9 @@
         public string LogoAreaTitle { get; set; }
 
         public ProcessedTopic(string name, string slug, string summary, string teaser, string metaDescription, string icon,
-            string backgroundImage, string image, IEnumerable<SubItem> subItems, IEnumerable<SubItem> secondaryItems, IEnumerable<SubItem> tertiaryItems,
+            string backgroundImage, string image, IEnumerable<SubItem> subItems, IEnumerable<SubItem> secondaryItems,
             IEnumerable<Crumb> breadcrumbs, IEnumerable<Alert> alerts, bool emailAlerts, string emailAlertsTopicId, EventBanner eventBanner, EventCalendarBanner eventCalendarBanner,
-            string expandingLinkTitle, IEnumerable<ExpandingLinkBox> expandingLinkBoxes, string primaryItemTitle, string title, bool displayContactUs, CarouselContent campaignBanner,
+            string title, bool displayContactUs, CarouselContent campaignBanner,
             string eventCategory, CallToActionBanner callToAction, List<GroupBranding> topicBranding, string logoAreaTitle)
         {
             Name = name;
@@ -52,7 +48,6 @@
             Image = image;
             SubItems = subItems;
             SecondaryItems = secondaryItems;
-            TertiaryItems = tertiaryItems;
             Breadcrumbs = breadcrumbs;
             Alerts = alerts;
             EmailAlerts = emailAlerts;
@@ -61,9 +56,6 @@
             _topSubItems = Enumerable.Empty<SubItem>();
             EventBanner = eventBanner;
             EventCalendarBanner = eventCalendarBanner;
-            ExpandingLinkTitle = expandingLinkTitle;
-            ExpandingLinkBoxes = expandingLinkBoxes;
-            PrimaryItemTitle = primaryItemTitle;
             DisplayContactUs = displayContactUs;
             CampaignBanner = campaignBanner;
             EventCategory = eventCategory;

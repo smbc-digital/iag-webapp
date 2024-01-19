@@ -75,6 +75,8 @@ public class PaymentReferenceValidationTests
 
     [Theory]
     [InlineData(EPaymentReferenceValidation.FPN, "12345")]
+    [InlineData(EPaymentReferenceValidation.FPN4or5, "1234")]
+    [InlineData(EPaymentReferenceValidation.FPN4or5, "12344")]
     [InlineData(EPaymentReferenceValidation.ParkingFine, "SM30414755")]
     [InlineData(EPaymentReferenceValidation.ParkingFine, "SM3086279A")]
     [InlineData(EPaymentReferenceValidation.BusLaneAndCamera, "SM80000200")]
@@ -83,6 +85,8 @@ public class PaymentReferenceValidationTests
     [InlineData(EPaymentReferenceValidation.CameraCar, "SM6123456A")]
     [InlineData(EPaymentReferenceValidation.BusLane, "SM81234567")]
     [InlineData(EPaymentReferenceValidation.BusLane, "SM8123456A")]
+    [InlineData(EPaymentReferenceValidation.BRS, "BRS12123")]
+    [InlineData(EPaymentReferenceValidation.BRS, "brs12223")]
     public void Should_ReturnSuccess_ForValidReference(EPaymentReferenceValidation referenceValidation, string reference)
     {
         // Arrange
@@ -120,6 +124,8 @@ public class PaymentReferenceValidationTests
 
     [Theory]
     [InlineData(EPaymentReferenceValidation.FPN, "12345")]
+    [InlineData(EPaymentReferenceValidation.FPN4or5, "1234")]
+    [InlineData(EPaymentReferenceValidation.FPN4or5, "12344")]
     [InlineData(EPaymentReferenceValidation.ParkingFine, "SM30414755")]
     [InlineData(EPaymentReferenceValidation.ParkingFine, "SM3086279A")]
     [InlineData(EPaymentReferenceValidation.BusLaneAndCamera, "SM80000200")]
@@ -128,6 +134,8 @@ public class PaymentReferenceValidationTests
     [InlineData(EPaymentReferenceValidation.CameraCar, "SM6123456A")]
     [InlineData(EPaymentReferenceValidation.BusLane, "SM81234567")]
     [InlineData(EPaymentReferenceValidation.BusLane, "SM8123456A")]
+    [InlineData(EPaymentReferenceValidation.BRS, "BRS12123")]
+    [InlineData(EPaymentReferenceValidation.BRS, "brs12223")]
     public void Should_ReturnSuccess_ForValidReference_ForServicePayPayment(EPaymentReferenceValidation referenceValidation, string reference)
     {
         // Arrange
@@ -166,12 +174,16 @@ public class PaymentReferenceValidationTests
     [Theory]
     [InlineData(EPaymentReferenceValidation.FPN, "1234567")]
     [InlineData(EPaymentReferenceValidation.FPN, "NOTVALID")]
+    [InlineData(EPaymentReferenceValidation.FPN4or5, "124")]
+    [InlineData(EPaymentReferenceValidation.FPN4or5, "123444")]
     [InlineData(EPaymentReferenceValidation.ParkingFine, "ER30414755")]
     [InlineData(EPaymentReferenceValidation.BusLaneAndCamera, "SM800002")]
     [InlineData(EPaymentReferenceValidation.CameraCar, "SM61234")]
     [InlineData(EPaymentReferenceValidation.BusLane, "SM81234")]
     [InlineData(EPaymentReferenceValidation.CameraCar, "SM61234A")]
     [InlineData(EPaymentReferenceValidation.BusLane, "SM81234A")]
+    [InlineData(EPaymentReferenceValidation.BRS, "BRV12123")]
+    [InlineData(EPaymentReferenceValidation.BRS, "brs12223a")]
     public void Should_ReturnFalse_ForInvalidReference(EPaymentReferenceValidation referenceValidation, string reference)
     {
         // Arrange
@@ -209,12 +221,16 @@ public class PaymentReferenceValidationTests
     [Theory]
     [InlineData(EPaymentReferenceValidation.FPN, "1234567")]
     [InlineData(EPaymentReferenceValidation.FPN, "NOTVALID")]
+    [InlineData(EPaymentReferenceValidation.FPN4or5, "123554")]
+    [InlineData(EPaymentReferenceValidation.FPN4or5, "123")]
     [InlineData(EPaymentReferenceValidation.ParkingFine, "ER30414755")]
     [InlineData(EPaymentReferenceValidation.BusLaneAndCamera, "SM800002")]
     [InlineData(EPaymentReferenceValidation.CameraCar, "SM61234")]
     [InlineData(EPaymentReferenceValidation.BusLane, "SM81234")]
     [InlineData(EPaymentReferenceValidation.CameraCar, "SM61234A")]
     [InlineData(EPaymentReferenceValidation.BusLane, "SM81234A")]
+    [InlineData(EPaymentReferenceValidation.BRS, "BRS1012")]
+    [InlineData(EPaymentReferenceValidation.BRS, "brv12223")]
     public void Should_ReturnFalse_ForInvalidReference_ForServicePayPayment(EPaymentReferenceValidation referenceValidation, string reference)
     {
         // Arrange

@@ -4,6 +4,7 @@ public class DirectoryControllerTest
 {
     private readonly DirectoryController _directoryController;
     private Mock<IDirectoryRepository> _directoryRepository = new();
+    private Mock<MarkdownWrapper> _markdownwrapper = new();
 
     private readonly DirectoryEntry processedDirectoryEntry = new()
     {
@@ -58,13 +59,14 @@ public class DirectoryControllerTest
 
     public DirectoryControllerTest()
     {
-        _directoryController = new DirectoryController(_directoryRepository.Object);
+        _directoryController = new DirectoryController(_directoryRepository.Object, _markdownwrapper.Object );
         processedDirectoryWithSubdirectories.Entries = new List<DirectoryEntry>() { processedDirectoryEntry };
         processedDirectoryWithSubdirectories.SubDirectories = new List<Directory>() { processedDirectory };
     }
 
     [Fact]
-    public async Task Directory_ShouldReturnUnsuccessfulStatusCode(){
+    public async Task Directory_ShouldReturnUnsuccessfulStatusCode()
+    { 
         // Arrange
         _directoryRepository.Setup(_ => _.Get<Directory>(It.IsAny<string>()))
             .ReturnsAsync(new HttpResponse((int)HttpStatusCode.NotFound, null, string.Empty));
@@ -109,26 +111,11 @@ public class DirectoryControllerTest
     }
 
     [Fact]
-    public async Task DirectoryResults_ShouldReturnCorrectView_RegardlessOfSubdirectories()
-    {
-        // Arrange
-        _directoryRepository.Setup(_ => _.Get<Directory>(It.IsAny<string>()))
-            .ReturnsAsync(new HttpResponse((int)HttpStatusCode.OK, processedDirectory, string.Empty));
-
-        // Act
-        var result = await _directoryController.DirectoryResults("slug") as ViewResult;
-        var model = result.ViewData.Model as DirectoryViewModel;
-
-        // Assert
-        Assert.Equal("results", result.ViewName);
-    }
-
-    [Fact]
     public async Task DirectoryResults_ShouldReturnCorrectView_WithoutSubdirectories()
     {
         // Arrange
         _directoryRepository.Setup(_ => _.Get<Directory>(It.IsAny<string>()))
-            .ReturnsAsync(new HttpResponse((int)HttpStatusCode.OK, processedDirectoryWithSubdirectories, string.Empty));
+            .ReturnsAsync(new HttpResponse((int)HttpStatusCode.OK, processedDirectory, string.Empty));
 
         // Act
         var result = await _directoryController.DirectoryResults("slug") as ViewResult;
@@ -143,13 +130,13 @@ public class DirectoryControllerTest
     public async Task DirectoryResults_ShouldReturnCorrectView_WithSubdirectories(){
         // Arrange
         _directoryRepository.Setup(_ => _.Get<Directory>(It.IsAny<string>()))
-            .ReturnsAsync(new HttpResponse((int)HttpStatusCode.NotFound, null, string.Empty));
+            .ReturnsAsync(new HttpResponse((int)HttpStatusCode.OK, processedDirectoryWithSubdirectories, string.Empty));
 
         // Act
-        var result = await _directoryController.DirectoryEntry("slug", "entry-slug") as HttpResponse;
-        
+        var result = await _directoryController.DirectoryResults("slug") as ViewResult;
+
         // Assert
-        Assert.Equal((int)HttpStatusCode.NotFound, result.StatusCode);
+        Assert.Equal("results", result.ViewName);
     }
 
     [Fact]

@@ -1,7 +1,7 @@
 ﻿@model DirectorySearchResultViewModel
 
 <div class="navcard__content">
-    <a href=@Url.ActionLink("DirectoryEntry", "Directory", new { slug=@Model.DirectorySlug, directoryEntrySlug=@Model.Entry.Slug }) data-cy="nav-card-link" class="navcard__link navcard__link--border navcard-content--padding">
+    <a href=@Url.ActionLink("DirectoryEntry", "Directory", new { directorySlug=@Model.DirectorySlug, entrySlug=@Model.Entry.Slug }) data-cy="nav-card-link" class="navcard__link navcard__link--border navcard-content--padding">
         <div class="grid-container">
             <div class="grid-70">
                 <h3 class="navcard__title navcard__title--large">
@@ -15,7 +15,12 @@
             <div class="grid-30 navcard-content__brand">
                 @if (Model.Entry.Branding.Any())
                 {
-                    <img class="navcard__brand" alt="" src="@Model.Entry.Branding.FirstOrDefault()?.File.Url" />
+                        <img src="@Model.Entry.Branding.FirstOrDefault()?.File.Url?w=340&q=89"
+                                    srcset="@Model.Entry.Branding.FirstOrDefault()?.File.Url?w=340&q=89&fm=webp 340w"
+                                    class="navcard__brand"
+                                    alt="@Model.Entry.Branding.FirstOrDefault()?.File.Description"
+                                width="300"
+                                height="150"/>
                 }
             </div>
         </div>

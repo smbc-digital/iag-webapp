@@ -7,7 +7,6 @@
         "cludo": "cludo-ae98e22c.min",
         "contactUs": "contactUs-e5b6f8a5.min",
         "events": "events-af550f37.min",
-        "expandingLinks": "expandingLinks-2fa18259.min",
         "favourites": "favourites-9929284b.min",
         "filters": "filters-6d52b18c.min",
         "groups": "groups-e4d2ff31.min",
