@@ -13,6 +13,7 @@ public class DirectoryExtensionsTests
             new(){
                 Slug = "slug",
                 Name = "Name",
+                Provider = "Provider",
                 Description = "Description",
                 Teaser = "Teaser",
                 MetaDescription = "MetaDescription",
