@@ -2,6 +2,40 @@
     background-color: white;
 }
 
+.directory-result {
+    padding: 1em 0.75em 1.5em 0.75em;
+    display: flex;
+
+    @media #{$mobile, $tablet} {
+        display: block;
+    }
+
+    &__content {
+        width: 66%;
+
+        @media #{$mobile, $tablet} {
+            width: 100%;
+        }
+    }
+
+    &__brand {
+        text-align: right;
+        width: 33%;
+
+        @media #{$mobile, $tablet} {
+            margin-top: 1em;
+            text-align: center;
+            width: 100%;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            margin: 0px;
+        }
+    }
+}
+
 .directory-search {
     margin: 2rem 0 0 0;
     padding: 2rem;
