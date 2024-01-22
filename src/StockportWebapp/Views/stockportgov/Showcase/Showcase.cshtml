@@ -32,6 +32,7 @@
     }
 }
 
+<div data-cy="showcase-page">
 @foreach (var field in Model.FieldOrder.Items)
 {
     switch (field)
@@ -284,6 +285,7 @@
             break;
     }
 }
+</div>
 
 @if (!string.IsNullOrEmpty(Model.EmailAlertsText) && !(string.IsNullOrEmpty(Model.EmailAlertsTopicId)))
 {

@@ -2,25 +2,6 @@
     background-color: white;
 }
 
-.directory-search {
-    margin: 2rem 0 1rem;
-    padding: 2rem;
-    background-color: $stockport-teal-darker;
-    color: white;
-
-    img {
-        max-height: 150px;
-    }
-
-    h1 {
-        color: white;
-    }
-
-    &--one-stockport {
-        background-color: $one-stockport-purple;
-    }
-}
-
 .vertical-center-container {
     min-height: 150px;
     position: relative;
@@ -34,49 +15,350 @@
     transform: translateY(-50%);
 }
 
-.directory-sub-title
-{
+.directory {
+    display: flex;
+    flex-direction: row;
     margin-bottom: 2em;
 
-    h2 {
-        margin-bottom: 0.25em;
-    }
-}
-
-.directory-filters__checkbox {
-    margin-bottom: 2em;
-    margin-right: 1em;
-    margin-left: 0.5em;
-
-    &::before {
-        content: "";
-        cursor: pointer;
+    @media #{$tablet} {
         display: block;
-        width: 15px;
-        height: 15px;
-        border: 1px solid $stockport-black;
-        display: block;
-        transform: scale(2);
-        background-color: #fff;
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: 15px;
     }
 
-    &:checked::before {
-        font: normal normal normal 14px/1 FontAwesome;
-        text-align: center;
-        content: "\f00c";
+    &-result {
+        padding: 1em 0.75em 1.5em 0.75em;
+        display: flex;
+    
+        @media #{$mobile, $tablet} {
+            display: block;
+        }
+    
+        &__content {
+            width: 66%;
+    
+            @media #{$mobile, $tablet} {
+                width: 100%;
+            }
+        }
+    
+        &__brand {
+            text-align: right;
+            width: 33%;
+    
+            @media #{$mobile, $tablet} {
+                margin-top: 1em;
+                text-align: center;
+                width: 100%;
+            }
+    
+            img {
+                max-width: 100%;
+                height: auto;
+                margin: 0px;
+            }
+        }
     }
 
-    &:focus::before 
-    {
-        outline: 1.5px solid $brandSecondary;
+    &-results {
+        &__filters {
+            h3 {
+                margin-bottom: 1em;
+            }
+        }
     }
-}
 
-.directory-results__filters {
-    h3 {
+    &-search {
+        margin: 2rem 0 0 0;
+        padding: 2rem;
+        background-color: $stockport-teal-darker;
+        color: white;
+    
+        img {
+            max-height: 150px;
+        }
+    
+        h1 {
+            color: white;
+        }
+    
+        &--one-stockport {
+            background-color: $one-stockport-purple;
+        }
+    }
+
+    &-title {
+        background-color: $stockport-teal;
+        color: white;
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+        margin-bottom: 1rem;
+    
+        h1 {
+            color: white;
+        }
+    
+        &_search {
+            margin-bottom: 1rem;
+        }
+    }
+
+    &-sub-title {
+        margin-bottom: 2em;
+    
+        h2 {
+            margin-bottom: 0.25em;
+        }
+    }
+
+    &__profile, &__description, &__filters {
+        border-radius: 3px;
+        border-top: 0.55em solid rgba($stockport-teal, 0.6);
+
+        margin-bottom: 2em;
+
+        @media #{$tablet} {
+            margin-bottom: 1.2em;
+        }
+    }
+
+    &__profile {
+        margin-right: 1em;
+        width: calc(30% - 1em);
+
+        &--margin-top {
+            margin-top: 1.5em;
+
+            @media #{$tablet} {
+                margin-top: 1em;
+            }
+        }
+
+        @media #{$tablet} {
+            width: 100%;
+            margin-left: 0;
+            margin-right: 0;
+            padding: 0; 
+        }
+    }
+
+    &__info {
+        margin-left: 1em;
+        width: calc(70% - 1em);
+
+        @media #{$tablet} {
+            width: 100%;
+            margin-left: 0;
+            padding: 0;
+        }
+    }
+
+    &__description, &__filters {
+        @media #{$tablet} {
+            width: 100%;
+            margin-left: 0;
+            padding: 0;
+        }
+    }
+
+    &__title {
+        margin-bottom: 2rem;
+    }
+
+    &__logo {
+        width: 100%;
+        box-sizing: border-box;
+        object-position: left;
+        max-width: 350px;
+
+        @media #{$tablet} {
+            height: auto;
+        }
+    }
+
+    &__filter {
+        span {
+            color: $stockport-teal;
+            margin-right: 0.75em;
+            font-size: 1.5em;
+            vertical-align: bottom;
+
+            @media #{$tablet} {
+                margin-right: .5em;
+            }
+        }
+    }
+
+    &__wrapper {
+        padding: 1em 1.5em;
+        background-color: white;
+
+        @media #{$tablet}{
+            padding-left: 1em;
+            padding-right: 1em;
+        }
+
+        border: 1px solid rgba($stockport-grey, 0.2);
+        border-top: none;
+        border-radius: 0 0 3px 3px;
+        margin-bottom: 10px;
+
+        h3 {
+            margin-bottom: 0.5em;
+        }
+    }
+    
+    &__organisation {
+        p {
+            margin-bottom: 2em;
+        }
+    }
+
+    &__address {
+        div {
+            margin-bottom: 2em;
+
+            p {
+                margin-bottom: 0;
+            }
+        }
+    }
+
+    &__contact {
+        &--tablet {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+
+            p {
+                font-weight: 700;
+            }
+        }
+    }
+
+    &__labels {
+        p {
+            font-weight: 700;
+        }
+
+        @media #{$tablet} {
+            width: 31%;
+        }
+
+        @media #{$mobile, $desktop} {
+            width: 100%;
+        }
+
+        &--no-margin {
+            margin-bottom: 0;
+        }
+
+        @media #{$tablet} {
+            display: none;
+        }
+
+        @media #{$mobile, $desktop} {
+            display: block;
+        }
+
+        &--tablet {
+            width: 15%;
+
+            @media #{$desktop, $mobile} {
+                display: none;
+            }
+        }
+    }
+
+    &__phone, &__email {
         margin-bottom: 1em;
+    }
+
+    &__values {
+        @media #{$tablet} {
+            width: 90%;
+        }
+
+        @media #{$mobile, $desktop} {
+            width: 69%;
+        }
+
+        p {
+            font-weight: 700;
+            padding-left: 0.5em;
+        }
+
+        a {
+            padding-left: 0.5em;
+        }
+
+        &--tablet {
+            @media #{$desktop, $mobile} {
+                display: none;
+            }
+        }
+    }
+
+    &__social {
+        margin-top: 0.75em;
+        width: 100%;
+
+        display: flex;
+
+        @media #{$mobile, $desktop} {
+            display: block;
+        }
+
+        p {
+            font-weight: 700;
+            margin: 0;
+
+            width: 15%;
+
+            @media #{$mobile, $desktop} {
+                width: 100%;
+            }
+        }
+
+        a {
+            display: block;
+            margin-bottom: 0.5em;
+        }
+    }
+
+    &__filters {
+        h2:not(:first-of-type) {
+            margin-top: 1em;
+        }
+
+        &__checkbox {
+            margin-bottom: 2em;
+            margin-right: 1em;
+            margin-left: 0.5em;
+        
+            &::before {
+                content: "";
+                cursor: pointer;
+                display: block;
+                width: 15px;
+                height: 15px;
+                border: 1px solid $stockport-black;
+                display: block;
+                transform: scale(2);
+                background-color: #fff;
+                background-position: center;
+                background-repeat: no-repeat;
+                background-size: 15px;
+            }
+        
+            &:checked::before {
+                font: normal normal normal 14px/1 FontAwesome;
+                text-align: center;
+                content: "\f00c";
+            }
+        
+            &:focus::before 
+            {
+                outline: 1.5px solid $brandSecondary;
+            }
+        }        
     }
 }

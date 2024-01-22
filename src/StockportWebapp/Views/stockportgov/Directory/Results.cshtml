@@ -7,17 +7,19 @@
     Layout = "../Shared/_Layout2023.cshtml"; 
 }
 <div class="grid-container-full-width background-grey">
-@*  
-    <partial name="DirectorySearchOneStockport" />
-    <partial name="DirectorySearch" />
-*@
+
+    @*<section class="directories-search">
+        <partial name="DirectorySearchOneStockport" />
+        <partial name="DirectorySearch" model="@Model.Directory.Title"/>
+    </section>*@
+
 
     <partial name="Breadcrumb2023" model='new List<Crumb>()' />
     <form asp-controller="Directory" method="get">
         <div class="grid-container">
             <div class="grid-100 directory-sub-title">
                 <h1>Results for @Model.Directory.Title</h1>
-                <span class="directory-result-count">Showing @Model.FilteredEntries.Count() results in @Model.Directory.Title</span>
+                <span>Showing <span class="bold">@Model.FilteredEntries.Count()</span> results in <span class="bold">@Model.Directory.Title</span></span>
             </div>
         </div>
 
@@ -69,9 +71,7 @@
                 <ul class="navcard-wrapper">
                     @foreach(var entry in Model.FilteredEntries)
                     {
-                        <li class="navcard navcard--white navcard--force-border-top navcard--width-100">
-                            <partial name="DirectorySearchResult" model=@(new DirectorySearchResultViewModel {DirectorySlug = Model.Directory.Slug, Entry = entry}) />
-                        </li>
+                        <partial name="DirectorySearchResult" model=@(new DirectorySearchResultViewModel {DirectorySlug = Model.Directory.Slug, Entry = entry}) />
                     }
                 </ul>
             </div>

@@ -13,11 +13,26 @@ namespace StockportWebapp.Models
         public string Body { get; set; } = string.Empty;
         public CallToActionBanner CallToAction { get; init; }
         public IEnumerable<Alert> Alerts { get; set; }
-        public IEnumerable<DirectoryEntry> Entries { get; set; }
+        public IEnumerable<DirectoryEntry> Entries { get; set; } = new List<DirectoryEntry>();
         public IEnumerable<Directory> SubDirectories { get; set; } = new List<Directory>();
-        public IEnumerable<DirectoryEntry> AllEntries => SubDirectories.Any() ? Entries?.Concat(SubDirectories.SelectMany(sub => sub.AllEntries)).Distinct() : Entries;
-        // public IEnumerable<FilterTheme> AllFilterThemea => AllEntries.Where(entry => entry.Themes is not null).SelectMany(entry => entry.Themes).Distinct().OrderBy(theme => theme.Title);
-        public IEnumerable<FilterTheme> AllFilterThemes => AllEntries.Where(entry => entry.Themes is not null).SelectMany(entry => entry.Themes).GroupBy(theme => theme.Title, StringComparer.OrdinalIgnoreCase).Select(group => group.First()).OrderBy(theme => theme.Title);
+        
+        [JsonIgnore]
+        public IEnumerable<DirectoryEntry> AllEntries =>  SubDirectories is not null
+                                                            && SubDirectories.Any()  
+                                                                ? Entries?
+                                                                    .Concat(SubDirectories.SelectMany(sub => sub.AllEntries))
+                                                                    .Distinct()
+                                                                : Entries;
+        [JsonIgnore]
+        public IEnumerable<FilterTheme> AllFilterThemes => AllEntries is not null && AllEntries.Any() 
+                                                            ? AllEntries
+                                                                .Where(entry => entry.Themes is not null)
+                                                                .SelectMany(entry => entry.Themes)
+                                                                .GroupBy(theme => theme.Title, StringComparer.OrdinalIgnoreCase)
+                                                                .Select(group => group.First())
+                                                                .OrderBy(theme => theme.Title)
+                                                            : new List<FilterTheme>();
+
         public string ToKml() => AllEntries.GetKmlForList();
     }
 }

@@ -1,4 +1,5 @@
 using Filter = StockportWebapp.Model.Filter;
+
 namespace StockportWebapp.Models
 {
     public class FilterTheme

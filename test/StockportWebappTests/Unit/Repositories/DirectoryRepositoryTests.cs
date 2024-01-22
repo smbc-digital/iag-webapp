@@ -5,7 +5,7 @@ public class DirectoryRepositoryTests
     private Mock<IHttpClient> _httpClient;
     private Mock<IApplicationConfiguration> _applicationConfiguration;
     private readonly UrlGenerator _urlGenerator;
-    private DirectoryFactory _directoryFactory;
+    
     private readonly DirectoryRepository _directoryRepository;
 
     public DirectoryRepositoryTests()
@@ -13,9 +13,8 @@ public class DirectoryRepositoryTests
         _httpClient = new Mock<IHttpClient>();
         _applicationConfiguration = new Mock<IApplicationConfiguration>();
         _urlGenerator = new UrlGenerator(_applicationConfiguration.Object, new BusinessId(""));
-
-        _directoryFactory = new DirectoryFactory();
-        _directoryRepository = new DirectoryRepository(_directoryFactory, _urlGenerator, _httpClient.Object, _applicationConfiguration.Object);
+        
+        _directoryRepository = new DirectoryRepository(_urlGenerator, _httpClient.Object, _applicationConfiguration.Object);
     }
 
     [Fact]
@@ -36,7 +35,20 @@ public class DirectoryRepositoryTests
     public async void Get_ShouldReturnHttpResponse_Successful()
     {
         // Arrange
-        ProcessedDirectory processedDirectory = new("title", "slug", "contentfulId", "teaser", "metaDescription", "backgroundImage", "body", null, null, null, null, null, null);
+        Directory processedDirectory = new()
+        {
+            Title = "title",
+            Slug = "slug",
+            ContentfulId = "contentfulId",
+            Teaser = "teaser",
+            MetaDescription = "metaDescription",
+            BackgroundImage = "backgroundImage",
+            Body = "body",
+            Entries = null,
+            SubDirectories = null,
+            Alerts = null,
+            CallToAction = null
+        };
 
         HttpResponse httpResponse = new(200, JsonConvert.SerializeObject(processedDirectory), "OK");
         _httpClient.Setup(_ => _.Get(It.IsAny<string>(), It.IsAny<Dictionary<string, string>>()))
@@ -69,10 +81,27 @@ public class DirectoryRepositoryTests
     public async void GetEntry_ShouldReturnHttpResponse_Successful()
     {
         // Arrange
-        ProcessedDirectoryEntry processedDirectoryEntry = new("slug", "name", "description", "teaser", "metaDescription", null, null, null, null, null, "phone number",
-            "email", "website", "twitter", "facebook", "address");
+        DirectoryEntry directoryEntry = new()
+        {
+            Slug = "slug",
+            Name = "name",
+            Provider = "provider",
+            Description = "description",
+            Teaser = "teaser",
+            MetaDescription = "metaDescription",
+            Email = "email",
+            Website = "website",
+            Twitter = "twitter",
+            Facebook = "facebook",
+            Address = "address",
+            Themes = null,
+            Directories = null,
+            Alerts = null,
+            Branding = null,
+            MapPosition = new MapPosition()
+        };
 
-        HttpResponse httpResponse = new(200, JsonConvert.SerializeObject(processedDirectoryEntry), "OK");
+        HttpResponse httpResponse = new(200, JsonConvert.SerializeObject(directoryEntry), "OK");
         _httpClient.Setup(_ => _.Get(It.IsAny<string>(), It.IsAny<Dictionary<string, string>>()))
                     .ReturnsAsync(httpResponse);
         
@@ -82,6 +111,6 @@ public class DirectoryRepositoryTests
         // Assert
         Assert.Equal(200, result.StatusCode);
         Assert.NotNull(result.Content);
-        Assert.IsType(processedDirectoryEntry.GetType(), result.Content);
+        Assert.IsType(directoryEntry.GetType(), result.Content);
     }
 }

@@ -11,12 +11,14 @@ public class PaymentReferenceValidation : ValidationAttribute
     private static readonly Dictionary<EPaymentReferenceValidation, string> ValidatorsRegex = new Dictionary<EPaymentReferenceValidation, string>
     {
         { EPaymentReferenceValidation.FPN, @"^(\d{5})$" },
+        { EPaymentReferenceValidation.FPN4or5, @"^(\d{4,5})$" },
         { EPaymentReferenceValidation.ParkingFine, @"^([Ss]{1}[Mm]{1}[34]{1}[0-9]{6}[0-9|Aa]{1})$" },
         { EPaymentReferenceValidation.BusLaneAndCamera, @"^([Ss]{1}[Mm]{1}[8]{1}[0-9]{6}[0-9|Aa]{1})$" },
         { EPaymentReferenceValidation.CameraCar, @"^([Ss]{1}[Mm]{1}[6]{1}[0-9]{6}[0-9|Aa]{1})$" },
         { EPaymentReferenceValidation.BusLane, @"^([Ss]{1}[Mm]{1}[8]{1}[0-9]{6}[0-9|Aa]{1})$" },
         { EPaymentReferenceValidation.Applications, @"^([A-Za-z]{2}[A-Za-z0-9\/\\]{6,})$" },
         { EPaymentReferenceValidation.ParkingPermit, @"^([A-Z]{3}\\[0-9]{5})$" },
+        { EPaymentReferenceValidation.BRS, @"^(?i)brs\d{5}$" }
     };
 
     protected override ValidationResult IsValid(object value, ValidationContext validationContext)
