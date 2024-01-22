@@ -88,6 +88,10 @@ $fontStack: "Open Sans", Arial, sans-serif;
     @include body;
 }
 
+.bold {
+    font-weight: bold;
+}
+
 .body--small {
     @include body--small;
 }
