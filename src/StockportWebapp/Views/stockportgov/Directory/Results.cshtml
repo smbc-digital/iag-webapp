@@ -48,6 +48,8 @@
             </div>
 
             <div class="grid-70 tablet-grid-100">
+                <partial name="DirectoryResultsMap" model=@Model.Directory.Slug />
+
                 <ul class="navcard-wrapper">
                     @foreach(var entry in Model.FilteredEntries)
                     {

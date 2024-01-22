@@ -1,5 +1,6 @@
 using SharpKml.Base;
 using SharpKml.Dom;
+using SharpKml.Engine;
 
 namespace StockportWebapp.Models
 {
@@ -23,8 +24,9 @@ namespace StockportWebapp.Models
         public string Facebook { get; set; } = string.Empty;
         public string Address { get; set; } = string.Empty;
 
-        public Placemark ToKmlPlacemark() => new Placemark
+        public Placemark ToKmlPlacemark(string styleUrl = null) => new Placemark
         {
+            
             // Ref
             // https://developers.google.com/kml/documentation/kml_tut?csw=1#descriptive_html
             // https://github.com/samcragg/sharpkml/blob/main/docs/BasicUsage.md
@@ -34,9 +36,15 @@ namespace StockportWebapp.Models
                 Coordinate = new Vector(this.MapPosition.Lat, this.MapPosition.Lon),
             },
             Name = Name,
-            Description = new Description() { Text = $@"<![CDATA[{ this.Teaser }]]>" },
+            StyleUrl = string.IsNullOrEmpty(styleUrl) ? null :  new Uri(styleUrl, UriKind.Relative),
+            Description = new Description() { Text = $@"<![CDATA[<p>{ this.Teaser }</p>]]>" },
             PhoneNumber = this.PhoneNumber,
             Address = this.Address,
+            Snippet  = new Snippet()
+            {
+                Text = "This is some descriptive text"
+            },
+            GXBalloonVisibility = true,
             AtomLink = new SharpKml.Dom.Atom.Link { Href = new Uri("https://www.stockport.gov.uk"), Title=$"Visit {this.Name}" }
         };
     }

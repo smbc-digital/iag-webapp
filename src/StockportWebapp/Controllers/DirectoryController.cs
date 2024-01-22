@@ -76,7 +76,7 @@ public class DirectoryController : Controller
     }
 
     [Route("/directories/results/kml/{slug}")]  
-    [Produces(MediaTypeNames.Application.Xml)]
+    [Produces("application/vnd.google-earth.kml+xml")]
     public async Task<IActionResult> DirectoryAsKml(string slug)
     {
         var directoryHttpResponse = await _directoryRepository.Get<Directory>(slug);
@@ -85,6 +85,7 @@ public class DirectoryController : Controller
 
         var directory = (Directory)directoryHttpResponse.Content;
         var kmlString = directory.ToKml();
+        Response.ContentType = "application/vnd.google-earth.kml+xml";
         return Content(kmlString);
     }
 
