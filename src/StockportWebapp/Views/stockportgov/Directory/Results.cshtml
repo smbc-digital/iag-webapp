@@ -44,7 +44,7 @@
                                 <div class="directory-results__filters">
                                     @if(Model.Directory.AllFilterThemes.Any())
                                     {
-                                         foreach(var theme in Model.Directory.AllFilterThemes)
+                                        foreach(var theme in Model.Directory.AllFilterThemes)
                                         {
                                             <h3>@theme.Title</h3>
 
@@ -57,7 +57,7 @@
                                             <hr/>
                                         }
                                   
-                                        <input type="submit" value="Apply filters" class="btn btn--bold btn--width-30 btn--margin-bottom" />
+                                        <input type="submit" value="Apply filters" class="btn btn--bold btn--width-30 btn--margin-bottom btn--margin-top"/>
                                         <a href="" class="btn btn--inverse btn--width-30 btn--bold btn--black-text btn--border-grey">Clear filters</a>
                                     }
                                 </div>

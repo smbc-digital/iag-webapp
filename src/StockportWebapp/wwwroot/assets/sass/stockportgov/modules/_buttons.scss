@@ -14,6 +14,7 @@
     box-sizing: border-box;
     line-height: 1.3rem;
     font-size: 1.2rem;
+    border: none;
 
     @media #{$mobile, $tablet} {
         text-decoration: none;
@@ -165,6 +166,10 @@
 
     &--margin-bottom {
         margin-bottom: 1em;
+    }
+
+    &--margin-top {
+        margin-top: 1em;
     }
 }
 
