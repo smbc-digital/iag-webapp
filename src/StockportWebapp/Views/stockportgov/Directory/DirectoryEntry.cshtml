@@ -99,13 +99,15 @@
 
                     <div class="directory__filters">
                         <div class="directory__wrapper">
-                            @foreach (var theme in directory.Themes)
-                            {
-                                <h2 class="h-ml directory__filters-title">@theme.Title</h2>
-                                
-                                foreach(var filter in theme.Filters)
+                            @if(directory.Themes is not null && directory.Themes.Any()){
+                                @foreach (var theme in directory.Themes)
                                 {
-                                    <p class="directory__filter"><span class="fa fa-check" aria-hidden="true"></span> @filter.DisplayName</p>
+                                    <h2 class="h-ml directory__filters-title">@theme.Title</h2>
+                                    
+                                    foreach(var filter in theme.Filters)
+                                    {
+                                        <p class="directory__filter"><span class="fa fa-check" aria-hidden="true"></span> @filter.DisplayName</p>
+                                    }
                                 }
                             }
                         </div>

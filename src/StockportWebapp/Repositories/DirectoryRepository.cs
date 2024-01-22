@@ -60,8 +60,12 @@ public class DirectoryRepository : IDirectoryRepository
     }
 
     public IEnumerable<DirectoryEntry> GetFilteredEntryForDirectories(Directory directory, string[] filters) =>
-        directory.AllEntries.Where(entry => entry.Themes != null && entry.Themes
-            .Any(theme => theme.Filters != null && theme.Filters
-            .Any(filter => filters.Contains(filter.Slug)))).ToList();
-
+        directory.AllEntries
+            .Where(entry => 
+                entry != null && 
+                entry.Themes != null &&
+                filters.All(filterSlug => entry.Themes
+                    .Any(theme => theme != null && theme.Filters != null && theme.Filters
+                    .Any(filter => filter.Slug == filterSlug))))
+            .ToList();
 }
