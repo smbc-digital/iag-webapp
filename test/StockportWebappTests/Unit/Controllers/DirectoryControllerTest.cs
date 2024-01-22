@@ -4,7 +4,7 @@ public class DirectoryControllerTest
 {
     private readonly DirectoryController _directoryController;
     private Mock<IDirectoryRepository> _directoryRepository = new();
-    private Mock<MarkdownWrapper> _markdownwrapper = new();
+    private readonly Mock<MarkdownWrapper> _markdownWrapper;
 
     private readonly DirectoryEntry processedDirectoryEntry = new()
     {
@@ -59,9 +59,13 @@ public class DirectoryControllerTest
 
     public DirectoryControllerTest()
     {
-        _directoryController = new DirectoryController(_directoryRepository.Object, _markdownwrapper.Object );
+        _markdownWrapper = new Mock<MarkdownWrapper>();
+
+        _directoryController = new DirectoryController(_directoryRepository.Object, _markdownWrapper.Object );
         processedDirectoryWithSubdirectories.Entries = new List<DirectoryEntry>() { processedDirectoryEntry };
         processedDirectoryWithSubdirectories.SubDirectories = new List<Directory>() { processedDirectory };
+        _markdownWrapper.Setup(_ => _.ConvertToHtml(processedDirectoryEntry.Description)).Returns(processedDirectoryEntry.Description);
+        _markdownWrapper.Setup(_ => _.ConvertToHtml(processedDirectoryEntry.Address)).Returns(processedDirectoryEntry.Address);
     }
 
     [Fact]
@@ -77,7 +81,6 @@ public class DirectoryControllerTest
         // Assert
         Assert.Equal((int)HttpStatusCode.NotFound, result.StatusCode);
     }
-
 
     [Fact]
     public async Task Directory_ShouldReturnViewModel(){
@@ -123,7 +126,6 @@ public class DirectoryControllerTest
 
         // Assert
         Assert.Equal("results", result.ViewName);
-
     }
 
     [Fact]
@@ -156,6 +158,27 @@ public class DirectoryControllerTest
         Assert.NotNull(result);
         Assert.Equal("slug", model.Directory.Slug);
         Assert.Null(result.ViewName);
+        _markdownWrapper.Verify(_ => _.ConvertToHtml(processedDirectoryEntry.Description), Times.Once);
+        _markdownWrapper.Verify(_ => _.ConvertToHtml(processedDirectoryEntry.Address), Times.Once);
+    }
+
+    [Fact]
+    public async Task DirectoryEntry_ShouldReturnUnsuccessfulStatusCode()
+    { 
+        // Arrange
+        _directoryRepository.Setup(_ => _.Get<Directory>(It.IsAny<string>()))
+            .ReturnsAsync(new HttpResponse((int)HttpStatusCode.NotFound, null, string.Empty));
+
+        _directoryRepository.Setup(_ => _.GetEntry<DirectoryEntry>(It.IsAny<string>()))
+            .ReturnsAsync(new HttpResponse((int)HttpStatusCode.NotFound, null, string.Empty));
+
+        // Act
+        var result = await _directoryController.DirectoryEntry("slug", "entry-slug") as HttpResponse;
+
+        // Assert
+        Assert.Equal((int)HttpStatusCode.NotFound, result.StatusCode);
+        _markdownWrapper.Verify(_ => _.ConvertToHtml(processedDirectoryEntry.Description), Times.Never);
+        _markdownWrapper.Verify(_ => _.ConvertToHtml(processedDirectoryEntry.Address), Times.Never);
     }
 
     [Fact]
