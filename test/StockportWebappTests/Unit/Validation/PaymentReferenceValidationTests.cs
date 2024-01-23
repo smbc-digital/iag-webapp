@@ -85,8 +85,8 @@ public class PaymentReferenceValidationTests
     [InlineData(EPaymentReferenceValidation.CameraCar, "SM6123456A")]
     [InlineData(EPaymentReferenceValidation.BusLane, "SM81234567")]
     [InlineData(EPaymentReferenceValidation.BusLane, "SM8123456A")]
-    [InlineData(EPaymentReferenceValidation.BRS, "BRS12123")]
-    [InlineData(EPaymentReferenceValidation.BRS, "brs12223")]
+    [InlineData(EPaymentReferenceValidation.StockportBereavementInvoice, "SBI12123")]
+    [InlineData(EPaymentReferenceValidation.StockportBereavementInvoice, "sbi12223")]
     public void Should_ReturnSuccess_ForValidReference(EPaymentReferenceValidation referenceValidation, string reference)
     {
         // Arrange
@@ -134,8 +134,8 @@ public class PaymentReferenceValidationTests
     [InlineData(EPaymentReferenceValidation.CameraCar, "SM6123456A")]
     [InlineData(EPaymentReferenceValidation.BusLane, "SM81234567")]
     [InlineData(EPaymentReferenceValidation.BusLane, "SM8123456A")]
-    [InlineData(EPaymentReferenceValidation.BRS, "BRS12123")]
-    [InlineData(EPaymentReferenceValidation.BRS, "brs12223")]
+    [InlineData(EPaymentReferenceValidation.StockportBereavementInvoice, "SBI12123")]
+    [InlineData(EPaymentReferenceValidation.StockportBereavementInvoice, "sbi12223")]
     public void Should_ReturnSuccess_ForValidReference_ForServicePayPayment(EPaymentReferenceValidation referenceValidation, string reference)
     {
         // Arrange
@@ -182,8 +182,8 @@ public class PaymentReferenceValidationTests
     [InlineData(EPaymentReferenceValidation.BusLane, "SM81234")]
     [InlineData(EPaymentReferenceValidation.CameraCar, "SM61234A")]
     [InlineData(EPaymentReferenceValidation.BusLane, "SM81234A")]
-    [InlineData(EPaymentReferenceValidation.BRS, "BRV12123")]
-    [InlineData(EPaymentReferenceValidation.BRS, "brs12223a")]
+    [InlineData(EPaymentReferenceValidation.StockportBereavementInvoice, "SBI2123")]
+    [InlineData(EPaymentReferenceValidation.StockportBereavementInvoice, "sbi12223a")]
     public void Should_ReturnFalse_ForInvalidReference(EPaymentReferenceValidation referenceValidation, string reference)
     {
         // Arrange
@@ -229,8 +229,8 @@ public class PaymentReferenceValidationTests
     [InlineData(EPaymentReferenceValidation.BusLane, "SM81234")]
     [InlineData(EPaymentReferenceValidation.CameraCar, "SM61234A")]
     [InlineData(EPaymentReferenceValidation.BusLane, "SM81234A")]
-    [InlineData(EPaymentReferenceValidation.BRS, "BRS1012")]
-    [InlineData(EPaymentReferenceValidation.BRS, "brv12223")]
+    [InlineData(EPaymentReferenceValidation.StockportBereavementInvoice, "SBI1012")]
+    [InlineData(EPaymentReferenceValidation.StockportBereavementInvoice, "sbi122263")]
     public void Should_ReturnFalse_ForInvalidReference_ForServicePayPayment(EPaymentReferenceValidation referenceValidation, string reference)
     {
         // Arrange
