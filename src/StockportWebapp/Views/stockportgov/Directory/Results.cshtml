@@ -13,7 +13,6 @@
         <partial name="DirectorySearch" model="@Model.Directory.Title"/>
     </section>*@
 
-
     <partial name="Breadcrumb2023" model='new List<Crumb>()' />
     <form asp-controller="Directory" method="get">
         <div class="grid-container">
@@ -51,10 +50,12 @@
                                             <label>@filter.DisplayName</label>
                                             <br>
                                         }
-                                            <hr/>
+
+                                        <hr/>
                                     }
+
                                     <input type="submit" value="Apply filters" class="btn btn--bold btn--width-30 btn--margin-bottom btn--margin-top" />
-                                    <a href="" class="btn btn--inverse btn--width-30 btn--bold btn--black-text btn--border-grey">Clear filters</a>
+                                    <a href="@Url.Action("DirectoryResults", "Directory", new { slug = Model.Directory.Slug })" class="btn btn--inverse btn--width-30 btn--bold btn--black-text btn--border-grey">Clear filters</a>
                                 </div>
                             </div>
                         </div>
