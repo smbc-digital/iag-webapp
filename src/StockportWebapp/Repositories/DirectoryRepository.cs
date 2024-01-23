@@ -1,5 +1,4 @@
 ﻿using Directory = StockportWebapp.Models.Directory;
-using Filter = StockportWebapp.Model.Filter;
 namespace StockportWebapp.Repositories;
 
 public interface IDirectoryRepository
@@ -8,6 +7,7 @@ public interface IDirectoryRepository
     Task<HttpResponse> GetEntry<T>(string slug = "");
     IEnumerable<DirectoryEntry> GetFilteredEntryForDirectories(Directory directory);
     IEnumerable<DirectoryEntry> GetFilteredEntryForDirectories(Directory directory, string[] filters);
+    IEnumerable<FilterTheme> GetAllFilterThemes(IEnumerable<DirectoryEntry> filteredEntries);
 }
 
 public class DirectoryRepository : IDirectoryRepository
@@ -68,4 +68,24 @@ public class DirectoryRepository : IDirectoryRepository
                     .Any(theme => theme != null && theme.Filters != null && theme.Filters
                     .Any(filter => filter.Slug == filterSlug))))
             .ToList();
+
+    public IEnumerable<FilterTheme> GetAllFilterThemes(IEnumerable<DirectoryEntry> filteredEntries) => 
+        filteredEntries is not null && filteredEntries.Any()
+            ? filteredEntries
+                .Where(entry => entry.Themes is not null)
+                .SelectMany(entry => entry.Themes)
+                .GroupBy(theme => theme.Title, StringComparer.OrdinalIgnoreCase)
+                .Select(group => new FilterTheme
+                {
+                    Title = group.Key,
+                    Filters = group
+                        .SelectMany(theme => theme.Filters)
+                        .Distinct()
+                        .GroupBy(filter => filter.Slug, StringComparer.OrdinalIgnoreCase)
+                        .Select(filterGroup => filterGroup.First())
+                        .ToList()
+                })
+                .OrderBy(theme => theme.Title)
+                .ToList()
+            : new List<FilterTheme>();
 }

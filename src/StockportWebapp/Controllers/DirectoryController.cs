@@ -52,10 +52,13 @@ public class DirectoryController : Controller
             ? _directoryRepository.GetFilteredEntryForDirectories(directory, filters) 
             : _directoryRepository.GetFilteredEntryForDirectories(directory);
 
+        var allFilterThemes = _directoryRepository.GetAllFilterThemes(filteredEntries);
+
         DirectoryViewModel directoryViewModel = new()
         {
             Directory = directory,
-            FilteredEntries = filteredEntries
+            FilteredEntries = filteredEntries,
+            AllFilterThemes = allFilterThemes
         };        
         
         return View("results", directoryViewModel);

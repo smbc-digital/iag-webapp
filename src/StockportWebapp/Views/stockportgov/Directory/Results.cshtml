@@ -42,24 +42,19 @@
                                 }
 
                                 <div class="directory-results__filters">
-                                    @if(Model.Directory.AllFilterThemes.Any())
+                                    @foreach(var entry in Model.AllFilterThemes)
                                     {
-                                        foreach(var theme in Model.Directory.AllFilterThemes)
+                                        <h3>@entry.Title</h3>
+                                        foreach (var filter in entry.Filters)
                                         {
-                                            <h3>@theme.Title</h3>
-
-                                            foreach(var filter in theme.Filters)
-                                            {
-                                                <input class="directory-filters__checkbox" type="checkbox" name="filters" value="@filter.Slug">
-                                                <label>@filter.Title</label>
-                                                <br>
-                                            }
-                                            <hr/>
+                                            <input class="directory-filters__checkbox" type="checkbox" name="filters" value="@filter.Slug">
+                                            <label>@filter.DisplayName</label>
+                                            <br>
                                         }
-                                  
-                                        <input type="submit" value="Apply filters" class="btn btn--bold btn--width-30 btn--margin-bottom btn--margin-top"/>
-                                        <a href="" class="btn btn--inverse btn--width-30 btn--bold btn--black-text btn--border-grey">Clear filters</a>
+                                            <hr/>
                                     }
+                                    <input type="submit" value="Apply filters" class="btn btn--bold btn--width-30 btn--margin-bottom btn--margin-top" />
+                                    <a href="" class="btn btn--inverse btn--width-30 btn--bold btn--black-text btn--border-grey">Clear filters</a>
                                 </div>
                             </div>
                         </div>

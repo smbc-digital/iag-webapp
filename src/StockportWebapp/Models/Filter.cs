@@ -5,7 +5,6 @@ namespace StockportWebapp.Model
         public string Slug { get; set; }
         public string Title { get; set; }
         public string DisplayName { get; set; }
-        public bool Selected { get; set; }
         public string Theme { get; set; }
 
         public Filter() {}
