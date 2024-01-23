@@ -30,6 +30,8 @@ public class TypeRoutes
                 return "/sia";
             case "privacy-notices":
                 return $"/privacy-notices/{slug}";
+            case "directories":
+                return $"/directories/{slug}";
             default:
                 return $"/{slug}";
         }

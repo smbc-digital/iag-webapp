@@ -80,6 +80,15 @@ a {
         }   
     }
 
+    &-bg-teal {
+        background-color: $stockport-teal;
+
+        h1, h2, p {
+            color: white !important;
+            text-align: center;
+        }   
+    }
+
     &-bg-orange {
         background-color: $stockport-orange;
 
@@ -90,6 +99,7 @@ a {
 
     &-bg-grey {
         background-color: $stockport-light-grey;
+        text-align: center;
     }
 
     &-topic {

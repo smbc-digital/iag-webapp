@@ -42,6 +42,7 @@ global using StockportWebapp.Constants;
 global using StockportWebapp.ContentFactory;
 global using StockportWebapp.Controllers;
 global using StockportWebapp.DataProtection;
+global using StockportWebapp.Extensions;
 global using StockportWebapp.Filters;
 global using StockportWebapp.Middleware;
 global using StockportWebapp.ModelBinders;
