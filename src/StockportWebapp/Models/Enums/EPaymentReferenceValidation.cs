@@ -11,5 +11,5 @@ public enum EPaymentReferenceValidation
     BusLane,
     Applications,
     ParkingPermit,
-    BRS
+    StockportBereavementInvoice
 }
