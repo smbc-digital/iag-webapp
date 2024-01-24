@@ -7,7 +7,7 @@ public class DirectoryRepositoryTests
     private readonly Mock<IApplicationConfiguration> _applicationConfiguration;
     private readonly UrlGenerator _urlGenerator;
     private readonly DirectoryRepository _directoryRepository;
-    
+
     private readonly List<FilterTheme> filterThemes = new(){
         new(){
             Filters = new List<Filter>(){
@@ -31,9 +31,9 @@ public class DirectoryRepositoryTests
                 }
             },
             Title = "Theme title"
-        }   
+        }
     };
-    
+
     private readonly List<FilterTheme> filterThemes2 = new(){
         new(){
             Filters = new List<Filter>(){
@@ -57,9 +57,9 @@ public class DirectoryRepositoryTests
                 }
             },
             Title = "Theme title"
-        }   
+        }
     };
-    
+
     private readonly DirectoryEntry directoryEntry = new()
     {
         Slug = "slug",
@@ -103,14 +103,15 @@ public class DirectoryRepositoryTests
         _httpClient = new Mock<IHttpClient>();
         _applicationConfiguration = new Mock<IApplicationConfiguration>();
         _urlGenerator = new UrlGenerator(_applicationConfiguration.Object, new BusinessId(""));
-        
+
         _directoryRepository = new DirectoryRepository(_urlGenerator, _httpClient.Object, _applicationConfiguration.Object);
 
         directoryEntryWithFilterThemes = directoryEntry;
     }
 
     [Fact]
-    public async void Get_ShouldReturnHttpResponse_IfNotSuccessful(){
+    public async void Get_ShouldReturnHttpResponse_IfNotSuccessful()
+    {
         // Arrange
         _httpClient.Setup(_ => _.Get(It.IsAny<string>(), It.IsAny<Dictionary<string, string>>()))
                     .ReturnsAsync(new HttpResponse(404, It.IsAny<string>(), It.IsAny<string>()));
@@ -130,7 +131,7 @@ public class DirectoryRepositoryTests
         HttpResponse httpResponse = new(200, JsonConvert.SerializeObject(directory), "OK");
         _httpClient.Setup(_ => _.Get(It.IsAny<string>(), It.IsAny<Dictionary<string, string>>()))
                     .ReturnsAsync(httpResponse);
-        
+
         // Act
         var result = await _directoryRepository.Get<Directory>();
 
@@ -140,8 +141,9 @@ public class DirectoryRepositoryTests
         Assert.IsType(directory.GetType(), result.Content);
     }
 
-     [Fact]
-    public async void GetEntry_ShouldReturnHttpResponse_IfNotSuccessful(){
+    [Fact]
+    public async void GetEntry_ShouldReturnHttpResponse_IfNotSuccessful()
+    {
         // Arrange
         _httpClient.Setup(_ => _.Get(It.IsAny<string>(), It.IsAny<Dictionary<string, string>>()))
                     .ReturnsAsync(new HttpResponse(404, It.IsAny<string>(), It.IsAny<string>()));
@@ -161,7 +163,7 @@ public class DirectoryRepositoryTests
         HttpResponse httpResponse = new(200, JsonConvert.SerializeObject(directoryEntry), "OK");
         _httpClient.Setup(_ => _.Get(It.IsAny<string>(), It.IsAny<Dictionary<string, string>>()))
                     .ReturnsAsync(httpResponse);
-        
+
         // Act
         var result = await _directoryRepository.GetEntry<DirectoryEntry>();
 
@@ -189,15 +191,20 @@ public class DirectoryRepositoryTests
     {
         // Arrange
         directoryEntryWithFilterThemes.Themes = filterThemes2;
-        
-        directory.Entries = new List<DirectoryEntry>() {directoryEntryWithFilterThemes};
-        
+
+        directory.Entries = new List<DirectoryEntry>() { directoryEntryWithFilterThemes };
+
         string[] filters = { "value1", "value2", "value3" };
 
         // Act
         var result = _directoryRepository.GetFilteredEntryForDirectories(directory, filters);
 
+        var resultCount = result.Where(
+            _ => _.Themes.Any(theme => theme.Filters.Any(
+                rFilter => filters.Any(filter => rFilter.Slug.Contains(filter))))).Count();
+
         // Assert
+        Assert.Equal(directory.Entries.Count(), resultCount);
         Assert.NotNull(result);
         Assert.NotEmpty(result);
     }
@@ -220,7 +227,7 @@ public class DirectoryRepositoryTests
     public void GetFilteredEntryForDirectories_ShouldReturnEmptyList_If_EntryHasNoFilters()
     {
         // Arrange
-        directory.Entries = new List<DirectoryEntry>() {directoryEntry};
+        directory.Entries = new List<DirectoryEntry>() { directoryEntry };
         string[] filters = { "value1", "value2", "value3" };
 
         // Act
@@ -236,7 +243,7 @@ public class DirectoryRepositoryTests
     {
         // Arrange
         directoryEntryWithFilterThemes.Themes = filterThemes;
-        directory.Entries = new List<DirectoryEntry>() {directoryEntry};
+        directory.Entries = new List<DirectoryEntry>() { directoryEntry };
         string[] filters = { "value1", "value2", "value3" };
 
         // Act
@@ -278,10 +285,14 @@ public class DirectoryRepositoryTests
         // Act
         var result = _directoryRepository.GetAllFilterThemes(new List<DirectoryEntry>() { directoryEntryWithFilterThemes });
 
+        var filterThemesCount = filterThemes.Select(_ => _.Filters.Count()).FirstOrDefault();
+        var resultCount = result.Select(_ => _.Filters.Count()).FirstOrDefault();
+
         // Assert
         Assert.NotNull(result);
         Assert.NotEmpty(result);
         Assert.Single(result);
+        Assert.Equal(filterThemesCount, resultCount);
     }
 
     [Fact]
@@ -318,7 +329,13 @@ public class DirectoryRepositoryTests
         // Act
         var result = _directoryRepository.GetAppliedFilters(filters, filterThemes2);
 
+        // this was to check that all the filters provided get used, or that was the intention anyway
+        // did the count initially, but have gotten slightly confused and added this, now not even sure if its needed
+        var allFiltersInResults = result.All(resultTheme => filters.Any(filterTheme => resultTheme.Slug.Contains(filterTheme)));
+
         // Assert
+        Assert.Equal(filters.Length, result.Count());
+        Assert.True(allFiltersInResults);
         Assert.NotNull(result);
         Assert.NotEmpty(result);
     }
