@@ -46,7 +46,8 @@
                                         <h3>@entry.Title</h3>
                                         foreach (var filter in entry.Filters)
                                         {
-                                            <input class="directory-filters__checkbox" type="checkbox" name="filters" value="@filter.Slug">
+                                            <input class="directory-filters__checkbox" type="checkbox" name="filters" value="@filter.Slug"
+                                                @(Model.AppliedFilters.Any(appliedFilter => appliedFilter.Slug == filter.Slug) ? "checked" : string.Empty)>
                                             <label>@filter.DisplayName</label>
                                             <br>
                                         }

@@ -1,4 +1,5 @@
 ﻿using Directory = StockportWebapp.Models.Directory;
+using Filter = StockportWebapp.Model.Filter;
 namespace StockportWebapp.Repositories;
 
 public interface IDirectoryRepository
@@ -8,6 +9,7 @@ public interface IDirectoryRepository
     IEnumerable<DirectoryEntry> GetFilteredEntryForDirectories(Directory directory);
     IEnumerable<DirectoryEntry> GetFilteredEntryForDirectories(Directory directory, string[] filters);
     IEnumerable<FilterTheme> GetAllFilterThemes(IEnumerable<DirectoryEntry> filteredEntries);
+    IEnumerable<Filter> GetAppliedFilters(string[] filters, IEnumerable<FilterTheme> filterThemes);
 }
 
 public class DirectoryRepository : IDirectoryRepository
@@ -54,10 +56,8 @@ public class DirectoryRepository : IDirectoryRepository
         return HttpResponse.Successful(200, directoryEntry);
     }
 
-    public IEnumerable<DirectoryEntry> GetFilteredEntryForDirectories(Directory directory)
-    {
-        return directory.AllEntries.Select(directoryEntry => directoryEntry);
-    }
+    public IEnumerable<DirectoryEntry> GetFilteredEntryForDirectories(Directory directory) => 
+        directory.AllEntries.Select(directoryEntry => directoryEntry);
 
     public IEnumerable<DirectoryEntry> GetFilteredEntryForDirectories(Directory directory, string[] filters) =>
         directory.AllEntries
@@ -88,4 +88,12 @@ public class DirectoryRepository : IDirectoryRepository
                 .OrderBy(theme => theme.Title)
                 .ToList()
             : new List<FilterTheme>();
+
+    public IEnumerable<Filter> GetAppliedFilters(string[] filters, IEnumerable<FilterTheme> filterThemes) => 
+        filters is not null && filters.Length > 0 && filterThemes is not null && filterThemes.Any()
+            ? filterThemes
+                .SelectMany(theme => theme.Filters)
+                .Where(f => filters.Contains(f.Slug))
+                .ToList()
+            : new List<Filter>();
 }
