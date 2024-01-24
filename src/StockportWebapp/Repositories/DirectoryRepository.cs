@@ -54,6 +54,6 @@ public class DirectoryRepository : IDirectoryRepository
 
     public IEnumerable<DirectoryEntry> GetFilteredEntryForDirectories(Directory directory)
     {
-        return directory.AllEntries.Select(directoryEntry => directoryEntry);
+        return directory.AllEntries.Select(directoryEntry => directoryEntry).OrderBy(directoryEntry => directoryEntry.Name);
     }
 }

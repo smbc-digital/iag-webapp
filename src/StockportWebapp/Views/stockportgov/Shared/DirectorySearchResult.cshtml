@@ -1,7 +1,7 @@
 ﻿@model DirectorySearchResultViewModel
 <li class="navcard navcard--white navcard--border-top navcard--force-border-top navcard--width-100">
     <div class="navcard__content">
-        <a href=@Url.ActionLink("DirectoryEntry", "Directory", new { directorySlug=@Model.DirectorySlug, entrySlug=@Model.Entry.Slug }) data-cy="nav-card-link" class="navcard__link navcard__link--border ">
+        <a href=@Url.ActionLink("DirectoryEntry", "Directory", new { directorySlug=@Model.DirectorySlug, entrySlug=@Model.Entry.Slug }, Context.Request.Scheme, null, null) data-cy="nav-card-link" class="navcard__link navcard__link--border ">
             <div class="directory-result">
                 <div class="directory-result__content">
                     <h3 class="navcard__title navcard__title--large">
@@ -15,11 +15,21 @@
                 <div class="directory-result__brand">
                     @if (Model.Entry.Branding.Any())
                     {
+                        @if(string.IsNullOrEmpty(Model.Entry.Branding.FirstOrDefault()?.File.Description))
+                        {
                             <img src="@Model.Entry.Branding.FirstOrDefault()?.File.Url?w=340&q=89"
-                                        srcset="@Model.Entry.Branding.FirstOrDefault()?.File.Url?w=340&q=89&fm=webp 340w"
-                                        alt="@Model.Entry.Branding.FirstOrDefault()?.File.Description"
-                                    width="300"
-                                    height="150"/>
+                                 alt="@Model.Entry.Branding.FirstOrDefault()?.File.Description "
+                                 width="300"
+                                 height="150" />
+                        }
+                        else
+                        {
+                            <img src="@Model.Entry.Branding.FirstOrDefault()?.File.Url?w=340&q=89"
+                                 alt=""
+                                 width="300"
+                                 height="150" />
+                        }
+                        
                     }
                 </div>
             </div>
