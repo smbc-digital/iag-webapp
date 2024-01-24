@@ -37,7 +37,7 @@
                                     <h3 class="h-s">Category</h3>
                                     @foreach(var subDirectory in Model.Directory.SubDirectories)
                                     {
-                                        <p><a alt="" href="@Url.Action("DirectoryResults", "Directory", new { slug = subDirectory.Slug })">@subDirectory.Title</a></p>
+                                        <p><a href="@Url.Action("DirectoryResults", "Directory", new { slug = subDirectory.Slug })">@subDirectory.Title</a></p>
                                     }
                                 }
                                 <hr />
