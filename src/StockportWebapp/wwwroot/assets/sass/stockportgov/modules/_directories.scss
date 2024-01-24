@@ -227,6 +227,8 @@
     }
 
     &__contact {
+        word-break: break-word;
+        
         &--tablet {
             display: flex;
             flex-direction: row;
@@ -364,5 +366,32 @@
                 outline: 1.5px solid $brandSecondary;
             }
         }        
+    }
+}
+
+html[dir="rtl"] {
+    .directory {
+        &__profile {
+            margin-right: 0;
+            margin-left: 1em;
+
+            @media #{$tablet} {
+                margin-left: 0;
+            }
+        }
+
+        &__info {
+            margin-left: 0;
+            margin-right: 1em;
+
+            @media #{$tablet} {
+                margin-right: 0;
+            }
+        }
+
+        &__filter span {
+            margin-right: 0;
+            margin-left: 0.75em;
+        }
     }
 }

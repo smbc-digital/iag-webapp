@@ -51,14 +51,12 @@
 }
 
 html[dir="rtl"] {
-    .topic-breadcrumb-container {
-        .breadcrumb {
-            li:not(:first-child) {
-                &:before {
-                    content: "\f104";
-                    margin-right: 3px;
-                    margin-left: 6px;
-                }
+    .breadcrumb {
+        li:not(:first-child) {
+            &:before {
+                content: "\f104";
+                margin-right: 3px;
+                margin-left: 6px;
             }
         }
     }
