@@ -1,4 +1,5 @@
 using System.Net.Mime;
+using Filter = StockportWebapp.Model.Filter;
 using Directory = StockportWebapp.Models.Directory;
 namespace StockportWebapp.Controllers;
 
@@ -38,7 +39,7 @@ public class DirectoryController : Controller
     
     [HttpGet]
     [Route("/directories/results/{slug}")]
-    public async Task<IActionResult> DirectoryResults([Required][FromRoute]string slug)
+    public async Task<IActionResult> DirectoryResults([Required][FromRoute]string slug, string[] filters)
     {
         var directoryHttpResponse = await _directoryRepository.Get<Directory>(slug);
         
@@ -47,31 +48,21 @@ public class DirectoryController : Controller
 
         var directory = directoryHttpResponse.Content as Directory;
 
+        var filteredEntries =  filters.Any() 
+            ? _directoryRepository.GetFilteredEntryForDirectories(directory, filters) 
+            : _directoryRepository.GetFilteredEntryForDirectories(directory);
+
+        var allFilterThemes = _directoryRepository.GetAllFilterThemes(filteredEntries);
+        var appliedFilters = _directoryRepository.GetAppliedFilters(filters, allFilterThemes);
+
         DirectoryViewModel directoryViewModel = new()
         {
             Directory = directory,
-            FilteredEntries = _directoryRepository.GetFilteredEntryForDirectories(directory)
+            FilteredEntries = filteredEntries,
+            AllFilterThemes = allFilterThemes,
+            AppliedFilters = appliedFilters
         };        
         
-        return View("results", directoryViewModel);
-    }
-
-    [HttpPost]
-    [Route("/directories/results/{slug}")]
-    public async Task<IActionResult> FilterResults(string slug)
-    {
-        var directoryHttpResponse = await _directoryRepository.Get<Directory>(slug);
-        if (!directoryHttpResponse.IsSuccessful())
-            return directoryHttpResponse;
-
-        var directory = directoryHttpResponse.Content as Directory;
-
-        DirectoryViewModel directoryViewModel = new()
-        {
-            Directory = directory,
-            FilteredEntries = _directoryRepository.GetFilteredEntryForDirectories(directory)
-        };
-
         return View("results", directoryViewModel);
     }
 

@@ -273,6 +273,10 @@
         flex-basis: 0;
         justify-content: space-between;
     }
+
+    &--border {
+        border: 1px solid rgba($stockport-grey, 0.2);
+    }
 }
 
 html[dir="rtl"] {
