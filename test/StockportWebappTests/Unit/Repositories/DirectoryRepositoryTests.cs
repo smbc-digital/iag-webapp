@@ -8,6 +8,8 @@ public class DirectoryRepositoryTests
     private readonly UrlGenerator _urlGenerator;
     private readonly DirectoryRepository _directoryRepository;
 
+    private readonly string[] filters = { "value1", "value2", "value3", "value11" };
+
     private readonly List<FilterTheme> filterThemes = new(){
         new(){
             Filters = new List<Filter>(){
@@ -57,6 +59,29 @@ public class DirectoryRepositoryTests
                 }
             },
             Title = "Theme title"
+        },
+        new(){
+            Filters = new List<Filter>(){
+                new() {
+                    Slug = "value11",
+                    Title = "title",
+                    DisplayName = "display name",
+                    Theme = "theme11"
+                },
+                new() {
+                    Slug = "value21",
+                    Title = "title",
+                    DisplayName = "display name",
+                    Theme = "theme21"
+                },
+                new() {
+                    Slug = "value31",
+                    Title = "title",
+                    DisplayName = "display name",
+                    Theme = "theme31"
+                }
+            },
+            Title = "Theme title1"
         }
     };
 
@@ -81,6 +106,27 @@ public class DirectoryRepositoryTests
         Address = "address",
     };
 
+    private readonly DirectoryEntry directoryEntry2 = new()
+    {
+        Slug = "slug2",
+        Name = "name2",
+        Provider = "provider2",
+        Description = "description2",
+        Teaser = "teaser2",
+        MetaDescription = "metaDescription2",
+        Themes = new List<FilterTheme>(),
+        Directories = new List<MinimalDirectory>(),
+        Alerts = new List<Alert>(),
+        Branding = new List<GroupBranding>(),
+        MapPosition = new MapPosition(),
+        PhoneNumber = "phone number2",
+        Email = "email2",
+        Website = "website2",
+        Twitter = "twitter2",
+        Facebook = "facebook2",
+        Address = "address2",
+    };
+
     private readonly Directory directory = new()
     {
         Title = "title",
@@ -96,8 +142,6 @@ public class DirectoryRepositoryTests
         Entries = new List<DirectoryEntry>()
     };
 
-    private readonly DirectoryEntry directoryEntryWithFilterThemes = new();
-
     public DirectoryRepositoryTests()
     {
         _httpClient = new Mock<IHttpClient>();
@@ -105,8 +149,6 @@ public class DirectoryRepositoryTests
         _urlGenerator = new UrlGenerator(_applicationConfiguration.Object, new BusinessId(""));
 
         _directoryRepository = new DirectoryRepository(_urlGenerator, _httpClient.Object, _applicationConfiguration.Object);
-
-        directoryEntryWithFilterThemes = directoryEntry;
     }
 
     [Fact]
@@ -177,34 +219,28 @@ public class DirectoryRepositoryTests
     public void GetFilteredEntryForDirectories_ShouldReturnAllEntriesForDirectory()
     {
         // Arrange
-        directory.Entries = new List<DirectoryEntry>() { directoryEntry };
+        directory.Entries = new List<DirectoryEntry>() { directoryEntry, directoryEntry2 };
 
         // Act
         var result = _directoryRepository.GetFilteredEntryForDirectories(directory);
 
         // Assert
         Assert.NotNull(result);
+        Assert.Equal(2, result.Count());
     }
 
     [Fact]
     public void GetFilteredEntryForDirectories_ShouldReturnAllEntriesForDirectory_WithFilters()
     {
         // Arrange
-        directoryEntryWithFilterThemes.Themes = filterThemes2;
-
-        directory.Entries = new List<DirectoryEntry>() { directoryEntryWithFilterThemes };
-
-        string[] filters = { "value1", "value2", "value3" };
+        directoryEntry.Themes = filterThemes2;
+        directory.Entries = new List<DirectoryEntry>() { directoryEntry, directoryEntry2 };
 
         // Act
         var result = _directoryRepository.GetFilteredEntryForDirectories(directory, filters);
 
-        var resultCount = result.Where(
-            _ => _.Themes.Any(theme => theme.Filters.Any(
-                rFilter => filters.Any(filter => rFilter.Slug.Contains(filter))))).Count();
-
         // Assert
-        Assert.Equal(directory.Entries.Count(), resultCount);
+        Assert.Single(result);
         Assert.NotNull(result);
         Assert.NotEmpty(result);
     }
@@ -212,9 +248,6 @@ public class DirectoryRepositoryTests
     [Fact]
     public void GetFilteredEntryForDirectories_ShouldReturnEmptyList_If_DirectoryEntryNull()
     {
-        // Arrange
-        string[] filters = { "value1", "value2", "value3" };
-
         // Act
         var result = _directoryRepository.GetFilteredEntryForDirectories(directory, filters);
 
@@ -228,7 +261,6 @@ public class DirectoryRepositoryTests
     {
         // Arrange
         directory.Entries = new List<DirectoryEntry>() { directoryEntry };
-        string[] filters = { "value1", "value2", "value3" };
 
         // Act
         var result = _directoryRepository.GetFilteredEntryForDirectories(directory, filters);
@@ -242,9 +274,8 @@ public class DirectoryRepositoryTests
     public void GetFilteredEntryForDirectories_ShouldReturnEmptyList_If_NoFiltersMatchTheEntries()
     {
         // Arrange
-        directoryEntryWithFilterThemes.Themes = filterThemes;
+        directoryEntry.Themes = filterThemes;
         directory.Entries = new List<DirectoryEntry>() { directoryEntry };
-        string[] filters = { "value1", "value2", "value3" };
 
         // Act
         var result = _directoryRepository.GetFilteredEntryForDirectories(directory, filters);
@@ -280,27 +311,21 @@ public class DirectoryRepositoryTests
     public void GetAllFilterThemes_ShouldReturnAllFilterThemes()
     {
         // Arrange
-        directoryEntryWithFilterThemes.Themes = filterThemes;
+        directoryEntry.Themes = filterThemes;
 
         // Act
-        var result = _directoryRepository.GetAllFilterThemes(new List<DirectoryEntry>() { directoryEntryWithFilterThemes });
-
-        var filterThemesCount = filterThemes.Select(_ => _.Filters.Count()).FirstOrDefault();
-        var resultCount = result.Select(_ => _.Filters.Count()).FirstOrDefault();
+        var result = _directoryRepository.GetAllFilterThemes(new List<DirectoryEntry>() { directoryEntry });
 
         // Assert
         Assert.NotNull(result);
         Assert.NotEmpty(result);
         Assert.Single(result);
-        Assert.Equal(filterThemesCount, resultCount);
+        Assert.Equal(3, result.First().Filters.Count());
     }
 
     [Fact]
     public void GetAppliedFilters_ShouldReturnEmptyList_If_NoFilterThemes()
     {
-        // Arrange
-        string[] filters = { "value1", "value2", "value3" };
-
         // Act
         var result = _directoryRepository.GetAppliedFilters(filters, null);
 
@@ -323,19 +348,11 @@ public class DirectoryRepositoryTests
     [Fact]
     public void GetAppliedFilters_ShouldReturnAllAppliedFilters()
     {
-        // Arrange
-        string[] filters = { "value1", "value2", "value3" };
-
         // Act
         var result = _directoryRepository.GetAppliedFilters(filters, filterThemes2);
 
-        // this was to check that all the filters provided get used, or that was the intention anyway
-        // did the count initially, but have gotten slightly confused and added this, now not even sure if its needed
-        var allFiltersInResults = result.All(resultTheme => filters.Any(filterTheme => resultTheme.Slug.Contains(filterTheme)));
-
         // Assert
-        Assert.Equal(filters.Length, result.Count());
-        Assert.True(allFiltersInResults);
+        Assert.Equal(4, result.Count());
         Assert.NotNull(result);
         Assert.NotEmpty(result);
     }

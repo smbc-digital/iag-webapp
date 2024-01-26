@@ -31,10 +31,10 @@
                 <div class="directory__profile">
                     <div class="directory__wrapper">
                         @if(directory.Branding.Any()){
-                            <img src="@directory.Branding.First().File.Url?w=350&q=89"
-                                srcset="@directory.Branding.First().File.Url?w=350&q=89&fm=webp 350w"
+                            <img src="@directory.Branding.FirstOrDefault().File.Url?w=350&q=89"
+                                srcset="@directory.Branding.FirstOrDefault().File.Url?w=350&q=89&fm=webp 350w"
                                 class="directory__logo"
-                                alt="@directory.Branding.First().File.Description"
+                                alt="@(directory.Branding.FirstOrDefault().File.Description ?? string.Empty)"
                                 width="350"
                                 height="150"/>
                         }

@@ -61,12 +61,10 @@ public class DirectoryRepository : IDirectoryRepository
 
     public IEnumerable<DirectoryEntry> GetFilteredEntryForDirectories(Directory directory, string[] filters) =>
         directory.AllEntries
-            .Where(entry => 
-                entry != null && 
-                entry.Themes != null &&
+            .Where(entry => entry is not null && entry.Themes is not null &&
                 filters.All(filterSlug => entry.Themes
-                    .Any(theme => theme != null && theme.Filters != null && theme.Filters
-                    .Any(filter => filter.Slug == filterSlug))))
+                    .Any(theme => theme is not null && theme.Filters is not null && theme.Filters
+                    .Any(filter => filter.Slug.Equals(filterSlug)))))
             .ToList();
 
     public IEnumerable<FilterTheme> GetAllFilterThemes(IEnumerable<DirectoryEntry> filteredEntries) => 
@@ -93,7 +91,7 @@ public class DirectoryRepository : IDirectoryRepository
         filters is not null && filters.Length > 0 && filterThemes is not null && filterThemes.Any()
             ? filterThemes
                 .SelectMany(theme => theme.Filters)
-                .Where(f => filters.Contains(f.Slug))
+                .Where(filter => filters.Contains(filter.Slug))
                 .ToList()
             : new List<Filter>();
 }
