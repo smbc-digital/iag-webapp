@@ -84,6 +84,12 @@ $fontStack: "Open Sans", Arial, sans-serif;
     font-weight: 800;
 }
 
+.h {
+    &--no-top-margin {
+        margin-top: 0;
+    }
+}
+
 .body {
     @include body;
 }
