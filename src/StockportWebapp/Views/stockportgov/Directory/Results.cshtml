@@ -49,7 +49,7 @@
                                             <div class="directory__checkbox-container">
                                                 <input class="directory-filters__checkbox" type="checkbox" name="filters" value="@filter.Slug" id="@filter.Slug"
                                                     @(Model.AppliedFilters.Any(appliedFilter => appliedFilter.Slug == filter.Slug) ? "checked" : string.Empty)>
-                                                <label for="@filter.Slug">@filter.DisplayName</label>
+                                                <label for="@filter.Slug" class="directory-filters__label">@filter.DisplayName</label>
                                                 <br>
                                             </div>
                                         }
