@@ -75,6 +75,11 @@
             hr:last-of-type {
                 display: none;
             }
+
+            label {
+                padding: 8px 15px 8px 15px;
+                cursor: pointer;
+            }
         }
     }
 

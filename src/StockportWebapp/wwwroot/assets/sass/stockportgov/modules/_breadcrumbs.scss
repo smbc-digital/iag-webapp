@@ -26,7 +26,7 @@
     padding-top: 20px;
 }
 
-.topic-breadcrumb-container {
+.topic-breadcrumb-container, .directories-breadcrumb-container {
     padding-top: 20px;
     background-color: $stockport-teal-darker;
     color: white;
@@ -35,6 +35,16 @@
         li {
             a {
                 color: #fff;
+            }
+
+            &:not(:first-child) {
+                &::before {
+                    content: "\f105";
+                    font: normal normal normal 14px/1 FontAwesome;
+                    margin-left: 0.157em;
+                    margin-right: 0.315em;
+                    font-size: 0.736em;
+                }
             }
         }
     }
