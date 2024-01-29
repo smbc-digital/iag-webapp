@@ -381,7 +381,7 @@
             padding: 0.421em 0.789em 0.263em;
             cursor: pointer;
             touch-action: manipulation;
-            font-size: 1rem;
+            font-size: 1em;
 
             &::before {
                 content: "";
@@ -400,8 +400,8 @@
                 position: absolute;
                 top: 0.7rem;
                 left: 0.55rem;
-                width: 1.4105em;
-                height: 0.8em;
+                width: 1.21em;
+                height: 0.66em;
                 transform: rotate(-45deg);
                 border: solid;
                 border-width: 0 0 0.263em 0.263em;
@@ -438,6 +438,27 @@ html[dir="rtl"] {
         &__filter span {
             margin-right: 0;
             margin-left: 0.75em;
+        }
+
+        &-filters {
+            &__checkbox {
+                top: -2px;
+                right: -2px;
+            }
+    
+            &__label {
+                padding: 0.421em 3em 0.263em 0;
+    
+                &::before {
+                    top: 0;
+                    right: 0;
+                }
+    
+                &::after {
+                    top: 0.7rem;
+                    right: 0.55rem;
+                }
+            }
         }
     }
 }
