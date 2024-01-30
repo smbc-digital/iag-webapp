@@ -4,13 +4,13 @@
     ViewData["Title"] = directory.Title;
     ViewData["og:title"] = directory.Title;
     ViewData["Description"] = directory.MetaDescription;
-    Layout = "../Shared/_Layout2023.cshtml"; 
+    Layout = "../Shared/_Layout2023.cshtml";
 }
 <div class="grid-container-full-width background-grey" data-cy="search-results">
 
     @*<section class="directories-search">
-        <partial name="DirectorySearchOneStockport" />
-        <partial name="DirectorySearch" model="@Model.Directory.Title"/>
+    <partial name="DirectorySearchOneStockport" />
+    <partial name="DirectorySearch" model="@Model.Directory.Title"/>
     </section>*@
 
     <partial name="Breadcrumb2023" model='new List<Crumb>()' />
@@ -30,10 +30,10 @@
                             <div class="navcard-content--padding">
                                 <h2 class="h-m">Filter you results</h2>
                                 <p>Choose one or more options to filter your results.</p>
-                                @if(Model.Directory.SubDirectories.Any())
+                                @if (Model.Directory.SubDirectories.Any())
                                 {
                                     <h3 class="h-s">Category</h3>
-                                    @foreach(var subDirectory in Model.Directory.SubDirectories)
+                                    @foreach (var subDirectory in Model.Directory.SubDirectories)
                                     {
                                         <p><a href="@Url.Action("DirectoryResults", "Directory", new { slug = subDirectory.Slug })">@subDirectory.Title</a></p>
                                     }
@@ -41,18 +41,23 @@
                                 }
 
                                 <div class="directory-results__filters">
-                                    @foreach(var entry in Model.AllFilterThemes)
+                                    @foreach (var entry in Model.AllFilterThemes)
                                     {
-                                        <h3>@entry.Title</h3>
-                                        foreach (var filter in entry.Filters)
-                                        {
-                                            <input class="directory-filters__checkbox" type="checkbox" name="filters" value="@filter.Slug"
+                                        <div class="directory-results__collapsible">
+                                            <h3>@entry.Title</h3>
+                                            <span class="directory-results__toggle"></span>
+                                        </div>
+                                        <div class="directory-filters__content">
+                                            @foreach (var filter in entry.Filters)
+                                            {
+                                                <input class="directory-filters__checkbox" type="checkbox" name="filters" value="@filter.Slug"
                                                 @(Model.AppliedFilters.Any(appliedFilter => appliedFilter.Slug == filter.Slug) ? "checked" : string.Empty)>
-                                            <label>@filter.DisplayName</label>
-                                            <br>
-                                        }
+                                                <label>@filter.DisplayName</label>
+                                                <br>
+                                            }
+                                        </div>
 
-                                        <hr/>
+                                        <hr />
                                     }
 
                                     <input type="submit" value="Apply filters" class="btn btn--bold btn--width-30 btn--margin-bottom btn--margin-top" />
@@ -66,7 +71,7 @@
 
             <div class="grid-70 tablet-grid-100">
                 <ul class="navcard-wrapper">
-                    @foreach(var entry in Model.FilteredEntries)
+                    @foreach (var entry in Model.FilteredEntries)
                     {
                         <partial name="DirectorySearchResult" model=@(new DirectorySearchResultViewModel {DirectorySlug = Model.Directory.Slug, Entry = entry}) />
                     }
@@ -75,3 +80,13 @@
         </div>
     </form>
 </div>
+
+<script>
+    require(['/assets/javascript/config-556c1bf6.min.js'], function() {
+        require(['directoryFilters'],
+            function(directoryFilters) {
+                directoryFilters.Init();
+            }
+        );
+    });
+</script>
