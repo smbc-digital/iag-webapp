@@ -77,6 +77,29 @@
                 display: none;
             }
         }
+
+        &__collapsible {   
+            display:flex;
+            justify-content:space-between; 
+            align-items:baseline;
+            margin-bottom: 1rem;
+        }
+
+        &__toggle {
+            cursor: pointer;
+            padding: 10px;
+            color: $stockport-teal-darker;
+
+            &::before {
+                font: bold normal normal 16px/1 FontAwesome;
+                content: '\f077';
+            }
+
+            &.expanded::before {
+                font: normal normal normal 16px/1 FontAwesome;
+                content: '\f078';
+            }
+        }
     }
 
     &-search {
