@@ -5,6 +5,7 @@
     ViewData["og:title"] = directory.Title;
     ViewData["Description"] = directory.MetaDescription;
     Layout = "../Shared/_Layout2023.cshtml";
+    bool isFirstFilter;
 }
 <div class="grid-container-full-width background-grey" data-cy="search-results">
 
@@ -25,15 +26,15 @@
         <div class="grid-container">
             <div class="grid-30 tablet-grid-100">
                 <section class="navcard-wrapper">
-                    <div class="navcard navcard--white navcard--width-100 navcard--border">
+                    <div class="navcard navcard--white navcard--width-100 navcard--border navcard--directories">
                         <div class="navcard-content">
                             <div class="navcard-content--padding">
-                                <h2 class="h-m">Filter you results</h2>
+                                <h2 class="h-ml h--no-top-margin">Filter you results</h2>
                                 <p>Choose one or more options to filter your results.</p>
                                 @if (Model.Directory.SubDirectories.Any())
                                 {
-                                    <h3 class="h-s">Category</h3>
-                                    @foreach (var subDirectory in Model.Directory.SubDirectories)
+                                    <h3 class="h-s directory__category">Category</h3>
+                                    @foreach(var subDirectory in Model.Directory.SubDirectories)
                                     {
                                         <p><a href="@Url.Action("DirectoryResults", "Directory", new { slug = subDirectory.Slug })">@subDirectory.Title</a></p>
                                     }
@@ -45,23 +46,25 @@
                                     {
                                         <div class="directory-results__collapsible">
                                             <h3>@entry.Title</h3>
-                                            <span class="directory-results__toggle"></span>
+                                            <span class="directory-results__toggle @(Model.AllFilterThemes.First() != entry ? "expanded" : string.Empty)"></span>
                                         </div>
-                                        <div class="directory-filters__content">
+                                        <div class="directory-filters__content" @(Model.AllFilterThemes.First() != entry ? "style=display:none;" : string.Empty)>
                                             @foreach (var filter in entry.Filters)
                                             {
-                                                <input class="directory-filters__checkbox" type="checkbox" name="filters" value="@filter.Slug"
-                                                @(Model.AppliedFilters.Any(appliedFilter => appliedFilter.Slug == filter.Slug) ? "checked" : string.Empty)>
-                                                <label>@filter.DisplayName</label>
-                                                <br>
+                                            <div class="directory__checkbox-container">
+                                                    <input class="directory-filters__checkbox" type="checkbox" name="filters" value="@filter.Slug" id="@filter.Slug"
+                                                    @(Model.AppliedFilters.Any(appliedFilter => appliedFilter.Slug == filter.Slug) ? "checked" : string.Empty)>
+                                                    <label for="@filter.Slug" class="directory-filters__label">@filter.DisplayName</label>
+                                                    <br>
+                                            </div>
                                             }
                                         </div>
 
                                         <hr />
                                     }
 
-                                    <input type="submit" value="Apply filters" class="btn btn--bold btn--width-30 btn--margin-bottom btn--margin-top" />
-                                    <a href="@Url.Action("DirectoryResults", "Directory", new { slug = Model.Directory.Slug })" class="btn btn--inverse btn--width-30 btn--bold btn--black-text btn--border-grey">Clear filters</a>
+                                    <input type="submit" value="Apply filters" class="btn btn--bold btn--full btn--margin-bottom btn--margin-top" />
+                                    <a href="@Url.Action("DirectoryResults", "Directory", new { slug = Model.Directory.Slug })" class="btn btn--inverse btn--full btn--bold btn--black-text btn--border-grey">Clear filters</a>
                                 </div>
                             </div>
                         </div>

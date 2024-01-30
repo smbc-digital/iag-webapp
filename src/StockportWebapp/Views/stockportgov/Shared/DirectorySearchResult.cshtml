@@ -7,6 +7,11 @@
                     <h3 class="navcard__title navcard__title--large">
                         @Model.Entry.Name
                     </h3>
+
+                    @if(!string.IsNullOrEmpty(Model.Entry.Provider)){
+                        <p class="navcard__sub-title">@Model.Entry.Provider</p>
+                    }
+                    
                     <p class="navcard__sub-title">@Model.Entry.Address</p>
                     <div class="navcard__teaser">
                         @Model.Entry.Teaser
@@ -18,7 +23,7 @@
                         @if(string.IsNullOrEmpty(Model.Entry.Branding.FirstOrDefault()?.File.Description))
                         {
                             <img src="@Model.Entry.Branding.FirstOrDefault()?.File.Url?w=340&q=89"
-                                 alt="@Model.Entry.Branding.FirstOrDefault()?.File.Description "
+                                 alt="@Model.Entry.Branding.FirstOrDefault()?.File.Description"
                                  width="300"
                                  height="150" />
                         }
