@@ -6,41 +6,57 @@
     ViewData["Description"] = directory.MetaDescription;
     Layout = "../Shared/_Layout2023.cshtml"; 
 }
-<div class="grid-container-full-width background-grey">
+<div class="grid-container-full-width background-grey" data-cy="search-results">
 
     @*<section class="directories-search">
         <partial name="DirectorySearchOneStockport" />
         <partial name="DirectorySearch" model="@Model.Directory.Title"/>
     </section>*@
 
-
     <partial name="Breadcrumb2023" model='new List<Crumb>()' />
-    <form asp-controller="Directory" method="post">
+    <form asp-controller="Directory" method="get">
         <div class="grid-container">
             <div class="grid-100 directory-sub-title">
                 <h1>Results for @Model.Directory.Title</h1>
-                <span>Showing <span class="bold">@Model.FilteredEntries.Count()</span> results in <span class="bold">@Model.Directory.Title</span></span>
             </div>
         </div>
 
         <div class="grid-container">
             <div class="grid-30 tablet-grid-100">
                 <section class="navcard-wrapper">
-                    <div class="navcard navcard--white navcard--width-100 navcard--no-border">
+                    <div class="navcard navcard--white navcard--width-100 navcard--border">
                         <div class="navcard-content">
                             <div class="navcard-content--padding">
-                                <h3>Filter you results</h3>
+                                <h2 class="h-m">Filter you results</h2>
                                 <p>Choose one or more options to filter your results.</p>
-
                                 @if(Model.Directory.SubDirectories.Any())
                                 {
-                                    <h4>Category</h4>
+                                    <h3 class="h-s">Category</h3>
                                     @foreach(var subDirectory in Model.Directory.SubDirectories)
                                     {
                                         <p><a href="@Url.Action("DirectoryResults", "Directory", new { slug = subDirectory.Slug })">@subDirectory.Title</a></p>
                                     }
+                                    <hr />
                                 }
-                                <hr />
+
+                                <div class="directory-results__filters">
+                                    @foreach(var entry in Model.AllFilterThemes)
+                                    {
+                                        <h3>@entry.Title</h3>
+                                        foreach (var filter in entry.Filters)
+                                        {
+                                            <input class="directory-filters__checkbox" type="checkbox" name="filters" value="@filter.Slug"
+                                                @(Model.AppliedFilters.Any(appliedFilter => appliedFilter.Slug == filter.Slug) ? "checked" : string.Empty)>
+                                            <label>@filter.DisplayName</label>
+                                            <br>
+                                        }
+
+                                        <hr/>
+                                    }
+
+                                    <input type="submit" value="Apply filters" class="btn btn--bold btn--width-30 btn--margin-bottom btn--margin-top" />
+                                    <a href="@Url.Action("DirectoryResults", "Directory", new { slug = Model.Directory.Slug })" class="btn btn--inverse btn--width-30 btn--bold btn--black-text btn--border-grey">Clear filters</a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -48,6 +64,7 @@
             </div>
 
             <div class="grid-70 tablet-grid-100">
+                <span style="display:inline-block; margin-bottom: 1em;">Showing <span class="bold">@Model.FilteredEntries.Count()</span> results in <span class="bold">@Model.Directory.Title</span></span>
                 <partial name="DirectoryResultsMap" model=@Model.Directory.Slug />
 
                 <ul class="navcard-wrapper">

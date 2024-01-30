@@ -1,4 +1,5 @@
 ﻿using Directory = StockportWebapp.Models.Directory;
+using Filter = StockportWebapp.Model.Filter;
 namespace StockportWebapp.Repositories;
 
 public interface IDirectoryRepository
@@ -6,6 +7,9 @@ public interface IDirectoryRepository
     Task<HttpResponse> Get<T>(string slug = "");
     Task<HttpResponse> GetEntry<T>(string slug = "");
     IEnumerable<DirectoryEntry> GetFilteredEntryForDirectories(Directory directory);
+    IEnumerable<DirectoryEntry> GetFilteredEntryForDirectories(Directory directory, string[] filters);
+    IEnumerable<FilterTheme> GetAllFilterThemes(IEnumerable<DirectoryEntry> filteredEntries);
+    IEnumerable<Filter> GetAppliedFilters(string[] filters, IEnumerable<FilterTheme> filterThemes);
 }
 
 public class DirectoryRepository : IDirectoryRepository
@@ -52,8 +56,44 @@ public class DirectoryRepository : IDirectoryRepository
         return HttpResponse.Successful(200, directoryEntry);
     }
 
-    public IEnumerable<DirectoryEntry> GetFilteredEntryForDirectories(Directory directory)
-    {
-        return directory.AllEntries.Select(directoryEntry => directoryEntry);
-    }
+    public IEnumerable<DirectoryEntry> GetFilteredEntryForDirectories(Directory directory) => 
+        directory.AllEntries.Select(directoryEntry => directoryEntry).OrderBy(directoryEntry => directoryEntry.Name);
+
+    public IEnumerable<DirectoryEntry> GetFilteredEntryForDirectories(Directory directory, string[] filters) =>
+        directory.AllEntries
+            .Where(entry => 
+                entry != null && 
+                entry.Themes != null &&
+                filters.All(filterSlug => entry.Themes
+                    .Any(theme => theme != null && theme.Filters != null && theme.Filters
+                    .Any(filter => filter.Slug == filterSlug))))
+            .ToList();
+
+    public IEnumerable<FilterTheme> GetAllFilterThemes(IEnumerable<DirectoryEntry> filteredEntries) => 
+        filteredEntries is not null && filteredEntries.Any()
+            ? filteredEntries
+                .Where(entry => entry.Themes is not null)
+                .SelectMany(entry => entry.Themes)
+                .GroupBy(theme => theme.Title, StringComparer.OrdinalIgnoreCase)
+                .Select(group => new FilterTheme
+                {
+                    Title = group.Key,
+                    Filters = group
+                        .SelectMany(theme => theme.Filters)
+                        .Distinct()
+                        .GroupBy(filter => filter.Slug, StringComparer.OrdinalIgnoreCase)
+                        .Select(filterGroup => filterGroup.First())
+                        .ToList()
+                })
+                .OrderBy(theme => theme.Title)
+                .ToList()
+            : new List<FilterTheme>();
+
+    public IEnumerable<Filter> GetAppliedFilters(string[] filters, IEnumerable<FilterTheme> filterThemes) => 
+        filters is not null && filters.Length > 0 && filterThemes is not null && filterThemes.Any()
+            ? filterThemes
+                .SelectMany(theme => theme.Filters)
+                .Where(f => filters.Contains(f.Slug))
+                .ToList()
+            : new List<Filter>();
 }
