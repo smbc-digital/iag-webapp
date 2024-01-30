@@ -8,7 +8,7 @@
                         @Model.Entry.Name
                     </h3>
 
-                    @if(string.IsNullOrEmpty(Model.Entry.Provider)){
+                    @if(!string.IsNullOrEmpty(Model.Entry.Provider)){
                         <p class="navcard__sub-title">@Model.Entry.Provider</p>
                     }
                     
