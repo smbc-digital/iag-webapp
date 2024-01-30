@@ -76,11 +76,6 @@
             hr:last-of-type {
                 display: none;
             }
-
-            label {
-                padding: 8px 15px 8px 15px;
-                cursor: pointer;
-            }
         }
     }
 
@@ -379,10 +374,11 @@
         &__label {
             display: inline-block;
             margin-bottom: 0;
-            padding: 0.421em 0.789em 0.263em;
+            padding: 0.3em 0.789em 0.3em 0.789em;
             cursor: pointer;
             touch-action: manipulation;
             font-size: 1em;
+            vertical-align: middle;
 
             &::before {
                 content: "";
