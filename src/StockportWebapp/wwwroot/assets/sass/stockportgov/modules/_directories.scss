@@ -87,18 +87,18 @@
 
         &__toggle {
             cursor: pointer;
-            padding: 10px 10px 10px 10px;
+            padding: 10px;
             color: $stockport-teal-darker;
-        }
 
-        &__toggle::before {
-            font: bold normal normal 16px/1 FontAwesome;
-            content: '\f077';
-        }
+            &::before {
+                font: bold normal normal 16px/1 FontAwesome;
+                content: '\f077';
+            }
 
-        &__toggle.expanded::before {
-            font: normal normal normal 16px/1 FontAwesome;
-            content: '\f078';
+            &.expanded::before {
+                font: normal normal normal 16px/1 FontAwesome;
+                content: '\f078';
+            }
         }
     }
 
