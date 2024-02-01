@@ -38,12 +38,13 @@
                                     {
                                         <p><a href="@Url.Action("DirectoryResults", "Directory", new { slug = subDirectory.Slug })">@subDirectory.Title</a></p>
                                     }
-                                    <hr />
                                 }
 
                                 <div class="directory-results__filters">
                                     @foreach (var entry in Model.AllFilterThemes)
                                     {
+                                        <hr />
+                                        
                                         <div class="directory-results__collapsible">
                                             <h3>@entry.Title</h3>
                                             <span class="directory-results__toggle @(Model.AllFilterThemes.First() != entry ? "expanded" : string.Empty)"></span>
@@ -59,9 +60,9 @@
                                             </div>
                                             }
                                         </div>
-
-                                        <hr />
                                     }
+
+                                    <hr />
 
                                     <input type="submit" value="Apply filters" class="btn btn--bold btn--full btn--margin-bottom btn--margin-top" />
                                     <a href="@Url.Action("DirectoryResults", "Directory", new { slug = Model.Directory.Slug })" class="btn btn--inverse btn--full btn--bold btn--black-text btn--border-grey">Clear filters</a>

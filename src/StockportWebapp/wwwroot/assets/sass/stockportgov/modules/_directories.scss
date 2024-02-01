@@ -70,19 +70,18 @@
             }
             
             hr {
-                margin-top: 1.25rem;
+                margin-bottom: 1rem;
             }
 
-            hr:last-of-type {
-                display: none;
-            }
+            // hr:last-of-type {
+            //     display: none;
+            // }
         }
 
         &__collapsible {   
             display:flex;
             justify-content:space-between; 
             align-items:baseline;
-            margin-bottom: 1rem;
         }
 
         &__toggle {
@@ -380,6 +379,10 @@
     &-filters {
         h2:not(:first-of-type) {
             margin-top: 1em;
+        }
+
+        &__content {
+            margin-bottom: 1.5em;
         }
 
         &__checkbox {
