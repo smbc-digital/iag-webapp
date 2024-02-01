@@ -29,17 +29,8 @@
                     <div class="navcard navcard--white navcard--width-100 navcard--border navcard--directories">
                         <div class="navcard-content">
                             <div class="navcard-content--padding">
-                                <h2 class="h-ml h--no-top-margin">Filter you results</h2>
+                                <h2 class="h-ml h--no-top-margin">Filter your results</h2>
                                 <p>Choose one or more options to filter your results.</p>
-                                @if (Model.Directory.SubDirectories.Any())
-                                {
-                                    <h3 class="h-s directory__category">Category</h3>
-                                    @foreach(var subDirectory in Model.Directory.SubDirectories)
-                                    {
-                                        <p><a href="@Url.Action("DirectoryResults", "Directory", new { slug = subDirectory.Slug })">@subDirectory.Title</a></p>
-                                    }
-                                    <hr />
-                                }
 
                                 <div class="directory-results__filters">
                                     @foreach (var entry in Model.AllFilterThemes)
@@ -63,7 +54,7 @@
                                         <hr />
                                     }
 
-                                    <input type="submit" value="Apply filters" class="btn btn--bold btn--full btn--margin-bottom btn--margin-top" />
+                                    <button value="Apply filters" class="btn btn--bold btn--full btn--margin-bottom btn--margin-top" type="submit">Apply filters</button>
                                     <a href="@Url.Action("DirectoryResults", "Directory", new { slug = Model.Directory.Slug })" class="btn btn--inverse btn--full btn--bold btn--black-text btn--border-grey">Clear filters</a>
                                 </div>
                             </div>

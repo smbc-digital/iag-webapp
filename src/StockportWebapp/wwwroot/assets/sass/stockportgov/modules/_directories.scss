@@ -429,6 +429,10 @@
         &__checkbox:checked + &__label:after {
             opacity: 1;
         }
+
+        &__checkbox:focus + &__label:before {
+            outline: 3px solid $brandSecondary !important;
+        }
     }
 }
 
