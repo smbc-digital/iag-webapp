@@ -69,8 +69,8 @@
                 margin-bottom: 1em;
             }
 
-            hr {
-                margin-bottom: 1rem;
+            hr:last-of-type {
+                margin-bottom: 0.5em;
             }
         }
 
