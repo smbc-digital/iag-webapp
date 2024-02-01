@@ -5,8 +5,8 @@
     ViewData["og:title"] = directory.Title;
     ViewData["Description"] = directory.MetaDescription;
     Layout = "../Shared/_Layout2023.cshtml";
-    bool isFirstFilter;
 }
+
 <div class="grid-container-full-width background-grey" data-cy="search-results">
 
     @*<section class="directories-search">
@@ -19,7 +19,7 @@
         <div class="grid-container">
             <div class="grid-100 directory-sub-title">
                 <h1>Results for @Model.Directory.Title</h1>
-                <span>Showing <span class="bold">@Model.FilteredEntries.Count()</span> results in <span class="bold">@Model.Directory.Title</span></span>
+                <span>Showing <span class="bold">@Model.FilteredEntries.Count()</span>@(Model.FilteredEntries.Count().Equals(1) ? " result" : " results") in <span class="bold">@Model.Directory.Title</span></span>
             </div>
         </div>
 
@@ -31,27 +31,28 @@
                             <div class="navcard-content--padding">
                                 <h2 class="h-ml h--no-top-margin">Filter your results</h2>
                                 <p>Choose one or more options to filter your results.</p>
-
+                                
                                 <div class="directory-results__filters">
                                     @foreach (var entry in Model.AllFilterThemes)
                                     {
-                                        <hr />
-                                        
                                         <div class="directory-results__collapsible">
-                                            <h3>@entry.Title</h3>
+                                            <h3 id='directory-@entry.Title.ToLower().Replace(" ", "-")'>@entry.Title</h3>
                                             <span class="directory-results__toggle @(Model.AllFilterThemes.First() != entry ? "expanded" : string.Empty)"></span>
                                         </div>
-                                        <div class="directory-filters__content" @(Model.AllFilterThemes.First() != entry ? "style=display:none;" : string.Empty)>
+                                        <div class="directory-filters__content" @(Model.AllFilterThemes.First() != entry ? "style=display:none;" : string.Empty) role="group" aria-labelledby='directory-@entry.Title.ToLower().Replace(" ", "-")'>
                                             @foreach (var filter in entry.Filters)
                                             {
-                                            <div class="directory__checkbox-container">
+                                                <div class="directory__checkbox-container">
                                                     <input class="directory-filters__checkbox" type="checkbox" name="filters" value="@filter.Slug" id="@filter.Slug"
-                                                    @(Model.AppliedFilters.Any(appliedFilter => appliedFilter.Slug == filter.Slug) ? "checked" : string.Empty)>
+                                                        @(Model.AppliedFilters.Any(appliedFilter => appliedFilter.Slug == filter.Slug) ? "checked" : string.Empty)>
+                                                    
                                                     <label for="@filter.Slug" class="directory-filters__label">@filter.DisplayName</label>
                                                     <br>
-                                            </div>
+                                                </div>
                                             }
                                         </div>
+
+                                        <hr />
                                     }
 
                                     <button value="Apply filters" class="btn btn--bold btn--full btn--margin-bottom btn--margin-top" type="submit">Apply filters</button>
@@ -65,6 +66,7 @@
 
             <div class="grid-70 tablet-grid-100">
                 <ul class="navcard-wrapper">
+                    <h2 class="visuallyhidden">Results in @Model.Directory.Title</h2>
                     @foreach (var entry in Model.FilteredEntries)
                     {
                         <partial name="DirectorySearchResult" model=@(new DirectorySearchResultViewModel {DirectorySlug = Model.Directory.Slug, Entry = entry}) />
