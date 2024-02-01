@@ -54,13 +54,8 @@ public class DirectoryController : Controller
 
         var allFilterThemes = _directoryRepository.GetAllFilterThemes(filteredEntries);
         var appliedFilters = _directoryRepository.GetAppliedFilters(filters, allFilterThemes);
-
-        if(!string.IsNullOrEmpty(orderBy) && orderBy.Equals("asc")) {
-            filteredEntries = filteredEntries.OrderBy(_ => _.Name);
-        }
-        else if(!string.IsNullOrEmpty(orderBy) && orderBy.Equals("desc")) {
-            filteredEntries = filteredEntries.OrderByDescending(_ => _.Name);
-        }
+        
+        filteredEntries = _directoryRepository.GetOrderedEntries(filteredEntries, orderBy);
 
         DirectoryViewModel directoryViewModel = new()
         {

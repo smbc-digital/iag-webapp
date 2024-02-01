@@ -10,6 +10,8 @@ public interface IDirectoryRepository
     IEnumerable<DirectoryEntry> GetFilteredEntryForDirectories(Directory directory, string[] filters);
     IEnumerable<FilterTheme> GetAllFilterThemes(IEnumerable<DirectoryEntry> filteredEntries);
     IEnumerable<Filter> GetAppliedFilters(string[] filters, IEnumerable<FilterTheme> filterThemes);
+
+    IEnumerable<DirectoryEntry> GetOrderedEntries(IEnumerable<DirectoryEntry> filteredEntries, string orderBy);
 }
 
 public class DirectoryRepository : IDirectoryRepository
@@ -94,4 +96,16 @@ public class DirectoryRepository : IDirectoryRepository
                 .Where(filter => filters.Contains(filter.Slug))
                 .ToList()
             : new List<Filter>();
+
+    public IEnumerable<DirectoryEntry> GetOrderedEntries(IEnumerable<DirectoryEntry> filteredEntries, string orderBy)
+    {
+        if(!string.IsNullOrEmpty(orderBy) && orderBy.Equals("Name A to Z")) {
+            filteredEntries = filteredEntries.OrderBy(_ => _.Name);
+        }
+        else if(!string.IsNullOrEmpty(orderBy) && orderBy.Equals("Name Z to A")) {
+            filteredEntries = filteredEntries.OrderByDescending(_ => _.Name);
+        }
+
+        return filteredEntries;
+    }
 }

@@ -25,13 +25,12 @@
         <div class="grid-container">
             <div class="grid-30 mobile-grid-100">
                 <div class="sortBy">
-                    <label for="order-by">Sort by:</label>
-
-                    <select name="orderBy" id="order-by" aria-label="sorted by">
-                        <option value=""></option>
-                        <option value="asc">Name A to Z</option>
-                        <option value="desc">Name Z to A</option>
-                    </select>
+                    <div class="first">
+                        <label for="order-by">Sort by:</label>
+                    </div>
+                    <div class="second">
+                        <select asp-for="@Model.Order" asp-items="@(new SelectList(Model.OrderBy))" name="orderBy" id="order-by" autocomplete="off"></select>
+                    </div>
                 </div>
             </div>
         </div>
@@ -42,7 +41,7 @@
                     <div class="navcard navcard--white navcard--width-100 navcard--border navcard--directories">
                         <div class="navcard-content">
                             <div class="navcard-content--padding">
-                                <h2 class="h-ml h--no-top-margin">Filter you results</h2>
+                                <h2 class="h-ml h--no-top-margin">Filter your results</h2>
                                 <p>Choose one or more options to filter your results.</p>
                                 @if(Model.Directory.SubDirectories.Any())
                                 {
