@@ -66,11 +66,16 @@
     &-results {
         &__filters {
             h3 {
-                margin-bottom: 1em;
+                margin: 0;
+            }
+
+            hr {
+                margin-top: 1.875rem;
+                margin-bottom: 1.875rem;
             }
 
             hr:last-of-type {
-                margin-bottom: 0.5em;
+                display: none;
             }
         }
 
@@ -82,16 +87,18 @@
 
         &__toggle {
             cursor: pointer;
-            padding: 10px;
+            padding: 0 10px;
             color: $stockport-teal-darker;
 
             &::before {
                 font: bold normal normal 16px/1 FontAwesome;
+                font-size: 1em;
                 content: '\f077';
             }
 
             &.expanded::before {
                 font: normal normal normal 16px/1 FontAwesome;
+                font-size: 1em;
                 content: '\f078';
             }
         }
@@ -375,7 +382,8 @@
         }
 
         &__content {
-            margin-bottom: 1.5em;
+            margin-bottom: 0;
+            margin-top: 0.55em;
         }
 
         &__checkbox {
@@ -427,6 +435,10 @@
 
         &__checkbox:checked + &__label:after {
             opacity: 1;
+        }
+
+        &__checkbox:focus + &__label:before {
+            outline: 3px solid $brandSecondary !important;
         }
     }
 }

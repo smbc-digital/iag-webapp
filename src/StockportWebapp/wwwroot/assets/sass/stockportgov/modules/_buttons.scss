@@ -15,6 +15,7 @@
     line-height: 1.3rem;
     font-size: 1.2rem;
     border: none;
+    cursor: pointer;
 
     @media #{$mobile, $tablet} {
         text-decoration: none;
@@ -169,7 +170,7 @@
     }
 
     &--margin-top {
-        margin-top: 1em;
+        margin-top: 2em;
     }
 }
 
