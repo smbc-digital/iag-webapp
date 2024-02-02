@@ -86,16 +86,8 @@
             cursor: pointer;
             text-decoration: none;
 
-            &:focus {
-                outline: none;
-            }
-
             &:hover {
                 text-decoration: none;
-            }
-
-            &:focus-visible {
-                outline-color: $brandSecondary;
             }
         }
 
