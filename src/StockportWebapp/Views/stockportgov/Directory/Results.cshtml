@@ -36,10 +36,10 @@
                                     @if(Model.AllFilterThemes is not null && Model.AllFilterThemes.Any()){
                                         @foreach (var entry in Model.AllFilterThemes)
                                         {
-                                            <div class="directory-results__collapsible">
+                                            <a href="javascript:void(0)" class="directory-results__collapsible">
                                                 <h3 id='directory-@entry.Title.ToLower().Replace(" ", "-")'>@entry.Title</h3>
                                                 <span class="directory-results__toggle @(Model.AllFilterThemes.First() != entry ? "expanded" : string.Empty)"></span>
-                                            </div>
+                                            </a>
                                             <div class="directory-filters__content" @(Model.AllFilterThemes.First() != entry ? "style=display:none;" : string.Empty) role="group" aria-labelledby='directory-@entry.Title.ToLower().Replace(" ", "-")'>
                                                 @foreach (var filter in entry.Filters)
                                                 {
@@ -80,7 +80,7 @@
 </div>
 
 <script>
-    require(['/assets/javascript/config-556c1bf6.min.js'], function() {
+    require(['/assets/javascript/config-40a12786.min.js'], function() {
         require(['directoryFilters'],
             function(directoryFilters) {
                 directoryFilters.Init();
