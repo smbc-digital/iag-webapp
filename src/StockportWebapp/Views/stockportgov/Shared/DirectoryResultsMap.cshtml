@@ -2,12 +2,6 @@
 
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCPMO2lE7np9cG_zG63JH_pNVmRfoajZjg&callback=initMap"></script>
 
-<div style="margin-bottom:1em;">
-    <a id="showMap" href="" class="btn btn--inverse" style="display:none"><span class="fa fa-location-dot"></span> Show results on a map</a>
-    <a id="hideMap" href="" class="btn btn--inverse" style="display:none"><span class="fa fa-location-dot"></span> Hide results on a map</a>
-    <a href="" class="btn btn--inverse"><span class="fa fa-sort"></span> Order By : Name A-Z</a>
-</div>
-
 <div id="map" class="directory-result-map" style="display:none; border: 1px solid #5a5a5933"></div>
 
 <script>
@@ -26,28 +20,5 @@
         preserveViewport: true,
         map: map
     });
-    }
-</script>
-
-<script type="text/javascript">
-    window.onload = function () {
-        var showMap = document.getElementById("showMap");
-        var hideMap = document.getElementById("hideMap");
-        var mapContainer = document.getElementById("map");
-        showMap.style.display = "inline-block";
-
-        showMap.onclick = function () {
-            mapContainer.style.display = "block";
-            hideMap.style.display = "inline-block";
-            showMap.style.display = "none";
-            return false;
-        }
-
-        hideMap.onclick = function () {
-            mapContainer.style.display = "none";
-            showMap.style.display = "inline-block";
-            hideMap.style.display = "none";
-            return false;
-        }
     }
 </script>

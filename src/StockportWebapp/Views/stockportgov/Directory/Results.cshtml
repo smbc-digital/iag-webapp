@@ -18,7 +18,39 @@
         <div class="grid-container">
             <div class="grid-100 directory-sub-title">
                 <h1>Results for @Model.Directory.Title</h1>
+
+                <span style="display:inline-block; margin-bottom: 1em;">Showing <span class="bold">@Model.FilteredEntries.Count()</span> results in <span class="bold">@Model.Directory.Title</span></span>
+
+                <div style="margin-bottom:1em;">
+                    <a id="showMap" href="" class="btn btn--inverse" style="display:none"><span class="fa fa-location-dot"></span> Show results on a map</a>
+                    <a id="hideMap" href="" class="btn btn--inverse" style="display:none"><span class="fa fa-location-dot"></span> Hide results on a map</a>
+                    <a href="" class="btn btn--inverse"><span class="fa fa-sort"></span> Order By : Name A-Z</a>
+                </div>
+
+                <script type="text/javascript">
+                    window.onload = function () {
+                        var showMap = document.getElementById("showMap");
+                        var hideMap = document.getElementById("hideMap");
+                        var mapContainer = document.getElementById("map");
+                        showMap.style.display = "inline-block";
+
+                        showMap.onclick = function () {
+                            mapContainer.style.display = "block";
+                            hideMap.style.display = "inline-block";
+                            showMap.style.display = "none";
+                            return false;
+                        }
+
+                        hideMap.onclick = function () {
+                            mapContainer.style.display = "none";
+                            showMap.style.display = "inline-block";
+                            hideMap.style.display = "none";
+                            return false;
+                        }
+                    }
+                </script>
             </div>
+            
         </div>
 
         <div class="grid-container">
@@ -64,7 +96,7 @@
             </div>
 
             <div class="grid-70 tablet-grid-100">
-                <span style="display:inline-block; margin-bottom: 1em;">Showing <span class="bold">@Model.FilteredEntries.Count()</span> results in <span class="bold">@Model.Directory.Title</span></span>
+                
                 <partial name="DirectoryResultsMap" model=@Model.Directory.Slug />
 
                 <ul class="navcard-wrapper">
