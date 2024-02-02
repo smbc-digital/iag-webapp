@@ -6,7 +6,7 @@
         "carousel": "carousel-719cf06c.min",
         "cludo": "cludo-ae98e22c.min",
         "contactUs": "contactUs-e5b6f8a5.min",
-        "directoryFilters": "directoryFilters-8e9e2278.min",
+        "directoryFilters": "directoryFilters-8e99b8ef.min",
         "events": "events-af550f37.min",
         "favourites": "favourites-9929284b.min",
         "filters": "filters-6d52b18c.min",
