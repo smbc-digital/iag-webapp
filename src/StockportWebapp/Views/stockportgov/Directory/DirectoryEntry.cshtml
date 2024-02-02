@@ -18,7 +18,7 @@
     </section>*@
 
     @if(Model.Directory is not null){
-        <partial name="Breadcrumb2023" model='new List<Crumb> { new Crumb(Model.Directory.Title, "directories/" + Model.Directory.Slug, "Directory")}'/>
+        <partial name="Breadcrumb2023" model='new List<Crumb> { new Crumb(Model.Directory.Title, "directories/results/" + Model.Directory.Slug, "Directory")}'/>
     }
     else{
         <partial name="Breadcrumb2023" model='new List<Crumb>()'/>
@@ -26,7 +26,7 @@
 
     <div class="grid-container">
         <div class="grid-100">
-            <h1 class="directory__title">@directory.Name</h2>
+            <h1 class="directory__title">@directory.Name</h1>
             <section class="directory">
                 <div class="directory__profile">
                     <div class="directory__wrapper">
