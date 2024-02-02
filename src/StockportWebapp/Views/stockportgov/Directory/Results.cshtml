@@ -67,8 +67,8 @@
             </div>
 
             <div class="grid-70 tablet-grid-100">
+                <h2 class="visuallyhidden">Results in @Model.Directory.Title</h2>
                 <ul class="navcard-wrapper">
-                    <h2 class="visuallyhidden">Results in @Model.Directory.Title</h2>
                     @foreach (var entry in Model.FilteredEntries)
                     {
                         <partial name="DirectorySearchResult" model=@(new DirectorySearchResultViewModel {DirectorySlug = Model.Directory.Slug, Entry = entry}) />
