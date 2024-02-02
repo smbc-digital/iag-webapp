@@ -61,7 +61,8 @@ public class DirectoryController : Controller
             Directory = directory,
             FilteredEntries = filteredEntries,
             AllFilterThemes = allFilterThemes,
-            AppliedFilters = appliedFilters
+            AppliedFilters = appliedFilters,
+            Order = orderBy
         };        
         
         return View("results", directoryViewModel);

@@ -236,7 +236,7 @@
             padding-right: 1em;
         }
 
-        border: 1px solid rgba($stockport-grey, 0.2);
+        border: 1px solid $stockport-grey-accent;
         border-top: none;
         border-radius: 0 0 3px 3px;
         margin-bottom: 10px;
@@ -449,7 +449,8 @@
 .sortBy {
     background-color: white;
     margin-bottom: 2em;
-    border: 1px solid rgba($stockport-grey, 0.2);
+    border: 1px solid $stockport-grey-accent;
+    border-radius: 3px;
     position: relative;
     display: flex;
 
@@ -457,43 +458,35 @@
         margin-bottom: 1em;
     }
 
-
-    &::after {
-        content: "\f078";
-        font: 700 normal normal 16px/1 FontAwesome;
-        font-size: 1em;
-        color: $govuk-black;
-        position: absolute;
-        top: 50%;
-        right: 1em;
-        transform: translateY(-50%);
-        cursor: pointer;
-    }
-    
     label {
-        cursor: pointer;
         padding: 1em;
+        place-self: center;
+        max-width: fit-content;
+        min-width: fit-content;
+
+        @media #{$mobile} {
+            padding-right: 0.5em;
+        }
     }
 
     select {
         border: none;
         font-size: 1em;
+        appearance: none;
         -webkit-appearance: none;
+        -moz-appearance: none;
         padding: 20px 0;
         width: 100%;
         text-align: left;
-        cursor: pointer;       
+        cursor: pointer;
+        width: -webkit-fill-available;
+        background-color: #fff;
+        background-image: url(/assets/images/ui-images/angle-down-black.png);
+        background-position: right 1em center;
+        background-repeat: no-repeat;
+        background-size: 1em;
+        border: none;
     }
-}
-
-.first {
-    place-self: center;
-    max-width: fit-content;
-    min-width: fit-content;
-}
-
-.second {
-    width: -webkit-fill-available;
 }
 
 html[dir="rtl"] {
