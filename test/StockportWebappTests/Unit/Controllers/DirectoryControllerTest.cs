@@ -148,7 +148,7 @@ public class DirectoryControllerTest
             .ReturnsAsync(new HttpResponse((int)HttpStatusCode.OK, processedDirectory, string.Empty));
 
         // Act
-        var result = await _directoryController.DirectoryResults("slug", Array.Empty<string>()) as ViewResult;
+        var result = await _directoryController.DirectoryResults("slug", Array.Empty<string>(), string.Empty) as ViewResult;
         var model = result.ViewData.Model as DirectoryViewModel;
 
         // Assert
@@ -161,7 +161,7 @@ public class DirectoryControllerTest
         _directoryRepository.Setup(_ => _.Get<Directory>(It.IsAny<string>()))
             .ReturnsAsync(new HttpResponse((int)HttpStatusCode.OK, processedDirectoryWithSubdirectories, string.Empty));
         // Act
-        var result = await _directoryController.DirectoryResults("slug", Array.Empty<string>()) as ViewResult;
+        var result = await _directoryController.DirectoryResults("slug", Array.Empty<string>(), string.Empty) as ViewResult;
 
         // Assert
         Assert.Equal("results", result.ViewName);
@@ -173,7 +173,7 @@ public class DirectoryControllerTest
         _directoryRepository.Setup(_ => _.Get<Directory>(It.IsAny<string>()))
             .ReturnsAsync(new HttpResponse((int)HttpStatusCode.NotFound, null, string.Empty));
         // Act
-        var result = await _directoryController.DirectoryResults("slug", Array.Empty<string>()) as HttpResponse;
+        var result = await _directoryController.DirectoryResults("slug", Array.Empty<string>(), string.Empty) as HttpResponse;
 
         // Assert
         Assert.Equal((int)HttpStatusCode.NotFound, result.StatusCode);
@@ -194,7 +194,7 @@ public class DirectoryControllerTest
             .Returns(filtersList);
 
         // Act
-        var result = await _directoryController.DirectoryResults("slug", filters) as ViewResult;
+        var result = await _directoryController.DirectoryResults("slug", filters, string.Empty) as ViewResult;
         var model = result.ViewData.Model as DirectoryViewModel;
 
         // Assert
