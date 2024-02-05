@@ -481,11 +481,15 @@
         cursor: pointer;
         width: -webkit-fill-available;
         background-color: #fff;
-        background-image: url(/assets/images/ui-images/angle-down-black.png);
+        background-image: url(/assets/images/ui-images/chevron-down-black.svg);
         background-position: right 1em center;
         background-repeat: no-repeat;
         background-size: 1em;
         border: none;
+
+        @media #{$small-mobile} {
+            background-image: none;
+        }
     }
 }
 
