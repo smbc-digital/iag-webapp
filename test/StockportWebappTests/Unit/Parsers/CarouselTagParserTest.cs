@@ -35,11 +35,7 @@ public class CarouselTagParserTest
         var tag = "";
 
         var response = _parser.Parse("{{CAROUSEL:" + tag + "}}");
-<<<<<<< HEAD
         string scriptTag = "<script>\r\nrequire(['/assets/javascript/config-5c2df9a7.min.js'],function(){\r\nrequire(['slick', 'carousel'],\r\nfunction(_, carousel){\r\ncarousel.Init();\r\n}\r\n);\r\n});\r\n</script>";
-=======
-        string scriptTag = "<script>\r\nrequire(['/assets/javascript/config-40a12786.min.js'],function(){\r\nrequire(['slick', 'carousel'],\r\nfunction(_, carousel){\r\ncarousel.Init();\r\n}\r\n);\r\n});\r\n</script>";
->>>>>>> main
         response.Should().Be($"<div class='carousel'></div>{scriptTag}");
     }
 
