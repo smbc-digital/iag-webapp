@@ -149,7 +149,7 @@
         }
     }
 
-    &__profile, &__description, &__filters {
+    &--border-top, &__description, &__filters {
         border-radius: 3px;
         border-top: 0.55em solid $stockport-teal-lighter;
         margin-bottom: 2em;
@@ -159,9 +159,9 @@
         }
     }
 
-    &__profile {
-        margin-right: 1em;
-        width: calc(30% - 1em);
+    &--30 {
+        margin-right: 0.8em;
+        width: calc(30% - 0.8em);
 
         &--margin-top {
             margin-top: 1.5em;
@@ -179,9 +179,9 @@
         }
     }
 
-    &__info {
-        margin-left: 1em;
-        width: calc(70% - 1em);
+    &--70 {
+        margin-left: 0.8em;
+        width: calc(70% - 0.8em);
 
         @media #{$tablet} {
             width: 100%;
@@ -208,10 +208,7 @@
         box-sizing: border-box;
         object-position: left;
         max-width: 350px;
-
-        @media #{$tablet} {
-            height: auto;
-        }
+        height: auto;
     }
 
     &__filter {
@@ -441,72 +438,65 @@
             outline: 3px solid $brandSecondary !important;
         }
     }
-}
 
-
-
-
-.sortBy {
-    background-color: white;
-    margin-bottom: 2em;
-    border: 1px solid $stockport-grey-accent;
-    border-radius: 3px;
-    position: relative;
-    display: flex;
-
-    @media #{$mobile} {
-        margin-bottom: 1em;
-    }
-
-    label {
-        padding: 1em;
-        place-self: center;
-        max-width: fit-content;
-        min-width: fit-content;
+    &__sortBy {
+        background-color: white;
+        margin-bottom: 2em;
+        border: 1px solid $stockport-grey-accent;
+        border-radius: 3px;
+        position: relative;
+        display: flex;
 
         @media #{$mobile} {
-            padding-right: 0.5em;
+            margin-bottom: 1em;
         }
-    }
 
-    select {
-        border: none;
-        font-size: 1em;
-        appearance: none;
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        padding: 20px 0;
-        width: 100%;
-        text-align: left;
-        cursor: pointer;
-        width: -webkit-fill-available;
-        background-color: #fff;
-        background-image: url(/assets/images/ui-images/chevron-down-black.svg);
-        background-position: right 1em center;
-        background-repeat: no-repeat;
-        background-size: 1em;
-        border: none;
+        label {
+            padding: 0.55em 0 0.55em 0.75em;
+            place-self: center;
+            max-width: fit-content;
+            min-width: fit-content;
+        }
 
-        @media #{$small-mobile} {
-            background-image: none;
+        select {
+            border: none;
+            font-size: 1em;
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            padding: 0.55em;
+            width: 100%;
+            text-align: left;
+            cursor: pointer;
+            width: -webkit-fill-available;
+            background-color: #fff;
+            background-image: url(/assets/images/ui-images/chevron-down-black.svg);
+            background-position: right 1.35em center;
+            background-repeat: no-repeat;
+            background-size: 1em;
+            border: none;
+    
+            @media #{$small-mobile} {
+                background-image: none;
+            }
         }
     }
 }
 
 html[dir="rtl"] {
     .directory {
-        &__profile {
+        &--30 {
             margin-right: 0;
-            margin-left: 1em;
+            margin-left: 0.8em;
 
             @media #{$tablet} {
                 margin-left: 0;
             }
         }
 
-        &__info {
+        &--70 {
             margin-left: 0;
-            margin-right: 1em;
+            margin-right: 0.8em;
 
             @media #{$tablet} {
                 margin-right: 0;
@@ -536,6 +526,18 @@ html[dir="rtl"] {
                     top: 0.7rem;
                     right: 0.55rem;
                 }
+            }
+        }
+
+        &__sortBy {
+            select {
+                text-align: right;
+                background-position: left 1.35em center;
+            }
+
+            label {
+                padding-right: 0.75em;
+                padding-left: 0;
             }
         }
     }
