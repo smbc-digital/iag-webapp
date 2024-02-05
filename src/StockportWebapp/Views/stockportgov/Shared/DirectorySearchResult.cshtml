@@ -1,23 +1,44 @@
 ﻿@model DirectorySearchResultViewModel
+<li class="navcard navcard--white navcard--border-top navcard--force-border-top navcard--width-100">
+    <div class="navcard__content">
+        <a href=@Url.ActionLink("DirectoryEntry", "Directory", new { slug=@Model.Slug }) data-cy="nav-card-link" class="navcard_link navcard__link--border"></a>
+            <div class="directory-result">
+                <div class="directory-result__content">
+                    <h3 class="navcard__title navcard__title--large">
+                        @Model.Entry.Name
+                    </h3>
 
-<div class="navcard__content">
-    <a href=@Url.ActionLink("DirectoryEntry", "Directory", new { slug=@Model.Slug }) data-cy="directory-entry-nav-card-link" class="navcard__link navcard__link--border navcard-content--padding">
-        <div class="grid-container">
-            <div class="grid-70">
-                <h3 class="navcard__title navcard__title--large">
-                    @Model.Entry.Name
-                </h3>
-                <p class="navcard__sub-title">@Model.Entry.Address</p>
-                <div class="navcard__teaser">
-                    @Model.Entry.Teaser
+                    @if(!string.IsNullOrEmpty(Model.Entry.Provider)){
+                        <p class="navcard__sub-title">@Model.Entry.Provider</p>
+                    }
+                    
+                    <p class="navcard__sub-title">@Model.Entry.Address</p>
+                    <div class="navcard__teaser">
+                        @Model.Entry.Teaser
+                    </div>
+                </div>
+
+                <div class="directory-result__brand">
+                    @if (Model.Entry.Branding.Any())
+                    {
+                        @if (Model.Entry.Branding.FirstOrDefault().File is not null
+                                && !string.IsNullOrEmpty(Model.Entry.Branding.FirstOrDefault().File.Description))
+                        {
+                            <img src="@Model.Entry.Branding.FirstOrDefault().File.Url?w=340&q=89"
+                                 alt="@Model.Entry.Branding.FirstOrDefault().File.Description"
+                                 width="300"
+                                 height="150" />
+                        }
+                        else
+                        {
+                            <img src="@Model.Entry.Branding.FirstOrDefault()?.File.Url?w=340&q=89"
+                                 alt=""
+                                 width="300"
+                                 height="150" />
+                        }
+                    }
                 </div>
             </div>
-            <div class="grid-30 text-align-right">
-                @if (Model.Entry.Branding.Any())
-                {
-                    <img class="navcard__brand" alt="" src="@Model.Entry.Branding.FirstOrDefault()?.File.Url" />
-                }
-            </div>
-        </div>
-    </a>
-</div>
+        </a>
+    </div>
+</li>

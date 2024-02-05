@@ -57,7 +57,7 @@
 .navcard {
     width: 100%;
     margin: 0 25px 2em 25px;
-    border-top: 0.368em solid rgba($stockport-teal, 0.8);
+    border-top: 0.368em solid $stockport-teal-lighter;
     box-sizing: border-box;
     border-radius: 2px;
     list-style: none;
@@ -103,14 +103,20 @@
         width: 100%;
         margin: 0 0 1em 0;
         border-top: none;
-        border-left: 0.368em solid rgba($stockport-teal, 0.8);
+        border-left: 0.368em solid $stockport-teal-lighter;
     }
 
     &--force-border-top {
-        @media #{$mobile, $tablet} {
-            border-left: 0px;
-            border-top: 0.368em solid rgba($stockport-teal, 0.8);
+        @media #{$tablet} {
+            border: 0px;
+            right: 0px;
+            border-top: 0.55em solid $stockport-teal-lighter;
         }
+    }
+
+    &--border-top {
+        border-top: 0.55em solid $stockport-teal-lighter;
+        border-radius: 3px;
     }
 
     &--no-border {
@@ -118,8 +124,8 @@
     }
 
     &--border-bottom {
-        border-top: 1px solid rgba($stockport-grey, 0.2);
-        border-bottom: 0.55em solid rgba($stockport-teal, 0.6);
+        border-top: 1px solid $stockport-grey-accent;
+        border-bottom: 0.55em solid $stockport-teal-lighter;
         border-radius: 3px;
         border-left: none;
 
@@ -138,10 +144,8 @@
 
     &--border-around {
         @media #{$mobile} {
-            border-left: 0.55em solid rgba($stockport-teal, 0.6);
-            border-bottom: 1px solid rgba($stockport-grey, 0.2);
-            border-top: 1px solid rgba($stockport-grey, 0.2);
-            border-right: 1px solid rgba($stockport-grey, 0.2);
+            border: 1px solid $stockport-grey-accent;
+            border-left: 0.55em solid $stockport-teal-lighter;
         }
     }
 
@@ -163,16 +167,8 @@
     &__sub-title {
         margin: 0 0 0.5em 0;
         font-weight: 700;
-    }
-
-    &__brand {
-        max-height: 250px;
-        min-height: 150px;
-        max-width: 250px;
-        min-width: 150px;
-        background-color: $stockport-teal-darker;
-        margin: 5px;
-        margin-right: 0px;
+        color: $stockport-black;
+        word-break: break-word;
     }
 
     &__link {
@@ -210,7 +206,7 @@
         }
 
         &--border {
-            border: 1px solid rgba($stockport-grey, 0.2);
+            border: 1px solid $stockport-grey-accent;
             border-top: none;
             border-radius: 0 0 3px 3px;
 
@@ -220,7 +216,7 @@
         }
 
         &--image-border {
-            border: 1px solid rgba($stockport-grey, 0.2);
+            border: 1px solid $stockport-grey-accent;
             border-top: none;
             border-bottom: none;
             border-radius: 3px 3px 0 0;
@@ -255,15 +251,6 @@
                 padding-left: 1em;
             }
         }
-
-        &__brand {
-            text-align: right;
-
-            @media #{$mobile, $tablet} {
-                margin-top:1em;
-                text-align: center;
-            }
-        }
     }
 
     &__image {
@@ -285,12 +272,16 @@
         flex-basis: 0;
         justify-content: space-between;
     }
+
+    &--border {
+        border: 1px solid $stockport-grey-accent;
+    }
 }
 
 html[dir="rtl"] {
     .navcard {
         @media #{$mobile} {
-            border-right: 0.368em solid rgba($stockport-teal, 0.8);
+            border-right: 0.368em solid $stockport-teal-lighter;
             border-left: 0;
             padding-right: 1em;
             padding-left: 0;
@@ -298,10 +289,8 @@ html[dir="rtl"] {
 
         &--border-around {
             @media #{$mobile} {
-                border-right: 0.55em solid rgba($stockport-teal, 0.6);
-                border-top: 1px solid rgba($stockport-grey, 0.2);
-                border-left: 1px solid rgba($stockport-grey, 0.2);
-                border-bottom: 1px solid rgba($stockport-grey, 0.2);
+                border: 1px solid $stockport-grey-accent;
+                border-right: 0.55em solid $stockport-teal-lighter;
             }
         }
 
@@ -311,6 +300,22 @@ html[dir="rtl"] {
                 border-right: none;
                 padding-right: 0;
             }
+        }
+
+        &--force-border-top {
+            @media #{$tablet} {
+                border: 0px;
+                right: 0px;
+                border-top: 0.55em solid $stockport-teal-lighter;
+            }
+        }
+
+        &--no-border {
+            border: 0px;
+        }
+
+        &--directories {
+            border: 1px solid $stockport-grey-accent;
         }
     }
 
@@ -338,9 +343,9 @@ html[dir="rtl"] {
             .navcard--width-20:nth-child(3n),
             .navcard--width-25:nth-child(3n),
             .navcard--width-33:nth-child(3n),
-            .navcard--width-50:nth-child(3n) {
+            .navcard--width-50:nth-child(2n) {
                 margin-left: 0;
-                margin-right: 25px;
+                margin-right: 15px;
             }
 
             .navcard--width-20:nth-child(3n + 1),
@@ -349,7 +354,7 @@ html[dir="rtl"] {
             .navcard--width-33:nth-child(3n + 1),
             .navcard--width-50:nth-child(3n + 1) {
                 margin-right: 0;
-                margin-left: 25px;
+                margin-left: 15px;
             }
         }
 

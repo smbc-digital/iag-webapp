@@ -51,9 +51,11 @@ $stockport-grey: #5a5a59;
 $stockport-dark-grey: #454240;
 $stockport-mid-grey: lighten($stockport-grey, 30%);
 $stockport-light-grey: #f2f2f2;
+$stockport-grey-accent: rgba($stockport-grey, 30%);
 $stockport-orange: #d67b03;
+
 $stockport-teal: #2aa294;
-$stockport-teal-lighter: lighten($stockport-teal, 30%);
+$stockport-teal-lighter: rgba($stockport-teal, 70%);
 $stockport-teal-darker: #008080; 
 
 // This is the accessible version of the teal that can be used with White.

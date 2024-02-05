@@ -24,10 +24,14 @@ namespace StockportWebapp.Models
                                                                     .Distinct()
                                                                 : Entries;
         [JsonIgnore]
-        public IEnumerable<FilterTheme> AllFilterThemes => AllEntries is not null  
-                                                            && AllEntries.Any() 
-                                                                ? AllEntries.Where(entry => entry.Themes is not null).SelectMany(entry => entry.Themes).OrderBy(theme => theme.Title)
-                                                                : new List<FilterTheme>();
+        public IEnumerable<FilterTheme> AllFilterThemes => AllEntries is not null && AllEntries.Any() 
+                                                            ? AllEntries
+                                                                .Where(entry => entry.Themes is not null)
+                                                                .SelectMany(entry => entry.Themes)
+                                                                .GroupBy(theme => theme.Title, StringComparer.OrdinalIgnoreCase)
+                                                                .Select(group => group.First())
+                                                                .OrderBy(theme => theme.Title)
+                                                            : new List<FilterTheme>();
 
         public string ToKml() => AllEntries.GetKmlForList();
     }

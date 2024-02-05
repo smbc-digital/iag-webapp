@@ -14,6 +14,8 @@
     box-sizing: border-box;
     line-height: 1.3rem;
     font-size: 1.2rem;
+    border: none;
+    cursor: pointer;
 
     @media #{$mobile, $tablet} {
         text-decoration: none;
@@ -157,6 +159,18 @@
 
     &--bold, &--chevron-bold:before {
         font-weight: 700;
+    }
+
+    &--black-text {
+        color: $stockport-black;
+    }
+
+    &--margin-bottom {
+        margin-bottom: 1em;
+    }
+
+    &--margin-top {
+        margin-top: 2em;
     }
 }
 

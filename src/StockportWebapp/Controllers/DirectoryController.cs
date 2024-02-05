@@ -1,4 +1,5 @@
 using System.Net.Mime;
+using Filter = StockportWebapp.Model.Filter;
 using Directory = StockportWebapp.Models.Directory;
 namespace StockportWebapp.Controllers;
 
@@ -38,9 +39,10 @@ public class DirectoryController : Controller
 
     [HttpGet]
     [Route("/directories/results/{**slug}")]
-    public async Task<IActionResult> DirectoryResults([Required][FromRoute]string slug)
+    public async Task<IActionResult> DirectoryResults([Required][FromRoute]string slug, string[] filters, string orderBy)
     {
         var pageLocation = ProcessWildcardSlug(slug);
+
 
         var directoryHttpResponse = await _directoryRepository.Get<Directory>(pageLocation.Slug);
         if (!directoryHttpResponse.IsSuccessful())
@@ -51,35 +53,29 @@ public class DirectoryController : Controller
         var directory = directoryHttpResponse.Content as Directory;
         directory.Body = _markdownWrapper.ConvertToHtml(directory.Body ?? "");
 
-        return View("results", new DirectoryViewModel()
-            {
-                Directory = directory,
-                FilteredEntries = _directoryRepository.GetFilteredEntryForDirectories(directory),
-                Breadcrumbs = GetBreadcrumbsForDirectories(parentDirectories),
-                Slug = slug
-            });
-    }
+        var filteredEntries =  filters.Any() 
+            ? _directoryRepository.GetFilteredEntryForDirectories(directory, filters) 
+            : _directoryRepository.GetFilteredEntryForDirectories(directory);
 
-    [HttpPost]
-    [Route("/directories/results/{**slug}")]
-    public async Task<IActionResult> FilterResults(string slug)
-    {
-        var directoryHttpResponse = await _directoryRepository.Get<Directory>(slug);
-        if (!directoryHttpResponse.IsSuccessful())
-            return directoryHttpResponse;
-
-        var directory = directoryHttpResponse.Content as Directory;
-        directory.Body = _markdownWrapper.ConvertToHtml(directory.Body ?? "");
-
+        var allFilterThemes = _directoryRepository.GetAllFilterThemes(filteredEntries);
+        var appliedFilters = _directoryRepository.GetAppliedFilters(filters, allFilterThemes);
+        
+        filteredEntries = _directoryRepository.GetOrderedEntries(filteredEntries, orderBy);
 
         DirectoryViewModel directoryViewModel = new()
         {
             Directory = directory,
-            FilteredEntries = _directoryRepository.GetFilteredEntryForDirectories(directory)
-        };
-
+            FilteredEntries = filteredEntries,
+            AllFilterThemes = allFilterThemes,
+            AppliedFilters = appliedFilters,
+            Order = orderBy,
+            Breadcrumbs = GetBreadcrumbsForDirectories(parentDirectories),
+            Slug = slug
+        };        
+        
         return View("results", directoryViewModel);
     }
+
 
     [Route("/directories/results/kml/{slug}")]  
     [Produces(MediaTypeNames.Application.Xml)]
