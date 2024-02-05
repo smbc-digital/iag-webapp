@@ -28,7 +28,7 @@
         <div class="grid-100">
             <h1 class="directory__title">@directory.Name</h1>
             <section class="directory">
-                <div class="directory__profile">
+                <div class="directory--30 directory--border-top">
                     <div class="directory__wrapper">
                         @if(directory.Branding.Any()){
                             <img src="@directory.Branding.FirstOrDefault().File.Url?w=350&q=89"
@@ -89,7 +89,7 @@
                     </div>
                 </div>
                 
-                <div class="directory__info">
+                <div class="directory--70">
                     <div class="directory__description">
                         <div class="directory__wrapper">
                             <h2>About us</h2>

@@ -38,7 +38,7 @@ public class DirectoryController : Controller
     
     [HttpGet]
     [Route("/directories/results/{slug}")]
-    public async Task<IActionResult> DirectoryResults([Required][FromRoute]string slug, string[] filters)
+    public async Task<IActionResult> DirectoryResults([Required][FromRoute]string slug, string[] filters, string orderBy)
     {
         var directoryHttpResponse = await _directoryRepository.Get<Directory>(slug);
         
@@ -53,13 +53,16 @@ public class DirectoryController : Controller
 
         var allFilterThemes = _directoryRepository.GetAllFilterThemes(filteredEntries);
         var appliedFilters = _directoryRepository.GetAppliedFilters(filters, allFilterThemes);
+        
+        filteredEntries = _directoryRepository.GetOrderedEntries(filteredEntries, orderBy);
 
         DirectoryViewModel directoryViewModel = new()
         {
             Directory = directory,
             FilteredEntries = filteredEntries,
             AllFilterThemes = allFilterThemes,
-            AppliedFilters = appliedFilters
+            AppliedFilters = appliedFilters,
+            Order = orderBy
         };        
         
         return View("results", directoryViewModel);

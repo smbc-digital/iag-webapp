@@ -14,4 +14,8 @@ public class DirectoryViewModel
     public IEnumerable<FilterTheme> AllFilterThemes { get; set; }
 
     public DirectoryEntry DirectoryEntry { get; set; }
+
+    public string Order { get; set; }
+
+    public List<string> OrderBy = new() { "Name A to Z", "Name Z to A" };
 }

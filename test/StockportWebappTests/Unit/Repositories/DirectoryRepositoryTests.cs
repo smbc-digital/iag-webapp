@@ -127,6 +127,27 @@ public class DirectoryRepositoryTests
         Address = "address2",
     };
 
+    private readonly DirectoryEntry directoryEntry3 = new()
+    {
+        Slug = "slug2",
+        Name = "another name",
+        Provider = "provider2",
+        Description = "description2",
+        Teaser = "teaser2",
+        MetaDescription = "metaDescription2",
+        Themes = new List<FilterTheme>(),
+        Directories = new List<MinimalDirectory>(),
+        Alerts = new List<Alert>(),
+        Branding = new List<GroupBranding>(),
+        MapPosition = new MapPosition(),
+        PhoneNumber = "phone number2",
+        Email = "email2",
+        Website = "website2",
+        Twitter = "twitter2",
+        Facebook = "facebook2",
+        Address = "address2",
+    };
+
     private readonly Directory directory = new()
     {
         Title = "title",
@@ -353,6 +374,27 @@ public class DirectoryRepositoryTests
 
         // Assert
         Assert.Equal(4, result.Count());
+        Assert.NotNull(result);
+        Assert.NotEmpty(result);
+    }
+
+    [Theory]
+    [InlineData("Name A to Z", new[]{ "C", "B", "A" }, new[] { "A", "B", "C" })]
+    [InlineData("Name Z to A", new[]{ "A", "B", "C" }, new[] { "C", "B", "A" })]
+    [InlineData("name a to z", new[]{ "B", "C", "A" }, new[] { "A", "B", "C" })]
+    [InlineData("name z to a", new[]{ "B", "A", "C" }, new[] { "C", "B", "A" })]
+    [InlineData("", new[]{ "B", "A", "C" }, new[] { "B", "A", "C" })]
+    [InlineData("another order", new[]{ "B", "A", "C" }, new[] { "B", "A", "C" })]
+    public void GetOrderedEntries_ShouldReturnAlphabeticalOrderedEntries(string orderBy, string[] orderedEntries, string[] expectedEntries)
+    {
+        var entries = orderedEntries.Select(name => new DirectoryEntry { Name = name });
+
+        // Act
+        var result = _directoryRepository.GetOrderedEntries(entries, orderBy).ToList();
+
+        // Assert
+        Assert.Equal(3, result.Count);
+        Assert.Equal(expectedEntries, result.Select(_ => _.Name).ToArray());
         Assert.NotNull(result);
         Assert.NotEmpty(result);
     }

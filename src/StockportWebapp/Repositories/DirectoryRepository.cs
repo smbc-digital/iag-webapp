@@ -10,6 +10,7 @@ public interface IDirectoryRepository
     IEnumerable<DirectoryEntry> GetFilteredEntryForDirectories(Directory directory, string[] filters);
     IEnumerable<FilterTheme> GetAllFilterThemes(IEnumerable<DirectoryEntry> filteredEntries);
     IEnumerable<Filter> GetAppliedFilters(string[] filters, IEnumerable<FilterTheme> filterThemes);
+    IEnumerable<DirectoryEntry> GetOrderedEntries(IEnumerable<DirectoryEntry> filteredEntries, string orderBy);
 }
 
 public class DirectoryRepository : IDirectoryRepository
@@ -65,7 +66,7 @@ public class DirectoryRepository : IDirectoryRepository
                 filters.All(filterSlug => entry.Themes
                     .Any(theme => theme is not null && theme.Filters is not null && theme.Filters
                     .Any(filter => filter.Slug.Equals(filterSlug)))))
-            .ToList();
+            .ToList().OrderBy(directoryEntry => directoryEntry.Name);
 
     public IEnumerable<FilterTheme> GetAllFilterThemes(IEnumerable<DirectoryEntry> filteredEntries) => 
         filteredEntries is not null && filteredEntries.Any()
@@ -94,4 +95,16 @@ public class DirectoryRepository : IDirectoryRepository
                 .Where(filter => filters.Contains(filter.Slug))
                 .ToList()
             : new List<Filter>();
+
+    public IEnumerable<DirectoryEntry> GetOrderedEntries(IEnumerable<DirectoryEntry> filteredEntries, string orderBy)
+    {
+        if(!string.IsNullOrEmpty(orderBy)) {
+            if(orderBy.Equals("Name A to Z", StringComparison.OrdinalIgnoreCase))
+                return filteredEntries.OrderBy(_ => _.Name);
+            else if(orderBy.Equals("Name Z to A", StringComparison.OrdinalIgnoreCase))
+                return filteredEntries.OrderByDescending(_ => _.Name);
+        }
+
+        return filteredEntries;
+    }
 }
