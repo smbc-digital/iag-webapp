@@ -100,7 +100,7 @@
                 content: '\f077';
             }
 
-            &.expanded::before {
+            &.closed::before {
                 font: normal normal normal 16px/1 FontAwesome;
                 font-size: 1em;
                 content: '\f078';
