@@ -247,6 +247,12 @@
         }
     }
 
+    &__filters {
+        &-facilities {
+            column-count: 2;
+        }
+    }
+
     &__organisation {
         p {
             margin-bottom: 2em;

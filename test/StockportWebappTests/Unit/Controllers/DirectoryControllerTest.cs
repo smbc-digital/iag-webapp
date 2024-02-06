@@ -13,19 +13,22 @@ public class DirectoryControllerTest
             Slug = "value1",
             Title = "title",
             DisplayName = "display name",
-            Theme = "theme1"
+            Theme = "theme1",
+            Highlight = false
         },
         new() {
             Slug = "value2",
             Title = "title",
             DisplayName = "display name",
-            Theme = "theme2"
+            Theme = "theme2",
+            Highlight = false
         },
         new() {
             Slug = "value3",
             Title = "title",
             DisplayName = "display name",
-            Theme = "theme3"
+            Theme = "theme3",
+            Highlight = false
         }
     };
 

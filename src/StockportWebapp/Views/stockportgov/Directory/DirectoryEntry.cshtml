@@ -101,18 +101,19 @@
                     {
                         <div class="directory__filters">
                             <div class="directory__wrapper">
+                                <h2 class="h-ml directory__filters-title">Facilities available</h2>
+                                <div class="directory__filters-facilities">
                                 @foreach (var theme in directory.Themes)
                                 {
-                                    <h2 class="h-ml directory__filters-title">@theme.Title</h2>
-
-                                    foreach (var filter in theme.Filters)
+                                    foreach (var filter in theme.Filters.Where(_ => _.Highlight.Equals(true)))
                                     {
                                         <p class="directory__filter"><span class="fa fa-check" aria-hidden="true"></span> @filter.DisplayName</p>
                                     }
                                 }
+                                </div>
                             </div>
                         </div>
-                    }
+                }
                 </div>
             </section>
         </div>
