@@ -17,19 +17,22 @@ public class DirectoryRepositoryTests
                     Slug = "value10",
                     Title = "title",
                     DisplayName = "display name",
-                    Theme = "theme1"
+                    Theme = "theme1",
+                    Highlight = false
                 },
                 new() {
                     Slug = "value20",
                     Title = "title",
                     DisplayName = "display name",
-                    Theme = "theme2"
+                    Theme = "theme2",
+                    Highlight = false
                 },
                 new() {
                     Slug = "value30",
                     Title = "title",
                     DisplayName = "display name",
-                    Theme = "theme3"
+                    Theme = "theme3",
+                    Highlight = false
                 }
             },
             Title = "Theme title"
@@ -43,19 +46,22 @@ public class DirectoryRepositoryTests
                     Slug = "value1",
                     Title = "title",
                     DisplayName = "display name",
-                    Theme = "theme1"
+                    Theme = "theme1",
+                    Highlight = false
                 },
                 new() {
                     Slug = "value2",
                     Title = "title",
                     DisplayName = "display name",
-                    Theme = "theme2"
+                    Theme = "theme2",
+                    Highlight = false
                 },
                 new() {
                     Slug = "value3",
                     Title = "title",
                     DisplayName = "display name",
-                    Theme = "theme3"
+                    Theme = "theme3",
+                    Highlight = false
                 }
             },
             Title = "Theme title"
@@ -66,19 +72,22 @@ public class DirectoryRepositoryTests
                     Slug = "value11",
                     Title = "title",
                     DisplayName = "display name",
-                    Theme = "theme11"
+                    Theme = "theme11",
+                    Highlight = false
                 },
                 new() {
                     Slug = "value21",
                     Title = "title",
                     DisplayName = "display name",
-                    Theme = "theme21"
+                    Theme = "theme21",
+                    Highlight = false
                 },
                 new() {
                     Slug = "value31",
                     Title = "title",
                     DisplayName = "display name",
-                    Theme = "theme31"
+                    Theme = "theme31",
+                    Highlight = false
                 }
             },
             Title = "Theme title1"
