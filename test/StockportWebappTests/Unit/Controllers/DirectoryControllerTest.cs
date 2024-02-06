@@ -215,7 +215,7 @@ public class DirectoryControllerTest
             .ReturnsAsync(new HttpResponse((int)HttpStatusCode.OK, processedDirectoryEntry, string.Empty));
 
         // Act
-        var result = await _directoryController.DirectoryEntry("slug", "entry-slug") as ViewResult;
+        var result = await _directoryController.DirectoryEntry("slug/entry-slug") as ViewResult;
         var model = result.ViewData.Model as DirectoryViewModel;
         
         // Assert
@@ -237,7 +237,7 @@ public class DirectoryControllerTest
             .ReturnsAsync(new HttpResponse((int)HttpStatusCode.NotFound, null, string.Empty));
 
         // Act
-        var result = await _directoryController.DirectoryEntry("slug", "entry-slug") as HttpResponse;
+        var result = await _directoryController.DirectoryEntry("slug/entry-slug") as HttpResponse;
 
         // Assert
         Assert.Equal((int)HttpStatusCode.NotFound, result.StatusCode);

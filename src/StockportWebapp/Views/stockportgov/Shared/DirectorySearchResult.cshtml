@@ -1,14 +1,14 @@
 ﻿@model DirectorySearchResultViewModel
 <li class="navcard navcard--white navcard--border-top navcard--force-border-top navcard--width-100">
     <div class="navcard__content">
-        <a href=@Url.ActionLink("DirectoryEntry", "Directory", new { slug=@Model.Slug }) data-cy="nav-card-link" class="navcard_link navcard__link--border"></a>
+        <a href=@Url.ActionLink("DirectoryEntry", "Directory", new { slug=@Model.Slug }) data-cy="nav-card-link" class="navcard__link navcard__link--border">
             <div class="directory-result">
                 <div class="directory-result__content">
                     <h3 class="navcard__title navcard__title--large">
                         @Model.Entry.Name
                     </h3>
 
-                    @if(!string.IsNullOrEmpty(Model.Entry.Provider)){
+                    @if(!string.IsNullOrEmpty(Model.Entry.Provider)) {
                         <p class="navcard__sub-title">@Model.Entry.Provider</p>
                     }
                     

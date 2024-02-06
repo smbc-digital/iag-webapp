@@ -9,19 +9,9 @@
 
 <div class="grid-container-full-width background-grey" data-cy="search-results">
 
-<<<<<<< HEAD
-    <partial name="Breadcrumb2023" model='new List<Crumb>()' />
-
+    <partial name="Breadcrumb2023" model='@Model.Breadcrumbs' />
     <form asp-controller="Directory" method="post">
-=======
-    @*<section class="directories-search">
-    <partial name="DirectorySearchOneStockport" />
-    <partial name="DirectorySearch" model="@Model.Directory.Title"/>
-    </section>*@
 
-    <partial name="Breadcrumb2023" model='new List<Crumb>()' />
-    <form asp-controller="Directory" method="get">
->>>>>>> main
         <div class="grid-container">
             <div class="grid-100 directory-sub-title">
                 <h1>Results for @Model.Directory.Title</h1>
@@ -30,49 +20,17 @@
         </div>
 
         <div class="grid-container">
-<<<<<<< HEAD
-            <div class="grid-30 tablet-grid-100">
-                <section class="navcard-wrapper">
-                    <div class="navcard navcard--white navcard--width-100 navcard--no-border">
-                        <div class="navcard-content">
-                            <div class="navcard-content--padding">
-                                <h3>Filter you results</h3>
-                                <p>Choose one or more options to filter your results.</p>
-
-                                @if(Model.Directory.SubDirectories.Any())
-                                {
-                                    <h4>Category</h4>
-                                    @foreach(var subDirectory in Model.Directory.SubDirectories)
-                                    {
-                                        <p><a href="@Url.Action("DirectoryResults", "Directory", new { slug = $"{Model.Slug}/{subDirectory.Slug}" })">@subDirectory.Title</a></p>
-                                    }
-                                }
-                                <hr />
-                            </div>
-                        </div>
-=======
             <div class="grid-100">
                 <div class="directory--30">
                     <div class="directory__sortBy">
                         <label for="order-by">Sort by:</label>
                         <select asp-for="@Model.Order" asp-items="@(new SelectList(Model.OrderBy))" name="orderBy" id="order-by" autocomplete="off"></select>
->>>>>>> main
+
                     </div>
                 </div>
             </div>
         </div>
 
-<<<<<<< HEAD
-            <div class="grid-70 tablet-grid-100">
-                <ul class="navcard-wrapper">
-                    @foreach(var entry in Model.FilteredEntries)
-                    {
-                        <li class="navcard navcard--white navcard--force-border-top navcard--width-100">
-                            <partial name="DirectorySearchResult" model=@(new DirectorySearchResultViewModel { DirectorySlug = Model.Slug, Entry = entry}) />
-                        </li>
-                    }
-                </ul>
-=======
         <div class="grid-container">
             <div class="grid-100">
                 <div class="directory">
@@ -124,12 +82,11 @@
                         <ul class="navcard-wrapper">
                             @foreach (var entry in Model.FilteredEntries)
                             {
-                                <partial name="DirectorySearchResult" model=@(new DirectorySearchResultViewModel {DirectorySlug = Model.Directory.Slug, Entry = entry}) />
+                                <partial name="DirectorySearchResult" model=@(new DirectorySearchResultViewModel {DirectorySlug = Model.Slug, Entry = entry}) />
                             }
                         </ul>
                     </div>
                 </div>
->>>>>>> main
             </div>
         </div>
     </form>
