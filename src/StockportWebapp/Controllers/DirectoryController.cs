@@ -18,9 +18,13 @@ public class DirectoryController : Controller
     [Route("/directories/{**slug}")]
     public async Task<IActionResult> Directory(string slug)
     {
-        var directoryHttpResponse = await _directoryRepository.Get<Directory>(slug);
+        var pageLocation = ProcessWildcardSlug(slug);
+
+        var directoryHttpResponse = await _directoryRepository.Get<Directory>(pageLocation.Slug);
         if (!directoryHttpResponse.IsSuccessful())
             return directoryHttpResponse;
+
+        List<Directory> parentDirectories = await GetParentDirectories(pageLocation.ParentSlugs);
 
         var directory = directoryHttpResponse.Content as Directory;
         directory.Body = _markdownWrapper.ConvertToHtml(directory.Body ?? "");
@@ -28,7 +32,9 @@ public class DirectoryController : Controller
         DirectoryViewModel directoryViewModel = new()
         {
             Directory = directory,
-            FilteredEntries = _directoryRepository.GetFilteredEntryForDirectories(directory)
+            FilteredEntries = _directoryRepository.GetFilteredEntryForDirectories(directory),
+            Breadcrumbs = GetBreadcrumbsForDirectories(parentDirectories, false),
+            Slug = slug
         };
 
         if(directory.SubDirectories.Any())
@@ -43,7 +49,6 @@ public class DirectoryController : Controller
     {
         var pageLocation = ProcessWildcardSlug(slug);
 
-
         var directoryHttpResponse = await _directoryRepository.Get<Directory>(pageLocation.Slug);
         if (!directoryHttpResponse.IsSuccessful())
             return directoryHttpResponse;
@@ -51,7 +56,6 @@ public class DirectoryController : Controller
         List<Directory> parentDirectories = await GetParentDirectories(pageLocation.ParentSlugs);
 
         var directory = directoryHttpResponse.Content as Directory;
-        directory.Body = _markdownWrapper.ConvertToHtml(directory.Body ?? "");
 
         var filteredEntries =  filters.Any() 
             ? _directoryRepository.GetFilteredEntryForDirectories(directory, filters) 
@@ -69,7 +73,7 @@ public class DirectoryController : Controller
             AllFilterThemes = allFilterThemes,
             AppliedFilters = appliedFilters,
             Order = orderBy,
-            Breadcrumbs = GetBreadcrumbsForDirectories(parentDirectories),
+            Breadcrumbs = GetBreadcrumbsForDirectories(parentDirectories, false),
             Slug = slug
         };        
         
@@ -112,7 +116,7 @@ public class DirectoryController : Controller
         {
             Directory = parentDirectories.First(),
             DirectoryEntry = processedDirectoryEntry,
-            Breadcrumbs = GetBreadcrumbsForDirectories(parentDirectories),
+            Breadcrumbs = GetBreadcrumbsForDirectories(parentDirectories, true),
             Slug = slug
         };
 
@@ -125,14 +129,22 @@ public class DirectoryController : Controller
         return new PageLocation(slugValues.Last(), slugValues.SkipLast(1).ToList());
     }
 
-    private List<Crumb> GetBreadcrumbsForDirectories(IList<Directory> parentDirectories) 
+    private List<Crumb> GetBreadcrumbsForDirectories(IList<Directory> parentDirectories, bool viewLastBreadcrumbAsResults = false) 
     {
         List<Crumb> breadcrumbs = new();
         for (int i = 0; i < parentDirectories.Count; i++)
         {
             var directory = parentDirectories[i];
             var relativeUrl = string.Join("/", parentDirectories.Take(i + 1).Select(_ => _.Slug));
-            breadcrumbs.Add(new Crumb(directory.Title, $"directories/{relativeUrl}", "Directories"));
+            if(i == parentDirectories.Count - 1 && viewLastBreadcrumbAsResults)
+            {
+                breadcrumbs.Add(new Crumb(directory.Title, $"directories/results/{relativeUrl}", "Directories"));
+            }
+            else
+            {
+                breadcrumbs.Add(new Crumb(directory.Title, $"directories/{relativeUrl}", "Directories"));
+            }
+            
         }
 
         return breadcrumbs;
