@@ -407,6 +407,7 @@
             touch-action: manipulation;
             font-size: 1em;
             vertical-align: middle;
+            padding-right: 3em;
 
             &::before {
                 content: "";
@@ -432,6 +433,16 @@
                 border-width: 0 0 0.263em 0.263em;
                 opacity: 0;
             }
+        }
+
+        &__count {
+            right: 0;
+            text-align: right;
+            position: absolute;
+            padding-left: 10px;
+            padding-right: 10px;
+            padding-bottom: 3px;
+            padding-top: 3px;
         }
 
         &__checkbox:checked + &__label:after {

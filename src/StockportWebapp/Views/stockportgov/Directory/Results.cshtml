@@ -62,6 +62,8 @@
                                                                     @(Model.AppliedFilters.Any(appliedFilter => appliedFilter.Slug == filter.Slug) ? "checked" : string.Empty)>
                                                             
                                                                 <label for="@filter.Slug" class="directory-filters__label">@filter.DisplayName</label>
+                                                                <span class="directory-filters__count">(@Model.FilterCounts.GetValueOrDefault(filter.Slug, 0))</span>
+
                                                                 <br>
                                                             </div>
                                                         }
