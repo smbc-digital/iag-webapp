@@ -195,7 +195,6 @@
             }
         }
 
-
         &:hover {
             text-decoration: none;
 
@@ -273,95 +272,157 @@
         justify-content: space-between;
     }
 
-    &--border {
-        border: 1px solid $stockport-grey-accent;
+
+
+    &--basic-border {
+        border: 1px solid $stockport-teal-lighter;
+
+        &--enhance-top {
+            border-top-width: 9px;
+        }
     }
-}
 
-html[dir="rtl"] {
-    .navcard {
-        @media #{$mobile} {
-            border-right: 0.368em solid $stockport-teal-lighter;
-            border-left: 0;
-            padding-right: 1em;
-            padding-left: 0;
+    &--theme-pink {
+        border-color: $stockport-pink;
+
+        .navcard__icon {
+            color: $stockport-pink;
         }
+    }
 
-        &--border-around {
+    &--theme-blue {
+        border-color: $stockport-blue;
+
+        .navcard__icon {
+            color: $stockport-blue;
+        }
+    }
+
+    &--theme-orange {
+        border-color: $stockport-orange;
+
+        .navcard__icon {
+            color: $stockport-orange;
+        }
+    }
+
+    &--theme-purple {
+        border-color: $stockport-purple;
+
+        .navcard__icon {
+            color: $stockport-purple;
+        }
+    }
+
+    &--theme-teal {
+        border-color: $stockport-teal;
+
+        .navcard__icon {
+            color: $stockport-teal;
+        }
+    }
+
+    &--theme-green {
+        border-color: $stockport-green;
+
+        .navcard__icon {
+            color: $stockport-green;
+        }
+    }
+
+    &__icon {
+        font-size: 6rem;
+        font-weight: 600;
+        letter-spacing: -1px;
+        line-height: 1.0416666667;
+        padding: 2rem;
+    }
+
+    html[dir="rtl"] {
+        .navcard {
             @media #{$mobile} {
-                border: 1px solid $stockport-grey-accent;
-                border-right: 0.55em solid $stockport-teal-lighter;
+                border-right: 0.368em solid $stockport-teal-lighter;
+                border-left: 0;
+                padding-right: 1em;
+                padding-left: 0;
             }
-        }
 
-        &--border-bottom {
-            @media #{$mobile} {
-                border-left: none;
-                border-right: none;
-                padding-right: 0;
+            &--border-around {
+                @media #{$mobile} {
+                    border: 1px solid $stockport-grey-accent;
+                    border-right: 0.55em solid $stockport-teal-lighter;
+                }
             }
-        }
 
-        &--force-border-top {
-            @media #{$tablet} {
+            &--border-bottom {
+                @media #{$mobile} {
+                    border-left: none;
+                    border-right: none;
+                    padding-right: 0;
+                }
+            }
+
+            &--force-border-top {
+                @media #{$tablet} {
+                    border: 0px;
+                    right: 0px;
+                    border-top: 0.55em solid $stockport-teal-lighter;
+                }
+            }
+
+            &--no-border {
                 border: 0px;
-                right: 0px;
-                border-top: 0.55em solid $stockport-teal-lighter;
+            }
+
+            &--directories {
+                border: 1px solid $stockport-grey-accent;
             }
         }
 
-        &--no-border {
-            border: 0px;
-        }
+        .navcard-wrapper {
+            @media #{$desktop} {
+                .navcard--width-20:nth-child(5n),
+                .navcard--width-25:nth-child(4n),
+                .navcard--width-33:nth-child(3n),
+                .navcard--width-50:nth-child(2n) {
+                    margin-left: 0;
+                    margin-right: 25px;
+                }
 
-        &--directories {
-            border: 1px solid $stockport-grey-accent;
-        }
-    }
-
-    .navcard-wrapper {
-        @media #{$desktop} {
-            .navcard--width-20:nth-child(5n),
-            .navcard--width-25:nth-child(4n),
-            .navcard--width-33:nth-child(3n),
-            .navcard--width-50:nth-child(2n) {
-                margin-left: 0;
-                margin-right: 25px;
+                .navcard--width-20:nth-child(5n + 1),
+                .navcard--width-25:first-child,
+                .navcard--width-25:nth-child(4n - 3),
+                .navcard--width-33:nth-child(3n + 1),
+                .navcard--width-50:nth-child(2n + 1) {
+                    margin-right: 0;
+                    margin-left: 25px;
+                }
             }
 
-            .navcard--width-20:nth-child(5n + 1),
-            .navcard--width-25:first-child,
-            .navcard--width-25:nth-child(4n - 3),
-            .navcard--width-33:nth-child(3n + 1),
-            .navcard--width-50:nth-child(2n + 1) {
-                margin-right: 0;
-                margin-left: 25px;
-            }
-        }
+            @media #{$tablet} {
+                .navcard--width-20:nth-child(3n),
+                .navcard--width-25:nth-child(3n),
+                .navcard--width-33:nth-child(3n),
+                .navcard--width-50:nth-child(2n) {
+                    margin-left: 0;
+                    margin-right: 15px;
+                }
 
-        @media #{$tablet} {
-            .navcard--width-20:nth-child(3n),
-            .navcard--width-25:nth-child(3n),
-            .navcard--width-33:nth-child(3n),
-            .navcard--width-50:nth-child(2n) {
-                margin-left: 0;
-                margin-right: 15px;
+                .navcard--width-20:nth-child(3n + 1),
+                .navcard--width-25:first-child,
+                .navcard--width-25:nth-child(3n - 2),
+                .navcard--width-33:nth-child(3n + 1),
+                .navcard--width-50:nth-child(3n + 1) {
+                    margin-right: 0;
+                    margin-left: 15px;
+                }
             }
 
-            .navcard--width-20:nth-child(3n + 1),
-            .navcard--width-25:first-child,
-            .navcard--width-25:nth-child(3n - 2),
-            .navcard--width-33:nth-child(3n + 1),
-            .navcard--width-50:nth-child(3n + 1) {
-                margin-right: 0;
-                margin-left: 15px;
-            }
-        }
-
-        @media #{$mobile} {
-            .navcard {
-                margin-left: 0 !important;
-                margin-right: 0 !important;
+            @media #{$mobile} {
+                .navcard {
+                    margin-left: 0 !important;
+                    margin-right: 0 !important;
+                }
             }
         }
     }

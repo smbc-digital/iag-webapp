@@ -1,3 +1,7 @@
+.type-directory.background-grey {
+    background-color: $stockport-light-grey;
+}
+
 .placeholder {
     background-color: white;
 }
@@ -22,6 +26,11 @@
 
     @media #{$tablet} {
         display: block;
+    }
+
+    &-body 
+    {
+        padding: 1em 0em;
     }
 
     &-result {

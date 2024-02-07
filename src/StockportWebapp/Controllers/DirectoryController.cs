@@ -81,7 +81,6 @@ public class DirectoryController : Controller
         return Content(kmlString);
     }
 
-    // [Route("/directories/{slug}/directory-entry/{directoryEntrySlug}")]
     [Route("/directory-entry/{entrySlug}")]
     [Route("/directories/entry/{directorySlug}/{entrySlug}")]
     public async Task<IActionResult> DirectoryEntry(string directorySlug, string entrySlug)

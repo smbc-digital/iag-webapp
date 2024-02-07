@@ -1,26 +1,121 @@
 @model DirectoryViewModel
 @{
-    var directory = Model.Directory;
-    ViewData["Title"] = directory.Title;
-    ViewData["og:title"] = directory.Title;
-    ViewData["Description"] = directory.MetaDescription;
-    Layout = "../Shared/_Layout2023.cshtml"; 
+    ViewData["Title"] = Model.Directory.Title;
+    ViewData["og:title"] = Model.Directory.Title;
+    ViewData["Description"] = Model.Directory.MetaDescription;
+    Layout = "../Shared/_Layout2023.cshtml";
 }
-<div class="grid-container-full-width">
-    <div class="placeholder placeholder-bg-teal placeholder-small">
-        <h1>TITLE & SEARCH - IAG</h1>
+
+    <partial name="GlobalAlerts" model='Model.Directory.Alerts' />
+
+<div style="background-color:white;">
+
+    <div class="grid-container">
+        <div class="grid-100">
+        <h1 class="visuallyhidden">@Model.Directory.Title</h1>
+            <div class="directory-body lead">@Model.Directory.Body</div>
+        </div>
     </div>
-    <div class="placeholder placeholder-bg-orange placeholder-xs">
-        <p>BREADCRUMBS</p>
+
+    <div class="grid-container-full-width">
+        @if (Model.Directory.CallToAction is not null)
+        {
+            <partial name="CallToAction" model='Model.Directory.CallToAction' />
+        }        
     </div>
-    <div class="placeholder placeholder-small placeholder-bg-green">
-        <p>CALL TO ACTION</p>
-    </div>
-    <div class="placeholder placeholder-large placeholder-bg-grey">
-        DIRECTORIES
-    </div>
-    <hr>
-    <div class="placeholder placeholder-medium">
-        EXTERNAL LINKS
+
+            
+
+    <div class="grid-container">
+        <div class="grid-100" data-cy="navcard-list">
+            <div class="section__content section__content--no-margin">
+                <ul class="navcard-wrapper navcard-wrapper--no-margin">
+                    <li class="navcard navcard--width-33 navcard--basic-border navcard--basic-border--enhance-top navcard--theme-teal" style="text-align:center;">
+                        <a href="/this-is-an-article-with-sections-with-image-linked-to-a-topic" class="navcard__link" data-cy="nav-card-link">
+                            <div class="navcard__content" >
+                                <div class="navcard__icon">
+                                    <span class="si-group si-default" aria-hidden="true"></span>
+                                </div>
+
+                                <div class="navcard-content--padding">
+                                    <h3 class="navcard__title navcard__title--black">This is an article with sections, with image, linked to a topic</h3>
+                                    <p class="navcard__teaser">This is an article with no sections, image, linked to a topic</p>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="navcard navcard--width-33 navcard--basic-border navcard--basic-border--enhance-top navcard--theme-blue" style="text-align:center;">
+                        <a href="/this-is-an-article-with-sections-with-image-linked-to-a-topic" class="navcard__link" data-cy="nav-card-link">
+                            <div class="navcard__content">
+                                <div class="navcard__icon">
+                                    <span class="si-group si-default" aria-hidden="true" data-cy="top-task-icon"></span>
+                                </div>
+
+                                <div class="navcard-content--padding">
+                                    <h3 class="navcard__title navcard__title--black">This is an article with sections, with image, linked to a topic</h3>
+                                    <p class="navcard__teaser">This is an article with no sections, image, linked to a topic</p>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="navcard navcard--width-33 navcard--basic-border navcard--basic-border--enhance-top navcard--theme-orange" style="text-align:center;">
+                        <a href="/this-is-an-article-with-sections-with-image-linked-to-a-topic" class="navcard__link" data-cy="nav-card-link">
+                            <div class="navcard__content">
+                                <div class="navcard__icon">
+                                    <span class="si-group si-default" aria-hidden="true" data-cy="top-task-icon"></span>
+                                </div>
+
+                                <div class="navcard-content--padding">
+                                    <h3 class="navcard__title navcard__title--black">This is an article with sections, with image, linked to a topic</h3>
+                                    <p class="navcard__teaser">This is an article with no sections, image, linked to a topic</p>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="navcard navcard--width-33 navcard--basic-border navcard--basic-border--enhance-top navcard--theme-purple" style="text-align:center;">
+                        <a href="/this-is-an-article-with-sections-with-image-linked-to-a-topic" class="navcard__link" data-cy="nav-card-link">
+                            <div class="navcard__content">
+                                <div class="navcard__icon">
+                                    <span class="si-group si-default" aria-hidden="true"></span>
+                                </div>
+
+                                <div class="navcard-content--padding">
+                                    <h3 class="navcard__title navcard__title--black">This is an article with sections, with image, linked to a topic</h3>
+                                    <p class="navcard__teaser">This is an article with no sections, image, linked to a topic</p>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="navcard navcard--width-33 navcard--basic-border navcard--basic-border--enhance-top navcard--theme-pink" style="text-align:center;">
+                        <a href="/this-is-an-article-with-sections-with-image-linked-to-a-topic" class="navcard__link" data-cy="nav-card-link">
+                            <div class="navcard__content">
+                                <div class="navcard__icon">
+                                    <span class="si-group si-default" aria-hidden="true" data-cy="top-task-icon"></span>
+                                </div>
+
+                                <div class="navcard-content--padding">
+                                    <h3 class="navcard__title navcard__title--black">This is an article with sections, with image, linked to a topic</h3>
+                                    <p class="navcard__teaser">This is an article with no sections, image, linked to a topic</p>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="navcard navcard--width-33 navcard--basic-border navcard--basic-border--enhance-top navcard--theme-green" style="text-align:center;">
+                        <a href="/this-is-an-article-with-sections-with-image-linked-to-a-topic" class="navcard__link" data-cy="nav-card-link">
+                            <div class="navcard__content">
+                                <div class="navcard__icon">
+                                    <span class="si-group si-default" aria-hidden="true" data-cy="top-task-icon"></span>
+                                </div>
+
+                                <div class="navcard-content--padding">
+                                    <h3 class="navcard__title navcard__title--black">This is an article with sections, with image, linked to a topic</h3>
+                                    <p class="navcard__teaser">This is an article with no sections, image, linked to a topic</p>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </div>
 </div>
