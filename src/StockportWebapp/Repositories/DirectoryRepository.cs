@@ -117,4 +117,4 @@ public class DirectoryRepository : IDirectoryRepository
             .SelectMany(theme => theme.Filters)
             .GroupBy(filter => filter.Slug)
             .ToDictionary(group => group.Key, group => group.Count());
-}                    
+}

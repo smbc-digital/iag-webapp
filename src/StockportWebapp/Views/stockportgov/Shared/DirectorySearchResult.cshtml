@@ -24,16 +24,16 @@
                                 && !string.IsNullOrEmpty(Model.Entry.Branding.FirstOrDefault().File.Description))
                         {
                             <img src="@Model.Entry.Branding.FirstOrDefault().File.Url?w=340&q=89"
-                                 alt="@Model.Entry.Branding.FirstOrDefault().File.Description"
-                                 width="300"
-                                 height="150" />
+                                alt="@Model.Entry.Branding.FirstOrDefault().File.Description"
+                                width="300"
+                                height="150">
                         }
                         else
                         {
                             <img src="@Model.Entry.Branding.FirstOrDefault()?.File.Url?w=340&q=89"
-                                 alt=""
-                                 width="300"
-                                 height="150" />
+                                alt=""
+                                width="300"
+                                height="150">
                         }
                     }
                 </div>

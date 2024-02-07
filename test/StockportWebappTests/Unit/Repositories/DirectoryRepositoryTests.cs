@@ -398,4 +398,32 @@ public class DirectoryRepositoryTests
         Assert.NotNull(result);
         Assert.NotEmpty(result);
     }
+
+    [Fact]
+    public void GetAllFilterCounts_ShouldReturnCorrectCounts()
+    {
+        // Arrange
+        directoryEntry.Themes = filterThemes;
+        directoryEntry2.Themes = filterThemes2;
+        directoryEntry3.Themes = filterThemes;
+
+        List<DirectoryEntry> allEntries = new() { directoryEntry, directoryEntry2, directoryEntry3 };
+
+        // Act
+        var result = _directoryRepository.GetAllFilterCounts(allEntries);
+
+        // Assert
+        Assert.Equal(2, result["value10"]);
+        Assert.Equal(2, result["value20"]);
+        Assert.Equal(2, result["value30"]);
+        Assert.Equal(1, result["value1"]);
+        Assert.Equal(1, result["value2"]);
+        Assert.Equal(1, result["value3"]);
+        Assert.Equal(1, result["value11"]);
+        Assert.Equal(1, result["value21"]);
+        Assert.Equal(1, result["value31"]);
+        Assert.Equal(9, result.Count);
+        Assert.NotNull(result);
+        Assert.NotEmpty(result);
+    }
 }
