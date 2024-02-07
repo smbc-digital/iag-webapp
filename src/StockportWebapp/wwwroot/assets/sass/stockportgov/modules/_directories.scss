@@ -253,7 +253,7 @@
         &-facilities {
             column-count: 2;
 
-            @media #{$tablet} {
+            @media #{$mobile} {
                 column-count: 1;
             }
         }
