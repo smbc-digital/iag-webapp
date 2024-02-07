@@ -1,11 +1,11 @@
-﻿using Directory = StockportWebapp.Models.Directory;
+using Directory = StockportWebapp.Models.Directory;
 using Filter = StockportWebapp.Model.Filter;
-namespace StockportWebapp.Repositories;
+namespace StockportWebapp.Services;
 
-public interface IDirectoryRepository
+public interface IDirectoryService
 {
-    Task<HttpResponse> Get<T>(string slug = "");
-    Task<HttpResponse> GetEntry<T>(string slug = "");
+    Task<Directory> Get<T>(string slug = "");
+    Task<DirectoryEntry> GetEntry<T>(string slug = "");
     IEnumerable<DirectoryEntry> GetFilteredEntryForDirectories(Directory directory);
     IEnumerable<DirectoryEntry> GetFilteredEntryForDirectories(Directory directory, string[] filters);
     IEnumerable<FilterTheme> GetAllFilterThemes(IEnumerable<DirectoryEntry> filteredEntries);
@@ -14,48 +14,49 @@ public interface IDirectoryRepository
     Dictionary<string, int> GetAllFilterCounts(IEnumerable<DirectoryEntry> allEntries);
 }
 
-public class DirectoryRepository : IDirectoryRepository
-{
-    
+public class DirectoryService : IDirectoryService {
     private readonly UrlGenerator _urlGenerator;
     private readonly IHttpClient _httpClient;
     private readonly IApplicationConfiguration _config;
-    private Dictionary<string, string> _authenticationHeaders;
+    private readonly Dictionary<string, string> _authenticationHeaders;
+    private readonly MarkdownWrapper _markdownWrapper;
 
-    public DirectoryRepository(UrlGenerator urlGenerator, IHttpClient httpClient, IApplicationConfiguration config)
+    public DirectoryService(UrlGenerator urlGenerator, IHttpClient httpClient, IApplicationConfiguration config, MarkdownWrapper markdownWrapper)
     {
         _urlGenerator = urlGenerator;
         _httpClient = httpClient;
         _config = config;
         _authenticationHeaders = new Dictionary<string, string> { { "Authorization", _config.GetContentApiAuthenticationKey() }, { "X-ClientId", _config.GetWebAppClientId() } };
+        _markdownWrapper = markdownWrapper;
     }
 
-    public async Task<HttpResponse> Get<T>(string slug = "")
+    public async Task<Directory> Get<T>(string slug = "")
     {
         var url = _urlGenerator.UrlFor<Directory>(slug);
         var httpResponse = await _httpClient.Get(url, _authenticationHeaders);
 
         if (!httpResponse.IsSuccessful())
-            return httpResponse;
+            throw new HttpRequestException($"HTTP request failed with status code {httpResponse.StatusCode}");
 
         var model = HttpResponse.Build<Directory>(httpResponse);
-        var directory = (Directory)model.Content;
-
-        return HttpResponse.Successful(200, directory);
+        return (Directory)model.Content;
     }
 
-    public async Task<HttpResponse> GetEntry<T>(string slug = "")
+    public async Task<DirectoryEntry> GetEntry<T>(string slug = "")
     {
         var url = _urlGenerator.UrlFor<DirectoryEntry>(slug);
         var httpResponse = await _httpClient.Get(url, _authenticationHeaders);
 
         if (!httpResponse.IsSuccessful())
-            return httpResponse;
+            throw new HttpRequestException($"HTTP request failed with status code {httpResponse.StatusCode}");
 
         var model = HttpResponse.Build<DirectoryEntry>(httpResponse);
         var directoryEntry = (DirectoryEntry)model.Content;
 
-        return HttpResponse.Successful(200, directoryEntry);
+        directoryEntry.Description = _markdownWrapper.ConvertToHtml(directoryEntry.Description ?? "");
+        directoryEntry.Address = _markdownWrapper.ConvertToHtml(directoryEntry.Address ?? "");
+
+        return directoryEntry;
     }
 
     public IEnumerable<DirectoryEntry> GetFilteredEntryForDirectories(Directory directory) => 
