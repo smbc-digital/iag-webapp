@@ -252,6 +252,7 @@
     &__filters {
         &-facilities {
             column-count: 2;
+            margin-bottom: 1em;
 
             @media #{$mobile} {
                 column-count: 1;
