@@ -87,7 +87,7 @@ public class DirectoryController : Controller
     public async Task<IActionResult> DirectoryEntry(string directorySlug, string entrySlug)
     {
         var directoryHttpResponse = await _directoryRepository.Get<Directory>(directorySlug);
-         var directoryEntryHttpResponse = await _directoryRepository.GetEntry<DirectoryEntry>(entrySlug);
+        var directoryEntryHttpResponse = await _directoryRepository.GetEntry<DirectoryEntry>(entrySlug);
         if (!directoryEntryHttpResponse.IsSuccessful())
             return directoryHttpResponse;
 

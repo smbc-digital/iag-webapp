@@ -216,6 +216,8 @@
     }
 
     &__filter {
+        display: flex;
+
         span {
             color: $stockport-teal;
             margin-right: 0.75em;
@@ -250,6 +252,10 @@
     &__filters {
         &-facilities {
             column-count: 2;
+
+            @media #{$tablet} {
+                column-count: 1;
+            }
         }
     }
 
