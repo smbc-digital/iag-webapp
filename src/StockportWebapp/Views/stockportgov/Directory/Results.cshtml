@@ -44,23 +44,24 @@
                                     <div class="navcard-content--padding">
                                         <h2 class="h-ml h--no-top-margin">Filter your results</h2>
                                         <p>Choose one or more options to filter your results.</p>
-                                        
+
                                         <div class="directory-results__filters">
-                                            @if(Model.AllFilterThemes is not null && Model.AllFilterThemes.Any()){
+                                            @if (Model.AllFilterThemes is not null && Model.AllFilterThemes.Any())
+                                            {
                                                 @foreach (var entry in Model.AllFilterThemes)
                                                 {
-                                                    <a href="javascript:void(0)" class="directory-results__collapsible">
+                                                    <a href="javascript:void(0)" @(Model.AllFilterThemes.First() != entry ? "aria-expanded=false" : "aria-expanded=true") class="directory-results__collapsible">
                                                         <h3 id='directory-@entry.Title.ToLower().Replace(" ", "-")'>@entry.Title</h3>
                                                         <span class="directory-results__toggle @(Model.AllFilterThemes.First() != entry ? "closed" : string.Empty)"></span>
                                                     </a>
-                                                    
+
                                                     <div class="directory-filters__content" @(Model.AllFilterThemes.First() != entry ? "style=display:none;" : string.Empty) role="group" aria-labelledby='directory-@entry.Title.ToLower().Replace(" ", "-")'>
                                                         @foreach (var filter in entry.Filters)
                                                         {
                                                             <div class="directory__checkbox-container">
                                                                 <input class="directory-filters__checkbox" type="checkbox" name="filters" value="@filter.Slug" id="@filter.Slug"
-                                                                    @(Model.AppliedFilters.Any(appliedFilter => appliedFilter.Slug == filter.Slug) ? "checked" : string.Empty)>
-                                                            
+                                                                @(Model.AppliedFilters.Any(appliedFilter => appliedFilter.Slug == filter.Slug) ? "checked" : string.Empty)>
+
                                                                 <label for="@filter.Slug" class="directory-filters__label">@filter.DisplayName</label>
                                                                 <br>
                                                             </div>
@@ -96,11 +97,11 @@
 </div>
 
 <script>
-    require(['/assets/javascript/config-cb14f652.min.js'], function() {
+    require(['/assets/javascript/config-13323b29.min.js'], function() {
         require(['directoryFilters'],
             function(directoryFilters) {
-                directoryFilters.Init();
-            }
-        );
-    });
+                    directoryFilters.Init();
+                }
+            );
+        });
 </script>
