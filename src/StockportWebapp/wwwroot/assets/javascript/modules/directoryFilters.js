@@ -6,7 +6,13 @@ define(["jquery"], function ($) {
                 $(this).find("span").toggleClass("closed");
                 $(this).next(".directory-filters__content").toggle();
             });
-    })}
+
+
+            $('#order-by').change(function() {
+                $(this).closest('form').submit();
+            });
+        }
+    )}
 
     return {
         Init: init
