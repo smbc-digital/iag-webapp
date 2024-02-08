@@ -55,6 +55,7 @@
 }
 
 .navcard {
+    $self: &;
     width: 100%;
     margin: 0 25px 2em 25px;
     border-top: 0.368em solid $stockport-teal-lighter;
@@ -272,62 +273,268 @@
         justify-content: space-between;
     }
 
-
-
     &--basic-border {
-        border: 1px solid $stockport-teal-lighter;
+        border: 1px solid $stockport-grey-accent;
+        border-radius: 3px;
+    }
 
-        &--enhance-top {
-            border-top-width: 9px;
+    &--border-top {
+        border-top-width: 6px;
+
+        &-strong {
+            border-top-width: 10px;
+        }
+    }
+
+    &--border-right {
+        border-right-width: 6px;
+
+        &-strong {
+            border-right-width: 10px;
+        }
+    }
+
+    &--border-bottom {
+        border-bottom-width: 6px;
+
+        &-strong {
+            border-bottom-width: 10px;
+        }
+    }
+
+    &--border-left {
+        border-left-width: 6px;
+
+        &-strong {
+            border-left-width: 10px;
+        }
+    }
+
+
+    @media #{$desktop} {
+        &--desktop-border-top {
+            border-top-width: 6px;
+
+            &-strong {
+                border-top-width: 10px;
+            }
+        }
+
+        &--desktop-border-right {
+            border-right-width: 6px;
+
+            &-strong {
+                border-right-width: 10px;
+            }
+        }
+
+        &--desktop-border-bottom {
+            border-bottom-width: 6px;
+
+            &-strong {
+                border-bottom-width: 10px;
+            }
+        }
+
+        &--desktop-border-left {
+            border-left-width: 6px;
+
+            &-strong {
+                border-left-width: 10px;
+            }
+        }
+    }
+
+    @media #{$tablet} {
+        &--tablet-border-top {
+            border-top-width: 6px;
+
+            &-strong {
+                border-top-width: 10px;
+            }
+        }
+
+        &--tablet-border-right {
+            border-right-width: 6px;
+
+            &-strong {
+                border-right-width: 10px;
+            }
+        }
+
+        &--tablet-border-bottom {
+            border-bottom-width: 6px;
+
+            &-strong {
+                border-bottom-width: 10px;
+            }
+        }
+
+        &--tablet-border-left {
+            border-left-width: 6px;
+
+            &-strong {
+                border-left-width: 10px;
+            }
+        }
+    }
+
+    @media #{$mobile} {
+        &--mobile-border-top {
+            border-top-width: 6px;
+
+            &-strong {
+                border-top-width: 10px;
+            }
+        }
+
+        &--mobile-border-right {
+            border-right-width: 6px;
+
+            &-strong {
+                border-right-width: 10px;
+            }
+        }
+
+        &--mobile-border-bottom {
+            border-bottom-width: 6px;
+
+            &-strong {
+                border-bottom-width: 10px;
+            }
+        }
+
+        &--mobile-border-left {
+            border-left-width: 6px;
+
+            &-strong {
+                border-left-width: 10px;
+            }
+        }
+    }
+
+    @mixin theme($theme: $stockport-teal) {
+        &-top {
+            border-top-color: $theme;
+        }
+
+        &-right {
+            border-right-color: $theme;
+        }
+
+        &-bottom {
+            border-bottom-color: $theme;
+        }
+
+        &-left {
+            border-left-color: $theme;
+        }
+
+        &-all {
+            border-color: $theme;
+        }
+
+        @media #{$desktop} {
+            &-desktop-top {
+                border-top-color: $theme;
+            }
+
+            &-desktop-right {
+                border-right-color: $theme;
+            }
+
+            &-desktop-bottom {
+                border-bottom-color: $theme;
+            }
+
+            &-desktop-left {
+                border-left-color: $theme;
+            }
+
+            &-desktop-all {
+                border-color: $theme;
+            }
+        }
+
+        @media #{$tablet} {
+            &-tablet-top {
+                border-top-color: $theme;
+            }
+
+            &-tablet-right {
+                border-right-color: $theme;
+            }
+
+            &-tablet-bottom {
+                border-bottom-color: $theme;
+            }
+
+            &-tablet-left {
+                border-left-color: $theme;
+            }
+
+            &-tablet-all {
+                border-color: $theme;
+            }
+        }
+
+        @media #{$mobile} {
+            &-mobile-top {
+                border-top-color: $theme;
+            }
+
+            &-mobile-right {
+                border-right-color: $theme;
+            }
+
+            &-mobile-bottom {
+                border-bottom-color: $theme;
+            }
+
+            &-mobile-left {
+                border-left-color: $theme;
+            }
+
+            &-mobile-all {
+                border-color: $theme;
+            }
+        }
+
+        #{ $self }__icon {
+            color: $theme;
         }
     }
 
     &--theme-pink {
-        border-color: $stockport-pink;
-
-        .navcard__icon {
-            color: $stockport-pink;
-        }
+        @include theme($theme: $stockport-pink);
     }
 
     &--theme-blue {
-        border-color: $stockport-blue;
-
-        .navcard__icon {
-            color: $stockport-blue;
-        }
+        @include theme($theme: $stockport-blue);
     }
 
     &--theme-orange {
-        border-color: $stockport-orange;
-
-        .navcard__icon {
-            color: $stockport-orange;
-        }
+        @include theme($theme: $stockport-orange);
     }
 
     &--theme-purple {
-        border-color: $stockport-purple;
-
-        .navcard__icon {
-            color: $stockport-purple;
-        }
+        @include theme($theme: $stockport-purple);
     }
 
     &--theme-teal {
-        border-color: $stockport-teal;
+        @include theme($theme: $stockport-teal);
+    }
 
-        .navcard__icon {
-            color: $stockport-teal;
-        }
+    &--theme-grey {
+        @include theme($theme: $stockport-grey);
+    }
+
+    &--theme-teal-lighter {
+        @include theme($theme: $stockport-teal-lighter);
     }
 
     &--theme-green {
-        border-color: $stockport-green;
-
-        .navcard__icon {
-            color: $stockport-green;
-        }
+        @include theme($theme: $stockport-green);
     }
 
     &__icon {
