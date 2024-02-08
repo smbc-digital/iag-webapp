@@ -3,7 +3,7 @@
     bool displayImage = Model.Items.All(item => !string.IsNullOrEmpty(item.Image));
     var borderCssClasses = displayImage 
         ? "navcard--border-bottom-strong navcard--theme-teal-lighter-bottom"
-        : "navcard--desktop-border-top-strong navcard--theme-teal-lighter-desktop-top navcard--tablet-border-left-strong navcard--theme-teal-lighter-tablet-left";
+        : "navcard--desktop-border-top-strong navcard--theme-teal-lighter-desktop-top navcard--tablet-border-top-strong navcard--theme-teal-lighter-tablet-top navcard--mobile-border-left-strong navcard--theme-teal-lighter-mobile-left";
 }
 
 <ul class="navcard-wrapper navcard-wrapper--no-margin">

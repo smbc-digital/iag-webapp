@@ -345,7 +345,7 @@
         }
     }
 
-    @media #{$tablet} {
+    @media #{$tablet-only} {
         &--tablet-border-top {
             border-top-width: 6px;
 
