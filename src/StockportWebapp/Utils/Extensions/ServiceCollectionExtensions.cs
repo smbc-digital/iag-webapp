@@ -257,7 +257,6 @@ namespace StockportWebapp.Utils.Extensions
         {
             logger.Information($"WEBAPP : ServiceCollectionsExtensions : AddRedis : Configure redis for session management - TokenStoreUrl: {configuration["TokenStoreUrl"]} Enabled: {useRedisSession}");
 
-
             if (useRedisSession)
             {
                 var redisUrl = configuration.GetValue<string>("TokenStoreUrl");
@@ -266,17 +265,17 @@ namespace StockportWebapp.Utils.Extensions
                 try
                 {
                     var redisIp = GetHostEntryForUrl(redisUrl, logger);
-                    logger.Information($"Using redis for session management - url {redisUrl}, ip {redisIp}");
+                    logger.Information($"WEBAPP : ServiceCollectionExtensions : AddRedis : Using Redis for session management - url {redisUrl}, ip {redisIp}");
                     services.AddDataProtection().PersistKeysToRedis(redisIp);
                 }
                 catch(Exception ex)
                 {
-                    logger.Error(ex, $"Unable to setup Using redis for session management - url {redisUrl}");
+                    logger.Error(ex, $"WEBAPP : ServiceCollectionExtensions : AddRedis : Unable to setup Using redis for session management - url {redisUrl}");
                 }
             }
             else
             {
-                logger.Information("Not using redis for session management!");
+                logger.Information("WEBAPP : ServiceCollectionExtensions : AddRedis : Not using redis for session management, falling back to memory cache");
             }
 
             return services;
@@ -285,22 +284,17 @@ namespace StockportWebapp.Utils.Extensions
         private static string GetHostEntryForUrl(string host, ILogger logger)
         {
             if(string.IsNullOrEmpty(host))
-                throw new ArgumentNullException("GetHostEntryForUrl: host can not be null");
+                throw new ArgumentNullException("WEBAPP : ServiceCollectionExtensions : GetHostEntryForUrl: host can not be null");
 
-            logger.Information($"GetHostEntryForUrl: Attempting to resolve {host}");
+            logger.Information($"WEBAPP : ServiceCollectionExtensions : GetHostEntryForUrl: Attempting to resolve {host}");
 
             var addresses = Dns.GetHostEntryAsync(host).Result.AddressList;
 
             if (!addresses.Any())
-            {
-                logger.Error($"GetHostEntryForUrl: Could not resolve IP address for redis instance : {host}");
-                throw new Exception($"GetHostEntryForUrl: No redis instance could be found for host {host}");
-            }
-
+                throw new Exception($"WEBAPP : ServiceCollectionExtensions : GetHostEntryForUrl: No redis instance could be found for host {host}");
+            
             if (addresses.Length > 1)
-            {
-                logger.Warning($"GetHostEntryForUrl: Multple IP address for redis instance : {host} attempting to use first");
-            }
+                logger.Warning($"WEBAPP : ServiceCollectionExtensions : GetHostEntryForUrl: Multple IP address for redis instance : {host} attempting to use first");
 
             return addresses.First().ToString();
         }
