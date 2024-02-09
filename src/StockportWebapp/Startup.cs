@@ -8,19 +8,23 @@ public class Startup
     public readonly string ConfigDir = "app-config";
     private readonly bool _useRedisSession;
     private readonly bool _sendAmazonEmails;
+    private readonly Serilog.ILogger _logger;
 
-    public Startup(IConfiguration configuration, IWebHostEnvironment env)
+
+    public Startup(IConfiguration configuration, IWebHostEnvironment env, Serilog.ILogger logger)
     {
         Configuration = configuration;
         _contentRootPath = env.ContentRootPath;
         _appEnvironmentName = env.EnvironmentName;
         _useRedisSession = Configuration["UseRedisSessions"] == "true";
         _sendAmazonEmails = string.IsNullOrEmpty(Configuration["SendAmazonEmails"]) || Configuration["SendAmazonEmails"] == "true";
+        _logger = logger;
+
     }
 
     public virtual void ConfigureServices(IServiceCollection services)
     {
-        Log.Logger.Information($"STARTUP: Configuring services");
+        _logger.Information($"WEBAPP: STARTUP : ConfigureServices : Env = {_appEnvironment}, UseRedisSession = {_useRedisSession}, UseLocalCache = {_useLocalCache}, ContentRoot = {_contentRootPath}  ");
 
         services.AddControllersWithViews(options =>
         {
@@ -64,6 +68,7 @@ public class Startup
         services.AddGroupConfiguration(Configuration, Log.Logger);
         services.AddSesEmailConfiguration(Configuration, Log.Logger);
         services.AddConfigurationOptions(Configuration);
+        _logger.Information($"CONTENTAPI: STARTUP : ConfigureServices : Adding Cache");
         services.AddRedis(Configuration, _useRedisSession, Log.Logger);
 
         services.AddFeatureManagement();

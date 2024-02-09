@@ -247,7 +247,7 @@ namespace StockportWebapp.Utils.Extensions
             }
             else
             {
-                logger.Information("Secrets not found.");
+                logger.Information("AddSesEmailConfiguration : Secrets not found.");
             }
 
             return services;
@@ -255,11 +255,14 @@ namespace StockportWebapp.Utils.Extensions
 
         public static IServiceCollection AddRedis(this IServiceCollection services, IConfiguration configuration, bool useRedisSession, ILogger logger)
         {
-            logger.Information($"Configure redis for session management - TokenStoreUrl: {configuration["TokenStoreUrl"]} Enabled: {useRedisSession}");
+            logger.Information($"WEBAPP : ServiceCollectionsExtensions : AddRedis : Configure redis for session management - TokenStoreUrl: {configuration["TokenStoreUrl"]} Enabled: {useRedisSession}");
+
 
             if (useRedisSession)
             {
                 var redisUrl = configuration.GetValue<string>("TokenStoreUrl");
+                logger.Information($"WEBAPP : ServiceCollectionsExtensions : AddRedis : Using Redis URL {redisUrl}");
+
                 try
                 {
                     var redisIp = GetHostEntryForUrl(redisUrl, logger);
