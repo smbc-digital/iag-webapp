@@ -108,12 +108,12 @@
                         <div class="directory__filters">
                             <div class="directory__wrapper">
                                 <h2 class="directory__filters-title">Facilities available</h2>
-                                <div class="directory__filters-facilities">
+                                <ul class="directory__filters-facilities">
                                     @foreach (var filter in highlightedFilters)
                                     {
-                                        <p class="directory__filter"><span class="fa fa-check" aria-hidden="true"></span> @filter.DisplayName</p>
+                                        <li class="directory__filter"><span class="fa fa-check" aria-hidden="true"></span> @filter.DisplayName</li>
                                     }
-                                </div>
+                                </ul>
                             </div>
                         </div>
                     }
