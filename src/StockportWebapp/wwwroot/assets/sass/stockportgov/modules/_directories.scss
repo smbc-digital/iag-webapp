@@ -216,6 +216,10 @@
     }
 
     &__filter {
+        display: flex;
+        margin-left: 0;
+        margin-bottom: 20px;
+
         span {
             color: $stockport-teal;
             margin-right: 0.75em;
@@ -250,6 +254,11 @@
     &__filters {
         &-facilities {
             column-count: 2;
+            margin-bottom: 1em;
+
+            @media #{$mobile} {
+                column-count: 1;
+            }
         }
     }
 
@@ -488,7 +497,6 @@
             padding: 0.55em;
             width: 100%;
             text-align: left;
-            cursor: pointer;
             width: -webkit-fill-available;
             background-color: #fff;
             background-image: url(/assets/images/ui-images/chevron-down-black.svg);

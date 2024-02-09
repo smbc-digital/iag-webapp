@@ -5,23 +5,26 @@
     ViewData["og:title"] = directory.Name;
     ViewData["Description"] = directory.MetaDescription;
     Layout = "../Shared/_Layout2023.cshtml";
+    var highlightedFilters = directory.Themes?.SelectMany(_ => _.Filters.Where(_ => _.Highlight.Equals(true))).ToList();
 }
 
 <div class="grid-container-full-width" data-cy="directory-entry">
-@*    <section class="directories-search">
-        @if(Model.Directory is not null){
-            <partial name="DirectorySearch" model="@Model.Directory.Title"/>
-        }
-        else{
-            <partial name="DirectorySearch" model="@directory.Name" />
-        }
-    </section>*@
-
+    @*    <section class="directories-search">
     @if(Model.Directory is not null){
-        <partial name="Breadcrumb2023" model='new List<Crumb> { new Crumb(Model.Directory.Title, "directories/results/" + Model.Directory.Slug, "Directory")}'/>
+    <partial name="DirectorySearch" model="@Model.Directory.Title"/>
     }
     else{
-        <partial name="Breadcrumb2023" model='new List<Crumb>()'/>
+    <partial name="DirectorySearch" model="@directory.Name" />
+    }
+    </section>*@
+
+    @if (Model.Directory is not null)
+    {
+        <partial name="Breadcrumb2023" model='new List<Crumb> { new Crumb(Model.Directory.Title, "directories/results/" + Model.Directory.Slug, "Directory")}' />
+    }
+    else
+    {
+        <partial name="Breadcrumb2023" model='new List<Crumb>()' />
     }
 
     <div class="grid-container">
@@ -30,22 +33,24 @@
             <section class="directory">
                 <div class="directory--30 directory--border-top">
                     <div class="directory__wrapper">
-                        @if(directory.Branding.Any()){
-                            <img src="@directory.Branding.FirstOrDefault().File.Url?w=350&q=89"
-                                srcset="@directory.Branding.FirstOrDefault().File.Url?w=350&q=89&fm=webp 350w"
+                        @if(!string.IsNullOrEmpty(directory.Image)){
+                            <img src="@directory.Image?w=350&q=89"
+                                srcset="@directory.Image?w=350&q=89&fm=webp 350w"
                                 class="directory__logo"
-                                alt="@(directory.Branding.FirstOrDefault().File.Description ?? string.Empty)"
+                                alt=""
                                 width="350"
                                 height="150">
                         }
-                        
+
                         <h2 class="directory__profile--margin-top">Our details</h2>
                         <div class="directory__organisation">
                             <h3 class="h-m">Organisation</h3>
-                            @if(string.IsNullOrEmpty(directory.Provider)) {
+                            @if (string.IsNullOrEmpty(directory.Provider))
+                            {
                                 <p>@directory.Name</p>
                             }
-                            else{
+                            else
+                            {
                                 <p>@directory.Provider</p>
                             }
                         </div>
@@ -78,7 +83,7 @@
 
                             <div class="directory__social">
                                 <p>Visit:</p>
-        
+
                                 <div class="directory__social--tablet">
                                     <a href="@directory.Website">@directory.Website</a>
                                     <a href="@directory.Facebook">Facebook</a>
@@ -88,7 +93,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="directory--70">
                     <div class="directory__description">
                         <div class="directory__wrapper">
@@ -97,23 +102,20 @@
                         </div>
                     </div>
 
-                    @if (directory.Themes is not null)
+                    @if (highlightedFilters is not null)
                     {
                         <div class="directory__filters">
                             <div class="directory__wrapper">
-                                <h2 class="h-ml directory__filters-title">Facilities available</h2>
-                                <div class="directory__filters-facilities">
-                                @foreach (var theme in directory.Themes)
-                                {
-                                    foreach (var filter in theme.Filters.Where(_ => _.Highlight.Equals(true)))
+                                <h2 class="directory__filters-title">Facilities available</h2>
+                                <ul class="directory__filters-facilities">
+                                    @foreach (var filter in highlightedFilters)
                                     {
-                                        <p class="directory__filter"><span class="fa fa-check" aria-hidden="true"></span> @filter.DisplayName</p>
+                                        <li class="directory__filter"><span class="fa fa-check" aria-hidden="true"></span> @filter.DisplayName</li>
                                     }
-                                }
-                                </div>
+                                </ul>
                             </div>
                         </div>
-                }
+                    }
                 </div>
             </section>
         </div>
