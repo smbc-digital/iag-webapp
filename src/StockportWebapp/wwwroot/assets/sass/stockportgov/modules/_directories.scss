@@ -217,6 +217,8 @@
 
     &__filter {
         display: flex;
+        margin-left: 0;
+        margin-bottom: 20px;
 
         span {
             color: $stockport-teal;
