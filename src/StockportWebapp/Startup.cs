@@ -24,7 +24,7 @@ public class Startup
 
     public virtual void ConfigureServices(IServiceCollection services)
     {
-        _logger.Information($"WEBAPP: STARTUP : ConfigureServices : Env = {_appEnvironment}, UseRedisSession = {_useRedisSession}, UseLocalCache = {_useLocalCache}, ContentRoot = {_contentRootPath}  ");
+        _logger.Information($"WEBAPP: STARTUP : ConfigureServices : Env = {_appEnvironmentName}, UseRedisSession = {_useRedisSession}, ContentRoot = {_contentRootPath}  ");
 
         services.AddControllersWithViews(options =>
         {
