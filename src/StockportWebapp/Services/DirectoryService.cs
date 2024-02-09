@@ -15,43 +15,35 @@ public interface IDirectoryService
 }
 
 public class DirectoryService : IDirectoryService {
-    private readonly UrlGenerator _urlGenerator;
-    private readonly IHttpClient _httpClient;
     private readonly IApplicationConfiguration _config;
-    private readonly Dictionary<string, string> _authenticationHeaders;
     private readonly MarkdownWrapper _markdownWrapper;
+    private readonly IRepository _repository;
 
-    public DirectoryService(UrlGenerator urlGenerator, IHttpClient httpClient, IApplicationConfiguration config, MarkdownWrapper markdownWrapper)
+    public DirectoryService(IApplicationConfiguration config, MarkdownWrapper markdownWrapper, IRepository repository)
     {
-        _urlGenerator = urlGenerator;
-        _httpClient = httpClient;
         _config = config;
-        _authenticationHeaders = new Dictionary<string, string> { { "Authorization", _config.GetContentApiAuthenticationKey() }, { "X-ClientId", _config.GetWebAppClientId() } };
         _markdownWrapper = markdownWrapper;
+        _repository = repository;
     }
 
     public async Task<Directory> Get<T>(string slug = "")
     {
-        var url = _urlGenerator.UrlFor<Directory>(slug);
-        var httpResponse = await _httpClient.Get(url, _authenticationHeaders);
+        var httpResponse = await _repository.Get<Directory>(slug);
 
         if (!httpResponse.IsSuccessful())
             throw new HttpRequestException($"HTTP request failed with status code {httpResponse.StatusCode}");
 
-        var model = HttpResponse.Build<Directory>(httpResponse);
-        return (Directory)model.Content;
+        return (Directory)httpResponse.Content;
     }
 
     public async Task<DirectoryEntry> GetEntry<T>(string slug = "")
     {
-        var url = _urlGenerator.UrlFor<DirectoryEntry>(slug);
-        var httpResponse = await _httpClient.Get(url, _authenticationHeaders);
+        var httpResponse = await _repository.Get<DirectoryEntry>(slug);
 
         if (!httpResponse.IsSuccessful())
             throw new HttpRequestException($"HTTP request failed with status code {httpResponse.StatusCode}");
 
-        var model = HttpResponse.Build<DirectoryEntry>(httpResponse);
-        var directoryEntry = (DirectoryEntry)model.Content;
+        var directoryEntry = (DirectoryEntry)httpResponse.Content;
 
         directoryEntry.Description = _markdownWrapper.ConvertToHtml(directoryEntry.Description ?? "");
         directoryEntry.Address = _markdownWrapper.ConvertToHtml(directoryEntry.Address ?? "");
