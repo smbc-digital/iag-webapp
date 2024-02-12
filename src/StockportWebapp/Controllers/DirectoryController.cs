@@ -8,8 +8,9 @@ public class DirectoryController : Controller
 {
     private readonly IDirectoryRepository _directoryRepository;
     private readonly MarkdownWrapper _markdownWrapper;
+    private readonly IFeatureManager _featureManager;
 
-    public DirectoryController(IDirectoryRepository directoryRepository, MarkdownWrapper markdownWrapper)
+    public DirectoryController(IDirectoryRepository directoryRepository, MarkdownWrapper markdownWrapper, IFeatureManager featureManager = null)
     {
         _directoryRepository = directoryRepository;
         _markdownWrapper = markdownWrapper;
@@ -18,6 +19,10 @@ public class DirectoryController : Controller
     [Route("/directories/{slug}")]
     public async Task<IActionResult> Directory(string slug)
     {
+        if (_featureManager is not null 
+                && await _featureManager.IsEnabledAsync("Directories"))
+                return NotFound();
+
         var directoryHttpResponse = await _directoryRepository.Get<Directory>(slug);
         if (!directoryHttpResponse.IsSuccessful())
             return directoryHttpResponse;
@@ -40,6 +45,10 @@ public class DirectoryController : Controller
     [Route("/directories/results/{slug}")]
     public async Task<IActionResult> DirectoryResults([Required][FromRoute]string slug, string[] filters, string orderBy)
     {
+        if (_featureManager is not null
+        && await _featureManager.IsEnabledAsync("Directories"))
+            return NotFound();
+
         var directoryHttpResponse = await _directoryRepository.Get<Directory>(slug);
         
         if (!directoryHttpResponse.IsSuccessful())
@@ -72,6 +81,10 @@ public class DirectoryController : Controller
     [Produces(MediaTypeNames.Application.Xml)]
     public async Task<IActionResult> DirectoryAsKml(string slug)
     {
+        if (_featureManager is not null
+        && await _featureManager.IsEnabledAsync("Directories"))
+            return NotFound();
+
         var directoryHttpResponse = await _directoryRepository.Get<Directory>(slug);
         if (!directoryHttpResponse.IsSuccessful())
             return directoryHttpResponse;
@@ -86,6 +99,10 @@ public class DirectoryController : Controller
     [Route("/directories/entry/{directorySlug}/{entrySlug}")]
     public async Task<IActionResult> DirectoryEntry(string directorySlug, string entrySlug)
     {
+        if (_featureManager is not null
+        && await _featureManager.IsEnabledAsync("Directories"))
+            return NotFound();
+
         var directoryHttpResponse = await _directoryRepository.Get<Directory>(directorySlug);
         var directoryEntryHttpResponse = await _directoryRepository.GetEntry<DirectoryEntry>(entrySlug);
         if (!directoryEntryHttpResponse.IsSuccessful())
