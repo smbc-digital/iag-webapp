@@ -417,12 +417,11 @@
         &__label {
             display: inline-block;
             margin-bottom: 0;
-            padding: 0.3em 0.789em 0.3em 0.789em;
+            padding: 0.3em 3em 0.3em 0.789em;
             cursor: pointer;
             touch-action: manipulation;
             font-size: 1em;
             vertical-align: middle;
-            padding-right: 3em;
 
             &::before {
                 content: "";
@@ -555,6 +554,11 @@ html[dir="rtl"] {
                     top: 0.7rem;
                     right: 0.55rem;
                 }
+            }
+
+            &__count {
+                left: 0;
+                text-align: left;
             }
         }
 
