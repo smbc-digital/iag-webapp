@@ -55,6 +55,10 @@ public class DirectoryController : Controller
         var appliedFilters = _directoryRepository.GetAppliedFilters(filters, allFilterThemes);
         
         filteredEntries = _directoryRepository.GetOrderedEntries(filteredEntries, orderBy);
+        
+        var filterCounts = filters.Any()
+            ? _directoryRepository.GetAllFilterCounts(filteredEntries)
+            : _directoryRepository.GetAllFilterCounts(directory.AllEntries);
 
         DirectoryViewModel directoryViewModel = new()
         {
@@ -62,8 +66,9 @@ public class DirectoryController : Controller
             FilteredEntries = filteredEntries,
             AllFilterThemes = allFilterThemes,
             AppliedFilters = appliedFilters,
+            FilterCounts = filterCounts,
             Order = orderBy
-        };        
+        };
         
         return View("results", directoryViewModel);
     }

@@ -417,7 +417,7 @@
         &__label {
             display: inline-block;
             margin-bottom: 0;
-            padding: 0.3em 0.789em 0.3em 0.789em;
+            padding: 0.3em 3em 0.3em 0.789em;
             cursor: pointer;
             touch-action: manipulation;
             font-size: 1em;
@@ -447,6 +447,16 @@
                 border-width: 0 0 0.263em 0.263em;
                 opacity: 0;
             }
+        }
+
+        &__count {
+            right: 0;
+            text-align: right;
+            position: absolute;
+            padding-left: 10px;
+            padding-right: 10px;
+            padding-bottom: 3px;
+            padding-top: 3px;
         }
 
         &__checkbox:checked + &__label:after {
@@ -544,6 +554,11 @@ html[dir="rtl"] {
                     top: 0.7rem;
                     right: 0.55rem;
                 }
+            }
+
+            &__count {
+                left: 0;
+                text-align: left;
             }
         }
 

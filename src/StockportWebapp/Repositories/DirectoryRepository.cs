@@ -11,6 +11,7 @@ public interface IDirectoryRepository
     IEnumerable<FilterTheme> GetAllFilterThemes(IEnumerable<DirectoryEntry> filteredEntries);
     IEnumerable<Filter> GetAppliedFilters(string[] filters, IEnumerable<FilterTheme> filterThemes);
     IEnumerable<DirectoryEntry> GetOrderedEntries(IEnumerable<DirectoryEntry> filteredEntries, string orderBy);
+    Dictionary<string, int> GetAllFilterCounts(IEnumerable<DirectoryEntry> allEntries);
 }
 
 public class DirectoryRepository : IDirectoryRepository
@@ -107,4 +108,13 @@ public class DirectoryRepository : IDirectoryRepository
 
         return filteredEntries;
     }
+
+    public Dictionary<string, int> GetAllFilterCounts(IEnumerable<DirectoryEntry> allEntries) =>
+        allEntries
+            .Where(entry => entry.Themes is not null)
+            .SelectMany(entry => entry.Themes)
+            .Where(theme => theme.Filters is not null)
+            .SelectMany(theme => theme.Filters)
+            .GroupBy(filter => filter.Slug)
+            .ToDictionary(group => group.Key, group => group.Count());
 }

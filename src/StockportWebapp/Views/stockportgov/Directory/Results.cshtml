@@ -10,11 +10,11 @@
 <div class="grid-container-full-width background-grey" data-cy="search-results">
 
     @*<section class="directories-search">
-    <partial name="DirectorySearchOneStockport" />
+    <partial name="DirectorySearchOneStockport"/>
     <partial name="DirectorySearch" model="@Model.Directory.Title"/>
     </section>*@
 
-    <partial name="Breadcrumb2023" model='new List<Crumb>()' />
+    <partial name="Breadcrumb2023" model='new List<Crumb>()'/>
     <form asp-controller="Directory" method="get">
         <div class="grid-container">
             <div class="grid-100 directory-sub-title">
@@ -63,12 +63,14 @@
                                                                 @(Model.AppliedFilters.Any(appliedFilter => appliedFilter.Slug == filter.Slug) ? "checked" : string.Empty)>
 
                                                                 <label for="@filter.Slug" class="directory-filters__label">@filter.DisplayName</label>
+                                                                <span class="directory-filters__count">(@Model.FilterCounts.GetValueOrDefault(filter.Slug, 0))</span>
+
                                                                 <br>
                                                             </div>
                                                         }
                                                     </div>
 
-                                                    <hr />
+                                                    <hr>
                                                 }
 
                                                 <button value="Apply filters" data-cy="apply-filters" class="btn btn--bold btn--full btn--margin-bottom btn--margin-top" type="submit">Apply filters</button>
@@ -87,7 +89,7 @@
                         <ul class="navcard-wrapper">
                             @foreach (var entry in Model.FilteredEntries)
                             {
-                                <partial name="DirectorySearchResult" model=@(new DirectorySearchResultViewModel {DirectorySlug = Model.Directory.Slug, Entry = entry}) />
+                                <partial name="DirectorySearchResult" model=@(new DirectorySearchResultViewModel {DirectorySlug = Model.Directory.Slug, Entry = entry})/>
                             }
                         </ul>
                     </div>
