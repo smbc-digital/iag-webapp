@@ -21,6 +21,9 @@ namespace StockportWebapp.Models
         public string Website { get; set; } = string.Empty;
         public string Twitter { get; set; } = string.Empty;
         public string Facebook { get; set; } = string.Empty;
+        public string Youtube { get; set; } = string.Empty;
+        public string Instagram { get; set; } = string.Empty;
+        public string LinkedIn { get; set; } = string.Empty;
         public string Address { get; set; } = string.Empty;
         public string Image { get; set; }
 

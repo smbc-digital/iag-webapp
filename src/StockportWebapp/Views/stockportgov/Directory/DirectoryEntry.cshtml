@@ -5,7 +5,18 @@
     ViewData["og:title"] = directory.Name;
     ViewData["Description"] = directory.MetaDescription;
     Layout = "../Shared/_Layout2023.cshtml";
-    var highlightedFilters = directory.Themes?.SelectMany(_ => _.Filters.Where(_ => _.Highlight.Equals(true))).ToList();
+    var highlightedFilters = directory.Themes?.SelectMany(_ => _.Filters.Where(_ => _.Highlight.Equals(true))).ToList();                          
+    
+    var displayVisit = !string.IsNullOrEmpty(directory.Website) ||
+                       !string.IsNullOrEmpty(directory.Facebook) ||
+                       !string.IsNullOrEmpty(directory.Twitter) ||
+                       !string.IsNullOrEmpty(directory.Youtube) ||
+                       !string.IsNullOrEmpty(directory.Instagram) ||
+                       !string.IsNullOrEmpty(directory.LinkedIn);
+
+    var displayContactUs = !string.IsNullOrEmpty(directory.PhoneNumber) ||
+                           !string.IsNullOrEmpty(directory.Email) ||
+                           displayVisit;
 }
 
 <div class="grid-container-full-width" data-cy="directory-entry">
@@ -56,38 +67,79 @@
                         </div>
 
                         <div class="directory__address">
-                            <h3 class="h-m">Address</h3>
-                            <div>@Html.Raw(@directory.Address)</div>
+                            @if(!string.IsNullOrEmpty(directory.Address)){
+                                <h3 class="h-m">Address</h3>
+                                <div>@Html.Raw(@directory.Address)</div>
+                            }
                         </div>
 
-                        <h3 class="h-m">Contact us</h3>
+                        @if(displayContactUs){
+                            <h3 class="h-m">Contact us</h3>
+                        }
+    
                         <div class="directory__contact">
                             <div class="directory__labels">
-                                <p class="directory__labels--no-margin">Phone:</p>
-                                <p class="directory__phone">@directory.PhoneNumber</p>
-                                <p class="directory__labels--no-margin">Email:</p>
-                                <a class="directory__email" href="mailto:@directory.Email">@directory.Email</a>
+                                @if(!string.IsNullOrEmpty(directory.PhoneNumber)){
+                                    <p class="directory__labels--no-margin">Phone:</p>
+                                    <p class="directory__phone">@directory.PhoneNumber</p>
+                                }
+
+                                @if(!string.IsNullOrEmpty(directory.Email)){
+                                    <p class="directory__labels--no-margin">Email:</p>
+                                    <a class="directory__email" href="mailto:@directory.Email">@directory.Email</a>
+                                }
                             </div>
 
                             <div class="directory__contact--tablet">
                                 <div class="directory__labels--tablet">
-                                    <p>Phone:</p>
-                                    <p>Email:</p>
+                                    @if(!string.IsNullOrEmpty(directory.PhoneNumber)){
+                                        <p>Phone:</p>
+                                    }
+
+                                    @if(!string.IsNullOrEmpty(directory.Email)){
+                                        <p>Email:</p>
+                                    }
                                 </div>
 
                                 <div class="directory__values--tablet">
-                                    <p>@directory.PhoneNumber</p>
-                                    <a href="mailto:@directory.Email">@directory.Email</a>
+                                    @if(!string.IsNullOrEmpty(directory.PhoneNumber)){
+                                        <p>@directory.PhoneNumber</p>
+                                    }
+
+                                    @if(!string.IsNullOrEmpty(directory.Email)){
+                                        <a href="mailto:@directory.Email">@directory.Email</a>
+                                    }
                                 </div>
                             </div>
 
                             <div class="directory__social">
-                                <p>Visit:</p>
-
+                                @if(displayVisit){
+                                    <p>Visit:</p>
+                                }
                                 <div class="directory__social--tablet">
-                                    <a href="@directory.Website">@directory.Website</a>
-                                    <a href="@directory.Facebook">Facebook</a>
-                                    <a href="@directory.Twitter">Twitter</a>
+                                    @if(!string.IsNullOrEmpty(directory.Website)){
+                                        <a href="@directory.Website">@directory.Website</a>
+                                    }
+
+                                    @if(!string.IsNullOrEmpty(directory.Facebook)){
+                                        <a href="@directory.Facebook">@directory.Facebook</a>
+                                    }
+
+                                    @if(!string.IsNullOrEmpty(directory.Twitter)){
+                                        <a href="@directory.Twitter">@directory.Twitter</a>
+                                    }
+
+                                    @if(!string.IsNullOrEmpty(directory.Youtube)){
+                                        <a href="@directory.Youtube">@directory.Youtube</a>
+                                    }
+
+                                    @if(!string.IsNullOrEmpty(directory.Instagram)){
+                                        <a href="@directory.Instagram">@directory.Instagram</a>
+                                    }
+
+                                    @if(!string.IsNullOrEmpty(directory.LinkedIn)){
+                                        <a href="@directory.LinkedIn">@directory.LinkedIn</a>
+                                    }
                                 </div>
                             </div>
                         </div>
