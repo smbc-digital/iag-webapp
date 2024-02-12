@@ -18,23 +18,12 @@
                     </div>
                 </div>
                 <div class="directory-result__brand">
-                    @if (Model.Entry.Branding.Any())
-                    {
-                        @if (Model.Entry.Branding.FirstOrDefault().File is not null
-                                && !string.IsNullOrEmpty(Model.Entry.Branding.FirstOrDefault().File.Description))
-                        {
-                            <img src="@Model.Entry.Branding.FirstOrDefault().File.Url?w=340&q=89"
-                                 alt="@Model.Entry.Branding.FirstOrDefault().File.Description"
-                                 width="300"
-                                 height="150" />
-                        }
-                        else
-                        {
-                            <img src="@Model.Entry.Branding.FirstOrDefault()?.File.Url?w=340&q=89"
-                                 alt=""
-                                 width="300"
-                                 height="150" />
-                        }
+                    @if(!string.IsNullOrEmpty(Model.Entry.Image)){
+                        <img src="@Model.Entry.Image?w=340&q=89"
+                             srcset="@Model.Entry.Image?w=340&q=89&fm=webp 340w"
+                             alt=""
+                             width="300"
+                             height="150">
                     }
                 </div>
             </div>
