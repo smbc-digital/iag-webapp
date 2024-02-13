@@ -215,6 +215,12 @@
         height: auto;
     }
 
+    &__profile {
+        &-image {
+            margin-top: 1.3em;
+        }
+    }
+
     &__filter {
         display: flex;
         margin-left: 0;
