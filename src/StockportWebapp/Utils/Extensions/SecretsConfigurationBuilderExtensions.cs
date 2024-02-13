@@ -54,27 +54,36 @@ namespace StockportWebapp.Utils.Extensions
 
         public static List<string> GetSecretPrefixes(AWSSecretsManagerConfiguration secretConfig, string env)
         {
-            // Gets a list of required prefixes for this env based on the value in the appsettings e.g. "int/iag/", "int/shared/"
+            // Gets a list of required prefixes for this env based on the value in the appsettings e.g. "int/iag/",
             // i.e. secrets that are specific to the env and group/application
             var allowedPrefixes = secretConfig.SecretGroups
                                     .Select(grp => $"{env}/{grp}/").ToList();
 
-            // Gets a list of shared prefixes for this group based on the value in the appsettings e.g. "iag/shared" 
+            // The intention for this is to allow secrets to be shared between groups of environments
+            // e.g. pre-prod/iag - could be secrets shared between int/qa
+            if (!string.IsNullOrEmpty(secretConfig.EnvironmentGroupPrefix))
+                secretConfig.SecretGroups.ToList().ForEach(grp => allowedPrefixes.Add($"{secretConfig.EnvironmentGroupPrefix}/{grp}/"));
+
+            // Gets a list of shared prefixes for this group based on the value in the appsettings 
             // i.e. secrets that are universal to all envs of that app/group
+            // e.g. "iag/shared" 
             if (!string.IsNullOrEmpty(secretConfig.SharedSecretPrefix))
                 secretConfig.SecretGroups.ToList().ForEach(grp => allowedPrefixes.Add($"{grp}/{secretConfig.SharedSecretPrefix}/"));
 
-            // Gets a list of shared prefixes for this group based on the value in the appsettings e.g. "int/shared" 
+            // Gets a list of shared prefixes for this group based on the value in the appsettings  
             // i.e. secrets that are universal to all apps in that environment
+            // e.g. "int/shared"
             if (!string.IsNullOrEmpty(secretConfig.SharedSecretPrefix))
                 allowedPrefixes.Add($"{env}/{secretConfig.SharedSecretPrefix}/");
 
             // Adds global secrets to the list of allowed prefixes
+            // E.G. global/
             if (!string.IsNullOrEmpty(secretConfig.GlobalSecretPrefix))
                 allowedPrefixes.Add($"{secretConfig.GlobalSecretPrefix}/");
 
             return allowedPrefixes;
         }
+        
         // Only load entries that start with any of the allowed prefixes
         private static bool HasPrefix(List<string> allowedPrefixes, SecretListEntry entry)
         {
