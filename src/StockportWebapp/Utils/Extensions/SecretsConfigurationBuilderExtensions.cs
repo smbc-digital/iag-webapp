@@ -106,7 +106,7 @@ namespace StockportWebapp.Utils.Extensions
 
             Log.Logger.Information($"SecretsConfigurationBuilderExtensions : GenerateKey : Key : {key}");
 
-            return key
+            return key;
         }
     }
 }
