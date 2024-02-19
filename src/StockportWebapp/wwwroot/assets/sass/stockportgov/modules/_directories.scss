@@ -60,6 +60,7 @@
                 max-height: 200px;
                 height: auto;
                 margin: 0px;
+                object-fit: contain;
             }
         }
     }
@@ -293,6 +294,7 @@
         word-break: break-word;
 
         &--tablet {
+            margin-top: 0.75em;
             display: flex;
             flex-direction: row;
             flex-wrap: wrap;
@@ -304,6 +306,8 @@
     }
 
     &__labels {
+        margin-top: 0.75em;
+        
         p {
             font-weight: 700;
         }
@@ -388,6 +392,31 @@
         a {
             display: block;
             margin-bottom: 0.5em;
+        }
+    }
+
+    &__website {
+        p{
+            font-weight: 700;
+            margin-bottom: 0;
+
+            @media #{$tablet} {
+                width: 15%;
+            }
+
+            @media #{$mobile, $desktop} {
+                width: 100%;
+            }
+        }
+
+        @media #{$tablet} {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+        }
+
+        @media #{$mobile, $desktop} {
+            display: block;
         }
     }
 

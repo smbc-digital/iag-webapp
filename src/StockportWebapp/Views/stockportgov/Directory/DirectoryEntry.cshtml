@@ -10,14 +10,13 @@
     var primaryContact = !string.IsNullOrEmpty(directory.PhoneNumber) ||
                          !string.IsNullOrEmpty(directory.Email);
 
-    var displayVisit = !string.IsNullOrEmpty(directory.Website) ||
-                       !string.IsNullOrEmpty(directory.Facebook) ||
+    var displayVisit = !string.IsNullOrEmpty(directory.Facebook) ||
                        !string.IsNullOrEmpty(directory.Twitter) ||
                        !string.IsNullOrEmpty(directory.Youtube) ||
                        !string.IsNullOrEmpty(directory.Instagram) ||
                        !string.IsNullOrEmpty(directory.LinkedIn);
 
-    var displayContactUs = primaryContact || displayVisit;
+    var displayContactUs = !string.IsNullOrEmpty(directory.Website) || primaryContact || displayVisit;
 }
 
 <div class="grid-container-full-width" data-cy="directory-entry">
@@ -76,6 +75,13 @@
                         }
     
                         <div class="directory__contact">
+                            @if(!string.IsNullOrEmpty(directory.Website)){
+                                <div class="directory__website">
+                                    <p>Web:</p>
+                                    <a href="@directory.Website">@directory.Website</a>
+                                </div>
+                            }
+                            
                             @if(primaryContact){
                                 <div class="directory__labels">
                                     @if(!string.IsNullOrEmpty(directory.PhoneNumber)){
@@ -117,28 +123,24 @@
                                     <p>Visit:</p>
                                     
                                     <div class="directory__social--tablet">
-                                        @if(!string.IsNullOrEmpty(directory.Website)){
-                                            <a href="@directory.Website">@directory.Website</a>
-                                        }
-
                                         @if(!string.IsNullOrEmpty(directory.Facebook)){
-                                            <a href="@directory.Facebook">@directory.Facebook</a>
+                                            <a href="@directory.Facebook">Facebook</a>
                                         }
 
                                         @if(!string.IsNullOrEmpty(directory.Twitter)){
-                                            <a href="@directory.Twitter">@directory.Twitter</a>
+                                            <a href="@directory.Twitter">X (Twitter)</a>
                                         }
 
                                         @if(!string.IsNullOrEmpty(directory.Youtube)){
-                                            <a href="@directory.Youtube">@directory.Youtube</a>
+                                            <a href="@directory.Youtube">Youtube</a>
                                         }
 
                                         @if(!string.IsNullOrEmpty(directory.Instagram)){
-                                            <a href="@directory.Instagram">@directory.Instagram</a>
+                                            <a href="@directory.Instagram">Instagram</a>
                                         }
 
                                         @if(!string.IsNullOrEmpty(directory.LinkedIn)){
-                                            <a href="@directory.LinkedIn">@directory.LinkedIn</a>
+                                            <a href="@directory.LinkedIn">LinkedIn</a>
                                         }
                                     </div>
                                 </div>
