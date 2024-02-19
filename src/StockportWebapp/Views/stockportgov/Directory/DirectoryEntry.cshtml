@@ -76,6 +76,13 @@
                         }
     
                         <div class="directory__contact">
+                            @if(!string.IsNullOrEmpty(directory.Website)){
+                                <div class="directory__website">
+                                    <p>Web:</p>
+                                    <a href="@directory.Website">@directory.Website</a>
+                                </div>
+                            }
+                            
                             @if(primaryContact){
                                 <div class="directory__labels">
                                     @if(!string.IsNullOrEmpty(directory.PhoneNumber)){
