@@ -34,7 +34,7 @@
         }
 
         &__content {
-            width: 65%;
+            width: 72%;
 
             &--full-width {
                 width: 100%;
@@ -47,7 +47,7 @@
 
         &__brand {
             text-align: right;
-            width: 32%;
+            width: 25%;
 
             @media #{$tablet} {
                 margin-top: 1em;
@@ -57,6 +57,7 @@
 
             img {
                 max-width: 100%;
+                max-height: 200px;
                 height: auto;
                 margin: 0px;
             }
