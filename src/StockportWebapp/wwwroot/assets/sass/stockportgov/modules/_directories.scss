@@ -36,6 +36,10 @@
         &__content {
             width: 65%;
 
+            &--full-width {
+                width: 100%;
+            }
+
             @media #{$tablet} {
                 width: 100%;
             }
