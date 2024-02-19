@@ -143,7 +143,7 @@ namespace StockportWebapp.Utils.Extensions
                                             p.GetService<IDynamicTagParser<S3BucketSearch>>(),
                                             p.GetService<IDynamicTagParser<PrivacyNotice>>()),
                         p.GetService<IApplicationConfiguration>()));
-            services.AddTransient<IRepository>(p => new Repository(p.GetService<UrlGenerator>(), p.GetService<IHttpClient>(), p.GetService<IApplicationConfiguration>(), p.GetService<IUrlGeneratorSimple>()));
+            services.AddTransient<IRepository>(p => new Repository(p.GetService<UrlGenerator>(), p.GetService<IHttpClient>(), p.GetService<IApplicationConfiguration>(), p.GetService<IUrlGeneratorSimple>(), p.GetService<ILogger<Repository>>()));
             services.AddTransient<IStockportApiRepository>(p => new StockportApiRepository(p.GetService<IHttpClient>(), p.GetService<IApplicationConfiguration>(), p.GetService<IUrlGeneratorSimple>(), p.GetService<ILogger<BaseRepository>>()));
             services.AddTransient<IContentApiRepository>(p => new ContentApiRepository(p.GetService<IHttpClient>(), p.GetService<IApplicationConfiguration>(), p.GetService<IUrlGeneratorSimple>(), p.GetService<ILogger<BaseRepository>>()));
             services.AddTransient<IDirectoryRepository>(p =>
@@ -237,9 +237,13 @@ namespace StockportWebapp.Utils.Extensions
             var sesConfiguration = new SesConfiguration();
             configuration.GetSection(SesConfiguration.ConfigValue).Bind(sesConfiguration);
 
-            if (!string.IsNullOrEmpty(sesConfiguration.AccessKey) &&
-                !string.IsNullOrEmpty(sesConfiguration.SecretKey))
+            if (sesConfiguration is not null 
+                && !string.IsNullOrEmpty(sesConfiguration.AccessKey) 
+                && !string.IsNullOrEmpty(sesConfiguration.SecretKey))
             {
+                logger.Information("WEBAPP : ServiceCollectionsExtensions : AddSesEmailConfiguration : Using SES configuration from secrets.");
+
+
                 var amazonSesKeys = new AmazonSESKeys(sesConfiguration.AccessKey, sesConfiguration.SecretKey);
                 services.AddSingleton(amazonSesKeys);
                 services.AddTransient<IAmazonSimpleEmailService>(
@@ -247,7 +251,7 @@ namespace StockportWebapp.Utils.Extensions
             }
             else
             {
-                logger.Information("AddSesEmailConfiguration : Secrets not found.");
+                logger.Information("WEBAPP : ServiceCollectionsExtensions : AddSesEmailConfiguration : Secrets not found.");
             }
 
             return services;
