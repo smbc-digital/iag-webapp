@@ -159,11 +159,36 @@
         }
     }
 
-    &--border-top, &__description, &__filters {
+    &__disclaimer {
+        border-top: 0.55em solid $stockport-teal-lighter;
+        background-color: white;
+
+        p {
+            margin: 0;
+            padding: 0.55em 0 0.55em 0;
+
+            @media #{$mobile} {
+                padding: 0.55em;
+            }
+
+            span {
+                font-weight: 700;
+            }
+        }
+    }
+
+    &--border-top, &__filters {
         border-radius: 3px;
         border-top: 0.55em solid $stockport-teal-lighter;
         margin-bottom: 2em;
 
+        @media #{$tablet} {
+            margin-bottom: 1.2em;
+        }
+    }
+
+    &__description {
+        margin-bottom: 2em;
         @media #{$tablet} {
             margin-bottom: 1.2em;
         }
