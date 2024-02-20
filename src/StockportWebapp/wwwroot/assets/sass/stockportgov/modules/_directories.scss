@@ -159,8 +159,14 @@
         }
     }
 
+    &--padding {
+        padding-left: 0.53125em;
+        padding-right: 0.53125em;
+        padding-top: 1em;
+    }
+
     &__disclaimer {
-        border-top: 0.55em solid $stockport-teal-lighter;
+        border-top: 0.368em solid $stockport-teal-lighter;
         background-color: white;
 
         p {
@@ -185,6 +191,10 @@
         @media #{$tablet} {
             margin-bottom: 1.2em;
         }
+    }
+
+    &--border-top {
+        margin-bottom: 0;
     }
 
     &__description {

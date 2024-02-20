@@ -1,14 +1,19 @@
-﻿@model TopicViewModel
+﻿@model List<GroupBranding>
+@{
+    string logoAreaTitle = (string)ViewData["logoAreaTitle"];
+    string borderTopClass = (string)ViewData["borderTopClass"];
+    string titleCssClasses = (string)ViewData["titleCssClasses"];
+}
 
-@if(Model.Topic.TopicBranding.Any())
+@if(Model.Any())
 {
-    <section class="section section--white section--no-margin" data-cy="logo-area">
+    <section class="section section--white section--no-margin @borderTopClass" data-cy="logo-area">
         <div class="grid-container">
             <div class="grid-100">
-                <h2 class="section__title section__title--padded-bottom section__title--border-top">@(Model.Topic.LogoAreaTitle ?? "Our partners")</h2>
+                <h2 class="@titleCssClasses">@(logoAreaTitle ?? "Our partners")</h2>
                 <div class="section__content section__content--no-margin">
                     <div class="logo-area">
-                        @foreach (var branding in Model.Topic.TopicBranding)
+                        @foreach (var branding in Model)
                         {
                             <div class="logo-area__item">
                                 <a href="@branding.Url">
