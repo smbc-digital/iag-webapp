@@ -1,38 +1,33 @@
 using System.Net.Mime;
-using Filter = StockportWebapp.Model.Filter;
 using Directory = StockportWebapp.Models.Directory;
 namespace StockportWebapp.Controllers;
 
 [ResponseCache(Location = ResponseCacheLocation.Any, Duration = Cache.Medium)]
 public class DirectoryController : Controller
 {
-    private readonly IDirectoryRepository _directoryRepository;
-    private readonly MarkdownWrapper _markdownWrapper;
+    private readonly IDirectoryService _directoryService;
     private readonly IFeatureManager _featureManager;
 
-    public DirectoryController(IDirectoryRepository directoryRepository, MarkdownWrapper markdownWrapper, IFeatureManager featureManager = null)
+    public DirectoryController(IDirectoryService directoryService, 
+        IFeatureManager featureManager = null)
     {
-        _directoryRepository = directoryRepository;
-        _markdownWrapper = markdownWrapper;
+        _directoryService = directoryService;
     }
 
     [Route("/directories/{slug}")]
     public async Task<IActionResult> Directory(string slug)
     {
         if (_featureManager is not null 
-                && await _featureManager.IsEnabledAsync("Directories"))
+            && await _featureManager.IsEnabledAsync("Directories"))
                 return NotFound();
 
-        var directoryHttpResponse = await _directoryRepository.Get<Directory>(slug);
-        if (!directoryHttpResponse.IsSuccessful())
-            return directoryHttpResponse;
+        var directory = await _directoryService.Get<Directory>(slug);
+        if(directory is null)
+            return NotFound();
 
-        var directory = directoryHttpResponse.Content as Directory;
-
-        DirectoryViewModel directoryViewModel = new()
-        {
+        DirectoryViewModel directoryViewModel = new() {
             Directory = directory,
-            FilteredEntries = _directoryRepository.GetFilteredEntryForDirectories(directory)
+            FilteredEntries = _directoryService.GetFilteredEntryForDirectories(directory)
         };
 
         if(directory.SubDirectories.Any())
@@ -49,25 +44,22 @@ public class DirectoryController : Controller
         && await _featureManager.IsEnabledAsync("Directories"))
             return NotFound();
 
-        var directoryHttpResponse = await _directoryRepository.Get<Directory>(slug);
-        
-        if (!directoryHttpResponse.IsSuccessful())
-            return directoryHttpResponse;
+        var directory = await _directoryService.Get<Directory>(slug);
+        if(directory is null)
+            return NotFound();
 
-        var directory = directoryHttpResponse.Content as Directory;
+        var filteredEntries = filters.Any()
+            ? _directoryService.GetFilteredEntryForDirectories(directory, filters)
+            : _directoryService.GetFilteredEntryForDirectories(directory);
 
-        var filteredEntries =  filters.Any() 
-            ? _directoryRepository.GetFilteredEntryForDirectories(directory, filters) 
-            : _directoryRepository.GetFilteredEntryForDirectories(directory);
+        var allFilterThemes = _directoryService.GetAllFilterThemes(filteredEntries);
+        var appliedFilters = _directoryService.GetAppliedFilters(filters, allFilterThemes);
 
-        var allFilterThemes = _directoryRepository.GetAllFilterThemes(filteredEntries);
-        var appliedFilters = _directoryRepository.GetAppliedFilters(filters, allFilterThemes);
-        
-        filteredEntries = _directoryRepository.GetOrderedEntries(filteredEntries, orderBy);
-        
+        filteredEntries = _directoryService.GetOrderedEntries(filteredEntries, orderBy);
+
         var filterCounts = filters.Any()
-            ? _directoryRepository.GetAllFilterCounts(filteredEntries)
-            : _directoryRepository.GetAllFilterCounts(directory.AllEntries);
+            ? _directoryService.GetAllFilterCounts(filteredEntries)
+            : _directoryService.GetAllFilterCounts(directory.AllEntries);
 
         DirectoryViewModel directoryViewModel = new()
         {
@@ -90,11 +82,10 @@ public class DirectoryController : Controller
         && await _featureManager.IsEnabledAsync("Directories"))
             return NotFound();
 
-        var directoryHttpResponse = await _directoryRepository.Get<Directory>(slug);
-        if (!directoryHttpResponse.IsSuccessful())
-            return directoryHttpResponse;
+        var directory = await _directoryService.Get<Directory>(slug);
+        if(directory is null)
+            return NotFound();
 
-        var directory = (Directory)directoryHttpResponse.Content;
         var kmlString = directory.ToKml();
         return Content(kmlString);
     }
@@ -108,20 +99,16 @@ public class DirectoryController : Controller
         && await _featureManager.IsEnabledAsync("Directories"))
             return NotFound();
 
-        var directoryHttpResponse = await _directoryRepository.Get<Directory>(directorySlug);
-        var directoryEntryHttpResponse = await _directoryRepository.GetEntry<DirectoryEntry>(entrySlug);
-        if (!directoryEntryHttpResponse.IsSuccessful())
-            return directoryHttpResponse;
-
-        var directory = directoryHttpResponse.Content as Directory;
-        var processedDirectoryEntry = directoryEntryHttpResponse.Content as DirectoryEntry;
-        processedDirectoryEntry.Description = _markdownWrapper.ConvertToHtml(processedDirectoryEntry.Description ?? "");
-        processedDirectoryEntry.Address = _markdownWrapper.ConvertToHtml(processedDirectoryEntry.Address ?? "");
-
+        var directory = await _directoryService.Get<Directory>(directorySlug);
+        var directoryEntry = await _directoryService.GetEntry<DirectoryEntry>(entrySlug);
+        
+        if(directoryEntry is null)
+            return NotFound();
+        
         return View(new DirectoryViewModel()
         {
             Directory = directory,
-            DirectoryEntry = processedDirectoryEntry
+            DirectoryEntry = directoryEntry
         });
     }
 }

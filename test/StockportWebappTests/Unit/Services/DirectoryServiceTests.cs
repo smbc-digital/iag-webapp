@@ -1,12 +1,13 @@
-namespace StockportWebappTests_Unit.Unit.Repositories;
-using Filter = StockportWebapp.Model.Filter;
+using StockportWebapp.Model;
 
-public class DirectoryRepositoryTests
+namespace StockportWebappTests_Unit.Unit.Services;
+
+public class DirectoryServiceTests
 {
-    private readonly Mock<IHttpClient> _httpClient;
-    private readonly Mock<IApplicationConfiguration> _applicationConfiguration;
-    private readonly UrlGenerator _urlGenerator;
-    private readonly DirectoryRepository _directoryRepository;
+    private readonly DirectoryService _service;
+    private readonly Mock<IApplicationConfiguration> _mockApplicationConfiguration = new();
+    private readonly Mock<MarkdownWrapper> _mockMarkdownWrapper = new();
+    private readonly Mock<IRepository> _mockRepository = new();
 
     private readonly string[] filters = { "value1", "value2", "value3", "value11" };
 
@@ -172,77 +173,90 @@ public class DirectoryRepositoryTests
         Entries = new List<DirectoryEntry>()
     };
 
-    public DirectoryRepositoryTests()
+    public DirectoryServiceTests()
     {
-        _httpClient = new Mock<IHttpClient>();
-        _applicationConfiguration = new Mock<IApplicationConfiguration>();
-        _urlGenerator = new UrlGenerator(_applicationConfiguration.Object, new BusinessId(""));
+        _mockMarkdownWrapper
+            .Setup(_ => _.ConvertToHtml(It.IsAny<string>()))
+            .Returns(It.IsAny<string>());
 
-        _directoryRepository = new DirectoryRepository(_urlGenerator, _httpClient.Object, _applicationConfiguration.Object);
+        _mockApplicationConfiguration
+            .Setup(_ => _.GetEmailEmailFrom(It.IsAny<string>()))
+            .Returns(() => AppSetting.GetAppSetting(It.IsAny<string>()));
+
+        _service = new DirectoryService(
+            _mockApplicationConfiguration.Object,
+            _mockMarkdownWrapper.Object,
+            _mockRepository.Object
+        );
     }
 
     [Fact]
-    public async void Get_ShouldReturnHttpResponse_IfNotSuccessful()
+    public async Task Get_ShouldReturnDirectory()
     {
         // Arrange
-        _httpClient.Setup(_ => _.Get(It.IsAny<string>(), It.IsAny<Dictionary<string, string>>()))
-                    .ReturnsAsync(new HttpResponse(404, It.IsAny<string>(), It.IsAny<string>()));
+        _mockRepository
+            .Setup(_ => _.Get<Directory>(It.IsAny<string>(), It.IsAny<List<Query>>()))
+            .ReturnsAsync(HttpResponse.Successful(200, new Directory { Title = It.IsAny<string>() }));
 
         // Act
-        var result = await _directoryRepository.Get<Directory>();
+        var result = await _service.Get<Directory>(It.IsAny<string>());
 
         // Assert
-        Assert.Equal(404, result.StatusCode);
-        Assert.Null(result.Content);
+        Assert.IsType<Directory>(result);
     }
 
     [Fact]
-    public async void Get_ShouldReturnHttpResponse_Successful()
+    public void Get_ShouldThrowException_IfNotSuccessful()
     {
         // Arrange
-        HttpResponse httpResponse = new(200, JsonConvert.SerializeObject(directory), "OK");
-        _httpClient.Setup(_ => _.Get(It.IsAny<string>(), It.IsAny<Dictionary<string, string>>()))
-                    .ReturnsAsync(httpResponse);
+        _mockRepository
+            .Setup(_ => _.Get<Directory>(It.IsAny<string>(), It.IsAny<List<Query>>()))
+            .ReturnsAsync(HttpResponse.Failure(404, It.IsAny<string>()));
 
-        // Act
-        var result = await _directoryRepository.Get<Directory>();
-
-        // Assert
-        Assert.Equal(200, result.StatusCode);
-        Assert.NotNull(result.Content);
-        Assert.IsType(directory.GetType(), result.Content);
+        // Act & Assert
+        Assert.ThrowsAsync<HttpRequestException>(async () => await _service.Get<Directory>(It.IsAny<string>()));
     }
 
     [Fact]
-    public async void GetEntry_ShouldReturnHttpResponse_IfNotSuccessful()
+    public async Task GetEntry_ShouldReturnDirectoryEntry()
     {
         // Arrange
-        _httpClient.Setup(_ => _.Get(It.IsAny<string>(), It.IsAny<Dictionary<string, string>>()))
-                    .ReturnsAsync(new HttpResponse(404, It.IsAny<string>(), It.IsAny<string>()));
+        _mockRepository
+            .Setup(_ => _.Get<DirectoryEntry>(It.IsAny<string>(), It.IsAny<List<Query>>()))
+            .ReturnsAsync(HttpResponse.Successful(200, new DirectoryEntry { Name = It.IsAny<string>() }));
 
         // Act
-        var result = await _directoryRepository.GetEntry<DirectoryEntry>();
+        var result = await _service.GetEntry<DirectoryEntry>(It.IsAny<string>());
 
         // Assert
-        Assert.Equal(404, result.StatusCode);
-        Assert.Null(result.Content);
+        Assert.IsType<DirectoryEntry>(result);
     }
 
     [Fact]
-    public async void GetEntry_ShouldReturnHttpResponse_Successful()
+    public async Task GetEntry_ShouldCall_MarkdownWrapper()
     {
         // Arrange
-        HttpResponse httpResponse = new(200, JsonConvert.SerializeObject(directoryEntry), "OK");
-        _httpClient.Setup(_ => _.Get(It.IsAny<string>(), It.IsAny<Dictionary<string, string>>()))
-                    .ReturnsAsync(httpResponse);
+        _mockRepository
+            .Setup(_ => _.Get<DirectoryEntry>(It.IsAny<string>(), It.IsAny<List<Query>>()))
+            .ReturnsAsync(HttpResponse.Successful(200, new DirectoryEntry { Name = It.IsAny<string>() }));
 
         // Act
-        var result = await _directoryRepository.GetEntry<DirectoryEntry>();
+        var result = await _service.GetEntry<DirectoryEntry>(It.IsAny<string>());
 
         // Assert
-        Assert.Equal(200, result.StatusCode);
-        Assert.NotNull(result.Content);
-        Assert.IsType(directoryEntry.GetType(), result.Content);
+        _mockMarkdownWrapper.Verify(_ => _.ConvertToHtml(It.IsAny<string>()), Times.Exactly(2));
+    }
+
+    [Fact]
+    public void GetEntry_ShouldThrowException_IfNotSuccessful()
+    {
+        // Arrange
+        _mockRepository
+            .Setup(_ => _.Get<DirectoryEntry>(It.IsAny<string>(), It.IsAny<List<Query>>()))
+            .ReturnsAsync(HttpResponse.Failure(404, It.IsAny<string>()));
+
+        // Act & Assert
+        Assert.ThrowsAsync<HttpRequestException>(async () => await _service.GetEntry<DirectoryEntry>(It.IsAny<string>()));
     }
 
     [Fact]
@@ -252,7 +266,7 @@ public class DirectoryRepositoryTests
         directory.Entries = new List<DirectoryEntry>() { directoryEntry, directoryEntry2 };
 
         // Act
-        var result = _directoryRepository.GetFilteredEntryForDirectories(directory);
+        var result = _service.GetFilteredEntryForDirectories(directory);
 
         // Assert
         Assert.NotNull(result);
@@ -267,7 +281,7 @@ public class DirectoryRepositoryTests
         directory.Entries = new List<DirectoryEntry>() { directoryEntry, directoryEntry2 };
 
         // Act
-        var result = _directoryRepository.GetFilteredEntryForDirectories(directory, filters);
+        var result = _service.GetFilteredEntryForDirectories(directory, filters);
 
         // Assert
         Assert.Single(result);
@@ -279,7 +293,7 @@ public class DirectoryRepositoryTests
     public void GetFilteredEntryForDirectories_ShouldReturnEmptyList_If_DirectoryEntryNull()
     {
         // Act
-        var result = _directoryRepository.GetFilteredEntryForDirectories(directory, filters);
+        var result = _service.GetFilteredEntryForDirectories(directory, filters);
 
         // Assert
         Assert.NotNull(result);
@@ -293,7 +307,7 @@ public class DirectoryRepositoryTests
         directory.Entries = new List<DirectoryEntry>() { directoryEntry };
 
         // Act
-        var result = _directoryRepository.GetFilteredEntryForDirectories(directory, filters);
+        var result = _service.GetFilteredEntryForDirectories(directory, filters);
 
         // Assert
         Assert.NotNull(result);
@@ -308,7 +322,7 @@ public class DirectoryRepositoryTests
         directory.Entries = new List<DirectoryEntry>() { directoryEntry };
 
         // Act
-        var result = _directoryRepository.GetFilteredEntryForDirectories(directory, filters);
+        var result = _service.GetFilteredEntryForDirectories(directory, filters);
 
         // Assert
         Assert.NotNull(result);
@@ -319,7 +333,7 @@ public class DirectoryRepositoryTests
     public void GetAllFilterThemes_ShouldReturnEmptyList_If_NoFilteredEntries()
     {
         // Act
-        var result = _directoryRepository.GetAllFilterThemes(null);
+        var result = _service.GetAllFilterThemes(null);
 
         // Assert
         Assert.NotNull(result);
@@ -330,7 +344,7 @@ public class DirectoryRepositoryTests
     public void GetAllFilterThemes_ShouldReturnEmptyList_If_EntryHasNoFilters()
     {
         // Act
-        var result = _directoryRepository.GetAllFilterThemes(new List<DirectoryEntry>() { directoryEntry });
+        var result = _service.GetAllFilterThemes(new List<DirectoryEntry>() { directoryEntry });
 
         // Assert
         Assert.NotNull(result);
@@ -344,7 +358,7 @@ public class DirectoryRepositoryTests
         directoryEntry.Themes = filterThemes;
 
         // Act
-        var result = _directoryRepository.GetAllFilterThemes(new List<DirectoryEntry>() { directoryEntry });
+        var result = _service.GetAllFilterThemes(new List<DirectoryEntry>() { directoryEntry });
 
         // Assert
         Assert.NotNull(result);
@@ -357,7 +371,7 @@ public class DirectoryRepositoryTests
     public void GetAppliedFilters_ShouldReturnEmptyList_If_NoFilterThemes()
     {
         // Act
-        var result = _directoryRepository.GetAppliedFilters(filters, null);
+        var result = _service.GetAppliedFilters(filters, null);
 
         // Assert
         Assert.NotNull(result);
@@ -368,7 +382,7 @@ public class DirectoryRepositoryTests
     public void GetAppliedFilters_ShouldReturnEmptyList_If_NoFilters()
     {
         // Act
-        var result = _directoryRepository.GetAppliedFilters(null, filterThemes);
+        var result = _service.GetAppliedFilters(null, filterThemes);
 
         // Assert
         Assert.NotNull(result);
@@ -379,7 +393,7 @@ public class DirectoryRepositoryTests
     public void GetAppliedFilters_ShouldReturnAllAppliedFilters()
     {
         // Act
-        var result = _directoryRepository.GetAppliedFilters(filters, filterThemes2);
+        var result = _service.GetAppliedFilters(filters, filterThemes2);
 
         // Assert
         Assert.Equal(4, result.Count());
@@ -388,18 +402,18 @@ public class DirectoryRepositoryTests
     }
 
     [Theory]
-    [InlineData("Name A to Z", new[]{ "C", "B", "A" }, new[] { "A", "B", "C" })]
-    [InlineData("Name Z to A", new[]{ "A", "B", "C" }, new[] { "C", "B", "A" })]
-    [InlineData("name a to z", new[]{ "B", "C", "A" }, new[] { "A", "B", "C" })]
-    [InlineData("name z to a", new[]{ "B", "A", "C" }, new[] { "C", "B", "A" })]
-    [InlineData("", new[]{ "B", "A", "C" }, new[] { "B", "A", "C" })]
-    [InlineData("another order", new[]{ "B", "A", "C" }, new[] { "B", "A", "C" })]
+    [InlineData("Name A to Z", new[] { "C", "B", "A" }, new[] { "A", "B", "C" })]
+    [InlineData("Name Z to A", new[] { "A", "B", "C" }, new[] { "C", "B", "A" })]
+    [InlineData("name a to z", new[] { "B", "C", "A" }, new[] { "A", "B", "C" })]
+    [InlineData("name z to a", new[] { "B", "A", "C" }, new[] { "C", "B", "A" })]
+    [InlineData("", new[] { "B", "A", "C" }, new[] { "B", "A", "C" })]
+    [InlineData("another order", new[] { "B", "A", "C" }, new[] { "B", "A", "C" })]
     public void GetOrderedEntries_ShouldReturnAlphabeticalOrderedEntries(string orderBy, string[] orderedEntries, string[] expectedEntries)
     {
         var entries = orderedEntries.Select(name => new DirectoryEntry { Name = name });
 
         // Act
-        var result = _directoryRepository.GetOrderedEntries(entries, orderBy).ToList();
+        var result = _service.GetOrderedEntries(entries, orderBy).ToList();
 
         // Assert
         Assert.Equal(3, result.Count);
@@ -419,7 +433,7 @@ public class DirectoryRepositoryTests
         List<DirectoryEntry> allEntries = new() { directoryEntry, directoryEntry2, directoryEntry3 };
 
         // Act
-        var result = _directoryRepository.GetAllFilterCounts(allEntries);
+        var result = _service.GetAllFilterCounts(allEntries);
 
         // Assert
         Assert.Equal(2, result["value10"]);

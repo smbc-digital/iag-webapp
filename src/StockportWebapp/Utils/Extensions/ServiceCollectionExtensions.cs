@@ -146,9 +146,7 @@ namespace StockportWebapp.Utils.Extensions
             services.AddTransient<IRepository>(p => new Repository(p.GetService<UrlGenerator>(), p.GetService<IHttpClient>(), p.GetService<IApplicationConfiguration>(), p.GetService<IUrlGeneratorSimple>(), p.GetService<ILogger<Repository>>()));
             services.AddTransient<IStockportApiRepository>(p => new StockportApiRepository(p.GetService<IHttpClient>(), p.GetService<IApplicationConfiguration>(), p.GetService<IUrlGeneratorSimple>(), p.GetService<ILogger<BaseRepository>>()));
             services.AddTransient<IContentApiRepository>(p => new ContentApiRepository(p.GetService<IHttpClient>(), p.GetService<IApplicationConfiguration>(), p.GetService<IUrlGeneratorSimple>(), p.GetService<ILogger<BaseRepository>>()));
-            services.AddTransient<IDirectoryRepository>(p =>
-                new DirectoryRepository(p.GetService<UrlGenerator>(), p.GetService<IHttpClient>(), p.GetService<IApplicationConfiguration>()));
-            
+           
             return services;
         }
 
@@ -172,7 +170,9 @@ namespace StockportWebapp.Utils.Extensions
                     p.GetService<IDynamicTagParser<Alert>>(),
                     p.GetService<ITriviaFactory>(),
                     p.GetService<IDynamicTagParser<InlineQuote>>()));
-    
+
+            services.AddTransient<IDirectoryService>(p => new DirectoryService(p.GetService<IApplicationConfiguration>(), p.GetService<MarkdownWrapper>(), p.GetService<IRepository>()));
+
             return services;
         }
 
