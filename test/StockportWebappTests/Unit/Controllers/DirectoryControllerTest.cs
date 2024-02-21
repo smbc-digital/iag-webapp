@@ -96,9 +96,6 @@ public class DirectoryControllerTest
         
         string[] filters = { "value1", "value2", "value3" };
 
-        // setup mocks
-        _directoryService.Setup(_ => _.Get<Directory>(It.IsAny<string>())).ReturnsAsync(directory);
-        _directoryService.Setup(_ => _.GetEntry<DirectoryEntry>(It.IsAny<string>())).ReturnsAsync(directoryEntry);
         _directoryService.Setup(_ => _.GetFilteredEntryForDirectories(directory)).Returns(new List<DirectoryEntry> { directoryEntry });
         _directoryService.Setup(_ => _.GetAllFilterThemes(new List<DirectoryEntry>())).Returns(filterThemes);
         _directoryService.Setup(_ => _.GetAppliedFilters(filters, filterThemes)).Returns(filtersList);
@@ -109,47 +106,27 @@ public class DirectoryControllerTest
     public async Task Directory_ShouldReturnUnsuccessfulStatusCode()
     {
         // Arrange
-        // _directoryRepository.Setup(_ => _.Get<Directory>(It.IsAny<string>()))
-        //     .ReturnsAsync(new HttpResponse((int)HttpStatusCode.NotFound, null, string.Empty));
-
-        _directoryService.Setup(_ => _.Get<Directory>(It.IsAny<string>()))
-            .ReturnsAsync(new Directory());
+        _ = _directoryService.Setup(_ => _.Get<Directory>("not-slug")).ReturnsAsync((Directory)null);
 
         // Act
-        var result = await _directoryController.Directory("slug") as HttpResponse;
+        var result = await _directoryController.Directory("slug");
 
         // Assert
-        Assert.Equal((int)HttpStatusCode.NotFound, result.StatusCode);
+        Assert.IsType<NotFoundResult>(result);
     }
 
     [Fact]
-    public async Task Directory_ShouldReturnViewModel(){
+    public async Task Directory_ShouldReturnViewModel_And_CorrectView(){
         // Arrange
-        // _directoryRepository.Setup(_ => _.Get<Directory>(It.IsAny<string>()))
-        //     .ReturnsAsync(new HttpResponse((int)HttpStatusCode.OK, processedDirectoryWithSubdirectories, string.Empty));
+        _ = _directoryService.Setup(_ => _.Get<Directory>(It.IsAny<string>())).ReturnsAsync(directory);
 
         // Act
         var result = await _directoryController.Directory("slug") as ViewResult;
         var model = result.ViewData.Model as DirectoryViewModel;
         
         // Assert
-        Assert.NotNull(result);
+        Assert.NotNull(result.Model);
         Assert.Equal("slug", model.Directory.Slug);
-        Assert.Null(result.ViewName);
-    }
-
-    [Fact]
-    public async Task Directory_ShouldReturnCorrectView()
-    {
-        // Arrange
-        // _directoryRepository.Setup(_ => _.Get<Directory>(It.IsAny<string>()))
-        //     .ReturnsAsync(new HttpResponse((int)HttpStatusCode.OK, directory, string.Empty));
-
-        // Act
-        var result = await _directoryController.Directory("slug") as ViewResult;
-        var model = result.ViewData.Model as DirectoryViewModel;
-
-        // Assert
         Assert.Equal("results", result.ViewName);
     }
 
@@ -157,8 +134,7 @@ public class DirectoryControllerTest
     public async Task DirectoryResults_ShouldReturnCorrectView_WithoutSubdirectories()
     {
         // Arrange
-        // _directoryRepository.Setup(_ => _.Get<Directory>(It.IsAny<string>()))
-        //     .ReturnsAsync(new HttpResponse((int)HttpStatusCode.OK, directory, string.Empty));
+        _ = _directoryService.Setup(_ => _.Get<Directory>(It.IsAny<string>())).ReturnsAsync(directory);
 
         // Act
         var result = await _directoryController.DirectoryResults("slug", Array.Empty<string>(), string.Empty) as ViewResult;
@@ -166,13 +142,14 @@ public class DirectoryControllerTest
 
         // Assert
         Assert.Equal("results", result.ViewName);
+        Assert.NotNull(model);
     }
 
     [Fact]
     public async Task DirectoryResults_ShouldReturnCorrectView_WithSubdirectories(){
         // Arrange
-        // _directoryRepository.Setup(_ => _.Get<Directory>(It.IsAny<string>()))
-        //     .ReturnsAsync(new HttpResponse((int)HttpStatusCode.OK, processedDirectoryWithSubdirectories, string.Empty));
+        _ = _directoryService.Setup(_ => _.Get<Directory>(It.IsAny<string>())).ReturnsAsync(directory);
+
         // Act
         var result = await _directoryController.DirectoryResults("slug", Array.Empty<string>(), string.Empty) as ViewResult;
 
@@ -183,28 +160,20 @@ public class DirectoryControllerTest
     [Fact]
     public async Task DirectoryResults_ShouldReturnUnsuccessfulStatusCode(){
         // Arrange
-        // _directoryRepository.Setup(_ => _.Get<Directory>(It.IsAny<string>()))
-        //     .ReturnsAsync(new HttpResponse((int)HttpStatusCode.NotFound, null, string.Empty));
+        _directoryService.Setup(_ => _.Get<Directory>(It.IsAny<string>())).ReturnsAsync((Directory)null);
+
         // Act
-        var result = await _directoryController.DirectoryResults("slug", Array.Empty<string>(), string.Empty) as HttpResponse;
+        var result = await _directoryController.DirectoryResults("slug", Array.Empty<string>(), string.Empty);
 
         // Assert
-        Assert.Equal((int)HttpStatusCode.NotFound, result.StatusCode);
+        Assert.IsType<NotFoundResult>(result);
     }
 
     [Fact]
     public async Task DirectoryResults_ShouldReturnCorrectView_WithFilters(){
         // Arrange
         string[] filters = { "value1", "value2", "value3" };
-
-        // _directoryRepository.Setup(_ => _.Get<Directory>(It.IsAny<string>()))
-        //     .ReturnsAsync(new HttpResponse((int)HttpStatusCode.OK, processedDirectoryWithSubdirectories, string.Empty));
-
-        // _directoryRepository.Setup(_ => _.GetAllFilterThemes(It.IsAny<IEnumerable<DirectoryEntry>>()))
-        //     .Returns(filterThemes);
-
-        // _directoryRepository.Setup(_ => _.GetAppliedFilters(filters, filterThemes))
-        //     .Returns(filtersList);
+        _directoryService.Setup(_ => _.Get<Directory>(It.IsAny<string>())).ReturnsAsync(directory);
 
         // Act
         var result = await _directoryController.DirectoryResults("slug", filters, string.Empty) as ViewResult;
@@ -221,15 +190,11 @@ public class DirectoryControllerTest
     [Fact]
     public async Task DirectoryEntry_ShouldReturnViewModel(){
         // Arrange
-        // _directoryRepository.Setup(_ => _.Get<Directory>(It.IsAny<string>()))
-        //     .ReturnsAsync(new HttpResponse((int)HttpStatusCode.OK, directory, string.Empty));
-
-        // _directoryRepository.Setup(_ => _.GetEntry<DirectoryEntry>(It.IsAny<string>()))
-        //     .ReturnsAsync(new HttpResponse((int)HttpStatusCode.OK, directoryEntry, string.Empty));
-
         _directoryService.Setup(_ => _.Get<Directory>(It.IsAny<string>()))
             .ReturnsAsync(directory);
 
+        _directoryService.Setup(_ => _.GetEntry<DirectoryEntry>(It.IsAny<string>()))
+            .ReturnsAsync(directoryEntry);
         // Act
         var result = await _directoryController.DirectoryEntry("slug", "entry-slug") as ViewResult;
         var model = result.ViewData.Model as DirectoryViewModel;
@@ -238,48 +203,35 @@ public class DirectoryControllerTest
         Assert.NotNull(result);
         Assert.Equal("slug", model.Directory.Slug);
         Assert.Null(result.ViewName);
-        // _markdownWrapper.Verify(_ => _.ConvertToHtml(directoryEntry.Description), Times.Once);
-        // _markdownWrapper.Verify(_ => _.ConvertToHtml(directoryEntry.Address), Times.Once);
     }
 
     [Fact]
     public async Task DirectoryEntry_ShouldReturnUnsuccessfulStatusCode()
-    { 
-        // Arrange
-        // _directoryRepository.Setup(_ => _.Get<Directory>(It.IsAny<string>()))
-        //     .ReturnsAsync(new HttpResponse((int)HttpStatusCode.NotFound, null, string.Empty));
-
-        // _directoryRepository.Setup(_ => _.GetEntry<DirectoryEntry>(It.IsAny<string>()))
-        //     .ReturnsAsync(new HttpResponse((int)HttpStatusCode.NotFound, null, string.Empty));
+    {
+        _directoryService.Setup(_ => _.GetEntry<DirectoryEntry>(It.IsAny<string>())).ReturnsAsync((DirectoryEntry)null);
 
         // Act
-        var result = await _directoryController.DirectoryEntry("slug", "entry-slug") as HttpResponse;
+        var result = await _directoryController.DirectoryEntry("slug", "entry-slug");
 
         // Assert
-        Assert.Equal((int)HttpStatusCode.NotFound, result.StatusCode);
-        // _markdownWrapper.Verify(_ => _.ConvertToHtml(directoryEntry.Description), Times.Never);
-        // _markdownWrapper.Verify(_ => _.ConvertToHtml(directoryEntry.Address), Times.Never);
+        Assert.IsType<NotFoundResult>(result);
     }
 
     [Fact]
-    public async Task DirectoryAsKml_ShouldReturnUnsuccessfulStatusCode(){
+    public async Task DirectoryAsKml_ShouldReturnUnsuccessfulStatusCode()
+    {
         // Arrange
-        // _directoryRepository.Setup(_ => _.Get<Directory>(It.IsAny<string>()))
-        //     .ReturnsAsync(new HttpResponse((int)HttpStatusCode.NotFound, null, string.Empty));
+        _ = _directoryService.Setup(_ => _.Get<Directory>("not-slug")).ReturnsAsync((Directory)null);
 
         // Act
-        var result = await _directoryController.DirectoryAsKml("slug") as HttpResponse;
+        var result = await _directoryController.DirectoryAsKml("slug");
 
         // Assert
-        Assert.Equal((int)HttpStatusCode.NotFound, result.StatusCode);
+        Assert.IsType<NotFoundResult>(result);
     }
 
     [Fact]
     public async Task DirectoryAsKml_ShouldReturnContentInKmlFormat(){
-        // Arrange
-        // _directoryRepository.Setup(_ => _.Get<Directory>(It.IsAny<string>()))
-        //     .ReturnsAsync(new HttpResponse((int)HttpStatusCode.OK, directory, string.Empty));
-
         // Act
         var result = await _directoryController.DirectoryAsKml("slug");
 
