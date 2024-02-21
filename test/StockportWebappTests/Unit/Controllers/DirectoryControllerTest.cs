@@ -131,6 +131,19 @@ public class DirectoryControllerTest
     }
 
     [Fact]
+    public async Task Directory_ShouldReturnCorrectView_WithSubdirectories(){
+        // Arrange
+        _ = _directoryService.Setup(_ => _.Get<Directory>(It.IsAny<string>())).ReturnsAsync(processedDirectoryWithSubdirectories);
+
+        // Act
+        var result = await _directoryController.Directory("slug") as ViewResult;
+
+        // Assert
+        Assert.Null(result.ViewName);
+        Assert.NotNull(result.Model);
+    }
+    
+    [Fact]
     public async Task DirectoryResults_ShouldReturnCorrectView_WithoutSubdirectories()
     {
         // Arrange
@@ -143,18 +156,6 @@ public class DirectoryControllerTest
         // Assert
         Assert.Equal("results", result.ViewName);
         Assert.NotNull(model);
-    }
-
-    [Fact]
-    public async Task DirectoryResults_ShouldReturnCorrectView_WithSubdirectories(){
-        // Arrange
-        _ = _directoryService.Setup(_ => _.Get<Directory>(It.IsAny<string>())).ReturnsAsync(directory);
-
-        // Act
-        var result = await _directoryController.DirectoryResults("slug", Array.Empty<string>(), string.Empty) as ViewResult;
-
-        // Assert
-        Assert.Equal("results", result.ViewName);
     }
 
     [Fact]
