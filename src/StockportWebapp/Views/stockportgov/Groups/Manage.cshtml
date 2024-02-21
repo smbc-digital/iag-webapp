@@ -31,7 +31,7 @@
                                 <h2>Your groups</h2>
                                 <div class="hide-on-mobile sk-table-cell">
                                     <a href="@Model.ContactPageUrl">Need help?</a>
-                                    <stock-button as-link="true" class="white no-margin" href="@Url.Action("AddAGroup", "Groups")">Add your group or service</stock-button>
+                                    @*<stock-button as-link="true" class="white no-margin" href="@Url.Action("AddAGroup", "Groups")">Add your group or service</stock-button>*@
                                 </div>
                             </div>
                             @if (Model.Groups.Count.Equals(0))
@@ -79,7 +79,7 @@
                                 
                                 <div class="grid-100 mobile-button-row sk-table-row hide-on-desktop hide-on-tablet groups-admin-table-footer">
                                     <a href="@Model.ContactPageUrl">Need help?</a>
-                                    <stock-button as-link="true" class="sk-table white" href="@Url.Action("AddAGroup", "Groups")">Add your group or service</stock-button>
+                                    @*<stock-button as-link="true" class="sk-table white" href="@Url.Action("AddAGroup", "Groups")">Add your group or service</stock-button>*@
                                 </div>
                             }
                         </div>

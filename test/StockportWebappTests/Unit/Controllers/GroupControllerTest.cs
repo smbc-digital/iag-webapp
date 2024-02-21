@@ -123,7 +123,7 @@ public class GroupControllerTest
         model.MetaDescription.Should().Be(groupHomepage.MetaDescription);
     }
 
-    [Fact]
+    [Fact(Skip = "AddAGroup is being decommissioned")]
     public async Task ItShouldGetARedirectResultForAValidGroupSubmission()
     {
         var groupSubmission = new GroupSubmission()
@@ -143,7 +143,7 @@ public class GroupControllerTest
         actionResponse.ActionName.Should().Be("ThankYouMessage");
     }
 
-    [Fact]
+    [Fact(Skip = "AddAGroup is being decommissioned")]
     public async Task ItShouldReturnBackToTheViewForAnInvalidEmailSubmission()
     {
         var groupSubmission = new GroupSubmission();
@@ -156,7 +156,7 @@ public class GroupControllerTest
         _groupEmailBuilder.Verify(o => o.SendEmailAddNew(groupSubmission), Times.Once);
     }
 
-    [Fact]
+    [Fact(Skip = "AddAGroup is being decommissioned")]
     public async Task ItShouldNotSendAnEmailForAnInvalidFormSumbission()
     {
         var groupSubmission = new GroupSubmission();

@@ -5,7 +5,18 @@
     ViewData["og:title"] = directory.Name;
     ViewData["Description"] = directory.MetaDescription;
     Layout = "../Shared/_Layout2023.cshtml";
-    var highlightedFilters = directory.Themes?.SelectMany(_ => _.Filters.Where(_ => _.Highlight.Equals(true))).ToList();
+    var highlightedFilters = directory.Themes?.SelectMany(_ => _.Filters.Where(_ => _.Highlight.Equals(true))).ToList();                          
+    
+    var primaryContact = !string.IsNullOrEmpty(directory.PhoneNumber) ||
+                         !string.IsNullOrEmpty(directory.Email);
+
+    var displayVisit = !string.IsNullOrEmpty(directory.Facebook) ||
+                       !string.IsNullOrEmpty(directory.Twitter) ||
+                       !string.IsNullOrEmpty(directory.Youtube) ||
+                       !string.IsNullOrEmpty(directory.Instagram) ||
+                       !string.IsNullOrEmpty(directory.LinkedIn);
+
+    var displayContactUs = !string.IsNullOrEmpty(directory.Website) || primaryContact || displayVisit;
 }
 
 <div class="grid-container-full-width" data-cy="directory-entry">
@@ -33,69 +44,112 @@
             <section class="directory">
                 <div class="directory--30 directory--border-top">
                     <div class="directory__wrapper">
-                        @if (directory.Branding.Any())
-                        {
-                            <img src="@directory.Branding.FirstOrDefault().File.Url?w=350&q=89"
-                                 srcset="@directory.Branding.FirstOrDefault().File.Url?w=350&q=89&fm=webp 350w"
-                                 class="directory__logo"
-                                 alt="@(directory.Branding.FirstOrDefault().File.Description ?? string.Empty)"
-                                 width="350"
-                                 height="150">
+                        @if(!string.IsNullOrEmpty(directory.Image)){
+                            <img src="@directory.Image?w=350&q=89&fm=webp"
+                                class="directory__logo"
+                                alt=""
+                                width="350"
+                                height="150">
                         }
 
-                        <h2 class="directory__profile--margin-top">Our details</h2>
+                        <h2 class='@(!string.IsNullOrEmpty(directory.Image) ? "directory__profile-image" : "directory__profile")'>Our details</h2>
                         <div class="directory__organisation">
                             <h3 class="h-m">Organisation</h3>
-                            @if (string.IsNullOrEmpty(directory.Provider))
-                            {
+                            @if (string.IsNullOrEmpty(directory.Provider)){
                                 <p>@directory.Name</p>
                             }
-                            else
-                            {
+                            else{
                                 <p>@directory.Provider</p>
                             }
                         </div>
 
                         <div class="directory__address">
-                            <h3 class="h-m">Address</h3>
-                            <div>@Html.Raw(@directory.Address)</div>
+                            @if(!string.IsNullOrEmpty(directory.Address)){
+                                <h3 class="h-m">Address</h3>
+                                <div>@Html.Raw(@directory.Address)</div>
+                            }
                         </div>
 
-                        <h3 class="h-m">Contact us</h3>
+                        @if(displayContactUs){
+                            <h3 class="h-m">Contact us</h3>
+                        }
+    
                         <div class="directory__contact">
-                            <div class="directory__labels">
-                                <p class="directory__labels--no-margin">Phone:</p>
-                                <p class="directory__phone">@directory.PhoneNumber</p>
-                                <p class="directory__labels--no-margin">Email:</p>
-                                <a class="directory__email" href="mailto:@directory.Email">@directory.Email</a>
-                            </div>
-
-                            <div class="directory__contact--tablet">
-                                <div class="directory__labels--tablet">
-                                    <p>Phone:</p>
-                                    <p>Email:</p>
-                                </div>
-
-                                <div class="directory__values--tablet">
-                                    <p>@directory.PhoneNumber</p>
-                                    <a href="mailto:@directory.Email">@directory.Email</a>
-                                </div>
-                            </div>
-
-                            <div class="directory__social">
-                                <p>Visit:</p>
-
-                                <div class="directory__social--tablet">
+                            @if(!string.IsNullOrEmpty(directory.Website)){
+                                <div class="directory__website">
+                                    <p>Web:</p>
                                     <a href="@directory.Website">@directory.Website</a>
-                                    <a href="@directory.Facebook">Facebook</a>
-                                    <a href="@directory.Twitter">Twitter</a>
                                 </div>
-                            </div>
+                            }
+                            
+                            @if(primaryContact){
+                                <div class="directory__labels">
+                                    @if(!string.IsNullOrEmpty(directory.PhoneNumber)){
+                                        <p class="directory__labels--no-margin">Phone:</p>
+                                        <p class="directory__phone">@directory.PhoneNumber</p>
+                                    }
+
+                                    @if(!string.IsNullOrEmpty(directory.Email)){
+                                        <p class="directory__labels--no-margin">Email:</p>
+                                        <a class="directory__email" href="mailto:@directory.Email">@directory.Email</a>
+                                    }
+                                </div>
+
+                                <div class="directory__contact--tablet">
+                                    <div class="directory__labels--tablet">
+                                        @if(!string.IsNullOrEmpty(directory.PhoneNumber)){
+                                            <p>Phone:</p>
+                                        }
+
+                                        @if(!string.IsNullOrEmpty(directory.Email)){
+                                            <p>Email:</p>
+                                        }
+                                    </div>
+
+                                    <div class="directory__values--tablet">
+                                        @if(!string.IsNullOrEmpty(directory.PhoneNumber)){
+                                            <p>@directory.PhoneNumber</p>
+                                        }
+
+                                        @if(!string.IsNullOrEmpty(directory.Email)){
+                                            <a href="mailto:@directory.Email">@directory.Email</a>
+                                        }
+                                    </div>
+                                </div>
+                            }
+
+                            @if(displayVisit){
+                                <div class="directory__social">
+                                    <p>Visit:</p>
+                                    
+                                    <div class="directory__social--tablet">
+                                        @if(!string.IsNullOrEmpty(directory.Facebook)){
+                                            <a href="@directory.Facebook">Facebook</a>
+                                        }
+
+                                        @if(!string.IsNullOrEmpty(directory.Twitter)){
+                                            <a href="@directory.Twitter">X (Twitter)</a>
+                                        }
+
+                                        @if(!string.IsNullOrEmpty(directory.Youtube)){
+                                            <a href="@directory.Youtube">YouTube</a>
+                                        }
+
+                                        @if(!string.IsNullOrEmpty(directory.Instagram)){
+                                            <a href="@directory.Instagram">Instagram</a>
+                                        }
+
+                                        @if(!string.IsNullOrEmpty(directory.LinkedIn)){
+                                            <a href="@directory.LinkedIn">LinkedIn</a>
+                                        }
+                                    </div>
+                                </div>
+                            }
                         </div>
                     </div>
                 </div>
 
-                <div class="directory--70">
+                <div class="directory--70 directory--border-top">
                     <div class="directory__description">
                         <div class="directory__wrapper">
                             <h2>About us</h2>
@@ -103,17 +157,17 @@
                         </div>
                     </div>
 
-                    @if (highlightedFilters is not null)
+                    @if (highlightedFilters is not null && highlightedFilters.Any())
                     {
                         <div class="directory__filters">
                             <div class="directory__wrapper">
                                 <h2 class="directory__filters-title">Facilities available</h2>
-                                <div class="directory__filters-facilities">
+                                <ul class="directory__filters-facilities">
                                     @foreach (var filter in highlightedFilters)
                                     {
-                                        <p class="directory__filter"><span class="fa fa-check" aria-hidden="true"></span> @filter.DisplayName</p>
+                                        <li class="directory__filter"><span class="fa fa-check" aria-hidden="true"></span> @filter.DisplayName</li>
                                     }
-                                </div>
+                                </ul>
                             </div>
                         </div>
                     }
@@ -121,4 +175,6 @@
             </section>
         </div>
     </div>
+
+    <partial name="DirectoryContentDisclaimer">
 </div>

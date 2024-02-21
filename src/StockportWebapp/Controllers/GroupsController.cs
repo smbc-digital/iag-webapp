@@ -200,13 +200,14 @@ public class GroupsController : Controller
             ViewBag.AbsoluteUri = string.Empty;
         }
 
-
         return View(model);
     }
 
     [Route("/groups/add-a-group")]
     public async Task<IActionResult> AddAGroup()
     {
+        return NotFound();
+
         var groupSubmission = new GroupSubmission();
 
         groupSubmission.AvailableCategories = await _groupsService.GetAvailableGroupCategories();
@@ -219,6 +220,8 @@ public class GroupsController : Controller
     [ServiceFilter(typeof(ValidateReCaptchaAttribute))]
     public async Task<IActionResult> AddAGroup(GroupSubmission groupSubmission)
     {
+        return NotFound();
+
         groupSubmission.AvailableCategories = await _groupsService.GetAvailableGroupCategories();
 
         if (!ModelState.IsValid)

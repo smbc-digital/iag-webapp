@@ -8,13 +8,16 @@ public class Repository : IRepository
     private readonly IApplicationConfiguration _config;
     private Dictionary<string, string> _authenticationHeaders;
 
-    public Repository(UrlGenerator urlGenerator, IHttpClient httpClient, IApplicationConfiguration config, IUrlGeneratorSimple urlGeneratorSimple)
+    private ILogger<Repository> _logger;
+
+    public Repository(UrlGenerator urlGenerator, IHttpClient httpClient, IApplicationConfiguration config, IUrlGeneratorSimple urlGeneratorSimple, ILogger<Repository> logger)
     {
         _urlGenerator = urlGenerator;
         _httpClient = httpClient;
         _config = config;
         _urlGeneratorSimple = urlGeneratorSimple;
         _authenticationHeaders = new Dictionary<string, string> { { "Authorization", _config.GetContentApiAuthenticationKey() }, { "X-ClientId", _config.GetWebAppClientId() } };
+        _logger = logger;
     }
 
     public async Task<HttpResponse> Get<T>(string slug = "", List<Query> queries = null)

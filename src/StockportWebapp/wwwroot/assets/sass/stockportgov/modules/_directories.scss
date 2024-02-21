@@ -34,7 +34,11 @@
         }
 
         &__content {
-            width: 65%;
+            width: 72%;
+
+            &--full-width {
+                width: 100%;
+            }
 
             @media #{$tablet} {
                 width: 100%;
@@ -43,7 +47,7 @@
 
         &__brand {
             text-align: right;
-            width: 32%;
+            width: 25%;
 
             @media #{$tablet} {
                 margin-top: 1em;
@@ -53,8 +57,10 @@
 
             img {
                 max-width: 100%;
+                max-height: 200px;
                 height: auto;
                 margin: 0px;
+                object-fit: contain;
             }
         }
     }
@@ -153,11 +159,36 @@
         }
     }
 
-    &--border-top, &__description, &__filters {
+    &__disclaimer {
+        border-top: 0.55em solid $stockport-teal-lighter;
+        background-color: white;
+
+        p {
+            margin: 0;
+            padding: 0.55em 0 0.55em 0;
+
+            @media #{$mobile} {
+                padding: 0.55em;
+            }
+
+            span {
+                font-weight: 700;
+            }
+        }
+    }
+
+    &--border-top, &__filters {
         border-radius: 3px;
         border-top: 0.55em solid $stockport-teal-lighter;
         margin-bottom: 2em;
 
+        @media #{$tablet} {
+            margin-bottom: 1.2em;
+        }
+    }
+
+    &__description {
+        margin-bottom: 2em;
         @media #{$tablet} {
             margin-bottom: 1.2em;
         }
@@ -215,8 +246,16 @@
         height: auto;
     }
 
+    &__profile {
+        &-image {
+            margin-top: 1.3em;
+        }
+    }
+
     &__filter {
         display: flex;
+        margin-left: 0;
+        margin-bottom: 20px;
 
         span {
             color: $stockport-teal;
@@ -280,6 +319,7 @@
         word-break: break-word;
 
         &--tablet {
+            margin-top: 0.75em;
             display: flex;
             flex-direction: row;
             flex-wrap: wrap;
@@ -291,6 +331,8 @@
     }
 
     &__labels {
+        margin-top: 0.75em;
+        
         p {
             font-weight: 700;
         }
@@ -378,9 +420,34 @@
         }
     }
 
+    &__website {
+        p{
+            font-weight: 700;
+            margin-bottom: 0;
+
+            @media #{$tablet} {
+                width: 15%;
+            }
+
+            @media #{$mobile, $desktop} {
+                width: 100%;
+            }
+        }
+
+        @media #{$tablet} {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+        }
+
+        @media #{$mobile, $desktop} {
+            display: block;
+        }
+    }
+
     &__checkbox {
         &-container {
-            display: block;
+            display: flex;
             position: relative;
             min-height: 2.105em;
             margin-bottom: 0.833em;
@@ -415,12 +482,11 @@
         &__label {
             display: inline-block;
             margin-bottom: 0;
-            padding: 0.3em 0.789em 0.3em 0.789em;
+            padding: 0.3em 3em 0.3em 0.789em;
             cursor: pointer;
             touch-action: manipulation;
             font-size: 1em;
             vertical-align: middle;
-            padding-right: 3em;
 
             &::before {
                 content: "";
@@ -553,6 +619,11 @@ html[dir="rtl"] {
                     top: 0.7rem;
                     right: 0.55rem;
                 }
+            }
+
+            &__count {
+                left: 0;
+                text-align: left;
             }
         }
 

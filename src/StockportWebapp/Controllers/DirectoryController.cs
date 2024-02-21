@@ -6,8 +6,10 @@ namespace StockportWebapp.Controllers;
 public class DirectoryController : Controller
 {
     private readonly IDirectoryService _directoryService;
+    private readonly IFeatureManager _featureManager;
 
-    public DirectoryController(IDirectoryService directoryService)
+    public DirectoryController(IDirectoryService directoryService, 
+        IFeatureManager featureManager = null)
     {
         _directoryService = directoryService;
     }
@@ -15,6 +17,10 @@ public class DirectoryController : Controller
     [Route("/directories/{slug}")]
     public async Task<IActionResult> Directory(string slug)
     {
+        if (_featureManager is not null 
+            && await _featureManager.IsEnabledAsync("Directories"))
+                return NotFound();
+
         var directory = await _directoryService.Get<Directory>(slug);
         if(directory is null)
             return NotFound();
@@ -34,6 +40,10 @@ public class DirectoryController : Controller
     [Route("/directories/results/{slug}")]
     public async Task<IActionResult> DirectoryResults([Required][FromRoute]string slug, string[] filters, string orderBy)
     {
+        if (_featureManager is not null
+        && await _featureManager.IsEnabledAsync("Directories"))
+            return NotFound();
+
         var directory = await _directoryService.Get<Directory>(slug);
         if(directory is null)
             return NotFound();
@@ -68,6 +78,10 @@ public class DirectoryController : Controller
     [Produces(MediaTypeNames.Application.Xml)]
     public async Task<IActionResult> DirectoryAsKml(string slug)
     {
+        if (_featureManager is not null
+        && await _featureManager.IsEnabledAsync("Directories"))
+            return NotFound();
+
         var directory = await _directoryService.Get<Directory>(slug);
         if(directory is null)
             return NotFound();
@@ -81,8 +95,13 @@ public class DirectoryController : Controller
     [Route("/directories/entry/{directorySlug}/{entrySlug}")]
     public async Task<IActionResult> DirectoryEntry(string directorySlug, string entrySlug)
     {
+        if (_featureManager is not null
+        && await _featureManager.IsEnabledAsync("Directories"))
+            return NotFound();
+
         var directory = await _directoryService.Get<Directory>(directorySlug);
         var directoryEntry = await _directoryService.GetEntry<DirectoryEntry>(entrySlug);
+        
         if(directoryEntry is null)
             return NotFound();
         
