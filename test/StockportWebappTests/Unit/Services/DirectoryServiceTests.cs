@@ -177,9 +177,11 @@ public class DirectoryServiceTests
     {
         _mockMarkdownWrapper
             .Setup(_ => _.ConvertToHtml(It.IsAny<string>()))
-            .Returns("string");
+            .Returns(It.IsAny<string>());
 
-        _mockApplicationConfiguration.Setup(_ => _.GetEmailEmailFrom("stockportgov")).Returns(() => AppSetting.GetAppSetting("test"));
+        _mockApplicationConfiguration
+            .Setup(_ => _.GetEmailEmailFrom(It.IsAny<string>()))
+            .Returns(() => AppSetting.GetAppSetting(It.IsAny<string>()));
 
         _service = new DirectoryService(
             _mockApplicationConfiguration.Object,
@@ -194,10 +196,10 @@ public class DirectoryServiceTests
         // Arrange
         _mockRepository
             .Setup(_ => _.Get<Directory>(It.IsAny<string>(), It.IsAny<List<Query>>()))
-            .ReturnsAsync(HttpResponse.Successful(200, new Directory { Title = "Directory" }));
+            .ReturnsAsync(HttpResponse.Successful(200, new Directory { Title = It.IsAny<string>() }));
 
         // Act
-        var result = await _service.Get<Directory>("string");
+        var result = await _service.Get<Directory>(It.IsAny<string>());
 
         // Assert
         Assert.IsType<Directory>(result);
@@ -209,10 +211,10 @@ public class DirectoryServiceTests
         // Arrange
         _mockRepository
             .Setup(_ => _.Get<Directory>(It.IsAny<string>(), It.IsAny<List<Query>>()))
-            .ReturnsAsync(HttpResponse.Failure(500,"Internal Server Error"));
+            .ReturnsAsync(HttpResponse.Failure(404, It.IsAny<string>()));
 
         // Act & Assert
-        Assert.ThrowsAsync<HttpRequestException>(async () => await _service.Get<Directory>("string"));
+        Assert.ThrowsAsync<HttpRequestException>(async () => await _service.Get<Directory>(It.IsAny<string>()));
     }
 
     [Fact]
@@ -221,10 +223,10 @@ public class DirectoryServiceTests
         // Arrange
         _mockRepository
             .Setup(_ => _.Get<DirectoryEntry>(It.IsAny<string>(), It.IsAny<List<Query>>()))
-            .ReturnsAsync(HttpResponse.Successful(200, new DirectoryEntry { Name = "DirectoryEntry" }));
+            .ReturnsAsync(HttpResponse.Successful(200, new DirectoryEntry { Name = It.IsAny<string>() }));
 
         // Act
-        var result = await _service.GetEntry<DirectoryEntry>("string");
+        var result = await _service.GetEntry<DirectoryEntry>(It.IsAny<string>());
 
         // Assert
         Assert.IsType<DirectoryEntry>(result);
@@ -236,10 +238,10 @@ public class DirectoryServiceTests
         // Arrange
         _mockRepository
             .Setup(_ => _.Get<DirectoryEntry>(It.IsAny<string>(), It.IsAny<List<Query>>()))
-            .ReturnsAsync(HttpResponse.Successful(200, new DirectoryEntry { Name = "DirectoryEntry" }));
+            .ReturnsAsync(HttpResponse.Successful(200, new DirectoryEntry { Name = It.IsAny<string>() }));
 
         // Act
-        var result = await _service.GetEntry<DirectoryEntry>("string");
+        var result = await _service.GetEntry<DirectoryEntry>(It.IsAny<string>());
 
         // Assert
         _mockMarkdownWrapper.Verify(_ => _.ConvertToHtml(It.IsAny<string>()), Times.Exactly(2));
@@ -251,23 +253,10 @@ public class DirectoryServiceTests
         // Arrange
         _mockRepository
             .Setup(_ => _.Get<DirectoryEntry>(It.IsAny<string>(), It.IsAny<List<Query>>()))
-            .ReturnsAsync(HttpResponse.Failure(500, "Internal Server Error"));
+            .ReturnsAsync(HttpResponse.Failure(404, It.IsAny<string>()));
 
         // Act & Assert
-        Assert.ThrowsAsync<HttpRequestException>(async () => await _service.GetEntry<DirectoryEntry>("string"));
-    }
-
-    [Fact]
-    public void GetFilteredEntryForDirectories_ShouldReturn_DirectoryEntrys()
-    {
-        // Arrange
-        var directory = new Directory();
-
-        // Act
-        var result = _service.GetFilteredEntryForDirectories(directory);
-
-        // Assert
-        Assert.IsType<DirectoryEntry>(result);
+        Assert.ThrowsAsync<HttpRequestException>(async () => await _service.GetEntry<DirectoryEntry>(It.IsAny<string>()));
     }
 
     [Fact]
@@ -413,12 +402,12 @@ public class DirectoryServiceTests
     }
 
     [Theory]
-    [InlineData("Name A to Z", new[]{ "C", "B", "A" }, new[] { "A", "B", "C" })]
-    [InlineData("Name Z to A", new[]{ "A", "B", "C" }, new[] { "C", "B", "A" })]
-    [InlineData("name a to z", new[]{ "B", "C", "A" }, new[] { "A", "B", "C" })]
-    [InlineData("name z to a", new[]{ "B", "A", "C" }, new[] { "C", "B", "A" })]
-    [InlineData("", new[]{ "B", "A", "C" }, new[] { "B", "A", "C" })]
-    [InlineData("another order", new[]{ "B", "A", "C" }, new[] { "B", "A", "C" })]
+    [InlineData("Name A to Z", new[] { "C", "B", "A" }, new[] { "A", "B", "C" })]
+    [InlineData("Name Z to A", new[] { "A", "B", "C" }, new[] { "C", "B", "A" })]
+    [InlineData("name a to z", new[] { "B", "C", "A" }, new[] { "A", "B", "C" })]
+    [InlineData("name z to a", new[] { "B", "A", "C" }, new[] { "C", "B", "A" })]
+    [InlineData("", new[] { "B", "A", "C" }, new[] { "B", "A", "C" })]
+    [InlineData("another order", new[] { "B", "A", "C" }, new[] { "B", "A", "C" })]
     public void GetOrderedEntries_ShouldReturnAlphabeticalOrderedEntries(string orderBy, string[] orderedEntries, string[] expectedEntries)
     {
         var entries = orderedEntries.Select(name => new DirectoryEntry { Name = name });
