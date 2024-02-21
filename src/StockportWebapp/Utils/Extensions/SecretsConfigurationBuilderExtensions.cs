@@ -80,9 +80,6 @@ namespace StockportWebapp.Utils.Extensions
 
 
             allowedPrefixes.ForEach(prefix => Log.Logger.Information($"SecretsConfigurationBuilderExtensions : GetSecretPrefixes : ALLOWED PREFIX : {prefix}"));
-            
-
-
             return allowedPrefixes;
         }
 
