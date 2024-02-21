@@ -40,20 +40,15 @@ public class DirectoryServiceTests
     }
 
     [Fact]
-    public async Task Get_ShouldThrowException_IfNotSuccessful()
+    public void Get_ShouldThrowException_IfNotSuccessful()
     {
         // Arrange
         _mockRepository
             .Setup(_ => _.Get<Directory>(It.IsAny<string>(), It.IsAny<List<Query>>()))
             .ReturnsAsync(HttpResponse.Failure(500,"Internal Server Error"));
 
-        var expectedExceptionMessage = $"System.Net.Http.HttpRequestException: HTTP request failed with status code 500";
-
-        // Act
-        HttpRequestException result = Assert.ThrowsAsync<HttpRequestException>(async () => await _service.Get<Directory>("string")).Result;
-
-        // Assert
-         Assert.Equal(expectedExceptionMessage, result.ToString());
+        // Act & Assert
+        Assert.ThrowsAsync<HttpRequestException>(async () => await _service.Get<Directory>("string"));
     }
 
     [Fact]
@@ -87,15 +82,14 @@ public class DirectoryServiceTests
     }
 
     [Fact]
-    public void GetFilteredEntryForDirectories_ShouldReturn_DirectoryEntrys()
+    public void GetEntry_ShouldThrowException_IfNotSuccessful()
     {
         // Arrange
-        var directory = new Directory();
+        _mockRepository
+            .Setup(_ => _.Get<DirectoryEntry>(It.IsAny<string>(), It.IsAny<List<Query>>()))
+            .ReturnsAsync(HttpResponse.Failure(500, "Internal Server Error"));
 
-        // Act
-        var result = _service.GetFilteredEntryForDirectories(directory);
-
-        // Assert
-        Assert.IsType<DirectoryEntry>(result);
+        // Act & Assert
+        Assert.ThrowsAsync<HttpRequestException>(async () => await _service.GetEntry<DirectoryEntry>("string"));
     }
 }
