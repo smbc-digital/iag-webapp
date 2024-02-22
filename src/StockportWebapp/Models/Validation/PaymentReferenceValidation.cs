@@ -18,7 +18,11 @@ public class PaymentReferenceValidation : ValidationAttribute
         { EPaymentReferenceValidation.BusLane, @"^([Ss]{1}[Mm]{1}[8]{1}[0-9]{6}[0-9|Aa]{1})$" },
         { EPaymentReferenceValidation.Applications, @"^([A-Za-z]{2}[A-Za-z0-9\/\\]{6,})$" },
         { EPaymentReferenceValidation.ParkingPermit, @"^([A-Z]{3}\\[0-9]{5})$" },
+<<<<<<< sbRegex
         { EPaymentReferenceValidation.BRS, @"^(?i)brs\d{5}$" }
+=======
+        { EPaymentReferenceValidation.StockportBereavementInvoice, @"^(?i)sb\d{4,5}$" }
+>>>>>>> local
     };
 
     protected override ValidationResult IsValid(object value, ValidationContext validationContext)
