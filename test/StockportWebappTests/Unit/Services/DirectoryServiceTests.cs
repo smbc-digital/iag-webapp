@@ -179,10 +179,6 @@ public class DirectoryServiceTests
             .Setup(_ => _.ConvertToHtml(It.IsAny<string>()))
             .Returns(It.IsAny<string>());
 
-        _mockApplicationConfiguration
-            .Setup(_ => _.GetEmailEmailFrom(It.IsAny<string>()))
-            .Returns(() => AppSetting.GetAppSetting(It.IsAny<string>()));
-
         _service = new DirectoryService(
             _mockApplicationConfiguration.Object,
             _mockMarkdownWrapper.Object,
