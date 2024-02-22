@@ -18,4 +18,6 @@ public class DirectoryViewModel
     public string Order { get; set; }
 
     public List<string> OrderBy = new() { "Name A to Z", "Name Z to A" };
+
+    public Dictionary<string, int> FilterCounts { get; set; }
 }

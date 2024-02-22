@@ -13,6 +13,11 @@
 
     &__image{
         height: 125px;
+
+        @media #{$mobile} {
+            height: auto;
+            max-height: 125px;
+        }
     }
 
     img {

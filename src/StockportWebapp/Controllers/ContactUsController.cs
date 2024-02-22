@@ -7,19 +7,22 @@ public class ContactUsController : Controller
     private readonly ILogger<ContactUsController> _logger;
     private readonly IApplicationConfiguration _applicationConfiguration;
     private readonly BusinessId _businessId;
+    private readonly IFeatureManager _featureManager;
 
     public ContactUsController(
         IRepository repository,
         IHttpEmailClient emailClient,
         ILogger<ContactUsController> logger,
         IApplicationConfiguration applicationConfiguration,
-        BusinessId businessId)
+        BusinessId businessId,
+        IFeatureManager featureManager)
     {
         _repository = repository;
         _emailClient = emailClient;
         _logger = logger;
         _applicationConfiguration = applicationConfiguration;
         _businessId = businessId;
+        _featureManager = featureManager;
     }
 
     [Route("/contact-us")]
@@ -47,26 +50,37 @@ public class ContactUsController : Controller
         }
 
         var message = "We have been unable to process the request. Please try again later.";
-
-        if (ModelState.IsValid)
+        
+        if (await _featureManager.IsEnabledAsync("SendContactUsEmails"))
         {
-            var successCode = await SendEmailMessage(contactUsDetails);
-            if (IsSuccess(successCode))
+            if (ModelState.IsValid)
             {
-                return RedirectToAction("ThankYouMessage", new ThankYouMessageViewModel
+                var successCode = await SendEmailMessage(contactUsDetails);
+                if (IsSuccess(successCode))
                 {
-                    ReturnUrl = redirectUrl,
-                    ButtonText = contactUsModel.SuccessPageButtonText
-                });
+                    return RedirectToAction("ThankYouMessage", new ThankYouMessageViewModel
+                    {
+                        ReturnUrl = redirectUrl,
+                        ButtonText = contactUsModel.SuccessPageButtonText
+                    });
+                }
             }
+            else
+            {
+                message = GetErrorsFromModelState(ModelState);
+            }
+
+            var toUrl = $"{redirectUrl}?message={message}" + "#error-message-anchor";
+            return await Task.FromResult(Redirect(toUrl));
         }
         else
         {
-            message = GetErrorsFromModelState(ModelState);
+            return RedirectToAction("ThankYouMessage", new ThankYouMessageViewModel
+            {
+                ReturnUrl = redirectUrl,
+                ButtonText = contactUsModel.SuccessPageButtonText
+            });
         }
-
-        var toUrl = $"{redirectUrl}?message={message}" + "#error-message-anchor";
-        return await Task.FromResult(Redirect(toUrl));
     }
 
     private async Task<ContactUsId> GetContactUsId(string serviceEmailId)

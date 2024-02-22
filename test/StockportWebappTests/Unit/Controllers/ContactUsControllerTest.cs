@@ -17,7 +17,8 @@ public class ContactUsControllerTest
     private const string Path = "/page-with-contact-us-form";
     private readonly string _url = $"http://page.com{Path}";
     private readonly string _title = "Title";
-    private Mock<IRepository> _repository = new Mock<IRepository>();
+    private Mock<IRepository> _repository = new();
+    private Mock<IFeatureManager> _featureManager = new();
     private readonly ContactUsId _contactUsId;
 
     public ContactUsControllerTest()
@@ -29,6 +30,7 @@ public class ContactUsControllerTest
         _configuration.Setup(a => a.GetEmailEmailFrom(It.IsAny<string>()))
             .Returns(AppSetting.GetAppSetting("businessid:Email:EmailFrom"));
 
+        _featureManager.Setup(featureManager => featureManager.IsEnabledAsync(It.IsAny<string>())).ReturnsAsync(true);
         _businessId = new BusinessId("businessid");
 
         _contactUsId = new ContactUsId("name", "slug", "email", "test button text", "test return url");
@@ -36,7 +38,7 @@ public class ContactUsControllerTest
         _repository.Setup(o => o.Get<ContactUsId>(It.IsAny<string>(), It.IsAny<List<Query>>()))
            .ReturnsAsync(HttpResponse.Successful(200, _contactUsId));
 
-        _controller = new ContactUsController(_repository.Object, _mockEmailClient.Object, _mockLogger.Object, _configuration.Object, _businessId);
+        _controller = new ContactUsController(_repository.Object, _mockEmailClient.Object, _mockLogger.Object, _configuration.Object, _businessId, _featureManager.Object);
         _validContactDetails = new ContactUsDetails(_userName, _userEmail, _emailSubject,
             _emailBody, _serviceEmails, _title);
 

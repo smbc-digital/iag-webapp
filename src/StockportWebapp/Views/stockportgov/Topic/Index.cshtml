@@ -58,5 +58,5 @@
          <partial name="EventBanner" model='topic.EventCalendarBanner'/>
     }
 
-    <partial name="LogoArea"/>
+    <partial name="LogoArea" model='topic.TopicBranding' view-data='new ViewDataDictionary(ViewData) {{"logoAreaTitle", @topic.LogoAreaTitle}, {"titleCssClasses", "section__title section__title--padded-bottom section__title--border-top"}}'/>
 </div>

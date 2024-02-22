@@ -143,12 +143,10 @@ namespace StockportWebapp.Utils.Extensions
                                             p.GetService<IDynamicTagParser<S3BucketSearch>>(),
                                             p.GetService<IDynamicTagParser<PrivacyNotice>>()),
                         p.GetService<IApplicationConfiguration>()));
-            services.AddTransient<IRepository>(p => new Repository(p.GetService<UrlGenerator>(), p.GetService<IHttpClient>(), p.GetService<IApplicationConfiguration>(), p.GetService<IUrlGeneratorSimple>()));
+            services.AddTransient<IRepository>(p => new Repository(p.GetService<UrlGenerator>(), p.GetService<IHttpClient>(), p.GetService<IApplicationConfiguration>(), p.GetService<IUrlGeneratorSimple>(), p.GetService<ILogger<Repository>>()));
             services.AddTransient<IStockportApiRepository>(p => new StockportApiRepository(p.GetService<IHttpClient>(), p.GetService<IApplicationConfiguration>(), p.GetService<IUrlGeneratorSimple>(), p.GetService<ILogger<BaseRepository>>()));
             services.AddTransient<IContentApiRepository>(p => new ContentApiRepository(p.GetService<IHttpClient>(), p.GetService<IApplicationConfiguration>(), p.GetService<IUrlGeneratorSimple>(), p.GetService<ILogger<BaseRepository>>()));
-            services.AddTransient<IDirectoryRepository>(p =>
-                new DirectoryRepository(p.GetService<UrlGenerator>(), p.GetService<IHttpClient>(), p.GetService<IApplicationConfiguration>()));
-            
+           
             return services;
         }
 
@@ -172,7 +170,9 @@ namespace StockportWebapp.Utils.Extensions
                     p.GetService<IDynamicTagParser<Alert>>(),
                     p.GetService<ITriviaFactory>(),
                     p.GetService<IDynamicTagParser<InlineQuote>>()));
-    
+
+            services.AddTransient<IDirectoryService>(p => new DirectoryService(p.GetService<IApplicationConfiguration>(), p.GetService<MarkdownWrapper>(), p.GetService<IRepository>()));
+
             return services;
         }
 
@@ -237,9 +237,13 @@ namespace StockportWebapp.Utils.Extensions
             var sesConfiguration = new SesConfiguration();
             configuration.GetSection(SesConfiguration.ConfigValue).Bind(sesConfiguration);
 
-            if (!string.IsNullOrEmpty(sesConfiguration.AccessKey) &&
-                !string.IsNullOrEmpty(sesConfiguration.SecretKey))
+            if (sesConfiguration is not null 
+                && !string.IsNullOrEmpty(sesConfiguration.AccessKey) 
+                && !string.IsNullOrEmpty(sesConfiguration.SecretKey))
             {
+                logger.Information("WEBAPP : ServiceCollectionsExtensions : AddSesEmailConfiguration : Using SES configuration from secrets.");
+
+
                 var amazonSesKeys = new AmazonSESKeys(sesConfiguration.AccessKey, sesConfiguration.SecretKey);
                 services.AddSingleton(amazonSesKeys);
                 services.AddTransient<IAmazonSimpleEmailService>(
@@ -247,7 +251,7 @@ namespace StockportWebapp.Utils.Extensions
             }
             else
             {
-                logger.Information("Secrets not found.");
+                logger.Information("WEBAPP : ServiceCollectionsExtensions : AddSesEmailConfiguration : Secrets not found.");
             }
 
             return services;
@@ -255,25 +259,27 @@ namespace StockportWebapp.Utils.Extensions
 
         public static IServiceCollection AddRedis(this IServiceCollection services, IConfiguration configuration, bool useRedisSession, ILogger logger)
         {
-            logger.Information($"Configure redis for session management - TokenStoreUrl: {configuration["TokenStoreUrl"]} Enabled: {useRedisSession}");
+            logger.Information($"WEBAPP : ServiceCollectionsExtensions : AddRedis : Configure redis for session management - TokenStoreUrl: {configuration["TokenStoreUrl"]} Enabled: {useRedisSession}");
 
             if (useRedisSession)
             {
                 var redisUrl = configuration.GetValue<string>("TokenStoreUrl");
+                logger.Information($"WEBAPP : ServiceCollectionsExtensions : AddRedis : Using Redis URL {redisUrl}");
+
                 try
                 {
                     var redisIp = GetHostEntryForUrl(redisUrl, logger);
-                    logger.Information($"Using redis for session management - url {redisUrl}, ip {redisIp}");
+                    logger.Information($"WEBAPP : ServiceCollectionExtensions : AddRedis : Using Redis for session management - url {redisUrl}, ip {redisIp}");
                     services.AddDataProtection().PersistKeysToRedis(redisIp);
                 }
                 catch(Exception ex)
                 {
-                    logger.Error(ex, $"Unable to setup Using redis for session management - url {redisUrl}");
+                    logger.Error(ex, $"WEBAPP : ServiceCollectionExtensions : AddRedis : Unable to setup Using redis for session management - url {redisUrl}");
                 }
             }
             else
             {
-                logger.Information("Not using redis for session management!");
+                logger.Information("WEBAPP : ServiceCollectionExtensions : AddRedis : Not using redis for session management, falling back to memory cache");
             }
 
             return services;
@@ -282,22 +288,17 @@ namespace StockportWebapp.Utils.Extensions
         private static string GetHostEntryForUrl(string host, ILogger logger)
         {
             if(string.IsNullOrEmpty(host))
-                throw new ArgumentNullException("GetHostEntryForUrl: host can not be null");
+                throw new ArgumentNullException("WEBAPP : ServiceCollectionExtensions : GetHostEntryForUrl: host can not be null");
 
-            logger.Information($"GetHostEntryForUrl: Attempting to resolve {host}");
+            logger.Information($"WEBAPP : ServiceCollectionExtensions : GetHostEntryForUrl: Attempting to resolve {host}");
 
             var addresses = Dns.GetHostEntryAsync(host).Result.AddressList;
 
             if (!addresses.Any())
-            {
-                logger.Error($"GetHostEntryForUrl: Could not resolve IP address for redis instance : {host}");
-                throw new Exception($"GetHostEntryForUrl: No redis instance could be found for host {host}");
-            }
-
+                throw new Exception($"WEBAPP : ServiceCollectionExtensions : GetHostEntryForUrl: No redis instance could be found for host {host}");
+            
             if (addresses.Length > 1)
-            {
-                logger.Warning($"GetHostEntryForUrl: Multple IP address for redis instance : {host} attempting to use first");
-            }
+                logger.Warning($"WEBAPP : ServiceCollectionExtensions : GetHostEntryForUrl: Multple IP address for redis instance : {host} attempting to use first");
 
             return addresses.First().ToString();
         }
