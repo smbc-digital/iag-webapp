@@ -1,0 +1,95 @@
+﻿.navcard {
+    $self: &;
+
+    // border styles
+    @mixin border($border-widths: (
+    top: (10: 0.55em, 6: 0.368em),
+    bottom: (10: 0.55em, 6: 0.368em),
+    left: (10: 0.55em, 6: 0.368em),
+    right: (10: 0.55em, 6: 0.368em)
+    )) {
+        @each $side, $widths in $border-widths {
+            &-#{$side} {
+                @each $size, $width in $widths {
+                    &-#{$size} {
+                        border-#{$side}-width: $width;
+                    }
+                }
+            }
+        }
+    }
+
+    &-all {
+        border: 1px solid;
+    }
+
+    &--border {
+        border-style: solid;
+        @include border();
+    }
+
+    &--no-border {
+        border: 0;
+    }
+
+    // theme styles
+    @mixin theme($theme: $stockport-teal) {
+        $sides: (top, right, bottom, left, all);
+    
+        @each $side in $sides {
+            $properties: (
+                top: (border-top-color),
+                right: (border-right-color),
+                bottom: (border-bottom-color),
+                left: (border-left-color),
+                all: (border-color)
+            );
+    
+            @each $property in map-get($properties, $side) {
+                &-#{$side} {
+                    #{$property}: $theme;
+                }
+            }
+        }
+    
+        #{$self}__icon {
+            color: $theme;
+        }
+    }
+
+    &--theme-pink {
+        @include theme($theme: $stockport-pink);
+    }
+
+    &--theme-blue {
+        @include theme($theme: $stockport-blue);
+    }
+
+    &--theme-orange {
+        @include theme($theme: $stockport-orange);
+    }
+
+    &--theme-purple {
+        @include theme($theme: $stockport-purple);
+    }
+
+    &--theme-teal {
+        @include theme($theme: $stockport-teal);
+    }
+
+    &--theme-grey {
+        @include theme($theme: $stockport-grey);
+    }
+
+    &--theme-grey-accent {
+        @include theme($theme: $stockport-grey-accent);
+    }
+
+    &--theme-teal-lighter {
+        @include theme($theme: $stockport-teal-lighter);
+    }
+
+    &--theme-green {
+        @include theme($theme: $stockport-green);
+    }
+}

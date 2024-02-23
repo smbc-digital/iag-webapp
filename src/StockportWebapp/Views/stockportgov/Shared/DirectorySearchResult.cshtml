@@ -4,7 +4,7 @@
     var directoryClass = imageExists ? "directory-result__content--full-width" : string.Empty;
 }
 
-<li class="navcard navcard--white navcard--border-top navcard--force-border-top navcard--width-100">
+<li class="navcard navcard--white navcard--width-100 navcard-all navcard--border-top-10 navcard--theme-teal-lighter-top navcard--theme-grey-accent navcard--theme-grey-accent-all">
     <div class="navcard__content">
         <a href=@Url.Action("DirectoryEntry", "Directory", new { directorySlug=@Model.DirectorySlug, entrySlug=@Model.Entry.Slug }) data-cy="nav-card-link" class="navcard__link navcard__link--border ">
             <div class="directory-result">

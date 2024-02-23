@@ -1,0 +1,221 @@
+﻿.navcard {
+    width: 100%;
+    margin: 0 25px 2em 25px;
+    box-sizing: border-box;
+    border-radius: 2px;
+    list-style: none;
+    text-indent: 0;
+
+    &--width-20 {
+        width: calc(20% - 40px);
+    }
+
+    &--width-25 {
+        width: calc(25% - 37.5px);
+    }
+
+    &--width-33 {
+        width: calc(33.33333% - 33.33333px);
+
+        @media #{$tablet} {
+            width: calc(33.33333% - 20px);
+            margin: 0 15px 2em 15px;
+        }
+
+        @media #{$mobile} {
+            width: calc(33.33333% - 33.33333px);
+        }
+    }
+
+    @media #{$tablet} {
+        width: calc(33.33333% - 20px);
+        margin: 0 15px 2em 15px;
+    }
+
+    &--width-100 {
+        width: 100%;
+        margin-left: 0px;
+        margin-right: 0px;
+    }
+
+    &--width-50 {
+        width: calc(50% - 25px);
+    }
+
+    @media #{$mobile} {
+        width: 100%;
+        margin: 0 0 1em 0;
+        border-top: none;
+    }
+
+    &__title {
+        @include h-s;
+        color: $stockport-green;
+        text-decoration: underline;
+        margin: 0 0 0.5em 0;
+
+        &--black {
+            color: $stockport-black;
+        }
+
+        &--large {
+            @include h-m;
+        }
+    }
+
+    &__sub-title {
+        margin: 0 0 0.5em 0;
+        font-weight: 700;
+        color: $stockport-black;
+        word-break: break-word;
+    }
+
+    &__link {
+        display: block;
+        text-decoration: none;
+        height: 100%;
+
+        &--padding {
+            padding-top: 1em;
+
+            @media #{$mobile} {
+                padding: 0 0 0 1em;
+            }
+        }
+
+        &-image {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            justify-content: space-between;
+
+            @media #{$mobile} {
+                display: block;
+            }
+        }
+
+        &:hover {
+            text-decoration: none;
+
+            .navcard__title {
+                text-decoration: underline;
+                text-decoration-thickness: 3px;
+            }
+        }
+
+        &--border {
+            border-top: none;
+            border-radius: 0 0 3px 3px;
+
+            @media #{$mobile} {
+                border: none;
+            }
+        }
+
+        &--image-border {
+            border-top: none;
+            border-bottom: none;
+            border-radius: 3px 3px 0 0;
+        }
+    }
+
+    &__teaser {
+        color: $stockport-black;
+        text-decoration: none;
+        margin: 0;
+    }
+
+    &__image {
+        border-radius: 3px 3px 0 0;
+        height: 215px;
+        width: 100%;
+        object-fit: cover;
+        object-position: top;
+
+        @media #{$mobile} {
+            max-height: 400px;
+            height: unset;
+        }
+    }
+
+    &-content { // need to look at merging these 2 -content and __content into 1
+        &--padding {
+            flex-grow: 1;
+            padding: 1em 0.75em 1.5em 0.75em;
+
+            @media #{$mobile} {
+                padding-top: 1em;
+                padding-left: 1em;
+            }
+        }
+    }
+
+    &__content {
+        display: flex;
+        flex-direction: column;
+        flex-basis: 0;
+        justify-content: space-between;
+    }
+
+    &__icon {
+        font-size: 6rem;
+        font-weight: 600;
+        letter-spacing: -1px;
+        line-height: 1.0416666667;
+        padding: 2rem;
+    }
+
+    &--grey {
+        background-color: $stockport-light-grey;
+
+        &__title {
+            color: $stockport-black;
+        }
+    }
+
+    &--white {
+        background-color: white;
+    }
+}
+
+html[dir="rtl"] {
+    .navcard {
+        @media #{$mobile} {
+            border-right: 0.368em solid $stockport-teal-lighter; // this can be removed and set in another place
+            border-left: 0;
+            padding-right: 1em;
+            padding-left: 0;
+        }
+
+        &--border-around {
+            @media #{$mobile} {
+                border: 1px solid $stockport-grey-accent; // this can be removed and set in another place
+                border-right: 0.55em solid $stockport-teal-lighter; // this can be removed and set in another place
+            }
+        }
+
+        &--border-bottom {
+            @media #{$mobile} {
+                border-left: none;
+                border-right: none;
+                padding-right: 0;
+            }
+        }
+
+        &--force-border-top {
+            @media #{$tablet} {
+                border: 0px;
+                right: 0px;
+                border-top: 0.55em solid $stockport-teal-lighter; // this can be removed and set in another place
+            }
+        }
+
+        &--no-border {
+            border: 0px;
+        }
+
+        &--directories {
+            border: 1px solid $stockport-grey-accent; // this can be removed and set in another place
+        }
+    }
+}
