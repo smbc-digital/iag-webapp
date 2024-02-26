@@ -1,7 +1,9 @@
 ﻿@model NavCard
 @{
     bool displayImage = (bool)ViewData["displayImage"];
-    var borderCssClasses = displayImage ? "navcard__link navcard__link-image" : "navcard__link";
+    var borderCssClasses = displayImage 
+        ? " navcard-all navcard__link navcard__link-image navcard--radius-top-left navcard--radius-top-right navcard--no-border-bottom navcard--theme-grey-accent-all" 
+        : " navcard-all navcard__link navcard--radius-bottom-left-desktop navcard--radius-bottom-right-desktop navcard--radius-bottom-left-tablet navcard--radius-bottom-right-tablet navcard--radius-top-right-mobile navcard--radius-bottom-right-mobile navcard--no-border-top-desktop navcard--no-border-top-tablet navcard--no-border-left-mobile navcard--theme-grey-accent-all";
 }
 <a href="@Model.Url" class="@borderCssClasses" data-cy="nav-card-link">
     <div class="navcard__content">

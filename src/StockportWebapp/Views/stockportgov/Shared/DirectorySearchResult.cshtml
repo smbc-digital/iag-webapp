@@ -4,9 +4,9 @@
     var directoryClass = imageExists ? "directory-result__content--full-width" : string.Empty;
 }
 
-<li class="navcard navcard--white navcard--width-100 navcard-all navcard--theme-grey-accent navcard--theme-grey-accent-all navcard--border-top-10 navcard--theme-teal-lighter-top">
+<li class="navcard navcard--white navcard--width-100 navcard--border-top-10 navcard--theme-teal-lighter-top">
     <div class="navcard__content">
-        <a href=@Url.Action("DirectoryEntry", "Directory", new { directorySlug=@Model.DirectorySlug, entrySlug=@Model.Entry.Slug }) data-cy="nav-card-link" class="navcard__link navcard__link--border ">
+        <a href=@Url.Action("DirectoryEntry", "Directory", new { directorySlug=@Model.DirectorySlug, entrySlug=@Model.Entry.Slug }) data-cy="nav-card-link" class="navcard__link navcard__link--border navcard-all navcard--radius-bottom-left navcard--radius-bottom-right navcard--no-border-top navcard--theme-grey-accent-all">
             <div class="directory-result">
                 <div class="directory-result__content @directoryClass">
                     <h3 class="navcard__title navcard__title--large">

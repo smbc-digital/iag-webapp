@@ -1,52 +1,4 @@
 ﻿.navcard {
-    width: 100%;
-    margin: 0 25px 2em 25px;
-    box-sizing: border-box;
-    border-radius: 2px;
-    list-style: none;
-    text-indent: 0;
-
-    &--width-20 {
-        width: calc(20% - 40px);
-    }
-
-    &--width-25 {
-        width: calc(25% - 37.5px);
-    }
-
-    &--width-33 {
-        width: calc(33.33333% - 33.33333px);
-
-        @media #{$tablet} {
-            width: calc(33.33333% - 20px);
-            margin: 0 15px 2em 15px;
-        }
-
-        @media #{$mobile} {
-            width: calc(33.33333% - 33.33333px);
-        }
-    }
-
-    @media #{$tablet} {
-        width: calc(33.33333% - 20px);
-        margin: 0 15px 2em 15px;
-    }
-
-    &--width-100 {
-        width: 100%;
-        margin-left: 0px;
-        margin-right: 0px;
-    }
-
-    &--width-50 {
-        width: calc(50% - 25px);
-    }
-
-    @media #{$mobile} {
-        width: 100%;
-        margin: 0 0 1em 0;
-    }
-
     &__title {
         @include h-s;
         color: $stockport-green;
@@ -175,46 +127,74 @@
     &--white {
         background-color: white;
     }
-}
 
-html[dir="rtl"] {
-    .navcard {
-        @media #{$mobile} {
-            border-right: 0.368em solid $stockport-teal-lighter; // this can be removed and set in another place
-            border-left: 0;
-            padding-right: 1em;
-            padding-left: 0;
+    &--radius-top-left {
+        border-top-left-radius: 3px;
+    }
+
+    &--radius-bottom-left {
+        border-bottom-left-radius: 3px;
+    }
+
+    &--radius-top-right {
+        border-top-right-radius: 3px;
+    }
+
+    &--radius-bottom-right {
+        border-bottom-right-radius: 3px;
+    }
+
+    @media #{$desktop} {
+        &--radius-top-left-desktop {
+            border-top-left-radius: 3px;
         }
-
-        &--border-around {
-            @media #{$mobile} {
-                border: 1px solid $stockport-grey-accent; // this can be removed and set in another place
-                border-right: 0.55em solid $stockport-teal-lighter; // this can be removed and set in another place
-            }
+    
+        &--radius-bottom-left-desktop {
+            border-bottom-left-radius: 3px;
         }
-
-        &--border-bottom {
-            @media #{$mobile} {
-                border-left: none;
-                border-right: none;
-                padding-right: 0;
-            }
+    
+        &--radius-top-right-desktop {
+            border-top-right-radius: 3px;
         }
-
-        &--force-border-top {
-            @media #{$tablet} {
-                border: 0px;
-                right: 0px;
-                border-top: 0.55em solid $stockport-teal-lighter; // this can be removed and set in another place
-            }
+    
+        &--radius-bottom-right-desktop {
+            border-bottom-right-radius: 3px;
         }
+    }
 
-        &--no-border {
-            border: 0px;
+    @media #{$tablet-only} {
+        &--radius-top-left-tablet {
+            border-top-left-radius: 3px;
         }
+    
+        &--radius-bottom-left-tablet {
+            border-bottom-left-radius: 3px;
+        }
+    
+        &--radius-top-right-tablet {
+            border-top-right-radius: 3px;
+        }
+    
+        &--radius-bottom-right-tablet {
+            border-bottom-right-radius: 3px;
+        }
+    }
 
-        &--directories {
-            border: 1px solid $stockport-grey-accent; // this can be removed and set in another place
+    @media #{$mobile} {
+        &--radius-top-left-mobile {
+            border-top-left-radius: 3px;
+        }
+    
+        &--radius-bottom-left-mobile {
+            border-bottom-left-radius: 3px;
+        }
+    
+        &--radius-top-right-mobile {
+            border-top-right-radius: 3px;
+        }
+    
+        &--radius-bottom-right-mobile {
+            border-bottom-right-radius: 3px;
         }
     }
 }
