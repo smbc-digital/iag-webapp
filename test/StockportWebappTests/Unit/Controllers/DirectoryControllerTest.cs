@@ -7,6 +7,7 @@ public class DirectoryControllerTest
     private readonly DirectoryController _directoryController;
     private Mock<IDirectoryService> _directoryService = new();
 
+    private Mock<IFeatureManager> _featureManager = new();
 
     private readonly List<Filter> filtersList = new() {
         new() {
