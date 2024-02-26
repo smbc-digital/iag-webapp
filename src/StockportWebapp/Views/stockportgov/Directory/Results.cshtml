@@ -8,13 +8,7 @@
 }
 
 <div class="grid-container-full-width background-grey" data-cy="search-results">
-
-    @*<section class="directories-search">
-    <partial name="DirectorySearchOneStockport"/>
-    <partial name="DirectorySearch" model="@Model.Directory.Title"/>
-    </section>*@
-
-    <partial name="Breadcrumb2023" model='new List<Crumb>()'/>
+    <partial name="Breadcrumb2023" model='@Model.Breadcrumbs' />
     <form asp-controller="Directory" method="get">
         <div class="grid-container">
             <div class="grid-100 directory-sub-title">
@@ -29,6 +23,7 @@
                     <div class="directory__sortBy">
                         <label for="order-by">Sort by:</label>
                         <select asp-for="@Model.Order" asp-items="@(new SelectList(Model.OrderBy))" name="orderBy" id="order-by" autocomplete="off"></select>
+
                     </div>
                 </div>
             </div>
@@ -97,7 +92,7 @@
                         <ul class="navcard-wrapper">
                             @foreach (var entry in Model.FilteredEntries)
                             {
-                                <partial name="DirectorySearchResult" model=@(new DirectorySearchResultViewModel {DirectorySlug = Model.Directory.Slug, Entry = entry})/>
+                                <partial name="DirectorySearchResult" model=@(new DirectorySearchResultViewModel {DirectorySlug = Model.Slug, Entry = entry}) />
                             }
                         </ul>
                     </div>

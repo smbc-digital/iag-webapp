@@ -197,7 +197,7 @@ public class DirectoryControllerTest
         _directoryService.Setup(_ => _.GetEntry<DirectoryEntry>(It.IsAny<string>()))
             .ReturnsAsync(directoryEntry);
         // Act
-        var result = await _directoryController.DirectoryEntry("slug", "entry-slug") as ViewResult;
+        var result = await _directoryController.DirectoryEntry("slug/entry-slug") as ViewResult;
         var model = result.ViewData.Model as DirectoryViewModel;
         
         // Assert
@@ -212,7 +212,7 @@ public class DirectoryControllerTest
         _directoryService.Setup(_ => _.GetEntry<DirectoryEntry>(It.IsAny<string>())).ReturnsAsync((DirectoryEntry)null);
 
         // Act
-        var result = await _directoryController.DirectoryEntry("slug", "entry-slug");
+        var result = await _directoryController.DirectoryEntry("slug/entry-slug");
 
         // Assert
         Assert.IsType<NotFoundResult>(result);
