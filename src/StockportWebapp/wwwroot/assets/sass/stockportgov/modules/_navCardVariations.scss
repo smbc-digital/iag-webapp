@@ -13,6 +13,28 @@
                 @each $size, $width in $widths {
                     &-#{$size} {
                         border-#{$side}-width: $width;
+                        border-style: solid;
+                    }
+                    
+                    @media #{$desktop} {
+                        &-#{$size}-desktop {
+                            border-#{$side}-width: $width;
+                            border-style: solid;
+                        }
+                    }
+
+                    @media #{$tablet-only} {
+                        &-#{$size}-tablet {
+                            border-#{$side}-width: $width;
+                            border-style: solid;
+                        }
+                    }
+
+                    @media #{$mobile} {
+                        &-#{$size}-mobile {
+                            border-#{$side}-width: $width;
+                            border-style: solid;
+                        }    
                     }
                 }
             }
@@ -24,7 +46,6 @@
     }
 
     &--border {
-        border-style: solid;
         @include border();
     }
 
@@ -48,6 +69,24 @@
             @each $property in map-get($properties, $side) {
                 &-#{$side} {
                     #{$property}: $theme;
+                }
+
+                @media #{$desktop} {
+                    &-#{$side}-desktop {
+                        #{$property}: $theme;
+                    }
+                }
+
+                @media #{$tablet-only} {
+                    &-#{$side}-tablet {
+                        #{$property}: $theme;
+                    }
+                }
+
+                @media #{$mobile} {
+                    &-#{$side}-mobile {
+                        #{$property}: $theme;
+                    }
                 }
             }
         }
