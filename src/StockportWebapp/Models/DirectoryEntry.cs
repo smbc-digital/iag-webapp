@@ -14,14 +14,18 @@ namespace StockportWebapp.Models
         public IEnumerable<FilterTheme> Themes { get; set; } = new List<FilterTheme>();
         public IEnumerable<MinimalDirectory> Directories { get; set; }
         public IEnumerable<Alert> Alerts { get; set; }
-        public IEnumerable<GroupBranding> Branding { get; set; } = new List<GroupBranding>();
+        public List<GroupBranding> Branding { get; set; } = new List<GroupBranding>();
         public MapPosition MapPosition { get; set; } = new MapPosition();
         public string PhoneNumber { get; set; } = string.Empty;
         public string Email { get; set; } = string.Empty;
         public string Website { get; set; } = string.Empty;
         public string Twitter { get; set; } = string.Empty;
         public string Facebook { get; set; } = string.Empty;
+        public string Youtube { get; set; } = string.Empty;
+        public string Instagram { get; set; } = string.Empty;
+        public string LinkedIn { get; set; } = string.Empty;
         public string Address { get; set; } = string.Empty;
+        public string Image { get; set; }
 
         public Placemark ToKmlPlacemark() => new Placemark
         {

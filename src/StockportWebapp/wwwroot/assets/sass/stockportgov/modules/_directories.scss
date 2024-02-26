@@ -34,7 +34,11 @@
         }
 
         &__content {
-            width: 65%;
+            width: 72%;
+
+            &--full-width {
+                width: 100%;
+            }
 
             @media #{$tablet} {
                 width: 100%;
@@ -43,7 +47,7 @@
 
         &__brand {
             text-align: right;
-            width: 32%;
+            width: 25%;
 
             @media #{$tablet} {
                 margin-top: 1em;
@@ -53,8 +57,10 @@
 
             img {
                 max-width: 100%;
+                max-height: 200px;
                 height: auto;
                 margin: 0px;
+                object-fit: contain;
             }
         }
     }
@@ -153,11 +159,52 @@
         }
     }
 
-    &--border-top, &__description, &__filters {
+    &--padding {
+        padding-left: 0.53125em;
+        padding-right: 0.53125em;
+        padding-top: 1em;
+    }
+
+    &__disclaimer {
+        border-top: 0.368em solid $stockport-teal-lighter;
+        background-color: white;
+
+        p {
+            margin: 0;
+            padding: 1em 0 1em 0;
+
+            @media #{$mobile} {
+                padding: 1em 0.55em 1em 0.55em;
+            }
+
+            span {
+                font-weight: 700;
+            }
+        }
+    }
+
+    &--border-top, &__filters {
         border-radius: 3px;
         border-top: 0.55em solid $stockport-teal-lighter;
         margin-bottom: 2em;
 
+        @media #{$tablet} {
+            margin-bottom: 1.2em;
+        }
+    }
+
+    &--no-margin {
+        margin: 0;
+    }
+
+    &--border {
+        border: 1px solid $stockport-grey-accent;
+        border-top: none;
+        border-radius: 0 0 3px 3px;
+    }
+
+    &__description {
+        margin-bottom: 2em;
         @media #{$tablet} {
             margin-bottom: 1.2em;
         }
@@ -215,7 +262,17 @@
         height: auto;
     }
 
+    &__profile {
+        &-image {
+            margin-top: 1.3em;
+        }
+    }
+
     &__filter {
+        display: flex;
+        margin-left: 0;
+        margin-bottom: 20px;
+
         span {
             color: $stockport-teal;
             margin-right: 0.75em;
@@ -247,6 +304,17 @@
         }
     }
 
+    &__filters {
+        &-facilities {
+            column-count: 2;
+            margin-bottom: 1em;
+
+            @media #{$mobile} {
+                column-count: 1;
+            }
+        }
+    }
+
     &__organisation {
         p {
             margin-bottom: 2em;
@@ -267,6 +335,7 @@
         word-break: break-word;
 
         &--tablet {
+            margin-top: 0.75em;
             display: flex;
             flex-direction: row;
             flex-wrap: wrap;
@@ -278,6 +347,8 @@
     }
 
     &__labels {
+        margin-top: 0.75em;
+        
         p {
             font-weight: 700;
         }
@@ -365,9 +436,34 @@
         }
     }
 
+    &__website {
+        p{
+            font-weight: 700;
+            margin-bottom: 0;
+
+            @media #{$tablet} {
+                width: 15%;
+            }
+
+            @media #{$mobile, $desktop} {
+                width: 100%;
+            }
+        }
+
+        @media #{$tablet} {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+        }
+
+        @media #{$mobile, $desktop} {
+            display: block;
+        }
+    }
+
     &__checkbox {
         &-container {
-            display: block;
+            display: flex;
             position: relative;
             min-height: 2.105em;
             margin-bottom: 0.833em;
@@ -402,7 +498,7 @@
         &__label {
             display: inline-block;
             margin-bottom: 0;
-            padding: 0.3em 0.789em 0.3em 0.789em;
+            padding: 0.3em 3em 0.3em 0.789em;
             cursor: pointer;
             touch-action: manipulation;
             font-size: 1em;
@@ -432,6 +528,16 @@
                 border-width: 0 0 0.263em 0.263em;
                 opacity: 0;
             }
+        }
+
+        &__count {
+            right: 0;
+            text-align: right;
+            position: absolute;
+            padding-left: 10px;
+            padding-right: 10px;
+            padding-bottom: 3px;
+            padding-top: 3px;
         }
 
         &__checkbox:checked + &__label:after {
@@ -471,7 +577,6 @@
             padding: 0.55em;
             width: 100%;
             text-align: left;
-            cursor: pointer;
             width: -webkit-fill-available;
             background-color: #fff;
             background-image: url(/assets/images/ui-images/chevron-down-black.svg);
@@ -530,6 +635,11 @@ html[dir="rtl"] {
                     top: 0.7rem;
                     right: 0.55rem;
                 }
+            }
+
+            &__count {
+                left: 0;
+                text-align: left;
             }
         }
 

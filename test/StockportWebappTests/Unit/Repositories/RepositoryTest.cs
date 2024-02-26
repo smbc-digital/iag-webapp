@@ -6,6 +6,7 @@ public class RepositoryTest
     private readonly Mock<IHttpClient> _httpClientMock = new Mock<IHttpClient>();
     private readonly UrlGenerator _urlGenerator;
     private readonly Mock<IUrlGeneratorSimple> _urlGeneratorSimple = new Mock<IUrlGeneratorSimple>();
+    private readonly Mock<ILogger<Repository>> _mockLogger = new Mock<ILogger<Repository>>();
 
     public RepositoryTest()
     {
@@ -15,7 +16,7 @@ public class RepositoryTest
         _urlGenerator = new UrlGenerator(appConfig.Object, new BusinessId(""));
         _urlGeneratorSimple.Setup(o => o.BaseContentApiUrl<Event>()).Returns("url");
 
-        _repository = new Repository(_urlGenerator, _httpClientMock.Object, appConfig.Object, _urlGeneratorSimple.Object);
+        _repository = new Repository(_urlGenerator, _httpClientMock.Object, appConfig.Object, _urlGeneratorSimple.Object, _mockLogger.Object);
     }
 
     [Fact]

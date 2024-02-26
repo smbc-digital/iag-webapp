@@ -85,8 +85,10 @@ public class PaymentReferenceValidationTests
     [InlineData(EPaymentReferenceValidation.CameraCar, "SM6123456A")]
     [InlineData(EPaymentReferenceValidation.BusLane, "SM81234567")]
     [InlineData(EPaymentReferenceValidation.BusLane, "SM8123456A")]
-    [InlineData(EPaymentReferenceValidation.StockportBereavementInvoice, "SBI12123")]
-    [InlineData(EPaymentReferenceValidation.StockportBereavementInvoice, "sbi12223")]
+    [InlineData(EPaymentReferenceValidation.StockportBereavementInvoice, "SB12123")]
+    [InlineData(EPaymentReferenceValidation.StockportBereavementInvoice, "sb12223")]
+    [InlineData(EPaymentReferenceValidation.StockportBereavementInvoice, "SB1222")]
+    [InlineData(EPaymentReferenceValidation.StockportBereavementInvoice, "Sb1222")]
     public void Should_ReturnSuccess_ForValidReference(EPaymentReferenceValidation referenceValidation, string reference)
     {
         // Arrange
@@ -134,8 +136,10 @@ public class PaymentReferenceValidationTests
     [InlineData(EPaymentReferenceValidation.CameraCar, "SM6123456A")]
     [InlineData(EPaymentReferenceValidation.BusLane, "SM81234567")]
     [InlineData(EPaymentReferenceValidation.BusLane, "SM8123456A")]
-    [InlineData(EPaymentReferenceValidation.StockportBereavementInvoice, "SBI12123")]
-    [InlineData(EPaymentReferenceValidation.StockportBereavementInvoice, "sbi12223")]
+    [InlineData(EPaymentReferenceValidation.StockportBereavementInvoice, "SB12123")]
+    [InlineData(EPaymentReferenceValidation.StockportBereavementInvoice, "sb12223")]
+    [InlineData(EPaymentReferenceValidation.StockportBereavementInvoice, "SB1222")]
+    [InlineData(EPaymentReferenceValidation.StockportBereavementInvoice, "Sb1222")]
     public void Should_ReturnSuccess_ForValidReference_ForServicePayPayment(EPaymentReferenceValidation referenceValidation, string reference)
     {
         // Arrange
@@ -182,8 +186,8 @@ public class PaymentReferenceValidationTests
     [InlineData(EPaymentReferenceValidation.BusLane, "SM81234")]
     [InlineData(EPaymentReferenceValidation.CameraCar, "SM61234A")]
     [InlineData(EPaymentReferenceValidation.BusLane, "SM81234A")]
-    [InlineData(EPaymentReferenceValidation.StockportBereavementInvoice, "SBI2123")]
-    [InlineData(EPaymentReferenceValidation.StockportBereavementInvoice, "sbi12223a")]
+    [InlineData(EPaymentReferenceValidation.StockportBereavementInvoice, "SB212")]
+    [InlineData(EPaymentReferenceValidation.StockportBereavementInvoice, "sb12223a")]
     public void Should_ReturnFalse_ForInvalidReference(EPaymentReferenceValidation referenceValidation, string reference)
     {
         // Arrange
@@ -229,8 +233,8 @@ public class PaymentReferenceValidationTests
     [InlineData(EPaymentReferenceValidation.BusLane, "SM81234")]
     [InlineData(EPaymentReferenceValidation.CameraCar, "SM61234A")]
     [InlineData(EPaymentReferenceValidation.BusLane, "SM81234A")]
-    [InlineData(EPaymentReferenceValidation.StockportBereavementInvoice, "SBI1012")]
-    [InlineData(EPaymentReferenceValidation.StockportBereavementInvoice, "sbi122263")]
+    [InlineData(EPaymentReferenceValidation.StockportBereavementInvoice, "SB101")]
+    [InlineData(EPaymentReferenceValidation.StockportBereavementInvoice, "sb122263")]
     public void Should_ReturnFalse_ForInvalidReference_ForServicePayPayment(EPaymentReferenceValidation referenceValidation, string reference)
     {
         // Arrange
