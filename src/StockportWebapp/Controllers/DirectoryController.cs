@@ -7,7 +7,7 @@ public class DirectoryController : Controller
 {
     private readonly IDirectoryService _directoryService;
     private readonly IFeatureManager _featureManager;
-    private readonly bool _isToggledOn;
+    private readonly bool _isToggledOn = true;
     private string _defaultUrlPrefix = "directories";
 
     public DirectoryController(IDirectoryService directoryService, 
