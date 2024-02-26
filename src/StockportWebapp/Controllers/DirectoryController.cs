@@ -7,19 +7,25 @@ public class DirectoryController : Controller
 {
     private readonly IDirectoryService _directoryService;
     private readonly IFeatureManager _featureManager;
+    private readonly bool _isToggledOn;
+    private string _defaultUrlPrefix = "directories";
 
     public DirectoryController(IDirectoryService directoryService, 
         IFeatureManager featureManager = null)
     {
+        _featureManager = featureManager;
+
+        if (_featureManager is not null)
+            _isToggledOn = _featureManager.IsEnabledAsync("Directories").Result;
+
         _directoryService = directoryService;
     }
 
     [Route("/directories/{**slug}")]
     public async Task<IActionResult> Directory(string slug)
     {
-        if (_featureManager is not null 
-            && await _featureManager.IsEnabledAsync("Directories"))
-                return NotFound();
+        if (!_isToggledOn)
+            return NotFound();
 
         var pageLocation = ProcessWildcardSlug(slug);
 
@@ -41,7 +47,7 @@ public class DirectoryController : Controller
             
         directoryViewModel.AllFilterThemes = _directoryService.GetAllFilterThemes(directoryViewModel.FilteredEntries);
         directoryViewModel.FilterCounts = _directoryService.GetAllFilterCounts(directory.AllEntries);
-
+        directoryViewModel.AppliedFilters = new List<Model.Filter>();
         return View("results", directoryViewModel);
     }
 
@@ -49,16 +55,16 @@ public class DirectoryController : Controller
     [Route("/directories/results/{**slug}")]
     public async Task<IActionResult> DirectoryResults([Required][FromRoute]string slug, string[] filters, string orderBy)
     {
-        if (_featureManager is not null
-        && await _featureManager.IsEnabledAsync("Directories"))
+        if (!_isToggledOn)
             return NotFound();
 
         var pageLocation = ProcessWildcardSlug(slug);
-        List<Directory> parentDirectories = await GetParentDirectories(pageLocation.ParentSlugs);
 
         var directory = await _directoryService.Get<Directory>(pageLocation.Slug);
         if(directory is null)
             return NotFound();
+
+        List<Directory> parentDirectories = await GetParentDirectories(pageLocation.ParentSlugs);
 
         var filteredEntries = filters.Any()
             ? _directoryService.GetFilteredEntryForDirectories(directory, filters)
@@ -93,8 +99,7 @@ public class DirectoryController : Controller
     [Produces(MediaTypeNames.Application.Xml)]
     public async Task<IActionResult> DirectoryAsKml(string slug)
     {
-        if (_featureManager is not null
-        && await _featureManager.IsEnabledAsync("Directories"))
+        if (!_isToggledOn)
             return NotFound();
 
         var directory = await _directoryService.Get<Directory>(slug);
@@ -108,12 +113,10 @@ public class DirectoryController : Controller
     [Route("directories/entry/{**slug}")]
     public async Task<IActionResult> DirectoryEntry(string slug)
     {
-        var pageLocation = ProcessWildcardSlug(slug);
-
-        if (_featureManager is not null
-        && await _featureManager.IsEnabledAsync("Directories"))
+        if (!_isToggledOn)
             return NotFound();
 
+        var pageLocation = ProcessWildcardSlug(slug);
         var directoryEntry = await _directoryService.GetEntry<DirectoryEntry>(pageLocation.Slug);
         
         if(directoryEntry is null)
@@ -132,6 +135,7 @@ public class DirectoryController : Controller
 
     private PageLocation ProcessWildcardSlug(string slug)
     {
+        slug = slug.TrimEnd('/');
         var slugValues = slug?.Split('/') ?? Array.Empty<string>();
         return new PageLocation(slugValues.Last(), slugValues.SkipLast(1).ToList());
     }
@@ -139,19 +143,16 @@ public class DirectoryController : Controller
     private List<Crumb> GetBreadcrumbsForDirectories(IList<Directory> parentDirectories, bool viewLastBreadcrumbAsResults = false) 
     {
         List<Crumb> breadcrumbs = new();
-        for (int i = 0; i < parentDirectories.Count; i++)
+        
+        foreach(var directory in parentDirectories)
         {
-            var directory = parentDirectories[i];
-            var relativeUrl = string.Join("/", parentDirectories.Take(i + 1).Select(_ => _.Slug));
-            if(i == parentDirectories.Count - 1 && viewLastBreadcrumbAsResults)
-            {
-                breadcrumbs.Add(new Crumb(directory.Title, $"directories/results/{relativeUrl}", "Directories"));
-            }
-            else
-            {
-                breadcrumbs.Add(new Crumb(directory.Title, $"directories/{relativeUrl}", "Directories"));
-            }
-            
+            var relativeUrl = string.Join("/", directory.Slug);
+            var url = _defaultUrlPrefix;
+
+            if (directory.Equals(parentDirectories[^1]) && viewLastBreadcrumbAsResults)
+                url = $"{_defaultUrlPrefix}/results";
+
+            breadcrumbs.Add(new Crumb(directory.Title, $"{url}/{relativeUrl}", "Directories"));
         }
 
         return breadcrumbs;
@@ -167,17 +168,5 @@ public class DirectoryController : Controller
                 parentDirectories.Add(parent);
         }
         return parentDirectories;
-    }
-}
-
-public class PageLocation
-{
-    public string Slug { get; private set; }
-    public IEnumerable<string> ParentSlugs { get; private set; }
-
-    public PageLocation(string slug, IEnumerable<string> parentSlugs)
-    {
-        Slug = slug;
-        ParentSlugs = parentSlugs;
     }
 }
