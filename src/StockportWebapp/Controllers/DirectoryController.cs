@@ -27,7 +27,7 @@ public class DirectoryController : Controller
         if (!_isToggledOn)
             return NotFound();
 
-        var pageLocation = ProcessWildcardSlug(slug);
+        var pageLocation = WildcardExtensions.ProcessSlug(slug);
 
         var directory = await _directoryService.Get<Directory>(pageLocation.Slug);
         if(directory is null)
@@ -48,6 +48,7 @@ public class DirectoryController : Controller
         directoryViewModel.AllFilterThemes = _directoryService.GetAllFilterThemes(directoryViewModel.FilteredEntries);
         directoryViewModel.FilterCounts = _directoryService.GetAllFilterCounts(directory.AllEntries);
         directoryViewModel.AppliedFilters = new List<Model.Filter>();
+
         return View("results", directoryViewModel);
     }
 
@@ -58,7 +59,7 @@ public class DirectoryController : Controller
         if (!_isToggledOn)
             return NotFound();
 
-        var pageLocation = ProcessWildcardSlug(slug);
+        var pageLocation = WildcardExtensions.ProcessSlug(slug);
 
         var directory = await _directoryService.Get<Directory>(pageLocation.Slug);
         if(directory is null)
@@ -116,7 +117,7 @@ public class DirectoryController : Controller
         if (!_isToggledOn)
             return NotFound();
 
-        var pageLocation = ProcessWildcardSlug(slug);
+        var pageLocation = WildcardExtensions.ProcessSlug(slug);
         var directoryEntry = await _directoryService.GetEntry<DirectoryEntry>(pageLocation.Slug);
         
         if(directoryEntry is null)
@@ -133,12 +134,6 @@ public class DirectoryController : Controller
         });
     }
 
-    private PageLocation ProcessWildcardSlug(string slug)
-    {
-        slug = slug.TrimEnd('/');
-        var slugValues = slug?.Split('/') ?? Array.Empty<string>();
-        return new PageLocation(slugValues.Last(), slugValues.SkipLast(1).ToList());
-    }
 
     private List<Crumb> GetBreadcrumbsForDirectories(IList<Directory> parentDirectories, bool viewLastBreadcrumbAsResults = false) 
     {
