@@ -1,6 +1,85 @@
-﻿.navcard {
-    $self: &;
+﻿@mixin border($border-widths: (
+    top: (10: 0.55em, 6: 0.368em, 1: 1px, 0: 0),
+    bottom: (10: 0.55em, 6: 0.368em, 1: 1px, 0: 0),
+    left: (10: 0.55em, 6: 0.368em, 1: 1px, 0: 0),
+    right: (10: 0.55em, 6: 0.368em, 1: 1px, 0: 0))) {
+    @each $side, $widths in $border-widths {
+        &-#{$side} {
+            @each $size, $width in $widths {
+                &-#{$size} {
+                    border-#{$side}-width: $width;
+                    border-style: solid;
+                }
+                
+                @media #{$desktop} {
+                    &-#{$size}-desktop {
+                        border-#{$side}-width: $width;
+                        border-style: solid;
+                    }
+                }
 
+                @media #{$tablet-only} {
+                    &-#{$size}-tablet {
+                        border-#{$side}-width: $width;
+                        border-style: solid;
+                    }
+                }
+
+                @media #{$mobile} {
+                    &-#{$size}-mobile {
+                        border-#{$side}-width: $width;
+                        border-style: solid;
+                    }    
+                }
+            }
+        }
+    }
+}
+
+@mixin theme($theme: $stockport-teal) {
+    $sides: (top, right, bottom, left, all);
+
+    @each $side in $sides {
+        $properties: (
+            top: (border-top-color),
+            right: (border-right-color),
+            bottom: (border-bottom-color),
+            left: (border-left-color),
+            all: (border-color)
+        );
+
+        @each $property in map-get($properties, $side) {
+            &-#{$side} {
+                #{$property}: $theme;
+            }
+
+            @media #{$desktop} {
+                &-#{$side}-desktop {
+                    #{$property}: $theme;
+                }
+            }
+
+            @media #{$tablet-only} {
+                &-#{$side}-tablet {
+                    #{$property}: $theme;
+                }
+            }
+
+            @media #{$mobile} {
+                &-#{$side}-mobile {
+                    #{$property}: $theme;
+                }
+            }
+        }
+    }
+
+    .navcard__icon {
+        color: $theme;
+    }
+}
+
+.navcard {
+    $self: &;
     width: 100%;
     margin: 0 25px 2em 25px;
     box-sizing: border-box;
@@ -44,154 +123,39 @@
         width: calc(50% - 25px);
     }
 
+    &-all {
+        border: 1px solid;
+    }
+
     @media #{$mobile} {
         width: 100%;
         margin: 0 0 1em 0;
     }
 
-    @mixin border($border-widths: (
-    top: (10: 0.55em, 6: 0.368em),
-    bottom: (10: 0.55em, 6: 0.368em),
-    left: (10: 0.55em, 6: 0.368em),
-    right: (10: 0.55em, 6: 0.368em)
-    )) {
-        @each $side, $widths in $border-widths {
-            &-#{$side} {
-                @each $size, $width in $widths {
-                    &-#{$size} {
-                        border-#{$side}-width: $width;
-                        border-style: solid;
-                    }
-                    
-                    @media #{$desktop} {
-                        &-#{$size}-desktop {
-                            border-#{$side}-width: $width;
-                            border-style: solid;
-                        }
-                    }
-
-                    @media #{$tablet-only} {
-                        &-#{$size}-tablet {
-                            border-#{$side}-width: $width;
-                            border-style: solid;
-                        }
-                    }
-
-                    @media #{$mobile} {
-                        &-#{$size}-mobile {
-                            border-#{$side}-width: $width;
-                            border-style: solid;
-                        }    
-                    }
-                }
-            }
+    @media #{$desktop} {
+        &-all-desktop {
+            border: 1px solid;
         }
     }
 
-    &-all {
-        border: 1px solid;
+    @media #{$tablet-only} {
+        &-all-tablet {
+            border: 1px solid;
+        }
+    }
+
+    @media #{$mobile} {
+        &-all-mobile {
+            border: 1px solid;
+        }
     }
 
     &--border {
         @include border();
     }
 
-    &--no-border-bottom {
-        border-bottom-width: 0;
-    }
-
-    &--no-border-top {
-        border-top-width: 0;
-    }
-
-    &--no-border-left {
-        border-left-width: 0;
-    }
-
-    &--no-border-right {
-        border-right-width: 0;
-    }
-
-    @media #{$desktop}{
-        &--no-border-top-desktop {
-            border-top-width: 0;
-        }
-    }
-    
-    @media #{$tablet-only}{
-        &--no-border-top-tablet {
-            border-top-width: 0;
-        }
-    }
-
-    @media #{$desktop}{
-        &--no-border-bottom-desktop {
-            border-bottom-width: 0;
-        }
-    }
-    
-    @media #{$tablet-only}{
-        &--no-border-bottom-tablet {
-            border-bottom-width: 0;
-        }
-    }
-
-    @media #{$mobile}{
-        &--no-border-left-mobile {
-            border-left-width: 0;
-        }
-    }
-    
-    @media #{$mobile}{
-        &--no-border-bottom-mobile {
-            border-bottom-width: 0;
-        }
-    }
-
     &--no-border {
         border: 0;
-    }
-
-    @mixin theme($theme: $stockport-teal) {
-        $sides: (top, right, bottom, left, all);
-    
-        @each $side in $sides {
-            $properties: (
-                top: (border-top-color),
-                right: (border-right-color),
-                bottom: (border-bottom-color),
-                left: (border-left-color),
-                all: (border-color)
-            );
-    
-            @each $property in map-get($properties, $side) {
-                &-#{$side} {
-                    #{$property}: $theme;
-                }
-
-                @media #{$desktop} {
-                    &-#{$side}-desktop {
-                        #{$property}: $theme;
-                    }
-                }
-
-                @media #{$tablet-only} {
-                    &-#{$side}-tablet {
-                        #{$property}: $theme;
-                    }
-                }
-
-                @media #{$mobile} {
-                    &-#{$side}-mobile {
-                        #{$property}: $theme;
-                    }
-                }
-            }
-        }
-    
-        #{$self}__icon {
-            color: $theme;
-        }
     }
 
     &--theme-pink {
@@ -231,45 +195,96 @@
     }
 }
 
-
 html[dir="rtl"] {
     .navcard {
         @media #{$mobile} {
-            border-right: 0.368em solid $stockport-teal-lighter; // this can be removed and set in another place
-            border-left: 0;
             padding-right: 1em;
             padding-left: 0;
         }
 
-        &--border-around {
-            @media #{$mobile} {
-                border: 1px solid $stockport-grey-accent; // this can be removed and set in another place
-                border-right: 0.55em solid $stockport-teal-lighter; // this can be removed and set in another place
+        &--border-rtl {
+            @include border();
+        }
+
+        &--theme-teal-lighter-rtl {
+            @include theme($theme: $stockport-teal-lighter);
+        }
+
+        &--theme-grey-accent-rtl {
+            @include theme($theme: $stockport-grey-accent);
+        }
+
+        &-all-rtl {
+            border: 1px solid;
+        }
+
+        &--no-padding-right-rtl {
+            padding-right: 0;
+        }
+
+        @media #{$mobile} {
+            &--radius-top-left-mobile-rtl {
+                border-top-left-radius: 3px;
+            }
+        
+            &--radius-bottom-left-mobile-rtl {
+                border-bottom-left-radius: 3px;
+            }
+        
+            &--radius-top-right-mobile-rtl {
+                border-top-right-radius: 3px;
+            }
+        
+            &--radius-bottom-right-mobile-rtl {
+                border-bottom-right-radius: 3px;
+            }
+
+            &--radius-top-lef-0-mobile-rtl {
+                border-top-left-radius: 0;
+            }
+        
+            &--radius-bottom-left-0-mobile-rtl {
+                border-bottom-left-radius: 0;
+            }
+        
+            &--radius-top-right-0-mobile-rtl {
+                border-top-right-radius: 0;
+            }
+        
+            &--radius-bottom-right-0-mobile-rtl {
+                border-bottom-right-radius: 0;
             }
         }
 
-        &--border-bottom {
-            @media #{$mobile} {
-                border-left: none;
-                border-right: none;
-                padding-right: 0;
-            }
-        }
+        // &--border-around {
+        //     @media #{$mobile} {
+        //         border: 1px solid $stockport-grey-accent; // this can be removed and set in another place
+        //         border-right: 0.55em solid $stockport-teal-lighter; // this can be removed and set in another place
+        //     }
+        // }
 
-        &--force-border-top {
-            @media #{$tablet} {
-                border: 0px;
-                right: 0px;
-                border-top: 0.55em solid $stockport-teal-lighter; // this can be removed and set in another place
-            }
-        }
+        // &--border-bottom {
+        //     @media #{$mobile} {
+        //         border-left: none;
+        //         border-right: none;
+        //         padding-right: 0;
+        //     }
+        // }
 
-        &--no-border {
-            border: 0px;
-        }
+        // &--force-border-top {
+        //     @media #{$tablet} {
+        //         border: 0px;
+        //         right: 0px;
+        //         border-top: 0.55em solid $stockport-teal-lighter; // this can be removed and set in another place
+        //     }
+        // }
 
-        &--directories {
-            border: 1px solid $stockport-grey-accent; // this can be removed and set in another place
-        }
+        // &--no-border {
+        //     border: 0px;
+        // }
+
+        // &--directories {
+        //     border: 1px solid $stockport-grey-accent; // this can be removed and set in another place
+        // }
     }
 }

@@ -1,11 +1,19 @@
 ﻿@model NavCard
 @{
     bool displayImage = (bool)ViewData["displayImage"];
+    
+    var borderCssDesktop = " navcard-all-desktop navcard--theme-grey-accent-all-desktop";
+    var borderCssTablet = " navcard-all-tablet navcard--theme-grey-accent-all-tablet";
+    var noBorder = " navcard--border-top-0-desktop navcard--border-top-0-tablet";
+    var noBorderImage = " navcard--border-bottom-0-desktop navcard--border-bottom-0-tablet";
+    var borderRadius = " navcard--radius-bottom-left navcard--radius-bottom-right";
+    var borderImageRadius = " navcard--radius-top-left navcard--radius-top-right";
+
     var borderCssClasses = displayImage 
-        ? " navcard-all navcard__link navcard__link-image navcard--radius-top-left navcard--radius-top-right navcard--no-border-bottom navcard--theme-grey-accent-all" 
-        : " navcard-all navcard__link navcard--radius-bottom-left-desktop navcard--radius-bottom-right-desktop navcard--radius-bottom-left-tablet navcard--radius-bottom-right-tablet navcard--radius-top-right-mobile navcard--radius-bottom-right-mobile navcard--no-border-top-desktop navcard--no-border-top-tablet navcard--no-border-left-mobile navcard--theme-grey-accent-all";
+        ? noBorderImage + borderImageRadius
+        : noBorder + borderRadius; 
 }
-<a href="@Model.Url" class="@borderCssClasses" data-cy="nav-card-link">
+<a href="@Model.Url" class="navcard__link @borderCssDesktop @borderCssTablet @borderCssClasses" data-cy="nav-card-link">
     <div class="navcard__content">
         @if(displayImage){
             <div>
