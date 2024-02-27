@@ -135,22 +135,24 @@ public class DirectoryController : Controller
     }
 
 
-    private List<Crumb> GetBreadcrumbsForDirectories(IList<Directory> parentDirectories, bool viewLastBreadcrumbAsResults = false) 
+    private List<Crumb> GetBreadcrumbsForDirectories(List<Directory> parentDirectories, bool viewLastBreadcrumbAsResults = false) 
     {
         List<Crumb> breadcrumbs = new();
-        
-        foreach(var directory in parentDirectories)
-        {
-            var relativeUrl = string.Join("/", directory.Slug);
-            var url = _defaultUrlPrefix;
-
-            if (directory.Equals(parentDirectories[^1]) && viewLastBreadcrumbAsResults)
-                url = $"{_defaultUrlPrefix}/results";
-
-            breadcrumbs.Add(new Crumb(directory.Title, $"{url}/{relativeUrl}", "Directories"));
-        }
-
+        parentDirectories.ForEach(directory => breadcrumbs.Add(GetBreadcrumbForDirectory(directory, parentDirectories, viewLastBreadcrumbAsResults)));
         return breadcrumbs;
+    }
+
+    private Crumb GetBreadcrumbForDirectory(Directory directory, IList<Directory> parentDirectories, bool viewLastBreadcrumbAsResults = false)
+    {
+        var relativeUrl = string.Join("/", parentDirectories
+                                            .Take(parentDirectories.IndexOf(directory) + 1)
+                                            .Select(_ => _.Slug));
+
+        var url = directory.Equals(parentDirectories[^1]) && viewLastBreadcrumbAsResults
+            ? $"{_defaultUrlPrefix}/results/{relativeUrl}"
+            : $"{_defaultUrlPrefix}/{relativeUrl}";
+
+        return new Crumb(directory.Title, url, "Directories");
     }
 
     private async Task<List<Directory>> GetParentDirectories(IEnumerable<string> parentSlugs)
