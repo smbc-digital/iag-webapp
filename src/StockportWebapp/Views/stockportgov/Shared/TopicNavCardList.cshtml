@@ -1,15 +1,21 @@
 ﻿@model NavCardList
 @{
     bool displayImage = Model.Items.All(item => !string.IsNullOrEmpty(item.Image));
+    var borderTealDesktop = " navcard--border-top-10-desktop navcard--theme-teal-lighter-top-desktop";
+    var borderTealTablet = " navcard--border-top-10-tablet navcard--theme-teal-lighter-top-tablet";
+    var borderTealMobile = " navcard--border-left-10-mobile navcard--theme-teal-lighter-left-mobile";
+    var rtlBorderCssClasses = " navcard--border-rtl-right-10-mobile navcard--theme-teal-lighter-rtl-right-mobile navcard--border-rtl-left-1-mobile navcard--theme-grey-accent-rtl-left-mobile ";
+    
+    var borderGreyMobile = " navcard-all-mobile navcard--theme-grey-accent-all";
     var borderCssClasses = displayImage 
-        ? "navcard--border-bottom-strong navcard--theme-teal-lighter-bottom"
-        : "navcard--desktop-border-top-strong navcard--theme-teal-lighter-desktop-top navcard--tablet-border-top-strong navcard--theme-teal-lighter-tablet-top navcard--mobile-border-left-strong navcard--theme-teal-lighter-mobile-left";
+        ? "navcard--border-bottom-10 navcard--theme-teal-lighter-bottom " + borderGreyMobile
+        : borderTealDesktop + borderTealTablet + borderTealMobile + borderGreyMobile + rtlBorderCssClasses;
 }
 
 <ul class="navcard-wrapper navcard-wrapper--no-margin">
     @foreach (var navCard in Model.Items)
     {
-        <li class="navcard navcard--basic-border navcard--theme-teal-lighter navcard--width-33 navcard--grey @borderCssClasses ">
+        <li class="navcard navcard--grey navcard--width-33 navcard--no-padding-right-rtl @borderCssClasses">
             <partial name="TopicNavCard" model="navCard" view-data='new ViewDataDictionary(ViewData) {{"displayImage", @displayImage}}'/>
         </li>
     }

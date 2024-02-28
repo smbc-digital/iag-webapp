@@ -2,11 +2,16 @@
 @{
     var imageExists = string.IsNullOrEmpty(Model.Entry.Image);
     var directoryClass = imageExists ? "directory-result__content--full-width" : string.Empty;
+    
+    var borderTeal = " navcard--border-top-10 navcard--theme-teal-lighter-top";
+    var borderGrey = " navcard-all navcard--theme-grey-accent-all";
+    var borderRadius = " navcard--radius-bottom-left navcard--radius-bottom-right";
 }
 
-<li class="navcard navcard--white navcard--border-top navcard--force-border-top navcard--width-100">
+<li class="navcard navcard--white navcard--width-100 @borderTeal navcard--no-padding-right-rtl">
     <div class="navcard__content">
-        <a href=@Url.Action("DirectoryEntry", "Directory", new { directorySlug=@Model.DirectorySlug, entrySlug=@Model.Entry.Slug }) data-cy="nav-card-link" class="navcard__link navcard__link--border ">
+        <a href=@Url.Action("DirectoryEntry", "Directory", new { directorySlug=@Model.DirectorySlug, entrySlug=@Model.Entry.Slug }) data-cy="nav-card-link" 
+        class="navcard__link navcard__link--border @borderRadius navcard--border-top-0 @borderGrey">
             <div class="directory-result">
                 <div class="directory-result__content @directoryClass">
                     <h3 class="navcard__title navcard__title--large">
