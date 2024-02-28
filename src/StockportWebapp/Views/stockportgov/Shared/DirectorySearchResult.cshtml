@@ -10,15 +10,16 @@
 
 <li class="navcard navcard--white navcard--width-100 @borderTeal navcard--no-padding-right-rtl">
     <div class="navcard__content">
-        <a href=@Url.Action("DirectoryEntry", "Directory", new { directorySlug=@Model.DirectorySlug, entrySlug=@Model.Entry.Slug }) data-cy="nav-card-link" 
-        class="navcard__link navcard__link--border @borderRadius navcard--border-top-0 @borderGrey">
+        <a href=@Url.Action("DirectoryEntry", "Directory", new { slug=@Model.Slug }) data-cy="nav-card-link"
+            class="navcard__link navcard__link--border @borderRadius navcard--border-top-0 @borderGrey">
+
             <div class="directory-result">
                 <div class="directory-result__content @directoryClass">
                     <h3 class="navcard__title navcard__title--large">
                         @Model.Entry.Name
                     </h3>
 
-                    @if(!string.IsNullOrEmpty(Model.Entry.Provider)){
+                    @if(!string.IsNullOrEmpty(Model.Entry.Provider)) {
                         <p class="navcard__sub-title">@Model.Entry.Provider</p>
                     }
                     

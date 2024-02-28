@@ -29,18 +29,11 @@
 }
 
 <div class="grid-container-full-width" data-cy="directory-entry">
-    @*    <section class="directories-search">
-    @if(Model.Directory is not null){
-    <partial name="DirectorySearch" model="@Model.Directory.Title"/>
-    }
-    else{
-    <partial name="DirectorySearch" model="@directory.Name" />
-    }
-    </section>*@
+
 
     @if (Model.Directory is not null)
     {
-        <partial name="Breadcrumb2023" model='new List<Crumb> { new Crumb(Model.Directory.Title, "directories/results/" + Model.Directory.Slug, "Directory")}' />
+        <partial name="Breadcrumb2023" model='@Model.Breadcrumbs' />
     }
     else
     {
