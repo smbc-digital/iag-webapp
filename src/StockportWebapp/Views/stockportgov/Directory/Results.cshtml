@@ -5,6 +5,8 @@
     ViewData["og:title"] = directory.Title;
     ViewData["Description"] = directory.MetaDescription;
     Layout = "../Shared/_Layout2023.cshtml";
+
+    var borderGrey = " navcard-all navcard--theme-grey-accent-all";
 }
 
 <div class="grid-container-full-width background-grey" data-cy="search-results">
@@ -26,7 +28,7 @@
         <div class="grid-container">
             <div class="grid-100">
                 <div class="directory--30">
-                    <div class="directory__sortBy">
+                    <div class="directory__sortBy @borderGrey">
                         <label for="order-by">Sort by:</label>
                         <select asp-for="@Model.Order" asp-items="@(new SelectList(Model.OrderBy))" name="orderBy" id="order-by" autocomplete="off"></select>
                     </div>
@@ -39,7 +41,7 @@
                 <div class="directory">
                     <div class="directory--30">
                         <section class="navcard-wrapper">
-                            <div class="navcard navcard--white navcard--width-100 navcard--border navcard--directories navcard--no-padding-right-rtl">
+                            <div class="navcard navcard--white navcard--width-100 navcard--border navcard--no-padding-right-rtl">
                                 <div class="navcard-content navcard-all navcard--theme-grey-accent-all navcard--radius">
                                     <div class="navcard-content--padding">
                                         <h2 class="h-ml h--no-top-margin">Filter your results</h2>

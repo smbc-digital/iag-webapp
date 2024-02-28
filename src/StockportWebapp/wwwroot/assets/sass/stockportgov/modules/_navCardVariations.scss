@@ -123,13 +123,13 @@
         width: calc(50% - 25px);
     }
 
-    &-all {
-        border: 1px solid;
-    }
-
     @media #{$mobile} {
         width: 100%;
         margin: 0 0 1em 0;
+    }
+
+    &-all {
+        border: 1px solid;
     }
 
     @media #{$desktop} {
@@ -255,36 +255,5 @@ html[dir="rtl"] {
                 border-bottom-right-radius: 0;
             }
         }
-
-        // &--border-around {
-        //     @media #{$mobile} {
-        //         border: 1px solid $stockport-grey-accent; // this can be removed and set in another place
-        //         border-right: 0.55em solid $stockport-teal-lighter; // this can be removed and set in another place
-        //     }
-        // }
-
-        // &--border-bottom {
-        //     @media #{$mobile} {
-        //         border-left: none;
-        //         border-right: none;
-        //         padding-right: 0;
-        //     }
-        // }
-
-        // &--force-border-top {
-        //     @media #{$tablet} {
-        //         border: 0px;
-        //         right: 0px;
-        //         border-top: 0.55em solid $stockport-teal-lighter; // this can be removed and set in another place
-        //     }
-        // }
-
-        // &--no-border {
-        //     border: 0px;
-        // }
-
-        // &--directories {
-        //     border: 1px solid $stockport-grey-accent; // this can be removed and set in another place
-        // }
     }
 }
