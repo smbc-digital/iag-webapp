@@ -95,7 +95,6 @@ public class DirectoryController : Controller
         return View("results", directoryViewModel);
     }
 
-
     [Route("/directories/results/kml/{slug}")]  
     [Produces(MediaTypeNames.Application.Xml)]
     public async Task<IActionResult> DirectoryAsKml(string slug)
@@ -133,7 +132,6 @@ public class DirectoryController : Controller
             Slug = slug
         });
     }
-
 
     private List<Crumb> GetBreadcrumbsForDirectories(List<Directory> parentDirectories, bool viewLastBreadcrumbAsResults = false) 
     {
