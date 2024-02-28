@@ -7,9 +7,10 @@
     var rtlBorderCssClasses = " navcard--border-rtl-right-10-mobile navcard--theme-teal-lighter-rtl-right-mobile navcard--border-rtl-left-1-mobile navcard--theme-grey-accent-rtl-left-mobile ";
     
     var borderGreyMobile = " navcard-all-mobile navcard--theme-grey-accent-all";
+
     var borderCssClasses = displayImage 
-        ? "navcard--border-bottom-10 navcard--theme-teal-lighter-bottom " + borderGreyMobile
-        : borderTealDesktop + borderTealTablet + borderTealMobile + borderGreyMobile + rtlBorderCssClasses;
+        ? $"navcard--border-bottom-10 navcard--theme-teal-lighter-bottom {borderGreyMobile}"
+        : $"{borderTealDesktop} {borderTealTablet} {borderTealMobile} {borderGreyMobile} {rtlBorderCssClasses}";
 }
 
 <ul class="navcard-wrapper navcard-wrapper--no-margin">
