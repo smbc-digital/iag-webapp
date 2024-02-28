@@ -36,6 +36,44 @@
     }
 }
 
+@mixin borderRadius() {
+    $sides: (top-left, top-right, bottom-left, bottom-right, all);
+
+    @each $side in $sides {
+        $properties: (
+            top-left: (border-top-left-radius),
+            top-right: (border-top-right-radius),
+            bottom-left: (border-bottom-left-radius),
+            bottom-right: (border-bottom-right-radius),
+            all: (border-radius)
+        );
+
+        @each $property in map-get($properties, $side) {
+            &-#{$side} {
+                #{$property}: 3px;
+            }
+
+            @media #{$desktop} {
+                &-#{$side}-desktop {
+                    #{$property}: 3px;
+                }
+            }
+
+            @media #{$tablet-only} {
+                &-#{$side}-tablet {
+                    #{$property}: 3px;
+                }
+            }
+
+            @media #{$mobile} {
+                &-#{$side}-mobile {
+                    #{$property}: 3px;
+                }
+            }
+        }
+    }
+}
+
 @mixin theme($theme: $stockport-teal) {
     $sides: (top, right, bottom, left, all);
 
@@ -126,6 +164,10 @@
     @media #{$mobile} {
         width: 100%;
         margin: 0 0 1em 0;
+    }
+
+    &--radius {
+        @include borderRadius();
     }
 
     &-all {
@@ -220,40 +262,6 @@ html[dir="rtl"] {
 
         &--no-padding-right-rtl {
             padding-right: 0;
-        }
-
-        @media #{$mobile} {
-            &--radius-top-left-mobile-rtl {
-                border-top-left-radius: 3px;
-            }
-        
-            &--radius-bottom-left-mobile-rtl {
-                border-bottom-left-radius: 3px;
-            }
-        
-            &--radius-top-right-mobile-rtl {
-                border-top-right-radius: 3px;
-            }
-        
-            &--radius-bottom-right-mobile-rtl {
-                border-bottom-right-radius: 3px;
-            }
-
-            &--radius-top-lef-0-mobile-rtl {
-                border-top-left-radius: 0;
-            }
-        
-            &--radius-bottom-left-0-mobile-rtl {
-                border-bottom-left-radius: 0;
-            }
-        
-            &--radius-top-right-0-mobile-rtl {
-                border-top-right-radius: 0;
-            }
-        
-            &--radius-bottom-right-0-mobile-rtl {
-                border-bottom-right-radius: 0;
-            }
         }
     }
 }
