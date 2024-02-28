@@ -181,7 +181,7 @@
 
                     @if(directory.Branding.Any()){
                         <div class="directory--border-top directory--no-margin @borderTeal">
-                            <partial name="LogoArea" model='directory.Branding' view-data='new ViewDataDictionary(ViewData) {{"logoAreaTitle", "In partnership with"}, {"borderTopClass", @greyBorderCssClasses + " directory--padding"}}'/>
+                            <partial name="LogoArea" model='directory.Branding' view-data='new ViewDataDictionary(ViewData) {{"logoAreaTitle", "In partnership with"}, {"borderTopClass", $"{greyBorderCssClasses} directory--padding"}}'/>
                         </div>
                     }
                 </div>
