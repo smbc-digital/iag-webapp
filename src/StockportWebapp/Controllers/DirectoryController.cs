@@ -134,7 +134,6 @@ public class DirectoryController : Controller
         });
     }
 
-
     private List<Crumb> GetBreadcrumbsForDirectories(List<Directory> parentDirectories, bool viewLastBreadcrumbAsResults = false) 
     {
         List<Crumb> breadcrumbs = new();
