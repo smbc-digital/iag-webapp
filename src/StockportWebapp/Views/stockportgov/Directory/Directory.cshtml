@@ -6,6 +6,7 @@
     Layout = "../Shared/_Layout2023.cshtml";
 
     var subdirectories = Model.Directory.SubDirectories;
+    var colourScheme = string.IsNullOrEmpty(Model.Directory.ColourScheme) ? "teal" : Model.Directory.ColourScheme.ToLower();
 }
 
 <partial name="GlobalAlerts" model='Model.Directory.Alerts' />
@@ -28,11 +29,14 @@
             <div class="section__content section__content--no-margin">
                 <ul class="navcard-wrapper navcard-wrapper--no-margin">
                     @foreach(var subdirectory in subdirectories){
-                        <li class="navcard navcard--width-33 navcard-all navcard--border-top-10 navcard--theme-teal navcard--theme-teal-all" style="text-align:center;">
-                            <a href="/this-is-an-article-with-sections-with-image-linked-to-a-topic" class="navcard__link" data-cy="nav-card-link">
+                        <li class="navcard navcard--width-33 navcard-all navcard--border-top-10 navcard--theme-@colourScheme navcard--theme-@colourScheme-all" style="text-align:center;">
+                            <a href="#" class="navcard__link" data-cy="nav-card-link">
                                 <div class="navcard__content" >
                                     <div class="navcard__icon">
-                                        <span class="si-group si-default" aria-hidden="true"></span>
+                                        @{
+                                            var icon = string.IsNullOrEmpty(Model.Directory.Icon) ? "teal" : Model.Directory.Icon.ToLower();
+                                        }
+                                        <span class="@icon si-default" aria-hidden="true"></span>
                                     </div>
 
                                     <div class="navcard-content--padding">
@@ -44,11 +48,9 @@
                         </li>
                     }
                 </ul>
-
-                <p>
-                    <span class="bold">Disclaimer</span> : The content on this page has not been created by Stockport Council. For more information read the full Terms and Conditions.
-                </p>
             </div>
         </div>
     </div>
+
+    <partial name="DirectoryContentDisclaimer">
 </div>
