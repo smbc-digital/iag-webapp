@@ -6,7 +6,6 @@
     Layout = "../Shared/_Layout2023.cshtml";
 
     var subdirectories = Model.Directory.SubDirectories;
-    var colourScheme = string.IsNullOrEmpty(Model.Directory.ColourScheme) ? "teal" : Model.Directory.ColourScheme.ToLower();
 }
 
 <partial name="GlobalAlerts" model='Model.Directory.Alerts' />
@@ -25,21 +24,21 @@
     }
 
     <div class="grid-container">
-        <div class="grid-100" data-cy="navcard-list">
+        <div class="grid-100">
             <div class="section__content section__content--no-margin">
                 <ul class="navcard-wrapper navcard-wrapper--no-margin">
                     @foreach(var subdirectory in subdirectories){
-                        <li class="navcard navcard--width-33 navcard-all navcard--border-top-10 navcard--theme-@colourScheme navcard--theme-@colourScheme-all" style="text-align:center;">
-                            <a href="#" class="navcard__link" data-cy="nav-card-link">
+                        var colourScheme = string.IsNullOrEmpty(subdirectory.ColourScheme) ? "teal" : subdirectory.ColourScheme.ToLower();
+                        <li class="navcard navcard--width-33 navcard--center navcard-all navcard--border-top-10 navcard--theme-@colourScheme navcard--theme-@colourScheme-all">
+                            <a href=@Url.Action("Directory", "Directory", new { slug=@subdirectory.Slug }) class="navcard__link">
                                 <div class="navcard__content" >
-                                    <div class="navcard__icon">
-                                        @{
-                                            var icon = string.IsNullOrEmpty(Model.Directory.Icon) ? "teal" : Model.Directory.Icon.ToLower();
-                                        }
-                                        <span class="@icon si-default" aria-hidden="true"></span>
-                                    </div>
+                                    @if(!string.IsNullOrEmpty(subdirectory.Icon)) {
+                                        <div class="navcard__icon">
+                                            <span class="@subdirectory.Icon.ToLower()" aria-hidden="true"></span>
+                                        </div>
+                                    }
 
-                                    <div class="navcard-content--padding">
+                                    <div class="navcard-content--padding navcard--no-padding-top">
                                         <h3 class="navcard__title navcard__title--black">@subdirectory.Title</h3>
                                         <p class="navcard__teaser">@subdirectory.Teaser</p>
                                     </div>

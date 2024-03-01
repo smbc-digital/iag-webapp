@@ -127,4 +127,12 @@
     &--white {
         background-color: white;
     }
+
+    &--center {
+        text-align: center;
+    }
+
+    &--no-padding-top {
+        padding-top: 0;
+    }
 }
