@@ -63,26 +63,69 @@ public class DirectoryService : IDirectoryService {
     //                 .Any(filter => filter.Slug.Equals(filterSlug)))))
     //         .ToList().OrderBy(directoryEntry => directoryEntry.Name);
 
+
     public IEnumerable<DirectoryEntry> GetFilteredEntryForDirectories(Directory directory, string[] filters)
     {
         var entries = new List<DirectoryEntry>();
 
         var allFilterThemes = GetAllFilterThemes(directory.AllEntries);
         var appliedFilters = GetAppliedFilters(filters, allFilterThemes);
-        var groupedFilters = appliedFilters.GroupBy(filter => filter.Theme);
-        
-        var relevantEntries = new List<List<DirectoryEntry>>();
 
-        foreach(var group in groupedFilters)
-            relevantEntries.Add(GetFilteredEntriesForFilterGroup(directory, group).ToList());
+        // filterConditions dict based on applied filters, so we don't have to loop too many times
+        var filterConditions = new Dictionary<string, List<string>>();
+        foreach (var filter in appliedFilters)
+        {
+            if (!filterConditions.ContainsKey(filter.Theme))
+                filterConditions[filter.Theme] = new List<string>();
+            
+            filterConditions[filter.Theme].Add(filter.Slug);
+        }
 
-        entries = relevantEntries.FirstOrDefault();
+        // filter directory entries based on filterConditions and applied filters
+        var filteredEntries = directory.AllEntries.Where(entry =>
+        {
+            if (entry.Themes is null)
+                return false;
 
-        foreach(var groupEntries in relevantEntries.Skip(1))
-            entries = entries.Intersect(groupEntries).ToList();
+            // Check if the entry satisfies all filter conditions
+            return filterConditions.All(condition =>
+            {
+                var themeFilters = condition.Value; // Get filters for the current theme
+                var appliedThemeFilters = appliedFilters
+                    .Where(appliedFilter => themeFilters.Contains(appliedFilter.Slug)); // Applied filters relevant to the current theme
 
-        return entries.Distinct(new DirectoryEntryComparer());
+                // Check if the entry satisfies filter conditions for the current theme
+                return appliedThemeFilters.Any(appliedFilter =>
+                    entry.Themes.Any(theme =>
+                        theme.Title == condition.Key && theme.Filters.Any(filter =>
+                            filter.Slug == appliedFilter.Slug)));
+            });
+        }).ToList();
+
+        return filteredEntries;
     }
+
+
+    // public IEnumerable<DirectoryEntry> GetFilteredEntryForDirectories(Directory directory, string[] filters)
+    // {
+    //     var entries = new List<DirectoryEntry>();
+
+    //     var allFilterThemes = GetAllFilterThemes(directory.AllEntries);
+    //     var appliedFilters = GetAppliedFilters(filters, allFilterThemes);
+    //     var groupedFilters = appliedFilters.GroupBy(filter => filter.Theme);
+        
+    //     var relevantEntries = new List<List<DirectoryEntry>>();
+
+    //     foreach(var group in groupedFilters)
+    //         relevantEntries.Add(GetFilteredEntriesForFilterGroup(directory, group).ToList());
+
+    //     entries = relevantEntries.FirstOrDefault();
+
+    //     foreach(var groupEntries in relevantEntries.Skip(1))
+    //         entries = entries.Intersect(groupEntries).ToList();
+
+    //     return entries.Distinct(new DirectoryEntryComparer());
+    // }
 
     private IEnumerable<DirectoryEntry> GetFilteredEntriesForFilterGroup(Directory directory, IGrouping<string, Filter> group)
     {
