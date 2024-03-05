@@ -253,10 +253,15 @@ public class DirectoryControllerTest
     [Fact]
     public async Task Directory_ShouldCallDirectoryService_IfSearchTermSpecified()
     {
+        // Arrange
+        _directoryService.Setup(_ => _.Get<Directory>(It.IsAny<string>()))
+            .ReturnsAsync(directory);
+
         // Act
         var result = await _directoryController.DirectoryResults("slug", Array.Empty<string>(), string.Empty, "search me");
-        _directoryService.Verify(service => service.GetSearchedEntryForDirectories(It.IsAny<IEnumerable<DirectoryEntry>>(), It.IsAny<string>()), Times.Once);
+
         // Assert
-        Assert.NotNull(result);
+        _directoryService.Verify(service => service.GetSearchedEntryForDirectories(It.IsAny<IEnumerable<DirectoryEntry>>(), It.IsAny<string>()), Times.Once);
+        
     }
 }

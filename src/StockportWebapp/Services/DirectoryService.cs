@@ -107,11 +107,16 @@ public class DirectoryService : IDirectoryService {
             : new List<Filter>();
 
     public IEnumerable<DirectoryEntry> GetOrderedEntries(IEnumerable<DirectoryEntry> filteredEntries, string orderBy)
-    {      
-        if(!string.IsNullOrEmpty(orderBy) && orderBy.Equals("Name Z to A", StringComparison.OrdinalIgnoreCase))
-            filteredEntries.OrderByDescending(_ => _.Name);
+    {
+        if (!string.IsNullOrEmpty(orderBy))
+        {
+            if (orderBy.Equals("Name A to Z", StringComparison.OrdinalIgnoreCase))
+                return filteredEntries.OrderBy(_ => _.Name);
+            else if (orderBy.Equals("Name Z to A", StringComparison.OrdinalIgnoreCase))
+                return filteredEntries.OrderByDescending(_ => _.Name);
+        }
 
-        return filteredEntries.OrderBy(_ => _.Name); ;
+        return filteredEntries;
     }
 
     public Dictionary<string, int> GetAllFilterCounts(IEnumerable<DirectoryEntry> allEntries) =>
