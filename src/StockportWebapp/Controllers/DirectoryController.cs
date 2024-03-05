@@ -7,46 +7,65 @@ public class DirectoryController : Controller
 {
     private readonly IDirectoryService _directoryService;
     private readonly IFeatureManager _featureManager;
+    private readonly bool _isToggledOn = true;
+    private string _defaultUrlPrefix = "directories";
 
     public DirectoryController(IDirectoryService directoryService, 
         IFeatureManager featureManager = null)
     {
+        _featureManager = featureManager;
+
+        if (_featureManager is not null)
+            _isToggledOn = _featureManager.IsEnabledAsync("Directories").Result;
+
         _directoryService = directoryService;
     }
 
-    [Route("/directories/{slug}")]
+    [Route("/directories/{**slug}")]
     public async Task<IActionResult> Directory(string slug)
     {
-        if (_featureManager is not null 
-            && await _featureManager.IsEnabledAsync("Directories"))
-                return NotFound();
+        if (!_isToggledOn)
+            return NotFound();
 
-        var directory = await _directoryService.Get<Directory>(slug);
+        var pageLocation = WildcardExtensions.ProcessSlug(slug);
+
+        var directory = await _directoryService.Get<Directory>(pageLocation.Slug);
         if(directory is null)
             return NotFound();
+        
+        List<Directory> parentDirectories = await GetParentDirectories(pageLocation.ParentSlugs);
 
         DirectoryViewModel directoryViewModel = new() {
             Directory = directory,
+            Breadcrumbs = GetBreadcrumbsForDirectories(parentDirectories, false),
+            Slug = slug,
             FilteredEntries = _directoryService.GetFilteredEntryForDirectories(directory)
         };
 
         if(directory.SubDirectories.Any())
             return View(directoryViewModel);
+            
+        directoryViewModel.AllFilterThemes = _directoryService.GetAllFilterThemes(directoryViewModel.FilteredEntries);
+        directoryViewModel.FilterCounts = _directoryService.GetAllFilterCounts(directory.AllEntries);
+        directoryViewModel.AppliedFilters = new List<Model.Filter>();
 
         return View("results", directoryViewModel);
     }
-    
+
     [HttpGet]
-    [Route("/directories/results/{slug}")]
+    [Route("/directories/results/{**slug}")]
     public async Task<IActionResult> DirectoryResults([Required][FromRoute]string slug, string[] filters, string orderBy)
     {
-        if (_featureManager is not null
-        && await _featureManager.IsEnabledAsync("Directories"))
+        if (!_isToggledOn)
             return NotFound();
 
-        var directory = await _directoryService.Get<Directory>(slug);
+        var pageLocation = WildcardExtensions.ProcessSlug(slug);
+
+        var directory = await _directoryService.Get<Directory>(pageLocation.Slug);
         if(directory is null)
             return NotFound();
+
+        List<Directory> parentDirectories = await GetParentDirectories(pageLocation.ParentSlugs);
 
         var filteredEntries = filters.Any()
             ? _directoryService.GetFilteredEntryForDirectories(directory, filters)
@@ -68,18 +87,20 @@ public class DirectoryController : Controller
             AllFilterThemes = allFilterThemes,
             AppliedFilters = appliedFilters,
             FilterCounts = filterCounts,
-            Order = orderBy
+            Order = orderBy,
+            Breadcrumbs = GetBreadcrumbsForDirectories(parentDirectories, false),
+            Slug = slug
         };
         
         return View("results", directoryViewModel);
     }
 
+
     [Route("/directories/results/kml/{slug}")]  
     [Produces(MediaTypeNames.Application.Xml)]
     public async Task<IActionResult> DirectoryAsKml(string slug)
     {
-        if (_featureManager is not null
-        && await _featureManager.IsEnabledAsync("Directories"))
+        if (!_isToggledOn)
             return NotFound();
 
         var directory = await _directoryService.Get<Directory>(slug);
@@ -89,26 +110,59 @@ public class DirectoryController : Controller
         var kmlString = directory.ToKml();
         return Content(kmlString);
     }
-
-    // [Route("/directories/{slug}/directory-entry/{directoryEntrySlug}")]
-    [Route("/directory-entry/{entrySlug}")]
-    [Route("/directories/entry/{directorySlug}/{entrySlug}")]
-    public async Task<IActionResult> DirectoryEntry(string directorySlug, string entrySlug)
+    
+    [Route("directories/entry/{**slug}")]
+    public async Task<IActionResult> DirectoryEntry(string slug)
     {
-        if (_featureManager is not null
-        && await _featureManager.IsEnabledAsync("Directories"))
+        if (!_isToggledOn)
             return NotFound();
 
-        var directory = await _directoryService.Get<Directory>(directorySlug);
-        var directoryEntry = await _directoryService.GetEntry<DirectoryEntry>(entrySlug);
+        var pageLocation = WildcardExtensions.ProcessSlug(slug);
+        var directoryEntry = await _directoryService.GetEntry<DirectoryEntry>(pageLocation.Slug);
         
         if(directoryEntry is null)
             return NotFound();
         
+        List<Directory> parentDirectories = await GetParentDirectories(pageLocation.ParentSlugs);
+
         return View(new DirectoryViewModel()
         {
-            Directory = directory,
-            DirectoryEntry = directoryEntry
+            Directory = parentDirectories.FirstOrDefault(),
+            DirectoryEntry = directoryEntry,
+            Breadcrumbs = GetBreadcrumbsForDirectories(parentDirectories, true),
+            Slug = slug
         });
+    }
+
+    private List<Crumb> GetBreadcrumbsForDirectories(List<Directory> parentDirectories, bool viewLastBreadcrumbAsResults = false) 
+    {
+        List<Crumb> breadcrumbs = new();
+        parentDirectories.ForEach(directory => breadcrumbs.Add(GetBreadcrumbForDirectory(directory, parentDirectories, viewLastBreadcrumbAsResults)));
+        return breadcrumbs;
+    }
+
+    private Crumb GetBreadcrumbForDirectory(Directory directory, IList<Directory> parentDirectories, bool viewLastBreadcrumbAsResults = false)
+    {
+        var relativeUrl = string.Join("/", parentDirectories
+                                            .Take(parentDirectories.IndexOf(directory) + 1)
+                                            .Select(_ => _.Slug));
+
+        var url = directory.Equals(parentDirectories[^1]) && viewLastBreadcrumbAsResults
+            ? $"{_defaultUrlPrefix}/results/{relativeUrl}"
+            : $"{_defaultUrlPrefix}/{relativeUrl}";
+
+        return new Crumb(directory.Title, url, "Directories");
+    }
+
+    private async Task<List<Directory>> GetParentDirectories(IEnumerable<string> parentSlugs)
+    {
+        List<Directory> parentDirectories = new();
+        foreach (var directorySlug in parentSlugs)
+        {
+            var parent = await _directoryService.Get<Directory>(directorySlug);
+            if (parent is not null)
+                parentDirectories.Add(parent);
+        }
+        return parentDirectories;
     }
 }

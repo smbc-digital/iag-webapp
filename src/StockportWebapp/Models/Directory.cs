@@ -13,14 +13,26 @@ namespace StockportWebapp.Models
         public IEnumerable<Alert> Alerts { get; set; }
         public IEnumerable<DirectoryEntry> Entries { get; set; } = new List<DirectoryEntry>();
         public IEnumerable<Directory> SubDirectories { get; set; } = new List<Directory>();
-        
+
         [JsonIgnore]
-        public IEnumerable<DirectoryEntry> AllEntries =>  SubDirectories is not null
-                                                            && SubDirectories.Any()  
-                                                                ? Entries?
-                                                                    .Concat(SubDirectories.SelectMany(sub => sub.AllEntries))
-                                                                    .Distinct()
-                                                                : Entries;
+        private IEnumerable<DirectoryEntry> _allEntries = null;
+
+        [JsonIgnore]
+        public IEnumerable<DirectoryEntry> AllEntries
+        {
+            get
+            {
+                _allEntries ??= (SubDirectories is not null && SubDirectories.Any()
+                                    ? Entries?
+                                        .Concat(SubDirectories
+                                        .SelectMany(sub => sub.AllEntries))
+                                    : Entries)
+                                        .Distinct(new DirectoryEntryComparer());
+
+                return _allEntries;
+            }         
+        }
+        
         [JsonIgnore]
         public IEnumerable<FilterTheme> AllFilterThemes => AllEntries is not null && AllEntries.Any() 
                                                             ? AllEntries
