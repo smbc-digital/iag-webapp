@@ -95,7 +95,6 @@ public class DirectoryController : Controller
         return View("results", directoryViewModel);
     }
 
-
     [Route("/directories/results/kml/{slug}")]  
     [Produces(MediaTypeNames.Application.Xml)]
     public async Task<IActionResult> DirectoryAsKml(string slug)
@@ -110,7 +109,7 @@ public class DirectoryController : Controller
         var kmlString = directory.ToKml();
         return Content(kmlString);
     }
-    
+
     [Route("directories/entry/{**slug}")]
     public async Task<IActionResult> DirectoryEntry(string slug)
     {

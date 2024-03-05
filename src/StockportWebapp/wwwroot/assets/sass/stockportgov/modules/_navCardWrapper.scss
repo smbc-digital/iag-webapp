@@ -1,0 +1,104 @@
+﻿.navcard-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+
+    &--no-margin {
+        margin: 0;
+    }
+
+    @media #{$mobile} {
+        .navcard--visible:nth-child(n+7) {
+            display: none;
+        }
+    }
+
+    @media #{$desktop} {
+        .navcard--width-20:nth-child(5n),
+        .navcard--width-25:nth-child(4n),
+        .navcard--width-33:nth-child(3n),
+        .navcard--width-50:nth-child(2n) {
+            margin-right: 0;
+        }
+
+        .navcard--width-20:nth-child(5n + 1),
+        .navcard--width-25:first-child,
+        .navcard--width-25:nth-child(4n - 3),
+        .navcard--width-33:nth-child(3n + 1),
+        .navcard--width-50:nth-child(2n + 1) {
+            margin-left: 0;
+        }
+    }
+
+    @media #{$tablet} {
+        .navcard--width-20:nth-child(3n),
+        .navcard--width-25:nth-child(3n),
+        .navcard--width-33:nth-child(3n),
+        .navcard--width-50:nth-child(2n) {
+            margin-right: 0;
+        }
+
+        .navcard--width-20:nth-child(3n + 1),
+        .navcard--width-25:first-child,
+        .navcard--width-25:nth-child(3n - 2),
+        .navcard--width-33:nth-child(3n + 1),
+        .navcard--width-50:nth-child(2n + 1) {
+            margin-left: 0;
+        }
+    }
+
+    @media #{$mobile} {
+        .navcard {
+            margin-left: 0;
+            margin-right: 0;
+        }
+    }
+}
+
+html[dir="rtl"] {
+    .navcard-wrapper {
+        @media #{$desktop} {
+            .navcard--width-20:nth-child(5n),
+            .navcard--width-25:nth-child(4n),
+            .navcard--width-33:nth-child(3n),
+            .navcard--width-50:nth-child(2n) {
+                margin-left: 0;
+                margin-right: 25px;
+            }
+
+            .navcard--width-20:nth-child(5n + 1),
+            .navcard--width-25:first-child,
+            .navcard--width-25:nth-child(4n - 3),
+            .navcard--width-33:nth-child(3n + 1),
+            .navcard--width-50:nth-child(2n + 1) {
+                margin-right: 0;
+                margin-left: 25px;
+            }
+        }
+
+        @media #{$tablet} {
+            .navcard--width-20:nth-child(3n),
+            .navcard--width-25:nth-child(3n),
+            .navcard--width-33:nth-child(3n),
+            .navcard--width-50:nth-child(2n) {
+                margin-left: 0;
+                margin-right: 15px;
+            }
+
+            .navcard--width-20:nth-child(3n + 1),
+            .navcard--width-25:first-child,
+            .navcard--width-25:nth-child(3n - 2),
+            .navcard--width-33:nth-child(3n + 1),
+            .navcard--width-50:nth-child(3n + 1) {
+                margin-right: 0;
+                margin-left: 15px;
+            }
+        }
+
+        @media #{$mobile} {
+            .navcard {
+                margin-left: 0 !important;
+                margin-right: 0 !important;
+            }
+        }
+    }
+}

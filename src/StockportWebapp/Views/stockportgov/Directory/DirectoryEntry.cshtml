@@ -17,6 +17,13 @@
                        !string.IsNullOrEmpty(directory.LinkedIn);
 
     var displayContactUs = !string.IsNullOrEmpty(directory.Website) || primaryContact || displayVisit;
+
+    var borderTeal = " navcard--border-top-10 navcard--theme-teal-lighter-top ";
+    var borderGrey = " navcard-all navcard--theme-grey-accent-all";
+    var noBorder = " navcard--border-top-0";
+    var borderRadius = " navcard--radius-bottom-left navcard--radius-bottom-right";
+
+    var greyBorderCssClasses = $"{borderGrey} {noBorder} {borderRadius}";
 }
 
 <div class="grid-container-full-width" data-cy="directory-entry">
@@ -35,8 +42,8 @@
         <div class="grid-100">
             <h1 class="directory__title">@directory.Name</h1>
             <section class="directory">
-                <div class="directory--30 directory--border-top">
-                    <div class="directory__wrapper">
+                <div class="directory--30 directory--border-top @borderTeal">
+                    <div class="directory__wrapper navcard--white @greyBorderCssClasses">
                         @if(!string.IsNullOrEmpty(directory.Image)){
                             <img src="@directory.Image?w=350&q=89&fm=webp"
                                 class="directory__logo"
@@ -142,9 +149,9 @@
                     </div>
                 </div>
 
-                <div class="directory--70 directory--border-top">
+                <div class="directory--70 directory--border-top @borderTeal">
                     <div class="directory__description">
-                        <div class="directory__wrapper">
+                        <div class="directory__wrapper navcard--white @greyBorderCssClasses">
                             <h2>About us</h2>
                             @Html.Raw(directory.Description)
                         </div>
@@ -152,8 +159,8 @@
 
                     @if (highlightedFilters is not null && highlightedFilters.Any())
                     {
-                        <div class="directory__filters">
-                            <div class="directory__wrapper">
+                        <div class="directory__filters @borderTeal">
+                            <div class="directory__wrapper navcard--white @greyBorderCssClasses">
                                 <h2 class="directory__filters-title">Facilities available</h2>
                                 <ul class="directory__filters-facilities">
                                     @foreach (var filter in highlightedFilters)
@@ -166,8 +173,8 @@
                     }
 
                     @if(directory.Branding.Any()){
-                        <div class="directory--border-top directory--no-margin">
-                            <partial name="LogoArea" model='directory.Branding' view-data='new ViewDataDictionary(ViewData) {{"logoAreaTitle", "In partnership with"}, {"borderTopClass", "directory--border directory--padding"}}'/>
+                        <div class="directory--border-top directory--no-margin @borderTeal">
+                            <partial name="LogoArea" model='directory.Branding' view-data='new ViewDataDictionary(ViewData) {{"logoAreaTitle", "In partnership with"}, {"borderTopClass", $"{greyBorderCssClasses} directory--padding"}}'/>
                         </div>
                     }
                 </div>

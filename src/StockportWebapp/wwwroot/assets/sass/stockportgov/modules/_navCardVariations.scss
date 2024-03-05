@@ -1,0 +1,267 @@
+﻿@mixin border($border-widths: (
+    top: (10: 0.55em, 6: 0.368em, 1: 1px, 0: 0),
+    bottom: (10: 0.55em, 6: 0.368em, 1: 1px, 0: 0),
+    left: (10: 0.55em, 6: 0.368em, 1: 1px, 0: 0),
+    right: (10: 0.55em, 6: 0.368em, 1: 1px, 0: 0))) {
+    @each $side, $widths in $border-widths {
+        &-#{$side} {
+            @each $size, $width in $widths {
+                &-#{$size} {
+                    border-#{$side}-width: $width;
+                    border-style: solid;
+                }
+                
+                @media #{$desktop} {
+                    &-#{$size}-desktop {
+                        border-#{$side}-width: $width;
+                        border-style: solid;
+                    }
+                }
+
+                @media #{$tablet-only} {
+                    &-#{$size}-tablet {
+                        border-#{$side}-width: $width;
+                        border-style: solid;
+                    }
+                }
+
+                @media #{$mobile} {
+                    &-#{$size}-mobile {
+                        border-#{$side}-width: $width;
+                        border-style: solid;
+                    }    
+                }
+            }
+        }
+    }
+}
+
+@mixin borderRadius() {
+    $sides: (top-left, top-right, bottom-left, bottom-right, all);
+
+    @each $side in $sides {
+        $properties: (
+            top-left: (border-top-left-radius),
+            top-right: (border-top-right-radius),
+            bottom-left: (border-bottom-left-radius),
+            bottom-right: (border-bottom-right-radius),
+            all: (border-radius)
+        );
+
+        @each $property in map-get($properties, $side) {
+            &-#{$side} {
+                #{$property}: 3px;
+            }
+
+            @media #{$desktop} {
+                &-#{$side}-desktop {
+                    #{$property}: 3px;
+                }
+            }
+
+            @media #{$tablet-only} {
+                &-#{$side}-tablet {
+                    #{$property}: 3px;
+                }
+            }
+
+            @media #{$mobile} {
+                &-#{$side}-mobile {
+                    #{$property}: 3px;
+                }
+            }
+        }
+    }
+}
+
+@mixin theme($theme: $stockport-teal) {
+    $sides: (top, right, bottom, left, all);
+
+    @each $side in $sides {
+        $properties: (
+            top: (border-top-color),
+            right: (border-right-color),
+            bottom: (border-bottom-color),
+            left: (border-left-color),
+            all: (border-color)
+        );
+
+        @each $property in map-get($properties, $side) {
+            &-#{$side} {
+                #{$property}: $theme;
+            }
+
+            @media #{$desktop} {
+                &-#{$side}-desktop {
+                    #{$property}: $theme;
+                }
+            }
+
+            @media #{$tablet-only} {
+                &-#{$side}-tablet {
+                    #{$property}: $theme;
+                }
+            }
+
+            @media #{$mobile} {
+                &-#{$side}-mobile {
+                    #{$property}: $theme;
+                }
+            }
+        }
+    }
+
+    .navcard__icon {
+        color: $theme;
+    }
+}
+
+.navcard {
+    $self: &;
+    width: 100%;
+    margin: 0 25px 2em 25px;
+    box-sizing: border-box;
+    border-radius: 2px;
+    list-style: none;
+    text-indent: 0;
+
+    &--width-20 {
+        width: calc(20% - 40px);
+    }
+
+    &--width-25 {
+        width: calc(25% - 37.5px);
+    }
+
+    &--width-33 {
+        width: calc(33.33333% - 33.33333px);
+
+        @media #{$tablet} {
+            width: calc(33.33333% - 20px);
+            margin: 0 15px 2em 15px;
+        }
+
+        @media #{$mobile} {
+            width: calc(33.33333% - 33.33333px);
+        }
+    }
+
+    @media #{$tablet} {
+        width: calc(33.33333% - 20px);
+        margin: 0 15px 2em 15px;
+    }
+
+    &--width-100 {
+        width: 100%;
+        margin-left: 0px;
+        margin-right: 0px;
+    }
+
+    &--width-50 {
+        width: calc(50% - 25px);
+    }
+
+    @media #{$mobile} {
+        width: 100%;
+        margin: 0 0 1em 0;
+    }
+
+    &--radius {
+        @include borderRadius();
+    }
+
+    &-all {
+        border: 1px solid;
+    }
+
+    @media #{$desktop} {
+        &-all-desktop {
+            border: 1px solid;
+        }
+    }
+
+    @media #{$tablet-only} {
+        &-all-tablet {
+            border: 1px solid;
+        }
+    }
+
+    @media #{$mobile} {
+        &-all-mobile {
+            border: 1px solid;
+        }
+    }
+
+    &--border {
+        @include border();
+    }
+
+    &--no-border {
+        border: 0;
+    }
+
+    &--theme-pink {
+        @include theme($theme: $stockport-pink);
+    }
+
+    &--theme-blue {
+        @include theme($theme: $stockport-blue);
+    }
+
+    &--theme-orange {
+        @include theme($theme: $stockport-orange);
+    }
+
+    &--theme-purple {
+        @include theme($theme: $stockport-purple);
+    }
+
+    &--theme-teal {
+        @include theme($theme: $stockport-teal);
+    }
+
+    &--theme-grey {
+        @include theme($theme: $stockport-grey);
+    }
+
+    &--theme-grey-accent {
+        @include theme($theme: $stockport-grey-accent);
+    }
+
+    &--theme-teal-lighter {
+        @include theme($theme: $stockport-teal-lighter);
+    }
+
+    &--theme-green {
+        @include theme($theme: $stockport-green);
+    }
+}
+
+html[dir="rtl"] {
+    .navcard {
+        @media #{$mobile} {
+            padding-right: 1em;
+            padding-left: 0;
+        }
+
+        &--border-rtl {
+            @include border();
+        }
+
+        &--theme-teal-lighter-rtl {
+            @include theme($theme: $stockport-teal-lighter);
+        }
+
+        &--theme-grey-accent-rtl {
+            @include theme($theme: $stockport-grey-accent);
+        }
+
+        &-all-rtl {
+            border: 1px solid;
+        }
+
+        &--no-padding-right-rtl {
+            padding-right: 0;
+        }
+    }
+}

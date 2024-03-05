@@ -1,3 +1,7 @@
+.type-directory.background-grey {
+    background-color: $stockport-light-grey;
+}
+
 .placeholder {
     background-color: white;
 }
@@ -22,6 +26,11 @@
 
     @media #{$tablet} {
         display: block;
+    }
+
+    &-lead {
+        @include lead;
+        padding: 0 0 1.5em 0;
     }
 
     &-result {
@@ -166,9 +175,6 @@
     }
 
     &__disclaimer {
-        border-top: 0.368em solid $stockport-teal-lighter;
-        background-color: white;
-
         p {
             margin: 0;
             padding: 1em 0 1em 0;
@@ -185,7 +191,6 @@
 
     &--border-top, &__filters {
         border-radius: 3px;
-        border-top: 0.55em solid $stockport-teal-lighter;
         margin-bottom: 2em;
 
         @media #{$tablet} {
@@ -195,12 +200,6 @@
 
     &--no-margin {
         margin: 0;
-    }
-
-    &--border {
-        border: 1px solid $stockport-grey-accent;
-        border-top: none;
-        border-radius: 0 0 3px 3px;
     }
 
     &__description {
@@ -287,16 +286,12 @@
 
     &__wrapper {
         padding: 1em 1.5em;
-        background-color: white;
 
         @media #{$tablet} {
             padding-left: 1em;
             padding-right: 1em;
         }
 
-        border: 1px solid $stockport-grey-accent;
-        border-top: none;
-        border-radius: 0 0 3px 3px;
         margin-bottom: 10px;
 
         h3 {
@@ -552,7 +547,6 @@
     &__sortBy {
         background-color: white;
         margin-bottom: 2em;
-        border: 1px solid $stockport-grey-accent;
         border-radius: 3px;
         position: relative;
         display: flex;

@@ -1,0 +1,138 @@
+﻿.navcard {
+    &__title {
+        @include h-s;
+        color: $stockport-green;
+        text-decoration: underline;
+        margin: 0 0 0.5em 0;
+
+        &--black {
+            color: $stockport-black;
+        }
+
+        &--large {
+            @include h-m;
+        }
+    }
+
+    &__sub-title {
+        margin: 0 0 0.5em 0;
+        font-weight: 700;
+        color: $stockport-black;
+        word-break: break-word;
+    }
+
+    &__link {
+        display: block;
+        text-decoration: none;
+        height: 100%;
+
+        &--padding {
+            padding-top: 1em;
+
+            @media #{$mobile} {
+                padding: 0 0 0 1em;
+            }
+        }
+
+        &-image {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            justify-content: space-between;
+
+            @media #{$mobile} {
+                display: block;
+            }
+        }
+
+        &:hover {
+            text-decoration: none;
+
+            .navcard__title {
+                text-decoration: underline;
+                text-decoration-thickness: 3px;
+            }
+        }
+
+        &--border {
+            border-top: none;
+            border-radius: 0 0 3px 3px;
+
+            @media #{$mobile} {
+                border: none;
+            }
+        }
+
+        &--image-border {
+            border-top: none;
+            border-bottom: none;
+            border-radius: 3px 3px 0 0;
+        }
+    }
+
+    &__teaser {
+        color: $stockport-black;
+        text-decoration: none;
+        margin: 0;
+    }
+
+    &__image {
+        border-radius: 3px 3px 0 0;
+        height: 215px;
+        width: 100%;
+        object-fit: cover;
+        object-position: top;
+
+        @media #{$mobile} {
+            max-height: 400px;
+            height: unset;
+        }
+    }
+
+    &-content {
+        &--padding {
+            flex-grow: 1;
+            padding: 1em 0.75em 1.5em 0.75em;
+
+            @media #{$mobile} {
+                padding-top: 1em;
+                padding-left: 1em;
+            }
+        }
+    }
+
+    &__content {
+        display: flex;
+        flex-direction: column;
+        flex-basis: 0;
+        justify-content: space-between;
+    }
+
+    &__icon {
+        font-size: 6rem;
+        font-weight: 600;
+        letter-spacing: -1px;
+        line-height: 1.0416666667;
+        padding: 2rem;
+    }
+
+    &--grey {
+        background-color: $stockport-light-grey;
+
+        &__title {
+            color: $stockport-black;
+        }
+    }
+
+    &--white {
+        background-color: white;
+    }
+
+    &--center {
+        text-align: center;
+    }
+
+    &--no-padding-top {
+        padding-top: 0;
+    }
+}
