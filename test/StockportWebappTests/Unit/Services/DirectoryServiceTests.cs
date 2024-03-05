@@ -114,6 +114,7 @@ public class DirectoryServiceTests
         Twitter = "twitter",
         Facebook = "facebook",
         Address = "address",
+        Tags = new List<string>()
     };
 
     private readonly DirectoryEntry directoryEntry2 = new()
@@ -135,16 +136,17 @@ public class DirectoryServiceTests
         Twitter = "twitter2",
         Facebook = "facebook2",
         Address = "address2",
+        Tags = new List<string>()
     };
 
     private readonly DirectoryEntry directoryEntry3 = new()
     {
         Slug = "slug2",
         Name = "another name",
-        Provider = "provider2",
-        Description = "description2",
-        Teaser = "teaser2",
-        MetaDescription = "metaDescription2",
+        Provider = "provider3",
+        Description = "description3",
+        Teaser = "teaser3",
+        MetaDescription = "metaDescription3",
         Themes = new List<FilterTheme>(),
         Directories = new List<MinimalDirectory>(),
         Alerts = new List<Alert>(),
@@ -156,6 +158,7 @@ public class DirectoryServiceTests
         Twitter = "twitter2",
         Facebook = "facebook2",
         Address = "address2",
+        Tags = new List<string>() { "tagged" }
     };
 
     private readonly Directory directory = new()
@@ -262,7 +265,7 @@ public class DirectoryServiceTests
         directory.Entries = new List<DirectoryEntry>() { directoryEntry, directoryEntry2 };
 
         // Act
-        var result = _service.GetFilteredEntryForDirectories(directory);
+        var result = _service.GetFilteredEntryForDirectories(directory.AllEntries);
 
         // Assert
         Assert.NotNull(result);
@@ -277,7 +280,7 @@ public class DirectoryServiceTests
         directory.Entries = new List<DirectoryEntry>() { directoryEntry, directoryEntry2 };
 
         // Act
-        var result = _service.GetFilteredEntryForDirectories(directory, filters);
+        var result = _service.GetFilteredEntryForDirectories(directory.AllEntries, filters);
 
         // Assert
         Assert.Single(result);
@@ -289,7 +292,7 @@ public class DirectoryServiceTests
     public void GetFilteredEntryForDirectories_ShouldReturnEmptyList_If_DirectoryEntryNull()
     {
         // Act
-        var result = _service.GetFilteredEntryForDirectories(directory, filters);
+        var result = _service.GetFilteredEntryForDirectories(directory.AllEntries, filters);
 
         // Assert
         Assert.NotNull(result);
@@ -303,7 +306,7 @@ public class DirectoryServiceTests
         directory.Entries = new List<DirectoryEntry>() { directoryEntry };
 
         // Act
-        var result = _service.GetFilteredEntryForDirectories(directory, filters);
+        var result = _service.GetFilteredEntryForDirectories(directory.AllEntries, filters);
 
         // Assert
         Assert.NotNull(result);
@@ -318,7 +321,7 @@ public class DirectoryServiceTests
         directory.Entries = new List<DirectoryEntry>() { directoryEntry };
 
         // Act
-        var result = _service.GetFilteredEntryForDirectories(directory, filters);
+        var result = _service.GetFilteredEntryForDirectories(directory.AllEntries, filters);
 
         // Assert
         Assert.NotNull(result);
@@ -444,5 +447,59 @@ public class DirectoryServiceTests
         Assert.Equal(9, result.Count);
         Assert.NotNull(result);
         Assert.NotEmpty(result);
+    }
+
+    [Fact]
+    public void GetSearchedEntryForDirectories_ShouldReturnCorrectCount_ForNameFieldHit()
+    {
+        List<DirectoryEntry> allEntries = new() { directoryEntry, directoryEntry2, directoryEntry3 };
+
+        var result = _service.GetSearchedEntryForDirectories(allEntries, "name");
+        Assert.Equal(3, result.Count());
+
+        result = _service.GetSearchedEntryForDirectories(allEntries, "name2");
+        Assert.Single(result);
+    }
+
+    [Fact]
+    public void GetSearchedEntryForDirectories_ShouldReturnCorrectCount_ForTagHit()
+    {
+        List<DirectoryEntry> allEntries = new() { directoryEntry, directoryEntry2, directoryEntry3 };
+
+        var result = _service.GetSearchedEntryForDirectories(allEntries, "tagged");
+        Assert.Single(result);
+    }
+
+    [Fact]
+    public void GetSearchedEntryForDirectories_ShouldReturnNoResult_ForNonExistantString()
+    {
+        List<DirectoryEntry> allEntries = new() { directoryEntry, directoryEntry2, directoryEntry3 };
+
+        var result = _service.GetSearchedEntryForDirectories(allEntries, "non-existant-string");
+        Assert.Empty(result);
+    }
+
+    [Fact]
+    public void GetSearchedEntryForDirectories_ShouldReturnCorrectCount_ForDescriptionFieldHit()
+    {
+        List<DirectoryEntry> allEntries = new() { directoryEntry, directoryEntry2, directoryEntry3 };
+
+        var result = _service.GetSearchedEntryForDirectories(allEntries, "description");
+        Assert.Equal(3, result.Count());
+
+        result = _service.GetSearchedEntryForDirectories(allEntries, "description2");
+        Assert.Single(result);
+    }
+
+    [Fact]
+    public void GetSearchedEntryForDirectories_ShouldReturnCorrectCount_ForTeaserFieldHit()
+    {
+        List<DirectoryEntry> allEntries = new() { directoryEntry, directoryEntry2, directoryEntry3 };
+
+        var result = _service.GetSearchedEntryForDirectories(allEntries, "teaser");
+        Assert.Equal(3, result.Count());
+
+        result = _service.GetSearchedEntryForDirectories(allEntries, "teaser2");
+        Assert.Single(result);
     }
 }
