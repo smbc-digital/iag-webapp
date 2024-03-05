@@ -65,33 +65,60 @@ public class DirectoryService : IDirectoryService {
 
     public IEnumerable<DirectoryEntry> GetFilteredEntryForDirectories(Directory directory, string[] filters)
     {
-        List<DirectoryEntry> entries = new();
+        var entries = new List<DirectoryEntry>();
 
-        if (directory.AllEntries is not null)
+        var allFilterThemes = GetAllFilterThemes(directory.AllEntries);
+        var appliedFilters = GetAppliedFilters(filters, allFilterThemes);
+
+        var groupedFilters = appliedFilters.GroupBy(filter => filter.Theme);
+
+        foreach(var group in groupedFilters)
         {
-            foreach(var entry in directory.AllEntries)
+            foreach(var filter in group)
             {
-                if (entry.Themes is not null)
-                {
-                    foreach(var filterTheme in entry.Themes)
-                    {
-                        if(filterTheme.Filters is not null)
-                        {
-                            foreach(var filter in filterTheme.Filters)
-                            {      
-                                // how to differentiate between themes when comparing filters, ive tried using filterTheme.Title 
-                                // this is doing an OR across all of them
-                                if (filters.Any(_ => _.Equals(filter.Slug)))
-                                {
-                                    if(!entries.Contains(entry))
-                                        entries.Add(entry);
-                                }
-                            }
-                        }
-                    }
-                }
+                var result = directory.AllEntries.Where(entry =>  entry is not null && entry.Themes is not null && entry.Themes.SelectMany(theme => theme.Filters).Any(f => f.Slug.Equals(filter.Slug)));
+
+                entries = entries.Distinct().Concat(result).ToList();
+
+                var test = "";
             }
         }
+
+
+
+
+
+
+
+
+
+
+        
+        // if (directory.AllEntries is not null)
+        // {
+        //     foreach(var entry in directory.AllEntries)
+        //     {
+        //         if (entry.Themes is not null)
+        //         {
+        //             foreach(var filterTheme in entry.Themes)
+        //             {
+        //                 if(filterTheme.Filters is not null)
+        //                 {
+        //                     foreach(var filter in filterTheme.Filters)
+        //                     {      
+        //                         // how to differentiate between themes when comparing filters, ive tried using filterTheme.Title 
+        //                         // this is doing an OR across all of them
+        //                         if (filters.Any(_ => _.Equals(filter.Slug)))
+        //                         {
+        //                             if(!entries.Contains(entry))
+        //                                 entries.Add(entry);
+        //                         }
+        //                     }
+        //                 }
+        //             }
+        //         }
+        //     }
+        // }
 
         return entries;
     }
