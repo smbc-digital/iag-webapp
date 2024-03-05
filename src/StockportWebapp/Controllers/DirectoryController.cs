@@ -126,7 +126,7 @@ public class DirectoryController : Controller
 
         return View(new DirectoryViewModel()
         {
-            Directory = parentDirectories.First(),
+            Directory = parentDirectories.FirstOrDefault(),
             DirectoryEntry = directoryEntry,
             Breadcrumbs = GetBreadcrumbsForDirectories(parentDirectories, true),
             Slug = slug
