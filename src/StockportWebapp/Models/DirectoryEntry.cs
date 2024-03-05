@@ -26,6 +26,7 @@ namespace StockportWebapp.Models
         public string LinkedIn { get; set; } = string.Empty;
         public string Address { get; set; } = string.Empty;
         public string Image { get; set; }
+        public IEnumerable<string> Tags { get; set; } = new List<string>();
 
         public Placemark ToKmlPlacemark() => new Placemark
         {
