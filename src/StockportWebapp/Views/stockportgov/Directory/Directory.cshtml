@@ -8,6 +8,11 @@
     var subdirectories = Model.Directory.SubDirectories;
     bool displayIcon = subdirectories.All(item => !string.IsNullOrEmpty(item.Icon));
     var navcardNoPadding = displayIcon ? "navcard--no-padding-top" : string.Empty;
+    var titleNoMargin = string.IsNullOrEmpty(Model.Directory.Body) && Model.Directory.CallToAction is not null ? "section__title--no-margin-bottom"  : string.Empty;
+    var titleNoMargin2 = string.IsNullOrEmpty(Model.Directory.Body) && Model.Directory.CallToAction is null ? "section__title--no-margin-bottom"  : string.Empty;
+    var sectionMargin = !string.IsNullOrEmpty(Model.Directory.Body) && Model.Directory.CallToAction is not null ? "section--margin-top" : string.Empty;
+    var sectionMargin2 = string.IsNullOrEmpty(Model.Directory.Body) && Model.Directory.CallToAction is null ? "section--margin-top" : string.Empty;
+    var sectionMargin3 = !string.IsNullOrEmpty(Model.Directory.Body) && Model.Directory.CallToAction is null ? "section--margin-top" : string.Empty;
 }
 
 <partial name="GlobalAlerts" model='Model.Directory.Alerts' />
@@ -15,17 +20,20 @@
 <div class="grid-container-full-width" style="background-color:white;">
     <div class="grid-container">
         <div class="grid-100">
-            <h1>@Model.Directory.Title</h1>
-            <div class="directory-lead">@Model.Directory.Body</div>
+            <h1 class="@titleNoMargin @titleNoMargin2">@Model.Directory.Title</h1>
+            
+            @if(!string.IsNullOrEmpty(Model.Directory.Body)) {
+                <div class="directory-lead">@Model.Directory.Body</div>
+            }
         </div>
     </div>
 
     @if (Model.Directory.CallToAction is not null)
     {
-        <partial name="CallToAction" model='Model.Directory.CallToAction' />
+        <partial name="CallToAction" model='Model.Directory.CallToAction' view-data='new ViewDataDictionary(ViewData) { { "AdditionalCssClass", "section--margin-top"  } }'/>
     }
 
-    <section class="section section--margin-top">
+    <section class="section @sectionMargin @sectionMargin2 @sectionMargin3">
         <div class="grid-container">
             <div class="grid-100">
                 <div class="section__content section__content--no-margin">
