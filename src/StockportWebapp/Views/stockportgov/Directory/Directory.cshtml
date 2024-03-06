@@ -40,12 +40,25 @@
             <div class="grid-100">
                 <div class="section__content section__content--no-margin">
                     <ul class="navcard-wrapper navcard-wrapper--no-margin">
-                        @foreach(var subdirectory in subdirectories){
-                            var colourScheme = string.IsNullOrEmpty(subdirectory.ColourScheme) ? "teal" : subdirectory.ColourScheme.ToLower();                        
+                        @foreach (var subdirectory in subdirectories)
+                        {
+                            var colourScheme = "";
+                            @if(Model.Directory.Title == Model.ParentDirectory.Title)
+                            {
+                                colourScheme = string.IsNullOrEmpty(subdirectory.ColourScheme) ? "teal" : subdirectory.ColourScheme.ToLower();
+                            }
+                            else
+                            {
+                                colourScheme = string.IsNullOrEmpty(Model.FirstSubDirectory.ColourScheme) ? "teal" : Model.FirstSubDirectory.ColourScheme.ToLower();
+                            }
+
+                            var url = @Model.Slug + "/" + @subdirectory.Slug;
+
                             <li class="navcard navcard--width-33 navcard--center navcard-all navcard--border-top-10 navcard--theme-@colourScheme navcard--theme-@colourScheme-all">
-                                <a href=@Url.Action("Directory", "Directory", new { slug=@subdirectory.Slug }) class="navcard__link">
-                                    <div class="navcard__content" >
-                                        @if(!string.IsNullOrEmpty(subdirectory.Icon) && displayIcon) {
+                                <a href=@Url.Action("Directory", "Directory", new { slug=@url }) class="navcard__link">
+                                    <div class="navcard__content">
+                                        @if (!string.IsNullOrEmpty(subdirectory.Icon) && displayIcon)
+                                        {
                                             <div class="navcard__icon">
                                                 <span class="@subdirectory.Icon.ToLower()" aria-hidden="true"></span>
                                             </div>

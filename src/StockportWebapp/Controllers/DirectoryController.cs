@@ -30,19 +30,21 @@ public class DirectoryController : Controller
         var pageLocation = WildcardExtensions.ProcessSlug(slug);
 
         var directory = await _directoryService.Get<Directory>(pageLocation.Slug);
-        if(directory is null)
+        if (directory is null)
             return NotFound();
         
         List<Directory> parentDirectories = await GetParentDirectories(pageLocation.ParentSlugs);
-
+        
         DirectoryViewModel directoryViewModel = new() {
             Directory = directory,
+            ParentDirectory = parentDirectories.FirstOrDefault() is not null ? parentDirectories.FirstOrDefault() : directory,
+            FirstSubDirectory = parentDirectories.Count > 1 ? parentDirectories.Skip(1).First() : directory,
             Breadcrumbs = GetBreadcrumbsForDirectories(parentDirectories, false),
             Slug = slug,
             FilteredEntries = _directoryService.GetFilteredEntryForDirectories(directory)
         };
 
-        if(directory.SubDirectories.Any())
+        if (directory.SubDirectories.Any())
             return View(directoryViewModel);
             
         directoryViewModel.AllFilterThemes = _directoryService.GetAllFilterThemes(directoryViewModel.FilteredEntries);
