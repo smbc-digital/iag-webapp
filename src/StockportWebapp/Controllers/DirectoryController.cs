@@ -46,12 +46,12 @@ public class DirectoryController : Controller
 
         if (directory.SubDirectories.Any())
             return View(directoryViewModel);
-            
-        directoryViewModel.AllFilterThemes = _directoryService.GetAllFilterThemes(directoryViewModel.FilteredEntries);
-        directoryViewModel.FilterCounts = _directoryService.GetAllFilterCounts(directory.AllEntries);
-        directoryViewModel.AppliedFilters = new List<Model.Filter>();
+        
+        //directoryViewModel.AllFilterThemes = _directoryService.GetAllFilterThemes(directoryViewModel.FilteredEntries);
+        //directoryViewModel.FilterCounts = _directoryService.GetAllFilterCounts(directory.AllEntries);
+        //directoryViewModel.AppliedFilters = new List<Model.Filter>();
 
-        return View("results", directoryViewModel);
+        return RedirectToAction("DirectoryResults", new { slug });
     }
 
     [HttpGet]
