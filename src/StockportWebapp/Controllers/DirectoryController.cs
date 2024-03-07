@@ -8,10 +8,9 @@ public class DirectoryController : Controller
     private readonly IDirectoryService _directoryService;
     private readonly IFeatureManager _featureManager;
     private readonly bool _isToggledOn = true;
-    private string _defaultUrlPrefix = "directories";
+    private readonly string _defaultUrlPrefix = "directories";
 
-    public DirectoryController(IDirectoryService directoryService, 
-        IFeatureManager featureManager = null)
+    public DirectoryController(IDirectoryService directoryService, IFeatureManager featureManager = null)
     {
         _featureManager = featureManager;
 
@@ -24,7 +23,7 @@ public class DirectoryController : Controller
     [Route("/directories/{**slug}")]
     public async Task<IActionResult> Directory(string slug)
     {
-        if (!_isToggledOn)
+        if (!_isToggledOn || string.IsNullOrEmpty(slug))
             return NotFound();
 
         var pageLocation = WildcardExtensions.ProcessSlug(slug);
@@ -37,20 +36,15 @@ public class DirectoryController : Controller
         
         DirectoryViewModel directoryViewModel = new() {
             Directory = directory,
-            ParentDirectory = parentDirectories.FirstOrDefault() is not null ? parentDirectories.FirstOrDefault() : directory,
-            FirstSubDirectory = parentDirectories.Count > 1 ? parentDirectories.Skip(1).First() : directory,
+            ParentDirectory = parentDirectories.FirstOrDefault() ?? directory,
+            FirstSubDirectory = parentDirectories.ElementAtOrDefault(1) ?? directory,
             Breadcrumbs = GetBreadcrumbsForDirectories(parentDirectories, false),
             Slug = slug,
-            FilteredEntries = _directoryService.GetFilteredEntryForDirectories(directory)
         };
 
         if (directory.SubDirectories.Any())
             return View(directoryViewModel);
         
-        //directoryViewModel.AllFilterThemes = _directoryService.GetAllFilterThemes(directoryViewModel.FilteredEntries);
-        //directoryViewModel.FilterCounts = _directoryService.GetAllFilterCounts(directory.AllEntries);
-        //directoryViewModel.AppliedFilters = new List<Model.Filter>();
-
         return RedirectToAction("DirectoryResults", new { slug });
     }
 
@@ -58,7 +52,7 @@ public class DirectoryController : Controller
     [Route("/directories/results/{**slug}")]
     public async Task<IActionResult> DirectoryResults([Required][FromRoute]string slug, string[] filters, string orderBy)
     {
-        if (!_isToggledOn)
+        if (!_isToggledOn || string.IsNullOrEmpty(slug))
             return NotFound();
 
         var pageLocation = WildcardExtensions.ProcessSlug(slug);
@@ -115,7 +109,7 @@ public class DirectoryController : Controller
     [Route("directories/entry/{**slug}")]
     public async Task<IActionResult> DirectoryEntry(string slug)
     {
-        if (!_isToggledOn)
+        if (!_isToggledOn || string.IsNullOrEmpty(slug))
             return NotFound();
 
         var pageLocation = WildcardExtensions.ProcessSlug(slug);
