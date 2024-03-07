@@ -18,21 +18,21 @@ public class DirectoryServiceTests
                     Slug = "value10",
                     Title = "title",
                     DisplayName = "display name",
-                    Theme = "theme1",
+                    Theme = "Theme title",
                     Highlight = false
                 },
                 new() {
                     Slug = "value20",
                     Title = "title",
                     DisplayName = "display name",
-                    Theme = "theme2",
+                    Theme = "Theme title",
                     Highlight = false
                 },
                 new() {
                     Slug = "value30",
                     Title = "title",
                     DisplayName = "display name",
-                    Theme = "theme3",
+                    Theme = "Theme title",
                     Highlight = false
                 }
             },
@@ -47,25 +47,25 @@ public class DirectoryServiceTests
                     Slug = "value1",
                     Title = "title",
                     DisplayName = "display name",
-                    Theme = "theme1",
+                    Theme = "Theme title2",
                     Highlight = false
                 },
                 new() {
                     Slug = "value2",
                     Title = "title",
                     DisplayName = "display name",
-                    Theme = "theme2",
+                    Theme = "Theme title2",
                     Highlight = false
                 },
                 new() {
                     Slug = "value3",
                     Title = "title",
                     DisplayName = "display name",
-                    Theme = "theme3",
+                    Theme = "Theme title2",
                     Highlight = false
                 }
             },
-            Title = "Theme title"
+            Title = "Theme title2"
         },
         new(){
             Filters = new List<Filter>(){
@@ -73,21 +73,21 @@ public class DirectoryServiceTests
                     Slug = "value11",
                     Title = "title",
                     DisplayName = "display name",
-                    Theme = "theme11",
+                    Theme = "Theme title1",
                     Highlight = false
                 },
                 new() {
                     Slug = "value21",
                     Title = "title",
                     DisplayName = "display name",
-                    Theme = "theme21",
+                    Theme = "Theme title1",
                     Highlight = false
                 },
                 new() {
                     Slug = "value31",
                     Title = "title",
                     DisplayName = "display name",
-                    Theme = "theme31",
+                    Theme = "Theme title1",
                     Highlight = false
                 }
             },
@@ -277,7 +277,7 @@ public class DirectoryServiceTests
         directory.Entries = new List<DirectoryEntry>() { directoryEntry, directoryEntry2 };
 
         // Act
-        var result = _service.GetFilteredEntryForDirectories(directory, filters);
+        var result = _service.GetFilteredEntryForDirectories(directory, filters).ToList();
 
         // Assert
         Assert.Single(result);
@@ -303,7 +303,7 @@ public class DirectoryServiceTests
         directory.Entries = new List<DirectoryEntry>() { directoryEntry };
 
         // Act
-        var result = _service.GetFilteredEntryForDirectories(directory, filters);
+        var result = _service.GetFilteredEntryForDirectories(directory, filters).ToList();
 
         // Assert
         Assert.NotNull(result);
