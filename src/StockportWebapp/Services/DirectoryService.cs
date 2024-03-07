@@ -1,4 +1,5 @@
 using SharpKml.Dom.Atom;
+using Humanizer.Localisation.NumberToWords;
 using Directory = StockportWebapp.Models.Directory;
 using Filter = StockportWebapp.Model.Filter;
 namespace StockportWebapp.Services;
@@ -7,10 +8,11 @@ public interface IDirectoryService
 {
     Task<Directory> Get<T>(string slug = "");
     Task<DirectoryEntry> GetEntry<T>(string slug = "");
-    IEnumerable<DirectoryEntry> GetFilteredEntryForDirectories(Directory directory);
-    IEnumerable<DirectoryEntry> GetFilteredEntryForDirectories(Directory directory, string[] filters);
+    IEnumerable<DirectoryEntry> GetFilteredEntryForDirectories(IEnumerable<DirectoryEntry> entries);
+    IEnumerable<DirectoryEntry> GetFilteredEntryForDirectories(IEnumerable<DirectoryEntry> entries, string[] filters);
     IEnumerable<FilterTheme> GetAllFilterThemes(IEnumerable<DirectoryEntry> filteredEntries);
     IEnumerable<Filter> GetAppliedFilters(string[] filters, IEnumerable<FilterTheme> filterThemes);
+    IEnumerable<DirectoryEntry> GetSearchedEntryForDirectories(IEnumerable<DirectoryEntry> entries, string searchTerm);
     IEnumerable<DirectoryEntry> GetOrderedEntries(IEnumerable<DirectoryEntry> filteredEntries, string orderBy);
     Dictionary<string, int> GetAllFilterCounts(IEnumerable<DirectoryEntry> allEntries);
 }
@@ -51,22 +53,20 @@ public class DirectoryService : IDirectoryService {
 
         return directoryEntry;
     }
+    
+    public IEnumerable<DirectoryEntry> GetFilteredEntryForDirectories(IEnumerable<DirectoryEntry> entries) => 
+        entries.Select(directoryEntry => directoryEntry).OrderBy(directoryEntry => directoryEntry.Name);
 
-    public IEnumerable<DirectoryEntry> GetFilteredEntryForDirectories(Directory directory) => 
-        directory.AllEntries.Select(directoryEntry => directoryEntry).OrderBy(directoryEntry => directoryEntry.Name);
-
-
-    public IEnumerable<DirectoryEntry> GetFilteredEntryForDirectories(Directory directory, string[] filters)
+    public IEnumerable<DirectoryEntry> GetFilteredEntryForDirectories(IEnumerable<DirectoryEntry> entries, string[] filters)
     {        
-        var appliedThemes = GetAppliedThemes(directory, filters);
-        return directory.AllEntries
-                            .Where(entry => entry.Themes is not null && entry.Themes.Any()
+        var appliedThemes = GetAppliedThemes(entries, filters);
+        return entries.Where(entry => entry.Themes is not null && entry.Themes.Any()
                             && appliedThemes.IsDirectoryEntryRelevant(entry));
     }
 
-    private Dictionary<string, List<string>> GetAppliedThemes(Directory directory, string[] filters)
+    private Dictionary<string, List<string>> GetAppliedThemes(IEnumerable<DirectoryEntry> entries, string[] filters)
     {
-        var allFilterThemes = GetAllFilterThemes(directory.AllEntries);
+        var allFilterThemes = GetAllFilterThemes(entries);
         var appliedFilters = GetAppliedFilters(filters, allFilterThemes);
 
         var appliedThemes = new Dictionary<string, List<string>>();
@@ -80,7 +80,17 @@ public class DirectoryService : IDirectoryService {
 
         return appliedThemes;
     }
-    
+
+    public IEnumerable<DirectoryEntry> GetSearchedEntryForDirectories(IEnumerable<DirectoryEntry> entries, string searchTerm) =>
+        entries
+            .Where(entry =>
+                        entry.Name.Contains(searchTerm)
+                        || entry.Teaser.Contains(searchTerm)
+                        || entry.Description.Contains(searchTerm)
+                        || entry.Tags.Any(tag => tag.Contains(searchTerm)))
+            .ToList()
+            .OrderBy(directoryEntry => directoryEntry.Name);
+
     public IEnumerable<FilterTheme> GetAllFilterThemes(IEnumerable<DirectoryEntry> filteredEntries) => 
         filteredEntries is not null && filteredEntries.Any()
             ? filteredEntries
@@ -111,10 +121,11 @@ public class DirectoryService : IDirectoryService {
 
     public IEnumerable<DirectoryEntry> GetOrderedEntries(IEnumerable<DirectoryEntry> filteredEntries, string orderBy)
     {
-        if(!string.IsNullOrEmpty(orderBy)) {
-            if(orderBy.Equals("Name A to Z", StringComparison.OrdinalIgnoreCase))
+        if (!string.IsNullOrEmpty(orderBy))
+        {
+            if (orderBy.Equals("Name A to Z", StringComparison.OrdinalIgnoreCase))
                 return filteredEntries.OrderBy(_ => _.Name);
-            else if(orderBy.Equals("Name Z to A", StringComparison.OrdinalIgnoreCase))
+            else if (orderBy.Equals("Name Z to A", StringComparison.OrdinalIgnoreCase))
                 return filteredEntries.OrderByDescending(_ => _.Name);
         }
 
@@ -129,4 +140,6 @@ public class DirectoryService : IDirectoryService {
             .SelectMany(theme => theme.Filters)
             .GroupBy(filter => filter.Slug)
             .ToDictionary(group => group.Key, group => group.Count());
+
+
 }

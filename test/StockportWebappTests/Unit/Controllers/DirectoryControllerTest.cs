@@ -6,7 +6,6 @@ public class DirectoryControllerTest
 {
     private readonly DirectoryController _directoryController;
     private Mock<IDirectoryService> _directoryService = new();
-
     private Mock<IFeatureManager> _featureManager = new();
 
     private readonly List<Filter> filtersList = new() {
@@ -97,7 +96,7 @@ public class DirectoryControllerTest
         
         string[] filters = { "value1", "value2", "value3" };
 
-        _directoryService.Setup(_ => _.GetFilteredEntryForDirectories(directory)).Returns(new List<DirectoryEntry> { directoryEntry });
+        _directoryService.Setup(_ => _.GetFilteredEntryForDirectories(It.IsAny<IEnumerable<DirectoryEntry>>())).Returns(new List<DirectoryEntry> { directoryEntry });
         _directoryService.Setup(_ => _.GetAllFilterThemes(new List<DirectoryEntry>())).Returns(filterThemes);
         _directoryService.Setup(_ => _.GetAppliedFilters(filters, filterThemes)).Returns(filtersList);
         _directoryService.Setup(_ => _.GetOrderedEntries(new List<DirectoryEntry> { directoryEntry }, "Name A to Z")).Returns(new List<DirectoryEntry> { directoryEntry, directoryEntry });
@@ -151,7 +150,7 @@ public class DirectoryControllerTest
         _ = _directoryService.Setup(_ => _.Get<Directory>(It.IsAny<string>())).ReturnsAsync(directory);
 
         // Act
-        var result = await _directoryController.DirectoryResults("slug", Array.Empty<string>(), string.Empty) as ViewResult;
+        var result = await _directoryController.DirectoryResults("slug", Array.Empty<string>(), string.Empty, string.Empty) as ViewResult;
         var model = result.ViewData.Model as DirectoryViewModel;
 
         // Assert
@@ -165,7 +164,7 @@ public class DirectoryControllerTest
         _directoryService.Setup(_ => _.Get<Directory>(It.IsAny<string>())).ReturnsAsync((Directory)null);
 
         // Act
-        var result = await _directoryController.DirectoryResults("slug", Array.Empty<string>(), string.Empty);
+        var result = await _directoryController.DirectoryResults("slug", Array.Empty<string>(), string.Empty, string.Empty);
 
         // Assert
         Assert.IsType<NotFoundResult>(result);
@@ -178,7 +177,7 @@ public class DirectoryControllerTest
         _directoryService.Setup(_ => _.Get<Directory>(It.IsAny<string>())).ReturnsAsync(directory);
 
         // Act
-        var result = await _directoryController.DirectoryResults("slug", filters, string.Empty) as ViewResult;
+        var result = await _directoryController.DirectoryResults("slug", filters, string.Empty, string.Empty) as ViewResult;
         var model = result.ViewData.Model as DirectoryViewModel;
 
         // Assert
@@ -226,7 +225,7 @@ public class DirectoryControllerTest
         _ = _directoryService.Setup(_ => _.Get<Directory>("not-slug")).ReturnsAsync((Directory)null);
 
         // Act
-        var result = await _directoryController.DirectoryAsKml("slug");
+        var result = await _directoryController.DirectoryAsKml("slug", Array.Empty<string>(), string.Empty, string.Empty);
 
         // Assert
         Assert.IsType<NotFoundResult>(result);
@@ -235,9 +234,34 @@ public class DirectoryControllerTest
     [Fact]
     public async Task DirectoryAsKml_ShouldReturnContentInKmlFormat(){
         // Act
-        var result = await _directoryController.DirectoryAsKml("slug");
+        var result = await _directoryController.DirectoryAsKml("slug", Array.Empty<string>(), string.Empty, string.Empty);
 
         // Assert
         Assert.NotNull(result);
+    }
+
+    [Fact]
+    public async Task Directory_ShouldCallReturnContentInKmlFormat()
+    {
+        // Act
+        var result = await _directoryController.DirectoryAsKml("slug", Array.Empty<string>(), string.Empty, string.Empty);
+
+        // Assert
+        Assert.NotNull(result);
+    }
+
+    [Fact]
+    public async Task Directory_ShouldCallDirectoryService_IfSearchTermSpecified()
+    {
+        // Arrange
+        _directoryService.Setup(_ => _.Get<Directory>(It.IsAny<string>()))
+            .ReturnsAsync(directory);
+
+        // Act
+        var result = await _directoryController.DirectoryResults("slug", Array.Empty<string>(), string.Empty, "search me");
+
+        // Assert
+        _directoryService.Verify(service => service.GetSearchedEntryForDirectories(It.IsAny<IEnumerable<DirectoryEntry>>(), It.IsAny<string>()), Times.Once);
+        
     }
 }

@@ -1,26 +1,69 @@
 @model DirectoryViewModel
 @{
-    var directory = Model.Directory;
-    ViewData["Title"] = directory.Title;
-    ViewData["og:title"] = directory.Title;
-    ViewData["Description"] = directory.MetaDescription;
-    Layout = "../Shared/_Layout2023.cshtml"; 
+    ViewData["Title"] = Model.Directory.Title;
+    ViewData["og:title"] = Model.Directory.Title;
+    ViewData["Description"] = Model.Directory.MetaDescription;
+    Layout = "../Shared/_Layout2023.cshtml";
+
+    var subdirectories = Model.Directory.SubDirectories;
+    bool displayIcon = subdirectories.All(item => !string.IsNullOrEmpty(item.Icon));
+    var navcardNoPadding = displayIcon ? "navcard--no-padding-top" : string.Empty;
+    var titleNoMarginBottom = string.IsNullOrEmpty(Model.Directory.Body) && Model.Directory.CallToAction is not null ? "section__title--no-margin-bottom"  : string.Empty;
+    var titleNoMarginBottom2 = string.IsNullOrEmpty(Model.Directory.Body) && Model.Directory.CallToAction is null ? "section__title--no-margin-bottom"  : string.Empty;
+    var sectionMargin = !string.IsNullOrEmpty(Model.Directory.Body) && Model.Directory.CallToAction is not null ? "section--margin-top" : string.Empty;
+    var sectionMargin2 = string.IsNullOrEmpty(Model.Directory.Body) && Model.Directory.CallToAction is null ? "section--margin-top" : string.Empty;
+    var sectionMargin3 = !string.IsNullOrEmpty(Model.Directory.Body) && Model.Directory.CallToAction is null ? "section--margin-top" : string.Empty;
 }
-<div class="grid-container-full-width">
-    <div class="placeholder placeholder-bg-teal placeholder-small">
-        <h1>TITLE & SEARCH - IAG</h1>
+
+<partial name="GlobalAlerts" model='Model.Directory.Alerts' />
+
+<div class="grid-container-full-width" style="background-color:white;">
+    <partial name="Breadcrumb2023" model='@Model.Breadcrumbs' />
+
+    <div class="grid-container">
+        <div class="grid-100">
+            <h1 class="directory__title--margin-top @titleNoMarginBottom @titleNoMarginBottom2">@Model.Directory.Title</h1>
+            
+            @if(!string.IsNullOrEmpty(Model.Directory.Body)) {
+                <div class="directory-lead">@Model.Directory.Body</div>
+            }
+        </div>
     </div>
-    <div class="placeholder placeholder-bg-orange placeholder-xs">
-        <p>BREADCRUMBS</p>
-    </div>
-    <div class="placeholder placeholder-small placeholder-bg-green">
-        <p>CALL TO ACTION</p>
-    </div>
-    <div class="placeholder placeholder-large placeholder-bg-grey">
-        DIRECTORIES
-    </div>
-    <hr>
-    <div class="placeholder placeholder-medium">
-        EXTERNAL LINKS
-    </div>
+
+    @if (Model.Directory.CallToAction is not null)
+    {
+        <partial name="CallToAction" model='Model.Directory.CallToAction' view-data='new ViewDataDictionary(ViewData) { { "AdditionalCssClass", "section--margin-top"  } }'/>
+    }
+
+    <section class="section @sectionMargin @sectionMargin2 @sectionMargin3">
+        <div class="grid-container">
+            <div class="grid-100">
+                <div class="section__content section__content--no-margin">
+                    <ul class="navcard-wrapper navcard-wrapper--no-margin">
+                        @foreach(var subdirectory in subdirectories){
+                            var colourScheme = string.IsNullOrEmpty(subdirectory.ColourScheme) ? "teal" : subdirectory.ColourScheme.ToLower();                        
+                            <li class="navcard navcard--width-33 navcard--center navcard-all navcard--border-top-10 navcard--theme-@colourScheme navcard--theme-@colourScheme-all">
+                                <a href=@Url.Action("Directory", "Directory", new { slug=@subdirectory.Slug }) class="navcard__link">
+                                    <div class="navcard__content" >
+                                        @if(!string.IsNullOrEmpty(subdirectory.Icon) && displayIcon) {
+                                            <div class="navcard__icon">
+                                                <span class="@subdirectory.Icon.ToLower()" aria-hidden="true"></span>
+                                            </div>
+                                        }
+
+                                        <div class="navcard-content--padding @navcardNoPadding">
+                                            <h3 class="navcard__title navcard__title--black">@subdirectory.Title</h3>
+                                            <p class="navcard__teaser">@subdirectory.Teaser</p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <partial name="DirectoryContentDisclaimer">
 </div>
