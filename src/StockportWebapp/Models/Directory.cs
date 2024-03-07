@@ -27,7 +27,7 @@ namespace StockportWebapp.Models
             {
                 _allEntries ??= (SubDirectories is not null && SubDirectories.Any()
                                     ? Entries?
-                                        .Concat(SubDirectories
+                                        .Concat(SubDirectories.Where(sub => sub is not null)
                                         .SelectMany(sub => sub.AllEntries))
                                     : Entries)
                                         .Distinct(new DirectoryEntryComparer());

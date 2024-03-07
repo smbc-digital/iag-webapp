@@ -13,17 +13,44 @@ public class DirectoryViewModel
     
     public Directory FirstSubDirectory { get; set; }
 
+    public Directory RootDirectory { get; set; }
+
+    public Directory ThemeRootDirectory { get; set; }
+
     public IEnumerable<DirectoryEntry> FilteredEntries { get; set; }
 
     public IEnumerable<Filter> AppliedFilters { get; set; }
-    
+
+    public string SearchTerm { get; set; }
+
     public IEnumerable<FilterTheme> AllFilterThemes { get; set; }
 
     public DirectoryEntry DirectoryEntry { get; set; }
 
     public IEnumerable<Crumb> Breadcrumbs { get; set; }
     public string Order { get; set; }
+
     public List<string> OrderBy = new() { "Name A to Z", "Name Z to A" };
 
+    public List<Query> QueryParameters
+    {
+        get
+        {
+            List<Query> queryParameters = new();
+            if (!string.IsNullOrEmpty(SearchTerm))
+                queryParameters.Add(new Query("searchTerm", SearchTerm));
+
+            if (!string.IsNullOrEmpty(Order))
+                queryParameters.Add(new Query("orderBy", Order));
+
+            if (AppliedFilters is not null)
+                AppliedFilters.ToList().ForEach(filter => queryParameters.Add(new Query("filters", filter.Slug)));
+
+            return queryParameters;
+        }
+    }
+
     public Dictionary<string, int> FilterCounts { get; set; }
+
+
 }

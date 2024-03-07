@@ -9,11 +9,18 @@
 
 <div class="grid-container-full-width background-grey" data-cy="search-results">
     <partial name="Breadcrumb2023" model='@Model.Breadcrumbs' />
+    
     <form asp-controller="Directory" method="get">
+        @*The below could be used to retrieve the URL of the KML  equivalent of the results for this page*@
+        @*@Url.ActionLink("DirectoryAsKml", "Directory", new { slug = Model.Slug }, "https", Context.Request.Host.Value).AddQueryStrings(Model.QueryParameters)*@
+
+        <input type="hidden" asp-for="SearchTerm" name="searchTerm" id="searchTerm" />
         <div class="grid-container">
             <div class="grid-100 directory-sub-title">
                 <h1>Results for @Model.Directory.Title</h1>
-                <span>Showing <span class="bold">@Model.FilteredEntries.Count()</span>@(Model.FilteredEntries.Count().Equals(1) ? " result" : " results") in <span class="bold">@Model.Directory.Title</span></span>
+                <span>Showing <span class="bold">@Model.FilteredEntries.Count()</span>@(
+                    Model.FilteredEntries.Count().Equals(1) ? " result" : " results"
+                    ) in <span class="bold">@Model.Directory.Title</span> @if (!string.IsNullOrEmpty(Model.SearchTerm)) { @("for ") <span class='bold'>"@Model.SearchTerm"</span> }</span>
             </div>
         </div>
 

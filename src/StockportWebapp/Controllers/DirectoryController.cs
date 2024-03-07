@@ -50,7 +50,7 @@ public class DirectoryController : Controller
 
     [HttpGet]
     [Route("/directories/results/{**slug}")]
-    public async Task<IActionResult> DirectoryResults([Required][FromRoute]string slug, string[] filters, string orderBy)
+    public async Task<IActionResult> DirectoryResults([Required][FromRoute]string slug, string[] filters, string orderBy, string searchTerm)
     {
         if (!_isToggledOn || string.IsNullOrEmpty(slug))
             return NotFound();
@@ -63,37 +63,38 @@ public class DirectoryController : Controller
 
         List<Directory> parentDirectories = await GetParentDirectories(pageLocation.ParentSlugs);
 
-        var filteredEntries = filters.Any()
-            ? _directoryService.GetFilteredEntryForDirectories(directory, filters)
-            : _directoryService.GetFilteredEntryForDirectories(directory);
-
-        var allFilterThemes = _directoryService.GetAllFilterThemes(filteredEntries);
-        var appliedFilters = _directoryService.GetAppliedFilters(filters, allFilterThemes);
-
-        filteredEntries = _directoryService.GetOrderedEntries(filteredEntries, orderBy);
-
-        var filterCounts = filters.Any()
-            ? _directoryService.GetAllFilterCounts(filteredEntries)
-            : _directoryService.GetAllFilterCounts(directory.AllEntries);
-
-        DirectoryViewModel directoryViewModel = new()
-        {
-            Directory = directory,
-            FilteredEntries = filteredEntries,
-            AllFilterThemes = allFilterThemes,
-            AppliedFilters = appliedFilters,
-            FilterCounts = filterCounts,
-            Order = orderBy,
-            Breadcrumbs = GetBreadcrumbsForDirectories(parentDirectories, false),
-            Slug = slug
-        };
+        var entries = GetSearchedFilteredSortedEntries(directory.AllEntries, filters, orderBy, searchTerm);
+        var allFilterThemes = _directoryService.GetAllFilterThemes(entries);
         
-        return View("results", directoryViewModel);
+        return View("results", new DirectoryViewModel
+        {
+            Slug = slug,
+            Breadcrumbs = GetBreadcrumbsForDirectories(parentDirectories, false),
+            Directory = directory,
+            FilteredEntries = entries,
+            AllFilterThemes = allFilterThemes,
+            AppliedFilters = _directoryService.GetAppliedFilters(filters, allFilterThemes),
+            FilterCounts = _directoryService.GetAllFilterCounts(entries),
+            SearchTerm = searchTerm,
+            Order = orderBy
+        });
     }
 
-    [Route("/directories/results/kml/{slug}")]  
+    private IEnumerable<DirectoryEntry> GetSearchedFilteredSortedEntries(IEnumerable<DirectoryEntry> entries, string[] filters, string orderBy, string searchTerm)
+    {
+        entries = filters.Any()
+            ? _directoryService.GetFilteredEntryForDirectories(entries, filters) 
+            : entries;
+
+        if (!string.IsNullOrEmpty(searchTerm))
+            entries = _directoryService.GetSearchedEntryForDirectories(entries, searchTerm);
+
+        return _directoryService.GetOrderedEntries(entries, orderBy); ;
+    }
+
+    [Route("/directories/kml/{slug}")]  
     [Produces(MediaTypeNames.Application.Xml)]
-    public async Task<IActionResult> DirectoryAsKml(string slug)
+    public async Task<IActionResult> DirectoryAsKml([Required][FromRoute]string slug, string[] filters, string orderBy, string searchTerm)
     {
         if (!_isToggledOn)
             return NotFound();
@@ -102,7 +103,9 @@ public class DirectoryController : Controller
         if(directory is null)
             return NotFound();
 
-        var kmlString = directory.ToKml();
+        var entries = GetSearchedFilteredSortedEntries(directory.AllEntries, filters, orderBy, searchTerm);
+
+        var kmlString = entries.GetKmlForList();
         return Content(kmlString);
     }
 
