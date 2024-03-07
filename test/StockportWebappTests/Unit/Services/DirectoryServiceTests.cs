@@ -265,7 +265,7 @@ public class DirectoryServiceTests
         directory.Entries = new List<DirectoryEntry>() { directoryEntry, directoryEntry2 };
 
         // Act
-        var result = _service.GetFilteredEntryForDirectories(directory.AllEntries);
+        var result = _service.GetFilteredEntries(directory.AllEntries);
 
         // Assert
         Assert.NotNull(result);
@@ -280,7 +280,7 @@ public class DirectoryServiceTests
         directory.Entries = new List<DirectoryEntry>() { directoryEntry, directoryEntry2 };
 
         // Act
-        var result = _service.GetFilteredEntryForDirectories(directory.AllEntries, filters);
+        var result = _service.GetFilteredEntries(directory.AllEntries, filters);
 
         // Assert
         Assert.Single(result);
@@ -292,7 +292,7 @@ public class DirectoryServiceTests
     public void GetFilteredEntryForDirectories_ShouldReturnEmptyList_If_DirectoryEntryNull()
     {
         // Act
-        var result = _service.GetFilteredEntryForDirectories(directory.AllEntries, filters);
+        var result = _service.GetFilteredEntries(directory.AllEntries, filters);
 
         // Assert
         Assert.NotNull(result);
@@ -306,7 +306,7 @@ public class DirectoryServiceTests
         directory.Entries = new List<DirectoryEntry>() { directoryEntry };
 
         // Act
-        var result = _service.GetFilteredEntryForDirectories(directory.AllEntries, filters);
+        var result = _service.GetFilteredEntries(directory.AllEntries, filters);
 
         // Assert
         Assert.NotNull(result);
@@ -321,7 +321,7 @@ public class DirectoryServiceTests
         directory.Entries = new List<DirectoryEntry>() { directoryEntry };
 
         // Act
-        var result = _service.GetFilteredEntryForDirectories(directory.AllEntries, filters);
+        var result = _service.GetFilteredEntries(directory.AllEntries, filters);
 
         // Assert
         Assert.NotNull(result);
@@ -332,7 +332,7 @@ public class DirectoryServiceTests
     public void GetAllFilterThemes_ShouldReturnEmptyList_If_NoFilteredEntries()
     {
         // Act
-        var result = _service.GetAllFilterThemes(null);
+        var result = _service.GetFilterThemes(null);
 
         // Assert
         Assert.NotNull(result);
@@ -343,7 +343,7 @@ public class DirectoryServiceTests
     public void GetAllFilterThemes_ShouldReturnEmptyList_If_EntryHasNoFilters()
     {
         // Act
-        var result = _service.GetAllFilterThemes(new List<DirectoryEntry>() { directoryEntry });
+        var result = _service.GetFilterThemes(new List<DirectoryEntry>() { directoryEntry });
 
         // Assert
         Assert.NotNull(result);
@@ -357,7 +357,7 @@ public class DirectoryServiceTests
         directoryEntry.Themes = filterThemes;
 
         // Act
-        var result = _service.GetAllFilterThemes(new List<DirectoryEntry>() { directoryEntry });
+        var result = _service.GetFilterThemes(new List<DirectoryEntry>() { directoryEntry });
 
         // Assert
         Assert.NotNull(result);
@@ -370,7 +370,7 @@ public class DirectoryServiceTests
     public void GetAppliedFilters_ShouldReturnEmptyList_If_NoFilterThemes()
     {
         // Act
-        var result = _service.GetAppliedFilters(filters, null);
+        var result = _service.GetFilters(filters, null);
 
         // Assert
         Assert.NotNull(result);
@@ -381,7 +381,7 @@ public class DirectoryServiceTests
     public void GetAppliedFilters_ShouldReturnEmptyList_If_NoFilters()
     {
         // Act
-        var result = _service.GetAppliedFilters(null, filterThemes);
+        var result = _service.GetFilters(null, filterThemes);
 
         // Assert
         Assert.NotNull(result);
@@ -392,7 +392,7 @@ public class DirectoryServiceTests
     public void GetAppliedFilters_ShouldReturnAllAppliedFilters()
     {
         // Act
-        var result = _service.GetAppliedFilters(filters, filterThemes2);
+        var result = _service.GetFilters(filters, filterThemes2);
 
         // Assert
         Assert.Equal(4, result.Count());

@@ -96,9 +96,9 @@ public class DirectoryControllerTest
         
         string[] filters = { "value1", "value2", "value3" };
 
-        _directoryService.Setup(_ => _.GetFilteredEntryForDirectories(It.IsAny<IEnumerable<DirectoryEntry>>())).Returns(new List<DirectoryEntry> { directoryEntry });
-        _directoryService.Setup(_ => _.GetAllFilterThemes(new List<DirectoryEntry>())).Returns(filterThemes);
-        _directoryService.Setup(_ => _.GetAppliedFilters(filters, filterThemes)).Returns(filtersList);
+        _directoryService.Setup(_ => _.GetFilteredEntries(It.IsAny<IEnumerable<DirectoryEntry>>())).Returns(new List<DirectoryEntry> { directoryEntry });
+        _directoryService.Setup(_ => _.GetFilterThemes(new List<DirectoryEntry>())).Returns(filterThemes);
+        _directoryService.Setup(_ => _.GetFilters(filters, filterThemes)).Returns(filtersList);
         _directoryService.Setup(_ => _.GetOrderedEntries(new List<DirectoryEntry> { directoryEntry }, "Name A to Z")).Returns(new List<DirectoryEntry> { directoryEntry, directoryEntry });
     }
 
