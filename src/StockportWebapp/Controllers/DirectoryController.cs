@@ -38,8 +38,8 @@ public class DirectoryController : Controller
             Slug = slug,
             Breadcrumbs = GetBreadcrumbsForDirectories(parentDirectories, false),
             Directory = directory,
-            FilteredEntries = _directoryService.GetFilteredEntryForDirectories(directory.AllEntries),
-            AllFilterThemes = _directoryService.GetAllFilterThemes(directory.AllEntries),
+            FilteredEntries = _directoryService.GetFilteredEntries(directory.AllEntries),
+            AllFilterThemes = _directoryService.GetFilterThemes(directory.AllEntries),
             AppliedFilters = new List<Model.Filter>(),
             FilterCounts = _directoryService.GetAllFilterCounts(directory.AllEntries)
         };
@@ -66,7 +66,7 @@ public class DirectoryController : Controller
         List<Directory> parentDirectories = await GetParentDirectories(pageLocation.ParentSlugs);
 
         var entries = GetSearchedFilteredSortedEntries(directory.AllEntries, filters, orderBy, searchTerm);
-        var allFilterThemes = _directoryService.GetAllFilterThemes(entries);
+        var allFilterThemes = _directoryService.GetFilterThemes(entries);
         
         return View("results", new DirectoryViewModel
         {
@@ -75,7 +75,7 @@ public class DirectoryController : Controller
             Directory = directory,
             FilteredEntries = entries,
             AllFilterThemes = allFilterThemes,
-            AppliedFilters = _directoryService.GetAppliedFilters(filters, allFilterThemes),
+            AppliedFilters = _directoryService.GetFilters(filters, allFilterThemes),
             FilterCounts = _directoryService.GetAllFilterCounts(entries),
             SearchTerm = searchTerm,
             Order = orderBy
@@ -85,7 +85,7 @@ public class DirectoryController : Controller
     private IEnumerable<DirectoryEntry> GetSearchedFilteredSortedEntries(IEnumerable<DirectoryEntry> entries, string[] filters, string orderBy, string searchTerm)
     {
         entries = filters.Any()
-            ? _directoryService.GetFilteredEntryForDirectories(entries, filters) 
+            ? _directoryService.GetFilteredEntries(entries, filters) 
             : entries;
 
         if (!string.IsNullOrEmpty(searchTerm))

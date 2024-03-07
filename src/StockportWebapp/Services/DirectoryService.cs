@@ -1,3 +1,4 @@
+using SharpKml.Dom.Atom;
 using Humanizer.Localisation.NumberToWords;
 using Directory = StockportWebapp.Models.Directory;
 using Filter = StockportWebapp.Model.Filter;
@@ -7,14 +8,11 @@ public interface IDirectoryService
 {
     Task<Directory> Get<T>(string slug = "");
     Task<DirectoryEntry> GetEntry<T>(string slug = "");
-    IEnumerable<DirectoryEntry> GetFilteredEntryForDirectories(IEnumerable<DirectoryEntry> entries);
-    IEnumerable<DirectoryEntry> GetFilteredEntryForDirectories(IEnumerable<DirectoryEntry> entries, string[] filters);
-    IEnumerable<FilterTheme> GetAllFilterThemes(IEnumerable<DirectoryEntry> filteredEntries);
-    IEnumerable<Filter> GetAppliedFilters(string[] filters, IEnumerable<FilterTheme> filterThemes);
-
+    IEnumerable<DirectoryEntry> GetFilteredEntries(IEnumerable<DirectoryEntry> entries);
+    IEnumerable<DirectoryEntry> GetFilteredEntries(IEnumerable<DirectoryEntry> entries, string[] filters);
+    IEnumerable<FilterTheme> GetFilterThemes(IEnumerable<DirectoryEntry> filteredEntries);
+    IEnumerable<Filter> GetFilters(string[] filters, IEnumerable<FilterTheme> filterThemes);
     IEnumerable<DirectoryEntry> GetSearchedEntryForDirectories(IEnumerable<DirectoryEntry> entries, string searchTerm);
-
-
     IEnumerable<DirectoryEntry> GetOrderedEntries(IEnumerable<DirectoryEntry> filteredEntries, string orderBy);
     Dictionary<string, int> GetAllFilterCounts(IEnumerable<DirectoryEntry> allEntries);
 }
@@ -56,29 +54,38 @@ public class DirectoryService : IDirectoryService {
         return directoryEntry;
     }
 
-    public IEnumerable<DirectoryEntry> GetFilteredEntryForDirectories(IEnumerable<DirectoryEntry> entries) => 
-        entries.Select(directoryEntry => directoryEntry).OrderBy(directoryEntry => directoryEntry.Name);
-
-    public IEnumerable<DirectoryEntry> GetFilteredEntryForDirectories(IEnumerable<DirectoryEntry> entries, string[] filters) =>
-        entries
-            .Where(entry => entry is not null && entry.Themes is not null &&
-                filters.All(filterSlug => entry.Themes
-                    .Any(theme => theme is not null && theme.Filters is not null && theme.Filters
-                    .Any(filter => filter.Slug.Equals(filterSlug)))))
-            .ToList().OrderBy(directoryEntry => directoryEntry.Name);
-
     public IEnumerable<DirectoryEntry> GetSearchedEntryForDirectories(IEnumerable<DirectoryEntry> entries, string searchTerm) =>
-         entries
-             .Where(entry =>
-                         entry.Name.Contains(searchTerm)
-                         || entry.Teaser.Contains(searchTerm)
-                         || entry.Description.Contains(searchTerm)
-                         || entry.Tags.Any(tag => tag.Contains(searchTerm)))
-             .ToList()
-             .OrderBy(directoryEntry => directoryEntry.Name);
-   
+    entries
+        .Where(entry =>
+                    entry.Name.Contains(searchTerm)
+                    || entry.Teaser.Contains(searchTerm)
+                    || entry.Description.Contains(searchTerm)
+                    || entry.Tags.Any(tag => tag.Contains(searchTerm)))
+        .ToList()
+        .OrderBy(directoryEntry => directoryEntry.Name);
 
-    public IEnumerable<FilterTheme> GetAllFilterThemes(IEnumerable<DirectoryEntry> filteredEntries) => 
+    public IEnumerable<DirectoryEntry> GetFilteredEntries(IEnumerable<DirectoryEntry> entries) => 
+        entries.OrderBy(directoryEntry => directoryEntry.Name);
+
+    public IEnumerable<DirectoryEntry> GetFilteredEntries(IEnumerable<DirectoryEntry> entries, string[] appliedFilters)
+    {
+        var allFilterThemes = GetFilterThemes(entries);
+        var appliedThemes = GetFilters(appliedFilters, allFilterThemes)
+                                .GetFilterThemesFromFilters();
+
+        if(!appliedThemes.Any())
+            return new List<DirectoryEntry>();
+
+        return entries.Where(entry => entry.Themes is not null && entry.Themes.Any()
+                            && appliedThemes.IsDirectoryEntryRelevant(entry));
+    }
+
+    /// <summary>
+    /// Return a list of FilterThemes relvant to the List of directory entries provided
+    /// </summary>
+    /// <param name="filteredEntries"></param>
+    /// <returns></returns>
+    public IEnumerable<FilterTheme> GetFilterThemes(IEnumerable<DirectoryEntry> filteredEntries) => 
         filteredEntries is not null && filteredEntries.Any()
             ? filteredEntries
                 .Where(entry => entry.Themes is not null)
@@ -98,7 +105,13 @@ public class DirectoryService : IDirectoryService {
                 .ToList()
             : new List<FilterTheme>();
 
-    public IEnumerable<Filter> GetAppliedFilters(string[] filters, IEnumerable<FilterTheme> filterThemes) => 
+    /// <summary>
+    /// Returns a list of Filter Objects for the list array of filter names provided
+    /// </summary>
+    /// <param name="filters"></param>
+    /// <param name="filterThemes"></param>
+    /// <returns></returns>
+    public IEnumerable<Filter> GetFilters(string[] filters, IEnumerable<FilterTheme> filterThemes) => 
         filters is not null && filters.Length > 0 && filterThemes is not null && filterThemes.Any()
             ? filterThemes
                 .SelectMany(theme => theme.Filters)
