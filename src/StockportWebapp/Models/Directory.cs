@@ -27,24 +27,16 @@ namespace StockportWebapp.Models
             {
                 _allEntries ??= (SubDirectories is not null && SubDirectories.Any()
                                     ? Entries?
-                                        .Concat(SubDirectories.Where(sub => sub is not null)
-                                        .SelectMany(sub => sub.AllEntries))
+                                        .Concat(SubDirectories
+                                            .Where(sub => sub is not null)
+                                            .SelectMany(sub => sub.AllEntries))
                                     : Entries)
                                         .Distinct(new DirectoryEntryComparer());
 
                 return _allEntries;
             }         
         }
-        
-        [JsonIgnore]
-        public IEnumerable<FilterTheme> AllFilterThemes => AllEntries is not null && AllEntries.Any() 
-                                                            ? AllEntries
-                                                                .Where(entry => entry.Themes is not null)
-                                                                .SelectMany(entry => entry.Themes)
-                                                                .GroupBy(theme => theme.Title, StringComparer.OrdinalIgnoreCase)
-                                                                .Select(group => group.First())
-                                                                .OrderBy(theme => theme.Title)
-                                                            : new List<FilterTheme>();
+
 
         public string ToKml() => AllEntries.GetKmlForList();
     }
