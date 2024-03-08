@@ -44,7 +44,7 @@ public class DirectoryController : Controller
 
         if (directory.SubDirectories.Any())
             return View(directoryViewModel);
-        
+
         return RedirectToAction("DirectoryResults", new { slug });
     }
 

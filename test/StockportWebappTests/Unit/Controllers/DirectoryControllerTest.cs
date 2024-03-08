@@ -116,18 +116,26 @@ public class DirectoryControllerTest
     }
 
     [Fact]
-    public async Task Directory_ShouldReturnViewModel_And_CorrectView(){
+    public async Task Directory_ShouldReturnNotFoundIfSlugIsEmpty()
+    {
+        // Act
+        var result = await _directoryController.Directory(string.Empty);
+
+        // Assert
+        Assert.IsType<NotFoundResult>(result);
+    }
+
+    [Fact]
+    public async Task Directory_ShouldRedirectToResults_If_NoSubdirectories(){
         // Arrange
         _ = _directoryService.Setup(_ => _.Get<Directory>(It.IsAny<string>())).ReturnsAsync(directory);
 
         // Act
-        var result = await _directoryController.Directory("slug") as ViewResult;
-        var model = result.ViewData.Model as DirectoryViewModel;
-        
+        var result = await _directoryController.Directory("slug");
+
         // Assert
-        Assert.NotNull(result.Model);
-        Assert.Equal("slug", model.Directory.Slug);
-        Assert.Equal("results", result.ViewName);
+        Assert.IsType<RedirectToActionResult>(result);
+        Assert.Equal("DirectoryResults", ((RedirectToActionResult)await _directoryController.Directory("slug")).ActionName);
     }
 
     [Fact]
@@ -262,6 +270,5 @@ public class DirectoryControllerTest
 
         // Assert
         _directoryService.Verify(service => service.GetSearchedEntryForDirectories(It.IsAny<IEnumerable<DirectoryEntry>>(), It.IsAny<string>()), Times.Once);
-        
     }
 }
