@@ -55,7 +55,7 @@
                                 ? string.IsNullOrEmpty(subdirectory.ColourScheme) ? "teal" : subdirectory.ColourScheme.ToLower()
                                 : string.IsNullOrEmpty(Model.FirstSubDirectory.ColourScheme) ? "teal" : Model.FirstSubDirectory.ColourScheme.ToLower();
 
-                            <li class="navcard navcard--width-33 navcard--center navcard-all navcard--border-top-10 navcard--theme-@colourScheme navcard--theme-@colourScheme-all">
+                            <li class="navcard navcard--width-33 navcard--center navcard-all navcard--border-top-10 navcard--theme-@colourScheme navcard--theme-@colourScheme-all MAIN">
                                 <a href=@Url.Action("Directory", "Directory", new { slug=$"{Model.Slug}/{subdirectory.Slug}" }) class="navcard__link">
                                     <div class="navcard__content">
                                         @if (!string.IsNullOrEmpty(subdirectory.Icon) && displayIcon)
@@ -68,6 +68,31 @@
                                         <div class="navcard-content--padding @navcardNoPadding">
                                             <h3 class="navcard__title navcard__title--black">@subdirectory.Title</h3>
                                             <p class="navcard__teaser">@subdirectory.Teaser</p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                        }
+
+                        @if(!directory.Title.Equals(Model.ParentDirectory.Title))
+                        {
+                            var colourSchemeViewAll = subdirectories.Select(subdirectory => {
+                                    var directoryToCheck = directory.Title.Equals(Model.ParentDirectory.Title) ? subdirectory : Model.FirstSubDirectory;
+                                    return string.IsNullOrEmpty(directoryToCheck.ColourScheme) ? "teal" : directoryToCheck.ColourScheme.ToLower();
+                                }).FirstOrDefault();
+                            
+                            <li class="navcard navcard--width-33 navcard--center navcard-all navcard--border-top-10 navcard--theme-@colourSchemeViewAll navcard--theme-@colourSchemeViewAll-all TEST">
+                                <a href=@Url.Action("DirectoryResults", "Directory", new { slug=$"{directory.Slug}" }) class="navcard__link">
+                                    <div class="navcard__content">
+                                        @if (displayIcon)
+                                        {
+                                            <div class="navcard__icon">
+                                                <span class="fas fa-arrow-right" aria-hidden="true"></span>
+                                            </div>
+                                        }
+
+                                        <div class="navcard-content--padding @navcardNoPadding">
+                                            <h3 class="navcard__title navcard__title--black">View all services in @directory.Title</h3>
                                         </div>
                                     </div>
                                 </a>
