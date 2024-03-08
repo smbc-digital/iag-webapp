@@ -55,7 +55,7 @@
                                 ? string.IsNullOrEmpty(subdirectory.ColourScheme) ? "teal" : subdirectory.ColourScheme.ToLower()
                                 : string.IsNullOrEmpty(Model.FirstSubDirectory.ColourScheme) ? "teal" : Model.FirstSubDirectory.ColourScheme.ToLower();
 
-                            <li class="navcard navcard--width-33 navcard--center navcard-all navcard--border-top-10 navcard--theme-@colourScheme navcard--theme-@colourScheme-all MAIN">
+                            <li class="navcard navcard--width-33 navcard--center navcard-all navcard--border-top-10 navcard--theme-@colourScheme navcard--theme-@colourScheme-all">
                                 <a href=@Url.Action("Directory", "Directory", new { slug=$"{Model.Slug}/{subdirectory.Slug}" }) class="navcard__link">
                                     <div class="navcard__content">
                                         @if (!string.IsNullOrEmpty(subdirectory.Icon) && displayIcon)
@@ -81,7 +81,7 @@
                                     return string.IsNullOrEmpty(directoryToCheck.ColourScheme) ? "teal" : directoryToCheck.ColourScheme.ToLower();
                                 }).FirstOrDefault();
                             
-                            <li class="navcard navcard--width-33 navcard--center navcard-all navcard--border-top-10 navcard--theme-@colourSchemeViewAll navcard--theme-@colourSchemeViewAll-all TEST">
+                            <li class="navcard navcard--width-33 navcard--center navcard-all navcard--border-top-10 navcard--theme-@colourSchemeViewAll navcard--theme-@colourSchemeViewAll-all">
                                 <a href=@Url.Action("DirectoryResults", "Directory", new { slug=$"{directory.Slug}" }) class="navcard__link">
                                     <div class="navcard__content">
                                         @if (displayIcon)
