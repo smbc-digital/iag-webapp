@@ -6,7 +6,12 @@ namespace StockportWebapp.ViewModels;
 public class DirectoryViewModel
 {
     public string Slug { get; set; }
+    
     public Directory Directory { get; set; }
+    
+    public Directory ParentDirectory { get; set; }
+    
+    public Directory FirstSubDirectory { get; set; }
 
     public Directory RootDirectory { get; set; }
 
