@@ -13,10 +13,6 @@ public class DirectoryViewModel
     
     public Directory FirstSubDirectory { get; set; }
 
-    public Directory RootDirectory { get; set; }
-
-    public Directory ThemeRootDirectory { get; set; }
-
     public IEnumerable<DirectoryEntry> FilteredEntries { get; set; }
 
     public IEnumerable<Filter> AppliedFilters { get; set; }
