@@ -161,6 +161,28 @@ public class DirectoryServiceTests
         Tags = new List<string>() { "tagged" }
     };
 
+    private readonly DirectoryEntry directoryEntry4 = new()
+    {
+        Slug = "slug2",
+        Name = "another name",
+        Provider = "provider3",
+        Description = "description3",
+        Teaser = "teaser3",
+        MetaDescription = "metaDescription3",
+        Themes = new List<FilterTheme>() { new FilterTheme { Title = "Test Theme", Filters = new List<Filter> { new Filter { Title="Test Theme: Test Filter", DisplayName="Test filter" } } } },
+        Directories = new List<MinimalDirectory>(),
+        Alerts = new List<Alert>(),
+        Branding = new List<GroupBranding>(),
+        MapPosition = new MapPosition(),
+        PhoneNumber = "phone number2",
+        Email = "email2",
+        Website = "website2",
+        Twitter = "twitter2",
+        Facebook = "facebook2",
+        Address = "address2",
+        Tags = new List<string>() { "tagged" }
+    };
+
     private readonly Directory directory = new()
     {
         Title = "title",
@@ -501,5 +523,24 @@ public class DirectoryServiceTests
 
         result = _service.GetSearchedEntryForDirectories(allEntries, "teaser2");
         Assert.Single(result);
+    }
+
+
+    [Fact]
+    public void GetSearchedEntryForDirectories_ShouldReturnCorrectCount_ForFilterFieldHit()
+    {
+        List<DirectoryEntry> allEntries = new() { directoryEntry, directoryEntry2, directoryEntry3, directoryEntry4 };
+
+        var result = _service.GetSearchedEntryForDirectories(allEntries, "filter");
+        Assert.Equal(1, result.Count());
+    }
+
+    [Fact]
+    public void GetSearchedEntryForDirectories_ShouldReturnCorrectCount_ForFilterFieldHit_CaseInsensitive()
+    {
+        List<DirectoryEntry> allEntries = new() { directoryEntry, directoryEntry2, directoryEntry3, directoryEntry4 };
+
+        var result = _service.GetSearchedEntryForDirectories(allEntries, "FILTER");
+        Assert.Equal(1, result.Count());
     }
 }

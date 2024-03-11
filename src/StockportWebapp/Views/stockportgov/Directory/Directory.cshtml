@@ -28,13 +28,12 @@
 <partial name="GlobalAlerts" model='directory.Alerts' />
 
 <div class="grid-container-full-width" style="background-color:white;">
+    <partial name="Breadcrumb2023" model='@Model.Breadcrumbs' />
     
     <partial name="DirectorySearch" model="Model.ParentDirectory" />
 
     <div class="grid-container">
         <div class="grid-100">
-            <h1 class="directory__title--margin-top @titleNoMarginBottom">@directory.Title</h1>
-            
             @if(!string.IsNullOrEmpty(directory.Body)) {
                 <div class="directory-lead">@directory.Body</div>
             }

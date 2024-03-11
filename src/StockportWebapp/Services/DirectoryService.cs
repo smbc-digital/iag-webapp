@@ -55,14 +55,19 @@ public class DirectoryService : IDirectoryService {
     }
 
     public IEnumerable<DirectoryEntry> GetSearchedEntryForDirectories(IEnumerable<DirectoryEntry> entries, string searchTerm) =>
-    entries
-        .Where(entry =>
-                    entry.Name.Contains(searchTerm)
-                    || entry.Teaser.Contains(searchTerm)
-                    || entry.Description.Contains(searchTerm)
-                    || entry.Tags.Any(tag => tag.Contains(searchTerm)))
-        .ToList()
-        .OrderBy(directoryEntry => directoryEntry.Name);
+        entries
+            .Where(entry =>
+                    entry.Name.ToLower().Contains(searchTerm.ToLower())
+                    || entry.Teaser.ToLower().Contains(searchTerm.ToLower())
+                    || entry.Description.ToLower().Contains(searchTerm.ToLower())
+                    || entry.Tags.Any(tag => tag.ToLower().Contains(searchTerm.ToLower()))
+                    || (entry.Themes is not null 
+                        && entry.Themes.Any(theme => theme.Filters is not null 
+                                            && theme.Filters.Any(filter => !string.IsNullOrEmpty(filter.DisplayName) 
+                                                                && filter.DisplayName.ToLower().Contains(searchTerm.ToLower())))))
+            .ToList()
+            .OrderBy(directoryEntry => directoryEntry.Name);
+    
 
     public IEnumerable<DirectoryEntry> GetFilteredEntries(IEnumerable<DirectoryEntry> entries) => 
         entries.OrderBy(directoryEntry => directoryEntry.Name);
