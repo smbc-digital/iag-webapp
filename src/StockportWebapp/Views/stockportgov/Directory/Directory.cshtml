@@ -31,13 +31,16 @@
 
     <div class="grid-container">
         <div class="grid-100">
-            <h1 class="directory__title--margin-top @titleNoMarginBottom">@directory.Title</h1>
+            <h1 class="directory__title--margin @titleNoMarginBottom">@directory.Title</h1>
             
             @if(!string.IsNullOrEmpty(directory.Body)) {
                 <div class="directory-lead">@directory.Body</div>
             }
         </div>
     </div>
+
+    <h2 class="visuallyhidden">Services in @Model.Directory.Title</h2>
+
 
     @if (directory.CallToAction is not null)
     {
@@ -103,7 +106,6 @@
             </div>
         </div>
     </section>
-
 
     @if (!string.IsNullOrEmpty(directory.EventBanner.Title)) 
     {
