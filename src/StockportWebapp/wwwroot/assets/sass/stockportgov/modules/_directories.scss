@@ -30,6 +30,11 @@
 
     &-lead {
         @include lead;
+
+        @media #{$mobile} {
+            margin-left: 5px;
+            margin-right: 5px;
+        }
     }
 
     &-result {
@@ -165,6 +170,11 @@
             margin-top: 0;
             margin-bottom: 1.25rem;
         }
+
+        @media #{$mobile} {
+            margin-left: 5px;
+            margin-right: 5px;
+        }
     }
 
     &--padding {
@@ -251,8 +261,13 @@
         margin-bottom: 2rem;
         margin-top: 1.25rem;
 
-        &--margin-top {
+        &--margin {
             margin-top: 1.25rem;
+
+            @media #{$mobile} {
+                margin-left: 5px;
+                margin-right: 5px;
+            }
         }
     }
 
