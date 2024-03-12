@@ -28,6 +28,10 @@ public class DirectoryViewModel
 
     public List<string> OrderBy = new() { "Name A to Z", "Name Z to A" };
 
+    public bool DisplayIcons => Directory.SubDirectories.All(item => !string.IsNullOrEmpty(item.Icon));
+
+    public bool IsRootDirectory => Directory.Title.Equals(ParentDirectory.Title);
+
     public List<Query> QueryParameters
     {
         get
