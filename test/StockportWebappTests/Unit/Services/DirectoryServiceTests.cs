@@ -476,11 +476,20 @@ public class DirectoryServiceTests
     {
         List<DirectoryEntry> allEntries = new() { directoryEntry, directoryEntry2, directoryEntry3 };
 
-        var result = _service.GetSearchedEntryForDirectories(allEntries, "name");
+        var result = _service.GetSearchedEntryForDirectories(allEntries, "NAME");
         Assert.Equal(3, result.Count());
 
         result = _service.GetSearchedEntryForDirectories(allEntries, "name2");
         Assert.Single(result);
+    }
+
+    [Fact]
+    public void GetSearchedEntryForDirectories_ShouldReturn0_ForNoHits()
+    {
+        List<DirectoryEntry> allEntries = new() { directoryEntry, directoryEntry2, directoryEntry3 };
+
+        var result = _service.GetSearchedEntryForDirectories(allEntries, "NonExistantResult");
+        Assert.Empty(result);
     }
 
     [Fact]
@@ -490,15 +499,6 @@ public class DirectoryServiceTests
 
         var result = _service.GetSearchedEntryForDirectories(allEntries, "tagged");
         Assert.Single(result);
-    }
-
-    [Fact]
-    public void GetSearchedEntryForDirectories_ShouldReturnNoResult_ForNonExistantString()
-    {
-        List<DirectoryEntry> allEntries = new() { directoryEntry, directoryEntry2, directoryEntry3 };
-
-        var result = _service.GetSearchedEntryForDirectories(allEntries, "non-existant-string");
-        Assert.Empty(result);
     }
 
     [Fact]
@@ -525,14 +525,13 @@ public class DirectoryServiceTests
         Assert.Single(result);
     }
 
-
     [Fact]
     public void GetSearchedEntryForDirectories_ShouldReturnCorrectCount_ForFilterFieldHit()
     {
         List<DirectoryEntry> allEntries = new() { directoryEntry, directoryEntry2, directoryEntry3, directoryEntry4 };
 
         var result = _service.GetSearchedEntryForDirectories(allEntries, "filter");
-        Assert.Equal(1, result.Count());
+        Assert.Single(result);
     }
 
     [Fact]
@@ -541,6 +540,46 @@ public class DirectoryServiceTests
         List<DirectoryEntry> allEntries = new() { directoryEntry, directoryEntry2, directoryEntry3, directoryEntry4 };
 
         var result = _service.GetSearchedEntryForDirectories(allEntries, "FILTER");
-        Assert.Equal(1, result.Count());
+        Assert.Single(result);
+    }
+
+    [Fact]
+    public void GetSearchedEntryForDirectories_ShouldReturnCorrectCount_WhenEntriesIsEmpty()
+    {
+        List<DirectoryEntry> allEntries = new() { };
+
+        var result = _service.GetSearchedEntryForDirectories(allEntries, "FILTER");
+        Assert.Empty(result);
+    }
+
+
+    [Fact]
+    public void GetSearchedEntryForDirectories_ShouldReturnCorrectCount_WhenEntryFilterThemesIsNull()
+    {
+        directoryEntry3.Themes = null;
+        List<DirectoryEntry> allEntries = new() { directoryEntry3 };
+
+        var result = _service.GetSearchedEntryForDirectories(allEntries, "FILTER");
+        Assert.Empty(result);
+    }
+
+    [Fact]
+    public void GetSearchedEntryForDirectories_ShouldReturnCorrectCount_WhenEntryFilterThemeFiltersIsNull()
+    {
+        directoryEntry3.Themes = new List<FilterTheme> { new FilterTheme { Title = "Test Theme" } };
+        List<DirectoryEntry> allEntries = new() { directoryEntry3 };
+
+        var result = _service.GetSearchedEntryForDirectories(allEntries, "FILTER");
+        Assert.Empty(result);
+    }
+
+    [Fact]
+    public void GetSearchedEntryForDirectories_ShouldReturnCorrectCount_WhenEntryFilterThemesDoesNotContainMatchingValue()
+    {
+        directoryEntry3.Themes = new List<FilterTheme> { new FilterTheme { Title = "Test Theme", Filters = new List<Filter> { new Filter { Title = "Test" } } } };
+        List<DirectoryEntry> allEntries = new() { directoryEntry3 };
+
+        var result = _service.GetSearchedEntryForDirectories(allEntries, "FILTER");
+        Assert.Empty(result);
     }
 }

@@ -13,7 +13,7 @@
 
     var sectionMarginTop = "";
     var titleNoMarginBottom = "";
-    
+    var isRootDirectory = directory.Title.Equals(Model.ParentDirectory.Title);
 
     if((!string.IsNullOrEmpty(directory.Body) && directory.CallToAction is not null) ||
         (string.IsNullOrEmpty(directory.Body) && directory.CallToAction is null) ||
@@ -32,8 +32,16 @@
     
     <partial name="DirectorySearch" model="Model.ParentDirectory" />
 
+    
+
     <div class="grid-container">
         <div class="grid-100">
+
+            @if(!isRootDirectory)
+            {
+                <h2 class="h-xl directory__title--margin @titleNoMarginBottom">@directory.Title</h2>
+            }            
+
             @if(!string.IsNullOrEmpty(directory.Body)) {
                 <div class="directory-lead">@directory.Body</div>
             }
@@ -52,7 +60,7 @@
                     <ul class="navcard-wrapper navcard-wrapper--no-margin">
                         @foreach (var subdirectory in subdirectories)
                         {
-                            var colourScheme = directory.Title.Equals(Model.ParentDirectory.Title)
+                            var colourScheme = isRootDirectory
                                 ? string.IsNullOrEmpty(subdirectory.ColourScheme) ? "teal" : subdirectory.ColourScheme.ToLower()
                                 : string.IsNullOrEmpty(Model.FirstSubDirectory.ColourScheme) ? "teal" : Model.FirstSubDirectory.ColourScheme.ToLower();
 
