@@ -136,3 +136,9 @@
         padding-top: 0;
     }
 }
+
+html[dir="rtl"] {
+    .fa-arrow-right:before {
+        content: "\f060";
+    }
+}

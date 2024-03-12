@@ -86,12 +86,15 @@ public class DirectoryController : Controller
     {
         entries = filters.Any()
             ? _directoryService.GetFilteredEntries(entries, filters) 
-            : entries;
+            : entries.OrderBy(directoryEntry => directoryEntry.Name);
 
         if (!string.IsNullOrEmpty(searchTerm))
             entries = _directoryService.GetSearchedEntryForDirectories(entries, searchTerm);
 
-        return _directoryService.GetOrderedEntries(entries, orderBy); ;
+        if(!string.IsNullOrEmpty(orderBy))
+            entries = _directoryService.GetOrderedEntries(entries, orderBy);
+
+        return entries;
     }
 
     [Route("/directories/kml/{slug}")]  

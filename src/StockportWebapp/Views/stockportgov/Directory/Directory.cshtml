@@ -25,7 +25,7 @@
 
 <partial name="GlobalAlerts" model='directory.Alerts' />
 
-<div class="grid-container-full-width" style="background-color:white;">
+<div class="grid-container-full-width" style="background-color:white;" data-cy="directory-page">
     <partial name="Breadcrumb2023" model='@Model.Breadcrumbs' />
     
     <partial name="DirectorySearch" model="Model.ParentDirectory" />
@@ -34,7 +34,6 @@
 
     <div class="grid-container">
         <div class="grid-100">
-
             @if(!Model.IsRootDirectory)
             {
                 <h2 class="h-xl directory__title--margin @titleNoMarginBottom">@directory.Title</h2>
@@ -46,6 +45,9 @@
         </div>
     </div>
 
+    <h2 class="visuallyhidden">Services in @Model.Directory.Title</h2>
+
+
     @if (directory.CallToAction is not null)
     {
         <partial name="CallToAction" model='directory.CallToAction' view-data='new ViewDataDictionary(ViewData) { { "AdditionalCssClass", "section--margin-top"  } }'/>
@@ -55,7 +57,7 @@
         <div class="grid-container">
             <div class="grid-100">
                 <div class="section__content section__content--no-margin">
-                    <ul class="navcard-wrapper navcard-wrapper--no-margin">
+                    <ul class="navcard-wrapper navcard-wrapper--no-margin" data-cy="navcard">
                         @foreach (var subdirectory in subdirectories)
                         {
                             var colourScheme = Model.IsRootDirectory
@@ -80,12 +82,36 @@
                                 </a>
                             </li>
                         }
+
+                        @if(!directory.Title.Equals(Model.ParentDirectory.Title))
+                        {
+                            var colourSchemeViewAll = subdirectories.Select(subdirectory => {
+                                    var directoryToCheck = directory.Title.Equals(Model.ParentDirectory.Title) ? subdirectory : Model.FirstSubDirectory;
+                                    return string.IsNullOrEmpty(directoryToCheck.ColourScheme) ? "teal" : directoryToCheck.ColourScheme.ToLower();
+                                }).FirstOrDefault();
+                            
+                            <li class="navcard navcard--width-33 navcard--center navcard-all navcard--border-top-10 navcard--theme-@colourSchemeViewAll navcard--theme-@colourSchemeViewAll-all">
+                                <a href=@Url.Action("DirectoryResults", "Directory", new { slug=$"{directory.Slug}" }) class="navcard__link">
+                                    <div class="navcard__content">
+                                        @if (Model.DisplayIcons)
+                                        {
+                                            <div class="navcard__icon">
+                                                <span class="fas fa-arrow-right" aria-hidden="true"></span>
+                                            </div>
+                                        }
+
+                                        <div class="navcard-content--padding @navcardNoPadding">
+                                            <h3 class="navcard__title navcard__title--black">View all services in @directory.Title</h3>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>
         </div>
     </section>
-
 
     @if (!string.IsNullOrEmpty(directory.EventBanner.Title)) 
     {
