@@ -31,10 +31,12 @@ namespace StockportWebapp.Models
                                     ? Entries?
                                         .Concat(SubDirectories
                                             .Where(sub => sub is not null)
-                                            .SelectMany(sub => sub.AllEntries))
+                                            .SelectMany(sub => sub.AllEntries))     
                                     : Entries)
+                                        .Where(entry => entry is not null && !string.IsNullOrEmpty(entry.Slug))
                                         .Distinct(new DirectoryEntryComparer());
 
+                
                 return _allEntries;
             }         
         }
