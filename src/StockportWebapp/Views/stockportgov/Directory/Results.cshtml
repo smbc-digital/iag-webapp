@@ -16,7 +16,7 @@
         @*The below could be used to retrieve the URL of the KML  equivalent of the results for this page*@
         @*@Url.ActionLink("DirectoryAsKml", "Directory", new { slug = Model.Slug }, "https", Context.Request.Host.Value).AddQueryStrings(Model.QueryParameters)*@
 
-        <input type="hidden" asp-for="SearchTerm" name="searchTerm" id="searchTerm" />
+        <input type="hidden" asp-for="SearchTerm" id="persistedSearchTerm"/>
         <div class="grid-container">
             <div class="grid-100 directory-sub-title">
                 @if(string.IsNullOrEmpty(Model.SearchTerm))
