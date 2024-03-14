@@ -1,0 +1,49 @@
+.external-link {
+    &__list {
+        list-style-type: none;
+        margin-bottom: 0;
+
+        @media #{$mobile} {
+            margin-left: 5px;
+            margin-right: 5px;
+        }
+    }
+
+    &__link {
+        display: block;
+        text-decoration: none;
+        padding-top: 1em;
+        padding-bottom: 1em;
+        cursor: pointer;
+
+        &:hover {
+            text-decoration: none;
+
+            .external-link-title {
+                text-decoration: underline;
+                text-decoration-thickness: 3px;
+            }
+        }
+    }
+
+    &__container {
+        margin: 0;
+        padding: 0;
+        
+        &:last-child > a {
+            padding-bottom: 0.5em;
+        }
+    }
+
+    &__title {
+        @include h-s;
+        color: $stockport-green;
+        text-decoration: underline;
+        margin-bottom: 0.5em;
+    }
+
+    &__teaser {
+        color: black;
+        margin: 0;
+    }
+}  

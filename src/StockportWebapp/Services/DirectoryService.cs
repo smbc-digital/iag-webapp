@@ -56,8 +56,8 @@ public class DirectoryService : IDirectoryService {
 
     public IEnumerable<DirectoryEntry> GetSearchedEntryForDirectories(IEnumerable<DirectoryEntry> entries, string searchTerm)
     {
-
         searchTerm = searchTerm.ToLower();
+        
         return entries
             .Where(entry =>
                     (!string.IsNullOrEmpty(entry.Name) && entry.Name.ToLower().Contains(searchTerm))
