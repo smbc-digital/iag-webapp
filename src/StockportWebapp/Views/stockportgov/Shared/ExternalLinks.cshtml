@@ -1,0 +1,39 @@
+@model ExternalLinksViewModel
+
+@if (Model.RelatedContent.Any())
+{
+     <div class="grid-container">
+        <div class="grid-100">
+            <div class="external-links">
+                <h3 class="h-ml external-links__heading">More information</h3>
+                @foreach (var primaryItem in Model.RelatedContent)
+                {
+                    <a href="@primaryItem.NavigationLink" class="h-s external-links__link">
+                        <div class="primaryItemText">@primaryItem.Title</div>
+                    </a>
+                    <p class="external-links__teaser">@primaryItem.Teaser</p>
+                }
+            </div>
+        </div>
+    </div>
+}
+
+@if (Model.ExternalLinks.Any())
+{
+    <div class="grid-container">
+        <div class="grid-100">
+            <div class="external-links">
+                <h3 class="h-ml external-links__heading">External links</h3>
+                @foreach (var primaryItem in Model.ExternalLinks)
+                {
+                    <a href="@primaryItem.URL" class="h-s external-links__link">
+                        @primaryItem.Title
+                    </a>
+                    <p class="external-links__teaser">
+                        @primaryItem.Teaser
+                    </p>
+                }
+            </div>
+        </div>
+    </div>
+}

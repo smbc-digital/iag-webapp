@@ -97,7 +97,8 @@
                                         <div class="navcard-content--padding @navcardNoPadding">
                                             <h3 class="navcard__title navcard__title--black">View all services in @directory.Title</h3>
                                         </div>
-                                    </div>
+                                    <
+                                    /div>
                                 </a>
                             </li>
                         }
@@ -112,5 +113,6 @@
         <partial name="EventBanner" model='directory.EventBanner'/>
     }
 
-    <partial name="DirectoryContentDisclaimer">
+    <partial name="ExternalLinks" model='new ExternalLinksViewModel() { ExternalLinks=Model.Directory.ExternalLinks, RelatedContent=Model.Directory.RelatedContent }'/>
+    <partial name="DirectoryContentDisclaimer"></partial>
 </div>
