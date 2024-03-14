@@ -52,6 +52,7 @@ public class DirectoryController : Controller
     [Route("/directories/results/{**slug}")]
     public async Task<IActionResult> DirectoryResults([Required][FromRoute]string slug, string[] filters, string orderBy, string searchTerm)
     {
+        
         if (!_isToggledOn || string.IsNullOrEmpty(slug))
             return NotFound();
 
@@ -77,7 +78,7 @@ public class DirectoryController : Controller
             AllFilterThemes = allFilterThemes,
             AppliedFilters = _directoryService.GetFilters(filters, allFilterThemes),
             FilterCounts = _directoryService.GetAllFilterCounts(entries),
-            SearchTerm = searchTerm,
+            SearchTerm =  searchTerm,
             Order = orderBy
         });
     }
