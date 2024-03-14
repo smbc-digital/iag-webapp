@@ -1,0 +1,91 @@
+﻿@model DirectoryViewModel
+@{
+    bool showPagination = Model.PaginationInfo.TotalEntries > Model.PaginationInfo.PageSize;
+}
+
+<div class="pagination__count">
+    <div class="grid-container">
+        <div class="grid-100">
+            @if (showPagination)
+            {
+                <span>
+                    Showing 
+                    <span class="bold">@((Model.PaginationInfo.CurrentPage - 1) * Model.PaginationInfo.PageSize + 1)</span>
+                    to
+                    <span class="bold">@(Math.Min(Model.PaginationInfo.CurrentPage * Model.PaginationInfo.PageSize, Model.PaginationInfo.TotalEntries))</span>
+                    of
+                    <span class="bold">@Model.PaginationInfo.TotalEntries</span>
+                    results
+                </span>
+            }
+        </div>
+    </div>
+</div>
+
+<nav class="directory-pagination">
+    <div class="grid-container">
+        <div class="grid-100">
+            @if (showPagination)
+            {
+                <div class="pagination">
+                    <ul class="pagination__list">
+                        @if (Model.PaginationInfo.CurrentPage > 1)
+                        {
+                            <li class="pagination__item">
+                                <a href="?page=1" class="pagination__links">
+                                    <span class="pagination__left"></span>
+                                    First
+                                    <span class="pagination__left--rtl"></span>
+                                </a>
+                                <input type="text" name="page" id="pageNumber" value="1" style="display: none;" />
+                            </li>
+                            <li class="pagination__item">
+                                <a href="?page=@(Model.PaginationInfo.CurrentPage - 1)" class="pagination__links">
+                                    <span class="pagination__left"></span>
+                                    Previous
+                                    <span class="pagination__left--rtl"></span>
+                                </a>
+                                <input type="text" name="page" id="pageNumber" value="@(Model.PaginationInfo.CurrentPage - 1)" style="display: none;" />
+                            </li>
+                        }
+                        @for (int i = 1; i <= Model.PaginationInfo.TotalPages; i++)
+                        {
+                            <li class="pagination__item">
+                                @if (i == Model.PaginationInfo.CurrentPage)
+                                {
+                                    <a href="?page=@i" class="pagination__current">@i</a>
+                                    <input type="text" name="page" id="pageNumber" value="@i" style="display: none;" />
+                                }
+                                else
+                                {
+                                    <a href="?page=@i" class="pagination__number">@i</a>
+                                    <input type="text" name="page" id="pageNumber" value="@i" style="display: none;" />
+                                }
+                            </li>
+                        }
+                        @if (Model.PaginationInfo.CurrentPage < Model.PaginationInfo.TotalPages)
+                        {
+                            <li class="pagination__item">
+                                <a href="?page=@(Model.PaginationInfo.CurrentPage + 1)" class="pagination__links">
+                                    <span class="pagination__right--rtl"></span>
+                                    Next
+                                    <span class="pagination__right"></span>
+                                </a>
+                                <input type="text" name="page" id="pageNumber" value="@(Model.PaginationInfo.CurrentPage + 1)" style="display: none;" />
+
+                            </li>
+                            <li class="pagination__item">
+                                <a href="?page=@Model.PaginationInfo.TotalPages" class="pagination__links">
+                                    <span class="pagination__right--rtl"></span>
+                                    Last
+                                    <span class="pagination__right"></span>
+                                </a>
+                                <input type="text" name="page" id="pageNumber" value="@Model.PaginationInfo.TotalPages" style="display: none;" />
+                            </li>
+                        }
+                    </ul>
+                </div>
+            }
+        </div>
+    </div>
+</nav>

@@ -158,7 +158,7 @@ public class DirectoryControllerTest
         _ = _directoryService.Setup(_ => _.Get<Directory>(It.IsAny<string>())).ReturnsAsync(directory);
 
         // Act
-        var result = await _directoryController.DirectoryResults("slug", Array.Empty<string>(), string.Empty, string.Empty) as ViewResult;
+        var result = await _directoryController.DirectoryResults("slug", Array.Empty<string>(), string.Empty, string.Empty, 0) as ViewResult;
         var model = result.ViewData.Model as DirectoryViewModel;
 
         // Assert
@@ -172,7 +172,7 @@ public class DirectoryControllerTest
         _directoryService.Setup(_ => _.Get<Directory>(It.IsAny<string>())).ReturnsAsync((Directory)null);
 
         // Act
-        var result = await _directoryController.DirectoryResults("slug", Array.Empty<string>(), string.Empty, string.Empty);
+        var result = await _directoryController.DirectoryResults("slug", Array.Empty<string>(), string.Empty, string.Empty, 0);
 
         // Assert
         Assert.IsType<NotFoundResult>(result);
@@ -185,7 +185,7 @@ public class DirectoryControllerTest
         _directoryService.Setup(_ => _.Get<Directory>(It.IsAny<string>())).ReturnsAsync(directory);
 
         // Act
-        var result = await _directoryController.DirectoryResults("slug", filters, string.Empty, string.Empty) as ViewResult;
+        var result = await _directoryController.DirectoryResults("slug", filters, string.Empty, string.Empty, 0) as ViewResult;
         var model = result.ViewData.Model as DirectoryViewModel;
 
         // Assert
@@ -266,7 +266,7 @@ public class DirectoryControllerTest
             .ReturnsAsync(directory);
 
         // Act
-        var result = await _directoryController.DirectoryResults("slug", Array.Empty<string>(), string.Empty, "search me");
+        var result = await _directoryController.DirectoryResults("slug", Array.Empty<string>(), string.Empty, "search me", 0);
 
         // Assert
         _directoryService.Verify(service => service.GetSearchedEntryForDirectories(It.IsAny<IEnumerable<DirectoryEntry>>(), It.IsAny<string>()), Times.Once);

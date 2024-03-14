@@ -28,9 +28,14 @@ public class DirectoryViewModel
     public DirectoryEntry DirectoryEntry { get; set; }
 
     public IEnumerable<Crumb> Breadcrumbs { get; set; }
+    
     public string Order { get; set; }
 
     public List<string> OrderBy = new() { "Name A to Z", "Name Z to A" };
+
+    public List<DirectoryEntry> PaginatedEntries { get; set; }
+    
+    public PaginationInfo PaginationInfo { get; set; }
 
     public List<Query> QueryParameters
     {
@@ -51,6 +56,12 @@ public class DirectoryViewModel
     }
 
     public Dictionary<string, int> FilterCounts { get; set; }
+}
 
-
+public class PaginationInfo
+{
+    public int CurrentPage { get; set; }
+    public int TotalPages { get; set; }
+    public int TotalEntries { get; set; }
+    public int PageSize { get; set; }
 }

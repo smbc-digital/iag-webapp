@@ -5,6 +5,7 @@
     ViewData["og:title"] = directory.Title;
     ViewData["Description"] = directory.MetaDescription;
     Layout = "../Shared/_Layout2023.cshtml";
+    bool showPagination = Model.PaginationInfo.TotalEntries > Model.PaginationInfo.PageSize;
 }
 
 <div class="grid-container-full-width background-grey" data-cy="search-results">
@@ -38,7 +39,7 @@
 
         <div class="grid-container">
             <div class="grid-100">
-                <div class="directory">
+                <div class="directory @(showPagination ? string.Empty : "directory--margin-bottom")">
                     <div class="directory--30">
                         <section class="navcard-wrapper">
                             <div class="navcard navcard--white navcard--width-100 navcard--border navcard--no-padding-right-rtl">
@@ -97,7 +98,7 @@
                     <div class="directory--70">
                         <h2 class="visuallyhidden">Results in @Model.Directory.Title</h2>
                         <ul class="navcard-wrapper">
-                            @foreach (var entry in Model.FilteredEntries)
+                            @foreach (var entry in Model.PaginatedEntries)
                             {
                                 <partial name="DirectorySearchResult" model=@(new DirectorySearchResultViewModel {DirectorySlug = Model.Slug, Entry = entry}) />
                             }
@@ -106,6 +107,8 @@
                 </div>
             </div>
         </div>
+
+        <partial name="DirectoryPagination" model="@Model"/>
     </form>
 
     <partial name="DirectoryContentDisclaimer">
