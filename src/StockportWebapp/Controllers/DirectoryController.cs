@@ -86,7 +86,7 @@ public class DirectoryController : Controller
     private void DoPagination(DirectoryViewModel viewModel, int page)
     {
         int totalEntries = viewModel.FilteredEntries.Count();
-        int pageSize = 2; // define pageSize
+        int pageSize = 1; // define pageSize
         int totalPages = (int)Math.Ceiling((double)totalEntries / pageSize); // Calculate total pages
 
         // Ensure that the page number is within the valid rang
