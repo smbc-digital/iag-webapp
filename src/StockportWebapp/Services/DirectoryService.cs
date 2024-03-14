@@ -66,8 +66,9 @@ public class DirectoryService : IDirectoryService {
                     || (entry.Themes is not null
                         && entry.Themes.Any(theme => theme is not null 
                                             && theme.Filters is not null
-                                            && theme.Filters.Any(filter => !string.IsNullOrEmpty(filter.DisplayName)
-                                                                && filter.DisplayName.ToLower().Contains(searchTerm.ToLower())))))
+                                            && theme.Filters.Any(filter => filter is not null 
+                                                                    && !string.IsNullOrEmpty(filter.DisplayName)
+                                                                    && filter.DisplayName.ToLower().Contains(searchTerm.ToLower())))))
             .ToList()
             .OrderBy(directoryEntry => directoryEntry.Name);
     
