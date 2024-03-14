@@ -61,8 +61,8 @@ public class DirectoryService : IDirectoryService {
         return entries
             .Where(entry =>
                     (!string.IsNullOrEmpty(entry.Name) && entry.Name.ToLower().Contains(searchTerm))
-                    || (!string.IsNullOrEmpty(entry.Teaser) && entry.Teaser.ToLower().Contains(searchTerm.))
-                    || (!string.IsNullOrEmpty(entry.Description) && entry.Description.ToLower().Contains(searchTerm.))
+                    || (!string.IsNullOrEmpty(entry.Teaser) && entry.Teaser.ToLower().Contains(searchTerm))
+                    || (!string.IsNullOrEmpty(entry.Description) && entry.Description.ToLower().Contains(searchTerm))
                     || (entry.Tags is not null
                         && entry.Tags.Any(tag => !string.IsNullOrEmpty(tag)
                             && tag.ToLower().Contains(searchTerm)))
@@ -71,7 +71,7 @@ public class DirectoryService : IDirectoryService {
                                             && theme.Filters is not null
                                             && theme.Filters.Any(filter => filter is not null
                                                                     && !string.IsNullOrEmpty(filter.DisplayName)
-                                                                    && filter.DisplayName.ToLower().Contains(searchTerm.)))))
+                                                                    && filter.DisplayName.ToLower().Contains(searchTerm)))))
             .ToList()
             .OrderBy(directoryEntry => directoryEntry.Name);
     }
