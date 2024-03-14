@@ -2,7 +2,7 @@
 
 namespace StockportWebappTests_Unit.Unit.Extensions
 {
-    public class WildcardExtensionsTests
+    public class WildcardSlugExtensionsTests
     {
         [Fact]
         public void ProcessSlug_WithNull_ReturnsEmptyPageLocation()
@@ -11,7 +11,7 @@ namespace StockportWebappTests_Unit.Unit.Extensions
             string slug = null;
 
             // Act
-            var result = WildcardExtensions.ProcessSlug(slug);
+            var result = WildcardSlugExtensions.ProcessAsWildcardSlug(slug);
 
             // Assert
             Assert.True(string.IsNullOrEmpty(result.Slug));
@@ -25,7 +25,7 @@ namespace StockportWebappTests_Unit.Unit.Extensions
             string slug = string.Empty;
 
             // Act
-            var result = WildcardExtensions.ProcessSlug(slug);
+            var result = WildcardSlugExtensions.ProcessAsWildcardSlug(slug);
 
             // Assert
             Assert.True(string.IsNullOrEmpty(result.Slug));
@@ -39,7 +39,7 @@ namespace StockportWebappTests_Unit.Unit.Extensions
             string slug = "home/about/us";
 
             // Act
-            var result = WildcardExtensions.ProcessSlug(slug);
+            var result = WildcardSlugExtensions.ProcessAsWildcardSlug(slug);
 
             // Assert
             Assert.Equal("us", result.Slug);
@@ -53,7 +53,7 @@ namespace StockportWebappTests_Unit.Unit.Extensions
             string slug = "home/about//us";
 
             // Act
-            var result = WildcardExtensions.ProcessSlug(slug);
+            var result = WildcardSlugExtensions.ProcessAsWildcardSlug(slug);
 
             // Assert
             Assert.Equal("us", result.Slug);
