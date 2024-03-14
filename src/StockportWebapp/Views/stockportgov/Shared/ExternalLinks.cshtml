@@ -2,38 +2,40 @@
 
 @if (Model.RelatedContent.Any())
 {
-     <div class="grid-container">
-        <div class="grid-100">
-            <div class="external-links">
-                <h3 class="h-ml external-links__heading">More information</h3>
-                @foreach (var primaryItem in Model.RelatedContent)
-                {
-                    <a href="@primaryItem.NavigationLink" class="h-s external-links__link">
-                        <div class="primaryItemText">@primaryItem.Title</div>
+<section class="section grid-container" data-cy="related-content">
+    <nav class="grid-100" aria-label="related content navigation">
+        <h2 class="section__title">Related content</h2>
+        <ul class="external-link-list">
+            @foreach(var item in Model.RelatedContent)
+            {
+                <li class="external-link-container">
+                    <a href="@item.NavigationLink" class="external-link-link" data-cy="secondary-item-link">
+                        <p class="external-link-title">@item.Title</p>
+                        <p class="external-link-teaser">@item.Teaser</p>
                     </a>
-                    <p class="external-links__teaser">@primaryItem.Teaser</p>
-                }
-            </div>
-        </div>
-    </div>
+                </li>
+            }
+        </ul>
+    </nav>
+</section>
 }
 
 @if (Model.ExternalLinks.Any())
 {
-    <div class="grid-container">
-        <div class="grid-100">
-            <div class="external-links">
-                <h3 class="h-ml external-links__heading">External links</h3>
-                @foreach (var primaryItem in Model.ExternalLinks)
-                {
-                    <a href="@primaryItem.URL" class="h-s external-links__link">
-                        @primaryItem.Title
+<section class="section grid-container" data-cy="external-links">
+    <nav class="grid-100" aria-label="external links navigation">
+        <h2 class="section__title">External links</h2>
+        <ul class="external-link-list">
+            @foreach(var item in Model.ExternalLinks)
+            {
+                <li class="external-link-container">
+                    <a href="@item.URL" class="external-link-link" data-cy="secondary-item-link">
+                        <p class="external-link-title">@item.Title</p>
+                        <p class="external-link-teaser">@item.Teaser</p>
                     </a>
-                    <p class="external-links__teaser">
-                        @primaryItem.Teaser
-                    </p>
-                }
-            </div>
-        </div>
-    </div>
+                </li>
+            }
+        </ul>
+    </nav>
+</section>
 }
