@@ -1,5 +1,5 @@
 .external-link {
-    &-list {
+    &__list {
         list-style-type: none;
         margin-bottom: 0;
 
@@ -9,7 +9,7 @@
         }
     }
 
-    &-link {
+    &__link {
         display: block;
         text-decoration: none;
         padding-top: 1em;
@@ -26,7 +26,7 @@
         }
     }
 
-    &-container {
+    &__container {
         margin: 0;
         padding: 0;
         
@@ -35,14 +35,14 @@
         }
     }
 
-    &-title {
+    &__title {
         @include h-s;
         color: $stockport-green;
         text-decoration: underline;
         margin-bottom: 0.5em;
     }
 
-    &-teaser {
+    &__teaser {
         color: black;
         margin: 0;
     }

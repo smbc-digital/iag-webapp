@@ -25,13 +25,13 @@
 <section class="section grid-container" data-cy="external-links">
     <nav class="grid-100" aria-label="external links navigation">
         <h2 class="section__title">External links</h2>
-        <ul class="external-link-list">
+        <ul class="external-link__list">
             @foreach(var item in Model.ExternalLinks)
             {
-                <li class="external-link-container">
-                    <a href="@item.URL" class="external-link-link" data-cy="external-link-link">
-                        <p class="external-link-title">@item.Title</p>
-                        <p class="external-link-teaser">@item.Teaser</p>
+                <li class="external-link__container">
+                    <a href="@item.URL" class="external-link__link" data-cy="external-link-link">
+                        <p class="external-link__title">@item.Title</p>
+                        <p class="external-link__teaser">@item.Teaser</p>
                     </a>
                 </li>
             }
