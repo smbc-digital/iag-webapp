@@ -54,20 +54,27 @@ public class DirectoryService : IDirectoryService {
         return directoryEntry;
     }
 
-    public IEnumerable<DirectoryEntry> GetSearchedEntryForDirectories(IEnumerable<DirectoryEntry> entries, string searchTerm) =>
-        entries
+    public IEnumerable<DirectoryEntry> GetSearchedEntryForDirectories(IEnumerable<DirectoryEntry> entries, string searchTerm)
+    {
+
+        searchTerm = searchTerm.ToLower();
+        return entries
             .Where(entry =>
-                    entry.Name.ToLower().Contains(searchTerm.ToLower())
-                    || entry.Teaser.ToLower().Contains(searchTerm.ToLower())
-                    || entry.Description.ToLower().Contains(searchTerm.ToLower())
-                    || entry.Tags.Any(tag => tag.ToLower().Contains(searchTerm.ToLower()))
+                    (!string.IsNullOrEmpty(entry.Name) && entry.Name.ToLower().Contains(searchTerm))
+                    || (!string.IsNullOrEmpty(entry.Teaser) && entry.Teaser.ToLower().Contains(searchTerm.))
+                    || (!string.IsNullOrEmpty(entry.Description) && entry.Description.ToLower().Contains(searchTerm.))
+                    || (entry.Tags is not null
+                        && entry.Tags.Any(tag => !string.IsNullOrEmpty(tag)
+                            && tag.ToLower().Contains(searchTerm)))
                     || (entry.Themes is not null
-                        && entry.Themes.Any(theme => theme.Filters is not null
-                                            && theme.Filters.Any(filter => !string.IsNullOrEmpty(filter.DisplayName)
-                                                                && filter.DisplayName.ToLower().Contains(searchTerm.ToLower())))))
+                        && entry.Themes.Any(theme => theme is not null
+                                            && theme.Filters is not null
+                                            && theme.Filters.Any(filter => filter is not null
+                                                                    && !string.IsNullOrEmpty(filter.DisplayName)
+                                                                    && filter.DisplayName.ToLower().Contains(searchTerm.)))))
             .ToList()
             .OrderBy(directoryEntry => directoryEntry.Name);
-    
+    }
 
     public IEnumerable<DirectoryEntry> GetFilteredEntries(IEnumerable<DirectoryEntry> entries) => 
         entries.OrderBy(directoryEntry => directoryEntry.Name);
