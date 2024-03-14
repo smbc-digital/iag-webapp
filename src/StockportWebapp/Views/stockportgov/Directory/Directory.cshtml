@@ -7,8 +7,7 @@
     ViewData["Description"] = directory.MetaDescription;
     Layout = "../Shared/_Layout2023.cshtml";
 
-    bool displayIcon = subdirectories.All(item => !string.IsNullOrEmpty(item.Icon));
-    var navcardNoPadding = displayIcon ? "navcard--no-padding-top" : string.Empty;
+    var navcardNoPadding = Model.DisplayIcons ? "navcard--no-padding-top" : string.Empty;
     var sectionNoMarginBottom = !string.IsNullOrEmpty(directory.EventBanner.Title) ? "section--no-margin" : string.Empty;
 
     var sectionMarginTop = "";
@@ -26,13 +25,20 @@
 
 <partial name="GlobalAlerts" model='directory.Alerts' />
 
-<div class="grid-container-full-width" style="background-color:white;">
+<div class="grid-container-full-width" style="background-color:white;" data-cy="directory-page">
     <partial name="Breadcrumb2023" model='@Model.Breadcrumbs' />
+    
+    <partial name="DirectorySearch" model="Model.ParentDirectory" />
+
+    
 
     <div class="grid-container">
         <div class="grid-100">
-            <h1 class="directory__title--margin @titleNoMarginBottom">@directory.Title</h1>
-            
+            @if(!Model.IsRootDirectory)
+            {
+                <h2 class="h-xl directory__title--margin @titleNoMarginBottom">@directory.Title</h2>
+            }            
+
             @if(!string.IsNullOrEmpty(directory.Body)) {
                 <div class="directory-lead">@directory.Body</div>
             }
@@ -51,17 +57,17 @@
         <div class="grid-container">
             <div class="grid-100">
                 <div class="section__content section__content--no-margin">
-                    <ul class="navcard-wrapper navcard-wrapper--no-margin">
+                    <ul class="navcard-wrapper navcard-wrapper--no-margin" data-cy="navcard">
                         @foreach (var subdirectory in subdirectories)
                         {
-                            var colourScheme = directory.Title.Equals(Model.ParentDirectory.Title)
+                            var colourScheme = Model.IsRootDirectory
                                 ? string.IsNullOrEmpty(subdirectory.ColourScheme) ? "teal" : subdirectory.ColourScheme.ToLower()
                                 : string.IsNullOrEmpty(Model.FirstSubDirectory.ColourScheme) ? "teal" : Model.FirstSubDirectory.ColourScheme.ToLower();
 
                             <li class="navcard navcard--width-33 navcard--center navcard-all navcard--border-top-10 navcard--theme-@colourScheme navcard--theme-@colourScheme-all">
                                 <a href=@Url.Action("Directory", "Directory", new { slug=$"{Model.Slug}/{subdirectory.Slug}" }) class="navcard__link">
                                     <div class="navcard__content">
-                                        @if (!string.IsNullOrEmpty(subdirectory.Icon) && displayIcon)
+                                        @if (!string.IsNullOrEmpty(subdirectory.Icon) && Model.DisplayIcons)
                                         {
                                             <div class="navcard__icon">
                                                 <span class="@subdirectory.Icon.ToLower()" aria-hidden="true"></span>
@@ -87,7 +93,7 @@
                             <li class="navcard navcard--width-33 navcard--center navcard-all navcard--border-top-10 navcard--theme-@colourSchemeViewAll navcard--theme-@colourSchemeViewAll-all">
                                 <a href=@Url.Action("DirectoryResults", "Directory", new { slug=$"{directory.Slug}" }) class="navcard__link">
                                     <div class="navcard__content">
-                                        @if (displayIcon)
+                                        @if (Model.DisplayIcons)
                                         {
                                             <div class="navcard__icon">
                                                 <span class="fas fa-arrow-right" aria-hidden="true"></span>

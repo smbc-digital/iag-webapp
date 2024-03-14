@@ -13,10 +13,6 @@ public class DirectoryViewModel
     
     public Directory FirstSubDirectory { get; set; }
 
-    public Directory RootDirectory { get; set; }
-
-    public Directory ThemeRootDirectory { get; set; }
-
     public IEnumerable<DirectoryEntry> FilteredEntries { get; set; }
 
     public IEnumerable<Filter> AppliedFilters { get; set; }
@@ -36,6 +32,10 @@ public class DirectoryViewModel
     public List<DirectoryEntry> PaginatedEntries { get; set; }
     
     public PaginationInfo PaginationInfo { get; set; }
+    
+    public bool DisplayIcons => Directory.SubDirectories.All(item => !string.IsNullOrEmpty(item.Icon));
+
+    public bool IsRootDirectory => Directory.Title.Equals(ParentDirectory.Title);
 
     public List<Query> QueryParameters
     {

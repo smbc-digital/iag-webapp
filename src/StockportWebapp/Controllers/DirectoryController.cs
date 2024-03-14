@@ -69,6 +69,8 @@ public class DirectoryController : Controller
             Slug = slug,
             Breadcrumbs = GetBreadcrumbsForDirectories(parentDirectories, false),
             Directory = directory,
+            ParentDirectory = parentDirectories.FirstOrDefault() ?? directory,
+            FirstSubDirectory = parentDirectories.ElementAtOrDefault(1) ?? directory,
             FilteredEntries = entries,
             AllFilterThemes = allFilterThemes,
             AppliedFilters = _directoryService.GetFilters(filters, allFilterThemes),
