@@ -57,12 +57,15 @@ public class DirectoryService : IDirectoryService {
     public IEnumerable<DirectoryEntry> GetSearchedEntryForDirectories(IEnumerable<DirectoryEntry> entries, string searchTerm) =>
         entries
             .Where(entry =>
-                    entry.Name.ToLower().Contains(searchTerm.ToLower())
-                    || entry.Teaser.ToLower().Contains(searchTerm.ToLower())
-                    || entry.Description.ToLower().Contains(searchTerm.ToLower())
-                    || entry.Tags.Any(tag => tag.ToLower().Contains(searchTerm.ToLower()))
+                    (!string.IsNullOrEmpty(entry.Name) && entry.Name.ToLower().Contains(searchTerm.ToLower()))
+                    || (!string.IsNullOrEmpty(entry.Teaser) && entry.Teaser.ToLower().Contains(searchTerm.ToLower()))
+                    || (!string.IsNullOrEmpty(entry.Description) && entry.Description.ToLower().Contains(searchTerm.ToLower()))
+                    || (entry.Tags is not null 
+                        && entry.Tags.Any(tag => !string.IsNullOrEmpty(tag) 
+                            && tag.ToLower().Contains(searchTerm.ToLower())))
                     || (entry.Themes is not null
-                        && entry.Themes.Any(theme => theme.Filters is not null
+                        && entry.Themes.Any(theme => theme is not null 
+                                            && theme.Filters is not null
                                             && theme.Filters.Any(filter => !string.IsNullOrEmpty(filter.DisplayName)
                                                                 && filter.DisplayName.ToLower().Contains(searchTerm.ToLower())))))
             .ToList()
