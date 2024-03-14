@@ -5,13 +5,13 @@
 <section class="section grid-container" data-cy="related-content">
     <nav class="grid-100" aria-label="related content navigation">
         <h2 class="section__title">Related content</h2>
-        <ul class="external-link-list">
+        <ul class="external-link__list">
             @foreach(var item in Model.RelatedContent)
             {
-                <li class="external-link-container">
-                    <a href="@item.NavigationLink" class="external-link-link" data-cy="related-content-link">
-                        <p class="external-link-title">@item.Title</p>
-                        <p class="external-link-teaser">@item.Teaser</p>
+                <li class="external-link__container">
+                    <a href="@item.NavigationLink" class="external-link__link" data-cy="related-content-link">
+                        <p class="external-link__title">@item.Title</p>
+                        <p class="external-link__teaser">@item.Teaser</p>
                     </a>
                 </li>
             }
