@@ -25,7 +25,7 @@ public class DirectoryController : Controller
         if (!_isToggledOn || string.IsNullOrEmpty(slug))
             return NotFound();
 
-        var pageLocation = WildcardExtensions.ProcessSlug(slug);
+        var pageLocation = slug.ProcessAsWildcardSlug();
 
         var directory = await _directoryService.Get<Directory>(pageLocation.Slug);
         if (directory is null)
@@ -54,7 +54,7 @@ public class DirectoryController : Controller
         if (!_isToggledOn || string.IsNullOrEmpty(slug))
             return NotFound();
 
-        var pageLocation = WildcardExtensions.ProcessSlug(slug);
+        var pageLocation = slug.ProcessAsWildcardSlug();
 
         var directory = await _directoryService.Get<Directory>(pageLocation.Slug);
         if(directory is null)
@@ -146,7 +146,7 @@ public class DirectoryController : Controller
         if (!_isToggledOn || string.IsNullOrEmpty(slug))
             return NotFound();
 
-        var pageLocation = WildcardExtensions.ProcessSlug(slug);
+        var pageLocation = slug.ProcessAsWildcardSlug();
         var directoryEntry = await _directoryService.GetEntry<DirectoryEntry>(pageLocation.Slug);
         
         if(directoryEntry is null)

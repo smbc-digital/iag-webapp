@@ -1,0 +1,41 @@
+@model ExternalLinksViewModel
+
+@if (Model.RelatedContent.Any())
+{
+<section class="section grid-container" data-cy="related-content">
+    <nav class="grid-100" aria-label="related content navigation">
+        <h2 class="section__title">Related content</h2>
+        <ul class="external-link__list">
+            @foreach(var item in Model.RelatedContent)
+            {
+                <li class="external-link__container">
+                    <a href="@item.NavigationLink" class="external-link__link" data-cy="related-content-link">
+                        <p class="external-link__title">@item.Title</p>
+                        <p class="external-link__teaser">@item.Teaser</p>
+                    </a>
+                </li>
+            }
+        </ul>
+    </nav>
+</section>
+}
+
+@if (Model.ExternalLinks.Any())
+{
+<section class="section grid-container" data-cy="external-links">
+    <nav class="grid-100" aria-label="external links navigation">
+        <h2 class="section__title">External links</h2>
+        <ul class="external-link__list">
+            @foreach(var item in Model.ExternalLinks)
+            {
+                <li class="external-link__container">
+                    <a href="@item.URL" class="external-link__link" data-cy="external-link-link">
+                        <p class="external-link__title">@item.Title</p>
+                        <p class="external-link__teaser">@item.Teaser</p>
+                    </a>
+                </li>
+            }
+        </ul>
+    </nav>
+</section>
+}

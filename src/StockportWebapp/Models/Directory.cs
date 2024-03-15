@@ -16,6 +16,8 @@ namespace StockportWebapp.Models
         public string ColourScheme { get; set; } = string.Empty;
         public string Icon { get; set; } = string.Empty;
         public EventCalendarBanner EventBanner { get; set; }
+        public IEnumerable<SubItem> RelatedContent { get; set; }
+        public IEnumerable<ExternalLink> ExternalLinks { get; set; } = new List<ExternalLink>();
 
         [JsonIgnore]
         private IEnumerable<DirectoryEntry> _allEntries = null;

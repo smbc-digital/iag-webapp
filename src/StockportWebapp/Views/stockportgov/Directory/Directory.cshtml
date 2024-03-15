@@ -116,5 +116,6 @@
         <partial name="EventBanner" model='directory.EventBanner'/>
     }
 
-    <partial name="DirectoryContentDisclaimer">
+    <partial name="ExternalLinks" model='new ExternalLinksViewModel() { ExternalLinks=Model.Directory.ExternalLinks, RelatedContent=Model.Directory.RelatedContent }'/>
+    <partial name="DirectoryContentDisclaimer"></partial>
 </div>
