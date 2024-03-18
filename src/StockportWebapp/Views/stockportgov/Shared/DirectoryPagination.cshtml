@@ -4,6 +4,8 @@
     var filterSlug = Model.AppliedFilters is not null && Model.AppliedFilters.Any() 
                         ? $"&filters={string.Join("&filters=", Model.AppliedFilters.Select(_ => _.Slug))}" 
                         : string.Empty;
+
+    var urlWithParams = $"?{string.Join("&", Model.QueryParameters.Select(q => $"{q.Name}={q.Value}"))}";
 }
 
 <div class="pagination__count">
@@ -36,7 +38,7 @@
                         @if (Model.PaginationInfo.CurrentPage > 1)
                         {
                             <li class="pagination__item">
-                                <a href="?page=@(Model.PaginationInfo.CurrentPage - 1)" class="pagination__links">
+                                <a href="@(urlWithParams)&page=@(Model.PaginationInfo.CurrentPage - 1)" class="pagination__links">
                                     <span class="pagination__left"></span>
                                     Previous
                                     <span class="pagination__left--rtl"></span>
@@ -46,7 +48,7 @@
 
                         <!-- Always display the first page -->
                         <li class="pagination__item">
-                            <a href="?page=1" class="@(Model.PaginationInfo.CurrentPage == 1 ? "pagination__current" : "pagination__number")">1</a>
+                            <a href="@(urlWithParams)&page=1" class="@(Model.PaginationInfo.CurrentPage == 1 ? "pagination__current" : "pagination__number")">1</a>
                         </li>
 
                         <!-- Display ellipsis before the second page if necessary -->
@@ -61,18 +63,28 @@
                             @for (int i = 2; i <= Math.Min(Model.PaginationInfo.TotalPages - 1, 7); i++)
                             {
                                 <li class="pagination__item">
-                                    <a href="?page=@i" class="@(i == Model.PaginationInfo.CurrentPage ? "pagination__current" : "pagination__number") test">@i</a>
+                                    <a href="@(urlWithParams)&page=@i" class="@(i == Model.PaginationInfo.CurrentPage ? "pagination__current" : "pagination__number") test">@i</a>
                                 </li>
                             }
                         }
                         else
                         {
                             <!-- Display page numbers with ellipses for larger number of pages -->
-                            @for (int i = Math.Max(2, Model.PaginationInfo.CurrentPage - 1); i <= Math.Min(Model.PaginationInfo.TotalPages - 1, Model.PaginationInfo.CurrentPage + 1); i++)
-                            {
-                                <li class="pagination__item">
-                                    <a href="?page=@i" class="@(i == Model.PaginationInfo.CurrentPage ? "pagination__current" : "pagination__number")">@i</a>
-                                </li>
+                            @if(Model.PaginationInfo.CurrentPage == 4){
+                                @for (int i = Math.Max(2, Model.PaginationInfo.CurrentPage - 2); i <= Math.Min(Model.PaginationInfo.TotalPages - 1, Model.PaginationInfo.CurrentPage + 1); i++)
+                                {
+                                    <li class="pagination__item">
+                                        <a href="@(urlWithParams)&page=@i" class="test1 @(i == Model.PaginationInfo.CurrentPage ? "pagination__current" : "pagination__number")">@i</a>
+                                    </li>
+                                }
+                            }
+                            else{
+                                @for (int i = Math.Max(2, Model.PaginationInfo.CurrentPage - 1); i <= Math.Min(Model.PaginationInfo.TotalPages - 1, Model.PaginationInfo.CurrentPage + 1); i++)
+                                {
+                                    <li class="pagination__item">
+                                        <a href="@(urlWithParams)&page=@i" class="test1 @(i == Model.PaginationInfo.CurrentPage ? "pagination__current" : "pagination__number")">@i</a>
+                                    </li>
+                                }
                             }
 
                             <!-- Display ellipsis after the penultimate page if necessary -->
@@ -84,14 +96,14 @@
 
                         <!-- Always display the last page -->
                         <li class="pagination__item">
-                            <a href="?page=@Model.PaginationInfo.TotalPages" class="@(Model.PaginationInfo.CurrentPage == Model.PaginationInfo.TotalPages ? "pagination__current" : "pagination__number")">@Model.PaginationInfo.TotalPages</a>
+                            <a href="@(urlWithParams)&page=@Model.PaginationInfo.TotalPages" class="@(Model.PaginationInfo.CurrentPage == Model.PaginationInfo.TotalPages ? "pagination__current" : "pagination__number")">@Model.PaginationInfo.TotalPages</a>
                         </li>
 
                         <!-- Display Next if not on last page -->
                         @if (Model.PaginationInfo.CurrentPage < Model.PaginationInfo.TotalPages)
                         {
                             <li class="pagination__item">
-                                <a href="?page=@(Model.PaginationInfo.CurrentPage + 1)" class="pagination__links">
+                                <a href="@(urlWithParams)&page=@(Model.PaginationInfo.CurrentPage + 1)" class="pagination__links">
                                     <span class="pagination__right--rtl"></span>
                                     Next
                                     <span class="pagination__right"></span>

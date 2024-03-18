@@ -46,15 +46,17 @@ public class DirectoryViewModel
                 queryParameters.Add(new Query("searchTerm", SearchTerm));
 
             if (!string.IsNullOrEmpty(Order))
-                queryParameters.Add(new Query("orderBy", Order));
+            {
+                queryParameters.Add(new Query("orderBy", Order.Replace(" ", "-")));
+            }
 
             if (AppliedFilters is not null)
                 AppliedFilters.ToList().ForEach(filter => queryParameters.Add(new Query("filters", filter.Slug)));
-
+           
             return queryParameters;
         }
     }
-
+    
     public Dictionary<string, int> FilterCounts { get; set; }
 }
 
