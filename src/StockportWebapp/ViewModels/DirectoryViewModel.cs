@@ -58,6 +58,27 @@ public class DirectoryViewModel
     }
     
     public Dictionary<string, int> FilterCounts { get; set; }
+
+    public static void DoPagination(DirectoryViewModel viewModel, int page)
+    {
+        int totalEntries = viewModel.FilteredEntries.Count();
+        int pageSize = 12;
+        int totalPages = (int)Math.Ceiling((double)totalEntries / pageSize);
+
+        page = Math.Max(1, Math.Min(page, totalPages));
+
+        int startIndex = (page - 1) * pageSize;
+
+        viewModel.PaginatedEntries = viewModel.FilteredEntries.Skip(startIndex).Take(pageSize).ToList();
+
+        viewModel.PaginationInfo = new PaginationInfo
+        {
+            CurrentPage = page,
+            TotalPages = totalPages,
+            TotalEntries = totalEntries,
+            PageSize = pageSize
+        };
+    }
 }
 
 public class PaginationInfo

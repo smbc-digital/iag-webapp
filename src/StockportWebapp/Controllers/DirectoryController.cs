@@ -78,30 +78,10 @@ public class DirectoryController : Controller
             SearchTerm = searchTerm,
             Order = orderBy
         };
+        
+        DirectoryViewModel.DoPagination(viewModel, page);
 
-        DoPagination(viewModel, page);
         return View("results", viewModel);
-    }
-
-    private static void DoPagination(DirectoryViewModel viewModel, int page)
-    {
-        int totalEntries = viewModel.FilteredEntries.Count();
-        int pageSize = 12;
-        int totalPages = (int)Math.Ceiling((double)totalEntries / pageSize);
-
-        page = Math.Max(1, Math.Min(page, totalPages));
-
-        int startIndex = (page - 1) * pageSize;
-
-        viewModel.PaginatedEntries = viewModel.FilteredEntries.Skip(startIndex).Take(pageSize).ToList();
-
-        viewModel.PaginationInfo = new PaginationInfo
-        {
-            CurrentPage = page,
-            TotalPages = totalPages,
-            TotalEntries = totalEntries,
-            PageSize = pageSize
-        };
     }
 
     private IEnumerable<DirectoryEntry> GetSearchedFilteredSortedEntries(IEnumerable<DirectoryEntry> entries, string[] filters, string orderBy, string searchTerm)
