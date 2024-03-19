@@ -1,18 +1,14 @@
 ﻿@model DirectoryViewModel
 @{
     bool showPagination = Model.PaginationInfo.TotalEntries > Model.PaginationInfo.PageSize;
-    var filterSlug = Model.AppliedFilters is not null && Model.AppliedFilters.Any() 
-                        ? $"&filters={string.Join("&filters=", Model.AppliedFilters.Select(_ => _.Slug))}" 
-                        : string.Empty;
-
     var urlWithParams = $"?{string.Join("&", Model.QueryParameters.Select(q => $"{q.Name}={q.Value}"))}";
 }
 
-<div class="pagination__count">
-    <div class="grid-container">
-        <div class="grid-100">
-            @if (showPagination)
-            {
+@if (showPagination)
+{
+    <div class="directory-pagination__count">
+        <div class="grid-container">
+            <div class="grid-100">
                 <span>
                     Showing 
                     <span class="bold">@((Model.PaginationInfo.CurrentPage - 1) * Model.PaginationInfo.PageSize + 1)</span>
@@ -22,98 +18,95 @@
                     <span class="bold">@Model.PaginationInfo.TotalEntries</span>
                     results
                 </span>
-            }
+            </div>
         </div>
     </div>
-</div>
 
-<nav class="directory-pagination">
     <div class="grid-container">
         <div class="grid-100">
-            @if (showPagination)
-            {
-                <div class="pagination">
-                    <ul class="pagination__list">
-                        <!-- Display Previous if not on first page -->
-                        @if (Model.PaginationInfo.CurrentPage > 1)
+            <nav class="directory-pagination" aria-label="Pagination">
+                <div class="directory-pagination__prev">
+                    @if (Model.PaginationInfo.CurrentPage > 1)
+                    {
+                        <a href="@(urlWithParams)&page=@(Model.PaginationInfo.CurrentPage - 1)" class="directory-pagination__links">
+                            <span class="directory-pagination__left"></span>
+                            Previous
+                            <span class="visuallyhidden">page</span>
+                            <span class="directory-pagination__left--rtl"></span>
+                        </a>
+                    }
+                </div>
+
+                <ul class="directory-pagination__list">
+                    <li class="directory-pagination__item">
+                        <a href="@(urlWithParams)&page=1" class="@(Model.PaginationInfo.CurrentPage == 1 ? "directory-pagination__current" : "directory-pagination__number")"
+                            aria-label="Page 1" aria-current="@(Model.PaginationInfo.CurrentPage == 1 ? "page" : string.Empty )">1</a>
+                    </li>
+
+                    @if (Model.PaginationInfo.CurrentPage > 4 && Model.PaginationInfo.TotalPages > 7)
+                    {
+                        <li class="directory-pagination__item directory-pagination__ellipses">...</li>
+                    }
+
+                    @if (Model.PaginationInfo.TotalPages <= 7)
+                    {
+                        @for (int i = 2; i <= Math.Min(Model.PaginationInfo.TotalPages - 1, 7); i++)
                         {
-                            <li class="pagination__item">
-                                <a href="@(urlWithParams)&page=@(Model.PaginationInfo.CurrentPage - 1)" class="pagination__links">
-                                    <span class="pagination__left"></span>
-                                    Previous
-                                    <span class="pagination__left--rtl"></span>
-                                </a>
+                            <li class="directory-pagination__item">
+                                <a href="@(urlWithParams)&page=@i" class="@(i == Model.PaginationInfo.CurrentPage ? "directory-pagination__current" : "directory-pagination__number")"
+                                    aria-current="@(Model.PaginationInfo.CurrentPage == i ? "page" : string.Empty)"
+                                    aria-label="Page @i">@i</a>
                             </li>
                         }
-
-                        <!-- Always display the first page -->
-                        <li class="pagination__item">
-                            <a href="@(urlWithParams)&page=1" class="@(Model.PaginationInfo.CurrentPage == 1 ? "pagination__current" : "pagination__number")">1</a>
-                        </li>
-
-                        <!-- Display ellipsis before the second page if necessary -->
-                        @if (Model.PaginationInfo.CurrentPage > 4 && Model.PaginationInfo.TotalPages > 7)
-                        {
-                            <li class="pagination__item">...</li>
-                        }
-
-                        <!-- Display page numbers for smaller number of pages or specific range -->
-                        @if (Model.PaginationInfo.TotalPages <= 7)
-                        {
-                            @for (int i = 2; i <= Math.Min(Model.PaginationInfo.TotalPages - 1, 7); i++)
+                    }
+                    else
+                    {
+                        @if(Model.PaginationInfo.CurrentPage == 4){
+                            @for (int i = Math.Max(2, Model.PaginationInfo.CurrentPage - 2); i <= Math.Min(Model.PaginationInfo.TotalPages - 1, Model.PaginationInfo.CurrentPage + 1); i++)
                             {
-                                <li class="pagination__item">
-                                    <a href="@(urlWithParams)&page=@i" class="@(i == Model.PaginationInfo.CurrentPage ? "pagination__current" : "pagination__number") test">@i</a>
+                                <li class="directory-pagination__item">
+                                    <a href="@(urlWithParams)&page=@i" class="@(i == Model.PaginationInfo.CurrentPage ? "directory-pagination__current" : "directory-pagination__number")"
+                                        aria-current="@(Model.PaginationInfo.CurrentPage == i ? "page" : string.Empty)"
+                                        aria-label="Page @i">@i</a>
                                 </li>
                             }
                         }
-                        else
-                        {
-                            <!-- Display page numbers with ellipses for larger number of pages -->
-                            @if(Model.PaginationInfo.CurrentPage == 4){
-                                @for (int i = Math.Max(2, Model.PaginationInfo.CurrentPage - 2); i <= Math.Min(Model.PaginationInfo.TotalPages - 1, Model.PaginationInfo.CurrentPage + 1); i++)
-                                {
-                                    <li class="pagination__item">
-                                        <a href="@(urlWithParams)&page=@i" class="test1 @(i == Model.PaginationInfo.CurrentPage ? "pagination__current" : "pagination__number")">@i</a>
-                                    </li>
-                                }
-                            }
-                            else{
-                                @for (int i = Math.Max(2, Model.PaginationInfo.CurrentPage - 1); i <= Math.Min(Model.PaginationInfo.TotalPages - 1, Model.PaginationInfo.CurrentPage + 1); i++)
-                                {
-                                    <li class="pagination__item">
-                                        <a href="@(urlWithParams)&page=@i" class="test1 @(i == Model.PaginationInfo.CurrentPage ? "pagination__current" : "pagination__number")">@i</a>
-                                    </li>
-                                }
-                            }
-
-                            <!-- Display ellipsis after the penultimate page if necessary -->
-                            @if (Model.PaginationInfo.TotalPages - Model.PaginationInfo.CurrentPage > 3)
+                        else{
+                            @for (int i = Math.Max(2, Model.PaginationInfo.CurrentPage - 1); i <= Math.Min(Model.PaginationInfo.TotalPages - 1, Model.PaginationInfo.CurrentPage + 1); i++)
                             {
-                                <li class="pagination__item">...</li>
+                                <li class="directory-pagination__item">
+                                    <a href="@(urlWithParams)&page=@i" class="@(i == Model.PaginationInfo.CurrentPage ? "directory-pagination__current" : "directory-pagination__number")"
+                                        aria-current="@(Model.PaginationInfo.CurrentPage == i ? "page" : string.Empty)"
+                                        aria-label="Page @i">@i</a>
+                                </li>
                             }
                         }
 
-                        <!-- Always display the last page -->
-                        <li class="pagination__item">
-                            <a href="@(urlWithParams)&page=@Model.PaginationInfo.TotalPages" class="@(Model.PaginationInfo.CurrentPage == Model.PaginationInfo.TotalPages ? "pagination__current" : "pagination__number")">@Model.PaginationInfo.TotalPages</a>
-                        </li>
-
-                        <!-- Display Next if not on last page -->
-                        @if (Model.PaginationInfo.CurrentPage < Model.PaginationInfo.TotalPages)
+                        @if (Model.PaginationInfo.TotalPages - Model.PaginationInfo.CurrentPage > 2)
                         {
-                            <li class="pagination__item">
-                                <a href="@(urlWithParams)&page=@(Model.PaginationInfo.CurrentPage + 1)" class="pagination__links">
-                                    <span class="pagination__right--rtl"></span>
-                                    Next
-                                    <span class="pagination__right"></span>
-                                </a>
-                            </li>
+                            <li class="directory-pagination__item directory-pagination__ellipses">...</li>
                         }
-                    </ul>
+                    }
+
+                    <li class="directory-pagination__item">
+                        <a href="@(urlWithParams)&page=@Model.PaginationInfo.TotalPages" class="@(Model.PaginationInfo.CurrentPage == Model.PaginationInfo.TotalPages ? "directory-pagination__current" : "directory-pagination__number")"
+                            aria-current="@(Model.PaginationInfo.CurrentPage == Model.PaginationInfo.TotalPages ? "page" : string.Empty)"
+                            aria-label="Page @Model.PaginationInfo.TotalPages">@Model.PaginationInfo.TotalPages</a>
+                    </li>
+                </ul>
+
+                <div class="directory-pagination__next">
+                    @if (Model.PaginationInfo.CurrentPage < Model.PaginationInfo.TotalPages)
+                    {
+                        <a href="@(urlWithParams)&page=@(Model.PaginationInfo.CurrentPage + 1)" class="directory-pagination__links">
+                            <span class="directory-pagination__right--rtl"></span>
+                            Next
+                            <span class="visuallyhidden">page</span>
+                            <span class="directory-pagination__right"></span>
+                        </a>
+                    }
                 </div>
-            }
-            
+            </nav>
         </div>
     </div>
-</nav>
+}

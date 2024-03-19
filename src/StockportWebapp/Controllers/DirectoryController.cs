@@ -83,22 +83,18 @@ public class DirectoryController : Controller
         return View("results", viewModel);
     }
 
-    private void DoPagination(DirectoryViewModel viewModel, int page)
+    private static void DoPagination(DirectoryViewModel viewModel, int page)
     {
         int totalEntries = viewModel.FilteredEntries.Count();
-        int pageSize = 1; // define pageSize
-        int totalPages = (int)Math.Ceiling((double)totalEntries / pageSize); // Calculate total pages
+        int pageSize = 12;
+        int totalPages = (int)Math.Ceiling((double)totalEntries / pageSize);
 
-        // Ensure that the page number is within the valid rang
         page = Math.Max(1, Math.Min(page, totalPages));
 
-        // Calculate the starting index of the entries for the current page
         int startIndex = (page - 1) * pageSize;
 
-        // Extract the subset of entries for the current page
         viewModel.PaginatedEntries = viewModel.FilteredEntries.Skip(startIndex).Take(pageSize).ToList();
 
-        // Update pagination information in the view model
         viewModel.PaginationInfo = new PaginationInfo
         {
             CurrentPage = page,
