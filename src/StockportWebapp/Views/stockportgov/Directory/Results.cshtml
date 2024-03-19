@@ -1,11 +1,12 @@
 @model DirectoryViewModel
 @{
+    bool showPagination = Model.PaginationInfo.TotalEntries > Model.PaginationInfo.PageSize;
     var directory = Model.Directory;
-    ViewData["Title"] = directory.Title + " results (page " + Model.PaginationInfo.CurrentPage + " of " + Model.PaginationInfo.TotalPages + ")";
-    ViewData["og:title"] = directory.Title + " page " + Model.PaginationInfo.CurrentPage + " of " + Model.PaginationInfo.TotalPages;
+    ViewData["Title"] = directory.Title + (showPagination ? " results (page " + Model.PaginationInfo.CurrentPage + " of " + Model.PaginationInfo.TotalPages + ")" : string.Empty);
+    ViewData["BreadcrumbTitle"] = directory.Title;
+    ViewData["og:title"] = directory.Title;
     ViewData["Description"] = directory.MetaDescription;
     Layout = "../Shared/_Layout2023.cshtml";
-    bool showPagination = Model.PaginationInfo.TotalEntries > Model.PaginationInfo.PageSize;
 }
 
 <div class="grid-container-full-width background-grey" data-cy="search-results">
