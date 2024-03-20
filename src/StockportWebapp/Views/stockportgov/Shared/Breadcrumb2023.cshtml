@@ -12,7 +12,7 @@
                     <li><a href="@crumb.NavigationLink">@crumb.Title</a></li>
                 }
                     
-                <li class="current"><span>@ViewBag.Title</span></li>
+                <li class="current"><span>@(ViewBag.BreadcrumbTitle ?? ViewBag.Title)</span></li>
             </ul>
         </div>
     </div>

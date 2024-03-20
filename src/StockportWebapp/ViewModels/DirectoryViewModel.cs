@@ -24,11 +24,18 @@ public class DirectoryViewModel
     public DirectoryEntry DirectoryEntry { get; set; }
 
     public IEnumerable<Crumb> Breadcrumbs { get; set; }
+    
     public string Order { get; set; }
 
     public List<string> OrderBy = new() { "Name A to Z", "Name Z to A" };
 
-    public bool DisplayIcons => Directory.SubDirectories.All(item => !string.IsNullOrEmpty(item.Icon));
+    public List<DirectoryEntry> PaginatedEntries { get; set; }
+    
+    public PaginationInfo PaginationInfo { get; set; }
+    
+    public bool DisplayIcons => Directory?.SubDirectories is not null && 
+                                Directory.SubDirectories.Any() && 
+                                Directory.SubDirectories.All(item => item is not null && !string.IsNullOrEmpty(item.Icon));
 
     public bool IsRootDirectory => Directory.Title.Equals(ParentDirectory.Title);
 
@@ -41,16 +48,44 @@ public class DirectoryViewModel
                 queryParameters.Add(new Query("searchTerm", SearchTerm));
 
             if (!string.IsNullOrEmpty(Order))
-                queryParameters.Add(new Query("orderBy", Order));
+            {
+                queryParameters.Add(new Query("orderBy", Order.Replace(" ", "-")));
+            }
 
-            if (AppliedFilters is not null)
-                AppliedFilters.ToList().ForEach(filter => queryParameters.Add(new Query("filters", filter.Slug)));
-
+            AppliedFilters?.ToList().ForEach(filter => queryParameters.Add(new Query("filters", filter.Slug)));
+           
             return queryParameters;
         }
     }
-
+    
     public Dictionary<string, int> FilterCounts { get; set; }
 
+    public static void DoPagination(DirectoryViewModel viewModel, int page)
+    {
+        int totalEntries = viewModel.FilteredEntries.Count();
+        int pageSize = 12;
+        int totalPages = (int)Math.Ceiling((double)totalEntries / pageSize);
 
+        page = Math.Max(1, Math.Min(page, totalPages));
+
+        int startIndex = (page - 1) * pageSize;
+
+        viewModel.PaginatedEntries = viewModel.FilteredEntries.Skip(startIndex).Take(pageSize).ToList();
+
+        viewModel.PaginationInfo = new PaginationInfo
+        {
+            CurrentPage = page,
+            TotalPages = totalPages,
+            TotalEntries = totalEntries,
+            PageSize = pageSize
+        };
+    }
+}
+
+public class PaginationInfo
+{
+    public int CurrentPage { get; set; }
+    public int TotalPages { get; set; }
+    public int TotalEntries { get; set; }
+    public int PageSize { get; set; }
 }

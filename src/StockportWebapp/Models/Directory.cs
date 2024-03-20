@@ -41,7 +41,6 @@ namespace StockportWebapp.Models
             }         
         }
 
-
         public string ToKml() => AllEntries.GetKmlForList();
     }
 }

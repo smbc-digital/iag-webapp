@@ -9,7 +9,6 @@ public class DirectoryController : Controller
     private readonly IFeatureManager _featureManager;
     private readonly bool _isToggledOn = true;
     private readonly string _defaultUrlPrefix = "directories";
-
     public DirectoryController(IDirectoryService directoryService, IFeatureManager featureManager = null)
     {
         _featureManager = featureManager;
@@ -50,7 +49,7 @@ public class DirectoryController : Controller
 
     [HttpGet]
     [Route("/directories/results/{**slug}")]
-    public async Task<IActionResult> DirectoryResults([Required][FromRoute]string slug, string[] filters, string orderBy, string searchTerm)
+    public async Task<IActionResult> DirectoryResults([Required][FromRoute]string slug, string[] filters, string orderBy, string searchTerm, [FromQuery] int page)
     {
         if (!_isToggledOn || string.IsNullOrEmpty(slug))
             return NotFound();
@@ -65,8 +64,7 @@ public class DirectoryController : Controller
 
         var entries = GetSearchedFilteredSortedEntries(directory.AllEntries, filters, orderBy, searchTerm);
         var allFilterThemes = _directoryService.GetFilterThemes(entries);
-        
-        return View("results", new DirectoryViewModel
+        var viewModel = new DirectoryViewModel
         {
             Slug = slug,
             Breadcrumbs = GetBreadcrumbsForDirectories(parentDirectories, false),
@@ -79,7 +77,11 @@ public class DirectoryController : Controller
             FilterCounts = _directoryService.GetAllFilterCounts(entries),
             SearchTerm = searchTerm,
             Order = orderBy
-        });
+        };
+        
+        DirectoryViewModel.DoPagination(viewModel, page);
+
+        return View("results", viewModel);
     }
 
     private IEnumerable<DirectoryEntry> GetSearchedFilteredSortedEntries(IEnumerable<DirectoryEntry> entries, string[] filters, string orderBy, string searchTerm)
