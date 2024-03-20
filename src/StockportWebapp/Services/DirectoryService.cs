@@ -21,12 +21,16 @@ public class DirectoryService : IDirectoryService {
     private readonly IApplicationConfiguration _config;
     private readonly MarkdownWrapper _markdownWrapper;
     private readonly IRepository _repository;
+    private readonly ISimpleTagParserContainer _simpleTagParserContainer;
+    private readonly IDynamicTagParserContainer _dynamicTagParserContainer;
 
-    public DirectoryService(IApplicationConfiguration config, MarkdownWrapper markdownWrapper, IRepository repository)
+    public DirectoryService(IApplicationConfiguration config, MarkdownWrapper markdownWrapper, IRepository repository,ISimpleTagParserContainer simpleTagParserContainer, IDynamicTagParserContainer dynamicTagParserContainer)
     {
         _config = config;
         _markdownWrapper = markdownWrapper;
         _repository = repository;
+        _simpleTagParserContainer = simpleTagParserContainer;
+        _dynamicTagParserContainer = dynamicTagParserContainer;
     }
 
     public async Task<Directory> Get<T>(string slug = "")
@@ -36,7 +40,11 @@ public class DirectoryService : IDirectoryService {
         if (!httpResponse.IsSuccessful())
             throw new HttpRequestException($"HTTP request failed with status code {httpResponse.StatusCode}");
 
-        return (Directory)httpResponse.Content;
+        var directory =  (Directory)httpResponse.Content;
+        var parsedBody = _simpleTagParserContainer.ParseAll(directory.Body, directory.Title);
+        directory.Body = _dynamicTagParserContainer.ParseAll(parsedBody, directory.Title, true, null, null, null, null, null, null);
+
+        return directory;
     }
 
     public async Task<DirectoryEntry> GetEntry<T>(string slug = "")
@@ -47,9 +55,11 @@ public class DirectoryService : IDirectoryService {
             throw new HttpRequestException($"HTTP request failed with status code {httpResponse.StatusCode}");
 
         var directoryEntry = (DirectoryEntry)httpResponse.Content;
-
         directoryEntry.Description = _markdownWrapper.ConvertToHtml(directoryEntry.Description ?? "");
         directoryEntry.Address = _markdownWrapper.ConvertToHtml(directoryEntry.Address ?? "");
+
+        var parsedBody = _simpleTagParserContainer.ParseAll(directoryEntry.Description, directoryEntry.Name);
+        directoryEntry.Description = _dynamicTagParserContainer.ParseAll(parsedBody, directoryEntry.Name, true, null, null, null, null, null, null);
 
         return directoryEntry;
     }

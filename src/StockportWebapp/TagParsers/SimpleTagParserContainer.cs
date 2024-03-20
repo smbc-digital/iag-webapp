@@ -7,27 +7,17 @@ public interface ISimpleTagParserContainer
 
 public class SimpleTagParserContainer : ISimpleTagParserContainer
 {
-    private readonly List<ISimpleTagParser> _tagParsers;
-    private static Regex EmptyTagRegex => new Regex("{{([£$%^&*()@<>?~#|\\'\":\\w\\s]*)}}", RegexOptions.Compiled);
+    private readonly IEnumerable<ISimpleTagParser> _tagParsers;
+    private static Regex EmptyTagRegex => new Regex("{{([ï¿½$%^&*()@<>?~#|\\'\":\\w\\s]*)}}", RegexOptions.Compiled);
 
-    public SimpleTagParserContainer(List<ISimpleTagParser> tagParsers)
-    {
-        _tagParsers = tagParsers;
-    }
+    public SimpleTagParserContainer(IEnumerable<ISimpleTagParser> tagParsers) => _tagParsers = tagParsers;
 
-    public string ParseAll(string content, string title = null, bool removeEmptytags = true)
+    public string ParseAll(string content, string title = null, bool removeEmptyTags = true)
     {
         var parsedContent = _tagParsers.Aggregate(content, (c, tagParser) => tagParser.Parse(c, title));
-        if (removeEmptytags)
-        {
-            parsedContent = RemoveEmptyTags(parsedContent);
-        }
-
-        return parsedContent;
+        return removeEmptyTags ? RemoveEmptyTags(parsedContent) : parsedContent;
     }
 
-    private static string RemoveEmptyTags(string body)
-    {
-        return EmptyTagRegex.Replace(body, string.Empty);
-    }
+    private static string RemoveEmptyTags(string body) =>
+        EmptyTagRegex.Replace(body, string.Empty);
 }

@@ -19,8 +19,7 @@ public class S3BucketSearchTagParser : IDynamicTagParser<S3BucketSearch>
 
         foreach (Match match in matches)
         {
-            var search = searches.FirstOrDefault();
-
+            var search = searches?.FirstOrDefault();
             if (search != null)
             {
                 search.SearchFolder = match.Groups[0].ToString().Replace("{{Search:", "").Replace("}}", "");
@@ -31,8 +30,6 @@ public class S3BucketSearchTagParser : IDynamicTagParser<S3BucketSearch>
         return RemoveEmptyTags(content);
     }
 
-    private string RemoveEmptyTags(string content)
-    {
-        return TagRegex.Replace(content, string.Empty);
-    }
+    private string RemoveEmptyTags(string content) =>   
+        TagRegex.Replace(content, string.Empty);
 }
