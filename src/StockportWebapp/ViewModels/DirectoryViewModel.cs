@@ -33,7 +33,9 @@ public class DirectoryViewModel
     
     public PaginationInfo PaginationInfo { get; set; }
     
-    public bool DisplayIcons => Directory.SubDirectories.All(item => !string.IsNullOrEmpty(item.Icon));
+    public bool DisplayIcons => Directory?.SubDirectories is not null && 
+                                Directory.SubDirectories.Any() && 
+                                Directory.SubDirectories.All(item => item is not null && !string.IsNullOrEmpty(item.Icon));
 
     public bool IsRootDirectory => Directory.Title.Equals(ParentDirectory.Title);
 
@@ -50,8 +52,7 @@ public class DirectoryViewModel
                 queryParameters.Add(new Query("orderBy", Order.Replace(" ", "-")));
             }
 
-            if (AppliedFilters is not null)
-                AppliedFilters.ToList().ForEach(filter => queryParameters.Add(new Query("filters", filter.Slug)));
+            AppliedFilters?.ToList().ForEach(filter => queryParameters.Add(new Query("filters", filter.Slug)));
            
             return queryParameters;
         }
