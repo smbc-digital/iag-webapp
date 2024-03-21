@@ -40,11 +40,11 @@
     <link rel=alternate type=application/rss+xml href=/news/rss title="Stockport Council News Feed" />
     <link rel=alternate type=application/rss+xml href=/events/rss title="Stockport Council Events Feed" />
 
-    <partial name=CookieBanner />
+    <script type=text/javascript src=~/assets/javascript/vendor/require.min.js asp-append-version=true></script>
+
+    <partial name=CookieNotice />
     <partial name=TagManager/TagManagerDataLayer />
     <partial name=TagManager/TagManager />
-
-    <script type=text/javascript src=~/assets/javascript/vendor/require.min.js asp-append-version=true></script>
 </head>
 
 <body class='container-layout-free @(string.Concat("type-", ViewContext.RouteData.Values["controller"].ToString().ToLower())) background-grey directory-no-header-search'>
