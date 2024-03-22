@@ -14,6 +14,16 @@
             align-items: center;
             flex-wrap: wrap;
         }
+        
+        @media #{$mobile}{
+            &__prev {
+                margin-bottom: 1em;
+            }
+    
+            &__next {
+                margin-top: 1em;
+            }
+        }
 
         &__count {
             text-align: center;
@@ -82,6 +92,34 @@
     
         &__ellipses {
             font-weight: 700;
+        }
+    }
+}
+
+html[dir="rtl"] {
+    .directory-pagination {
+        &__right {
+            display: none;
+            &--rtl{
+                &::before {
+                    content: "\f054";
+                    font: bold normal normal 19px/1 FontAwesome;
+                }
+            }
+        }
+    
+        &__left {
+            display: none;
+            &--rtl {
+                &::after {
+                    content: "\f053";
+                    font: bold normal normal 19px/1 FontAwesome;
+                }
+            }
+        }
+
+        &__item {
+            float: right;
         }
     }
 }

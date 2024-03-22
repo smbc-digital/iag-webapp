@@ -102,6 +102,7 @@ public class DirectoryService : IDirectoryService {
             ? filteredEntries
                 .Where(entry => entry.Themes is not null)
                 .SelectMany(entry => entry.Themes)
+                .Where(themeTitle => !string.IsNullOrEmpty(themeTitle.Title))
                 .GroupBy(theme => theme.Title, StringComparer.OrdinalIgnoreCase)
                 .Select(group => new FilterTheme
                 {
