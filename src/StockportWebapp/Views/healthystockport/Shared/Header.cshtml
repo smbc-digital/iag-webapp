@@ -25,15 +25,24 @@
 
 </div>
 <partial name="MobileSearchBar" />
-<partial name="BrowserCheck" />
+<partial name="BrowserCheck" /> 
 
 <script>
-    require(['/assets/javascript/config-80795c2e.min.js'], function() {
-        require(['healthystockport', 'reciteMe', 'cludo', 'Cludo'],
-            function(healthystockport, reciteMe, cludo) {
+    require(['/assets/javascript/config-80795c2e.min.js'], function () {
+        require(['healthystockport', 'cludo', 'Cludo'],
+            function (healthystockport, cludo) {
                 healthystockport.Init();
-                reciteMe.Init();
                 cludo.Init(true);
+            }
+        );
+    });
+</script>
+
+<script>
+    require(['/assets/javascript/config-80795c2e.min.js'], function () {
+        require(['reciteMe'],
+            function (reciteMe) {
+                reciteMe.Init();
             }
         );
     });

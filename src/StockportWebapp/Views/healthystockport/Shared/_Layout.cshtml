@@ -38,11 +38,12 @@
 	    @RenderSection("BackgroundImage")
     }
 
-    <partial name="CookieBanner" />
-    @await Component.InvokeAsync("GoogleAnalytics")
-
     <script type=text/javascript src=~/assets/javascript/vendor/require.min.js></Script>
+
+    <partial name="CookieNotice" />
+    @await Component.InvokeAsync("GoogleAnalytics")
 </head>
+
 <body class="container-layout-free container-layout-mobile @(string.Concat("type-", ViewContext.RouteData.Values["controller"].ToString().ToLower()))">
     <partial name=Header />
 

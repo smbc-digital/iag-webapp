@@ -34,11 +34,13 @@
 
     @RenderSection("BackgroundImage")
     @RenderSection("CarouselBackgroundImage")
-    <partial name="CookieBanner" />
-    @await Component.InvokeAsync("GoogleAnalytics")
-
+    
     <script type=text/javascript src=~/assets/javascript/vendor/require.min.js></Script>
+
+    <partial name="CookieNotice" />
+    @await Component.InvokeAsync("GoogleAnalytics")
 </head>
+
 <body class="container-layout-free type-article">
     <partial name=Header />
     <div class="l-background">
