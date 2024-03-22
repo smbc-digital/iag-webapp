@@ -8,7 +8,10 @@
     Layout = "../Shared/_Layout2023.cshtml";
 
     var navcardNoPadding = Model.DisplayIcons ? "navcard--no-padding-top" : string.Empty;
-    var sectionNoMarginBottom = !string.IsNullOrEmpty(directory.EventBanner.Title) ? "section--no-margin" : string.Empty;
+    var sectionNoMarginBottom = "";
+    if(!string.IsNullOrEmpty(directory.EventBanner.Title) || Model.Directory.ExternalLinks is not null || Model.Directory.RelatedContent is not null){
+        sectionNoMarginBottom = "section--margin-bottom-1";
+    }
 
     var sectionMarginTop = "";
     var titleNoMarginBottom = "";
@@ -59,8 +62,8 @@
                         @foreach (var subdirectory in subdirectories)
                         {
                             var colourScheme = Model.IsRootDirectory
-                                ? string.IsNullOrEmpty(subdirectory.ColourScheme) ? "teal" : subdirectory.ColourScheme.ToLower()
-                                : string.IsNullOrEmpty(Model.FirstSubDirectory.ColourScheme) ? "teal" : Model.FirstSubDirectory.ColourScheme.ToLower();
+                            ? string.IsNullOrEmpty(subdirectory.ColourScheme) ? "teal" : subdirectory.ColourScheme.ToLower()
+                            : string.IsNullOrEmpty(Model.FirstSubDirectory.ColourScheme) ? "teal" : Model.FirstSubDirectory.ColourScheme.ToLower();
 
                             <li class="navcard navcard--width-33 navcard--center navcard-all navcard--border-top-10 navcard--theme-@colourScheme navcard--theme-@colourScheme-all">
                                 <a href=@Url.Action("Directory", "Directory", new { slug=$"{Model.Slug}/{subdirectory.Slug}" }) class="navcard__link">
@@ -80,8 +83,8 @@
                                 </a>
                             </li>
                         }
-
-                        @if(!directory.Title.Equals(Model.ParentDirectory.Title))
+                        
+                        @if (!directory.Title.Equals(Model.ParentDirectory.Title))
                         {
                             var colourSchemeViewAll = subdirectories.Select(subdirectory => {
                                     var directoryToCheck = directory.Title.Equals(Model.ParentDirectory.Title) ? subdirectory : Model.FirstSubDirectory;
