@@ -9,9 +9,8 @@ public class HomeController : Controller
     private readonly IEventsService _eventsService;
     private readonly IHomepageService _homepageService;
     private readonly IStockportApiEventsService _stockportApiEventsService;
-    private readonly ICookiesHelper _cookiesHelper;
 
-    public HomeController(BusinessId businessId, IApplicationConfiguration applicationConfiguration, INewsService newsService, IEventsService eventsService, IHomepageService homepageService, IStockportApiEventsService stockportApiService, ICookiesHelper cookiesHelper)
+    public HomeController(BusinessId businessId, IApplicationConfiguration applicationConfiguration, INewsService newsService, IEventsService eventsService, IHomepageService homepageService, IStockportApiEventsService stockportApiService)
     {
         _config = applicationConfiguration;
         _businessId = businessId;
@@ -19,7 +18,6 @@ public class HomeController : Controller
         _eventsService = eventsService;
         _homepageService = homepageService;
         _stockportApiEventsService = stockportApiService;
-        _cookiesHelper = cookiesHelper;
     }
 
     [Route("/")]
