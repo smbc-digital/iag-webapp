@@ -29,7 +29,7 @@
             @foreach(var item in Model.ExternalLinks)
             {
                 <li class="external-link__container">
-                    <a href="@item.URL" class="external-link__link" data-cy="external-link-link">
+                    <a href="@item.URL" class="external-link__link" target="_blank" data-cy="external-link-link">
                         <p class="external-link__title">@item.Title</p>
                         <p class="external-link__teaser">@item.Teaser</p>
                     </a>

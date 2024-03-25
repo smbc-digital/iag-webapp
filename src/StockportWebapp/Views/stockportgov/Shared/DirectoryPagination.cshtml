@@ -30,9 +30,9 @@
                     {
                         <a href="@(urlWithParams)&page=@(Model.PaginationInfo.CurrentPage - 1)" class="directory-pagination__links">
                             <span class="directory-pagination__left"></span>
+                            <span class="directory-pagination__right--rtl"></span>
                             Previous
                             <span class="visuallyhidden">page</span>
-                            <span class="directory-pagination__left--rtl"></span>
                         </a>
                     }
                 </div>
@@ -99,9 +99,9 @@
                     @if (Model.PaginationInfo.CurrentPage < Model.PaginationInfo.TotalPages)
                     {
                         <a href="@(urlWithParams)&page=@(Model.PaginationInfo.CurrentPage + 1)" class="directory-pagination__links">
-                            <span class="directory-pagination__right--rtl"></span>
                             Next
                             <span class="visuallyhidden">page</span>
+                            <span class="directory-pagination__left--rtl"></span>
                             <span class="directory-pagination__right"></span>
                         </a>
                     }

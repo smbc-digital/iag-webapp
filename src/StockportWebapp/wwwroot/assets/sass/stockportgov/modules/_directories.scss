@@ -650,28 +650,6 @@
 }
 
 html[dir="rtl"] {
-    .pagination {
-        &__right {
-            display: none;
-            &--rtl{
-                &::after {
-                    content: "\f054";
-                    font: bold normal normal 19px/1 FontAwesome;
-                }
-            }
-        }
-    
-        &__left {
-            display: none;
-            &--rtl {
-                &::after {
-                    content: "\f053";
-                    font: bold normal normal 19px/1 FontAwesome;
-                }
-            }
-        }
-    }
-
     .directory {
         &--30 {
             margin-right: 0;
