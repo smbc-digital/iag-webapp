@@ -23,14 +23,17 @@
     <link rel=stylesheet type=text/css href=@stylesheet.CludoSearch />
     <link rel=stylesheet type=text/css href=@stylesheet.StyleguideSemanticV2 />
     <link rel=stylesheet type=text/css href=@stylesheet.Slick />
-
-    <script src="~/assets/javascript/vendor/require.min.js"></Script>
-
-    <partial name="TagManager/TagManagerDataLayer" />
-    <partial name="TagManager/TagManager" />
+    <link rel=stylesheet href=~/assets/stylesheets/site-cookieNotice.min.css asp-append-version=true />
+    
+    <script src=~/assets/javascript/vendor/require.min.js asp-append-version=true></script>
 </head>
+
 <body class=@bodyClass>
+    <partial name=CookieNotice />
+    <partial name=TagManager/TagManagerDataLayer />
+    <partial name=TagManager/TagManager />
     <partial name="TagManager/TagManagerNoScript" />
+
     <header>
         <partial name="SemanticHeader" />
         @RenderSection("Breadcrumbs", false)
@@ -45,7 +48,7 @@
     </distributed-cache>
 
     <script>
-        require(['/assets/javascript/config-13323b29.min.js'], function() {
+        require(['/assets/javascript/config-80795c2e.min.js'], function() {
             require(['jquery'], function () { } );
         });
     </script>

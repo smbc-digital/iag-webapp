@@ -16,15 +16,18 @@
     <link rel=stylesheet href=@democracyHomeLink/assets/stylesheets/vendor/unsemantic-grid-responsive-tablet.min.css />
     <link rel=stylesheet href=@democracyHomeLink/assets/stylesheets/site-sg.min.css />
     <link rel=stylesheet href=https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css integrity="sha256-AIodEDkC8V/bHBkfyxzolUMw57jeQ9CauwhVW6YJ9CA= sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1 sha512-4uGZHpbDliNxiAv/QzZNo/yb2FtAX+qiDb7ypBWiEdJQX8Pugp8M6il5SRkN8jQrDLWsh3rrPDSXRf3DwFYM6g==" crossorigin=anonymous>
+</head>
+
+<body class="container-layout-free">
     <partial name=TagManager/TagManagerDataLayer />
     <partial name=TagManager/TagManager />
-</head>
-<body class="container-layout-free">
     <partial name=TagManager/TagManagerNoScript />
     <partial name=HeaderExternal />
+
     <main>
         @RenderBody()
     </main>
+
     <partial name=StaticFooter />
 
     <script data-main=@democracyHomeLink/assets/javascript/config-external-c1adf0c7.min.js src=@democracyHomeLink/assets/javascript/vendor/require.min.js asp-append-version=true></Script>

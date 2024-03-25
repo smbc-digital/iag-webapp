@@ -1,22 +1,10 @@
 ﻿namespace StockportWebapp.Utils;
 
-public interface ICookiesHelper
-{
-    void AddToCookies<T>(string slug, string cookieType);
-    List<string> GetCookies<T>(string cookieType);
-    List<T> PopulateCookies<T>(List<T> items, string cookieType);
-    void RemoveAllFromCookies<T>(string cookieType);
-    void RemoveFromCookies<T>(string slug, string cookieType);
-}
-
 public class CookiesHelper : ICookiesHelper
 {
     private IHttpContextAccessor httpContextAccessor;
 
-    public CookiesHelper(IHttpContextAccessor accessor)
-    {
-        httpContextAccessor = accessor;
-    }
+    public CookiesHelper(IHttpContextAccessor accessor) => httpContextAccessor = accessor;
 
     public List<T> PopulateCookies<T>(List<T> items, string cookieType)
     {
@@ -85,12 +73,8 @@ public class CookiesHelper : ICookiesHelper
         UpdateCookies(cookiesAsObject, cookieType);
     }
 
-    public List<string> GetCookies<T>(string cookieType)
-    {
-        var cookiesAsObject = GetCookiesAsObject(cookieType);
-
-        return cookiesAsObject.Values.SelectMany(cookieAsObject => cookieAsObject.Select(cookie => cookie.ToString())).ToList();
-    }
+    public List<string> GetCookies<T>(string cookieType) =>
+        GetCookiesAsObject(cookieType).Values.SelectMany(cookieAsObject => cookieAsObject.Select(cookie => cookie.ToString())).ToList();
 
     public static Dictionary<string, List<string>> ExtractValuesFromJson(string cookies)
     {
@@ -122,5 +106,22 @@ public class CookiesHelper : ICookiesHelper
     {
         var data = JsonConvert.SerializeObject(cookies);
         httpContextAccessor.HttpContext.Response.Cookies.Append(cookieType, data, new CookieOptions { Expires = DateTime.Now.AddMonths(1) });
+    }
+
+    public CookieConsentLevel GetCurrentCookieConsentLevel()
+    {
+        var consentAccteptedValue = httpContextAccessor.HttpContext.Request.Cookies["cookie_consent_user_accepted"];
+
+        if (string.IsNullOrEmpty(consentAccteptedValue))
+            return new CookieConsentLevel();
+
+        if (!bool.Parse(consentAccteptedValue))
+            return new CookieConsentLevel();
+
+        var consentLevel = httpContextAccessor.HttpContext.Request.Cookies["cookie_consent_level"];
+
+        return string.IsNullOrEmpty(consentLevel)
+            ? new CookieConsentLevel()
+            : JsonConvert.DeserializeObject<CookieConsentLevel>(consentLevel);
     }
 }

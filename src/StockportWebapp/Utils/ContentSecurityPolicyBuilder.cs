@@ -229,6 +229,7 @@ public class ContentSecurityPolicyBuilder
             .AddSource("js-eu1.hs-banner.com")
             .AddSource("js-eu1.hsadspixel.net")
             .AddSource("forms-eu1.hsforms.com")
+            .AddSource("www.freeprivacypolicy.com")
             .Finish());
     }
 

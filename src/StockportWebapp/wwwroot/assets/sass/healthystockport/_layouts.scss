@@ -6,14 +6,10 @@
 
 .l-header-container {
     width: 100%;
-    height: 80px;
     top: 0px;
     z-index: 10;
     background-color: $colorBrand;
 
-    @media #{$mobile} {
-        height: 60px;
-    }
 
     border-bottom: 0px solid $whiteOpaque2;
 

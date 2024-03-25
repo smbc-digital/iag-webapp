@@ -1,9 +1,4 @@
 ﻿define(['jquery'], function ($) {
-    var addCookie = function (slug, cookieType) {
-        var url = `/cookies/add?slug=${slug}&cookieType=${cookieType}`;
-        $.post(url);
-    };
-
     let hasInitialized = false;
 
     return {
@@ -13,14 +8,12 @@
 
                 $(".close-alert").click(function () {
                     var slug = $(this).attr("data-slug");
-                    addCookie(slug, "alert");
                     var parent = $(this).attr("data-parent");
                     $(this).closest(`.${parent}`).hide();
                 });
 
                 $(".dismiss a").click(function () {
                     var slug = $(this).attr("data-slug");
-                    addCookie(slug, "alert");
 
                     const alertBox = $(this).closest(`.${$(this).attr("data-parent")}`);
                     var alertBoxContainer = alertBox.parent();
