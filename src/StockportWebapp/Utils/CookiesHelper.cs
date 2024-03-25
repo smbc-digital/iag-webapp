@@ -1,4 +1,6 @@
-﻿namespace StockportWebapp.Utils;
+﻿using StockportGovUK.NetStandard.Gateways.Models.Booking;
+
+namespace StockportWebapp.Utils;
 
 public interface ICookiesHelper
 {
@@ -7,6 +9,23 @@ public interface ICookiesHelper
     List<T> PopulateCookies<T>(List<T> items, string cookieType);
     void RemoveAllFromCookies<T>(string cookieType);
     void RemoveFromCookies<T>(string slug, string cookieType);
+    CookieConsentLevel GetCurrentCookieConsentLevel();
+}
+
+public class CookieConsentLevel
+{
+    [JsonProperty(PropertyName = "strictly-necessary")]
+    public bool StriclyNecessary { get; set; } = true;
+
+    [JsonProperty(PropertyName = "functionality")]
+    public bool Functionality { get; set; }
+
+    [JsonProperty(PropertyName = "tracking")]
+    public bool Tracking { get; set; }
+
+    [JsonProperty(PropertyName = "targeting")]
+    public bool Targetting { get; set; }
+
 }
 
 public class CookiesHelper : ICookiesHelper
@@ -122,5 +141,22 @@ public class CookiesHelper : ICookiesHelper
     {
         var data = JsonConvert.SerializeObject(cookies);
         httpContextAccessor.HttpContext.Response.Cookies.Append(cookieType, data, new CookieOptions { Expires = DateTime.Now.AddMonths(1) });
+    }
+
+    public CookieConsentLevel GetCurrentCookieConsentLevel()
+    {
+        var consentAccteptedValue = httpContextAccessor.HttpContext.Request.Cookies["cookie_consent_user_accepted"];
+
+        if (string.IsNullOrEmpty(consentAccteptedValue))
+            return new CookieConsentLevel();
+
+        if (!bool.Parse(consentAccteptedValue))
+            return new CookieConsentLevel();
+
+        var consentLevel = httpContextAccessor.HttpContext.Request.Cookies["cookie_consent_level"];
+
+        return string.IsNullOrEmpty(consentLevel)
+            ? new CookieConsentLevel()
+            : JsonConvert.DeserializeObject<CookieConsentLevel>(consentLevel);
     }
 }
