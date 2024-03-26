@@ -1,7 +1,14 @@
 .external-link {
+    padding-top: 0.5em !important;
+
+    @media #{$mobile} {
+        padding-top: 0;
+    }
+
     &__list {
         list-style-type: none;
         margin-bottom: 0;
+        margin-top: 0.2em;
 
         @media #{$mobile} {
             margin-left: 5px;
@@ -12,14 +19,19 @@
     &__link {
         display: block;
         text-decoration: none;
-        padding-top: 1em;
-        padding-bottom: 1em;
         cursor: pointer;
+        padding: 0;
+        margin-top: 1.5em;
+
+        @media #{$mobile} {
+            padding-bottom: 1em;
+            margin-top: 0;
+        }
 
         &:hover {
             text-decoration: none;
 
-            .external-link-title {
+            .external-link__title {
                 text-decoration: underline;
                 text-decoration-thickness: 3px;
             }
@@ -32,6 +44,10 @@
         
         &:last-child > a {
             padding-bottom: 0.5em;
+        }
+
+        &:first-child > a {
+            margin-top: 0;
         }
     }
 
