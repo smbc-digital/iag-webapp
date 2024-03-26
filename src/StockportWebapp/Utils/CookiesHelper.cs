@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.DataProtection.KeyManagement;
-using SharpKml.Dom;
-
-namespace StockportWebapp.Utils;
+﻿namespace StockportWebapp.Utils;
 
 public class CookiesHelper : ICookiesHelper
 {
