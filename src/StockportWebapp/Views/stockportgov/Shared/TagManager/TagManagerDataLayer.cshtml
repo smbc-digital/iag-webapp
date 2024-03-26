@@ -1,7 +1,7 @@
 ﻿@inject IAnalyticsConfiguration Analytics
 @using StockportWebapp.Models.Config;
 
-<script>
+<script type="text/plain" data-cookie-consent="tracking">
     dataLayer = [{
         'AnalyticsTrackingCode': '@Analytics.GetTrackerCode().AnalyticsTrackingCode'
     }];

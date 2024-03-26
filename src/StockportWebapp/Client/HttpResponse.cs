@@ -11,21 +11,14 @@ public class HttpResponse : StatusCodeResult
         Error = error;
     }
 
-    public static HttpResponse Successful(int statusCode, object content)
-    {
-        return new HttpResponse(statusCode, content, string.Empty);
-    }
+    public static HttpResponse Successful(int statusCode, object content) =>
+        new HttpResponse(statusCode, content, string.Empty);
 
-    public static HttpResponse Failure(int statusCode, string error)
-    {
-        return new HttpResponse(statusCode, string.Empty, error);
-    }
-
-
-    public override string ToString()
-    {
-        return JsonConvert.SerializeObject(this);
-    }
+    public static HttpResponse Failure(int statusCode, string error) =>
+        new HttpResponse(statusCode, string.Empty, error);
+    
+    public override string ToString() =>
+        JsonConvert.SerializeObject(this);
 
     public static HttpResponse Build<T>(HttpResponse httpResponse)
     {
@@ -39,18 +32,12 @@ public class HttpResponse : StatusCodeResult
 
 public static class StatusCodeResultExtensions
 {
-    internal static bool IsSuccessful(this StatusCodeResult result)
-    {
-        return result.StatusCode == 200;
-    }
+    internal static bool IsSuccessful(this StatusCodeResult result) =>
+        result.StatusCode == 200;
 
-    internal static bool IsNotFound(this StatusCodeResult result)
-    {
-        return result.StatusCode == 404;
-    }
+    internal static bool IsNotFound(this StatusCodeResult result) =>
+        result.StatusCode == 404;
 
-    internal static bool IsNotAuthorised(this StatusCodeResult result)
-    {
-        return result.StatusCode == 401;
-    }
+    internal static bool IsNotAuthorised(this StatusCodeResult result) =>
+        result.StatusCode == 401;
 }

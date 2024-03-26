@@ -53,15 +53,13 @@
 
     <link rel=alternate type=application/rss+xml href=/news/rss title="Stockport Council News Feed" />
     <link rel=alternate type=application/rss+xml href=/events/rss title="Stockport Council Events Feed" />
-
-    <partial name=CookieBanner />
-    <partial name=TagManager/TagManagerDataLayer />
-    <partial name=TagManager/TagManager />
-
-    @*<script type=text/javascript src=@stylesheet.DesignSystemJs asp-append-version=true></script>*@
     <script type=text/javascript src=~/assets/javascript/vendor/require.min.js asp-append-version=true></Script>
+
 </head>
 <body class="container-layout-free @(string.Concat("type-", ViewContext.RouteData.Values["controller"].ToString().ToLower()))">
+    <partial name=CookieNotice />
+    <partial name=TagManager/TagManagerDataLayer />
+    <partial name=TagManager/TagManager />
     <partial name=TagManager/TagManagerNoScript />
     <div id="__ba_launchpad"></div>
     <partial name=Header />
@@ -74,7 +72,7 @@
     </distributed-cache>
 
     <script>
-        require(['/assets/javascript/config-13323b29.min.js'], function() {
+        require(['/assets/javascript/config-80795c2e.min.js'], function() {
             require(['jquery', 'matchbox'], 
                 function (_, matchbox) {
                     matchbox.Init();

@@ -3,19 +3,18 @@
         <a href="#content" class="skip-main"> Skip to main content </a>
     </nav>
     <header id="header" class="grid-container grid-100">
-        <div class="grid-50 mobile-grid-50 tablet-grid-50 logo-main">
+        <div class="grid-30 mobile-grid-100 tablet-grid-50 logo-main">
             <a href="/"><img src="/assets/images/ui-images/logo-main@2x.png" alt="Healthy Stockport Logo Homepage Link " title="Welcome to Healthy Stockport" class="logo-main-image"></a>
         </div>
-        <div class="grid-50 mobile-grid-50 tablet-grid-50 grid-parent">
+        <div class="grid-70 mobile-grid-100 tablet-grid-50 grid-parent">
             <div class="header-container grid-100 grid-parent">
-                <div class="grid-50 grid-parent header-myaccount">
-                    <div class="menu">
-                        <div class="menu-logged-out pull-right">
-                            <a href="#" id="reciteMe"><span class="fa fa-headphones hide-on-mobile" aria-hidden="true"></span>Accessibility</a>
-                        </div>
-                    </div>
+                <div class="grid-60 grid-parent header-myaccount">
+                    <ul class="menu">
+                        <li><a href="#" id="reciteMe"><span class="fa fa-headphones hide-on-mobile" aria-hidden="true"></span>Accessibility</a></li>
+                        <li><a href="#" aria-label="Cookie preferences" id="open_preferences_center"><span class="fa fa-cookie-bite" aria-hidden="true"></span>Cookie preferences</a></li>
+                    </ul>
                 </div>
-                <div class="grid-parent pull-right header-search-bar">
+                <div class=" grid-40 grid-parent pull-right header-search-bar">
                     <partial name="HeaderSearchBar" />
                 </div>
             </div>
@@ -25,15 +24,24 @@
 
 </div>
 <partial name="MobileSearchBar" />
-<partial name="BrowserCheck" />
+<partial name="BrowserCheck" /> 
 
 <script>
-    require(['/assets/javascript/config-13323b29.min.js'], function() {
-        require(['healthystockport', 'reciteMe', 'cludo', 'Cludo'],
-            function(healthystockport, reciteMe, cludo) {
+    require(['/assets/javascript/config-80795c2e.min.js'], function () {
+        require(['healthystockport', 'cludo', 'Cludo'],
+            function (healthystockport, cludo) {
                 healthystockport.Init();
-                reciteMe.Init();
                 cludo.Init(true);
+            }
+        );
+    });
+</script>
+
+<script>
+    require(['/assets/javascript/config-80795c2e.min.js'], function () {
+        require(['reciteMe'],
+            function (reciteMe) {
+                reciteMe.Init();
             }
         );
     });

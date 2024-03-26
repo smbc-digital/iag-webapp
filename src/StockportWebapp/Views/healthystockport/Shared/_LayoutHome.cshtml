@@ -34,11 +34,13 @@
 
     @RenderSection("BackgroundImage")
     @RenderSection("CarouselBackgroundImage")
-    <partial name="CookieBanner" />
-    @await Component.InvokeAsync("GoogleAnalytics")
-
+    
     <script type=text/javascript src=~/assets/javascript/vendor/require.min.js></Script>
+
+    <partial name="CookieNotice" />
+    @await Component.InvokeAsync("GoogleAnalytics")
 </head>
+
 <body class="container-layout-free type-article">
     <partial name=Header />
     <div class="l-background">
@@ -53,7 +55,7 @@
     </div>
 
     <script>
-        require(['/assets/javascript/config-13323b29.min.js'], function() {
+        require(['/assets/javascript/config-80795c2e.min.js'], function() {
             require(['matchbox', 'jquery'], 
                 function (matchbox) {
                     matchbox.Init();
