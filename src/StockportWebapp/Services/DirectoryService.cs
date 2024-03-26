@@ -45,7 +45,6 @@ public class DirectoryService : IDirectoryService {
 
         if (!httpResponse.IsSuccessful())
             return null;
-            throw new HttpRequestException($"HTTP request failed with status code {httpResponse.StatusCode}");
 
         var directoryEntry = (DirectoryEntry)httpResponse.Content;
 
