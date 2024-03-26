@@ -45,6 +45,7 @@ public class CookiesComplianceMiddleware
     private void RemoveFunctionalCookies() 
     {
         _cookiesHelper.RemoveCookie("alerts");
+        _cookiesHelper.RemoveCookie("favourites");
     }
 
     private void RemoveTrackingCookies()
