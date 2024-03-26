@@ -17,6 +17,9 @@
         }
         
         @media #{$mobile}{
+            margin-left: 5px;
+            margin-right: 5px;
+            
             &__prev {
                 margin-bottom: 1em;
             }
@@ -28,6 +31,11 @@
 
         &__count {
             text-align: center;
+
+            @media #{$mobile} {
+                margin-left: 5px;
+                margin-right: 5px;
+            }
         }
     
         &__list {
