@@ -8,4 +8,7 @@ public interface ICookiesHelper
     void RemoveAllFromCookies<T>(string cookieType);
     void RemoveFromCookies<T>(string slug, string cookieType);
     CookieConsentLevel GetCurrentCookieConsentLevel();
+    bool HasCookieConsentBeenCollected();
+    void RemoveCookie(string key);
+    void RemoveCookiesStartingWith(string startKey);
 }

@@ -51,6 +51,7 @@ try
         .UseMiddleware<ShortUrlRedirectsMiddleware>()
         .UseMiddleware<RobotsMiddleware>()
         .UseMiddleware<SecurityHeaderMiddleware>()
+        .UseMiddleware<CookiesComplianceMiddleware>()
         .UseStatusCodePagesWithReExecute("/error")
         .UseCustomStaticFiles()
         .UseCustomCulture()
