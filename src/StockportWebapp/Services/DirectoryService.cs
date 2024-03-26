@@ -34,7 +34,7 @@ public class DirectoryService : IDirectoryService {
         var httpResponse = await _repository.Get<Directory>(slug);
 
         if (!httpResponse.IsSuccessful())
-            throw new HttpRequestException($"HTTP request failed with status code {httpResponse.StatusCode}");
+            return null;
 
         return (Directory)httpResponse.Content;
     }
@@ -44,7 +44,7 @@ public class DirectoryService : IDirectoryService {
         var httpResponse = await _repository.Get<DirectoryEntry>(slug);
 
         if (!httpResponse.IsSuccessful())
-            throw new HttpRequestException($"HTTP request failed with status code {httpResponse.StatusCode}");
+            return null;
 
         var directoryEntry = (DirectoryEntry)httpResponse.Content;
 
