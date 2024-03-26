@@ -8,9 +8,9 @@
     Layout = "../Shared/_Layout2023.cshtml";
 
     var navcardNoPadding = Model.DisplayIcons ? "navcard--no-padding-top" : string.Empty;
-    var sectionNoMarginBottom = "";
-    if(!string.IsNullOrEmpty(directory.EventBanner.Title) || Model.Directory.ExternalLinks is not null || Model.Directory.RelatedContent is not null){
-        sectionNoMarginBottom = "section--margin-bottom section--margin-bottom-1";
+    var sectionMarginBottom = "";
+    if ((Model.Directory.ExternalLinks is not null && Model.Directory.ExternalLinks.Any()) || (Model.Directory.RelatedContent is not null && Model.Directory.RelatedContent.Any())){
+        sectionMarginBottom = "section--margin-bottom section--margin-bottom-1";
     }
 
     var sectionMarginTop = "";
@@ -54,7 +54,7 @@
         <partial name="CallToAction" model='directory.CallToAction' view-data='new ViewDataDictionary(ViewData) { { "AdditionalCssClass", "section--margin-top"  } }'/>
     }
 
-    <section class="section @sectionMarginTop @sectionNoMarginBottom">
+    <section class="section section--no-margin @sectionMarginTop @sectionMarginBottom">
         <div class="grid-container">
             <div class="grid-100">
                 <div class="section__content section__content--no-margin">
@@ -116,9 +116,11 @@
 
     @if (!string.IsNullOrEmpty(directory.EventBanner.Title)) 
     {
-        <partial name="EventBanner" model='directory.EventBanner'/>
+        <div class="event-calendar-banner--margin-top">
+            <partial name="EventBanner" model='directory.EventBanner'/>
+        </div>
     }
 
     <partial name="ExternalLinks" model='new ExternalLinksViewModel() { ExternalLinks=Model.Directory.ExternalLinks, RelatedContent=Model.Directory.RelatedContent }'/>
-    <partial name="DirectoryContentDisclaimer"></partial>
+    <partial name="DirectoryContentDisclaimer"/>
 </div>

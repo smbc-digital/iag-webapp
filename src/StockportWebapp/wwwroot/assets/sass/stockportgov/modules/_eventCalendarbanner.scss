@@ -3,6 +3,14 @@
   border-radius: 50px 3px 50px 3px;
   padding: 1.5em;
 
+  &--margin-top {
+      margin-top: 1em;
+
+      @media #{$mobile} {
+          margin-top: 1.5em;
+      }
+  }
+
   a {
     text-decoration: none;
 
