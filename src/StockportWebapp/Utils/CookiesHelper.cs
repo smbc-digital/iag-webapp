@@ -127,7 +127,6 @@ public class CookiesHelper : ICookiesHelper
         httpContextAccessor.HttpContext.Response.Cookies.Append(cookieType, data, new CookieOptions { Expires = DateTime.Now.AddMonths(1) });
     }
 
-
     public bool HasCookieConsentBeenCollected()
     {
         var consentAcctepted = httpContextAccessor.HttpContext.Request.Cookies["cookie_consent_user_accepted"];
