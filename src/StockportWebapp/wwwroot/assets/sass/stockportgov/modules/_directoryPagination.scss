@@ -5,7 +5,7 @@
         align-items: center;
         flex-wrap: wrap;
         margin-top: 1.5em;
-        margin-bottom: 1.5em;
+        margin-bottom: 2em;
 
         @media #{$tablet-only, $desktop} {
             flex-direction: row;
@@ -13,9 +13,13 @@
             display: flex;
             align-items: center;
             flex-wrap: wrap;
+            margin-bottom: 3em;
         }
         
         @media #{$mobile}{
+            margin-left: 5px;
+            margin-right: 5px;
+            
             &__prev {
                 margin-bottom: 1em;
             }
@@ -27,6 +31,11 @@
 
         &__count {
             text-align: center;
+
+            @media #{$mobile} {
+                margin-left: 5px;
+                margin-right: 5px;
+            }
         }
     
         &__list {

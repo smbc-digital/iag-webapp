@@ -2,9 +2,9 @@
 
 @if (Model.RelatedContent.Any())
 {
-<section class="section grid-container" data-cy="related-content">
+<section class="section grid-container external-link" data-cy="related-content">
     <nav class="grid-100" aria-label="related content navigation">
-        <h2 class="section__title">Related content</h2>
+        <h2 class="section__title section__title--no-padding section__title--margin-bottom">Related content</h2>
         <ul class="external-link__list">
             @foreach(var item in Model.RelatedContent)
             {
@@ -22,7 +22,7 @@
 
 @if (Model.ExternalLinks.Any())
 {
-<section class="section grid-container" data-cy="external-links">
+<section class="section grid-container external-link" data-cy="external-links">
     <nav class="grid-100" aria-label="external links navigation">
         <h2 class="section__title">External links</h2>
         <ul class="external-link__list">
