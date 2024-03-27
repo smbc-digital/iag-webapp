@@ -1,16 +1,17 @@
 ﻿.l-header-container {
-  background-color: $colorPrimary;
-  height: 70px;
-  width: 100%;
+    background-color: $colorPrimary;
+    height: 70px;
+    width: 100%;
 
-  @media #{$mobile} {
-    height: 55px;
-  }
+    @media #{$mobile} {
+        height: 90px;
+    }
 
-  #header {
-    max-width: 1200px;
-    margin: 0px auto;
-  }
+
+    #header {
+        max-width: 1200px;
+        margin: 0px auto;
+    }
 }
 
 .l-article-content {

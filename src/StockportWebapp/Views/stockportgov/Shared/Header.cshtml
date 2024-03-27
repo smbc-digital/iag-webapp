@@ -8,7 +8,7 @@
         </div>
     </nav>
     <header role="banner" id="header" class="grid-container grid-100" data-cy="header">
-        <div class="grid-50 mobile-grid-50 tablet-grid-50 logo-main">
+        <div class="grid-20 mobile-grid-100 tablet-grid-30 logo-main">
             <a href="https://www.stockport.gov.uk">
                 <img src='@StaticAssets.UrlFor("logo-stockport-full%402x.png")'
                     data-mobile-image='@StaticAssets.UrlFor("logo-stockport-mobile%402x.png")'
@@ -19,20 +19,22 @@
                     height="60">
             </a>
         </div>
-        <div class="grid-50 mobile-grid-50 tablet-grid-50 grid-parent">
+        <div class="grid-80 mobile-grid-100 tablet-grid-70 grid-parent">
             <div class="header-container grid-100 grid-parent">
-                <div class="grid-50 grid-parent header-myaccount">
+                <div class="grid-70 grid-parent header-myaccount">
                     <div class="menu">
                         <div class="menu-logged-out">
                             <a href="#" id="reciteMe"><span class="fa fa-headphones hide-on-mobile" aria-hidden="true"></span>Accessibility</a>
                         </div>
-
                         <div class="menu-logged-out">
                             <a href="/our-accounts" aria-label="Account log in"><span class="fa fa-user hide-on-mobile" aria-hidden="true"></span>Account log in</a>
                         </div>
+                        <div class="menu-logged-out">
+                            <a href="#" aria-label="Cookie preferences" id="open_preferences_center"><span class="fa fa-cookie-bite" aria-hidden="true"></span>Cookies</a>
+                        </div>
                     </div>
                 </div>
-                <div class="grid-50 grid-parent pull-right header-search-bar">
+                <div class="grid-30 grid-parent pull-right header-search-bar">
                     <partial name="HeaderSearchBar" />
                 </div>
             </div>
