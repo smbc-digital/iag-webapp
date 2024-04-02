@@ -70,7 +70,25 @@ public class CookiesHelper : ICookiesHelper
         if (cookiesAsObject.ContainsKey(typeof(T).ToString().ToLower()))
             cookiesAsObject.Remove(typeof(T).ToString().ToLower());
 
-        UpdateCookies(cookiesAsObject, cookieType);
+        UpdateCookies(cookiesAsObject, cookieType); 
+    }
+
+    public void RemoveCookie(string key)
+    {        
+        var cookie = httpContextAccessor.HttpContext.Request.Cookies[key];
+        if (string.IsNullOrEmpty(cookie))
+            return;
+
+        httpContextAccessor.HttpContext.Response.Cookies.Append(key, string.Empty, new CookieOptions { Expires = DateTime.Now.AddDays(-1) });
+    }
+
+    public void RemoveCookiesStartingWith(string startKey)
+    {
+        var cookies = httpContextAccessor.HttpContext.Request.Cookies.Where(cookie => cookie.Key.StartsWith(startKey));
+        if (!cookies.Any())
+            return;
+
+        cookies.ToList().ForEach(cookie => RemoveCookie(cookie.Key));
     }
 
     public List<string> GetCookies<T>(string cookieType) =>
@@ -93,6 +111,7 @@ public class CookiesHelper : ICookiesHelper
 
     private Dictionary<string, List<string>> GetCookiesAsObject(string cookieType)
     {
+
         string cookies = httpContextAccessor.HttpContext.Request.Cookies[cookieType];
         Dictionary<string, List<string>> alertDictionary = new Dictionary<string, List<string>>();
         
@@ -106,6 +125,12 @@ public class CookiesHelper : ICookiesHelper
     {
         var data = JsonConvert.SerializeObject(cookies);
         httpContextAccessor.HttpContext.Response.Cookies.Append(cookieType, data, new CookieOptions { Expires = DateTime.Now.AddMonths(1) });
+    }
+
+    public bool HasCookieConsentBeenCollected()
+    {
+        var consentAcctepted = httpContextAccessor.HttpContext.Request.Cookies["cookie_consent_user_accepted"];
+        return !string.IsNullOrEmpty(consentAcctepted);
     }
 
     public CookieConsentLevel GetCurrentCookieConsentLevel()

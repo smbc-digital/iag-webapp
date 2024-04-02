@@ -1,0 +1,38 @@
+﻿.table {
+    overflow-x: auto;
+    -ms-overflow-x: auto;
+}
+
+table {
+    width: 100%;
+}
+
+table, tr, th, td {
+    border: none;
+}
+
+thead {
+    border-bottom: 1px solid $stockport-dark-grey;
+}
+
+th {
+    font-weight: 700;
+    padding: 9px 15px 9px 0;
+}
+
+tbody td {
+    font-weight: 500;
+    padding: 9px 15px 9px 0;
+}
+
+tbody tr {
+    border-bottom: 1px solid $stockport-grey-accent;
+}
+
+tbody tr:last-child {
+    border-bottom: 0;
+}
+
+tbody {
+    border-bottom: 1px solid $stockport-dark-grey;
+}
