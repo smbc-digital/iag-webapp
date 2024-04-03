@@ -108,9 +108,17 @@
                     <div class="directory--70">
                         <h2 class="visuallyhidden">Results in @Model.Directory.Title</h2>
                         <ul class="navcard-wrapper">
+                            @if (Model.PaginationInfo.CurrentPage.Equals(1))
+                            {
+                                foreach (var entry in Model.PinnedEntries)
+                                {
+                                    <partial name="DirectorySearchResult" model=@(new DirectorySearchResultViewModel { DirectorySlug = Model.Slug, Entry = entry }) view-data='new ViewDataDictionary(ViewData) {{"pinnedEntry", true}}'/>
+                                }
+                            }
+
                             @foreach (var entry in Model.PaginatedEntries)
                             {
-                                <partial name="DirectorySearchResult" model=@(new DirectorySearchResultViewModel {DirectorySlug = Model.Slug, Entry = entry}) />
+                                <partial name="DirectorySearchResult" model=@(new DirectorySearchResultViewModel {DirectorySlug = Model.Slug, Entry = entry}) view-data='new ViewDataDictionary(ViewData) {{"pinnedEntry", false}}' />
                             }
                         </ul>
                     </div>

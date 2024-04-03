@@ -62,7 +62,7 @@ public class DirectoryController : Controller
 
         List<Directory> parentDirectories = await GetParentDirectories(pageLocation.ParentSlugs);
 
-        var entries = GetSearchedFilteredSortedEntries(directory.AllEntries, filters, orderBy, searchTerm);
+        var entries = GetSearchedFilteredSortedEntries(directory.AllEntries.Concat(directory.PinnedEntries).Distinct(new DirectoryEntryComparer()), filters, orderBy, searchTerm);
         var allFilterThemes = _directoryService.GetFilterThemes(entries);
         var viewModel = new DirectoryViewModel
         {
@@ -73,6 +73,7 @@ public class DirectoryController : Controller
             FirstSubDirectory = parentDirectories.ElementAtOrDefault(1) ?? directory,
             FilteredEntries = entries,
             AllFilterThemes = allFilterThemes,
+            PinnedEntries = directory.PinnedEntries,
             AppliedFilters = _directoryService.GetFilters(filters, allFilterThemes),
             FilterCounts = _directoryService.GetAllFilterCounts(entries),
             SearchTerm = searchTerm,

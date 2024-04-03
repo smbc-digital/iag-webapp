@@ -32,7 +32,7 @@ public class DirectoryViewModel
     public List<DirectoryEntry> PaginatedEntries { get; set; }
     
     public PaginationInfo PaginationInfo { get; set; }
-    
+    public IEnumerable<DirectoryEntry> PinnedEntries { get; set; }
     public bool DisplayIcons => Directory?.SubDirectories is not null && 
                                 Directory.SubDirectories.Any() && 
                                 Directory.SubDirectories.All(item => item is not null && !string.IsNullOrEmpty(item.Icon));
@@ -65,12 +65,27 @@ public class DirectoryViewModel
         int totalEntries = viewModel.FilteredEntries.Count();
         int pageSize = 12;
         int totalPages = (int)Math.Ceiling((double)totalEntries / pageSize);
+        var pinnedEntries = viewModel.PinnedEntries.Select(entry => entry.Name).ToList();
 
         page = Math.Max(1, Math.Min(page, totalPages));
 
         int startIndex = (page - 1) * pageSize;
 
-        viewModel.PaginatedEntries = viewModel.FilteredEntries.Skip(startIndex).Take(pageSize).ToList();
+        if (page.Equals(1))
+        {
+            viewModel.PaginatedEntries = viewModel.FilteredEntries
+                .Where(entry => !pinnedEntries.Contains(entry.Name))
+                .Skip(startIndex + viewModel.PinnedEntries.Count())
+                .Take(pageSize - viewModel.PinnedEntries.Count())
+                .ToList();
+        }
+        else
+        {
+            viewModel.PaginatedEntries = viewModel.FilteredEntries
+                .Skip(startIndex)
+                .Take(pageSize)
+                .ToList();
+        }
 
         viewModel.PaginationInfo = new PaginationInfo
         {
