@@ -62,7 +62,7 @@ public class DirectoryViewModel
 
     public static void DoPagination(DirectoryViewModel viewModel, int page)
     {
-        var allEntries = viewModel.PinnedEntries.Concat(viewModel.FilteredEntries).Distinct(new DirectoryEntryComparer());
+        var allEntries = viewModel.PinnedEntries is not null ? viewModel.PinnedEntries.Concat(viewModel.FilteredEntries).Distinct(new DirectoryEntryComparer()) : viewModel.FilteredEntries;
         int pageSize = 12;
         int totalPages = (int)Math.Ceiling((double)allEntries.Count() / pageSize);
 
