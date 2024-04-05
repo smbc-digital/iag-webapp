@@ -62,10 +62,9 @@ public class DirectoryViewModel
 
     public static void DoPagination(DirectoryViewModel viewModel, int page)
     {
-        int totalEntries = viewModel.FilteredEntries.Count();
+        var allEntries = viewModel.PinnedEntries.Concat(viewModel.FilteredEntries).Distinct(new DirectoryEntryComparer());
         int pageSize = 12;
-        int totalPages = (int)Math.Ceiling((double)totalEntries / pageSize);
-        var pinnedEntries = viewModel.PinnedEntries.Select(entry => entry.Name).ToList();
+        int totalPages = (int)Math.Ceiling((double)allEntries.Count() / pageSize);
 
         page = Math.Max(1, Math.Min(page, totalPages));
 
@@ -73,15 +72,14 @@ public class DirectoryViewModel
 
         if (page.Equals(1))
         {
-            viewModel.PaginatedEntries = viewModel.FilteredEntries
-                .Where(entry => !pinnedEntries.Contains(entry.Name))
+            viewModel.PaginatedEntries = allEntries
                 .Skip(startIndex + viewModel.PinnedEntries.Count())
                 .Take(pageSize - viewModel.PinnedEntries.Count())
                 .ToList();
         }
         else
         {
-            viewModel.PaginatedEntries = viewModel.FilteredEntries
+            viewModel.PaginatedEntries = allEntries
                 .Skip(startIndex)
                 .Take(pageSize)
                 .ToList();
@@ -91,7 +89,7 @@ public class DirectoryViewModel
         {
             CurrentPage = page,
             TotalPages = totalPages,
-            TotalEntries = totalEntries,
+            TotalEntries = allEntries.Count(),
             PageSize = pageSize
         };
     }
