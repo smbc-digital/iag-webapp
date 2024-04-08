@@ -79,7 +79,7 @@ public class DirectoryController : Controller
             AppliedFilters = _directoryService.GetFilters(filters, allFilterThemes),
             FilterCounts = _directoryService.GetAllFilterCounts(entries.Concat(pinnedEntries)),
             SearchTerm = searchTerm,
-            Order = orderBy.Replace("-", " ")
+            Order = !string.IsNullOrEmpty(orderBy) ? orderBy.Replace("-", " ") : orderBy
         };
         
         DirectoryViewModel.DoPagination(viewModel, page);
