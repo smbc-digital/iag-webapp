@@ -62,8 +62,10 @@ public class DirectoryController : Controller
 
         List<Directory> parentDirectories = await GetParentDirectories(pageLocation.ParentSlugs);
 
-        var entries = GetSearchedFilteredSortedEntries(directory.AllEntries, filters, orderBy, searchTerm);
-        var allFilterThemes = _directoryService.GetFilterThemes(entries);
+        var regularEntries = directory.AllEntries.Where(entry => !directory.PinnedEntries.Any(pinnedEntry => pinnedEntry.Slug.Equals(entry.Slug)));
+        var entries = GetSearchedFilteredSortedEntries(regularEntries, filters, orderBy, searchTerm);
+        var pinnedEntries = GetSearchedFilteredSortedEntries(directory.PinnedEntries, filters, orderBy, searchTerm);
+        var allFilterThemes = _directoryService.GetFilterThemes(entries.Concat(pinnedEntries));
         var viewModel = new DirectoryViewModel
         {
             Slug = slug,
@@ -73,10 +75,11 @@ public class DirectoryController : Controller
             FirstSubDirectory = parentDirectories.ElementAtOrDefault(1) ?? directory,
             FilteredEntries = entries,
             AllFilterThemes = allFilterThemes,
+            PinnedEntries = pinnedEntries,
             AppliedFilters = _directoryService.GetFilters(filters, allFilterThemes),
-            FilterCounts = _directoryService.GetAllFilterCounts(entries),
+            FilterCounts = _directoryService.GetAllFilterCounts(entries.Concat(pinnedEntries)),
             SearchTerm = searchTerm,
-            Order = orderBy
+            Order = orderBy.Replace("-", " ")
         };
         
         DirectoryViewModel.DoPagination(viewModel, page);

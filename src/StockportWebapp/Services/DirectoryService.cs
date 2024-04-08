@@ -134,9 +134,9 @@ public class DirectoryService : IDirectoryService {
 
     public IEnumerable<DirectoryEntry> GetOrderedEntries(IEnumerable<DirectoryEntry> filteredEntries, string orderBy)
     {
-        if (orderBy.Equals("Name A to Z", StringComparison.OrdinalIgnoreCase))
+        if (orderBy.Equals("Name A to Z", StringComparison.OrdinalIgnoreCase) || orderBy.Equals("Name-A-to-Z", StringComparison.OrdinalIgnoreCase))
             return filteredEntries.OrderBy(_ => _.Name);
-        else if (orderBy.Equals("Name Z to A", StringComparison.OrdinalIgnoreCase))
+        else if (orderBy.Equals("Name Z to A", StringComparison.OrdinalIgnoreCase) || orderBy.Equals("Name-Z-to-A", StringComparison.OrdinalIgnoreCase))
             return filteredEntries.OrderByDescending(_ => _.Name);
 
         return filteredEntries;
