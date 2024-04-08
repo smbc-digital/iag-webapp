@@ -30,7 +30,7 @@
                     <h1>Results for "@Model.SearchTerm"</h1>
                 }
 
-                <span>Showing <span class="bold">@Model.FilteredEntries.Count()</span>@(
+                <span>Showing <span class="bold">@Model.PaginationInfo.TotalEntries</span>@(
                     Model.FilteredEntries.Count().Equals(1) ? " result" : " results"
                     ) in <span class="bold">@Model.Directory.Title</span> @if (!string.IsNullOrEmpty(Model.SearchTerm)) { @("for ") <span class='bold'>"@Model.SearchTerm"</span> }</span>
             </div>
