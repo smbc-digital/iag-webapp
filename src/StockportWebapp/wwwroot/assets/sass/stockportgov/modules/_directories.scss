@@ -208,10 +208,6 @@
             color: white;
         }
 
-        &--one-stockport {
-            background-color: $one-stockport-purple;
-        }
-
         &--button {
             @include lead;
             background-color: white;
@@ -219,23 +215,55 @@
             border: none;
             border-radius: 3px;
             cursor: pointer;
-            height: 3.375rem;
-            line-height: 1;
-            margin: -25px 0px 0px 5px;
-            padding: 5px;
-            position: absolute;
+            margin: 0px 0px 0px 5px;
+            padding: 0px;
             text-align: center;
-            top: 25px;
-            right: 0;
-            width: 3.375rem;  
+            width: 3.375rem;
+            height: 3.375rem;
+            position: absolute;
 
             @media #{$tablet} {
                 @include body;
-                width:100%;
+                width: 100%;
                 position: relative;
                 margin-left: 0px;
                 font-weight: bold;
-            }  
+                margin: 5px 0px 0px 0px;
+            } 
+        }
+
+        &--one-stockport {
+            background-color: $one-stockport-purple;
+
+            img {
+                max-height: 150px;
+            }
+
+            @media #{$tablet} {
+                text-align:center;
+            }
+
+            form {
+                line-height: 150px;
+                margin-bottom: 0px;
+                @media #{$tablet} {
+                    line-height: unset;
+                }
+            }
+
+            .directory-search--button {
+                top: 48px;
+                color: $one-stockport-purple;
+
+                @media #{$tablet} {
+                    top: 5px;
+                }
+            }
+
+            .directory-search--button:hover {
+                background-color: $one-stockport-pink;
+                color: $one-stockport-purple;
+            }
         }
 
         &--input {
@@ -248,6 +276,7 @@
             margin: 0;
             padding: 15px;
             width: calc(100% - 3.875rem);
+
             @media #{$tablet} {
                 width:100%;
             }
