@@ -6,8 +6,6 @@ public class DirectoryControllerTest
 {
     private readonly DirectoryController _directoryController;
     private Mock<IDirectoryService> _directoryService = new();
-    private Mock<IFeatureManager> _featureManager = new();
-
     private readonly List<Filter> filtersList = new() {
         new() {
             Slug = "value1",
@@ -71,7 +69,7 @@ public class DirectoryControllerTest
         CallToAction = new CallToActionBanner(),
         Alerts = new List<Alert>(),
         Entries  = new List<DirectoryEntry>(),
-        SubDirectories = new List<Directory>(),
+        SubDirectories = new List<Directory>()
     };
 
     private readonly Directory processedDirectoryWithSubdirectories = new()
@@ -91,6 +89,8 @@ public class DirectoryControllerTest
     public DirectoryControllerTest()
     {
         _directoryController = new DirectoryController(_directoryService.Object);
+
+        directory.PinnedEntries = new List<DirectoryEntry>() { directoryEntry };
         processedDirectoryWithSubdirectories.Entries = new List<DirectoryEntry>() { directoryEntry };
         processedDirectoryWithSubdirectories.SubDirectories = new List<Directory>() { directory };
         
@@ -194,6 +194,7 @@ public class DirectoryControllerTest
         Assert.Equal(filterThemes.First().Filters, model.AllFilterThemes.First().Filters);
         Assert.Equal("slug", model.Directory.Slug);
         Assert.Equal(filtersList, model.AppliedFilters);
+        Assert.Empty(model.PinnedEntries);
     }
 
     [Fact]
@@ -269,6 +270,6 @@ public class DirectoryControllerTest
         var result = await _directoryController.DirectoryResults("slug", Array.Empty<string>(), string.Empty, "search me", 0);
 
         // Assert
-        _directoryService.Verify(service => service.GetSearchedEntryForDirectories(It.IsAny<IEnumerable<DirectoryEntry>>(), It.IsAny<string>()), Times.Once);
+        _directoryService.Verify(service => service.GetSearchedEntryForDirectories(It.IsAny<IEnumerable<DirectoryEntry>>(), It.IsAny<string>()), Times.Exactly(2));
     }
 }

@@ -20,6 +20,7 @@ namespace StockportWebapp.Models
         public EventCalendarBanner EventBanner { get; set; }
         public IEnumerable<SubItem> RelatedContent { get; set; }
         public IEnumerable<ExternalLink> ExternalLinks { get; set; } = new List<ExternalLink>();
+        public IEnumerable<DirectoryEntry> PinnedEntries { get; set; } = new List<DirectoryEntry>();
 
         [JsonIgnore]
         private IEnumerable<DirectoryEntry> _allEntries = null;

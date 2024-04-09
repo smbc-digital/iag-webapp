@@ -45,10 +45,54 @@
         }
     }
 
+    &-pinned {
+        display: none;
+        
+        &--mobile {
+            display: none;
+
+            @media #{$mobile} {
+                display: block;
+                background-color: $stockport-pink;
+                border-radius: 3px 3px 0 0;
+                padding-top: 0.4em;
+                padding-bottom: 0.4em;
+                padding-left: 0.75em;
+                padding-right: 0.75em;
+        
+                p {
+                    color: white;
+                    margin: 0;
+                    font-weight: 700;
+                }
+            }
+        }
+
+        @media #{$tablet-only, $desktop} {
+            width: 150px;
+            height: 54px;
+            background-color: $stockport-pink;
+            color: white;
+            border-radius: 3px;
+            align-self: self-end;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            float: right;
+            top: -10px;
+            right: -1px;
+            border-bottom-right-radius: 0;
+            font-weight: 700;
+            text-align: center;
+        }
+    }
+
     &-result {
         padding: 1em 0.75em 1.5em 0.75em;
         display: flex;
         justify-content: space-between;
+        position: relative;
 
         @media #{$tablet} {
             display: block;
@@ -69,6 +113,15 @@
         &__brand {
             text-align: right;
             width: 25%;
+
+            &--pinned-entry {
+                display: flex;
+                align-items: flex-end;
+
+                @media #{$mobile, $tablet} {
+                    display: block;
+                }
+            }
 
             @media #{$tablet} {
                 margin-top: 1em;
