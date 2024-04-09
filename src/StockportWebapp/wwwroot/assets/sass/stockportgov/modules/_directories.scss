@@ -207,6 +207,11 @@
         h1 {
             color: white;
         }
+        
+        form {
+            position: relative;
+            margin-bottom: 1em;
+        }
 
         &--button {
             @include lead;
