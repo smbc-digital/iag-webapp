@@ -1,29 +1,28 @@
-﻿@{
-}
-    <div class="grid-container">
-        <div class="grid-100">
-        <div class="directory-search directory-search--one-stockport">
-                <div class="grid-container">
-                    <div class="grid-20">
-                        <img src="/assets/images/logos/OS_Local Fund Logo_Digi_RGB.svg" alt="Stockport Local logo" />
-                    </div>
-                    <div class="grid-80 vertical-center-container">
-                        <section class="home-search vertical-center">
-                            <h2 class="visuallyhidden">Search the stockport local directory</h2>
-                            <form method="get" id="stockport-local-search-for">
-                                <label class="visuallyhidden" for="stockport-local-search">
-                                    search input box
-                                </label>
+﻿@model StockportWebapp.Models.Directory
 
-                                <input class="grid-100 tablet-grid-100 mobile-grid-100 home-search_search-input" id="stockport-local-search" data-cy="search-bar" type="text" name="query" placeholder="Search stockport local directory" autocomplete="off">
-                                
-                                <button value="Submit search" class="home-search_search-button" style="background-color: #FF828A" data-cy="search-submit" type="submit">
-                                    <span class="fa fa-search" aria-hidden="true"></span><span class="visuallyhidden"> Submit Search</span>
-                                </button>
-                            </form>
-                        </section>
-                    </div>
+<div class="grid-container">
+    <div class="grid-100">
+        <div class="directory-search directory-search--one-stockport">
+            <div class="grid-container">
+                <div class="grid-30 tablet-grid-100">
+                    <img src="/assets/images/logos/stockport_local_logo.jpg" alt="Stockport Local logo" />
                 </div>
+                <div class="grid-70 tablet-grid-100">
+                    <h1 class="visuallyhidden">Welcome to the @Model.Title</h1>
+                    <h2 class="visuallyhidden">Search the @Model.Title</h2>
+                    <form asp-controller="Directory" asp-action="DirectoryResults" method="get" id="stockport-local-search-for" asp-route-slug="@Model.Slug">
+                        <label class="visuallyhidden" for="searchTerm">
+                            search input box
+                        </label>
+
+                        <input class="grid-100 tablet-grid-100 mobile-grid-100 directory-search--input" id="searchTerm" name="searchTerm" data-cy="search-bar" type="text" placeholder="Search @Model.Title" autocomplete="off">
+
+                        <button value="Submit search" aria-label="Search" name="Search" class="directory-search--button btn btn--inverse btn--bold" data-cy="search-submit" type="submit">
+                            <span class="fa fa-search hide-on-mobile hide-on-tablet" aria-hidden="true"></span><span class="hide-on-desktop">Search</span>
+                        </button>
+                    </form>
+                </div>  
             </div>
         </div>
     </div>
+</div>
