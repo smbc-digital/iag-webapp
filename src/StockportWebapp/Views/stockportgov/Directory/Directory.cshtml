@@ -7,6 +7,7 @@
     ViewData["Description"] = directory.MetaDescription;
     Layout = "../Shared/_Layout2023.cshtml";
 
+    var dataCy = Model.IsRootDirectory ? "directory-page" : "subdirectory-page";
     var navcardNoPadding = Model.DisplayIcons ? "navcard--no-padding-top" : string.Empty;
     var sectionMarginBottom = "";
     if ((Model.Directory.ExternalLinks is not null && Model.Directory.ExternalLinks.Any()) || (Model.Directory.RelatedContent is not null && Model.Directory.RelatedContent.Any())){
@@ -28,7 +29,7 @@
 
 <partial name="GlobalAlerts" model='directory.Alerts' />
 
-<div class="grid-container-full-width" style="background-color:white;" data-cy="directory-page">
+<div class="grid-container-full-width" style="background-color:white;" data-cy=@dataCy>
     <partial name="Breadcrumb2023" model='@Model.Breadcrumbs' />
     
     <partial name="DirectorySearch" model="Model.ParentDirectory" />
