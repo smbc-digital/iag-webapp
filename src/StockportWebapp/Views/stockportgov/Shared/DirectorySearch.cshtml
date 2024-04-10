@@ -1,6 +1,6 @@
-﻿@model StockportWebapp.Models.Directory
+﻿@model StockportWebapp.ViewModels.DirectoryViewModel
 
-@if(Model.SearchBranding.Equals("One Stockport"))
+@if(Model.Directory.SearchBranding.Equals("One Stockport"))
 {
     <partial name="DirectorySearchOneStockport" model="Model" />
 }

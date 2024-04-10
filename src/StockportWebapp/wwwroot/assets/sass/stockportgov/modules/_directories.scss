@@ -47,7 +47,7 @@
 
     &-pinned {
         display: none;
-        
+
         &--mobile {
             display: none;
 
@@ -59,7 +59,7 @@
                 padding-bottom: 0.4em;
                 padding-left: 0.75em;
                 padding-right: 0.75em;
-        
+
                 p {
                     color: white;
                     margin: 0;
@@ -190,11 +190,11 @@
 
     &-search {
         margin: 1rem 0 1rem 0;
-        padding: 2rem 1rem 2rem 1rem;
+        padding: 1.5em;
         border-radius: 3px;
         background-color: $stockport-teal-darker;
         color: white;
-        
+
         @media #{$mobile} {
             margin-left: 5px;
             margin-right: 5px;
@@ -207,10 +207,14 @@
         h1 {
             color: white;
         }
-        
+
         form {
             position: relative;
             margin-bottom: 1em;
+
+            @media #{$tablet} {
+                margin-bottom: 0;
+            }
         }
 
         &--button {
@@ -230,11 +234,10 @@
             @media #{$tablet} {
                 @include body;
                 width: 100%;
-                position: relative;
-                margin-left: 0px;
+                position: unset;
                 font-weight: bold;
                 margin: 5px 0px 0px 0px;
-            } 
+            }
         }
 
         &--one-stockport {
@@ -245,12 +248,13 @@
             }
 
             @media #{$tablet} {
-                text-align:center;
+                text-align: center;
             }
 
             form {
                 line-height: 150px;
                 margin-bottom: 0px;
+
                 @media #{$tablet} {
                     line-height: unset;
                 }
@@ -283,7 +287,7 @@
             width: calc(100% - 3.875rem);
 
             @media #{$tablet} {
-                width:100%;
+                width: 100%;
             }
         }
     }
@@ -355,6 +359,7 @@
 
     &__description {
         margin-bottom: 2em;
+
         @media #{$tablet} {
             margin-bottom: 1.2em;
         }
@@ -503,7 +508,7 @@
 
     &__labels {
         margin-top: 0.75em;
-        
+
         p {
             font-weight: 700;
         }
@@ -592,7 +597,7 @@
     }
 
     &__website {
-        p{
+        p {
             font-weight: 700;
             margin-bottom: 0;
 
@@ -740,7 +745,7 @@
             background-repeat: no-repeat;
             background-size: 1em;
             border: none;
-    
+
             @media #{$small-mobile} {
                 background-image: none;
             }
@@ -768,6 +773,16 @@ html[dir="rtl"] {
             }
         }
 
+        &-search {
+            &--button {
+                margin: 0px 5px 0px 0px;
+
+                @media #{$tablet} {
+                    margin: 5px 0px 0px 0px;
+                }
+            }
+        }
+
         &__filter span {
             margin-right: 0;
             margin-left: 0.75em;
@@ -778,15 +793,15 @@ html[dir="rtl"] {
                 top: -2px;
                 right: -2px;
             }
-    
+
             &__label {
                 padding: 0.421em 3em 0.263em 0;
-    
+
                 &::before {
                     top: 0;
                     right: 0;
                 }
-    
+
                 &::after {
                     top: 0.7rem;
                     right: 0.55rem;

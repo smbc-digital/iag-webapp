@@ -3,7 +3,7 @@
     bool showPagination = Model.PaginationInfo.TotalEntries > Model.PaginationInfo.PageSize;
     var directory = Model.Directory;
     ViewData["Title"] = directory.Title + (showPagination ? " results (page " + Model.PaginationInfo.CurrentPage + " of " + Model.PaginationInfo.TotalPages + ")" : string.Empty);
-    ViewData["BreadcrumbTitle"] = directory.Title;
+    ViewData["BreadcrumbTitle"] = $"Results in {directory.Title}";
     ViewData["og:title"] = directory.Title;
     ViewData["Description"] = directory.MetaDescription;
     Layout = "../Shared/_Layout2023.cshtml";
@@ -11,8 +11,8 @@
 
 <div class="grid-container-full-width background-grey" data-cy="search-results">
     <partial name="Breadcrumb2023" model='@Model.Breadcrumbs' />
-    
-    <partial name="DirectorySearch" model="Model.ParentDirectory" />
+
+    <partial name="DirectorySearch" model="new DirectoryViewModel{ Directory = Model.ParentDirectory, SearchTerm = Model.SearchTerm }" />
 
     <form asp-controller="Directory" method="get">
         @*The below could be used to retrieve the URL of the KML  equivalent of the results for this page*@

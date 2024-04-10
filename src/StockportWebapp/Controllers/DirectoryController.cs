@@ -37,7 +37,7 @@ public class DirectoryController : Controller
             Directory = directory,
             ParentDirectory = parentDirectories.FirstOrDefault() ?? directory,
             FirstSubDirectory = parentDirectories.ElementAtOrDefault(1) ?? directory,
-            Breadcrumbs = GetBreadcrumbsForDirectories(parentDirectories, false),
+            Breadcrumbs = GetBreadcrumbsForDirectories(directory, parentDirectories, false, false),
             Slug = slug,
         };
 
@@ -69,7 +69,7 @@ public class DirectoryController : Controller
         var viewModel = new DirectoryViewModel
         {
             Slug = slug,
-            Breadcrumbs = GetBreadcrumbsForDirectories(parentDirectories, false),
+            Breadcrumbs = GetBreadcrumbsForDirectories(directory, parentDirectories, false, true),
             Directory = directory,
             ParentDirectory = parentDirectories.FirstOrDefault() ?? directory,
             FirstSubDirectory = parentDirectories.ElementAtOrDefault(1) ?? directory,
@@ -137,27 +137,48 @@ public class DirectoryController : Controller
         {
             Directory = parentDirectories.FirstOrDefault(),
             DirectoryEntry = directoryEntry,
-            Breadcrumbs = GetBreadcrumbsForDirectories(parentDirectories, true),
+            Breadcrumbs = GetBreadcrumbsForDirectories(parentDirectories.FirstOrDefault(), parentDirectories, true, false),
             Slug = slug
         });
     }
 
-    private List<Crumb> GetBreadcrumbsForDirectories(List<Directory> parentDirectories, bool viewLastBreadcrumbAsResults = false) 
+    private List<Crumb> GetBreadcrumbsForDirectories(Directory currentDirectory, List<Directory> parentDirectories, bool viewLastBreadcrumbAsResults = false, bool addCurrentDirectoryBreadcrumb = false) 
     {
+        
         List<Crumb> breadcrumbs = new();
         parentDirectories.ForEach(directory => breadcrumbs.Add(GetBreadcrumbForDirectory(directory, parentDirectories, viewLastBreadcrumbAsResults)));
+
+        if (addCurrentDirectoryBreadcrumb)
+            breadcrumbs.Add(GetBreadcrumbForCurrentDirectory(currentDirectory, parentDirectories));        
+
         return breadcrumbs;
     }
-
+    
     private Crumb GetBreadcrumbForDirectory(Directory directory, IList<Directory> parentDirectories, bool viewLastBreadcrumbAsResults = false)
     {
         var relativeUrl = string.Join("/", parentDirectories
                                             .Take(parentDirectories.IndexOf(directory) + 1)
                                             .Select(_ => _.Slug));
-
-        var url = directory.Equals(parentDirectories[^1]) && viewLastBreadcrumbAsResults
+        var url = "";
+        if(parentDirectories.Any())
+        {
+            url = directory.Equals(parentDirectories[^1]) && viewLastBreadcrumbAsResults
             ? $"{_defaultUrlPrefix}/results/{relativeUrl}"
             : $"{_defaultUrlPrefix}/{relativeUrl}";
+        }
+        else 
+        {
+            url = $"{_defaultUrlPrefix}/{relativeUrl}";
+        }
+
+        return new Crumb(directory.Title, url, "Directories");
+    }
+
+    private Crumb GetBreadcrumbForCurrentDirectory(Directory directory, IList<Directory> parentDirectories)
+    {
+        var relativeUrl = string.Join("/", parentDirectories.Select(_ => _.Slug));
+
+        var url = $"{_defaultUrlPrefix}/{relativeUrl}/{directory.Slug}"; 
 
         return new Crumb(directory.Title, url, "Directories");
     }

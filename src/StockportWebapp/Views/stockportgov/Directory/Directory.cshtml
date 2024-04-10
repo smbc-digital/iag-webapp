@@ -31,7 +31,7 @@
 <div class="grid-container-full-width" style="background-color:white;" data-cy="directory-page">
     <partial name="Breadcrumb2023" model='@Model.Breadcrumbs' />
     
-    <partial name="DirectorySearch" model="Model.ParentDirectory" />
+    <partial name="DirectorySearch" model="new DirectoryViewModel{ Directory = Model.ParentDirectory, SearchTerm = Model.SearchTerm }" />
 
     <div class="grid-container">
         <div class="grid-100">
