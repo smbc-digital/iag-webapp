@@ -23,11 +23,11 @@
             <div class="grid-100 directory-sub-title">
                 @if(string.IsNullOrEmpty(Model.SearchTerm))
                 {
-                    <h1>Results for @Model.Directory.Title</h1>
+                    <h1 data-cy="results-title">Results for @Model.Directory.Title</h1>
                 }
                 else
                 {
-                    <h1>Results for "@Model.SearchTerm"</h1>
+                    <h1 data-cy="results-title">Results for "@Model.SearchTerm"</h1>
                 }
 
                 <span>Showing <span class="bold">@Model.PaginationInfo.TotalEntries</span>@(
