@@ -415,6 +415,11 @@
 
         &--margin {
             margin-top: 1.25rem;
+            
+            @media #{$mobile} {
+                margin-left: 5px;
+                margin-right: 5px;
+            }
         }
     }
 
