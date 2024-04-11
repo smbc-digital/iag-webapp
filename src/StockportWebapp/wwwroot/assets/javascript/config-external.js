@@ -1,7 +1,7 @@
 ﻿require.config({
     baseUrl: "https://www.stockport.gov.uk/assets/javascript/modules/",
     paths: {
-        "startup": "startUp-13db142b.min",
+        "startup": "startUp-4a929759.min",
         "utils": "utils-e9b96aa5.min",
         "reciteMe": "reciteMe-70c3df4d.min",
         "cludo": "cludo-ae98e22c.min",
