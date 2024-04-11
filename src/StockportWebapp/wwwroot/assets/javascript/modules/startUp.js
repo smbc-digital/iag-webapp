@@ -34,6 +34,14 @@
         }
     };
 
+    var cookieNoticeAttributeRemoval = function () {
+        var cookieNotice = $("#freeprivacypolicy-com---nb")
+        if (cookieNotice != null) {
+            cookieNotice.removeAttr("role");
+            cookieNotice.removeAttr("aria-modal");
+        }
+    }
+
     var isIE = function (userAgent) {
         userAgent = userAgent || navigator.userAgent;
         return userAgent.indexOf("MSIE ") > -1 || userAgent.indexOf("Trident/") > -1 || userAgent.indexOf("Edge/") > -1;
@@ -48,6 +56,7 @@
 
             $(document).ready(function () {
                 documentReady();
+                cookieNoticeAttributeRemoval();
             });
 
             $(window).resize(function () {
