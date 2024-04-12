@@ -69,6 +69,7 @@ public class ContentSecurityPolicyBuilder
             .AddSource("maxcdn.bootstrapcdn.com/font-awesome/")
             .AddSource("cdnjs.cloudflare.com/ajax/libs/font-awesome/")
             .AddSource("kit.fontawesome.com/")
+            .AddSource("ka-p.fontawesome.com/")
             .AddSource("fonts.gstatic.com/")
             .AddSource("stockportgov-design-system.s3-eu-west-1.amazonaws.com/")
             .AddSource("design-system.stockport.gov.uk/")
