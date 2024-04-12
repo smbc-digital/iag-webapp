@@ -1,5 +1,6 @@
 .external-link {
     padding-top: 0.5em !important;
+    overflow-wrap: anywhere;
 
     @media #{$mobile} {
         padding-top: 0;
