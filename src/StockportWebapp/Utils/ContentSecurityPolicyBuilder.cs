@@ -145,6 +145,7 @@ public class ContentSecurityPolicyBuilder
             .AddSource("s3-eu-west-1.amazonaws.com/")
             .AddSource("maxcdn.bootstrapcdn.com/font-awesome/")
             .AddSource("kit.fontawesome.com/")
+            .AddSource("ka-p.fontawesome.com/")
             .AddSource("cdnjs.cloudflare.com/ajax/libs/font-awesome/")
             .AddSource("fonts.googleapis.com/")
             .AddSource("cdnjs.cloudflare.com/ajax/libs/cookieconsent2/")
