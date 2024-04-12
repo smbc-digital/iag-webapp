@@ -830,5 +830,15 @@ html[dir="rtl"] {
                 padding-left: 0;
             }
         }
+
+        &-pinned {
+            @media #{$tablet-only, $desktop} {
+                float: left;
+                left: -1px;
+                right: unset;
+                border-bottom-right-radius: 3px;
+                border-bottom-left-radius: 0;
+            }
+        }
     }
 }
