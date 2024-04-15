@@ -8,8 +8,11 @@ define(["jquery"], function ($) {
                 $(this).attr('aria-expanded', $(this).attr('aria-expanded') === 'true' ? false : true);
             });
 
-
             $('#order-by').change(function() {
+                $(this).closest('form').submit();
+            });
+
+            $('.directory-filters__checkbox').change(function() {
                 $(this).closest('form').submit();
             });
         }
