@@ -40,6 +40,11 @@
             cookieNotice.removeAttr("role");
             cookieNotice.removeAttr("aria-modal");
         }
+
+        var cookieNoticeContent = $("#cc-nb-text");
+        if (cookieNoticeContent != null) {
+            cookieNoticeContent.html("This is some test replacement content")
+        }
     }
 
     var isIE = function (userAgent) {
