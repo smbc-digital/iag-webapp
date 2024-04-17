@@ -8,9 +8,10 @@ public class SubItem
     public readonly string Type;
     public readonly string NavigationLink;
     public readonly string Image;
+    public string ColourScheme;
     public readonly List<SubItem> SubItems;
 
-    public SubItem(string slug, string title, string teaser, string icon, string type, string image, List<SubItem> subItems)
+    public SubItem(string slug, string title, string teaser, string icon, string type, string image, List<SubItem> subItems, string colourScheme)
     {
         Title = title;
         Icon = icon;
@@ -19,5 +20,6 @@ public class SubItem
         NavigationLink = TypeRoutes.GetUrlFor(type, slug);
         Image = image;
         SubItems = subItems;
+        ColourScheme = colourScheme;
     }
 }
