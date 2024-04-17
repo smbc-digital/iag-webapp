@@ -32,6 +32,8 @@ public class TypeRoutes
                 return $"/privacy-notices/{slug}";
             case "directories":
                 return $"/directories/{slug}";
+            case "directory":
+                return $"/directories/{slug}";
             default:
                 return $"/{slug}";
         }
