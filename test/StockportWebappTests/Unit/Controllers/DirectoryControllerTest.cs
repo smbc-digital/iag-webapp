@@ -270,6 +270,6 @@ public class DirectoryControllerTest
         var result = await _directoryController.DirectoryResults("slug", Array.Empty<string>(), string.Empty, "search me", 0);
 
         // Assert
-        _directoryService.Verify(service => service.GetSearchedEntryForDirectories(It.IsAny<IEnumerable<DirectoryEntry>>(), It.IsAny<string>()), Times.Exactly(2));
+        _directoryService.Verify(service => service.GetSearchedEntryForDirectories(It.IsAny<IEnumerable<DirectoryEntry>>(), It.IsAny<string>()), Times.Exactly(1));
     }
 }
