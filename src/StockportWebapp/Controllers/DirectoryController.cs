@@ -63,8 +63,8 @@ public class DirectoryController : Controller
         List<Directory> parentDirectories = await GetParentDirectories(pageLocation.ParentSlugs);
 
         var regularEntries = directory.AllEntries.Where(entry => !directory.PinnedEntries.Any(pinnedEntry => pinnedEntry.Slug.Equals(entry.Slug)));
-        var entries = GetSearchedFilteredSortedEntries(regularEntries, filters, orderBy, searchTerm);
-        var pinnedEntries = GetSearchedFilteredSortedEntries(directory.PinnedEntries, filters, orderBy, searchTerm);
+        var entries = GetSearchedFilteredSortedEntries(regularEntries.Concat(directory.PinnedEntries), filters, orderBy, searchTerm);
+        var pinnedEntries = entries.Where(entry => directory.PinnedEntries.Any(pinnedEntry => pinnedEntry.Slug.Equals(entry.Slug)));
         var allFilterThemes = _directoryService.GetFilterThemes(entries.Concat(pinnedEntries));
         var viewModel = new DirectoryViewModel
         {

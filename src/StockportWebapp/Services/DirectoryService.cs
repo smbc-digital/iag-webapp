@@ -93,7 +93,7 @@ public class DirectoryService : IDirectoryService {
     }
 
     /// <summary>
-    /// Return a list of FilterThemes relvant to the List of directory entries provided
+    /// Return a list of FilterThemes relevant to the List of directory entries provided
     /// </summary>
     /// <param name="filteredEntries"></param>
     /// <returns></returns>
