@@ -68,7 +68,7 @@ public class Startup
         services.AddGroupConfiguration(Configuration, Log.Logger);
         services.AddSesEmailConfiguration(Configuration, Log.Logger);
         services.AddConfigurationOptions(Configuration);
-        _logger.Information($"CONTENTAPI: STARTUP : ConfigureServices : Adding Cache");
+        _logger.Information($"WEBAPP: STARTUP : ConfigureServices : Adding Cache");
         services.AddRedis(Configuration, _useRedisSession, Log.Logger);
 
         services.AddFeatureManagement();

@@ -38,7 +38,7 @@ try
     var startup = new Startup(builder.Configuration, builder.Environment, Log.Logger);
     startup.ConfigureServices(builder.Services);
 
-    Log.Logger.Information($"CONTENTAPI : BUILDING APPLICATION");
+    Log.Logger.Information($"WEBAPP : BUILDING APPLICATION");
     var app = builder.Build();
 
     app.UseSerilogRequestLogging();
