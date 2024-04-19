@@ -13,7 +13,7 @@ namespace StockportWebapp.Models
         public IEnumerable<Alert> Alerts { get; set; }
         public IEnumerable<DirectoryEntry> Entries { get; set; } = new List<DirectoryEntry>();
         public IEnumerable<Directory> SubDirectories { get; set; } = new List<Directory>();
-        public IEnumerable<SubItem> SubItems { get; }
+        public IEnumerable<SubItem> SubItems { get; set; } = new List<SubItem>();
         public string ColourScheme { get; set; } = string.Empty;
         public string SearchBranding { get; set; } = "Default";
         public string Icon { get; set; } = string.Empty;
