@@ -5,7 +5,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers;
 public class DirectoryControllerTest
 {
     private readonly DirectoryController _directoryController;
-    private Mock<IDirectoryService> _directoryService = new();
+    private readonly Mock<IDirectoryService> _directoryService = new();
     private readonly List<Filter> filtersList = new() {
         new() {
             Slug = "value1",
@@ -59,13 +59,13 @@ public class DirectoryControllerTest
 
     private readonly Directory directory = new()
     {
-        Title = "title",
-        Slug = "slug",
+        Title = "title directory",
+        Slug = "slug-directory",
         ContentfulId = "contentfulId",
-        Teaser = "teaser",
-        MetaDescription = "metaDescription",
-        BackgroundImage = "backgroundImage",
-        Body = "body",
+        Teaser = "teaser directory",
+        MetaDescription = "metaDescription directory",
+        BackgroundImage = "backgroundImage directory",
+        Body = "body directory",
         CallToAction = new CallToActionBanner(),
         Alerts = new List<Alert>(),
         Entries  = new List<DirectoryEntry>(),
@@ -102,7 +102,7 @@ public class DirectoryControllerTest
     }
 
     [Fact]
-    public async Task Directory_ShouldReturnUnsuccessfulStatusCode()
+    public async Task Directory_ShouldReturnNotFoundStatusCode()
     {
         // Arrange
         _ = _directoryService.Setup(_ => _.Get<Directory>("not-slug")).ReturnsAsync((Directory)null);
@@ -141,16 +141,28 @@ public class DirectoryControllerTest
     public async Task Directory_ShouldReturnCorrectView_WithSubdirectories(){
         // Arrange
         _ = _directoryService.Setup(_ => _.Get<Directory>(It.IsAny<string>())).ReturnsAsync(processedDirectoryWithSubdirectories);
+        var expectedDirectoryViewModel = new DirectoryViewModel() {
+            Directory = processedDirectoryWithSubdirectories,
+            ParentDirectory = processedDirectoryWithSubdirectories,
+            FirstSubDirectory = processedDirectoryWithSubdirectories,
+            Breadcrumbs = new List<Crumb>(),
+            Slug = "slug"
+        };
 
         // Act
         var result = await _directoryController.Directory("slug") as ViewResult;
+        var actualViewModel = result.Model as DirectoryViewModel;
 
         // Assert
         Assert.Null(result.ViewName);
-        Assert.NotNull(result.Model);
+        Assert.Equal(expectedDirectoryViewModel.Directory, actualViewModel.Directory);
+        Assert.Equal(expectedDirectoryViewModel.ParentDirectory, actualViewModel.ParentDirectory);
+        Assert.Equal(expectedDirectoryViewModel.FirstSubDirectory, actualViewModel.FirstSubDirectory);
+        Assert.Equal(expectedDirectoryViewModel.Breadcrumbs, actualViewModel.Breadcrumbs);
+        Assert.Equal(expectedDirectoryViewModel.Slug, actualViewModel.Slug);
     }
     
-    [Fact]
+    [Fact] // here now!
     public async Task DirectoryResults_ShouldReturnCorrectView_WithoutSubdirectories()
     {
         // Arrange
@@ -191,7 +203,7 @@ public class DirectoryControllerTest
         Assert.Equal("results", result.ViewName);
         Assert.Equal(filterThemes, model.AllFilterThemes);
         Assert.Equal(filterThemes.First().Filters, model.AllFilterThemes.First().Filters);
-        Assert.Equal("slug", model.Directory.Slug);
+        Assert.Equal("slug-directory", model.Directory.Slug);
         Assert.Equal(filtersList, model.AppliedFilters);
         Assert.Empty(model.PinnedEntries);
     }
@@ -210,7 +222,7 @@ public class DirectoryControllerTest
         
         // Assert
         Assert.NotNull(result);
-        Assert.Equal("slug", model.Directory.Slug);
+        Assert.Equal("slug-directory", model.Directory.Slug);
         Assert.Null(result.ViewName);
     }
 
