@@ -269,7 +269,7 @@
                 }
             }
 
-            .directory-search--button:hover {
+            .directory-search--button:hover, .directory-search--button:focus {
                 background-color: $one-stockport-pink;
                 color: $one-stockport-purple;
             }
@@ -415,7 +415,7 @@
 
         &--margin {
             margin-top: 1.25rem;
-            
+
             @media #{$mobile} {
                 margin-left: 5px;
                 margin-right: 5px;
