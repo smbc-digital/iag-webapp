@@ -39,8 +39,11 @@
 
                 <ul class="directory-pagination__list">
                     <li class="directory-pagination__item">
+                        @{
+                            string ariaCurrent = Model.PaginationInfo.CurrentPage == 1 ? "aria-current=page" : string.Empty;
+                        }
                         <a href="@(urlWithParams)&page=1" class="@(Model.PaginationInfo.CurrentPage == 1 ? "directory-pagination__current" : "directory-pagination__number")"
-                            aria-label="Page 1" aria-current="@(Model.PaginationInfo.CurrentPage == 1 ? "page" : string.Empty )">1</a>
+                            aria-label="Page 1" @ariaCurrent>1</a>
                     </li>
 
                     @if (Model.PaginationInfo.CurrentPage > 4 && Model.PaginationInfo.TotalPages > 7)
@@ -52,10 +55,11 @@
                     {
                         @for (int i = 2; i <= Math.Min(Model.PaginationInfo.TotalPages - 1, 7); i++)
                         {
+                            string ariaCurrentAttr = Model.PaginationInfo.CurrentPage == i ? "aria-current=page" : string.Empty;
+
                             <li class="directory-pagination__item">
                                 <a href="@(urlWithParams)&page=@i" class="@(i == Model.PaginationInfo.CurrentPage ? "directory-pagination__current" : "directory-pagination__number")"
-                                    aria-current="@(Model.PaginationInfo.CurrentPage == i ? "page" : string.Empty)"
-                                    aria-label="Page @i">@i</a>
+                                    @ariaCurrentAttr aria-label="Page @i">@i</a>
                             </li>
                         }
                     }
@@ -64,20 +68,22 @@
                         @if(Model.PaginationInfo.CurrentPage == 4){
                             @for (int i = Math.Max(2, Model.PaginationInfo.CurrentPage - 2); i <= Math.Min(Model.PaginationInfo.TotalPages - 1, Model.PaginationInfo.CurrentPage + 1); i++)
                             {
+                                string ariaCurrentAttr = Model.PaginationInfo.CurrentPage == i ? "aria-current=page" : string.Empty;
+
                                 <li class="directory-pagination__item">
                                     <a href="@(urlWithParams)&page=@i" class="@(i == Model.PaginationInfo.CurrentPage ? "directory-pagination__current" : "directory-pagination__number")"
-                                        aria-current="@(Model.PaginationInfo.CurrentPage == i ? "page" : string.Empty)"
-                                        aria-label="Page @i">@i</a>
+                                        @ariaCurrentAttr aria-label="Page @i">@i</a>
                                 </li>
                             }
                         }
                         else{
                             @for (int i = Math.Max(2, Model.PaginationInfo.CurrentPage - 1); i <= Math.Min(Model.PaginationInfo.TotalPages - 1, Model.PaginationInfo.CurrentPage + 1); i++)
                             {
+                                string ariaCurrentAttr = Model.PaginationInfo.CurrentPage == i ? "aria-current=page" : string.Empty;
+
                                 <li class="directory-pagination__item">
                                     <a href="@(urlWithParams)&page=@i" class="@(i == Model.PaginationInfo.CurrentPage ? "directory-pagination__current" : "directory-pagination__number")"
-                                        aria-current="@(Model.PaginationInfo.CurrentPage == i ? "page" : string.Empty)"
-                                        aria-label="Page @i">@i</a>
+                                        @ariaCurrentAttr aria-label="Page @i">@i</a>
                                 </li>
                             }
                         }
@@ -89,9 +95,11 @@
                     }
 
                     <li class="directory-pagination__item">
+                        @{
+                            string ariaCurrentAttribute = Model.PaginationInfo.CurrentPage == Model.PaginationInfo.TotalPages ? "aria-current=page" : string.Empty;
+                        }
                         <a href="@(urlWithParams)&page=@Model.PaginationInfo.TotalPages" class="@(Model.PaginationInfo.CurrentPage == Model.PaginationInfo.TotalPages ? "directory-pagination__current" : "directory-pagination__number")"
-                            aria-current="@(Model.PaginationInfo.CurrentPage == Model.PaginationInfo.TotalPages ? "page" : string.Empty)"
-                            aria-label="Page @Model.PaginationInfo.TotalPages">@Model.PaginationInfo.TotalPages</a>
+                            @ariaCurrentAttribute aria-label="Page @Model.PaginationInfo.TotalPages">@Model.PaginationInfo.TotalPages</a>
                     </li>
                 </ul>
 
