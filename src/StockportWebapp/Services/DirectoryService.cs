@@ -36,7 +36,11 @@ public class DirectoryService : IDirectoryService {
         if (!httpResponse.IsSuccessful())
             return null;
 
-        return (Directory)httpResponse.Content;
+        var directory = (Directory)httpResponse.Content;
+
+        directory.Body = _markdownWrapper.ConvertToHtml(directory.Body ?? "");
+
+        return directory;
     }
 
     public async Task<DirectoryEntry> GetEntry<T>(string slug = "")
