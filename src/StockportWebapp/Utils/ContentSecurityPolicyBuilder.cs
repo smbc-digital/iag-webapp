@@ -57,6 +57,7 @@ public class ContentSecurityPolicyBuilder
             .AddSource("https://embed.buto.tv/")
             .AddSource("https://butoembed.twentythree.net/")
             .AddSource("forms-eu1.hsforms.com")
+            .AddSource("my.matterport.com")
             .Finish());
     }
 
@@ -312,6 +313,7 @@ public class ContentSecurityPolicyBuilder
             .AddSource("forms.stockport.gov.uk", true)
             .AddSource("app.contentful.com")
             .AddSource("forms-eu1.hsforms.com")
+            .AddSource("my.matterport.com")
             .Finish());
     }
 
