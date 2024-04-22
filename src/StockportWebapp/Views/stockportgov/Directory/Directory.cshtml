@@ -1,34 +1,22 @@
 @model DirectoryViewModel
 @{
+    Layout = "../Shared/_Layout2023.cshtml";
+    
     ViewData["Title"] = Model.Title;
     ViewData["og:title"] = Model.Title;
     ViewData["Description"] = Model.MetaDescription;
-    Layout = "../Shared/_Layout2023.cshtml";
 
     var dataCy = Model.IsRootDirectory ? "directory-page" : "subdirectory-page";
     var navcardNoPadding = Model.DisplayIcons ? "navcard--no-padding-top" : string.Empty;
-    var sectionMarginBottom = "";
-    var sectionMarginTop = "";
-    var titleNoMarginBottom = "";
-    
-    if ((Model.Directory.ExternalLinks is not null && Model.Directory.ExternalLinks.Any()) || (Model.Directory.RelatedContent is not null && Model.Directory.RelatedContent.Any()))
-        sectionMarginBottom = "section--margin-bottom section--margin-bottom-1";    
-
-    if ((!string.IsNullOrEmpty(Model.Body) && Model.CallToAction is not null) ||
-        (string.IsNullOrEmpty(Model.Body) && Model.CallToAction is null) ||
-        (!string.IsNullOrEmpty(Model.Body) && Model.CallToAction is null))
-            sectionMarginTop = "section--margin-top";
-
-    if ((string.IsNullOrEmpty(Model.Body) && Model.CallToAction is not null) ||
-        (string.IsNullOrEmpty(Model.Body) && Model.CallToAction is null))
-            titleNoMarginBottom = "section__title--no-margin-bottom";
+    var titleNoMarginBottom = string.IsNullOrEmpty(Model.Body) 
+                                ? "section__title--no-margin-bottom" 
+                                : string.Empty;
 }
 
 <partial name="GlobalAlerts" model='Model.Alerts' />
 
 <div class="grid-container-full-width" style="background-color:white;" data-cy=@dataCy>
     <partial name="Breadcrumb2023" model='@Model.Breadcrumbs' />
-    
     <partial name="DirectorySearch" model="new DirectoryViewModel{ Directory = Model.ParentDirectory, SearchTerm = Model.SearchTerm }" />
 
     <div class="grid-container">
@@ -45,71 +33,8 @@
     </div>
 
     <h2 class="visuallyhidden">Services in @Model.Directory.Title</h2>
-
-    @if (Model.CallToAction is not null)
-    {
-        <partial name="CallToAction" model='Model.CallToAction' view-data='new ViewDataDictionary(ViewData) { { "AdditionalCssClass", "section--margin-top"  } }'/>
-    }
-
-    <section class="section section--no-margin @sectionMarginTop @sectionMarginBottom">
-        <div class="grid-container">
-            <div class="grid-100">
-                <div class="section__content section__content--no-margin">
-                    <ul class="navcard-wrapper navcard-wrapper--no-margin" data-cy="navcard">
-                        @foreach (var subitem in Model.PrimaryItems.Items)
-                        {
-                            var colourScheme = Model.IsRootDirectory
-                            ? string.IsNullOrEmpty(subitem.ColourScheme) ? "teal" : subitem.ColourScheme.ToLower()
-                                : string.IsNullOrEmpty(Model.FirstSubDirectory.ColourScheme) ? "teal" : Model.FirstSubDirectory.ColourScheme.ToLower();
-
-                            <li class="navcard navcard--width-33 navcard--center navcard-all navcard--border-top-10 navcard--theme-@colourScheme navcard--theme-@colourScheme-all">
-                                <a href=@Url.Action("Directory", "Directory", new { slug=subitem.Url }) class="navcard__link">
-                                    <div class="navcard__content">
-                                        @if (!string.IsNullOrEmpty(subitem.Icon) && Model.DisplayIcons)
-                                        {
-                                            <div class="navcard__icon">
-                                                <span class="@subitem.Icon.ToLower()" aria-hidden="true"></span>
-                                            </div>
-                                        }
-
-                                        <div class="navcard-content--padding @navcardNoPadding">
-                                            <h3 class="navcard__title navcard__title--black">@subitem.Title</h3>
-                                            <p class="navcard__teaser">@subitem.Teaser</p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                        }
-                        
-                        @if (!Model.Title.Equals(Model.ParentDirectory.Title))
-                        {
-                            var colourSchemeViewAll = Model.Directory.SubDirectories.Select(subdirectory => {
-                                var directoryToCheck = Model.Directory.Title.Equals(Model.ParentDirectory.Title) ? subdirectory : Model.FirstSubDirectory;
-                                    return string.IsNullOrEmpty(directoryToCheck.ColourScheme) ? "teal" : directoryToCheck.ColourScheme.ToLower();
-                                }).FirstOrDefault();
-                            
-                            <li class="navcard navcard--width-33 navcard--center navcard-all navcard--border-top-10 navcard--theme-@colourSchemeViewAll navcard--theme-@colourSchemeViewAll-all">
-                                <a href=@Url.Action("DirectoryResults", "Directory", new { slug=$"{Model.Slug}" }) class="navcard__link">
-                                    <div class="navcard__content">
-                                        @if (Model.DisplayIcons)
-                                        {
-                                            <div class="navcard__icon">
-                                                <span class="fas fa-arrow-right" aria-hidden="true"></span>
-                                            </div>
-                                        }
-
-                                        <div class="navcard-content--padding @navcardNoPadding">
-                                            <h3 class="navcard__title navcard__title--black">View all services in @Model.Title</h3>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                        }
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
+    <partial name="CallToAction" model='Model.CallToAction' view-data='new ViewDataDictionary(ViewData) { { "AdditionalCssClass", "section--margin-top"  } }'/>
+    <partial name="DirectoryNavCardList" />
 
     @if (!string.IsNullOrEmpty(Model.EventBanner.Title)) 
     {

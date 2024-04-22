@@ -1,0 +1,32 @@
+﻿@model NavCard
+@{
+    var displayIcons = (bool)ViewData["DisplayIcons"];
+    var isRootDirectory = (bool)ViewData["IsRootDirectory"];
+    var alternativeColourScheme = (string)ViewData["AlternativeColourScheme"];
+    var navcardPaddingClasses = (string)ViewData["NavcardPaddingClasses"];
+
+    var colourScheme = isRootDirectory
+                        ? string.IsNullOrEmpty(Model.ColourScheme)
+                            ? "teal"
+                            : Model.ColourScheme.ToLower()
+                        : string.IsNullOrEmpty(alternativeColourScheme)
+                            ? "teal"
+                            : alternativeColourScheme.ToLower();
+}
+<li class="navcard navcard--width-33 navcard--center navcard-all navcard--border-top-10 navcard--theme-@colourScheme navcard--theme-@colourScheme-all">
+    <a href="@Model.Url" class="navcard__link">
+        <div class="navcard__content">
+            @if (!string.IsNullOrEmpty(Model.Icon) && displayIcons)
+            {
+                <div class="navcard__icon">
+                    <span class="@Model.Icon.ToLower()" aria-hidden="true"></span>
+                </div>
+            }
+
+            <div class="navcard-content--padding @navcardPaddingClasses">
+                <h3 class="navcard__title navcard__title--black">@Model.Title</h3>
+                <p class="navcard__teaser">@Model.Teaser</p>
+            </div>
+        </div>
+    </a>
+</li>

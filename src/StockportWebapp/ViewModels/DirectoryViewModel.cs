@@ -18,7 +18,9 @@ public class DirectoryViewModel
     public CallToActionBanner CallToAction => Directory.CallToAction;
     public IEnumerable<Alert> Alerts => Directory.Alerts;
     public EventCalendarBanner EventBanner => Directory.EventBanner;
-
+    public string InheritedColourScheme => string.IsNullOrEmpty(FirstSubDirectory.ColourScheme)
+                                            ? "teal"
+                                            : FirstSubDirectory.ColourScheme.ToLower();
 
     public IEnumerable<Crumb> Breadcrumbs { get; set; }
 
@@ -108,7 +110,7 @@ public class DirectoryViewModel
         {
             if(_PrimaryItems == null)
             {
-                var directoryItems = Directory.SubItems.Where(item => item.Type == "directory").Select(subItem => new NavCard(subItem.Title, Slug + subItem.NavigationLink, subItem.Teaser, subItem.Image, subItem.Icon, subItem.ColourScheme));
+                var directoryItems = Directory.SubItems.Where(item => item.Type == "directory").Select(subItem => new NavCard(subItem.Title, $"{Slug}{subItem.NavigationLink}", subItem.Teaser, subItem.Image, subItem.Icon, subItem.ColourScheme));
                 var nonDirectoryItems = Directory.SubItems.Where(item => item.Type != "directory").Select(subItem => new NavCard(subItem.Title, subItem.NavigationLink, subItem.Teaser, subItem.Image, subItem.Icon, subItem.ColourScheme));
                 _PrimaryItems = new NavCardList() { Items = directoryItems.Concat(nonDirectoryItems).ToList() };
             }
