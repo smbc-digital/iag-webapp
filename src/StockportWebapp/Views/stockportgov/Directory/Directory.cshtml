@@ -1,34 +1,30 @@
 @model DirectoryViewModel
 @{
-    var directory = Model.Directory;
-    //var subdirectories = directory.SubDirectories;
-    //var subItems = directory.SubItems;
-    ViewData["Title"] = directory.Title;
-    ViewData["og:title"] = directory.Title;
-    ViewData["Description"] = directory.MetaDescription;
+    ViewData["Title"] = Model.Title;
+    ViewData["og:title"] = Model.Title;
+    ViewData["Description"] = Model.MetaDescription;
     Layout = "../Shared/_Layout2023.cshtml";
 
     var dataCy = Model.IsRootDirectory ? "directory-page" : "subdirectory-page";
     var navcardNoPadding = Model.DisplayIcons ? "navcard--no-padding-top" : string.Empty;
     var sectionMarginBottom = "";
-    if ((Model.Directory.ExternalLinks is not null && Model.Directory.ExternalLinks.Any()) || (Model.Directory.RelatedContent is not null && Model.Directory.RelatedContent.Any())){
-        sectionMarginBottom = "section--margin-bottom section--margin-bottom-1";
-    }
-
     var sectionMarginTop = "";
     var titleNoMarginBottom = "";
+    
+    if ((Model.Directory.ExternalLinks is not null && Model.Directory.ExternalLinks.Any()) || (Model.Directory.RelatedContent is not null && Model.Directory.RelatedContent.Any()))
+        sectionMarginBottom = "section--margin-bottom section--margin-bottom-1";    
 
-    if((!string.IsNullOrEmpty(directory.Body) && directory.CallToAction is not null) ||
-        (string.IsNullOrEmpty(directory.Body) && directory.CallToAction is null) ||
-        (!string.IsNullOrEmpty(directory.Body) && directory.CallToAction is null))
+    if ((!string.IsNullOrEmpty(Model.Body) && Model.CallToAction is not null) ||
+        (string.IsNullOrEmpty(Model.Body) && Model.CallToAction is null) ||
+        (!string.IsNullOrEmpty(Model.Body) && Model.CallToAction is null))
             sectionMarginTop = "section--margin-top";
 
-    if((string.IsNullOrEmpty(directory.Body) && directory.CallToAction is not null) ||
-        (string.IsNullOrEmpty(directory.Body) && directory.CallToAction is null))
+    if ((string.IsNullOrEmpty(Model.Body) && Model.CallToAction is not null) ||
+        (string.IsNullOrEmpty(Model.Body) && Model.CallToAction is null))
             titleNoMarginBottom = "section__title--no-margin-bottom";
 }
 
-<partial name="GlobalAlerts" model='directory.Alerts' />
+<partial name="GlobalAlerts" model='Model.Alerts' />
 
 <div class="grid-container-full-width" style="background-color:white;" data-cy=@dataCy>
     <partial name="Breadcrumb2023" model='@Model.Breadcrumbs' />
@@ -39,20 +35,20 @@
         <div class="grid-100">
             @if(!Model.IsRootDirectory)
             {
-                <h2 class="h-xl directory__title--margin @titleNoMarginBottom">@directory.Title</h2>
+                <h2 class="h-xl directory__title--margin @titleNoMarginBottom">@Model.Title</h2>
             }            
 
-            @if(!string.IsNullOrEmpty(directory.Body)) {
-                <div class="directory-lead">@Html.Raw(@directory.Body)</div>
+            @if(!string.IsNullOrEmpty(Model.Body)) {
+                <div class="directory-lead">@Html.Raw(@Model.Body)</div>
             }
         </div>
     </div>
 
     <h2 class="visuallyhidden">Services in @Model.Directory.Title</h2>
 
-    @if (directory.CallToAction is not null)
+    @if (Model.CallToAction is not null)
     {
-        <partial name="CallToAction" model='directory.CallToAction' view-data='new ViewDataDictionary(ViewData) { { "AdditionalCssClass", "section--margin-top"  } }'/>
+        <partial name="CallToAction" model='Model.CallToAction' view-data='new ViewDataDictionary(ViewData) { { "AdditionalCssClass", "section--margin-top"  } }'/>
     }
 
     <section class="section section--no-margin @sectionMarginTop @sectionMarginBottom">
@@ -60,19 +56,14 @@
             <div class="grid-100">
                 <div class="section__content section__content--no-margin">
                     <ul class="navcard-wrapper navcard-wrapper--no-margin" data-cy="navcard">
-                        @foreach (var subitem in directory.SubItems)
+                        @foreach (var subitem in Model.PrimaryItems.Items)
                         {
-
-                            var slug = subitem.Type.Equals("directory")
-                                        ? $"{Model.Slug}{subitem.NavigationLink}"
-                                        : subitem.NavigationLink;
-
                             var colourScheme = Model.IsRootDirectory
                             ? string.IsNullOrEmpty(subitem.ColourScheme) ? "teal" : subitem.ColourScheme.ToLower()
                                 : string.IsNullOrEmpty(Model.FirstSubDirectory.ColourScheme) ? "teal" : Model.FirstSubDirectory.ColourScheme.ToLower();
 
                             <li class="navcard navcard--width-33 navcard--center navcard-all navcard--border-top-10 navcard--theme-@colourScheme navcard--theme-@colourScheme-all">
-                                <a href=@Url.Action("Directory", "Directory", new { slug=slug }) class="navcard__link">
+                                <a href=@Url.Action("Directory", "Directory", new { slug=subitem.Url }) class="navcard__link">
                                     <div class="navcard__content">
                                         @if (!string.IsNullOrEmpty(subitem.Icon) && Model.DisplayIcons)
                                         {
@@ -90,15 +81,15 @@
                             </li>
                         }
                         
-                        @if (!directory.Title.Equals(Model.ParentDirectory.Title))
+                        @if (!Model.Title.Equals(Model.ParentDirectory.Title))
                         {
-                            var colourSchemeViewAll = directory.SubDirectories.Select(subdirectory => {
-                                    var directoryToCheck = directory.Title.Equals(Model.ParentDirectory.Title) ? subdirectory : Model.FirstSubDirectory;
+                            var colourSchemeViewAll = Model.Directory.SubDirectories.Select(subdirectory => {
+                                var directoryToCheck = Model.Directory.Title.Equals(Model.ParentDirectory.Title) ? subdirectory : Model.FirstSubDirectory;
                                     return string.IsNullOrEmpty(directoryToCheck.ColourScheme) ? "teal" : directoryToCheck.ColourScheme.ToLower();
                                 }).FirstOrDefault();
                             
                             <li class="navcard navcard--width-33 navcard--center navcard-all navcard--border-top-10 navcard--theme-@colourSchemeViewAll navcard--theme-@colourSchemeViewAll-all">
-                                <a href=@Url.Action("DirectoryResults", "Directory", new { slug=$"{directory.Slug}" }) class="navcard__link">
+                                <a href=@Url.Action("DirectoryResults", "Directory", new { slug=$"{Model.Slug}" }) class="navcard__link">
                                     <div class="navcard__content">
                                         @if (Model.DisplayIcons)
                                         {
@@ -108,7 +99,7 @@
                                         }
 
                                         <div class="navcard-content--padding @navcardNoPadding">
-                                            <h3 class="navcard__title navcard__title--black">View all services in @directory.Title</h3>
+                                            <h3 class="navcard__title navcard__title--black">View all services in @Model.Title</h3>
                                         </div>
                                     </div>
                                 </a>
@@ -120,10 +111,10 @@
         </div>
     </section>
 
-    @if (!string.IsNullOrEmpty(directory.EventBanner.Title)) 
+    @if (!string.IsNullOrEmpty(Model.EventBanner.Title)) 
     {
         <div class="event-calendar-banner--margin-top">
-            <partial name="EventBanner" model='directory.EventBanner'/>
+            <partial name="EventBanner" model='Model.EventBanner'/>
         </div>
     }
 

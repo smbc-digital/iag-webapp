@@ -41,6 +41,7 @@ public class DirectoryController : Controller
             Slug = slug,
         };
 
+        
         if (directory.SubDirectories.Any() && directory.SubDirectories is not null && directory.SubDirectories.Any(subdir => subdir is not null))
             return View(directoryViewModel);
 

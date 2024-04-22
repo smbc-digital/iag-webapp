@@ -1,44 +1,34 @@
-﻿using Directory = StockportWebapp.Models.Directory;
+﻿using StockportWebapp.Models;
+using WilderMinds.RssSyndication;
+using Directory = StockportWebapp.Models.Directory;
 using Filter = StockportWebapp.Model.Filter;
 
 namespace StockportWebapp.ViewModels;
 
 public class DirectoryViewModel
 {
+
+    private NavCardList _PrimaryItems;
+
+    // Core page details
     public string Slug { get; set; }
-    
-    public Directory Directory { get; set; }
-    
-    public Directory ParentDirectory { get; set; }
-    
-    public Directory FirstSubDirectory { get; set; }
+    public string Title => Directory.Title;
+    public string MetaDescription => Directory.MetaDescription;
+    public string Body => Directory.Body;
+    public CallToActionBanner CallToAction => Directory.CallToAction;
+    public IEnumerable<Alert> Alerts => Directory.Alerts;
+    public EventCalendarBanner EventBanner => Directory.EventBanner;
 
-    public IEnumerable<DirectoryEntry> FilteredEntries { get; set; }
-
-    public IEnumerable<Filter> AppliedFilters { get; set; }
-
-    public string SearchTerm { get; set; }
-
-    public IEnumerable<FilterTheme> AllFilterThemes { get; set; }
-
-    public DirectoryEntry DirectoryEntry { get; set; }
 
     public IEnumerable<Crumb> Breadcrumbs { get; set; }
-    
+
+    // Search sorting and filtering options
+    public string SearchTerm { get; set; }
     public string Order { get; set; }
-
-    public List<string> OrderBy = new() { "Name A to Z", "Name Z to A" };
-
-    public List<DirectoryEntry> PaginatedEntries { get; set; }
-    
     public PaginationInfo PaginationInfo { get; set; }
-    public IEnumerable<DirectoryEntry> PinnedEntries { get; set; }
-    public bool DisplayIcons => Directory?.SubDirectories is not null && 
-                                Directory.SubDirectories.Any() && 
-                                Directory.SubDirectories.All(item => item is not null && !string.IsNullOrEmpty(item.Icon));
-
-    public bool IsRootDirectory => Directory.Title.Equals(ParentDirectory.Title);
-
+    public List<string> OrderBy = new() { "Name A to Z", "Name Z to A" };
+    public IEnumerable<Filter> AppliedFilters { get; set; }
+    public IEnumerable<FilterTheme> AllFilterThemes { get; set; }
     public List<Query> QueryParameters
     {
         get
@@ -53,13 +43,31 @@ public class DirectoryViewModel
             }
 
             AppliedFilters?.ToList().ForEach(filter => queryParameters.Add(new Query("filters", filter.Slug)));
-           
+
             return queryParameters;
         }
     }
-    
+
+    // Page layout properties
+    public bool DisplayIcons => PrimaryItems is not null &&
+                            PrimaryItems.Items.Any() &&
+                            PrimaryItems.Items.All(item => item is not null && !string.IsNullOrEmpty(item.Icon));
+
+    public bool IsRootDirectory => Title.Equals(ParentDirectory.Title);
     public Dictionary<string, int> FilterCounts { get; set; }
 
+
+    // Results
+    public IEnumerable<DirectoryEntry> FilteredEntries { get; set; }
+    public IEnumerable<DirectoryEntry> PinnedEntries { get; set; }
+    public IEnumerable<DirectoryEntry> PaginatedEntries { get; set; }
+
+    // Base data
+    public Directory Directory { get; set; }
+    public Directory ParentDirectory { get; set; }
+    public Directory FirstSubDirectory { get; set; }
+    public DirectoryEntry DirectoryEntry { get; set; }
+ 
     public static void DoPagination(DirectoryViewModel viewModel, int page)
     {
         var allEntries = viewModel.PinnedEntries is not null ? viewModel.PinnedEntries.Concat(viewModel.FilteredEntries).Distinct(new DirectoryEntryComparer()) : viewModel.FilteredEntries;
@@ -93,12 +101,19 @@ public class DirectoryViewModel
             PageSize = pageSize
         };
     }
-}
 
-public class PaginationInfo
-{
-    public int CurrentPage { get; set; }
-    public int TotalPages { get; set; }
-    public int TotalEntries { get; set; }
-    public int PageSize { get; set; }
+    public NavCardList PrimaryItems
+    {
+        get
+        {
+            if(_PrimaryItems == null)
+            {
+                var directoryItems = Directory.SubItems.Where(item => item.Type == "directory").Select(subItem => new NavCard(subItem.Title, Slug + subItem.NavigationLink, subItem.Teaser, subItem.Image, subItem.Icon, subItem.ColourScheme));
+                var nonDirectoryItems = Directory.SubItems.Where(item => item.Type != "directory").Select(subItem => new NavCard(subItem.Title, subItem.NavigationLink, subItem.Teaser, subItem.Image, subItem.Icon, subItem.ColourScheme));
+                _PrimaryItems = new NavCardList() { Items = directoryItems.Concat(nonDirectoryItems).ToList() };
+            }
+
+            return _PrimaryItems;
+        }
+    }
 }
