@@ -69,7 +69,8 @@ public class DirectoryControllerTest
         CallToAction = new CallToActionBanner(),
         Alerts = new List<Alert>(),
         Entries  = new List<DirectoryEntry>(),
-        SubDirectories = new List<Directory>()
+        SubDirectories = new List<Directory>(),
+        PinnedEntries = new List<DirectoryEntry>()
     };
 
     private readonly Directory processedDirectoryWithSubdirectories = new()
@@ -162,11 +163,39 @@ public class DirectoryControllerTest
         Assert.Equal(expectedDirectoryViewModel.Slug, actualViewModel.Slug);
     }
     
-    [Fact] // here now!
-    public async Task DirectoryResults_ShouldReturnCorrectView_WithoutSubdirectories()
+    [Theory]
+    [InlineData(new string[] { "value1", "value2", "value3" }, "Name A to Z", "description")]
+    [InlineData(new string[] { "value1", "value2", "value3" }, "Name Z to A", "description")]
+    [InlineData(new string[] { "value1", "value2", "value3" }, "", "tea")]
+    public async Task DirectoryResults_ShouldReturnCorrectView(string[] filters, string orderBy, string searchTerm)
     {
         // Arrange
-        _ = _directoryService.Setup(_ => _.Get<Directory>(It.IsAny<string>())).ReturnsAsync(directory);
+        processedDirectoryWithSubdirectories.PinnedEntries = new List<DirectoryEntry>() { directoryEntry };
+        _ = _directoryService.Setup(_ => _.Get<Directory>(It.IsAny<string>())).ReturnsAsync(processedDirectoryWithSubdirectories);
+
+        // Act
+        var result = await _directoryController.DirectoryResults("slug", filters, orderBy, searchTerm, 0) as ViewResult;
+        var model = result.ViewData.Model as DirectoryViewModel;
+
+        // Assert
+        Assert.Equal("results", result.ViewName);
+        Assert.NotNull(model);
+        Assert.Equal(filterThemes, model.AllFilterThemes);
+        Assert.Equal(filterThemes.First().Filters, model.AllFilterThemes.First().Filters);
+        Assert.Equal("slug", model.Directory.Slug);
+        Assert.Equal(filtersList, model.AppliedFilters);
+        Assert.Empty(model.PinnedEntries);
+        _directoryService.Verify(service => service.GetSearchedEntryForDirectories(It.IsAny<IEnumerable<DirectoryEntry>>(), It.IsAny<string>()), Times.Exactly(1));
+        _directoryService.Verify(service => service.GetFilteredEntries(It.IsAny<IEnumerable<DirectoryEntry>>(), It.IsAny<string[]>()), Times.Exactly(1));
+        _directoryService.Verify(service => service.GetFilteredEntries(It.IsAny<IEnumerable<DirectoryEntry>>(), It.IsAny<string[]>()), Times.Exactly(1));
+    }
+
+    [Fact]
+    public async Task DirectoryResults_ShouldReturnCorrectView_WithEmptyFilters()
+    {
+        // Arrange
+        processedDirectoryWithSubdirectories.PinnedEntries = new List<DirectoryEntry>() { directoryEntry };
+        _ = _directoryService.Setup(_ => _.Get<Directory>(It.IsAny<string>())).ReturnsAsync(processedDirectoryWithSubdirectories);
 
         // Act
         var result = await _directoryController.DirectoryResults("slug", Array.Empty<string>(), string.Empty, string.Empty, 0) as ViewResult;
@@ -178,7 +207,7 @@ public class DirectoryControllerTest
     }
 
     [Fact]
-    public async Task DirectoryResults_ShouldReturnUnsuccessfulStatusCode(){
+    public async Task DirectoryResults_ShouldReturnNotFoundStatusCode(){
         // Arrange
         _directoryService.Setup(_ => _.Get<Directory>(It.IsAny<string>())).ReturnsAsync((Directory)null);
 
@@ -187,25 +216,6 @@ public class DirectoryControllerTest
 
         // Assert
         Assert.IsType<NotFoundResult>(result);
-    }
-
-    [Fact]
-    public async Task DirectoryResults_ShouldReturnCorrectView_WithFilters(){
-        // Arrange
-        string[] filters = { "value1", "value2", "value3" };
-        _directoryService.Setup(_ => _.Get<Directory>(It.IsAny<string>())).ReturnsAsync(directory);
-
-        // Act
-        var result = await _directoryController.DirectoryResults("slug", filters, string.Empty, string.Empty, 0) as ViewResult;
-        var model = result.ViewData.Model as DirectoryViewModel;
-
-        // Assert
-        Assert.Equal("results", result.ViewName);
-        Assert.Equal(filterThemes, model.AllFilterThemes);
-        Assert.Equal(filterThemes.First().Filters, model.AllFilterThemes.First().Filters);
-        Assert.Equal("slug-directory", model.Directory.Slug);
-        Assert.Equal(filtersList, model.AppliedFilters);
-        Assert.Empty(model.PinnedEntries);
     }
 
     [Fact]
@@ -227,7 +237,7 @@ public class DirectoryControllerTest
     }
 
     [Fact]
-    public async Task DirectoryEntry_ShouldReturnUnsuccessfulStatusCode()
+    public async Task DirectoryEntry_ShouldReturnNotFoundStatusCode()
     {
         _directoryService.Setup(_ => _.GetEntry<DirectoryEntry>(It.IsAny<string>())).ReturnsAsync((DirectoryEntry)null);
 
@@ -239,7 +249,7 @@ public class DirectoryControllerTest
     }
 
     [Fact]
-    public async Task DirectoryAsKml_ShouldReturnUnsuccessfulStatusCode()
+    public async Task DirectoryAsKml_ShouldReturnNotFoundStatusCode()
     {
         // Arrange
         _ = _directoryService.Setup(_ => _.Get<Directory>("not-slug")).ReturnsAsync((Directory)null);
@@ -261,26 +271,12 @@ public class DirectoryControllerTest
     }
 
     [Fact]
-    public async Task Directory_ShouldCallReturnContentInKmlFormat()
+    public async Task DirectoryAsKml_ShouldCallReturnContentInKmlFormat()
     {
         // Act
         var result = await _directoryController.DirectoryAsKml("slug", Array.Empty<string>(), string.Empty, string.Empty);
 
         // Assert
         Assert.NotNull(result);
-    }
-
-    [Fact]
-    public async Task Directory_ShouldCallDirectoryService_IfSearchTermSpecified()
-    {
-        // Arrange
-        _directoryService.Setup(_ => _.Get<Directory>(It.IsAny<string>()))
-            .ReturnsAsync(directory);
-
-        // Act
-        var result = await _directoryController.DirectoryResults("slug", Array.Empty<string>(), string.Empty, "search me", 0);
-
-        // Assert
-        _directoryService.Verify(service => service.GetSearchedEntryForDirectories(It.IsAny<IEnumerable<DirectoryEntry>>(), It.IsAny<string>()), Times.Exactly(1));
     }
 }
