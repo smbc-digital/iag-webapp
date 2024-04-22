@@ -1,29 +1,25 @@
 @model DirectoryViewModel
 @{
     bool showPagination = Model.PaginationInfo.TotalEntries > Model.PaginationInfo.PageSize;
-    var directory = Model.Directory;
-    ViewData["Title"] = directory.Title + (showPagination ? " results (page " + Model.PaginationInfo.CurrentPage + " of " + Model.PaginationInfo.TotalPages + ")" : string.Empty);
-    ViewData["BreadcrumbTitle"] = $"Results in {directory.Title}";
-    ViewData["og:title"] = directory.Title;
-    ViewData["Description"] = directory.MetaDescription;
+    ViewData["Title"] = Model.Title + (showPagination ? " results (page " + Model.PaginationInfo.CurrentPage + " of " + Model.PaginationInfo.TotalPages + ")" : string.Empty);
+    ViewData["BreadcrumbTitle"] = $"Results in { Model.Title }";
+    ViewData["og:title"] = Model.Title;
+    ViewData["Description"] = Model.MetaDescription;
     Layout = "../Shared/_Layout2023.cshtml";
 }
 
 <div class="grid-container-full-width background-grey" data-cy="search-results">
     <partial name="Breadcrumb2023" model='@Model.Breadcrumbs' />
 
-    <partial name="DirectorySearch" model="new DirectoryViewModel{ Directory = Model.ParentDirectory, SearchTerm = Model.SearchTerm }" />
+    <partial name="DirectorySearch" model="new DirectorySearchViewModel(){ Slug = Model.ParentDirectory.Slug, Title = Model.ParentDirectory.Title, Branding=Model.ParentDirectory.SearchBranding, SearchTerm = Model.SearchTerm }" />
 
     <form asp-controller="Directory" method="get">
-        @*The below could be used to retrieve the URL of the KML  equivalent of the results for this page*@
-        @*@Url.ActionLink("DirectoryAsKml", "Directory", new { slug = Model.Slug }, "https", Context.Request.Host.Value).AddQueryStrings(Model.QueryParameters)*@
-
         <input type="hidden" asp-for="SearchTerm" id="persistedSearchTerm"/>
         <div class="grid-container">
             <div class="grid-100 directory-sub-title">
                 @if(string.IsNullOrEmpty(Model.SearchTerm))
                 {
-                    <h1 data-cy="results-title">Results for @Model.Directory.Title</h1>
+                    <h1 data-cy="results-title">Results for @Model.Title</h1>
                 }
                 else
                 {
@@ -32,7 +28,7 @@
 
                 <span>Showing <span class="bold">@Model.PaginationInfo.TotalEntries</span>@(
                     Model.PaginationInfo.TotalEntries.Equals(1) ? " result" : " results"
-                    ) in <span class="bold">@Model.Directory.Title</span> @if (!string.IsNullOrEmpty(Model.SearchTerm)) { @("for ") <span class='bold'>"@Model.SearchTerm"</span> }</span>
+                    ) in <span class="bold">@Model.Title</span> @if (!string.IsNullOrEmpty(Model.SearchTerm)) { @("for ") <span class='bold'>"@Model.SearchTerm"</span> }</span>
             </div>
         </div>
 
@@ -97,7 +93,7 @@
                                                 <button value="Apply filters" data-cy="apply-filters" class="btn btn--bold btn--full btn--margin-bottom btn--margin-top" type="submit">Apply filters</button>
                                             }
                                           
-                                            <a href="@Url.Action("DirectoryResults", "Directory", new { slug = Model.Directory.Slug })" data-cy="clear-filters" class="btn btn--inverse btn--full btn--bold btn--black-text btn--border-grey">Clear filters</a>
+                                            <a href="@Url.Action("DirectoryResults", "Directory", new { slug = Model.Slug })" data-cy="clear-filters" class="btn btn--inverse btn--full btn--bold btn--black-text btn--border-grey">Clear filters</a>
                                         </div>
                                     </div>
                                 </div>
@@ -106,7 +102,7 @@
                     </div>
 
                     <div class="directory--70">
-                        <h2 class="visuallyhidden">Results in @Model.Directory.Title</h2>
+                        <h2 class="visuallyhidden">Results in @Model.Title</h2>
                         <ul class="navcard-wrapper">
                             @if (Model.PaginationInfo.CurrentPage.Equals(1))
                             {

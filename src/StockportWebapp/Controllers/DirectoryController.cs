@@ -33,18 +33,17 @@ public class DirectoryController : Controller
         
         List<Directory> parentDirectories = await GetParentDirectories(pageLocation.ParentSlugs);
         
-        DirectoryViewModel directoryViewModel = new() {
-            Directory = directory,
-            ParentDirectory = parentDirectories.FirstOrDefault() ?? directory,
-            FirstSubDirectory = parentDirectories.ElementAtOrDefault(1) ?? directory,
-            Breadcrumbs = GetBreadcrumbsForDirectories(directory, parentDirectories, false, false),
-            Slug = slug,
-        };
+        var parentDirectory = parentDirectories.FirstOrDefault() ?? directory;
+        var firstDirectory = parentDirectories.ElementAtOrDefault(1) ?? directory;
 
+        DirectoryViewModel viewModel = new(slug, directory, GetBreadcrumbsForDirectories(directory, parentDirectories, false, false))
+        {
+            ParentDirectory = new DirectoryViewModel(parentDirectory),
+            FirstSubDirectory = new DirectoryViewModel(firstDirectory)
+        };
         
-        
-        if (directory.SubDirectories.Any() && directory.SubDirectories is not null && directory.SubDirectories.Any(subdir => subdir is not null))
-            return View(directoryViewModel);
+        if (viewModel.PrimaryItems.Items.Any())
+            return View(viewModel);
 
         return RedirectToAction("DirectoryResults", new { slug });
     }
@@ -68,13 +67,13 @@ public class DirectoryController : Controller
         var entries = GetSearchedFilteredSortedEntries(regularEntries, filters, orderBy, searchTerm);
         var pinnedEntries = GetSearchedFilteredSortedEntries(directory.PinnedEntries, filters, orderBy, searchTerm);
         var allFilterThemes = _directoryService.GetFilterThemes(entries.Concat(pinnedEntries));
-        var viewModel = new DirectoryViewModel
+
+        var parentDirectory = parentDirectories.FirstOrDefault() ?? directory;
+        var firstDirectory = parentDirectories.ElementAtOrDefault(1) ?? directory;
+        DirectoryViewModel viewModel = new(slug, directory, GetBreadcrumbsForDirectories(directory, parentDirectories, false, true))
         {
-            Slug = slug,
-            Breadcrumbs = GetBreadcrumbsForDirectories(directory, parentDirectories, false, true),
-            Directory = directory,
-            ParentDirectory = parentDirectories.FirstOrDefault() ?? directory,
-            FirstSubDirectory = parentDirectories.ElementAtOrDefault(1) ?? directory,
+            ParentDirectory = new DirectoryViewModel(parentDirectory),
+            FirstSubDirectory = new DirectoryViewModel(firstDirectory),
             FilteredEntries = entries,
             AllFilterThemes = allFilterThemes,
             PinnedEntries = pinnedEntries,
@@ -135,12 +134,9 @@ public class DirectoryController : Controller
         
         List<Directory> parentDirectories = await GetParentDirectories(pageLocation.ParentSlugs);
 
-        return View(new DirectoryViewModel()
+        return View(new DirectoryViewModel(slug, parentDirectories.FirstOrDefault(), GetBreadcrumbsForDirectories(parentDirectories.FirstOrDefault(), parentDirectories, true, false))
         {
-            Directory = parentDirectories.FirstOrDefault(),
             DirectoryEntry = directoryEntry,
-            Breadcrumbs = GetBreadcrumbsForDirectories(parentDirectories.FirstOrDefault(), parentDirectories, true, false),
-            Slug = slug
         });
     }
 

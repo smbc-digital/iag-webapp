@@ -7,27 +7,63 @@ namespace StockportWebapp.ViewModels;
 
 public class DirectoryViewModel
 {
+    public DirectoryViewModel()
+    {
+    }
 
-    private NavCardList _PrimaryItems;
+    public DirectoryViewModel(Directory directory) : this(directory.Slug, directory)
+    {
+    }
+
+    public DirectoryViewModel(string slug, Directory directory, IEnumerable<Crumb> breadcrumbs) : this(slug, directory)
+    {
+        Breadcrumbs = breadcrumbs;
+    }
+    public DirectoryViewModel(string slug, Directory directory)
+    {
+        Slug = slug;
+        Title = directory.Title;
+        MetaDescription = directory.MetaDescription;
+        Body = directory.Body;
+        CallToAction = directory.CallToAction;
+        Alerts = directory.Alerts;
+        EventBanner = directory.EventBanner;
+        ColourScheme = directory.ColourScheme;
+        RelatedContent = directory.RelatedContent;
+        ExternalLinks = directory.ExternalLinks;
+        _searchBranding = directory.SearchBranding;
+        var directoryItems = directory.SubItems.Where(item => item.Type == "directory").Select(subItem => new NavCard(subItem.Title, $"{Slug}{subItem.NavigationLink}", subItem.Teaser, subItem.Image, subItem.Icon, subItem.ColourScheme));
+        var nonDirectoryItems = directory.SubItems.Where(item => item.Type != "directory").Select(subItem => new NavCard(subItem.Title, subItem.NavigationLink, subItem.Teaser, subItem.Image, subItem.Icon, subItem.ColourScheme));
+        PrimaryItems = new NavCardList() { Items = directoryItems.Concat(nonDirectoryItems).ToList() };
+    }
 
     // Core page details
+    private string _searchBranding = "Default";
     public string Slug { get; set; }
-    public string Title => Directory.Title;
-    public string MetaDescription => Directory.MetaDescription;
-    public string Body => Directory.Body;
-    public CallToActionBanner CallToAction => Directory.CallToAction;
-    public IEnumerable<Alert> Alerts => Directory.Alerts;
-    public EventCalendarBanner EventBanner => Directory.EventBanner;
+    public string Title { get; set; }
+    public string MetaDescription { get; set; }
+    public string Body { get; set; }
+    public CallToActionBanner CallToAction { get; set; }
+    public IEnumerable<Alert> Alerts { get; set; }
+    public EventCalendarBanner EventBanner { get; set; }
+    public string ColourScheme { get; set; }
+    public string SearchBranding => ParentDirectory != null 
+                                    && !string.IsNullOrEmpty(ParentDirectory.SearchBranding) 
+                                        ? ParentDirectory.SearchBranding
+                                        : _searchBranding;
     public string InheritedColourScheme => string.IsNullOrEmpty(FirstSubDirectory.ColourScheme)
                                             ? "teal"
                                             : FirstSubDirectory.ColourScheme.ToLower();
-
+    public NavCardList PrimaryItems { get; set; }
     public IEnumerable<Crumb> Breadcrumbs { get; set; }
+    public IEnumerable<SubItem> RelatedContent { get; set; }
+    public IEnumerable<ExternalLink> ExternalLinks { get; set; } = new List<ExternalLink>();
 
     // Search sorting and filtering options
     public string SearchTerm { get; set; }
-    public string Order { get; set; }
+    public string Order { get; set; }   
     public PaginationInfo PaginationInfo { get; set; }
+
     public List<string> OrderBy = new() { "Name A to Z", "Name Z to A" };
     public IEnumerable<Filter> AppliedFilters { get; set; }
     public IEnumerable<FilterTheme> AllFilterThemes { get; set; }
@@ -40,15 +76,14 @@ public class DirectoryViewModel
                 queryParameters.Add(new Query("searchTerm", SearchTerm));
 
             if (!string.IsNullOrEmpty(Order))
-            {
                 queryParameters.Add(new Query("orderBy", Order.Replace(" ", "-")));
-            }
 
             AppliedFilters?.ToList().ForEach(filter => queryParameters.Add(new Query("filters", filter.Slug)));
 
             return queryParameters;
         }
     }
+
 
     // Page layout properties
     public bool DisplayIcons => PrimaryItems is not null &&
@@ -58,7 +93,6 @@ public class DirectoryViewModel
     public bool IsRootDirectory => Title.Equals(ParentDirectory.Title);
     public Dictionary<string, int> FilterCounts { get; set; }
 
-
     // Results
     public IEnumerable<DirectoryEntry> FilteredEntries { get; set; }
     public IEnumerable<DirectoryEntry> PinnedEntries { get; set; }
@@ -66,8 +100,8 @@ public class DirectoryViewModel
 
     // Base data
     public Directory Directory { get; set; }
-    public Directory ParentDirectory { get; set; }
-    public Directory FirstSubDirectory { get; set; }
+    public DirectoryViewModel ParentDirectory { get; set; }
+    public DirectoryViewModel FirstSubDirectory { get; set; }
     public DirectoryEntry DirectoryEntry { get; set; }
  
     public static void DoPagination(DirectoryViewModel viewModel, int page)
@@ -102,20 +136,5 @@ public class DirectoryViewModel
             TotalEntries = allEntries.Count(),
             PageSize = pageSize
         };
-    }
-
-    public NavCardList PrimaryItems
-    {
-        get
-        {
-            if(_PrimaryItems == null)
-            {
-                var directoryItems = Directory.SubItems.Where(item => item.Type == "directory").Select(subItem => new NavCard(subItem.Title, $"{Slug}{subItem.NavigationLink}", subItem.Teaser, subItem.Image, subItem.Icon, subItem.ColourScheme));
-                var nonDirectoryItems = Directory.SubItems.Where(item => item.Type != "directory").Select(subItem => new NavCard(subItem.Title, subItem.NavigationLink, subItem.Teaser, subItem.Image, subItem.Icon, subItem.ColourScheme));
-                _PrimaryItems = new NavCardList() { Items = directoryItems.Concat(nonDirectoryItems).ToList() };
-            }
-
-            return _PrimaryItems;
-        }
     }
 }

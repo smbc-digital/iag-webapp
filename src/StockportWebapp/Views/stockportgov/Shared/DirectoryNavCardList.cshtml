@@ -6,8 +6,8 @@
                 ? "navcard--no-padding-top"
                 : string.Empty;
 
-    if ((Model.Directory.ExternalLinks is not null && Model.Directory.ExternalLinks.Any()) 
-        || (Model.Directory.RelatedContent is not null && Model.Directory.RelatedContent.Any()))
+    if ((Model.ExternalLinks is not null && Model.ExternalLinks.Any()) 
+        || (Model.RelatedContent is not null && Model.RelatedContent.Any()))
         sectionMarginBottom = "section--margin-bottom section--margin-bottom-1";
 
     if ((string.IsNullOrEmpty(Model.Body) && Model.CallToAction is null) || 
