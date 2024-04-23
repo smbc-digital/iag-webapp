@@ -169,6 +169,15 @@
                             </div>
                         </div>
                     }
+                     @if (Model.DirectoryEntry.MapDetails.MapPosition is not null && 
+                            !Model.DirectoryEntry.MapDetails.MapPosition.Lat.Equals(0.0) && 
+                            !Model.DirectoryEntry.MapDetails.MapPosition.Lon.Equals(0.0))
+                    {
+                        <div class="group-map-container group-map-container-padding">
+                            <h2 class="group-details-heading">How to find us</h2>
+                            <partial name="MapPosition" model='Model.DirectoryEntry.MapDetails' />
+                        </div>
+                    }
 
                     @if(directory.Branding.Any()){
                         <div class="directory--border-top directory--no-margin @borderTeal">

@@ -27,8 +27,9 @@ namespace StockportWebapp.Models
         public string Address { get; set; } = string.Empty;
         public string Image { get; set; }
         public IEnumerable<string> Tags { get; set; } = new List<string>();
+        public MapDetails MapDetails { get; set; }
 
-        public Placemark ToKmlPlacemark() => new Placemark
+        public Placemark ToKmlPlacemark() => new()
         {
             // Ref
             // https://developers.google.com/kml/documentation/kml_tut?csw=1#descriptive_html
@@ -36,13 +37,13 @@ namespace StockportWebapp.Models
 
             Geometry = new Point
             {
-                Coordinate = new Vector(this.MapPosition.Lat, this.MapPosition.Lon),
+                Coordinate = new Vector(MapPosition.Lat, MapPosition.Lon),
             },
             Name = Name,
-            Description = new Description() { Text = $@"<![CDATA[{ this.Teaser }]]>" },
-            PhoneNumber = this.PhoneNumber,
-            Address = this.Address,
-            AtomLink = new SharpKml.Dom.Atom.Link { Href = new Uri("https://www.stockport.gov.uk"), Title=$"Visit {this.Name}" }
+            Description = new Description() { Text = $@"<![CDATA[{ Teaser }]]>" },
+            PhoneNumber = PhoneNumber,
+            Address = Address,
+            AtomLink = new SharpKml.Dom.Atom.Link { Href = new Uri("https://www.stockport.gov.uk"), Title=$"Visit {Name}" }
         };
     }
 
