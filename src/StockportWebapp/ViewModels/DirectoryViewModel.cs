@@ -38,7 +38,7 @@ public class DirectoryViewModel
                                 Directory.SubDirectories.All(item => item is not null && !string.IsNullOrEmpty(item.Icon));
 
     public bool IsRootDirectory => Directory.Title.Equals(ParentDirectory.Title);
-
+    public MapDetails MapDetails { get; set; }
     public List<Query> QueryParameters
     {
         get

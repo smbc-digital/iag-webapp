@@ -1,3 +1,16 @@
+.embed-map-container {
+    display: none;
+}
+
+.directory-map-container {
+    margin-bottom: 2em;
+}
+
+.directory-map-container .map-container {
+    height: 330px;
+    margin-top: 10px;
+}
+
 .type-directory.background-grey {
     background-color: $stockport-light-grey;
 }
@@ -371,7 +384,7 @@
         }
     }
 
-    &--border-top, &__filters {
+    &--border-top, &__filters, &__map {
         border-radius: 3px;
         margin-bottom: 2em;
 

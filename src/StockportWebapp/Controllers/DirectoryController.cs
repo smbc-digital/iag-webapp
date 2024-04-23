@@ -132,13 +132,18 @@ public class DirectoryController : Controller
             return NotFound();
         
         List<Directory> parentDirectories = await GetParentDirectories(pageLocation.ParentSlugs);
+        var mapDetails = new MapDetails()
+        {
+            MapPosition = directoryEntry.MapPosition
+        };
 
         return View(new DirectoryViewModel()
         {
             Directory = parentDirectories.FirstOrDefault(),
             DirectoryEntry = directoryEntry,
             Breadcrumbs = GetBreadcrumbsForDirectories(parentDirectories.FirstOrDefault(), parentDirectories, true, false),
-            Slug = slug
+            Slug = slug,
+            MapDetails = mapDetails
         });
     }
 
