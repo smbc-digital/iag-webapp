@@ -1,6 +1,7 @@
 @model DirectoryViewModel
 @{
     bool showPagination = Model.PaginationInfo.TotalEntries > Model.PaginationInfo.PageSize;
+    var title = string.IsNullOrEmpty(Model.SearchTerm) ? Model.Title : Model.SearchTerm;
     ViewData["Title"] = Model.Title + (showPagination ? " results (page " + Model.PaginationInfo.CurrentPage + " of " + Model.PaginationInfo.TotalPages + ")" : string.Empty);
     ViewData["BreadcrumbTitle"] = $"Results in { Model.Title }";
     ViewData["og:title"] = Model.Title;
@@ -10,22 +11,13 @@
 
 <div class="grid-container-full-width background-grey" data-cy="search-results">
     <partial name="Breadcrumb2023" model='@Model.Breadcrumbs' />
-
     <partial name="DirectorySearch" model="new DirectorySearchViewModel(){ Slug = Model.ParentDirectory.Slug, Title = Model.ParentDirectory.Title, Branding=Model.ParentDirectory.SearchBranding, SearchTerm = Model.SearchTerm }" />
 
     <form asp-controller="Directory" method="get">
         <input type="hidden" asp-for="SearchTerm" id="persistedSearchTerm"/>
         <div class="grid-container">
             <div class="grid-100 directory-sub-title">
-                @if(string.IsNullOrEmpty(Model.SearchTerm))
-                {
-                    <h1 data-cy="results-title">Results for @Model.Title</h1>
-                }
-                else
-                {
-                    <h1 data-cy="results-title">Results for "@Model.SearchTerm"</h1>
-                }
-
+               <h1 data-cy="results-title">Results for @title</h1>
                 <span>Showing <span class="bold">@Model.PaginationInfo.TotalEntries</span>@(
                     Model.PaginationInfo.TotalEntries.Equals(1) ? " result" : " results"
                     ) in <span class="bold">@Model.Title</span> @if (!string.IsNullOrEmpty(Model.SearchTerm)) { @("for ") <span class='bold'>"@Model.SearchTerm"</span> }</span>
@@ -47,81 +39,16 @@
             <div class="grid-100">
                 <div class="directory @(showPagination ? string.Empty : "directory--margin-bottom")">
                     <div class="directory--30">
-                        <section class="navcard-wrapper">
-                            <div class="navcard navcard--white navcard--width-100 navcard--border navcard--no-padding-right-rtl">
-                                <div class="navcard-content navcard-all navcard--theme-grey-accent-all navcard--radius-all">
-                                    <div class="navcard-content--padding">
-                                        <h2 class="h-ml h--no-top-margin">Filter your results</h2>
-                                        <p>Choose one or more options to filter your results.</p>
-
-                                        <div class="directory-results__filters">
-                                            @if (Model.AllFilterThemes is not null && Model.AllFilterThemes.Any())
-                                            {
-                                                @foreach (var entry in Model.AllFilterThemes)
-                                                {
-                                                    <a href="javascript:void(0)" @(Model.AllFilterThemes.First() != entry ? "aria-expanded=false" : "aria-expanded=true") class="directory-results__collapsible">
-                                                        <h3 id='directory-@entry.Title.ToLower().Replace(" ", "-")'>@entry.Title</h3>
-                                                        <span class="directory-results__toggle @(Model.AllFilterThemes.First() != entry ? "closed" : string.Empty)"></span>
-                                                    </a>
-
-                                                    <div class="directory-filters__content" @(Model.AllFilterThemes.First() != entry ? "style=display:none;" : string.Empty) role="group" aria-labelledby='directory-@entry.Title.ToLower().Replace(" ", "-")'>
-                                                        @foreach (var filter in entry.Filters)
-                                                        {
-                                                            <div class="directory__checkbox-container">
-                                                                <input class="directory-filters__checkbox" type="checkbox" name="filters" value="@filter.Slug" id="@filter.Slug"
-                                                                @(Model.AppliedFilters.Any(appliedFilter => appliedFilter.Slug == filter.Slug) ? "checked" : string.Empty)>
-
-                                                                <label for="@filter.Slug" class="directory-filters__label">@filter.DisplayName</label>
-                                                                <span class="directory-filters__count" aria-hidden="true">(@Model.FilterCounts.GetValueOrDefault(filter.Slug, 0))</span>
-
-                                                                
-                                                                <span class="visuallyhidden">
-                                                                    @{ 
-                                                                        var filterCount = Model.FilterCounts.GetValueOrDefault(filter.Slug, 0);
-                                                                        var countValueForSR = filterCount.Equals(1) ? $"{filterCount} result" : $"{filterCount} results";
-                                                                    }
-                                                                    @countValueForSR</span>
-
-                                                                <br>
-                                                            </div>
-                                                        }
-                                                    </div>
-
-                                                    <hr>
-                                                }
-
-                                                <button value="Apply filters" data-cy="apply-filters" class="btn btn--bold btn--full btn--margin-bottom btn--margin-top" type="submit">Apply filters</button>
-                                            }
-                                          
-                                            <a href="@Url.Action("DirectoryResults", "Directory", new { slug = Model.Slug })" data-cy="clear-filters" class="btn btn--inverse btn--full btn--bold btn--black-text btn--border-grey">Clear filters</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
+                        <partial name="DirectorySearchResultFilters" />
                     </div>
 
                     <div class="directory--70">
                         <h2 class="visuallyhidden">Results in @Model.Title</h2>
-                        <ul class="navcard-wrapper">
-                            @if (Model.PaginationInfo.CurrentPage.Equals(1))
-                            {
-                                foreach (var entry in Model.PinnedEntries)
-                                {
-                                    <partial name="DirectorySearchResult" model=@(new DirectorySearchResultViewModel { DirectorySlug = Model.Slug, Entry = entry }) view-data='new ViewDataDictionary(ViewData) {{"pinnedEntry", true}}'/>
-                                }
-                            }
-
-                            @foreach (var entry in Model.PaginatedEntries)
-                            {
-                                <partial name="DirectorySearchResult" model=@(new DirectorySearchResultViewModel {DirectorySlug = Model.Slug, Entry = entry}) view-data='new ViewDataDictionary(ViewData) {{"pinnedEntry", false}}' />
-                            }
-                        </ul>
+                        <partial name="DirectorySearchResults" />
                     </div>
                 </div>
             </div>
         </div>
-
         <partial name="DirectoryPagination" model="@Model"/>
     </form>
 

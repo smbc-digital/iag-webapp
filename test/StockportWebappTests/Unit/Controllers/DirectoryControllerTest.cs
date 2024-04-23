@@ -88,9 +88,8 @@ public class DirectoryControllerTest
     public DirectoryControllerTest()
     {
         _directoryController = new DirectoryController(_directoryService.Object);
-
         directory.PinnedEntries = new List<DirectoryEntry>() { directoryEntry };
-        processedDirectoryWithSubdirectories.SetEntries(new List<DirectoryEntry>() { directoryEntry });
+        processedDirectoryWithSubdirectories.Entries = new List<DirectoryEntry>() { directoryEntry };
         processedDirectoryWithSubdirectories.SubDirectories = new List<Directory>() { directory };
         
         string[] filters = { "value1", "value2", "value3" };

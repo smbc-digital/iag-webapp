@@ -1,19 +1,13 @@
-﻿using StockportWebapp.Models;
-using WilderMinds.RssSyndication;
-using Directory = StockportWebapp.Models.Directory;
+﻿using Directory = StockportWebapp.Models.Directory;
 using Filter = StockportWebapp.Model.Filter;
 
 namespace StockportWebapp.ViewModels;
 
 public class DirectoryViewModel
 {
-    public DirectoryViewModel()
-    {
-    }
+    public DirectoryViewModel() { }
 
-    public DirectoryViewModel(Directory directory) : this(directory.Slug, directory)
-    {
-    }
+    public DirectoryViewModel(Directory directory) : this(directory.Slug, directory) { }
 
     public DirectoryViewModel(string slug, Directory directory, IEnumerable<Crumb> breadcrumbs) : this(slug, directory)
     {
@@ -42,7 +36,6 @@ public class DirectoryViewModel
     private string _searchBranding = "Default";
 
     // Core page details
-
     public string Slug { get; set; }
     public string Title { get; set; }
     public string MetaDescription { get; set; }
@@ -67,7 +60,6 @@ public class DirectoryViewModel
     public string SearchTerm { get; set; }
     public string Order { get; set; }   
     public PaginationInfo PaginationInfo { get; set; }
-
     public List<string> OrderBy = new() { "Name A to Z", "Name Z to A" };
     public IEnumerable<Filter> AppliedFilters { get; set; }
     public IEnumerable<FilterTheme> AllFilterThemes { get; set; }
@@ -88,12 +80,10 @@ public class DirectoryViewModel
         }
     }
 
-
     // Page layout properties
     public bool DisplayIcons => PrimaryItems is not null &&
                             PrimaryItems.Items.Any() &&
                             PrimaryItems.Items.All(item => item is not null && !string.IsNullOrEmpty(item.Icon));
-
     public bool IsRootDirectory => Title.Equals(ParentDirectory.Title);
     public Dictionary<string, int> FilterCounts { get; set; }
 

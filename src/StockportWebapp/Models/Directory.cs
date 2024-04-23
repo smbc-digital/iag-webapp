@@ -14,19 +14,7 @@ namespace StockportWebapp.Models
         public string Body { get; set; } = string.Empty;
         public CallToActionBanner CallToAction { get; init; }
         public IEnumerable<Alert> Alerts { get; set; }
-
-        private IEnumerable<DirectoryEntry> entries = new List<DirectoryEntry>();
-
-        public IEnumerable<DirectoryEntry> GetEntries()
-        {
-            return entries;
-        }
-
-        public void SetEntries(IEnumerable<DirectoryEntry> value)
-        {
-            entries = value;
-        }
-
+        public IEnumerable<DirectoryEntry> Entries { get; set; } = new List<DirectoryEntry>();
         public IEnumerable<Directory> SubDirectories { get; set; } = new List<Directory>();
         public IEnumerable<SubItem> SubItems { get; set; } = new List<SubItem>();
         public string ColourScheme { get; set; } = string.Empty;
@@ -38,27 +26,27 @@ namespace StockportWebapp.Models
         public IEnumerable<DirectoryEntry> PinnedEntries { get; set; } = new List<DirectoryEntry>();
 
         [JsonIgnore]
-        private IEnumerable<DirectoryEntry> _entries = null;
+        private IEnumerable<DirectoryEntry> _cummulativeEntries = null;
 
         /// <summary>
         /// Gets a list of entries relevant to this directory including those in sub directories, but exclusing pinned entries
         /// </summary>
         [JsonIgnore]
-        public IEnumerable<DirectoryEntry> Entries
+        public IEnumerable<DirectoryEntry> CummulativeEntries
         {
             get
             {
-                _entries ??= (SubDirectories is not null && SubDirectories.Any()
-                                    ? GetEntries()?
+                _cummulativeEntries ??= (SubDirectories is not null && SubDirectories.Any()
+                                    ? Entries?
                                         .Concat(SubDirectories
                                             .Where(sub => sub is not null)
-                                            .SelectMany(sub => sub.Entries))     
-                                    : GetEntries())
+                                            .SelectMany(sub => sub.CummulativeEntries))     
+                                    : Entries)
                                         .Where(entry => entry is not null && !string.IsNullOrEmpty(entry.Slug))
                                         .Distinct(new DirectoryEntryComparer());
 
                 
-                return _entries;
+                return _cummulativeEntries;
             }         
         }
 
@@ -67,7 +55,7 @@ namespace StockportWebapp.Models
         /// </summary>
         [JsonIgnore]
         public IEnumerable<DirectoryEntry> RegularEntries 
-            => Entries.Where(entry => !PinnedEntries.Any(pinnedEntry => pinnedEntry.Slug.Equals(entry.Slug)));
+            => CummulativeEntries.Where(entry => !PinnedEntries.Any(pinnedEntry => pinnedEntry.Slug.Equals(entry.Slug)));
 
         /// <summary>
         /// Returns a list of of all entries including pinned and unpinned
@@ -77,6 +65,6 @@ namespace StockportWebapp.Models
             => RegularEntries.Concat(PinnedEntries);
 
         public string ToKml()
-            => Entries.GetKmlForList();
+            => CummulativeEntries.GetKmlForList();
     }
 }
