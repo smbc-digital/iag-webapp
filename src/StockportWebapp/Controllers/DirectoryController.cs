@@ -116,16 +116,14 @@ public class DirectoryController : Controller
             return NotFound();
 
         var pageLocation = slug.ProcessAsWildcardSlug();
+
         var directoryEntry = await _directoryService.GetEntry<DirectoryEntry>(pageLocation.Slug);
         if(directoryEntry is null)
             return NotFound();
         
         List<Directory> parentDirectories = await GetParentDirectories(pageLocation.ParentSlugs);
 
-        return View(new DirectoryViewModel(slug, parentDirectories.FirstOrDefault(), GetBreadcrumbsForDirectories(parentDirectories.FirstOrDefault(), parentDirectories, true, false))
-        {
-            DirectoryEntry = directoryEntry,
-        });
+        return View(new DirectoryEntryViewModel(slug, directoryEntry, GetBreadcrumbsForDirectories(parentDirectories.FirstOrDefault(), parentDirectories, true, false)));
     }
 
     private List<Crumb> GetBreadcrumbsForDirectories(Directory currentDirectory, List<Directory> parentDirectories, bool viewLastBreadcrumbAsResults = false, bool addCurrentDirectoryBreadcrumb = false) 

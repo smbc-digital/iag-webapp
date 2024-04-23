@@ -1,28 +1,14 @@
-@model DirectoryViewModel
+@model DirectoryEntryViewModel
 @{
-    var directory = Model.DirectoryEntry;
-    ViewData["Title"] = directory.Name;
-    ViewData["og:title"] = directory.Name;
-    ViewData["Description"] = directory.MetaDescription;
+    ViewData["Title"] = Model.Name;
+    ViewData["og:title"] = Model.Name;
+    ViewData["Description"] = Model.MetaDescription;
     Layout = "../Shared/_Layout2023.cshtml";
-    var highlightedFilters = directory.Themes?.SelectMany(_ => _.Filters.Where(_ => _.Highlight.Equals(true))).ToList();                          
     
-    var primaryContact = !string.IsNullOrEmpty(directory.PhoneNumber) ||
-                         !string.IsNullOrEmpty(directory.Email);
-
-    var displayVisit = !string.IsNullOrEmpty(directory.Facebook) ||
-                       !string.IsNullOrEmpty(directory.Twitter) ||
-                       !string.IsNullOrEmpty(directory.Youtube) ||
-                       !string.IsNullOrEmpty(directory.Instagram) ||
-                       !string.IsNullOrEmpty(directory.LinkedIn);
-
-    var displayContactUs = !string.IsNullOrEmpty(directory.Website) || primaryContact || displayVisit;
-
     var borderTeal = " navcard--border-top-10 navcard--theme-teal-lighter-top ";
     var borderGrey = " navcard-all navcard--theme-grey-accent-all";
     var noBorder = " navcard--border-top-0";
     var borderRadius = " navcard--radius-bottom-left navcard--radius-bottom-right";
-
     var greyBorderCssClasses = $"{borderGrey} {noBorder} {borderRadius}";
 }
 
@@ -31,107 +17,111 @@
     
     <div class="grid-container">
         <div class="grid-100">
-            <h1 class="directory__title">@directory.Name</h1>
+            <h1 class="directory__title">@Model.Name</h1>
             <section class="directory">
                 <div class="directory--30 directory--border-top @borderTeal">
                     <div class="directory__wrapper navcard--white @greyBorderCssClasses">
-                        @if(!string.IsNullOrEmpty(directory.Image)){
-                            <img src="@directory.Image?w=350&q=89&fm=webp"
+                        @if(!string.IsNullOrEmpty(Model.Image)){
+                            <img src="@Model.Image?w=350&q=89&fm=webp"
                                 class="directory__logo"
                                 alt=""
                                 width="350"
                                 height="150">
                         }
 
-                        <h2 class='@(!string.IsNullOrEmpty(directory.Image) ? "directory__profile-image" : "directory__profile")'>Our details</h2>
+                        <h2 class='@(!string.IsNullOrEmpty(Model.Image) ? "directory__profile-image" : "directory__profile")'>Our details</h2>
                         <div class="directory__organisation">
                             <h3 class="h-m">Organisation</h3>
-                            @if (string.IsNullOrEmpty(directory.Provider)){
-                                <p>@directory.Name</p>
+                            @if (string.IsNullOrEmpty(Model.Provider)){
+                                <p>@Model.Name</p>
                             }
                             else{
-                                <p>@directory.Provider</p>
+                                <p>@Model.Provider</p>
                             }
                         </div>
 
                         <div class="directory__address">
-                            @if(!string.IsNullOrEmpty(directory.Address)){
+                            @if(!string.IsNullOrEmpty(Model.Address)){
                                 <h3 class="h-m">Address</h3>
-                                <div>@Html.Raw(@directory.Address)</div>
+                                <div>@Html.Raw(Model.Address)</div>
                             }
                         </div>
 
-                        @if(displayContactUs){
+                        @if(Model.DisplayContactUs){
                             <h3 class="h-m">Contact us</h3>
                         }
     
                         <div class="directory__contact">
-                            @if(!string.IsNullOrEmpty(directory.Website)){
+                            @if(!string.IsNullOrEmpty(Model.Website)){
                                 <div class="directory__website">
                                     <p>Web:</p>
-                                    <a href="@directory.Website">@directory.Website</a>
+                                    <a href="@Model.Website">@Model.Website</a>
                                 </div>
                             }
                             
-                            @if(primaryContact){
+                            @if(Model.HasPrimaryContact){
                                 <div class="directory__labels">
-                                    @if(!string.IsNullOrEmpty(directory.PhoneNumber)){
+                                    @if(!string.IsNullOrEmpty(Model.PhoneNumber)){
                                         <p class="directory__labels--no-margin">Phone:</p>
-                                        <p class="directory__phone">@directory.PhoneNumber</p>
+                                        <p class="directory__phone">@Model.PhoneNumber</p>
                                     }
 
-                                    @if(!string.IsNullOrEmpty(directory.Email)){
+                                    @if(!string.IsNullOrEmpty(Model.Email)){
                                         <p class="directory__labels--no-margin">Email:</p>
-                                        <a class="directory__email" href="mailto:@directory.Email">@directory.Email</a>
+                                        <a class="directory__email" href="mailto:@Model.Email">@Model.Email</a>
                                     }
                                 </div>
 
                                 <div class="directory__contact--tablet">
                                     <div class="directory__labels--tablet">
-                                        @if(!string.IsNullOrEmpty(directory.PhoneNumber)){
+                                        @if(!string.IsNullOrEmpty(Model.PhoneNumber)){
                                             <p>Phone:</p>
                                         }
 
-                                        @if(!string.IsNullOrEmpty(directory.Email)){
+                                        @if(!string.IsNullOrEmpty(Model.Email)){
                                             <p>Email:</p>
                                         }
                                     </div>
 
                                     <div class="directory__values--tablet">
-                                        @if(!string.IsNullOrEmpty(directory.PhoneNumber)){
-                                            <p>@directory.PhoneNumber</p>
+                                        @if(!string.IsNullOrEmpty(Model.PhoneNumber)){
+                                            <p>@Model.PhoneNumber</p>
                                         }
 
-                                        @if(!string.IsNullOrEmpty(directory.Email)){
-                                            <a href="mailto:@directory.Email">@directory.Email</a>
+                                        @if(!string.IsNullOrEmpty(Model.Email)){
+                                            <a href="mailto:@Model.Email">@Model.Email</a>
                                         }
                                     </div>
                                 </div>
                             }
 
-                            @if(displayVisit){
+                            @if(Model.DisplaySocials){
                                 <div class="directory__social">
                                     <p>Visit:</p>
                                     
                                     <div class="directory__social--tablet">
-                                        @if(!string.IsNullOrEmpty(directory.Facebook)){
-                                            <a href="@directory.Facebook">Facebook</a>
+                                        @if(!string.IsNullOrEmpty(Model.Facebook)){
+                                            <a href="@Model.Facebook">Facebook</a>
                                         }
 
-                                        @if(!string.IsNullOrEmpty(directory.Twitter)){
-                                            <a href="@directory.Twitter">X (Twitter)</a>
+                                        @if (!string.IsNullOrEmpty(Model.Twitter))
+                                        {
+                                            <a href="@Model.Twitter">X (Twitter)</a>
                                         }
 
-                                        @if(!string.IsNullOrEmpty(directory.Youtube)){
-                                            <a href="@directory.Youtube">YouTube</a>
+                                        @if (!string.IsNullOrEmpty(Model.Youtube))
+                                        {
+                                            <a href="@Model.Youtube">YouTube</a>
                                         }
 
-                                        @if(!string.IsNullOrEmpty(directory.Instagram)){
-                                            <a href="@directory.Instagram">Instagram</a>
+                                        @if (!string.IsNullOrEmpty(Model.Instagram))
+                                        {
+                                            <a href="@Model.Instagram">Instagram</a>
                                         }
 
-                                        @if(!string.IsNullOrEmpty(directory.LinkedIn)){
-                                            <a href="@directory.LinkedIn">LinkedIn</a>
+                                        @if (!string.IsNullOrEmpty(Model.LinkedIn))
+                                        {
+                                            <a href="@Model.LinkedIn">LinkedIn</a>
                                         }
                                     </div>
                                 </div>
@@ -144,17 +134,17 @@
                     <div class="directory__description">
                         <div class="directory__wrapper navcard--white @greyBorderCssClasses">
                             <h2>About us</h2>
-                            @Html.Raw(directory.Description)
+                            @Html.Raw(Model.Description)
                         </div>
                     </div>
 
-                    @if (highlightedFilters is not null && highlightedFilters.Any())
+                    @if (Model.HighlightedFilters.Any())
                     {
                         <div class="directory__filters @borderTeal">
                             <div class="directory__wrapper navcard--white @greyBorderCssClasses">
                                 <h2 class="directory__filters-title">Facilities available</h2>
                                 <ul class="directory__filters-facilities">
-                                    @foreach (var filter in highlightedFilters)
+                                    @foreach (var filter in Model.HighlightedFilters)
                                     {
                                         <li class="directory__filter"><span class="fa fa-check" aria-hidden="true"></span> @filter.DisplayName</li>
                                     }
@@ -163,11 +153,7 @@
                         </div>
                     }
 
-                    @if(directory.Branding.Any()){
-                        <div class="directory--border-top directory--no-margin @borderTeal">
-                            <partial name="LogoArea" model='directory.Branding' view-data='new ViewDataDictionary(ViewData) {{"logoAreaTitle", "In partnership with"}, {"borderTopClass", $"{greyBorderCssClasses} directory--padding"}}'/>
-                        </div>
-                    }
+                    <partial name="DirectoryEntryBranding" model='Model.Branding' />
                 </div>
             </section>
         </div>
