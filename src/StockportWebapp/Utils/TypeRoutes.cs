@@ -4,6 +4,7 @@ public class TypeRoutes
 {
     public static string GetUrlFor(string type, string slug)
     {
+        
         switch (type)
         {
             case "article":
@@ -30,8 +31,10 @@ public class TypeRoutes
                 return "/sia";
             case "privacy-notices":
                 return $"/privacy-notices/{slug}";
-            case "directories":
-                return $"/directories/{slug}";
+            case "directory":
+                return slug.StartsWith("/directories/") 
+                        ? slug 
+                        : $"/directories/{slug}";
             default:
                 return $"/{slug}";
         }

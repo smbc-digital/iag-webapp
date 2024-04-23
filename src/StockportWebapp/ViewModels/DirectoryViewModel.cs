@@ -32,13 +32,17 @@ public class DirectoryViewModel
         RelatedContent = directory.RelatedContent;
         ExternalLinks = directory.ExternalLinks;
         _searchBranding = directory.SearchBranding;
-        var directoryItems = directory.SubItems.Where(item => item.Type == "directory").Select(subItem => new NavCard(subItem.Title, $"{Slug}{subItem.NavigationLink}", subItem.Teaser, subItem.Image, subItem.Icon, subItem.ColourScheme));
+        var directoryItems = directory.SubItems.Where(item => item.Type == "directory").Select(subItem => new NavCard(subItem.Title, subItem.GetNavigationLink(Slug), subItem.Teaser, subItem.Image, subItem.Icon, subItem.ColourScheme));
         var nonDirectoryItems = directory.SubItems.Where(item => item.Type != "directory").Select(subItem => new NavCard(subItem.Title, subItem.NavigationLink, subItem.Teaser, subItem.Image, subItem.Icon, subItem.ColourScheme));
         PrimaryItems = new NavCardList() { Items = directoryItems.Concat(nonDirectoryItems).ToList() };
     }
 
-    // Core page details
+    // Default values
+    private int _defaultPageSize = 12;
     private string _searchBranding = "Default";
+
+    // Core page details
+
     public string Slug { get; set; }
     public string Title { get; set; }
     public string MetaDescription { get; set; }
@@ -99,42 +103,40 @@ public class DirectoryViewModel
     public IEnumerable<DirectoryEntry> PaginatedEntries { get; set; }
 
     // Base data
-    public Directory Directory { get; set; }
     public DirectoryViewModel ParentDirectory { get; set; }
     public DirectoryViewModel FirstSubDirectory { get; set; }
     public DirectoryEntry DirectoryEntry { get; set; }
- 
-    public static void DoPagination(DirectoryViewModel viewModel, int page)
+
+    public void Paginate(int page)
     {
-        var allEntries = viewModel.PinnedEntries is not null ? viewModel.PinnedEntries.Concat(viewModel.FilteredEntries).Distinct(new DirectoryEntryComparer()) : viewModel.FilteredEntries;
-        int pageSize = 12;
-        int totalPages = (int)Math.Ceiling((double)allEntries.Count() / pageSize);
+        var allEntries = PinnedEntries is not null ? PinnedEntries.Concat(FilteredEntries).Distinct(new DirectoryEntryComparer()) : FilteredEntries;
+        int totalPages = (int)Math.Ceiling((double)allEntries.Count() / _defaultPageSize);
 
         page = Math.Max(1, Math.Min(page, totalPages));
 
-        int startIndex = (page - 1) * pageSize;
+        int startIndex = (page - 1) * _defaultPageSize;
 
         if (page.Equals(1))
         {
-            viewModel.PaginatedEntries = allEntries
-                .Skip(startIndex + viewModel.PinnedEntries.Count())
-                .Take(pageSize - viewModel.PinnedEntries.Count())
+            PaginatedEntries = allEntries
+                .Skip(startIndex + PinnedEntries.Count())
+                .Take(_defaultPageSize - PinnedEntries.Count())
                 .ToList();
         }
         else
         {
-            viewModel.PaginatedEntries = allEntries
+            PaginatedEntries = allEntries
                 .Skip(startIndex)
-                .Take(pageSize)
+                .Take(_defaultPageSize)
                 .ToList();
         }
 
-        viewModel.PaginationInfo = new PaginationInfo
+        PaginationInfo = new PaginationInfo
         {
             CurrentPage = page,
             TotalPages = totalPages,
             TotalEntries = allEntries.Count(),
-            PageSize = pageSize
+            PageSize = _defaultPageSize
         };
     }
 }

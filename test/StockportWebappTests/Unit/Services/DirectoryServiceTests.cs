@@ -284,7 +284,7 @@ public class DirectoryServiceTests
     public void GetFilteredEntryForDirectories_ShouldReturnAllEntriesForDirectory()
     {
         // Arrange
-        directory.Entries = new List<DirectoryEntry>() { directoryEntry, directoryEntry2 };
+        directory.SetEntries(new List<DirectoryEntry>() { directoryEntry, directoryEntry2 });
 
         // Act
         var result = _service.GetFilteredEntries(directory.AllEntries);
@@ -299,7 +299,7 @@ public class DirectoryServiceTests
     {
         // Arrange
         directoryEntry.Themes = filterThemes2;
-        directory.Entries = new List<DirectoryEntry>() { directoryEntry, directoryEntry2 };
+        directory.SetEntries(new List<DirectoryEntry>() { directoryEntry, directoryEntry2 });
 
         // Act
         var result = _service.GetFilteredEntries(directory.AllEntries, filters);
@@ -325,7 +325,7 @@ public class DirectoryServiceTests
     public void GetFilteredEntryForDirectories_ShouldReturnEmptyList_If_EntryHasNoFilters()
     {
         // Arrange
-        directory.Entries = new List<DirectoryEntry>() { directoryEntry };
+        directory.SetEntries(new List<DirectoryEntry>() { directoryEntry });
 
         // Act
         var result = _service.GetFilteredEntries(directory.AllEntries, filters);
@@ -340,7 +340,7 @@ public class DirectoryServiceTests
     {
         // Arrange
         directoryEntry.Themes = filterThemes;
-        directory.Entries = new List<DirectoryEntry>() { directoryEntry };
+        directory.SetEntries(new List<DirectoryEntry>() { directoryEntry });
 
         // Act
         var result = _service.GetFilteredEntries(directory.AllEntries, filters);

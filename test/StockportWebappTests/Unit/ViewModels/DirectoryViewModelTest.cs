@@ -95,7 +95,7 @@ public class DirectoryViewModelTest
             }
         };
 
-        var directoryViewModel = new DirectoryViewModel { Directory = directory };
+        var directoryViewModel = new DirectoryViewModel("test-slug", directory );
 
         // Act
         var result = directoryViewModel.DisplayIcons;
@@ -122,7 +122,7 @@ public class DirectoryViewModelTest
     {
         // Arrange
         var directory = new Directory();
-        var directoryViewModel = new DirectoryViewModel { Directory = directory };
+        var directoryViewModel = new DirectoryViewModel ("test-slug", directory);
 
         // Act
         var result = directoryViewModel.DisplayIcons;
@@ -144,7 +144,7 @@ public class DirectoryViewModelTest
             }
         };
 
-        var directoryViewModel = new DirectoryViewModel { Directory = directory };
+        var directoryViewModel = new DirectoryViewModel ("test-slug", directory);
 
         // Act
         var result = directoryViewModel.DisplayIcons;
@@ -166,7 +166,7 @@ public class DirectoryViewModelTest
             }
         };
 
-        var directoryViewModel = new DirectoryViewModel { Directory = directory };
+        var directoryViewModel = new DirectoryViewModel ("test-slug", directory);
 
         // Act
         var result = directoryViewModel.DisplayIcons;
@@ -180,9 +180,12 @@ public class DirectoryViewModelTest
     {
         // Arrange
         var directory = new Directory { Title = "Root Directory" };
-        var parentDirectory = new Directory { Title = "Root Directory" };
+        var parentDirectory = new DirectoryViewModel { Title = "Root Directory" };
 
-        var directoryViewModel = new DirectoryViewModel { Directory = directory, ParentDirectory = parentDirectory };
+        var directoryViewModel = new DirectoryViewModel("test-slug", directory)
+        {
+            ParentDirectory = parentDirectory
+        };
 
         // Act
         var result = directoryViewModel.IsRootDirectory;
@@ -196,9 +199,12 @@ public class DirectoryViewModelTest
     {
         // Arrange
         var directory = new Directory { Title = "Sub Directory" };
-        var parentDirectory = new Directory { Title = "Root Directory" };
+        var parentDirectory = new DirectoryViewModel { Title = "Root Directory" };
 
-        var directoryViewModel = new DirectoryViewModel { Directory = directory, ParentDirectory = parentDirectory };
+        var directoryViewModel = new DirectoryViewModel("test-slug", directory)
+        {
+            ParentDirectory = parentDirectory
+        };
 
         // Act
         var result = directoryViewModel.IsRootDirectory;
@@ -217,25 +223,25 @@ public class DirectoryViewModelTest
         };
 
         // Act
-        DirectoryViewModel.DoPagination(viewModel, 2);
-
+        viewModel.Paginate(2);
+        var paginatedEntries = viewModel.PaginatedEntries.ToList();
         // Assert
-        Assert.Equal(12, viewModel.PaginatedEntries.Count);
+        Assert.Equal(12, paginatedEntries.Count());
         Assert.Equal(2, viewModel.PaginationInfo.CurrentPage);
         Assert.Equal(5, viewModel.PaginationInfo.TotalPages);
         Assert.Equal(50, viewModel.PaginationInfo.TotalEntries);
         Assert.Equal(12, viewModel.PaginationInfo.PageSize);
-        Assert.Equal("13", viewModel.PaginatedEntries[0].Name);
-        Assert.Equal("14", viewModel.PaginatedEntries[1].Name);
-        Assert.Equal("15", viewModel.PaginatedEntries[2].Name);
-        Assert.Equal("16", viewModel.PaginatedEntries[3].Name);
-        Assert.Equal("17", viewModel.PaginatedEntries[4].Name);
-        Assert.Equal("18", viewModel.PaginatedEntries[5].Name);
-        Assert.Equal("19", viewModel.PaginatedEntries[6].Name);
-        Assert.Equal("20", viewModel.PaginatedEntries[7].Name);
-        Assert.Equal("21", viewModel.PaginatedEntries[8].Name);
-        Assert.Equal("22", viewModel.PaginatedEntries[9].Name);
-        Assert.Equal("23", viewModel.PaginatedEntries[10].Name);
-        Assert.Equal("24", viewModel.PaginatedEntries[11].Name);
+        Assert.Equal("13", paginatedEntries[0].Name);
+        Assert.Equal("14", paginatedEntries[1].Name);
+        Assert.Equal("15", paginatedEntries[2].Name);
+        Assert.Equal("16", paginatedEntries[3].Name);
+        Assert.Equal("17", paginatedEntries[4].Name);
+        Assert.Equal("18", paginatedEntries[5].Name);
+        Assert.Equal("19", paginatedEntries[6].Name);
+        Assert.Equal("20", paginatedEntries[7].Name);
+        Assert.Equal("21", paginatedEntries[8].Name);
+        Assert.Equal("22", paginatedEntries[9].Name);
+        Assert.Equal("23", paginatedEntries[10].Name);
+        Assert.Equal("24", paginatedEntries[11].Name);
     }
 }

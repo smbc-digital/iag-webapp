@@ -2,6 +2,7 @@ namespace StockportWebapp.Models;
 
 public class SubItem
 {
+    public readonly string Slug;
     public readonly string Title;
     public readonly string Icon;
     public readonly string Teaser;
@@ -13,6 +14,7 @@ public class SubItem
 
     public SubItem(string slug, string title, string teaser, string icon, string type, string image, List<SubItem> subItems, string colourScheme)
     {
+        Slug = slug;
         Title = title;
         Icon = icon;
         Teaser = teaser;
@@ -22,4 +24,6 @@ public class SubItem
         SubItems = subItems;
         ColourScheme = colourScheme;
     }
+
+    public string GetNavigationLink(string additionalUrlContent) => TypeRoutes.GetUrlFor(Type, $"{additionalUrlContent}/{Slug}");
 }

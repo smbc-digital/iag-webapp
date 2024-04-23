@@ -12,34 +12,28 @@ public class DirectoryController : Controller
     public DirectoryController(IDirectoryService directoryService, IFeatureManager featureManager = null)
     {
         _featureManager = featureManager;
+        _directoryService = directoryService;
 
         if (_featureManager is not null)
             _isToggledOn = _featureManager.IsEnabledAsync("Directories").Result;
-
-        _directoryService = directoryService;
     }
 
     [Route("/directories/{**slug}")]
-    public async Task<IActionResult> Directory(string slug)
+    public async Task<IActionResult> Directory([Required]string slug)
     {
-        if (!_isToggledOn || string.IsNullOrEmpty(slug))
+        if (!_isToggledOn)
             return NotFound();
 
         var pageLocation = slug.ProcessAsWildcardSlug();
-
         var directory = await _directoryService.Get<Directory>(pageLocation.Slug);
         if (directory is null)
             return NotFound();
         
-        List<Directory> parentDirectories = await GetParentDirectories(pageLocation.ParentSlugs);
-        
-        var parentDirectory = parentDirectories.FirstOrDefault() ?? directory;
-        var firstDirectory = parentDirectories.ElementAtOrDefault(1) ?? directory;
-
+        var parentDirectories = await GetParentDirectories(pageLocation.ParentSlugs);
         DirectoryViewModel viewModel = new(slug, directory, GetBreadcrumbsForDirectories(directory, parentDirectories, false, false))
         {
-            ParentDirectory = new DirectoryViewModel(parentDirectory),
-            FirstSubDirectory = new DirectoryViewModel(firstDirectory)
+            ParentDirectory = new DirectoryViewModel(parentDirectories.FirstOrDefault() ?? directory),
+            FirstSubDirectory = new DirectoryViewModel(parentDirectories.ElementAtOrDefault(1) ?? directory)
         };
         
         if (viewModel.PrimaryItems.Items.Any())
@@ -52,38 +46,33 @@ public class DirectoryController : Controller
     [Route("/directories/results/{**slug}")]
     public async Task<IActionResult> DirectoryResults([Required][FromRoute]string slug, string[] filters, string orderBy, string searchTerm, [FromQuery] int page)
     {
-        if (!_isToggledOn || string.IsNullOrEmpty(slug))
+        if (!_isToggledOn)
             return NotFound();
 
         var pageLocation = slug.ProcessAsWildcardSlug();
-
         var directory = await _directoryService.Get<Directory>(pageLocation.Slug);
         if(directory is null)
             return NotFound();
 
-        List<Directory> parentDirectories = await GetParentDirectories(pageLocation.ParentSlugs);
-
-        var regularEntries = directory.AllEntries.Where(entry => !directory.PinnedEntries.Any(pinnedEntry => pinnedEntry.Slug.Equals(entry.Slug)));
-        var entries = GetSearchedFilteredSortedEntries(regularEntries, filters, orderBy, searchTerm);
+        var parentDirectories = await GetParentDirectories(pageLocation.ParentSlugs);
+        var entries = GetSearchedFilteredSortedEntries(directory.RegularEntries, filters, orderBy, searchTerm);
         var pinnedEntries = GetSearchedFilteredSortedEntries(directory.PinnedEntries, filters, orderBy, searchTerm);
-        var allFilterThemes = _directoryService.GetFilterThemes(entries.Concat(pinnedEntries));
+        var allFilterThemes = _directoryService.GetFilterThemes(entries.Concat(pinnedEntries));        
 
-        var parentDirectory = parentDirectories.FirstOrDefault() ?? directory;
-        var firstDirectory = parentDirectories.ElementAtOrDefault(1) ?? directory;
         DirectoryViewModel viewModel = new(slug, directory, GetBreadcrumbsForDirectories(directory, parentDirectories, false, true))
         {
-            ParentDirectory = new DirectoryViewModel(parentDirectory),
-            FirstSubDirectory = new DirectoryViewModel(firstDirectory),
+            ParentDirectory = new DirectoryViewModel(parentDirectories.FirstOrDefault() ?? directory),
+            FirstSubDirectory = new DirectoryViewModel(parentDirectories.ElementAtOrDefault(1) ?? directory),
+            SearchTerm = searchTerm,
             FilteredEntries = entries,
             AllFilterThemes = allFilterThemes,
             PinnedEntries = pinnedEntries,
             AppliedFilters = _directoryService.GetFilters(filters, allFilterThemes),
             FilterCounts = _directoryService.GetAllFilterCounts(entries.Concat(pinnedEntries)),
-            SearchTerm = searchTerm,
             Order = !string.IsNullOrEmpty(orderBy) ? orderBy.Replace("-", " ") : orderBy
         };
         
-        DirectoryViewModel.DoPagination(viewModel, page);
+        viewModel.Paginate(page);
 
         return View("results", viewModel);
     }
@@ -121,14 +110,13 @@ public class DirectoryController : Controller
     }
 
     [Route("directories/entry/{**slug}")]
-    public async Task<IActionResult> DirectoryEntry(string slug)
+    public async Task<IActionResult> DirectoryEntry([Required]string slug)
     {
-        if (!_isToggledOn || string.IsNullOrEmpty(slug))
+        if (!_isToggledOn)
             return NotFound();
 
         var pageLocation = slug.ProcessAsWildcardSlug();
         var directoryEntry = await _directoryService.GetEntry<DirectoryEntry>(pageLocation.Slug);
-        
         if(directoryEntry is null)
             return NotFound();
         

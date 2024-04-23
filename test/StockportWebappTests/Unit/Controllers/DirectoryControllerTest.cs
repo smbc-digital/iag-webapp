@@ -68,7 +68,6 @@ public class DirectoryControllerTest
         Body = "body",
         CallToAction = new CallToActionBanner(),
         Alerts = new List<Alert>(),
-        Entries  = new List<DirectoryEntry>(),
         SubDirectories = new List<Directory>()
     };
 
@@ -91,7 +90,7 @@ public class DirectoryControllerTest
         _directoryController = new DirectoryController(_directoryService.Object);
 
         directory.PinnedEntries = new List<DirectoryEntry>() { directoryEntry };
-        processedDirectoryWithSubdirectories.Entries = new List<DirectoryEntry>() { directoryEntry };
+        processedDirectoryWithSubdirectories.SetEntries(new List<DirectoryEntry>() { directoryEntry });
         processedDirectoryWithSubdirectories.SubDirectories = new List<Directory>() { directory };
         
         string[] filters = { "value1", "value2", "value3" };
@@ -192,7 +191,7 @@ public class DirectoryControllerTest
         Assert.Equal("results", result.ViewName);
         Assert.Equal(filterThemes, model.AllFilterThemes);
         Assert.Equal(filterThemes.First().Filters, model.AllFilterThemes.First().Filters);
-        Assert.Equal("slug", model.Directory.Slug);
+        Assert.Equal("slug", model.Slug);
         Assert.Equal(filtersList, model.AppliedFilters);
         Assert.Empty(model.PinnedEntries);
     }
@@ -211,7 +210,7 @@ public class DirectoryControllerTest
         
         // Assert
         Assert.NotNull(result);
-        Assert.Equal("slug", model.Directory.Slug);
+        Assert.Equal("slug", model.Slug);
         Assert.Null(result.ViewName);
     }
 

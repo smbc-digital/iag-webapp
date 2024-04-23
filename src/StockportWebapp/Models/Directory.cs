@@ -1,3 +1,6 @@
+using Amazon.Util.Internal;
+using System.IO;
+
 namespace StockportWebapp.Models
 {
     public class Directory
@@ -11,7 +14,19 @@ namespace StockportWebapp.Models
         public string Body { get; set; } = string.Empty;
         public CallToActionBanner CallToAction { get; init; }
         public IEnumerable<Alert> Alerts { get; set; }
-        public IEnumerable<DirectoryEntry> Entries { get; set; } = new List<DirectoryEntry>();
+
+        private IEnumerable<DirectoryEntry> entries = new List<DirectoryEntry>();
+
+        public IEnumerable<DirectoryEntry> GetEntries()
+        {
+            return entries;
+        }
+
+        public void SetEntries(IEnumerable<DirectoryEntry> value)
+        {
+            entries = value;
+        }
+
         public IEnumerable<Directory> SubDirectories { get; set; } = new List<Directory>();
         public IEnumerable<SubItem> SubItems { get; set; } = new List<SubItem>();
         public string ColourScheme { get; set; } = string.Empty;
@@ -23,27 +38,45 @@ namespace StockportWebapp.Models
         public IEnumerable<DirectoryEntry> PinnedEntries { get; set; } = new List<DirectoryEntry>();
 
         [JsonIgnore]
-        private IEnumerable<DirectoryEntry> _allEntries = null;
+        private IEnumerable<DirectoryEntry> _entries = null;
 
+        /// <summary>
+        /// Gets a list of entries relevant to this directory including those in sub directories, but exclusing pinned entries
+        /// </summary>
         [JsonIgnore]
-        public IEnumerable<DirectoryEntry> AllEntries
+        public IEnumerable<DirectoryEntry> Entries
         {
             get
             {
-                _allEntries ??= (SubDirectories is not null && SubDirectories.Any()
-                                    ? Entries?
+                _entries ??= (SubDirectories is not null && SubDirectories.Any()
+                                    ? GetEntries()?
                                         .Concat(SubDirectories
                                             .Where(sub => sub is not null)
-                                            .SelectMany(sub => sub.AllEntries))     
-                                    : Entries)
+                                            .SelectMany(sub => sub.Entries))     
+                                    : GetEntries())
                                         .Where(entry => entry is not null && !string.IsNullOrEmpty(entry.Slug))
                                         .Distinct(new DirectoryEntryComparer());
 
                 
-                return _allEntries;
+                return _entries;
             }         
         }
 
-        public string ToKml() => AllEntries.GetKmlForList();
+        /// <summary>
+        /// Returns a list of entries excluding pinned entries
+        /// </summary>
+        [JsonIgnore]
+        public IEnumerable<DirectoryEntry> RegularEntries 
+            => Entries.Where(entry => !PinnedEntries.Any(pinnedEntry => pinnedEntry.Slug.Equals(entry.Slug)));
+
+        /// <summary>
+        /// Returns a list of of all entries including pinned and unpinned
+        /// </summary>
+        [JsonIgnore]
+        public IEnumerable<DirectoryEntry> AllEntries
+            => RegularEntries.Concat(PinnedEntries);
+
+        public string ToKml()
+            => Entries.GetKmlForList();
     }
 }
