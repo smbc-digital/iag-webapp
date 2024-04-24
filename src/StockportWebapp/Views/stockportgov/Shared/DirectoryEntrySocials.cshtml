@@ -1,0 +1,35 @@
+﻿@model DirectoryEntryViewModel
+
+@if (Model.DisplaySocials)
+{
+    <div class="directory__social">
+        <p>Visit:</p>
+
+        <div class="directory__social--tablet">
+            @if (!string.IsNullOrEmpty(Model.Facebook))
+            {
+                <a href="@Model.Facebook">Facebook</a>
+            }
+
+            @if (!string.IsNullOrEmpty(Model.Twitter))
+            {
+                <a href="@Model.Twitter">X (Twitter)</a>
+            }
+
+            @if (!string.IsNullOrEmpty(Model.Youtube))
+            {
+                <a href="@Model.Youtube">YouTube</a>
+            }
+
+            @if (!string.IsNullOrEmpty(Model.Instagram))
+            {
+                <a href="@Model.Instagram">Instagram</a>
+            }
+
+            @if (!string.IsNullOrEmpty(Model.LinkedIn))
+            {
+                <a href="@Model.LinkedIn">LinkedIn</a>
+            }
+        </div>
+    </div>
+}

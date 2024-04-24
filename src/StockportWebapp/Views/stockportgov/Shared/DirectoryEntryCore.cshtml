@@ -1,0 +1,35 @@
+﻿@model DirectoryEntryViewModel
+@if (!string.IsNullOrEmpty(Model.Image))
+{
+    <img src="@Model.Image?w=350&q=89&fm=webp"
+         class="directory__logo"
+         alt=""
+         width="350"
+         height="150">
+}
+
+<h2 class='@(!string.IsNullOrEmpty(Model.Image) ? "directory__profile-image" : "directory__profile")'>Our details</h2>
+<div class="directory__organisation">
+    <h3 class="h-m">Organisation</h3>
+    @if (string.IsNullOrEmpty(Model.Provider))
+    {
+        <p>@Model.Name</p>
+    }
+    else
+    {
+        <p>@Model.Provider</p>
+    }
+</div>
+
+<div class="directory__address">
+    @if (!string.IsNullOrEmpty(Model.Address))
+    {
+        <h3 class="h-m">Address</h3>
+        <div>@Html.Raw(Model.Address)</div>
+    }
+</div>
+
+<div class="directory__contact">
+    <partial name="DirectoryEntryContacts" />
+    <partial name="DirectoryEntrySocials" />
+</div>

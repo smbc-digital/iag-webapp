@@ -1,0 +1,10 @@
+﻿@model string
+@{
+    var additionalCssClasses = ViewData["AdditionalCssClasses"];
+}
+<div class="directory__description">
+    <div class="directory__wrapper navcard--white @additionalCssClasses">
+        <h2>About us</h2>
+        @Html.Raw(Model)
+    </div>
+</div>
