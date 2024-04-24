@@ -1,6 +1,9 @@
 ﻿@inject IStaticAssets StaticAssets
 @inject IApplicationConfiguration appConfig
 @model MapDetails
+@{
+    string directoryLocation = (string)ViewData["directoryLocation"];
+}
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCPMO2lE7np9cG_zG63JH_pNVmRfoajZjg&callback=initMap" async defer></script>
 
@@ -23,5 +26,6 @@
 
 
 <div class="directory__map-embed">
-    <img src="https://maps.googleapis.com/maps/api/staticmap?center=@Model.MapPosition.Lat,@Model.MapPosition.Lon&zoom=17&size=1024x250&scale=2&markers=@Model.MapPosition.Lat,@Model.MapPosition.Lon&key=AIzaSyCPMO2lE7np9cG_zG63JH_pNVmRfoajZjg" />
+    <img src="https://maps.googleapis.com/maps/api/staticmap?center=@Model.MapPosition.Lat,@Model.MapPosition.Lon&zoom=17&size=1024x250&scale=2&markers=@Model.MapPosition.Lat,@Model.MapPosition.Lon&key=AIzaSyCPMO2lE7np9cG_zG63JH_pNVmRfoajZjg" 
+        alt="Map showing location of @directoryLocation"/>
 </div>

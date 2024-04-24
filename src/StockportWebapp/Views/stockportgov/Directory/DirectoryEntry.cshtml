@@ -24,6 +24,10 @@
     var borderRadius = " navcard--radius-bottom-left navcard--radius-bottom-right";
 
     var greyBorderCssClasses = $"{borderGrey} {noBorder} {borderRadius}";
+
+
+    string addressWithTags = directory.Address;
+    string addressWithoutTags = Regex.Replace(addressWithTags, "<.*?>", "");
 }
 
 <div class="grid-container-full-width" data-cy="directory-entry">
@@ -179,7 +183,7 @@
                                 <h2>How to find us</h2>
                                 
                                 <div class="directory__map-container directory__map-container--padding">
-                                    <partial name="DirectoryMap" model='Model.MapDetails' />
+                                    <partial name="DirectoryMap" model='Model.MapDetails' view-data='new ViewDataDictionary(ViewData) {{"directoryLocation", @addressWithoutTags}}'/>
                                 </div>
 
                                 <a class="btn btn--width-30 btn--chevron-forward btn--bold btn--chevron-bold" target="_blank" href="https://www.google.com/maps/dir/?api=1&origin=current+location&destination=@Model.MapDetails.MapPosition.Lat,@Model.MapDetails.MapPosition.Lon&travelmode=walking">Get directions</a>
