@@ -178,13 +178,12 @@
                             <div class="directory__wrapper navcard--white @greyBorderCssClasses">
                                 <h2>How to find us</h2>
                                 
-                                <div class="directory-map-container map-container-padding">
+                                <div class="directory__map-container directory__map-container--padding">
                                     <partial name="DirectoryMap" model='Model.MapDetails' />
                                 </div>
 
                                 <a class="btn btn--width-30 btn--chevron-forward btn--bold btn--chevron-bold" target="_blank" href="https://www.google.com/maps/dir/?api=1&origin=current+location&destination=@Model.MapDetails.MapPosition.Lat,@Model.MapDetails.MapPosition.Lon&travelmode=walking">Get directions</a>
-
-                                <p style="margin-top: 1em;">For accessible transport options visit our <a href="https://www.stockport.gov.uk/accessibleTransport">accessible transport page</a></p>
+                                <p class="directory__map-accessible-transport">For accessible transport options visit our <a href="https://www.stockport.gov.uk/accessibleTransport">accessible transport page</a>.</p>
                             </div>
                         </div>
                     }
