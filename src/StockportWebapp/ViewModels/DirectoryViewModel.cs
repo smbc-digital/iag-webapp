@@ -13,6 +13,7 @@ public class DirectoryViewModel
     {
         Breadcrumbs = breadcrumbs;
     }
+
     public DirectoryViewModel(string slug, Directory directory)
     {
         Slug = slug;
@@ -32,8 +33,8 @@ public class DirectoryViewModel
     }
 
     // Default values
-    private int _defaultPageSize = 12;
-    private string _searchBranding = "Default";
+    private readonly int _defaultPageSize = 12;
+    private readonly string _searchBranding = "Default";
 
     // Core page details
     public string Slug { get; set; }

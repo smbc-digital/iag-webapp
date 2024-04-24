@@ -61,5 +61,4 @@ public class DirectoryEntryViewModel
     public bool HasPrimaryContact 
         => !string.IsNullOrEmpty(PhoneNumber) ||  !string.IsNullOrEmpty(Email);
     public bool DisplayContactUs => !string.IsNullOrEmpty(Website) || HasPrimaryContact || DisplaySocials;
-
 }

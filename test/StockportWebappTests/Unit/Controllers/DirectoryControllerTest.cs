@@ -91,6 +91,9 @@ public class DirectoryControllerTest
         directory.PinnedEntries = new List<DirectoryEntry>() { directoryEntry };
         processedDirectoryWithSubdirectories.Entries = new List<DirectoryEntry>() { directoryEntry };
         processedDirectoryWithSubdirectories.SubDirectories = new List<Directory>() { directory };
+        processedDirectoryWithSubdirectories.SubItems = new List<SubItem>() {
+            new("slug", "title", "teaser", "icon", "type", "image", new List<SubItem>(), "teal")
+        };
         
         string[] filters = { "value1", "value2", "value3" };
 
@@ -203,13 +206,14 @@ public class DirectoryControllerTest
 
         _directoryService.Setup(_ => _.GetEntry<DirectoryEntry>(It.IsAny<string>()))
             .ReturnsAsync(directoryEntry);
+
         // Act
         var result = await _directoryController.DirectoryEntry("slug/entry-slug") as ViewResult;
-        var model = result.ViewData.Model as DirectoryViewModel;
+        var model = result.ViewData.Model as DirectoryEntryViewModel;
         
         // Assert
         Assert.NotNull(result);
-        Assert.Equal("slug", model.Slug);
+        Assert.Equal("slug/entry-slug", model.Slug);
         Assert.Null(result.ViewName);
     }
 

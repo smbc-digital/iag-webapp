@@ -88,11 +88,11 @@ public class DirectoryViewModelTest
         // Arrange
         var directory = new Directory
         {
-            SubDirectories = new List<Directory>
+            SubItems = new List<SubItem> ()
             {
-                new() { Icon = "icon1" },
-                new() { Icon = "icon2" }
-            }
+                new("slug", "title", "teaser", "icon", "directory", "image", new List<SubItem>(), "teal"),
+                new("slug2", "title2", "teaser2", "icon2", "directory2", "image2", new List<SubItem>(), "teal")
+            },
         };
 
         var directoryViewModel = new DirectoryViewModel("test-slug", directory );
@@ -159,10 +159,9 @@ public class DirectoryViewModelTest
         // Arrange
         var directory = new Directory
         {
-            SubDirectories = new List<Directory>
-            {
-                new() { Icon = "icon1" },
-                new(),
+            SubItems = new List<SubItem>(){
+                new("slug", "title", "teaser", "icon1", "type", "image", new List<SubItem>(), "teal"),
+                new("slug2", "title2", "teaser2", "", "type2", "image2", new List<SubItem>(), "teal")
             }
         };
 
@@ -225,8 +224,9 @@ public class DirectoryViewModelTest
         // Act
         viewModel.Paginate(2);
         var paginatedEntries = viewModel.PaginatedEntries.ToList();
+        
         // Assert
-        Assert.Equal(12, paginatedEntries.Count());
+        Assert.Equal(12, paginatedEntries.Count);
         Assert.Equal(2, viewModel.PaginationInfo.CurrentPage);
         Assert.Equal(5, viewModel.PaginationInfo.TotalPages);
         Assert.Equal(50, viewModel.PaginationInfo.TotalEntries);
