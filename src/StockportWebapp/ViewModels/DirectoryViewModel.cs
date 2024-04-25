@@ -1,4 +1,5 @@
-﻿using Directory = StockportWebapp.Models.Directory;
+﻿using StockportWebapp.Comparers;
+using Directory = StockportWebapp.Models.Directory;
 using Filter = StockportWebapp.Model.Filter;
 
 namespace StockportWebapp.ViewModels;
@@ -13,7 +14,6 @@ public class DirectoryViewModel
     {
         Breadcrumbs = breadcrumbs;
     }
-
     public DirectoryViewModel(string slug, Directory directory)
     {
         Slug = slug;
@@ -82,25 +82,27 @@ public class DirectoryViewModel
     }
 
     // Page layout properties
-    public bool DisplayIcons => PrimaryItems is not null &&
-                            PrimaryItems.Items.Any() &&
-                            PrimaryItems.Items.All(item => item is not null && !string.IsNullOrEmpty(item.Icon));
+    public bool DisplayIcons => PrimaryItems is not null 
+                                    && PrimaryItems.Items.Any() 
+                                    && PrimaryItems.Items.All(item => item is not null && !string.IsNullOrEmpty(item.Icon));
     public bool IsRootDirectory => Title.Equals(ParentDirectory.Title);
     public Dictionary<string, int> FilterCounts { get; set; }
-
-    // Results
-    public IEnumerable<DirectoryEntry> FilteredEntries { get; set; }
-    public IEnumerable<DirectoryEntry> PinnedEntries { get; set; }
-    public IEnumerable<DirectoryEntry> PaginatedEntries { get; set; }
+    public IEnumerable<DirectoryEntryViewModel> FilteredEntries { get; set; }
+    public IEnumerable<DirectoryEntryViewModel> PinnedEntries { get; set; }
+    public IEnumerable<DirectoryEntryViewModel> PaginatedEntries { get; set; }
 
     // Base data
     public DirectoryViewModel ParentDirectory { get; set; }
     public DirectoryViewModel FirstSubDirectory { get; set; }
-    public DirectoryEntry DirectoryEntry { get; set; }
 
     public void Paginate(int page)
     {
-        var allEntries = PinnedEntries is not null ? PinnedEntries.Concat(FilteredEntries).Distinct(new DirectoryEntryComparer()) : FilteredEntries;
+        var allEntries = PinnedEntries is not null 
+                            ? PinnedEntries.Concat(FilteredEntries)
+                                            .Distinct(new SlugComparer())
+                                            .Select(entry => (DirectoryEntryViewModel)entry) 
+                            : FilteredEntries;
+
         int totalPages = (int)Math.Ceiling((double)allEntries.Count() / _defaultPageSize);
 
         page = Math.Max(1, Math.Min(page, totalPages));

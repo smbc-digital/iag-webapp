@@ -26,6 +26,7 @@ public class DirectoryController : Controller
 
         var pageLocation = slug.ProcessAsWildcardSlug();
         var directory = await _directoryService.Get<Directory>(pageLocation.Slug);
+
         if (directory is null)
             return NotFound();
         
@@ -51,22 +52,23 @@ public class DirectoryController : Controller
 
         var pageLocation = slug.ProcessAsWildcardSlug();
         var directory = await _directoryService.Get<Directory>(pageLocation.Slug);
+
         if(directory is null)
             return NotFound();
 
         var parentDirectories = await GetParentDirectories(pageLocation.ParentSlugs);
         var entries = GetSearchedFilteredSortedEntries(directory.RegularEntries, filters, orderBy, searchTerm);
         var pinnedEntries = GetSearchedFilteredSortedEntries(directory.PinnedEntries, filters, orderBy, searchTerm);
-        var allFilterThemes = _directoryService.GetFilterThemes(entries.Concat(pinnedEntries));        
+        var allFilterThemes = _directoryService.GetFilterThemes(entries.Concat(pinnedEntries));
 
         DirectoryViewModel viewModel = new(slug, directory, GetBreadcrumbsForDirectories(directory, parentDirectories, false, true))
         {
             ParentDirectory = new DirectoryViewModel(parentDirectories.FirstOrDefault() ?? directory),
             FirstSubDirectory = new DirectoryViewModel(parentDirectories.ElementAtOrDefault(1) ?? directory),
             SearchTerm = searchTerm,
-            FilteredEntries = entries,
+            FilteredEntries = entries.Select(entry => new DirectoryEntryViewModel(entry.Slug, entry, true)),
             AllFilterThemes = allFilterThemes,
-            PinnedEntries = pinnedEntries,
+            PinnedEntries = pinnedEntries.Select(entry => new DirectoryEntryViewModel(entry.Slug, entry, true)),
             AppliedFilters = _directoryService.GetFilters(filters, allFilterThemes),
             FilterCounts = _directoryService.GetAllFilterCounts(entries.Concat(pinnedEntries)),
             Order = !string.IsNullOrEmpty(orderBy) ? orderBy.Replace("-", " ") : orderBy
@@ -100,12 +102,13 @@ public class DirectoryController : Controller
             return NotFound();
 
         var directory = await _directoryService.Get<Directory>(slug);
+
         if(directory is null)
             return NotFound();
 
         var entries = GetSearchedFilteredSortedEntries(directory.AllEntries, filters, orderBy, searchTerm);
-
         var kmlString = entries.GetKmlForList();
+
         return Content(kmlString);
     }
 
@@ -116,8 +119,8 @@ public class DirectoryController : Controller
             return NotFound();
 
         var pageLocation = slug.ProcessAsWildcardSlug();
-
         var directoryEntry = await _directoryService.GetEntry<DirectoryEntry>(pageLocation.Slug);
+
         if(directoryEntry is null)
             return NotFound();
         
@@ -128,7 +131,6 @@ public class DirectoryController : Controller
 
     private List<Crumb> GetBreadcrumbsForDirectories(Directory currentDirectory, List<Directory> parentDirectories, bool viewLastBreadcrumbAsResults = false, bool addCurrentDirectoryBreadcrumb = false) 
     {
-        
         List<Crumb> breadcrumbs = new();
         parentDirectories.ForEach(directory => breadcrumbs.Add(GetBreadcrumbForDirectory(directory, parentDirectories, viewLastBreadcrumbAsResults)));
 
@@ -161,7 +163,6 @@ public class DirectoryController : Controller
     private Crumb GetBreadcrumbForCurrentDirectory(Directory directory, IList<Directory> parentDirectories)
     {
         var relativeUrl = string.Join("/", parentDirectories.Select(_ => _.Slug));
-
         var url = $"{_defaultUrlPrefix}/{relativeUrl}/{directory.Slug}"; 
 
         return new Crumb(directory.Title, url, "Directories");

@@ -1,5 +1,5 @@
-using Amazon.Util.Internal;
-using System.IO;
+using StockportWebapp.Comparers;
+using System.Collections.Generic;
 
 namespace StockportWebapp.Models
 {
@@ -36,16 +36,18 @@ namespace StockportWebapp.Models
         {
             get
             {
-                _cummulativeEntries ??= (SubDirectories is not null && SubDirectories.Any()
-                                    ? Entries?
-                                        .Concat(SubDirectories
-                                            .Where(sub => sub is not null)
-                                            .SelectMany(sub => sub.CummulativeEntries))     
-                                    : Entries)
-                                        .Where(entry => entry is not null && !string.IsNullOrEmpty(entry.Slug))
-                                        .Distinct(new DirectoryEntryComparer());
+                var cummulativeEntries = SubDirectories is not null && SubDirectories.Any()
+                                            ? Entries?
+                                                .Concat(SubDirectories
+                                                    .Where(sub => sub is not null)
+                                                    .SelectMany(sub => sub.CummulativeEntries))
+                                            : Entries;
 
-                
+                _cummulativeEntries = cummulativeEntries
+                                        .Where(entry => entry is not null && !string.IsNullOrEmpty(entry.Slug))
+                                        .Distinct(new SlugComparer())
+                                        .Select(entry => (DirectoryEntry)entry);
+
                 return _cummulativeEntries;
             }         
         }

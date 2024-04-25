@@ -1,15 +1,13 @@
-﻿using Filter = StockportWebapp.Model.Filter;
+﻿using StockportWebapp.Comparers;
+using Filter = StockportWebapp.Model.Filter;
 
 namespace StockportWebapp.ViewModels;
 
-public class DirectoryEntryViewModel
+public class DirectoryEntryViewModel : ISlugComparable
 {
     public DirectoryEntryViewModel() { }
 
-    public DirectoryEntryViewModel(string slug, DirectoryEntry directoryEntry, IEnumerable<Crumb> breadcrumbs) : this(slug, directoryEntry)
-    {
-        Breadcrumbs = breadcrumbs;
-    }
+
     public DirectoryEntryViewModel(string slug, DirectoryEntry directoryEntry)
     {
         Slug = slug;
@@ -28,6 +26,17 @@ public class DirectoryEntryViewModel
         Image = directoryEntry.Image;
         Branding = directoryEntry.Branding;
     }
+    public DirectoryEntryViewModel(string slug, DirectoryEntry directoryEntry, IEnumerable<Crumb> breadcrumbs) 
+        : this(slug, directoryEntry)
+        => Breadcrumbs = breadcrumbs;
+    
+    public DirectoryEntryViewModel(string slug, DirectoryEntry directoryEntry, bool isPinned) 
+        : this(slug, directoryEntry)    
+        => IsPinned = isPinned;
+    
+    public DirectoryEntryViewModel(string slug, DirectoryEntry directoryEntry, IEnumerable<Crumb> breadcrumbs, bool isPinned) 
+        : this(slug, directoryEntry, breadcrumbs)
+        => IsPinned = isPinned;    
 
     // Core page details
     public string Slug { get; set; }
@@ -47,6 +56,7 @@ public class DirectoryEntryViewModel
     public string Instagram { get; set; }
     public string LinkedIn { get; set; }
     public string Address { get; set; }
+    public bool IsPinned { get; set; }
     public List<GroupBranding> Branding { get; set; }
     public IEnumerable<FilterTheme> Themes { get; set; } = new List<FilterTheme>();
     public IEnumerable<Filter> HighlightedFilters => Themes?

@@ -218,7 +218,7 @@ public class DirectoryViewModelTest
         // Arrange
         var viewModel = new DirectoryViewModel
         {
-            FilteredEntries = Enumerable.Range(1, 50).Select(i => new DirectoryEntry { Name = i.ToString() }).ToList()
+            FilteredEntries = Enumerable.Range(1, 50).Select(i => new DirectoryEntryViewModel { Name = i.ToString() }).ToList()
         };
 
         // Act

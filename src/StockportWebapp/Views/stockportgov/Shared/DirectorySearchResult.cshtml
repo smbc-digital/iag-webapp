@@ -1,13 +1,9 @@
 ﻿@model DirectorySearchResultViewModel
 @{
     bool pinnedEntry = (bool)ViewData["pinnedEntry"];
-
     var imageExists = string.IsNullOrEmpty(Model.Entry.Image);
     var directoryClass = imageExists ? "directory-result__content--full-width" : string.Empty;
-    
     var navcardBorder = " navcard--border-top-10 navcard--theme-teal-lighter-top";
-    var borderGrey = " navcard-all navcard--theme-grey-accent-all";
-    var borderRadius = " navcard--radius-bottom-left navcard--radius-bottom-right";
     var brandPinnedEntry = "";
 
     if(pinnedEntry){
@@ -25,7 +21,7 @@
         }
 
         <a href=@Url.Action("DirectoryEntry", "Directory", new { slug=@Model.Slug }) data-cy="nav-card-link"
-            class="navcard__link navcard__link--border @borderRadius navcard--border-top-0 @borderGrey">
+           class="navcard__link navcard__link--border navcard--radius-bottom-left navcard--radius-bottom-right navcard--border-top-0 navcard-all navcard--theme-grey-accent-all">
 
             <div class="directory-result">
                 <div class="directory-result__content @directoryClass">
