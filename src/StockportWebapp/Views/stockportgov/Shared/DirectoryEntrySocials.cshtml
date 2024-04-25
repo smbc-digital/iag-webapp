@@ -6,29 +6,29 @@
         <p>Visit:</p>
 
         <div class="directory__social--tablet">
-            @if (!string.IsNullOrEmpty(Model.Facebook))
+            @if (!string.IsNullOrEmpty(Model.DirectoryEntry.Facebook))
             {
-                <a href="@Model.Facebook">Facebook</a>
+                <a href="@Model.DirectoryEntry.Facebook">Facebook</a>
             }
 
-            @if (!string.IsNullOrEmpty(Model.Twitter))
+            @if (!string.IsNullOrEmpty(Model.DirectoryEntry.Twitter))
             {
-                <a href="@Model.Twitter">X (Twitter)</a>
+                <a href="@Model.DirectoryEntry.Twitter">X (Twitter)</a>
             }
 
-            @if (!string.IsNullOrEmpty(Model.Youtube))
+            @if (!string.IsNullOrEmpty(Model.DirectoryEntry.Youtube))
             {
-                <a href="@Model.Youtube">YouTube</a>
+                <a href="@Model.DirectoryEntry.Youtube">YouTube</a>
             }
 
-            @if (!string.IsNullOrEmpty(Model.Instagram))
+            @if (!string.IsNullOrEmpty(Model.DirectoryEntry.Instagram))
             {
-                <a href="@Model.Instagram">Instagram</a>
+                <a href="@Model.DirectoryEntry.Instagram">Instagram</a>
             }
 
-            @if (!string.IsNullOrEmpty(Model.LinkedIn))
+            @if (!string.IsNullOrEmpty(Model.DirectoryEntry.LinkedIn))
             {
-                <a href="@Model.LinkedIn">LinkedIn</a>
+                <a href="@Model.DirectoryEntry.LinkedIn">LinkedIn</a>
             }
         </div>
     </div>

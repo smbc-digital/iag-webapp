@@ -5,52 +5,52 @@
     <h3 class="h-m">Contact us</h3>
 }
 
-@if (!string.IsNullOrEmpty(Model.Website))
+@if (!string.IsNullOrEmpty(Model.DirectoryEntry.Website))
 {
     <div class="directory__website">
         <p>Web:</p>
-        <a href="@Model.Website">@Model.Website</a>
+        <a href="@Model.DirectoryEntry.Website">@Model.DirectoryEntry.Website</a>
     </div>
 }
 
 @if (Model.HasPrimaryContact)
 {
     <div class="directory__labels">
-        @if (!string.IsNullOrEmpty(Model.PhoneNumber))
+        @if (!string.IsNullOrEmpty(Model.DirectoryEntry.PhoneNumber))
         {
             <p class="directory__labels--no-margin">Phone:</p>
-            <p class="directory__phone">@Model.PhoneNumber</p>
+            <p class="directory__phone">@Model.DirectoryEntry.PhoneNumber</p>
         }
 
-        @if (!string.IsNullOrEmpty(Model.Email))
+        @if (!string.IsNullOrEmpty(Model.DirectoryEntry.Email))
         {
             <p class="directory__labels--no-margin">Email:</p>
-            <a class="directory__email" href="mailto:@Model.Email">@Model.Email</a>
+            <a class="directory__email" href="mailto:@Model.DirectoryEntry.Email">@Model.DirectoryEntry.Email</a>
         }
     </div>
 
     <div class="directory__contact--tablet">
         <div class="directory__labels--tablet">
-            @if (!string.IsNullOrEmpty(Model.PhoneNumber))
+            @if (!string.IsNullOrEmpty(Model.DirectoryEntry.PhoneNumber))
             {
                 <p>Phone:</p>
             }
 
-            @if (!string.IsNullOrEmpty(Model.Email))
+            @if (!string.IsNullOrEmpty(Model.DirectoryEntry.Email))
             {
                 <p>Email:</p>
             }
         </div>
 
         <div class="directory__values--tablet">
-            @if (!string.IsNullOrEmpty(Model.PhoneNumber))
+            @if (!string.IsNullOrEmpty(Model.DirectoryEntry.PhoneNumber))
             {
-                <p>@Model.PhoneNumber</p>
+                <p>@Model.DirectoryEntry.PhoneNumber</p>
             }
 
-            @if (!string.IsNullOrEmpty(Model.Email))
+            @if (!string.IsNullOrEmpty(Model.DirectoryEntry.Email))
             {
-                <a href="mailto:@Model.Email">@Model.Email</a>
+                <a href="mailto:@Model.DirectoryEntry.Email">@Model.DirectoryEntry.Email</a>
             }
         </div>
     </div>

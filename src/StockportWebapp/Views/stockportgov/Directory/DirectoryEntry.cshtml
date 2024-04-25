@@ -1,8 +1,8 @@
 @model DirectoryEntryViewModel
 @{
-    ViewData["Title"] = Model.Name;
-    ViewData["og:title"] = Model.Name;
-    ViewData["Description"] = Model.MetaDescription;
+    ViewData["Title"] = Model.DirectoryEntry.Name;
+    ViewData["og:title"] = Model.DirectoryEntry.Name;
+    ViewData["Description"] = Model.DirectoryEntry.MetaDescription;
     Layout = "../Shared/_Layout2023.cshtml";
     
     var borderTeal = " navcard--border-top-10 navcard--theme-teal-lighter-top ";
@@ -17,7 +17,7 @@
     
     <div class="grid-container">
         <div class="grid-100">
-            <h1 class="directory__title">@Model.Name</h1>
+            <h1 class="directory__title">@Model.DirectoryEntry.Name</h1>
             <section class="directory">
                 <div class="directory--30 directory--border-top @borderTeal">
                     <div class="directory__wrapper navcard--white @greyBorderCssClasses">
@@ -26,9 +26,9 @@
                 </div>
 
                 <div class="directory--70 directory--border-top @borderTeal">
-                    <partial name="DirectoryEntryDescription" model='Model.Description' view-data='new ViewDataDictionary(ViewData) { { "AdditionalCssClass", @greyBorderCssClasses } }' />
+                    <partial name="DirectoryEntryDescription" model='Model.DirectoryEntry.Description' view-data='new ViewDataDictionary(ViewData) { { "AdditionalCssClass", @greyBorderCssClasses } }' />
                     <partial name="DirectoryEntryHighightedFilters" model='Model.HighlightedFilters' view-data='new ViewDataDictionary(ViewData) { { "AdditionalWrapperCssClasses", @borderTeal }, { "AdditionalCssClass", @greyBorderCssClasses } }' />
-                    <partial name="DirectoryEntryBranding" model='Model.Branding' view-data='new ViewDataDictionary(ViewData) { { "AdditionalWrapperCssClasses", @borderTeal }, { "AdditionalCssClass", @greyBorderCssClasses } }' />
+                    <partial name="DirectoryEntryBranding" model='Model.DirectoryEntry.Branding' view-data='new ViewDataDictionary(ViewData) { { "AdditionalWrapperCssClasses", @borderTeal }, { "AdditionalCssClass", @greyBorderCssClasses } }' />
                 </div>
             </section>
         </div>

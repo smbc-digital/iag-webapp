@@ -3,7 +3,7 @@
     var additionalWrapperCssClasses = ViewData["AdditionalWrapperCssClasses"];
     var additionalCssClasses = ViewData["AdditionalCssClasses"];
 }
-@if (Model.Any())
+@if (Model is not null && Model.Any())
 {
     <div class="directory__filters @additionalWrapperCssClasses">
         <div class="directory__wrapper navcard--white @additionalCssClasses">
