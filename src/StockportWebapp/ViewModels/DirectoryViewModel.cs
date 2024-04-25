@@ -21,7 +21,7 @@ public class DirectoryViewModel
         MetaDescription = directory.MetaDescription;
         Body = directory.Body;
         CallToAction = directory.CallToAction;
-        Alerts = directory.Alerts;
+        Alerts = directory.Alerts;  
         EventBanner = directory.EventBanner;
         ColourScheme = directory.ColourScheme;
         RelatedContent = directory.RelatedContent;
@@ -39,6 +39,8 @@ public class DirectoryViewModel
     // Core page details
     public string Slug { get; set; }
     public string Title { get; set; }
+    public string DisplayTitle => string.IsNullOrEmpty(SearchTerm) ? Title : $"Results for {SearchTerm}";
+    public string PageTitle => DisplayTitle + (ShowPagination? " results (page " + PaginationInfo.CurrentPage + " of " + PaginationInfo.TotalPages + ")" : string.Empty);
     public string MetaDescription { get; set; }
     public string Body { get; set; }
     public CallToActionBanner CallToAction { get; set; }
@@ -61,6 +63,8 @@ public class DirectoryViewModel
     public string SearchTerm { get; set; }
     public string Order { get; set; }   
     public PaginationInfo PaginationInfo { get; set; }
+    public bool ShowPagination => PaginationInfo.TotalEntries > PaginationInfo.PageSize;
+
     public List<string> OrderBy = new() { "Name A to Z", "Name Z to A" };
     public IEnumerable<Filter> AppliedFilters { get; set; }
     public IEnumerable<FilterTheme> AllFilterThemes { get; set; }

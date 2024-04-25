@@ -1,8 +1,6 @@
 @model DirectoryViewModel
 @{
-    bool showPagination = Model.PaginationInfo.TotalEntries > Model.PaginationInfo.PageSize;
-    var title = string.IsNullOrEmpty(Model.SearchTerm) ? Model.Title : Model.SearchTerm;
-    ViewData["Title"] = Model.Title + (showPagination ? " results (page " + Model.PaginationInfo.CurrentPage + " of " + Model.PaginationInfo.TotalPages + ")" : string.Empty);
+    ViewData["Title"] = Model.PageTitle;
     ViewData["BreadcrumbTitle"] = $"Results in { Model.Title }";
     ViewData["og:title"] = Model.Title;
     ViewData["Description"] = Model.MetaDescription;
@@ -17,7 +15,7 @@
         <input type="hidden" asp-for="SearchTerm" id="persistedSearchTerm"/>
         <div class="grid-container">
             <div class="grid-100 directory-sub-title">
-               <h1 data-cy="results-title">Results for @title</h1>
+               <h1 data-cy="results-title">@Model.DisplayTitle</h1>
                 <span>Showing <span class="bold">@Model.PaginationInfo.TotalEntries</span>@(
                     Model.PaginationInfo.TotalEntries.Equals(1) ? " result" : " results"
                     ) in <span class="bold">@Model.Title</span> @if (!string.IsNullOrEmpty(Model.SearchTerm)) { @("for ") <span class='bold'>"@Model.SearchTerm"</span> }</span>
@@ -37,7 +35,7 @@
 
         <div class="grid-container">
             <div class="grid-100">
-                <div class="directory @(showPagination ? string.Empty : "directory--margin-bottom")">
+                <div class="directory @(Model.ShowPagination ? string.Empty : "directory--margin-bottom")">
                     <div class="directory--30">
                         <partial name="DirectorySearchResultFilters" />
                     </div>
