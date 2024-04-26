@@ -113,7 +113,7 @@ public class CookiesHelper : ICookiesHelper
     {
 
         string cookies = httpContextAccessor.HttpContext.Request.Cookies[cookieType];
-        Dictionary<string, List<string>> alertDictionary = new Dictionary<string, List<string>>();
+        Dictionary<string, List<string>> alertDictionary = new();
         
         if (cookies is not null && !cookies.Equals(string.Empty))
             alertDictionary = ExtractValuesFromJson(cookies);
@@ -129,18 +129,18 @@ public class CookiesHelper : ICookiesHelper
 
     public bool HasCookieConsentBeenCollected()
     {
-        var consentAcctepted = httpContextAccessor.HttpContext.Request.Cookies["cookie_consent_user_accepted"];
-        return !string.IsNullOrEmpty(consentAcctepted);
+        var consentAccepted = httpContextAccessor.HttpContext.Request.Cookies["cookie_consent_user_accepted"];
+        return !string.IsNullOrEmpty(consentAccepted);
     }
 
     public CookieConsentLevel GetCurrentCookieConsentLevel()
     {
-        var consentAccteptedValue = httpContextAccessor.HttpContext.Request.Cookies["cookie_consent_user_accepted"];
+        var consentAcceptedValue = httpContextAccessor.HttpContext.Request.Cookies["cookie_consent_user_accepted"];
 
-        if (string.IsNullOrEmpty(consentAccteptedValue))
+        if (string.IsNullOrEmpty(consentAcceptedValue))
             return new CookieConsentLevel();
 
-        if (!bool.Parse(consentAccteptedValue))
+        if (!bool.Parse(consentAcceptedValue))
             return new CookieConsentLevel();
 
         var consentLevel = httpContextAccessor.HttpContext.Request.Cookies["cookie_consent_level"];
