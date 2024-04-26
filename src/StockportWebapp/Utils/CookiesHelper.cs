@@ -135,11 +135,18 @@ public class CookiesHelper : ICookiesHelper
 
     public bool HasCookieConsentBeenCollected()
     {
-        var cookie = httpContextAccessor.HttpContext.Request.Cookies.SingleOrDefault(cookie => cookie.Key.Equals("cookie_consent_user_accepted"));
-        _logger.LogInformation($"CookiesHelper:HasCookieConsentBeenCollected: cookie_consent_user_accepted { cookie.Value }");
+        var cookiePresent = httpContextAccessor.HttpContext.Request.Cookies.Any(cookie => cookie.Key.Equals("cookie_consent_user_accepted"));
 
-        var consentAccepted = cookie.Value;
-        return !string.IsNullOrEmpty(consentAccepted);
+        if (!cookiePresent)
+        {
+            _logger.LogInformation($"CookiesHelper:HasCookieConsentBeenCollected: cookie_consent_user_accepted - cookie not present");
+            return false;
+        }
+
+        var cookie = httpContextAccessor.HttpContext.Request.Cookies.SingleOrDefault(cookie => cookie.Key.Equals("cookie_consent_user_accepted"));
+        _logger.LogInformation($"CookiesHelper:HasCookieConsentBeenCollected: cookie_consent_user_accepted {cookie.Value}");
+
+        return !string.IsNullOrEmpty(cookie.Value);
     }
 
     public CookieConsentLevel GetCurrentCookieConsentLevel()
