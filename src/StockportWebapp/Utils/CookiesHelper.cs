@@ -4,7 +4,13 @@ public class CookiesHelper : ICookiesHelper
 {
     private IHttpContextAccessor httpContextAccessor;
 
-    public CookiesHelper(IHttpContextAccessor accessor) => httpContextAccessor = accessor;
+    private readonly ILogger<CookiesHelper> _logger;
+
+    public CookiesHelper(IHttpContextAccessor accessor, ILogger<CookiesHelper> logger = null)
+    {
+        httpContextAccessor = accessor;
+        _logger = logger;
+    }
 
     public List<T> PopulateCookies<T>(List<T> items, string cookieType)
     {
@@ -129,7 +135,10 @@ public class CookiesHelper : ICookiesHelper
 
     public bool HasCookieConsentBeenCollected()
     {
-        var consentAccepted = httpContextAccessor.HttpContext.Request.Cookies["cookie_consent_user_accepted"];
+        var cookie = httpContextAccessor.HttpContext.Request.Cookies.SingleOrDefault(cookie => cookie.Key.Equals("cookie_consent_user_accepted"));
+        _logger.LogInformation($"CookiesHelper:HasCookieConsentBeenCollected: cookie_consent_user_accepted { cookie.Value }");
+
+        var consentAccepted = cookie.Value;
         return !string.IsNullOrEmpty(consentAccepted);
     }
 

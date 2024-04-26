@@ -55,11 +55,12 @@ public class CookiesHelperTests
 {
     private readonly CookiesHelper cookiesHelper;
     private Mock<IHttpContextAccessor> httpContextAccessor;
+    private Mock<ILogger<CookiesHelper>> logger;
 
     public CookiesHelperTests()
     {
         httpContextAccessor = new Mock<IHttpContextAccessor>();
-        cookiesHelper = new CookiesHelper(httpContextAccessor.Object);
+        cookiesHelper = new CookiesHelper(httpContextAccessor.Object, logger.Object);
     }
 
     [Fact]
