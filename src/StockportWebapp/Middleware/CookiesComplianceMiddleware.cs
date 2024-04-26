@@ -10,11 +10,13 @@ public class CookiesComplianceMiddleware
 {
     private readonly RequestDelegate _next;
     private readonly ICookiesHelper _cookiesHelper;
+    private readonly ILogger<CookiesComplianceMiddleware> _logger;
 
-    public CookiesComplianceMiddleware(RequestDelegate next, CookiesHelper cookiesHelper)
+    public CookiesComplianceMiddleware(RequestDelegate next, CookiesHelper cookiesHelper, ILogger<CookiesComplianceMiddleware> logger)
     {
         _next = next;
-        _cookiesHelper = cookiesHelper; 
+        _cookiesHelper = cookiesHelper;
+        _logger = logger;
     }
 
     public Task Invoke(HttpContext httpContext)
@@ -24,6 +26,7 @@ public class CookiesComplianceMiddleware
 
         if (!_cookiesHelper.HasCookieConsentBeenCollected())
         {
+            _logger.LogWarning("CookiesComplianceMiddleware:Invoke: Cookie compliance has not been collected removing non essential cookies");
             RemoveFunctionalCookies();
             RemoveTrackingCookies();
             return _next(httpContext);
@@ -32,17 +35,28 @@ public class CookiesComplianceMiddleware
         var consentLevels = _cookiesHelper.GetCurrentCookieConsentLevel();
 
         if (!consentLevels.Functionality)
+        {
+            _logger.LogWarning("CookiesComplianceMiddleware:Invoke: Consent not given for FUNCITONAL Cookies removing functional all cookies");
             RemoveFunctionalCookies();
+        }
+
 
         if (!consentLevels.Tracking)
+        {
+            _logger.LogWarning("CookiesComplianceMiddleware:Invoke: Consent not given for TRACKING Cookies removing tracking all cookies");
             RemoveTrackingCookies();
-        
-        // There should be no targeting cookies
+        }
+
+        if (!consentLevels.Targetting)
+        {
+            _logger.LogWarning("CookiesComplianceMiddleware:Invoke: Consent not given for TARGETTING Cookies removing targetting all cookies");
+            RemoveTargettingCookies();
+        }
 
         return _next(httpContext);
     }
 
-    private void RemoveFunctionalCookies() 
+    private void RemoveFunctionalCookies()
     {
         _cookiesHelper.RemoveCookie("alerts");
         _cookiesHelper.RemoveCookie("favourites");
@@ -60,5 +74,10 @@ public class CookiesComplianceMiddleware
         _cookiesHelper.RemoveCookie("hubspotuk");
         _cookiesHelper.RemoveCookie("siteimproveses");
         _cookiesHelper.RemoveCookie("ga");
+    }
+
+    private void RemoveTargettingCookies()
+    {
+        // No targetting cookies currently set  
     }
 }
