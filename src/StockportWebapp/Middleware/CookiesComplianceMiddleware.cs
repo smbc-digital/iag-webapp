@@ -37,7 +37,7 @@ public class CookiesComplianceMiddleware
         if (!consentLevels.Tracking)
             RemoveTrackingCookies();
         
-        // There should be no targetting cookies
+        // There should be no targeting cookies
 
         return _next(httpContext);
     }
