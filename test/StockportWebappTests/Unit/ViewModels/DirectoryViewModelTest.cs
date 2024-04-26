@@ -244,4 +244,150 @@ public class DirectoryViewModelTest
         Assert.Equal("23", paginatedEntries[10].DirectoryEntry.Name);
         Assert.Equal("24", paginatedEntries[11].DirectoryEntry.Name);
     }
+
+    [Fact]
+    public void ShowPagination_True_EntriesGreaterThanPageSize()
+    {
+        var viewModel = new DirectoryViewModel
+        {
+            PaginationInfo = new PaginationInfo
+            {
+                PageSize = 12,
+                TotalEntries = 24
+            }
+        };
+
+        Assert.True(viewModel.ShowPagination);
+    }
+
+[Fact]
+    public void ShowPagination_False_EntriesLessThanOrEqualPageSize()
+    {
+        var viewModel = new DirectoryViewModel
+        {
+            PaginationInfo = new PaginationInfo
+            {
+                PageSize = 12,
+                TotalEntries = 12
+            }
+        };
+
+        Assert.False(viewModel.ShowPagination);
+    }
+
+    [Fact]
+    public void DisplayTitlePopulatedCorrectly_When_SearchTerm_HasValue()
+    {
+        var viewModel = new DirectoryViewModel
+        {
+            Title = "Test Title",
+            SearchTerm ="Test Search Term"
+        };
+
+        var result = viewModel.DisplayTitle;
+        Assert.Equal($"Results for {viewModel.SearchTerm}", result);
+    }
+
+    [Fact]
+    public void DisplayTitlePopulatedCorrectly_When_SearchTerm_HasNoValue()
+    {
+        var viewModel = new DirectoryViewModel
+        {
+            Title = "Test Title"
+        };
+
+        var result = viewModel.DisplayTitle;
+        Assert.Equal(viewModel.Title, result);
+    }
+
+        [Fact]
+    public void PageTitlePopulatedCorrectly_When_NoPagination()
+    {
+        var viewModel = new DirectoryViewModel
+        {
+            Title = "Test Title",
+            PaginationInfo = new PaginationInfo
+            {
+                PageSize = 12,
+                TotalEntries = 12
+            }
+        };
+
+        var result = viewModel.PageTitle;
+        Assert.Equal(viewModel.Title, result);
+    }
+
+    [Fact]
+    public void PageTitlePopulatedCorrectly_With_Pagination()
+    {
+        var viewModel = new DirectoryViewModel
+        {
+            Title = "Test Title",
+            PaginationInfo = new PaginationInfo
+            {
+                PageSize = 12,
+                TotalEntries = 24,
+                CurrentPage = 1,
+                TotalPages = 2
+            }
+        };
+
+        var result = viewModel.PageTitle;
+        Assert.Equal($"{viewModel.Title} results (page 1 of 2)", result);
+    }
+
+    [Fact]
+    public void SearchBranding_Returns_Correct_Value_When_ParentValueSet()
+    {
+        var viewModel = new DirectoryViewModel()
+        {
+            ParentDirectory = new DirectoryViewModel(new Directory() { SearchBranding = "Test Branding" })
+        };
+        var result = viewModel.SearchBranding;
+        Assert.Equal("Test Branding", result);
+    }
+
+    [Fact]
+    public void SearchBranding_Returns_Default_Value_When_ParentValueSet_ButHasNoBranding()
+    {
+        var viewModel = new DirectoryViewModel()
+        {
+            ParentDirectory = new DirectoryViewModel(new Directory())
+        };
+
+        var result = viewModel.SearchBranding;
+        Assert.Equal("Default", result);
+    }
+
+    [Fact]
+    public void SearchBranding_Returns_Default_Value_When_ParentValueSet()
+    {
+        var viewModel = new DirectoryViewModel();
+        var result = viewModel.SearchBranding;
+        Assert.Equal("Default", result);
+    }
+
+    [Fact]
+    public void SearchBranding_Returns_Default_Value_When_No_FirstSubDirectory()
+    {
+        var viewModel = new DirectoryViewModel()
+        {
+            FirstSubDirectory = new DirectoryViewModel() { ColourScheme = "" }
+        };
+
+        var result = viewModel.InheritedColourScheme;
+        Assert.Equal("teal", result);
+    }
+
+    [Fact]
+    public void SearchBranding_Returns_Correct_Value_When_FirstSubDirectory()
+    {
+        var viewModel = new DirectoryViewModel()
+        {
+            FirstSubDirectory = new DirectoryViewModel() { ColourScheme = "pink" }
+        };
+
+        var result = viewModel.InheritedColourScheme;
+        Assert.Equal("pink", result);
+    }
 }

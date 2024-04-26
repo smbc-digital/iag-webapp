@@ -198,4 +198,11 @@ public class DirectoryEntryViewModelTest
         // Assert
         Assert.Equal(expected, displayContactUs);
     }
+
+    [Fact]
+    public void IsPinned_CorrectlySet()
+    {
+        var viewModel = new DirectoryEntryViewModel("test", new(), Enumerable.Empty<Crumb>(), true);
+        Assert.True(viewModel.IsPinned);
+    }    
 }
