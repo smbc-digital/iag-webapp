@@ -192,7 +192,7 @@ namespace StockportWebapp.Utils.Extensions
         {
             services.AddSingleton(p => new CalendarHelper());
             services.AddTransient<ICookiesHelper, CookiesHelper>();
-            services.AddSingleton(p => new CookiesHelper(p.GetService<IHttpContextAccessor>(), p.GetService<ILogger<CookiesHelper>>()));
+            services.AddSingleton(p => new CookiesHelper(p.GetService<IHttpContextAccessor>()));
             services.AddTransient<IArticleRepository>(
                 p =>
                     new ArticleRepository(p.GetService<UrlGenerator>(), p.GetService<IHttpClient>(),
