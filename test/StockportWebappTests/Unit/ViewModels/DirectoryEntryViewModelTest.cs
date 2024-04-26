@@ -31,7 +31,10 @@ public class DirectoryEntryViewModelTest
 
         DirectoryEntryViewModel directoryViewModel = new("slug", new())
         {
-            Themes = themes
+            DirectoryEntry = new DirectoryEntry
+            {
+                Themes = themes
+            }
         };
 
         // Act
@@ -47,7 +50,10 @@ public class DirectoryEntryViewModelTest
     {
         // Arrange
         DirectoryEntryViewModel directoryViewModel = new("slug", new()){
-            Themes = new List<FilterTheme>()
+            DirectoryEntry = new DirectoryEntry
+            {
+                Themes = new List<FilterTheme>()
+            }
         };
 
         // Act
@@ -63,7 +69,10 @@ public class DirectoryEntryViewModelTest
     {
         // Arrange
         DirectoryEntryViewModel directoryViewModel = new("slug", new()){
-            Themes = null
+            DirectoryEntry = new DirectoryEntry
+            {
+                Themes = null
+            }
         };
 
         // Act
@@ -98,7 +107,10 @@ public class DirectoryEntryViewModelTest
         };
 
         DirectoryEntryViewModel directoryViewModel = new("slug", new()){
-            Themes = themes
+            DirectoryEntry = new DirectoryEntry
+            {
+                Themes = themes
+            }
         };
 
         // Act
@@ -123,11 +135,14 @@ public class DirectoryEntryViewModelTest
         // Arrange
         var viewModel = new DirectoryEntryViewModel
         {
-            Facebook = facebook,
-            Twitter = twitter,
-            Youtube = youtube,
-            Instagram = instagram,
-            LinkedIn = linkedIn
+            DirectoryEntry = new DirectoryEntry
+            {
+                Facebook = facebook,
+                Twitter = twitter,
+                Youtube = youtube,
+                Instagram = instagram,
+                LinkedIn = linkedIn
+            }
         };
 
         // Act
@@ -148,8 +163,11 @@ public class DirectoryEntryViewModelTest
         // Arrange
         var viewModel = new DirectoryEntryViewModel
         {
-            PhoneNumber = phoneNumber,
-            Email = email
+            DirectoryEntry = new DirectoryEntry
+            {
+                PhoneNumber = phoneNumber,
+                Email = email
+            }
         };
 
         // Act
@@ -168,7 +186,10 @@ public class DirectoryEntryViewModelTest
         // Arrange
         var viewModel = new DirectoryEntryViewModel
         {
-            Website = website,
+            DirectoryEntry = new DirectoryEntry
+            {
+                Website = website   
+            }
         };
 
         // Act

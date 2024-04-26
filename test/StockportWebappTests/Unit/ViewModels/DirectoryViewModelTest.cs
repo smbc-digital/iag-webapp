@@ -218,7 +218,7 @@ public class DirectoryViewModelTest
         // Arrange
         var viewModel = new DirectoryViewModel
         {
-            FilteredEntries = Enumerable.Range(1, 50).Select(i => new DirectoryEntryViewModel { Name = i.ToString() }).ToList()
+            FilteredEntries = Enumerable.Range(1, 50).Select(i => new DirectoryEntryViewModel { DirectoryEntry = new DirectoryEntry{ Name = i.ToString() }}).ToList()
         };
 
         // Act
@@ -231,17 +231,17 @@ public class DirectoryViewModelTest
         Assert.Equal(5, viewModel.PaginationInfo.TotalPages);
         Assert.Equal(50, viewModel.PaginationInfo.TotalEntries);
         Assert.Equal(12, viewModel.PaginationInfo.PageSize);
-        Assert.Equal("13", paginatedEntries[0].Name);
-        Assert.Equal("14", paginatedEntries[1].Name);
-        Assert.Equal("15", paginatedEntries[2].Name);
-        Assert.Equal("16", paginatedEntries[3].Name);
-        Assert.Equal("17", paginatedEntries[4].Name);
-        Assert.Equal("18", paginatedEntries[5].Name);
-        Assert.Equal("19", paginatedEntries[6].Name);
-        Assert.Equal("20", paginatedEntries[7].Name);
-        Assert.Equal("21", paginatedEntries[8].Name);
-        Assert.Equal("22", paginatedEntries[9].Name);
-        Assert.Equal("23", paginatedEntries[10].Name);
-        Assert.Equal("24", paginatedEntries[11].Name);
+        Assert.Equal("13", paginatedEntries[0].DirectoryEntry.Name);
+        Assert.Equal("14", paginatedEntries[1].DirectoryEntry.Name);
+        Assert.Equal("15", paginatedEntries[2].DirectoryEntry.Name);
+        Assert.Equal("16", paginatedEntries[3].DirectoryEntry.Name);
+        Assert.Equal("17", paginatedEntries[4].DirectoryEntry.Name);
+        Assert.Equal("18", paginatedEntries[5].DirectoryEntry.Name);
+        Assert.Equal("19", paginatedEntries[6].DirectoryEntry.Name);
+        Assert.Equal("20", paginatedEntries[7].DirectoryEntry.Name);
+        Assert.Equal("21", paginatedEntries[8].DirectoryEntry.Name);
+        Assert.Equal("22", paginatedEntries[9].DirectoryEntry.Name);
+        Assert.Equal("23", paginatedEntries[10].DirectoryEntry.Name);
+        Assert.Equal("24", paginatedEntries[11].DirectoryEntry.Name);
     }
 }
