@@ -41,7 +41,7 @@ public static class DirectoryExtensions
     public static bool DirectoryEntrySatisfiesTheme(this KeyValuePair<string, List<string>> themes, 
                                                     DirectoryEntry entry) =>
         themes.Value  
-            .Any(appliedFilter => entry.Themes.Any(theme => theme.Title.Equals(themes.Key) 
+            .Any(appliedFilter => entry.Themes.Any(theme => !string.IsNullOrEmpty(theme.Title) && theme.Title.Equals(themes.Key)
                                     && theme.Filters.Any(filter => filter.Slug.Equals(appliedFilter))));
 
     /// <summary>
