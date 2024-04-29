@@ -14,7 +14,7 @@ public class CookiesComplianceMiddleware
     public CookiesComplianceMiddleware(RequestDelegate next, CookiesHelper cookiesHelper)
     {
         _next = next;
-        _cookiesHelper = cookiesHelper; 
+        _cookiesHelper = cookiesHelper;
     }
 
     public Task Invoke(HttpContext httpContext)
@@ -32,17 +32,25 @@ public class CookiesComplianceMiddleware
         var consentLevels = _cookiesHelper.GetCurrentCookieConsentLevel();
 
         if (!consentLevels.Functionality)
+        {
             RemoveFunctionalCookies();
+        }
+
 
         if (!consentLevels.Tracking)
+        {
             RemoveTrackingCookies();
-        
-        // There should be no targetting cookies
+        }
+
+        if (!consentLevels.Targetting)
+        {
+            RemoveTargettingCookies();
+        }
 
         return _next(httpContext);
     }
 
-    private void RemoveFunctionalCookies() 
+    private void RemoveFunctionalCookies()
     {
         _cookiesHelper.RemoveCookie("alerts");
         _cookiesHelper.RemoveCookie("favourites");
@@ -60,5 +68,10 @@ public class CookiesComplianceMiddleware
         _cookiesHelper.RemoveCookie("hubspotuk");
         _cookiesHelper.RemoveCookie("siteimproveses");
         _cookiesHelper.RemoveCookie("ga");
+    }
+
+    private void RemoveTargettingCookies()
+    {
+        // No targetting cookies currently set  
     }
 }

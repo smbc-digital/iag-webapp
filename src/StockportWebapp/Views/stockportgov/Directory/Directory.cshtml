@@ -42,7 +42,7 @@
             }            
 
             @if(!string.IsNullOrEmpty(directory.Body)) {
-                <div class="directory-lead">@directory.Body</div>
+                <div class="directory-lead">@Html.Raw(@directory.Body)</div>
             }
         </div>
     </div>
@@ -61,6 +61,7 @@
                     <ul class="navcard-wrapper navcard-wrapper--no-margin" data-cy="navcard">
                         @foreach (var subdirectory in subdirectories)
                         {
+                            
                             var colourScheme = Model.IsRootDirectory
                                 ? string.IsNullOrEmpty(subdirectory.ColourScheme) ? "teal" : subdirectory.ColourScheme.ToLower()
                                 : string.IsNullOrEmpty(Model.FirstSubDirectory.ColourScheme) ? "teal" : Model.FirstSubDirectory.ColourScheme.ToLower();
