@@ -77,7 +77,7 @@ public class DirectoryController : Controller
             AllFilterThemes = allFilterThemes,
             PinnedEntries = pinnedEntries,
             AppliedFilters = _directoryService.GetFilters(filters, allFilterThemes),
-            FilterCounts = _directoryService.GetAllFilterCounts(entries.Concat(pinnedEntries)),
+            FilterCounts = _directoryService.GetAllFilterCounts(entries.Concat(pinnedEntries).Distinct(new DirectoryEntryComparer())),
             SearchTerm = searchTerm,
             Order = !string.IsNullOrEmpty(orderBy) ? orderBy.Replace("-", " ") : orderBy
         };
