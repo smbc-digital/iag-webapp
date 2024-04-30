@@ -6,15 +6,9 @@ namespace StockportWebapp.Controllers;
 public class DirectoryController : Controller
 {
     private readonly IDirectoryService _directoryService;
-    private readonly IFeatureManager _featureManager;
-    private readonly bool _isToggledOn = true;
     private readonly string _defaultUrlPrefix = "directories";
-    public DirectoryController(IDirectoryService directoryService, IFeatureManager featureManager = null)
+    public DirectoryController(IDirectoryService directoryService)
     {
-        _featureManager = featureManager;
-
-        if (_featureManager is not null)
-            _isToggledOn = _featureManager.IsEnabledAsync("Directories").Result;
 
         _directoryService = directoryService;
     }
@@ -22,9 +16,6 @@ public class DirectoryController : Controller
     [Route("/directories/{**slug}")]
     public async Task<IActionResult> Directory(string slug)
     {
-        if (!_isToggledOn || string.IsNullOrEmpty(slug))
-            return NotFound();
-
         var pageLocation = slug.ProcessAsWildcardSlug();
 
         var directory = await _directoryService.Get<Directory>(pageLocation.Slug);
@@ -51,9 +42,6 @@ public class DirectoryController : Controller
     [Route("/directories/results/{**slug}")]
     public async Task<IActionResult> DirectoryResults([Required][FromRoute]string slug, string[] filters, string orderBy, string searchTerm, [FromQuery] int page)
     {
-        if (!_isToggledOn || string.IsNullOrEmpty(slug))
-            return NotFound();
-
         var pageLocation = slug.ProcessAsWildcardSlug();
 
         var directory = await _directoryService.Get<Directory>(pageLocation.Slug);
@@ -106,9 +94,6 @@ public class DirectoryController : Controller
     [Produces(MediaTypeNames.Application.Xml)]
     public async Task<IActionResult> DirectoryAsKml([Required][FromRoute]string slug, string[] filters, string orderBy, string searchTerm)
     {
-        if (!_isToggledOn)
-            return NotFound();
-
         var directory = await _directoryService.Get<Directory>(slug);
         if(directory is null)
             return NotFound();
@@ -122,9 +107,6 @@ public class DirectoryController : Controller
     [Route("directories/entry/{**slug}")]
     public async Task<IActionResult> DirectoryEntry(string slug)
     {
-        if (!_isToggledOn || string.IsNullOrEmpty(slug))
-            return NotFound();
-
         var pageLocation = slug.ProcessAsWildcardSlug();
         var directoryEntry = await _directoryService.GetEntry<DirectoryEntry>(pageLocation.Slug);
         
