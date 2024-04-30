@@ -69,8 +69,8 @@
         }
 
         @media #{$tablet-only, $desktop} {
-            width: 150px;
-            height: 54px;
+            width: 7.89em;
+            height: 2.84em;
             background-color: $stockport-pink;
             color: white;
             border-radius: 3px;
@@ -243,8 +243,37 @@
         &--one-stockport {
             background-color: $one-stockport-purple;
 
+            @media #{$desktop} {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+            }
+
+            .directory-search_image--start {
+                @media #{$desktop} {
+                    margin-inline-end: 1em;
+                }
+
+                @media #{$tablet} {
+                    width: 100%
+                }
+            }
+
+            .directory-search_input--end {
+                @media #{$desktop} {
+                    flex-grow: 1;
+                }
+
+                @media #{$tablet} {
+                    width: 100%;
+                    flex-grow: unset;
+                }
+            }
+
             img {
+                height: auto;
                 max-height: 150px;
+                max-width: 100%;
             }
 
             @media #{$tablet} {
@@ -252,7 +281,6 @@
             }
 
             form {
-                line-height: 150px;
                 margin-bottom: 0px;
 
                 @media #{$tablet} {
@@ -261,7 +289,6 @@
             }
 
             .directory-search--button {
-                top: 48px;
                 color: $one-stockport-purple;
 
                 @media #{$tablet} {
@@ -269,7 +296,7 @@
                 }
             }
 
-            .directory-search--button:hover {
+            .directory-search--button:hover, .directory-search--button:focus {
                 background-color: $one-stockport-pink;
                 color: $one-stockport-purple;
             }
@@ -415,7 +442,7 @@
 
         &--margin {
             margin-top: 1.25rem;
-            
+
             @media #{$mobile} {
                 margin-left: 5px;
                 margin-right: 5px;

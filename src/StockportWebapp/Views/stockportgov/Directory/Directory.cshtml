@@ -20,7 +20,7 @@
     if((!string.IsNullOrEmpty(directory.Body) && directory.CallToAction is not null) ||
         (string.IsNullOrEmpty(directory.Body) && directory.CallToAction is null) ||
         (!string.IsNullOrEmpty(directory.Body) && directory.CallToAction is null))
-            sectionMarginTop = "section--margin-top";
+            sectionMarginTop = "section--margin-top-1";
 
     if((string.IsNullOrEmpty(directory.Body) && directory.CallToAction is not null) ||
         (string.IsNullOrEmpty(directory.Body) && directory.CallToAction is null))
@@ -42,7 +42,7 @@
             }            
 
             @if(!string.IsNullOrEmpty(directory.Body)) {
-                <div class="directory-lead">@directory.Body</div>
+                <div class="directory-lead">@Html.Raw(@directory.Body)</div>
             }
         </div>
     </div>
@@ -51,7 +51,7 @@
 
     @if (directory.CallToAction is not null)
     {
-        <partial name="CallToAction" model='directory.CallToAction' view-data='new ViewDataDictionary(ViewData) { { "AdditionalCssClass", "section--margin-top"  } }'/>
+        <partial name="CallToAction" model='directory.CallToAction' view-data='new ViewDataDictionary(ViewData) { { "AdditionalCssClass", "section--margin-top-1"  } }'/>
     }
 
     <section class="section section--no-margin @sectionMarginTop @sectionMarginBottom">
@@ -61,6 +61,7 @@
                     <ul class="navcard-wrapper navcard-wrapper--no-margin" data-cy="navcard">
                         @foreach (var subdirectory in subdirectories)
                         {
+                            
                             var colourScheme = Model.IsRootDirectory
                                 ? string.IsNullOrEmpty(subdirectory.ColourScheme) ? "teal" : subdirectory.ColourScheme.ToLower()
                                 : string.IsNullOrEmpty(Model.FirstSubDirectory.ColourScheme) ? "teal" : Model.FirstSubDirectory.ColourScheme.ToLower();

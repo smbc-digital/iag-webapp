@@ -36,7 +36,11 @@ public class DirectoryService : IDirectoryService {
         if (!httpResponse.IsSuccessful())
             return null;
 
-        return (Directory)httpResponse.Content;
+        var directory = (Directory)httpResponse.Content;
+
+        directory.Body = _markdownWrapper.ConvertToHtml(directory.Body ?? "");
+
+        return directory;
     }
 
     public async Task<DirectoryEntry> GetEntry<T>(string slug = "")
@@ -93,7 +97,7 @@ public class DirectoryService : IDirectoryService {
     }
 
     /// <summary>
-    /// Return a list of FilterThemes relvant to the List of directory entries provided
+    /// Return a list of FilterThemes relevant to the List of directory entries provided
     /// </summary>
     /// <param name="filteredEntries"></param>
     /// <returns></returns>
