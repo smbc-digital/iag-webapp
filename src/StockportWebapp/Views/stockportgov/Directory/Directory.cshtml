@@ -35,6 +35,7 @@
     <partial name="CallToAction" model='Model.CallToAction' view-data='new ViewDataDictionary(ViewData) { { "AdditionalCssClass", "section--margin-top"  } }'/>
     <partial name="DirectoryNavCardList" />
     @if (!string.IsNullOrEmpty(Model.EventBanner.Title)) 
+
     {
         <div class="event-calendar-banner--margin-top">
             <partial name="EventBanner" model='Model.EventBanner'/>

@@ -3,20 +3,18 @@
 /// <summary>
 /// This is a one off piece of middleware to  ensure 
 /// that no old cookies are retained from the previous consent scheme 
-/// that we know require consent (Google Analytics, SiteImprove, Alerts dismisal, Old cookie consent)
+/// that we know require consent (Google Analytics, SiteImprove, Alerts dismissal, Old cookie consent)
 /// </summary>
 /// 
 public class CookiesComplianceMiddleware
 {
     private readonly RequestDelegate _next;
     private readonly ICookiesHelper _cookiesHelper;
-    private readonly ILogger<CookiesComplianceMiddleware> _logger;
 
-    public CookiesComplianceMiddleware(RequestDelegate next, CookiesHelper cookiesHelper, ILogger<CookiesComplianceMiddleware> logger)
+    public CookiesComplianceMiddleware(RequestDelegate next, CookiesHelper cookiesHelper)
     {
         _next = next;
-        _cookiesHelper = cookiesHelper; 
-        _logger = logger;   
+        _cookiesHelper = cookiesHelper;
     }
 
     public Task Invoke(HttpContext httpContext)
@@ -26,7 +24,6 @@ public class CookiesComplianceMiddleware
 
         if (!_cookiesHelper.HasCookieConsentBeenCollected())
         {
-            _logger.LogWarning("CookiesComplianceMiddleware:Invoke: Cookie compliance has not been collected removing non essential cookies");
             RemoveFunctionalCookies();
             RemoveTrackingCookies();
             return _next(httpContext);
@@ -36,27 +33,23 @@ public class CookiesComplianceMiddleware
 
         if (!consentLevels.Functionality)
         {
-            _logger.LogWarning("CookiesComplianceMiddleware:Invoke: Consent not given for FUNCITONAL Cookies removing functional all cookies");
             RemoveFunctionalCookies();
         }
-            
 
         if (!consentLevels.Tracking)
         {
-            _logger.LogWarning("CookiesComplianceMiddleware:Invoke: Consent not given for TRACKING Cookies removing tracking all cookies");
             RemoveTrackingCookies();
         }
 
         if (!consentLevels.Targetting)
         {
-            _logger.LogWarning("CookiesComplianceMiddleware:Invoke: Consent not given for TARGETTING Cookies removing targetting all cookies");
             RemoveTargettingCookies();
         }
 
         return _next(httpContext);
     }
 
-    private void RemoveFunctionalCookies() 
+    private void RemoveFunctionalCookies()
     {
         _cookiesHelper.RemoveCookie("alerts");
         _cookiesHelper.RemoveCookie("favourites");
