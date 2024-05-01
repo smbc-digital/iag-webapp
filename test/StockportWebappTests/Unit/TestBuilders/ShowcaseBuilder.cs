@@ -34,12 +34,12 @@ public class ShowcaseBuilder
     public string _featuredItemsSubheading { get; set; } = "";
     public IEnumerable<SubItem> _featuredItems = new List<SubItem>()
     {
-        new SubItem("slug", "title", "teaser", "icon", "type", "image.jpg", new List<SubItem>() {new SubItem("slug", "title", "teaser", "icon", "type", "image.jpg", new List<SubItem>()) })
+        new SubItem("slug", "title", "teaser", "icon", "type", "image.jpg", new List<SubItem>() {new SubItem("slug", "title", "teaser", "icon", "type", "image.jpg", new List<SubItem>(), "teal") }, "teal")
     };
 
     private IEnumerable<SubItem> _secondaryItems = new List<SubItem>()
     {
-        new SubItem("slug", "title", "teaser", "icon", "type", "image.jpg", new List<SubItem>() {new SubItem("slug", "title", "teaser", "icon", "type", "image.jpg", new List<SubItem>()) })
+        new SubItem("slug", "title", "teaser", "icon", "type", "image.jpg", new List<SubItem>() {new SubItem("slug", "title", "teaser", "icon", "type", "image.jpg", new List<SubItem>(), "teal") }, "teal")
     };
 
     public Showcase Build()

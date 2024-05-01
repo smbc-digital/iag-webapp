@@ -41,7 +41,7 @@ public class TopicControllerTest
 
     public SubItem CreateASubItem(int i)
     {
-        return new SubItem("sub-topic" + i, "Title" + i, "Teaser", "Icon", "topic", "image", new List<SubItem>());
+        return new SubItem("sub-topic" + i, "Title" + i, "Teaser", "Icon", "topic", "image", new List<SubItem>(), "teal");
     }
 
     [Fact]

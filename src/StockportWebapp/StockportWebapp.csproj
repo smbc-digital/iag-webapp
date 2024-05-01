@@ -56,5 +56,8 @@
     <Content Update="wwwroot\assets\stylesheets\styleguide-sg.min.css">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="NewFolder\" />
   </ItemGroup>  
 </Project>

@@ -1,180 +1,34 @@
-@model DirectoryViewModel
+@model DirectoryEntryViewModel
 @{
-    var directory = Model.DirectoryEntry;
-    ViewData["Title"] = directory.Name;
-    ViewData["og:title"] = directory.Name;
-    ViewData["Description"] = directory.MetaDescription;
+    ViewData["Title"] = Model.DirectoryEntry.Name;
+    ViewData["og:title"] = Model.DirectoryEntry.Name;
+    ViewData["Description"] = Model.DirectoryEntry.MetaDescription;
     Layout = "../Shared/_Layout2023.cshtml";
-    var highlightedFilters = directory.Themes?.SelectMany(_ => _.Filters.Where(_ => _.Highlight.Equals(true))).ToList();                          
     
-    var primaryContact = !string.IsNullOrEmpty(directory.PhoneNumber) ||
-                         !string.IsNullOrEmpty(directory.Email);
-
-    var displayVisit = !string.IsNullOrEmpty(directory.Facebook) ||
-                       !string.IsNullOrEmpty(directory.Twitter) ||
-                       !string.IsNullOrEmpty(directory.Youtube) ||
-                       !string.IsNullOrEmpty(directory.Instagram) ||
-                       !string.IsNullOrEmpty(directory.LinkedIn);
-
-    var displayContactUs = !string.IsNullOrEmpty(directory.Website) || primaryContact || displayVisit;
-
     var borderTeal = " navcard--border-top-10 navcard--theme-teal-lighter-top ";
     var borderGrey = " navcard-all navcard--theme-grey-accent-all";
     var noBorder = " navcard--border-top-0";
     var borderRadius = " navcard--radius-bottom-left navcard--radius-bottom-right";
-
     var greyBorderCssClasses = $"{borderGrey} {noBorder} {borderRadius}";
 }
 
 <div class="grid-container-full-width" data-cy="directory-entry">
-    @if (Model.Directory is not null)
-    {
-        <partial name="Breadcrumb2023" model='@Model.Breadcrumbs' />
-    }
-    else
-    {
-        <partial name="Breadcrumb2023" model='new List<Crumb>()' />
-    }
-
+    <partial name="Breadcrumb2023" model='@Model.Breadcrumbs' />
+    
     <div class="grid-container">
         <div class="grid-100">
-            <h1 class="directory__title">@directory.Name</h1>
+            <h1 class="directory__title">@Model.DirectoryEntry.Name</h1>
             <section class="directory">
                 <div class="directory--30 directory--border-top @borderTeal">
                     <div class="directory__wrapper navcard--white @greyBorderCssClasses">
-                        @if(!string.IsNullOrEmpty(directory.Image)){
-                            <img src="@directory.Image?w=350&q=89&fm=webp"
-                                class="directory__logo"
-                                alt=""
-                                width="350"
-                                height="150">
-                        }
-
-                        <h2 class='@(!string.IsNullOrEmpty(directory.Image) ? "directory__profile-image" : "directory__profile")'>Our details</h2>
-                        <div class="directory__organisation">
-                            <h3 class="h-m">Organisation</h3>
-                            @if (string.IsNullOrEmpty(directory.Provider)){
-                                <p>@directory.Name</p>
-                            }
-                            else{
-                                <p>@directory.Provider</p>
-                            }
-                        </div>
-
-                        <div class="directory__address">
-                            @if(!string.IsNullOrEmpty(directory.Address)){
-                                <h3 class="h-m">Address</h3>
-                                <div>@Html.Raw(@directory.Address)</div>
-                            }
-                        </div>
-
-                        @if(displayContactUs){
-                            <h3 class="h-m">Contact us</h3>
-                        }
-    
-                        <div class="directory__contact">
-                            @if(!string.IsNullOrEmpty(directory.Website)){
-                                <div class="directory__website">
-                                    <p>Web:</p>
-                                    <a href="@directory.Website">@directory.Website</a>
-                                </div>
-                            }
-                            
-                            @if(primaryContact){
-                                <div class="directory__labels">
-                                    @if(!string.IsNullOrEmpty(directory.PhoneNumber)){
-                                        <p class="directory__labels--no-margin">Phone:</p>
-                                        <p class="directory__phone">@directory.PhoneNumber</p>
-                                    }
-
-                                    @if(!string.IsNullOrEmpty(directory.Email)){
-                                        <p class="directory__labels--no-margin">Email:</p>
-                                        <a class="directory__email" href="mailto:@directory.Email">@directory.Email</a>
-                                    }
-                                </div>
-
-                                <div class="directory__contact--tablet">
-                                    <div class="directory__labels--tablet">
-                                        @if(!string.IsNullOrEmpty(directory.PhoneNumber)){
-                                            <p>Phone:</p>
-                                        }
-
-                                        @if(!string.IsNullOrEmpty(directory.Email)){
-                                            <p>Email:</p>
-                                        }
-                                    </div>
-
-                                    <div class="directory__values--tablet">
-                                        @if(!string.IsNullOrEmpty(directory.PhoneNumber)){
-                                            <p>@directory.PhoneNumber</p>
-                                        }
-
-                                        @if(!string.IsNullOrEmpty(directory.Email)){
-                                            <a href="mailto:@directory.Email">@directory.Email</a>
-                                        }
-                                    </div>
-                                </div>
-                            }
-
-                            @if(displayVisit){
-                                <div class="directory__social">
-                                    <p>Visit:</p>
-                                    
-                                    <div class="directory__social--tablet">
-                                        @if(!string.IsNullOrEmpty(directory.Facebook)){
-                                            <a href="@directory.Facebook">Facebook</a>
-                                        }
-
-                                        @if(!string.IsNullOrEmpty(directory.Twitter)){
-                                            <a href="@directory.Twitter">X (Twitter)</a>
-                                        }
-
-                                        @if(!string.IsNullOrEmpty(directory.Youtube)){
-                                            <a href="@directory.Youtube">YouTube</a>
-                                        }
-
-                                        @if(!string.IsNullOrEmpty(directory.Instagram)){
-                                            <a href="@directory.Instagram">Instagram</a>
-                                        }
-
-                                        @if(!string.IsNullOrEmpty(directory.LinkedIn)){
-                                            <a href="@directory.LinkedIn">LinkedIn</a>
-                                        }
-                                    </div>
-                                </div>
-                            }
-                        </div>
+                        <partial name="DirectoryEntryCore" />
                     </div>
                 </div>
 
                 <div class="directory--70 directory--border-top @borderTeal">
-                    <div class="directory__description">
-                        <div class="directory__wrapper navcard--white @greyBorderCssClasses">
-                            <h2>About us</h2>
-                            @Html.Raw(directory.Description)
-                        </div>
-                    </div>
-
-                    @if (highlightedFilters is not null && highlightedFilters.Any())
-                    {
-                        <div class="directory__filters @borderTeal">
-                            <div class="directory__wrapper navcard--white @greyBorderCssClasses">
-                                <h2 class="directory__filters-title">Facilities available</h2>
-                                <ul class="directory__filters-facilities">
-                                    @foreach (var filter in highlightedFilters)
-                                    {
-                                        <li class="directory__filter"><span class="fa fa-check" aria-hidden="true"></span> @filter.DisplayName</li>
-                                    }
-                                </ul>
-                            </div>
-                        </div>
-                    }
-
-                    @if(directory.Branding.Any()){
-                        <div class="directory--border-top directory--no-margin @borderTeal">
-                            <partial name="LogoArea" model='directory.Branding' view-data='new ViewDataDictionary(ViewData) {{"logoAreaTitle", "In partnership with"}, {"borderTopClass", $"{greyBorderCssClasses} directory--padding"}}'/>
-                        </div>
-                    }
+                    <partial name="DirectoryEntryDescription" model='Model.DirectoryEntry.Description' view-data='new ViewDataDictionary(ViewData) { { "AdditionalCssClass", @greyBorderCssClasses } }' />
+                    <partial name="DirectoryEntryHighightedFilters" model='Model.HighlightedFilters' view-data='new ViewDataDictionary(ViewData) { { "AdditionalWrapperCssClasses", @borderTeal }, { "AdditionalCssClass", @greyBorderCssClasses } }' />
+                    <partial name="DirectoryEntryBranding" model='Model.DirectoryEntry.Branding' view-data='new ViewDataDictionary(ViewData) { { "AdditionalWrapperCssClasses", @borderTeal }, { "AdditionalCssClass", @greyBorderCssClasses } }' />
                 </div>
             </section>
         </div>
