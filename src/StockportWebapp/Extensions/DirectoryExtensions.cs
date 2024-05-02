@@ -1,4 +1,5 @@
-﻿using SharpKml.Dom;
+﻿using SharpKml.Base;
+using SharpKml.Dom;
 using SharpKml.Engine;
 using Filter = StockportWebapp.Model.Filter;
 
@@ -6,19 +7,46 @@ namespace StockportWebapp.Extensions;
 public static class DirectoryExtensions
 {
     // TODO Needs tests
-    public static string GetKmlForList(this IEnumerable<DirectoryEntry> directoryEntries)
+    public static string GetKmlForList(this IEnumerable<DirectoryEntryViewModel> directoryEntries, string name)
     {
         // Ref 
         // https://github.com/samcragg/sharpkml/blob/main/docs/BasicUsage.md
 
         var kml = new Kml();
+        
         var mainFolder = new Folder()
         {
-            Name = "Directory Entries for ..."
+            Name = $"Directory Entries for {name}"
         };
 
-        directoryEntries.ToList().ForEach(entry =>  mainFolder.AddFeature(entry.ToKmlPlacemark()));
-        
+        mainFolder.AddStyle(new Style()
+        {
+            Id = "Default",
+            Icon = new IconStyle()
+            {
+                Color = new Color32(0, 0,128, 128),
+                ColorMode = ColorMode.Normal,                
+                Scale = 1.3,
+            }
+        });
+
+        mainFolder.AddStyle(new Style()
+        {
+            Id = "Pink",
+            Icon = new IconStyle()
+            { 
+                Color = new Color32(0, 179, 35, 132),
+                ColorMode = ColorMode.Normal,
+                Scale = 1.3
+            }
+        });
+
+        directoryEntries
+            .Where(entry => entry.DirectoryEntry.MapPosition is not null 
+                    && entry.DirectoryEntry.MapPosition.Lat != 0 && entry.DirectoryEntry.MapPosition.Lon != 0)
+            .ToList()
+            .ForEach(entry =>  mainFolder.AddFeature(entry.ToKmlPlacemark(entry.IsPinned ? "Pink" : "Default")));
+
         kml.Feature = mainFolder;
 
         var kmlStream = KmlFile.Create(kml, false);

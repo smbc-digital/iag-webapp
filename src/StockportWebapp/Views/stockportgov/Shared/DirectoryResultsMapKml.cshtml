@@ -1,0 +1,24 @@
+﻿@*@model string*@
+
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCPMO2lE7np9cG_zG63JH_pNVmRfoajZjg&callback=initMap"></script>
+
+<div id="map" class="directory-result-map" style="border: 1px solid #5a5a5933; height:500px; margin-bottom:1em;"></div>
+
+<script>
+    var map;
+    var src = 'https://int-iag-stockportgov.smbcdigital.net/directories/kml/stockport-local';
+
+    function initMap() {
+    map = new google.maps.Map(document.getElementById('map'), {
+            center: new google.maps.LatLng(53.40979, - 2.15761),
+        zoom: 10,
+        mapTypeId: 'roadmap'
+    });
+
+    var kmlLayer = new google.maps.KmlLayer(src, {
+        suppressInfoWindows: false,
+        preserveViewport: true,
+        map: map
+    });
+    }
+</script>

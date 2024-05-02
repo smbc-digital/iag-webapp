@@ -9,6 +9,7 @@ public class DirectoryController : Controller
     private readonly IFeatureManager _featureManager;
     private readonly bool _isToggledOn = true;
     private readonly string _defaultUrlPrefix = "directories";
+
     public DirectoryController(IDirectoryService directoryService, IFeatureManager featureManager = null)
     {
         _featureManager = featureManager;
@@ -61,20 +62,16 @@ public class DirectoryController : Controller
         var pinnedEntries = GetSearchedFilteredSortedEntries(directory.PinnedEntries, filters, orderBy, searchTerm);
         var allFilterThemes = _directoryService.GetFilterThemes(entries.Concat(pinnedEntries));
 
-        DirectoryViewModel viewModel = new(slug, directory, GetBreadcrumbsForDirectories(directory, parentDirectories, false, true))
+        DirectoryViewModel viewModel = new(slug, directory, GetBreadcrumbsForDirectories(directory, parentDirectories, false, true), pinnedEntries, entries, page)
         {
             ParentDirectory = new DirectoryViewModel(parentDirectories.FirstOrDefault() ?? directory),
             FirstSubDirectory = new DirectoryViewModel(parentDirectories.ElementAtOrDefault(1) ?? directory),
             SearchTerm = searchTerm,
-            FilteredEntries = entries.Select(entry => new DirectoryEntryViewModel(entry.Slug, entry, true)),
             AllFilterThemes = allFilterThemes,
-            PinnedEntries = pinnedEntries.Select(entry => new DirectoryEntryViewModel(entry.Slug, entry, true)),
             AppliedFilters = _directoryService.GetFilters(filters, allFilterThemes),
             FilterCounts = _directoryService.GetAllFilterCounts(entries.Concat(pinnedEntries)),
             Order = !string.IsNullOrEmpty(orderBy) ? orderBy.Replace("-", " ") : orderBy
         };
-        
-        viewModel.Paginate(page);
 
         return View("results", viewModel);
     }
@@ -103,11 +100,15 @@ public class DirectoryController : Controller
 
         var directory = await _directoryService.Get<Directory>(slug);
 
-        if(directory is null)
-            return NotFound();
+        var FilteredEntries = GetSearchedFilteredSortedEntries(directory.RegularEntries, filters, orderBy, searchTerm).Select(entry => new DirectoryEntryViewModel(entry.Slug, entry, false) { ParentSlug = slug });
+        var PinnedEntries = GetSearchedFilteredSortedEntries(directory.PinnedEntries, filters, orderBy, searchTerm).Select(entry => new DirectoryEntryViewModel(entry.Slug, entry, true) { ParentSlug = slug });
 
-        var entries = GetSearchedFilteredSortedEntries(directory.AllEntries, filters, orderBy, searchTerm);
-        var kmlString = entries.GetKmlForList();
+        var entries = PinnedEntries.Concat(FilteredEntries);
+
+        if (directory is null)
+            return NotFound();
+       
+        var kmlString = entries.GetKmlForList(directory.Title);
 
         return Content(kmlString);
     }

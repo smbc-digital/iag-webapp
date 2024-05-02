@@ -4,12 +4,12 @@
     {
         foreach (var entry in Model.PinnedEntries)
         {
-            <partial name="DirectorySearchResult" model=@(new DirectorySearchResultViewModel { DirectorySlug = Model.Slug, Entry = entry }) view-data='new ViewDataDictionary(ViewData) {{"pinnedEntry", true}}' />
+            <partial name="DirectorySearchResult" model=@entry />
         }
     }
 
     @foreach (var entry in Model.PaginatedEntries)
     {
-        <partial name="DirectorySearchResult" model=@(new DirectorySearchResultViewModel {DirectorySlug = Model.Slug, Entry = entry}) view-data='new ViewDataDictionary(ViewData) {{"pinnedEntry", false}}' />
+        <partial name="DirectorySearchResult" model=@entry />
     }
 </ul>
