@@ -1,0 +1,15 @@
+﻿@model DirectoryViewModel
+<ul class="navcard-wrapper">
+    @if (Model.PaginationInfo.CurrentPage.Equals(1))
+    {
+        foreach (var entry in Model.PinnedEntries)
+        {
+            <partial name="DirectorySearchResult" model=@(new DirectorySearchResultViewModel { DirectorySlug = Model.Slug, Entry = entry }) view-data='new ViewDataDictionary(ViewData) {{"pinnedEntry", true}}' />
+        }
+    }
+
+    @foreach (var entry in Model.PaginatedEntries)
+    {
+        <partial name="DirectorySearchResult" model=@(new DirectorySearchResultViewModel {DirectorySlug = Model.Slug, Entry = entry}) view-data='new ViewDataDictionary(ViewData) {{"pinnedEntry", false}}' />
+    }
+</ul>

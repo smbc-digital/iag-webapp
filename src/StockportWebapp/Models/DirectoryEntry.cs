@@ -1,9 +1,10 @@
 using SharpKml.Base;
 using SharpKml.Dom;
+using StockportWebapp.Comparers;
 
 namespace StockportWebapp.Models
 {
-    public class DirectoryEntry
+    public class DirectoryEntry : ISlugComparable
     {
         public string Slug { get; set; }
         public string Name { get; set; }
@@ -44,32 +45,5 @@ namespace StockportWebapp.Models
             Address = this.Address,
             AtomLink = new SharpKml.Dom.Atom.Link { Href = new Uri("https://www.stockport.gov.uk"), Title=$"Visit {this.Name}" }
         };
-    }
-
-    public class DirectoryEntryComparer : IEqualityComparer<DirectoryEntry>
-    {
-        // Products are equal if their names and product numbers are equal.
-        public bool Equals(DirectoryEntry x, DirectoryEntry y)
-        {
-            //Check whether the compared objects reference the same data.
-            if (Object.ReferenceEquals(x, y)) return true;
-
-            //Check whether any of the compared objects is null.
-            if (Object.ReferenceEquals(x, null) || Object.ReferenceEquals(y, null))
-                return false;
-
-            //Check whether the products' properties are equal.
-            return x.Slug == y.Slug;
-        }
-
-        public int GetHashCode(DirectoryEntry directoryEntry)
-        {
-            //Check whether the object is null
-            if (Object.ReferenceEquals(directoryEntry, null)) return 0;
-
-            //Get hash code for the Name field if it is not null.
-            int hashDirectorySlug = directoryEntry.Slug == null ? 0 : directoryEntry.Slug.GetHashCode();
-            return hashDirectorySlug;
-        }
     }
 }

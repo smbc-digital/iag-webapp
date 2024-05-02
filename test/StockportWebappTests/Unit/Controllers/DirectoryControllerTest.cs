@@ -70,7 +70,7 @@ public class DirectoryControllerTest
         Alerts = new List<Alert>(),
         Entries  = new List<DirectoryEntry>(),
         SubDirectories = new List<Directory>(),
-        PinnedEntries = new List<DirectoryEntry>()
+        PinnedEntries = new List<DirectoryEntry>(),
     };
 
     private readonly Directory processedDirectoryWithSubdirectories = new()
@@ -90,10 +90,12 @@ public class DirectoryControllerTest
     public DirectoryControllerTest()
     {
         _directoryController = new DirectoryController(_directoryService.Object);
-
         directory.PinnedEntries = new List<DirectoryEntry>() { directoryEntry };
         processedDirectoryWithSubdirectories.Entries = new List<DirectoryEntry>() { directoryEntry };
         processedDirectoryWithSubdirectories.SubDirectories = new List<Directory>() { directory };
+        processedDirectoryWithSubdirectories.SubItems = new List<SubItem>() {
+            new("slug", "title", "teaser", "icon", "type", "image", new List<SubItem>(), "teal")
+        };
         
         string[] filters = { "value1", "value2", "value3" };
 
@@ -143,9 +145,6 @@ public class DirectoryControllerTest
         // Arrange
         _ = _directoryService.Setup(_ => _.Get<Directory>(It.IsAny<string>())).ReturnsAsync(processedDirectoryWithSubdirectories);
         var expectedDirectoryViewModel = new DirectoryViewModel() {
-            Directory = processedDirectoryWithSubdirectories,
-            ParentDirectory = processedDirectoryWithSubdirectories,
-            FirstSubDirectory = processedDirectoryWithSubdirectories,
             Breadcrumbs = new List<Crumb>(),
             Slug = "slug"
         };
@@ -156,7 +155,6 @@ public class DirectoryControllerTest
 
         // Assert
         Assert.Null(result.ViewName);
-        Assert.Equal(expectedDirectoryViewModel.Directory, actualViewModel.Directory);
         Assert.Equal(expectedDirectoryViewModel.ParentDirectory, actualViewModel.ParentDirectory);
         Assert.Equal(expectedDirectoryViewModel.FirstSubDirectory, actualViewModel.FirstSubDirectory);
         Assert.Equal(expectedDirectoryViewModel.Breadcrumbs, actualViewModel.Breadcrumbs);
@@ -182,7 +180,7 @@ public class DirectoryControllerTest
         Assert.NotNull(model);
         Assert.Equal(filterThemes, model.AllFilterThemes);
         Assert.Equal(filterThemes.First().Filters, model.AllFilterThemes.First().Filters);
-        Assert.Equal("slug", model.Directory.Slug);
+        Assert.Equal("slug", model.Slug);
         Assert.Equal(filtersList, model.AppliedFilters);
         Assert.Empty(model.PinnedEntries);
         _directoryService.Verify(service => service.GetSearchedEntryForDirectories(It.IsAny<IEnumerable<DirectoryEntry>>(), It.IsAny<string>()), Times.Exactly(1));
@@ -219,6 +217,25 @@ public class DirectoryControllerTest
     }
 
     [Fact]
+    public async Task DirectoryResults_ShouldReturnCorrectView_WithFilters(){
+        // Arrange
+        string[] filters = { "value1", "value2", "value3" };
+        _directoryService.Setup(_ => _.Get<Directory>(It.IsAny<string>())).ReturnsAsync(directory);
+
+        // Act
+        var result = await _directoryController.DirectoryResults("slug", filters, string.Empty, string.Empty, 0) as ViewResult;
+        var model = result.ViewData.Model as DirectoryViewModel;
+
+        // Assert
+        Assert.Equal("results", result.ViewName);
+        Assert.Equal(filterThemes, model.AllFilterThemes);
+        Assert.Equal(filterThemes.First().Filters, model.AllFilterThemes.First().Filters);
+        Assert.Equal("slug", model.Slug);
+        Assert.Equal(filtersList, model.AppliedFilters);
+        Assert.Empty(model.PinnedEntries);
+    }
+
+    [Fact]
     public async Task DirectoryEntry_ShouldReturnViewModel(){
         // Arrange
         _directoryService.Setup(_ => _.Get<Directory>(It.IsAny<string>()))
@@ -226,13 +243,14 @@ public class DirectoryControllerTest
 
         _directoryService.Setup(_ => _.GetEntry<DirectoryEntry>(It.IsAny<string>()))
             .ReturnsAsync(directoryEntry);
+
         // Act
         var result = await _directoryController.DirectoryEntry("slug/entry-slug") as ViewResult;
-        var model = result.ViewData.Model as DirectoryViewModel;
+        var model = result.ViewData.Model as DirectoryEntryViewModel;
         
         // Assert
         Assert.NotNull(result);
-        Assert.Equal("slug-directory", model.Directory.Slug);
+        Assert.Equal("slug/entry-slug", model.Slug);
         Assert.Null(result.ViewName);
     }
 

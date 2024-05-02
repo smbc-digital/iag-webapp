@@ -170,9 +170,9 @@ public class ArticleViewModelTest
     private void ShouldReturnTopicSubItemsListForSideBar()
     {
         var firstSubitem = new SubItem(TextHelper.AnyString, "first-subitem", TextHelper.AnyString, TextHelper.AnyString,
-            TextHelper.AnyString, TextHelper.AnyString, new List<SubItem>());
+            TextHelper.AnyString, TextHelper.AnyString, new List<SubItem>(), "teal");
         var subItems = new List<SubItem> { firstSubitem };
-        var firstSecondaryitem = new SubItem(TextHelper.AnyString, "first-secondaryitem", TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<SubItem>());
+        var firstSecondaryitem = new SubItem(TextHelper.AnyString, "first-secondaryitem", TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<SubItem>(), "teal");
         var secondaryItems = new List<SubItem> { firstSecondaryitem };
 
         var topic = new Topic(TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, subItems, secondaryItems, new List<Crumb>(), new List<Alert>(), false, TextHelper.AnyString, null, string.Empty, true,
@@ -194,14 +194,14 @@ public class ArticleViewModelTest
     [Fact]
     private void ShouldReturnSixTopicsSubItemsForSideBar()
     {
-        var firstSubItem = new SubItem(TextHelper.AnyString, "first-subitem", TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<SubItem>());
-        var secondSubItem = new SubItem(TextHelper.AnyString, "second-subitem", TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<SubItem>());
-        var thirdSubItem = new SubItem(TextHelper.AnyString, "third-subitem", TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<SubItem>());
-        var fourthSubItem = new SubItem(TextHelper.AnyString, "fourth-subitem", TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<SubItem>());
-        var fifthSubItem = new SubItem(TextHelper.AnyString, "fifth-subitem", TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<SubItem>());
-        var sixthSubItem = new SubItem(TextHelper.AnyString, "sixth-subitem", TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<SubItem>());
-        var seventhSubItem = new SubItem(TextHelper.AnyString, "seventh-subitem", TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<SubItem>());
-        var eightSubItem = new SubItem(TextHelper.AnyString, "eigth-subitem", TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<SubItem>());
+        var firstSubItem = new SubItem(TextHelper.AnyString, "first-subitem", TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<SubItem>(), "teal");
+        var secondSubItem = new SubItem(TextHelper.AnyString, "second-subitem", TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<SubItem>(), "teal");
+        var thirdSubItem = new SubItem(TextHelper.AnyString, "third-subitem", TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<SubItem>(), "teal");
+        var fourthSubItem = new SubItem(TextHelper.AnyString, "fourth-subitem", TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<SubItem>(), "teal");
+        var fifthSubItem = new SubItem(TextHelper.AnyString, "fifth-subitem", TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<SubItem>(), "teal");
+        var sixthSubItem = new SubItem(TextHelper.AnyString, "sixth-subitem", TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<SubItem>(), "teal");
+        var seventhSubItem = new SubItem(TextHelper.AnyString, "seventh-subitem", TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<SubItem>(), "teal");
+        var eightSubItem = new SubItem(TextHelper.AnyString, "eigth-subitem", TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<SubItem>(), "teal");
 
         var subItems = new List<SubItem> { firstSubItem, secondSubItem, thirdSubItem, fourthSubItem };
         var secondaryItems = new List<SubItem> { fifthSubItem, sixthSubItem, seventhSubItem, eightSubItem };

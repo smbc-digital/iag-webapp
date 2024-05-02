@@ -322,7 +322,7 @@ public class DirectoryServiceTests
         directoryEntry.Themes = filterThemes2;
         directory.Entries = new List<DirectoryEntry>() { directoryEntry, directoryEntry2 };
         var allEntries = directory.AllEntries.Concat(new List<DirectoryEntry>(){ pinnedEntry });
-        
+
         // Act
         var result = _service.GetFilteredEntries(allEntries, filters);
 
@@ -346,7 +346,7 @@ public class DirectoryServiceTests
     public void GetFilteredEntries_ShouldReturnEmptyList_If_EntryHasNoFilters()
     {
         // Arrange
-        directory.Entries = new List<DirectoryEntry>() { directoryEntry };
+        //directory.SetEntries(new List<DirectoryEntry>() { directoryEntry });
 
         // Act
         var result = _service.GetFilteredEntries(directory.AllEntries, filters);
@@ -360,7 +360,7 @@ public class DirectoryServiceTests
     {
         // Arrange
         directoryEntry.Themes = filterThemes;
-        directory.Entries = new List<DirectoryEntry>() { directoryEntry };
+        //directory.SetEntries(new List<DirectoryEntry>() { directoryEntry });
 
         // Act
         var result = _service.GetFilteredEntries(directory.AllEntries, filters);
