@@ -55,8 +55,8 @@ public class DirectoryViewModel
     // Core page details
     public string Slug { get; set; }
     public string Title { get; set; }
-    public string DisplayTitle => string.IsNullOrEmpty(SearchTerm) ? Title : $"Results for {SearchTerm}";
-    public string PageTitle => DisplayTitle + (ShowPagination ? " results (page " + PaginationInfo.CurrentPage + " of " + PaginationInfo.TotalPages + ")" : string.Empty);
+    public string DisplayTitle => "Results for " + (string.IsNullOrEmpty(SearchTerm) ? Title : $"\"{SearchTerm}\"");
+    public string PageTitle => DisplayTitle + (ShowPagination? " (page " + PaginationInfo.CurrentPage + " of " + PaginationInfo.TotalPages + ")" : string.Empty);
     public string MetaDescription { get; set; }
     public string Body { get; set; }
     public CallToActionBanner CallToAction { get; set; }

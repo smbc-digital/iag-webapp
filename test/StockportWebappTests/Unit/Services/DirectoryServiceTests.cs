@@ -324,9 +324,6 @@ public class DirectoryServiceTests
     [Fact]
     public void GetFilteredEntryForDirectories_ShouldReturnEmptyList_If_EntryHasNoFilters()
     {
-        // Arrange
-        //directory.SetEntries(new List<DirectoryEntry>() { directoryEntry });
-
         // Act
         var result = _service.GetFilteredEntries(directory.AllEntries, filters);
 
@@ -340,7 +337,6 @@ public class DirectoryServiceTests
     {
         // Arrange
         directoryEntry.Themes = filterThemes;
-        //directory.SetEntries(new List<DirectoryEntry>() { directoryEntry });
 
         // Act
         var result = _service.GetFilteredEntries(directory.AllEntries, filters);
@@ -431,6 +427,7 @@ public class DirectoryServiceTests
     [InlineData("another order", new[] { "B", "A", "C" }, new[] { "B", "A", "C" })]
     public void GetOrderedEntries_ShouldReturnAlphabeticalOrderedEntries(string orderBy, string[] orderedEntries, string[] expectedEntries)
     {
+        // Arrange
         var entries = orderedEntries.Select(name => new DirectoryEntry { Name = name });
 
         // Act
