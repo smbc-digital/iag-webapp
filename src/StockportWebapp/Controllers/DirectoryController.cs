@@ -91,28 +91,6 @@ public class DirectoryController : Controller
         return entries;
     }
 
-    [Route("/directories/kml/{slug}")]  
-    [Produces(MediaTypeNames.Application.Xml)]
-    public async Task<IActionResult> DirectoryAsKml([Required][FromRoute]string slug, string[] filters, string orderBy, string searchTerm)
-    {
-        if (!_isToggledOn)
-            return NotFound();
-
-        var directory = await _directoryService.Get<Directory>(slug);
-
-        var FilteredEntries = GetSearchedFilteredSortedEntries(directory.RegularEntries, filters, orderBy, searchTerm).Select(entry => new DirectoryEntryViewModel(entry.Slug, entry, false) { ParentSlug = slug });
-        var PinnedEntries = GetSearchedFilteredSortedEntries(directory.PinnedEntries, filters, orderBy, searchTerm).Select(entry => new DirectoryEntryViewModel(entry.Slug, entry, true) { ParentSlug = slug });
-
-        var entries = PinnedEntries.Concat(FilteredEntries);
-
-        if (directory is null)
-            return NotFound();
-       
-        var kmlString = entries.GetKmlForList(directory.Title);
-
-        return Content(kmlString);
-    }
-
     [Route("directories/entry/{**slug}")]
     public async Task<IActionResult> DirectoryEntry([Required]string slug)
     {
