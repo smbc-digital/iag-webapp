@@ -1,13 +1,9 @@
 ﻿@model DirectorySearchResultViewModel
 @{
     bool pinnedEntry = (bool)ViewData["pinnedEntry"];
-
-    var imageExists = string.IsNullOrEmpty(Model.Entry.Image);
+    var imageExists = string.IsNullOrEmpty(Model.Entry.DirectoryEntry.Image);
     var directoryClass = imageExists ? "directory-result__content--full-width" : string.Empty;
-    
     var navcardBorder = " navcard--border-top-10 navcard--theme-teal-lighter-top";
-    var borderGrey = " navcard-all navcard--theme-grey-accent-all";
-    var borderRadius = " navcard--radius-bottom-left navcard--radius-bottom-right";
     var brandPinnedEntry = "";
 
     if(pinnedEntry){
@@ -25,7 +21,7 @@
         }
 
         <a href=@Url.Action("DirectoryEntry", "Directory", new { slug=@Model.Slug }) data-cy="nav-card-link"
-            class="navcard__link navcard__link--border @borderRadius navcard--border-top-0 @borderGrey">
+           class="navcard__link navcard__link--border navcard--radius-bottom-left navcard--radius-bottom-right navcard--border-top-0 navcard-all navcard--theme-grey-accent-all">
 
             <div class="directory-result">
                 <div class="directory-result__content @directoryClass">
@@ -35,23 +31,24 @@
 
                     <div class="">
                         <h3 class="navcard__title navcard__title--large">
-                            @Model.Entry.Name
+                            @Model.Entry.DirectoryEntry.Name
                         </h3>
 
-                        @if(!string.IsNullOrEmpty(Model.Entry.Provider)) {
-                            <p class="navcard__sub-title">@Model.Entry.Provider</p>
+                        @if (!string.IsNullOrEmpty(Model.Entry.DirectoryEntry.Provider))
+                        {
+                            <p class="navcard__sub-title">@Model.Entry.DirectoryEntry.Provider</p>
                         }
                         
-                        <p class="navcard__sub-title">@Model.Entry.Address</p>
+                        <p class="navcard__sub-title">@Model.Entry.DirectoryEntry.Address</p>
                         <div class="navcard__teaser">
-                            @Model.Entry.Teaser
+                            @Model.Entry.DirectoryEntry.Teaser
                         </div>
                     </div>
                 </div>
 
                 @if(!imageExists){
                     <div class="directory-result__brand @brandPinnedEntry">
-                        <img src="@Model.Entry.Image?w=340&q=89&fm=webp"
+                        <img src="@Model.Entry.DirectoryEntry.Image?w=340&q=89&fm=webp"
                              alt=""
                              width="300"
                              height="150">

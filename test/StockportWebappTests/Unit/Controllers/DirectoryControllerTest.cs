@@ -68,7 +68,6 @@ public class DirectoryControllerTest
         Body = "body",
         CallToAction = new CallToActionBanner(),
         Alerts = new List<Alert>(),
-        Entries  = new List<DirectoryEntry>(),
         SubDirectories = new List<Directory>()
     };
 
@@ -89,10 +88,12 @@ public class DirectoryControllerTest
     public DirectoryControllerTest()
     {
         _directoryController = new DirectoryController(_directoryService.Object);
-
         directory.PinnedEntries = new List<DirectoryEntry>() { directoryEntry };
         processedDirectoryWithSubdirectories.Entries = new List<DirectoryEntry>() { directoryEntry };
         processedDirectoryWithSubdirectories.SubDirectories = new List<Directory>() { directory };
+        processedDirectoryWithSubdirectories.SubItems = new List<SubItem>() {
+            new("slug", "title", "teaser", "icon", "type", "image", new List<SubItem>(), "teal")
+        };
         
         string[] filters = { "value1", "value2", "value3" };
 
@@ -192,7 +193,7 @@ public class DirectoryControllerTest
         Assert.Equal("results", result.ViewName);
         Assert.Equal(filterThemes, model.AllFilterThemes);
         Assert.Equal(filterThemes.First().Filters, model.AllFilterThemes.First().Filters);
-        Assert.Equal("slug", model.Directory.Slug);
+        Assert.Equal("slug", model.Slug);
         Assert.Equal(filtersList, model.AppliedFilters);
         Assert.Empty(model.PinnedEntries);
     }
@@ -205,13 +206,14 @@ public class DirectoryControllerTest
 
         _directoryService.Setup(_ => _.GetEntry<DirectoryEntry>(It.IsAny<string>()))
             .ReturnsAsync(directoryEntry);
+
         // Act
         var result = await _directoryController.DirectoryEntry("slug/entry-slug") as ViewResult;
-        var model = result.ViewData.Model as DirectoryViewModel;
+        var model = result.ViewData.Model as DirectoryEntryViewModel;
         
         // Assert
         Assert.NotNull(result);
-        Assert.Equal("slug", model.Directory.Slug);
+        Assert.Equal("slug/entry-slug", model.Slug);
         Assert.Null(result.ViewName);
     }
 
