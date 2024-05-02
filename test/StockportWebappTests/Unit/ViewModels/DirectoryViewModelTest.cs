@@ -285,7 +285,7 @@ public class DirectoryViewModelTest
         };
 
         var result = viewModel.DisplayTitle;
-        Assert.Equal($"Results for {viewModel.SearchTerm}", result);
+        Assert.Equal($"Results for \"{viewModel.SearchTerm}\"", result);
     }
 
     [Fact]
@@ -297,10 +297,10 @@ public class DirectoryViewModelTest
         };
 
         var result = viewModel.DisplayTitle;
-        Assert.Equal(viewModel.Title, result);
+        Assert.Equal($"Results for {viewModel.Title}", result);
     }
 
-        [Fact]
+    [Fact]
     public void PageTitlePopulatedCorrectly_When_NoPagination()
     {
         var viewModel = new DirectoryViewModel
@@ -314,7 +314,7 @@ public class DirectoryViewModelTest
         };
 
         var result = viewModel.PageTitle;
-        Assert.Equal(viewModel.Title, result);
+        Assert.Equal($"Results for {viewModel.Title}", result);
     }
 
     [Fact]
@@ -333,7 +333,7 @@ public class DirectoryViewModelTest
         };
 
         var result = viewModel.PageTitle;
-        Assert.Equal($"{viewModel.Title} results (page 1 of 2)", result);
+        Assert.Equal($"Results for {viewModel.Title} (page 1 of 2)", result);
     }
 
     [Fact]
