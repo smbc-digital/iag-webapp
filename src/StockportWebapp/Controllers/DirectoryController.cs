@@ -1,4 +1,5 @@
 using System.Net.Mime;
+using StockportWebapp.Comparers;
 using Directory = StockportWebapp.Models.Directory;
 namespace StockportWebapp.Controllers;
 
@@ -71,7 +72,7 @@ public class DirectoryController : Controller
             AllFilterThemes = allFilterThemes,
             PinnedEntries = pinnedEntries.Select(entry => new DirectoryEntryViewModel(entry.Slug, entry, true)),
             AppliedFilters = _directoryService.GetFilters(filters, allFilterThemes),
-            FilterCounts = _directoryService.GetAllFilterCounts(entries.Concat(pinnedEntries).Distinct(new DirectoryEntryComparer())),
+            FilterCounts = _directoryService.GetAllFilterCounts(entries.Concat(pinnedEntries).Distinct(new SlugComparer()).Select(entry => (DirectoryEntry)entry)),
             Order = !string.IsNullOrEmpty(orderBy) ? orderBy.Replace("-", " ") : orderBy
         };
         

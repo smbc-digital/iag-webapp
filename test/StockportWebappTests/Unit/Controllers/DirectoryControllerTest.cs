@@ -141,12 +141,18 @@ public class DirectoryControllerTest
     }
 
     [Fact]
-    public async Task Directory_ShouldReturnCorrectView_WithSubdirectories(){
+    public async Task Directory_ShouldReturnCorrectView_WithPrimaryItems(){
         // Arrange
         _ = _directoryService.Setup(_ => _.Get<Directory>(It.IsAny<string>())).ReturnsAsync(processedDirectoryWithSubdirectories);
         var expectedDirectoryViewModel = new DirectoryViewModel() {
             Breadcrumbs = new List<Crumb>(),
-            Slug = "slug"
+            Slug = "slug",
+            PrimaryItems = new NavCardList()
+            {
+                Items = new List<NavCard> { 
+                    new NavCard("title", "/slug", "teaser", "image", "icon", "teal")
+                }
+            }
         };
 
         // Act
@@ -155,10 +161,14 @@ public class DirectoryControllerTest
 
         // Assert
         Assert.Null(result.ViewName);
-        Assert.Equal(expectedDirectoryViewModel.ParentDirectory, actualViewModel.ParentDirectory);
-        Assert.Equal(expectedDirectoryViewModel.FirstSubDirectory, actualViewModel.FirstSubDirectory);
         Assert.Equal(expectedDirectoryViewModel.Breadcrumbs, actualViewModel.Breadcrumbs);
         Assert.Equal(expectedDirectoryViewModel.Slug, actualViewModel.Slug);
+        Assert.Equal(expectedDirectoryViewModel.PrimaryItems.Items.First().Icon, actualViewModel.PrimaryItems.Items.First().Icon);
+        Assert.Equal(expectedDirectoryViewModel.PrimaryItems.Items.First().Title, actualViewModel.PrimaryItems.Items.First().Title);
+        Assert.Equal(expectedDirectoryViewModel.PrimaryItems.Items.First().Url, actualViewModel.PrimaryItems.Items.First().Url);
+        Assert.Equal(expectedDirectoryViewModel.PrimaryItems.Items.First().ColourScheme, actualViewModel.PrimaryItems.Items.First().ColourScheme);
+        Assert.Equal(expectedDirectoryViewModel.PrimaryItems.Items.First().Teaser, actualViewModel.PrimaryItems.Items.First().Teaser);
+        Assert.Equal(expectedDirectoryViewModel.PrimaryItems.Items.First().Image, actualViewModel.PrimaryItems.Items.First().Image);
     }
     
     [Theory]
@@ -183,9 +193,8 @@ public class DirectoryControllerTest
         Assert.Equal("slug", model.Slug);
         Assert.Equal(filtersList, model.AppliedFilters);
         Assert.Empty(model.PinnedEntries);
-        _directoryService.Verify(service => service.GetSearchedEntryForDirectories(It.IsAny<IEnumerable<DirectoryEntry>>(), It.IsAny<string>()), Times.Exactly(1));
-        _directoryService.Verify(service => service.GetFilteredEntries(It.IsAny<IEnumerable<DirectoryEntry>>(), It.IsAny<string[]>()), Times.Exactly(1));
-        _directoryService.Verify(service => service.GetFilteredEntries(It.IsAny<IEnumerable<DirectoryEntry>>(), It.IsAny<string[]>()), Times.Exactly(1));
+        _directoryService.Verify(service => service.GetSearchedEntryForDirectories(It.IsAny<IEnumerable<DirectoryEntry>>(), It.IsAny<string>()), Times.Exactly(2));
+        _directoryService.Verify(service => service.GetFilteredEntries(It.IsAny<IEnumerable<DirectoryEntry>>(), It.IsAny<string[]>()), Times.Exactly(2));
     }
 
     [Fact]
