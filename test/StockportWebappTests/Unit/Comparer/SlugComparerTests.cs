@@ -10,26 +10,30 @@ public class SlugComparerTests
     [Fact]
     public void SlugComparer_Equals_Returns_True_ForSameObject()
     {
-        SlugComparer comparer = new SlugComparer();
-        var result = comparer.Equals(entry, entry);
-
-        Assert.True(result);
+        // Arrange 
+        SlugComparer comparer = new();
+        
+        // Act & Assert
+        Assert.True(comparer.Equals(entry, entry));
     }
 
         [Fact]
     public void SlugComparer_Equals_Returns_False_ForDifferentObject()
     {
-        SlugComparer comparer = new SlugComparer();
-        var result = comparer.Equals(entry, entry2);
-
-        Assert.False(result);
+        // Arrange
+        SlugComparer comparer = new();
+        
+        // Act & Assert
+        Assert.False(comparer.Equals(entry, entry2));
     }
 
     [Fact]
     public void SlugComparer_Equals_Returns_False_WhenObjectsNull()
     {
-        SlugComparer comparer = new SlugComparer();
+        // Arrange
+        SlugComparer comparer = new();
 
+        // Act & Assert
         Assert.False(comparer.Equals(entry, null));
         Assert.False(comparer.Equals(null, entry));
     }
@@ -37,23 +41,31 @@ public class SlugComparerTests
     [Fact]
     public void SlugComparer_GetHashCode_Returns_0_WhenEntryNull()
     {
-        SlugComparer comparer = new SlugComparer();
+        // Arrange
+        SlugComparer comparer = new();
+
+        // Act & Assert
         Assert.Equal(0, comparer.GetHashCode(null));
     }
 
     [Fact]
     public void SlugComparer_GetHashCode_Returns_0_WhenEntrySlugNull()
     {
-        SlugComparer comparer = new SlugComparer();
+        // Arrange
+        SlugComparer comparer = new();
         var entry3 = new DirectoryEntry();
+
+        // Act & Assert
         Assert.Equal(0, comparer.GetHashCode(entry3));
     }
 
     [Fact]
     public void SlugComparer_GetHashCode_Returns_Value_WhenEntryIsValid()
     {
-        SlugComparer comparer = new SlugComparer();
-        var entry3 = new DirectoryEntry();
+        // Arrange
+        SlugComparer comparer = new();
+        
+        // Act & Assert
         Assert.NotEqual(0, comparer.GetHashCode(entry));
     }
 }
