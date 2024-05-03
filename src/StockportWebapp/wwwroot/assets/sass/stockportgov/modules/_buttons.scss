@@ -68,6 +68,17 @@
         }
     }
 
+    &--plain {
+        background-color: white;
+        color: $stockport-black;
+        border: 1px solid $stockport-grey-accent;
+
+        &:hover, &:focus {
+            background-color: rgba($stockport-grey, 0.1);
+        }
+    }
+
+
     &--on-white {
         &:hover, &:focus {
             background-color: rgba($stockport-grey, 0.1);
@@ -90,7 +101,7 @@
                 background-color: $stockport-pink;
                 color: white;
             }
-        }      
+        }
     }
 
     &--purple {
@@ -135,7 +146,7 @@
             right: 0.789em;
             top: 34.5%;
             display: inline-block;
-            
+
             @media #{$tablet} {
                 top: 33.5%;
             }

@@ -2,5 +2,6 @@
     int count = (int)ViewData["Count"];
     bool highlighted = (bool)ViewData["Highlighted"];
     var pinCssClass = $"pin_graphic--" + (highlighted ? "pink" : "teal");
-}<div class="pin"><div class='pin_graphic @pinCssClass'>
+}<div class="pin" style="display:none;">
+    <div class='pin_graphic @pinCssClass'>
 </div><div class='pin_content'>@count</div></div>

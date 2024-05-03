@@ -1,7 +1,7 @@
 ﻿@model DirectoryViewModel
 
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCPMO2lE7np9cG_zG63JH_pNVmRfoajZjg&callback=initMap"></script>
-<div id="map" class="google-map"></div>
+<div id="map" class="google-map" style="display:none;"></div>
 
 <script>
     async function initMap() {
@@ -18,14 +18,17 @@
         });
 
         const markers = [
-            @foreach (var entry in Model.PinnedEntries.Where(entry => entry.DirectoryEntry.IsNotOnTheEqautor))
+            @if (Model.PaginationInfo.CurrentPage.Equals(1))
             {
-                @Html.Raw(@"{ " + entry.ToString() + "}, ")
+                @foreach (var entry in Model.PinnedEntries.Where(entry => entry.DirectoryEntry.IsNotOnTheEqautor))
+                {
+                    @Html.Raw(@"{ " + entry.ToString(@Url.Action("DirectoryEntry", "Directory", new { slug=@entry.FullyResolvedSlug })) + "}, ")
+                }
             }
 
             @foreach (var entry in Model.PaginatedEntries.Where(entry => entry.DirectoryEntry.IsNotOnTheEqautor))
             {
-                @Html.Raw(@"{ " + entry.ToString() + "}, ")
+                @Html.Raw(@"{ " + entry.ToString(@Url.Action("DirectoryEntry", "Directory", new { slug=@entry.FullyResolvedSlug })) + "}, ")
             }
         ];
 

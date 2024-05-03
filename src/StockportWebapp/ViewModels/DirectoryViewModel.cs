@@ -10,12 +10,11 @@ public class DirectoryViewModel
 
     public DirectoryViewModel(Directory directory) : this(directory.Slug, directory) { }
 
-    public DirectoryViewModel(string slug, Directory directory, IEnumerable<Crumb> breadcrumbs) : this(slug, directory)
-    {
-        Breadcrumbs = breadcrumbs;
-    }
+    public DirectoryViewModel(string slug, Directory directory, IEnumerable<Crumb> breadcrumbs) 
+        : this(slug, directory) => Breadcrumbs = breadcrumbs;
 
-    public DirectoryViewModel(string slug, Directory directory, IEnumerable<Crumb> breadcrumbs, IEnumerable<DirectoryEntry> pinnedEntries, IEnumerable<DirectoryEntry> filteredEntries) : this(slug, directory)
+    public DirectoryViewModel(string slug, Directory directory, IEnumerable<Crumb> breadcrumbs, IEnumerable<DirectoryEntry> pinnedEntries, IEnumerable<DirectoryEntry> filteredEntries) 
+        : this(slug, directory)
     {
         Breadcrumbs = breadcrumbs;
         PinnedEntries = pinnedEntries.Select(entry => new DirectoryEntryViewModel(entry.Slug, entry, true));
@@ -24,9 +23,13 @@ public class DirectoryViewModel
     }
 
     public DirectoryViewModel(string slug, Directory directory, IEnumerable<Crumb> breadcrumbs, IEnumerable<DirectoryEntry> pinnedEntries, IEnumerable<DirectoryEntry> filteredEntries, int pageNumber)
-        : this(slug, directory, breadcrumbs, pinnedEntries, filteredEntries)
+        : this(slug, directory)
     {
+        Breadcrumbs = breadcrumbs;
+        PinnedEntries = pinnedEntries.Select(entry => new DirectoryEntryViewModel(entry.Slug, entry, true));
+        FilteredEntries = filteredEntries.Select(entry => new DirectoryEntryViewModel(entry.Slug, entry, false));
         Paginate(pageNumber);
+        AddMapPinIndexes();
     }
 
     public DirectoryViewModel(string slug, Directory directory)
@@ -155,9 +158,11 @@ public class DirectoryViewModel
 
     public void AddMapPinIndexes()
     {
-        int endIndex = 0;
-        PinnedEntries = AddMapPinIndexes(PinnedEntries, 1, out endIndex);
-        FilteredEntries = AddMapPinIndexes(FilteredEntries, endIndex, out endIndex);
+        int endIndex = 1;
+        if(PaginationInfo.CurrentPage.Equals(1))
+            PinnedEntries = AddMapPinIndexes(PinnedEntries, endIndex, out endIndex);
+        
+        PaginatedEntries = AddMapPinIndexes(PaginatedEntries, endIndex, out endIndex);
     }
 
     /// <summary>

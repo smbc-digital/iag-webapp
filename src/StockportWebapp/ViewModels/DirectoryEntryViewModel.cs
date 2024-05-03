@@ -51,12 +51,12 @@ public class DirectoryEntryViewModel : ISlugComparable
         => !string.IsNullOrEmpty(DirectoryEntry.PhoneNumber) || !string.IsNullOrEmpty(DirectoryEntry.Email);
     public bool DisplayContactUs => !string.IsNullOrEmpty(DirectoryEntry.Website) || HasPrimaryContact || DisplaySocials;
 
-    public string ParentSlug { get; set; }
+    public string ParentSlug { get; set; }  
 
     public string FullyResolvedSlug => $"{ParentSlug}/{Slug}";
 
-    public override string ToString() => String.Format("position: {{ lat: {0}, lng: {1} }}, title: \"{2}\", content: \"<h1 class='h-m'>{2}</h1><p class='body'>{3}</p><a class='btn' href='#'>View {2}</a>\", isPinned: {4}, mapPinIndex: {5}", DirectoryEntry.MapPosition.Lat, DirectoryEntry.MapPosition.Lon, HttpUtility.HtmlEncode(DirectoryEntry.Name), HttpUtility.HtmlEncode(DirectoryEntry.Teaser), IsPinned ? "true" : "false", MapPinIndex);
-
+    public string ToString(string url) => String.Format("position: {{ lat: {0}, lng: {1} }}, title: \"{2}\", content: \"<h1 class='h-m'>{2}</h1><p class='body'>{3}</p><a class='body' href='{6}'>View {2}</a>\", isPinned: {4}, mapPinIndex: {5}", DirectoryEntry.MapPosition.Lat, DirectoryEntry.MapPosition.Lon, HttpUtility.HtmlEncode(DirectoryEntry.Name), HttpUtility.HtmlEncode(DirectoryEntry.Teaser), IsPinned ? "true" : "false", MapPinIndex, url);
+    
     public Placemark ToKmlPlacemark(string pinnedStyle ="") => new Placemark
     {
         // Ref
