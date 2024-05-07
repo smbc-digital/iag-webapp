@@ -25,7 +25,7 @@
 
 
         <div class="grid-container">
-            <div class="grid-100 grid-parent">
+            <div class="grid-100">
                 <div class="directory @(Model.ShowPagination ? string.Empty : "directory--margin-bottom")">
                     <div class="directory--30">
                         <partial name="DirectorySearchResultFilters" />
@@ -34,21 +34,21 @@
                     <div class="directory--70">
                         <h2 class="visuallyhidden">Results in @Model.Title</h2>
                     
-                        <div class="grid-container grid-parent">
-                            <div class="grid-40 grid-parent directory__controls">
-                                <div class="directory__sortBy navcard-all navcard--theme-grey-accent-all">
-                                    <label for="order-by">Sort by:</label>
-                                    <select asp-for="@Model.Order" asp-items="@(new SelectList(Model.OrderBy))" name="orderBy" id="order-by" autocomplete="off"></select>
-                                </div>
+                        <div class="directory__controls">
+                            <div class="directory__sortBy navcard-all navcard--theme-grey-accent-all">
+                                <label for="order-by">Sort by:</label>
+                                <select asp-for="@Model.Order" asp-items="@(new SelectList(Model.OrderBy))" name="orderBy" id="order-by" autocomplete="off"></select>
                             </div>
-                            <div class="grid-30">
+                            <div class="directory__showMap">
                                 <button type="button" id="showMap" class="btn btn--plain"><span class="fa-solid fa-location-dot"></span> Show on a map</button>
                                 <button type="button" id="hideMap" class="btn btn--plain" style="display:none;"><span class="fa-solid fa-circle-xmark"></span> Hide map</button>
                             </div>
                         </div>
-
-                        <partial name="DirectoryResultsMap" />
-                        <partial name="DirectorySearchResults" />
+                        
+                        <div>
+                            <partial name="DirectoryResultsMap" />
+                            <partial name="DirectorySearchResults" />
+                        </div>
                     </div>
                 </div>
             </div>

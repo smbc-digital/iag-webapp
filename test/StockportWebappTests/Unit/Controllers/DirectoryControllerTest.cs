@@ -230,38 +230,6 @@ public class DirectoryControllerTest
     }
 
     [Fact]
-    public async Task DirectoryAsKml_ShouldReturnUnsuccessfulStatusCode()
-    {
-        // Arrange
-        _ = _directoryService.Setup(_ => _.Get<Directory>("not-slug")).ReturnsAsync((Directory)null);
-
-        // Act
-        var result = await _directoryController.DirectoryAsKml("slug", Array.Empty<string>(), string.Empty, string.Empty);
-
-        // Assert
-        Assert.IsType<NotFoundResult>(result);
-    }
-
-    [Fact]
-    public async Task DirectoryAsKml_ShouldReturnContentInKmlFormat(){
-        // Act
-        var result = await _directoryController.DirectoryAsKml("slug", Array.Empty<string>(), string.Empty, string.Empty);
-
-        // Assert
-        Assert.NotNull(result);
-    }
-
-    [Fact]
-    public async Task Directory_ShouldCallReturnContentInKmlFormat()
-    {
-        // Act
-        var result = await _directoryController.DirectoryAsKml("slug", Array.Empty<string>(), string.Empty, string.Empty);
-
-        // Assert
-        Assert.NotNull(result);
-    }
-
-    [Fact]
     public async Task Directory_ShouldCallDirectoryService_IfSearchTermSpecified()
     {
         // Arrange

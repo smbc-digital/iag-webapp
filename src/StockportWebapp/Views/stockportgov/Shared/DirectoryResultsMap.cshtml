@@ -3,13 +3,11 @@
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCPMO2lE7np9cG_zG63JH_pNVmRfoajZjg&callback=initMap"></script>
 <div id="map" class="google-map" style="display:none;"></div>
 
-<script>
+<script defer>
     async function initMap() {
         // Request needed libraries.
         const { Map, InfoWindow } = await google.maps.importLibrary("maps");
-        const { AdvancedMarkerElement, PinElement } = await google.maps.importLibrary(
-            "marker",
-        );
+        const { AdvancedMarkerElement, PinElement } = await google.maps.importLibrary("marker");
 
         const map = new Map(document.getElementById("map"), {
             zoom: 12,
