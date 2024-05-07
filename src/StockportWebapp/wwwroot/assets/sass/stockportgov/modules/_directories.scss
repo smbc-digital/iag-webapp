@@ -157,6 +157,10 @@
             hr:last-of-type {
                 display: none;
             }
+
+            a:nth-last-of-type(2):not([aria-expanded="true"]) {
+                margin-bottom: 2em;
+            }
         }
 
         &__collapsible {
@@ -169,7 +173,7 @@
                 text-decoration: none;
             }
         }
-
+        
         &__toggle {
             padding: 0 10px;
             color: $stockport-teal-darker;
@@ -675,6 +679,10 @@
             margin-top: 0.55em;
         }
 
+        &__content:last-of-type{
+            margin-bottom: 2.833em;
+        }
+        
         &__checkbox {
             position: absolute;
             z-index: 1;
