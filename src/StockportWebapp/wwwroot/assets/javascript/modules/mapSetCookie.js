@@ -10,7 +10,6 @@
     };
 
     let hasInitialized = false;
-
     return {
         Init: function () {
             if (!hasInitialized) {
