@@ -6,6 +6,10 @@
     ViewData["Description"] = Model.MetaDescription;
     Layout = "../Shared/_Layout2023.cshtml";
     var dataCy = Model.SearchBranding.Equals("Stockport Local") ? "stockport-local-search-results" : "search-results";
+    @inject ICookiesHelper CookiesHelper
+    
+    var mapCookie = CookiesHelper.GetCookies<string>("map");
+    var displayMap = mapCookie.Contains(Model.Slug);
 }
 
 <div class="grid-container-full-width background-grey" data-cy=@dataCy>
@@ -40,13 +44,13 @@
                                 <select asp-for="@Model.Order" asp-items="@(new SelectList(Model.OrderBy))" name="orderBy" id="order-by" autocomplete="off"></select>
                             </div>
                             <div class="directory__showMap">
-                                <button type="button" id="showMap" class="btn btn--plain"><span class="fa-solid fa-location-dot"></span> Show on a map</button>
-                                <button type="button" id="hideMap" class="btn btn--plain" style="display:none;"><span class="fa-solid fa-circle-xmark"></span> Hide map</button>
+                                <button type="button" id="showMap" class="btn btn--plain" data-slug="@Model.Slug" style="display:@(displayMap ? "none" : "inline-block")"><span class="fa-solid fa-location-dot"></span> Show on a map</button>
+                                <button type="button" id="hideMap" class="btn btn--plain" data-slug="@Model.Slug" style="display:@(displayMap ? "inline-block" : "none")"><span class="fa-solid fa-circle-xmark"></span> Hide map</button>
                             </div>
                         </div>
                         
                         <partial name="DirectoryResultsMap" />
-                        <partial name="DirectorySearchResults" />
+                        <partial name="DirectorySearchResults" view-data='new ViewDataDictionary(ViewData) { { "ShowPinsOnLoad", displayMap  } }' />
                     </div>
                 </div>
             </div>
@@ -58,7 +62,7 @@
 </div>
 
 <script>
-    require(['/assets/javascript/config-85499dd2.min.js'], function () {
+    require(['/assets/javascript/config-01bd63df.min.js'], function () {
         require(['directoryFilters'],
             function (directoryFilters) {
                 directoryFilters.Init();
@@ -66,31 +70,23 @@
         );
     });
 </script>
-<script type="text/javascript">
-    window.onload = function () {
-        var showMap = document.getElementById("showMap");
-        var hideMap = document.getElementById("hideMap");
-        var mapContainer = document.getElementById("map");
-        var pins = document.getElementsByClassName("pin");
 
-        showMap.onclick = function () {
-            mapContainer.style.display = "block";
-            hideMap.style.display = "inline-block";
-            showMap.style.display = "none";
-            SetPinVisibility("inline-block");
-        }
-        hideMap.onclick = function () {
-            mapContainer.style.display = "none";
-            showMap.style.display = "inline-block";
-            hideMap.style.display = "none";
-            SetPinVisibility("none");
-        }
-
-        function SetPinVisibility(value)
-        {
-            for (let i = 0; i < pins.length; i++) {
-                pins[i].style.display = value;
+<script type="text/plain" data-cookie-consent="functionality">
+    require(['/assets/javascript/config-01bd63df.min.js'], function () {
+        require(['mapSetCookie'],
+            function (mapSetCookie) {
+                mapSetCookie.Init();
             }
-        }
-    }
+        );
+    });
+</script>
+
+<script>
+    require(['/assets/javascript/config-01bd63df.min.js'], function () {
+        require(['directoriesMapInit'],
+            function (directoriesMapInit) {
+                directoriesMapInit.Init();
+            }
+        );
+    });
 </script>

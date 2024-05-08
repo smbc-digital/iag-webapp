@@ -83,7 +83,6 @@ public class DirectoryViewModel
     public string Order { get; set; }
     public PaginationInfo PaginationInfo { get; set; }
     public bool ShowPagination => PaginationInfo.TotalEntries > PaginationInfo.PageSize;
-
     public List<string> OrderBy = new() { "Name A to Z", "Name Z to A" };
     public IEnumerable<Filter> AppliedFilters { get; set; }
     public IEnumerable<FilterTheme> AllFilterThemes { get; set; }

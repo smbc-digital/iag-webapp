@@ -1,13 +1,33 @@
 ﻿@model DirectoryViewModel
+@inject ICookiesHelper CookiesHelper
+@{
+    var mapCookie = CookiesHelper.GetCookies<string>("map");
+    var displayValue = mapCookie.Contains(Model.Slug) ? "block" : "none";
+}
 
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCPMO2lE7np9cG_zG63JH_pNVmRfoajZjg&callback=initMap"></script>
-<div id="map" class="google-map" style="display:none;"></div>
 
-<script defer>
+<div id="map" class="google-map" style="display:@displayValue;"></div>
+
+<script>
+    const locations = [
+        @if (Model.PaginationInfo.CurrentPage.Equals(1))
+        {
+            @foreach (var entry in Model.PinnedEntries.Where(entry => entry.DirectoryEntry.IsNotOnTheEqautor))
+            {
+                @Html.Raw(@"{ " + entry.ToString(@Url.Action("DirectoryEntry", "Directory", new { slug=@entry.FullyResolvedSlug })) + "}, ")
+            }
+        }
+
+        @foreach (var entry in Model.PaginatedEntries.Where(entry => entry.DirectoryEntry.IsNotOnTheEqautor))
+        {
+            @Html.Raw(@"{ " + entry.ToString(@Url.Action("DirectoryEntry", "Directory", new { slug=@entry.FullyResolvedSlug })) + "}, ")
+        }
+    ];
+
     async function initMap() {
         // Request needed libraries.
-        const { Map, InfoWindow } = await google.maps.importLibrary("maps");
-        const { AdvancedMarkerElement, PinElement } = await google.maps.importLibrary("marker");
+        const { Map, InfoWindow } = await google.maps.importLibrary('maps');
+        const { AdvancedMarkerElement, PinElement } = await google.maps.importLibrary('marker');
 
         const map = new Map(document.getElementById("map"), {
             zoom: 12,
@@ -15,26 +35,12 @@
             mapId: "roadmap",
         });
 
-        const markers = [
-            @if (Model.PaginationInfo.CurrentPage.Equals(1))
-            {
-                @foreach (var entry in Model.PinnedEntries.Where(entry => entry.DirectoryEntry.IsNotOnTheEqautor))
-                {
-                    @Html.Raw(@"{ " + entry.ToString(@Url.Action("DirectoryEntry", "Directory", new { slug=@entry.FullyResolvedSlug })) + "}, ")
-                }
-            }
-
-            @foreach (var entry in Model.PaginatedEntries.Where(entry => entry.DirectoryEntry.IsNotOnTheEqautor))
-            {
-                @Html.Raw(@"{ " + entry.ToString(@Url.Action("DirectoryEntry", "Directory", new { slug=@entry.FullyResolvedSlug })) + "}, ")
-            }
-        ];
-
         // Create an info window to share between markers.
         const infoWindow = new InfoWindow();
 
         // Create the markers.
-        markers.forEach(({ position, title, content, isPinned, mapPinIndex }, i) => {
+        const markers = locations.map(({ position, title, content, isPinned, mapPinIndex }, i) => {
+
             const highlightPin = new PinElement({
                 glyph: `${mapPinIndex}`,
                 background: '#b32384',
@@ -53,21 +59,23 @@
 
             const marker = new AdvancedMarkerElement({
                 position,
-                map,
                 title: `${mapPinIndex}. ${title}`,
                 content: isPinned ? highlightPin.element : defaultPin.element,
             });
 
-            // Add a click listener for each marker, and set up the info window.
             marker.addListener("click", ({ domEvent, latLng }) => {
                 const { target } = domEvent;
 
-                infoWindow.close();
                 infoWindow.setContent(content);
                 infoWindow.open(marker.map, marker);
             });
-        });
-    }
 
-    initMap()
+            return marker;
+        });
+
+        const markerCluster = new markerClusterer.MarkerClusterer({ markers, map }); 
+    }
 </script>
+
+<script defer async src="https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyCPMO2lE7np9cG_zG63JH_pNVmRfoajZjg&callback=initMap&loading=async"></script>
+<script src="@("https://unpkg.com/@googlemaps/markerclusterer/dist/index.min.js")"></script>
