@@ -1,4 +1,5 @@
 using System.Net.Mime;
+using StockportWebapp.Comparers;
 using Directory = StockportWebapp.Models.Directory;
 namespace StockportWebapp.Controllers;
 
@@ -57,6 +58,7 @@ public class DirectoryController : Controller
         if(directory is null)
             return NotFound();
 
+
         var parentDirectories = await GetParentDirectories(pageLocation.ParentSlugs);
         var entries = GetSearchedFilteredSortedEntries(directory.RegularEntries, filters, orderBy, searchTerm);
         var pinnedEntries = GetSearchedFilteredSortedEntries(directory.PinnedEntries, filters, orderBy, searchTerm);
@@ -69,7 +71,7 @@ public class DirectoryController : Controller
             SearchTerm = searchTerm,
             AllFilterThemes = allFilterThemes,
             AppliedFilters = _directoryService.GetFilters(filters, allFilterThemes),
-            FilterCounts = _directoryService.GetAllFilterCounts(entries.Concat(pinnedEntries)),
+            FilterCounts = _directoryService.GetAllFilterCounts(entries.Concat(pinnedEntries).Distinct(new SlugComparer()).Select(entry => (DirectoryEntry)entry)),
             Order = !string.IsNullOrEmpty(orderBy) ? orderBy.Replace("-", " ") : orderBy
         };
 

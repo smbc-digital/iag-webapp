@@ -11,7 +11,6 @@ public class DirectoryEntryViewModel : ISlugComparable
 {
     public DirectoryEntryViewModel() { }
 
-
     public DirectoryEntryViewModel(string slug, DirectoryEntry directoryEntry)
     {
         Slug = slug;

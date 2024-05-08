@@ -5,7 +5,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers;
 public class DirectoryControllerTest
 {
     private readonly DirectoryController _directoryController;
-    private Mock<IDirectoryService> _directoryService = new();
+    private readonly Mock<IDirectoryService> _directoryService = new();
     private readonly List<Filter> filtersList = new() {
         new() {
             Slug = "value1",
@@ -59,16 +59,18 @@ public class DirectoryControllerTest
 
     private readonly Directory directory = new()
     {
-        Title = "title",
-        Slug = "slug",
+        Title = "title directory",
+        Slug = "slug-directory",
         ContentfulId = "contentfulId",
-        Teaser = "teaser",
-        MetaDescription = "metaDescription",
-        BackgroundImage = "backgroundImage",
-        Body = "body",
+        Teaser = "teaser directory",
+        MetaDescription = "metaDescription directory",
+        BackgroundImage = "backgroundImage directory",
+        Body = "body directory",
         CallToAction = new CallToActionBanner(),
         Alerts = new List<Alert>(),
-        SubDirectories = new List<Directory>()
+        Entries  = new List<DirectoryEntry>(),
+        SubDirectories = new List<Directory>(),
+        PinnedEntries = new List<DirectoryEntry>(),
     };
 
     private readonly Directory processedDirectoryWithSubdirectories = new()
@@ -97,14 +99,13 @@ public class DirectoryControllerTest
         
         string[] filters = { "value1", "value2", "value3" };
 
-        _directoryService.Setup(_ => _.GetFilteredEntries(It.IsAny<IEnumerable<DirectoryEntry>>())).Returns(new List<DirectoryEntry> { directoryEntry });
         _directoryService.Setup(_ => _.GetFilterThemes(new List<DirectoryEntry>())).Returns(filterThemes);
         _directoryService.Setup(_ => _.GetFilters(filters, filterThemes)).Returns(filtersList);
         _directoryService.Setup(_ => _.GetOrderedEntries(new List<DirectoryEntry> { directoryEntry }, "Name A to Z")).Returns(new List<DirectoryEntry> { directoryEntry, directoryEntry });
     }
 
     [Fact]
-    public async Task Directory_ShouldReturnUnsuccessfulStatusCode()
+    public async Task Directory_ShouldReturnNotFoundStatusCode()
     {
         // Arrange
         _ = _directoryService.Setup(_ => _.Get<Directory>("not-slug")).ReturnsAsync((Directory)null);
@@ -140,23 +141,68 @@ public class DirectoryControllerTest
     }
 
     [Fact]
-    public async Task Directory_ShouldReturnCorrectView_WithSubdirectories(){
+    public async Task Directory_ShouldReturnCorrectView_WithPrimaryItems(){
         // Arrange
         _ = _directoryService.Setup(_ => _.Get<Directory>(It.IsAny<string>())).ReturnsAsync(processedDirectoryWithSubdirectories);
+        var expectedDirectoryViewModel = new DirectoryViewModel() {
+            Breadcrumbs = new List<Crumb>(),
+            Slug = "slug",
+            PrimaryItems = new NavCardList()
+            {
+                Items = new List<NavCard> { 
+                    new NavCard("title", "/slug", "teaser", "image", "icon", "teal")
+                }
+            }
+        };
 
         // Act
         var result = await _directoryController.Directory("slug") as ViewResult;
+        var actualViewModel = result.Model as DirectoryViewModel;
 
         // Assert
         Assert.Null(result.ViewName);
-        Assert.NotNull(result.Model);
+        Assert.Equal(expectedDirectoryViewModel.Breadcrumbs, actualViewModel.Breadcrumbs);
+        Assert.Equal(expectedDirectoryViewModel.Slug, actualViewModel.Slug);
+        Assert.Equal(expectedDirectoryViewModel.PrimaryItems.Items.First().Icon, actualViewModel.PrimaryItems.Items.First().Icon);
+        Assert.Equal(expectedDirectoryViewModel.PrimaryItems.Items.First().Title, actualViewModel.PrimaryItems.Items.First().Title);
+        Assert.Equal(expectedDirectoryViewModel.PrimaryItems.Items.First().Url, actualViewModel.PrimaryItems.Items.First().Url);
+        Assert.Equal(expectedDirectoryViewModel.PrimaryItems.Items.First().ColourScheme, actualViewModel.PrimaryItems.Items.First().ColourScheme);
+        Assert.Equal(expectedDirectoryViewModel.PrimaryItems.Items.First().Teaser, actualViewModel.PrimaryItems.Items.First().Teaser);
+        Assert.Equal(expectedDirectoryViewModel.PrimaryItems.Items.First().Image, actualViewModel.PrimaryItems.Items.First().Image);
     }
     
-    [Fact]
-    public async Task DirectoryResults_ShouldReturnCorrectView_WithoutSubdirectories()
+    [Theory]
+    [InlineData(new string[] { "value1", "value2", "value3" }, "Name A to Z", "description")]
+    [InlineData(new string[] { "value1", "value2", "value3" }, "Name Z to A", "description")]
+    [InlineData(new string[] { "value1", "value2", "value3" }, "", "tea")]
+    public async Task DirectoryResults_ShouldReturnCorrectView(string[] filters, string orderBy, string searchTerm)
     {
         // Arrange
-        _ = _directoryService.Setup(_ => _.Get<Directory>(It.IsAny<string>())).ReturnsAsync(directory);
+        processedDirectoryWithSubdirectories.PinnedEntries = new List<DirectoryEntry>() { directoryEntry };
+        _ = _directoryService.Setup(_ => _.Get<Directory>(It.IsAny<string>())).ReturnsAsync(processedDirectoryWithSubdirectories);
+
+        // Act
+        var result = await _directoryController.DirectoryResults("slug", filters, orderBy, searchTerm, 0) as ViewResult;
+        var model = result.ViewData.Model as DirectoryViewModel;
+
+        // Assert
+        Assert.Equal("results", result.ViewName);
+        Assert.NotNull(model);
+        Assert.Equal(filterThemes, model.AllFilterThemes);
+        Assert.Equal(filterThemes.First().Filters, model.AllFilterThemes.First().Filters);
+        Assert.Equal("slug", model.Slug);
+        Assert.Equal(filtersList, model.AppliedFilters);
+        Assert.Empty(model.PinnedEntries);
+        _directoryService.Verify(service => service.GetSearchedEntryForDirectories(It.IsAny<IEnumerable<DirectoryEntry>>(), It.IsAny<string>()), Times.Exactly(2));
+        _directoryService.Verify(service => service.GetFilteredEntries(It.IsAny<IEnumerable<DirectoryEntry>>(), It.IsAny<string[]>()), Times.Exactly(2));
+    }
+
+    [Fact]
+    public async Task DirectoryResults_ShouldReturnCorrectView_WithEmptyFilters()
+    {
+        // Arrange
+        processedDirectoryWithSubdirectories.PinnedEntries = new List<DirectoryEntry>() { directoryEntry };
+        _ = _directoryService.Setup(_ => _.Get<Directory>(It.IsAny<string>())).ReturnsAsync(processedDirectoryWithSubdirectories);
 
         // Act
         var result = await _directoryController.DirectoryResults("slug", Array.Empty<string>(), string.Empty, string.Empty, 0) as ViewResult;
@@ -168,7 +214,7 @@ public class DirectoryControllerTest
     }
 
     [Fact]
-    public async Task DirectoryResults_ShouldReturnUnsuccessfulStatusCode(){
+    public async Task DirectoryResults_ShouldReturnNotFoundStatusCode(){
         // Arrange
         _directoryService.Setup(_ => _.Get<Directory>(It.IsAny<string>())).ReturnsAsync((Directory)null);
 
@@ -218,7 +264,7 @@ public class DirectoryControllerTest
     }
 
     [Fact]
-    public async Task DirectoryEntry_ShouldReturnUnsuccessfulStatusCode()
+    public async Task DirectoryEntry_ShouldReturnNotFoundStatusCode()
     {
         _directoryService.Setup(_ => _.GetEntry<DirectoryEntry>(It.IsAny<string>())).ReturnsAsync((DirectoryEntry)null);
 

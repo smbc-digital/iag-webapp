@@ -1,5 +1,3 @@
-using SharpKml.Dom.Atom;
-using Humanizer.Localisation.NumberToWords;
 using Directory = StockportWebapp.Models.Directory;
 using Filter = StockportWebapp.Model.Filter;
 namespace StockportWebapp.Services;
@@ -8,7 +6,6 @@ public interface IDirectoryService
 {
     Task<Directory> Get<T>(string slug = "");
     Task<DirectoryEntry> GetEntry<T>(string slug = "");
-    IEnumerable<DirectoryEntry> GetFilteredEntries(IEnumerable<DirectoryEntry> entries);
     IEnumerable<DirectoryEntry> GetFilteredEntries(IEnumerable<DirectoryEntry> entries, string[] filters);
     IEnumerable<FilterTheme> GetFilterThemes(IEnumerable<DirectoryEntry> filteredEntries);
     IEnumerable<Filter> GetFilters(string[] filters, IEnumerable<FilterTheme> filterThemes);
@@ -18,13 +15,11 @@ public interface IDirectoryService
 }
 
 public class DirectoryService : IDirectoryService {
-    private readonly IApplicationConfiguration _config;
     private readonly MarkdownWrapper _markdownWrapper;
     private readonly IRepository _repository;
 
-    public DirectoryService(IApplicationConfiguration config, MarkdownWrapper markdownWrapper, IRepository repository)
+    public DirectoryService(MarkdownWrapper markdownWrapper, IRepository repository)
     {
-        _config = config;
         _markdownWrapper = markdownWrapper;
         _repository = repository;
     }
@@ -79,9 +74,6 @@ public class DirectoryService : IDirectoryService {
             .ToList()
             .OrderBy(directoryEntry => directoryEntry.Name);
     }
-
-    public IEnumerable<DirectoryEntry> GetFilteredEntries(IEnumerable<DirectoryEntry> entries) => 
-        entries.OrderBy(directoryEntry => directoryEntry.Name);
 
     public IEnumerable<DirectoryEntry> GetFilteredEntries(IEnumerable<DirectoryEntry> entries, string[] appliedFilters)
     {
