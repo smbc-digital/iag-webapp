@@ -4,7 +4,7 @@
     var mapCookie = CookiesHelper.GetCookies<string>("map");
     var displayValue = mapCookie.Contains(Model.Slug) ? "block" : "none";
 }
-
+<script defer src="@("https://unpkg.com/@googlemaps/markerclusterer/dist/index.min.js")"></script>
 
 <div id="map" class="google-map" style="display:@displayValue;"></div>
 
@@ -23,7 +23,9 @@
             @Html.Raw(@"{ " + entry.ToString(@Url.Action("DirectoryEntry", "Directory", new { slug=@entry.FullyResolvedSlug })) + "}, ")
         }
     ];
+</script>
 
+<script>
     async function initMap() {
         // Request needed libraries.
         const { Map, InfoWindow } = await google.maps.importLibrary('maps');
@@ -78,4 +80,3 @@
 </script>
 
 <script defer async src="https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyCPMO2lE7np9cG_zG63JH_pNVmRfoajZjg&callback=initMap&loading=async"></script>
-<script src="@("https://unpkg.com/@googlemaps/markerclusterer/dist/index.min.js")"></script>
