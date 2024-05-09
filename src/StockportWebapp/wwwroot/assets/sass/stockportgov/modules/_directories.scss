@@ -38,6 +38,7 @@
 
     &-lead {
         @include lead;
+        margin-top: 0.5em;
 
         @media #{$mobile} {
             margin-left: 5px;
@@ -196,6 +197,7 @@
         color: white;
 
         @media #{$mobile} {
+            padding: 0.5em 1.5em 1.5em;
             margin-left: 5px;
             margin-right: 5px;
         }
@@ -310,7 +312,7 @@
             font-size: 1.3rem;
             height: 3.375rem;
             margin: 0;
-            padding: 15px;
+            padding: 1em;
             width: calc(100% - 3.875rem);
 
             @media #{$tablet} {
@@ -499,7 +501,8 @@
     &__filters {
         &-facilities {
             column-count: 2;
-            margin-bottom: 1em;
+            margin-top: 10px;
+            margin-bottom: 10px;
 
             @media #{$mobile} {
                 column-count: 1;
