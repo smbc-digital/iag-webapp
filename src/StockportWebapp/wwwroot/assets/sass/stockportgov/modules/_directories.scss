@@ -158,6 +158,10 @@
             hr:last-of-type {
                 display: none;
             }
+
+            a:nth-last-of-type(2):not([aria-expanded="true"]) {
+                margin-bottom: 2em;
+            }
         }
 
         &__collapsible {
@@ -170,7 +174,7 @@
                 text-decoration: none;
             }
         }
-
+        
         &__toggle {
             padding: 0 10px;
             color: $stockport-teal-darker;
@@ -197,7 +201,6 @@
         color: white;
 
         @media #{$mobile} {
-            padding: 0.5em 1.5em 1.5em;
             margin-left: 5px;
             margin-right: 5px;
         }
@@ -251,13 +254,17 @@
                 align-items: center;
             }
 
+            @media #{$tablet} {
+                padding: 0.5em 1.5em 1.5em;
+            }
+
             .directory-search_image--start {
                 @media #{$desktop} {
                     margin-inline-end: 1em;
                 }
 
                 @media #{$tablet} {
-                    width: 100%
+                    width: 100%;
                 }
             }
 
@@ -338,7 +345,7 @@
     }
 
     &-sub-title {
-        margin-bottom: 1em;
+        margin-bottom: 2em;
         margin-top: 1em;
 
         h1 {
@@ -678,6 +685,10 @@
             margin-top: 0.55em;
         }
 
+        &__content:last-of-type{
+            margin-bottom: 2.833em;
+        }
+        
         &__checkbox {
             position: absolute;
             z-index: 1;
@@ -744,18 +755,22 @@
         }
     }
 
-    &__sortBy {
-        background-color: white;
-        margin-bottom: 2em;
-        border-radius: 3px;
-        position: relative;
+    &__controls {
+        margin-block-end: 1em;
         display: flex;
 
         @media #{$mobile} {
-            margin-bottom: 1em;
-            margin-left: 5px;
-            margin-right: 5px;
+            display: block;
         }
+    }
+
+    &__sortBy {
+        background-color: white;
+        border-radius: 3px;
+        position: relative;
+        display: flex;
+        width: 40%;
+        margin-inline-end: 0.5em;
 
         label {
             padding: 0.55em 0 0.55em 0.75em;
@@ -770,7 +785,7 @@
             appearance: none;
             -webkit-appearance: none;
             -moz-appearance: none;
-            padding: 0.55em;
+            padding: 1em;
             width: 100%;
             text-align: left;
             width: -webkit-fill-available;
@@ -784,6 +799,12 @@
             @media #{$small-mobile} {
                 background-image: none;
             }
+        }
+
+        @media #{$mobile} {
+            margin-inline-end: 0;
+            margin-block-end: 0.5em;
+            width: 100%;
         }
     }
 }

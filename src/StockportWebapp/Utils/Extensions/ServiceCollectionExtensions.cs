@@ -171,7 +171,7 @@ namespace StockportWebapp.Utils.Extensions
                     p.GetService<ITriviaFactory>(),
                     p.GetService<IDynamicTagParser<InlineQuote>>()));
 
-            services.AddTransient<IDirectoryService>(p => new DirectoryService(p.GetService<IApplicationConfiguration>(), p.GetService<MarkdownWrapper>(), p.GetService<IRepository>()));
+            services.AddTransient<IDirectoryService>(p => new DirectoryService(p.GetService<MarkdownWrapper>(), p.GetService<IRepository>()));
 
             return services;
         }

@@ -66,7 +66,7 @@ namespace StockportWebapp.Models
         public IEnumerable<DirectoryEntry> AllEntries
             => RegularEntries.Concat(PinnedEntries);
 
-        public string ToKml()
-            => CummulativeEntries.GetKmlForList();
+        //public string ToKml()
+        //    => CummulativeEntries.GetKmlForList();
     }
 }

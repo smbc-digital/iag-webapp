@@ -10,10 +10,28 @@ public class DirectoryViewModel
 
     public DirectoryViewModel(Directory directory) : this(directory.Slug, directory) { }
 
-    public DirectoryViewModel(string slug, Directory directory, IEnumerable<Crumb> breadcrumbs) : this(slug, directory)
+    public DirectoryViewModel(string slug, Directory directory, IEnumerable<Crumb> breadcrumbs) 
+        : this(slug, directory) => Breadcrumbs = breadcrumbs;
+
+    public DirectoryViewModel(string slug, Directory directory, IEnumerable<Crumb> breadcrumbs, IEnumerable<DirectoryEntry> pinnedEntries, IEnumerable<DirectoryEntry> filteredEntries) 
+        : this(slug, directory)
     {
         Breadcrumbs = breadcrumbs;
+        PinnedEntries = pinnedEntries.Select(entry => new DirectoryEntryViewModel(entry.Slug, entry, true));
+        FilteredEntries = filteredEntries.Select(entry => new DirectoryEntryViewModel(entry.Slug, entry, false));
+        AddMapPinIndexes();
     }
+
+    public DirectoryViewModel(string slug, Directory directory, IEnumerable<Crumb> breadcrumbs, IEnumerable<DirectoryEntry> pinnedEntries, IEnumerable<DirectoryEntry> filteredEntries, int pageNumber)
+        : this(slug, directory)
+    {
+        Breadcrumbs = breadcrumbs;
+        PinnedEntries = pinnedEntries.Select(entry => new DirectoryEntryViewModel(entry.Slug, entry, true));
+        FilteredEntries = filteredEntries.Select(entry => new DirectoryEntryViewModel(entry.Slug, entry, false));
+        Paginate(pageNumber);
+        AddMapPinIndexes();
+    }
+
     public DirectoryViewModel(string slug, Directory directory)
     {
         Slug = slug;
@@ -21,7 +39,7 @@ public class DirectoryViewModel
         MetaDescription = directory.MetaDescription;
         Body = directory.Body;
         CallToAction = directory.CallToAction;
-        Alerts = directory.Alerts;  
+        Alerts = directory.Alerts;
         EventBanner = directory.EventBanner;
         ColourScheme = directory.ColourScheme;
         RelatedContent = directory.RelatedContent;
@@ -30,6 +48,7 @@ public class DirectoryViewModel
         var directoryItems = directory.SubItems.Where(item => item.Type == "directory").Select(subItem => new NavCard(subItem.Title, subItem.GetNavigationLink(Slug), subItem.Teaser, subItem.Image, subItem.Icon, subItem.ColourScheme));
         var nonDirectoryItems = directory.SubItems.Where(item => item.Type != "directory").Select(subItem => new NavCard(subItem.Title, subItem.NavigationLink, subItem.Teaser, subItem.Image, subItem.Icon, subItem.ColourScheme));
         PrimaryItems = new NavCardList() { Items = directoryItems.Concat(nonDirectoryItems).ToList() };
+
     }
 
     // Default values
@@ -47,8 +66,8 @@ public class DirectoryViewModel
     public IEnumerable<Alert> Alerts { get; set; }
     public EventCalendarBanner EventBanner { get; set; }
     public string ColourScheme { get; set; }
-    public string SearchBranding => ParentDirectory != null 
-                                    && !string.IsNullOrEmpty(ParentDirectory.SearchBranding) 
+    public string SearchBranding => ParentDirectory != null
+                                    && !string.IsNullOrEmpty(ParentDirectory.SearchBranding)
                                         ? ParentDirectory.SearchBranding
                                         : _searchBranding;
     public string InheritedColourScheme => string.IsNullOrEmpty(FirstSubDirectory.ColourScheme)
@@ -61,10 +80,9 @@ public class DirectoryViewModel
 
     // Search sorting and filtering options
     public string SearchTerm { get; set; }
-    public string Order { get; set; }   
+    public string Order { get; set; }
     public PaginationInfo PaginationInfo { get; set; }
-    public bool ShowPagination => PaginationInfo.TotalEntries > PaginationInfo.PageSize;
-
+    public bool ShowPagination => PaginationInfo is not null && PaginationInfo.TotalEntries > PaginationInfo.PageSize;
     public List<string> OrderBy = new() { "Name A to Z", "Name Z to A" };
     public IEnumerable<Filter> AppliedFilters { get; set; }
     public IEnumerable<FilterTheme> AllFilterThemes { get; set; }
@@ -86,8 +104,8 @@ public class DirectoryViewModel
     }
 
     // Page layout properties
-    public bool DisplayIcons => PrimaryItems is not null 
-                                    && PrimaryItems.Items.Any() 
+    public bool DisplayIcons => PrimaryItems is not null
+                                    && PrimaryItems.Items.Any()
                                     && PrimaryItems.Items.All(item => item is not null && !string.IsNullOrEmpty(item.Icon));
     public bool IsRootDirectory => Title.Equals(ParentDirectory.Title);
     public Dictionary<string, int> FilterCounts { get; set; }
@@ -101,10 +119,10 @@ public class DirectoryViewModel
 
     public void Paginate(int page)
     {
-        var allEntries = PinnedEntries is not null 
+        var allEntries = PinnedEntries is not null
                             ? PinnedEntries.Concat(FilteredEntries)
                                             .Distinct(new SlugComparer())
-                                            .Select(entry => (DirectoryEntryViewModel)entry) 
+                                            .Select(entry => (DirectoryEntryViewModel)entry)
                             : FilteredEntries;
 
         int totalPages = (int)Math.Ceiling((double)allEntries.Count() / _defaultPageSize);
@@ -135,5 +153,37 @@ public class DirectoryViewModel
             TotalEntries = allEntries.Count(),
             PageSize = _defaultPageSize
         };
+    }
+
+    public void AddMapPinIndexes()
+    {
+        int endIndex = 1;
+        if(PaginationInfo.CurrentPage.Equals(1))
+            PinnedEntries = AddMapPinIndexes(PinnedEntries, endIndex, out endIndex);
+        
+        PaginatedEntries = AddMapPinIndexes(PaginatedEntries, endIndex, out endIndex);
+    }
+
+    /// <summary>
+    /// Todo - I'm not sure I like this - need to create a new list and then assign as can't mutatue the list values
+    /// </summary>
+    /// <param name="entries"></param>
+    /// <param name="startIndex"></param>
+    /// <param name="endIndex"></param>
+    /// <returns></returns>
+    private IEnumerable<DirectoryEntryViewModel> AddMapPinIndexes(IEnumerable<DirectoryEntryViewModel> entries, int startIndex, out int endIndex)
+    {
+        var currentIndex = startIndex;
+        var mutatedEnties = new List<DirectoryEntryViewModel>();
+        foreach(DirectoryEntryViewModel entry in entries)
+        {
+            entry.MapPinIndex = entry.DirectoryEntry.IsNotOnTheEqautor ? currentIndex : 0;
+            mutatedEnties.Add(entry);
+            if (entry.DirectoryEntry.IsNotOnTheEqautor)
+                currentIndex += 1;
+        }
+
+        endIndex = currentIndex;
+        return mutatedEnties;
     }
 }

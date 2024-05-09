@@ -1,0 +1,39 @@
+.pin {
+    position: relative;
+    top: -5px;
+    margin-right: 0.5em;
+    text-decoration: none;
+    display: inline-block;
+
+    &_graphic {
+        position: absolute;
+        width: 28px;
+        height: 28px;
+        border-radius: 50% 50% 50% 0;
+        border: 1px solid #066;
+        background: teal;
+        transform: rotate(-45deg);
+        text-decoration: none;
+
+        &--teal {
+            border: 1px solid #066;
+            background: teal;
+        }
+
+        &--pink {
+            border: 1px solid #991e70;
+            background: #b32384;
+        }
+    }
+
+    &_content {
+        position: relative;
+        width: 29px;
+        height: 28px;
+        line-height: 28px;
+        color: white;
+        text-align: center;
+        font-size: 1rem;
+        text-decoration: none;
+    }
+}

@@ -28,8 +28,9 @@ namespace StockportWebapp.Models
         public string Address { get; set; } = string.Empty;
         public string Image { get; set; }
         public IEnumerable<string> Tags { get; set; } = new List<string>();
+        public bool IsNotOnTheEqautor => MapPosition.Lat != 0 && MapPosition.Lon != 0;
 
-        public Placemark ToKmlPlacemark() => new Placemark
+        public Placemark ToKmlPlacemark(string style = "") => new Placemark
         {
             // Ref
             // https://developers.google.com/kml/documentation/kml_tut?csw=1#descriptive_html
@@ -43,7 +44,8 @@ namespace StockportWebapp.Models
             Description = new Description() { Text = $@"<![CDATA[{ this.Teaser }]]>" },
             PhoneNumber = this.PhoneNumber,
             Address = this.Address,
-            AtomLink = new SharpKml.Dom.Atom.Link { Href = new Uri("https://www.stockport.gov.uk"), Title=$"Visit {this.Name}" }
+            AtomLink = new SharpKml.Dom.Atom.Link { Href = new Uri("https://www.stockport.gov.uk"), Title=$"Visit {this.Name}" },
+            StyleUrl=string.IsNullOrEmpty(style) ? null : new Uri(style),
         };
     }
 }
