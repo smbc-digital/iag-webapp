@@ -26,7 +26,6 @@ public class ProfileTagParser : IDynamicTagParser<Profile>
             var profile = GetProfileMatchingSlug(profiles, profileSlug);
             if (profile != null)
             {
-
                 var profileHtml = string.IsNullOrEmpty(profile.Body)
                     ? _viewRenderer.Render("ProfileWithoutBody", profile)
                     : _viewRenderer.Render("Profile", profile);
@@ -37,13 +36,9 @@ public class ProfileTagParser : IDynamicTagParser<Profile>
         return RemoveEmptyTags(content);
     }
 
-    private string RemoveEmptyTags(string content)
-    {
-        return TagRegex.Replace(content, string.Empty);
-    }
+    private string RemoveEmptyTags(string content) =>
+        TagRegex.Replace(content, string.Empty);
 
-    private Profile GetProfileMatchingSlug(IEnumerable<Profile> profiles, string slug)
-    {
-        return profiles.FirstOrDefault(s => s.Slug == slug);
-    }
+    private Profile GetProfileMatchingSlug(IEnumerable<Profile> profiles, string slug) =>
+        profiles?.FirstOrDefault(s => s.Slug == slug);    
 }

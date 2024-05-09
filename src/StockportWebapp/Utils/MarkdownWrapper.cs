@@ -14,7 +14,7 @@ public class MarkdownWrapper
 
     private static string Convert(string markdown)
     {
-        var html = Markdown.ToHtml(markdown ?? string.Empty, new MarkdownPipelineBuilder().UsePipeTables().UseSoftlineBreakAsHardlineBreak().Build());
+        var html = Markdown.ToHtml(markdown ?? string.Empty, new MarkdownPipelineBuilder().UsePipeTables().UseSoftlineBreakAsHardlineBreak().UseAdvancedExtensions().Build());
         return WrapTables(html);
     }
 

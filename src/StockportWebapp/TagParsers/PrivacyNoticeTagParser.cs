@@ -20,8 +20,7 @@ public class PrivacyNoticeTagParser : IDynamicTagParser<PrivacyNotice>
         foreach (Match match in matches)
         {
             var privacyNoticeSlug = match.Groups[1].Value;
-
-            privacyNotices = privacyNotices.Where(s => s.Title.Replace(" ", string.Empty) == privacyNoticeSlug).OrderBy(x => x.Category);
+            privacyNotices = privacyNotices?.Where(s => s.Title.Replace(" ", string.Empty) == privacyNoticeSlug).OrderBy(x => x.Category);
 
             if (privacyNotices.Any())
             {
@@ -32,8 +31,7 @@ public class PrivacyNoticeTagParser : IDynamicTagParser<PrivacyNotice>
         return RemoveEmptyTags(content);
     }
 
-    private string RemoveEmptyTags(string content)
-    {
-        return TagRegex.Replace(content, string.Empty);
-    }
+    private string RemoveEmptyTags(string content) =>
+        TagRegex.Replace(content, string.Empty);
+    
 }

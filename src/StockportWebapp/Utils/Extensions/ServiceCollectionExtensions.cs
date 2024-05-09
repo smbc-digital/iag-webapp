@@ -10,14 +10,12 @@ namespace StockportWebapp.Utils.Extensions
         {
             services.AddSingleton<IViewRender, ViewRender>();
             services.Configure<RazorViewEngineOptions>(options => { options.ViewLocationExpanders.Add(new ViewLocationExpander()); });
-
             return services;
         }
 
         public static IServiceCollection AddConfigurationOptions(this IServiceCollection services, IConfiguration configuration)
         {
             services.Configure<CivicaPayConfiguration>(configuration.GetSection(CivicaPayConfiguration.ConfigValue));
-
             return services;
         }
 
@@ -57,34 +55,33 @@ namespace StockportWebapp.Utils.Extensions
 
         public static IServiceCollection AddTagParsers(this IServiceCollection services)
         {
-            services.AddSingleton<ISimpleTagParserContainer>(p => new SimpleTagParserContainer(p.GetService<List<ISimpleTagParser>>()));
             services.AddSingleton<IContactUsMessageTagParser, ContactUsMessageTagParser>();
+
+            services.AddSingleton<ISimpleTagParser, ButtonTagParser>();
+            services.AddSingleton<ISimpleTagParser, ContactUsTagParser>();
+            services.AddSingleton<ISimpleTagParser, VideoTagParser>();
+            services.AddSingleton<ISimpleTagParser, CarouselTagParser>();
+            services.AddSingleton<ISimpleTagParser, IFrameTagParser>();
+            services.AddSingleton<ISimpleTagParser, FormBuilderTagParser>();
+            services.AddSingleton<ISimpleTagParser, MapTagParser>();
+
             services.AddSingleton<IDynamicTagParser<Profile>, ProfileTagParser>();
             services.AddSingleton<IDynamicTagParser<InlineQuote>, InlineQuoteTagParser>();
             services.AddSingleton<IDynamicTagParser<Document>, DocumentTagParser>();
             services.AddSingleton<IDynamicTagParser<Alert>, AlertsInlineTagParser>();
             services.AddSingleton<IDynamicTagParser<S3BucketSearch>, S3BucketSearchTagParser>();
             services.AddSingleton<IDynamicTagParser<PrivacyNotice>, PrivacyNoticeTagParser>();
-            services.AddSingleton(
-                p =>
-                    new List<ISimpleTagParser>()
-                    {
-                        new ButtonTagParser(),
-                        new ContactUsTagParser(p.GetService<IViewRender>(), p.GetService<ILogger<ContactUsTagParser>>()),
-                        new VideoTagParser(),
-                        new CarouselTagParser(),
-                        new IFrameTagParser(),
-                        new FormBuilderTagParser(),
-                        new MapTagParser()
-                    });
+
+            services.AddSingleton<ISimpleTagParserContainer, SimpleTagParserContainer>();
+            services.AddSingleton<IDynamicTagParserContainer, DynamicTagParserContainer>();
 
             return services;
         }
 
         public static IServiceCollection AddMarkdown(this IServiceCollection services)
         {
-            services.AddSingleton(_ => new MarkdownWrapper());
-            services.AddTransient(_ => new MarkdownPipelineBuilder().UsePipeTables().Build());
+            services.AddSingleton<MarkdownWrapper>();
+            services.AddTransient<MarkdownPipeline>(_ => new MarkdownPipelineBuilder().UsePipeTables().Build());
 
             return services;
         }
@@ -162,6 +159,8 @@ namespace StockportWebapp.Utils.Extensions
             services.AddTransient<IHomepageService>(p => new HomepageService(p.GetService<IProcessedContentRepository>()));
             services.AddTransient<IStockportApiEventsService>(p => new StockportApiEventsService(p.GetService<IStockportApiRepository>(), p.GetService<IUrlGeneratorSimple>(), p.GetService<IEventFactory>()));
             services.AddTransient<IGroupsService>(p => new GroupsService(p.GetService<IContentApiRepository>(), p.GetService<IProcessedContentRepository>(), p.GetService<IHttpEmailClient>(), p.GetService<IApplicationConfiguration>(), p.GetService<ILogger<GroupsService>>(), p.GetService<IStockportApiRepository>(), p.GetService<BusinessId>()));
+            services.AddTransient<IDirectoryService, DirectoryService>();
+
             services.AddTransient<IProfileService>(p => new
                 ProfileService(
                     p.GetService<IRepository>(),
@@ -170,8 +169,6 @@ namespace StockportWebapp.Utils.Extensions
                     p.GetService<IDynamicTagParser<Alert>>(),
                     p.GetService<ITriviaFactory>(),
                     p.GetService<IDynamicTagParser<InlineQuote>>()));
-
-            services.AddTransient<IDirectoryService>(p => new DirectoryService(p.GetService<MarkdownWrapper>(), p.GetService<IRepository>()));
 
             return services;
         }

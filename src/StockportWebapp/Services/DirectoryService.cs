@@ -17,11 +17,16 @@ public interface IDirectoryService
 public class DirectoryService : IDirectoryService {
     private readonly MarkdownWrapper _markdownWrapper;
     private readonly IRepository _repository;
+    private readonly ISimpleTagParserContainer _simpleTagParserContainer;
+    private readonly IDynamicTagParserContainer _dynamicTagParserContainer;
 
-    public DirectoryService(MarkdownWrapper markdownWrapper, IRepository repository)
+    public DirectoryService(IApplicationConfiguration config, MarkdownWrapper markdownWrapper, IRepository repository,ISimpleTagParserContainer simpleTagParserContainer, IDynamicTagParserContainer dynamicTagParserContainer)
+
     {
         _markdownWrapper = markdownWrapper;
         _repository = repository;
+        _simpleTagParserContainer = simpleTagParserContainer;
+        _dynamicTagParserContainer = dynamicTagParserContainer;
     }
 
     public async Task<Directory> Get<T>(string slug = "")
@@ -30,10 +35,12 @@ public class DirectoryService : IDirectoryService {
 
         if (!httpResponse.IsSuccessful())
             return null;
-
+            
         var directory = (Directory)httpResponse.Content;
 
-        directory.Body = _markdownWrapper.ConvertToHtml(directory.Body ?? "");
+        directory.Body = _markdownWrapper.ConvertToHtml(directory.Body ?? "");        
+        var parsedBody = _simpleTagParserContainer.ParseAll(directory.Body, directory.Title);
+        directory.Body = _dynamicTagParserContainer.ParseAll(parsedBody, directory.Title, true, null, null, null, null, null, null);
 
         return directory;
     }
@@ -46,9 +53,11 @@ public class DirectoryService : IDirectoryService {
             return null;
 
         var directoryEntry = (DirectoryEntry)httpResponse.Content;
-
         directoryEntry.Description = _markdownWrapper.ConvertToHtml(directoryEntry.Description ?? "");
         directoryEntry.Address = _markdownWrapper.ConvertToHtml(directoryEntry.Address ?? "");
+
+        var parsedBody = _simpleTagParserContainer.ParseAll(directoryEntry.Description, directoryEntry.Name);
+        directoryEntry.Description = _dynamicTagParserContainer.ParseAll(parsedBody, directoryEntry.Name, true, null, null, null, null, null, null);
 
         return directoryEntry;
     }

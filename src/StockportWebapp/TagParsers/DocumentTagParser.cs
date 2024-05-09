@@ -23,9 +23,8 @@ public class DocumentTagParser : IDynamicTagParser<Document>
             var fileName = tagMatch.Groups[tagDataIndex].Value;
             var document = GetDocumentMatchingFilename(documents, fileName);
             if (document != null)
-            {
                 content = ReplaceTagWithHtml(content, document);
-            }
+            
         }
         return RemoveEmptyTags(content);
     }
@@ -36,13 +35,10 @@ public class DocumentTagParser : IDynamicTagParser<Document>
         return TagRegex.Replace(content, documentHtml, 1);
     }
 
-    private string RemoveEmptyTags(string content)
-    {
-        return TagRegex.Replace(content, string.Empty);
-    }
+    private string RemoveEmptyTags(string content) =>
+        TagRegex.Replace(content, string.Empty);
+    
 
-    private static Document GetDocumentMatchingFilename(IEnumerable<Document> documents, string fileName)
-    {
-        return documents.FirstOrDefault(s => s.FileName == fileName);
-    }
+    private static Document GetDocumentMatchingFilename(IEnumerable<Document> documents, string fileName) =>
+        documents?.FirstOrDefault(s => s.FileName == fileName);
 }

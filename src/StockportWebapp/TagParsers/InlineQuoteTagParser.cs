@@ -19,7 +19,7 @@ public class InlineQuoteTagParser : IDynamicTagParser<InlineQuote>
         foreach (Match match in matches)
         {
             var tagSlug = match.Groups[1].Value;
-            var inlineQuote = dynamicContent.FirstOrDefault(_ => _.Slug == tagSlug);
+            var inlineQuote = dynamicContent?.FirstOrDefault(_ => _.Slug == tagSlug);
 
             if (inlineQuote != null)
             {
@@ -31,8 +31,6 @@ public class InlineQuoteTagParser : IDynamicTagParser<InlineQuote>
         return RemoveEmptyTags(body);
     }
 
-    private string RemoveEmptyTags(string content)
-    {
-        return _tagRegex.Replace(content, string.Empty);
-    }
+    private string RemoveEmptyTags(string content) =>   
+        _tagRegex.Replace(content, string.Empty);
 }
