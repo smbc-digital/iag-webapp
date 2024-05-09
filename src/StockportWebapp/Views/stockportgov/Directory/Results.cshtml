@@ -6,6 +6,10 @@
     ViewData["Description"] = Model.MetaDescription;
     Layout = "../Shared/_Layout2023.cshtml";
     var dataCy = Model.SearchBranding.Equals("Stockport Local") ? "stockport-local-search-results" : "search-results";
+    @inject ICookiesHelper CookiesHelper
+    
+    var mapCookie = CookiesHelper.GetCookies<string>("map");
+    var displayMap = mapCookie.Contains(Model.Slug);
 }
 
 <div class="grid-container-full-width background-grey" data-cy=@dataCy>
@@ -23,16 +27,6 @@
             </div>
         </div>
 
-        <div class="grid-container">
-            <div class="grid-100">
-                <div class="directory--30">
-                    <div class="directory__sortBy navcard-all navcard--theme-grey-accent-all">
-                        <label for="order-by">Sort by:</label>
-                        <select asp-for="@Model.Order" asp-items="@(new SelectList(Model.OrderBy))" name="orderBy" id="order-by" autocomplete="off"></select>
-                    </div>
-                </div>
-            </div>
-        </div>
 
         <div class="grid-container">
             <div class="grid-100">
@@ -43,7 +37,20 @@
 
                     <div class="directory--70">
                         <h2 class="visuallyhidden">Results in @Model.Title</h2>
-                        <partial name="DirectorySearchResults" />
+                    
+                        <div class="directory__controls">
+                            <div class="directory__sortBy navcard-all navcard--theme-grey-accent-all">
+                                <label for="order-by">Sort by:</label>
+                                <select asp-for="@Model.Order" asp-items="@(new SelectList(Model.OrderBy))" name="orderBy" id="order-by" autocomplete="off"></select>
+                            </div>
+                            <div class="directory__showMap">
+                                <button type="button" id="showMap" class="btn btn--plain" data-slug="@Model.Slug" style="display:@(displayMap ? "none" : "inline-block")"><span class="fa-solid fa-location-dot"></span> Show on a map</button>
+                                <button type="button" id="hideMap" class="btn btn--plain" data-slug="@Model.Slug" style="display:@(displayMap ? "inline-block" : "none")"><span class="fa-solid fa-circle-xmark"></span> Hide map</button>
+                            </div>
+                        </div>
+                        
+                        <partial name="DirectoryResultsMap" />
+                        <partial name="DirectorySearchResults" view-data='new ViewDataDictionary(ViewData) { { "ShowPinsOnLoad", displayMap  } }' />
                     </div>
                 </div>
             </div>
@@ -55,10 +62,30 @@
 </div>
 
 <script>
-    require(['/assets/javascript/config-734c0597.min.js'], function () {
+    require(['/assets/javascript/config-92f1d5cf.min.js'], function () {
         require(['directoryFilters'],
             function (directoryFilters) {
                 directoryFilters.Init();
+            }
+        );
+    });
+</script>
+
+<script type="text/plain" data-cookie-consent="functionality">
+    require(['/assets/javascript/config-92f1d5cf.min.js'], function () {
+        require(['mapSetCookie'],
+            function (mapSetCookie) {
+                mapSetCookie.Init();
+            }
+        );
+    });
+</script>
+
+<script>
+    require(['/assets/javascript/config-92f1d5cf.min.js'], function () {
+        require(['directoriesMapInit'],
+            function (directoriesMapInit) {
+                directoriesMapInit.Init();
             }
         );
     });

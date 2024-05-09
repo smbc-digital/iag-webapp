@@ -24,6 +24,9 @@ public class CookiesController : Controller
             case "alert":
                 _cookiesHelper.AddToCookies<Alert>(slug, "alerts");
                 break;
+            case "map":
+                _cookiesHelper.AddToCookies<string>(slug, "map");
+                break;
         }
 
         return Ok();
@@ -41,7 +44,10 @@ public class CookiesController : Controller
                 _cookiesHelper.RemoveFromCookies<Event>(slug, "favourites");
                 break;
             case "alert":
-                _cookiesHelper.RemoveFromCookies<Alert>(slug, "alerts");
+                _cookiesHelper.RemoveFromCookies<Alert>(slug, "alerts");    
+                break;
+            case "map":
+                _cookiesHelper.RemoveFromCookies<string>(slug, "map");
                 break;
         }
 

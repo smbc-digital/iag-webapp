@@ -1,0 +1,8 @@
+﻿@{
+    int count = (int)ViewData["Count"];
+    bool highlighted = (bool)ViewData["Highlighted"];
+    var pinCssClass = $"pin_graphic--" + (highlighted ? "pink" : "teal");
+    var showPinsOnLoad = (bool)ViewData["ShowPinsOnLoad"];
+}<div class="pin" style="@if(!showPinsOnLoad) @("display: none")">
+    <div class='pin_graphic @pinCssClass'>
+</div><div class='pin_content'>@count</div></div>

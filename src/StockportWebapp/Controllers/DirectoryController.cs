@@ -10,6 +10,7 @@ public class DirectoryController : Controller
     private readonly IFeatureManager _featureManager;
     private readonly bool _isToggledOn = true;
     private readonly string _defaultUrlPrefix = "directories";
+
     public DirectoryController(IDirectoryService directoryService, IFeatureManager featureManager = null)
     {
         _featureManager = featureManager;
@@ -63,20 +64,16 @@ public class DirectoryController : Controller
         var pinnedEntries = GetSearchedFilteredSortedEntries(directory.PinnedEntries, filters, orderBy, searchTerm);
         var allFilterThemes = _directoryService.GetFilterThemes(entries.Concat(pinnedEntries));
 
-        DirectoryViewModel viewModel = new(slug, directory, GetBreadcrumbsForDirectories(directory, parentDirectories, false, true))
+        DirectoryViewModel viewModel = new(slug, directory, GetBreadcrumbsForDirectories(directory, parentDirectories, false, true), pinnedEntries, entries, page)
         {
             ParentDirectory = new DirectoryViewModel(parentDirectories.FirstOrDefault() ?? directory),
             FirstSubDirectory = new DirectoryViewModel(parentDirectories.ElementAtOrDefault(1) ?? directory),
             SearchTerm = searchTerm,
-            FilteredEntries = entries.Select(entry => new DirectoryEntryViewModel(entry.Slug, entry, true)),
             AllFilterThemes = allFilterThemes,
-            PinnedEntries = pinnedEntries.Select(entry => new DirectoryEntryViewModel(entry.Slug, entry, true)),
             AppliedFilters = _directoryService.GetFilters(filters, allFilterThemes),
             FilterCounts = _directoryService.GetAllFilterCounts(entries.Concat(pinnedEntries).Distinct(new SlugComparer()).Select(entry => (DirectoryEntry)entry)),
             Order = !string.IsNullOrEmpty(orderBy) ? orderBy.Replace("-", " ") : orderBy
         };
-        
-        viewModel.Paginate(page);
 
         return View("results", viewModel);
     }
@@ -94,24 +91,6 @@ public class DirectoryController : Controller
             entries = _directoryService.GetOrderedEntries(entries, orderBy);
 
         return entries;
-    }
-
-    [Route("/directories/kml/{slug}")]  
-    [Produces(MediaTypeNames.Application.Xml)]
-    public async Task<IActionResult> DirectoryAsKml([Required][FromRoute]string slug, string[] filters, string orderBy, string searchTerm)
-    {
-        if (!_isToggledOn)
-            return NotFound();
-
-        var directory = await _directoryService.Get<Directory>(slug);
-
-        if(directory is null)
-            return NotFound();
-
-        var entries = GetSearchedFilteredSortedEntries(directory.AllEntries, filters, orderBy, searchTerm);
-        var kmlString = entries.GetKmlForList();
-
-        return Content(kmlString);
     }
 
     [Route("directories/entry/{**slug}")]

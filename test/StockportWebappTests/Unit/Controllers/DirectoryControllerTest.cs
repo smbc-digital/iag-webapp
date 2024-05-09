@@ -276,34 +276,16 @@ public class DirectoryControllerTest
     }
 
     [Fact]
-    public async Task DirectoryAsKml_ShouldReturnNotFoundStatusCode()
+    public async Task Directory_ShouldCallDirectoryService_IfSearchTermSpecified()
     {
         // Arrange
-        _ = _directoryService.Setup(_ => _.Get<Directory>("not-slug")).ReturnsAsync((Directory)null);
+        _directoryService.Setup(_ => _.Get<Directory>(It.IsAny<string>()))
+            .ReturnsAsync(directory);
 
         // Act
-        var result = await _directoryController.DirectoryAsKml("slug", Array.Empty<string>(), string.Empty, string.Empty);
+        var result = await _directoryController.DirectoryResults("slug", Array.Empty<string>(), string.Empty, "search me", 0);
 
         // Assert
-        Assert.IsType<NotFoundResult>(result);
-    }
-
-    [Fact]
-    public async Task DirectoryAsKml_ShouldReturnContentInKmlFormat(){
-        // Act
-        var result = await _directoryController.DirectoryAsKml("slug", Array.Empty<string>(), string.Empty, string.Empty);
-
-        // Assert
-        Assert.NotNull(result);
-    }
-
-    [Fact]
-    public async Task DirectoryAsKml_ShouldCallReturnContentInKmlFormat()
-    {
-        // Act
-        var result = await _directoryController.DirectoryAsKml("slug", Array.Empty<string>(), string.Empty, string.Empty);
-
-        // Assert
-        Assert.NotNull(result);
+        _directoryService.Verify(service => service.GetSearchedEntryForDirectories(It.IsAny<IEnumerable<DirectoryEntry>>(), It.IsAny<string>()), Times.Exactly(2));
     }
 }
