@@ -1,0 +1,18 @@
+.alert-inline {
+	padding: 1em;
+	background-color: $stockport-teal-lightest;
+	border-left: 6px solid $stockport-teal;
+}
+
+.alert-inline-warning {
+	border: 6px solid $stockport-orange;	
+
+	&--background {
+		background-color: lighten($stockport-orange, 5%);
+	}
+
+	&--border-left {
+		border: 0px;
+		border-left: 6px solid $stockport-orange;
+	}
+}

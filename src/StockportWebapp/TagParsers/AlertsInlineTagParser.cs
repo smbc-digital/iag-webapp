@@ -20,7 +20,17 @@ public class AlertsInlineTagParser : IDynamicTagParser<Alert>
             var AlertsInline = GetAlertsInlineMatchingTitle(alertsInline, AlertsInlineTitle);
             if (AlertsInline != null)
             {
-                var alertsInlineHtml = _viewRenderer.Render("AlertsInline", AlertsInline);
+                var alertsInlineHtml = String.Empty;
+
+                if (AlertsInline.Severity.Equals("Warning") || AlertsInline.Severity.Equals("Error"))
+                {
+                    alertsInlineHtml = _viewRenderer.Render("AlertsInlineWarning", AlertsInline);
+                }
+                else
+                {
+                    alertsInlineHtml = _viewRenderer.Render("AlertsInline", AlertsInline);
+                }
+
 
                 content = TagRegex.Replace(content, alertsInlineHtml, 1);
             }
