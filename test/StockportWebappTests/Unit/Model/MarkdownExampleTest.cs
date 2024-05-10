@@ -13,7 +13,7 @@ public class MarkdownExampleTest
 
         var convertedBody = MarkdownWrapper.ToHtml(body);
 
-        var expected = "<h1>Headings are fun</h1>\n" +
+        var expected = "<h1 id=\"headings-are-fun\">Headings are fun</h1>\n" +
                        "<div class=\"table\">\n" +
                        "<table>\n" +
                        "<thead>\n" +
@@ -39,7 +39,7 @@ public class MarkdownExampleTest
 
         var convertedBody = new MarkdownWrapper().ConvertToHtml(body);
 
-        var expected = "<h1>Headings are fun</h1>\n" +
+        var expected = "<h1 id=\"headings-are-fun\">Headings are fun</h1>\n" +
                        "<div class=\"table\">\n" +
                        "<table>\n" +
                        "<thead>\n" +

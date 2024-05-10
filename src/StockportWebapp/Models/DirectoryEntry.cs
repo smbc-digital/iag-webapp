@@ -15,6 +15,7 @@ namespace StockportWebapp.Models
         public IEnumerable<FilterTheme> Themes { get; set; } = new List<FilterTheme>();
         public IEnumerable<MinimalDirectory> Directories { get; set; }
         public IEnumerable<Alert> Alerts { get; set; }
+        public IEnumerable<Alert> AlertsInline { get; set; }
         public List<GroupBranding> Branding { get; set; } = new List<GroupBranding>();
         public MapPosition MapPosition { get; set; } = new MapPosition();
         public string PhoneNumber { get; set; } = string.Empty;

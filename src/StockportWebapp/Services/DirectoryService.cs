@@ -20,7 +20,7 @@ public class DirectoryService : IDirectoryService {
     private readonly ISimpleTagParserContainer _simpleTagParserContainer;
     private readonly IDynamicTagParserContainer _dynamicTagParserContainer;
 
-    public DirectoryService(IApplicationConfiguration config, MarkdownWrapper markdownWrapper, IRepository repository,ISimpleTagParserContainer simpleTagParserContainer, IDynamicTagParserContainer dynamicTagParserContainer)
+    public DirectoryService(MarkdownWrapper markdownWrapper, IRepository repository,ISimpleTagParserContainer simpleTagParserContainer, IDynamicTagParserContainer dynamicTagParserContainer)
 
     {
         _markdownWrapper = markdownWrapper;
@@ -40,7 +40,7 @@ public class DirectoryService : IDirectoryService {
 
         directory.Body = _markdownWrapper.ConvertToHtml(directory.Body ?? "");        
         var parsedBody = _simpleTagParserContainer.ParseAll(directory.Body, directory.Title);
-        directory.Body = _dynamicTagParserContainer.ParseAll(parsedBody, directory.Title, true, directory.Alerts, null, null, null, null, null);
+        directory.Body = _dynamicTagParserContainer.ParseAll(parsedBody, directory.Title, true, directory.AlertsInline, null, null, null, null, null);
 
         return directory;
     }
@@ -57,7 +57,7 @@ public class DirectoryService : IDirectoryService {
         directoryEntry.Address = _markdownWrapper.ConvertToHtml(directoryEntry.Address ?? "");
 
         var parsedBody = _simpleTagParserContainer.ParseAll(directoryEntry.Description, directoryEntry.Name);
-        directoryEntry.Description = _dynamicTagParserContainer.ParseAll(parsedBody, directoryEntry.Name, true, null, null, null, null, null, null);
+        directoryEntry.Description = _dynamicTagParserContainer.ParseAll(parsedBody, directoryEntry.Name, true, directoryEntry.AlertsInline, null, null, null, null, null);
 
         return directoryEntry;
     }
@@ -107,7 +107,7 @@ public class DirectoryService : IDirectoryService {
             ? filteredEntries
                 .Where(entry => entry.Themes is not null)
                 .SelectMany(entry => entry.Themes)
-                .Where(themeTitle => !string.IsNullOrEmpty(themeTitle.Title))
+                .Where(themeTitle => !string.IsNullOrEmpty(themeTitle.Title))   
                 .GroupBy(theme => theme.Title, StringComparer.OrdinalIgnoreCase)
                 .Select(group => new FilterTheme
                 {
