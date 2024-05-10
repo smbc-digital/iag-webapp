@@ -40,7 +40,7 @@ public class DirectoryService : IDirectoryService {
 
         directory.Body = _markdownWrapper.ConvertToHtml(directory.Body ?? "");        
         var parsedBody = _simpleTagParserContainer.ParseAll(directory.Body, directory.Title);
-        directory.Body = _dynamicTagParserContainer.ParseAll(parsedBody, directory.Title, true, null, null, null, null, null, null);
+        directory.Body = _dynamicTagParserContainer.ParseAll(parsedBody, directory.Title, true, directory.Alerts, null, null, null, null, null);
 
         return directory;
     }
