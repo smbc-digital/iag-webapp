@@ -38,6 +38,7 @@
 
     &-lead {
         @include lead;
+        margin-top: 0.5em;
 
         @media #{$mobile} {
             margin-left: 5px;
@@ -253,13 +254,17 @@
                 align-items: center;
             }
 
+            @media #{$tablet} {
+                padding: 0.5em 1.5em 1.5em;
+            }
+
             .directory-search_image--start {
                 @media #{$desktop} {
                     margin-inline-end: 1em;
                 }
 
                 @media #{$tablet} {
-                    width: 100%
+                    width: 100%;
                 }
             }
 
@@ -314,7 +319,7 @@
             font-size: 1.3rem;
             height: 3.375rem;
             margin: 0;
-            padding: 15px;
+            padding: 1em;
             width: calc(100% - 3.875rem);
 
             @media #{$tablet} {
@@ -503,7 +508,8 @@
     &__filters {
         &-facilities {
             column-count: 2;
-            margin-bottom: 1em;
+            margin-top: 10px;
+            margin-bottom: 10px;
 
             @media #{$mobile} {
                 column-count: 1;
