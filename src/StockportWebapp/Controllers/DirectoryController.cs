@@ -106,8 +106,12 @@ public class DirectoryController : Controller
             return NotFound();
         
         List<Directory> parentDirectories = await GetParentDirectories(pageLocation.ParentSlugs);
+        MapDetails mapDetails = new()
+        {
+            MapPosition = directoryEntry.MapPosition
+        };
 
-        return View(new DirectoryEntryViewModel(slug, directoryEntry, GetBreadcrumbsForDirectories(parentDirectories.FirstOrDefault(), parentDirectories, true, false)));
+        return View(new DirectoryEntryViewModel(slug, directoryEntry, GetBreadcrumbsForDirectories(parentDirectories.FirstOrDefault(), parentDirectories, true, false), mapDetails));
     }
 
     private List<Crumb> GetBreadcrumbsForDirectories(Directory currentDirectory, List<Directory> parentDirectories, bool viewLastBreadcrumbAsResults = false, bool addCurrentDirectoryBreadcrumb = false) 

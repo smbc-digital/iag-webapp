@@ -3,7 +3,6 @@ using SharpKml.Base;
 using Filter = StockportWebapp.Model.Filter;
 using SharpKml.Dom;
 using System.Web;
-using SharpKml.Dom.Atom;
 
 namespace StockportWebapp.ViewModels;
 
@@ -18,16 +17,19 @@ public class DirectoryEntryViewModel : ISlugComparable
 
     }
 
-    public DirectoryEntryViewModel(string slug, DirectoryEntry directoryEntry, IEnumerable<Crumb> breadcrumbs)
+    public DirectoryEntryViewModel(string slug, DirectoryEntry directoryEntry, IEnumerable<Crumb> breadcrumbs, MapDetails mapDetails)
         : this(slug, directoryEntry)
-        => Breadcrumbs = breadcrumbs;
+    {
+        Breadcrumbs = breadcrumbs;
+        MapDetails = mapDetails;
+    }
 
     public DirectoryEntryViewModel(string slug, DirectoryEntry directoryEntry, bool isPinned)
         : this(slug, directoryEntry)
         => IsPinned = isPinned;
 
-    public DirectoryEntryViewModel(string slug, DirectoryEntry directoryEntry, IEnumerable<Crumb> breadcrumbs, bool isPinned)
-        : this(slug, directoryEntry, breadcrumbs)
+    public DirectoryEntryViewModel(string slug, DirectoryEntry directoryEntry, IEnumerable<Crumb> breadcrumbs, MapDetails mapDetails, bool isPinned)
+        : this(slug, directoryEntry, breadcrumbs, mapDetails)
         => IsPinned = isPinned;
 
     public DirectoryEntry DirectoryEntry { get; set; }
@@ -35,7 +37,7 @@ public class DirectoryEntryViewModel : ISlugComparable
     public IEnumerable<Crumb> Breadcrumbs { get; set; }
     public bool IsPinned { get; set; } = false;
     public int MapPinIndex { get; set; } = 0;
-
+    public MapDetails MapDetails { get; set; }
     public bool ShowMapPin => DirectoryEntry.IsNotOnTheEqautor;
     public IEnumerable<Filter> HighlightedFilters => DirectoryEntry.Themes?
                                                         .SelectMany(_ => _.Filters.Where(_ => _.Highlight.Equals(true)))
@@ -49,11 +51,12 @@ public class DirectoryEntryViewModel : ISlugComparable
     public bool HasPrimaryContact
         => !string.IsNullOrEmpty(DirectoryEntry.PhoneNumber) || !string.IsNullOrEmpty(DirectoryEntry.Email);
     public bool DisplayContactUs => !string.IsNullOrEmpty(DirectoryEntry.Website) || HasPrimaryContact || DisplaySocials;
-
+    public bool DisplayMap => MapDetails.MapPosition is not null && DirectoryEntry.IsNotOnTheEqautor;
+    public string AddressWithoutTags => Regex.Replace(DirectoryEntry.Address, "<.*?>", ""); 
     public string ParentSlug { get; set; }  
 
     public string FullyResolvedSlug => $"{ParentSlug}/{Slug}";
-
+    
     public string ToString(string url) => String.Format("position: {{ lat: {0}, lng: {1} }}, title: \"{2}\", content: \"<h1 class='h-m'>{2}</h1><p class='body'>{3}</p><a class='body' href='{6}'>View {2}</a>\", isPinned: {4}, mapPinIndex: {5}", DirectoryEntry.MapPosition.Lat, DirectoryEntry.MapPosition.Lon, HttpUtility.HtmlEncode(DirectoryEntry.Name), HttpUtility.HtmlEncode(DirectoryEntry.Teaser), IsPinned ? "true" : "false", MapPinIndex, url);
     
     public Placemark ToKmlPlacemark(string pinnedStyle ="") => new Placemark
@@ -73,6 +76,5 @@ public class DirectoryEntryViewModel : ISlugComparable
         Address = DirectoryEntry.Address,
         AtomLink = new SharpKml.Dom.Atom.Link { Href = new Uri("https://www.stockport.gov.uk"), Title = $"Visit {DirectoryEntry.Name}" },
         StyleUrl = string.IsNullOrEmpty(pinnedStyle) ? null : new Uri($"#{pinnedStyle}", UriKind.Relative),
-
     };
 }

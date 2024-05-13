@@ -202,7 +202,7 @@ public class DirectoryEntryViewModelTest
     [Fact]
     public void IsPinned_CorrectlySet()
     {
-        var viewModel = new DirectoryEntryViewModel("test", new(), Enumerable.Empty<Crumb>(), true);
+        var viewModel = new DirectoryEntryViewModel("test", new(), Enumerable.Empty<Crumb>(), new MapDetails(), true);
         Assert.True(viewModel.IsPinned);
     }    
 }
