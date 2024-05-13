@@ -3,7 +3,7 @@
 /// <summary>
 /// This is a one off piece of middleware to  ensure 
 /// that no old cookies are retained from the previous consent scheme 
-/// that we know require consent (Google Analytics, SiteImprove, Alerts dismisal, Old cookie consent)
+/// that we know require consent (Google Analytics, SiteImprove, Alerts dismissal, Old cookie consent)
 /// </summary>
 /// 
 public class CookiesComplianceMiddleware
@@ -14,7 +14,7 @@ public class CookiesComplianceMiddleware
     public CookiesComplianceMiddleware(RequestDelegate next, CookiesHelper cookiesHelper)
     {
         _next = next;
-        _cookiesHelper = cookiesHelper; 
+        _cookiesHelper = cookiesHelper;
     }
 
     public Task Invoke(HttpContext httpContext)
@@ -32,17 +32,24 @@ public class CookiesComplianceMiddleware
         var consentLevels = _cookiesHelper.GetCurrentCookieConsentLevel();
 
         if (!consentLevels.Functionality)
+        {
             RemoveFunctionalCookies();
+        }
 
         if (!consentLevels.Tracking)
+        {
             RemoveTrackingCookies();
-        
-        // There should be no targetting cookies
+        }
+
+        if (!consentLevels.Targetting)
+        {
+            RemoveTargettingCookies();
+        }
 
         return _next(httpContext);
     }
 
-    private void RemoveFunctionalCookies() 
+    private void RemoveFunctionalCookies()
     {
         _cookiesHelper.RemoveCookie("alerts");
         _cookiesHelper.RemoveCookie("favourites");
@@ -60,5 +67,10 @@ public class CookiesComplianceMiddleware
         _cookiesHelper.RemoveCookie("hubspotuk");
         _cookiesHelper.RemoveCookie("siteimproveses");
         _cookiesHelper.RemoveCookie("ga");
+    }
+
+    private void RemoveTargettingCookies()
+    {
+        // No targetting cookies currently set  
     }
 }

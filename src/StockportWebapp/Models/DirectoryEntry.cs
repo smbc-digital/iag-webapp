@@ -1,9 +1,10 @@
 using SharpKml.Base;
 using SharpKml.Dom;
+using StockportWebapp.Comparers;
 
 namespace StockportWebapp.Models
 {
-    public class DirectoryEntry
+    public class DirectoryEntry : ISlugComparable
     {
         public string Slug { get; set; }
         public string Name { get; set; }
@@ -28,8 +29,9 @@ namespace StockportWebapp.Models
         public string Image { get; set; }
         public IEnumerable<string> Tags { get; set; } = new List<string>();
         public MapDetails MapDetails { get; set; }
+        public bool IsNotOnTheEqautor => MapPosition.Lat != 0 && MapPosition.Lon != 0;
 
-        public Placemark ToKmlPlacemark() => new()
+        public Placemark ToKmlPlacemark(string style = "") => new Placemark
         {
             // Ref
             // https://developers.google.com/kml/documentation/kml_tut?csw=1#descriptive_html
@@ -37,40 +39,14 @@ namespace StockportWebapp.Models
 
             Geometry = new Point
             {
-                Coordinate = new Vector(MapPosition.Lat, MapPosition.Lon),
+                Coordinate = new Vector(this.MapPosition.Lat, this.MapPosition.Lon),
             },
             Name = Name,
-            Description = new Description() { Text = $@"<![CDATA[{ Teaser }]]>" },
-            PhoneNumber = PhoneNumber,
-            Address = Address,
-            AtomLink = new SharpKml.Dom.Atom.Link { Href = new Uri("https://www.stockport.gov.uk"), Title=$"Visit {Name}" }
+            Description = new Description() { Text = $@"<![CDATA[{ this.Teaser }]]>" },
+            PhoneNumber = this.PhoneNumber,
+            Address = this.Address,
+            AtomLink = new SharpKml.Dom.Atom.Link { Href = new Uri("https://www.stockport.gov.uk"), Title=$"Visit {this.Name}" },
+            StyleUrl=string.IsNullOrEmpty(style) ? null : new Uri(style),
         };
-    }
-
-    public class DirectoryEntryComparer : IEqualityComparer<DirectoryEntry>
-    {
-        // Products are equal if their names and product numbers are equal.
-        public bool Equals(DirectoryEntry x, DirectoryEntry y)
-        {
-            //Check whether the compared objects reference the same data.
-            if (Object.ReferenceEquals(x, y)) return true;
-
-            //Check whether any of the compared objects is null.
-            if (Object.ReferenceEquals(x, null) || Object.ReferenceEquals(y, null))
-                return false;
-
-            //Check whether the products' properties are equal.
-            return x.Slug == y.Slug;
-        }
-
-        public int GetHashCode(DirectoryEntry directoryEntry)
-        {
-            //Check whether the object is null
-            if (Object.ReferenceEquals(directoryEntry, null)) return 0;
-
-            //Get hash code for the Name field if it is not null.
-            int hashDirectorySlug = directoryEntry.Slug == null ? 0 : directoryEntry.Slug.GetHashCode();
-            return hashDirectorySlug;
-        }
     }
 }
