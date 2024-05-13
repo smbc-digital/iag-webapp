@@ -106,7 +106,7 @@ public class DirectoryController : Controller
             return NotFound();
         
         List<Directory> parentDirectories = await GetParentDirectories(pageLocation.ParentSlugs);
-        var mapDetails = new MapDetails()
+        MapDetails mapDetails = new()
         {
             MapPosition = directoryEntry.MapPosition
         };
