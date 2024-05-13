@@ -327,7 +327,7 @@ public class DirectoryEntryViewModelTest
     }
 
     [Fact]
-    public void ToKmlPlacemark_ConstructsPlacemarkCorrectly_WithPinnedStyle()
+    public void ToKmlPlacemark_ConstructsPlacemarkCorrectly()
     {
         // Arrange
         var viewModel = new DirectoryEntryViewModel
