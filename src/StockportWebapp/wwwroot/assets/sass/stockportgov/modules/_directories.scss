@@ -380,7 +380,7 @@
         }
     }
 
-    &--border-top, &__filters {
+    &--border-top, &__filters, &__map {
         border-radius: 3px;
         margin-bottom: 2em;
 
@@ -805,6 +805,25 @@
             margin-inline-end: 0;
             margin-block-end: 0.5em;
             width: 100%;
+        }
+    }
+
+    &__map {
+        &-container {
+            margin-bottom: 2em;
+        }
+
+        &-container .map-container {
+            height: 330px;
+            margin-top: 10px;
+        }
+
+        &-embed {
+            display: none;
+        }
+
+        &-accessible-transport {
+            margin-top: 1em;
         }
     }
 }
