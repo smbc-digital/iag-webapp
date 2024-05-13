@@ -7,11 +7,11 @@ public interface IEventFactory
 
 public class EventFactory : IEventFactory
 {
-    private readonly ISimpleTagParserContainer _simpleTagParserContainer;
+    private readonly ITagParserContainer _simpleTagParserContainer;
     private readonly MarkdownWrapper _markdownWrapper;
     private readonly IDynamicTagParser<Document> _documentTagParser;
 
-    public EventFactory(ISimpleTagParserContainer simpleTagParserContainer, MarkdownWrapper markdownWrapper, IDynamicTagParser<Document> documentTagParser)
+    public EventFactory(ITagParserContainer simpleTagParserContainer, MarkdownWrapper markdownWrapper, IDynamicTagParser<Document> documentTagParser)
     {
         _simpleTagParserContainer = simpleTagParserContainer;
         _markdownWrapper = markdownWrapper;

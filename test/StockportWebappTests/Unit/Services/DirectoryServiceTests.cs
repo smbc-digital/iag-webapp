@@ -7,8 +7,7 @@ public class DirectoryServiceTests
     private readonly DirectoryService _service;
     private readonly Mock<MarkdownWrapper> _mockMarkdownWrapper = new();
     private readonly Mock<IRepository> _mockRepository = new();
-    private readonly Mock<ISimpleTagParserContainer> _mockSimpleTagParserContainer = new();
-    private readonly Mock<IDynamicTagParserContainer> _mockDynamicTagParserContainer = new();
+    private readonly Mock<ITagParserContainer> _mockSimpleTagParserContainer = new();   
 
     private readonly string[] filters = { "value1", "value2", "value3", "value11" };
 
@@ -230,8 +229,7 @@ public class DirectoryServiceTests
         _service = new DirectoryService(
             _mockMarkdownWrapper.Object,
             _mockRepository.Object,
-            _mockSimpleTagParserContainer.Object,
-            _mockDynamicTagParserContainer.Object
+            _mockSimpleTagParserContainer.Object
         );
     }
 

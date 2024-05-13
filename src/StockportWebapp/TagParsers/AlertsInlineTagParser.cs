@@ -4,10 +4,12 @@ public class AlertsInlineTagParser : IDynamicTagParser<Alert>
 {
     private readonly IViewRender _viewRenderer;
 
-    public AlertsInlineTagParser(IViewRender viewRenderer)
-        => _viewRenderer = viewRenderer;
+    public AlertsInlineTagParser(IViewRender viewRenderer) => _viewRenderer = viewRenderer;
+
 
     protected Regex TagRegex => new("{{Alerts-Inline:(\\s*[/a-zA-Z0-9][^}]+)}}", RegexOptions.Compiled);
+
+    public bool HasMatches(string content) => TagRegex.IsMatch(content);
 
     public string Parse(string content, IEnumerable<Alert> alertsInline)
     {

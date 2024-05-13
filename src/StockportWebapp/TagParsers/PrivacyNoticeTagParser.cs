@@ -3,15 +3,12 @@
 public class PrivacyNoticeTagParser : IDynamicTagParser<PrivacyNotice>
 {
     private readonly IViewRender _viewRenderer;
-    private readonly ILogger<PrivacyNotice> _logger;
 
-    public PrivacyNoticeTagParser(IViewRender viewRenderer, ILogger<PrivacyNotice> logger)
-    {
-        _viewRenderer = viewRenderer;
-        _logger = logger;
-    }
+    public PrivacyNoticeTagParser(IViewRender viewRenderer) => _viewRenderer = viewRenderer;
 
     protected Regex TagRegex => new Regex("{{PrivacyNotice:(.*?)}}", RegexOptions.Compiled);
+
+    public bool HasMatches(string content) => TagRegex.IsMatch(content);
 
     public string Parse(string content, IEnumerable<PrivacyNotice> privacyNotices)
     {

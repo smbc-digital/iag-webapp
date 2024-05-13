@@ -4,7 +4,7 @@ public class SectionFactoryTest
 {
     private readonly SectionFactory _factory;
     private readonly Mock<MarkdownWrapper> _markdownWrapper;
-    private readonly Mock<ISimpleTagParserContainer> _tagParserContainer;
+    private readonly Mock<ITagParserContainer> _tagParserContainer;
     private readonly Mock<IDynamicTagParser<Profile>> _profileTagParser;
     private readonly Mock<IDynamicTagParser<Document>> _documentTagParser;
     private readonly Mock<IDynamicTagParser<Alert>> _alertsInlineTagParser;
@@ -25,7 +25,7 @@ public class SectionFactoryTest
     public SectionFactoryTest()
     {
         _markdownWrapper = new Mock<MarkdownWrapper>();
-        _tagParserContainer = new Mock<ISimpleTagParserContainer>();
+        _tagParserContainer = new Mock<ITagParserContainer>();
         _profileTagParser = new Mock<IDynamicTagParser<Profile>>();
         _documentTagParser = new Mock<IDynamicTagParser<Document>>();
         _alertsInlineTagParser = new Mock<IDynamicTagParser<Alert>>();
@@ -38,7 +38,7 @@ public class SectionFactoryTest
         _section = new Section(Title, Slug, MetaDescription, Body, _profiles, _documents, _emptyAlertsInline);
 
         _markdownWrapper.Setup(o => o.ConvertToHtml(Body)).Returns(Body);
-        _tagParserContainer.Setup(o => o.ParseAll(Body, It.IsAny<string>(), It.IsAny<bool>())).Returns(Body);
+        _tagParserContainer.Setup(o => o.ParseAll(Body, It.IsAny<string>(), It.IsAny<bool>(), null, null, null, null, null, null)).Returns(Body);
         _profileTagParser.Setup(o => o.Parse(Body, _section.Profiles)).Returns(Body);
         _documentTagParser.Setup(o => o.Parse(Body, _section.Documents)).Returns(Body);
         _alertsInlineTagParser.Setup(o => o.Parse(Body, _emptyAlertsInline)).Returns(Body);
@@ -71,7 +71,7 @@ public class SectionFactoryTest
     {
         _factory.Build(_section, _articleTitle);
 
-        _tagParserContainer.Verify(o => o.ParseAll(Body, It.IsAny<string>(), It.IsAny<bool>()), Times.Once);
+        _tagParserContainer.Verify(o => o.ParseAll(Body, It.IsAny<string>(), It.IsAny<bool>(), null, null, null, null, null, null), Times.Once);
     }
 
     [Fact]
@@ -87,7 +87,7 @@ public class SectionFactoryTest
     {
         _factory.Build(_section, _articleTitle);
 
-        _tagParserContainer.Verify(o => o.ParseAll(Body, _articleTitle, It.IsAny<bool>()), Times.Once);
+        _tagParserContainer.Verify(o => o.ParseAll(Body, _articleTitle, It.IsAny<bool>(), null, null, null, null, null, null), Times.Once);
     }
 
     [Fact]

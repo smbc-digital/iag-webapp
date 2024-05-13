@@ -72,8 +72,7 @@ namespace StockportWebapp.Utils.Extensions
             services.AddSingleton<IDynamicTagParser<S3BucketSearch>, S3BucketSearchTagParser>();
             services.AddSingleton<IDynamicTagParser<PrivacyNotice>, PrivacyNoticeTagParser>();
 
-            services.AddSingleton<ISimpleTagParserContainer, SimpleTagParserContainer>();
-            services.AddSingleton<IDynamicTagParserContainer, DynamicTagParserContainer>();
+            services.AddSingleton<ITagParserContainer, TagParserContainer>();
 
             return services;
         }
@@ -93,7 +92,7 @@ namespace StockportWebapp.Utils.Extensions
             services.AddTransient<ITriviaFactory>(p => new TriviaFactory(p.GetService<MarkdownWrapper>()));
             services.AddTransient<SectionFactory>();
             services.AddTransient(p => new ArticleFactory(
-                p.GetService<ISimpleTagParserContainer>(),
+                p.GetService<ITagParserContainer>(),
                 p.GetService<IDynamicTagParser<Profile>>(),
                 p.GetService<SectionFactory>(),
                 p.GetService<MarkdownWrapper>(),
@@ -107,7 +106,7 @@ namespace StockportWebapp.Utils.Extensions
 
             services.AddTransient<TopicFactory>();
             services.AddTransient(p => new TopicFactory(
-                p.GetService<ISimpleTagParserContainer>(),
+                p.GetService<ITagParserContainer>(),
                 p.GetService<MarkdownWrapper>()));
 
             return services;
@@ -131,7 +130,7 @@ namespace StockportWebapp.Utils.Extensions
                 p =>
                     new ProcessedContentRepository(p.GetService<UrlGenerator>(), p.GetService<IHttpClient>(),
                         new ContentTypeFactory(
-                                        p.GetService<ISimpleTagParserContainer>(),
+                                        p.GetService<ITagParserContainer>(),
                                             p.GetService<IDynamicTagParser<Profile>>(),
                                             p.GetService<MarkdownWrapper>(),
                                             p.GetService<IDynamicTagParser<Document>>(),
@@ -164,7 +163,7 @@ namespace StockportWebapp.Utils.Extensions
             services.AddTransient<IProfileService>(p => new
                 ProfileService(
                     p.GetService<IRepository>(),
-                    p.GetService<ISimpleTagParserContainer>(),
+                    p.GetService<ITagParserContainer>(),
                     p.GetService<MarkdownWrapper>(),
                     p.GetService<IDynamicTagParser<Alert>>(),
                     p.GetService<ITriviaFactory>(),
@@ -203,7 +202,7 @@ namespace StockportWebapp.Utils.Extensions
                 p =>
                     new DocumentPageRepository(p.GetService<UrlGenerator>(), p.GetService<IHttpClient>(),
                         p.GetService<DocumentPageFactory>(), p.GetService<IApplicationConfiguration>()));
-            services.AddSingleton<IEventFactory>(p => new EventFactory(p.GetService<ISimpleTagParserContainer>(), p.GetService<MarkdownWrapper>(), p.GetService<IDynamicTagParser<Document>>()));
+            services.AddSingleton<IEventFactory>(p => new EventFactory(p.GetService<ITagParserContainer>(), p.GetService<MarkdownWrapper>(), p.GetService<IDynamicTagParser<Document>>()));
             services.AddTransient<ILoggedInHelper>(p => new LoggedInHelper(p.GetService<IHttpContextAccessor>(), p.GetService<CurrentEnvironment>(), p.GetService<IJwtDecoder>(), p.GetService<ILogger<LoggedInHelper>>()));
             
             return services;

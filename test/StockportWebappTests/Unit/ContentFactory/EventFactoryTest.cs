@@ -4,7 +4,7 @@ public class EventFactoryTest
 {
     private readonly EventFactory _factory;
     private readonly Mock<MarkdownWrapper> _markdownWrapper;
-    private readonly Mock<ISimpleTagParserContainer> _tagParserContainer;
+    private readonly Mock<ITagParserContainer> _tagParserContainer;
     private readonly Mock<IDynamicTagParser<Document>> _documentTagParser;
     private readonly Event _event;
     private const string Title = "This is the event";
@@ -27,7 +27,7 @@ public class EventFactoryTest
     public EventFactoryTest()
     {
         _markdownWrapper = new Mock<MarkdownWrapper>();
-        _tagParserContainer = new Mock<ISimpleTagParserContainer>();
+        _tagParserContainer = new Mock<ITagParserContainer>();
         _documentTagParser = new Mock<IDynamicTagParser<Document>>();
         _factory = new EventFactory(_tagParserContainer.Object, _markdownWrapper.Object, _documentTagParser.Object);
         _event = new Event
@@ -49,7 +49,7 @@ public class EventFactoryTest
             Alerts = _alerts
         };
 
-        _tagParserContainer.Setup(o => o.ParseAll(Description, It.IsAny<string>(), It.IsAny<bool>())).Returns(Description);
+        _tagParserContainer.Setup(o => o.ParseAll(Description, It.IsAny<string>(), It.IsAny<bool>(), null, null, null, null, null, null)).Returns(Description);
         _markdownWrapper.Setup(o => o.ConvertToHtml(Description)).Returns(Description);
         _documentTagParser.Setup(o => o.Parse(Description, _event.Documents)).Returns(Description);
     }
@@ -90,7 +90,7 @@ public class EventFactoryTest
     {
         _factory.Build(_event);
 
-        _tagParserContainer.Verify(o => o.ParseAll(Description, _event.Title, It.IsAny<bool>()), Times.Once);
+        _tagParserContainer.Verify(o => o.ParseAll(Description, _event.Title, It.IsAny<bool>(), null, null, null, null, null, null), Times.Once);
     }
 
     [Fact]

@@ -3,15 +3,12 @@
 public class S3BucketSearchTagParser : IDynamicTagParser<S3BucketSearch>
 {
     private readonly IViewRender _viewRenderer;
-    private readonly ILogger<S3BucketSearch> _logger;
 
-    public S3BucketSearchTagParser(IViewRender viewRenderer, ILogger<S3BucketSearch> logger)
-    {
-        _viewRenderer = viewRenderer;
-        _logger = logger;
-    }
+    public S3BucketSearchTagParser(IViewRender viewRenderer) => _viewRenderer = viewRenderer;
 
     protected Regex TagRegex => new Regex("{{(Search:((.*?)\\/)*)}}", RegexOptions.Compiled);
+
+    public bool HasMatches(string content) => TagRegex.IsMatch(content);
 
     public string Parse(string content, IEnumerable<S3BucketSearch> searches)
     {

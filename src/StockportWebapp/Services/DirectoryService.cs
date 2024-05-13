@@ -17,16 +17,14 @@ public interface IDirectoryService
 public class DirectoryService : IDirectoryService {
     private readonly MarkdownWrapper _markdownWrapper;
     private readonly IRepository _repository;
-    private readonly ISimpleTagParserContainer _simpleTagParserContainer;
-    private readonly IDynamicTagParserContainer _dynamicTagParserContainer;
+    private readonly ITagParserContainer _tagParserContainer;
 
-    public DirectoryService(MarkdownWrapper markdownWrapper, IRepository repository,ISimpleTagParserContainer simpleTagParserContainer, IDynamicTagParserContainer dynamicTagParserContainer)
+    public DirectoryService(MarkdownWrapper markdownWrapper, IRepository repository,ITagParserContainer tagParserContainer)
 
     {
         _markdownWrapper = markdownWrapper;
         _repository = repository;
-        _simpleTagParserContainer = simpleTagParserContainer;
-        _dynamicTagParserContainer = dynamicTagParserContainer;
+        _tagParserContainer = tagParserContainer;
     }
 
     public async Task<Directory> Get<T>(string slug = "")
@@ -38,9 +36,8 @@ public class DirectoryService : IDirectoryService {
             
         var directory = (Directory)httpResponse.Content;
 
-        directory.Body = _markdownWrapper.ConvertToHtml(directory.Body ?? "");        
-        var parsedBody = _simpleTagParserContainer.ParseAll(directory.Body, directory.Title);
-        directory.Body = _dynamicTagParserContainer.ParseAll(parsedBody, directory.Title, true, directory.AlertsInline, null, null, null, null, null);
+        directory.Body = _markdownWrapper.ConvertToHtml(directory.Body ?? "");
+        directory.Body = _tagParserContainer.ParseAll(directory.Body, directory.Title, true, directory.AlertsInline, null, null, null, null, null);
 
         return directory;
     }
@@ -55,9 +52,7 @@ public class DirectoryService : IDirectoryService {
         var directoryEntry = (DirectoryEntry)httpResponse.Content;
         directoryEntry.Description = _markdownWrapper.ConvertToHtml(directoryEntry.Description ?? "");
         directoryEntry.Address = _markdownWrapper.ConvertToHtml(directoryEntry.Address ?? "");
-
-        var parsedBody = _simpleTagParserContainer.ParseAll(directoryEntry.Description, directoryEntry.Name);
-        directoryEntry.Description = _dynamicTagParserContainer.ParseAll(parsedBody, directoryEntry.Name, true, directoryEntry.AlertsInline, null, null, null, null, null);
+        directoryEntry.Description = _tagParserContainer.ParseAll(directoryEntry.Description, directoryEntry.Name, true, directoryEntry.AlertsInline, null, null, null, null, null);
 
         return directoryEntry;
     }

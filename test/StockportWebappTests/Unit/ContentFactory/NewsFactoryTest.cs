@@ -4,7 +4,7 @@ public class NewsFactoryTest
 {
     private readonly NewsFactory _factory;
     private readonly Mock<MarkdownWrapper> _markdownWrapper;
-    private readonly Mock<ISimpleTagParserContainer> _tagParserContainer;
+    private readonly Mock<ITagParserContainer> _tagParserContainer;
     private readonly Mock<IDynamicTagParser<Document>> _documentTagParser;
     private readonly Mock<IDynamicTagParser<Profile>> _profileTagParser;
     private readonly News _news;
@@ -27,13 +27,13 @@ public class NewsFactoryTest
     public NewsFactoryTest()
     {
         _markdownWrapper = new Mock<MarkdownWrapper>();
-        _tagParserContainer = new Mock<ISimpleTagParserContainer>();
+        _tagParserContainer = new Mock<ITagParserContainer>();
         _documentTagParser = new Mock<IDynamicTagParser<Document>>();
         _profileTagParser = new Mock<IDynamicTagParser<Profile>>();
         _factory = new NewsFactory(_tagParserContainer.Object, _markdownWrapper.Object, _documentTagParser.Object, _profileTagParser.Object);
         _news = new News(Title, Slug, Teaser, Purpose, Image, ThumbnailImage, Body, _breadcrumbs, _sunrise, _sunset, _updatedAt, _alerts, _tags, _documents, new List<Profile>());
 
-        _tagParserContainer.Setup(_ => _.ParseAll(Body, It.IsAny<string>(), It.IsAny<bool>())).Returns(Body);
+        _tagParserContainer.Setup(_ => _.ParseAll(Body, It.IsAny<string>(), It.IsAny<bool>(), null, null, null, null, null, null)).Returns(Body);
         _markdownWrapper.Setup(_ => _.ConvertToHtml(Body)).Returns(Body);
     }
 
@@ -70,7 +70,7 @@ public class NewsFactoryTest
     {
         // Act & Assert
         _factory.Build(_news);
-        _tagParserContainer.Verify(_ => _.ParseAll(Body, It.IsAny<string>(), It.IsAny<bool>()), Times.Once);
+        _tagParserContainer.Verify(_ => _.ParseAll(Body, It.IsAny<string>(), It.IsAny<bool>(), null, null, null, null, null, null), Times.Once);
     }
 
     [Fact]
@@ -78,7 +78,7 @@ public class NewsFactoryTest
     {
         // Act & Assert
         _factory.Build(_news);
-        _tagParserContainer.Verify(_ => _.ParseAll(Body, _news.Title, It.IsAny<bool>()), Times.Once);
+        _tagParserContainer.Verify(_ => _.ParseAll(Body, _news.Title, It.IsAny<bool>(), null, null, null, null, null, null), Times.Once);
     }
 
      [Fact]

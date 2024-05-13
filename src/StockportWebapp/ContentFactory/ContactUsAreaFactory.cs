@@ -2,12 +2,12 @@
 
 public class ContactUsAreaFactory
 {
-    private readonly ISimpleTagParserContainer _tagParserContainer;
+    private readonly ITagParserContainer _tagParserContainer;
     private readonly MarkdownWrapper _markdownWrapper;
     private readonly IContactUsCategoryFactory _contactUsCategoryFactory;
 
 
-    public ContactUsAreaFactory(ISimpleTagParserContainer tagParserContainer, MarkdownWrapper markdownWrapper, IContactUsCategoryFactory contactUsCategoryFactory)
+    public ContactUsAreaFactory(ITagParserContainer tagParserContainer, MarkdownWrapper markdownWrapper, IContactUsCategoryFactory contactUsCategoryFactory)
     {
         _tagParserContainer = tagParserContainer;
         _markdownWrapper = markdownWrapper;

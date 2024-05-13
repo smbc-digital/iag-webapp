@@ -2,10 +2,10 @@
 
 public class ServicePayPaymentFactory
 {
-    private readonly ISimpleTagParserContainer _simpleTagParserContainer;
+    private readonly ITagParserContainer _simpleTagParserContainer;
     private readonly MarkdownWrapper _markdownWrapper;
 
-    public ServicePayPaymentFactory(ISimpleTagParserContainer simpleTagParserContainer, MarkdownWrapper markdownWrapper)
+    public ServicePayPaymentFactory(ITagParserContainer simpleTagParserContainer, MarkdownWrapper markdownWrapper)
     {
         _simpleTagParserContainer = simpleTagParserContainer;
         _markdownWrapper = markdownWrapper;

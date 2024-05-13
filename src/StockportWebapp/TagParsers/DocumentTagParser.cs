@@ -3,15 +3,12 @@ namespace StockportWebapp.TagParsers;
 public class DocumentTagParser : IDynamicTagParser<Document>
 {
     private readonly IViewRender _viewRenderer;
-    private readonly ILogger<DocumentTagParser> _logger;
 
-    public DocumentTagParser(IViewRender viewRenderer, ILogger<DocumentTagParser> logger)
-    {
-        _viewRenderer = viewRenderer;
-        _logger = logger;
-    }
+    public DocumentTagParser(IViewRender viewRenderer) => _viewRenderer = viewRenderer;
 
     protected Regex TagRegex => new Regex("{{PDF:(\\s*[/a-zA-Z0-9][^}]+)}}", RegexOptions.Compiled);
+    public bool HasMatches(string content) => TagRegex.IsMatch(content);
+
 
     public string Parse(string content, IEnumerable<Document> documents)
     {

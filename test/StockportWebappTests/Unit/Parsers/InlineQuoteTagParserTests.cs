@@ -3,12 +3,11 @@
 public class InlineQuoteTagParserTests
 {
     private readonly Mock<IViewRender> _viewRenderer = new Mock<IViewRender>();
-    private readonly Mock<ILogger<InlineQuoteTagParser>> _logger = new Mock<ILogger<InlineQuoteTagParser>>();
     private readonly InlineQuoteTagParser _parser;
 
     public InlineQuoteTagParserTests()
     {
-        _parser = new InlineQuoteTagParser(_viewRenderer.Object, _logger.Object);
+        _parser = new InlineQuoteTagParser(_viewRenderer.Object);
     }
 
     [Fact]

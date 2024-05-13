@@ -4,12 +4,12 @@ namespace StockportWebapp.ContentFactory;
 
 public class NewsFactory
 {
-    private readonly ISimpleTagParserContainer _simpleTagParserContainer;
+    private readonly ITagParserContainer _simpleTagParserContainer;
     private readonly MarkdownWrapper _markdownWrapper;
     private readonly IDynamicTagParser<Document> _documentTagParser;
     private readonly IDynamicTagParser<Profile> _profileTagParser;
 
-    public NewsFactory(ISimpleTagParserContainer simpleTagParserContainer, MarkdownWrapper markdownWrapper, IDynamicTagParser<Document> documentTagParser, IDynamicTagParser<Profile> profileTagParser)
+    public NewsFactory(ITagParserContainer simpleTagParserContainer, MarkdownWrapper markdownWrapper, IDynamicTagParser<Document> documentTagParser, IDynamicTagParser<Profile> profileTagParser)
     {
         _simpleTagParserContainer = simpleTagParserContainer;
         _markdownWrapper = markdownWrapper;

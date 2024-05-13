@@ -2,7 +2,7 @@
 
 public class ArticleFactoryTest
 {
-    private readonly Mock<ISimpleTagParserContainer> _tagParserContainer;
+    private readonly Mock<ITagParserContainer> _tagParserContainer;
     private readonly Mock<MarkdownWrapper> _markdownWrapper;
     private readonly ArticleFactory _articleFactory;
     private readonly Mock<ISectionFactory> _sectionFactory;
@@ -34,7 +34,7 @@ public class ArticleFactoryTest
 
     public ArticleFactoryTest()
     {
-        _tagParserContainer = new Mock<ISimpleTagParserContainer>();
+        _tagParserContainer = new Mock<ITagParserContainer>();
         _profileTagParser = new Mock<IDynamicTagParser<Profile>>();
         _markdownWrapper = new Mock<MarkdownWrapper>();
         _sectionFactory = new Mock<ISectionFactory>();
@@ -60,7 +60,7 @@ public class ArticleFactoryTest
         _sectionFactory.Setup(o => o.Build(_sectionTwo, _article.Title)).Returns(_processedSectionTwo);
         _repository.Setup(o => o.Get<List<PrivacyNotice>>(It.IsAny<string>(), It.IsAny<List<Query>>())).ReturnsAsync(new HttpResponse(200, new List<PrivacyNotice>(), ""));
         _markdownWrapper.Setup(o => o.ConvertToHtml(Body)).Returns(Body);
-        _tagParserContainer.Setup(o => o.ParseAll(Body, It.IsAny<string>(), It.IsAny<bool>())).Returns(Body);
+        _tagParserContainer.Setup(o => o.ParseAll(Body, It.IsAny<string>(), It.IsAny<bool>(), It.IsAny<IEnumerable<Alert>>(), It.IsAny<IEnumerable<Document>>(), It.IsAny<IEnumerable<InlineQuote>>(), It.IsAny<IEnumerable<PrivacyNotice>>(), It.IsAny<IEnumerable<Profile>>(), It.IsAny<IEnumerable<S3BucketSearch>>())).Returns(Body);
         _profileTagParser.Setup(o => o.Parse(Body, _emptyProfiles)).Returns(Body);
         _documentTagParser.Setup(o => o.Parse(Body, _emptyDocuments)).Returns(Body);
         _alertsInlineTagParser.Setup(o => o.Parse(Body, _emptyAlertsInline)).Returns(Body);
@@ -109,15 +109,7 @@ public class ArticleFactoryTest
     {
         _articleFactory.Build(_article);
 
-        _tagParserContainer.Verify(o => o.ParseAll(Body, It.IsAny<string>(), It.IsAny<bool>()), Times.Once);
-    }
-
-    [Fact]
-    public void ShouldProcessBodyWithProfileTagParsing()
-    {
-        _articleFactory.Build(_article);
-
-        _profileTagParser.Verify(o => o.Parse(Body, _article.Profiles), Times.Once);
+        _tagParserContainer.Verify(o => o.ParseAll(Body, It.IsAny<string>(), It.IsAny<bool>(), It.IsAny<IEnumerable<Alert>>(), It.IsAny<IEnumerable<Document>>(), It.IsAny<IEnumerable<InlineQuote>>(), It.IsAny<IEnumerable<PrivacyNotice>>(), It.IsAny<IEnumerable<Profile>>(), It.IsAny<IEnumerable<S3BucketSearch>>()), Times.Once);
     }
 
     [Fact]
@@ -125,16 +117,6 @@ public class ArticleFactoryTest
     {
         _articleFactory.Build(_article);
 
-        _tagParserContainer.Verify(o => o.ParseAll(Body, _article.Title, It.IsAny<bool>()), Times.Once);
-    }
-
-    [Fact]
-    public void Build_ShouldParseBodyIfPrivacyNoticeTagParserExists()
-    {
-        _s3BucketParser.Setup(o => o.Parse(It.IsAny<string>(), It.IsAny<IEnumerable<S3BucketSearch>>())).Returns("{{PrivacyNotice:Births,deathsandmarriages}}");
-        _article.Body = "{{PrivacyNotice:Births,deathsandmarriages}}";
-        _articleFactory.Build(_article);
-
-        _privacyNoticeTagParser.Verify(o => o.Parse(It.IsAny<string>(), It.IsAny<IEnumerable<PrivacyNotice>>()), Times.Once);
+        _tagParserContainer.Verify(o => o.ParseAll(Body, _article.Title, It.IsAny<bool>(), It.IsAny<IEnumerable<Alert>>(), It.IsAny<IEnumerable<Document>>(), It.IsAny<IEnumerable<InlineQuote>>(), It.IsAny<IEnumerable<PrivacyNotice>>(), It.IsAny<IEnumerable<Profile>>(), It.IsAny<IEnumerable<S3BucketSearch>>()), Times.Once);
     }
 }

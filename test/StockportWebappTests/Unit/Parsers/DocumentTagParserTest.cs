@@ -4,13 +4,11 @@ public class DocumentTagParserTest
 {
     private readonly Mock<IViewRender> _viewRenderer;
     private readonly DocumentTagParser _documentTagParser;
-    private readonly Mock<ILogger<DocumentTagParser>> _mockLogger;
 
     public DocumentTagParserTest()
     {
         _viewRenderer = new Mock<IViewRender>();
-        _mockLogger = new Mock<ILogger<DocumentTagParser>>();
-        _documentTagParser = new DocumentTagParser(_viewRenderer.Object, _mockLogger.Object);
+        _documentTagParser = new DocumentTagParser(_viewRenderer.Object);
     }
 
     [Fact]
