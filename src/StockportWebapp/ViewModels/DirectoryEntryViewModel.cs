@@ -57,9 +57,9 @@ public class DirectoryEntryViewModel : ISlugComparable
 
     public string FullyResolvedSlug => $"{ParentSlug}/{Slug}";
     
-    public string ToString(string url) => String.Format("position: {{ lat: {0}, lng: {1} }}, title: \"{2}\", content: \"<h1 class='h-m'>{2}</h1><p class='body'>{3}</p><a class='body' href='{6}'>View {2}</a>\", isPinned: {4}, mapPinIndex: {5}", DirectoryEntry.MapPosition.Lat, DirectoryEntry.MapPosition.Lon, HttpUtility.HtmlEncode(DirectoryEntry.Name), HttpUtility.HtmlEncode(DirectoryEntry.Teaser), IsPinned ? "true" : "false", MapPinIndex, url);
+    public string ToString(string url) => string.Format("position: {{ lat: {0}, lng: {1} }}, title: \"{2}\", content: \"<h1 class='h-m'>{2}</h1><p class='body'>{3}</p><a class='body' href='{6}'>View {2}</a>\", isPinned: {4}, mapPinIndex: {5}", DirectoryEntry.MapPosition.Lat, DirectoryEntry.MapPosition.Lon, HttpUtility.HtmlEncode(DirectoryEntry.Name), HttpUtility.HtmlEncode(DirectoryEntry.Teaser), IsPinned ? "true" : "false", MapPinIndex, url);
     
-    public Placemark ToKmlPlacemark(string pinnedStyle ="") => new Placemark
+    public Placemark ToKmlPlacemark(string pinnedStyle ="") => new()
     {
         // Ref
         // https://developers.google.com/kml/documentation/kml_tut?csw=1#descriptive_html
@@ -77,4 +77,31 @@ public class DirectoryEntryViewModel : ISlugComparable
         AtomLink = new SharpKml.Dom.Atom.Link { Href = new Uri("https://www.stockport.gov.uk"), Title = $"Visit {DirectoryEntry.Name}" },
         StyleUrl = string.IsNullOrEmpty(pinnedStyle) ? null : new Uri($"#{pinnedStyle}", UriKind.Relative),
     };
+
+
+
+
+    // public Placemark ToKmlPlacemark(string pinnedStyle = "")
+    // {
+    //     // Construct HTML description using string interpolation
+    //     string htmlDescription = $@"<a href='/directories/entry/{FullyResolvedSlug}'><h1>{DirectoryEntry.Name}</h1><p>{DirectoryEntry.Teaser}</p></a>";
+
+    //     // Create the Placemark object
+    //     var placemark = new Placemark
+    //     {
+    //         Geometry = new Point
+    //         {
+    //             Coordinate = new Vector(DirectoryEntry.MapPosition.Lat, DirectoryEntry.MapPosition.Lon),
+    //         },
+    //         Name = DirectoryEntry.Name,
+    //         Description = new Description { Text = htmlDescription },
+    //         PhoneNumber = DirectoryEntry.PhoneNumber,
+    //         Address = DirectoryEntry.Address,
+    //         AtomLink = new SharpKml.Dom.Atom.Link { Href = new Uri("https://www.stockport.gov.uk"), Title = $"Visit {DirectoryEntry.Name}" },
+    //         StyleUrl = string.IsNullOrEmpty(pinnedStyle) ? null : new Uri($"#{pinnedStyle}", UriKind.Relative),
+    //     };
+
+    //     return placemark;
+    // }
+
 }

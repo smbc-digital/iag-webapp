@@ -30,7 +30,7 @@ namespace StockportWebapp.Models
         public IEnumerable<string> Tags { get; set; } = new List<string>();
         public bool IsNotOnTheEqautor => MapPosition.Lat != 0 && MapPosition.Lon != 0;
 
-        public Placemark ToKmlPlacemark(string style = "") => new Placemark
+        public Placemark ToKmlPlacemark(string style = "") => new()
         {
             // Ref
             // https://developers.google.com/kml/documentation/kml_tut?csw=1#descriptive_html
