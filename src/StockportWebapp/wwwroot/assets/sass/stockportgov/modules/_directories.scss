@@ -176,19 +176,24 @@
         }
         
         &__toggle {
-            padding: 0 10px;
-            color: $stockport-teal-darker;
+            display: none;
 
-            &::before {
-                font: bold normal normal 16px/1 FontAwesome;
-                font-size: 1em;
-                content: '\f077';
-            }
-
-            &.closed::before {
-                font: normal normal normal 16px/1 FontAwesome;
-                font-size: 1em;
-                content: '\f078';
+            &-js {
+                display: block;
+                padding: 0 10px;
+                color: $stockport-teal-darker;
+    
+                &::before {
+                    font: bold normal normal 16px/1 FontAwesome;
+                    font-size: 1em;
+                    content: '\f077';
+                }
+    
+                &.closed::before {
+                    font: normal normal normal 16px/1 FontAwesome;
+                    font-size: 1em;
+                    content: '\f078';
+                }
             }
         }
     }
