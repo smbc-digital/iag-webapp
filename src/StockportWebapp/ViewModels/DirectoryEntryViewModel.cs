@@ -37,7 +37,7 @@ public class DirectoryEntryViewModel : ISlugComparable
     public IEnumerable<Crumb> Breadcrumbs { get; set; }
     public bool IsPinned { get; set; } = false;
     public int MapPinIndex { get; set; } = 0;
-
+    public MapDetails MapDetails { get; set; }
     public bool ShowMapPin => DirectoryEntry.IsNotOnTheEqautor;
     public IEnumerable<Filter> HighlightedFilters => DirectoryEntry.Themes?
                                                         .SelectMany(_ => _.Filters.Where(_ => _.Highlight.Equals(true)))
@@ -52,11 +52,10 @@ public class DirectoryEntryViewModel : ISlugComparable
         => !string.IsNullOrEmpty(DirectoryEntry.PhoneNumber) || !string.IsNullOrEmpty(DirectoryEntry.Email);
     public bool DisplayContactUs => !string.IsNullOrEmpty(DirectoryEntry.Website) || HasPrimaryContact || DisplaySocials;
 
+    public string AddressWithoutTags => Regex.Replace(DirectoryEntry.Address, "<.*?>", ""); 
     public string ParentSlug { get; set; }  
 
     public string FullyResolvedSlug => $"{ParentSlug}/{Slug}";
-    
-    public MapDetails MapDetails { get; set; }
     
     public string ToString(string url) => String.Format("position: {{ lat: {0}, lng: {1} }}, title: \"{2}\", content: \"<h1 class='h-m'>{2}</h1><p class='body'>{3}</p><a class='body' href='{6}'>View {2}</a>\", isPinned: {4}, mapPinIndex: {5}", DirectoryEntry.MapPosition.Lat, DirectoryEntry.MapPosition.Lon, HttpUtility.HtmlEncode(DirectoryEntry.Name), HttpUtility.HtmlEncode(DirectoryEntry.Teaser), IsPinned ? "true" : "false", MapPinIndex, url);
     

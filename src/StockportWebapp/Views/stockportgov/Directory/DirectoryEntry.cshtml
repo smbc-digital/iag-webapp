@@ -10,10 +10,6 @@
     var noBorder = " navcard--border-top-0";
     var borderRadius = " navcard--radius-bottom-left navcard--radius-bottom-right";
     var greyBorderCssClasses = $"{borderGrey} {noBorder} {borderRadius}";
-
-
-    string addressWithTags = Model.DirectoryEntry.Address;
-    string addressWithoutTags = Regex.Replace(addressWithTags, "<.*?>", ""); // this needs to move to directory entry view model
 }
 
 <div class="grid-container-full-width" data-cy="directory-entry">
@@ -30,29 +26,10 @@
                 </div>
 
                 <div class="directory--70 directory--border-top @borderTeal">
-                    <partial name="DirectoryEntryDescription" model='Model.DirectoryEntry.Description' view-data='new ViewDataDictionary(ViewData) { { "AdditionalCssClass", @greyBorderCssClasses } }' />
-                    <partial name="DirectoryEntryHighightedFilters" model='Model.HighlightedFilters' view-data='new ViewDataDictionary(ViewData) { { "AdditionalWrapperCssClasses", @borderTeal }, { "AdditionalCssClass", @greyBorderCssClasses } }' />
-                    
-                    @* this needs to move to its own partial *@
-                    @if (Model.MapDetails.MapPosition is not null && 
-                        !Model.MapDetails.MapPosition.Lat.Equals(0.0) && 
-                        !Model.MapDetails.MapPosition.Lon.Equals(0.0))
-                    {
-                        <div class="directory__map @borderTeal">
-                            <div class="directory__wrapper navcard--white @greyBorderCssClasses">
-                                <h2>How to find us</h2>
-                                
-                                <div class="directory__map-container directory__map-container--padding">
-                                    <partial name="DirectoryMap" model='Model.MapDetails' view-data='new ViewDataDictionary(ViewData) {{"directoryLocation", @addressWithoutTags}}'/>
-                                </div>
-
-                                <a class="btn btn--width-30 btn--chevron-forward btn--bold btn--chevron-bold" target="_blank" href="https://www.google.com/maps/dir/?api=1&origin=current+location&destination=@Model.MapDetails.MapPosition.Lat,@Model.MapDetails.MapPosition.Lon&travelmode=walking">Get directions</a>
-                                <p class="directory__map-accessible-transport">For accessible transport options visit our <a href="https://www.stockport.gov.uk/accessibleTransport">accessible transport page</a>.</p>
-                            </div>
-                        </div>
-                    }
-
-                    <partial name="DirectoryEntryBranding" model='Model.DirectoryEntry.Branding' view-data='new ViewDataDictionary(ViewData) { { "AdditionalWrapperCssClasses", @borderTeal }, { "AdditionalCssClass", @greyBorderCssClasses } }' />
+                    <partial name="DirectoryEntryDescription" model='Model.DirectoryEntry.Description' view-data='new ViewDataDictionary(ViewData) { { "AdditionalCssClasses", @greyBorderCssClasses } }' />
+                    <partial name="DirectoryEntryHighightedFilters" model='Model.HighlightedFilters' view-data='new ViewDataDictionary(ViewData) { { "AdditionalWrapperCssClasses", @borderTeal }, { "AdditionalCssClasses", @greyBorderCssClasses } }' />
+                    <partial name="DirectoryEntryMap" model='Model.MapDetails' view-data='new ViewDataDictionary(ViewData) { { "AdditionalWrapperCssClasses", @borderTeal }, { "AdditionalCssClasses", @greyBorderCssClasses }, { "AddressWithoutTags", @Model.AddressWithoutTags } }' />
+                    <partial name="DirectoryEntryBranding" model='Model.DirectoryEntry.Branding' view-data='new ViewDataDictionary(ViewData) { { "AdditionalWrapperCssClasses", @borderTeal }, { "AdditionalCssClasses", @greyBorderCssClasses } }' />
                 </div>
             </section>
         </div>
