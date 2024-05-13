@@ -7,13 +7,13 @@ public interface IEventFactory
 
 public class EventFactory : IEventFactory
 {
-    private readonly ITagParserContainer _simpleTagParserContainer;
+    private readonly ITagParserContainer _tagParserContainer;
     private readonly MarkdownWrapper _markdownWrapper;
     private readonly IDynamicTagParser<Document> _documentTagParser;
 
     public EventFactory(ITagParserContainer simpleTagParserContainer, MarkdownWrapper markdownWrapper, IDynamicTagParser<Document> documentTagParser)
     {
-        _simpleTagParserContainer = simpleTagParserContainer;
+        _tagParserContainer = simpleTagParserContainer;
         _markdownWrapper = markdownWrapper;
         _documentTagParser = documentTagParser;
     }
@@ -26,7 +26,7 @@ public class EventFactory : IEventFactory
             AccessibleTransportLink = eventItem.AccessibleTransportLink
         };
 
-        var description = _simpleTagParserContainer.ParseAll(eventItem.Description, eventItem.Title);
+        var description = _tagParserContainer.ParseAll(eventItem.Description, eventItem.Title);
         description = _markdownWrapper.ConvertToHtml(description ?? "");
         description = _documentTagParser.Parse(description, eventItem.Documents);
 
