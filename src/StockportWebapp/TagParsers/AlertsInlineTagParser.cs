@@ -21,7 +21,7 @@ public class AlertsInlineTagParser : IDynamicTagParser<Alert>
             {
                 var alertsInlineHtml = String.Empty;
 
-                if (AlertsInline.Severity.Equals("Warning") || AlertsInline.Severity.Equals("Error"))
+                if (AlertsInline.Severity.Equals(Severity.Warning) || AlertsInline.Severity.Equals(Severity.Error))
                 {
                     alertsInlineHtml = _viewRenderer.Render("AlertsInlineWarning", AlertsInline);
                 }
