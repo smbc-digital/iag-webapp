@@ -77,31 +77,4 @@ public class DirectoryEntryViewModel : ISlugComparable
         AtomLink = new SharpKml.Dom.Atom.Link { Href = new Uri("https://www.stockport.gov.uk"), Title = $"Visit {DirectoryEntry.Name}" },
         StyleUrl = string.IsNullOrEmpty(pinnedStyle) ? null : new Uri($"#{pinnedStyle}", UriKind.Relative),
     };
-
-
-
-
-    // public Placemark ToKmlPlacemark(string pinnedStyle = "")
-    // {
-    //     // Construct HTML description using string interpolation
-    //     string htmlDescription = $@"<a href='/directories/entry/{FullyResolvedSlug}'><h1>{DirectoryEntry.Name}</h1><p>{DirectoryEntry.Teaser}</p></a>";
-
-    //     // Create the Placemark object
-    //     var placemark = new Placemark
-    //     {
-    //         Geometry = new Point
-    //         {
-    //             Coordinate = new Vector(DirectoryEntry.MapPosition.Lat, DirectoryEntry.MapPosition.Lon),
-    //         },
-    //         Name = DirectoryEntry.Name,
-    //         Description = new Description { Text = htmlDescription },
-    //         PhoneNumber = DirectoryEntry.PhoneNumber,
-    //         Address = DirectoryEntry.Address,
-    //         AtomLink = new SharpKml.Dom.Atom.Link { Href = new Uri("https://www.stockport.gov.uk"), Title = $"Visit {DirectoryEntry.Name}" },
-    //         StyleUrl = string.IsNullOrEmpty(pinnedStyle) ? null : new Uri($"#{pinnedStyle}", UriKind.Relative),
-    //     };
-
-    //     return placemark;
-    // }
-
 }
