@@ -1,5 +1,8 @@
-﻿namespace StockportWebapp.Models;
+﻿using System.Diagnostics.CodeAnalysis;
 
+namespace StockportWebapp.Models;
+
+[ExcludeFromCodeCoverage]
 public class BasicLink
 {
     public string Url { get; }
