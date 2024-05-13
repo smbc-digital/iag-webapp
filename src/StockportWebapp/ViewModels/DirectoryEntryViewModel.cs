@@ -51,7 +51,7 @@ public class DirectoryEntryViewModel : ISlugComparable
     public bool HasPrimaryContact
         => !string.IsNullOrEmpty(DirectoryEntry.PhoneNumber) || !string.IsNullOrEmpty(DirectoryEntry.Email);
     public bool DisplayContactUs => !string.IsNullOrEmpty(DirectoryEntry.Website) || HasPrimaryContact || DisplaySocials;
-
+    public bool DisplayMap => MapDetails.MapPosition is not null && DirectoryEntry.IsNotOnTheEqautor;
     public string AddressWithoutTags => Regex.Replace(DirectoryEntry.Address, "<.*?>", ""); 
     public string ParentSlug { get; set; }  
 

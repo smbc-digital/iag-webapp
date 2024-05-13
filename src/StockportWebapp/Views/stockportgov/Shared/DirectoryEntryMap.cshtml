@@ -3,11 +3,10 @@
     var additionalWrapperCssClasses = ViewData["AdditionalWrapperCssClasses"];
     var additionalCssClasses = ViewData["AdditionalCssClasses"];
     var addressWithoutTags = ViewData["AddressWithoutTags"];
+    bool displayMap = (bool)ViewData["DisplayMap"];
 }
 
-@if (Model.MapPosition is not null && 
-    !Model.MapPosition.Lat.Equals(0.0) && 
-    !Model.MapPosition.Lon.Equals(0.0))
+@if (displayMap)
 {
     <div class="directory__map @additionalWrapperCssClasses">
         <div class="directory__wrapper navcard--white @additionalCssClasses">
