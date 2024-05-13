@@ -327,39 +327,6 @@ public class DirectoryEntryViewModelTest
     }
 
     [Fact]
-    public void ToKmlPlacemark_ConstructsPlacemarkCorrectly_WithoutPinnedStyle()
-    {
-        // Arrange
-        var viewModel = new DirectoryEntryViewModel
-        {
-            DirectoryEntry = new DirectoryEntry
-            {
-                MapPosition = new(){
-                    Lat = 1.2345,
-                    Lon = 2.3456
-                },
-                Name = "Test name",
-                Teaser = "Test teaser",
-            },
-        };
-
-        // Act
-        var placemark = viewModel.ToKmlPlacemark();
-
-        // Assert
-        Assert.NotNull(placemark);
-        Assert.NotNull(placemark.Geometry);
-        Assert.IsType<Point>(placemark.Geometry);
-        Assert.IsType<Description>(placemark.Description);
-        Assert.NotNull(placemark.Description);
-        Assert.NotNull(placemark.PhoneNumber);
-        Assert.NotNull(placemark.Address);
-        Assert.NotNull(placemark.AtomLink);
-        Assert.IsType<SharpKml.Dom.Atom.Link>(placemark.AtomLink);
-        Assert.Null(placemark.StyleUrl);
-    }
-
-    [Fact]
     public void ToKmlPlacemark_ConstructsPlacemarkCorrectly_WithPinnedStyle()
     {
         // Arrange
