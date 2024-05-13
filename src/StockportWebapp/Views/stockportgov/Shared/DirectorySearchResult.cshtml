@@ -29,19 +29,31 @@
                     {
                         <span class="directory-pinned">Spotlight on</span>
                     }
+
                     <h3 class="navcard__title navcard__title--large">
-                        @if (Model.ShowMapPin && Model.IsPinned){<partial name="MapPin" view-data='new ViewDataDictionary(ViewData) { { "Count", Model.MapPinIndex}, {"Highlighted", true }  }' />}
-                        else if (Model.ShowMapPin){<partial name="MapPin" view-data='new ViewDataDictionary(ViewData) { { "Count", Model.MapPinIndex}, {"Highlighted", false }  }' />}@Model.DirectoryEntry.Name
+                        @if (Model.ShowMapPin && Model.IsPinned)
+                        {
+                            <partial name="MapPin" view-data='new ViewDataDictionary(ViewData) { { "Count", Model.MapPinIndex}, {"Highlighted", true } }' />
+                        }
+                        else if (Model.ShowMapPin)
+                        {
+                            <partial name="MapPin" view-data='new ViewDataDictionary(ViewData) { { "Count", Model.MapPinIndex}, {"Highlighted", false } }' />
+                        }
+                        
+                        @Model.DirectoryEntry.Name
                     </h3>
+
                     @if (!string.IsNullOrEmpty(Model.DirectoryEntry.Provider))
                     {
                         <p class="navcard__sub-title">@Model.DirectoryEntry.Provider</p>
                     }
+
                     <p class="navcard__sub-title">@Model.DirectoryEntry.Address</p>
                     <div class="navcard__teaser">
                         @Model.DirectoryEntry.Teaser
                     </div>
                 </div>
+
                 @if(!imageExists){
                     <div class="directory-result__brand @brandPinnedEntry">
                         <img src="@Model.DirectoryEntry.Image?w=340&q=89&fm=webp"

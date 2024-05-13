@@ -8,7 +8,7 @@
         "cludo": "cludo-ae98e22c.min",
         "contactUs": "contactUs-e5b6f8a5.min",
         "directoriesMapInit": "directoriesMapInit-e0addee6.min",
-        "directoryFilters": "directoryFilters-a98566af.min",
+        "directoryFilters": "directoryFilters-cefe3db0.min",
         "events": "events-af550f37.min",
         "favourites": "favourites-9929284b.min",
         "filters": "filters-6d52b18c.min",

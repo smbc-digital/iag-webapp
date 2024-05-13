@@ -1,9 +1,16 @@
-﻿using StockportWebapp.Model;
+﻿using SharpKml.Dom;
+using SharpKml.Dom.Atom;
+using StockportWebapp.Model;
 
 namespace StockportWebappTests_Unit.Unit.ViewModels;
 
 public class DirectoryEntryViewModelTest
 {
+    private readonly MapPosition mapPosition = new(){
+        Lat = 2.3666,
+        Lon = 5.2456
+    };
+
     [Fact]
     public void HighlightedFilters_ReturnsCorrectFilters()
     {
@@ -204,5 +211,154 @@ public class DirectoryEntryViewModelTest
     {
         var viewModel = new DirectoryEntryViewModel("test", new(), Enumerable.Empty<Crumb>(), new MapDetails(), true);
         Assert.True(viewModel.IsPinned);
-    }    
+    }
+
+    [Theory]
+    [InlineData(0, 0, false)]
+    [InlineData(0, 2.4555, false)]
+    [InlineData(4.5222, 0, false)]
+    [InlineData(4.5222, 2.4555, true)]
+    public void ShowMapPin_ReturnsCorrectValue(double lat, double lon, bool expected)
+    {
+        // Arrange
+        var viewModel = new DirectoryEntryViewModel
+        {
+            DirectoryEntry = new DirectoryEntry
+            {
+                MapPosition = new MapPosition(){
+                    Lat = lat,
+                    Lon = lon
+                }
+            }
+        };
+
+        // Act
+        var showMapPin = viewModel.ShowMapPin;
+
+        // Assert
+        Assert.Equal(expected, showMapPin);
+    }
+
+    [Theory]
+    [InlineData(0, 0, false)]
+    [InlineData(0, 2.4555, false)]
+    [InlineData(4.5222, 0, false)]
+    [InlineData(4.5222, 2.4555, true)]
+    public void DisplayMap_ReturnsCorrectValue(double lat, double lon, bool expected)
+    {
+        // Arrange
+        MapPosition mapPosition = new() {
+            Lat = lat,
+            Lon = lon
+        };
+
+        var viewModel = new DirectoryEntryViewModel
+        {
+            DirectoryEntry = new DirectoryEntry
+            {
+                MapPosition = new MapPosition(){
+                    Lat = lat,
+                    Lon = lon
+                }
+            },
+            MapDetails = new MapDetails(){
+                MapPosition = mapPosition
+            }
+        };
+
+        // Act
+        var displayMap = viewModel.DisplayMap;
+
+        // Assert
+        Assert.Equal(expected, displayMap);
+    }
+
+    [Theory]
+    [InlineData("<p>This is a <b>test</b> address</p>", "This is a test address")]
+    [InlineData("<div>This is another <i>example</i> address</div>", "This is another example address")]
+    [InlineData("This is a plain text address", "This is a plain text address")]
+    [InlineData("", "")]
+    public void AddressWithoutTags_RemovesHtmlTags(string address, string expected)
+    {
+        // Arrange
+        var viewModel = new DirectoryEntryViewModel
+        {
+            DirectoryEntry = new DirectoryEntry
+            {
+                Address = address
+            }
+        };
+
+        // Act
+        string addressWithoutTags = viewModel.AddressWithoutTags;
+
+        // Assert
+        Assert.Equal(expected, addressWithoutTags);
+    }
+
+    [Theory]
+    [InlineData(1.2345, 2.3456, "Name", "Teaser", true, 1, "http://example.com", "position: { lat: 1.2345, lng: 2.3456 }, title: \"Name\", content: \"<h1 class='h-m'>Name</h1><p class='body'>Teaser</p><a class='body' href='http://example.com'>View Name</a>\", isPinned: true, mapPinIndex: 1")]
+    [InlineData(0, 0, "", "", false, 0, "", "position: { lat: 0, lng: 0 }, title: \"\", content: \"<h1 class='h-m'></h1><p class='body'></p><a class='body' href=''>View </a>\", isPinned: false, mapPinIndex: 0")]
+    [InlineData(-1.5, 3.7, "Test Name", "Test Teaser", true, 2, "http://test.com", "position: { lat: -1.5, lng: 3.7 }, title: \"Test Name\", content: \"<h1 class='h-m'>Test Name</h1><p class='body'>Test Teaser</p><a class='body' href='http://test.com'>View Test Name</a>\", isPinned: true, mapPinIndex: 2")]
+    [InlineData(10.123, -20.987, "Long Name", "Long Teaser", false, 5, "http://long.com", "position: { lat: 10.123, lng: -20.987 }, title: \"Long Name\", content: \"<h1 class='h-m'>Long Name</h1><p class='body'>Long Teaser</p><a class='body' href='http://long.com'>View Long Name</a>\", isPinned: false, mapPinIndex: 5")]
+    public void ToString_ReturnsCorrectString(double lat, double lon, string name, string teaser, bool isPinned, int mapPinIndex, string url, string expected)
+    {
+        // Arrange
+        var viewModel = new DirectoryEntryViewModel
+        {
+            DirectoryEntry = new DirectoryEntry
+            {
+                MapPosition = new(){
+                    Lat = lat,
+                    Lon = lon
+                },
+                Name = name,
+                Teaser = teaser,
+            },
+            IsPinned = isPinned,
+            MapPinIndex = mapPinIndex
+        };
+
+        // Act
+        string result = viewModel.ToString(url);
+
+        // Assert
+        Assert.Equal(expected, result);
+    }
+
+    [Fact]
+    public void ToKmlPlacemark_ConstructsPlacemarkCorrectly()
+    {
+        // Arrange
+        var viewModel = new DirectoryEntryViewModel
+        {
+            DirectoryEntry = new DirectoryEntry
+            {
+                MapPosition = new(){
+                    Lat = 1.2345,
+                    Lon = 2.3456
+                },
+                Name = "Test name",
+                Teaser = "Test teaser",
+            },
+        };
+
+        // Act
+        var placemark = viewModel.ToKmlPlacemark("pinnedStyle");
+        var placemark2 = viewModel.ToKmlPlacemark();
+
+        // Assert
+        Assert.NotNull(placemark);
+        Assert.NotNull(placemark.Geometry);
+        Assert.IsType<Point>(placemark.Geometry);
+        Assert.IsType<Description>(placemark.Description);
+        Assert.NotNull(placemark.Description);
+        Assert.NotNull(placemark.PhoneNumber);
+        Assert.NotNull(placemark.Address);
+        Assert.NotNull(placemark.AtomLink);
+        Assert.IsType<SharpKml.Dom.Atom.Link>(placemark.AtomLink);
+        Assert.Null(placemark2.StyleUrl);
+        Assert.NotNull(placemark.StyleUrl);
+        Assert.IsType<Uri>(placemark.StyleUrl);
+    }
 }
