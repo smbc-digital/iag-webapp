@@ -9,17 +9,28 @@ define(["jquery"], function ($) {
             });
 
             $('.directory-filters__content').each(function(index, themeGroup) {
-                if (index !== 0 && !$(themeGroup).find('.directory-filters__checkbox:checked').length) {
+                if (!$(themeGroup).find('.directory-filters__checkbox:checked').length) {
                     $(themeGroup).hide();
                     const link = $(themeGroup).prev('.directory-results__collapsible');
                     link.attr('aria-expanded', 'false');
                 }
             });
 
+            var anyCheckboxChecked = $('.directory-filters__checkbox:checked').length > 0;
+            if (!anyCheckboxChecked) {
+                $('.directory-filters__content').first().show();
+                $('.directory-results__collapsible').first().attr('aria-expanded', 'true');
+            }
+
+            var toggleIcons = document.querySelectorAll('.directory-results__toggle');
+            toggleIcons.forEach(function(icon) {
+                icon.classList.add('directory-results__toggle-js');
+            });
+
             $('#order-by').change(function() {
                 $(this).closest('form').submit();
             });
-
+            
             $('.directory-filters__checkbox').change(function() {
                 $(this).closest('form').submit();
             });
