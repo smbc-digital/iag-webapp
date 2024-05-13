@@ -1,5 +1,8 @@
-﻿namespace StockportWebapp;
+﻿using System.Diagnostics.CodeAnalysis;
 
+namespace StockportWebapp;
+
+[ExcludeFromCodeCoverage]
 public class Startup
 {
     public IConfiguration Configuration { get; }
