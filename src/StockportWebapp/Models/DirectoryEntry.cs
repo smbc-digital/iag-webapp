@@ -28,7 +28,6 @@ namespace StockportWebapp.Models
         public string Address { get; set; } = string.Empty;
         public string Image { get; set; }
         public IEnumerable<string> Tags { get; set; } = new List<string>();
-        public MapDetails MapDetails { get; set; }
         public bool IsNotOnTheEqautor => MapPosition.Lat != 0 && MapPosition.Lon != 0;
 
         public Placemark ToKmlPlacemark(string style = "") => new Placemark
