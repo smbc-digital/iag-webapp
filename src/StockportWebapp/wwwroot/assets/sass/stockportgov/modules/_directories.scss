@@ -917,3 +917,19 @@ html[dir="rtl"] {
         }
     }
 }
+
+html[dir="rtl"], html[dir="ltr"] {
+    .directory {
+        &-results {
+            &__filters {
+                a:nth-last-of-type(1):not([aria-expanded="true"]) {
+                    margin-bottom: 2em;
+                }
+
+                #directory-clear-filters {
+                    margin-bottom: 0;
+                }
+            }
+        }
+    }
+}
