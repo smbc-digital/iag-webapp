@@ -7,18 +7,24 @@ public class ArticleController : Controller
     private readonly IArticleRepository _articlerepository;
     private readonly ILogger<ArticleController> _logger;
     private readonly IContactUsMessageTagParser _contactUsMessageParser;
+    private readonly IFeatureManager _featureManager;
+    private readonly bool _isToggledOn = true;
 
-    public ArticleController(IProcessedContentRepository repository, ILogger<ArticleController> logger, IContactUsMessageTagParser contactUsMessageParser, IArticleRepository articlerepository)
+    public ArticleController(IProcessedContentRepository repository, ILogger<ArticleController> logger, IContactUsMessageTagParser contactUsMessageParser, IArticleRepository articlerepository, IFeatureManager featureManager = null)
     {
         _repository = repository;
         _logger = logger;
         _contactUsMessageParser = contactUsMessageParser;
         _articlerepository = articlerepository;
+        _featureManager = featureManager;
+
+        if (_featureManager is not null)
+            _isToggledOn = _featureManager.IsEnabledAsync("Articles").Result;
     }
 
     [Route("/{articleSlug}")]
     public async Task<IActionResult> Article(string articleSlug, [FromQuery] string message, string SearchTerm, string SearchFolder)
-    {
+    {        
         var articleHttpResponse = await _articlerepository.Get(articleSlug, SearchTerm, SearchFolder, Request?.GetDisplayUrl().ToString());
 
         if (!articleHttpResponse.IsSuccessful())
@@ -32,8 +38,10 @@ public class ArticleController : Controller
 
         ViewBag.CurrentUrl = Request?.GetDisplayUrl();
 
-
-        return View(viewModel);
+        if (!_isToggledOn)
+            return View(viewModel);
+        else
+            return View("Article2024", viewModel);
     }
 
     [Route("/{articleSlug}/{sectionSlug}")]
@@ -53,11 +61,13 @@ public class ArticleController : Controller
         try
         {
             var viewModel = new ArticleViewModel(article, sectionSlug);
-            return View("Article", viewModel);
+            if (!_isToggledOn)
+                return View("Article", viewModel);
+            else
+                return View("Article2024", viewModel);
         }
         catch (SectionDoesNotExistException)
         {
-
             return NotFound();
         }
     }

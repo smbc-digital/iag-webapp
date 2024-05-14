@@ -1,0 +1,63 @@
+﻿@model ArticleViewModel
+@{
+    ViewData["Title"] = Model.Article.Title;
+    ViewData["Description"] = Model.MetaDescription;
+    ViewData["og:title"] = Model.OgTitleMetaData;
+    Layout = "../Shared/_Layout2023.cshtml";
+    var dataCy = Model.DisplayedSection is null ? "flat-article" : "article-with-sections";
+}
+
+<div class="grid-container-full-width" style="background-color:white;">
+    <div class="grid-container">
+        <div class="grid-100">
+            <div class="grid-70">
+                <div class="placeholder placeholder-bg-teal placeholder__left-align placeholder__padded-top">
+                    <div class="grid-container">
+                        <p>Breadcrumbs</p>
+                    </div>
+                </div>
+
+                <div class="placeholder placeholder-bg-green placeholder__left-align placeholder__padded-top placeholder__padded-bottom" id="topic-page-content">
+                    <div class="grid-container">
+                        <h1 class="placeholder-topic-title">Title</h1>
+                    </div>
+                </div>
+
+                <div class="placeholder placeholder-bg-grey placeholder-small">
+                    <h2 class="placeholder-topic-header-description">Image</h2>
+                </div>
+
+                <div class="placeholder placeholder-bg-orange placeholder-small">
+                    <h2 class="placeholder-topic-header-description">Sections</h2>
+                </div>
+
+                <div class="placeholder placeholder-bg-teal placeholder__padded-top placeholder__padded-bottom placeholder-large" id="topic-page-content">
+                    <div class="grid-container">
+                        <h2 class="placeholder-topic-header-description">Body text</h2>
+                    </div>
+                </div>
+
+                <div class="placeholder placeholder-bg-green placeholder__padded-top placeholder__padded-bottom placeholder-medium" id="topic-page-content">
+                    <div class="grid-container">
+                        <h2 class="placeholder-topic-header-description">Our partners</h2>
+                    </div>
+                </div>
+
+                <div class="placeholder placeholder-bg-orange placeholder__padded-top placeholder__padded-bottom" id="topic-page-content">
+                    <div class="grid-container">
+                        <h2 class="placeholder-topic-header-description">Last updated</h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid-30">
+                <div class="placeholder placeholder-small">
+                </div>
+
+                <div class="placeholder placeholder-bg-grey placeholder-medium" id="topic-page-content">
+                    <h2 class="placeholder-topic-header-description">Side bar</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
