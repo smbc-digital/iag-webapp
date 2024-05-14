@@ -1,5 +1,8 @@
-﻿namespace StockportWebapp.Models;
+﻿using System.Diagnostics.CodeAnalysis;
 
+namespace StockportWebapp.Models;
+
+[ExcludeFromCodeCoverage]
 public class InlineQuote
 {
     public string Image { get; set; }

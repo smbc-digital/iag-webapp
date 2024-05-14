@@ -1,5 +1,8 @@
+using System.Diagnostics.CodeAnalysis;
+
 namespace StockportWebapp.Models;
 
+[ExcludeFromCodeCoverage]
 public class Document
 {
     public readonly string Title;

@@ -34,6 +34,7 @@ public class NullAlert : Alert
     public NullAlert() : base(string.Empty, string.Empty, string.Empty, string.Empty, DateTime.MinValue, DateTime.MinValue, String.Empty, false, string.Empty) { }
 }
 
+[ExcludeFromCodeCoverage]
 public static class Severity
 {
     public const string Warning = "Warning";
