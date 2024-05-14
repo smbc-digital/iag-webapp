@@ -7,15 +7,17 @@ public class ArticleController : Controller
     private readonly IArticleRepository _articlerepository;
     private readonly ILogger<ArticleController> _logger;
     private readonly IContactUsMessageTagParser _contactUsMessageParser;
+    private readonly BusinessId _businessId;
     private readonly IFeatureManager _featureManager;
     private readonly bool _isToggledOn = true;
 
-    public ArticleController(IProcessedContentRepository repository, ILogger<ArticleController> logger, IContactUsMessageTagParser contactUsMessageParser, IArticleRepository articlerepository, IFeatureManager featureManager = null)
+    public ArticleController(IProcessedContentRepository repository, ILogger<ArticleController> logger, IContactUsMessageTagParser contactUsMessageParser, IArticleRepository articlerepository, BusinessId businessId, IFeatureManager featureManager = null)
     {
         _repository = repository;
         _logger = logger;
         _contactUsMessageParser = contactUsMessageParser;
         _articlerepository = articlerepository;
+        _businessId = businessId;
         _featureManager = featureManager;
 
         if (_featureManager is not null)
@@ -38,10 +40,10 @@ public class ArticleController : Controller
 
         ViewBag.CurrentUrl = Request?.GetDisplayUrl();
 
-        if (!_isToggledOn)
-            return View(viewModel);
-        else
+        if (_isToggledOn && _businessId.ToString().Equals("stockportgov"))
             return View("Article2024", viewModel);
+        else
+            return View(viewModel);
     }
 
     [Route("/{articleSlug}/{sectionSlug}")]
@@ -61,10 +63,10 @@ public class ArticleController : Controller
         try
         {
             var viewModel = new ArticleViewModel(article, sectionSlug);
-            if (!_isToggledOn)
-                return View("Article", viewModel);
-            else
+            if (_isToggledOn && _businessId.ToString().Equals("stockportgov"))
                 return View("Article2024", viewModel);
+            else
+                return View("Article", viewModel);
         }
         catch (SectionDoesNotExistException)
         {
