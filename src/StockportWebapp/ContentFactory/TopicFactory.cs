@@ -22,7 +22,7 @@ public class TopicFactory
             oldEventBanner = new (topic.EventBanner.Title, topic.EventBanner.Teaser, topic.EventBanner.Icon, topic.EventBanner.Link);
 
         return new ProcessedTopic(topic.Name, topic.Slug, summary, topic.Teaser, topic.MetaDescription, topic.Icon, topic.BackgroundImage,
-            topic.Image, topic.SubItems, topic.SecondaryItems, topic.Breadcrumbs, topic.Alerts, topic.EmailAlerts,
+            topic.Image, topic.FeaturedTasks, topic.SubItems, topic.SecondaryItems, topic.Breadcrumbs, topic.Alerts, topic.EmailAlerts,
             topic.EmailAlertsTopicId, oldEventBanner, topic.EventBanner,
             topic.Title, topic.DisplayContactUs, topic.CampaignBanner, topic.EventCategory, topic.CallToAction, topic.TopicBranding, topic.LogoAreaTitle)
         {
