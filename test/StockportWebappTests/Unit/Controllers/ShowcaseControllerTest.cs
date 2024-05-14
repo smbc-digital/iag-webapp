@@ -41,7 +41,7 @@ public class ShowcaseControllerTest
                     "icon",
                     "type",
                     "image.jpg",
-                    new List<SubItem>())
+                    new List<SubItem>(), "teal")
             },
             new List<Crumb>
             {

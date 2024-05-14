@@ -1,0 +1,25 @@
+﻿@{
+    var colourScheme = (string)ViewData["ColourScheme"];
+    var displayIcons = (bool)ViewData["DisplayIcons"];
+    var isRootDirectory = (bool)ViewData["IsRootDirectory"];
+    var navcardPaddingClasses = (string)ViewData["NavcardPaddingClasses"];
+}
+@if (!isRootDirectory)
+{
+    <li class="navcard navcard--width-33 navcard--center navcard-all navcard--border-top-10 navcard--theme-@colourScheme navcard--theme-@colourScheme-all">
+        <a href=@Url.Action("DirectoryResults", "Directory", new { slug=$"{Model.Slug}" }) class="navcard__link">
+            <div class="navcard__content">
+                @if (Model.DisplayIcons)
+                {
+                    <div class="navcard__icon">
+                        <span class="fas fa-arrow-right" aria-hidden="true"></span>
+                    </div>
+                }
+
+                <div class="navcard-content--padding @navcardPaddingClasses">
+                    <h3 class="navcard__title navcard__title--black">View all services in @Model.Title</h3>
+                </div>
+            </div>
+        </a>
+    </li>
+}

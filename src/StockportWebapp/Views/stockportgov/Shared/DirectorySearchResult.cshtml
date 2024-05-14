@@ -1,16 +1,11 @@
-﻿@model DirectorySearchResultViewModel
+﻿@model DirectoryEntryViewModel
 @{
-    bool pinnedEntry = (bool)ViewData["pinnedEntry"];
-
-    var imageExists = string.IsNullOrEmpty(Model.Entry.Image);
+    var imageExists = string.IsNullOrEmpty(Model.DirectoryEntry.Image);
     var directoryClass = imageExists ? "directory-result__content--full-width" : string.Empty;
-    
     var navcardBorder = " navcard--border-top-10 navcard--theme-teal-lighter-top";
-    var borderGrey = " navcard-all navcard--theme-grey-accent-all";
-    var borderRadius = " navcard--radius-bottom-left navcard--radius-bottom-right";
     var brandPinnedEntry = "";
-
-    if(pinnedEntry){
+    
+    if(Model.IsPinned){
         navcardBorder = " navcard--border-top-0-mobile navcard--border-top-10 navcard--theme-pink-top";
         brandPinnedEntry = " directory-result__brand--pinned-entry";
     }
@@ -18,43 +13,54 @@
 
 <li class="navcard navcard--white navcard--width-100 @navcardBorder navcard--no-padding-right-rtl">
     <div class="navcard__content">
-        @if(pinnedEntry){
+        @if (Model.IsPinned)
+        {
             <div class="directory-pinned--mobile">
                 <p>Spotlight on</p>
             </div>
         }
 
         <a href=@Url.Action("DirectoryEntry", "Directory", new { slug=@Model.Slug }) data-cy="nav-card-link"
-            class="navcard__link navcard__link--border @borderRadius navcard--border-top-0 @borderGrey">
+           class="navcard__link navcard__link--border navcard--radius-bottom-left navcard--radius-bottom-right navcard--border-top-0 navcard-all navcard--theme-grey-accent-all">
 
             <div class="directory-result">
                 <div class="directory-result__content @directoryClass">
-                    @if(pinnedEntry){
+                    @if (Model.IsPinned)
+                    {
                         <span class="directory-pinned">Spotlight on</span>
                     }
 
-                    <div class="">
-                        <h3 class="navcard__title navcard__title--large">
-                            @Model.Entry.Name
-                        </h3>
-
-                        @if(!string.IsNullOrEmpty(Model.Entry.Provider)) {
-                            <p class="navcard__sub-title">@Model.Entry.Provider</p>
+                    <h3 class="navcard__title navcard__title--large">
+                        @if (Model.ShowMapPin && Model.IsPinned)
+                        {
+                            <partial name="MapPin" view-data='new ViewDataDictionary(ViewData) { { "Count", Model.MapPinIndex}, {"Highlighted", true } }' />
+                        }
+                        else if (Model.ShowMapPin)
+                        {
+                            <partial name="MapPin" view-data='new ViewDataDictionary(ViewData) { { "Count", Model.MapPinIndex}, {"Highlighted", false } }' />
                         }
                         
-                        <p class="navcard__sub-title">@Model.Entry.Address</p>
-                        <div class="navcard__teaser">
-                            @Model.Entry.Teaser
-                        </div>
+                        @Model.DirectoryEntry.Name
+                    </h3>
+
+                    @if (!string.IsNullOrEmpty(Model.DirectoryEntry.Provider))
+                    {
+                        <p class="navcard__sub-title">@Model.DirectoryEntry.Provider</p>
+                    }
+
+                    <p class="navcard__sub-title">@Model.DirectoryEntry.Address</p>
+                    <div class="navcard__teaser">
+                        @Model.DirectoryEntry.Teaser
                     </div>
                 </div>
 
                 @if(!imageExists){
                     <div class="directory-result__brand @brandPinnedEntry">
-                        <img src="@Model.Entry.Image?w=340&q=89&fm=webp"
+                        <img src="@Model.DirectoryEntry.Image?w=340&q=89&fm=webp"
                              alt=""
                              width="300"
-                             height="150">
+                             height="150"
+                             loading="lazy">
                     </div>
                 }
             </div>

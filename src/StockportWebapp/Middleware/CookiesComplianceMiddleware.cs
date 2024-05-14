@@ -3,7 +3,7 @@
 /// <summary>
 /// This is a one off piece of middleware to  ensure 
 /// that no old cookies are retained from the previous consent scheme 
-/// that we know require consent (Google Analytics, SiteImprove, Alerts dismisal, Old cookie consent)
+/// that we know require consent (Google Analytics, SiteImprove, Alerts dismissal, Old cookie consent)
 /// </summary>
 /// 
 public class CookiesComplianceMiddleware
@@ -35,7 +35,6 @@ public class CookiesComplianceMiddleware
         {
             RemoveFunctionalCookies();
         }
-
 
         if (!consentLevels.Tracking)
         {
