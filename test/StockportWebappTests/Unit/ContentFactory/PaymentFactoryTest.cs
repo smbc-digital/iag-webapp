@@ -3,7 +3,7 @@
 public class PaymentFactoryTest
 {
     private readonly Mock<MarkdownWrapper> _markdownWrapper;
-    private readonly Mock<ISimpleTagParserContainer> _tagParserContainer;
+    private readonly Mock<ITagParserContainer> _tagParserContainer;
     private readonly Payment _payment;
     private readonly PaymentFactory _factory;
 
@@ -23,7 +23,7 @@ public class PaymentFactoryTest
     public PaymentFactoryTest()
     {
         _markdownWrapper = new Mock<MarkdownWrapper>();
-        _tagParserContainer = new Mock<ISimpleTagParserContainer>();
+        _tagParserContainer = new Mock<ITagParserContainer>();
         _factory = new PaymentFactory(_tagParserContainer.Object, _markdownWrapper.Object);
         _payment = new Payment()
         {
@@ -38,7 +38,7 @@ public class PaymentFactoryTest
             MetaDescription = MetaDescription
         };
 
-        _tagParserContainer.Setup(o => o.ParseAll(Description, It.IsAny<string>(), It.IsAny<bool>())).Returns(Description);
+        _tagParserContainer.Setup(o => o.ParseAll(Description, It.IsAny<string>(), It.IsAny<bool>(), null, null, null, null, null, null)).Returns(Description);
         _markdownWrapper.Setup(o => o.ConvertToHtml(Description)).Returns(Description);
     }
 
@@ -66,6 +66,6 @@ public class PaymentFactoryTest
     {
         _factory.Build(_payment);
 
-        _tagParserContainer.Verify(o => o.ParseAll(Description, _payment.Title, It.IsAny<bool>()), Times.Once);
+        _tagParserContainer.Verify(o => o.ParseAll(Description, _payment.Title, It.IsAny<bool>(), null, null, null, null, null, null), Times.Once);
     }
 }

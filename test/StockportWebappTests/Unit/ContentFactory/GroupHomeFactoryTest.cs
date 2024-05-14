@@ -3,7 +3,7 @@
 public class GroupHomepageFactoryTest
 {
     private readonly Mock<MarkdownWrapper> _markdownWrapperMock = new Mock<MarkdownWrapper>();
-    private readonly Mock<ISimpleTagParserContainer> _simpleTagParserContainerMock = new Mock<ISimpleTagParserContainer>();
+    private readonly Mock<ITagParserContainer> _tagParserContainerMock = new Mock<ITagParserContainer>();
     private readonly GroupHomepageFactory _groupHomepageFactory;
     private const string Title = "title";
     private string Body = "body";
@@ -12,7 +12,7 @@ public class GroupHomepageFactoryTest
 
     public GroupHomepageFactoryTest()
     {
-        _groupHomepageFactory = new GroupHomepageFactory(_simpleTagParserContainerMock.Object, _markdownWrapperMock.Object);
+        _groupHomepageFactory = new GroupHomepageFactory(_tagParserContainerMock.Object, _markdownWrapperMock.Object);
 
 
         _groupHomepage = new GroupHomepage
@@ -30,7 +30,7 @@ public class GroupHomepageFactoryTest
         };
 
         _markdownWrapperMock.Setup(o => o.ConvertToHtml(Body)).Returns(Body);
-        _simpleTagParserContainerMock.Setup(o => o.ParseAll(Body, It.IsAny<string>(), It.IsAny<bool>())).Returns(Body);
+        _tagParserContainerMock.Setup(o => o.ParseAll(Body, It.IsAny<string>(), It.IsAny<bool>(), null, null, null, null, null, null)).Returns(Body);
     }
 
     [Fact]
@@ -48,7 +48,7 @@ public class GroupHomepageFactoryTest
     {
         var result = _groupHomepageFactory.Build(_groupHomepage);
 
-        _simpleTagParserContainerMock.Verify(o => o.ParseAll(Body, It.IsAny<string>(), It.IsAny<bool>()), Times.Once);
+        _tagParserContainerMock.Verify(o => o.ParseAll(Body, It.IsAny<string>(), It.IsAny<bool>(), null, null, null, null, null, null), Times.Once);
         _markdownWrapperMock.Verify(o => o.ConvertToHtml(Body), Times.Once);
     }
 

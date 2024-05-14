@@ -2,10 +2,10 @@
 
 public class TopicFactory
 {
-    private readonly ISimpleTagParserContainer _tagParserContainer;
+    private readonly ITagParserContainer _tagParserContainer;
     private readonly MarkdownWrapper _markdownWrapper;
 
-    public TopicFactory(ISimpleTagParserContainer tagParserContainer, MarkdownWrapper markdownWrapper)
+    public TopicFactory(ITagParserContainer tagParserContainer, MarkdownWrapper markdownWrapper)
     {
         _tagParserContainer = tagParserContainer;
         _markdownWrapper = markdownWrapper;

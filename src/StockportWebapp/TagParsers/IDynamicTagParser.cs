@@ -2,5 +2,7 @@
 
 public interface IDynamicTagParser<T>
 {
-    string Parse(string body, IEnumerable<T> dynamicContent);
+    string Parse(string content, IEnumerable<T> dynamicContent);
+
+    bool HasMatches(string content);
 }

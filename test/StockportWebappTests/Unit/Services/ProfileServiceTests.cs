@@ -4,7 +4,7 @@ public class ProfileServiceTests
 {
     private readonly ProfileService _service;
     private readonly Mock<IRepository> _repository;
-    private readonly Mock<ISimpleTagParserContainer> _parser;
+    private readonly Mock<ITagParserContainer> _parser;
     private readonly MarkdownWrapper _markdownWrapper;
     private readonly IDynamicTagParser<Alert> _alerts;
     private readonly Mock<IViewRender> _viewRender;
@@ -15,7 +15,7 @@ public class ProfileServiceTests
     {
         _triviaFactory = new Mock<ITriviaFactory>();
         _repository = new Mock<IRepository>();
-        _parser = new Mock<ISimpleTagParserContainer>();
+        _parser = new Mock<ITagParserContainer>();
         _markdownWrapper = new MarkdownWrapper();
         _viewRender = new Mock<IViewRender>();
         _inlineQuoteTagParser = new Mock<IDynamicTagParser<InlineQuote>>();
@@ -58,7 +58,7 @@ public class ProfileServiceTests
             .Setup(_ => _.Get<ProfileResponse>(It.IsAny<string>(), It.IsAny<List<Query>>()))
             .ReturnsAsync(response);
         _parser
-            .Setup(_ => _.ParseAll(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool>()))
+            .Setup(_ => _.ParseAll(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool>(), null, null, null, null, null, null))
             .Returns("testProcessedBody");
 
         // Act

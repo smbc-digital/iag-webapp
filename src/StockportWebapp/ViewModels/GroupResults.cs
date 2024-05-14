@@ -1,5 +1,9 @@
-﻿namespace StockportWebapp.ViewModels;
+﻿using System.Diagnostics.CodeAnalysis;
 
+namespace StockportWebapp.ViewModels;
+
+[Obsolete("Groups is being replaced by directories/directory entries")]
+[ExcludeFromCodeCoverage(Justification = "Obsolete")]
 public class GroupResults
 {
     public List<Group> Groups = new List<Group>();

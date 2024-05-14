@@ -5,15 +5,12 @@ namespace StockportWebapp.TagParsers;
 public class ProfileTagParser : IDynamicTagParser<Profile>
 {
     private readonly IViewRender _viewRenderer;
-    private readonly ILogger<ProfileTagParser> _logger;
 
-    public ProfileTagParser(IViewRender viewRenderer, ILogger<ProfileTagParser> logger)
-    {
-        _viewRenderer = viewRenderer;
-        _logger = logger;
-    }
+    public ProfileTagParser(IViewRender viewRenderer) => _viewRenderer = viewRenderer;
 
     protected Regex TagRegex => new Regex("{{PROFILE:(\\s*[/a-zA-Z0-9][^}]+)}}", RegexOptions.Compiled);
+
+    public bool HasMatches(string content) => TagRegex.IsMatch(content);
 
     public string Parse(string content, IEnumerable<Profile> profiles)
     {
@@ -26,7 +23,6 @@ public class ProfileTagParser : IDynamicTagParser<Profile>
             var profile = GetProfileMatchingSlug(profiles, profileSlug);
             if (profile != null)
             {
-
                 var profileHtml = string.IsNullOrEmpty(profile.Body)
                     ? _viewRenderer.Render("ProfileWithoutBody", profile)
                     : _viewRenderer.Render("Profile", profile);
@@ -37,13 +33,9 @@ public class ProfileTagParser : IDynamicTagParser<Profile>
         return RemoveEmptyTags(content);
     }
 
-    private string RemoveEmptyTags(string content)
-    {
-        return TagRegex.Replace(content, string.Empty);
-    }
+    private string RemoveEmptyTags(string content) =>
+        TagRegex.Replace(content, string.Empty);
 
-    private Profile GetProfileMatchingSlug(IEnumerable<Profile> profiles, string slug)
-    {
-        return profiles.FirstOrDefault(s => s.Slug == slug);
-    }
+    private Profile GetProfileMatchingSlug(IEnumerable<Profile> profiles, string slug) =>
+        profiles?.FirstOrDefault(s => s.Slug == slug);    
 }

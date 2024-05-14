@@ -44,6 +44,7 @@ internal class GroupBuilder
     private List<string> _ageRange = new List<string>();
     private List<GroupBranding> _groupBranding = new List<GroupBranding>();
     private readonly List<Alert> _alerts = new List<Alert>();
+    private readonly List<Alert> _alertsInline = new List<Alert>();
 
     public Group Build()
     {
@@ -85,7 +86,8 @@ internal class GroupBuilder
                 _ageRange,
                 _donationsText,
                 _donationsUrl,
-                _alerts
+                _alerts,
+                _alertsInline
             );
     }
 
