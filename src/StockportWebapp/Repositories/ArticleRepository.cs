@@ -32,25 +32,25 @@ public class ArticleRepository : IArticleRepository
         var httpResponse = await _httpClient.Get(url, authenticationHeaders);
 
         if (!httpResponse.IsSuccessful())
-        {
             return httpResponse;
-        }
 
         var model = HttpResponse.Build<Article>(httpResponse);
         var article = (Article)model.Content;
-        var bucket = new S3BucketSearch();
-        bucket.Files = new List<string>();
-        bucket.Folders = new List<string>();
-        bucket.Slug = slug;
-        bucket.SearchTerm = searchTerm;
-        bucket.SearchFolder = searchFolder;
-        bucket.AWSLink = ServiceUrl;
-        bucket.S3Bucket = BucketName;
-        bucket.CurrentUrl = currentUrl;
-        if (!string.IsNullOrEmpty(searchTerm) && !string.IsNullOrEmpty(searchFolder))
+        S3BucketSearch bucket = new()
         {
+            Files = new List<string>(),
+            Folders = new List<string>(),
+            Slug = slug,
+            SearchTerm = searchTerm,
+            SearchFolder = searchFolder,
+            AWSLink = ServiceUrl,
+            S3Bucket = BucketName,
+            CurrentUrl = currentUrl
+        };
+
+        if (!string.IsNullOrEmpty(searchTerm) && !string.IsNullOrEmpty(searchFolder))
             bucket.Files = await ListFilesIn(searchFolder, searchTerm);
-        }
+
         article.S3Bucket = bucket;
 
         var processedModel = _articleFactory.Build(article);
@@ -62,7 +62,7 @@ public class ArticleRepository : IArticleRepository
     {
         var settings = new { S3ServiceUrl = ServiceUrl, S3SecretKey = "", S3KeyId = "", S3BucketName = BucketName };
 
-        var amazonS3Config = new AmazonS3Config
+        AmazonS3Config amazonS3Config = new()
         {
             ServiceURL = string.Format("https://{0}", settings.S3ServiceUrl)
         };
@@ -82,20 +82,18 @@ public class ArticleRepository : IArticleRepository
                 Prefix = fullpathfolder
             });
 
-            if (response.S3Objects.Count > 0)  // if (response.S3Objects.Count() > 0)
+            if (response.S3Objects.Count > 0)
             {
                 var files = response.S3Objects.Select(s => s.Key).Where(w => w != fullpathfolder).ToList();
 
                 if (!string.IsNullOrEmpty(searchTerm))
                 {
-                    List<string> temp = new List<string>();
+                    List<string> temp = new();
                     foreach (var item in files)
                     {
                         var tempSplit = item.Split('/');
                         if (tempSplit.Last().ToLower().Contains(searchTerm.ToLower()))
-                        {
                             temp.Add(item);
-                        }
                     }
                     return temp;
                 }
