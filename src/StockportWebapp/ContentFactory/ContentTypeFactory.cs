@@ -13,10 +13,9 @@ public class ContentTypeFactory
         IDynamicTagParser<Document> documentTagParser,
         IDynamicTagParser<Alert> alertsInlineTagParser,
         IHttpContextAccessor httpContextAccesor,
-        IDynamicTagParser<S3BucketSearch> s3BucketParser,
         IDynamicTagParser<PrivacyNotice> privacyNoticeTagParser)
     {
-        var sectionFactory = new SectionFactory(tagParserContainer, profileTagParser, markdownWrapper, documentTagParser, alertsInlineTagParser, s3BucketParser, privacyNoticeTagParser, null);
+        var sectionFactory = new SectionFactory(tagParserContainer, profileTagParser, markdownWrapper, documentTagParser, alertsInlineTagParser, privacyNoticeTagParser, null);
         var contactUsCategoryFactory = new ContactUsCategoryFactory(tagParserContainer, markdownWrapper, documentTagParser, null);
         var triviaFactory = new TriviaFactory(markdownWrapper);
 
@@ -35,7 +34,7 @@ public class ContentTypeFactory
         _factories.Add(typeof(PrivacyNotice), new PrivacyNoticeFactory(markdownWrapper));
         _factories.Add(typeof(StartPage), new StartPageFactory(tagParserContainer, markdownWrapper, alertsInlineTagParser));
         _factories.Add(typeof(ContactUsArea), new ContactUsAreaFactory(tagParserContainer, markdownWrapper, contactUsCategoryFactory));
-        _factories.Add(typeof(List<Models.Trivia>), triviaFactory);
+        _factories.Add(typeof(List<Trivia>), triviaFactory);
     }
 
     public IProcessedContentType Build<T>(T content)

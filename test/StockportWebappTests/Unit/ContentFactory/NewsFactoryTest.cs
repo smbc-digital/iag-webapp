@@ -33,7 +33,7 @@ public class NewsFactoryTest
         _factory = new NewsFactory(_tagParserContainer.Object, _markdownWrapper.Object, _documentTagParser.Object, _profileTagParser.Object);
         _news = new News(Title, Slug, Teaser, Purpose, Image, ThumbnailImage, Body, _breadcrumbs, _sunrise, _sunset, _updatedAt, _alerts, _tags, _documents, new List<Profile>());
 
-        _tagParserContainer.Setup(_ => _.ParseAll(Body, It.IsAny<string>(), It.IsAny<bool>(), null, null, null, null, null, null)).Returns(Body);
+        _tagParserContainer.Setup(_ => _.ParseAll(Body, It.IsAny<string>(), It.IsAny<bool>(), null, null, null, null, null)).Returns(Body);
         _markdownWrapper.Setup(_ => _.ConvertToHtml(Body)).Returns(Body);
     }
 
@@ -70,7 +70,7 @@ public class NewsFactoryTest
     {
         // Act & Assert
         _factory.Build(_news);
-        _tagParserContainer.Verify(_ => _.ParseAll(Body, It.IsAny<string>(), It.IsAny<bool>(), null, null, null, null, null, null), Times.Once);
+        _tagParserContainer.Verify(_ => _.ParseAll(Body, It.IsAny<string>(), It.IsAny<bool>(), null, null, null, null, null), Times.Once);
     }
 
     [Fact]
@@ -78,7 +78,7 @@ public class NewsFactoryTest
     {
         // Act & Assert
         _factory.Build(_news);
-        _tagParserContainer.Verify(_ => _.ParseAll(Body, _news.Title, It.IsAny<bool>(), null, null, null, null, null, null), Times.Once);
+        _tagParserContainer.Verify(_ => _.ParseAll(Body, _news.Title, It.IsAny<bool>(), null, null, null, null, null), Times.Once);
     }
 
      [Fact]

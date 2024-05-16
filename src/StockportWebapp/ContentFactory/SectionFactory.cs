@@ -9,23 +9,21 @@ public class SectionFactory : ISectionFactory
 {
     private readonly MarkdownWrapper _markdownWrapper;
     private readonly ITagParserContainer _tagParserContainer;
-    private readonly IDynamicTagParser<StockportWebapp.Models.Profile> _profileTagParser;
+    private readonly IDynamicTagParser<Models.Profile> _profileTagParser;
     private readonly IDynamicTagParser<Document> _documentTagParser;
     private readonly IDynamicTagParser<Alert> _alertsInlineTagParser;
-    private readonly IDynamicTagParser<S3BucketSearch> _searchTagParser;
     private readonly IDynamicTagParser<PrivacyNotice> _privacyNoticeTagParser;
     private readonly IRepository _repository;
 
 
     public SectionFactory(ITagParserContainer tagParserContainer, IDynamicTagParser<StockportWebapp.Models.Profile> profileTagParser, MarkdownWrapper markdownWrapper,
-        IDynamicTagParser<Document> documentTagParser, IDynamicTagParser<Alert> alertsInlineTagParser, IDynamicTagParser<S3BucketSearch> searchTagParser, IDynamicTagParser<PrivacyNotice> privacyNoticeTagParser, IRepository repository)
+        IDynamicTagParser<Document> documentTagParser, IDynamicTagParser<Alert> alertsInlineTagParser, IDynamicTagParser<PrivacyNotice> privacyNoticeTagParser, IRepository repository)
     {
         _tagParserContainer = tagParserContainer;
         _markdownWrapper = markdownWrapper;
         _profileTagParser = profileTagParser;
         _documentTagParser = documentTagParser;
         _alertsInlineTagParser = alertsInlineTagParser;
-        _searchTagParser = searchTagParser;
         _privacyNoticeTagParser = privacyNoticeTagParser;
         _repository = repository;
     }
@@ -36,7 +34,6 @@ public class SectionFactory : ISectionFactory
         parsedBody = _profileTagParser.Parse(parsedBody, section.Profiles);
         parsedBody = _documentTagParser.Parse(parsedBody, section.Documents);
         parsedBody = _alertsInlineTagParser.Parse(parsedBody, section.AlertsInline);
-        parsedBody = _searchTagParser.Parse(parsedBody, new List<S3BucketSearch> { section.S3Bucket });
 
         if (section.Body.Contains("PrivacyNotice:"))
         {

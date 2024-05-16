@@ -37,7 +37,7 @@ public class DirectoryService : IDirectoryService {
         var directory = (Directory)httpResponse.Content;
 
         directory.Body = _markdownWrapper.ConvertToHtml(directory.Body ?? "");
-        directory.Body = _tagParserContainer.ParseAll(directory.Body, directory.Title, true, directory.AlertsInline, null, null, null, null, null);
+        directory.Body = _tagParserContainer.ParseAll(directory.Body, directory.Title, true, directory.AlertsInline, null, null, null, null);
 
         return directory;
     }
@@ -52,7 +52,7 @@ public class DirectoryService : IDirectoryService {
         var directoryEntry = (DirectoryEntry)httpResponse.Content;
         directoryEntry.Description = _markdownWrapper.ConvertToHtml(directoryEntry.Description ?? "");
         directoryEntry.Address = _markdownWrapper.ConvertToHtml(directoryEntry.Address ?? "");
-        directoryEntry.Description = _tagParserContainer.ParseAll(directoryEntry.Description, directoryEntry.Name, true, directoryEntry.AlertsInline, null, null, null, null, null);
+        directoryEntry.Description = _tagParserContainer.ParseAll(directoryEntry.Description, directoryEntry.Name, true, directoryEntry.AlertsInline, null, null, null, null);
 
         return directoryEntry;
     }

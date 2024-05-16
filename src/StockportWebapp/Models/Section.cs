@@ -9,7 +9,6 @@ public class Section
     public List<Profile> Profiles { get; set; }
     public List<Document> Documents { get; set; }
     public IEnumerable<Alert> AlertsInline { get; set; }
-    public S3BucketSearch S3Bucket { get; set; }
     public IEnumerable<PrivacyNotice> PrivacyNotices { get; set; }
 
     public Section() { }

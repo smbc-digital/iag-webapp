@@ -30,7 +30,7 @@ public class GroupHomepageFactoryTest
         };
 
         _markdownWrapperMock.Setup(o => o.ConvertToHtml(Body)).Returns(Body);
-        _tagParserContainerMock.Setup(o => o.ParseAll(Body, It.IsAny<string>(), It.IsAny<bool>(), null, null, null, null, null, null)).Returns(Body);
+        _tagParserContainerMock.Setup(o => o.ParseAll(Body, It.IsAny<string>(), It.IsAny<bool>(), null, null, null, null, null)).Returns(Body);
     }
 
     [Fact]
@@ -48,7 +48,7 @@ public class GroupHomepageFactoryTest
     {
         var result = _groupHomepageFactory.Build(_groupHomepage);
 
-        _tagParserContainerMock.Verify(o => o.ParseAll(Body, It.IsAny<string>(), It.IsAny<bool>(), null, null, null, null, null, null), Times.Once);
+        _tagParserContainerMock.Verify(o => o.ParseAll(Body, It.IsAny<string>(), It.IsAny<bool>(), null, null, null, null, null), Times.Once);
         _markdownWrapperMock.Verify(o => o.ConvertToHtml(Body), Times.Once);
     }
 

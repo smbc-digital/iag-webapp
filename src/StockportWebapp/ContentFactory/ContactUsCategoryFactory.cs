@@ -12,7 +12,6 @@ public class ContactUsCategoryFactory : IContactUsCategoryFactory
     //private readonly IDynamicTagParser<Profile> _profileTagParser;
     private readonly IDynamicTagParser<Document> _documentTagParser;
     //private readonly IDynamicTagParser<Alert> _alertsInlineTagParser;
-    //private readonly IDynamicTagParser<S3BucketSearch> _searchTagParser;
     //private readonly IDynamicTagParser<PrivacyNotice> _privacyNoticeTagParser;
     private readonly IRepository _repository;
 

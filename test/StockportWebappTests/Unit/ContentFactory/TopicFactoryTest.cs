@@ -44,7 +44,7 @@ public class TopicFactoryTest
         };
 
         _markdownWrapper.Setup(_ => _.ConvertToHtml(Summary)).Returns(Summary);
-        _tagParserContainer.Setup(_ => _.ParseAll(Summary, Title, It.IsAny<bool>(), null, null, null, null, null, null)).Returns(Summary);
+        _tagParserContainer.Setup(_ => _.ParseAll(Summary, Title, It.IsAny<bool>(), null, null, null, null, null)).Returns(Summary);
     }
 
     [Fact]
@@ -84,6 +84,6 @@ public class TopicFactoryTest
         _topicFactory.Build(_topic);
 
         // Assert
-        _tagParserContainer.Verify(_ => _.ParseAll(Summary, Title, It.IsAny<bool>(), null, null, null, null, null, null), Times.Once);
+        _tagParserContainer.Verify(_ => _.ParseAll(Summary, Title, It.IsAny<bool>(), null, null, null, null, null), Times.Once);
     }
 }
