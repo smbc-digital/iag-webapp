@@ -30,17 +30,8 @@
                         <span class="directory-pinned">Spotlight on</span>
                     }
 
-                    <h3 class="navcard__title navcard__title--large">
-                        @if (Model.ShowMapPin && Model.IsPinned)
-                        {
-                            <partial name="MapPin" view-data='new ViewDataDictionary(ViewData) { { "Count", Model.MapPinIndex}, {"Highlighted", true } }' />
-                        }
-                        else if (Model.ShowMapPin)
-                        {
-                            <partial name="MapPin" view-data='new ViewDataDictionary(ViewData) { { "Count", Model.MapPinIndex}, {"Highlighted", false } }' />
-                        }
-                        
-                        @Model.DirectoryEntry.Name
+                    <h3 class="navcard__title navcard__title--large">@if (Model.ShowMapPin && Model.IsPinned){<partial name="MapPin" view-data='new ViewDataDictionary(ViewData) { { "Count", Model.MapPinIndex}, {"Highlighted", true } }' />}
+                        else if (Model.ShowMapPin){<partial name="MapPin" view-data='new ViewDataDictionary(ViewData) { { "Count", Model.MapPinIndex}, {"Highlighted", false } }' />}@Model.DirectoryEntry.Name
                     </h3>
 
                     @if (!string.IsNullOrEmpty(Model.DirectoryEntry.Provider))
