@@ -15,7 +15,7 @@ public class ArticleControllerTest
 
         _articleRepository = new Mock<IArticleRepository>();
 
-        _controller = new ArticleController(_fakeContentRepository.Object, new Mock<ILogger<ArticleController>>().Object, _contactUsMessageParser.Object, _articleRepository.Object);
+        _controller = new ArticleController(_fakeContentRepository.Object, new Mock<ILogger<ArticleController>>().Object, _contactUsMessageParser.Object, _articleRepository.Object, new BusinessId("stockportgov"));
     }
 
     [Fact]
