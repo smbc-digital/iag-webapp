@@ -1,6 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-
-namespace StockportWebapp.Controllers;
+﻿namespace StockportWebapp.Controllers;
 [Obsolete("Groups is being replaced by directories/directory entries, favorites is no longer used")]
 [ExcludeFromCodeCoverage(Justification="Obsolete")]
 public class FavouritesController

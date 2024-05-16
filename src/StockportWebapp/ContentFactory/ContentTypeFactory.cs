@@ -21,7 +21,7 @@ public class ContentTypeFactory
         var triviaFactory = new TriviaFactory(markdownWrapper);
 
         _factories.Add(typeof(Section), sectionFactory);
-        _factories.Add(typeof(Article), new ArticleFactory(tagParserContainer, profileTagParser, sectionFactory, markdownWrapper, documentTagParser, alertsInlineTagParser, s3BucketParser, privacyNoticeTagParser, null));
+        _factories.Add(typeof(Article), new ArticleFactory(tagParserContainer, profileTagParser, sectionFactory, markdownWrapper, documentTagParser, alertsInlineTagParser, privacyNoticeTagParser, null));
         _factories.Add(typeof(DocumentPage), new DocumentPageFactory(markdownWrapper));
         _factories.Add(typeof(News), new NewsFactory(tagParserContainer, markdownWrapper, documentTagParser, profileTagParser));
         _factories.Add(typeof(Event), new EventFactory(tagParserContainer, markdownWrapper, documentTagParser));

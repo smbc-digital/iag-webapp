@@ -44,7 +44,7 @@ public class ArticleFactoryTest
         _privacyNoticeTagParser = new Mock<IDynamicTagParser<PrivacyNotice>>();
         _repository = new Mock<IRepository>();
 
-        _articleFactory = new ArticleFactory(_tagParserContainer.Object, _profileTagParser.Object, _sectionFactory.Object, _markdownWrapper.Object, _documentTagParser.Object, _alertsInlineTagParser.Object, _s3BucketParser.Object, _privacyNoticeTagParser.Object, _repository.Object);
+        _articleFactory = new ArticleFactory(_tagParserContainer.Object, _profileTagParser.Object, _sectionFactory.Object, _markdownWrapper.Object, _documentTagParser.Object, _alertsInlineTagParser.Object, _privacyNoticeTagParser.Object, _repository.Object);
 
 
         _sectionOne = new Section(TextHelper.AnyString, "id-1", TextHelper.AnyString, TextHelper.AnyString, _emptyProfiles, _emptyDocuments, _emptyAlertsInline);

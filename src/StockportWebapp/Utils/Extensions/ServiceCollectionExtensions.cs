@@ -98,7 +98,6 @@ namespace StockportWebapp.Utils.Extensions
                 p.GetService<MarkdownWrapper>(),
                 p.GetService<IDynamicTagParser<Document>>(),
                 p.GetService<IDynamicTagParser<Alert>>(),
-                p.GetService<IDynamicTagParser<S3BucketSearch>>(),
                 p.GetService<IDynamicTagParser<PrivacyNotice>>(),
                 p.GetService<IRepository>()));
             services.AddTransient(p => new DocumentPageFactory(

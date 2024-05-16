@@ -25,7 +25,7 @@ public class ArticleControllerTest
         var article = new ProcessedArticle("Physical Activity", "physical-activity",
             "Being active is great for your body", "teaser", "meta description", new List<ProcessedSection>() { DummySection() },
             "fa-icon", "af981b9771822643da7a03a9ae95886f/runners.jpg", "af981b9771822643da7a03a9ae95886f/runners.jpg",
-            new List<Crumb>() { new Crumb("title", "slug", "type") }, new List<Alert>(), new NullTopic(), new List<Alert>(), null, new DateTime(), new bool());
+            new List<Crumb>() { new("title", "slug", "type") }, new List<Alert>(), new NullTopic(), new List<Alert>(), new DateTime(), new bool());
 
         _articleRepository.Setup(o => o.Get(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(new HttpResponse(200, article, string.Empty));
 
@@ -50,7 +50,7 @@ public class ArticleControllerTest
 
         var article = new ProcessedArticle(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty,
             new List<ProcessedSection>() { sectionOne, sectionTwo }, string.Empty, string.Empty, string.Empty, new List<Crumb>() { },
-            new List<Alert>(), new NullTopic(), new List<Alert>(), null, new DateTime(), new bool());
+            new List<Alert>(), new NullTopic(), new List<Alert>(), new DateTime(), new bool());
 
         var response = new HttpResponse(200, article, string.Empty);
 
@@ -72,7 +72,7 @@ public class ArticleControllerTest
         var sectionTwo = new ProcessedSection("Types of Physical Activity", TextHelper.AnyString, TextHelper.AnyString, "body", new List<Profile>(), new List<Document>(), new List<Alert>());
 
         var article = new ProcessedArticle(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, new List<ProcessedSection>() { sectionOne, sectionTwo },
-            string.Empty, string.Empty, string.Empty, new List<Crumb>() { }, new List<Alert>(), new NullTopic(), new List<Alert>(), null, new DateTime(), new bool());
+            string.Empty, string.Empty, string.Empty, new List<Crumb>() { }, new List<Alert>(), new NullTopic(), new List<Alert>(), new DateTime(), new bool());
 
         var response = new HttpResponse(200, article, string.Empty);
 
@@ -94,7 +94,7 @@ public class ArticleControllerTest
 
         var article = new ProcessedArticle(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty,
             new List<ProcessedSection>() { sectionOne, sectionTwo }, string.Empty, string.Empty, string.Empty,
-            new List<Crumb>() { }, new List<Alert>(), new NullTopic(), new List<Alert>(), null, new DateTime(), new bool());
+            new List<Crumb>() { }, new List<Alert>(), new NullTopic(), new List<Alert>(), new DateTime(), new bool());
 
         var response = new HttpResponse(200, article, string.Empty);
 
@@ -120,7 +120,7 @@ public class ArticleControllerTest
         var sectionTwo = new ProcessedSection("Types of Physical Activity", sectionSlug, TextHelper.AnyString, "body", new List<Profile>(), new List<Document>(), new List<Alert>());
         var article = new ProcessedArticle(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty,
             new List<ProcessedSection>() { sectionOne, sectionTwo }, string.Empty, string.Empty, string.Empty, new List<Crumb>() { },
-            new List<Alert>(), new NullTopic(), new List<Alert>(), null, new DateTime(), new bool());
+            new List<Alert>(), new NullTopic(), new List<Alert>(), new DateTime(), new bool());
 
         var response = new HttpResponse(200, article, string.Empty);
 
@@ -159,7 +159,6 @@ public class ArticleControllerTest
             new List<ProcessedSection> { section },
             string.Empty,
             string.Empty,
-            null,
             null,
             null,
             null,
@@ -226,7 +225,6 @@ public class ArticleControllerTest
             null,
             null,
             null,
-            null,
             new DateTime(),
             new bool()
         );
@@ -273,7 +271,7 @@ public class ArticleControllerTest
                                                              new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc),String.Empty, false, string.Empty)
         };
         var article = new ProcessedArticle(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty,
-            new List<ProcessedSection>() { }, string.Empty, string.Empty, string.Empty, new List<Crumb>() { }, alerts, new NullTopic(), new List<Alert>(), null, new DateTime(), new bool());
+            new List<ProcessedSection>() { }, string.Empty, string.Empty, string.Empty, new List<Crumb>() { }, alerts, new NullTopic(), new List<Alert>(), new DateTime(), new bool());
 
         _articleRepository.Setup(o => o.Get(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(new HttpResponse(200, article, string.Empty));
 
@@ -335,7 +333,7 @@ public class ArticleControllerTest
                                                              new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc),String.Empty, false, string.Empty)
         };
         var article = new ProcessedArticle(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty,
-            new List<ProcessedSection>() { }, string.Empty, string.Empty, string.Empty, new List<Crumb>() { }, new List<Alert>(), new NullTopic(), alertsInline, null, new DateTime(), new bool());
+            new List<ProcessedSection>() { }, string.Empty, string.Empty, string.Empty, new List<Crumb>() { }, new List<Alert>(), new NullTopic(), alertsInline, new DateTime(), new bool());
 
         _articleRepository.Setup(o => o.Get(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(new HttpResponse(200, article, string.Empty));
 
@@ -361,7 +359,7 @@ public class ArticleControllerTest
         var processedSection = new ProcessedSection("title", "slug", string.Empty, "body", new List<Profile>(), new List<Document>(), alertsInline);
 
         var article = new ProcessedArticle(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty,
-            new List<ProcessedSection>() { processedSection }, string.Empty, string.Empty, string.Empty, new List<Crumb>() { }, new List<Alert>(), new NullTopic(), alertsInline, null, new DateTime(), new bool());
+            new List<ProcessedSection>() { processedSection }, string.Empty, string.Empty, string.Empty, new List<Crumb>() { }, new List<Alert>(), new NullTopic(), alertsInline, new DateTime(), new bool());
 
         _articleRepository.Setup(o => o.Get(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(new HttpResponse(200, article, string.Empty));
 
@@ -379,7 +377,7 @@ public class ArticleControllerTest
     {
         return new ProcessedArticle(TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString,
             new List<ProcessedSection>(), TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<Crumb>(),
-            new LinkedList<Alert>(), new NullTopic(), new List<Alert>(), null, new DateTime(), new bool());
+            new LinkedList<Alert>(), new NullTopic(), new List<Alert>(), new DateTime(), new bool());
     }
 
     private ProcessedSection DummySection()

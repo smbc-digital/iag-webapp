@@ -1,6 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-
-[ExcludeFromCodeCoverage]
+﻿[ExcludeFromCodeCoverage]
 internal class Program
 {
     private static void Main(string[] args)

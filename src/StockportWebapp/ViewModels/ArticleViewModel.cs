@@ -25,62 +25,40 @@ public class ArticleViewModel
     {
         Article = article;
         DisplayedSection = GetSectionOrThrowSectionNotFound(sectionSlug);
-        ShouldShowArticleSummary = (Article.Sections.First().Slug == DisplayedSection.Slug);
+        ShouldShowArticleSummary = Article.Sections.First().Slug.Equals(DisplayedSection.Slug);
         OgTitleMetaData = string.Concat(Article.Title, !string.IsNullOrEmpty(DisplayedSection.Title) ? " - " : "", DisplayedSection.Title);
         HideLastUpdated = Article.HideLastUpdated;
     }
 
-    private ProcessedSection GetSectionOrThrowSectionNotFound(string sectionSlug)
-    {
-        var section = Article.Sections.FirstOrDefault(x => x.Slug == sectionSlug);
+    private ProcessedSection GetSectionOrThrowSectionNotFound(string sectionSlug) => 
+        Article.Sections.FirstOrDefault(_ => _.Slug.Equals(sectionSlug)) ?? throw new SectionDoesNotExistException($"Section with slug: {sectionSlug} does not exist");
 
-        if (section == null)
-        {
-            throw new SectionDoesNotExistException($"Section with slug: {sectionSlug} does not exist");
-        }
-        return section;
-    }
-
-    private static ProcessedSection FirstOrNull(IEnumerable<ProcessedSection> sections)
-    {
-        if (sections != null && sections.Any())
-            return sections.FirstOrDefault();
-        return null;
-    }
+    private static ProcessedSection FirstOrNull(IEnumerable<ProcessedSection> sections) =>
+        sections is not null && sections.Any() ? sections.FirstOrDefault() : null;
 
     public ProcessedSection NextSection()
     {
-        var displaySectionIndex = IndexForDisplayedSection();
-        var nextSectionIndex = displaySectionIndex + 1;
+        var nextSectionIndex = IndexForDisplayedSection() + 1;
         return nextSectionIndex < Article.Sections.Count() ? Article.Sections.ElementAt(nextSectionIndex) : null;
     }
 
     public ProcessedSection PreviousSection()
     {
-        var displaySectionIndex = IndexForDisplayedSection();
-        var previousSectionIndex = displaySectionIndex - 1;
+        var previousSectionIndex = IndexForDisplayedSection() - 1;
         return previousSectionIndex >= 0 ? Article.Sections.ElementAt(previousSectionIndex) : null;
     }
 
-    public bool ShouldShowNextSectionButton()
-    {
-        return NextSection() != null;
-    }
+    public bool ShouldShowNextSectionButton() => 
+        NextSection() is not null;
 
-    public bool ShouldShowPreviousSectionButton()
-    {
-        return PreviousSection() != null;
-    }
+    public bool ShouldShowPreviousSectionButton() => 
+        PreviousSection() is not null;
 
-    public bool HasParentTopicWithSubItems()
-    {
-        return Article.ParentTopic != null && Article.ParentTopic.SubItems.Any();
-    }
+    public bool HasParentTopicWithSubItems() =>
+        Article.ParentTopic is not null && Article.ParentTopic.SubItems.Any();
 
-    public bool HasSecondarySubItems()
-    {
-        return Article.ParentTopic.SecondaryItems.Any();
-    }
+    public bool HasSecondarySubItems() => 
+        Article.ParentTopic.SecondaryItems.Any();
 
     private int IndexForDisplayedSection()
     {
@@ -88,10 +66,8 @@ public class ArticleViewModel
         for (var i = 0; i < Article.Sections.Count(); i++)
         {
             var section = Article.Sections.ElementAt(i);
-            if (section == DisplayedSection)
-            {
+            if (section.Equals(DisplayedSection))
                 return i;
-            }
         }
         return firstIndex;
     }
@@ -99,7 +75,7 @@ public class ArticleViewModel
     public IEnumerable<SubItem> SidebarSubItems(out bool hasMoreButton)
     {
         var parentTopic = Article.ParentTopic;
-        var sidebarSubItems = new List<SubItem>();
+        List<SubItem> sidebarSubItems = new();
         sidebarSubItems.AddRange(parentTopic.SubItems);
         sidebarSubItems.AddRange(parentTopic.SecondaryItems);
         hasMoreButton = sidebarSubItems.Count > 6;
