@@ -235,7 +235,7 @@ public class GroupControllerTest
             DateTime.MinValue, "status", new List<string>(), "£1", "ability", false, "volunteer text",
             new Organisation(), new List<Group>(), false, "tenaport-link", new List<GroupBranding>(), "aditional-info",
             DateTime.MinValue, new List<string>(), new List<string>(), "donation-text", "donation-url",
-            new List<Alert>());
+            new List<Alert>(), new List<Alert>());
 
         var loggedInPerson = new LoggedInPerson
         {

@@ -1,5 +1,9 @@
-﻿namespace StockportWebapp.ViewModels;
+﻿using System.Diagnostics.CodeAnalysis;
 
+namespace StockportWebapp.ViewModels;
+
+[Obsolete("Groups is being replaced by directories/directory entries")]
+[ExcludeFromCodeCoverage(Justification = "Obsolete")]
 public class GroupSearch
 {
     public string Category { get; set; }

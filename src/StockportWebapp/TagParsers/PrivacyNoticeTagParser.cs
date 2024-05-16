@@ -3,15 +3,12 @@
 public class PrivacyNoticeTagParser : IDynamicTagParser<PrivacyNotice>
 {
     private readonly IViewRender _viewRenderer;
-    private readonly ILogger<PrivacyNotice> _logger;
 
-    public PrivacyNoticeTagParser(IViewRender viewRenderer, ILogger<PrivacyNotice> logger)
-    {
-        _viewRenderer = viewRenderer;
-        _logger = logger;
-    }
+    public PrivacyNoticeTagParser(IViewRender viewRenderer) => _viewRenderer = viewRenderer;
 
     protected Regex TagRegex => new Regex("{{PrivacyNotice:(.*?)}}", RegexOptions.Compiled);
+
+    public bool HasMatches(string content) => TagRegex.IsMatch(content);
 
     public string Parse(string content, IEnumerable<PrivacyNotice> privacyNotices)
     {
@@ -20,8 +17,7 @@ public class PrivacyNoticeTagParser : IDynamicTagParser<PrivacyNotice>
         foreach (Match match in matches)
         {
             var privacyNoticeSlug = match.Groups[1].Value;
-
-            privacyNotices = privacyNotices.Where(s => s.Title.Replace(" ", string.Empty) == privacyNoticeSlug).OrderBy(x => x.Category);
+            privacyNotices = privacyNotices?.Where(s => s.Title.Replace(" ", string.Empty) == privacyNoticeSlug).OrderBy(x => x.Category);
 
             if (privacyNotices.Any())
             {
@@ -32,8 +28,7 @@ public class PrivacyNoticeTagParser : IDynamicTagParser<PrivacyNotice>
         return RemoveEmptyTags(content);
     }
 
-    private string RemoveEmptyTags(string content)
-    {
-        return TagRegex.Replace(content, string.Empty);
-    }
+    private string RemoveEmptyTags(string content) =>
+        TagRegex.Replace(content, string.Empty);
+    
 }

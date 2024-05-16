@@ -41,13 +41,14 @@ public class Group
     public string DonationsText { get; set; }
     public string DonationsUrl { get; set; }
     public IEnumerable<Alert> Alerts { get; }
+    public IEnumerable<Alert> AlertsInline { get; }
     public Group(string name, string slug, string metaDescription, string phoneNumber, string email, string website,
         string twitter, string facebook, string address, string description, string imageUrl,
         string thumbnailImageUrl, List<GroupCategory> categoriesReference, List<GroupSubCategory> subCategories, List<Crumb> breadcrumbs,
         MapPosition mapPosition, bool volunteering, List<Event> events, GroupAdministrators groupAdministrators, DateTime? dateHiddenFrom,
         DateTime? dateHiddenTo, string status, List<string> cost, string costText, string abilityLevel, bool favourite, string volunteeringText,
         Organisation organisation, List<Group> linkedGroups, bool donations, string accessibleTransportLink, List<GroupBranding> groupBranding, string additionalInformation,
-        DateTime? dateLastModified, List<string> suitableFor, List<string> ageRange, string donationsText, string donationsUrl, IEnumerable<Alert> alerts)
+        DateTime? dateLastModified, List<string> suitableFor, List<string> ageRange, string donationsText, string donationsUrl, IEnumerable<Alert> alerts, IEnumerable<Alert> alertsInline)
     {
         Name = name;
         Slug = slug;
@@ -88,5 +89,6 @@ public class Group
         DonationsText = donationsText;
         DonationsUrl = donationsUrl;
         Alerts = alerts;
+        AlertsInline = alertsInline;
     }
 }

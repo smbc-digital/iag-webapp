@@ -7,7 +7,7 @@ public class TopicRepositoryTests
     private Mock<IUrlGeneratorSimple> _urlGeneratorSimple;
     private readonly UrlGenerator _urlGenerator;
     private TopicFactory _topicFactory;
-    private readonly Mock<ISimpleTagParserContainer> _tagParserContainer;
+    private readonly Mock<ITagParserContainer> _tagParserContainer;
     private readonly Mock<MarkdownWrapper> _markdownWrapper;
     private readonly TopicRepository _topicRepository;
 
@@ -17,7 +17,7 @@ public class TopicRepositoryTests
         _applicationConfiguration = new Mock<IApplicationConfiguration>();
         _urlGeneratorSimple = new Mock<IUrlGeneratorSimple>();
         _urlGenerator = new UrlGenerator(_applicationConfiguration.Object, new BusinessId(""));
-        _tagParserContainer = new Mock<ISimpleTagParserContainer>();
+        _tagParserContainer = new Mock<ITagParserContainer>();
         _markdownWrapper = new Mock<MarkdownWrapper>();
 
         _topicFactory = new TopicFactory(_tagParserContainer.Object, _markdownWrapper.Object);

@@ -14,6 +14,7 @@ namespace StockportWebapp.Models
         public string Body { get; set; } = string.Empty;
         public CallToActionBanner CallToAction { get; init; }
         public IEnumerable<Alert> Alerts { get; set; }
+        public IEnumerable<Alert> AlertsInline { get; set; }
         public IEnumerable<DirectoryEntry> Entries { get; set; } = new List<DirectoryEntry>();
         public IEnumerable<Directory> SubDirectories { get; set; } = new List<Directory>();
         public IEnumerable<SubItem> SubItems { get; set; } = new List<SubItem>();

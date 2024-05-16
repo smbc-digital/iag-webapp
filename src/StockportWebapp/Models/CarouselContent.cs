@@ -1,5 +1,8 @@
-﻿namespace StockportWebapp.Models;
+﻿using System.Diagnostics.CodeAnalysis;
 
+namespace StockportWebapp.Models;
+
+[ExcludeFromCodeCoverage]
 public class CarouselContent
 {
     public string Title { get; }
@@ -16,6 +19,7 @@ public class CarouselContent
     }
 }
 
+[ExcludeFromCodeCoverage]
 public class NullCarouselContent : CarouselContent
 {
     public NullCarouselContent() : base(string.Empty, string.Empty, string.Empty, string.Empty) { }

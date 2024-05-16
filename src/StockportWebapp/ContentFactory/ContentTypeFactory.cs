@@ -7,7 +7,7 @@ public class ContentTypeFactory
     private readonly Dictionary<Type, dynamic> _factories = new Dictionary<Type, object>();
 
     public ContentTypeFactory(
-        ISimpleTagParserContainer tagParserContainer,
+        ITagParserContainer tagParserContainer,
         IDynamicTagParser<Profile> profileTagParser,
         MarkdownWrapper markdownWrapper,
         IDynamicTagParser<Document> documentTagParser,

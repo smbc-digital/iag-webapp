@@ -1,5 +1,8 @@
+using System.Diagnostics.CodeAnalysis;
+
 namespace StockportWebapp.Models;
 
+[ExcludeFromCodeCoverage]
 public class TopicSitemap
 {
     public string Slug { get; set; }

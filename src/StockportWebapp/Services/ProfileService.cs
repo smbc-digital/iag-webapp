@@ -8,7 +8,7 @@ public interface IProfileService
 public class ProfileService : IProfileService
 {
     private readonly IRepository _repository;
-    private readonly ISimpleTagParserContainer _parser;
+    private readonly ITagParserContainer _parser;
     private readonly MarkdownWrapper _markdownWrapper;
     private readonly IDynamicTagParser<Alert> _alertsInlineTagParser;
     private readonly IDynamicTagParser<InlineQuote> _inlineQuotesTagParser;
@@ -16,7 +16,7 @@ public class ProfileService : IProfileService
 
     public ProfileService(
         IRepository repository,
-        ISimpleTagParserContainer parser,
+        ITagParserContainer parser,
         MarkdownWrapper markdownWrapper,
         IDynamicTagParser<Alert> alertsInlineTagParser,
         ITriviaFactory triviaFactory,

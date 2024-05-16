@@ -2,7 +2,7 @@
 
 public class TopicFactoryTest
 {
-    private readonly Mock<ISimpleTagParserContainer> _tagParserContainer;
+    private readonly Mock<ITagParserContainer> _tagParserContainer;
     private readonly Mock<MarkdownWrapper> _markdownWrapper;
     private readonly TopicFactory _topicFactory;
     private readonly Topic _topic;
@@ -27,7 +27,7 @@ public class TopicFactoryTest
 
     public TopicFactoryTest()
     {
-        _tagParserContainer = new Mock<ISimpleTagParserContainer>();
+        _tagParserContainer = new Mock<ITagParserContainer>();
         _markdownWrapper = new Mock<MarkdownWrapper>();
         _topicFactory = new TopicFactory(_tagParserContainer.Object, _markdownWrapper.Object);
         _breadcrumbs = new List<Crumb>();
@@ -44,7 +44,7 @@ public class TopicFactoryTest
         };
 
         _markdownWrapper.Setup(_ => _.ConvertToHtml(Summary)).Returns(Summary);
-        _tagParserContainer.Setup(_ => _.ParseAll(Summary, Title, It.IsAny<bool>())).Returns(Summary);
+        _tagParserContainer.Setup(_ => _.ParseAll(Summary, Title, It.IsAny<bool>(), null, null, null, null, null, null)).Returns(Summary);
     }
 
     [Fact]
@@ -84,6 +84,6 @@ public class TopicFactoryTest
         _topicFactory.Build(_topic);
 
         // Assert
-        _tagParserContainer.Verify(_ => _.ParseAll(Summary, Title, It.IsAny<bool>()), Times.Once);
+        _tagParserContainer.Verify(_ => _.ParseAll(Summary, Title, It.IsAny<bool>(), null, null, null, null, null, null), Times.Once);
     }
 }

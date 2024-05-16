@@ -2,11 +2,11 @@
 
 public class ShowcaseFactory
 {
-    private readonly ISimpleTagParserContainer _tagParserContainer;
+    private readonly ITagParserContainer _tagParserContainer;
     private readonly MarkdownWrapper _markdownWrapper;
     private readonly ITriviaFactory _triviaFactory;
 
-    public ShowcaseFactory(ISimpleTagParserContainer tagParserContainer,
+    public ShowcaseFactory(ITagParserContainer tagParserContainer,
         MarkdownWrapper markdownWrapper,
         ITriviaFactory triviaFactory)
     {
