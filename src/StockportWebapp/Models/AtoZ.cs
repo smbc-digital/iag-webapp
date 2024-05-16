@@ -1,4 +1,8 @@
-﻿namespace StockportWebapp.Models;
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace StockportWebapp.Models;
+
+[ExcludeFromCodeCoverage]
 
 public class AtoZ
 {
@@ -13,6 +17,7 @@ public class AtoZ
         NavigationLink = TypeRoutes.GetUrlFor(type, slug);
     }
 
+    [ExcludeFromCodeCoverage]
     public class NullAtoZ : AtoZ
     {
         public NullAtoZ()

@@ -1,5 +1,8 @@
+using System.Diagnostics.CodeAnalysis;
+
 namespace StockportWebapp.Models;
 
+[ExcludeFromCodeCoverage]
 public class Healthcheck
 {
     public readonly string AppVersion;
@@ -26,6 +29,7 @@ public class Healthcheck
     }
 }
 
+[ExcludeFromCodeCoverage]
 public class UnavailableHealthcheck : Healthcheck
 {
     public UnavailableHealthcheck()

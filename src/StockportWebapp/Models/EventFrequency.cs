@@ -1,4 +1,6 @@
-﻿namespace StockportWebapp.Models;
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace StockportWebapp.Models;
 
 [JsonConverter(typeof(StringEnumConverter))]
 public enum EventFrequency

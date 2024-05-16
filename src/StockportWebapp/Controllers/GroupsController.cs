@@ -1,6 +1,10 @@
+using System.Diagnostics.CodeAnalysis;
+
 namespace StockportWebapp.Controllers;
 
 [ResponseCache(Location = ResponseCacheLocation.Any, Duration = Cache.Short)]
+[Obsolete("Groups is being replaced by directories/directory entries")]
+[ExcludeFromCodeCoverage(Justification = "Obsolete")]
 public class GroupsController : Controller
 {
     private readonly IProcessedContentRepository _processedContentRepository;

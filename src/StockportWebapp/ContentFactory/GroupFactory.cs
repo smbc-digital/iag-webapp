@@ -2,10 +2,10 @@ namespace StockportWebapp.ContentFactory;
 
 public class GroupFactory
 {
-    private readonly ISimpleTagParserContainer _parser;
+    private readonly ITagParserContainer _parser;
     private readonly MarkdownWrapper _markdownWrapper;
 
-    public GroupFactory(ISimpleTagParserContainer parser, MarkdownWrapper markdownWrapper)
+    public GroupFactory(ITagParserContainer parser, MarkdownWrapper markdownWrapper)
     {
         _parser = parser;
         _markdownWrapper = markdownWrapper;

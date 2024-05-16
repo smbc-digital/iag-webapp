@@ -1,5 +1,9 @@
+using System.Diagnostics.CodeAnalysis;
+
 namespace StockportWebapp.Model
 {
+
+    [ExcludeFromCodeCoverage]
     public class Filter
     {
         public string Slug { get; set; }

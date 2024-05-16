@@ -4,17 +4,17 @@ public class GroupFactoryTest
 {
     private readonly GroupFactory _factory;
     private readonly Mock<MarkdownWrapper> _markdownWrapper;
-    private readonly Mock<ISimpleTagParserContainer> _tagParserContainer;
+    private readonly Mock<ITagParserContainer> _tagParserContainer;
     private readonly Group _group;
 
     public GroupFactoryTest()
     {
         _markdownWrapper = new Mock<MarkdownWrapper>();
-        _tagParserContainer = new Mock<ISimpleTagParserContainer>();
+        _tagParserContainer = new Mock<ITagParserContainer>();
         _factory = new GroupFactory(_tagParserContainer.Object, _markdownWrapper.Object);
         _group = new GroupBuilder().Build();
-        _tagParserContainer.Setup(o => o.ParseAll(_group.Description, It.IsAny<string>(), It.IsAny<bool>())).Returns(_group.Description);
-        _tagParserContainer.Setup(o => o.ParseAll(_group.AdditionalInformation, It.IsAny<string>(), It.IsAny<bool>())).Returns(_group.AdditionalInformation);
+        _tagParserContainer.Setup(o => o.ParseAll(_group.Description, It.IsAny<string>(), It.IsAny<bool>(), null, null, null, null, null, null)).Returns(_group.Description);
+        _tagParserContainer.Setup(o => o.ParseAll(_group.AdditionalInformation, It.IsAny<string>(), It.IsAny<bool>(), null, null, null, null, null, null)).Returns(_group.AdditionalInformation);
         _markdownWrapper.Setup(o => o.ConvertToHtml(_group.Description)).Returns(_group.Description);
     }
 
@@ -52,6 +52,6 @@ public class GroupFactoryTest
     {
         _factory.Build(_group);
 
-        _tagParserContainer.Verify(o => o.ParseAll(_group.Description, _group.Name, It.IsAny<bool>()), Times.Once);
+        _tagParserContainer.Verify(o => o.ParseAll(_group.Description, _group.Name, It.IsAny<bool>(), null, null, null, null, null, null), Times.Once);
     }
 }

@@ -1,4 +1,3 @@
-using System.Net.Mime;
 using StockportWebapp.Comparers;
 using Directory = StockportWebapp.Models.Directory;
 namespace StockportWebapp.Controllers;
@@ -7,25 +6,15 @@ namespace StockportWebapp.Controllers;
 public class DirectoryController : Controller
 {
     private readonly IDirectoryService _directoryService;
-    private readonly IFeatureManager _featureManager;
-    private readonly bool _isToggledOn = true;
     private readonly string _defaultUrlPrefix = "directories";
-
-    public DirectoryController(IDirectoryService directoryService, IFeatureManager featureManager = null)
+    public DirectoryController(IDirectoryService directoryService)
     {
-        _featureManager = featureManager;
         _directoryService = directoryService;
-
-        if (_featureManager is not null)
-            _isToggledOn = _featureManager.IsEnabledAsync("Directories").Result;
     }
 
     [Route("/directories/{**slug}")]
     public async Task<IActionResult> Directory([Required]string slug)
     {
-        if (!_isToggledOn)
-            return NotFound();
-
         var pageLocation = slug.ProcessAsWildcardSlug();
         var directory = await _directoryService.Get<Directory>(pageLocation.Slug);
 
@@ -49,9 +38,6 @@ public class DirectoryController : Controller
     [Route("/directories/results/{**slug}")]
     public async Task<IActionResult> DirectoryResults([Required][FromRoute]string slug, string[] filters, string orderBy, string searchTerm, [FromQuery] int page)
     {
-        if (!_isToggledOn)
-            return NotFound();
-
         var pageLocation = slug.ProcessAsWildcardSlug();
         var directory = await _directoryService.Get<Directory>(pageLocation.Slug);
 
@@ -60,18 +46,19 @@ public class DirectoryController : Controller
 
 
         var parentDirectories = await GetParentDirectories(pageLocation.ParentSlugs);
-        var entries = GetSearchedFilteredSortedEntries(directory.RegularEntries, filters, orderBy, searchTerm);
-        var pinnedEntries = GetSearchedFilteredSortedEntries(directory.PinnedEntries, filters, orderBy, searchTerm);
-        var allFilterThemes = _directoryService.GetFilterThemes(entries.Concat(pinnedEntries));
+        var entries = GetSearchedFilteredSortedEntries(directory.AllEntries, filters, orderBy, searchTerm);
+        var pinnedEntries = entries.Where(entry => directory.PinnedEntries.Any(pinnedEntry => pinnedEntry.Slug.Equals(entry.Slug)));
+        var regularEntries = entries.Where(entry => directory.RegularEntries.Any(regularEntry => regularEntry.Slug.Equals(entry.Slug)));
+        var allFilterThemes = _directoryService.GetFilterThemes(entries);
 
-        DirectoryViewModel viewModel = new(slug, directory, GetBreadcrumbsForDirectories(directory, parentDirectories, false, true), pinnedEntries, entries, page)
+        DirectoryViewModel viewModel = new(slug, directory, GetBreadcrumbsForDirectories(directory, parentDirectories, false, true), pinnedEntries, regularEntries, page)
         {
             ParentDirectory = new DirectoryViewModel(parentDirectories.FirstOrDefault() ?? directory),
             FirstSubDirectory = new DirectoryViewModel(parentDirectories.ElementAtOrDefault(1) ?? directory),
             SearchTerm = searchTerm,
             AllFilterThemes = allFilterThemes,
             AppliedFilters = _directoryService.GetFilters(filters, allFilterThemes),
-            FilterCounts = _directoryService.GetAllFilterCounts(entries.Concat(pinnedEntries).Distinct(new SlugComparer()).Select(entry => (DirectoryEntry)entry)),
+            FilterCounts = _directoryService.GetAllFilterCounts(entries.Distinct(new SlugComparer()).Select(entry => (DirectoryEntry)entry)),
             Order = !string.IsNullOrEmpty(orderBy) ? orderBy.Replace("-", " ") : orderBy
         };
 
@@ -96,9 +83,6 @@ public class DirectoryController : Controller
     [Route("directories/entry/{**slug}")]
     public async Task<IActionResult> DirectoryEntry([Required]string slug)
     {
-        if (!_isToggledOn)
-            return NotFound();
-
         var pageLocation = slug.ProcessAsWildcardSlug();
         var directoryEntry = await _directoryService.GetEntry<DirectoryEntry>(pageLocation.Slug);
 

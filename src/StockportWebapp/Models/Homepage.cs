@@ -1,4 +1,6 @@
-﻿namespace StockportWebapp.Models;
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace StockportWebapp.Models;
 
 public class Homepage
 {
@@ -50,6 +52,7 @@ public class Homepage
     }
 }
 
+[ExcludeFromCodeCoverage]
 public class NullHomepage : Homepage
 {
     public NullHomepage() : base(Enumerable.Empty<string>(), string.Empty, string.Empty, new List<SubItem>(), new List<SubItem>(), new List<Alert>(), new List<CarouselContent>(), "", string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, null, string.Empty, string.Empty, new NullCarouselContent(), new CallToActionBanner(), new CallToActionBanner(), new List<NullSpotlightOnBanner>()) { }

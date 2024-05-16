@@ -1,4 +1,6 @@
-﻿namespace StockportWebapp.Models;
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace StockportWebapp.Models;
 
 public class ContactUsCategory
 {
@@ -16,6 +18,7 @@ public class ContactUsCategory
     }
 }
 
+[ExcludeFromCodeCoverage]
 public class NullContactUsCategory : ContactUsCategory
 {
     public NullContactUsCategory() : base(string.Empty, string.Empty, string.Empty, string.Empty) { }

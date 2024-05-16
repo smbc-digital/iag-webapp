@@ -1,5 +1,8 @@
-﻿namespace StockportWebapp.Models;
+﻿using System.Diagnostics.CodeAnalysis;
 
+namespace StockportWebapp.Models;
+
+[ExcludeFromCodeCoverage]
 public class SocialMediaLink
 {
     public string Title { get; }
@@ -20,6 +23,7 @@ public class SocialMediaLink
     }
 }
 
+[ExcludeFromCodeCoverage]
 public class NullSocialMediaLink : SocialMediaLink
 {
     public NullSocialMediaLink()

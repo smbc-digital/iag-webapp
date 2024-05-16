@@ -1,5 +1,8 @@
+using System.Diagnostics.CodeAnalysis;
+
 namespace StockportWebapp.Models;
 
+[ExcludeFromCodeCoverage]
 public class ContactUsArea
 {
     public string Title { get; set; }

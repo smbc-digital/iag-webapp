@@ -1,5 +1,8 @@
-﻿namespace StockportWebapp.Models;
+﻿using System.Diagnostics.CodeAnalysis;
 
+namespace StockportWebapp.Models;
+
+[ExcludeFromCodeCoverage]
 public class EventBanner
 {
     public string Title { get; }
@@ -15,6 +18,7 @@ public class EventBanner
         Link = link;
     }
 
+    [ExcludeFromCodeCoverage]
     public class NullEventBanner : EventBanner
     {
         public NullEventBanner() : base(string.Empty, string.Empty, string.Empty, string.Empty) { }

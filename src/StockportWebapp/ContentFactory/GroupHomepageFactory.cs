@@ -2,10 +2,10 @@
 
 public class GroupHomepageFactory
 {
-    private readonly ISimpleTagParserContainer _tagParserContainer;
+    private readonly ITagParserContainer _tagParserContainer;
     private readonly MarkdownWrapper _markdownWrapper;
 
-    public GroupHomepageFactory(ISimpleTagParserContainer tagParserContainer, MarkdownWrapper markdownWrapper)
+    public GroupHomepageFactory(ITagParserContainer tagParserContainer, MarkdownWrapper markdownWrapper)
     {
         _tagParserContainer = tagParserContainer;
         _markdownWrapper = markdownWrapper;

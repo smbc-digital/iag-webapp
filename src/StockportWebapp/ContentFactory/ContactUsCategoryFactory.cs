@@ -8,7 +8,7 @@ public interface IContactUsCategoryFactory
 public class ContactUsCategoryFactory : IContactUsCategoryFactory
 {
     private readonly MarkdownWrapper _markdownWrapper;
-    private readonly ISimpleTagParserContainer _tagParserContainer;
+    private readonly ITagParserContainer _tagParserContainer;
     //private readonly IDynamicTagParser<Profile> _profileTagParser;
     private readonly IDynamicTagParser<Document> _documentTagParser;
     //private readonly IDynamicTagParser<Alert> _alertsInlineTagParser;
@@ -16,7 +16,7 @@ public class ContactUsCategoryFactory : IContactUsCategoryFactory
     //private readonly IDynamicTagParser<PrivacyNotice> _privacyNoticeTagParser;
     private readonly IRepository _repository;
 
-    public ContactUsCategoryFactory(ISimpleTagParserContainer tagParserContainer, MarkdownWrapper markdownWrapper,
+    public ContactUsCategoryFactory(ITagParserContainer tagParserContainer, MarkdownWrapper markdownWrapper,
         IDynamicTagParser<Document> documentTagParser, IRepository repository)
     {
         _tagParserContainer = tagParserContainer;

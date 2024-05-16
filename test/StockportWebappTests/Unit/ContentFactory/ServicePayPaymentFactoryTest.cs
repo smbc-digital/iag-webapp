@@ -3,7 +3,7 @@
 public class ServicePayPaymentFactoryTest
 {
     private readonly Mock<MarkdownWrapper> _mockMarkdownWrapper = new Mock<MarkdownWrapper>();
-    private readonly Mock<ISimpleTagParserContainer> _mockTagParser = new Mock<ISimpleTagParserContainer>();
+    private readonly Mock<ITagParserContainer> _mockTagParser = new Mock<ITagParserContainer>();
     private readonly ServicePayPayment _payment = new ServicePayPayment
     {
         AccountReference = "123445",
@@ -30,7 +30,7 @@ public class ServicePayPaymentFactoryTest
         _factory = new ServicePayPaymentFactory(_mockTagParser.Object, _mockMarkdownWrapper.Object);
 
         _mockTagParser
-            .Setup(_ => _.ParseAll(_payment.Description, It.IsAny<string>(), It.IsAny<bool>()))
+            .Setup(_ => _.ParseAll(_payment.Description, It.IsAny<string>(), It.IsAny<bool>(), null, null, null, null, null, null))
             .Returns(_payment.Description);
 
         _mockMarkdownWrapper
@@ -72,6 +72,6 @@ public class ServicePayPaymentFactoryTest
     public void ShouldCallTagParser()
     {
         _factory.Build(_payment);
-        _mockTagParser.Verify(_ => _.ParseAll(_payment.Description, _payment.Title, It.IsAny<bool>()), Times.Once);
+        _mockTagParser.Verify(_ => _.ParseAll(_payment.Description, _payment.Title, It.IsAny<bool>(), null, null, null, null, null, null), Times.Once);
     }
 }
