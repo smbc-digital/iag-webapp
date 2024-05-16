@@ -1,4 +1,5 @@
-﻿using StockportWebapp.Comparers;
+﻿using SharpKml.Dom.Atom;
+using StockportWebapp.Comparers;
 using Directory = StockportWebapp.Models.Directory;
 using Filter = StockportWebapp.Model.Filter;
 
@@ -17,8 +18,8 @@ public class DirectoryViewModel
         : this(slug, directory)
     {
         Breadcrumbs = breadcrumbs;
-        PinnedEntries = pinnedEntries.Select(entry => new DirectoryEntryViewModel(entry.Slug, entry, true));
-        FilteredEntries = filteredEntries.Select(entry => new DirectoryEntryViewModel(entry.Slug, entry, false));
+        PinnedEntries = pinnedEntries.Select(entry => new DirectoryEntryViewModel($"{slug}/{entry.Slug}", entry, true));
+        FilteredEntries = filteredEntries.Select(entry => new DirectoryEntryViewModel($"{slug}/{entry.Slug}", entry, false));
         AddMapPinIndexes();
     }
 
@@ -26,8 +27,8 @@ public class DirectoryViewModel
         : this(slug, directory)
     {
         Breadcrumbs = breadcrumbs;
-        PinnedEntries = pinnedEntries.Select(entry => new DirectoryEntryViewModel(entry.Slug, entry, true));
-        FilteredEntries = filteredEntries.Select(entry => new DirectoryEntryViewModel(entry.Slug, entry, false));
+        PinnedEntries = pinnedEntries.Select(entry => new DirectoryEntryViewModel($"{slug}/{entry.Slug}", entry, true));
+        FilteredEntries = filteredEntries.Select(entry => new DirectoryEntryViewModel($"{slug}/{entry.Slug}", entry, false));
         Paginate(pageNumber);
         AddMapPinIndexes();
     }
@@ -48,7 +49,6 @@ public class DirectoryViewModel
         var directoryItems = directory.SubItems.Where(item => item.Type == "directory").Select(subItem => new NavCard(subItem.Title, subItem.GetNavigationLink(Slug), subItem.Teaser, subItem.Image, subItem.Icon, subItem.ColourScheme));
         var nonDirectoryItems = directory.SubItems.Where(item => item.Type != "directory").Select(subItem => new NavCard(subItem.Title, subItem.NavigationLink, subItem.Teaser, subItem.Image, subItem.Icon, subItem.ColourScheme));
         PrimaryItems = new NavCardList() { Items = directoryItems.Concat(nonDirectoryItems).ToList() };
-
     }
 
     // Default values

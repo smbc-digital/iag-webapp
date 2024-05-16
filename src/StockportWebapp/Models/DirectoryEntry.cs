@@ -1,5 +1,3 @@
-using SharpKml.Base;
-using SharpKml.Dom;
 using StockportWebapp.Comparers;
 
 namespace StockportWebapp.Models
@@ -15,6 +13,7 @@ namespace StockportWebapp.Models
         public IEnumerable<FilterTheme> Themes { get; set; } = new List<FilterTheme>();
         public IEnumerable<MinimalDirectory> Directories { get; set; }
         public IEnumerable<Alert> Alerts { get; set; }
+        public IEnumerable<Alert> AlertsInline { get; set; }
         public List<GroupBranding> Branding { get; set; } = new List<GroupBranding>();
         public MapPosition MapPosition { get; set; } = new MapPosition();
         public string PhoneNumber { get; set; } = string.Empty;
@@ -29,23 +28,5 @@ namespace StockportWebapp.Models
         public string Image { get; set; }
         public IEnumerable<string> Tags { get; set; } = new List<string>();
         public bool IsNotOnTheEqautor => MapPosition.Lat != 0 && MapPosition.Lon != 0;
-
-        public Placemark ToKmlPlacemark(string style = "") => new()
-        {
-            // Ref
-            // https://developers.google.com/kml/documentation/kml_tut?csw=1#descriptive_html
-            // https://github.com/samcragg/sharpkml/blob/main/docs/BasicUsage.md
-
-            Geometry = new Point
-            {
-                Coordinate = new Vector(this.MapPosition.Lat, this.MapPosition.Lon),
-            },
-            Name = Name,
-            Description = new Description() { Text = $@"<![CDATA[{ this.Teaser }]]>" },
-            PhoneNumber = this.PhoneNumber,
-            Address = this.Address,
-            AtomLink = new SharpKml.Dom.Atom.Link { Href = new Uri("https://www.stockport.gov.uk"), Title=$"Visit {this.Name}" },
-            StyleUrl=string.IsNullOrEmpty(style) ? null : new Uri(style),
-        };
     }
 }

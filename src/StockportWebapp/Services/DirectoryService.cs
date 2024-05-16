@@ -17,11 +17,14 @@ public interface IDirectoryService
 public class DirectoryService : IDirectoryService {
     private readonly MarkdownWrapper _markdownWrapper;
     private readonly IRepository _repository;
+    private readonly ITagParserContainer _tagParserContainer;
 
-    public DirectoryService(MarkdownWrapper markdownWrapper, IRepository repository)
+    public DirectoryService(MarkdownWrapper markdownWrapper, IRepository repository,ITagParserContainer tagParserContainer)
+
     {
         _markdownWrapper = markdownWrapper;
         _repository = repository;
+        _tagParserContainer = tagParserContainer;
     }
 
     public async Task<Directory> Get<T>(string slug = "")
@@ -30,10 +33,11 @@ public class DirectoryService : IDirectoryService {
 
         if (!httpResponse.IsSuccessful())
             return null;
-
+            
         var directory = (Directory)httpResponse.Content;
 
         directory.Body = _markdownWrapper.ConvertToHtml(directory.Body ?? "");
+        directory.Body = _tagParserContainer.ParseAll(directory.Body, directory.Title, true, directory.AlertsInline, null, null, null, null, null);
 
         return directory;
     }
@@ -46,9 +50,9 @@ public class DirectoryService : IDirectoryService {
             return null;
 
         var directoryEntry = (DirectoryEntry)httpResponse.Content;
-
         directoryEntry.Description = _markdownWrapper.ConvertToHtml(directoryEntry.Description ?? "");
         directoryEntry.Address = _markdownWrapper.ConvertToHtml(directoryEntry.Address ?? "");
+        directoryEntry.Description = _tagParserContainer.ParseAll(directoryEntry.Description, directoryEntry.Name, true, directoryEntry.AlertsInline, null, null, null, null, null);
 
         return directoryEntry;
     }
@@ -98,7 +102,7 @@ public class DirectoryService : IDirectoryService {
             ? filteredEntries
                 .Where(entry => entry.Themes is not null)
                 .SelectMany(entry => entry.Themes)
-                .Where(themeTitle => !string.IsNullOrEmpty(themeTitle.Title))
+                .Where(themeTitle => !string.IsNullOrEmpty(themeTitle.Title))   
                 .GroupBy(theme => theme.Title, StringComparer.OrdinalIgnoreCase)
                 .Select(group => new FilterTheme
                 {

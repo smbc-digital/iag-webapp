@@ -1,0 +1,11 @@
+.alert-inline {
+	padding: 1em;
+	background-color: $stockport-teal-lightest;
+	border-left: 10px solid $stockport-teal;
+	border-radius: 3px;
+}
+
+.alert-inline--warning {
+	border-left: 10px solid $stockport-orange;
+	background-color: lighten($stockport-orange, 50%);
+}

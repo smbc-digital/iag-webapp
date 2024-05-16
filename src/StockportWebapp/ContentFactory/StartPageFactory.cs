@@ -3,12 +3,12 @@
 public class StartPageFactory
 {
 
-    private ISimpleTagParserContainer _tagParserContainer;
+    private ITagParserContainer _tagParserContainer;
     private IDynamicTagParser<Alert> _alertsInlineTagParser;
     private MarkdownWrapper _markdownWrapper;
 
 
-    public StartPageFactory(ISimpleTagParserContainer tagParserContainer, MarkdownWrapper markdownWrapper, IDynamicTagParser<Alert> alertsInlineTagParser)
+    public StartPageFactory(ITagParserContainer tagParserContainer, MarkdownWrapper markdownWrapper, IDynamicTagParser<Alert> alertsInlineTagParser)
     {
         _tagParserContainer = tagParserContainer;
         _markdownWrapper = markdownWrapper;

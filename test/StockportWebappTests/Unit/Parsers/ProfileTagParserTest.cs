@@ -4,13 +4,11 @@ public class ProfileTagParserTest
 {
     private readonly Mock<IViewRender> _viewRenderer;
     private readonly ProfileTagParser _profileTagParser;
-    private readonly Mock<ILogger<ProfileTagParser>> _mockLogger;
 
     public ProfileTagParserTest()
     {
         _viewRenderer = new Mock<IViewRender>();
-        _mockLogger = new Mock<ILogger<ProfileTagParser>>();
-        _profileTagParser = new ProfileTagParser(_viewRenderer.Object, _mockLogger.Object);
+        _profileTagParser = new ProfileTagParser(_viewRenderer.Object);
     }
 
     [Fact]

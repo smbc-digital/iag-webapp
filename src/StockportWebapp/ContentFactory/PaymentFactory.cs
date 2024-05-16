@@ -2,18 +2,18 @@
 
 public class PaymentFactory
 {
-    private readonly ISimpleTagParserContainer _simpleTagParserContainer;
+    private readonly ITagParserContainer _tagParserContainer;
     private readonly MarkdownWrapper _markdownWrapper;
 
-    public PaymentFactory(ISimpleTagParserContainer simpleTagParserContainer, MarkdownWrapper markdownWrapper)
+    public PaymentFactory(ITagParserContainer simpleTagParserContainer, MarkdownWrapper markdownWrapper)
     {
-        _simpleTagParserContainer = simpleTagParserContainer;
+        _tagParserContainer = simpleTagParserContainer;
         _markdownWrapper = markdownWrapper;
     }
 
     public virtual ProcessedPayment Build(Payment payment)
     {
-        var description = _simpleTagParserContainer.ParseAll(payment.Description, payment.Title);
+        var description = _tagParserContainer.ParseAll(payment.Description, payment.Title);
         description = _markdownWrapper.ConvertToHtml(description ?? "");
 
         return new ProcessedPayment(

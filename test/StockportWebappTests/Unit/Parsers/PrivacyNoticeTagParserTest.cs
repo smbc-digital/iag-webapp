@@ -4,13 +4,11 @@ public class PrivacyNoticeTagParserTest
 {
     private readonly Mock<IViewRender> _viewRenderer;
     private readonly PrivacyNoticeTagParser _privacyNoticeTagParser;
-    private readonly Mock<ILogger<PrivacyNotice>> _mockLogger;
 
     public PrivacyNoticeTagParserTest()
     {
         _viewRenderer = new Mock<IViewRender>();
-        _mockLogger = new Mock<ILogger<PrivacyNotice>>();
-        _privacyNoticeTagParser = new PrivacyNoticeTagParser(_viewRenderer.Object, _mockLogger.Object);
+        _privacyNoticeTagParser = new PrivacyNoticeTagParser(_viewRenderer.Object);
     }
 
     [Fact]

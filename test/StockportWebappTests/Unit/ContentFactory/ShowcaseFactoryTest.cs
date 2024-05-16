@@ -2,13 +2,13 @@
 
 public class ShowcaseFactoryTest
 {
-    private readonly Mock<ISimpleTagParserContainer> _tagParserContainer;
+    private readonly Mock<ITagParserContainer> _tagParserContainer;
     private readonly Mock<ITriviaFactory> _triviaFactory;
     private readonly Mock<MarkdownWrapper> _markdownWrapper;
 
     public ShowcaseFactoryTest()
     {
-        _tagParserContainer = new Mock<ISimpleTagParserContainer>();
+        _tagParserContainer = new Mock<ITagParserContainer>();
         _markdownWrapper = new Mock<MarkdownWrapper>();
         _triviaFactory = new Mock<ITriviaFactory>();
     }
