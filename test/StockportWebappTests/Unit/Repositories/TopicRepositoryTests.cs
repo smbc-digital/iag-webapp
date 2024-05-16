@@ -42,7 +42,7 @@ public class TopicRepositoryTests
     public async void Get_ShouldReturnHttpResponse_Successful()
     {
         // Arrange
-        ProcessedTopic processedTopic = new("Name", "slug", "<p>Summary</p>\n", "Teaser", "metaDescription", "Icon", "Image", "Image", new List<SubItem>(), null,
+        ProcessedTopic processedTopic = new("Name", "slug", "<p>Summary</p>\n", "Teaser", "metaDescription", "Icon", "Image", "Image", new List<SubItem>(), new List<SubItem>(), null,
             new List<Crumb>(), new List<Alert>(), true, "test-id", null, null,
             string.Empty, true,
             new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty), string.Empty, null, null, string.Empty)

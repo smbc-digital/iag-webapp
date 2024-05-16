@@ -11,6 +11,9 @@ public class ProcessedTopicTests
                                                             "backgroundImage",
                                                             "image",
                                                             new List<SubItem> {
+                                                                new("featured-items", "Featured Items", "Teaser", "Icon.ico", "Article", string.Empty, new List<SubItem>(), "teal")
+                                                            },
+                                                            new List<SubItem> {
                                                                 new("primary-items", "Primary Items", "Teaser", "Icon.ico", "Article", string.Empty, new List<SubItem>(), "teal")
                                                             },
                                                             new List<SubItem> {

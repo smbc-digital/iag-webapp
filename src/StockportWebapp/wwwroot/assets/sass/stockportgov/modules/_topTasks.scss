@@ -64,7 +64,14 @@
             padding: 0.5em;
             float: left;
             text-align: left;
-            cursor: pointer;
+
+            @media #{$tablet} {
+                @include h-l;
+                flex-basis: auto;
+                margin: 1em 0 1em 0;
+                width: 1.2em;
+                padding-left: 10px;
+            }
     
             @media #{$mobile} {
                 flex-basis: auto;
@@ -77,6 +84,7 @@
             @include h-s;
 
             @media #{$tablet} {
+                margin: 0 1em;
                 line-height: 1.75;
             }
 
@@ -89,6 +97,12 @@
                 vertical-align: bottom;
 
                 @media #{$tablet} {
+                    line-height: 1.5;
+                    width: 80%;
+                    margin-top: 1.4em;
+                }
+                
+                @media #{$mobile} {
                     margin: 15px 20px 10px 20px;
                     line-height: 1.75;
                 }
@@ -111,10 +125,12 @@
         width: calc(33.33333% - 33.33333px);
         margin: 0 25px 0;
         text-align: left;
+        cursor: pointer;
     
         @media #{$tablet} {
-          width: calc(33.33333% - 20px);
-          margin: 0 15px 2em 15px;
+          flex-basis: auto;
+          float: right;
+          margin: 0 15px 0em 15px;
         }
     
         @media #{$mobile} {
@@ -122,20 +138,15 @@
             width: 100%;
             margin: 0 0 15px 0;
             padding: 5px 0 5px 0;
-            vertical-align: baseline;
         }
     }
 
     :first-child {
-        @media #{$tablet} {
             margin-top: 0;
-        }
     }
 
     :last-child {
-        @media #{$tablet} {
             margin-bottom: 0;
-        }
     }
 }
 
