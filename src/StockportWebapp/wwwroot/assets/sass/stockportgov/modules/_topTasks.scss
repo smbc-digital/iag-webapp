@@ -23,6 +23,7 @@
         text-decoration: none;
         padding: 1em;
         border-radius: 3px;
+        list-style: none;
 
         @media #{$tablet} {
             margin: .3em 0;
@@ -59,6 +60,25 @@
             }
         }
 
+        &__topic {
+            @include h-xl;
+            float: left;
+            text-align: left;
+            padding: 0 0.5em 0.1em 0.5em;
+
+            @media #{$tablet} {
+                @include h-l;
+                flex-basis: auto;
+                padding: 0.8em 0 1em 0;
+            }
+    
+            @media #{$mobile} {
+                flex-basis: auto;
+                margin: 0;
+                padding: 0 0.5em 0 0;
+            }
+        }
+
         &__title {
             @include h-s;
 
@@ -66,23 +86,88 @@
                 margin: 0 1em;
                 line-height: 1.75;
             }
+
+            &--center {
+                @include h-s;
+
+                margin: 0;
+                width: 90%;
+
+                @media #{$tablet} {
+                    line-height: 1.5;
+                }
+                
+                @media #{$mobile} {
+                    line-height: 1.75;
+                }
+            }
+        }
+
+        &__link {
+            display: block;  
+            text-decoration: none;
+            height: 100%;
+            width: 100%;
+        }
+
+        &__content {
+            padding: 1em 0 1em 0;
+
+            @media #{$tablet} {
+                padding: 1em;
+                line-height: 1.5;
+            }
+            
+            @media #{$mobile} {
+                line-height: 1.75;
+                padding: 1em;
+            }
+        }
+    }
+
+    &__nav {       
+        :first-child {
+            margin-left: 0;
+        }
+
+        :last-child {
+            margin-right: 0;
+        }
+    }
+
+    &--width-33 {
+        width: calc(33.33333% - 33.33333px);
+        padding: 0;
+        margin: 0 25px 0;
+        text-align: left;
+    
+        @media #{$tablet} {
+          flex-basis: auto;
+          float: right;
+          margin: 0 15px 0 15px;
+        }
+    
+        @media #{$mobile} {
+            flex: auto;
+            width: 100%;
+            margin: 0 0 15px 0;
         }
     }
 
     :first-child {
-        margin-left: 0;
+            margin-left: 0;
 
-        @media #{$tablet} {
-            margin-top: 0;
-        }
+            @media #{$tablet} {
+                margin-top: 0;
+            }
     }
 
     :last-child {
-        margin-right: 0;
+            margin-right: 0;
 
-        @media #{$tablet} {
-            margin-bottom: 0;
-        }
+            @media #{$tablet} {
+                margin-bottom: 0;
+            }
     }
 }
 
@@ -121,6 +206,16 @@ html[dir="rtl"] {
                 @media #{$tablet} {
                     margin-right: 1em;
                 }
+            }
+        }
+
+        &__nav {       
+            :first-child {
+                margin-right: 0;
+            }
+    
+            :last-child {
+                margin-left: 0;
             }
         }
         

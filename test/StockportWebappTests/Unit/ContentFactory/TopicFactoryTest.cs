@@ -15,6 +15,7 @@ public class TopicFactoryTest
     private const string Image = "Image";
     private const string BackgroundImage = "backgroundimage.jpg";
     private readonly List<Crumb> _breadcrumbs;
+    private readonly List<SubItem> _featuredTasks;
     private readonly List<SubItem> _subItems;
     private readonly List<SubItem> _secondaryItems;
     private readonly EventCalendarBanner _eventCalendarBanner = new EventCalendarBanner() {
@@ -32,10 +33,11 @@ public class TopicFactoryTest
         _topicFactory = new TopicFactory(_tagParserContainer.Object, _markdownWrapper.Object);
         _breadcrumbs = new List<Crumb>();
 
+        _featuredTasks = new List<SubItem>();
         _subItems = new List<SubItem>();
         _secondaryItems = new List<SubItem>();
 
-        _topic = new Topic("name", Slug, Summary, Teaser, MetaDescription, Icon, BackgroundImage, Image, _subItems, _secondaryItems, _breadcrumbs,
+        _topic = new Topic("name", Slug, Summary, Teaser, MetaDescription, Icon, BackgroundImage, Image, _featuredTasks, _subItems, _secondaryItems, _breadcrumbs,
             new List<Alert>(), false, "emailAlertsTopic", _eventCalendarBanner,
             Title, true, new CarouselContent("Title", "Teaser", "Image", "url"),
             "event Category", null, string.Empty)
