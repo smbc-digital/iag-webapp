@@ -92,12 +92,8 @@ namespace StockportWebapp.Utils.Extensions
             services.AddTransient<SectionFactory>();
             services.AddTransient(p => new ArticleFactory(
                 p.GetService<ITagParserContainer>(),
-                p.GetService<IDynamicTagParser<Profile>>(),
                 p.GetService<SectionFactory>(),
                 p.GetService<MarkdownWrapper>(),
-                p.GetService<IDynamicTagParser<Document>>(),
-                p.GetService<IDynamicTagParser<Alert>>(),
-                p.GetService<IDynamicTagParser<PrivacyNotice>>(),
                 p.GetService<IRepository>()));
             services.AddTransient(p => new DocumentPageFactory(
                 p.GetService<MarkdownWrapper>()));

@@ -2,7 +2,7 @@
 
 public interface IArticleRepository
 {
-    Task<HttpResponse> Get(string slug = "", string SearchTerm = "", string SearchFolder = "", string currentUrl = "");
+    Task<HttpResponse> Get(string slug = "");
 }
 
 public class ArticleRepository : IArticleRepository
@@ -22,7 +22,7 @@ public class ArticleRepository : IArticleRepository
         authenticationHeaders = new Dictionary<string, string> { { "Authorization", _config.GetContentApiAuthenticationKey() }, { "X-ClientId", _config.GetWebAppClientId() } };
     }
 
-    public async Task<HttpResponse> Get(string slug = "", string searchTerm = "", string searchFolder = "", string currentUrl = "")
+    public async Task<HttpResponse> Get(string slug = "")
     {
         var url = _urlGenerator.UrlFor<Article>(slug);
         var httpResponse = await _httpClient.Get(url, authenticationHeaders);

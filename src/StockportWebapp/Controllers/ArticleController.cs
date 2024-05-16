@@ -5,18 +5,16 @@ public class ArticleController : Controller
 {
     private readonly IProcessedContentRepository _repository;
     private readonly IArticleRepository _articleRepository;
-    private readonly ILogger<ArticleController> _logger;
     private readonly IContactUsMessageTagParser _contactUsMessageParser;
     private readonly BusinessId _businessId;
     private readonly IFeatureManager _featureManager;
+    private readonly bool _isStockportGovArticle;
     private readonly bool _flatArticleToggle = true;
     private readonly bool _sectionArticleToggle = false;
-    private readonly bool _isStockportGovArticle = true;
 
-    public ArticleController(IProcessedContentRepository repository, ILogger<ArticleController> logger, IContactUsMessageTagParser contactUsMessageParser, IArticleRepository articleRepository, BusinessId businessId, IFeatureManager featureManager = null)
+    public ArticleController(IProcessedContentRepository repository, IContactUsMessageTagParser contactUsMessageParser, IArticleRepository articleRepository, BusinessId businessId, IFeatureManager featureManager = null)
     {
         _repository = repository;
-        _logger = logger;
         _contactUsMessageParser = contactUsMessageParser;
         _articleRepository = articleRepository;
         _businessId = businessId;
@@ -31,9 +29,9 @@ public class ArticleController : Controller
     }
 
     [Route("/{articleSlug}")]
-    public async Task<IActionResult> Article(string articleSlug, [FromQuery] string message, string SearchTerm, string SearchFolder)
+    public async Task<IActionResult> Article(string articleSlug, [FromQuery] string message)
     {        
-        var articleHttpResponse = await _articleRepository.Get(articleSlug, SearchTerm, SearchFolder, Request?.GetDisplayUrl().ToString());
+        var articleHttpResponse = await _articleRepository.Get(articleSlug);
 
         if (!articleHttpResponse.IsSuccessful())
             return articleHttpResponse;
@@ -53,9 +51,9 @@ public class ArticleController : Controller
     }
 
     [Route("/{articleSlug}/{sectionSlug}")]
-    public async Task<IActionResult> ArticleWithSection(string articleSlug, string sectionSlug, [FromQuery] string message, string SearchTerm, string SearchFolder)
+    public async Task<IActionResult> ArticleWithSection(string articleSlug, string sectionSlug, [FromQuery] string message)
     {
-        var articleHttpResponse = await _articleRepository.Get(articleSlug, SearchTerm, SearchFolder, Request?.GetDisplayUrl().ToString());
+        var articleHttpResponse = await _articleRepository.Get(articleSlug);
 
         if (!articleHttpResponse.IsSuccessful())
             return articleHttpResponse;
@@ -88,6 +86,6 @@ public class ArticleController : Controller
     private void SetArticlesCanonicalUrl(string articleSlug, string sectionSlug, ProcessedArticle article)
     {
         if (article.Sections.Any() && article.Sections.First().Slug == sectionSlug)
-            ViewData["CanonicalUrl"] = "/" + articleSlug;
+            ViewData["CanonicalUrl"] = $"/{articleSlug}";
     }
 }

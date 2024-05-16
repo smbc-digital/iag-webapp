@@ -1,39 +1,23 @@
-﻿using Profile = StockportWebapp.Models.Profile;
-
-namespace StockportWebapp.ContentFactory;
+﻿namespace StockportWebapp.ContentFactory;
 
 public class ArticleFactory
 {
     private readonly ITagParserContainer _tagParserContainer;
-    private readonly IDynamicTagParser<Profile> _profileTagParser; // check if this is used
-    private readonly IDynamicTagParser<Alert> _alertsInlineTagParser; // check if this is used
     private readonly ISectionFactory _sectionFactory;
     private readonly MarkdownWrapper _markdownWrapper;
-    private readonly IDynamicTagParser<Document> _documentTagParser; // check if this is used
-    private readonly IDynamicTagParser<PrivacyNotice> _privacyNoticeTagParser; // check if this is used
     private readonly IRepository _repository;
 
-    public ArticleFactory(ITagParserContainer tagParserContainer, IDynamicTagParser<Profile> profileTagParser, ISectionFactory sectionFactory, MarkdownWrapper markdownWrapper,
-        IDynamicTagParser<Document> documentTagParser, IDynamicTagParser<Alert> alertsInlineTagParser, IDynamicTagParser<PrivacyNotice> privacyNoticeTagParser, IRepository repository)
+    public ArticleFactory(ITagParserContainer tagParserContainer, ISectionFactory sectionFactory, MarkdownWrapper markdownWrapper, IRepository repository)
     {
         _tagParserContainer = tagParserContainer;
         _sectionFactory = sectionFactory;
         _markdownWrapper = markdownWrapper;
-        _profileTagParser = profileTagParser;
-        _documentTagParser = documentTagParser;
-        _alertsInlineTagParser = alertsInlineTagParser;
-        _privacyNoticeTagParser = privacyNoticeTagParser;
         _repository = repository;
     }
 
     public virtual ProcessedArticle Build(Article article)
     {
-        var processedSections = new List<ProcessedSection>();
-        foreach (var section in article.Sections)
-        {
-            processedSections.Add(_sectionFactory.Build(section, article.Title));
-        }
-
+        var processedSections = article.Sections.Select(section => _sectionFactory.Build(section, article.Title)).ToList();
         var body = _markdownWrapper.ConvertToHtml(article.Body ?? "");
         if (body.Contains("PrivacyNotice:"))
             article.PrivacyNotices = GetPrivacyNotices().Result;

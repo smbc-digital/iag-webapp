@@ -1,119 +1,99 @@
-﻿namespace StockportWebappTests_Unit.Unit.ContentFactory;
+﻿using Document = StockportWebapp.Models.Document;
+
+namespace StockportWebappTests_Unit.Unit.ContentFactory;
 
 public class ArticleFactoryTest
 {
-    private readonly Mock<ITagParserContainer> _tagParserContainer;
-    private readonly Mock<MarkdownWrapper> _markdownWrapper;
     private readonly ArticleFactory _articleFactory;
-    private readonly Mock<ISectionFactory> _sectionFactory;
-    private readonly Mock<IDynamicTagParser<Document>> _documentTagParser;
-    private readonly Mock<IDynamicTagParser<Alert>> _alertsInlineTagParser;
-    private readonly List<Profile> _emptyProfiles = new List<Profile>();
-    private readonly List<Document> _emptyDocuments = new List<Document>();
-    private const string Title = "title";
-    private const string Slug = "slug";
-    private const string Body = "body";
-    private const string Teaser = "teaser";
-    private const string MetaDescription = "meta desctiption";
+    private readonly Mock<ITagParserContainer> _tagParserContainer = new();
+    private readonly Mock<ISectionFactory> _sectionFactory = new();
+    private readonly Mock<MarkdownWrapper> _markdownWrapper = new();
+    private readonly Mock<IRepository> _repository = new();
+    private const string Body = "<p>{{PrivacyNotice:test}}body</p>";
     private readonly Section _sectionOne;
     private readonly ProcessedSection _processedSectionOne;
     private readonly Section _sectionTwo;
     private readonly ProcessedSection _processedSectionTwo;
-    private const string Icon = "icon";
-    private const string BackgroundImage = "backgroundImage";
-    private const string Image = "image";
-    private readonly List<Crumb> _breadcrumbs;
     private readonly Article _article;
-    private readonly Mock<IDynamicTagParser<Profile>> _profileTagParser;
-    private readonly List<Alert> _emptyAlertsInline = new();
-    private readonly Mock<IDynamicTagParser<PrivacyNotice>> _privacyNoticeTagParser;
-    private readonly Mock<IRepository> _repository;
-    private readonly DateTime _updatedAt = new();
-    private readonly bool _hideLastUpdated = new();
 
     public ArticleFactoryTest()
     {
-        _tagParserContainer = new Mock<ITagParserContainer>();
-        _profileTagParser = new Mock<IDynamicTagParser<Profile>>();
-        _markdownWrapper = new Mock<MarkdownWrapper>();
-        _sectionFactory = new Mock<ISectionFactory>();
-        _documentTagParser = new Mock<IDynamicTagParser<Document>>();
-        _alertsInlineTagParser = new Mock<IDynamicTagParser<Alert>>();
-        _privacyNoticeTagParser = new Mock<IDynamicTagParser<PrivacyNotice>>();
-        _repository = new Mock<IRepository>();
+        _articleFactory = new ArticleFactory(_tagParserContainer.Object, _sectionFactory.Object, _markdownWrapper.Object, _repository.Object);
 
-        _articleFactory = new ArticleFactory(_tagParserContainer.Object, _profileTagParser.Object, _sectionFactory.Object, _markdownWrapper.Object, _documentTagParser.Object, _alertsInlineTagParser.Object, _privacyNoticeTagParser.Object, _repository.Object);
-
-
-        _sectionOne = new Section(TextHelper.AnyString, "id-1", TextHelper.AnyString, TextHelper.AnyString, _emptyProfiles, _emptyDocuments, _emptyAlertsInline);
-        _processedSectionOne = new ProcessedSection(TextHelper.AnyString, TextHelper.AnyString, "id-1", TextHelper.AnyString, _emptyProfiles, _emptyDocuments, _emptyAlertsInline);
-        _sectionTwo = new Section(TextHelper.AnyString, "id-1", TextHelper.AnyString, TextHelper.AnyString, _emptyProfiles, _emptyDocuments, _emptyAlertsInline);
-        _processedSectionTwo = new ProcessedSection(TextHelper.AnyString, "id-1", TextHelper.AnyString, TextHelper.AnyString, _emptyProfiles, _emptyDocuments, _emptyAlertsInline);
+        _sectionOne = new Section(It.IsAny<string>(), "id-1", It.IsAny<string>(), It.IsAny<string>(), new List<Profile>(), new List<Document>(), new List<Alert>());
+        _processedSectionOne = new ProcessedSection(It.IsAny<string>(), It.IsAny<string>(), "id-1", It.IsAny<string>(), new List<Profile>(), new List<Document>(), new List<Alert>());
+        _sectionTwo = new Section(It.IsAny<string>(), "id-1", It.IsAny<string>(), It.IsAny<string>(), new List<Profile>(), new List<Document>(), new List<Alert>());
+        _processedSectionTwo = new ProcessedSection(It.IsAny<string>(), "id-1", It.IsAny<string>(), It.IsAny<string>(), new List<Profile>(), new List<Document>(), new List<Alert>());
         var sections = new List<Section>() { _sectionOne, _sectionTwo };
-        _breadcrumbs = new List<Crumb>();
 
-        _article = new Article(Title, Slug, Body, Teaser, MetaDescription, sections, Icon, BackgroundImage, Image, _breadcrumbs, _emptyProfiles, _emptyDocuments, _emptyAlertsInline, _updatedAt, _hideLastUpdated);
+        _article = new Article("title", "slug", Body, "teaser", "meta description", sections, "icon", "backgroundImage", "image", new List<Crumb>(), new List<Profile>(), new List<Document>(), new List<Alert>(), new DateTime(), false);
 
-        _sectionFactory.Setup(o => o.Build(_sectionOne, _article.Title)).Returns(_processedSectionOne);
-        _sectionFactory.Setup(o => o.Build(_sectionTwo, _article.Title)).Returns(_processedSectionTwo);
-        _repository.Setup(o => o.Get<List<PrivacyNotice>>(It.IsAny<string>(), It.IsAny<List<Query>>())).ReturnsAsync(new HttpResponse(200, new List<PrivacyNotice>(), ""));
-        _markdownWrapper.Setup(o => o.ConvertToHtml(Body)).Returns(Body);
-        _tagParserContainer.Setup(o => o.ParseAll(Body, It.IsAny<string>(), It.IsAny<bool>(), It.IsAny<IEnumerable<Alert>>(), It.IsAny<IEnumerable<Document>>(), It.IsAny<IEnumerable<InlineQuote>>(), It.IsAny<IEnumerable<PrivacyNotice>>(), It.IsAny<IEnumerable<Profile>>())).Returns(Body);
-        _profileTagParser.Setup(o => o.Parse(Body, _emptyProfiles)).Returns(Body);
-        _documentTagParser.Setup(o => o.Parse(Body, _emptyDocuments)).Returns(Body);
-        _alertsInlineTagParser.Setup(o => o.Parse(Body, _emptyAlertsInline)).Returns(Body);
-        _privacyNoticeTagParser.Setup(o => o.Parse(Body, It.IsAny<IEnumerable<PrivacyNotice>>())).Returns(Body);
+        _sectionFactory.Setup(_ => _.Build(_sectionOne, _article.Title)).Returns(_processedSectionOne);
+        _sectionFactory.Setup(_ => _.Build(_sectionTwo, _article.Title)).Returns(_processedSectionTwo);
+        _repository.Setup(_ => _.Get<List<PrivacyNotice>>(It.IsAny<string>(), It.IsAny<List<Query>>())).ReturnsAsync(new HttpResponse(200, new List<PrivacyNotice>(), ""));
+        _markdownWrapper.Setup(_ => _.ConvertToHtml(Body)).Returns(Body);
+        _tagParserContainer.Setup(_ => _.ParseAll(Body, It.IsAny<string>(), It.IsAny<bool>(), It.IsAny<IEnumerable<Alert>>(), It.IsAny<IEnumerable<Document>>(), It.IsAny<IEnumerable<InlineQuote>>(), It.IsAny<IEnumerable<PrivacyNotice>>(), It.IsAny<IEnumerable<Profile>>())).Returns(Body);
     }
 
     [Fact]
-    public void ShouldSetTheCorrespondingFieldsForAProcessedArticle()
+    public void Build_ShouldSetTheCorrespondingFieldsForAProcessedArticle()
     {
+        // Act
         var result = _articleFactory.Build(_article);
 
-        result.Title.Should().Be(Title);
-        result.NavigationLink.Should().Be("/" + Slug);
-        result.Body.Should().Be(Body);
-        result.Teaser.Should().Be(Teaser);
-        result.MetaDescription.Should().Be(MetaDescription);
-        result.Sections.Should().HaveCount(2);
-        result.Sections.ToList()[0].Should().Be(_processedSectionOne);
-        result.Sections.ToList()[1].Should().Be(_processedSectionTwo);
-        result.Icon.Should().Be(Icon);
-        result.BackgroundImage.Should().Be(BackgroundImage);
-        result.Image.Should().Be(Image);
-        result.Breadcrumbs.ToList().Should().BeEquivalentTo(_breadcrumbs);
+        // Assert
+        Assert.Equal("title", result.Title);
+        Assert.Equal("/slug", result.NavigationLink);
+        Assert.Equal(Body, result.Body);
+        Assert.Equal("teaser", result.Teaser);
+        Assert.Equal("meta description", result.MetaDescription);
+        Assert.Equal(2, result.Sections.Count());
+        Assert.Equal(_processedSectionOne, result.Sections.ToList().First());
+        Assert.Equal(_processedSectionTwo, result.Sections.ToList()[1]);
+        Assert.Equal("icon", result.Icon);
+        Assert.Equal("backgroundImage", result.BackgroundImage);
+        Assert.Equal("image", result.Image);
+        Assert.Equal(new List<Crumb>(), result.Breadcrumbs);
     }
 
     [Fact]
-    public void ShouldProcessAllSectionsInArticle()
+    public void Build_ShouldProcessAllSectionsInArticle()
     {
+        // Act
         _articleFactory.Build(_article);
-
-        _sectionFactory.Verify(o => o.Build(_sectionOne, _article.Title), Times.Once);
-        _sectionFactory.Verify(o => o.Build(_sectionTwo, _article.Title), Times.Once);
+        
+        // Assert
+        _sectionFactory.Verify(_ => _.Build(_sectionOne, _article.Title), Times.Once);
+        _sectionFactory.Verify(_ => _.Build(_sectionTwo, _article.Title), Times.Once);
     }
 
     [Fact]
-    public void ShouldProcessBodyWithMarkdown()
+    public void Build_ShouldProcessBodyWithMarkdown()
     {
+        // Act
         _articleFactory.Build(_article);
 
-        _markdownWrapper.Verify(o => o.ConvertToHtml(Body), Times.Once);
+        // Assert
+        _markdownWrapper.Verify(_ => _.ConvertToHtml(Body), Times.Once);
     }
 
     [Fact]
-    public void ShouldProcessBodyWithStaticTagParsing()
+    public void Build_ShouldProcessBodyWithStaticTagParsing()
     {
+        // Act
         _articleFactory.Build(_article);
 
-        _tagParserContainer.Verify(o => o.ParseAll(Body, It.IsAny<string>(), It.IsAny<bool>(), It.IsAny<IEnumerable<Alert>>(), It.IsAny<IEnumerable<Document>>(), It.IsAny<IEnumerable<InlineQuote>>(), It.IsAny<IEnumerable<PrivacyNotice>>(), It.IsAny<IEnumerable<Profile>>()), Times.Once);
+        // Assert
+        _tagParserContainer.Verify(_ => _.ParseAll(Body, It.IsAny<string>(), It.IsAny<bool>(), It.IsAny<IEnumerable<Alert>>(), It.IsAny<IEnumerable<Document>>(), It.IsAny<IEnumerable<InlineQuote>>(), It.IsAny<IEnumerable<PrivacyNotice>>(), It.IsAny<IEnumerable<Profile>>()), Times.Once);
     }
 
     [Fact]
-    public void ShouldPassTitleToParserWhenBuilding()
+    public void Build_ShouldPassTitleToParserWhenBuilding()
     {
+        // Act
         _articleFactory.Build(_article);
-
-        _tagParserContainer.Verify(o => o.ParseAll(Body, _article.Title, It.IsAny<bool>(), It.IsAny<IEnumerable<Alert>>(), It.IsAny<IEnumerable<Document>>(), It.IsAny<IEnumerable<InlineQuote>>(), It.IsAny<IEnumerable<PrivacyNotice>>(), It.IsAny<IEnumerable<Profile>>()), Times.Once);
+        
+        // Assert
+        _tagParserContainer.Verify(_ => _.ParseAll(Body, _article.Title, It.IsAny<bool>(), It.IsAny<IEnumerable<Alert>>(), It.IsAny<IEnumerable<Document>>(), It.IsAny<IEnumerable<InlineQuote>>(), It.IsAny<IEnumerable<PrivacyNotice>>(), It.IsAny<IEnumerable<Profile>>()), Times.Once);
     }
 }
