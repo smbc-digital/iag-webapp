@@ -3,14 +3,14 @@
 public class ArticleControllerTest
 {
     private readonly ArticleController _controller;
-    private readonly Mock<IProcessedContentRepository> _contentRepository = new();
+    private readonly Mock<IRepository> _repository = new();
+    private readonly Mock<IProcessedContentRepository> _processedRepository = new();
     private readonly Mock<IContactUsMessageTagParser> _contactUsMessageParser = new();
-    private readonly Mock<IArticleRepository> _articleRepository = new();
     private const string DefaultMessage = "A default message";
 
     public ArticleControllerTest()
     {
-        _controller = new ArticleController(_contentRepository.Object, _contactUsMessageParser.Object, _articleRepository.Object, new BusinessId("stockportgov"));
+        _controller = new(_repository.Object, _processedRepository.Object, _contactUsMessageParser.Object, new BusinessId("stockportgov"));
     }
 
     [Fact]
@@ -21,7 +21,9 @@ public class ArticleControllerTest
             new List<ProcessedSection>() { DummySection() }, "fa-icon", "af981b9771822643da7a03a9ae95886f/runners.jpg", "af981b9771822643da7a03a9ae95886f/runners.jpg",
             new List<Crumb>() { new("title", "slug", "type") }, new List<Alert>(), new NullTopic(), new List<Alert>(), new DateTime(), new bool());
 
-        _articleRepository.Setup(_ => _.Get(It.IsAny<string>())).ReturnsAsync(new HttpResponse(200, article, string.Empty));
+        _processedRepository
+            .Setup(_ => _.Get<Article>(It.IsAny<string>(), It.IsAny<List<Query>>()))
+            .ReturnsAsync(HttpResponse.Successful(200, article));
 
         // Act
         var articlePage = await _controller.Article("physical-activity", DefaultMessage) as ViewResult; ;
@@ -38,7 +40,7 @@ public class ArticleControllerTest
     }
 
     [Fact]
-    public async Task MultipleSectionsArticleWithNoSectionSlugReturnsFirstSection()
+    public async Task Article_ShouldReturnFirstSection_If_MultipleSectionsArticleWithNoSectionSlug()
     {
         // Arrange
         var sectionOne = new ProcessedSection("Overview", "physical-activity-overview", string.Empty, "body", new List<Profile>(), new List<Document>(), new List<Alert>());
@@ -48,7 +50,9 @@ public class ArticleControllerTest
             new List<ProcessedSection>() { sectionOne, sectionTwo }, string.Empty, string.Empty, string.Empty, new List<Crumb>() { },
             new List<Alert>(), new NullTopic(), new List<Alert>(), new DateTime(), new bool());
 
-        _articleRepository.Setup(_ => _.Get(It.IsAny<string>())).ReturnsAsync(new HttpResponse(200, article, string.Empty));
+        _processedRepository
+            .Setup(_ => _.Get<Article>(It.IsAny<string>(), It.IsAny<List<Query>>()))
+            .ReturnsAsync(HttpResponse.Successful(200, article));
 
         // Act
         var view = await _controller.Article("physical-activity", DefaultMessage) as ViewResult; ;
@@ -60,32 +64,31 @@ public class ArticleControllerTest
         Assert.True(displayedArticle.ShouldShowArticleSummary);
     }
 
-    // more cleanup to do:
     [Fact]
-    public async Task MultipleSectionsArticleWithNoSectionSlugViewDataCanonicalUrlShouldBeNull()
+    public async Task Article_ShouldSetViewDataNullCanonicalUrl_If_MultipleSectionsArticleWithNoSectionSlug()
     {
-        const string articleSlug = "physical-activity";
+        // Arrange
         var sectionOne = new ProcessedSection("Overview", "physical-activity-overview", string.Empty, "body", new List<Profile>(), new List<Document>(), new List<Alert>());
         var sectionTwo = new ProcessedSection("Types of Physical Activity", TextHelper.AnyString, TextHelper.AnyString, "body", new List<Profile>(), new List<Document>(), new List<Alert>());
 
         var article = new ProcessedArticle(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, new List<ProcessedSection>() { sectionOne, sectionTwo },
             string.Empty, string.Empty, string.Empty, new List<Crumb>() { }, new List<Alert>(), new NullTopic(), new List<Alert>(), new DateTime(), new bool());
 
-        var response = new HttpResponse(200, article, string.Empty);
+        _processedRepository
+            .Setup(_ => _.Get<Article>(It.IsAny<string>(), It.IsAny<List<Query>>()))
+            .ReturnsAsync(HttpResponse.Successful(200, article));
 
-        _articleRepository.Setup(o => o.Get(It.IsAny<string>())).ReturnsAsync(response);
+        // Act
+        var view = await _controller.Article("physical-activity", DefaultMessage) as ViewResult;
 
-        var view = await _controller.Article(articleSlug, DefaultMessage) as ViewResult;
-
-        view.ViewData["CanonicalUrl"].Should().BeNull();
+        // Assert
+        Assert.Null(view.ViewData["CanonicalUrl"]);
     }
 
     [Fact]
-    public async Task MultipleSectionsArticleWithSectionSlugViewDataCanonicalUrlShouldNotBeNull()
+    public async Task Article_ShouldSetViewDataCanonicalUrl_If_MultipleSectionsArticleWithSectionSlug()
     {
-        const string articleSlug = "physical-activity";
-        const string sectionSlug = "physical-activity-overview";
-
+        // Arrange
         var sectionOne = new ProcessedSection("Overview", "physical-activity-overview", string.Empty, "body", new List<Profile>(), new List<Document>(), new List<Alert>());
         var sectionTwo = new ProcessedSection("Types of Physical Activity", TextHelper.AnyString, TextHelper.AnyString, "body", new List<Profile>(), new List<Document>(), new List<Alert>());
 
@@ -93,288 +96,257 @@ public class ArticleControllerTest
             new List<ProcessedSection>() { sectionOne, sectionTwo }, string.Empty, string.Empty, string.Empty,
             new List<Crumb>() { }, new List<Alert>(), new NullTopic(), new List<Alert>(), new DateTime(), new bool());
 
-        var response = new HttpResponse(200, article, string.Empty);
+        _processedRepository
+            .Setup(_ => _.Get<Article>(It.IsAny<string>(), It.IsAny<List<Query>>()))
+            .ReturnsAsync(HttpResponse.Successful(200, article));
+        
+        // Act
+        var view = await _controller.ArticleWithSection("physical-activity", "physical-activity-overview", DefaultMessage) as ViewResult; ;
 
-        _articleRepository.Setup(o => o.Get(It.IsAny<string>())).ReturnsAsync(response);
-
-        var view = await _controller.ArticleWithSection(articleSlug, sectionSlug, DefaultMessage) as ViewResult; ;
-
-        view.ViewData["CanonicalUrl"].Should().NotBeNull();
+        // Assert
+        Assert.NotNull(view.ViewData["CanonicalUrl"]);
 
         string canonicalUrl = (string)view.ViewData["CanonicalUrl"];
-
-        canonicalUrl.Should().Contain("physical-activity");
-        canonicalUrl.Should().NotContain("physical-activity-overview");
+        Assert.Equal("/physical-activity", canonicalUrl);
+        Assert.NotEqual("physical-activity-overview", canonicalUrl);
     }
 
     [Fact]
-    public async Task MultipleSectionsArticleWithSectionSlugReturnsCorrespondingSection()
+    public async Task Article_ShouldReturnCorrespondingSection_If_MultipleSectionsArticleWithSectionSlug()
     {
-        const string articleSlug = "physical-activity";
-        const string sectionSlug = "types-of-physical-activity";
-
+        // Arrange
         var sectionOne = new ProcessedSection("Overview", "physical-activity-overview", string.Empty, "body", new List<Profile>(), new List<Document>(), new List<Alert>());
-        var sectionTwo = new ProcessedSection("Types of Physical Activity", sectionSlug, TextHelper.AnyString, "body", new List<Profile>(), new List<Document>(), new List<Alert>());
+        var sectionTwo = new ProcessedSection("Types of Physical Activity", "types-of-physical-activity", TextHelper.AnyString, "body", new List<Profile>(), new List<Document>(), new List<Alert>());
         var article = new ProcessedArticle(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty,
             new List<ProcessedSection>() { sectionOne, sectionTwo }, string.Empty, string.Empty, string.Empty, new List<Crumb>() { },
             new List<Alert>(), new NullTopic(), new List<Alert>(), new DateTime(), new bool());
 
-        var response = new HttpResponse(200, article, string.Empty);
+        _processedRepository
+            .Setup(_ => _.Get<Article>(It.IsAny<string>(), It.IsAny<List<Query>>()))
+            .ReturnsAsync(HttpResponse.Successful(200, article));
 
-        _articleRepository.Setup(o => o.Get(It.IsAny<string>())).ReturnsAsync(response);
-
-        var view = await _controller.ArticleWithSection(articleSlug, sectionSlug, DefaultMessage) as ViewResult; ;
-
+        // Act
+        var view = await _controller.ArticleWithSection("physical-activity", "types-of-physical-activity", DefaultMessage) as ViewResult; ;
         var displayedArticle = view.ViewData.Model as ArticleViewModel;
 
-        displayedArticle.DisplayedSection.Title.Should().Contain("Types of Physical Activity");
-        displayedArticle.DisplayedSection.Slug.Should().Be(sectionSlug);
-        displayedArticle.ShouldShowArticleSummary.Should().BeFalse();
+        // Assert
+        Assert.Equal("Types of Physical Activity", displayedArticle.DisplayedSection.Title);
+        Assert.Equal("types-of-physical-activity", displayedArticle.DisplayedSection.Slug);
+        Assert.False(displayedArticle.ShouldShowArticleSummary);
     }
 
     [Fact]
-    public async Task ArticleWithSectionMetaDescriptionReturnsViewDataWithMetaDescription()
+    public async Task Article_GetsAlertsInline()
     {
         // Arrange
-        var expectedMetaDescription = "test meta description";
-        var sectionSlug = "test-slug";
-        var section = new ProcessedSection(
-            string.Empty,
-            sectionSlug,
-            expectedMetaDescription,
-            string.Empty,
-            null,
-            null,
-            null
-        );
-        var article = new ProcessedArticle(
-            string.Empty,
-            string.Empty,
-            string.Empty,
-            string.Empty,
-            string.Empty,
-            new List<ProcessedSection> { section },
-            string.Empty,
-            string.Empty,
-            null,
-            null,
-            null,
-            null,
-            null,
-            new DateTime(),
-            new bool()
-        );
-
-        _articleRepository
-            .Setup(_ => _.Get(It.IsAny<string>()))
-            .ReturnsAsync(new HttpResponse(200, article, string.Empty));
-
-        // Act
-        var result = await _controller
-            .ArticleWithSection(
-                string.Empty,
-                sectionSlug,
-                string.Empty) as ViewResult;
-        var resultModel = result.ViewData.Model as ArticleViewModel;
-
-        // Assert
-        resultModel.Should().NotBeNull();
-        resultModel?.DisplayedSection.MetaDescription.Should().Be(expectedMetaDescription);
-    }
-
-    [Fact]
-    public async Task MulitpleArticlesWithSectionMetaDescriptionReturnsViewDataWithMetaDescription()
-    {
-        // Arrange
-        var expectedMetaDescription = "test meta description";
-        var sectionSlug = "test-slug";
-        var section1 = new ProcessedSection(
-            string.Empty,
-            sectionSlug,
-            expectedMetaDescription,
-            string.Empty,
-            null,
-            null,
-            null
-        );
-        var section2 = new ProcessedSection(
-            string.Empty,
-            string.Empty,
-            "other string",
-            string.Empty,
-            null,
-            null,
-            null
-        );
-        var article = new ProcessedArticle(
-            string.Empty,
-            string.Empty,
-            string.Empty,
-            string.Empty,
-            string.Empty,
-            new List<ProcessedSection> { section1, section2 },
-            string.Empty,
-            string.Empty,
-            null,
-            null,
-            null,
-            null,
-            null,
-            new DateTime(),
-            new bool()
-        );
-
-        _articleRepository
-            .Setup(_ => _.Get(It.IsAny<string>()))
-            .ReturnsAsync(new HttpResponse(200, article, string.Empty));
-
-        // Act
-        var result = await _controller
-            .ArticleWithSection(
-                string.Empty,
-                sectionSlug,
-                string.Empty) as ViewResult;
-        var resultModel = result.ViewData.Model as ArticleViewModel;
-
-        // Assert
-        resultModel.Should().NotBeNull();
-        resultModel?.DisplayedSection.MetaDescription.Should().Be(expectedMetaDescription);
-    }
-
-    [Fact]
-    public async Task ReturnNotFoundWhenSectionDoesNotExist()
-    {
-        const string articleSlug = "physical-activity";
-        const string sectionSlug = "I-do-not-exist";
-
-        _articleRepository.Setup(o => o.Get(It.IsAny<string>())).ReturnsAsync(new HttpResponse(404, "error", string.Empty));
-
-        var result =
-            await _controller.ArticleWithSection(articleSlug, sectionSlug, DefaultMessage) as StatusCodeResult; ;
-
-        result.StatusCode.Should().Be(404);
-    }
-
-    [Fact]
-    public async Task GetsAlertsForArticle()
-    {
-        var alerts = new List<Alert>
+        List<Alert> alertsInline = new()
         {
-            new Alert("title", "subheading", "body", Severity.Warning, new DateTime(0001, 1, 1, 0, 0, 0, DateTimeKind.Utc),
-                                                             new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc),String.Empty, false, string.Empty)
-        };
-        var article = new ProcessedArticle(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty,
-            new List<ProcessedSection>() { }, string.Empty, string.Empty, string.Empty, new List<Crumb>() { }, alerts, new NullTopic(), new List<Alert>(), new DateTime(), new bool());
-
-        _articleRepository.Setup(o => o.Get(It.IsAny<string>())).ReturnsAsync(new HttpResponse(200, article, string.Empty));
-
-        var indexPage = await _controller.Article("healthy-living", DefaultMessage) as ViewResult; ;
-        var result = indexPage.ViewData.Model as ArticleViewModel;
-
-        result.Article.Alerts.Should().HaveCount(1);
-        result.Article.Alerts.First().Title.Should().Be("title");
-        result.Article.Alerts.First().SubHeading.Should().Be("subheading");
-        result.Article.Alerts.First().Body.Should().Be("<p>body</p>\n");
-        result.Article.Alerts.First().Severity.Should().Be(Severity.Warning);
-    }
-
-    [Fact]
-    public async Task ItInvokesArticleFactoryToBuildArticleForView()
-    {
-        _articleRepository.Setup(o => o.Get(It.IsAny<string>())).ReturnsAsync(new HttpResponse(200, DummyProcessedArticle(), string.Empty));
-
-        var indexPage = await _controller.Article("healthy-living", DefaultMessage) as ViewResult; ;
-        var result = indexPage.ViewData.Model as ArticleViewModel;
-
-        result.Article.Should().BeOfType(typeof(ProcessedArticle));
-    }
-
-
-    [Fact]
-    public async Task ShouldParseForContactUsMessageForArticle()
-    {
-        var processedArticle = DummyProcessedArticle();
-        var slug = "healthy-living";
-
-        _articleRepository.Setup(o => o.Get(It.IsAny<string>())).ReturnsAsync(new HttpResponse(200, processedArticle, string.Empty));
-
-        await _controller.Article(slug, DefaultMessage);
-
-        _contactUsMessageParser.Verify(o => o.Parse(processedArticle, DefaultMessage, ""), Times.Once);
-    }
-
-    [Fact]
-    public async Task ShouldParseForContactUsMessageForArticleWithSection()
-    {
-        var processedArticle = DummyProcessedArticle();
-        var slug = "healthy-living";
-        var sectionSlug = "test-section";
-
-        _articleRepository.Setup(o => o.Get(It.IsAny<string>())).ReturnsAsync(new HttpResponse(200, processedArticle, string.Empty));
-
-        await _controller.ArticleWithSection(slug, sectionSlug, DefaultMessage);
-
-        _contactUsMessageParser.Verify(o => o.Parse(processedArticle, DefaultMessage, sectionSlug), Times.Once);
-    }
-
-    [Fact]
-    public async Task GetsAlertsInlineForArticle()
-    {
-        var alertsInline = new List<Alert>
-        {
-            new Alert("title", "subheading", "body", Severity.Warning, new DateTime(0001, 1, 1, 0, 0, 0, DateTimeKind.Utc),
-                                                             new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc),String.Empty, false, string.Empty)
+            new("title", "subheading", "body", Severity.Warning, new DateTime(0001, 1, 1, 0, 0, 0, DateTimeKind.Utc),
+                new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc),String.Empty, false, string.Empty)
         };
         var article = new ProcessedArticle(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty,
             new List<ProcessedSection>() { }, string.Empty, string.Empty, string.Empty, new List<Crumb>() { }, new List<Alert>(), new NullTopic(), alertsInline, new DateTime(), new bool());
 
-        _articleRepository.Setup(o => o.Get(It.IsAny<string>())).ReturnsAsync(new HttpResponse(200, article, string.Empty));
+        _processedRepository
+            .Setup(_ => _.Get<Article>(It.IsAny<string>(), It.IsAny<List<Query>>()))
+            .ReturnsAsync(HttpResponse.Successful(200, article));
+        
+        // Act
+        var result = await _controller.Article("healthy-living", DefaultMessage) as ViewResult; ;
+        var resultModel = result.ViewData.Model as ArticleViewModel;
 
-        var indexPage = await _controller.Article("healthy-living", DefaultMessage) as ViewResult; ;
-        var result = indexPage.ViewData.Model as ArticleViewModel;
-
-        result.Article.AlertsInline.Should().HaveCount(1);
-        result.Article.AlertsInline.First().Title.Should().Be("title");
-        result.Article.AlertsInline.First().SubHeading.Should().Be("subheading");
-        result.Article.AlertsInline.First().Body.Should().Be("<p>body</p>\n");
-        result.Article.AlertsInline.First().Severity.Should().Be(Severity.Warning);
+        // Assert
+        Assert.Single(resultModel.Article.AlertsInline);
+        Assert.Equal("title", resultModel.Article.AlertsInline.First().Title);
+        Assert.Equal("subheading", resultModel.Article.AlertsInline.First().SubHeading);
+        Assert.Equal("<p>body</p>\n", resultModel.Article.AlertsInline.First().Body);
+        Assert.Equal(Severity.Warning, resultModel.Article.AlertsInline.First().Severity);
     }
 
     [Fact]
-    public async Task GetsAlertsInlineForASectionInAnArticle()
+    public async Task Article_ShouldSetAlerts()
     {
-        var alertsInline = new List<Alert>
+        // Arrange
+        List<Alert> alerts = new()
         {
-            new Alert("title", "subheading", "body", Severity.Warning, new DateTime(0001, 1, 1, 0, 0, 0, DateTimeKind.Utc),
-                                                             new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc),String.Empty, false, string.Empty)
+            new("title", "subheading", "body", Severity.Warning, new DateTime(0001, 1, 1, 0, 0, 0, DateTimeKind.Utc),
+                new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc),string.Empty, false, string.Empty)
+        };
+        var article = new ProcessedArticle(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty,
+            new List<ProcessedSection>(), string.Empty, string.Empty, string.Empty, new List<Crumb>(), alerts, new NullTopic(), new List<Alert>(), new DateTime(), new bool());
+
+        _processedRepository
+            .Setup(_ => _.Get<Article>(It.IsAny<string>(), It.IsAny<List<Query>>()))
+            .ReturnsAsync(HttpResponse.Successful(200, article));
+        
+        // Act
+        var result = await _controller.Article("healthy-living", DefaultMessage) as ViewResult; ;
+        var resultModel = result.ViewData.Model as ArticleViewModel;
+
+        // Assert
+        Assert.Single(resultModel.Article.Alerts);
+        Assert.Equal("title", resultModel.Article.Alerts.First().Title);
+        Assert.Equal("subheading", resultModel.Article.Alerts.First().SubHeading);
+        Assert.Equal("<p>body</p>\n", resultModel.Article.Alerts.First().Body);
+        Assert.Equal(Severity.Warning, resultModel.Article.Alerts.First().Severity);
+    }
+
+    [Fact]
+    public async Task Article_InvokesArticleFactory()
+    {
+        // Arrange
+        _processedRepository
+            .Setup(_ => _.Get<Article>(It.IsAny<string>(), It.IsAny<List<Query>>()))
+            .ReturnsAsync(HttpResponse.Successful(200, DummyProcessedArticle()));
+
+        // Act
+        var result = await _controller.Article("healthy-living", DefaultMessage) as ViewResult; ;
+        var resultModel = result.ViewData.Model as ArticleViewModel;
+
+        // Assert
+        Assert.IsType<ProcessedArticle>(resultModel.Article);
+    }
+
+    [Fact]
+    public async Task Article_ShouldParseContactUsMessage()
+    {
+        // Arrange
+        var processedArticle = DummyProcessedArticle();
+        _processedRepository
+            .Setup(_ => _.Get<Article>(It.IsAny<string>(), It.IsAny<List<Query>>()))
+            .ReturnsAsync(HttpResponse.Successful(200, processedArticle));
+
+        // Act
+        await _controller.Article("healthy-living", DefaultMessage);
+        
+        // Assert
+        _contactUsMessageParser.Verify(_ => _.Parse(processedArticle, DefaultMessage, string.Empty), Times.Once);
+    }
+
+    [Fact]
+    public async Task Article_GetsAlertsInlineForASectionInAnArticle()
+    {
+        // Arrange
+        List<Alert> alertsInline = new()
+        {
+            new("title", "subheading", "body", Severity.Warning, new DateTime(0001, 1, 1, 0, 0, 0, DateTimeKind.Utc),
+                new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc),String.Empty, false, string.Empty)
         };
 
-        var processedSection = new ProcessedSection("title", "slug", string.Empty, "body", new List<Profile>(), new List<Document>(), alertsInline);
+        ProcessedSection processedSection = new("title", "slug", string.Empty, "body", new List<Profile>(), new List<Document>(), alertsInline);
 
-        var article = new ProcessedArticle(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty,
-            new List<ProcessedSection>() { processedSection }, string.Empty, string.Empty, string.Empty, new List<Crumb>() { }, new List<Alert>(), new NullTopic(), alertsInline, new DateTime(), new bool());
+        ProcessedArticle article = new(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty,
+            new List<ProcessedSection>() { processedSection }, string.Empty, string.Empty, string.Empty, new List<Crumb>(), new List<Alert>(), new NullTopic(), alertsInline, new DateTime(), new bool());
 
-        _articleRepository.Setup(o => o.Get(It.IsAny<string>())).ReturnsAsync(new HttpResponse(200, article, string.Empty));
+        _processedRepository
+            .Setup(_ => _.Get<Article>(It.IsAny<string>(), It.IsAny<List<Query>>()))
+            .ReturnsAsync(HttpResponse.Successful(200, article));
 
-        var indexPage = await _controller.Article("healthy-living", DefaultMessage) as ViewResult; ;
-        var result = indexPage.ViewData.Model as ArticleViewModel;
+        // Act
+        var result = await _controller.Article("healthy-living", DefaultMessage) as ViewResult; ;
+        var resultModel = result.ViewData.Model as ArticleViewModel;
 
-        result.Article.Sections.FirstOrDefault().AlertsInline.Should().HaveCount(1);
-        result.Article.Sections.FirstOrDefault().AlertsInline.First().Title.Should().Be("title");
-        result.Article.Sections.FirstOrDefault().AlertsInline.First().SubHeading.Should().Be("subheading");
-        result.Article.Sections.FirstOrDefault().AlertsInline.First().Body.Should().Be("<p>body</p>\n");
-        result.Article.Sections.FirstOrDefault().AlertsInline.First().Severity.Should().Be(Severity.Warning);
+        // Assert
+        Assert.Single(resultModel.Article.Sections.FirstOrDefault().AlertsInline);
+        Assert.Equal("title", resultModel.Article.Sections.FirstOrDefault().AlertsInline.First().Title);
+        Assert.Equal("subheading", resultModel.Article.Sections.FirstOrDefault().AlertsInline.First().SubHeading);
+        Assert.Equal("<p>body</p>\n", resultModel.Article.Sections.FirstOrDefault().AlertsInline.First().Body);
+        Assert.Equal(Severity.Warning, resultModel.Article.Sections.FirstOrDefault().AlertsInline.First().Severity);
     }
 
-    private ProcessedArticle DummyProcessedArticle()
+    [Fact]
+    public async Task Article_ShouldReturnNotFound()
     {
-        return new ProcessedArticle(TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString,
+        // Arrange
+        _processedRepository
+            .Setup(_ => _.Get<Article>(It.IsAny<string>(), It.IsAny<List<Query>>()))
+            .ReturnsAsync(new HttpResponse(404, "error", string.Empty));
+        // Act
+        var result = await _controller.Article("physical-activity-test", "I-do-not-exist") as StatusCodeResult; ;
+
+        // Assert
+        Assert.Equal(404, result.StatusCode);
+    }
+
+    [Fact]
+    public async Task ArticleWithSection_ShouldReturnViewDataWithMetaDescription()
+    {
+        // Arrange
+        var section = new ProcessedSection(string.Empty, "test-slug", "test meta description", string.Empty, null, null, null);
+        var article = new ProcessedArticle(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, new List<ProcessedSection> { section },
+            string.Empty, string.Empty, null, null, null, null, null, new DateTime(), new bool());
+
+        _processedRepository
+            .Setup(_ => _.Get<Article>(It.IsAny<string>(), It.IsAny<List<Query>>()))
+            .ReturnsAsync(HttpResponse.Successful(200, article));
+        
+        // Act
+        var result = await _controller.ArticleWithSection(string.Empty, "test-slug", string.Empty) as ViewResult;
+        var resultModel = result.ViewData.Model as ArticleViewModel;
+
+        // Assert
+        Assert.NotNull(resultModel);
+        Assert.Equal("test meta description", resultModel.DisplayedSection.MetaDescription);
+    }
+
+    [Fact]
+    public async Task ArticleWithSection_ShouldReturnViewDataWithMetaDescription_If_MulitpleArticlesWithSections()
+    {
+        // Arrange
+        var section1 = new ProcessedSection(string.Empty, "test-slug", "test meta description", string.Empty, null, null, null);
+        var section2 = new ProcessedSection(string.Empty, string.Empty, "other string", string.Empty, null, null, null);
+        var article = new ProcessedArticle(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, new List<ProcessedSection> { section1, section2 },
+            string.Empty, string.Empty, null, null, null, null, null, new DateTime(), new bool());
+
+        _processedRepository
+            .Setup(_ => _.Get<Article>(It.IsAny<string>(), It.IsAny<List<Query>>()))
+            .ReturnsAsync(HttpResponse.Successful(200, article));
+        
+        // Act
+        var result = await _controller.ArticleWithSection(string.Empty, "test-slug", string.Empty) as ViewResult;
+        var resultModel = result.ViewData.Model as ArticleViewModel;
+
+        // Assert
+        Assert.NotNull(resultModel);
+        Assert.Equal("test meta description", resultModel.DisplayedSection.MetaDescription);
+    }
+
+    [Fact]
+    public async Task ArticleWithSection_ShouldReturnNotFoundWhenSectionDoesNotExist()
+    {
+        // Arrange
+        _processedRepository
+            .Setup(_ => _.Get<Article>(It.IsAny<string>(), It.IsAny<List<Query>>()))
+            .ReturnsAsync(new HttpResponse(404, "error", string.Empty));
+
+        // Act
+        var result = await _controller.ArticleWithSection("physical-activity", "I-do-not-exist", DefaultMessage) as StatusCodeResult; ;
+
+        // Assert
+        Assert.Equal(404, result.StatusCode);
+    }
+
+    [Fact]
+    public async Task ArticleWithSection_ShouldParseContactUsMessage()
+    {
+        // Arrange
+        var processedArticle = DummyProcessedArticle();
+        _processedRepository
+            .Setup(_ => _.Get<Article>(It.IsAny<string>(), It.IsAny<List<Query>>()))
+            .ReturnsAsync(new HttpResponse(200, processedArticle, string.Empty));
+        
+        // Act
+        await _controller.ArticleWithSection("healthy-living", "test-section", DefaultMessage);
+
+        // Assert
+        _contactUsMessageParser.Verify(_ => _.Parse(processedArticle, DefaultMessage, "test-section"), Times.Once);
+    }
+
+    private static ProcessedArticle DummyProcessedArticle() => 
+        new(TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString,
             new List<ProcessedSection>(), TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<Crumb>(),
             new LinkedList<Alert>(), new NullTopic(), new List<Alert>(), new DateTime(), new bool());
-    }
 
-    private ProcessedSection DummySection()
-    {
-        return new ProcessedSection(TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<Profile>(), new List<Document>(), new List<Alert>());
-    }
+    private static ProcessedSection DummySection() => 
+        new(TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<Profile>(), new List<Document>(), new List<Alert>());
 }

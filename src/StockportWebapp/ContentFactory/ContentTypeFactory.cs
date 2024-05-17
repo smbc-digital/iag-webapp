@@ -13,14 +13,15 @@ public class ContentTypeFactory
         IDynamicTagParser<Document> documentTagParser,
         IDynamicTagParser<Alert> alertsInlineTagParser,
         IHttpContextAccessor httpContextAccesor,
-        IDynamicTagParser<PrivacyNotice> privacyNoticeTagParser)
+        IDynamicTagParser<PrivacyNotice> privacyNoticeTagParser,
+        IRepository repository)
     {
         var sectionFactory = new SectionFactory(tagParserContainer, profileTagParser, markdownWrapper, documentTagParser, alertsInlineTagParser, privacyNoticeTagParser, null);
         var contactUsCategoryFactory = new ContactUsCategoryFactory(tagParserContainer, markdownWrapper, documentTagParser, null);
         var triviaFactory = new TriviaFactory(markdownWrapper);
 
         _factories.Add(typeof(Section), sectionFactory);
-        _factories.Add(typeof(Article), new ArticleFactory(tagParserContainer, sectionFactory, markdownWrapper, null));
+        _factories.Add(typeof(Article), new ArticleFactory(tagParserContainer, sectionFactory, markdownWrapper, repository));
         _factories.Add(typeof(DocumentPage), new DocumentPageFactory(markdownWrapper));
         _factories.Add(typeof(News), new NewsFactory(tagParserContainer, markdownWrapper, documentTagParser, profileTagParser));
         _factories.Add(typeof(Event), new EventFactory(tagParserContainer, markdownWrapper, documentTagParser));

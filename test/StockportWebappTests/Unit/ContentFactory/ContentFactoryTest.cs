@@ -6,6 +6,7 @@ public class ContentFactoryTest
 
     public ContentFactoryTest()
     {
+        var repository = new Mock<IRepository>();
         var tagParserContainer = new Mock<ITagParserContainer>();
         var profileTagParser = new Mock<IDynamicTagParser<Profile>>();
         var documentTagParser = new Mock<IDynamicTagParser<Document>>();
@@ -14,7 +15,7 @@ public class ContentFactoryTest
         var privacyNoticeTagParser = new Mock<IDynamicTagParser<PrivacyNotice>>();
         tagParserContainer.Setup(o => o.ParseAll(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool>(), null, null, null, null, null)).Returns("");
 
-        _factory = new ContentTypeFactory(tagParserContainer.Object, profileTagParser.Object, new MarkdownWrapper(), documentTagParser.Object, alertsInlineTagParser.Object, httpContextAccessor.Object, privacyNoticeTagParser.Object);
+        _factory = new ContentTypeFactory(tagParserContainer.Object, profileTagParser.Object, new MarkdownWrapper(), documentTagParser.Object, alertsInlineTagParser.Object, httpContextAccessor.Object, privacyNoticeTagParser.Object, repository.Object);
     }
 
     [Fact]

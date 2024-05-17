@@ -130,7 +130,8 @@ namespace StockportWebapp.Utils.Extensions
                                             p.GetService<IDynamicTagParser<Document>>(),
                                             p.GetService<IDynamicTagParser<Alert>>(),
                                             p.GetService<IHttpContextAccessor>(),
-                                            p.GetService<IDynamicTagParser<PrivacyNotice>>()),
+                                            p.GetService<IDynamicTagParser<PrivacyNotice>>(),
+                                            p.GetService<IRepository>()),
                         p.GetService<IApplicationConfiguration>()));
             services.AddTransient<IRepository>(p => new Repository(p.GetService<UrlGenerator>(), p.GetService<IHttpClient>(), p.GetService<IApplicationConfiguration>(), p.GetService<IUrlGeneratorSimple>(), p.GetService<ILogger<Repository>>()));
             services.AddTransient<IStockportApiRepository>(p => new StockportApiRepository(p.GetService<IHttpClient>(), p.GetService<IApplicationConfiguration>(), p.GetService<IUrlGeneratorSimple>(), p.GetService<ILogger<BaseRepository>>()));
@@ -182,11 +183,6 @@ namespace StockportWebapp.Utils.Extensions
             services.AddSingleton(p => new CalendarHelper());
             services.AddTransient<ICookiesHelper, CookiesHelper>();
             services.AddSingleton(p => new CookiesHelper(p.GetService<IHttpContextAccessor>()));
-            services.AddTransient<IArticleRepository>(
-                p =>
-                    new ArticleRepository(p.GetService<UrlGenerator>(), p.GetService<IHttpClient>(),
-                        p.GetService<ArticleFactory>(), p.GetService<IApplicationConfiguration>()));
-
             services.AddTransient<ITopicRepository>(
               p =>
                   new TopicRepository(p.GetService<TopicFactory>(), p.GetService<UrlGenerator>(), p.GetService<IHttpClient>(),

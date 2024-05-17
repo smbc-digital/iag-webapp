@@ -3,8 +3,8 @@ namespace StockportWebapp.Controllers;
 //[ResponseCache(Location = ResponseCacheLocation.Any, Duration = Cache.Short)]
 public class ArticleController : Controller
 {
-    private readonly IProcessedContentRepository _repository;
-    private readonly IArticleRepository _articleRepository;
+    private readonly IRepository _repository;
+    private readonly IProcessedContentRepository _processedRepository;
     private readonly IContactUsMessageTagParser _contactUsMessageParser;
     private readonly BusinessId _businessId;
     private readonly IFeatureManager _featureManager;
@@ -12,11 +12,11 @@ public class ArticleController : Controller
     private readonly bool _flatArticleToggle = true;
     private readonly bool _sectionArticleToggle = false;
 
-    public ArticleController(IProcessedContentRepository repository, IContactUsMessageTagParser contactUsMessageParser, IArticleRepository articleRepository, BusinessId businessId, IFeatureManager featureManager = null)
+    public ArticleController(IRepository repository, IProcessedContentRepository processedRepository, IContactUsMessageTagParser contactUsMessageParser, BusinessId businessId, IFeatureManager featureManager = null)
     {
         _repository = repository;
+        _processedRepository = processedRepository;
         _contactUsMessageParser = contactUsMessageParser;
-        _articleRepository = articleRepository;
         _businessId = businessId;
         _featureManager = featureManager;
 
@@ -31,8 +31,7 @@ public class ArticleController : Controller
     [Route("/{articleSlug}")]
     public async Task<IActionResult> Article(string articleSlug, [FromQuery] string message)
     {        
-        var articleHttpResponse = await _articleRepository.Get(articleSlug);
-
+        var articleHttpResponse = await _processedRepository.Get<Article>(articleSlug);
         if (!articleHttpResponse.IsSuccessful())
             return articleHttpResponse;
 
@@ -53,8 +52,7 @@ public class ArticleController : Controller
     [Route("/{articleSlug}/{sectionSlug}")]
     public async Task<IActionResult> ArticleWithSection(string articleSlug, string sectionSlug, [FromQuery] string message)
     {
-        var articleHttpResponse = await _articleRepository.Get(articleSlug);
-
+        var articleHttpResponse = await _processedRepository.Get<Article>(articleSlug);
         if (!articleHttpResponse.IsSuccessful())
             return articleHttpResponse;
 
