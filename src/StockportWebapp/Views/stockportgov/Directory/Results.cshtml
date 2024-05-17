@@ -43,10 +43,14 @@
                                 <label for="order-by">Sort by:</label>
                                 <select asp-for="@Model.Order" asp-items="@(new SelectList(Model.OrderBy))" name="orderBy" id="order-by" autocomplete="off"></select>
                             </div>
-                            <div class="directory__showMap">
-                                <button type="button" id="showMap" class="btn btn--plain" data-slug="@Model.Slug" style="display:@(displayMap ? "none" : "inline-block")"><span class="fa-solid fa-location-dot"></span> Show on a map</button>
-                                <button type="button" id="hideMap" class="btn btn--plain" data-slug="@Model.Slug" style="display:@(displayMap ? "inline-block" : "none")"><span class="fa-solid fa-circle-xmark"></span> Hide map</button>
-                            </div>
+                            @if(Model.DisplayMap)
+                            {
+                                <div class="directory__showMap">
+                                    <button type="button" id="showMap" class="btn btn--plain" data-slug="@Model.Slug" style="display:@(displayMap ? "none" : "inline-block")"><span class="fa-solid fa-location-dot"></span> Show on a map</button>
+                                    <button type="button" id="hideMap" class="btn btn--plain" data-slug="@Model.Slug" style="display:@(displayMap ? "inline-block" : "none")"><span class="fa-solid fa-circle-xmark"></span> Hide map</button>
+                                </div>
+                            }
+                            
                         </div>
                         
                         <partial name="DirectoryResultsMap" />

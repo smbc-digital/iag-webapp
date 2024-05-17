@@ -4,12 +4,15 @@
     var mapCookie = CookiesHelper.GetCookies<string>("map");
     var displayValue = mapCookie.Contains(Model.Slug) ? "block" : "none";
 }
-<script defer src="@("https://unpkg.com/@googlemaps/markerclusterer/dist/index.min.js")"></script>
 
-<div id="map" class="google-map" style="display:@displayValue;"></div>
+@if(Model.DisplayMap)
+{
+    <script defer src="@("https://unpkg.com/@googlemaps/markerclusterer/dist/index.min.js")"></script>
 
-<script>
-    const locations = [
+    <div id="map" class="google-map" style="display:@displayValue;"></div>
+
+    <script>
+        const locations = [
         @if (Model.PaginationInfo.CurrentPage.Equals(1))
         {
             @foreach (var entry in Model.PinnedEntries.Where(entry => entry.DirectoryEntry.IsNotOnTheEqautor))
@@ -22,63 +25,63 @@
         {
             @Html.Raw(@"{ " + entry.ToString(@Url.Action("DirectoryEntry", "Directory", new { slug=@entry.FullyResolvedSlug })) + "}, ")
         }
-    ];
-</script>
+            ];
+    </script>
 
+    <script>
+        async function initMap() {
+            // Request needed libraries.
+            const { Map, InfoWindow } = await google.maps.importLibrary('maps');
+            const { AdvancedMarkerElement, PinElement } = await google.maps.importLibrary('marker');
 
-
-<script>
-    async function initMap() {
-        // Request needed libraries.
-        const { Map, InfoWindow } = await google.maps.importLibrary('maps');
-        const { AdvancedMarkerElement, PinElement } = await google.maps.importLibrary('marker');
-
-        const map = new Map(document.getElementById("map"), {
-            zoom: 12,
-            center: { lat: 53.40979, lng: -2.15761 },
-            mapId: "roadmap",
-        });
-
-        // Create an info window to share between markers.
-        const infoWindow = new InfoWindow();
-
-        // Create the markers.
-        const markers = locations.map(({ position, title, content, isPinned, mapPinIndex }, i) => {
-
-            const highlightPin = new PinElement({
-                glyph: `${mapPinIndex}`,
-                background: '#b32384',
-                glyphColor: "white",
-                borderColor: '#991e70',
-                scale: 1.2,
+            const map = new Map(document.getElementById("map"), {
+                zoom: 12,
+                center: { lat: 53.40979, lng: -2.15761 },
+                mapId: "roadmap",
             });
 
-            const defaultPin = new PinElement({
-                glyph: `${mapPinIndex}`,
-                background: 'teal',
-                glyphColor: "white",
-                borderColor: '#066',
-                scale: 1.2
+            // Create an info window to share between markers.
+            const infoWindow = new InfoWindow();
+
+            // Create the markers.
+            const markers = locations.map(({ position, title, content, isPinned, mapPinIndex }, i) => {
+
+                const highlightPin = new PinElement({
+                    glyph: `${mapPinIndex}`,
+                    background: '#b32384',
+                    glyphColor: "white",
+                    borderColor: '#991e70',
+                    scale: 1.2,
+                });
+
+                const defaultPin = new PinElement({
+                    glyph: `${mapPinIndex}`,
+                    background: 'teal',
+                    glyphColor: "white",
+                    borderColor: '#066',
+                    scale: 1.2
+                });
+
+                const marker = new AdvancedMarkerElement({
+                    position,
+                    title: `${mapPinIndex}. ${title}`,
+                    content: isPinned ? highlightPin.element : defaultPin.element,
+                });
+
+                marker.addListener("click", ({ domEvent, latLng }) => {
+                    const { target } = domEvent;
+
+                    infoWindow.setContent(content);
+                    infoWindow.open(marker.map, marker);
+                });
+
+                return marker;
             });
 
-            const marker = new AdvancedMarkerElement({
-                position,
-                title: `${mapPinIndex}. ${title}`,
-                content: isPinned ? highlightPin.element : defaultPin.element,
-            });
+            const markerCluster = new markerClusterer.MarkerClusterer({ markers, map });
+        }
+    </script>
 
-            marker.addListener("click", ({ domEvent, latLng }) => {
-                const { target } = domEvent;
-
-                infoWindow.setContent(content);
-                infoWindow.open(marker.map, marker);
-            });
-
-            return marker;
-        });
-
-        const markerCluster = new markerClusterer.MarkerClusterer({ markers, map }); 
-    }
-</script>
-
-<script defer async src="https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyCPMO2lE7np9cG_zG63JH_pNVmRfoajZjg&callback=initMap&loading=async"></script>
+    <script defer async src="https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyCPMO2lE7np9cG_zG63JH_pNVmRfoajZjg&callback=initMap&loading=async"></script>
+    
+}
