@@ -9,39 +9,24 @@ public class SectionFactory : ISectionFactory
 {
     private readonly MarkdownWrapper _markdownWrapper;
     private readonly ITagParserContainer _tagParserContainer;
-    private readonly IDynamicTagParser<Models.Profile> _profileTagParser;
-    private readonly IDynamicTagParser<Document> _documentTagParser;
-    private readonly IDynamicTagParser<Alert> _alertsInlineTagParser;
-    private readonly IDynamicTagParser<PrivacyNotice> _privacyNoticeTagParser;
     private readonly IRepository _repository;
 
 
-    public SectionFactory(ITagParserContainer tagParserContainer, IDynamicTagParser<StockportWebapp.Models.Profile> profileTagParser, MarkdownWrapper markdownWrapper,
-        IDynamicTagParser<Document> documentTagParser, IDynamicTagParser<Alert> alertsInlineTagParser, IDynamicTagParser<PrivacyNotice> privacyNoticeTagParser, IRepository repository)
+    public SectionFactory(ITagParserContainer tagParserContainer, MarkdownWrapper markdownWrapper, IRepository repository)
     {
         _tagParserContainer = tagParserContainer;
         _markdownWrapper = markdownWrapper;
-        _profileTagParser = profileTagParser;
-        _documentTagParser = documentTagParser;
-        _alertsInlineTagParser = alertsInlineTagParser;
-        _privacyNoticeTagParser = privacyNoticeTagParser;
         _repository = repository;
     }
 
     public ProcessedSection Build(Section section, string articleTitle = null)
     {
-        var parsedBody = _markdownWrapper.ConvertToHtml(section.Body);
-        parsedBody = _profileTagParser.Parse(parsedBody, section.Profiles);
-        parsedBody = _documentTagParser.Parse(parsedBody, section.Documents);
-        parsedBody = _alertsInlineTagParser.Parse(parsedBody, section.AlertsInline);
+        var parsedBody = _markdownWrapper.ConvertToHtml(section.Body ?? "");
 
         if (section.Body.Contains("PrivacyNotice:"))
-        {
             section.PrivacyNotices = GetPrivacyNotices().Result;
-            parsedBody = _privacyNoticeTagParser.Parse(parsedBody, section.PrivacyNotices);
-        }
 
-        parsedBody = _tagParserContainer.ParseAll(parsedBody, articleTitle);
+        parsedBody = _tagParserContainer.ParseAll(parsedBody, articleTitle, true, section.AlertsInline, section.Documents, null, section.PrivacyNotices, section.Profiles);
 
         return new ProcessedSection(
             section.Title,

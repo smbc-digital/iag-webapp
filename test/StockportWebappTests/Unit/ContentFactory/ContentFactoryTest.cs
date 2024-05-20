@@ -8,14 +8,10 @@ public class ContentFactoryTest
     {
         var repository = new Mock<IRepository>();
         var tagParserContainer = new Mock<ITagParserContainer>();
-        var profileTagParser = new Mock<IDynamicTagParser<Profile>>();
-        var documentTagParser = new Mock<IDynamicTagParser<Document>>();
-        var alertsInlineTagParser = new Mock<IDynamicTagParser<Alert>>();
         var httpContextAccessor = new Mock<IHttpContextAccessor>();
-        var privacyNoticeTagParser = new Mock<IDynamicTagParser<PrivacyNotice>>();
         tagParserContainer.Setup(o => o.ParseAll(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool>(), null, null, null, null, null)).Returns("");
 
-        _factory = new ContentTypeFactory(tagParserContainer.Object, profileTagParser.Object, new MarkdownWrapper(), documentTagParser.Object, alertsInlineTagParser.Object, httpContextAccessor.Object, privacyNoticeTagParser.Object, repository.Object);
+        _factory = new ContentTypeFactory(tagParserContainer.Object, new MarkdownWrapper(), httpContextAccessor.Object, repository.Object);
     }
 
     [Fact]
