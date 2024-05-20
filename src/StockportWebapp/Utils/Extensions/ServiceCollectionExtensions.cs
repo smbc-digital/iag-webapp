@@ -126,13 +126,8 @@ namespace StockportWebapp.Utils.Extensions
                     new ProcessedContentRepository(p.GetService<UrlGenerator>(), p.GetService<IHttpClient>(),
                         new ContentTypeFactory(
                                         p.GetService<ITagParserContainer>(),
-                                            p.GetService<IDynamicTagParser<Profile>>(),
                                             p.GetService<MarkdownWrapper>(),
-                                            p.GetService<IDynamicTagParser<Document>>(),
-                                            p.GetService<IDynamicTagParser<Alert>>(),
-                                            p.GetService<IHttpContextAccessor>(),
-                                            p.GetService<IDynamicTagParser<S3BucketSearch>>(),
-                                            p.GetService<IDynamicTagParser<PrivacyNotice>>()),
+                                            p.GetService<IHttpContextAccessor>()),
                         p.GetService<IApplicationConfiguration>()));
             services.AddTransient<IRepository>(p => new Repository(p.GetService<UrlGenerator>(), p.GetService<IHttpClient>(), p.GetService<IApplicationConfiguration>(), p.GetService<IUrlGeneratorSimple>(), p.GetService<ILogger<Repository>>()));
             services.AddTransient<IStockportApiRepository>(p => new StockportApiRepository(p.GetService<IHttpClient>(), p.GetService<IApplicationConfiguration>(), p.GetService<IUrlGeneratorSimple>(), p.GetService<ILogger<BaseRepository>>()));

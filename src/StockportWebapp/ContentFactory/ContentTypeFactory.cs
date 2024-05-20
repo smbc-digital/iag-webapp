@@ -8,16 +8,11 @@ public class ContentTypeFactory
 
     public ContentTypeFactory(
         ITagParserContainer tagParserContainer,
-        IDynamicTagParser<Profile> profileTagParser,
         MarkdownWrapper markdownWrapper,
-        IDynamicTagParser<Document> documentTagParser,
-        IDynamicTagParser<Alert> alertsInlineTagParser,
-        IHttpContextAccessor httpContextAccesor,
-        IDynamicTagParser<S3BucketSearch> s3BucketParser,
-        IDynamicTagParser<PrivacyNotice> privacyNoticeTagParser)
+        IHttpContextAccessor httpContextAccesor)
     {
-        var sectionFactory = new SectionFactory(tagParserContainer, profileTagParser, markdownWrapper, documentTagParser, alertsInlineTagParser, s3BucketParser, privacyNoticeTagParser, null);
-        var contactUsCategoryFactory = new ContactUsCategoryFactory(tagParserContainer, markdownWrapper, documentTagParser, null);
+        var sectionFactory = new SectionFactory(tagParserContainer, markdownWrapper, null);
+        var contactUsCategoryFactory = new ContactUsCategoryFactory(tagParserContainer, markdownWrapper);
         var triviaFactory = new TriviaFactory(markdownWrapper);
 
         _factories.Add(typeof(Section), sectionFactory);
