@@ -6,26 +6,15 @@ namespace StockportWebapp.ContentFactory;
 public class ArticleFactory
 {
     private readonly ITagParserContainer _tagParserContainer;
-    private readonly IDynamicTagParser<Profile> _profileTagParser;
-    private readonly IDynamicTagParser<Alert> _alertsInlineTagParser;
     private readonly ISectionFactory _sectionFactory;
     private readonly MarkdownWrapper _markdownWrapper;
-    private readonly IDynamicTagParser<Document> _documentTagParser;
-    private readonly IDynamicTagParser<S3BucketSearch> _searchTagParser;
-    private readonly IDynamicTagParser<PrivacyNotice> _privacyNoticeTagParser;
     private readonly IRepository _repository;
 
-    public ArticleFactory(ITagParserContainer tagParserContainer, IDynamicTagParser<Profile> profileTagParser, ISectionFactory sectionFactory, MarkdownWrapper markdownWrapper,
-        IDynamicTagParser<Document> documentTagParser, IDynamicTagParser<Alert> alertsInlineTagParser, IDynamicTagParser<S3BucketSearch> searchTagParser, IDynamicTagParser<PrivacyNotice> privacyNoticeTagParser, IRepository repository)
+    public ArticleFactory(ITagParserContainer tagParserContainer, ISectionFactory sectionFactory, MarkdownWrapper markdownWrapper, IRepository repository)
     {
         _tagParserContainer = tagParserContainer;
         _sectionFactory = sectionFactory;
         _markdownWrapper = markdownWrapper;
-        _profileTagParser = profileTagParser;
-        _documentTagParser = documentTagParser;
-        _alertsInlineTagParser = alertsInlineTagParser;
-        _searchTagParser = searchTagParser;
-        _privacyNoticeTagParser = privacyNoticeTagParser;
         _repository = repository;
     }
 
