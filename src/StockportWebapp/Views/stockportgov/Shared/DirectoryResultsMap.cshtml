@@ -5,14 +5,15 @@
     var displayValue = mapCookie.Contains(Model.Slug) ? "block" : "none";
 }
 
+<script defer src="@("https://unpkg.com/@googlemaps/markerclusterer/dist/index.min.js")"></script>
+<div id="mapContainer" style="display:none;">
+    <div id="map" class="google-map"></div>
+</div>
 @if(Model.DisplayMap)
-{
-    <script defer src="@("https://unpkg.com/@googlemaps/markerclusterer/dist/index.min.js")"></script>
-
-    <div id="map" class="google-map" style="display:@displayValue;"></div>
+{    
 
     <script>
-        const locations = [
+        const locations = [ 
         @if (Model.PaginationInfo.CurrentPage.Equals(1))
         {
             @foreach (var entry in Model.PinnedEntries.Where(entry => entry.DirectoryEntry.IsNotOnTheEqautor))
@@ -34,6 +35,7 @@
             const { Map, InfoWindow } = await google.maps.importLibrary('maps');
             const { AdvancedMarkerElement, PinElement } = await google.maps.importLibrary('marker');
 
+            const mapContainer = document.getElementById("mapContainer");
             const map = new Map(document.getElementById("map"), {
                 zoom: 12,
                 center: { lat: 53.40979, lng: -2.15761 },
@@ -79,6 +81,8 @@
             });
 
             const markerCluster = new markerClusterer.MarkerClusterer({ markers, map });
+
+            mapContainer.setAttribute("style", "display:${displayMapValue}");
         }
     </script>
 
