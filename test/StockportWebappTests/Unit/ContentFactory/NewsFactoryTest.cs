@@ -31,8 +31,7 @@ public class NewsFactoryTest
         _tagParserContainer = new Mock<ITagParserContainer>();
         _factory = new NewsFactory(_tagParserContainer.Object, _markdownWrapper.Object);
         _news = new News(Title, Slug, Teaser, Purpose, Image, ThumbnailImage, Body, _breadcrumbs, _sunrise, _sunset, _updatedAt, _alerts, _tags, _documents, _profiles);
-
-        _tagParserContainer.Setup(_ => _.ParseAll(Body, It.IsAny<string>(), It.IsAny<bool>(), null, null, null, null, null)).Returns(Body);
+        _tagParserContainer.Setup(_ => _.ParseAll(Body, It.IsAny<string>(), It.IsAny<bool>(), null, It.IsAny<IEnumerable<Document>>(), null, null, It.IsAny<IEnumerable<Profile>>())).Returns(Body);
         _markdownWrapper.Setup(_ => _.ConvertToHtml(Body)).Returns(Body);
     }
 

@@ -98,7 +98,7 @@ public class EventFactoryTest
     {
         _factory.Build(_event);
 
-        _tagParserContainer.Verify(o => o.ParseAll(Description, _event.Title, It.IsAny<bool>(), null, _event.Documents, null, null, null, null), Times.Once);
+        _tagParserContainer.Verify(o => o.ParseAll(Description, _event.Title, It.IsAny<bool>(), null, _event.Documents, null, null, null), Times.Once);
 
     }
 }
