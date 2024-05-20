@@ -19,11 +19,11 @@ public class ArticleFactoryTest
     public ArticleFactoryTest()
     {
         _articleFactory = new ArticleFactory(_tagParserContainer.Object, _sectionFactory.Object, _markdownWrapper.Object, _repository.Object);
-
         _sectionOne = new Section(It.IsAny<string>(), "id-1", It.IsAny<string>(), It.IsAny<string>(), new List<Profile>(), new List<Document>(), new List<Alert>());
         _processedSectionOne = new ProcessedSection(It.IsAny<string>(), It.IsAny<string>(), "id-1", It.IsAny<string>(), new List<Profile>(), new List<Document>(), new List<Alert>());
         _sectionTwo = new Section(It.IsAny<string>(), "id-1", It.IsAny<string>(), It.IsAny<string>(), new List<Profile>(), new List<Document>(), new List<Alert>());
         _processedSectionTwo = new ProcessedSection(It.IsAny<string>(), "id-1", It.IsAny<string>(), It.IsAny<string>(), new List<Profile>(), new List<Document>(), new List<Alert>());
+
         var sections = new List<Section>() { _sectionOne, _sectionTwo };
 
         _article = new Article("title", "slug", Body, "teaser", "meta description", sections, "icon", "backgroundImage", "image", new List<Crumb>(), new List<Profile>(), new List<Document>(), new List<Alert>(), new DateTime(), false);

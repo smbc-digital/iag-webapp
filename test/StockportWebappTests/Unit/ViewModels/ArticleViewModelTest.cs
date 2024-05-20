@@ -169,13 +169,16 @@ public class ArticleViewModelTest
     [Fact]
     private void ShouldReturnTopicSubItemsListForSideBar()
     {
+        var firstFeaturedItem = new SubItem(TextHelper.AnyString, "first-featureditem", TextHelper.AnyString, TextHelper.AnyString,
+           TextHelper.AnyString, TextHelper.AnyString, new List<SubItem>(), "teal");
+        var featuredItems = new List<SubItem> { firstFeaturedItem };
         var firstSubitem = new SubItem(TextHelper.AnyString, "first-subitem", TextHelper.AnyString, TextHelper.AnyString,
             TextHelper.AnyString, TextHelper.AnyString, new List<SubItem>(), "teal");
         var subItems = new List<SubItem> { firstSubitem };
         var firstSecondaryitem = new SubItem(TextHelper.AnyString, "first-secondaryitem", TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<SubItem>(), "teal");
         var secondaryItems = new List<SubItem> { firstSecondaryitem };
 
-        var topic = new Topic(TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, subItems, secondaryItems, new List<Crumb>(), new List<Alert>(), false, TextHelper.AnyString, null, string.Empty, true,
+        var topic = new Topic(TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, featuredItems, subItems, secondaryItems, new List<Crumb>(), new List<Alert>(), false, TextHelper.AnyString, null, string.Empty, true,
              new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty), string.Empty, null, string.Empty);
         var article = new ProcessedArticle(TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<ProcessedSection>(),
             TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<Crumb>(), new List<Alert>(), topic, new List<Alert>(), new DateTime(), new bool());
@@ -202,12 +205,15 @@ public class ArticleViewModelTest
         var sixthSubItem = new SubItem(TextHelper.AnyString, "sixth-subitem", TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<SubItem>(), "teal");
         var seventhSubItem = new SubItem(TextHelper.AnyString, "seventh-subitem", TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<SubItem>(), "teal");
         var eightSubItem = new SubItem(TextHelper.AnyString, "eigth-subitem", TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<SubItem>(), "teal");
+        var ninthSubItem = new SubItem(TextHelper.AnyString, "sixth-subitem", TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<SubItem>(), "teal");
+        var tenthSubItem = new SubItem(TextHelper.AnyString, "seventh-subitem", TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<SubItem>(), "teal");
 
         var subItems = new List<SubItem> { firstSubItem, secondSubItem, thirdSubItem, fourthSubItem };
         var secondaryItems = new List<SubItem> { fifthSubItem, sixthSubItem, seventhSubItem, eightSubItem };
+        var featuredItems = new List<SubItem> { ninthSubItem, tenthSubItem };
 
         var topic = new Topic(TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString,
-            subItems, secondaryItems, new List<Crumb>(), new List<Alert>(), false, TextHelper.AnyString, null, string.Empty, true,
+            featuredItems, subItems, secondaryItems, new List<Crumb>(), new List<Alert>(), false, TextHelper.AnyString, null, string.Empty, true,
              new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty), string.Empty, null, string.Empty);
         var article = new ProcessedArticle(TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<ProcessedSection>(), TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<Crumb>(), new List<Alert>(), topic, new List<Alert>(), new DateTime(), new bool());
 
@@ -272,7 +278,7 @@ public class ArticleViewModelTest
     private ProcessedArticle BuildArticle(string slug, List<ProcessedSection> sections)
     {
 
-        var parentTopic = new Topic("Name", "slug", "Summary", "Teaser", "metaDescription", "Icon", "Image", "Image", null, null,
+        var parentTopic = new Topic("Name", "slug", "Summary", "Teaser", "metaDescription", "Icon", "Image", "Image", null, null, null,
             new List<Crumb>(), null, true, "test-id", null, string.Empty, true,
              new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty), string.Empty, null, string.Empty);
 

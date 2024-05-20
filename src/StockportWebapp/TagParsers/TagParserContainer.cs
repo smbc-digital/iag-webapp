@@ -42,5 +42,4 @@ public class TagParserContainer : ITagParserContainer
 
     private static string RemoveEmptyTags(string content) =>
         EmptyTagRegex.Replace(content, string.Empty);
-
 }

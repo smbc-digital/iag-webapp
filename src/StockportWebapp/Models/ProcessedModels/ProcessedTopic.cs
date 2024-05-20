@@ -16,6 +16,7 @@
         public Video Video { get; init; }
         public CallToActionBanner CallToAction { get; init; }
         public string Image { get; }
+        public IEnumerable<SubItem> FeaturedTasks { get; }
         public IEnumerable<SubItem> SubItems { get; }
         public IEnumerable<SubItem> SecondaryItems { get; }
         public IEnumerable<SubItem> TopSubItems { get; }
@@ -32,7 +33,7 @@
         public string LogoAreaTitle { get; set; }
 
         public ProcessedTopic(string name, string slug, string summary, string teaser, string metaDescription, string icon,
-            string backgroundImage, string image, IEnumerable<SubItem> subItems, IEnumerable<SubItem> secondaryItems,
+            string backgroundImage, string image, IEnumerable<SubItem> featuredTasks, IEnumerable<SubItem> subItems, IEnumerable<SubItem> secondaryItems,
             IEnumerable<Crumb> breadcrumbs, IEnumerable<Alert> alerts, bool emailAlerts, string emailAlertsTopicId, EventBanner eventBanner, EventCalendarBanner eventCalendarBanner,
             string title, bool displayContactUs, CarouselContent campaignBanner,
             string eventCategory, CallToActionBanner callToAction, List<GroupBranding> topicBranding, string logoAreaTitle)
@@ -46,6 +47,7 @@
             Icon = icon;
             BackgroundImage = backgroundImage;
             Image = image;
+            FeaturedTasks = featuredTasks;
             SubItems = subItems;
             SecondaryItems = secondaryItems;
             Breadcrumbs = breadcrumbs;

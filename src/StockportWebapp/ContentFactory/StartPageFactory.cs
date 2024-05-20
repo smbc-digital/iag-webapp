@@ -4,28 +4,21 @@ public class StartPageFactory
 {
 
     private ITagParserContainer _tagParserContainer;
-    private IDynamicTagParser<Alert> _alertsInlineTagParser;
     private MarkdownWrapper _markdownWrapper;
 
 
-    public StartPageFactory(ITagParserContainer tagParserContainer, MarkdownWrapper markdownWrapper, IDynamicTagParser<Alert> alertsInlineTagParser)
+    public StartPageFactory(ITagParserContainer tagParserContainer, MarkdownWrapper markdownWrapper)
     {
         _tagParserContainer = tagParserContainer;
         _markdownWrapper = markdownWrapper;
-        _alertsInlineTagParser = alertsInlineTagParser;
     }
 
 
     public virtual ProcessedStartPage Build(StartPage startPage)
     {
+        var upperBody = _tagParserContainer.ParseAll(startPage.UpperBody ?? "", startPage.Title, true, startPage.AlertsInline, null, null, null, null);
 
-        var upperBody = _tagParserContainer.ParseAll(startPage.UpperBody ?? "", startPage.Title);
-
-        upperBody = _markdownWrapper.ConvertToHtml(startPage.UpperBody ?? "");
-
-        upperBody = _alertsInlineTagParser.Parse(upperBody, startPage.AlertsInline);
-
-
+        upperBody = _markdownWrapper.ConvertToHtml(upperBody ?? "");
 
         return new ProcessedStartPage(
         startPage.Slug,

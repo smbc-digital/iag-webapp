@@ -6,7 +6,7 @@ public class ArticleFactory
     private readonly ISectionFactory _sectionFactory;
     private readonly MarkdownWrapper _markdownWrapper;
     private readonly IRepository _repository;
-    
+
     public ArticleFactory(ITagParserContainer tagParserContainer, ISectionFactory sectionFactory, MarkdownWrapper markdownWrapper, IRepository repository)
     {
         _tagParserContainer = tagParserContainer;

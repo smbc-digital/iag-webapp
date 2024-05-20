@@ -16,6 +16,7 @@ public class Topic
     public Video Video { get; init; }
     public CallToActionBanner CallToAction { get; init; }
     public string Image { get; }
+    public IEnumerable<SubItem> FeaturedTasks { get; }
     public IEnumerable<SubItem> SubItems { get; }
     public IEnumerable<SubItem> SecondaryItems { get; }
     public IEnumerable<SubItem> TopSubItems
@@ -48,7 +49,7 @@ public class Topic
     public string LogoAreaTitle { get; }
 
     public Topic(string name, string slug, string summary, string teaser, string metaDescription, string icon,
-        string backgroundImage, string image, IEnumerable<SubItem> subItems, IEnumerable<SubItem> secondaryItems,
+        string backgroundImage, string image, IEnumerable<SubItem> featuredTasks, IEnumerable<SubItem> subItems, IEnumerable<SubItem> secondaryItems,
         IEnumerable<Crumb> breadcrumbs, IEnumerable<Alert> alerts, bool emailAlerts, string emailAlertsTopicId, EventCalendarBanner eventBanner,
         string title, bool displayContactUs, CarouselContent campaignBanner, string eventCategory, List<GroupBranding> topicBranding, string logoAreaTitle)
     {
@@ -61,6 +62,7 @@ public class Topic
         Icon = icon;
         BackgroundImage = backgroundImage;
         Image = image;
+        FeaturedTasks = featuredTasks;
         SubItems = subItems;
         SecondaryItems = secondaryItems;
         Breadcrumbs = breadcrumbs;
@@ -81,7 +83,7 @@ public class Topic
 public class NullTopic : Topic
 {
     public NullTopic() : base(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty,
-        string.Empty, string.Empty, new List<SubItem>(), new List<SubItem>(),
+        string.Empty, string.Empty, new List<SubItem>(), new List<SubItem>(), new List<SubItem>(),
         new List<Crumb>(), new List<Alert>(), false, string.Empty, null,
         string.Empty, true, new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty), string.Empty, null, string.Empty)
     { }
