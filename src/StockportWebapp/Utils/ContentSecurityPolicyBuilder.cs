@@ -100,6 +100,7 @@ public class ContentSecurityPolicyBuilder
             .AddSource("images.ctfassets.net")
             .AddSource("www.google-analytics.com/r/collect")
             .AddSource("www.google-analytics.com/collect")
+            .AddSource("streetviewpixels-pa.googleapis.com")
             .AddSource("stats.g.doubleclick.net/r/collect")
             .AddSource("s3-eu-west-1.amazonaws.com/")
             .AddSource("maps.stockport.gov.uk/")
