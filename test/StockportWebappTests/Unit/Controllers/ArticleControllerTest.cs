@@ -7,10 +7,23 @@ public class ArticleControllerTest
     private readonly Mock<IProcessedContentRepository> _processedRepository = new();
     private readonly Mock<IContactUsMessageTagParser> _contactUsMessageParser = new();
     private const string DefaultMessage = "A default message";
+    private readonly ProcessedSection sectionOne = new("Overview", "physical-activity-overview", string.Empty, "body", new List<Profile>(), new List<Document>(), new List<Alert>());
+    private readonly ProcessedSection sectionTwo = new("Types of Physical Activity", It.IsAny<string>(), It.IsAny<string>(), "body", new List<Profile>(), new List<Document>(), new List<Alert>());
+    private readonly ProcessedArticle article;
 
     public ArticleControllerTest()
     {
         _controller = new(_repository.Object, _processedRepository.Object, _contactUsMessageParser.Object, new BusinessId("stockportgov"));
+        article = new ProcessedArticle(
+            string.Empty, string.Empty, string.Empty, string.Empty, string.Empty,
+            new List<ProcessedSection> { sectionOne, sectionTwo },
+            string.Empty, string.Empty, string.Empty, new List<Crumb> { },
+            new List<Alert>(), new NullTopic(), new List<Alert>(), DateTime.Now, false
+        );
+
+        _processedRepository
+            .Setup(_ => _.Get<Article>(It.IsAny<string>(), It.IsAny<List<Query>>()))
+            .ReturnsAsync(HttpResponse.Successful(200, article));
     }
 
     [Fact]
@@ -42,18 +55,6 @@ public class ArticleControllerTest
     [Fact]
     public async Task Article_ShouldReturnFirstSection_If_MultipleSectionsArticleWithNoSectionSlug()
     {
-        // Arrange
-        var sectionOne = new ProcessedSection("Overview", "physical-activity-overview", string.Empty, "body", new List<Profile>(), new List<Document>(), new List<Alert>());
-        var sectionTwo = new ProcessedSection("Types of Physical Activity", TextHelper.AnyString, TextHelper.AnyString, "body", new List<Profile>(), new List<Document>(), new List<Alert>());
-
-        var article = new ProcessedArticle(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty,
-            new List<ProcessedSection>() { sectionOne, sectionTwo }, string.Empty, string.Empty, string.Empty, new List<Crumb>() { },
-            new List<Alert>(), new NullTopic(), new List<Alert>(), new DateTime(), new bool());
-
-        _processedRepository
-            .Setup(_ => _.Get<Article>(It.IsAny<string>(), It.IsAny<List<Query>>()))
-            .ReturnsAsync(HttpResponse.Successful(200, article));
-
         // Act
         var view = await _controller.Article("physical-activity", DefaultMessage) as ViewResult; ;
         var displayedArticle = view.ViewData.Model as ArticleViewModel;
@@ -67,17 +68,6 @@ public class ArticleControllerTest
     [Fact]
     public async Task Article_ShouldSetViewDataNullCanonicalUrl_If_MultipleSectionsArticleWithNoSectionSlug()
     {
-        // Arrange
-        var sectionOne = new ProcessedSection("Overview", "physical-activity-overview", string.Empty, "body", new List<Profile>(), new List<Document>(), new List<Alert>());
-        var sectionTwo = new ProcessedSection("Types of Physical Activity", TextHelper.AnyString, TextHelper.AnyString, "body", new List<Profile>(), new List<Document>(), new List<Alert>());
-
-        var article = new ProcessedArticle(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, new List<ProcessedSection>() { sectionOne, sectionTwo },
-            string.Empty, string.Empty, string.Empty, new List<Crumb>() { }, new List<Alert>(), new NullTopic(), new List<Alert>(), new DateTime(), new bool());
-
-        _processedRepository
-            .Setup(_ => _.Get<Article>(It.IsAny<string>(), It.IsAny<List<Query>>()))
-            .ReturnsAsync(HttpResponse.Successful(200, article));
-
         // Act
         var view = await _controller.Article("physical-activity", DefaultMessage) as ViewResult;
 
@@ -88,25 +78,12 @@ public class ArticleControllerTest
     [Fact]
     public async Task Article_ShouldSetViewDataCanonicalUrl_If_MultipleSectionsArticleWithSectionSlug()
     {
-        // Arrange
-        var sectionOne = new ProcessedSection("Overview", "physical-activity-overview", string.Empty, "body", new List<Profile>(), new List<Document>(), new List<Alert>());
-        var sectionTwo = new ProcessedSection("Types of Physical Activity", TextHelper.AnyString, TextHelper.AnyString, "body", new List<Profile>(), new List<Document>(), new List<Alert>());
-
-        var article = new ProcessedArticle(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty,
-            new List<ProcessedSection>() { sectionOne, sectionTwo }, string.Empty, string.Empty, string.Empty,
-            new List<Crumb>() { }, new List<Alert>(), new NullTopic(), new List<Alert>(), new DateTime(), new bool());
-
-        _processedRepository
-            .Setup(_ => _.Get<Article>(It.IsAny<string>(), It.IsAny<List<Query>>()))
-            .ReturnsAsync(HttpResponse.Successful(200, article));
-        
         // Act
         var view = await _controller.ArticleWithSection("physical-activity", "physical-activity-overview", DefaultMessage) as ViewResult; ;
 
         // Assert
-        Assert.NotNull(view.ViewData["CanonicalUrl"]);
-
         string canonicalUrl = (string)view.ViewData["CanonicalUrl"];
+        Assert.NotNull(canonicalUrl);
         Assert.Equal("/physical-activity", canonicalUrl);
         Assert.NotEqual("physical-activity-overview", canonicalUrl);
     }
@@ -115,9 +92,9 @@ public class ArticleControllerTest
     public async Task Article_ShouldReturnCorrespondingSection_If_MultipleSectionsArticleWithSectionSlug()
     {
         // Arrange
-        var sectionOne = new ProcessedSection("Overview", "physical-activity-overview", string.Empty, "body", new List<Profile>(), new List<Document>(), new List<Alert>());
-        var sectionTwo = new ProcessedSection("Types of Physical Activity", "types-of-physical-activity", TextHelper.AnyString, "body", new List<Profile>(), new List<Document>(), new List<Alert>());
-        var article = new ProcessedArticle(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty,
+        ProcessedSection sectionOne = new("Overview", "physical-activity-overview", string.Empty, "body", new List<Profile>(), new List<Document>(), new List<Alert>());
+        ProcessedSection sectionTwo = new("Types of Physical Activity", "types-of-physical-activity", It.IsAny<string>(), "body", new List<Profile>(), new List<Document>(), new List<Alert>());
+        ProcessedArticle article = new(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty,
             new List<ProcessedSection>() { sectionOne, sectionTwo }, string.Empty, string.Empty, string.Empty, new List<Crumb>() { },
             new List<Alert>(), new NullTopic(), new List<Alert>(), new DateTime(), new bool());
 
@@ -126,7 +103,7 @@ public class ArticleControllerTest
             .ReturnsAsync(HttpResponse.Successful(200, article));
 
         // Act
-        var view = await _controller.ArticleWithSection("physical-activity", "types-of-physical-activity", DefaultMessage) as ViewResult; ;
+        var view = await _controller.ArticleWithSection("physical-activity", "types-of-physical-activity", DefaultMessage) as ViewResult;
         var displayedArticle = view.ViewData.Model as ArticleViewModel;
 
         // Assert
@@ -144,7 +121,7 @@ public class ArticleControllerTest
             new("title", "subheading", "body", Severity.Warning, new DateTime(0001, 1, 1, 0, 0, 0, DateTimeKind.Utc),
                 new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc),String.Empty, false, string.Empty)
         };
-        var article = new ProcessedArticle(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty,
+        ProcessedArticle article = new(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty,
             new List<ProcessedSection>() { }, string.Empty, string.Empty, string.Empty, new List<Crumb>() { }, new List<Alert>(), new NullTopic(), alertsInline, new DateTime(), new bool());
 
         _processedRepository
@@ -172,7 +149,7 @@ public class ArticleControllerTest
             new("title", "subheading", "body", Severity.Warning, new DateTime(0001, 1, 1, 0, 0, 0, DateTimeKind.Utc),
                 new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc),string.Empty, false, string.Empty)
         };
-        var article = new ProcessedArticle(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty,
+        ProcessedArticle article = new(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty,
             new List<ProcessedSection>(), string.Empty, string.Empty, string.Empty, new List<Crumb>(), alerts, new NullTopic(), new List<Alert>(), new DateTime(), new bool());
 
         _processedRepository
@@ -211,7 +188,7 @@ public class ArticleControllerTest
     public async Task Article_ShouldParseContactUsMessage()
     {
         // Arrange
-        var processedArticle = DummyProcessedArticle();
+        ProcessedArticle processedArticle = DummyProcessedArticle();
         _processedRepository
             .Setup(_ => _.Get<Article>(It.IsAny<string>(), It.IsAny<List<Query>>()))
             .ReturnsAsync(HttpResponse.Successful(200, processedArticle));
@@ -261,6 +238,7 @@ public class ArticleControllerTest
         _processedRepository
             .Setup(_ => _.Get<Article>(It.IsAny<string>(), It.IsAny<List<Query>>()))
             .ReturnsAsync(new HttpResponse(404, "error", string.Empty));
+        
         // Act
         var result = await _controller.Article("physical-activity-test", "I-do-not-exist") as StatusCodeResult; ;
 
@@ -272,8 +250,8 @@ public class ArticleControllerTest
     public async Task ArticleWithSection_ShouldReturnViewDataWithMetaDescription()
     {
         // Arrange
-        var section = new ProcessedSection(string.Empty, "test-slug", "test meta description", string.Empty, null, null, null);
-        var article = new ProcessedArticle(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, new List<ProcessedSection> { section },
+        ProcessedSection section = new(string.Empty, "test-slug", "test meta description", string.Empty, null, null, null);
+        ProcessedArticle article = new(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, new List<ProcessedSection> { section },
             string.Empty, string.Empty, null, null, null, null, null, new DateTime(), new bool());
 
         _processedRepository
@@ -293,9 +271,9 @@ public class ArticleControllerTest
     public async Task ArticleWithSection_ShouldReturnViewDataWithMetaDescription_If_MulitpleArticlesWithSections()
     {
         // Arrange
-        var section1 = new ProcessedSection(string.Empty, "test-slug", "test meta description", string.Empty, null, null, null);
-        var section2 = new ProcessedSection(string.Empty, string.Empty, "other string", string.Empty, null, null, null);
-        var article = new ProcessedArticle(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, new List<ProcessedSection> { section1, section2 },
+        ProcessedSection section1 = new(string.Empty, "test-slug", "test meta description", string.Empty, null, null, null);
+        ProcessedSection section2 = new(string.Empty, string.Empty, "other string", string.Empty, null, null, null);
+        ProcessedArticle article = new(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, new List<ProcessedSection> { section1, section2 },
             string.Empty, string.Empty, null, null, null, null, null, new DateTime(), new bool());
 
         _processedRepository
@@ -330,7 +308,7 @@ public class ArticleControllerTest
     public async Task ArticleWithSection_ShouldParseContactUsMessage()
     {
         // Arrange
-        var processedArticle = DummyProcessedArticle();
+        ProcessedArticle processedArticle = DummyProcessedArticle();
         _processedRepository
             .Setup(_ => _.Get<Article>(It.IsAny<string>(), It.IsAny<List<Query>>()))
             .ReturnsAsync(new HttpResponse(200, processedArticle, string.Empty));
@@ -343,10 +321,10 @@ public class ArticleControllerTest
     }
 
     private static ProcessedArticle DummyProcessedArticle() => 
-        new(TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString,
-            new List<ProcessedSection>(), TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<Crumb>(),
+        new(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(),
+            new List<ProcessedSection>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), new List<Crumb>(),
             new LinkedList<Alert>(), new NullTopic(), new List<Alert>(), new DateTime(), new bool());
 
     private static ProcessedSection DummySection() => 
-        new(TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<Profile>(), new List<Document>(), new List<Alert>());
+        new(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), new List<Profile>(), new List<Document>(), new List<Alert>());
 }

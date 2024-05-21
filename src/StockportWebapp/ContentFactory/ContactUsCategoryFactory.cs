@@ -1,6 +1,4 @@
-﻿using SharpKml.Base;
-
-namespace StockportWebapp.ContentFactory;
+﻿namespace StockportWebapp.ContentFactory;
 
 public interface IContactUsCategoryFactory
 {

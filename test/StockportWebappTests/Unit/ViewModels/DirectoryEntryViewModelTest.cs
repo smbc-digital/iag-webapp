@@ -1,16 +1,10 @@
 ﻿using SharpKml.Dom;
-using SharpKml.Dom.Atom;
 using StockportWebapp.Model;
 
 namespace StockportWebappTests_Unit.Unit.ViewModels;
 
 public class DirectoryEntryViewModelTest
 {
-    private readonly MapPosition mapPosition = new(){
-        Lat = 2.3666,
-        Lon = 5.2456
-    };
-
     [Fact]
     public void HighlightedFilters_ReturnsCorrectFilters()
     {

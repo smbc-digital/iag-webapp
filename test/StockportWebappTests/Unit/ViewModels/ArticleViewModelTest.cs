@@ -5,231 +5,241 @@ public class ArticleViewModelTest
     private readonly ProcessedSection _sectionOne;
     private readonly ProcessedSection _sectionTwo;
     private readonly ProcessedSection _sectionThree;
+    private readonly ProcessedArticle _article;
+    private readonly ArticleViewModel _viewModel;
 
     public ArticleViewModelTest()
     {
         _sectionOne = BuildSection("test-slug");
         _sectionTwo = BuildSection("test-slug-section-two");
         _sectionThree = BuildSection("test-slug-section-three");
+        _article = BuildArticle(string.Empty, new List<ProcessedSection> { _sectionOne, _sectionTwo, _sectionThree });
+        _viewModel = new ArticleViewModel(_article, _sectionOne.Slug);
+
     }
 
     [Fact]
-    public void SetsTheFirstSectionAsTheDisplayedSectionIfNoSectionSlugIsGiven()
+    public void ArticleViewModel_SetsTheFirstSectionAsTheDisplayedSection_If_NoSectionSlugIsGiven()
     {
-        var article = BuildArticle("", new List<ProcessedSection> { _sectionOne, _sectionTwo });
-
+        // Arrange
+        var article = BuildArticle(string.Empty, new List<ProcessedSection> { _sectionOne, _sectionTwo });
+        
+        // Act
         var viewModel = new ArticleViewModel(article);
 
-        viewModel.DisplayedSection.Should().Be(_sectionOne);
+        // Assert
+        Assert.Equal(_sectionOne, viewModel.DisplayedSection);
     }
 
     [Fact]
-    public void ShowsArticleSummaryIfDisplayedSectionIsFirstSection()
+    public void ArticleViewModel_ShowsArticleSummary_If_DisplayedSectionIsFirstSection()
     {
-        var article = BuildArticle("", new List<ProcessedSection> { _sectionOne, _sectionTwo, _sectionThree });
-
-        var viewModel = new ArticleViewModel(article, _sectionOne.Slug);
-
-        viewModel.ShouldShowArticleSummary.Should().BeTrue();
+        // Assert
+        Assert.True(_viewModel.ShouldShowArticleSummary);
     }
 
     [Fact]
-    public void DoesNotShowArticleSummaryIfDisplayedSectionIsNotTheFirstSection()
+    public void ArticleViewModel_DoesNotShowArticleSummary_If_DisplayedSectionIsNotTheFirstSection()
     {
-        var article = BuildArticle("", new List<ProcessedSection> { _sectionOne, _sectionTwo, _sectionThree });
+        // Act
+        var viewModel = new ArticleViewModel(_article, _sectionTwo.Slug);
 
-        var viewModel = new ArticleViewModel(article, _sectionTwo.Slug);
-
-        viewModel.ShouldShowArticleSummary.Should().BeFalse();
+        // Assert
+        Assert.False(viewModel.ShouldShowArticleSummary);
     }
 
     [Fact]
-    public void ReturnsTheDisplayedSectionIndex()
+    public void ArticleViewModel_ReturnsTheDisplayedSectionIndex()
     {
-        var article = BuildArticle("", new List<ProcessedSection> { _sectionOne, _sectionTwo, _sectionThree });
+        // Act
+        var viewModel = new ArticleViewModel(_article, _sectionTwo.Slug);
 
-        var viewModel = new ArticleViewModel(article, _sectionTwo.Slug);
-
-        viewModel.DisplayedSectionIndex.Should().Be(2);
+        // Assert
+        Assert.Equal(2, viewModel.DisplayedSectionIndex);
     }
 
     [Fact]
-    public void ReturnsTheNextSectionIfTheDisplayedSectionIsNotTheLast()
+    public void NextSection_ReturnsTheNextSection_If_TheDisplayedSectionIsNotTheLast()
     {
-        var article = BuildArticle("", new List<ProcessedSection> { _sectionOne, _sectionTwo, _sectionThree });
+        // Arrange
+        var viewModel = new ArticleViewModel(_article, _sectionTwo.Slug);
 
-        var viewModel = new ArticleViewModel(article, _sectionTwo.Slug);
-
-        viewModel.NextSection().Should().Be(_sectionThree);
+        // Act & Assert
+        Assert.Equal(_sectionThree, viewModel.NextSection());
     }
 
     [Fact]
-    public void ReturnsNullForNextSectionIfDisplayedSectionIsTheLast()
+    public void NextSection_ReturnsNullForNextSection_If_DisplayedSectionIsTheLast()
     {
-        var article = BuildArticle("", new List<ProcessedSection> { _sectionOne, _sectionTwo, _sectionThree });
+        // Arrange
+        var viewModel = new ArticleViewModel(_article, _sectionThree.Slug);
 
-        var viewModel = new ArticleViewModel(article, _sectionThree.Slug);
-
-        viewModel.NextSection().Should().BeNull();
+        // Act & Assert
+        Assert.Null(viewModel.NextSection());
     }
 
     [Fact]
-    public void ShowsNextSectionButtonIfDisplayedSectionIsNotTheLast()
+    public void ShouldShowNextSectionButton_ReturnsNextSection_If_DisplayedSectionIsNotTheLast()
     {
-        var article = BuildArticle("", new List<ProcessedSection> { _sectionOne, _sectionTwo, _sectionThree });
+        // Arrange
+        var viewModel = new ArticleViewModel(_article, _sectionTwo.Slug);
 
-        var viewModel = new ArticleViewModel(article, _sectionTwo.Slug);
-
-        viewModel.ShouldShowNextSectionButton().Should().BeTrue();
+        // Act & Assert
+        Assert.True(viewModel.ShouldShowNextSectionButton());
     }
 
     [Fact]
-    public void DoesNotShowNextSectionButtonIfDisplayedSectionIsTheLast()
+    public void ShouldShowNextSectionButton_DoesNotShowNextSectionButton_If_DisplayedSectionIsTheLast()
     {
-        var article = BuildArticle("", new List<ProcessedSection> { _sectionOne, _sectionTwo, _sectionThree });
+        // Arrange
+        var viewModel = new ArticleViewModel(_article, _sectionThree.Slug);
 
-        var viewModel = new ArticleViewModel(article, _sectionThree.Slug);
-
-        viewModel.ShouldShowNextSectionButton().Should().BeFalse();
+        // Act & Assert
+        Assert.False(viewModel.ShouldShowNextSectionButton());
     }
 
     [Fact]
     public void ReturnsThePreviousSectionIfTheDisplayedSectionIsNotTheFirst()
     {
-        var article = BuildArticle("", new List<ProcessedSection> { _sectionOne, _sectionTwo, _sectionThree });
+        // Arrange
+        var viewModel = new ArticleViewModel(_article, _sectionTwo.Slug);
 
-        var viewModel = new ArticleViewModel(article, _sectionTwo.Slug);
-
-        viewModel.PreviousSection().Should().Be(_sectionOne);
+        // Act & Assert
+        Assert.Equal(_sectionOne, viewModel.PreviousSection());
     }
 
     [Fact]
-    public void ReturnsNullForPreviousSectionIfDisplayedSectionIsTheFirst()
+    public void PreviousSection_ReturnsNull_If_DisplayedSectionIsTheFirst()
     {
-        var article = BuildArticle("", new List<ProcessedSection> { _sectionOne, _sectionTwo, _sectionThree });
+        // Act & Assert
+        Assert.Null(_viewModel.PreviousSection());
+    }
 
+    [Fact]
+    public void ShouldShowPreviousSectionButton_ReturnsPreviousSectionButton_If_DisplayedSectionIsNotTheFirst()
+    {
+        // Arrange
+        var viewModel = new ArticleViewModel(_article, _sectionTwo.Slug);
+
+        // Act & Assert
+        Assert.True(viewModel.ShouldShowPreviousSectionButton());
+    }
+
+    [Fact]
+    public void ShouldShowPreviousSectionButton_DoesNotShowPreviousSectionButton_If_DisplayedSectionIsTheFirst()
+    {
+        // Act & Assert
+        Assert.False(_viewModel.ShouldShowPreviousSectionButton());
+    }
+
+    [Fact]
+    public void ArticleViewModel_ShouldSetOgTitleUsingTitleAndDisplayedSection()
+    {
+        // Arrange
+        var article = BuildArticle("Article title", new List<ProcessedSection> { _sectionOne, _sectionTwo, _sectionThree });
+
+        // Act
         var viewModel = new ArticleViewModel(article, _sectionOne.Slug);
 
-        viewModel.PreviousSection().Should().BeNull();
+        // Assert
+        Assert.Equal($"{viewModel.Article.Title} - {viewModel.DisplayedSection.Title}", viewModel.OgTitleMetaData);
     }
 
     [Fact]
-    public void ShowsPreviousSectionButtonIfDisplayedSectionIsNotTheFirst()
+    public void ArticleViewModel_ShowsArticleWhenThereAreNoSections()
     {
-        var article = BuildArticle("", new List<ProcessedSection> { _sectionOne, _sectionTwo, _sectionThree });
-
-        var viewModel = new ArticleViewModel(article, _sectionTwo.Slug);
-
-        viewModel.ShouldShowPreviousSectionButton().Should().BeTrue();
-    }
-
-    [Fact]
-    public void DoesNotShowPreviousSectionButtonIfDisplayedSectionIsTheFirst()
-    {
-        var article = BuildArticle("", new List<ProcessedSection> { _sectionOne, _sectionTwo, _sectionThree });
-
-        var viewModel = new ArticleViewModel(article, _sectionOne.Slug);
-
-        viewModel.ShouldShowPreviousSectionButton().Should().BeFalse();
-    }
-
-    [Fact]
-    public void OgTitleShouldBeTitleAndDisplayedSection()
-    {
-        var article = BuildArticle("", new List<ProcessedSection> { _sectionOne, _sectionTwo, _sectionThree });
-
-        var viewModel = new ArticleViewModel(article, _sectionOne.Slug);
-
-        viewModel.OgTitleMetaData.Should().Be(viewModel.Article.Title + " - " + viewModel.DisplayedSection.Title);
-    }
-
-    [Fact]
-    public void ShowsArticleWhenThereAreNoSections()
-    {
+        // Arrange
         var article = BuildArticle("article-slug", new List<ProcessedSection> { });
 
+        // Act
         var viewModel = new ArticleViewModel(article);
-        viewModel.Article.Sections.Should().BeNullOrEmpty();
-        viewModel.DisplayedSection.Should().BeNull();
-        viewModel.ShouldShowArticleSummary.Should().BeTrue();
-        viewModel.OgTitleMetaData.Should().Be(viewModel.Article.Title);
+        
+        // Assert
+        Assert.Empty(viewModel.Article.Sections);
+        Assert.Null(viewModel.DisplayedSection);
+        Assert.True(viewModel.ShouldShowArticleSummary);
+        Assert.Equal(viewModel.Article.Title, viewModel.OgTitleMetaData);
     }
 
     [Fact]
-    public void RaisesSectionDoesNotExistExceptionIfSectionSlugNotFound()
+    public void ArticleViewModel_ThrowsException_IfSectionSlugNotFound()
     {
-        var article = BuildArticle("", new List<ProcessedSection> { _sectionOne, _sectionTwo });
+        // Arrange
+        var article = BuildArticle("Article Title", new List<ProcessedSection> { _sectionOne, _sectionTwo });
 
-        Action act = () => new ArticleViewModel(article, _sectionThree.Slug);
-
-        act.Should().Throw<SectionDoesNotExistException>()
-            .WithMessage($"Section with slug: {_sectionThree.Slug} does not exist");
+        // Act & Assert
+        var exception = Assert.Throws<SectionDoesNotExistException>(() => new ArticleViewModel(article, "non-existent-section-slug"));
+        Assert.Equal("Section with slug: non-existent-section-slug does not exist", exception.Message);
     }
 
     [Fact]
-    private void ShouldReturnTopicSubItemsListForSideBar()
+    public void SidebarSubItems_ShouldReturnTopicSubItemsListForSideBar()
     {
-        var firstFeaturedItem = new SubItem(TextHelper.AnyString, "first-featureditem", TextHelper.AnyString, TextHelper.AnyString,
-           TextHelper.AnyString, TextHelper.AnyString, new List<SubItem>(), "teal");
-        var featuredItems = new List<SubItem> { firstFeaturedItem };
-        var firstSubitem = new SubItem(TextHelper.AnyString, "first-subitem", TextHelper.AnyString, TextHelper.AnyString,
-            TextHelper.AnyString, TextHelper.AnyString, new List<SubItem>(), "teal");
-        var subItems = new List<SubItem> { firstSubitem };
-        var firstSecondaryitem = new SubItem(TextHelper.AnyString, "first-secondaryitem", TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<SubItem>(), "teal");
-        var secondaryItems = new List<SubItem> { firstSecondaryitem };
+        // Arrange
+        List<SubItem> featuredItems = new() { 
+            new(It.IsAny<string>(), "first-featureditem", It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), new List<SubItem>(), "teal")
+        };
+        SubItem firstSubitem = new(It.IsAny<string>(), "first-subitem", It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), new List<SubItem>(), "teal");
+        List<SubItem> subItems = new() { firstSubitem };
+        SubItem firstSecondaryitem = new(It.IsAny<string>(), "first-secondaryitem", It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), new List<SubItem>(), "teal");
+        List<SubItem> secondaryItems = new() { firstSecondaryitem };
 
-        var topic = new Topic(TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, featuredItems, subItems, secondaryItems, new List<Crumb>(), new List<Alert>(), false, TextHelper.AnyString, null, string.Empty, true,
-             new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty), string.Empty, null, string.Empty);
-        var article = new ProcessedArticle(TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<ProcessedSection>(),
-            TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<Crumb>(), new List<Alert>(), topic, new List<Alert>(), new DateTime(), new bool());
+        Topic topic = new(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), featuredItems, subItems, secondaryItems, new List<Crumb>(), new List<Alert>(), false, It.IsAny<string>(), null, string.Empty, true,
+            new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty), string.Empty, null, string.Empty);
+        ProcessedArticle article = new(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), new List<ProcessedSection>(),
+            It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), new List<Crumb>(), new List<Alert>(), topic, new List<Alert>(), new DateTime(), new bool());
 
-        var articleViewModel = new ArticleViewModel(article);
+        ArticleViewModel articleViewModel = new(article);
 
-        bool showMoreButton;
-        var sidebarSubItems = articleViewModel.SidebarSubItems(out showMoreButton);
+        // Act
+        var sidebarSubItems = articleViewModel.SidebarSubItems(out bool showMoreButton);
 
-        sidebarSubItems.Count().Should().Be(2);
-        sidebarSubItems.ToList()[0].Should().Be(firstSubitem);
-        sidebarSubItems.ToList()[1].Should().Be(firstSecondaryitem);
-        showMoreButton.Should().Be(false);
+        // Assert
+        Assert.Equal(2, sidebarSubItems.Count());
+        Assert.Equal(firstSubitem, sidebarSubItems.ToList().First());
+        Assert.Equal(firstSecondaryitem, sidebarSubItems.ToList()[1]);
+        Assert.False(showMoreButton);
     }
 
     [Fact]
-    private void ShouldReturnSixTopicsSubItemsForSideBar()
+    public void SidebarSubItems_ShouldReturnSixTopicsSubItemsForSideBar()
     {
-        var firstSubItem = new SubItem(TextHelper.AnyString, "first-subitem", TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<SubItem>(), "teal");
-        var secondSubItem = new SubItem(TextHelper.AnyString, "second-subitem", TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<SubItem>(), "teal");
-        var thirdSubItem = new SubItem(TextHelper.AnyString, "third-subitem", TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<SubItem>(), "teal");
-        var fourthSubItem = new SubItem(TextHelper.AnyString, "fourth-subitem", TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<SubItem>(), "teal");
-        var fifthSubItem = new SubItem(TextHelper.AnyString, "fifth-subitem", TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<SubItem>(), "teal");
-        var sixthSubItem = new SubItem(TextHelper.AnyString, "sixth-subitem", TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<SubItem>(), "teal");
-        var seventhSubItem = new SubItem(TextHelper.AnyString, "seventh-subitem", TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<SubItem>(), "teal");
-        var eightSubItem = new SubItem(TextHelper.AnyString, "eigth-subitem", TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<SubItem>(), "teal");
-        var ninthSubItem = new SubItem(TextHelper.AnyString, "sixth-subitem", TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<SubItem>(), "teal");
-        var tenthSubItem = new SubItem(TextHelper.AnyString, "seventh-subitem", TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<SubItem>(), "teal");
+        // Arrange
+        SubItem firstSubItem = new(It.IsAny<string>(), "first-subitem", It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), new List<SubItem>(), "teal");
+        SubItem secondSubItem = new(It.IsAny<string>(), "second-subitem", It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), new List<SubItem>(), "teal");
+        SubItem thirdSubItem = new(It.IsAny<string>(), "third-subitem", It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), new List<SubItem>(), "teal");
+        SubItem fourthSubItem = new(It.IsAny<string>(), "fourth-subitem", It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), new List<SubItem>(), "teal");
+        SubItem fifthSubItem = new(It.IsAny<string>(), "fifth-subitem", It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), new List<SubItem>(), "teal");
+        SubItem sixthSubItem = new(It.IsAny<string>(), "sixth-subitem", It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), new List<SubItem>(), "teal");
+        SubItem seventhSubItem = new(It.IsAny<string>(), "seventh-subitem", It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), new List<SubItem>(), "teal");
+        SubItem eightSubItem = new(It.IsAny<string>(), "eigth-subitem", It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), new List<SubItem>(), "teal");
+        SubItem ninthSubItem = new(It.IsAny<string>(), "ninth-subitem", It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), new List<SubItem>(), "teal");
+        SubItem tenthSubItem = new(It.IsAny<string>(), "tenth-subitem", It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), new List<SubItem>(), "teal");
 
-        var subItems = new List<SubItem> { firstSubItem, secondSubItem, thirdSubItem, fourthSubItem };
-        var secondaryItems = new List<SubItem> { fifthSubItem, sixthSubItem, seventhSubItem, eightSubItem };
-        var featuredItems = new List<SubItem> { ninthSubItem, tenthSubItem };
+        List<SubItem> subItems = new() { firstSubItem, secondSubItem, thirdSubItem, fourthSubItem };
+        List<SubItem> secondaryItems = new() { fifthSubItem, sixthSubItem, seventhSubItem, eightSubItem };
+        List<SubItem> featuredItems = new() { ninthSubItem, tenthSubItem };
 
-        var topic = new Topic(TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString,
-            featuredItems, subItems, secondaryItems, new List<Crumb>(), new List<Alert>(), false, TextHelper.AnyString, null, string.Empty, true,
-             new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty), string.Empty, null, string.Empty);
-        var article = new ProcessedArticle(TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<ProcessedSection>(), TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<Crumb>(), new List<Alert>(), topic, new List<Alert>(), new DateTime(), new bool());
+        Topic topic = new(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(),
+            featuredItems, subItems, secondaryItems, new List<Crumb>(), new List<Alert>(), false, It.IsAny<string>(), null, string.Empty, true,
+            new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty), string.Empty, null, string.Empty);
+        ProcessedArticle article = new(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), new List<ProcessedSection>(),
+            It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), new List<Crumb>(), new List<Alert>(), topic, new List<Alert>(), new DateTime(), new bool());
 
-        var articleViewModel = new ArticleViewModel(article);
+        ArticleViewModel articleViewModel = new(article);
 
-        bool showMoreButton;
-        var sidebarSubItems = articleViewModel.SidebarSubItems(out showMoreButton);
+        // Act
+        var sidebarSubItems = articleViewModel.SidebarSubItems(out bool showMoreButton);
 
-        sidebarSubItems.Count().Should().Be(6);
-        sidebarSubItems.ToList()[0].Should().Be(firstSubItem);
-        sidebarSubItems.ToList()[1].Should().Be(secondSubItem);
-        sidebarSubItems.ToList()[2].Should().Be(thirdSubItem);
-        sidebarSubItems.ToList()[3].Should().Be(fourthSubItem);
-        sidebarSubItems.ToList()[4].Should().Be(fifthSubItem);
-        sidebarSubItems.ToList()[5].Should().Be(sixthSubItem);
-        showMoreButton.Should().Be(true);
+        // Assert
+        Assert.Equal(6, sidebarSubItems.Count());
+        Assert.Equal(firstSubItem, sidebarSubItems.ToList().First());
+        Assert.Equal(secondSubItem, sidebarSubItems.ToList()[1]);
+        Assert.Equal(thirdSubItem, sidebarSubItems.ToList()[2]);
+        Assert.Equal(fourthSubItem, sidebarSubItems.ToList()[3]);
+        Assert.Equal(fifthSubItem, sidebarSubItems.ToList()[4]);
+        Assert.Equal(sixthSubItem, sidebarSubItems.ToList()[5]);
+        Assert.True(showMoreButton);
     }
 
     [Theory]
@@ -237,62 +247,31 @@ public class ArticleViewModelTest
     [InlineData("test section meta", null, "test section meta")]
     [InlineData("", "test article meta", "test article meta")]
     [InlineData(null, "test article meta", "test article meta")]
-    private void ShouldSetMetaDescription(string sectionMeta, string articleMeta, string expectedMeta)
+    public void ArticleViewModel_ShouldSetMetaDescription(string sectionMeta, string articleMeta, string expectedMeta)
     {
         // Arrange
-        var sectionSlug = "test-slug";
-        var section = new ProcessedSection(
-            string.Empty,
-            sectionSlug,
-            sectionMeta,
-            string.Empty,
-            null,
-            null,
-            null
-        );
-        var article = new ProcessedArticle(
-            string.Empty,
-            string.Empty,
-            string.Empty,
-            string.Empty,
-            articleMeta,
-            new List<ProcessedSection> { section },
-            string.Empty,
-            string.Empty,
-            null,
-            null,
-            null,
-            null,
-            null,
-            new DateTime(),
-            new bool()
+        ProcessedSection section = new(string.Empty, "test-slug", sectionMeta, string.Empty, null, null, null);
+        ProcessedArticle article = new(string.Empty, string.Empty, string.Empty, string.Empty, articleMeta, 
+            new List<ProcessedSection> { section }, string.Empty, string.Empty, null, null, null, null, null, new DateTime(), new bool()
         );
 
         // Act
-        var model = new ArticleViewModel(article, sectionSlug);
+        ArticleViewModel model = new(article, "test-slug");
 
         // Assert
-        model.MetaDescription.Should().Be(expectedMeta);
+        Assert.Equal(expectedMeta, model.MetaDescription);
     }
 
-    private ProcessedArticle BuildArticle(string slug, List<ProcessedSection> sections)
+    private static ProcessedArticle BuildArticle(string slug, List<ProcessedSection> sections)
     {
-
-        var parentTopic = new Topic("Name", "slug", "Summary", "Teaser", "metaDescription", "Icon", "Image", "Image", null, null, null,
+        Topic parentTopic = new("Name", "slug", "Summary", "Teaser", "metaDescription", "Icon", "Image", "Image", null, null, null,
             new List<Crumb>(), null, true, "test-id", null, string.Empty, true,
-             new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty), string.Empty, null, string.Empty);
+            new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty), string.Empty, null, string.Empty);
 
-        return new ProcessedArticle(TextHelper.AnyString, slug, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, sections,
-            TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<Crumb>(), new List<Alert>(), parentTopic, new List<Alert>(), new DateTime(), new bool());
+        return new(It.IsAny<string>(), slug, It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), sections,
+            It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), new List<Crumb>(), new List<Alert>(), parentTopic, new List<Alert>(), new DateTime(), new bool());
     }
 
-
-    private ProcessedSection BuildSection(string slug)
-    {
-        var profiles = new List<Profile>();
-        var documents = new List<Document>();
-        var alertsInline = new List<Alert>();
-
-        return new ProcessedSection(TextHelper.AnyString, slug, TextHelper.AnyString, TextHelper.AnyString, profiles, documents, alertsInline);
-    }
+    private static ProcessedSection BuildSection(string slug) => 
+        new("title", slug, It.IsAny<string>(), It.IsAny<string>(), new List<Profile>(), new List<Document>(), new List<Alert>());
 }
