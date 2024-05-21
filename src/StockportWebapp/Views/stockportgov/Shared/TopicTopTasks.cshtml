@@ -6,18 +6,18 @@
             if (Model is not null) 
             {
                 <div class="grid-container">
-                     <div class="grid-100" data-cy="top-tasks">
+                     <div class="grid-100" data-cy="topic-top-tasks">
                         <div class="section__content section__content--no-margin">
                             <div class="top-tasks__nav">
                                 @foreach (var subItem in Model)
                                 {
                                     <div class="top-tasks-block top-tasks--width-33">
-                                        <a class="top-tasks-block__link" href="@subItem.NavigationLink" data-cy="top-task-link">
+                                        <a class="top-tasks-block__link" href="@subItem.NavigationLink" data-cy="topic-top-task-link">
                                             <div class="top-tasks-block__content">
                                                 <div class="top-tasks-block__icon top-tasks-block__topic">
-                                                    <span class="@subItem.Icon si-default top-tasks__icon" aria-hidden="true" data-cy="top-task-icon"></span>
+                                                    <span class="@subItem.Icon si-default top-tasks__icon" aria-hidden="true" data-cy="topic-top-task-icon"></span>
                                                 </div>
-                                                <h3 class="top-tasks-block__title top-tasks-block__title--center" data-cy="top-task-title">
+                                                <h3 class="top-tasks-block__title top-tasks-block__title--center" data-cy="topic-top-task-title">
                                                     @subItem.Title
                                                 </h3>
                                             </div>
