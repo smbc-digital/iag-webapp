@@ -8,10 +8,10 @@
                 <div class="grid-container">
                      <div class="grid-100" data-cy="navcard-list">
                         <div class="section__content section__content--no-margin">
-                            <ul class="navcard-wrapper navcard-wrapper--no-margin top-tasks__nav">
+                            <div class="top-tasks__nav">
                                 @foreach (var subItem in Model)
                                 {
-                                    <li class="top-tasks-block top-tasks--width-33" data-cy="featured-task-link">
+                                    <div class="top-tasks-block top-tasks--width-33" data-cy="featured-task-link">
                                         <a class="top-tasks-block__link" href="@subItem.NavigationLink">
                                             <div class="top-tasks-block__content">
                                                 <div class="top-tasks-block__icon top-tasks-block__topic">
@@ -22,9 +22,9 @@
                                                 </h3>
                                             </div>
                                         </a>
-                                    </li>
+                                    </div>
                                 }
-                            </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
