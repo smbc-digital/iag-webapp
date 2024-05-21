@@ -132,6 +132,7 @@ public class ContentSecurityPolicyBuilder
             .AddSource("aomg-sr-app-live.s3.eu-west-1.amazonaws.com/")
             .AddSource("forms.hsforms.com")
             .AddSource("forms-eu1.hsforms.com")
+            .AddSource("lh3.ggpht.com")
             .Finish());
     }
 
@@ -276,6 +277,7 @@ public class ContentSecurityPolicyBuilder
             .AddSource("maps.googleapis.com")
             .AddSource("stats.reciteme.com")
             .AddSource("api.reciteme.com")
+            .AddSource("events.reciteme.com")
             .AddSource("https://s3.eu-west-1.amazonaws.com/maps.stockport.gov.uk/")
             .AddSource("https://raw.githubusercontent.com/OrdnanceSurvey/")
             .AddSource("https://api.os.uk/")

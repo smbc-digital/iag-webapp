@@ -3,6 +3,4 @@
     bool highlighted = (bool)ViewData["Highlighted"];
     var pinCssClass = $"pin_graphic--" + (highlighted ? "pink" : "teal");
     var showPinsOnLoad = (bool)ViewData["ShowPinsOnLoad"];
-}<div class="pin" style="@if(!showPinsOnLoad) @("display: none")">
-    <div class='pin_graphic @pinCssClass'>
-</div><div class='pin_content'>@count</div></div>
+}<span class="pin" style="@if(!showPinsOnLoad) @("display: none")"><span class='pin_graphic @pinCssClass'></span><span class='pin_content'>@count</span></span>
