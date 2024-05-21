@@ -13,7 +13,7 @@ public class SectionFactoryTest
     private readonly List<Document> _documents = new();
     private readonly Section _section;
     private readonly string _articleTitle = "Article Title";
-    private readonly List<Alert> _emptyAlertsInline = new List<Alert>();
+    private readonly List<Alert> _emptyAlertsInline = new();
     private readonly Mock<IRepository> _repository;
 
     public SectionFactoryTest()
@@ -27,7 +27,8 @@ public class SectionFactoryTest
         _section = new Section(Title, Slug, MetaDescription, Body, _profiles, _documents, _emptyAlertsInline);
 
         _markdownWrapper.Setup(o => o.ConvertToHtml(Body)).Returns(Body);
-        _tagParserContainer.Setup(_ => _.ParseAll(Body, It.IsAny<string>(), It.IsAny<bool>(), It.IsAny<IEnumerable<Alert>>(), It.IsAny<IEnumerable<Document>>(), null, It.IsAny<IEnumerable<PrivacyNotice>>(), It.IsAny<IEnumerable<Profile>>())).Returns(Body);
+        _tagParserContainer.Setup(o => o.ParseAll(Body, It.IsAny<string>(), It.IsAny<bool>(), It.IsAny<IEnumerable<Alert>>(), It.IsAny<IEnumerable<Document>>(), It.IsAny<IEnumerable<InlineQuote>>(),
+                It.IsAny<IEnumerable<PrivacyNotice>>(), It.IsAny<IEnumerable<Profile>>())).Returns(Body);
         _repository.Setup(o => o.Get<List<PrivacyNotice>>(It.IsAny<string>(), It.IsAny<List<Query>>()))
             .ReturnsAsync(new HttpResponse(200, new List<PrivacyNotice>(), ""));
     }
@@ -56,6 +57,25 @@ public class SectionFactoryTest
     {
         _factory.Build(_section, _articleTitle);
 
-        _tagParserContainer.Verify(o => o.ParseAll(Body, It.IsAny<string>(), It.IsAny<bool>(), It.IsAny<IEnumerable<Alert>>(), It.IsAny<IEnumerable<Document>>(), null, It.IsAny<IEnumerable<PrivacyNotice>>(), _section.Profiles), Times.Once);
+        _tagParserContainer.Verify(o => o.ParseAll(Body, It.IsAny<string>(), It.IsAny<bool>(), It.IsAny<IEnumerable<Alert>>(), It.IsAny<IEnumerable<Document>>(), It.IsAny<IEnumerable<InlineQuote>>(),
+                It.IsAny<IEnumerable<PrivacyNotice>>(), _section.Profiles), Times.Once);
+    }
+
+    [Fact]
+    public void ShouldProcessBodyWithProfileTagParsing()
+    {
+        _factory.Build(_section, _articleTitle);
+
+        _tagParserContainer.Verify(o => o.ParseAll(Body, _articleTitle, It.IsAny<bool>(), It.IsAny<IEnumerable<Alert>>(), It.IsAny<IEnumerable<Document>>(), It.IsAny<IEnumerable<InlineQuote>>(),
+                It.IsAny<IEnumerable<PrivacyNotice>>(), _section.Profiles), Times.Once); 
+    }
+
+    [Fact]
+    public void ShouldPassTitleToParserWhenBuilding()
+    {
+        _factory.Build(_section, _articleTitle);
+
+        _tagParserContainer.Verify(o => o.ParseAll(Body, _articleTitle, It.IsAny<bool>(), It.IsAny<IEnumerable<Alert>>(), It.IsAny<IEnumerable<Document>>(), It.IsAny<IEnumerable<InlineQuote>>(),
+                It.IsAny<IEnumerable<PrivacyNotice>>(), It.IsAny<IEnumerable<Profile>>()), Times.Once); 
     }
 }
