@@ -1,36 +1,36 @@
 ﻿@model DirectoryViewModel
 @inject ICookiesHelper CookiesHelper
-@{
+
+
+@if(Model.DisplayMap)
+{
     var mapCookie = CookiesHelper.GetCookies<string>("map");
     var displayValue = mapCookie.Contains(Model.Slug) ? "block" : "none";
-}
 
-<script defer src="@("https://unpkg.com/@googlemaps/markerclusterer/dist/index.min.js")"></script>
-<div id="mapContainer" style="display:none;">
-    <div id="map" class="google-map"></div>
-</div>
-@if(Model.DisplayMap)
-{    
+    <script src="@("https://unpkg.com/@googlemaps/markerclusterer/dist/index.min.js")"></script>
 
-    <script>
-        const locations = [ 
-        @if (Model.PaginationInfo.CurrentPage.Equals(1))
-        {
-            @foreach (var entry in Model.PinnedEntries.Where(entry => entry.DirectoryEntry.IsNotOnTheEqautor))
-            {
-                @Html.Raw(@"{ " + entry.ToString(@Url.Action("DirectoryEntry", "Directory", new { slug=@entry.FullyResolvedSlug })) + "}, ")
-            }
-        }
-
-        @foreach (var entry in Model.PaginatedEntries.Where(entry => entry.DirectoryEntry.IsNotOnTheEqautor))
-        {
-            @Html.Raw(@"{ " + entry.ToString(@Url.Action("DirectoryEntry", "Directory", new { slug=@entry.FullyResolvedSlug })) + "}, ")
-        }
-            ];
-    </script>
+    <div id="mapContainer" style="display:none;">
+        <div id="map" class="google-map"></div>
+    </div>
 
     <script>
         async function initMap() {
+
+            const locations = [
+                @if (Model.PaginationInfo.CurrentPage.Equals(1))
+                {
+                    @foreach (var entry in Model.PinnedEntries.Where(entry => entry.DirectoryEntry.IsNotOnTheEqautor))
+                    {
+                        @Html.Raw(@"{ " + entry.ToString(@Url.Action("DirectoryEntry", "Directory", new { slug=@entry.FullyResolvedSlug })) + "}, ")
+                    }
+                }
+
+                @foreach (var entry in Model.PaginatedEntries.Where(entry => entry.DirectoryEntry.IsNotOnTheEqautor))
+                {
+                    @Html.Raw(@"{ " + entry.ToString(@Url.Action("DirectoryEntry", "Directory", new { slug=@entry.FullyResolvedSlug })) + "}, ")
+                }
+            ];
+
             // Request needed libraries.
             const { Map, InfoWindow } = await google.maps.importLibrary('maps');
             const { AdvancedMarkerElement, PinElement } = await google.maps.importLibrary('marker');
