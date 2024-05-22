@@ -14,6 +14,7 @@
         background: teal;
         transform: rotate(-45deg);
         text-decoration: none;
+        display: block;
 
         &--teal {
             border: 1px solid #066;
@@ -35,5 +36,6 @@
         text-align: center;
         font-size: 1rem;
         text-decoration: none;
+        display: block;
     }
 }

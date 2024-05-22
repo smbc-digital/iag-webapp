@@ -1,4 +1,5 @@
 ﻿using SharpKml.Dom.Atom;
+using StockportGovUK.NetStandard.Gateways.Models.Booking;
 using StockportWebapp.Comparers;
 using Directory = StockportWebapp.Models.Directory;
 using Filter = StockportWebapp.Model.Filter;
@@ -102,6 +103,10 @@ public class DirectoryViewModel
             return queryParameters;
         }
     }
+
+    public bool DisplayMap => PinnedEntries.Any(entry => entry.DirectoryEntry.IsNotOnTheEqautor)
+                                || PaginatedEntries.Any(entry => entry.DirectoryEntry.IsNotOnTheEqautor);
+
 
     // Page layout properties
     public bool DisplayIcons => PrimaryItems is not null
