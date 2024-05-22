@@ -83,7 +83,7 @@ public class ArticleController : Controller
 
     private void SetArticlesCanonicalUrl(string articleSlug, string sectionSlug, ProcessedArticle article)
     {
-        if (article.Sections.Any() && article.Sections.First().Slug == sectionSlug)
+        if (article.Sections.Any() && article.Sections.First().Slug.Equals(sectionSlug))
             ViewData["CanonicalUrl"] = $"/{articleSlug}";
     }
 }
