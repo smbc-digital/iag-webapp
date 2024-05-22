@@ -39,11 +39,9 @@
 
                     @if(!Model.HideLastUpdated)
                     {
-                        <div class="placeholder placeholder-bg-green placeholder__padded-top placeholder__padded-bottom" id="article-page-content">
-                            <div class="grid-container">
-                                <h2 class="placeholder-article-header-description">Last updated</h2>
-                            </div>
-                        </div>
+                        <p class="article-date">
+                            Page last updated on <partial name="FormattedDate" model='Model.Article.UpdatedAt' />
+                        </p>
                     }
 
                     @if(Model.ShouldShowNextSectionButton() || Model.ShouldShowPreviousSectionButton())
