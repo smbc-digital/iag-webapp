@@ -219,13 +219,22 @@ html[dir="rtl"] {
             &__topic {
                 @media #{$tablet} {
                     margin: 0;
-                    padding: 0.5em 0.5em 0.5em 0.2em;
+                    padding: 0.5em;
+                }
+
+                @media #{$mobile} {
+                    padding: 0.3em 0.4em 0.3em 0.8em;
                 }
             }
 
             &__title {
                 @media #{$tablet} {
                     margin-right: 1em;
+                }
+
+                &--center {
+                    margin: 0;
+                    text-align: right;
                 }
             }
         }
@@ -244,7 +253,7 @@ html[dir="rtl"] {
             }
         }
 
-        &__nav {       
+        &__nav {
             :first-child {
                 margin-right: 0;
             }
