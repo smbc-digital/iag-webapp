@@ -13,6 +13,38 @@
     var displayMapValue = displayMap ? "block" : "none";
 }
 
+<script>
+    require(['/assets/javascript/config-460fd0d2.min.js'], function () {
+        require(['directoryFilters'],
+            function (directoryFilters) {
+                directoryFilters.Init();
+            }
+        );
+    });
+</script>
+
+@if (Model.DisplayMap)
+{
+    <script>
+        require(['/assets/javascript/config-460fd0d2.min.js'], function () {
+            require(['directoriesMapInit'],
+                function (directoriesMapInit) {
+                    directoriesMapInit.Init();
+                }
+            );
+        });
+    </script>
+
+    <script type="text/plain" data-cookie-consent="functionality">
+        require(['/assets/javascript/config-460fd0d2.min.js'], function () {
+            require(['mapSetCookie'],
+                function (mapSetCookie) {
+                    mapSetCookie.Init();
+                }
+            );
+        });
+    </script>
+}
 
 <div class="grid-container-full-width background-grey" data-cy=@dataCy>
     <partial name="Breadcrumb2023" model='@Model.Breadcrumbs' />
@@ -45,6 +77,7 @@
                                 <label for="order-by">Sort by:</label>
                                 <select asp-for="@Model.Order" asp-items="@(new SelectList(Model.OrderBy))" name="orderBy" id="order-by" autocomplete="off"></select>
                             </div>
+
                             @if(Model.DisplayMap)
                             {
                                 <div class="directory__showMap">
@@ -70,33 +103,3 @@
 
     <partial name="DirectoryContentDisclaimer">
 </div>
-
-<script>
-    require(['/assets/javascript/config-460fd0d2.min.js'], function () {
-        require(['directoryFilters'],
-            function (directoryFilters) {
-                directoryFilters.Init();
-            }
-        );
-    });
-</script>
-
-<script type="text/plain" data-cookie-consent="functionality">
-    require(['/assets/javascript/config-460fd0d2.min.js'], function () {
-        require(['mapSetCookie'],
-            function (mapSetCookie) {
-                mapSetCookie.Init();
-            }
-        );
-    });
-</script>
-
-<script>
-    require(['/assets/javascript/config-460fd0d2.min.js'], function () {
-        require(['directoriesMapInit'],
-            function (directoriesMapInit) {
-                directoriesMapInit.Init();
-            }
-        );
-    });
-</script>
