@@ -6,14 +6,8 @@ public class Query : IEquatable<Query>
 
     public string Value
     {
-        get
-        {
-            return _value;
-        }
-        set
-        {
-            _value = System.Text.Encodings.Web.UrlEncoder.Default.Encode(value);
-        }
+        get => _value;
+        set => _value = System.Text.Encodings.Web.UrlEncoder.Default.Encode(value);
     }
 
     public string Name { get; set; }

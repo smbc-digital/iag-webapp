@@ -7,7 +7,6 @@ public class EventHomepage
     public string MetaDescription { get; set; }
     public List<Alert> Alerts { get; set; }
 
-
     public EventHomepage(List<Alert> alerts)
     {
         Alerts = alerts;

@@ -1,5 +1,5 @@
 ﻿namespace StockportWebapp.Models.Emails;
-
+[ExcludeFromCodeCoverage]
 public class AddUser
 {
     public string GroupName { get; set; }

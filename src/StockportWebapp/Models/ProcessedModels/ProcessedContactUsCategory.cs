@@ -1,21 +1,18 @@
-﻿namespace StockportWebapp.Models.ProcessedModels
+﻿namespace StockportWebapp.Models.ProcessedModels;
+[ExcludeFromCodeCoverage]
+public class ProcessedContactUsCategory : IProcessedContentType
 {
-    public class ProcessedContactUsCategory : IProcessedContentType
+    public readonly string Title;
+    public string BodyTextLeft;
+    public string BodyTextRight;
+    public string Icon;
+
+
+    public ProcessedContactUsCategory(string title, string bodyTextLeft, string bodyTextRight, string icon)
     {
-        public readonly string Title;
-        public string BodyTextLeft;
-        public string BodyTextRight;
-        public string Icon;
-
-
-        public ProcessedContactUsCategory(string title, string bodyTextLeft, string bodyTextRight, string icon)
-        {
-            Title = title;
-            BodyTextLeft = bodyTextLeft;
-            BodyTextRight = bodyTextRight;
-            Icon = icon;
-        }
+        Title = title;
+        BodyTextLeft = bodyTextLeft;
+        BodyTextRight = bodyTextRight;
+        Icon = icon;
     }
 }
-
-

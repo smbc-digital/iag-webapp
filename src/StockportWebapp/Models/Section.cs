@@ -1,5 +1,5 @@
 namespace StockportWebapp.Models;
-
+[ExcludeFromCodeCoverage]
 public class Section
 {
     public string Title { get; set; }

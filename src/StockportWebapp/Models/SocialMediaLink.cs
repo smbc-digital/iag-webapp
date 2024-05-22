@@ -1,6 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-
-namespace StockportWebapp.Models;
+﻿namespace StockportWebapp.Models;
 
 [ExcludeFromCodeCoverage]
 public class SocialMediaLink
@@ -21,13 +19,4 @@ public class SocialMediaLink
         AccountName = accountName;
         ScreenReader = screenReader;
     }
-}
-
-[ExcludeFromCodeCoverage]
-public class NullSocialMediaLink : SocialMediaLink
-{
-    public NullSocialMediaLink()
-        : base(
-            string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty)
-    { }
 }
