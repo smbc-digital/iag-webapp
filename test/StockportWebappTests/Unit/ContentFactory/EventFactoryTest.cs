@@ -29,7 +29,7 @@ public class EventFactoryTest
         _markdownWrapper = new Mock<MarkdownWrapper>();
         _tagParserContainer = new Mock<ITagParserContainer>();
         _documentTagParser = new Mock<IDynamicTagParser<Document>>();
-        _factory = new EventFactory(_tagParserContainer.Object, _markdownWrapper.Object, _documentTagParser.Object);
+        _factory = new EventFactory(_tagParserContainer.Object, _markdownWrapper.Object);
         _event = new Event
         {
             Title = Title,
@@ -98,6 +98,7 @@ public class EventFactoryTest
     {
         _factory.Build(_event);
 
-        _documentTagParser.Verify(o => o.Parse(Description, _event.Documents), Times.Once);
+        _tagParserContainer.Verify(o => o.ParseAll(Description, _event.Title, It.IsAny<bool>(), null, _event.Documents, null, null, null, null), Times.Once);
+
     }
 }
