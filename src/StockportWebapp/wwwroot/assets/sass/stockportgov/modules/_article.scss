@@ -40,14 +40,11 @@
         }
     }
 
-    &-hero {
-        width: 100%;
-
+    &-hero {    
         &__image {
              box-sizing: border-box;
              height: auto;
              width: 100%;
-             object-position: left;
         }
     }
 
