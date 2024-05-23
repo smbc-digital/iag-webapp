@@ -5,6 +5,19 @@
     text-decoration: none;
     display: inline-block;
 
+    &_content {
+        position: relative;
+        width: 29px;
+        height: 28px;
+        line-height: 28px;
+        color: white;
+        text-align: center;
+        font-size: 1rem;
+        text-decoration: none;
+        display: block;
+    }
+
+
     &_graphic {
         position: absolute;
         width: 28px;
@@ -25,17 +38,10 @@
             border: 1px solid #991e70;
             background: #b32384;
         }
-    }
 
-    &_content {
-        position: relative;
-        width: 29px;
-        height: 28px;
-        line-height: 28px;
-        color: white;
-        text-align: center;
-        font-size: 1rem;
-        text-decoration: none;
-        display: block;
+        &--blank {
+            border: 1px solid $stockport-grey;
+            background: $stockport-grey;
+        }
     }
 }
