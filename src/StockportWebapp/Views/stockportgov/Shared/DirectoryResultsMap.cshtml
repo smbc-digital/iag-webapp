@@ -37,7 +37,6 @@
 
             const mapContainer = document.getElementById("mapContainer");
             const map = new Map(document.getElementById("map"), {
-                zoom: 12,
                 center: { lat: 53.40979, lng: -2.15761 },
                 mapId: "roadmap",
             });
@@ -45,8 +44,12 @@
             // Create an info window to share between markers.
             const infoWindow = new InfoWindow();
 
+            var bounds = new google.maps.LatLngBounds();
+            
             // Create the markers.
             const markers = locations.map(({ position, title, content, isPinned, mapPinIndex }, i) => {
+                
+                bounds.extend(position);
 
                 const highlightPin = new PinElement({
                     glyph: `${mapPinIndex}`,
@@ -79,6 +82,8 @@
 
                 return marker;
             });
+
+            map.fitBounds(bounds);
 
             const markerCluster = new markerClusterer.MarkerClusterer({ markers, map });
 
