@@ -21,9 +21,9 @@
                     @if(!string.IsNullOrEmpty(Model.Article.Image))
                     {
                         <div class="article-hero">
-                            <img srcset="@Model.Article.Image?w=720&q=89&fm=webp 720w,
-                            @Model.Article.Image?w=937&q=89&fm=webp 937w,
-                            @Model.Article.Image?w=452&q=89&fm=webp 452w"
+                            <img srcset="@Model.Article.Image?w=937&q=89&fm=webp 937px,
+                            @Model.Article.Image?w=1059&q=89&fm=webp 1059px,
+                            @Model.Article.Image?w=720&q=89&fm=webp 720px"
                             sizes="(max-width: 767px) 720px,
                             ((min-width: 768px) and (max-width: 1023px)) 937px,
                             (min-width: 1024px) 1059px" src="@Model.Article.Image?q=89&fm=webp" class="article-hero__image" loading="lazy" alt="Article hero image" />
