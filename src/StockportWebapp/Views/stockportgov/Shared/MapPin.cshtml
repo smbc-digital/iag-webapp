@@ -3,4 +3,6 @@
     bool highlighted = (bool)ViewData["Highlighted"];
     var pinCssClass = $"pin_graphic--" + (highlighted ? "pink" : "teal");
     var showPinsOnLoad = (bool)ViewData["ShowPinsOnLoad"];
-}<span class="pin" style="@if(!showPinsOnLoad) @("display: none")"><span class='pin_graphic @pinCssClass'></span><span class='pin_content'>@count</span></span>
+}<span class="pin" style="@if(!showPinsOnLoad)
+ @("display: none")
+"><span class='pin_graphic @pinCssClass'></span><span class='pin_content'><span class="visuallyhidden">displayed on the map as pin number </span>@count</span></span>
