@@ -1,7 +1,6 @@
 ﻿@model DirectoryViewModel
 @inject ICookiesHelper CookiesHelper
 
-
 @if(Model.DisplayMap)
 {
     var mapCookie = CookiesHelper.GetCookies<string>("map");
@@ -15,7 +14,6 @@
 
     <script>
         async function initMap() {
-
             const locations = [
                 @if (Model.PaginationInfo.CurrentPage.Equals(1))
                 {
@@ -88,9 +86,10 @@
             const markerCluster = new markerClusterer.MarkerClusterer({ markers, map });
 
             mapContainer.setAttribute("style", "display:@displayValue");
+
+            document.querySelector("#map > div > div:nth-child(2)").setAttribute('aria-label', "Showing results for @Model.Title")
         }
     </script>
 
     <script defer async src="https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyCPMO2lE7np9cG_zG63JH_pNVmRfoajZjg&callback=initMap&loading=async"></script>
-    
 }
