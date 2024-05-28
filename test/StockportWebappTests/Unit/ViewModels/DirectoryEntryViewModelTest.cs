@@ -297,10 +297,10 @@ public class DirectoryEntryViewModelTest
     }
 
     [Theory]
-    [InlineData(1.2345, 2.3456, "Name", "Teaser", true, 1, "http://example.com", "position: { lat: 1.2345, lng: 2.3456 }, title: \"Name\", content: \"<h3 class='h-m'>Name</h3><p class='body'>Teaser</p><hr /><a class='btn btn_small' href='http://example.com'>View Name</a>\", isPinned: true, mapPinIndex: 1")]
-    [InlineData(0, 0, "", "", false, 0, "", "position: { lat: 0, lng: 0 }, title: \"\", content: \"<h3 class='h-m'></h3><p class='body'></p><hr /><a class='btn btn_small' href=''>View </a>\", isPinned: false, mapPinIndex: 0")]
-    [InlineData(-1.5, 3.7, "Test Name", "Test Teaser", true, 2, "http://test.com", "position: { lat: -1.5, lng: 3.7 }, title: \"Test Name\", content: \"<h3 class='h-m'>Test Name</h3><p class='body'>Test Teaser</p><hr /><a class='btn btn_small' href='http://test.com'>View Test Name</a>\", isPinned: true, mapPinIndex: 2")]
-    [InlineData(10.123, -20.987, "Long Name", "Long Teaser", false, 5, "http://long.com", "position: { lat: 10.123, lng: -20.987 }, title: \"Long Name\", content: \"<h3 class='h-m'>Long Name</h3><p class='body'>Long Teaser</p><hr /><a class='btn btn_small' href='http://long.com'>View Long Name</a>\", isPinned: false, mapPinIndex: 5")]
+    [InlineData(1.2345, 2.3456, "Name", "Teaser", true, 1, "http://example.com", "position: { lat: 1.2345, lng: 2.3456 }, title: \"Name\", content: \"<div class='google-map--padding'><h3 class='h-m'>Name</h3><p class='body'>Teaser</p><hr/><a class='btn btn_small' href='http://example.com' tabindex='2'>View Name</a></div>\", isPinned: true, mapPinIndex: 1")]
+    [InlineData(0, 0, "", "", false, 0, "", "position: { lat: 0, lng: 0 }, title: \"\", content: \"<div class='google-map--padding'><h3 class='h-m'></h3><p class='body'></p><hr/><a class='btn btn_small' href='' tabindex='2'>View </a></div>\", isPinned: false, mapPinIndex: 0")]
+    [InlineData(-1.5, 3.7, "Test Name", "Test Teaser", true, 2, "http://test.com", "position: { lat: -1.5, lng: 3.7 }, title: \"Test Name\", content: \"<div class='google-map--padding'><h3 class='h-m'>Test Name</h3><p class='body'>Test Teaser</p><hr/><a class='btn btn_small' href='http://test.com' tabindex='2'>View Test Name</a></div>\", isPinned: true, mapPinIndex: 2")]
+    [InlineData(10.123, -20.987, "Long Name", "Long Teaser", false, 5, "http://long.com", "position: { lat: 10.123, lng: -20.987 }, title: \"Long Name\", content: \"<div class='google-map--padding'><h3 class='h-m'>Long Name</h3><p class='body'>Long Teaser</p><hr/><a class='btn btn_small' href='http://long.com' tabindex='2'>View Long Name</a></div>\", isPinned: false, mapPinIndex: 5")]
     public void ToString_ReturnsCorrectString(double lat, double lon, string name, string teaser, bool isPinned, int mapPinIndex, string url, string expected)
     {
         // Arrange

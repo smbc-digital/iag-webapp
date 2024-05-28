@@ -3,6 +3,7 @@
     var additionalWrapperCssClasses = ViewData["AdditionalWrapperCssClasses"];
     var additionalCssClasses = ViewData["AdditionalCssClasses"];
     var addressWithoutTags = ViewData["AddressWithoutTags"];
+    var entryName = ViewData["EntryName"];
     bool displayMap = (bool)ViewData["DisplayMap"];
 }
 
@@ -20,4 +21,17 @@
             <p class="directory__map-accessible-transport">For accessible transport options visit our <a href="https://www.stockport.gov.uk/accessibleTransport">accessible transport page</a>.</p>
         </div>
     </div>
+
+    <noscript>
+        <style>
+            .directory__map-container {
+                display: none;
+            }
+        </style>
+    </noscript>
+
+    <script>
+        document.querySelector("#map > div > div:nth-child(2)").setAttribute('aria-label', "Showing position for @entryName")
+        document.querySelector("#gmimap0 > area").setAttribute('aria-label', "Clickable area representing a point of interest on the map.")
+    </script>
 }
