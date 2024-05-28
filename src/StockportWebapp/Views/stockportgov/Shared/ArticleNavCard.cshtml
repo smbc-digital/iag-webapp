@@ -1,0 +1,16 @@
+﻿@model SubItem
+@{
+    var linkClasses = "navcard--padding-large navcard--no-padding-top navcard__link";
+    var url = (string)ViewData["url"];
+}
+
+@if(!string.IsNullOrEmpty(url)){
+    <a class="@linkClasses" href="@url">
+        <h3 class="navcard__title navcard__title--no-margin">All topics in @Model.Title</h3>
+    </a>
+}
+else{
+    <a class="@linkClasses" href="@Model.Slug">
+        <h3 class="navcard__title navcard__title--no-margin navcard__title--normal-weight">@Model.Title</h3>
+    </a>
+}

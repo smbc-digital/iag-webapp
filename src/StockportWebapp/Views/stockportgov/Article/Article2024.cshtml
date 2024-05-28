@@ -5,25 +5,6 @@
     ViewData["og:title"] = Model.OgTitleMetaData;
     Layout = "../Shared/_Layout2023.cshtml";
     var dataCy = Model.DisplayedSection is null ? "flat-article" : "article-with-sections";
-
-    var borderTealDesktop = " navcard--border-top-10-desktop navcard--theme-teal-lighter-top-desktop";
-    var borderTealTablet = " navcard--border-top-10-tablet navcard--theme-teal-lighter-top-tablet";
-    var borderTealMobile = " navcard--border-left-10-mobile navcard--theme-teal-lighter-left-mobile";
-    var rtlBorderCssClasses = " navcard--border-rtl-right-10-mobile navcard--theme-teal-lighter-rtl-right-mobile navcard--border-rtl-left-1-mobile navcard--theme-grey-accent-rtl-left-mobile ";
-    
-    var borderGrey = " navcard--border-left-1 navcard--border-right-1 navcard--theme-grey-accent-all";
-
-    var borderCssClasses = $"{borderTealDesktop} {borderTealTablet} {borderTealMobile} ";
-    var borderCssClasses2 = $"{rtlBorderCssClasses}";
-
-    bool hasMoreButton;
-    var sidebarItems = Model.SidebarSubItems(out hasMoreButton).ToList();
-    int currentIndex = sidebarItems.FindIndex(item => item.NavigationLink == Model.Article.NavigationLink);
-
-    var currentItem = sidebarItems.FirstOrDefault(item => item.NavigationLink.ToLower() == Model.Article.NavigationLink);
-
-    var section1Items = sidebarItems.Take(currentIndex + 1).ToList();
-    var section2Items = sidebarItems.Skip(currentIndex + 1).ToList();
 }
 
 <div class="grid-container-full-width" style="background-color:white;">
@@ -36,7 +17,7 @@
             </div>
 
             <section class="article">
-                <div class="article--70">
+                <div class="article--70 section">
                     @if(!string.IsNullOrEmpty(Model.Article.Image))
                     {
                         <div class="placeholder placeholder-bg-grey placeholder-small">
@@ -59,7 +40,7 @@
                     @if(!Model.HideLastUpdated)
                     {
                         <p class="article-date">
-                            Page last updated on <partial name="FormattedDate" model='Model.Article.UpdatedAt' />
+                            Last updated <partial name="FormattedDate" model='Model.Article.UpdatedAt' />
                         </p>
                     }
 
@@ -79,47 +60,10 @@
                     </div>
                 </div>
 
-                <div class="article--30">
+                <div class="article--30 section">
                     @if (Model.Article.ParentTopic != null)
                     {
-                        <ul class="navcard-wrapper--no-margin">
-                            <li class="@borderGrey navcard navcard--grey navcard--width-100 navcard--no-margin @borderCssClasses navcard--no-padding-right-rtl">
-                                <div class="navcard-content--padding navcard--no-padding-bottom">
-                                    <h2 class="h-m h--no-top-margin h--no-bottom-margin">Also in @Model.Article.ParentTopic.Name</h2>
-                                </div>
-                                @foreach (var item in section1Items)
-                                {
-                                    if (item.NavigationLink != Model.Article.NavigationLink)
-                                    {
-                                        <a class="navcard--padding navcard--no-padding-top navcard__link navcard__link--underline" href="@item.NavigationLink">@item.Title</a>
-                                    }
-                                }
-                            </li>
-
-                            <li class="navcard navcard--white navcard--width-100 navcard--no-margin navcard--no-padding-right-rtl">
-                                @if(currentItem is not null)
-                                {
-                                    <div class="navcard--white navcard--padding navcard-content--bold">
-                                        <span class="fa-solid fa-chevron-left"></span>
-                                        <a class="navcard__link navcard__link--active navcard__link--underline navcard__link--inline" href="@currentItem.NavigationLink">@currentItem.Title</a>
-                                    </div>
-                                }
-                            </li>
-
-                            <li class="@borderGrey navcard--border-bottom-1 navcard navcard--grey navcard--width-100 navcard--no-margin navcard--no-padding-right-rtl">
-                                @foreach (var item in section2Items)
-                                {
-                                    <a class="navcard--padding navcard--no-padding-top navcard__link navcard__link--underline" href="@item.NavigationLink">@item.Title</a>
-                                }
-
-                                @if (hasMoreButton)
-                                {
-                                    <a class="navcard--padding navcard--no-padding-top navcard__link navcard__link--underline" href="@Url.Action("Index", "Topic", new { topicSlug = Model.Article.ParentTopic.Slug })">
-                                        <strong>All topics in @Model.Article.ParentTopic.Name</strong>
-                                    </a>
-                                }
-                            </li>
-                        </ul>
+                        <partial name="ArticleNavCardList" model="@Model"/>
                     }
                 </div>
             </section>

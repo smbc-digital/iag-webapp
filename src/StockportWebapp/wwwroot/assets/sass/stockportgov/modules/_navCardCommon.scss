@@ -8,9 +8,17 @@
         &--black {
             color: $stockport-black;
         }
+        
+        &--normal-weight {
+            font-weight: 400
+        }
 
         &--large {
             @include h-m;
+        }
+
+        &--no-margin {
+            margin: 0;
         }
     }
 
@@ -150,6 +158,10 @@
 
     &--padding {
         padding: 1em 0.75em;
+    }
+
+    &--padding-large {
+        padding: 1.5em 0.75em;
     }
 
     &--no-padding-top {
