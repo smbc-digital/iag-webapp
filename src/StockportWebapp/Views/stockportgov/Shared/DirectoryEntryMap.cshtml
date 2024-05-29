@@ -30,8 +30,17 @@
         </style>
     </noscript>
 
-    @* <script>
-        document.querySelector("#map > div > div:nth-child(2)").setAttribute('aria-label', "Showing position for @entryName")
-        document.querySelector("#gmimap0 > area").setAttribute('aria-label', "Clickable area representing a point of interest on the map.")
-    </script> *@
+    <script>
+        // Change aria-label for screen readers
+        map.addListener('tilesloaded', () => {
+            let mapDiv = document.querySelector("#map > div > div[aria-label='Map']");
+            let mapArea = document.querySelector("#gmimap0 > area");
+            if(mapDiv)
+                mapDiv.setAttribute("aria-label", "Showing position for @entryName");
+            
+            if(mapArea)
+                mapArea.setAttribute("aria-label", "Clickable area representing a point of interest on the map.");
+        });
+
+    </script>
 }
