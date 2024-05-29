@@ -17,7 +17,7 @@
                 <partial name="DirectoryMap" model='Model' view-data='new ViewDataDictionary(ViewData) {{"directoryLocation", @addressWithoutTags}}'/>
             </div>
 
-            <a class="btn btn--width-30 btn--chevron-forward btn--bold btn--chevron-bold" target="_blank" href="https://www.google.com/maps/dir/?api=1&origin=current+location&destination=@Model.MapPosition.Lat,@Model.MapPosition.Lon&travelmode=driving">Get directions</a>
+            <a class="btn btn--width-30 btn--chevron-forward btn--bold btn--chevron-bold" target="_blank" href="https://www.google.com/maps/dir/?api=1&origin=current+location&destination=@Model.MapPosition.Lat,@Model.MapPosition.Lon&travelmode=driving" data-cy="getDirectionsBtn">Get directions</a>
             <p class="directory__map-accessible-transport">For accessible transport options visit our <a href="https://www.stockport.gov.uk/accessibleTransport">accessible transport page</a>.</p>
         </div>
     </div>
@@ -30,8 +30,8 @@
         </style>
     </noscript>
 
-    <script>
+    @* <script>
         document.querySelector("#map > div > div:nth-child(2)").setAttribute('aria-label', "Showing position for @entryName")
         document.querySelector("#gmimap0 > area").setAttribute('aria-label', "Clickable area representing a point of interest on the map.")
-    </script>
+    </script> *@
 }
