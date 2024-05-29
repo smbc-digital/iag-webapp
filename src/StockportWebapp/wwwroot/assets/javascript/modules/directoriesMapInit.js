@@ -6,8 +6,6 @@
                 var hideMap = document.getElementById("hideMap");
                 var mapContainer = document.getElementById("mapContainer");
                 var pins = document.getElementsByClassName("pin");
-                
-                document.querySelector('.google-map > .gm-ui-hover-effect').setAttribute('tabindex', '1');
 
                 showMap.onclick = function () {
                     ShowMap();
