@@ -66,13 +66,16 @@
 
                 const marker = new AdvancedMarkerElement({
                     position,
+                    map,
                     title: `${mapPinIndex}. ${title}`,
                     content: isPinned ? highlightPin.element : defaultPin.element,
+                    gmpClickable: true,
                 });
 
                 marker.addListener("click", ({ domEvent, latLng }) => {
                     const { target } = domEvent;
 
+                    infoWindow.close();
                     infoWindow.setContent(content);
                     infoWindow.open(marker.map, marker);
                 });
@@ -85,11 +88,6 @@
             const markerCluster = new markerClusterer.MarkerClusterer({ markers, map });
 
             mapContainer.setAttribute("style", "display:@displayValue");
-            var mapDiv = document.querySelector("#map > div > div:nth-child(2)");
-            if(mapDiv){
-                mapDiv.setAttribute('aria-label', "Showing results for @Model.Title");
-                console.log("setting attribute ", mapDiv.getAttribute("aria-label"));
-            }
         }
     </script>
 
