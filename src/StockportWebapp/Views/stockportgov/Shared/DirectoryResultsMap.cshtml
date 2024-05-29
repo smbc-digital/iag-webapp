@@ -94,9 +94,6 @@
                 let mapDiv = document.querySelector("#map > div > div[aria-label='Map']");
                 if (mapDiv) {
                     mapDiv.setAttribute("aria-label", "Showing results for @Model.Title");
-                    console.log("Attribute set after map loaded");
-                } else {
-                    console.log("Map container not found");
                 }
             });
         }

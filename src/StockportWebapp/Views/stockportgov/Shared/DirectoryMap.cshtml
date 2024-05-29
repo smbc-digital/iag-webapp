@@ -10,20 +10,18 @@
 <div id="map" class="grid-100 map-container"></div>
 <script>
     async function initMap() {
-    var directoryLocation = { lat: @Model.MapPosition.Lat, lng: @Model.MapPosition.Lon };
+        var directoryLocation = { lat: @Model.MapPosition.Lat, lng: @Model.MapPosition.Lon };
 
-    var map = new google.maps.Map(document.getElementById("map"), {
-        center: directoryLocation,
-        zoom: 18,
-    });
-    var marker = new google.maps.Marker({
-        map: map,
-        position: directoryLocation,
-    });
-}
+        var map = new google.maps.Map(document.getElementById("map"), {
+            center: directoryLocation,
+            zoom: 18,
+        });
+        var marker = new google.maps.Marker({
+            map: map,
+            position: directoryLocation,
+        });
+    }
 </script>
-
-
 
 <div class="directory__map-embed">
     <img src="https://maps.googleapis.com/maps/api/staticmap?center=@Model.MapPosition.Lat,@Model.MapPosition.Lon&zoom=17&size=1024x250&scale=2&markers=@Model.MapPosition.Lat,@Model.MapPosition.Lon&key=AIzaSyCPMO2lE7np9cG_zG63JH_pNVmRfoajZjg" 
