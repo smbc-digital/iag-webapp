@@ -46,7 +46,6 @@
             
             // Create the markers.
             const markers = locations.map(({ position, title, content, isPinned, mapPinIndex }, i) => {
-                
                 bounds.extend(position);
 
                 const highlightPin = new PinElement({
@@ -86,8 +85,11 @@
             const markerCluster = new markerClusterer.MarkerClusterer({ markers, map });
 
             mapContainer.setAttribute("style", "display:@displayValue");
-
-            document.querySelector("#map > div > div:nth-child(2)").setAttribute('aria-label', "Showing results for @Model.Title")
+            var mapDiv = document.querySelector("#map > div > div:nth-child(2)");
+            if(mapDiv){
+                mapDiv.setAttribute('aria-label', "Showing results for @Model.Title");
+                console.log("setting attribute ", mapDiv.getAttribute("aria-label"));
+            }
         }
     </script>
 

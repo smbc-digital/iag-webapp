@@ -7,7 +7,7 @@
         "carousel": "carousel-719cf06c.min",
         "cludo": "cludo-ae98e22c.min",
         "contactUs": "contactUs-e5b6f8a5.min",
-        "directoriesMapInit": "directoriesMapInit-8eac80d7.min",
+        "directoriesMapInit": "directoriesMapInit-e9b7ff2c.min",
         "directoryFilters": "directoryFilters-cefe3db0.min",
         "events": "events-af550f37.min",
         "favourites": "favourites-9929284b.min",
