@@ -1,0 +1,28 @@
+﻿@model ArticleViewModel
+
+<div class="article-pagination grid-100">
+    <div class="pagination-previous grid-50 tablet-grid-50">
+        @if (Model.ShouldShowPreviousSectionButton())
+        {
+            <a href="@Model.Article.NavigationLink/@Model.PreviousSection().Slug">
+                <div class="article-chevron l-left-align">
+                    <span class="fa fa-angle-left fa-3x" aria-hidden="true"></span>
+                </div>
+                    <p>Previous Page</p>
+                    <p>@Model.PreviousSection().Title</p>
+            </a>
+        }
+    </div>
+    <div @if (Model.ShouldShowPreviousSectionButton()) { <text> class="pagination-next grid-50 tablet-grid-50" </text> } else { <text> class="pagination-next grid-50 tablet-grid-50 push-50 tablet-push-50" </text> }>
+        @if (Model.ShouldShowNextSectionButton())
+        {
+            <a href="@Model.Article.NavigationLink/@Model.NextSection().Slug">
+                    <p>Next Page</p>
+                    <p>@Model.NextSection().Title</p>
+                <div class="article-chevron l-right-align">
+                    <span class="fa fa-angle-right fa-3x" aria-hidden="true"></span>
+                </div>
+            </a>
+        }
+    </div>
+</div>

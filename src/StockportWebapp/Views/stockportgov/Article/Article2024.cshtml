@@ -27,9 +27,12 @@
                     
                     @if(Model.Article.Sections is not null && Model.Article.Sections.Any())
                     {
-                        <div class="placeholder placeholder-bg-orange placeholder-small">
-                            <h2 class="placeholder-article-header-description">Sections</h2>
-                        </div>
+                        @if (Model.DisplayedSection is not null)
+                        {
+                            <partial name="ArticleSections" />
+                            @* <partial name="Article-Single-Section" model='Model' />
+                            <partial name="DisplayTemplates/Section-Pagination" /> *@
+                        }
                     }
 
                     @if(!string.IsNullOrEmpty(Model.Article.Body))
@@ -44,20 +47,20 @@
                         </p>
                     }
 
-                    @if(Model.ShouldShowNextSectionButton() || Model.ShouldShowPreviousSectionButton())
+                    @* @if(Model.ShouldShowNextSectionButton() || Model.ShouldShowPreviousSectionButton())
                     {
                         <div class="placeholder placeholder-bg-grey placeholder__padded-top placeholder__padded-bottom" id="article-page-content">
                             <div class="grid-container">
                                 <h2 class="placeholder-article-header-description">Pagination</h2>
                             </div>
                         </div>
-                    }
+                    } *@
 
-                    <div class="placeholder placeholder-bg-orange placeholder__padded-top placeholder__padded-bottom placeholder-medium" id="article-page-content">
+                    @* <div class="placeholder placeholder-bg-orange placeholder__padded-top placeholder__padded-bottom placeholder-medium" id="article-page-content">
                         <div class="grid-container">
                             <h2 class="placeholder-article-header-description">Our partners</h2>
                         </div>
-                    </div>
+                    </div> *@
                 </div>
 
                 <div class="article--30 section">
