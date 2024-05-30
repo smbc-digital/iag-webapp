@@ -21,7 +21,7 @@ public class SectionFactory : ISectionFactory
 
     public ProcessedSection Build(Section section, string articleTitle = null)
     {
-        var parsedBody = _markdownWrapper.ConvertToHtml(section.Body ?? "");
+        string parsedBody = _markdownWrapper.ConvertToHtml(section.Body ?? "");
 
         if (section.Body.Contains("PrivacyNotice:"))
             section.PrivacyNotices = GetPrivacyNotices().Result;
@@ -41,7 +41,7 @@ public class SectionFactory : ISectionFactory
 
     private async Task<IEnumerable<PrivacyNotice>> GetPrivacyNotices()
     {
-        var response = await _repository.Get<List<PrivacyNotice>>();
+        HttpResponse response = await _repository.Get<List<PrivacyNotice>>();
         return response.Content as List<PrivacyNotice>;
     }
 }
