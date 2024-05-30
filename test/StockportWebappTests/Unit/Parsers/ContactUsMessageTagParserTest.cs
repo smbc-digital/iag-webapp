@@ -27,7 +27,7 @@ public class ContactUsMessageTagParserTest
         var slug = "this-is-a-slug";
         var section = ProcessedSectionWithDefaultSlugAndBody();
         var anotherSection = ProcessedSectionWithDefaultSlugAndBody(slug: slug, body: _bodyWithContactUsMessageTag);
-        var processedArticle = new ProcessedArticle("title", "slug", DefaultBody, "teaser", "meta description", new List<ProcessedSection>() { section, anotherSection }, "icon", "backgroundImage", "image", new List<Crumb>(), new List<Alert>(), DefaultTopic(), new List<Alert>(), new DateTime(), new bool());
+        var processedArticle = new ProcessedArticle("title", "slug", DefaultBody, "teaser", "meta description", new List<ProcessedSection>() { section, anotherSection }, "icon", "backgroundImage", "image", new List<Crumb>(), new List<Alert>(), DefaultTopic(), new List<Alert>(), new DateTime(), new bool(), new List<GroupBranding>(), "logoTitle");
 
         _tagParser.Parse(processedArticle, message, slug);
 
@@ -41,7 +41,7 @@ public class ContactUsMessageTagParserTest
     [Fact]
     public void ShouldAddErrorMessageToArticleBodyWithFormTagInsideIfEmptySlugGiven()
     {
-        var processedArticle = new ProcessedArticle("title", "slug", _bodyWithContactUsMessageTag, "teaser", "meta description", new List<ProcessedSection>(), "icon", "backgroundImage", "image", new List<Crumb>(), new List<Alert>(), DefaultTopic(), new List<Alert>(), new DateTime(), new bool());
+        var processedArticle = new ProcessedArticle("title", "slug", _bodyWithContactUsMessageTag, "teaser", "meta description", new List<ProcessedSection>(), "icon", "backgroundImage", "image", new List<Crumb>(), new List<Alert>(), DefaultTopic(), new List<Alert>(), new DateTime(), new bool(), new List<GroupBranding>(),"logoTitle");
 
         _tagParser.Parse(processedArticle, Message, "");
 
@@ -52,7 +52,7 @@ public class ContactUsMessageTagParserTest
     public void ShouldAddErrorMessageToFirstSectionBodyWithFormTagInsideIfArticleDoesntHaveFormIfEmptySlugGiven()
     {
         var section = ProcessedSectionWithDefaultSlugAndBody(body: _bodyWithContactUsMessageTag);
-        var processedArticle = new ProcessedArticle("title", "slug", DefaultBody, "teaser", "meta description", new List<ProcessedSection>() { section }, "icon", "backgroundImage", "image", new List<Crumb>(), new List<Alert>(), DefaultTopic(), new List<Alert>(), new DateTime(), new bool());
+        var processedArticle = new ProcessedArticle("title", "slug", DefaultBody, "teaser", "meta description", new List<ProcessedSection>() { section }, "icon", "backgroundImage", "image", new List<Crumb>(), new List<Alert>(), DefaultTopic(), new List<Alert>(), new DateTime(), new bool(), new List<GroupBranding>(), "logoTitle");
 
         _tagParser.Parse(processedArticle, Message, "");
 
@@ -66,7 +66,7 @@ public class ContactUsMessageTagParserTest
         var slug = "this-is-a-slug";
         var section = ProcessedSectionWithDefaultSlugAndBody();
         var anotherSection = ProcessedSectionWithDefaultSlugAndBody(slug: slug, body: _bodyWithContactUsMessageTag);
-        var processedArticle = new ProcessedArticle("title", "slug", DefaultBody, "teaser", "meta description", new List<ProcessedSection>() { section, anotherSection }, "icon", "backgroundImage", "image", new List<Crumb>(), new List<Alert>(), DefaultTopic(), new List<Alert>(), new DateTime(), new bool());
+        var processedArticle = new ProcessedArticle("title", "slug", DefaultBody, "teaser", "meta description", new List<ProcessedSection>() { section, anotherSection }, "icon", "backgroundImage", "image", new List<Crumb>(), new List<Alert>(), DefaultTopic(), new List<Alert>(), new DateTime(), new bool(), new List<GroupBranding>(), "logoTitle");
 
         _tagParser.Parse(processedArticle, Message, slug);
 
@@ -79,7 +79,7 @@ public class ContactUsMessageTagParserTest
     public void ShouldDoNothingIfSlugProvidedButNoSectionsAreProvided()
     {
         var slug = "this-is-a-slug";
-        var processedArticle = new ProcessedArticle("title", "slug", DefaultBody, "teaser", "meta description", new List<ProcessedSection>() { }, "icon", "backgroundImage", "image", new List<Crumb>(), new List<Alert>(), DefaultTopic(), new List<Alert>(), new DateTime(), new bool());
+        var processedArticle = new ProcessedArticle("title", "slug", DefaultBody, "teaser", "meta description", new List<ProcessedSection>() { }, "icon", "backgroundImage", "image", new List<Crumb>(), new List<Alert>(), DefaultTopic(), new List<Alert>(), new DateTime(), new bool(), new List<GroupBranding>(), "logoTitle");
 
         _tagParser.Parse(processedArticle, Message, slug);
 
@@ -91,7 +91,7 @@ public class ContactUsMessageTagParserTest
     {
         var slug = "this-is-a-slug";
 
-        var processedArticle = new ProcessedArticle("title", "slug", DefaultBody, "teaser", "meta description", new List<ProcessedSection>() { }, "icon", "backgroundImage", "image", new List<Crumb>(), new List<Alert>(), DefaultTopic(), new List<Alert>(), new DateTime(), new bool());
+        var processedArticle = new ProcessedArticle("title", "slug", DefaultBody, "teaser", "meta description", new List<ProcessedSection>() { }, "icon", "backgroundImage", "image", new List<Crumb>(), new List<Alert>(), DefaultTopic(), new List<Alert>(), new DateTime(), new bool(), new List<GroupBranding>(), "logoTitle");
 
         _tagParser.Parse(processedArticle, Message, slug);
 

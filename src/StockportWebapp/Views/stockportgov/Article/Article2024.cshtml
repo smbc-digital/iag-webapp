@@ -53,11 +53,7 @@
                         </div>
                     }
 
-                    <div class="placeholder placeholder-bg-orange placeholder__padded-top placeholder__padded-bottom placeholder-medium" id="article-page-content">
-                        <div class="grid-container">
-                            <h2 class="placeholder-article-header-description">Our partners</h2>
-                        </div>
-                    </div>
+                     <partial name="LogoAreaArticle" model='@Model.Article.ArticleBranding' view-data='new ViewDataDictionary(ViewData) {{"logoAreaTitle", @Model.Article.LogoAreaTitle}, {"titleCssClasses", "section__title section__title--padded-bottom section__title--border-top"}}'/>
                 </div>
 
                 <div class="article--30">

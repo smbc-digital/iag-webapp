@@ -18,7 +18,7 @@ public class ArticleControllerTest
             string.Empty, string.Empty, string.Empty, string.Empty, string.Empty,
             new List<ProcessedSection> { sectionOne, sectionTwo },
             string.Empty, string.Empty, string.Empty, new List<Crumb> { },
-            new List<Alert>(), new NullTopic(), new List<Alert>(), DateTime.Now, false
+            new List<Alert>(), new NullTopic(), new List<Alert>(), DateTime.Now, false, new List<GroupBranding>(), string.Empty
         );
 
         _processedRepository
@@ -32,7 +32,7 @@ public class ArticleControllerTest
         // Arrange
         ProcessedArticle article = new("Physical Activity", "physical-activity", "Being active is great for your body", "teaser", "meta description", 
             new List<ProcessedSection>() { DummySection() }, "fa-icon", "af981b9771822643da7a03a9ae95886f/runners.jpg", "af981b9771822643da7a03a9ae95886f/runners.jpg",
-            new List<Crumb>() { new("title", "slug", "type") }, new List<Alert>(), new NullTopic(), new List<Alert>(), new DateTime(), new bool());
+            new List<Crumb>() { new("title", "slug", "type") }, new List<Alert>(), new NullTopic(), new List<Alert>(), new DateTime(), new bool(), new List<GroupBranding>(), "logo-title");
 
         _processedRepository
             .Setup(_ => _.Get<Article>(It.IsAny<string>(), It.IsAny<List<Query>>()))
@@ -96,7 +96,7 @@ public class ArticleControllerTest
         ProcessedSection sectionTwo = new("Types of Physical Activity", "types-of-physical-activity", It.IsAny<string>(), "body", new List<Profile>(), new List<Document>(), new List<Alert>());
         ProcessedArticle article = new(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty,
             new List<ProcessedSection>() { sectionOne, sectionTwo }, string.Empty, string.Empty, string.Empty, new List<Crumb>() { },
-            new List<Alert>(), new NullTopic(), new List<Alert>(), new DateTime(), new bool());
+            new List<Alert>(), new NullTopic(), new List<Alert>(), new DateTime(), new bool(), new List<GroupBranding>(), string.Empty);
 
         _processedRepository
             .Setup(_ => _.Get<Article>(It.IsAny<string>(), It.IsAny<List<Query>>()))
@@ -122,7 +122,7 @@ public class ArticleControllerTest
                 new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc),String.Empty, false, string.Empty)
         };
         ProcessedArticle article = new(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty,
-            new List<ProcessedSection>() { }, string.Empty, string.Empty, string.Empty, new List<Crumb>() { }, new List<Alert>(), new NullTopic(), alertsInline, new DateTime(), new bool());
+            new List<ProcessedSection>() { }, string.Empty, string.Empty, string.Empty, new List<Crumb>() { }, new List<Alert>(), new NullTopic(), alertsInline, new DateTime(), new bool(), new List<GroupBranding>(), string.Empty);
 
         _processedRepository
             .Setup(_ => _.Get<Article>(It.IsAny<string>(), It.IsAny<List<Query>>()))
@@ -150,7 +150,7 @@ public class ArticleControllerTest
                 new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc),string.Empty, false, string.Empty)
         };
         ProcessedArticle article = new(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty,
-            new List<ProcessedSection>(), string.Empty, string.Empty, string.Empty, new List<Crumb>(), alerts, new NullTopic(), new List<Alert>(), new DateTime(), new bool());
+            new List<ProcessedSection>(), string.Empty, string.Empty, string.Empty, new List<Crumb>(), alerts, new NullTopic(), new List<Alert>(), new DateTime(), new bool(), new List<GroupBranding>(), string.Empty);
 
         _processedRepository
             .Setup(_ => _.Get<Article>(It.IsAny<string>(), It.IsAny<List<Query>>()))
@@ -213,7 +213,7 @@ public class ArticleControllerTest
         ProcessedSection processedSection = new("title", "slug", string.Empty, "body", new List<Profile>(), new List<Document>(), alertsInline);
 
         ProcessedArticle article = new(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty,
-            new List<ProcessedSection>() { processedSection }, string.Empty, string.Empty, string.Empty, new List<Crumb>(), new List<Alert>(), new NullTopic(), alertsInline, new DateTime(), new bool());
+            new List<ProcessedSection>() { processedSection }, string.Empty, string.Empty, string.Empty, new List<Crumb>(), new List<Alert>(), new NullTopic(), alertsInline, new DateTime(), new bool(), new List<GroupBranding>(), string.Empty);
 
         _processedRepository
             .Setup(_ => _.Get<Article>(It.IsAny<string>(), It.IsAny<List<Query>>()))
@@ -252,7 +252,7 @@ public class ArticleControllerTest
         // Arrange
         ProcessedSection section = new(string.Empty, "test-slug", "test meta description", string.Empty, null, null, null);
         ProcessedArticle article = new(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, new List<ProcessedSection> { section },
-            string.Empty, string.Empty, null, null, null, null, null, new DateTime(), new bool());
+            string.Empty, string.Empty, null, null, null, null, null, new DateTime(), new bool(), new List<GroupBranding>(), string.Empty);
 
         _processedRepository
             .Setup(_ => _.Get<Article>(It.IsAny<string>(), It.IsAny<List<Query>>()))
@@ -274,7 +274,7 @@ public class ArticleControllerTest
         ProcessedSection section1 = new(string.Empty, "test-slug", "test meta description", string.Empty, null, null, null);
         ProcessedSection section2 = new(string.Empty, string.Empty, "other string", string.Empty, null, null, null);
         ProcessedArticle article = new(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, new List<ProcessedSection> { section1, section2 },
-            string.Empty, string.Empty, null, null, null, null, null, new DateTime(), new bool());
+            string.Empty, string.Empty, null, null, null, null, null, new DateTime(), new bool(), new List<GroupBranding>(), string.Empty);
 
         _processedRepository
             .Setup(_ => _.Get<Article>(It.IsAny<string>(), It.IsAny<List<Query>>()))
@@ -323,7 +323,7 @@ public class ArticleControllerTest
     private static ProcessedArticle DummyProcessedArticle() => 
         new(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(),
             new List<ProcessedSection>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), new List<Crumb>(),
-            new LinkedList<Alert>(), new NullTopic(), new List<Alert>(), new DateTime(), new bool());
+            new LinkedList<Alert>(), new NullTopic(), new List<Alert>(), new DateTime(), new bool(), new List<GroupBranding>(), It.IsAny<string>());
 
     private static ProcessedSection DummySection() => 
         new(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), new List<Profile>(), new List<Document>(), new List<Alert>());
