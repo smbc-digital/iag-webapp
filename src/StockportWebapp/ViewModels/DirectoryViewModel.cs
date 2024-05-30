@@ -1,6 +1,4 @@
-﻿using SharpKml.Dom.Atom;
-using StockportGovUK.NetStandard.Gateways.Models.Booking;
-using StockportWebapp.Comparers;
+﻿using StockportWebapp.Comparers;
 using Directory = StockportWebapp.Models.Directory;
 using Filter = StockportWebapp.Model.Filter;
 
