@@ -1,6 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-
-namespace StockportWebapp.Models;
+﻿namespace StockportWebapp.Models;
 
 [ExcludeFromCodeCoverage]
 public abstract class Banner

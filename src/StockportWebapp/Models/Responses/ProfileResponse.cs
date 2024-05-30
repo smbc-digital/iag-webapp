@@ -1,5 +1,5 @@
 ﻿namespace StockportWebapp.Models.Responses;
-
+[ExcludeFromCodeCoverage]
 public class ProfileResponse
 {
     public string Title { get; set; }

@@ -1,12 +1,9 @@
-using System.Diagnostics.CodeAnalysis;
 using Filter = StockportWebapp.Model.Filter;
 
-namespace StockportWebapp.Models
+namespace StockportWebapp.Models;
+[ExcludeFromCodeCoverage]
+public class FilterTheme
 {
-    [ExcludeFromCodeCoverage]
-    public class FilterTheme
-    {
-        public string Title { get; set; }
-        public IEnumerable<Filter> Filters { get; set; }
-    }
+    public string Title { get; set; }
+    public IEnumerable<Filter> Filters { get; set; }
 }

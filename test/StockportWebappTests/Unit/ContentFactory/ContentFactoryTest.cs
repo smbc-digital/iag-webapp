@@ -6,17 +6,12 @@ public class ContentFactoryTest
 
     public ContentFactoryTest()
     {
+        var repository = new Mock<IRepository>();
         var tagParserContainer = new Mock<ITagParserContainer>();
-        var profileTagParser = new Mock<IDynamicTagParser<Profile>>();
-        var documentTagParser = new Mock<IDynamicTagParser<Document>>();
-        var alertsInlineTagParser = new Mock<IDynamicTagParser<Alert>>();
         var httpContextAccessor = new Mock<IHttpContextAccessor>();
-        var s3BucketParser = new Mock<IDynamicTagParser<S3BucketSearch>>();
-        var privacyNoticeTagParser = new Mock<IDynamicTagParser<PrivacyNotice>>();
-        tagParserContainer.Setup(o => o.ParseAll(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool>(), null, null, null, null, null, null)).Returns("");
-        s3BucketParser.Setup(o => o.Parse(It.IsAny<string>(), It.IsAny<IEnumerable<S3BucketSearch>>())).Returns("");
+        tagParserContainer.Setup(o => o.ParseAll(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool>(), null, null, null, null, null)).Returns("");
 
-        _factory = new ContentTypeFactory(tagParserContainer.Object, new MarkdownWrapper(), httpContextAccessor.Object);
+        _factory = new ContentTypeFactory(tagParserContainer.Object, new MarkdownWrapper(), httpContextAccessor.Object, repository.Object);
     }
 
     [Fact]

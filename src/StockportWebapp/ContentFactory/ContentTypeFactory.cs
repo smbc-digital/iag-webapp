@@ -1,5 +1,3 @@
-using Profile = StockportWebapp.Models.Profile;
-
 namespace StockportWebapp.ContentFactory;
 
 public class ContentTypeFactory
@@ -9,14 +7,15 @@ public class ContentTypeFactory
     public ContentTypeFactory(
         ITagParserContainer tagParserContainer,
         MarkdownWrapper markdownWrapper,
-        IHttpContextAccessor httpContextAccesor)
+        IHttpContextAccessor httpContextAccesor,
+        IRepository repository)
     {
-        var sectionFactory = new SectionFactory(tagParserContainer, markdownWrapper, null);
-        var contactUsCategoryFactory = new ContactUsCategoryFactory(tagParserContainer, markdownWrapper);
-        var triviaFactory = new TriviaFactory(markdownWrapper);
+        SectionFactory sectionFactory = new(tagParserContainer, markdownWrapper, null);
+        ContactUsCategoryFactory contactUsCategoryFactory = new(tagParserContainer, markdownWrapper);
+        TriviaFactory triviaFactory = new(markdownWrapper);
 
         _factories.Add(typeof(Section), sectionFactory);
-        _factories.Add(typeof(Article), new ArticleFactory(tagParserContainer, sectionFactory, markdownWrapper, null));
+        _factories.Add(typeof(Article), new ArticleFactory(tagParserContainer, sectionFactory, markdownWrapper, repository));
         _factories.Add(typeof(DocumentPage), new DocumentPageFactory(markdownWrapper));
         _factories.Add(typeof(News), new NewsFactory(tagParserContainer, markdownWrapper));
         _factories.Add(typeof(Event), new EventFactory(tagParserContainer, markdownWrapper));

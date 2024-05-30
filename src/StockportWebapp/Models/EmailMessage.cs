@@ -1,5 +1,6 @@
 ﻿namespace StockportWebapp.Models;
 
+[ExcludeFromCodeCoverage]
 public class EmailMessage
 {
     public string Subject { get; }

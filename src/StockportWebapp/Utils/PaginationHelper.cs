@@ -4,17 +4,17 @@ public static class PaginationHelper
 {
     public static int CalculateIndexOfFirstItemOnPage(int currentPageNumber, int maxItemsPerPage)
     {
-        var numberOfPreviousPages = currentPageNumber - 1;
-        var numberOfItemsBeforeThisPage = numberOfPreviousPages * maxItemsPerPage;
-        var indexOfFirstItemOnThisPage = numberOfItemsBeforeThisPage + 1;
+        int numberOfPreviousPages = currentPageNumber - 1;
+        int numberOfItemsBeforeThisPage = numberOfPreviousPages * maxItemsPerPage;
+        int indexOfFirstItemOnThisPage = numberOfItemsBeforeThisPage + 1;
 
         return indexOfFirstItemOnThisPage;
     }
 
     public static int CalculateIndexOfLastItemOnPage(int currentPageNumber, int numItemsOnThisPage, int maxItemsPerPage)
     {
-        var numberOfPreviousPages = currentPageNumber - 1;
-        var numberOfItemsBeforeThisPage = numberOfPreviousPages * maxItemsPerPage;
+        int numberOfPreviousPages = currentPageNumber - 1;
+        int numberOfItemsBeforeThisPage = numberOfPreviousPages * maxItemsPerPage;
 
         return numberOfItemsBeforeThisPage + numItemsOnThisPage;
     }
@@ -22,7 +22,7 @@ public static class PaginationHelper
     public static List<VisiblePageNumber> GenerateVisiblePageNumbers(int currentPageNumber, int totalPages)
     {
         const int maxVisiblePages = 5;
-        var result = new List<VisiblePageNumber>();
+        List<VisiblePageNumber> result = new();
 
         if (totalPages > 1)
         {
@@ -60,7 +60,7 @@ public static class PaginationHelper
             maxNumberOfItemsPerPage == -1 ? items.Count() : maxNumberOfItemsPerPage == 0 ? defaultPageSize : maxNumberOfItemsPerPage,
             defaultPageSize);
 
-        var ExistingPageNumber = MakeSurePageNumberExists(currentPageNumber, items.Count, pagination.MaxItemsPerPage);
+        int ExistingPageNumber = MakeSurePageNumberExists(currentPageNumber, items.Count, pagination.MaxItemsPerPage);
         pagination.CurrentPageNumber = ExistingPageNumber;
 
         int itemsOnPreviousPages = pagination.MaxItemsPerPage * (pagination.CurrentPageNumber - 1);
@@ -93,7 +93,7 @@ public static class PaginationHelper
 
     public static string BuildPageSizeUrl(int defaultPageSize, int maxItemsPerPage, int totalItems, QueryUrl queryUrl, IUrlHelperWrapper urlHelper)
     {
-        var pageSize = GetOtherPageSizeByCurrentPageSize(maxItemsPerPage, totalItems, defaultPageSize);
+        int pageSize = GetOtherPageSizeByCurrentPageSize(maxItemsPerPage, totalItems, defaultPageSize);
         RouteValueDictionary routeValueDictionary = queryUrl.AddQueriesToUrl(
             new Dictionary<string, string>
             {
@@ -127,7 +127,7 @@ public static class PaginationHelper
 
     private static int CalculateHighestPageNumber(int totalItems, int numberOfItemsPerPage)
     {
-        var highestPageNumber = totalItems / numberOfItemsPerPage;
+        int highestPageNumber = totalItems / numberOfItemsPerPage;
         if (totalItems % numberOfItemsPerPage > 0)
             highestPageNumber++;
 

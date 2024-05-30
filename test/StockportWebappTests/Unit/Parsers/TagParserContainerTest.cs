@@ -14,8 +14,6 @@ public class TagParserContainerTests
     private readonly Mock<IDynamicTagParser<InlineQuote>> _quoteTagParser;
     private readonly Mock<IDynamicTagParser<PrivacyNotice>> _privacyNoticeTagParser;
     private readonly Mock<IDynamicTagParser<Profile>> _profileTagParser;
-    private readonly Mock<IDynamicTagParser<S3BucketSearch>> _S3TagParser;
-
 
     public TagParserContainerTests()
     {
@@ -27,7 +25,6 @@ public class TagParserContainerTests
         _quoteTagParser = new Mock<IDynamicTagParser<InlineQuote>>();
         _privacyNoticeTagParser = new Mock<IDynamicTagParser<PrivacyNotice>>();
         _profileTagParser = new Mock<IDynamicTagParser<Profile>>();
-        _S3TagParser = new Mock<IDynamicTagParser<S3BucketSearch>>();
 
         _viewRenderer = new Mock<IViewRender>();
     
@@ -38,8 +35,7 @@ public class TagParserContainerTests
                                     _documentTagParser.Object, 
                                     _quoteTagParser.Object,
                                     _privacyNoticeTagParser.Object,
-                                    _profileTagParser.Object, 
-                                    _S3TagParser.Object);
+                                    _profileTagParser.Object);
     }
 
     [Fact]
@@ -55,7 +51,6 @@ public class TagParserContainerTests
         _quoteTagParser.Setup(o => o.Parse(It.IsAny<string>(), It.IsAny<IEnumerable<InlineQuote>>())).Returns(content);
         _privacyNoticeTagParser.Setup(o => o.Parse(It.IsAny<string>(), It.IsAny<IEnumerable<PrivacyNotice>>())).Returns(content);
         _profileTagParser.Setup(o => o.Parse(It.IsAny<string>(), It.IsAny<IEnumerable<Profile>>())).Returns(content);
-        _S3TagParser.Setup(o => o.Parse(It.IsAny<string>(), It.IsAny<IEnumerable<S3BucketSearch>>())).Returns(content);
 
         _tagParserContainer.ParseAll(content);
 
@@ -67,7 +62,6 @@ public class TagParserContainerTests
         _quoteTagParser.Verify(o => o.Parse(content, It.IsAny<IEnumerable<InlineQuote>>()), Times.Once);
         _privacyNoticeTagParser.Verify(o => o.Parse(content, It.IsAny<IEnumerable<PrivacyNotice>>()), Times.Once);
         _profileTagParser.Verify(o => o.Parse(content, It.IsAny<IEnumerable<Profile>>()), Times.Once);
-        _S3TagParser.Verify(o => o.Parse(content, It.IsAny<IEnumerable<S3BucketSearch>>()), Times.Once);
     }
 
     [Fact]
@@ -83,7 +77,6 @@ public class TagParserContainerTests
         _quoteTagParser.Setup(o => o.Parse(It.IsAny<string>(), It.IsAny<IEnumerable<InlineQuote>>())).Returns(content);
         _privacyNoticeTagParser.Setup(o => o.Parse(It.IsAny<string>(), It.IsAny<IEnumerable<PrivacyNotice>>())).Returns(content);
         _profileTagParser.Setup(o => o.Parse(It.IsAny<string>(), It.IsAny<IEnumerable<Profile>>())).Returns(content);
-        _S3TagParser.Setup(o => o.Parse(It.IsAny<string>(), It.IsAny<IEnumerable<S3BucketSearch>>())).Returns(content);
 
         var parsedContent = _tagParserContainer.ParseAll(content);
 
@@ -104,7 +97,6 @@ public class TagParserContainerTests
         _quoteTagParser.Setup(o => o.Parse(It.IsAny<string>(), It.IsAny<IEnumerable<InlineQuote>>())).Returns(content);
         _privacyNoticeTagParser.Setup(o => o.Parse(It.IsAny<string>(), It.IsAny<IEnumerable<PrivacyNotice>>())).Returns(content);
         _profileTagParser.Setup(o => o.Parse(It.IsAny<string>(), It.IsAny<IEnumerable<Profile>>())).Returns(content);
-        _S3TagParser.Setup(o => o.Parse(It.IsAny<string>(), It.IsAny<IEnumerable<S3BucketSearch>>())).Returns(content);
 
         var parsedContent = _tagParserContainer.ParseAll(content, title);
 

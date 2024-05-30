@@ -1,5 +1,5 @@
 ﻿namespace StockportWebapp.Models;
-
+[ExcludeFromCodeCoverage]
 public class SpotlightOnBanner
 {
     public string Title { get; }
@@ -18,10 +18,4 @@ public class SpotlightOnBanner
         Link = link;
         LastUpdated = lastUpdated;
     }
-}
-
-
-public class NullSpotlightOnBanner : SpotlightOnBanner
-{
-    public NullSpotlightOnBanner() : base(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, DateTime.MinValue) { }
 }

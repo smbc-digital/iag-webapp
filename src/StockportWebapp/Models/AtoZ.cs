@@ -16,13 +16,4 @@ public class AtoZ
         Teaser = teaser;
         NavigationLink = TypeRoutes.GetUrlFor(type, slug);
     }
-
-    [ExcludeFromCodeCoverage]
-    public class NullAtoZ : AtoZ
-    {
-        public NullAtoZ()
-            : base(
-                string.Empty, string.Empty, string.Empty, string.Empty)
-        { }
-    }
 }

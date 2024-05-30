@@ -1,5 +1,6 @@
 namespace StockportWebapp.Models;
 
+[ExcludeFromCodeCoverage]
 public class Article
 {
     public string Title { get; set; }
@@ -17,7 +18,6 @@ public class Article
     public Topic ParentTopic { get; set; }
     public IEnumerable<Document> Documents { get; set; }
     public IEnumerable<Alert> AlertsInline { get; set; }
-    public S3BucketSearch S3Bucket { get; set; }
     public IEnumerable<PrivacyNotice> PrivacyNotices { get; set; }
     public DateTime UpdatedAt { get; set; }
     public bool HideLastUpdated { get; set; }

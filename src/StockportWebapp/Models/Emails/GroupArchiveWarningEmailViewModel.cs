@@ -1,5 +1,5 @@
 ﻿namespace StockportWebapp.Models.Emails;
-
+[ExcludeFromCodeCoverage]
 public class GroupArchiveWarningEmailViewModel
 {
     public string GroupName { get; set; }
