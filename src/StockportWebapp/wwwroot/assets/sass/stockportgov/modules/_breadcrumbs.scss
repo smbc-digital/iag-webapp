@@ -5,7 +5,7 @@
 
     li {
         display: inline-block;
-        margin-left: 0;
+        margin-inline-start: 0;
 
         a {
             font-weight: 400;
@@ -37,8 +37,8 @@
                 &::before {
                     content: "\f105";
                     font: normal normal normal 14px/1 FontAwesome;
-                    margin-left: 0.157em;
-                    margin-right: 0.315em;
+                    margin-inline-start: 0.157em;
+                    margin-inline-end: 0.315em;
                     font-size: 0.736em;
                 }
             }
@@ -53,8 +53,8 @@
                 &::before {
                     content: "\f105";
                     font: normal normal normal 14px/1 FontAwesome;
-                    margin-left: 0.157em;
-                    margin-right: 0.315em;
+                    margin-inline-start: 0.157em;
+                    margin-inline-end: 0.315em;
                     font-size: 0.736em;
                 }
             }

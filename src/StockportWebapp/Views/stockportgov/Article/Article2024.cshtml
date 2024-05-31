@@ -8,61 +8,64 @@
 }
 
 <div class="grid-container-full-width" style="background-color:white;">
+    <partial name="Breadcrumb2023" model="Model.Article.Breadcrumbs" />
+
     <div class="grid-container">
         <div class="grid-100">
-            <div class="grid-70">
-                <div class="placeholder placeholder-bg-teal placeholder__left-align placeholder__padded-top">
-                    <div class="grid-container">
-                        <p>Breadcrumbs</p>
-                    </div>
-                </div>
-
-                <div class="placeholder placeholder-bg-green placeholder__left-align placeholder__padded-top placeholder__padded-bottom" id="article-page-content">
-                    <div class="grid-container">
-                        <h1 class="placeholder-article-title">Title</h1>
-                    </div>
-                </div>
+            <div class="article--70">
+                <h1 class="directory__title">@Model.Article.Title</h1>
             </div>
 
-            <div class="grid-70">
-                <div class="placeholder placeholder-bg-grey placeholder-small">
-                    <h2 class="placeholder-article-header-description">Image</h2>
-                </div>
+            <section class="article">
+                <div class="article--70">
+                    @if (!string.IsNullOrEmpty(Model.Article.Image))
+                    {
+                        <div class="placeholder placeholder-bg-grey placeholder-small">
+                            <h2 class="placeholder-article-header-description">Image</h2>
+                        </div>
+                    }
+                    
+                    @if (Model.Article.Sections is not null && Model.Article.Sections.Any())
+                    {
+                        <div class="placeholder placeholder-bg-orange placeholder-small">
+                            <h2 class="placeholder-article-header-description">Sections</h2>
+                        </div>
+                    }
 
-                <div class="placeholder placeholder-bg-orange placeholder-small">
-                    <h2 class="placeholder-article-header-description">Sections</h2>
-                </div>
+                    @if (!string.IsNullOrEmpty(Model.Article.Body))
+                    {
+                        @Html.Raw(Model.Article.Body)
+                    }
 
-                <div class="placeholder placeholder-bg-teal placeholder__padded-top placeholder__padded-bottom placeholder-large" id="article-page-content">
-                    <div class="grid-container">
-                        <h2 class="placeholder-article-header-description">Body text</h2>
+                    @if (!Model.HideLastUpdated)
+                    {
+                        <p class="article-date">
+                            Page last updated on <partial name="FormattedDate" model='Model.Article.UpdatedAt' />
+                        </p>
+                    }
+
+                    @if (Model.ShouldShowNextSectionButton() || Model.ShouldShowPreviousSectionButton())
+                    {
+                        <div class="placeholder placeholder-bg-grey placeholder__padded-top placeholder__padded-bottom" id="article-page-content">
+                            <div class="grid-container">
+                                <h2 class="placeholder-article-header-description">Pagination</h2>
+                            </div>
+                        </div>
+                    }
+
+                    <div class="placeholder placeholder-bg-orange placeholder__padded-top placeholder__padded-bottom placeholder-medium" id="article-page-content">
+                        <div class="grid-container">
+                            <h2 class="placeholder-article-header-description">Our partners</h2>
+                        </div>
                     </div>
                 </div>
 
-                <div class="placeholder placeholder-bg-green placeholder__padded-top placeholder__padded-bottom" id="article-page-content">
-                    <div class="grid-container">
-                        <h2 class="placeholder-article-header-description">Last updated</h2>
+                <div class="article--30">
+                    <div class="placeholder placeholder-bg-grey placeholder-large" id="article-page-content">
+                        <h2 class="placeholder-article-header-description">Side bar</h2>
                     </div>
                 </div>
-
-                <div class="placeholder placeholder-bg-grey placeholder__padded-top placeholder__padded-bottom" id="article-page-content">
-                    <div class="grid-container">
-                        <h2 class="placeholder-article-header-description">Pagination</h2>
-                    </div>
-                </div>
-
-                <div class="placeholder placeholder-bg-orange placeholder__padded-top placeholder__padded-bottom placeholder-medium" id="article-page-content">
-                    <div class="grid-container">
-                        <h2 class="placeholder-article-header-description">Our partners</h2>
-                    </div>
-                </div>
-            </div>
-
-            <div class="grid-30">
-                <div class="placeholder placeholder-bg-grey placeholder-large" id="article-page-content">
-                    <h2 class="placeholder-article-header-description">Side bar</h2>
-                </div>
-            </div>
+            </section>
         </div>
     </div>
 </div>
