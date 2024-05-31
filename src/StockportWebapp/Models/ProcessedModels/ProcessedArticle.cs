@@ -14,6 +14,7 @@ public class ProcessedArticle : IProcessedContentType, IContactUsMessageContaine
     public readonly string Icon;
     public readonly string BackgroundImage;
     public readonly string Image;
+    public readonly string AltText;
     public readonly IEnumerable<Crumb> Breadcrumbs;
     public readonly IEnumerable<Alert> Alerts;
     public readonly Topic ParentTopic;
@@ -23,7 +24,7 @@ public class ProcessedArticle : IProcessedContentType, IContactUsMessageContaine
     public bool HideLastUpdated;
 
     public ProcessedArticle(string title, string slug, string body, string teaser, string metaDescription,
-        IEnumerable<ProcessedSection> sections, string icon, string backgroundImage, string image, IEnumerable<Crumb> breadcrumbs,
+        IEnumerable<ProcessedSection> sections, string icon, string backgroundImage, string image, string altText, IEnumerable<Crumb> breadcrumbs,
         IEnumerable<Alert> alerts, Topic topic, IEnumerable<Alert> alertsInline, DateTime updatedAt, bool hideLastUpdated)
     {
         Title = title;
@@ -35,6 +36,7 @@ public class ProcessedArticle : IProcessedContentType, IContactUsMessageContaine
         Icon = icon;
         BackgroundImage = backgroundImage;
         Image = image;
+        AltText = altText;
         Breadcrumbs = breadcrumbs;
         Alerts = alerts;
         ParentTopic = topic;
