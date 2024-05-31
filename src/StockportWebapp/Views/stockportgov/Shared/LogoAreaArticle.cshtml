@@ -1,13 +1,12 @@
 @model List<GroupBranding>
 @{
     string logoAreaTitle = (string)ViewData["logoAreaTitle"];
-    string borderTopClass = (string)ViewData["borderTopClass"];
-    string titleCssClasses = (string)ViewData["titleCssClasses"];
+    string titleCssClasses = "section__title section__title--padded-bottom section__title--border-top";
 }
 
 @if(Model.Any())
 {
-    <section class="section section--white section--no-margin @borderTopClass" data-cy="logo-area">
+    <section class="section section--white section--no-margin" data-cy="logo-area">
                 <h2 class="@titleCssClasses">@(logoAreaTitle ?? "Our partners")</h2>
                 <div class="section__content section__content--no-margin">
                     <div class="logo-area">
