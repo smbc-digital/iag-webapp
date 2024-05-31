@@ -6,7 +6,7 @@
 
 @if(Model.Any())
 {
-    <section class="section section--white section--no-margin" data-cy="logo-area">
+    <div class="logo-area-article" data-cy="articles-logo-area">
         <h2 class="@titleCssClasses">@(logoAreaTitle ?? "Our partners")</h2>
         <div class="section__content section__content--no-margin">
             <div class="logo-area">
@@ -25,5 +25,5 @@
                 }
             </div>
         </div>
-    </section>
+    </div>
 }

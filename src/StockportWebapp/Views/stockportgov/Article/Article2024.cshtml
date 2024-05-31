@@ -8,7 +8,7 @@
     var articleMarginBottom = !Model.Article.ArticleBranding.Any() || Model.Article.ArticleBranding is null ? " section" : string.Empty;
 }
 
-<div class="grid-container-full-width" style="background-color:white;">
+<div class="grid-container-full-width" style="background-color:white;" data-cy="@dataCy">
     <partial name="Breadcrumb2023" model="Model.Article.Breadcrumbs" />
 
     <div class="grid-container">
