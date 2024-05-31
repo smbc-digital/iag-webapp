@@ -61,7 +61,7 @@
                 </div>
 
                 <div class="article--30 section">
-                    @if (Model.Article.ParentTopic is not null)
+                    @if (Model.HasParentTopicWithSubItems())
                     {
                         <partial name="ArticleNavCardList" model="@Model"/>
                     }
