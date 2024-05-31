@@ -1,7 +1,6 @@
 ﻿@model DirectoryViewModel
 @inject ICookiesHelper CookiesHelper
 
-
 @if(Model.DisplayMap)
 {
     var mapCookie = CookiesHelper.GetCookies<string>("map");
@@ -15,7 +14,6 @@
 
     <script>
         async function initMap() {
-
             const locations = [
                 @if (Model.PaginationInfo.CurrentPage.Equals(1))
                 {
@@ -48,7 +46,6 @@
             
             // Create the markers.
             const markers = locations.map(({ position, title, content, isPinned, mapPinIndex }, i) => {
-                
                 bounds.extend(position);
 
                 const highlightPin = new PinElement({
@@ -69,13 +66,16 @@
 
                 const marker = new AdvancedMarkerElement({
                     position,
+                    map,
                     title: `${mapPinIndex}. ${title}`,
                     content: isPinned ? highlightPin.element : defaultPin.element,
+                    gmpClickable: true,
                 });
 
                 marker.addListener("click", ({ domEvent, latLng }) => {
                     const { target } = domEvent;
 
+                    infoWindow.close();
                     infoWindow.setContent(content);
                     infoWindow.open(marker.map, marker);
                 });
@@ -88,9 +88,16 @@
             const markerCluster = new markerClusterer.MarkerClusterer({ markers, map });
 
             mapContainer.setAttribute("style", "display:@displayValue");
+
+            // Change aria-label for screen readers
+            map.addListener('tilesloaded', () => {
+                let mapDiv = document.querySelector("#map > div > div[aria-label='Map']");
+                if (mapDiv) {
+                    mapDiv.setAttribute("aria-label", "Showing results for @Model.Title");
+                }
+            });
         }
     </script>
 
     <script defer async src="https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyCPMO2lE7np9cG_zG63JH_pNVmRfoajZjg&callback=initMap&loading=async"></script>
-    
 }

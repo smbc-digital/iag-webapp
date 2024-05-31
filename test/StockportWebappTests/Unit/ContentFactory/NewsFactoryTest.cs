@@ -31,8 +31,7 @@ public class NewsFactoryTest
         _tagParserContainer = new Mock<ITagParserContainer>();
         _factory = new NewsFactory(_tagParserContainer.Object, _markdownWrapper.Object);
         _news = new News(Title, Slug, Teaser, Purpose, Image, ThumbnailImage, Body, _breadcrumbs, _sunrise, _sunset, _updatedAt, _alerts, _tags, _documents, _profiles);
-
-        _tagParserContainer.Setup(_ => _.ParseAll(Body, It.IsAny<string>(), It.IsAny<bool>(), null, It.IsAny<IEnumerable<Document>>(), null, null, It.IsAny<IEnumerable<Profile>>(), null)).Returns(Body);
+        _tagParserContainer.Setup(_ => _.ParseAll(Body, It.IsAny<string>(), It.IsAny<bool>(), null, It.IsAny<IEnumerable<Document>>(), null, null, It.IsAny<IEnumerable<Profile>>())).Returns(Body);
         _markdownWrapper.Setup(_ => _.ConvertToHtml(Body)).Returns(Body);
     }
 
@@ -69,6 +68,6 @@ public class NewsFactoryTest
     {
         // Act & Assert
         _factory.Build(_news);
-        _tagParserContainer.Verify(_ => _.ParseAll(Body, _news.Title, It.IsAny<bool>(), It.IsAny<IEnumerable<Alert>>(), _news.Documents, It.IsAny<IEnumerable<InlineQuote>>(), It.IsAny<IEnumerable<PrivacyNotice>>(), _news.Profiles, It.IsAny<IEnumerable<S3BucketSearch>>()), Times.Once);
+        _tagParserContainer.Verify(_ => _.ParseAll(Body, _news.Title, It.IsAny<bool>(), It.IsAny<IEnumerable<Alert>>(), _news.Documents, It.IsAny<IEnumerable<InlineQuote>>(), It.IsAny<IEnumerable<PrivacyNotice>>(), _news.Profiles), Times.Once);
     }
 }

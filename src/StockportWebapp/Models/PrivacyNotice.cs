@@ -1,5 +1,5 @@
 ﻿namespace StockportWebapp.Models;
-
+[ExcludeFromCodeCoverage]
 public class PrivacyNotice
 {
     public string Slug { get; set; }

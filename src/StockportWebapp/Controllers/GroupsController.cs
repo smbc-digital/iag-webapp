@@ -1,5 +1,3 @@
-using System.Diagnostics.CodeAnalysis;
-
 namespace StockportWebapp.Controllers;
 
 [ResponseCache(Location = ResponseCacheLocation.Any, Duration = Cache.Short)]

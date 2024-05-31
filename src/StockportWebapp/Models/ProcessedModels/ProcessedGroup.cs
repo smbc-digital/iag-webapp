@@ -1,5 +1,5 @@
 namespace StockportWebapp.Models.ProcessedModels;
-
+[ExcludeFromCodeCoverage]
 public class ProcessedGroup : IProcessedContentType
 {
     public string Name { get; set; }

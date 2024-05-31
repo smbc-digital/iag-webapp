@@ -30,7 +30,7 @@ public class LoggedInHelper : ILoggedInHelper
             if (!string.IsNullOrEmpty(token))
             {
                 person = _decoder.Decode(token);
-                person.rawCookie = token;
+                person.RawCookie = token;
             }
         }
         catch (Exception ex)

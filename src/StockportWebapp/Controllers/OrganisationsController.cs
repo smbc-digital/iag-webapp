@@ -1,6 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-
-namespace StockportWebapp.Controllers;
+﻿namespace StockportWebapp.Controllers;
 
 [ResponseCache(Location = ResponseCacheLocation.Any, Duration = Cache.Medium)]
 [Obsolete("Groups is being replaced by directories/directory entries")]

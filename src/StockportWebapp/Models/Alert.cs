@@ -1,7 +1,6 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿namespace StockportWebapp.Models;
 
-namespace StockportWebapp.Models;
-
+[ExcludeFromCodeCoverage]
 public class Alert
 {
     public string Title { get; }
@@ -26,12 +25,6 @@ public class Alert
         IsStatic = isStatic;
         ImageUrl = imageUrl;
     }
-}
-
-[ExcludeFromCodeCoverage]
-public class NullAlert : Alert
-{
-    public NullAlert() : base(string.Empty, string.Empty, string.Empty, string.Empty, DateTime.MinValue, DateTime.MinValue, String.Empty, false, string.Empty) { }
 }
 
 [ExcludeFromCodeCoverage]

@@ -9,9 +9,8 @@
 @import "modules/globalAlerts";
 @import "modules/tableCommon";
 @import "modules/googleMap";
-@import "modules/alertInline";
 
-// homepage and topics pages
+// homepage, topics and articles pages
 @import "modules/searchAutocomplete";
 @import "modules/section";
 @import "modules/navCard";
@@ -28,9 +27,19 @@
 @import "modules/logoArea";
 @import "modules/eventCalendarBanner";
 @import "modules/cookieNotice";
+@import "modules/article";
 
 // directories
 @import "modules/directories";
 @import "modules/externalLinks";
 @import "modules/directoryPagination";
+@import "modules/mapPin";
+
+//Tag Parsers
+@import "modules/alertInline";
+@import "modules/tagParserVideo";
+@import "modules/tagParserLeaflet";
+@import "modules/tagParserDocument"; 
+@import "modules/tagParserProfile";
+@import "modules/tagParserContactForm";
 @import "modules/mapPin";

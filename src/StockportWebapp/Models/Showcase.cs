@@ -1,5 +1,5 @@
 namespace StockportWebapp.Models;
-
+[ExcludeFromCodeCoverage]
 public class Showcase
 {
     public string Title { get; set; }
@@ -45,6 +45,5 @@ public class Showcase
 
     public Showcase()
     {
-
     }
 }

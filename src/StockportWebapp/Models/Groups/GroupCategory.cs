@@ -1,5 +1,5 @@
 ﻿namespace StockportWebapp.Models.Groups;
-
+[ExcludeFromCodeCoverage]
 public class GroupCategory
 {
     public string Name { get; set; }

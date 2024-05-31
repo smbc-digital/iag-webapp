@@ -1,5 +1,5 @@
 ﻿namespace StockportWebapp.Models;
-
+[ExcludeFromCodeCoverage]
 public class FeaturedTasks
 {
     public readonly List<SubItem> SubItems;
@@ -7,12 +7,5 @@ public class FeaturedTasks
     public FeaturedTasks(List<SubItem> subItems)
     {
         SubItems = subItems;
-    }
-}
-
-public class NullFeaturedTasks : FeaturedTasks
-{
-    public NullFeaturedTasks() : base(new List<SubItem>())
-    {
     }
 }

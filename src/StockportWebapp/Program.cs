@@ -1,11 +1,9 @@
-﻿using System.Diagnostics.CodeAnalysis;
-
-[ExcludeFromCodeCoverage]
+﻿[ExcludeFromCodeCoverage]
 internal class Program
 {
     private static void Main(string[] args)
     {
-        var builder = WebApplication.CreateBuilder(args);
+        WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
         if (!builder.Environment.EnvironmentName.Equals("local"))
             Log.Logger = new LoggerConfiguration()
@@ -19,7 +17,7 @@ internal class Program
             .AddJsonFile("appsettings.json")
             .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json");
 
-        var useAwsSecretManager = bool.Parse(builder.Configuration.GetSection("UseAWSSecretManager").Value);
+        bool useAwsSecretManager = bool.Parse(builder.Configuration.GetSection("UseAWSSecretManager").Value);
 
         Log.Logger.Information($"WEBAPP : ENVIRONMENT : {builder.Environment.EnvironmentName}");
 
@@ -32,7 +30,7 @@ internal class Program
             }
             else
             {
-                var location = $"{builder.Configuration.GetSection("secrets-location").Value}/appsettings.{builder.Environment.EnvironmentName}.secrets.json";
+                string location = $"{builder.Configuration.GetSection("secrets-location").Value}/appsettings.{builder.Environment.EnvironmentName}.secrets.json";
                 builder.Configuration.AddJsonFile(location);
                 Log.Logger.Information($"WEBAPP : INITIALISE SECRETS {builder.Environment.EnvironmentName}: Load JSON Secrets from file system, {location}");
             }
@@ -42,11 +40,11 @@ internal class Program
                 .WriteToElasticsearchAws(builder.Configuration));
 
             Log.Logger.Information($"WEBAPP : CONFIGURE APPLICATION START");
-            var startup = new Startup(builder.Configuration, builder.Environment, Log.Logger);
+            Startup startup = new(builder.Configuration, builder.Environment, Log.Logger);
             startup.ConfigureServices(builder.Services);
 
             Log.Logger.Information($"WEBAPP : BUILDING APPLICATION");
-            var app = builder.Build();
+            WebApplication app = builder.Build();
 
             app.UseSerilogRequestLogging();
 

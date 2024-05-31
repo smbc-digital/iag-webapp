@@ -35,7 +35,6 @@ public class EventSubmission
     public bool IsRecurring { get; set; }
     public int Occurrences { get; set; }
 
-
     public Dictionary<string, string> Frequencylist = new Dictionary<string, string>()
     {
         { "Daily",""},
@@ -61,7 +60,6 @@ public class EventSubmission
 
     [Required]
     public string Location { get; set; }
-
     public double Latitude { get; set; }
     public double Longitude { get; set; }
 

@@ -1,5 +1,5 @@
 ﻿namespace StockportWebapp.Models.Emails;
-
+[ExcludeFromCodeCoverage]
 public class ReportGroupInfoConfirmation
 {
     public string Name { get; set; }

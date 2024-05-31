@@ -1,0 +1,71 @@
+﻿@model ArticleViewModel
+@{
+    ViewData["Title"] = Model.Article.Title;
+    ViewData["Description"] = Model.MetaDescription;
+    ViewData["og:title"] = Model.OgTitleMetaData;
+    Layout = "../Shared/_Layout2023.cshtml";
+    var dataCy = Model.DisplayedSection is null ? "flat-article" : "article-with-sections";
+}
+
+<div class="grid-container-full-width" style="background-color:white;">
+    <partial name="Breadcrumb2023" model="Model.Article.Breadcrumbs" />
+
+    <div class="grid-container">
+        <div class="grid-100">
+            <div class="article--70">
+                <h1 class="directory__title">@Model.Article.Title</h1>
+            </div>
+
+            <section class="article">
+                <div class="article--70">
+                    @if (!string.IsNullOrEmpty(Model.Article.Image))
+                    {
+                        <div class="placeholder placeholder-bg-grey placeholder-small">
+                            <h2 class="placeholder-article-header-description">Image</h2>
+                        </div>
+                    }
+                    
+                    @if (Model.Article.Sections is not null && Model.Article.Sections.Any())
+                    {
+                        <div class="placeholder placeholder-bg-orange placeholder-small">
+                            <h2 class="placeholder-article-header-description">Sections</h2>
+                        </div>
+                    }
+
+                    @if (!string.IsNullOrEmpty(Model.Article.Body))
+                    {
+                        @Html.Raw(Model.Article.Body)
+                    }
+
+                    @if (!Model.HideLastUpdated)
+                    {
+                        <p class="article-date">
+                            Last updated <partial name="FormattedDate" model='Model.Article.UpdatedAt' />
+                        </p>
+                    }
+
+                    @if (Model.ShouldShowNextSectionButton() || Model.ShouldShowPreviousSectionButton())
+                    {
+                        <div class="placeholder placeholder-bg-grey placeholder__padded-top placeholder__padded-bottom" id="article-page-content">
+                            <div class="grid-container">
+                                <h2 class="placeholder-article-header-description">Pagination</h2>
+                            </div>
+                        </div>
+                    }
+
+                    <div class="placeholder placeholder-bg-orange placeholder__padded-top placeholder__padded-bottom placeholder-medium" id="article-page-content">
+                        <div class="grid-container">
+                            <h2 class="placeholder-article-header-description">Our partners</h2>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="article--30">
+                    <div class="placeholder placeholder-bg-grey placeholder-large" id="article-page-content">
+                        <h2 class="placeholder-article-header-description">Side bar</h2>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>

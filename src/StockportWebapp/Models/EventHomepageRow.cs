@@ -1,5 +1,5 @@
 ﻿namespace StockportWebapp.Models;
-
+[ExcludeFromCodeCoverage]
 public class EventHomepageRow
 {
     public bool IsLatest { get; set; }

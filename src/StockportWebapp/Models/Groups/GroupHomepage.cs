@@ -1,5 +1,5 @@
 ﻿namespace StockportWebapp.Models.Groups;
-
+[ExcludeFromCodeCoverage]
 public class GroupHomepage
 {
     public string Title { get; set; }

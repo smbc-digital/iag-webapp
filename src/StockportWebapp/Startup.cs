@@ -1,6 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-
-namespace StockportWebapp;
+﻿namespace StockportWebapp;
 
 [ExcludeFromCodeCoverage]
 public class Startup

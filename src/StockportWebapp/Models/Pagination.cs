@@ -27,7 +27,7 @@ public class Pagination
 
     private int CalculateTotalPages(int totalNumItems)
     {
-        bool numItemsIsDivisibleByPageSize = (totalNumItems % MaxItemsPerPage == 0);
+        bool numItemsIsDivisibleByPageSize = (totalNumItems % MaxItemsPerPage).Equals(0);
         int pageCount = numItemsIsDivisibleByPageSize
             ? (totalNumItems / MaxItemsPerPage)
             : (totalNumItems / MaxItemsPerPage) + 1;

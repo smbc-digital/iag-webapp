@@ -69,7 +69,6 @@ namespace StockportWebapp.Utils.Extensions
             services.AddSingleton<IDynamicTagParser<InlineQuote>, InlineQuoteTagParser>();
             services.AddSingleton<IDynamicTagParser<Document>, DocumentTagParser>();
             services.AddSingleton<IDynamicTagParser<Alert>, AlertsInlineTagParser>();
-            services.AddSingleton<IDynamicTagParser<S3BucketSearch>, S3BucketSearchTagParser>();
             services.AddSingleton<IDynamicTagParser<PrivacyNotice>, PrivacyNoticeTagParser>();
 
             services.AddSingleton<ITagParserContainer, TagParserContainer>();
@@ -127,7 +126,8 @@ namespace StockportWebapp.Utils.Extensions
                         new ContentTypeFactory(
                                         p.GetService<ITagParserContainer>(),
                                             p.GetService<MarkdownWrapper>(),
-                                            p.GetService<IHttpContextAccessor>()),
+                                            p.GetService<IHttpContextAccessor>(),
+                                            p.GetService<IRepository>()),
                         p.GetService<IApplicationConfiguration>()));
             services.AddTransient<IRepository>(p => new Repository(p.GetService<UrlGenerator>(), p.GetService<IHttpClient>(), p.GetService<IApplicationConfiguration>(), p.GetService<IUrlGeneratorSimple>(), p.GetService<ILogger<Repository>>()));
             services.AddTransient<IStockportApiRepository>(p => new StockportApiRepository(p.GetService<IHttpClient>(), p.GetService<IApplicationConfiguration>(), p.GetService<IUrlGeneratorSimple>(), p.GetService<ILogger<BaseRepository>>()));
@@ -179,11 +179,6 @@ namespace StockportWebapp.Utils.Extensions
             services.AddSingleton(p => new CalendarHelper());
             services.AddTransient<ICookiesHelper, CookiesHelper>();
             services.AddSingleton(p => new CookiesHelper(p.GetService<IHttpContextAccessor>()));
-            services.AddTransient<IArticleRepository>(
-                p =>
-                    new ArticleRepository(p.GetService<UrlGenerator>(), p.GetService<IHttpClient>(),
-                        p.GetService<ArticleFactory>(), p.GetService<IApplicationConfiguration>()));
-
             services.AddTransient<ITopicRepository>(
               p =>
                   new TopicRepository(p.GetService<TopicFactory>(), p.GetService<UrlGenerator>(), p.GetService<IHttpClient>(),

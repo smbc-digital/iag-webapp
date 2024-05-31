@@ -1,5 +1,5 @@
 ﻿namespace StockportWebapp.Models;
-
+[ExcludeFromCodeCoverage]
 public class News
 {
     public string Title { get; }
