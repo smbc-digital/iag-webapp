@@ -96,7 +96,7 @@ public class ArticleControllerTest
         ProcessedSection sectionTwo = new("Types of Physical Activity", "types-of-physical-activity", It.IsAny<string>(), "body", new List<Profile>(), new List<Document>(), new List<Alert>());
         ProcessedArticle article = new(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty,
             new List<ProcessedSection>() { sectionOne, sectionTwo }, string.Empty, string.Empty, string.Empty, string.Empty, new List<Crumb>() { },
-            new List<Alert>(), new NullTopic(), new List<Alert>(), new DateTime(), new bool(), new List<GroupBranding>(), string.Empty)
+            new List<Alert>(), new NullTopic(), new List<Alert>(), new DateTime(), new bool(), new List<GroupBranding>(), string.Empty);
 
         _processedRepository
             .Setup(_ => _.Get<Article>(It.IsAny<string>(), It.IsAny<List<Query>>()))
