@@ -3,6 +3,7 @@
 @model MapDetails
 @{
     string directoryLocation = (string)ViewData["directoryLocation"];
+    string entryName = (string)ViewData["entryName"];
 }
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCPMO2lE7np9cG_zG63JH_pNVmRfoajZjg&callback=initMap" async defer></script>
@@ -10,20 +11,30 @@
 <div id="map" class="grid-100 map-container"></div>
 <script>
     async function initMap() {
-    var directoryLocation = { lat: @Model.MapPosition.Lat, lng: @Model.MapPosition.Lon };
+        var directoryLocation = { lat: @Model.MapPosition.Lat, lng: @Model.MapPosition.Lon };
 
-    var map = new google.maps.Map(document.getElementById("map"), {
-        center: directoryLocation,
-        zoom: 18,
-    });
-    var marker = new google.maps.Marker({
-        map: map,
-        position: directoryLocation,
-    });
-}
+        var map = new google.maps.Map(document.getElementById("map"), {
+            center: directoryLocation,
+            zoom: 18,
+        });
+        var marker = new google.maps.Marker({
+            map: map,
+            position: directoryLocation,
+        });
+
+        // Change aria-label for screen readers
+        map.addListener('tilesloaded', () => {
+            let mapDiv = document.querySelector("#map > div > div[aria-label='Map']");
+            let mapArea = document.querySelector("#gmimap0 > area");
+            if(mapDiv)
+                mapDiv.setAttribute("aria-label", "Showing position for @entryName");
+            
+            if(mapArea)
+                mapArea.setAttribute("alt", "Clickable area representing a point of interest on the map.");
+        });
+
+    }
 </script>
-
-
 
 <div class="directory__map-embed">
     <img src="https://maps.googleapis.com/maps/api/staticmap?center=@Model.MapPosition.Lat,@Model.MapPosition.Lon&zoom=17&size=1024x250&scale=2&markers=@Model.MapPosition.Lat,@Model.MapPosition.Lon&key=AIzaSyCPMO2lE7np9cG_zG63JH_pNVmRfoajZjg" 

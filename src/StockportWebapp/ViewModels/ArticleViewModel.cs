@@ -38,13 +38,13 @@ public class ArticleViewModel
 
     public ProcessedSection NextSection()
     {
-        var nextSectionIndex = IndexForDisplayedSection() + 1;
+        int nextSectionIndex = IndexForDisplayedSection() + 1;
         return nextSectionIndex < Article.Sections.Count() ? Article.Sections.ElementAt(nextSectionIndex) : null;
     }
 
     public ProcessedSection PreviousSection()
     {
-        var previousSectionIndex = IndexForDisplayedSection() - 1;
+        int previousSectionIndex = IndexForDisplayedSection() - 1;
         return previousSectionIndex >= 0 ? Article.Sections.ElementAt(previousSectionIndex) : null;
     }
 
@@ -63,9 +63,9 @@ public class ArticleViewModel
     private int IndexForDisplayedSection()
     {
         const int firstIndex = 0;
-        for (var i = 0; i < Article.Sections.Count(); i++)
+        for (int i = 0; i < Article.Sections.Count(); i++)
         {
-            var section = Article.Sections.ElementAt(i);
+            ProcessedSection section = Article.Sections.ElementAt(i);
             if (section.Equals(DisplayedSection))
                 return i;
         }
@@ -74,7 +74,7 @@ public class ArticleViewModel
 
     public IEnumerable<SubItem> SidebarSubItems(out bool hasMoreButton)
     {
-        var parentTopic = Article.ParentTopic;
+        Topic parentTopic = Article.ParentTopic;
         List<SubItem> sidebarSubItems = new();
         sidebarSubItems.AddRange(parentTopic.SubItems);
         sidebarSubItems.AddRange(parentTopic.SecondaryItems);

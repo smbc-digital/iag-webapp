@@ -17,8 +17,8 @@ public class ArticleFactory
 
     public virtual ProcessedArticle Build(Article article)
     {
-        var processedSections = article.Sections.Select(section => _sectionFactory.Build(section, article.Title)).ToList();
-        var body = _markdownWrapper.ConvertToHtml(article.Body ?? "");
+        List<ProcessedSection> processedSections = article.Sections.Select(section => _sectionFactory.Build(section, article.Title)).ToList();
+        string body = _markdownWrapper.ConvertToHtml(article.Body ?? "");
         if (body.Contains("PrivacyNotice:"))
             article.PrivacyNotices = GetPrivacyNotices().Result;
 
@@ -30,7 +30,7 @@ public class ArticleFactory
 
     private async Task<IEnumerable<PrivacyNotice>> GetPrivacyNotices()
     {
-        var response = await _repository.Get<List<PrivacyNotice>>();
+        HttpResponse response = await _repository.Get<List<PrivacyNotice>>();
         return response.Content as List<PrivacyNotice>;
     }
 }

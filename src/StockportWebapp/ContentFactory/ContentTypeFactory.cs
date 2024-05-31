@@ -10,9 +10,9 @@ public class ContentTypeFactory
         IHttpContextAccessor httpContextAccesor,
         IRepository repository)
     {
-        var sectionFactory = new SectionFactory(tagParserContainer, markdownWrapper, null);
-        var contactUsCategoryFactory = new ContactUsCategoryFactory(tagParserContainer, markdownWrapper);
-        var triviaFactory = new TriviaFactory(markdownWrapper);
+        SectionFactory sectionFactory = new(tagParserContainer, markdownWrapper, null);
+        ContactUsCategoryFactory contactUsCategoryFactory = new(tagParserContainer, markdownWrapper);
+        TriviaFactory triviaFactory = new(markdownWrapper);
 
         _factories.Add(typeof(Section), sectionFactory);
         _factories.Add(typeof(Article), new ArticleFactory(tagParserContainer, sectionFactory, markdownWrapper, repository));
