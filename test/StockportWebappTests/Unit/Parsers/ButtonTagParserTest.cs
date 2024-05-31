@@ -1,8 +1,4 @@
-﻿using Humanizer;
-using OwaspHeaders.Core.Models;
-using System;
-
-namespace StockportWebappTests_Unit.Unit.Parsers;
+﻿namespace StockportWebappTests_Unit.Unit.Parsers;
 
 public class ButtonTagParserTest
 {
