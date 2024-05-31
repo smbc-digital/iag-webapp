@@ -6,25 +6,24 @@
 
 @if(Model.Any())
 {
-    <section class="section section--white section--no-margin" data-cy="logo-area">
-                <h2 class="@titleCssClasses">@(logoAreaTitle ?? "Our partners")</h2>
-                <div class="section__content section__content--no-margin">
-                    <div class="logo-area">
-                        @foreach (var branding in Model)
-                        {
-                            <div class="logo-area__item">
-                                <a href="@branding.Url">
-                                    <img src="@branding.File.Url?w=340&q=89&fm=webp"
-                                        class="logo-area__image"
-                                        alt="@branding.File.Description"
-                                        loading="lazy"
-                                        width="200"
-                                        height="125"/>
-                                </a>
-                            </div>
-                        }
+    <div class="logo-area-article" data-cy="articles-logo-area">
+        <h2 class="@titleCssClasses">@(logoAreaTitle ?? "Our partners")</h2>
+        <div class="section__content section__content--no-margin">
+            <div class="logo-area">
+                @foreach (var branding in Model)
+                {
+                    <div class="logo-area__item">
+                        <a href="@branding.Url">
+                            <img src="@branding.File.Url?w=340&q=89&fm=webp"
+                                class="logo-area__image"
+                                alt="@branding.File.Description"
+                                loading="lazy"
+                                width="200"
+                                height="125"/>
+                        </a>
                     </div>
-                </div>
-
-    </section>
+                }
+            </div>
+        </div>
+    </div>
 }
