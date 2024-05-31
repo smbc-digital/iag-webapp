@@ -4,8 +4,8 @@
     ViewData["Description"] = Model.MetaDescription;
     ViewData["og:title"] = Model.OgTitleMetaData;
     Layout = "../Shared/_Layout2023.cshtml";
-    var dataCy = Model.DisplayedSection is null ? "flat-article" : "article-with-sections";
-    var articleMarginBottom = !Model.Article.ArticleBranding.Any() || Model.Article.ArticleBranding is null ? " section" : string.Empty;
+    string dataCy = Model.DisplayedSection is null ? "flat-article" : "article-with-sections";
+    string articleMarginBottom = !Model.Article.ArticleBranding.Any() || Model.Article.ArticleBranding is null ? " section" : string.Empty;
 }
 
 <div class="grid-container-full-width" style="background-color:white;" data-cy="@dataCy">
