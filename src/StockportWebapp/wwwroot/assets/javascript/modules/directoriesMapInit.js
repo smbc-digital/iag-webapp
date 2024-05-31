@@ -43,8 +43,6 @@
                         pins[i].style.display = value;
                     }
                 }
-
-
             }
         }
     };

@@ -1,6 +1,4 @@
-﻿using Profile = StockportWebapp.Models.Profile;
-
-namespace StockportWebapp.ContentFactory;
+﻿namespace StockportWebapp.ContentFactory;
 
 public class NewsFactory
 {
@@ -15,7 +13,7 @@ public class NewsFactory
 
     public virtual ProcessedNews Build(News news)
     {
-        var body = _tagParserContainer.ParseAll(news.Body, news.Title, true, null, news.Documents, null, null, news.Profiles);
+        string body = _tagParserContainer.ParseAll(news.Body, news.Title, true, null, news.Documents, null, null, news.Profiles);
         body = _markdownWrapper.ConvertToHtml(body ?? "");
 
         return new ProcessedNews(news.Title, news.Slug, news.Teaser, news.Purpose, news.Image, news.ThumbnailImage, body, news.Breadcrumbs, news.SunriseDate, news.SunsetDate, news.UpdatedAt, news.Alerts, news.Tags);
