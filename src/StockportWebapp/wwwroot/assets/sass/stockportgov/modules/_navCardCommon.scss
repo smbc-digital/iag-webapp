@@ -8,9 +8,17 @@
         &--black {
             color: $stockport-black;
         }
+        
+        &--normal-weight {
+            font-weight: 400
+        }
 
         &--large {
             @include h-m;
+        }
+
+        &--no-margin {
+            margin: 0;
         }
     }
 
@@ -32,6 +40,18 @@
             @media #{$mobile} {
                 padding: 0 0 0 1em;
             }
+        }
+
+        &--active {
+            color: $stockport-black;
+        }
+
+        &--underline {
+            text-decoration: underline;
+        }
+
+        &--inline {
+            display: inline-block;
         }
 
         &-image {
@@ -99,6 +119,10 @@
                 padding-left: 1em;
             }
         }
+
+        &--bold {
+            font-weight: 700;
+        }
     }
 
     &__content {
@@ -132,8 +156,24 @@
         text-align: center;
     }
 
+    &--padding {
+        padding: 1em 0.75em;
+    }
+
+    &--padding-large {
+        padding: 1.5em 0.75em;
+    }
+
     &--no-padding-top {
         padding-top: 0;
+    }
+
+    &--no-padding-bottom {
+        padding-bottom: 0;
+    }
+
+    &--no-margin {
+        margin: 0 !important;
     }
 }
 
