@@ -1,5 +1,5 @@
 namespace StockportWebapp.Models;
-
+[ExcludeFromCodeCoverage]
 public class DocumentPage
 {
     public string Title { get; set; }

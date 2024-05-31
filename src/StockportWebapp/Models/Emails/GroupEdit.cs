@@ -1,5 +1,5 @@
 ﻿namespace StockportWebapp.Models.Emails;
-
+[ExcludeFromCodeCoverage]
 public class GroupEdit
 {
     public string Name { get; set; }

@@ -1,5 +1,5 @@
 ﻿namespace StockportWebapp.Models.Groups;
-
+[ExcludeFromCodeCoverage]
 public class GroupBranding
 {
     public string Title { get; set; }
@@ -18,9 +18,3 @@ public class GroupBranding
         Url = url;
     }
 }
-
-public class NullGroupBranding : GroupBranding
-{
-    public NullGroupBranding() : base(string.Empty, string.Empty, new MediaAsset(), string.Empty) { }
-}
-

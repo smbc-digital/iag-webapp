@@ -20,7 +20,7 @@ public class BusinessIdMiddleware
         }
         else
         {
-            //businessId.SetId(new StringValues("healthystockport"));
+            // businessId.SetId(new StringValues("healthystockport"));
             businessId.SetId(new StringValues("stockportgov"));
             context.Request.Headers.Add("BUSINESS-ID", businessId.ToString());
             if (context.Request.Path.HasValue

@@ -12,7 +12,6 @@
 //    private readonly mock<markdownwrapper> _markdownwrapper;
 //    private readonly mock<iapplicationconfiguration> appconfig;
 //    private readonly mock<ihttpcontextaccessor> httpcontextaccessor;
-//    private readonly mock<idynamictagparser<s3bucketsearch>> _s3bucketparser;
 //    private readonly mock<idynamictagparser<privacynotice>> _privacynoticetagparser;
 
 //    public processedcontentrepositorytest()
@@ -26,10 +25,7 @@
 //        appconfig = new mock<iapplicationconfiguration>();
 //        httpcontextaccessor = new mock<ihttpcontextaccessor>();
 //        _mockhttpclient = new mock<ihttpclient>();
-//        _s3bucketparser = new mock<idynamictagparser<s3bucketsearch>>();
 //        _privacynoticetagparser = new mock<idynamictagparser<privacynotice>>();
-
-//        _s3bucketparser.setup(o => o.parse(it.isany<string>(), it.isany<ienumerable<s3bucketsearch>>())).returns("");
 
 //        var contentfactory = new contenttypefactory(_tagparsercontainer.object, _profiletagparser.object, _markdownwrapper.object, _documenttagparser.object, _alertsinlinetagparser.object, httpcontextaccessor.object, _s3bucketparser.object, _privacynoticetagparser.object);
 //        _repository = new processedcontentrepository(_mockurlgenerator.object, _mockhttpclient.object, contentfactory, appconfig.object);
@@ -55,7 +51,6 @@
 //        _markdownwrapper.setup(o => o.converttohtml(it.isany<string>())).returns(body);
 //        _documenttagparser.setup(o => o.parse(it.isany<string>(), it.isany<ienumerable<document>>())).returns(body);
 //        _alertsinlinetagparser.setup(o => o.parse(it.isany<string>(), it.isany<ienumerable<alert>>())).returns(body);
-//        _s3bucketparser.setup(o => o.parse(it.isany<string>(), it.isany<ienumerable<s3bucketsearch>>())).returns(body);
 //        _privacynoticetagparser.setup(o => o.parse(it.isany<string>(), it.isany<ienumerable<privacynotice>>())).returns(body);
 
 //        var httpresponse = await _repository.get<article>(articleslug);

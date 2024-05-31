@@ -1,5 +1,6 @@
 namespace StockportWebapp.Models;
 
+[ExcludeFromCodeCoverage]
 public class Article
 {
     public string Title { get; set; }
@@ -17,13 +18,15 @@ public class Article
     public Topic ParentTopic { get; set; }
     public IEnumerable<Document> Documents { get; set; }
     public IEnumerable<Alert> AlertsInline { get; set; }
-    public S3BucketSearch S3Bucket { get; set; }
     public IEnumerable<PrivacyNotice> PrivacyNotices { get; set; }
     public DateTime UpdatedAt { get; set; }
     public bool HideLastUpdated { get; set; }
+    public List<GroupBranding> ArticleBranding { get; init; }
+    public string LogoAreaTitle { get; }
+    public IEnumerable<SubItem> RelatedContent { get; set; }
 
     public Article(string title, string slug, string body, string teaser, string metaDescription, IEnumerable<Section> sections, string icon, string backgroundImage, string image,
-        IEnumerable<Crumb> breadcrumbs, IEnumerable<Profile> profiles, IEnumerable<Document> documents, IEnumerable<Alert> alertsInline, DateTime updatedAt, bool hideLastUpdated)
+        IEnumerable<Crumb> breadcrumbs, IEnumerable<Profile> profiles, IEnumerable<Document> documents, IEnumerable<Alert> alertsInline, DateTime updatedAt, bool hideLastUpdated, IEnumerable<SubItem> relatedContent)
     {
         Title = title;
         Slug = slug;
@@ -40,5 +43,6 @@ public class Article
         AlertsInline = alertsInline;
         UpdatedAt = updatedAt;
         HideLastUpdated = hideLastUpdated;
+        RelatedContent = relatedContent;
     }
 }

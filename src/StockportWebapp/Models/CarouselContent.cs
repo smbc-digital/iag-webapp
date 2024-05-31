@@ -1,6 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-
-namespace StockportWebapp.Models;
+﻿namespace StockportWebapp.Models;
 
 [ExcludeFromCodeCoverage]
 public class CarouselContent
@@ -18,10 +16,3 @@ public class CarouselContent
         URL = url;
     }
 }
-
-[ExcludeFromCodeCoverage]
-public class NullCarouselContent : CarouselContent
-{
-    public NullCarouselContent() : base(string.Empty, string.Empty, string.Empty, string.Empty) { }
-}
-

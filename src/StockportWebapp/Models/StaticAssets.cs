@@ -4,7 +4,7 @@ public interface IStaticAssets
 {
     string UrlFor(string assetName);
 }
-
+[ExcludeFromCodeCoverage]
 public class StaticAssets : IStaticAssets
 {
     private readonly IApplicationConfiguration _configObject;

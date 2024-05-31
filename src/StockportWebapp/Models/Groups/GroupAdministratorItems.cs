@@ -1,5 +1,5 @@
 ﻿namespace StockportWebapp.Models.Groups;
-
+[ExcludeFromCodeCoverage]
 public class GroupAdministratorItems
 {
     [Required(ErrorMessage = "Email address is required")]

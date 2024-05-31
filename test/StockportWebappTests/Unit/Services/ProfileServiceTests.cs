@@ -58,7 +58,7 @@ public class ProfileServiceTests
             .Setup(_ => _.Get<ProfileResponse>(It.IsAny<string>(), It.IsAny<List<Query>>()))
             .ReturnsAsync(response);
         _parser
-            .Setup(_ => _.ParseAll(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool>(), null, null, null, null, null, null))
+            .Setup(_ => _.ParseAll(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool>(), null, null, null, null, null))
             .Returns("testProcessedBody");
 
         // Act

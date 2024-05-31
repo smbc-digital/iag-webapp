@@ -6,7 +6,6 @@ public class AmazonSesClientConfiguration
     private readonly AppSetting _regionSetting;
     private readonly AppSetting _emailFromSetting;
     private readonly AmazonSESKeys _awsKeys;
-
     public readonly string Host;
     public readonly string Region;
     public readonly string Endpoint;

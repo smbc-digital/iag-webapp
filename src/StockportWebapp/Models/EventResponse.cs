@@ -1,5 +1,5 @@
 ﻿namespace StockportWebapp.Models;
-
+[ExcludeFromCodeCoverage]
 public class EventResponse
 {
     public List<Event> Events { get; set; }

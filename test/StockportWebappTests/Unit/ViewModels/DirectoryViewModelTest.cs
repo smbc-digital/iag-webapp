@@ -13,10 +13,10 @@ public class DirectoryViewModelTest
             SearchTerm = "test",
             Order = "Name A to Z",
             AppliedFilters = new List<Filter>
-        {
-            new() { Slug = "filter1" },
-            new() { Slug = "filter2" }
-        }
+            {
+                new() { Slug = "filter1" },
+                new() { Slug = "filter2" }
+            }
         };
 
         // Act
@@ -73,10 +73,10 @@ public class DirectoryViewModelTest
     public void QueryParameters_ReturnsEmptyList_WhenNoParametersAreSet()
     {
         // Arrange
-        var yourClassInstance = new DirectoryViewModel();
+        var directoryViewModel = new DirectoryViewModel();
 
         // Act
-        var queryParameters = yourClassInstance.QueryParameters;
+        var queryParameters = directoryViewModel.QueryParameters;
 
         // Assert
         Assert.Empty(queryParameters);

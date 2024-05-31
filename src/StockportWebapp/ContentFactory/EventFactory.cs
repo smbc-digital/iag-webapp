@@ -18,13 +18,13 @@ public class EventFactory : IEventFactory
 
     public virtual ProcessedEvents Build(Event eventItem)
     {
-        var mapDetails = new MapDetails()
+        MapDetails mapDetails = new()
         {
             MapPosition = eventItem.MapPosition,
             AccessibleTransportLink = eventItem.AccessibleTransportLink
         };
 
-        var description = _tagParserContainer.ParseAll(eventItem.Description, eventItem.Title, true, null, eventItem.Documents, null, null, null, null);
+        string description = _tagParserContainer.ParseAll(eventItem.Description, eventItem.Title, true, null, eventItem.Documents, null, null, null);
         description = _markdownWrapper.ConvertToHtml(description ?? "");
 
         return new ProcessedEvents(eventItem.Title, eventItem.Slug, eventItem.Teaser, eventItem.ImageUrl,
