@@ -18,7 +18,7 @@
 
             <section class="article">
                 <div class="article--70">
-                    @if(!string.IsNullOrEmpty(Model.Article.Image))
+                    @if (!string.IsNullOrEmpty(Model.Article.Image))
                     {
                         <div class="article-hero">
                             <img srcset="@Model.Article.Image?w=937&q=89&fm=webp 937px,
@@ -30,26 +30,26 @@
                         </div>
                     }
                     
-                    @if(Model.Article.Sections is not null && Model.Article.Sections.Any())
+                    @if (Model.Article.Sections is not null && Model.Article.Sections.Any())
                     {
                         <div class="placeholder placeholder-bg-orange placeholder-small">
                             <h2 class="placeholder-article-header-description">Sections</h2>
                         </div>
                     }
 
-                    @if(!string.IsNullOrEmpty(Model.Article.Body))
+                    @if (!string.IsNullOrEmpty(Model.Article.Body))
                     {
                         @Html.Raw(Model.Article.Body)
                     }
 
-                    @if(!Model.HideLastUpdated)
+                    @if (!Model.HideLastUpdated)
                     {
                         <p class="article-date">
-                            Page last updated on <partial name="FormattedDate" model='Model.Article.UpdatedAt' />
+                            Last updated <partial name="FormattedDate" model='Model.Article.UpdatedAt' />
                         </p>
                     }
 
-                    @if(Model.ShouldShowNextSectionButton() || Model.ShouldShowPreviousSectionButton())
+                    @if (Model.ShouldShowNextSectionButton() || Model.ShouldShowPreviousSectionButton())
                     {
                         <div class="placeholder placeholder-bg-grey placeholder__padded-top placeholder__padded-bottom" id="article-page-content">
                             <div class="grid-container">

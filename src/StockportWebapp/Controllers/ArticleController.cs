@@ -22,7 +22,8 @@ public class ArticleController : Controller
 
         _isStockportGovArticle = _businessId.ToString().Equals("stockportgov");
 
-        if (_featureManager is not null){
+        if (_featureManager is not null)
+        {
             _flatArticleToggle = _featureManager.IsEnabledAsync("Articles").Result;
             _sectionArticleToggle = _featureManager.IsEnabledAsync("ArticlesWithSections").Result;
         }
@@ -31,15 +32,15 @@ public class ArticleController : Controller
     [Route("/{articleSlug}")]
     public async Task<IActionResult> Article(string articleSlug, [FromQuery] string message)
     {        
-        var articleHttpResponse = await _processedRepository.Get<Article>(articleSlug);
+        HttpResponse articleHttpResponse = await _processedRepository.Get<Article>(articleSlug);
         if (!articleHttpResponse.IsSuccessful())
             return articleHttpResponse;
 
-        var article = articleHttpResponse.Content as ProcessedArticle;
+        ProcessedArticle article = articleHttpResponse.Content as ProcessedArticle;
 
         _contactUsMessageParser.Parse(article, message, "");
 
-        var viewModel = new ArticleViewModel(article);
+        ArticleViewModel viewModel = new(article);
 
         ViewBag.CurrentUrl = Request?.GetDisplayUrl();
 
@@ -52,11 +53,11 @@ public class ArticleController : Controller
     [Route("/{articleSlug}/{sectionSlug}")]
     public async Task<IActionResult> ArticleWithSection(string articleSlug, string sectionSlug, [FromQuery] string message)
     {
-        var articleHttpResponse = await _processedRepository.Get<Article>(articleSlug);
+        HttpResponse articleHttpResponse = await _processedRepository.Get<Article>(articleSlug);
         if (!articleHttpResponse.IsSuccessful())
             return articleHttpResponse;
 
-        var article = articleHttpResponse.Content as ProcessedArticle;
+        ProcessedArticle article = articleHttpResponse.Content as ProcessedArticle;
 
         _contactUsMessageParser.Parse(article, message, sectionSlug);
 
@@ -64,7 +65,7 @@ public class ArticleController : Controller
 
         try
         {
-            var viewModel = new ArticleViewModel(article, sectionSlug);
+            ArticleViewModel viewModel = new(article, sectionSlug);
             if (ShouldReturnArticle2024(article))
                 return View("Article2024", viewModel);
             else

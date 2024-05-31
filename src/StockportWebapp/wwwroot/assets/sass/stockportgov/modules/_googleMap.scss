@@ -19,10 +19,16 @@
     .gm-ui-hover-effect {
         width: 44px !important;
         height: 44px !important;
+        top: 4px !important;
+        right: 4px !important;
 
         span {
             width: 30px !important;
             height: 30px !important
         }
+    }
+
+    &--padding {
+        padding: 0.5em;
     }
 }

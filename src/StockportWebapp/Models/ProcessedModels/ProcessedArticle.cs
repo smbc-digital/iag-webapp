@@ -55,21 +55,21 @@ public class ProcessedArticle : IProcessedContentType, IContactUsMessageContaine
 
     private void AddMessageToArticleSectionWithMatchingSlug(string slug, string htmlMessage)
     {
-        var section = Sections?.ToList().Find(_ => _.Slug.Equals(slug));
+        ProcessedSection section = Sections?.ToList().Find(_ => _.Slug.Equals(slug));
         if (section is not null)
             section.Body = ContactUsTagParser.ContactUsMessageTagRegex.Replace(section.Body, htmlMessage);
     }
 
     private void AddMessageToArticleBodyOrFirstSection(string htmlMessage)
     {
-        var matches = ContactUsTagParser.ContactUsMessageTagRegex.Matches(Body);
+        MatchCollection matches = ContactUsTagParser.ContactUsMessageTagRegex.Matches(Body);
         if (matches.Count > 0)
         {
             Body = ContactUsTagParser.ContactUsMessageTagRegex.Replace(Body, htmlMessage);
         }
         else if (Sections is not null && Sections.ToList().Count > 0)
         {
-            var section = Sections.ToList().First();
+            ProcessedSection section = Sections.ToList().First();
             section.Body = ContactUsTagParser.ContactUsMessageTagRegex.Replace(section.Body, htmlMessage);
         }
     }
