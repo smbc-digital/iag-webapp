@@ -25,26 +25,26 @@
                         </div>
                     }
                     
-                    @if(Model.Article.Sections is not null && Model.Article.Sections.Any())
+                    @if (Model.Article.Sections is not null && Model.Article.Sections.Any())
                     {
                         <div class="placeholder placeholder-bg-orange placeholder-small">
                             <h2 class="placeholder-article-header-description">Sections</h2>
                         </div>
                     }
 
-                    @if(!string.IsNullOrEmpty(Model.Article.Body))
+                    @if (!string.IsNullOrEmpty(Model.Article.Body))
                     {
                         @Html.Raw(Model.Article.Body)
                     }
 
-                    @if(!Model.HideLastUpdated)
+                    @if (!Model.HideLastUpdated)
                     {
                         <p class="article-date">
                             Last updated <partial name="FormattedDate" model='Model.Article.UpdatedAt' />
                         </p>
                     }
 
-                    @if(Model.ShouldShowNextSectionButton() || Model.ShouldShowPreviousSectionButton())
+                    @if (Model.ShouldShowNextSectionButton() || Model.ShouldShowPreviousSectionButton())
                     {
                         <div class="placeholder placeholder-bg-grey placeholder__padded-top placeholder__padded-bottom" id="article-page-content">
                             <div class="grid-container">

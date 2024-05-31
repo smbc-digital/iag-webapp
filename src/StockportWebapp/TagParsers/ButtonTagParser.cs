@@ -4,7 +4,7 @@ public class ButtonTagParser : ISimpleTagParser
 {
     private readonly TagReplacer _tagReplacer;
     protected Regex TagRegex => new Regex("{{BUTTON:(\\s*[/a-zA-Z0-9][^}]+)}}", RegexOptions.Compiled);
-    private const string ButtonClassStyle = "button button-primary button-outline button-partialrounded button-call-to-action";
+    private const string ButtonClassStyle = "btn btn--width-30 button button-primary button-outline button-partialrounded button-call-to-action";
 
     public string GenerateHtml(string tagData)
     {

@@ -1,5 +1,4 @@
-﻿
-namespace StockportWebapp.Models;
+﻿namespace StockportWebapp.Models;
 
 [ExcludeFromCodeCoverage]
 public class Alert
