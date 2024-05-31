@@ -1,4 +1,8 @@
-﻿namespace StockportWebappTests_Unit.Unit.Parsers;
+﻿using Humanizer;
+using OwaspHeaders.Core.Models;
+using System;
+
+namespace StockportWebappTests_Unit.Unit.Parsers;
 
 public class ButtonTagParserTest
 {
@@ -62,12 +66,9 @@ public class ButtonTagParserTest
     {
         const string body = "{{BUTTON: http://www.example1.com, Click}} body text {{BUTTON: http://www.example2.com, Here}}";
         var expectedHtmlData = $"{HtmlButton("http://www.example1.com", "Click")} body text {HtmlButton("http://www.example2.com", "Here")}";
-
         var result = _buttonParser.Parse(body);
-
         result.Should().Be(expectedHtmlData);
     }
-
     private static string HtmlButton(string link)
     {
         return HtmlButton(link, link);
@@ -75,7 +76,7 @@ public class ButtonTagParserTest
 
     private static string HtmlButton(string link, string title)
     {
-        const string buttonClassStyle = "button button-primary button-outline button-partialrounded button-call-to-action";
+        const string buttonClassStyle = "btn btn--width-30 button button-primary button-outline button-partialrounded button-call-to-action";
         return $"<a class=\"{buttonClassStyle}\" href=\"{link}\">{title}</a>";
     }
 }
