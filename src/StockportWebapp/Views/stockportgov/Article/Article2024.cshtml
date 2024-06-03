@@ -5,7 +5,7 @@
     ViewData["og:title"] = Model.OgTitleMetaData;
     Layout = "../Shared/_Layout2023.cshtml";
     string dataCy = Model.DisplayedSection is null ? "flat-article" : "article-with-sections";
-    string articleMarginBottom = !Model.Article.ArticleBranding.Any() || Model.Article.ArticleBranding is null ? " section" : string.Empty;
+    string articleMarginBottom = Model.Article.ArticleBranding is null || !Model.Article.ArticleBranding.Any() ? " section" : string.Empty;
 }
 
 <div class="grid-container-full-width" style="background-color:white;" data-cy="@dataCy">
@@ -20,7 +20,7 @@
             <section class="article">
                 <div class="article--70 @articleMarginBottom">
                     @if (!string.IsNullOrEmpty(Model.Article.Image))
-                    {
+                    { 
                         <div class="article-hero">
                             <img srcset="@Model.Article.Image?w=937&q=89&fm=webp 937px,
                             @Model.Article.Image?w=1059&q=89&fm=webp 1059px,
@@ -67,75 +67,12 @@
                     {
                         <partial name="ArticleNavCardList" model="@Model"/>
                     }
+                    @if (Model.HasRelatedContentWithSubItems())
+                    {
+                        <partial name="ArticleRelatedContent" model="@Model"/>
+                    }
                 </div>
             </section>
-        </div>
-    </div>
-</div>@model ArticleViewModel
-@{
-    ViewData["Title"] = Model.Article.Title;
-    ViewData["Description"] = Model.MetaDescription;
-    ViewData["og:title"] = Model.OgTitleMetaData;
-    Layout = "../Shared/_Layout2023.cshtml";
-    var dataCy = Model.DisplayedSection is null ? "flat-article" : "article-with-sections";
-}
-
-<div class="grid-container-full-width" style="background-color:white;">
-    <div class="grid-container">
-        <div class="grid-100">
-            <div class="grid-70">
-                <div class="placeholder placeholder-bg-teal placeholder__left-align placeholder__padded-top">
-                    <div class="grid-container">
-                        <p>Breadcrumbs</p>
-                    </div>
-                </div>
-
-                <div class="placeholder placeholder-bg-green placeholder__left-align placeholder__padded-top placeholder__padded-bottom" id="article-page-content">
-                    <div class="grid-container">
-                        <h1 class="placeholder-article-title">Title</h1>
-                    </div>
-                </div>
-            </div>
-
-            <div class="grid-70">
-                <div class="placeholder placeholder-bg-grey placeholder-small">
-                    <h2 class="placeholder-article-header-description">Image</h2>
-                </div>
-
-                <div class="placeholder placeholder-bg-orange placeholder-small">
-                    <h2 class="placeholder-article-header-description">Sections</h2>
-                </div>
-
-                <div class="placeholder placeholder-bg-teal placeholder__padded-top placeholder__padded-bottom placeholder-large" id="article-page-content">
-                    <div class="grid-container">
-                        <h2 class="placeholder-article-header-description">Body text</h2>
-                    </div>
-                </div>
-
-                <div class="placeholder placeholder-bg-green placeholder__padded-top placeholder__padded-bottom" id="article-page-content">
-                    <div class="grid-container">
-                        <h2 class="placeholder-article-header-description">Last updated</h2>
-                    </div>
-                </div>
-
-                <div class="placeholder placeholder-bg-grey placeholder__padded-top placeholder__padded-bottom" id="article-page-content">
-                    <div class="grid-container">
-                        <h2 class="placeholder-article-header-description">Pagination</h2>
-                    </div>
-                </div>
-
-                <div class="placeholder placeholder-bg-orange placeholder__padded-top placeholder__padded-bottom placeholder-medium" id="article-page-content">
-                    <div class="grid-container">
-                        <h2 class="placeholder-article-header-description">Our partners</h2>
-                    </div>
-                </div>
-            </div>
-
-            <div class="grid-30">
-                <div class="placeholder placeholder-bg-grey placeholder-large" id="article-page-content">
-                    <h2 class="placeholder-article-header-description">Side bar</h2>
-                </div>
-            </div>
         </div>
     </div>
 </div>
