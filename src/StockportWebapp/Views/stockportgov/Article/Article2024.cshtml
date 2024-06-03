@@ -14,27 +14,36 @@
         <div class="grid-100">
             <div class="article--70">
                 <h1 class="directory__title">@Model.Article.Title</h1>
+                
+                @if(Model.Article.Sections is not null && Model.Article.Sections.Any())
+                {
+                    @if (Model.DisplayedSection is not null)
+                    {
+                        <partial name="ArticleSections" />
+                    }
+                }
             </div>
 
             <section class="article">
-                <div class="article--70 section">
+                <div class="article--70 section section--margin-top">
                     @if(!string.IsNullOrEmpty(Model.Article.Image))
                     {
                         <div class="placeholder placeholder-bg-grey placeholder-small">
                             <h2 class="placeholder-article-header-description">Image</h2>
                         </div>
                     }
-                    
+
                     @if(Model.Article.Sections is not null && Model.Article.Sections.Any())
                     {
                         @if (Model.DisplayedSection is not null)
                         {
-                            <partial name="ArticleSections" />
-                            @* <partial name="Article-Single-Section" model='Model' />
-                            <partial name="DisplayTemplates/Section-Pagination" /> *@
+                            <article >
+                                <h2 id="@Model.DisplayedSection.Slug">@Model.DisplayedSection.Title</h2>
+                                @Html.Raw(Model.DisplayedSection.Body)
+                            </article>
                         }
                     }
-
+                        
                     @if(!string.IsNullOrEmpty(Model.Article.Body))
                     {
                         @Html.Raw(Model.Article.Body)
@@ -47,28 +56,15 @@
                         </p>
                     }
 
-                    @* @if(Model.ShouldShowNextSectionButton() || Model.ShouldShowPreviousSectionButton())
-                    {
-                        <div class="placeholder placeholder-bg-grey placeholder__padded-top placeholder__padded-bottom" id="article-page-content">
-                            <div class="grid-container">
-                                <h2 class="placeholder-article-header-description">Pagination</h2>
-                            </div>
-                        </div>
-                    } *@
-
-                    @* <div class="placeholder placeholder-bg-orange placeholder__padded-top placeholder__padded-bottom placeholder-medium" id="article-page-content">
-                        <div class="grid-container">
-                            <h2 class="placeholder-article-header-description">Our partners</h2>
-                        </div>
-                    </div> *@
+                    <partial name="ArticleSectionPagination" />
                 </div>
 
-                <div class="article--30 section">
+                <nav role="navigation" class="article--30 section">
                     @if (Model.Article.ParentTopic != null)
                     {
                         <partial name="ArticleNavCardList" model="@Model"/>
                     }
-                </div>
+                </nav>
             </section>
         </div>
     </div>

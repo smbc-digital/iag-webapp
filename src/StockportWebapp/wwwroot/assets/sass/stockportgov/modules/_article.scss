@@ -44,4 +44,61 @@
         color: $stockport-green;
         margin-block: 2em;
     }
+
+    &-navigation-header {
+        border-bottom: 3px solid $stockport-teal-lighter;
+        padding-bottom: 2rem;
+    }
+
+    &-pagination {
+        border-top: 1px solid #ccc;
+        padding: 0;
+
+        a {
+            display: table;
+            width: 100%;
+            text-decoration: none;
+        }
+
+        h3 {
+            margin: 0;
+            margin-top: 1em;
+            color: $stockport-green;
+            font-weight: 400;
+            text-decoration: underline;
+        }
+
+        p {
+            color: $stockport-black;
+            margin-bottom: 1em;
+        }
+
+        a:hover {
+            text-decoration: none;
+            background-color: $profileBackgroundLight;
+        
+            h3 {
+              text-decoration: underline;
+              text-decoration-thickness: 3px;
+            }
+        }
+
+        &-chevron {
+            width: 45px;
+            display: table-cell;
+            vertical-align: middle;
+        }
+
+        &-previous, &-next {
+            padding: 0;
+        }
+
+        &-next a {
+            text-align: right;
+        }
+
+        &-icon {
+            font-size: 2.5em;
+        }
+    }
 }
