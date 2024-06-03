@@ -28,7 +28,7 @@ public class ContentFactoryTest
     public void ItUsesArticleFactoryToBuildProcessedArticleFromArticle()
     {
         var article = new Article(TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString,
-            new List<Section>(), TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<Crumb>(), new List<Profile>(), new List<Document>(), new List<Alert>(), new DateTime(), new bool());
+            new List<Section>(), TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<Crumb>(), new List<Profile>(), new List<Document>(), new List<Alert>(), new DateTime(), new bool(), new List<GroupBranding>(), TextHelper.AnyString);
 
         var processedArticle = _factory.Build<Article>(article);
 

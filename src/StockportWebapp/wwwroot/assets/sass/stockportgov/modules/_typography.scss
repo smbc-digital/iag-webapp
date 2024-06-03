@@ -88,6 +88,10 @@ $fontStack: "Open Sans", Arial, sans-serif;
     &--no-top-margin {
         margin-top: 0;
     }
+
+    &--no-bottom-margin {
+        margin-bottom: 0;
+    }
 }
 
 .body {

@@ -12,6 +12,7 @@ public class Article
     public string Icon { get; set; }
     public string BackgroundImage { get; set; }
     public string Image { get; set; }
+    public string AltText { get; set; }
     public IEnumerable<Crumb> Breadcrumbs { get; set; }
     public IEnumerable<Alert> Alerts { get; set; }
     public IEnumerable<Profile> Profiles { get; set; }
@@ -25,8 +26,8 @@ public class Article
     public string LogoAreaTitle { get; }
     public IEnumerable<SubItem> RelatedContent { get; set; }
 
-    public Article(string title, string slug, string body, string teaser, string metaDescription, IEnumerable<Section> sections, string icon, string backgroundImage, string image,
-        IEnumerable<Crumb> breadcrumbs, IEnumerable<Profile> profiles, IEnumerable<Document> documents, IEnumerable<Alert> alertsInline, DateTime updatedAt, bool hideLastUpdated, IEnumerable<SubItem> relatedContent)
+    public Article(string title, string slug, string body, string teaser, string metaDescription, IEnumerable<Section> sections, string icon, string backgroundImage, string image, string altText,
+        IEnumerable<Crumb> breadcrumbs, IEnumerable<Profile> profiles, IEnumerable<Document> documents, IEnumerable<Alert> alertsInline, DateTime updatedAt, bool hideLastUpdated, List<GroupBranding> articleBranding, string logoAreaTitle, IEnumerable<SubItem> relatedContent)
     {
         Title = title;
         Slug = slug;
@@ -37,12 +38,15 @@ public class Article
         Icon = icon;
         BackgroundImage = backgroundImage;
         Image = image;
+        AltText = altText;
         Breadcrumbs = breadcrumbs;
         Profiles = profiles;
         Documents = documents;
         AlertsInline = alertsInline;
         UpdatedAt = updatedAt;
         HideLastUpdated = hideLastUpdated;
+        ArticleBranding = articleBranding;
+        LogoAreaTitle = logoAreaTitle;
         RelatedContent = relatedContent;
     }
 }
