@@ -59,6 +59,10 @@
     &-navigation {
         border-bottom: 3px solid $stockport-teal-lighter;
         padding-bottom: 2rem;
+
+        ol {
+            margin-bottom: 0;
+        }
     }
 
     &-pagination {
@@ -129,6 +133,10 @@
                 display: none !important;
             }
         }
+    }
+
+    &-hr {
+        margin: 0;
     }
 }
 

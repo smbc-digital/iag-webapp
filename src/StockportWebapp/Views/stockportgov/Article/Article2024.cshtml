@@ -6,6 +6,7 @@
     Layout = "../Shared/_Layout2023.cshtml";
     string dataCy = Model.DisplayedSection is null ? "flat-article" : "article-with-sections";
     string articleMarginBottom = !Model.Article.ArticleBranding.Any() || Model.Article.ArticleBranding is null ? " section" : string.Empty;
+    string articleMarginTop = Model.ArticleWithSection ? " section--margin-top" : string.Empty;
 }
 
 <div class="grid-container-full-width" style="background-color:white;" data-cy="@dataCy">
@@ -23,7 +24,7 @@
             </div>
 
             <section class="article">
-                <div class="article--70 section--margin-top @articleMarginBottom">
+                <div class="article--70 @articleMarginTop @articleMarginBottom">
                     @if (!string.IsNullOrEmpty(Model.Article.Image))
                     {
                         <div class="article-hero">
@@ -56,13 +57,18 @@
                         </p>
                     }
 
-                    <partial name="ArticleSectionPagination" />
+                    @if (Model.ShouldShowPreviousSectionButton() || Model.ShouldShowNextSectionButton())
+                    {
+                        <partial name="ArticleSectionPagination" />
+                    }
+
+                    <partial name="LogoAreaArticle" model='@Model.Article.ArticleBranding' view-data='new ViewDataDictionary(ViewData) {{"logoAreaTitle", @Model.Article.LogoAreaTitle}}'/>
                 </div>
 
                 <nav aria-label="article sidebar navigation" class="article--30 section">
-                    @if (Model.Article.ParentTopic != null)
+                    @if (Model.HasParentTopicWithSubItems())
                     {
-                        <partial name="ArticleNavCardList" model="@Model"/>
+                        <partial name="ArticleNavCardList"/>
                     }
                 </nav>
             </section>
