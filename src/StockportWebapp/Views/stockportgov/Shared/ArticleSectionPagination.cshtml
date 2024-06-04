@@ -16,7 +16,7 @@
         }
     </div>
 
-    <div @if (Model.ShouldShowPreviousSectionButton()) { <text> class="article-pagination__next" </text> } else { <text> class="article-pagination__next" </text> }>
+    <div class="article-pagination__next">
         @if (Model.ShouldShowNextSectionButton())
         {
             <a href="@Model.Article.NavigationLink/@Model.NextSection().Slug">
