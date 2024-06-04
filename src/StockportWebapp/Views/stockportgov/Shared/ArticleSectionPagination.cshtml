@@ -1,27 +1,30 @@
 ﻿@model ArticleViewModel
 <nav class="article-pagination" aria-label="Pagination">
-    <div class="article-pagination-previous grid-50 tablet-grid-50">
+    <div class="article-pagination__previous">
         @if (Model.ShouldShowPreviousSectionButton())
         {
             <a href="@Model.Article.NavigationLink/@Model.PreviousSection().Slug">
-                <div class="article-pagination-chevron l-left-align">
-                    <span class="fa fa-angle-left article-pagination-icon" aria-hidden="true"></span>
+                <div class="article-pagination__chevron">
+                    <span class="fa fa-angle-left article-pagination__icon article-pagination__icon--ltr" aria-hidden="true"></span>
+                    <span class="fa fa-angle-right article-pagination__icon article-pagination__icon--rtl" aria-hidden="true"></span>
+                
                 </div>
-
+                
                 <h3>Previous Page</h3>
                 <p>@Model.PreviousSection().Title</p>
             </a>
         }
     </div>
 
-    <div @if (Model.ShouldShowPreviousSectionButton()) { <text> class="article-pagination-next grid-50 tablet-grid-50" </text> } else { <text> class="pagination-next grid-50 tablet-grid-50 push-50 tablet-push-50" </text> }>
+    <div @if (Model.ShouldShowPreviousSectionButton()) { <text> class="article-pagination__next" </text> } else { <text> class="article-pagination__next" </text> }>
         @if (Model.ShouldShowNextSectionButton())
         {
             <a href="@Model.Article.NavigationLink/@Model.NextSection().Slug">
                 <h3>Next Page</h3>
                 <p>@Model.NextSection().Title</p>
-                <div class="article-pagination-chevron l-right-align">
-                    <span class="fa fa-angle-right article-pagination-icon" aria-hidden="true"></span>
+                <div class="article-pagination__chevron">
+                    <span class="fa fa-angle-right article-pagination__icon article-pagination__icon--ltr" aria-hidden="true"></span>
+                    <span class="fa fa-angle-left article-pagination__icon article-pagination__icon--rtl" aria-hidden="true"></span>
                 </div>
             </a>
         }

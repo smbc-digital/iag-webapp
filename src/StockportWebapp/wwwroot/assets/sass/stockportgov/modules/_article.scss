@@ -53,6 +53,11 @@
     &-pagination {
         border-top: 1px solid #ccc;
         padding: 0;
+        display: flex;
+        
+        @media #{$mobile} {
+            display: block;
+        }
 
         a {
             display: table;
@@ -75,7 +80,7 @@
 
         a:hover {
             text-decoration: none;
-            background-color: $profileBackgroundLight;
+            background-color: $stockport-light-grey;
         
             h3 {
               text-decoration: underline;
@@ -83,22 +88,59 @@
             }
         }
 
-        &-chevron {
+        &__chevron {
             width: 45px;
             display: table-cell;
             vertical-align: middle;
         }
 
-        &-previous, &-next {
+        &__previous, &__next {
             padding: 0;
+            width: 50%;
+
+            @media #{$mobile} {
+                width: 100%;
+            }
         }
 
-        &-next a {
+        &__next a {
             text-align: right;
         }
 
-        &-icon {
+        &__icon {
             font-size: 2.5em;
+            
+            &--ltr {
+                display: table-cell;
+            }
+
+            &--rtl {
+                display: none !important;
+            }
+        }
+    }
+}
+
+html[dir="rtl"] {
+    .article {
+        &-pagination {
+            &__icon {
+                &--ltr {
+                    display: none;
+                }
+
+                &--rtl {
+                    display: table-cell !important;
+                }
+            }
+
+            &__next a {
+                text-align: left;
+            }
+
+            &__previous a {
+                text-align: right;
+            }
         }
     }
 }
