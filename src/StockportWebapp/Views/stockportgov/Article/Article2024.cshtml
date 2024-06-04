@@ -15,12 +15,9 @@
             <div class="article--70">
                 <h1 class="directory__title">@Model.Article.Title</h1>
                 
-                @if(Model.Article.Sections is not null && Model.Article.Sections.Any())
+                @if (Model.ArticleWithSection)
                 {
-                    @if (Model.DisplayedSection is not null)
-                    {
-                        <partial name="ArticleSections" />
-                    }
+                    <partial name="ArticleSections" />
                 }
             </div>
 
@@ -33,15 +30,12 @@
                         </div>
                     }
 
-                    @if(Model.Article.Sections is not null && Model.Article.Sections.Any())
+                    @if (Model.ArticleWithSection)
                     {
-                        @if (Model.DisplayedSection is not null)
-                        {
-                            <article >
-                                <h2 id="@Model.DisplayedSection.Slug">@Model.DisplayedSection.Title</h2>
-                                @Html.Raw(Model.DisplayedSection.Body)
-                            </article>
-                        }
+                        <article >
+                            <h2 id="@Model.DisplayedSection.Slug">@Model.DisplayedSection.Title</h2>
+                            @Html.Raw(Model.DisplayedSection.Body)
+                        </article>
                     }
                         
                     @if(!string.IsNullOrEmpty(Model.Article.Body))
@@ -59,7 +53,7 @@
                     <partial name="ArticleSectionPagination" />
                 </div>
 
-                <nav role="navigation" class="article--30 section">
+                <nav aria-label="article sidebar navigation" class="article--30 section">
                     @if (Model.Article.ParentTopic != null)
                     {
                         <partial name="ArticleNavCardList" model="@Model"/>
