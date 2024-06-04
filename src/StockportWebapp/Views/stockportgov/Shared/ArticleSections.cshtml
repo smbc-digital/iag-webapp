@@ -1,18 +1,17 @@
 ﻿@model ArticleViewModel
 @{
-    var sections = Model.Article.Sections.ToList();
-    var actualCount = sections.Count;
+    List<ProcessedSection> sections = Model.Article.Sections.ToList();
 }
 
 <nav class="article-navigation" aria-label="article navigation">
     <h2 class="visuallyhidden">Article navigation</h2>
     <ol type="1">
-        @for (int i = 1; i <= actualCount; i++)
+        @for (int i = 1; i <= sections.Count; i++)
         {
-            <li class="">
-                @if (sections[i - 1].Slug == Model.DisplayedSection.Slug)
+            <li>
+                @if (sections[i - 1].Slug.Equals(Model.DisplayedSection.Slug))
                 {
-                    <span >@sections[i - 1].Title</span>
+                    <span>@sections[i - 1].Title</span>
                 }
                 else
                 {
