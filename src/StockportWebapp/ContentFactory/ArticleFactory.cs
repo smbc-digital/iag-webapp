@@ -17,20 +17,20 @@ public class ArticleFactory
 
     public virtual ProcessedArticle Build(Article article)
     {
-        var processedSections = article.Sections.Select(section => _sectionFactory.Build(section, article.Title)).ToList();
-        var body = _markdownWrapper.ConvertToHtml(article.Body ?? "");
+        List<ProcessedSection> processedSections = article.Sections.Select(section => _sectionFactory.Build(section, article.Title)).ToList();
+        string body = _markdownWrapper.ConvertToHtml(article.Body ?? "");
         if (body.Contains("PrivacyNotice:"))
             article.PrivacyNotices = GetPrivacyNotices().Result;
 
         body = _tagParserContainer.ParseAll(body, article.Title, true, article.AlertsInline, article.Documents, null, article.PrivacyNotices, article.Profiles);
 
         return new ProcessedArticle(article.Title, article.Slug, body, article.Teaser, article.MetaDescription,
-            processedSections, article.Icon, article.BackgroundImage, article.Image, article.Breadcrumbs, article.Alerts, article.ParentTopic, article.AlertsInline, article.UpdatedAt, article.HideLastUpdated);
+            processedSections, article.Icon, article.BackgroundImage, article.Image, article.AltText, article.Breadcrumbs, article.Alerts, article.ParentTopic, article.AlertsInline, article.UpdatedAt, article.HideLastUpdated, article.ArticleBranding, article.LogoAreaTitle);
     }
 
     private async Task<IEnumerable<PrivacyNotice>> GetPrivacyNotices()
     {
-        var response = await _repository.Get<List<PrivacyNotice>>();
+        HttpResponse response = await _repository.Get<List<PrivacyNotice>>();
         return response.Content as List<PrivacyNotice>;
     }
 }
