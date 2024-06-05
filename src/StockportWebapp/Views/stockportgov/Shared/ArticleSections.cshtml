@@ -1,0 +1,23 @@
+﻿@model ArticleViewModel
+@{
+    List<ProcessedSection> sections = Model.Article.Sections.ToList();
+}
+
+<nav class="article-navigation" aria-label="article sections">
+    <h2 class="visuallyhidden">Article navigation</h2>
+    <ol type="1">
+        @for (int i = 1; i <= sections.Count; i++)
+        {
+            <li>
+                @if (sections[i - 1].Slug.Equals(Model.DisplayedSection.Slug))
+                {
+                    <span>@sections[i - 1].Title</span>
+                }
+                else
+                {
+                    <a href="@Model.Article.NavigationLink/@sections[i - 1].Slug">@sections[i - 1].Title</a>
+                }
+            </li>
+        }
+    </ol>
+</nav>

@@ -15,12 +15,12 @@
 
     @foreach (var item in Model.Article.RelatedContent)
     {
-            <li class="@liClasses">
-                <div class="@(item.Equals(Model.Article.RelatedContent.Last()) 
-                    ? $"{borderGrey} navcard--border-bottom-1 navcard--radius-bottom-left navcard--radius-bottom-right" 
-                    : borderGrey)">
-                    <partial name="ArticleNavCard" model="item" />
-                </div>
-            </li>
+        <li class="@liClasses">
+            <div class="@(item.Equals(Model.Article.RelatedContent.Last()) 
+                ? $"{borderGrey} navcard--border-bottom-1 navcard--radius-bottom-left navcard--radius-bottom-right" 
+                : borderGrey)">
+                <partial name="ArticleNavCard" model="item" />
+            </div>
+        </li>
     }
 </ul>
