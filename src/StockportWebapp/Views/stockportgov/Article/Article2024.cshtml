@@ -26,7 +26,7 @@
             <section class="article">
                 <div class="article--70 @articleMarginTop @articleMarginBottom">
                     @if (!string.IsNullOrEmpty(Model.Article.Image))
-                    { 
+                    {
                         <div class="article-hero">
                             <img src="@Model.Article.Image?q=89&fm=webp" 
                                  srcset="@Model.Article.Image?w=967&q=89&fm=webp 967w,
@@ -70,7 +70,7 @@
                     <partial name="LogoAreaArticle" model='@Model.Article.ArticleBranding' view-data='new ViewDataDictionary(ViewData) {{"logoAreaTitle", @Model.Article.LogoAreaTitle}}'/>
                 </div>
 
-                <nav aria-label="article sidebar" class="article--30 section">
+                <div class="article--30 section">
                     @if (Model.HasParentTopicWithSubItems())
                     {
                         <partial name="ArticleNavCardList"/>
@@ -78,9 +78,9 @@
 
                     @if (Model.HasRelatedContentWithSubItems())
                     {
-                        <partial name="ArticleRelatedContent" model="@Model"/>
+                        <partial name="ArticleRelatedContent"/>
                     }
-                </nav>
+                </div>
             </section>
         </div>
     </div>

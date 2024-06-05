@@ -1,17 +1,18 @@
 ﻿@model SubItem
 @{
     string url = (string)ViewData["url"];
+    string navcardPadding = (string)ViewData["navcardPadding"];
 }
 
 @if(!string.IsNullOrEmpty(url))
 {
-    <a class="navcard--padding navcard--padding-bottom navcard__link" href="@url">
+    <a class="navcard--padding navcard__link @navcardPadding" href="@url">
         <h3 class="navcard__title navcard__title--no-margin">All topics in @Model.Title</h3>
     </a>
 }
 else
 {
-    <a class="navcard--padding navcard__link" href="@Model.NavigationLink">
+    <a class="navcard--padding navcard__link @navcardPadding" href="@Model.NavigationLink">
         <h3 class="navcard__title navcard__title--no-margin navcard__title--normal-weight">@Model.Title</h3>
     </a>
 }
