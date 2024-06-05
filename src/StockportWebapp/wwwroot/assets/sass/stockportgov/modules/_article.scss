@@ -48,10 +48,10 @@
         margin-bottom: 1.1em;
         
         &__image {
-             box-sizing: border-box;
-             height: auto;
-             width: 100%;
-             border-radius: 3px;
+            box-sizing: border-box;
+            height: auto;
+            width: 100%;
+            border-radius: 3px;
         }
     }
 
@@ -61,8 +61,8 @@
     }
 
     &-navigation {
-        border-bottom: 3px solid $stockport-teal-lighter;
-        padding-bottom: 2rem;
+        border-bottom: 0.17em solid $stockport-teal-lighter;
+        padding-bottom: 2em;
 
         ol {
             margin-bottom: 0;

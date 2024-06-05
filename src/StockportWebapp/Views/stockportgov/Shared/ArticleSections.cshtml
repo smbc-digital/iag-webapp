@@ -3,7 +3,7 @@
     List<ProcessedSection> sections = Model.Article.Sections.ToList();
 }
 
-<nav class="article-navigation" aria-label="article navigation">
+<nav class="article-navigation" aria-label="article sections">
     <h2 class="visuallyhidden">Article navigation</h2>
     <ol type="1">
         @for (int i = 1; i <= sections.Count; i++)
