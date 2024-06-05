@@ -24,10 +24,11 @@ public class ProcessedArticle : IProcessedContentType, IContactUsMessageContaine
     public bool HideLastUpdated;
     public List<GroupBranding> ArticleBranding;
     public string LogoAreaTitle;
+    public IEnumerable<SubItem> RelatedContent;
 
     public ProcessedArticle(string title, string slug, string body, string teaser, string metaDescription,
         IEnumerable<ProcessedSection> sections, string icon, string backgroundImage, string image, string altText, IEnumerable<Crumb> breadcrumbs,
-        IEnumerable<Alert> alerts, Topic topic, IEnumerable<Alert> alertsInline, DateTime updatedAt, bool hideLastUpdated, List<GroupBranding> articleBranding, string logoAreaTitle)
+        IEnumerable<Alert> alerts, Topic topic, IEnumerable<Alert> alertsInline, DateTime updatedAt, bool hideLastUpdated, List<GroupBranding> articleBranding, string logoAreaTitle, IEnumerable<SubItem> relatedContent)
     {
         Title = title;
         NavigationLink = TypeRoutes.GetUrlFor("article", slug);
@@ -47,6 +48,7 @@ public class ProcessedArticle : IProcessedContentType, IContactUsMessageContaine
         HideLastUpdated = hideLastUpdated;
         ArticleBranding = articleBranding;
         LogoAreaTitle = logoAreaTitle;
+        RelatedContent = relatedContent;
     }
 
     public void AddContactUsMessage(string message, string slug = "")

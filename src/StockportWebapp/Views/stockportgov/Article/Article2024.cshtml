@@ -70,12 +70,17 @@
                     <partial name="LogoAreaArticle" model='@Model.Article.ArticleBranding' view-data='new ViewDataDictionary(ViewData) {{"logoAreaTitle", @Model.Article.LogoAreaTitle}}'/>
                 </div>
 
-                <nav aria-label="article sidebar" class="article--30 section">
+                <div class="article--30 section">
                     @if (Model.HasParentTopicWithSubItems())
                     {
                         <partial name="ArticleNavCardList"/>
                     }
-                </nav>
+
+                    @if (Model.HasRelatedContentWithSubItems())
+                    {
+                        <partial name="ArticleRelatedContent"/>
+                    }
+                </div>
             </section>
         </div>
     </div>
