@@ -82,6 +82,10 @@ html[dir="rtl"] {
 
         &__next a {
             text-align: left;
+
+            div {
+                text-align: -webkit-left;
+            }
         }
 
         &__previous a {
