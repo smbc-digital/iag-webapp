@@ -10,6 +10,10 @@
         display: block;
     }
 
+    &__title {
+        margin: 1.25rem 5px 2rem;
+    }
+
     &--70 {
         margin-inline-end: 0.8em;
         width: calc(70% - 0.8em);
@@ -54,5 +58,26 @@
     &-date {
         color: $stockport-green;
         margin-block: 2em;
+    }
+
+    &-navigation {
+        border-bottom: 3px solid $stockport-teal-lighter;
+        padding-bottom: 2rem;
+
+        ol {
+            margin-bottom: 0;
+
+            li {
+                margin-bottom: 0.6em;
+
+                &:last-of-type {
+                    margin-bottom: 0;
+                }
+            }
+        }
+    }
+
+    &-hr {
+        margin: 0;
     }
 }

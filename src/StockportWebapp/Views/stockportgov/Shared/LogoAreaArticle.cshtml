@@ -1,13 +1,12 @@
 @model List<GroupBranding>
 @{
     string logoAreaTitle = (string)ViewData["logoAreaTitle"];
-    string titleCssClasses = "section__title section__title--padded-bottom section__title--border-top";
 }
 
 @if(Model.Any())
 {
     <div class="logo-area-article" data-cy="articles-logo-area">
-        <h2 class="@titleCssClasses">@(logoAreaTitle ?? "Our partners")</h2>
+        <h2 class="section__title section__title--padded-bottom section__title--padding-top">@(logoAreaTitle ?? "Our partners")</h2>
         <div class="section__content section__content--no-margin">
             <div class="logo-area">
                 @foreach (var branding in Model)

@@ -157,11 +157,15 @@
     }
 
     &--padding {
-        padding: 1em 0.75em;
+        padding: 0.75em;
     }
 
-    &--padding-large {
-        padding: 1.5em 0.75em;
+    &--padding-top {
+        padding-top: 1.5em;
+    }
+
+    &--padding-bottom {
+        padding-bottom: 1.5em;
     }
 
     &--no-padding-top {
