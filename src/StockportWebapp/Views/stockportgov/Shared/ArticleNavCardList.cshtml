@@ -7,13 +7,13 @@
 
 <nav aria-labelledby="navcard__title">
     <ul class="navcard navcard-wrapper--no-margin navcard--border-top-10 navcard--no-padding-right-rtl navcard--theme-teal-lighter-top navcard--width-100">
-        <div class="@liClasses">
+        <li class="@liClasses">
             <div class="@borderGrey">
                 <div class="navcard--padding navcard--padding-top navcard--grey">
                     <h2 class="h-m h--no-top-margin h--no-bottom-margin" id="navcard__title">Also in @Model.Article.ParentTopic.Name</h2>
                 </div>
             </div>
-        </div>
+        </li>
 
         @foreach (var item in Model.SidebarSubItems(out hasMoreButton))
         {
