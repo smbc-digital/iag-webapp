@@ -3,7 +3,7 @@
 public class CarouselTagParser : ISimpleTagParser
 {
     private readonly TagReplacer _tagReplacer;
-    protected Regex TagRegex => new Regex("{{CAROUSEL:(.*)}}", RegexOptions.Compiled);
+    protected Regex TagRegex => new("{{CAROUSEL:(.*)}}", RegexOptions.Compiled);
 
     protected string GenerateHtml(string tagData)
     {
@@ -12,22 +12,22 @@ public class CarouselTagParser : ISimpleTagParser
 
         string[] tagArray = tagData.Split(',');
 
-        var altRegex = new Regex(@"\[([^\]]*)\]");
-        var srcRegex = new Regex(@"\(([^\)]*)\)");
+        Regex altRegex = new(@"\[([^\]]*)\]");
+        Regex srcRegex = new(@"\(([^\)]*)\)");
 
         StringBuilder returnCarousel = new("<div class='carousel'>");
 
         if (tagArray[0] != "")
         {
-            foreach (var item in tagArray)
+            foreach (string item in tagArray)
             {
-                var doc = new HtmlAgilityPack.HtmlDocument();
+                HtmlAgilityPack.HtmlDocument doc = new();
                 doc.LoadHtml(item);
 
                 if (doc.DocumentNode.SelectSingleNode("//img") != null)
                 {
-                    var srcTxt = doc.DocumentNode.SelectSingleNode("//img").Attributes["src"];
-                    var altTxt = doc.DocumentNode.SelectSingleNode("//img").Attributes["alt"];
+                    HtmlAgilityPack.HtmlAttribute srcTxt = doc.DocumentNode.SelectSingleNode("//img").Attributes["src"];
+                    HtmlAgilityPack.HtmlAttribute altTxt = doc.DocumentNode.SelectSingleNode("//img").Attributes["alt"];
 
                     if (!string.IsNullOrEmpty(srcTxt.Value))
                         returnCarousel.Append(
@@ -35,8 +35,8 @@ public class CarouselTagParser : ISimpleTagParser
                 }
                 else
                 {
-                    var srcText = srcRegex.Match(item).Groups[1];
-                    var altText = altRegex.Match(item).Groups[1];
+                    System.Text.RegularExpressions.Group srcText = srcRegex.Match(item).Groups[1];
+                    System.Text.RegularExpressions.Group altText = altRegex.Match(item).Groups[1];
                     if (!string.IsNullOrEmpty(srcText.Value))
                         returnCarousel.Append(
                             $"<div class=\"carousel-image stockport-carousel\" style=\"background-image:url({srcText});\" title=\"{altText}\" /><div class=\"stockport-carousel-text article-carousel-text\"><p class=\"carousel-text\">{altText}</p></div></div>");
