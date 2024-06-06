@@ -29,16 +29,16 @@
                     {
                         <div class="article-hero">
                             <img src="@Model.Article.Image?q=89&fm=webp" 
-                                 srcset="@Model.Article.Image?w=967&q=89&fm=webp 967w,
-                                         @Model.Article.Image?w=853&q=89&fm=webp 853w,
-                                         @Model.Article.Image?w=712&q=89&fm=webp 712w"
-                                 sizes="(max-width: 767px) 712px,
+                                srcset="@Model.Article.Image?w=967&q=89&fm=webp 967w,
+                                        @Model.Article.Image?w=853&q=89&fm=webp 853w,
+                                        @Model.Article.Image?w=712&q=89&fm=webp 712w"
+                                sizes="(max-width: 767px) 712px,
                                         ((min-width: 768px) and (max-width: 1023px)) 967px,
                                         (min-width: 1024px) 853px"
-                                 class="article-hero__image"
-                                 width="712"
-                                 height="350"
-                                 alt="@Model.Article.AltText" />
+                                class="article-hero__image"
+                                width="712"
+                                height="350"
+                                alt="@Model.Article.AltText" />
                         </div>
                     }
 
@@ -52,7 +52,9 @@
                         
                     @if (!string.IsNullOrEmpty(Model.Article.Body))
                     {
-                        @Html.Raw(Model.Article.Body)
+                        <article >
+                            @Html.Raw(Model.Article.Body)
+                        </article>
                     }
 
                     @if (!Model.HideLastUpdated)
