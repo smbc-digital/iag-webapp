@@ -17,7 +17,7 @@ public class PaymentReferenceValidation : ValidationAttribute
         { EPaymentReferenceValidation.CameraCar, @"^([Ss]{1}[Mm]{1}[6]{1}[0-9]{6}[0-9|Aa]{1})$" },
         { EPaymentReferenceValidation.BusLane, @"^([Ss]{1}[Mm]{1}[8]{1}[0-9]{6}[0-9|Aa]{1})$" },
         { EPaymentReferenceValidation.Applications, @"^([A-Za-z]{2}[A-Za-z0-9\/\\]{6,})$" },
-        { EPaymentReferenceValidation.ParkingPermit, @"^([A-Z]{3}\\[0-9]{5})$" },
+        { EPaymentReferenceValidation.ParkingPermit, @"^([A-Z]{2}[A-Z0-9]{1}\\[0-9]{5})$" },
         { EPaymentReferenceValidation.StockportBereavementInvoice, @"^(?i)sb\d{4,5}$" }
     };
 
