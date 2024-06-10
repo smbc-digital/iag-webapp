@@ -32,11 +32,11 @@
             <li class="@liClasses">
                 <div class="@borderGrey navcard--border-bottom-1 navcard--radius-bottom-left navcard--radius-bottom-right">
                     <partial name="ArticleNavCard" 
-                             model='new SubItem(Model.Article.ParentTopic.Slug, Model.Article.ParentTopic.Name, Model.Article.ParentTopic.Teaser, Model.Article.ParentTopic.Icon, "topic", Model.Article.ParentTopic.Image, new List<SubItem>(), "teal")' 
-                             view-data='new ViewDataDictionary(ViewData) {
-                                {"url", @Url.Action("Index", "Topic", new { topicSlug = Model.Article.ParentTopic.Slug })},
-                                {"hasMoreButton", @hasMoreButton},
-                                {"navcardPadding", "navcard--padding-bottom"}}' />
+                                model='new SubItem(Model.Article.ParentTopic.Slug, Model.Article.ParentTopic.Name, Model.Article.ParentTopic.Teaser, Model.Article.ParentTopic.Icon, "topic", Model.Article.ParentTopic.Image, new List<SubItem>(), "teal")' 
+                                view-data='@(new ViewDataDictionary(ViewData) {
+                                    {"url", @Url.Action("Index", "Topic", new { topicSlug = Model.Article.ParentTopic.Slug })},
+                                    {"hasMoreButton", @hasMoreButton},
+                                    {"navcardPadding", "navcard--padding-bottom"}})' />
                 </div>
             </li>
         }
