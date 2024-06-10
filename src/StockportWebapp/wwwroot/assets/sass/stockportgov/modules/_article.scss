@@ -63,12 +63,13 @@
     &-navigation {
         border-bottom: 0.17em solid $stockport-teal-lighter;
         padding-bottom: 2em;
+        margin-bottom: -3px;
 
         ol {
             margin-bottom: 0;
 
             li {
-                margin-bottom: 0.6em;
+                margin-bottom: 0.8em;
 
                 &:last-of-type {
                     margin-bottom: 0;
