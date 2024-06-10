@@ -17,7 +17,7 @@
     @foreach (var navCard in Model.Items)
     {
         <li class="navcard navcard--grey navcard--width-33 navcard--no-padding-right-rtl @borderCssClasses">
-            <partial name="TopicNavCard" model="navCard" view-data='new ViewDataDictionary(ViewData) {{"displayImage", @displayImage}}'/>
+            <partial name="TopicNavCard" model="navCard" view-data='@(new ViewDataDictionary(ViewData) {{"displayImage", @displayImage}})'/>
         </li>
     }
 </ul>
