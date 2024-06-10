@@ -2,7 +2,7 @@
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
-	<PreserveCompilationContext>true</PreserveCompilationContext>
+	  <PreserveCompilationContext>true</PreserveCompilationContext>
     <AssemblyName>StockportWebapp</AssemblyName>
     <OutputType>Exe</OutputType>
     <PackageId>StockportWebapp</PackageId>

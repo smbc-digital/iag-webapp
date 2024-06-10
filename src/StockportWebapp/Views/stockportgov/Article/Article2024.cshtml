@@ -68,8 +68,8 @@
                     {
                         <partial name="ArticleSectionPagination" />
                     }
-
-                    <partial name="LogoAreaArticle" model='@Model.Article.ArticleBranding' view-data='new ViewDataDictionary(ViewData) {{"logoAreaTitle", @Model.Article.LogoAreaTitle}}'/>
+            
+                    <partial name="LogoAreaArticle" model='@Model.Article.ArticleBranding' view-data='@(new ViewDataDictionary(ViewData) {{"logoAreaTitle", @Model.Article.LogoAreaTitle}})'/>
                 </div>
 
                 <div class="article--30 section">

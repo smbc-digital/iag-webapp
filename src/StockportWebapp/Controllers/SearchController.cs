@@ -24,7 +24,7 @@ public class SearchController : Controller
     }
 
     [Route("/searchResults")]
-    public async Task<IActionResult> SearchResults(string query)
+    public IActionResult SearchResults(string query)
     {
         ViewData["Title"] = "Search results";
         return View();
