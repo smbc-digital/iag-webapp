@@ -188,7 +188,7 @@ public class ArticleViewModelTest
             new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty), string.Empty, null, string.Empty);
       
         ProcessedArticle article = new(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), new List<ProcessedSection>(),
-            It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), new List<Crumb>(), new List<Alert>(), topic, new List<Alert>(), new DateTime(), new bool(), new List<GroupBranding>(), It.IsAny<string>());
+            It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), new List<Crumb>(), new List<Alert>(), topic, new List<Alert>(), new DateTime(), new bool(), new List<GroupBranding>(), It.IsAny<string>(), new List<SubItem>());
 
         ArticleViewModel articleViewModel = new(article);
 
@@ -225,7 +225,7 @@ public class ArticleViewModelTest
             featuredItems, subItems, secondaryItems, new List<Crumb>(), new List<Alert>(), false, It.IsAny<string>(), null, string.Empty, true,
             new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty), string.Empty, null, string.Empty);
         ProcessedArticle article = new(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), new List<ProcessedSection>(),
-            It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), new List<Crumb>(), new List<Alert>(), topic, new List<Alert>(), new DateTime(), new bool(), new List<GroupBranding>(), It.IsAny<string>());
+            It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), new List<Crumb>(), new List<Alert>(), topic, new List<Alert>(), new DateTime(), new bool(), new List<GroupBranding>(), It.IsAny<string>(), new List<SubItem>());
 
         ArticleViewModel articleViewModel = new(article);
 
@@ -253,7 +253,7 @@ public class ArticleViewModelTest
         // Arrange
         ProcessedSection section = new(string.Empty, "test-slug", sectionMeta, string.Empty, null, null, null);
         ProcessedArticle article = new(string.Empty, string.Empty, string.Empty, string.Empty, articleMeta, 
-            new List<ProcessedSection> { section }, string.Empty, It.IsAny<string>(), string.Empty, null, null, null, null, null, new DateTime(), new bool(), new List<GroupBranding>(), string.Empty
+            new List<ProcessedSection> { section }, string.Empty, It.IsAny<string>(), string.Empty, null, null, null, null, null, new DateTime(), new bool(), new List<GroupBranding>(), string.Empty, new List<SubItem>()
         );
 
         // Act
@@ -270,7 +270,7 @@ public class ArticleViewModelTest
             new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty), string.Empty, null, string.Empty);
 
         return new(It.IsAny<string>(), slug, It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), sections,
-            It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), new List<Crumb>(), new List<Alert>(), parentTopic, new List<Alert>(), new DateTime(), new bool(), new List<GroupBranding>(), It.IsAny<string>());
+            It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), new List<Crumb>(), new List<Alert>(), parentTopic, new List<Alert>(), new DateTime(), new bool(), new List<GroupBranding>(), It.IsAny<string>(), new List<SubItem>());
     }
 
     private static ProcessedSection BuildSection(string slug) => 

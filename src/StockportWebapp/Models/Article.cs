@@ -24,9 +24,10 @@ public class Article
     public bool HideLastUpdated { get; set; }
     public List<GroupBranding> ArticleBranding { get; init; }
     public string LogoAreaTitle { get; }
+    public IEnumerable<SubItem> RelatedContent { get; set; }
 
     public Article(string title, string slug, string body, string teaser, string metaDescription, IEnumerable<Section> sections, string icon, string backgroundImage, string image, string altText,
-        IEnumerable<Crumb> breadcrumbs, IEnumerable<Profile> profiles, IEnumerable<Document> documents, IEnumerable<Alert> alertsInline, DateTime updatedAt, bool hideLastUpdated, List<GroupBranding> articleBranding, string logoAreaTitle)
+        IEnumerable<Crumb> breadcrumbs, IEnumerable<Profile> profiles, IEnumerable<Document> documents, IEnumerable<Alert> alertsInline, DateTime updatedAt, bool hideLastUpdated, List<GroupBranding> articleBranding, string logoAreaTitle, IEnumerable<SubItem> relatedContent)
     {
         Title = title;
         Slug = slug;
@@ -46,5 +47,6 @@ public class Article
         HideLastUpdated = hideLastUpdated;
         ArticleBranding = articleBranding;
         LogoAreaTitle = logoAreaTitle;
+        RelatedContent = relatedContent;
     }
 }

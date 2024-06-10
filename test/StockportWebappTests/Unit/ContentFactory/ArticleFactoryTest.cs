@@ -26,7 +26,7 @@ public class ArticleFactoryTest
 
         List<Section> sections = new(){ _sectionOne, _sectionTwo };
 
-        _article = new("title", "slug", Body, "teaser", "meta description", sections, "icon", "backgroundImage", "image", "altText", new List<Crumb>(), new List<Profile>(), new List<Document>(), new List<Alert>(), new DateTime(), false, new List<GroupBranding>(), "logoAreaTitle");
+        _article = new("title", "slug", Body, "teaser", "meta description", sections, "icon", "backgroundImage", "image", "altText", new List<Crumb>(), new List<Profile>(), new List<Document>(), new List<Alert>(), new DateTime(), false, new List<GroupBranding>(), "logoAreaTitle", new List<SubItem>());
 
         _sectionFactory.Setup(_ => _.Build(_sectionOne, _article.Title)).Returns(_processedSectionOne);
         _repository.Setup(_ => _.Get<List<PrivacyNotice>>(It.IsAny<string>(), It.IsAny<List<Query>>())).ReturnsAsync(new HttpResponse(200, new List<PrivacyNotice>(), string.Empty));
