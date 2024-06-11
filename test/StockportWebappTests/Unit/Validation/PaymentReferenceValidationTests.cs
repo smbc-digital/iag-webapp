@@ -89,6 +89,8 @@ public class PaymentReferenceValidationTests
     [InlineData(EPaymentReferenceValidation.StockportBereavementInvoice, "sb12223")]
     [InlineData(EPaymentReferenceValidation.StockportBereavementInvoice, "SB1222")]
     [InlineData(EPaymentReferenceValidation.StockportBereavementInvoice, "Sb1222")]
+    [InlineData(EPaymentReferenceValidation.ParkingPermit, "ABC\\12345")]
+    [InlineData(EPaymentReferenceValidation.ParkingPermit, "AB0\\12345")]
     public void Should_ReturnSuccess_ForValidReference(EPaymentReferenceValidation referenceValidation, string reference)
     {
         // Arrange
@@ -140,6 +142,8 @@ public class PaymentReferenceValidationTests
     [InlineData(EPaymentReferenceValidation.StockportBereavementInvoice, "sb12223")]
     [InlineData(EPaymentReferenceValidation.StockportBereavementInvoice, "SB1222")]
     [InlineData(EPaymentReferenceValidation.StockportBereavementInvoice, "Sb1222")]
+    [InlineData(EPaymentReferenceValidation.ParkingPermit, "ABC\\12345")]
+    [InlineData(EPaymentReferenceValidation.ParkingPermit, "AB0\\12345")]
     public void Should_ReturnSuccess_ForValidReference_ForServicePayPayment(EPaymentReferenceValidation referenceValidation, string reference)
     {
         // Arrange
@@ -188,6 +192,11 @@ public class PaymentReferenceValidationTests
     [InlineData(EPaymentReferenceValidation.BusLane, "SM81234A")]
     [InlineData(EPaymentReferenceValidation.StockportBereavementInvoice, "SB212")]
     [InlineData(EPaymentReferenceValidation.StockportBereavementInvoice, "sb12223a")]
+    [InlineData(EPaymentReferenceValidation.ParkingPermit, "ABC\\123456")]
+    [InlineData(EPaymentReferenceValidation.ParkingPermit, "AB\\12345")]
+    [InlineData(EPaymentReferenceValidation.ParkingPermit, "123\\12345")]
+    [InlineData(EPaymentReferenceValidation.ParkingPermit, "A1B\\12345")]
+    [InlineData(EPaymentReferenceValidation.ParkingPermit, "AB0\\A2345")]
     public void Should_ReturnFalse_ForInvalidReference(EPaymentReferenceValidation referenceValidation, string reference)
     {
         // Arrange
@@ -235,6 +244,11 @@ public class PaymentReferenceValidationTests
     [InlineData(EPaymentReferenceValidation.BusLane, "SM81234A")]
     [InlineData(EPaymentReferenceValidation.StockportBereavementInvoice, "SB101")]
     [InlineData(EPaymentReferenceValidation.StockportBereavementInvoice, "sb122263")]
+    [InlineData(EPaymentReferenceValidation.ParkingPermit, "ABC\\123456")]
+    [InlineData(EPaymentReferenceValidation.ParkingPermit, "AB\\12345")]
+    [InlineData(EPaymentReferenceValidation.ParkingPermit, "123\\12345")]
+    [InlineData(EPaymentReferenceValidation.ParkingPermit, "A1B\\12345")]
+    [InlineData(EPaymentReferenceValidation.ParkingPermit, "AB0\\A2345")]
     public void Should_ReturnFalse_ForInvalidReference_ForServicePayPayment(EPaymentReferenceValidation referenceValidation, string reference)
     {
         // Arrange
