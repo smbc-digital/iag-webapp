@@ -3,7 +3,7 @@
 public class MapTagParser : ISimpleTagParser
 {
     private readonly TagReplacer _tagReplacer;
-    protected Regex TagRegex => new Regex("{{MAP:(.*)}}", RegexOptions.Compiled);
+    protected Regex TagRegex => new("{{MAP:(.*)}}", RegexOptions.Compiled);
 
     public MapTagParser()
     {
@@ -22,6 +22,4 @@ public class MapTagParser : ISimpleTagParser
     {
         return _tagReplacer.ReplaceAllTags(body);
     }
-
-
 }
