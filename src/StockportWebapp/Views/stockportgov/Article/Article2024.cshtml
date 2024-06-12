@@ -71,11 +71,11 @@
 
                     @if (Model.ArticleWithSection && Model.DisplayedSection.SectionBranding.Any())
                     {
-                        <partial name="LogoAreaArticle" model='@Model.DisplayedSection.SectionBranding' view-data='new ViewDataDictionary(ViewData) {{"logoAreaTitle", @Model.DisplayedSection.LogoAreaTitle}}'/>
+                        <partial name="LogoAreaArticle" model='@Model.DisplayedSection.SectionBranding' view-data='@(new ViewDataDictionary(ViewData) {{"logoAreaTitle", @Model.DisplayedSection.LogoAreaTitle}, {"articleWithSection", Model.ArticleWithSection}})'/>
                     }
                     else
                     {
-                        <partial name="LogoAreaArticle" model='@Model.Article.ArticleBranding' view-data='@(new ViewDataDictionary(ViewData) {{"logoAreaTitle", @Model.Article.LogoAreaTitle}})'/>
+                        <partial name="LogoAreaArticle" model='@Model.Article.ArticleBranding' view-data='@(new ViewDataDictionary(ViewData) {{"logoAreaTitle", @Model.Article.LogoAreaTitle}, {"articleWithSection", Model.ArticleWithSection}})'/>
                     }
                 </div>
 

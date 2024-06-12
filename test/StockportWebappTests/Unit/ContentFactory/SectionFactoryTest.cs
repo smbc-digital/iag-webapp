@@ -14,6 +14,8 @@ public class SectionFactoryTest
     private readonly Section _section;
     private readonly string _articleTitle = "Article Title";
     private readonly List<Alert> _emptyAlertsInline = new();
+    private readonly List<GroupBranding> _sectionBranding = new();
+    private const string logoAreaTitle = "logoAreaTitle";
     private readonly Mock<IRepository> _repository;
 
     public SectionFactoryTest()
@@ -24,7 +26,7 @@ public class SectionFactoryTest
 
         _factory = new SectionFactory(_tagParserContainer.Object, _markdownWrapper.Object, _repository.Object);
 
-        _section = new Section(Title, Slug, MetaDescription, Body, _profiles, _documents, _emptyAlertsInline);
+        _section = new Section(Title, Slug, MetaDescription, Body, _profiles, _documents, _emptyAlertsInline, _sectionBranding, logoAreaTitle);
 
         _markdownWrapper.Setup(o => o.ConvertToHtml(Body)).Returns(Body);
         _tagParserContainer.Setup(o => o.ParseAll(Body, It.IsAny<string>(), It.IsAny<bool>(), It.IsAny<IEnumerable<Alert>>(), It.IsAny<IEnumerable<Document>>(), It.IsAny<IEnumerable<InlineQuote>>(),

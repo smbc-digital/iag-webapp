@@ -19,10 +19,10 @@ public class ArticleFactoryTest
     public ArticleFactoryTest()
     {
         _articleFactory = new(_tagParserContainer.Object, _sectionFactory.Object, _markdownWrapper.Object, _repository.Object);
-        _sectionOne = new(It.IsAny<string>(), "id-1", It.IsAny<string>(), It.IsAny<string>(), new List<Profile>(), new List<Document>(), new List<Alert>());
-        _processedSectionOne = new(It.IsAny<string>(), It.IsAny<string>(), "id-1", It.IsAny<string>(), new List<Profile>(), new List<Document>(), new List<Alert>());
-        _sectionTwo = new(It.IsAny<string>(), "id-1", It.IsAny<string>(), It.IsAny<string>(), new List<Profile>(), new List<Document>(), new List<Alert>());
-        _processedSectionTwo = new(It.IsAny<string>(), "id-1", It.IsAny<string>(), It.IsAny<string>(), new List<Profile>(), new List<Document>(), new List<Alert>());
+        _sectionOne = new(It.IsAny<string>(), "id-1", It.IsAny<string>(), It.IsAny<string>(), new List<Profile>(), new List<Document>(), new List<Alert>(), new List<GroupBranding>(), "logoAreaTitle");
+        _processedSectionOne = new(It.IsAny<string>(), It.IsAny<string>(), "id-1", It.IsAny<string>(), new List<Profile>(), new List<Document>(), new List<Alert>(), new List<GroupBranding>(), "logoAreaTitle");
+        _sectionTwo = new(It.IsAny<string>(), "id-1", It.IsAny<string>(), It.IsAny<string>(), new List<Profile>(), new List<Document>(), new List<Alert>(), new List<GroupBranding>(), "logoAreaTitle");
+        _processedSectionTwo = new(It.IsAny<string>(), "id-1", It.IsAny<string>(), It.IsAny<string>(), new List<Profile>(), new List<Document>(), new List<Alert>(), new List<GroupBranding>(), "logoAreaTitle");
 
         List<Section> sections = new(){ _sectionOne, _sectionTwo };
 
