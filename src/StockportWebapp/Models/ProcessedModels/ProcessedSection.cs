@@ -12,7 +12,7 @@ public class ProcessedSection : IProcessedContentType
     public List<GroupBranding> SectionBranding;
     public string LogoAreaTitle;
 
-    public ProcessedSection(string title, string slug, string metaDescription, string body, List<Profile> profiles, List<Document> documents, IEnumerable<Alert> alertsInline, List<GroupBranding> articleBranding, string logoAreaTitle)
+    public ProcessedSection(string title, string slug, string metaDescription, string body, List<Profile> profiles, List<Document> documents, IEnumerable<Alert> alertsInline, List<GroupBranding> sectionBranding, string logoAreaTitle)
     {
         Title = title;
         Slug = slug;
@@ -21,7 +21,7 @@ public class ProcessedSection : IProcessedContentType
         Profiles = profiles;
         Documents = documents;
         AlertsInline = alertsInline;
-        SectionBranding = articleBranding;
+        SectionBranding = sectionBranding;
         LogoAreaTitle = logoAreaTitle;
     }
 }
