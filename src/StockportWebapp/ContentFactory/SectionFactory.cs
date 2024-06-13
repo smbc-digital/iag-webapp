@@ -35,7 +35,9 @@ public class SectionFactory : ISectionFactory
             parsedBody,
             section.Profiles,
             section.Documents,
-            section.AlertsInline
+            section.AlertsInline,
+            section.SectionBranding,
+            section.LogoAreaTitle
         );
     }
 
