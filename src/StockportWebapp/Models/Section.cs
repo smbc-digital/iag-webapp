@@ -11,7 +11,7 @@ public class Section
     public IEnumerable<Alert> AlertsInline { get; set; }
     public IEnumerable<PrivacyNotice> PrivacyNotices { get; set; }
     public List<GroupBranding> SectionBranding { get; init; }
-    public string LogoAreaTitle { get; }
+    public string LogoAreaTitle { get; set; }
 
     public Section() { }
 
