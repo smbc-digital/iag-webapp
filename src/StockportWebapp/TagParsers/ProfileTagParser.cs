@@ -8,24 +8,25 @@ public class ProfileTagParser : IDynamicTagParser<Profile>
 
     public ProfileTagParser(IViewRender viewRenderer) => _viewRenderer = viewRenderer;
 
-    protected Regex TagRegex => new Regex("{{PROFILE:(\\s*[/a-zA-Z0-9][^}]+)}}", RegexOptions.Compiled);
+    protected Regex TagRegex => new("{{PROFILE:(\\s*[/a-zA-Z0-9][^}]+)}}", RegexOptions.Compiled);
 
     public bool HasMatches(string content) => TagRegex.IsMatch(content);
 
     public string Parse(string content, IEnumerable<Profile> profiles)
     {
-        var matches = TagRegex.Matches(content);
+        MatchCollection matches = TagRegex.Matches(content);
 
         foreach (Match match in matches)
         {
-            var tagDataIndex = 1;
-            var profileSlug = match.Groups[tagDataIndex].Value;
-            var profile = GetProfileMatchingSlug(profiles, profileSlug);
+            int tagDataIndex = 1;
+            string profileSlug = match.Groups[tagDataIndex].Value;
+            Profile profile = GetProfileMatchingSlug(profiles, profileSlug);
+            ProfileViewModel viewModel = new(profile);
             if (profile != null)
             {
-                var profileHtml = string.IsNullOrEmpty(profile.Body)
-                    ? _viewRenderer.Render("ProfileWithoutBody", profile)
-                    : _viewRenderer.Render("Profile", profile);
+                string profileHtml = string.IsNullOrEmpty(profile.Body)
+                    ? _viewRenderer.Render("ProfileWithoutBody", viewModel)
+                    : _viewRenderer.Render("Profile", viewModel);
 
                 content = TagRegex.Replace(content, profileHtml, 1);
             }

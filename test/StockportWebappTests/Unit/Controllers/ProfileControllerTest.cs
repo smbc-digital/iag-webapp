@@ -13,20 +13,19 @@ public class ProfileControllerTest
     }
 
     [Fact]
-    public async Task ItReturnsAProfileWithProcessedBody()
+    public async Task GetProfile_ReturnsAProfileWithProcessedBody()
     {
-        var profileEntity = new ProfileEntity
+        var profile = new Profile
         {
             Title = "test"
         };
 
         _profileService
             .Setup(_ => _.GetProfile(It.IsAny<string>()))
-            .ReturnsAsync(profileEntity);
+            .ReturnsAsync(profile);
 
         var view = await _profileController.Index("slug") as ViewResult;
-        var model = view.ViewData.Model as Profile;
-
-        model.Title.Should().Be(profileEntity.Title);
+        var model = view.ViewData.Model as ProfileViewModel;
+        Assert.Equal(profile.Title, model.Profile.Title);
     }
 }

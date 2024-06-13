@@ -1,8 +1,10 @@
+using Profile = StockportWebapp.Models.Profile;
+
 namespace StockportWebapp.Services;
 
 public interface IProfileService
 {
-    Task<ProfileEntity> GetProfile(string slug);
+    Task<Profile> GetProfile(string slug);
 }
 
 public class ProfileService : IProfileService
@@ -10,58 +12,34 @@ public class ProfileService : IProfileService
     private readonly IRepository _repository;
     private readonly ITagParserContainer _parser;
     private readonly MarkdownWrapper _markdownWrapper;
-    private readonly IDynamicTagParser<Alert> _alertsInlineTagParser;
-    private readonly IDynamicTagParser<InlineQuote> _inlineQuotesTagParser;
     private readonly ITriviaFactory _triviaFactory;
 
     public ProfileService(
         IRepository repository,
         ITagParserContainer parser,
         MarkdownWrapper markdownWrapper,
-        IDynamicTagParser<Alert> alertsInlineTagParser,
-        ITriviaFactory triviaFactory,
-        IDynamicTagParser<InlineQuote> inlineQuotesTagParser)
+        ITriviaFactory triviaFactory
+    )
     {
         _repository = repository;
         _parser = parser;
         _markdownWrapper = markdownWrapper;
-        _alertsInlineTagParser = alertsInlineTagParser;
         _triviaFactory = triviaFactory;
-        _inlineQuotesTagParser = inlineQuotesTagParser;
     }
 
-    public async Task<ProfileEntity> GetProfile(string slug)
+    public async Task<Profile> GetProfile(string slug)
     {
-        var response = await _repository.Get<ProfileResponse>(slug);
+        HttpResponse httpResponse = await _repository.Get<Profile>(slug);
 
-        if (response.StatusCode == 200)
-        {
-            var profile = response.Content as ProfileResponse;
-            var triviaSection = _triviaFactory.Build(profile.TriviaSection);
+        if(!httpResponse.IsSuccessful())
+            return null;
 
-            var processedBody = _parser.ParseAll(profile.Body, profile.Title, false);
-            processedBody = _markdownWrapper.ConvertToHtml(processedBody);
-            processedBody = _alertsInlineTagParser.Parse(processedBody, profile.Alerts);
-            processedBody = _inlineQuotesTagParser.Parse(processedBody, profile.InlineQuotes);
+        Profile profile = httpResponse.Content as Profile;
+        List<Trivia> triviaSection = _triviaFactory.Build(profile.TriviaSection);
+        profile.TriviaSection = triviaSection;
+        string processedBody = _parser.ParseAll(profile.Body, profile.Title, false, profile.Alerts, null, profile.InlineQuotes, null, null);
+        profile.Body = _markdownWrapper.ConvertToHtml(processedBody);
 
-            return new ProfileEntity
-            {
-                Title = profile.Title,
-                Slug = profile.Slug,
-                Teaser = profile.Teaser,
-                Quote = profile.Quote,
-                Image = profile.Image,
-                Body = processedBody,
-                Breadcrumbs = profile.Breadcrumbs,
-                Alerts = profile.Alerts,
-                TriviaSubheading = profile.TriviaSubheading,
-                TriviaSection = triviaSection,
-                Subtitle = profile.Subtitle,
-                InlineQuotes = profile.InlineQuotes,
-                EventsBanner = profile.EventsBanner
-            };
-        }
-
-        return null;
+        return profile;
     }
 }

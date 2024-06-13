@@ -17,22 +17,10 @@ public class ProfileController : Controller
     {
         var profileEntity = await _profileService.GetProfile(slug);
 
-        if (profileEntity != null)
+        if (profileEntity is not null)
         {
-            var model = new Models.Profile(profileEntity.Title,
-                profileEntity.Slug,
-                profileEntity.Subtitle,
-                profileEntity.Quote,
-                profileEntity.Image,
-                profileEntity.Body,
-                profileEntity.Breadcrumbs,
-                profileEntity.Alerts,
-                profileEntity.TriviaSubheading,
-                profileEntity.TriviaSection,
-                profileEntity.InlineQuotes,
-                profileEntity.EventsBanner);
-
-            return View(model);
+            ProfileViewModel viewModel = new(profileEntity);
+            return View(viewModel);
         }
 
         return NotFound();

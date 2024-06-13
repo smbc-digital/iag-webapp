@@ -12,27 +12,17 @@ public class Profile
     public IEnumerable<Crumb> Breadcrumbs { get; set; }
     public List<Alert> Alerts { get; set; }
     public string TriviaSubheading { get; set; }
-    public List<ProcessedTrivia> TriviaSection { get; set; }
+    public List<Trivia> TriviaSection { get; set; }
     public string Author { get; set; } = string.Empty;
     public string Subject { get; set; } = string.Empty;
     public EventBanner EventsBanner { get; set; }
+    public string Teaser { get; set; }
 
     public Profile()
-    {
-    }
+    { }
 
-    public Profile(string title,
-        string slug,
-        string subtitle,
-        string quote,
-        string image,
-        string body,
-        IEnumerable<Crumb> breadcrumbs,
-        List<Alert> alerts,
-        string triviaSubheading,
-        List<ProcessedTrivia> triviaSection,
-        List<InlineQuote> inlineQuotes,
-        EventBanner eventsBanner)
+    public Profile(string title, string slug, string subtitle, string quote, string image, string body, IEnumerable<Crumb> breadcrumbs, List<Alert> alerts,
+        string triviaSubheading, List<Trivia> triviaSection, List<InlineQuote> inlineQuotes, EventBanner eventsBanner, string teaser)
     {
         Title = title;
         Slug = slug;
@@ -46,6 +36,6 @@ public class Profile
         TriviaSection = triviaSection;
         InlineQuotes = inlineQuotes;
         EventsBanner = eventsBanner;
+        Teaser = teaser;
     }
-
 }

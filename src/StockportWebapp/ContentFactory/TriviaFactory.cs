@@ -2,7 +2,7 @@
 
 public interface ITriviaFactory
 {
-    List<ProcessedTrivia> Build(List<Trivia> triviaSection);
+    List<Trivia> Build(List<Trivia> triviaSection);
 }
 
 public class TriviaFactory : ITriviaFactory
@@ -14,9 +14,9 @@ public class TriviaFactory : ITriviaFactory
         _markdownWrapper = markdownWrapper;
     }
 
-    public List<ProcessedTrivia> Build(List<Trivia> triviaSection)
+    public List<Trivia> Build(List<Trivia> triviaSection)
     {
-        return triviaSection?.Select(item => new ProcessedTrivia
+        return triviaSection?.Select(item => new Trivia
         (
             item.Name,
             item.Icon,
