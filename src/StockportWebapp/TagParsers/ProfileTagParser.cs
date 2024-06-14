@@ -22,7 +22,7 @@ public class ProfileTagParser : IDynamicTagParser<Profile>
             string profileSlug = match.Groups[tagDataIndex].Value;
             Profile profile = GetProfileMatchingSlug(profiles, profileSlug);
             ProfileViewModel viewModel = new(profile);
-            if (profile != null)
+            if (profile is not null)
             {
                 string profileHtml = string.IsNullOrEmpty(profile.Body)
                     ? _viewRenderer.Render("ProfileWithoutBody", viewModel)
@@ -38,5 +38,5 @@ public class ProfileTagParser : IDynamicTagParser<Profile>
         TagRegex.Replace(content, string.Empty);
 
     private Profile GetProfileMatchingSlug(IEnumerable<Profile> profiles, string slug) =>
-        profiles?.FirstOrDefault(s => s.Slug == slug);    
+        profiles?.FirstOrDefault(s => s.Slug.Equals(slug));
 }
