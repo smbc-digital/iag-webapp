@@ -32,9 +32,12 @@
                             <a href="@Model.FormLink" class="btn btn--width-30 btn--chevron-forward">@Model.FormLinkLabel</a>
                         </div>
 
-                        <div class="start-page_lower">
-                            @Html.Raw(Model.LowerBody)
-                        </div>
+                        @if (!string.IsNullOrEmpty(Model.LowerBody))
+                        {
+                            <div class="start-page_lower">
+                                @Html.Raw(Model.LowerBody)
+                            </div>
+                        }
                     </article>
                 </section>
 

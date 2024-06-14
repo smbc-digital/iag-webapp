@@ -5,12 +5,12 @@
 
     &_btn {
         margin-block-start: 2em;
+        margin-block-end: 2em;
     }
 
     &_lower {
-        margin-block-start: 2em;
         padding-block-start: 1em;
-        padding-block-end: 1em;
+        margin-block-end: 2em;
         border-top: 1px solid $stockport-grey-accent;
     }
 }
