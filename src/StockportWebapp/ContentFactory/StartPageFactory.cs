@@ -16,8 +16,10 @@ public class StartPageFactory
     public virtual ProcessedStartPage Build(StartPage startPage)
     {
         string upperBody = _tagParserContainer.ParseAll(startPage.UpperBody ?? "", startPage.Title, true, startPage.AlertsInline, null, null, null, null);
-
         upperBody = _markdownWrapper.ConvertToHtml(upperBody ?? "");
+
+        string lowerBody = _tagParserContainer.ParseAll(startPage.LowerBody ?? "", startPage.Title, true, startPage.AlertsInline, null, null, null, null);
+        lowerBody = _markdownWrapper.ConvertToHtml(lowerBody ?? "");
 
         return new ProcessedStartPage(
             startPage.Slug,
@@ -27,7 +29,7 @@ public class StartPageFactory
             upperBody,
             startPage.FormLinkLabel,
             startPage.FormLink,
-            startPage.LowerBody,
+            lowerBody,
             startPage.Breadcrumbs,
             startPage.BackgroundImage,
             startPage.Icon,
