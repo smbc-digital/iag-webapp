@@ -4,11 +4,14 @@ public class StartPageControllerTest
 {
     private readonly StartPageController _controller;
     private readonly Mock<IProcessedContentRepository> _repository;
+    private readonly Mock<IFeatureManager> _featureManager;
+
 
     public StartPageControllerTest()
     {
         // declarations
         _repository = new Mock<IProcessedContentRepository>();
+        _featureManager = new Mock<IFeatureManager>();
 
         // data
         var alerts = new List<Alert> { new Alert("title", "subHeading", "body", "severity", new DateTime(0001, 1, 1, 0, 0, 0, DateTimeKind.Utc),
@@ -39,8 +42,10 @@ public class StartPageControllerTest
         _repository.Setup(o => o.Get<StartPage>("start-page", null)).ReturnsAsync(new HttpResponse(200, startPage, string.Empty));
         _repository.Setup(o => o.Get<StartPage>("doesnt-exist", null)).ReturnsAsync(new HttpResponse(404, null, "No start-page found for 'doesnt-exist'"));
 
+        _featureManager.Setup(o => o.IsEnabledAsync(It.IsAny<string>())).ReturnsAsync(true);
+
         // objects
-        _controller = new StartPageController(_repository.Object);
+        _controller = new StartPageController(_repository.Object, _featureManager.Object);
     }
 
     [Fact]
