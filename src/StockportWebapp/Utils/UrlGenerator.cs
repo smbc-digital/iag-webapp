@@ -19,7 +19,6 @@ public class UrlGenerator : IStubToUrlConverter
         {typeof(List<TopicSitemap>), "topics/"},
         {typeof(Article), "articles/"},
         {typeof(Models.Profile), "profiles/"},
-        {typeof(ProfileResponse), "profiles/"},
         {typeof(List<Models.Profile>), "profiles/"},
         {typeof(StartPage), "start-page/"},
         {typeof(List<StartPage>), "start-page/"},

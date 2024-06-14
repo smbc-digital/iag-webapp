@@ -17,25 +17,4 @@ public class Profile
     public string Subject { get; set; } = string.Empty;
     public EventBanner EventsBanner { get; set; }
     public string Teaser { get; set; }
-
-    public Profile()
-    { }
-
-    public Profile(string title, string slug, string subtitle, string quote, string image, string body, IEnumerable<Crumb> breadcrumbs, List<Alert> alerts,
-        string triviaSubheading, List<Trivia> triviaSection, List<InlineQuote> inlineQuotes, EventBanner eventsBanner, string teaser)
-    {
-        Title = title;
-        Slug = slug;
-        Subtitle = subtitle;
-        Quote = quote;
-        Image = image;
-        Body = body;
-        Breadcrumbs = breadcrumbs;
-        Alerts = alerts;
-        TriviaSubheading = triviaSubheading;
-        TriviaSection = triviaSection;
-        InlineQuotes = inlineQuotes;
-        EventsBanner = eventsBanner;
-        Teaser = teaser;
-    }
 }

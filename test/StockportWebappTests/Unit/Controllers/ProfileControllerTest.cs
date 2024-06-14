@@ -2,14 +2,13 @@
 
 public class ProfileControllerTest
 {
-    private readonly Mock<IProcessedContentRepository> _fakeRepository = new();
     private readonly Mock<IProfileService> _profileService = new();
     private readonly ProfileController _profileController;
 
 
     public ProfileControllerTest()
     {
-        _profileController = new ProfileController(_fakeRepository.Object, _profileService.Object);
+        _profileController = new ProfileController(_profileService.Object, new BusinessId("stockportgov"));
     }
 
     [Fact]
