@@ -1,0 +1,16 @@
+.start-page {
+    &_upper {
+        margin-block-start: 2em;
+    }
+
+    &_btn {
+        margin-block-start: 2em;
+        margin-block-end: 2em;
+    }
+
+    &_lower {
+        padding-block-start: 1em;
+        margin-block-end: 2em;
+        border-top: 1px solid $stockport-grey-accent;
+    }
+}
