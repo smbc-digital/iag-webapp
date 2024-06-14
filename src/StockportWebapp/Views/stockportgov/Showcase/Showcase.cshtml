@@ -155,7 +155,7 @@
                         <div class="center-wrapper">
                             @await Component.InvokeAsync("ProfileInline", new
                             {
-                                profile = Model.Profile,
+                                profile = new ProfileViewModel(Model.Profile),
                                 withoutBody = string.IsNullOrEmpty(Model.Profile.Body)
                             })
                         </div>
@@ -167,7 +167,7 @@
         case "Profiles":
             if (Model.Profiles.AnyOrDefault())
             {
-                var profileViewModel = new ProfileListViewModel
+                ProfileListViewModel profileListViewModel = new()
                 {
                     Profiles = Model.Profiles,
                     Link = Model.ProfileLink,
@@ -176,7 +176,7 @@
 
                 <div class="showcase-section">
                     <div class="center-wrapper">
-                        <partial name="Semantic/Showcase/ProfilesList" model="profileViewModel" />
+                        <partial name="Semantic/Showcase/ProfilesList" model="@profileListViewModel" />
                     </div>
                 </div>
             }
@@ -218,9 +218,9 @@
                         <hr class="thick-divider" />
                         @await Component.InvokeAsync("Trivia", new
                         {
-                           model = Model.TriviaSection,
-                           heading = Model.TriviaSubheading,
-                           additionalClasses = "showcase"
+                            model = Model.TriviaSection,
+                            heading = Model.TriviaSubheading,
+                            additionalClasses = "showcase"
                         })
                     </div>
                 </div>

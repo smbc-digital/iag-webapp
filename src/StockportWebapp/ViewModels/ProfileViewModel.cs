@@ -2,15 +2,12 @@
 
 namespace StockportWebapp.ViewModels;
 
+[ExcludeFromCodeCoverage]
 public class ProfileViewModel
 {
     public readonly Profile Profile;
-    public readonly ProcessedSection DisplayedSection;
-    public List<ProcessedTrivia> TriviaSection { get; set; }
-
     public ProfileViewModel(Profile profile)
     {
         Profile = profile;
     }
-
 }

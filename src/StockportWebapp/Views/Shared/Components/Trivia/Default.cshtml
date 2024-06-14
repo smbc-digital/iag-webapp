@@ -1,10 +1,10 @@
 ﻿@using System.Text.RegularExpressions
-@model IEnumerable<Trivia>
+@model TriviaViewModel
 
 <section class="information-list">
     <h2>@ViewData["TriviaTitle"]</h2>
     <ul>
-        @foreach (var informationItem in Model)
+        @foreach (var informationItem in Model.TriviaList)
         {
             <li>
                 <div class="icon-column">

@@ -14,6 +14,7 @@
 }
 
 <article class="page-container" data-cy="profile-page">
+    <h1>INDEX.CSHTML -> HELLO WORLD!</h1>
     <h1 tabindex="-1">@ViewData["Title"]</h1>
     <p class="lead-paragraph">@profile.Subtitle</p>
     <hr class="thick-divider" />
@@ -24,7 +25,7 @@
     @if (Model.Profile.TriviaSection is not null)
     {
         <hr class="thick-divider" />
-        <partial name="Components/Trivia/Default" model="Model.Profile.TriviaSection" view-data='@(new ViewDataDictionary(ViewData) {{ "TriviaTitle", profile.TriviaSubheading }})'/>
+        <partial name="Components/Trivia/Default" model="new TriviaViewModel(){TriviaList = Model.Profile.TriviaSection, TriviaTitle = profile.TriviaSubheading}" />
     }
 </article>
 
