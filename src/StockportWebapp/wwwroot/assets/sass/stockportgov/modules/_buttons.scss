@@ -158,6 +158,12 @@
         }
     }
 
+    &--chevron-map {
+        &:after {
+            position: static;
+        }
+    }
+
     &--envelope {
         .btn_text {
             &::before {
