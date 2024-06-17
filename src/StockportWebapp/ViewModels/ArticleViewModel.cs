@@ -9,7 +9,10 @@ public class ArticleViewModel
     public readonly bool ShouldShowArticleSummary;
     public readonly bool ShouldShowCanonicalLink;
     public readonly string OgTitleMetaData;
-    public string MetaDescription => string.IsNullOrEmpty(DisplayedSection?.MetaDescription) ? Article.MetaDescription : DisplayedSection.MetaDescription;
+    public string MetaDescription => 
+        string.IsNullOrEmpty(DisplayedSection?.MetaDescription) 
+            ? Article.MetaDescription 
+            : DisplayedSection.MetaDescription;
 
     public bool ArticleWithSection =>
         Article.Sections is not null && Article.Sections.Any() && DisplayedSection is not null;

@@ -7,8 +7,8 @@ public class ArticleControllerTest
     private readonly Mock<IProcessedContentRepository> _processedRepository = new();
     private readonly Mock<IContactUsMessageTagParser> _contactUsMessageParser = new();
     private const string DefaultMessage = "A default message";
-    private readonly ProcessedSection sectionOne = new("Overview", "physical-activity-overview", string.Empty, "body", new List<Profile>(), new List<Document>(), new List<Alert>());
-    private readonly ProcessedSection sectionTwo = new("Types of Physical Activity", It.IsAny<string>(), It.IsAny<string>(), "body", new List<Profile>(), new List<Document>(), new List<Alert>());
+    private readonly ProcessedSection sectionOne = new("Overview", "physical-activity-overview", string.Empty, "body", new List<Profile>(), new List<Document>(), new List<Alert>(), new List<GroupBranding>(), "logoAreaTitle");
+    private readonly ProcessedSection sectionTwo = new("Types of Physical Activity", It.IsAny<string>(), It.IsAny<string>(), "body", new List<Profile>(), new List<Document>(), new List<Alert>(), new List<GroupBranding>(), "logoAreaTitle");
     private readonly ProcessedArticle article;
 
     public ArticleControllerTest()
@@ -92,8 +92,8 @@ public class ArticleControllerTest
     public async Task Article_ShouldReturnCorrespondingSection_If_MultipleSectionsArticleWithSectionSlug()
     {
         // Arrange
-        ProcessedSection sectionOne = new("Overview", "physical-activity-overview", string.Empty, "body", new List<Profile>(), new List<Document>(), new List<Alert>());
-        ProcessedSection sectionTwo = new("Types of Physical Activity", "types-of-physical-activity", It.IsAny<string>(), "body", new List<Profile>(), new List<Document>(), new List<Alert>());
+        ProcessedSection sectionOne = new("Overview", "physical-activity-overview", string.Empty, "body", new List<Profile>(), new List<Document>(), new List<Alert>(), new List<GroupBranding>(), "logoAreaTitle");
+        ProcessedSection sectionTwo = new("Types of Physical Activity", "types-of-physical-activity", It.IsAny<string>(), "body", new List<Profile>(), new List<Document>(), new List<Alert>(), new List<GroupBranding>(), "logoAreaTitle");
         ProcessedArticle article = new(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty,
             new List<ProcessedSection>() { sectionOne, sectionTwo }, string.Empty, string.Empty, string.Empty, string.Empty, new List<Crumb>() { },
             new List<Alert>(), new NullTopic(), new List<Alert>(), new DateTime(), new bool(), new List<GroupBranding>(), string.Empty, new List<SubItem>());
@@ -210,7 +210,7 @@ public class ArticleControllerTest
                 new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc),String.Empty, false, string.Empty)
         };
 
-        ProcessedSection processedSection = new("title", "slug", string.Empty, "body", new List<Profile>(), new List<Document>(), alertsInline);
+        ProcessedSection processedSection = new("title", "slug", string.Empty, "body", new List<Profile>(), new List<Document>(), alertsInline, new List<GroupBranding>(), "logoAreaTitle");
 
         ProcessedArticle article = new(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty,
             new List<ProcessedSection>() { processedSection }, string.Empty, string.Empty, string.Empty, string.Empty, new List<Crumb>(), new List<Alert>(), new NullTopic(), alertsInline, new DateTime(), new bool(), new List<GroupBranding>(), string.Empty, new List<SubItem>());
@@ -250,7 +250,7 @@ public class ArticleControllerTest
     public async Task ArticleWithSection_ShouldReturnViewDataWithMetaDescription()
     {
         // Arrange
-        ProcessedSection section = new(string.Empty, "test-slug", "test meta description", string.Empty, null, null, null);
+        ProcessedSection section = new(string.Empty, "test-slug", "test meta description", string.Empty, null, null, null, null, string.Empty);
         ProcessedArticle article = new(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, new List<ProcessedSection> { section },
             string.Empty, string.Empty, string.Empty, null, null, null, null, null, new DateTime(), new bool(), new List<GroupBranding>(), string.Empty, new List<SubItem>());
 
@@ -271,8 +271,8 @@ public class ArticleControllerTest
     public async Task ArticleWithSection_ShouldReturnViewDataWithMetaDescription_If_MulitpleArticlesWithSections()
     {
         // Arrange
-        ProcessedSection section1 = new(string.Empty, "test-slug", "test meta description", string.Empty, null, null, null);
-        ProcessedSection section2 = new(string.Empty, string.Empty, "other string", string.Empty, null, null, null);
+        ProcessedSection section1 = new(string.Empty, "test-slug", "test meta description", string.Empty, null, null, null, null, string.Empty);
+        ProcessedSection section2 = new(string.Empty, string.Empty, "other string", string.Empty, null, null, null, null, string.Empty);
         ProcessedArticle article = new(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, new List<ProcessedSection> { section1, section2 },
             string.Empty, string.Empty, string.Empty, null, null, null, null, null, new DateTime(), new bool(), new List<GroupBranding>(), string.Empty, new List<SubItem>());
 
@@ -326,5 +326,5 @@ public class ArticleControllerTest
             new LinkedList<Alert>(), new NullTopic(), new List<Alert>(), new DateTime(), new bool(), new List<GroupBranding>(), It.IsAny<string>(), new List<SubItem>());
 
     private static ProcessedSection DummySection() => 
-        new(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), new List<Profile>(), new List<Document>(), new List<Alert>());
+        new(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), new List<Profile>(), new List<Document>(), new List<Alert>(), new List<GroupBranding>(), "logoAreaTitle");
 }

@@ -10,8 +10,11 @@ public class Section
     public List<Document> Documents { get; set; }
     public IEnumerable<Alert> AlertsInline { get; set; }
     public IEnumerable<PrivacyNotice> PrivacyNotices { get; set; }
+    public List<GroupBranding> SectionBranding { get; init; }
+    public string LogoAreaTitle { get; set; }
 
-    public Section(string title, string slug, string metaDescription, string body, List<Profile> profiles, List<Document> documents, IEnumerable<Alert> alertsInline)
+    public Section(string title, string slug, string metaDescription, string body, List<Profile> profiles, List<Document> documents, IEnumerable<Alert> alertsInline, List<GroupBranding> sectionBranding,
+    string logoAreaTitle)
     {
         Title = title;
         Slug = slug;
@@ -20,5 +23,7 @@ public class Section
         Profiles = profiles;
         Documents = documents;
         AlertsInline = alertsInline;
+        SectionBranding = sectionBranding;
+        LogoAreaTitle = logoAreaTitle;
     }
 }

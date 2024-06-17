@@ -1,12 +1,15 @@
 @model List<GroupBranding>
 @{
     string logoAreaTitle = (string)ViewData["logoAreaTitle"];
+    string borderTop = (bool)ViewData["articleWithSection"]
+        ? "section__title--padding-top" 
+        : "section__title--border-top";
 }
 
-@if(Model.Any())
+@if(Model.Any()) 
 {
     <div class="logo-area-article" data-cy="articles-logo-area">
-        <h2 class="section__title section__title--padded-bottom section__title--padding-top">@(logoAreaTitle ?? "Our partners")</h2>
+        <h2 class="section__title section__title--padded-bottom @borderTop">@(logoAreaTitle ?? "Our partners")</h2>
         <div class="section__content section__content--no-margin">
             <div class="logo-area">
                 @foreach (var branding in Model)
@@ -15,7 +18,7 @@
                         <a href="@branding.Url">
                             <img src="@branding.File.Url?w=340&q=89&fm=webp"
                                 class="logo-area__image"
-                                alt="@branding.File.Description"
+                                alt="@(branding.File.Description ?? string.Empty)"
                                 loading="lazy"
                                 width="200"
                                 height="125"/>
