@@ -1,33 +1,14 @@
 ﻿namespace StockportWebappTests_Unit.Unit.ContentFactory;
 
-public class ServicePayPaymentFactoryTests
+public class StartPageFactoryTests
 {
     private readonly Mock<MarkdownWrapper> _mockMarkdownWrapper = new Mock<MarkdownWrapper>();
     private readonly Mock<ITagParserContainer> _mockTagParser = new Mock<ITagParserContainer>();
-    private readonly ServicePayPayment _payment = new ServicePayPayment
-    {
-        AccountReference = "123445",
-        Alerts = null,
-        BreadCrumbs = null,
-        CatalogueId = "45334534",
-        Description = "description",
-        MetaDescription = "metaDescription",
-        PaymentAmount = "20.36",
-        PaymentDescription = "paymentDescription",
-        PaymentDetailsText = "detailsText",
-        Slug = "slug",
-        ReferenceLabel = "Ref label",
-        ReferenceValidation = EPaymentReferenceValidation.None,
-        ReturnUrl = "returnUrl",
-        Teaser = "teaser",
-        Title = "title"
-    };
+    private readonly StartPageFactory _factory;
 
-    private readonly ServicePayPaymentFactory _factory;
-
-    public ServicePayPaymentFactoryTests()
+    public StartPageFactoryTests()
     {
-        _factory = new ServicePayPaymentFactory(_mockTagParser.Object, _mockMarkdownWrapper.Object);
+        _factory = new StartPageFactory(_mockTagParser.Object, _mockMarkdownWrapper.Object);
 
         _mockTagParser
             .Setup(_ => _.ParseAll(_payment.Description, It.IsAny<string>(), It.IsAny<bool>(), null, null, null, null, null))
