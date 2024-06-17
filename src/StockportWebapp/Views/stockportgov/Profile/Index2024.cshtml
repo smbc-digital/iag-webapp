@@ -1,0 +1,38 @@
+@using StockportWebapp.Models;
+@model ProfileViewModel
+@{
+    Profile profile = Model.Profile;
+    ViewData["Title"] = profile.Title;
+    ViewData["FullWidth"] = "full-width profile";
+    string articleTitle = profile.Breadcrumbs.LastOrDefault() != null ? profile.Breadcrumbs.LastOrDefault().Title + " - " : string.Empty;
+    ViewData["og:title"] = articleTitle + profile.Title;
+    Layout = "../Shared/_Layout2023.cshtml";
+}
+
+<div class="grid-container-full-width" style="background-color:white;">
+    <partial name="Breadcrumb2023" model='@profile.Breadcrumbs' />
+
+    <div class="grid-container">
+        <div class="grid-100">
+            <div class="article--70">
+                <h1 class="article__title">@profile.Title</h1>
+            </div>
+
+            <section class="article">
+                <div class="article--70 section">
+                    <div class="placeholder placeholder-bg-teal placeholder__padded-top placeholder__padded-bottom placeholder-large" id="article-page-content">
+                        <div class="grid-container">
+                            <h2 class="placeholder-article-header-description">Body text</h2>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="article--30 section">
+                    <div class="placeholder placeholder-bg-grey placeholder-large" id="article-page-content">
+                        <h2 class="placeholder-article-header-description">Side bar</h2>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>

@@ -14,7 +14,6 @@ public class DirectoryEntryViewModel : ISlugComparable
     {
         Slug = slug;
         DirectoryEntry = directoryEntry;
-
     }
 
     public DirectoryEntryViewModel(string slug, DirectoryEntry directoryEntry, IEnumerable<Crumb> breadcrumbs, MapDetails mapDetails)

@@ -1,12 +1,24 @@
 .alert-inline {
+	@include body;
 	padding: 1em;
 	background-color: $stockport-teal-lightest;
-	border-inline-start: 10px solid $stockport-teal;
+	border-inline-start: 0.55em solid $stockport-teal-lighter;
 	border-radius: 3px;
+
+	&-icon {
+		padding-right: 0.25rem;
+	}
+
+	a {
+		color: $stockport-black;
+
+		&:hover {
+			color: $stockport-black;
+		}
+	}
 }
 
 .alert-inline--warning {
-	border-inline-start: 10px solid $stockport-orange;
-	background-color: lighten($stockport-orange, 50%);
-	
+	border-inline-start-color: $stockport-orange;
+	background-color: lighten($stockport-orange, 50%);	
 }

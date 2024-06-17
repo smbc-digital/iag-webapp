@@ -1,27 +1,27 @@
-﻿@model StockportWebapp.Models.Profile
+﻿@model ProfileViewModel
 
 <div class="profile profile-success-story-new">
     @{ 
         var width = "100";
     }
-    @if (!string.IsNullOrEmpty(Model.Image))
+    @if (!string.IsNullOrEmpty(Model.Profile.Image))
     {
         width = "75";
         <div class="grid-25 tablet-grid-25 mobile-grid-100">
             <div class="profile-image-mask">
-                <img src="@Model.Image" alt="@Model.Title" />
+                <img src="@Model.Profile.Image" alt="@Model.Profile.Title" />
             </div>
         </div>
     }
     <div class="grid-@width tablet-grid-@width mobile-grid-100">
         <div class="mobile-push-10 headings">
-            <h2>@Model.Title</h2>
-            <span class="summary">@Model.Subtitle</span>
+            <h2>@Model.Profile.Title</h2>
+            <span class="summary">@Model.Profile.Subtitle</span>
         </div>
         <div class="grid-100 grid-parent body">
             <div class="grid-10 tablet-grid-10 mobile-grid-10"><span class="green open fa fa-2x fa-quote-left" aria-hidden="true"></span></div>
             <div class="grid-80 tablet-grid-80 mobile-grid-80 main-body">
-                <p>@Model.Quote</p>
+                <p>@Model.Profile.Quote</p>
             </div>
             <div class="grid-10 tablet-grid-10 mobile-grid-10"></div>
         </div>

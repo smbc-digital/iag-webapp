@@ -13,8 +13,6 @@ public class Section
     public List<GroupBranding> SectionBranding { get; init; }
     public string LogoAreaTitle { get; set; }
 
-    public Section() { }
-
     public Section(string title, string slug, string metaDescription, string body, List<Profile> profiles, List<Document> documents, IEnumerable<Alert> alertsInline, List<GroupBranding> sectionBranding,
     string logoAreaTitle)
     {

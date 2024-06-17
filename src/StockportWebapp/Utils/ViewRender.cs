@@ -26,20 +26,18 @@ public class ViewRender : IViewRender
 
     public string Render<TModel>(string name, TModel model)
     {
-        var actionContext = GetActionContext();
+        ActionContext actionContext = GetActionContext();
 
-        var viewEngineResult = _viewEngine.FindView(actionContext, name, false);
+        Microsoft.AspNetCore.Mvc.ViewEngines.ViewEngineResult viewEngineResult = _viewEngine.FindView(actionContext, name, false);
 
         if (!viewEngineResult.Success)
-        {
             throw new InvalidOperationException(string.Format("Couldn't find view '{0}'", name));
-        }
 
-        var view = viewEngineResult.View;
+        Microsoft.AspNetCore.Mvc.ViewEngines.IView view = viewEngineResult.View;
 
-        using (var output = new StringWriter())
+        using (StringWriter output = new())
         {
-            var viewContext = new ViewContext(
+            ViewContext viewContext = new(
                 actionContext,
                 view,
                 new ViewDataDictionary<TModel>(
@@ -62,7 +60,7 @@ public class ViewRender : IViewRender
 
     private ActionContext GetActionContext()
     {
-        var httpContext = new DefaultHttpContext();
+        DefaultHttpContext httpContext = new();
         httpContext.Request.Headers.Add("BUSINESS-ID", _httpContextAccessor.HttpContext.Request.Headers["BUSINESS-ID"]);
         httpContext.RequestServices = _serviceProvider;
         httpContext.Request.Host = _httpContextAccessor.HttpContext.Request.Host;

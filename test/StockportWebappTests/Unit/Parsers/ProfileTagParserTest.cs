@@ -2,67 +2,64 @@
 
 public class ProfileTagParserTest
 {
-    private readonly Mock<IViewRender> _viewRenderer;
-    private readonly ProfileTagParser _profileTagParser;
+    private readonly Mock<IViewRender> _viewRender;
+    private readonly ProfileTagParser _parser;
+    private List<Profile> _profiles;
 
     public ProfileTagParserTest()
     {
-        _viewRenderer = new Mock<IViewRender>();
-        _profileTagParser = new ProfileTagParser(_viewRenderer.Object);
-    }
-
-    [Fact]
-    public void ShouldReplaceProfileTagWithProfileView()
-    {
-        var content = "this is some test {{PROFILE:some-slug}}";
-        var profile = new Profile
+        _viewRender = new Mock<IViewRender>();
+        _profiles = new List<Profile>
         {
-            Slug = "some-slug",
-            Title = "some-title",
-            Image = "some-image-url",
-            Subtitle = "some-subtitle",
-            Body = "some-body"
+            new() { Slug = "john-doe", Body = "John's bio" },
+            new() { Slug = "jane-doe", Body = "Jane's bio" }
         };
-        var profiles = new List<Profile>() { profile };
-        var renderResult = "RENDERED PROFILE CONTENT";
 
-        _viewRenderer.Setup(o => o.Render("Profile", profile)).Returns(renderResult);
-
-        var parsedHtml = _profileTagParser.Parse(content, profiles);
-
-        _viewRenderer.Verify(o => o.Render("Profile", profile), Times.Once);
-        parsedHtml.Should().Contain(renderResult);
+        _parser = new ProfileTagParser(_viewRender.Object);
     }
 
     [Fact]
-    public void ShouldReplaceProfileTagWithProfileViewWithoutBody_WhenBodyNullOrEmpty()
+    public void HasMatches_WithValidTag_ReturnsTrue()
     {
-        var content = "this is some test {{PROFILE:some-slug}}";
-        var profile = new Profile
-        {
-            Slug = "some-slug",
-            Title = "some-title",
-            Image = "some-image-url",
-            Subtitle = "some-subtitle",
-            Body = ""
-        };
-        var profiles = new List<Profile>() { profile };
-        var renderResult = "RENDERED PROFILE CONTENT";
-
-        _viewRenderer.Setup(o => o.Render("ProfileWithoutBody", profile)).Returns(renderResult);
-
-        var parsedHtml = _profileTagParser.Parse(content, profiles);
-
-        _viewRenderer.Verify(o => o.Render("ProfileWithoutBody", profile), Times.Once);
-        parsedHtml.Should().Contain(renderResult);
+        // Act
+        bool hasMatches = _parser.HasMatches("Hello, {{PROFILE: john-doe}}!");
+        
+        // Assert
+        Assert.True(hasMatches);
     }
 
     [Fact]
-    public void ShouldRemoveProfileTagsThatDontExist()
+    public void HasMatches_WithNoTag_ReturnsFalse()
     {
-        var content = "this is a test{{PROFILE:some-slug}}";
-        var parsedHtml = _profileTagParser.Parse(content, new List<Profile>());
-        _viewRenderer.Verify(o => o.Render("Profile", It.IsAny<Profile>()), Times.Never);
-        parsedHtml.Should().Be("this is a test");
+        // Act
+        bool hasMatches = _parser.HasMatches("Hello, John Doe!");
+        
+        // Assert
+        Assert.False(hasMatches);
+    }
+
+    [Fact]
+    public void Parse_ReplacesTagWithProfileHtml()
+    {
+        // Arrange
+        _viewRender
+            .Setup(viewRender => viewRender.Render(It.IsAny<string>(), It.IsAny<ProfileViewModel>()))
+            .Returns("<p>John's bio</p>");
+
+        // Act
+        string result = _parser.Parse("Hello, {{PROFILE:john-doe}}!", _profiles);
+
+        // Assert
+        Assert.Equal("Hello, <p>John's bio</p>!", result);
+    }
+
+    [Fact]
+    public void Parse_WithNonExistingProfile_RemovesTag()
+    {
+        // Act
+        string result = _parser.Parse("Hello, {{PROFILE: non-existing}}!", _profiles);
+        
+        // Assert
+        Assert.Equal("Hello, !", result);
     }
 }

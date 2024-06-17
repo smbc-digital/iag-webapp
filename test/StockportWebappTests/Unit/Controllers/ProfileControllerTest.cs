@@ -2,31 +2,46 @@
 
 public class ProfileControllerTest
 {
-    private readonly Mock<IProcessedContentRepository> _fakeRepository = new();
     private readonly Mock<IProfileService> _profileService = new();
     private readonly ProfileController _profileController;
 
 
     public ProfileControllerTest()
     {
-        _profileController = new ProfileController(_fakeRepository.Object, _profileService.Object);
+        _profileController = new ProfileController(_profileService.Object, new BusinessId("stockportgov"));
     }
 
     [Fact]
-    public async Task ItReturnsAProfileWithProcessedBody()
+    public async Task GetProfile_ReturnsAProfileWithProcessedBody()
     {
-        var profileEntity = new ProfileEntity
+        // Arrange
+        Profile profile = new()
         {
             Title = "test"
         };
 
-        _profileService
-            .Setup(_ => _.GetProfile(It.IsAny<string>()))
-            .ReturnsAsync(profileEntity);
+        _profileService.Setup(_ => _.GetProfile(It.IsAny<string>()))
+                        .ReturnsAsync(profile);
 
-        var view = await _profileController.Index("slug") as ViewResult;
-        var model = view.ViewData.Model as Profile;
+        // Act
+        ViewResult view = await _profileController.Index("slug") as ViewResult;
+        ProfileViewModel model = view.ViewData.Model as ProfileViewModel;
 
-        model.Title.Should().Be(profileEntity.Title);
+        // Assert
+        Assert.Equal(profile.Title, model.Profile.Title);
+    }
+
+    [Fact]
+    public async Task GetProfile_ReturnsNotFound()
+    {
+        // Arrange
+        _profileService.Setup(_ => _.GetProfile(It.IsAny<string>()))
+                        .ReturnsAsync((Profile)null);
+
+        // Act
+        StatusCodeResult result = await _profileController.Index("slug") as StatusCodeResult;
+
+        // Assert
+        Assert.Equal(404, result.StatusCode);
     }
 }

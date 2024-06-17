@@ -17,11 +17,12 @@ public class AlertsInlineTagParser : IDynamicTagParser<Alert>
 
         foreach (Match match in matches)
         {
-            var AlertsInlineTitle = match.Groups[1].Value;
-            var AlertsInline = GetAlertsInlineMatchingTitle(alertsInline, AlertsInlineTitle);
+            string AlertsInlineTitle = match.Groups[1].Value;
+            Alert AlertsInline = GetMatchingInlineAlert(alertsInline, AlertsInlineTitle);
+
             if (AlertsInline != null)
             {
-                var alertsInlineHtml = String.Empty;
+                var alertsInlineHtml = string.Empty;
 
                 if (AlertsInline.Severity.Equals(Severity.Warning) || AlertsInline.Severity.Equals(Severity.Error))
                 {
@@ -42,6 +43,6 @@ public class AlertsInlineTagParser : IDynamicTagParser<Alert>
     private string RemoveEmptyTags(string content) =>
         TagRegex.Replace(content, string.Empty);
 
-    private Alert GetAlertsInlineMatchingTitle(IEnumerable<Alert> alertsInline, string title) =>
-        alertsInline?.FirstOrDefault(s => s.Title == title);
+    private Alert GetMatchingInlineAlert(IEnumerable<Alert> alertsInline, string reference) =>
+        alertsInline?.FirstOrDefault(s => s.Title.Equals(reference) || s.Slug.Equals(reference));
 }
