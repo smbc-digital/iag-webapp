@@ -17,8 +17,9 @@ public class AlertsInlineTagParser : IDynamicTagParser<Alert>
 
         foreach (Match match in matches)
         {
-            var AlertsInlineTitle = match.Groups[1].Value;
-            var AlertsInline = GetMatchingInlineAlert(alertsInline, AlertsInlineTitle);
+            string AlertsInlineTitle = match.Groups[1].Value;
+            Alert AlertsInline = GetMatchingInlineAlert(alertsInline, AlertsInlineTitle);
+
             if (AlertsInline != null)
             {
                 var alertsInlineHtml = String.Empty;
@@ -43,5 +44,5 @@ public class AlertsInlineTagParser : IDynamicTagParser<Alert>
         TagRegex.Replace(content, string.Empty);
 
     private Alert GetMatchingInlineAlert(IEnumerable<Alert> alertsInline, string reference) =>
-        alertsInline?.FirstOrDefault(s => s.Title == reference || s.Slug == reference);
+        alertsInline?.FirstOrDefault(s => s.Title.Equals(reference) || s.Slug.Equals(reference));
 }
