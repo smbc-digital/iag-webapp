@@ -23,9 +23,7 @@ public class ProcessedContentRepository : IProcessedContentRepository
         var httpResponse = await _httpClient.Get(url, authenticationHeaders);
 
         if (!httpResponse.IsSuccessful())
-        {
             return httpResponse;
-        }
 
         var model = HttpResponse.Build<T>(httpResponse);
         var processedModel = _contentTypeFactory.Build((T)model.Content);
