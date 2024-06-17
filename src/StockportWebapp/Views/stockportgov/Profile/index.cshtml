@@ -4,7 +4,7 @@
     Profile profile = Model.Profile;
     ViewData["Title"] = profile.Title;
     ViewData["FullWidth"] = "full-width profile";
-    var articleTitle = profile.Breadcrumbs.LastOrDefault() != null ? profile.Breadcrumbs.LastOrDefault().Title + " - " : string.Empty;
+    var articleTitle = profile.Breadcrumbs.LastOrDefault() != null ? $"{profile.Breadcrumbs.LastOrDefault().Title} - " : string.Empty;
     ViewData["og:title"] = articleTitle + profile.Title;
     Layout = "../Shared/_LayoutSemantic.cshtml";
 }
