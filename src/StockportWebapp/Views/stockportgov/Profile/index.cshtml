@@ -25,7 +25,7 @@
     @if (Model.Profile.TriviaSection is not null)
     {
         <hr class="thick-divider" />
-        <partial name="Components/Trivia/Default" model="new TriviaViewModel(){TriviaList = Model.Profile.TriviaSection, TriviaTitle = profile.TriviaSubheading}" />
+        <partial name="Components/Trivia/Default" model="new TriviaViewModel(){ TriviaList = Model.Profile.TriviaSection, TriviaTitle = profile.TriviaSubheading }" />
     }
 </article>
 

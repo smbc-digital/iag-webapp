@@ -14,14 +14,11 @@ public class TriviaFactory : ITriviaFactory
         _markdownWrapper = markdownWrapper;
     }
 
-    public List<Trivia> Build(List<Trivia> triviaSection)
-    {
-        return triviaSection?.Select(item => new Trivia
-        (
+    public List<Trivia> Build(List<Trivia> triviaSection) 
+        => triviaSection?.Select(item => new Trivia (
             item.Name,
             item.Icon,
             _markdownWrapper.ConvertToHtml(item.Text),
             item.Link
         )).ToList();
-    }
 }

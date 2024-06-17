@@ -32,8 +32,6 @@ public class ContentTypeFactory
         _factories.Add(typeof(List<Trivia>), triviaFactory);
     }
 
-    public IProcessedContentType Build<T>(T content)
-    {
-        return _factories[content.GetType()].Build(content);
-    }
+    public IProcessedContentType Build<T>(T content) => 
+        _factories[content.GetType()].Build(content);
 }
