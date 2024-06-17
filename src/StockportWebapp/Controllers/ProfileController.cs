@@ -23,11 +23,11 @@ public class ProfileController : Controller
     [Route("/profile/{slug}")]
     public async Task<IActionResult> Index(string slug)
     {
-        var profileEntity = await _profileService.GetProfile(slug);
+        var profile = await _profileService.GetProfile(slug);
 
-        if (profileEntity is not null && _isStockportGovProfile && _profilesToggle)
+        if (profile is not null && _isStockportGovProfile && _profilesToggle)
         {
-            ProfileViewModel viewModel = new(profileEntity);
+            ProfileViewModel viewModel = new(profile);
             return View("Index2024", viewModel);
         }
 
