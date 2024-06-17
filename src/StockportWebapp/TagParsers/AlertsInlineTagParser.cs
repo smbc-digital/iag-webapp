@@ -22,7 +22,7 @@ public class AlertsInlineTagParser : IDynamicTagParser<Alert>
 
             if (AlertsInline != null)
             {
-                var alertsInlineHtml = String.Empty;
+                var alertsInlineHtml = string.Empty;
 
                 if (AlertsInline.Severity.Equals(Severity.Warning) || AlertsInline.Severity.Equals(Severity.Error))
                 {

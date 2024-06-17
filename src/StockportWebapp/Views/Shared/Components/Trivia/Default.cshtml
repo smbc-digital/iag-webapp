@@ -1,13 +1,11 @@
 ﻿@using System.Text.RegularExpressions
-@model Tuple<IEnumerable<ProcessedTrivia>, string, string>
+@model TriviaViewModel
 
-<section class="information-list @Model.Item3">
-    <h2>@Model.Item2</h2>
+<section class="information-list">
+    <h2>@ViewData["TriviaTitle"]</h2>
     <ul>
-        @for (int i = 0; i < Model.Item1.Count(); i++)
+        @foreach (var informationItem in Model.TriviaList)
         {
-            var informationItem = Model.Item1.ToArray()[i];
-
             <li>
                 <div class="icon-column">
                     <span class="si @informationItem.Icon"></span>
@@ -33,6 +31,3 @@
         }
     </ul>
 </section>
-
-
-

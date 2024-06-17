@@ -1,29 +1,29 @@
-﻿@model StockportWebapp.Models.Profile
+﻿@model ProfileViewModel
 @{
     Layout = "../Shared/_Layout.cshtml";
 
-    var articleTitle = Model.Breadcrumbs.LastOrDefault() is not null ? 
-        Model.Breadcrumbs.LastOrDefault().Title + " - " : string.Empty;
+    var articleTitle = Model.Profile.Breadcrumbs.LastOrDefault() is not null ? 
+        Model.Profile.Breadcrumbs.LastOrDefault().Title + " - " : string.Empty;
 
-    ViewData["Title"] = Model.Title;
-    ViewData["og:title"] = articleTitle + Model.Title;
+    ViewData["Title"] = Model.Profile.Title;
+    ViewData["og:title"] = articleTitle + Model.Profile.Title;
 }
 
 @section Breadcrumbs {
-    <partial name="Breadcrumb" model='Model.Breadcrumbs'/>
+    <partial name="Breadcrumb" model='Model.Profile.Breadcrumbs'/>
 }
 
-<section aria-label="@Model.Title content" class="grid-100 mobile-grid-100">
-    <a name="@Model.Title content" class="anchor anchor-content"></a>
+<section aria-label="@Model.Profile.Title content" class="grid-100 mobile-grid-100">
+    <a name="@Model.Profile.Title content" class="anchor anchor-content"></a>
     <div class="grid-100 tablet-grid-100 mobile-grid-100 profile-container">      
         <div class="grid-parent hs-profile-header">
             <div class="hs-profile-title grid-100 tablet-grid-100">
-                <span tabindex="-1" id="content"class="hs-profile-title-container">@Model.Title</span>               
+                <span tabindex="-1" id="content"class="hs-profile-title-container">@Model.Profile.Title</span>               
             </div>
             <div class="clearfix"></div>
-            <p>@Model.Subtitle</p>
+            <p>@Model.Profile.Subtitle</p>
             <article>
-                @Html.Raw(Model.Body)
+                @Html.Raw(Model.Profile.Body)
             </article>
         </div>
     </div>

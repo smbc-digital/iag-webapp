@@ -34,7 +34,7 @@ public class ProcessedShowcase : IProcessedContentType
     public readonly CallToActionBanner CallToActionBanner;
     public readonly FieldOrder FieldOrder;
     public readonly string Icon;
-    public readonly List<ProcessedTrivia> TriviaSection;
+    public readonly List<Trivia> TriviaSection;
     public readonly string TriviaSubheading;
     public string EventsReadMoreText;
     public readonly Video Video;
@@ -76,7 +76,7 @@ public class ProcessedShowcase : IProcessedContentType
         FieldOrder fieldOrder,
         string icon,
         string triviaSubheading,
-        List<ProcessedTrivia> triviaSection,
+        List<Trivia> triviaSection,
         string profileHeading,
         string profileLink,
         string eventsReadMoreText,

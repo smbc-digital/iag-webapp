@@ -155,9 +155,8 @@ namespace StockportWebapp.Utils.Extensions
                     p.GetService<IRepository>(),
                     p.GetService<ITagParserContainer>(),
                     p.GetService<MarkdownWrapper>(),
-                    p.GetService<IDynamicTagParser<Alert>>(),
-                    p.GetService<ITriviaFactory>(),
-                    p.GetService<IDynamicTagParser<InlineQuote>>()));
+                    p.GetService<ITriviaFactory>()
+                ));
 
             return services;
         }
