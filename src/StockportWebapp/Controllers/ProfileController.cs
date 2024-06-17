@@ -28,7 +28,7 @@ public class ProfileController : Controller
         if (profileEntity is not null && _isStockportGovProfile && _profilesToggle)
         {
             ProfileViewModel viewModel = new(profileEntity);
-            return View(viewModel);
+            return View("Index2024", viewModel);
         }
 
         return NotFound();
