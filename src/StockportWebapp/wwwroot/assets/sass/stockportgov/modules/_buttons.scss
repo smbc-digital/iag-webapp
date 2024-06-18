@@ -219,12 +219,6 @@ html[dir="rtl"] {
                 content: "";
             }
         }
-
-        &--chevron-map {
-            &:after {
-                position: absolute;
-            }
-        }
     }
 }
 
