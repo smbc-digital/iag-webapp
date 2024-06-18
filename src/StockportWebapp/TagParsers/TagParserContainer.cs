@@ -30,7 +30,7 @@ public class TagParserContainer : ITagParserContainer
 
     public string ParseAll(string content, string title = null, bool removeEmptyTags = true, IEnumerable<Alert> alerts = null, IEnumerable<Document> documents = null, IEnumerable<InlineQuote> quotes = null, IEnumerable<PrivacyNotice> privacyNotices = null, IEnumerable<Models.Profile> profiles = null)
     {
-        var parsedContent = _tagParsers.Aggregate(content, (c, tagParser) => tagParser.Parse(c, title));
+        string parsedContent = _tagParsers.Aggregate(content, (c, tagParser) => tagParser.Parse(c, title));
         parsedContent = _alertsInlineTagParser.Parse(parsedContent, alerts);
         parsedContent = _documentTagParser.Parse(parsedContent, documents);
         parsedContent = _inlineQuoteTagParser.Parse(parsedContent, quotes);

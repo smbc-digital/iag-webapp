@@ -11,7 +11,6 @@ public class SectionFactory : ISectionFactory
     private readonly ITagParserContainer _tagParserContainer;
     private readonly IRepository _repository;
 
-
     public SectionFactory(ITagParserContainer tagParserContainer, MarkdownWrapper markdownWrapper, IRepository repository)
     {
         _tagParserContainer = tagParserContainer;

@@ -10,7 +10,7 @@ public class ContentTypeFactory
         IHttpContextAccessor httpContextAccesor,
         IRepository repository)
     {
-        SectionFactory sectionFactory = new(tagParserContainer, markdownWrapper, null);
+        SectionFactory sectionFactory = new(tagParserContainer, markdownWrapper, repository);
         ContactUsCategoryFactory contactUsCategoryFactory = new(tagParserContainer, markdownWrapper);
         TriviaFactory triviaFactory = new(markdownWrapper);
 
