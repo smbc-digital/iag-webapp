@@ -56,7 +56,7 @@ public class DirectoryEntryViewModel : ISlugComparable
 
     public string FullyResolvedSlug => $"{ParentSlug}/{Slug}";
     
-    public string ToString(string url) => string.Format("position: {{ lat: {0}, lng: {1} }}, title: \"{2}\", content: \"<div class='google-map--padding'><h3 class='h-m'>{2}</h3><p class='body'>{3}</p><hr/><a href='@Model.Link' class='btn btn_small btn--width-25 btn--chevron-forward btn--chevron-bold'><span class='btn_text'>View {2}</span></a></div>\", isPinned: {4}, mapPinIndex: {5}", DirectoryEntry.MapPosition.Lat, DirectoryEntry.MapPosition.Lon, HttpUtility.HtmlEncode(DirectoryEntry.Name), HttpUtility.HtmlEncode(DirectoryEntry.Teaser), IsPinned ? "true" : "false", MapPinIndex, url);
+    public string ToString(string url) => string.Format("position: {{ lat: {0}, lng: {1} }}, title: \"{2}\", content: \"<div class='google-map--padding'><h3 class='h-m'>{2}</h3><p class='body'>{3}</p><hr/><a href='{6}' class='btn btn_small btn--width-25 btn--chevron-forward btn--chevron-bold'><span class='btn_text'>View {2}</span></a></div>\", isPinned: {4}, mapPinIndex: {5}", DirectoryEntry.MapPosition.Lat, DirectoryEntry.MapPosition.Lon, HttpUtility.HtmlEncode(DirectoryEntry.Name), HttpUtility.HtmlEncode(DirectoryEntry.Teaser), IsPinned ? "true" : "false", MapPinIndex, url);
     
     public Placemark ToKmlPlacemark(string pinnedStyle ="") => new()
     {
