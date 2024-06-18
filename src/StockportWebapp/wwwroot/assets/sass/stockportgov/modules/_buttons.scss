@@ -41,6 +41,16 @@
         width: 100%;
     }
 
+    &--width-25 {
+        width: 25%;
+        min-width: 250px;
+
+        @media #{$mobile, $tablet} {
+            width: 100%;
+            min-width: unset;
+        }
+    }
+
     &--width-30 {
         width: 33.3333%;
         min-width: 300px;
@@ -158,12 +168,6 @@
         }
     }
 
-    &--chevron-map {
-        &:after {
-            position: static;
-        }
-    }
-
     &--envelope {
         .btn_text {
             &::before {
@@ -213,6 +217,12 @@ html[dir="rtl"] {
 
             &::after {
                 content: "";
+            }
+        }
+
+        &--chevron-map {
+            &:after {
+                position: absolute;
             }
         }
     }
