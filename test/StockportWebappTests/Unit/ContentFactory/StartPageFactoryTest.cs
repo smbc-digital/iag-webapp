@@ -1,13 +1,9 @@
-﻿using SharpKml.Dom;
-using StockportWebapp.Models;
-using System.Collections.Generic;
-
-namespace StockportWebappTests_Unit.Unit.ContentFactory;
+﻿namespace StockportWebappTests_Unit.Unit.ContentFactory;
 
 public class StartPageFactoryTests
 {
-    private readonly Mock<MarkdownWrapper> _mockMarkdownWrapper = new Mock<MarkdownWrapper>();
-    private readonly Mock<ITagParserContainer> _mockTagParser = new Mock<ITagParserContainer>();
+    private readonly Mock<MarkdownWrapper> _mockMarkdownWrapper = new();
+    private readonly Mock<ITagParserContainer> _mockTagParser = new();
     private readonly StartPageFactory _factory;
     private readonly StartPage _startPage;
 
@@ -15,8 +11,8 @@ public class StartPageFactoryTests
     {
         _factory = new StartPageFactory(_mockTagParser.Object, _mockMarkdownWrapper.Object);
         _startPage = new StartPage("test-start-page", "Test start page", "This is a test start page", "Use this page to start test processes", "Test upper body content", "Test Link",
-        "https://www.stockport.gov.uk", "Test lower body content", new List<Crumb>(), string.Empty,
-        "fa-test", new List<Alert>(), new List<Alert>());
+            "https://www.stockport.gov.uk", "Test lower body content", new List<Crumb>(), string.Empty,
+            "fa-test", new List<Alert>(), new List<Alert>());
 
         _mockTagParser
             .Setup(_ => _.ParseAll(_startPage.UpperBody, It.IsAny<string>(), It.IsAny<bool>(), It.IsAny<IEnumerable<Alert>>(), null, null, null, null))
@@ -35,37 +31,44 @@ public class StartPageFactoryTests
             .Returns(_startPage.LowerBody);
     }
 
-
     [Fact]
     public void ShouldSetTheCorrespondingFieldsForAProcessedServicePayPayment()
     {
+        // Act
         var result = _factory.Build(_startPage);
 
-        result.Slug.Should().Be(_startPage.Slug);
-        result.Title.Should().Be(_startPage.Title);
-        result.Teaser.Should().Be(_startPage.Teaser);
-        result.Summary.Should().Be(_startPage.Summary);
-        result.UpperBody.Should().Be(_startPage.UpperBody);
-        result.FormLinkLabel.Should().Be(_startPage.FormLinkLabel);
-        result.FormLink.Should().Be(_startPage.FormLink);
-        result.LowerBody.Should().Be(_startPage.LowerBody);
-        result.Breadcrumbs.Should().BeEquivalentTo(_startPage.Breadcrumbs);
-        result.BackgroundImage.Should().Be(_startPage.BackgroundImage);
-        result.Icon.Should().Be(_startPage.Icon);
-        result.Alerts.Should().BeEquivalentTo(_startPage.Alerts);
+        // Assert
+        Assert.Equal(_startPage.Slug, result.Slug);
+        Assert.Equal(_startPage.Title, result.Title);
+        Assert.Equal(_startPage.Teaser, result.Teaser);
+        Assert.Equal(_startPage.Summary, result.Summary);
+        Assert.Equal(_startPage.UpperBody, result.UpperBody);
+        Assert.Equal(_startPage.FormLinkLabel, result.FormLinkLabel);
+        Assert.Equal(_startPage.FormLink, result.FormLink);
+        Assert.Equal(_startPage.LowerBody, result.LowerBody);
+        Assert.Equal(_startPage.Breadcrumbs, result.Breadcrumbs);
+        Assert.Equal(_startPage.BackgroundImage, result.BackgroundImage);
+        Assert.Equal(_startPage.Icon, result.Icon);
+        Assert.Equal(_startPage.Alerts, result.Alerts);
     }
 
     [Fact]
     public void ShouldCallMarkdownWrapper()
     {
+        // Act
         _factory.Build(_startPage);
+        
+        // Assert
         _mockMarkdownWrapper.Verify(_ => _.ConvertToHtml(It.IsAny<string>()), Times.Exactly(2));
     }
 
     [Fact]
     public void ShouldCallTagParser()
     {
+        // Act
         _factory.Build(_startPage);
+        
+        // Assert
         _mockTagParser.Verify(_ => _.ParseAll(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool>(), It.IsAny<IEnumerable<Alert>>(), null, null, null, null), Times.Exactly(2));
     }
 }
