@@ -25,12 +25,14 @@ public class ProfileController : Controller
     {
         var profile = await _profileService.GetProfile(slug);
 
-        if (profile is not null && _isStockportGovProfile && _profilesToggle)
-        {
-            ProfileViewModel viewModel = new(profile);
-            return View("Index2024", viewModel);
-        }
+        if (profile is null)
+            return NotFound();
 
-        return NotFound();
+        ProfileViewModel viewModel = new(profile);
+
+        if (_isStockportGovProfile && _profilesToggle)
+            return View("Index2024", viewModel);
+        else
+            return View(viewModel);
     }
 }
