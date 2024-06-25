@@ -6,6 +6,7 @@
     ViewData["og:title"] = Model.Title;
     Layout = "../Shared/_Layout2023.cshtml";
 }
+<partial name="GlobalAlerts" model='Model.Alerts' />
 
 <div class="grid-container-full-width" style="background-color:white;" data-cy="start-page">
     <partial name="Breadcrumb2023" model="Model.Breadcrumbs" />

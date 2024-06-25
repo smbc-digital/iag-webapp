@@ -8,6 +8,7 @@
     string articleMarginBottom = !Model.Article.ArticleBranding.Any() || Model.Article.ArticleBranding is null ? " section" : string.Empty;
     string articleMarginTop = Model.ArticleWithSection ? " section--margin-top" : string.Empty;
 }
+<partial name="GlobalAlerts" model='Model.Article.Alerts' />
 
 <div class="grid-container-full-width" style="background-color:white;" data-cy="@dataCy">
     <partial name="Breadcrumb2023" model="Model.Article.Breadcrumbs" />

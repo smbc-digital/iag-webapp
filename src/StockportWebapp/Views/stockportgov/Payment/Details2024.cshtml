@@ -1,0 +1,48 @@
+﻿@model PaymentSubmission
+@{
+    ViewData["Title"] = Model.Payment.Title;
+    ViewData["og:title"] = Model.Payment.Title;
+    ViewData["Description"] = Model.Payment.MetaDescription;
+    ViewData["Type"] = "Payment";
+    Layout = "../Shared/_Layout2023.cshtml";
+}
+
+<partial name="GlobalAlerts" model='Model.Payment.Alerts' />
+
+<div class="grid-container-full-width" style="background-color:white;" data-cy="payment-page">
+    <partial name="Breadcrumb2023" model="Model.Payment.Breadcrumbs" />
+
+    <div class="grid-container">
+        <div class="grid-100">
+            <div class="article--70">
+                <h1>@Model.Payment.Title</h1>                
+
+                <section>
+                    <article>
+                        @Html.Raw(Model.Payment.Description)
+
+                        <h2 class="h-m">Payment details</h2>
+                            @Html.Raw(Model.Payment.PaymentDetailsText)
+
+                        <div class="form">
+                            <div class="form-section">
+                                <fieldset>
+                                    <label asp-for="Reference">@Model.Payment.ReferenceLabel</label>
+                                    <input asp-for="Reference" type="text" class="grid-30 tablet-grid-50 suffix-70 tablet-suffix-50 mobile-grid-100 form-control" />
+                                    <span role="alert" aria-atomic="true" asp-validation-for="Reference" class="form-field-validation-error grid-30 tablet-grid-50 suffix-70 tablet-suffix-50 mobile-grid-100"></span>
+                                    <label asp-for="Amount">Payment amount</label>
+                                    <p class="visually-hidden">Enter a sterling value below</p>
+                                    <div class="input-group">
+                                        <span class="input-addon">£</span><input asp-for="Amount" type="text" value="" class="currency grid-15 tablet-grid-25 suffix-85 tablet-suffix-75 mobile-grid-100 form-control">
+                                        <span role="alert" aria-atomic="true" asp-validation-for="Amount" class="form-field-validation-error grid-15 tablet-grid-25 suffix-85 tablet-suffix-75 mobile-grid-100"></span>
+                                    </div>
+                                    <stock-button id="uitest-payment-form-submit" class="button-submit-payment">Start your payment</stock-button>
+                                </fieldset>
+                            </div>
+                        </div>
+                    </article>
+                </section>
+            </div>
+        </div>
+    </div>
+</div>

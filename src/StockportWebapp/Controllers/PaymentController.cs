@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Options;
 using StockportWebapp.Configuration;
+using StockportWebapp.Models;
 
 namespace StockportWebapp.Controllers;
 
@@ -9,17 +10,24 @@ public class PaymentController : Controller
     private readonly IProcessedContentRepository _repository;
     private readonly ICivicaPayGateway _civicaPayGateway;
     private readonly CivicaPayConfiguration _civicaPayConfiguration;
+    private readonly IFeatureManager _featureManager;
+    private readonly ILogger<PaymentController> _logger;
 
+    private const string PAYMENTS_TOGGLE = "PaymentPages";
 
     public PaymentController(
         IProcessedContentRepository repository,
         ICivicaPayGateway civicaPayGateway,
-        IOptions<CivicaPayConfiguration> configuration)
+        IOptions<CivicaPayConfiguration> configuration,
+        IFeatureManager featureManager,
+        ILogger<PaymentController> logger)
     {
         _repository = repository;
         _civicaPayGateway = civicaPayGateway;
         _civicaPayConfiguration = configuration.Value;
-    }
+        _featureManager = featureManager;
+        _logger = logger;
+}
 
     [Route("/payment/{slug}")]
     public async Task<IActionResult> Detail(string slug, string error, string serviceprocessed)
@@ -30,7 +38,6 @@ public class PaymentController : Controller
             return response;
 
         var payment = response.Content as ProcessedPayment;
-
         var paymentSubmission = new PaymentSubmission
         {
             Payment = payment
@@ -38,6 +45,9 @@ public class PaymentController : Controller
 
         if (!string.IsNullOrEmpty(error) && !string.IsNullOrEmpty(serviceprocessed) && serviceprocessed.ToUpper().Equals("FALSE"))
             ModelState.AddModelError(nameof(PaymentSubmission.Reference), error);
+
+        if (_featureManager.IsEnabledAsync(PAYMENTS_TOGGLE).Result)
+            return View("Details2024", paymentSubmission);
 
         return View(paymentSubmission);
     }

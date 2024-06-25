@@ -7,9 +7,9 @@ public class StartPageController : Controller
     private readonly IProcessedContentRepository _processedContentRepository;
     private readonly IFeatureManager _featureManager;
 
-    public StartPageController(IProcessedContentRepository processedContnentRepository, IFeatureManager featureManager = null)
+    public StartPageController(IProcessedContentRepository processedContentRepository, IFeatureManager featureManager = null)
     {
-        _processedContentRepository = processedContnentRepository;
+        _processedContentRepository = processedContentRepository;
         _featureManager = featureManager;
     }
 
