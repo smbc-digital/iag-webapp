@@ -69,6 +69,9 @@ public class PaymentController : Controller
 
         if (!ModelState.IsValid)
         {
+            if (_featureManager.IsEnabledAsync(PAYMENTS_TOGGLE).Result)
+                return View("Details2024", paymentSubmission);
+
             return View(paymentSubmission);
         }
 
