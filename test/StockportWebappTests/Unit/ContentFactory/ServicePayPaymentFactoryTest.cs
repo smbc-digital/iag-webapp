@@ -1,6 +1,6 @@
 ﻿namespace StockportWebappTests_Unit.Unit.ContentFactory;
 
-public class ServicePayPaymentFactoryTest
+public class ServicePayPaymentFactoryTests
 {
     private readonly Mock<MarkdownWrapper> _mockMarkdownWrapper = new Mock<MarkdownWrapper>();
     private readonly Mock<ITagParserContainer> _mockTagParser = new Mock<ITagParserContainer>();
@@ -25,7 +25,7 @@ public class ServicePayPaymentFactoryTest
 
     private readonly ServicePayPaymentFactory _factory;
 
-    public ServicePayPaymentFactoryTest()
+    public ServicePayPaymentFactoryTests()
     {
         _factory = new ServicePayPaymentFactory(_mockTagParser.Object, _mockMarkdownWrapper.Object);
 
