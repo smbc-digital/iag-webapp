@@ -17,8 +17,8 @@ public class ShowcaseFactory
 
     public virtual ProcessedShowcase Build(Showcase showcase)
     {
-        // var body = _tagParserContainer.ParseAll(showcase.Body);
-        showcase.Body = _markdownWrapper.ConvertToHtml(showcase.Body ?? string.Empty);
+        var body = _tagParserContainer.ParseAll(showcase.Body);
+        showcase.Body = _markdownWrapper.ConvertToHtml(body ?? string.Empty);
 
         //var video = showcase.Video;
 
