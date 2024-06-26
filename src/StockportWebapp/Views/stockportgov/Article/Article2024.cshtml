@@ -6,7 +6,6 @@
     Layout = "../Shared/_Layout2023.cshtml";
     string dataCy = Model.DisplayedSection is null ? "flat-article" : "article-with-sections";
     string articleMarginBottom = !Model.Article.ArticleBranding.Any() || Model.Article.ArticleBranding is null ? " section" : string.Empty;
-    string articleMarginTop = Model.ArticleWithSection ? " section--margin-top" : string.Empty;
 }
 
 <div class="grid-container-full-width" style="background-color:white;" data-cy="@dataCy">
@@ -16,43 +15,48 @@
         <div class="grid-100">
             <div class="article--70">
                 <h1 class="article__title">@Model.Article.Title</h1>
-                
-                @if (Model.ArticleWithSection)
+
+                @if (Model.ArticleWithSection && Model.ArticleWithImage)
                 {
                     <partial name="ArticleSections" />
                 }
             </div>
 
             <section class="article">
-                <div class="article--70 @articleMarginTop @articleMarginBottom">
-                    @if (!string.IsNullOrEmpty(Model.Article.Image))
+                <div class="article--70 @articleMarginBottom">
+                    @if (!Model.ArticleWithImage)
                     {
                         <div class="article-hero">
-                            <img src="@Model.Article.Image?q=89&fm=webp" 
-                                srcset="@Model.Article.Image?w=967&q=89&fm=webp 967w,
+                            <img src="@Model.Article.Image?q=89&fm=webp"
+                                 srcset="@Model.Article.Image?w=967&q=89&fm=webp 967w,
                                         @Model.Article.Image?w=853&q=89&fm=webp 853w,
                                         @Model.Article.Image?w=712&q=89&fm=webp 712w"
-                                sizes="(max-width: 767px) 712px,
+                                 sizes="(max-width: 767px) 712px,
                                         ((min-width: 768px) and (max-width: 1023px)) 967px,
                                         (min-width: 1024px) 853px"
-                                class="article-hero__image"
-                                width="712"
-                                height="350"
-                                alt="@Model.Article.AltText" />
+                                 class="article-hero__image"
+                                 width="712"
+                                 height="350"
+                                 alt="@Model.Article.AltText" />
                         </div>
+                    }
+
+                    @if (Model.ArticleWithSection && !Model.ArticleWithImage)
+                    {
+                        <partial name="ArticleSections" />
                     }
 
                     @if (Model.ArticleWithSection)
                     {
-                        <article >
+                        <article class="article-body">
                             <h2 id="@Model.DisplayedSection.Slug">@Model.DisplayedSection.Title</h2>
                             @Html.Raw(Model.DisplayedSection.Body)
                         </article>
                     }
-                        
+
                     @if (!string.IsNullOrEmpty(Model.Article.Body))
                     {
-                        <article >
+                        <article>
                             @Html.Raw(Model.Article.Body)
                         </article>
                     }
@@ -71,23 +75,23 @@
 
                     @if (Model.ArticleWithSection && Model.DisplayedSection.SectionBranding.Any())
                     {
-                        <partial name="LogoAreaArticle" model='@Model.DisplayedSection.SectionBranding' view-data='@(new ViewDataDictionary(ViewData) {{"logoAreaTitle", @Model.DisplayedSection.LogoAreaTitle}, {"articleWithSection", Model.ArticleWithSection}})'/>
+                        <partial name="LogoAreaArticle" model='@Model.DisplayedSection.SectionBranding' view-data='@(new ViewDataDictionary(ViewData) {{"logoAreaTitle", @Model.DisplayedSection.LogoAreaTitle}, {"articleWithSection", Model.ArticleWithSection}})' />
                     }
                     else
                     {
-                        <partial name="LogoAreaArticle" model='@Model.Article.ArticleBranding' view-data='@(new ViewDataDictionary(ViewData) {{"logoAreaTitle", @Model.Article.LogoAreaTitle}, {"articleWithSection", Model.ArticleWithSection}})'/>
+                        <partial name="LogoAreaArticle" model='@Model.Article.ArticleBranding' view-data='@(new ViewDataDictionary(ViewData) {{"logoAreaTitle", @Model.Article.LogoAreaTitle}, {"articleWithSection", Model.ArticleWithSection}})' />
                     }
                 </div>
 
                 <div class="article--30 section">
                     @if (Model.HasParentTopicWithSubItems())
                     {
-                        <partial name="ArticleNavCardList"/>
+                        <partial name="ArticleNavCardList" />
                     }
 
                     @if (Model.HasRelatedContentWithSubItems())
                     {
-                        <partial name="ArticleRelatedContent"/>
+                        <partial name="ArticleRelatedContent" />
                     }
                 </div>
             </section>
