@@ -31,7 +31,7 @@ public class ArticleController : Controller
 
     [Route("/{articleSlug}")]
     public async Task<IActionResult> Article(string articleSlug, [FromQuery] string message)
-    {        
+    {
         HttpResponse articleHttpResponse = await _processedRepository.Get<Article>(articleSlug);
         if (!articleHttpResponse.IsSuccessful())
             return articleHttpResponse;
@@ -45,11 +45,11 @@ public class ArticleController : Controller
         ViewBag.CurrentUrl = Request?.GetDisplayUrl();
 
         if (ShouldReturnArticle2024(article))
-                return View("Article2024", viewModel);
-            else if (ShouldReturnFlatArticle2024(article))
-                return View("FlatArticle2024", viewModel);
-            else
-                return View(viewModel);
+            return View("Article2024", viewModel);
+        else if (ShouldReturnFlatArticle2024(article))
+            return View("FlatArticle2024", viewModel);
+        else
+            return View(viewModel);
     }
 
     [Route("/{articleSlug}/{sectionSlug}")]

@@ -4,12 +4,10 @@
     ViewData["Description"] = Model.MetaDescription;
     ViewData["og:title"] = Model.OgTitleMetaData;
     Layout = "../Shared/_Layout2023.cshtml";
-    string dataCy = Model.DisplayedSection is null ? "flat-article" : "article-with-sections";
     string articleMarginBottom = !Model.Article.ArticleBranding.Any() || Model.Article.ArticleBranding is null ? " section" : string.Empty;
-    string articleMarginTop = Model.ArticleWithSection ? " section--margin-top" : string.Empty;
 }
 
-<div class="grid-container-full-width" style="background-color:white;" data-cy="@dataCy">
+<div class="grid-container-full-width" style="background-color:white;" data-cy="article-with-sections">
     <partial name="Breadcrumb2023" model="Model.Article.Breadcrumbs" />
 
     <div class="grid-container">
@@ -37,18 +35,6 @@
                         </div>
                     }
                     <partial name="ArticleSections" />
-                    @*
-                    <div class="article--30">
-                    @if (Model.HasParentTopicWithSubItems())
-                    {
-                    <partial name="ArticleNavCardList"/>
-                    }
-
-                    @if (Model.HasRelatedContentWithSubItems())
-                    {
-                    <partial name="ArticleRelatedContent"/>
-                    }
-                    </div> *@
 
                     <article class="article-body">
                         <h2 id="@Model.DisplayedSection.Slug">@Model.DisplayedSection.Title</h2>
