@@ -24,6 +24,6 @@ public class ShowcaseController : Controller
 
         var showcase = response.Content as ProcessedShowcase;
 
-        return View("Showcase", showcase);
+        return View("Entry", showcase);
     }
 }

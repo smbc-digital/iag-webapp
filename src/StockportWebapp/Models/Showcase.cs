@@ -39,9 +39,9 @@ public class Showcase
     public Video Video { get; set; }
     public string TypeformUrl { get; set; }
     public SpotlightBanner SpotlightBanner { get; set; }
-
     public News NewsArticle { get; set; }
     public IEnumerable<Event> Events { get; set; }
+    public List<SubItem> SubItems { get; set; }
 
     public Showcase()
     {

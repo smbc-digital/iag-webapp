@@ -17,32 +17,32 @@ public class ShowcaseFactory
 
     public virtual ProcessedShowcase Build(Showcase showcase)
     {
-        var body = _tagParserContainer.ParseAll(showcase.Body);
-        showcase.Body = _markdownWrapper.ConvertToHtml(body ?? string.Empty);
+        // var body = _tagParserContainer.ParseAll(showcase.Body);
+        showcase.Body = _markdownWrapper.ConvertToHtml(showcase.Body ?? string.Empty);
 
-        var video = showcase.Video;
+        //var video = showcase.Video;
 
-        if (video != null)
-        {
-            video.VideoEmbedCode = _tagParserContainer.ParseAll(video.VideoEmbedCode);
-        }
+        //if (video != null)
+        //{
+        //    video.VideoEmbedCode = _tagParserContainer.ParseAll(video.VideoEmbedCode);
+        //}
 
-        var fields = showcase.FieldOrder;
+        //var fields = showcase.FieldOrder;
 
-        if (!fields.Items.Any())
-        {
-            fields.Items.Add("Primary Items");
-            fields.Items.Add("Secondary Items");
-            fields.Items.Add("Featured Items");
-            fields.Items.Add("News");
-            fields.Items.Add("Events");
-            fields.Items.Add("Profile");
-            fields.Items.Add("Profiles");
-            fields.Items.Add("Social Media");
-            fields.Items.Add("Body");
-            fields.Items.Add("Video");
-            fields.Items.Add("Trivia");
-        }
+        //if (!fields.Items.Any())
+        //{
+        //    fields.Items.Add("Primary Items");
+        //    fields.Items.Add("Secondary Items");
+        //    fields.Items.Add("Featured Items");
+        //    fields.Items.Add("News");
+        //    fields.Items.Add("Events");
+        //    fields.Items.Add("Profile");
+        //    fields.Items.Add("Profiles");
+        //    fields.Items.Add("Social Media");
+        //    fields.Items.Add("Body");
+        //    fields.Items.Add("Video");
+        //    fields.Items.Add("Trivia");
+        //}
 
         return new ProcessedShowcase(
             showcase.Title,
@@ -74,15 +74,16 @@ public class ShowcaseFactory
             showcase.Profile,
             showcase.Profiles,
             showcase.CallToActionBanner,
-            fields,
+            showcase.FieldOrder,
             showcase.Icon,
             showcase.TriviaSubheading,
             _triviaFactory.Build(showcase.TriviaSection),
             showcase.ProfileHeading,
             showcase.ProfileLink,
             showcase.EventsReadMoreText,
-            video,
-            showcase.SpotlightBanner
+            showcase.Video,
+            showcase.SpotlightBanner,
+            showcase.SubItems
         );
     }
 }

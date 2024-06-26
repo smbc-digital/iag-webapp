@@ -1,0 +1,38 @@
+﻿@inject ICookiesHelper CookiesHelper
+@model ProcessedShowcase
+@{
+    Layout = "../Shared/_Layout2023.cshtml"; 
+}
+
+<div class="grid-container-full-width" style="background-color:white;">
+    <div class="grid-container">
+        <div class="grid-100">
+            @foreach(var field in Model.SubItems)
+            {
+                <h1>This is a foreach loop looping through all subitems in model</h1>
+                <h2>Title = @field.Title</h2>
+                <p>Slug = @field.Slug</p>
+                <p>Icon = @field.Icon</p>
+                <p>Teaser = @field.Teaser</p>
+                <p>Type = @field.Type</p>
+                <p>NavigationLink = @field.NavigationLink</p>
+                <p>Image = @field.Image</p>
+                <p>ColourScheme = @field.ColourScheme</p>
+                <hr/>
+                <hr/>
+                <h3>All items in field @field.Title:</h3>
+                @foreach(var item in field.SubItems)
+                {
+                    <h2>Title = @item.Title</h2>
+                    <p>Slug = @item.Slug</p>
+                    <p>Icon = @item.Icon</p>
+                    <p>Teaser = @item.Teaser</p>
+                    <p>Type = @item.Type</p>
+                    <p>NavigationLink = @item.NavigationLink</p>
+                    <p>Image = @item.Image</p>
+                    <p>ColourScheme = @item.ColourScheme</p>
+                }
+            }
+        </div>
+    </div>
+</div>
