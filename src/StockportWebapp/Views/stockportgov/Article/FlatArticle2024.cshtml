@@ -1,4 +1,4 @@
-﻿@model ArticleViewModel
+@model ArticleViewModel
 @{
     ViewData["Title"] = Model.Article.Title;
     ViewData["Description"] = Model.MetaDescription;
@@ -16,44 +16,46 @@
         <div class="grid-100">
             <div class="article--70">
                 <h1 class="article__title">@Model.Article.Title</h1>
+                
+                @if (Model.ArticleWithSection)
+                {
+                    <partial name="ArticleSections" />
+                }
             </div>
 
             <section class="article">
-                <div class="article--70 @articleMarginBottom">
+                <div class="article--70 @articleMarginTop @articleMarginBottom">
                     @if (!string.IsNullOrEmpty(Model.Article.Image))
                     {
                         <div class="article-hero">
-                            <img src="@Model.Article.Image?q=89&fm=webp"
-                                 srcset="@Model.Article.Image?w=967&q=89&fm=webp 967w,
+                            <img src="@Model.Article.Image?q=89&fm=webp" 
+                                srcset="@Model.Article.Image?w=967&q=89&fm=webp 967w,
                                         @Model.Article.Image?w=853&q=89&fm=webp 853w,
                                         @Model.Article.Image?w=712&q=89&fm=webp 712w"
-                                 sizes="(max-width: 767px) 712px,
+                                sizes="(max-width: 767px) 712px,
                                         ((min-width: 768px) and (max-width: 1023px)) 967px,
                                         (min-width: 1024px) 853px"
-                                 class="article-hero__image"
-                                 width="712"
-                                 height="350"
-                                 alt="@Model.Article.AltText" />
+                                class="article-hero__image"
+                                width="712"
+                                height="350"
+                                alt="@Model.Article.AltText" />
                         </div>
                     }
-                    <partial name="ArticleSections" />
-                    @*
-                    <div class="article--30">
-                    @if (Model.HasParentTopicWithSubItems())
-                    {
-                    <partial name="ArticleNavCardList"/>
-                    }
 
-                    @if (Model.HasRelatedContentWithSubItems())
+                    @if (Model.ArticleWithSection)
                     {
-                    <partial name="ArticleRelatedContent"/>
+                        <article >
+                            <h2 id="@Model.DisplayedSection.Slug">@Model.DisplayedSection.Title</h2>
+                            @Html.Raw(Model.DisplayedSection.Body)
+                        </article>
                     }
-                    </div> *@
-
-                    <article class="article-body">
-                        <h2 id="@Model.DisplayedSection.Slug">@Model.DisplayedSection.Title</h2>
-                        @Html.Raw(Model.DisplayedSection.Body)
-                    </article>
+                        
+                    @if (!string.IsNullOrEmpty(Model.Article.Body))
+                    {
+                        <article >
+                            @Html.Raw(Model.Article.Body)
+                        </article>
+                    }
 
                     @if (!Model.HideLastUpdated)
                     {
@@ -67,25 +69,25 @@
                         <partial name="ArticleSectionPagination" />
                     }
 
-                    @if (Model.DisplayedSection.SectionBranding.Any())
+                    @if (Model.ArticleWithSection && Model.DisplayedSection.SectionBranding.Any())
                     {
-                        <partial name="LogoAreaArticle" model='@Model.DisplayedSection.SectionBranding' view-data='@(new ViewDataDictionary(ViewData) {{"logoAreaTitle", @Model.DisplayedSection.LogoAreaTitle}, {"articleWithSection", Model.ArticleWithSection}})' />
+                        <partial name="LogoAreaArticle" model='@Model.DisplayedSection.SectionBranding' view-data='@(new ViewDataDictionary(ViewData) {{"logoAreaTitle", @Model.DisplayedSection.LogoAreaTitle}, {"articleWithSection", Model.ArticleWithSection}})'/>
                     }
                     else
                     {
-                        <partial name="LogoAreaArticle" model='@Model.Article.ArticleBranding' view-data='@(new ViewDataDictionary(ViewData) {{"logoAreaTitle", @Model.Article.LogoAreaTitle}, {"articleWithSection", Model.ArticleWithSection}})' />
+                        <partial name="LogoAreaArticle" model='@Model.Article.ArticleBranding' view-data='@(new ViewDataDictionary(ViewData) {{"logoAreaTitle", @Model.Article.LogoAreaTitle}, {"articleWithSection", Model.ArticleWithSection}})'/>
                     }
                 </div>
 
                 <div class="article--30 section">
                     @if (Model.HasParentTopicWithSubItems())
                     {
-                        <partial name="ArticleNavCardList" />
+                        <partial name="ArticleNavCardList"/>
                     }
 
                     @if (Model.HasRelatedContentWithSubItems())
                     {
-                        <partial name="ArticleRelatedContent" />
+                        <partial name="ArticleRelatedContent"/>
                     }
                 </div>
             </section>

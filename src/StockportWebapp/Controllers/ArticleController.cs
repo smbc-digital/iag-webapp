@@ -45,9 +45,11 @@ public class ArticleController : Controller
         ViewBag.CurrentUrl = Request?.GetDisplayUrl();
 
         if (ShouldReturnArticle2024(article))
-            return View("Article2024", viewModel);
-        else
-            return View(viewModel);
+                return View("Article2024", viewModel);
+            else if (ShouldReturnFlatArticle2024(article))
+                return View("FlatArticle2024", viewModel);
+            else
+                return View(viewModel);
     }
 
     [Route("/{articleSlug}/{sectionSlug}")]
@@ -66,6 +68,7 @@ public class ArticleController : Controller
         try
         {
             ArticleViewModel viewModel = new(article, sectionSlug);
+
             if (ShouldReturnArticle2024(article))
                 return View("Article2024", viewModel);
             else
@@ -77,10 +80,13 @@ public class ArticleController : Controller
         }
     }
 
-    private bool ShouldReturnArticle2024(ProcessedArticle article) => 
+    private bool ShouldReturnArticle2024(ProcessedArticle article) =>
         _isStockportGovArticle &&
-            ((_sectionArticleToggle && article.Sections?.Any() is true) ||
-                (_flatArticleToggle && (article.Sections?.Any() is not true)));
+            _sectionArticleToggle && (article.Sections?.Any() is true);
+
+    private bool ShouldReturnFlatArticle2024(ProcessedArticle article) =>
+        _isStockportGovArticle &&
+            _flatArticleToggle && (article.Sections?.Any() is not true);
 
     private void SetArticlesCanonicalUrl(string articleSlug, string sectionSlug, ProcessedArticle article)
     {
