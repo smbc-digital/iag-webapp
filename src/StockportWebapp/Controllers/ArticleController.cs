@@ -1,6 +1,6 @@
 namespace StockportWebapp.Controllers;
 
-//[ResponseCache(Location = ResponseCacheLocation.Any, Duration = Cache.Short)]
+[ResponseCache(Location = ResponseCacheLocation.Any, Duration = Cache.Short)]
 public class ArticleController : Controller
 {
     private readonly IRepository _repository;
