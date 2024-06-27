@@ -77,8 +77,6 @@
     
             @media #{$mobile} {
                 align-self: auto;
-                margin-right: 0.5em;
-                padding: 0;
             }
         }
 
@@ -127,7 +125,6 @@
             
             @media #{$mobile} {
                 line-height: 1.75;
-                margin: 0;
                 padding: 0.5em;
             }
         }
