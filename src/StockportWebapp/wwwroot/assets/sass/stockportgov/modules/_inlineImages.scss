@@ -1,0 +1,40 @@
+img {
+	height: auto;
+	width: auto;
+	max-width: 100%;
+	border-radius: 3px;
+}
+
+img.fullwidth {
+	max-width: 100%;
+	height: auto;
+	padding: 15px 0 30px 0;
+}
+
+figure {
+	p {
+		margin-bottom: 0 !important;
+	}
+
+	img {
+		height: auto;
+		width: auto;
+		max-width: 100%;
+		border-top-left-radius: 3px;
+		border-top-right-radius: 3px;
+		border-bottom-left-radius: 0;
+		border-bottom-right-radius: 0;
+	}
+}
+
+figcaption {
+	background-color: $stockport-dark-grey;
+	color: white;
+	border-bottom-left-radius: 3px;
+	border-bottom-right-radius: 3px;
+	padding: 0.55em;
+}
+
+.image-container {
+  	position: relative;
+}
