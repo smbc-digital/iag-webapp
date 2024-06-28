@@ -61,7 +61,13 @@
                         </article>
                     }
 
-                    @if (!Model.HideLastUpdated)
+                    @if (!Model.HideLastUpdated && Model.ArticleWithSection)
+                    {
+                        <p class="article-date">
+                            Last updated <partial name="FormattedDate" model='Model.DisplayedSection.UpdatedAt' />
+                        </p>
+                    }
+                    else if (!Model.HideLastUpdated)
                     {
                         <p class="article-date">
                             Last updated <partial name="FormattedDate" model='Model.Article.UpdatedAt' />

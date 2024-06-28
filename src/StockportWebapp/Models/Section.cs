@@ -12,9 +12,10 @@ public class Section
     public IEnumerable<PrivacyNotice> PrivacyNotices { get; set; }
     public List<GroupBranding> SectionBranding { get; init; }
     public string LogoAreaTitle { get; set; }
+    public DateTime UpdatedAt { get; set; }
 
     public Section(string title, string slug, string metaDescription, string body, List<Profile> profiles, List<Document> documents, IEnumerable<Alert> alertsInline, List<GroupBranding> sectionBranding,
-    string logoAreaTitle)
+    string logoAreaTitle, DateTime updatedAt)
     {
         Title = title;
         Slug = slug;
@@ -25,5 +26,6 @@ public class Section
         AlertsInline = alertsInline;
         SectionBranding = sectionBranding;
         LogoAreaTitle = logoAreaTitle;
+        UpdatedAt = updatedAt;
     }
 }
