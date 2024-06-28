@@ -61,14 +61,6 @@
 
     &-body {
         margin-top: 2em;
-
-        h3 {
-            margin-bottom: 20px;
-        }
-
-        h4, h5, h6 {
-            margin-bottom: 10px;
-        }
     }
 
     &-date {
@@ -98,7 +90,15 @@
         margin: 0;
     }
 
-    article {
+    article, &-body {
         overflow-wrap: anywhere;
+
+        h3 {
+            margin-bottom: 20px;
+        }
+
+        h4, h5, h6 {
+            margin-bottom: 10px;
+        }
     }
 }
