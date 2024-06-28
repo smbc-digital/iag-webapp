@@ -10,8 +10,7 @@
             color: white;
 
             @media #{$mobile} {
-                margin-left: 5px;
-                margin-right: 5px;
+                margin-inline: 5px;
             }
         }
     
@@ -19,6 +18,10 @@
             @include h-xl;
             margin: 10px 0 20px 0;
             letter-spacing: unset;
+            
+            @media #{$mobile} {
+                margin-inline: 5px;
+            }
         }
     
         p {
