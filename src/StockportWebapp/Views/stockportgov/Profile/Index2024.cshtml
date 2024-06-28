@@ -9,7 +9,7 @@
     Layout = "../Shared/_Layout2023.cshtml";
 }
 
-<div class="grid-container-full-width" style="background-color:white;">
+<div class="grid-container-full-width" style="background-color:white;" data-cy="profile">
     <partial name="Breadcrumb2023" model='@profile.Breadcrumbs' />
 
     <div class="grid-container">
@@ -20,7 +20,7 @@
 
             <section class="article">
                 <div class="article--70 section">
-                    <div class="article-body">
+                    <div>
                         @Html.Raw(profile.Body)
                     </div>
                 </div>
