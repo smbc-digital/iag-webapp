@@ -36,7 +36,8 @@ public class SectionFactory : ISectionFactory
             section.Documents,
             section.AlertsInline,
             section.SectionBranding,
-            section.LogoAreaTitle
+            section.LogoAreaTitle,
+            section.UpdatedAt
         );
     }
 
