@@ -79,7 +79,6 @@ public class PaymentController : Controller
         if (civicaPayResponse.IsSuccessStatusCode && civicaPayResponse.ResponseContent.ResponseCode == CIVICA_PAY_SUCCESS)
             return Redirect(_civicaPayGateway.GetPaymentUrl(civicaPayResponse.ResponseContent.BasketReference, civicaPayResponse.ResponseContent.BasketToken, civicaPayRequest.CallingAppTranReference));
 
-        // TODO: NEED TO CHECK THE LOGIC ON THE BELOW
         if (civicaPayResponse.StatusCode == HttpStatusCode.BadRequest 
             && civicaPayResponse.ResponseContent.ResponseCode == CIVICA_PAY_INVALID_DETAILS)
         {
@@ -106,31 +105,37 @@ public class PaymentController : Controller
                             ? response.Content as ProcessedServicePayPayment
                             : response.Content as ProcessedPayment;
 
-        if (responseCode != "00000") { 
-            if(!isServicePay) { 
-                if (_featureManager.IsEnabledAsync(PAYMENTS_TOGGLE).Result)
-                {
-                    return responseCode == "00022" || responseCode == "00023"
-                    ? View("Declined2024", new PaymentResult() { Slug = slug, Title  = payment.Title, Breadcrumbs = payment.Breadcrumbs })
-                    : View("Failure2024", new PaymentResult() { Slug = slug, Title = payment.Title, Breadcrumbs = payment.Breadcrumbs });
-                }
+        var paymentResult = new PaymentResult(slug, payment.Title, payment.Breadcrumbs, callingAppTxnRef);
 
-                return responseCode == "00022" || responseCode == "00023"
-                    ? View("Declined", slug)
-                    : View("Failure", slug);
+        if (responseCode != "00000") { 
+            if (_featureManager.IsEnabledAsync(PAYMENTS_TOGGLE).Result)
+            {            
+                paymentResult.PaymentResultType = responseCode == CIVICA_PAY_DECLINED 
+                                            || responseCode == CIVICA_PAY_DECLINED_OTHER
+                                                ? PaymentResultType.Declined
+                                                : PaymentResultType.Failure;
+                return View("Result", paymentResult);
+            }
+                
+            if (isServicePay) {
+                return responseCode == CIVICA_PAY_DECLINED || responseCode == CIVICA_PAY_DECLINED_OTHER
+                        ? View("../ServicePayPayment/Declined", slug)
+                        : View("../ServicePayPayment/Failure", slug);
             }
 
-            return responseCode == "00022" || responseCode == "00023"
-                    ? View("../ServicePayPayment/Declined", slug) 
-                    : View("../ServicePayPayment/Failure", slug);
+            return responseCode == CIVICA_PAY_DECLINED || responseCode == CIVICA_PAY_DECLINED_OTHER
+                    ? View("Declined", slug)
+                    : View("Failure", slug);
         }
             
-        return View(new PaymentSuccess
-            {
-                Title = payment.Title,
-                ReceiptNumber = callingAppTxnRef,
-                MetaDescription = payment.MetaDescription
-            });
+        return _featureManager.IsEnabledAsync(PAYMENTS_TOGGLE).Result 
+            ? View("Result", paymentResult)
+            : View("Success", new PaymentSuccess
+                {
+                    Title = payment.Title,
+                    ReceiptNumber = callingAppTxnRef,
+                    MetaDescription = payment.MetaDescription
+                });
     }
 
     private CreateImmediateBasketRequest GetCreateImmediateBasketRequest(string slug, PaymentSubmission paymentSubmission, string transactionReference) =>
