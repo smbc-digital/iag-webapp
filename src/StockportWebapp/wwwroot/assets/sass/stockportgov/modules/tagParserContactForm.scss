@@ -37,6 +37,19 @@
                 @media #{$mobile} {
                     width: 100%;
                 }
+
+                &.input-validation-error {
+                    color: #c83725;
+                    border: 1px solid #c83725;
+                }
+            }
+
+            .submit {
+                margin-block-start: 1em;
+            }
+
+            .reCaptcha {
+                margin-block-start: 1em;
             }
 
             textarea {
@@ -82,3 +95,4 @@
     color: #c83725;
     margin-bottom: 1em;
 }
+

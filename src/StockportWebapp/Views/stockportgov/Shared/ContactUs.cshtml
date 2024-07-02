@@ -38,18 +38,18 @@
                 </span>
                 
                 <div class="enquiry-message">
-                    <textarea asp-for="Message" class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control-deep" title="Enter a Message"></textarea>
+                    <textarea asp-for="Message" class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100" title="Enter a Message"></textarea>
                     <span role="alert" aria-atomic="true" asp-validation-for="Message" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
                     <span class="text-control chars-remaining">
                         <small></small>
-                    </span><br />
+                    </span>
                 </div>
 
                 <input type="hidden" asp-for="ServiceEmailId" value="@Model.ServiceEmailId" />
                 <div class="g-recaptcha reCaptcha" data-sitekey="6LfAeSIUAAAAAGsx6tYHz4MIvhP0pSx9Tq7Hf8Yx"></div>
 
                 <div>
-                    <button id="uitest-contact-form-submit" type="submit" class="btn btn--chevron-forward btn--width-30">Send your enquiry</button>
+                    <button id="uitest-contact-form-submit" type="submit" class="btn btn--chevron-forward btn--width-30 submit">Send your enquiry</button>
                 </div>
             </fieldset>
         </div>

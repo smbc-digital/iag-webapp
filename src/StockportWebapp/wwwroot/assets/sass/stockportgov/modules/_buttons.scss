@@ -150,6 +150,7 @@
 
     &--chevron-forward {
         position: relative;
+        padding-inline-end : 2em;
 
         &:after {
             content: "\f105";
@@ -161,6 +162,7 @@
             right: 0.789em;
             top: 34.5%;
             display: inline-block;
+            
 
             @media #{$tablet} {
                 top: 33.5%;
