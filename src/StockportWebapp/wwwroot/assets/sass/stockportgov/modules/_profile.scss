@@ -1,3 +1,25 @@
 .profile {
-    
+    &__figure {
+        float: right;    
+        max-width: 100%;
+        max-height: 100%;
+
+        img {
+            border-radius: 3px;
+        }
+
+        figcaption {
+            background-color: white;
+            color: $stockport-black;
+            padding-inline: 0;
+            padding-block: 1em;
+            border-bottom: 1px solid #ccc;
+            border-radius: 0;
+        }
+    }
+
+    &__body {
+        display: flex;
+        flex-direction: row;
+    }
 }
