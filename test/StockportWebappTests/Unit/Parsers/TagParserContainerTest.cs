@@ -12,6 +12,7 @@ public class TagParserContainerTests
     private readonly Mock<IDynamicTagParser<Alert>> _alertsTagParser;
     private readonly Mock<IDynamicTagParser<Document>> _documentTagParser;
     private readonly Mock<IDynamicTagParser<InlineQuote>> _quoteTagParser;
+    private readonly Mock<IDynamicTagParser<InlineQuote>> _inlineQuoteTagParser;
     private readonly Mock<IDynamicTagParser<PrivacyNotice>> _privacyNoticeTagParser;
     private readonly Mock<IDynamicTagParser<Profile>> _profileTagParser;
 
@@ -22,7 +23,7 @@ public class TagParserContainerTests
         _anotherAnotherTagParser = new Mock<ISimpleTagParser>();
         _alertsTagParser = new Mock<IDynamicTagParser<Alert>>();
         _documentTagParser = new Mock<IDynamicTagParser<Document>>();
-        _quoteTagParser = new Mock<IDynamicTagParser<InlineQuote>>();
+        _inlineQuoteTagParser = new Mock<IDynamicTagParser<InlineQuote>>();
         _privacyNoticeTagParser = new Mock<IDynamicTagParser<PrivacyNotice>>();
         _profileTagParser = new Mock<IDynamicTagParser<Profile>>();
 
@@ -32,7 +33,8 @@ public class TagParserContainerTests
 
         _tagParserContainer = new TagParserContainer(tagParserList,
                                     _alertsTagParser.Object, 
-                                    _documentTagParser.Object, 
+                                    _documentTagParser.Object,
+                                    _inlineQuoteTagParser.Object,
                                     _quoteTagParser.Object,
                                     _privacyNoticeTagParser.Object,
                                     _profileTagParser.Object);

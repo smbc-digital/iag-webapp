@@ -1,8 +1,8 @@
 .profile {
-    &__figure {
-        float: right;    
-        max-width: 100%;
-        max-height: 100%;
+    &__figure { 
+        float: right;
+        max-width: 33%;
+        margin: 0 0 0 1em;
 
         img {
             border-radius: 3px;
@@ -18,8 +18,20 @@
         }
     }
 
-    &__body {
-        display: flex;
-        flex-direction: row;
+    &-quote {
+        height: 100%;
+
+        &--border {
+            margin: 1em 0;
+            border-left: 7px solid rgba($stockport-pink, 0.8);
+        } 
+
+        &__text {
+            padding-left: 1em;
+
+            span {
+                color: $stockport-green;
+            }
+        }
     }
 }
