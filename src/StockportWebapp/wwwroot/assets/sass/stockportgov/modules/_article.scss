@@ -11,7 +11,11 @@
     }
 
     &__title {
-        margin: 1.25rem 5px 2rem;
+        margin: 1.25rem 0 2rem;
+
+        @media #{$mobile} {
+            margin-inline: 5px;
+        }
     }
 
     &--70 {
@@ -55,6 +59,10 @@
         }
     }
 
+    &-body {
+        margin-top: 2em;
+    }
+
     &-date {
         color: $stockport-green;
         margin-block: 2em;
@@ -80,5 +88,17 @@
 
     &-hr {
         margin: 0;
+    }
+
+    article, &-body {
+        overflow-wrap: anywhere;
+
+        h3 {
+            margin-bottom: 20px;
+        }
+
+        h4, h5, h6 {
+            margin-bottom: 10px;
+        }
     }
 }

@@ -251,7 +251,7 @@ public class ArticleViewModelTest
     public void ArticleViewModel_ShouldSetMetaDescription(string sectionMeta, string articleMeta, string expectedMeta)
     {
         // Arrange
-        ProcessedSection section = new(string.Empty, "test-slug", sectionMeta, string.Empty, null, null, null, null, string.Empty);
+        ProcessedSection section = new(string.Empty, "test-slug", sectionMeta, string.Empty, null, null, null, null, string.Empty, new DateTime());
         ProcessedArticle article = new(string.Empty, string.Empty, string.Empty, string.Empty, articleMeta, 
             new List<ProcessedSection> { section }, string.Empty, It.IsAny<string>(), string.Empty, null, null, null, null, null, new DateTime(), new bool(), new List<GroupBranding>(), string.Empty, new List<SubItem>()
         );
@@ -274,5 +274,5 @@ public class ArticleViewModelTest
     }
 
     private static ProcessedSection BuildSection(string slug) => 
-        new("title", slug, It.IsAny<string>(), It.IsAny<string>(), new List<Profile>(), new List<Document>(), new List<Alert>(), new List<GroupBranding>(), "logoAreaTitle");
+        new("title", slug, It.IsAny<string>(), It.IsAny<string>(), new List<Profile>(), new List<Document>(), new List<Alert>(), new List<GroupBranding>(), "logoAreaTitle", new DateTime());
 }

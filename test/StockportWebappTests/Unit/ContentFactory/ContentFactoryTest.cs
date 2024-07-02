@@ -17,7 +17,7 @@ public class ContentFactoryTest
     [Fact]
     public void ItUsesSectionFactoryToBuildProcessedSectionFromSection()
     {
-        var section = new Section(TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<Profile>(), new List<Document>(), new List<Alert>(), new List<GroupBranding>(), "logoAreaTitle");
+        var section = new Section(TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<Profile>(), new List<Document>(), new List<Alert>(), new List<GroupBranding>(), "logoAreaTitle", new DateTime());
 
         var processedSection = _factory.Build<Section>(section);
 
