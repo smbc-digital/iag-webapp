@@ -37,7 +37,7 @@ public class ProfileService : IProfileService
         Profile profile = httpResponse.Content as Profile;
         List<Trivia> triviaSection = _triviaFactory.Build(profile.TriviaSection);
         profile.TriviaSection = triviaSection;
-        string processedBody = _parser.ParseAll(profile.Body, profile.Title, false, profile.Alerts, null, profile.InlineQuotes, null, null);
+        string processedBody = _parser.ParseAll(profile.Body, profile.Title, false, profile.InlineAlerts, null, profile.InlineQuotes, null, null);
         profile.Body = _markdownWrapper.ConvertToHtml(processedBody);
 
         return profile;

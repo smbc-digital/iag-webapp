@@ -43,12 +43,15 @@ public class ProfileServiceTests
         {
             Body = "Test",
             Slug = "test",
+            InlineAlerts = new List<Alert>(),
             Alerts = new List<Alert>(),
             Breadcrumbs = new List<Crumb>(),
             TriviaSection = new List<Trivia>(),
             Image = "testimage",
+            ImageCaption = "image caption",
             Teaser = "test",
-            Title = "test"
+            Title = "test",
+            Colour = "blue"
         });
         _repository
             .Setup(_ => _.Get<Profile>(It.IsAny<string>(), It.IsAny<List<Query>>()))
