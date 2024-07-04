@@ -43,6 +43,7 @@ public class ProfileServiceTests
         {
             Body = "Test",
             Slug = "test",
+            InlineAlerts = new List<Alert>(),
             Alerts = new List<Alert>(),
             Breadcrumbs = new List<Crumb>(),
             TriviaSection = new List<Trivia>(),
