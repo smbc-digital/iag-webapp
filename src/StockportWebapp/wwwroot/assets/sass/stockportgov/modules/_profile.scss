@@ -22,12 +22,39 @@
         height: 100%;
 
         &--border {
-            margin: 1em 0;
-            border-left: 7px solid rgba($stockport-pink, 0.8);
+            border-left: 0.5em solid;
+
+            &-pink {
+                border-color: rgba($stockport-pink, 0.7);
+            }
+
+            &-teal {
+                border-color: rgba($stockport-teal, 0.8);
+            }
+
+            &-green {
+                border-color: rgba($stockport-green, 0.8);
+            }
+
+            &-orange {
+                border-color: rgba($stockport-orange, 0.8);
+            }
+
+            &-purple {
+                border-color: rgba($stockport-orange, 0.8);
+            }
+
+            &-blue {
+                border-color: rgba($stockport-blue, 0.8);
+            }
         } 
 
         &__text {
             padding-left: 1em;
+
+            @media #{$mobile} {
+                padding-left: 0.8em;
+            }
 
             span {
                 color: $stockport-green;

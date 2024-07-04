@@ -67,7 +67,6 @@ namespace StockportWebapp.Utils.Extensions
 
             services.AddSingleton<IDynamicTagParser<Profile>, ProfileTagParser>();
             services.AddSingleton<IDynamicTagParser<InlineQuote>, InlineQuoteTagParser>();
-            services.AddSingleton<IDynamicTagParser<InlineQuote>, QuoteTagParser>();
             services.AddSingleton<IDynamicTagParser<Document>, DocumentTagParser>();
             services.AddSingleton<IDynamicTagParser<Alert>, AlertsInlineTagParser>();
             services.AddSingleton<IDynamicTagParser<PrivacyNotice>, PrivacyNoticeTagParser>();
