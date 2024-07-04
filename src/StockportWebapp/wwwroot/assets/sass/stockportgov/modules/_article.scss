@@ -18,6 +18,12 @@
         }
     }
 
+    &__sub-title {
+        @media #{$mobile} {
+            margin-inline: 5px;
+        }  
+    }
+
     &--70 {
         margin-inline-end: 0.8em;
         width: calc(70% - 0.8em);

@@ -11,6 +11,7 @@ public class Profile
     public string ImageCaption { get; set; }
     public string Body { get; set; }
     public IEnumerable<Crumb> Breadcrumbs { get; set; }
+    public List<Alert> InlineAlerts { get; set; }
     public List<Alert> Alerts { get; set; }
     public string TriviaSubheading { get; set; }
     public List<Trivia> TriviaSection { get; set; }
