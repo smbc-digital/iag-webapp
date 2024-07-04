@@ -1,7 +1,70 @@
-.profile {
-    overflow: hidden;
+.profile-tag-parser {
+    display: flex;
+    flex-direction: row-reverse;
+    text-decoration: none;
+
+
+    &--pink {
+        border-inline-start: 0.55em solid $stockport-pink;
+    }
+
+    &--blue {
+        border-inline-start: 0.55em solid $stockport-blue;
+    }
+
+    &--orange {
+        border-inline-start: 0.55em solid $stockport-orange;
+    }
+    
+    &--teal {
+        border-inline-start: 0.55em solid $stockport-teal;
+    }
+
+    &:hover {
+        text-decoration: none;
+
+        .profile-tag-parser-content__read-more {
+            text-decoration: underline;
+            text-decoration-thickness: 3px;
+        }
+    }
+
+    &__image {
+        width: 40%;
+        object-fit: cover;
+        border-radius: 50px 3px 50px 3px;
+        height: auto;
+    }
+
+    &-content {
+        width: 60%;
+        padding: 1.5em;
+        color: $stockport-black;
+
+        &__title {
+            @include h-ml;
+            margin-bottom: 0.75em;
+            margin-top: 0;
+        }
+
+        &__teaser {
+            display: inline;
+        }
+
+        &__read-more {
+            color: $stockport-green;
+            text-decoration: underline;
+            display: block;
+            margin-top: 2em;
+        }
+    }
+
+    &-quote {
+        color: $stockport-green;
+    }
 }
 
+// old tag parser styles -- need to be removed eventually!
 .profile-success-story-new {
     background-color: #fff;
     border: 1px solid $stockport-grey-accent;

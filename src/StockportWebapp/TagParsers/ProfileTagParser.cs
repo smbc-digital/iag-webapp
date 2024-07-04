@@ -31,12 +31,13 @@ public class ProfileTagParser : IDynamicTagParser<Profile>
                 content = TagRegex.Replace(content, profileHtml, 1);
             }
         }
+        
         return RemoveEmptyTags(content);
     }
 
     private string RemoveEmptyTags(string content) =>
         TagRegex.Replace(content, string.Empty);
 
-    private Profile GetProfileMatchingSlug(IEnumerable<Profile> profiles, string slug) =>
+    private static Profile GetProfileMatchingSlug(IEnumerable<Profile> profiles, string slug) =>
         profiles?.FirstOrDefault(s => s.Slug.Equals(slug));
 }
