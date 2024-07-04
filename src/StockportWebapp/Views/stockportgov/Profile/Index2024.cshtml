@@ -16,20 +16,25 @@
         <div class="grid-100">
             <div class="article--70">
                 <h1 class="article__title">@profile.Title</h1>
-                <h2 class="article__title">@profile.Subtitle</21>
+                <h2 class="article__sub-title">@profile.Subtitle</21>
             </div>
 
             <section class="article">
-                <div class="article--70 section">
-                    <div class="profile__body">
-                        <div class="article--70"> 
-                            @Html.Raw(profile.Body)
-                        </div>
-
-                        <figure class="profile__figure article--30">
+                <div class="section article--70">
+                    @if(!string.IsNullOrEmpty(profile.Image))
+                    {
+                        <figure class="profile__figure">
                             <img src=@profile.Image alt="" />
-                            <figcaption>@profile.ImageCaption</figcaption>
+
+                            @if(!string.IsNullOrEmpty(profile.ImageCaption))
+                            {
+                                <figcaption>@profile.ImageCaption</figcaption>
+                            }
                         </figure>
+                    }
+
+                    <div class="profile__text"> 
+                        @Html.Raw(profile.Body)
                     </div>
                 </div>
 

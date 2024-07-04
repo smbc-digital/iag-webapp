@@ -1,11 +1,24 @@
 .profile {
     &__figure {
         float: right;    
-        max-width: 100%;
+        max-width: 33%;
         max-height: 100%;
+        margin: 0 0 1em 1em;
+
+        @media #{$mobile} {
+            width: 100%;
+            margin-inline-end: 0;
+            padding: 0;
+            max-width: 100%;
+        }
 
         img {
             border-radius: 3px;
+            
+            @media #{$mobile} {
+                max-width: 200px;
+                max-height: 200px;
+            }
         }
 
         figcaption {
@@ -17,9 +30,13 @@
             border-radius: 0;
         }
     }
+}
 
-    &__body {
-        display: flex;
-        flex-direction: row;
+html[dir="rtl"] {
+    .profile {
+        &__figure {
+            float: left;
+            margin: 0 1em 1em 0;
+        }
     }
 }
