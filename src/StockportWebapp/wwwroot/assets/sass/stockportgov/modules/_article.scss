@@ -21,6 +21,7 @@
     &__sub-title {
         @media #{$mobile} {
             margin-inline: 5px;
+            margin-block-end: 2rem;
         }  
     }
 

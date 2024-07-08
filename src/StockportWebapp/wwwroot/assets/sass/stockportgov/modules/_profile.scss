@@ -10,6 +10,7 @@
             margin-inline-end: 0;
             padding: 0;
             max-width: 100%;
+            margin-bottom: 0;
         }
 
         img {
@@ -24,10 +25,15 @@
         figcaption {
             background-color: white;
             color: $stockport-black;
+            font-weight: bold;
             padding-inline: 0;
             padding-block: 1em;
             border-bottom: 1px solid #ccc;
             border-radius: 0;
+
+            @media #{$mobile} {
+             border-bottom: none;
+            }
         }
     }
 
