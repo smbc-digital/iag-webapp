@@ -27,12 +27,12 @@ public class TagParserContainerTests
         _profileTagParser = new Mock<IDynamicTagParser<Profile>>();
 
         _viewRenderer = new Mock<IViewRender>();
-    
+
         var tagParserList = new List<ISimpleTagParser> { _tagParser.Object, _anotherTagParser.Object, _anotherAnotherTagParser.Object };
 
         _tagParserContainer = new TagParserContainer(tagParserList,
-                                    _alertsTagParser.Object, 
-                                    _documentTagParser.Object, 
+                                    _alertsTagParser.Object,
+                                    _documentTagParser.Object,
                                     _quoteTagParser.Object,
                                     _privacyNoticeTagParser.Object,
                                     _profileTagParser.Object);
