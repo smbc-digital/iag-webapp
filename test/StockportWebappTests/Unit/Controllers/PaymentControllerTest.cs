@@ -9,6 +9,10 @@ public class PaymentControllerTest
     private readonly PaymentController _paymentController;
     private readonly PaymentController _paymentControllerWithServicePayPaymentPath;
     private readonly Mock<ICivicaPayGateway> _civicaPayGateway = new();
+    private readonly Mock<IFeatureManager> _featureManager;
+    private readonly Mock<ILogger<PaymentController>> _logger;
+
+
 
     private readonly Mock<IOptions<CivicaPayConfiguration>> _configuration = new();
     private readonly Mock<IObjectModelValidator> _objectValidator = new();
@@ -50,7 +54,10 @@ public class PaymentControllerTest
 
     public PaymentControllerTest()
     {
-        var httpContextPayment = new DefaultHttpContext();
+        _featureManager = new Mock<IFeatureManager>();
+        _logger = new Mock<ILogger<PaymentController>>();
+
+    var httpContextPayment = new DefaultHttpContext();
         httpContextPayment.Request.Path = "/payment";
         var mockControllerContextPayment = new ControllerContext
         {
@@ -63,7 +70,7 @@ public class PaymentControllerTest
         {
             HttpContext = httpContextServicePayPayment
         };
-
+        
         _fakeRepository
             .Setup(_ => _.Get<Payment>(It.IsAny<string>(), It.IsAny<List<Query>>()))
             .ReturnsAsync(new HttpResponse((int)HttpStatusCode.OK, _processedPayment, string.Empty));
@@ -87,7 +94,9 @@ public class PaymentControllerTest
                 It.IsAny<string>(),
                 It.IsAny<Object>()));
 
-        _paymentController = new PaymentController(_fakeRepository.Object, _civicaPayGateway.Object, _configuration.Object)
+        _featureManager.Setup(o => o.IsEnabledAsync(It.IsAny<string>())).ReturnsAsync(true);
+
+        _paymentController = new PaymentController(_fakeRepository.Object, _civicaPayGateway.Object, _configuration.Object, _featureManager.Object, )
         {
             ControllerContext = mockControllerContextPayment
         };
