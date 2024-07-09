@@ -1,20 +1,27 @@
 ﻿@model ProfileViewModel
 @{
     string profileColour = !string.IsNullOrEmpty(Model.Profile.Colour) ? Model.Profile.Colour.ToLower() : "teal";
+    string contentNoImageClass = string.IsNullOrEmpty(Model.Profile.Image) ? "profile-tag-parser-content--no-image" : string.Empty;
 }
 
 <section class="section section--white">
     <a href="/profile/@Model.Profile.Slug" class="profile-tag-parser profile-tag-parser--@profileColour section" data-cy="profile-tag-parser">
-        <img src="@Model.Profile.Image?w=500&q=89" srcset="@Model.Profile.Image?w=500&q=89&fm=webp" class="profile-tag-parser__image" loading="lazy" alt="@Model.Profile.ImageCaption" width="452" height="342">
-        <div class="profile-tag-parser-content">
+        @if(!string.IsNullOrEmpty(Model.Profile.Image))
+        {
+            <div class="profile-tag-parser-image-wrapper">
+                <img src="@Model.Profile.Image?w=500&q=89" srcset="@Model.Profile.Image?w=500&q=89&fm=webp" class="profile-tag-parser__image" loading="lazy" alt="@Model.Profile.ImageCaption" width="452" height="342">
+            </div>
+        }
+
+        <div class="profile-tag-parser-content @contentNoImageClass">
             <h2 class="profile-tag-parser-content__title ">@Model.Profile.Title</h2>
-            <span class="profile-tag-parser-content__subTitle ">@Model.Profile.Subtitle</span>
+            <p class="profile-tag-parser-content__subTitle ">@Model.Profile.Subtitle</p>
             
-            <span class="fa-solid fa-quote-left fa-2x profile-tag-parser-quote"></span>
+            <span class="fa-solid fa-quote-left profile-tag-parser-quote"></span>
             
             <p class="profile-tag-parser-content__teaser">@Model.Profile.Quote</p> @*this needs changing to Teaser*@
 
-            <span class="fa-solid fa-quote-right fa-2x profile-tag-parser-quote"></span>
+            <span class="fa-solid fa-quote-right profile-tag-parser-quote"></span>
 
             <span class="profile-tag-parser-content__read-more">Read more</span>
         </div> 
