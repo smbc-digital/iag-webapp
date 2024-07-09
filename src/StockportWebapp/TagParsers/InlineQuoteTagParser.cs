@@ -6,7 +6,7 @@ public class InlineQuoteTagParser : IDynamicTagParser<InlineQuote>
 
     public InlineQuoteTagParser(IViewRender viewRenderer) => _viewRenderer = viewRenderer;
 
-    protected Regex TagRegex => new Regex("{{QUOTE:(\\s*[/a-zA-Z0-9][^}]+)}}", RegexOptions.Compiled);
+    protected Regex TagRegex => new("{{QUOTE:(\\s*[/a-zA-Z0-9][^}]+)}}", RegexOptions.Compiled);
 
     public bool HasMatches(string content) => TagRegex.IsMatch(content);
 
@@ -18,7 +18,7 @@ public class InlineQuoteTagParser : IDynamicTagParser<InlineQuote>
         foreach (Match match in matches)
         {
             var tagSlug = match.Groups[1].Value;
-            var inlineQuote = dynamicContent?.FirstOrDefault(_ => _.Slug == tagSlug);
+            var inlineQuote = dynamicContent?.FirstOrDefault(_ => _.Slug.Equals(tagSlug));
 
             if (inlineQuote != null)
             {

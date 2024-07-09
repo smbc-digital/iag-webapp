@@ -1,11 +1,18 @@
 ﻿@model InlineQuote
+@{
+    string themeTag = !string.IsNullOrEmpty(Model.Theme) ? $"profile-quote--border-{Model.Theme}" : "profile-quote--border-pink";
+}
 
-<div class="inline-quote-container">
-    <img src="@Model.Image" alt="@Model.ImageAltText" />
-    <h2>@Model.Author</h2>
-    <div class="quote-body">
-        <span class="green open fa fa-2x fa-quote-left" aria-hidden="true"></span>
-        <p class="lead-paragraph">@Model.Quote</p>
-        <span class="green fa fa-2x fa-quote-right" aria-hidden="true"></span>
+<div class="profile-quote">
+    @if (!string.IsNullOrEmpty(Model.Author))
+    {
+        <h3>@Model.Author</h3>
+    }
+    <div class="profile-quote--border @themeTag">
+        <p class="profile-quote__text lead">
+            <span class="open h-s fa fa-quote-left" aria-hidden="true"></span>
+            @Model.Quote
+            <span class="h-s fa fa-quote-right" aria-hidden="true"></span>
+        </p>
     </div>
 </div>
