@@ -1,6 +1,6 @@
 ﻿@model InlineQuote
 @{
-    var themeTag = !string.IsNullOrEmpty(Model.Theme) ? $"profile-quote--border-{Model.Theme}" : "profile-quote--border-pink";
+    string themeTag = !string.IsNullOrEmpty(Model.Theme) ? $"profile-quote--border-{Model.Theme}" : "profile-quote--border-pink";
 }
 
 <div class="profile-quote">
