@@ -32,5 +32,5 @@ public class ProfileTagParser : IDynamicTagParser<Profile>
         TagRegex.Replace(content, string.Empty);
 
     private static Profile GetProfileMatchingSlug(IEnumerable<Profile> profiles, string slug) =>
-        profiles?.FirstOrDefault(s => s.Slug.Equals(slug));
+        profiles?.FirstOrDefault(_ => _.Slug.Equals(slug));
 }
