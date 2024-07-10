@@ -18,18 +18,11 @@ public class ProfileTagParser : IDynamicTagParser<Profile>
 
         foreach (Match match in matches)
         {
-            int tagDataIndex = 1;
-            string profileSlug = match.Groups[tagDataIndex].Value;
+            string profileSlug = match.Groups[1].Value;
             Profile profile = GetProfileMatchingSlug(profiles, profileSlug);
             ProfileViewModel viewModel = new(profile);
             if (profile is not null)
-            {
-                string profileHtml = string.IsNullOrEmpty(profile.Body)
-                    ? _viewRenderer.Render("ProfileWithoutBody", viewModel)
-                    : _viewRenderer.Render("Profile", viewModel);
-
-                content = TagRegex.Replace(content, profileHtml, 1);
-            }
+                content = TagRegex.Replace(content, _viewRenderer.Render("Profile", viewModel), 1);
         }
         
         return RemoveEmptyTags(content);

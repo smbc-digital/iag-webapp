@@ -3,67 +3,18 @@
 
 @{
     string profileColour = !string.IsNullOrEmpty(Model.Profile.Colour) ? Model.Profile.Colour.ToLower() : "teal";
-    string contentNoImageClass = string.IsNullOrEmpty(Model.Profile.Image) ? "profile-tag-parser-content--no-image" : string.Empty;
 }
 
-
 <section class="section section--white">
-    <a href="/profile/@Model.Profile.Slug" class="profile-tag-parser profile-tag-parser--@profileColour section" data-cy="profile-tag-parser">
-        @if(!string.IsNullOrEmpty(Model.Profile.Image))
-        {
-            <div class="profile-tag-parser-image-wrapper">
-                <img src="@Model.Profile.Image?w=500&q=89" srcset="@Model.Profile.Image?w=500&q=89&fm=webp" class="profile-tag-parser__image" loading="lazy" alt="@Model.Profile.ImageCaption" width="452" height="342">
-            </div>
-        }
-        
-        <div class="profile-tag-parser-content @contentNoImageClass">
-            <h3 class="profile-tag-parser-content__title ">@Model.Profile.Title</h3>
-
-                <span class="fa-solid fa-quote-left profile-tag-parser-quote"></span>
-
-                <p class="profile-tag-parser-content__teaser">@Model.Profile.Quote</p> @*this needs changing to Teaser*@
-                
-                <span class="fa-solid fa-quote-right profile-tag-parser-quote"></span>
-
-            <span class="profile-tag-parser-content__read-more">Read more</span>
-        </div> 
-    </a>
-</section>
-
-
-
-
-@* <div>
-    <a href="/profile/@Model.Profile.Slug" class="profile profile-banner profile-link" alt="Read more about @Model.Profile.Title">
-        @{
-            var width = "100";
-        }
-
-        @if (!string.IsNullOrEmpty(Model.Profile.Image))
-        {
-            width = "75";
-            <div class="grid-25 tablet-grid-25 mobile-grid-100">
-                <div class="profile-image-mask">
-                    <img src="@Model.Profile.Image" alt="@Model.Profile.Title" />
-                </div>
-            </div>
-        }
-        <div class="grid-@width tablet-grid-@width mobile-grid-100">
-            <div class="mobile-push-10 headings">
-                <h2>@Model.Profile.Title</h2>
-                <span class="summary">@Model.Profile.Subtitle</span>
-            </div>
-            <div class="grid-100 grid-parent body">
-                <div class="grid-10 tablet-grid-10 mobile-grid-10"><span class="green open fa fa-2x fa-quote-left" aria-hidden="true"></span></div>
-                <div class="grid-80 tablet-grid-80 mobile-grid-80 main-body">
-                    <p>@Model.Profile.Quote</p>
-                </div>
-                <div class="grid-10 tablet-grid-10 mobile-grid-10"></div>
-            </div>
-            <div class="grid-100 grid-parent closing-quote">
-                <div class="grid-10 tablet-grid-10 mobile-grid-10 tablet-push-90 mobile-push-90 push-90"><span class="green fa fa-2x fa-quote-right" aria-hidden="true"></span></div>
-            </div>
-            <p class="read-more">Read more</p>
+    @if(string.IsNullOrEmpty(Model.Profile.Body))
+    {
+        <div class="profile-tag-parser profile-tag-parser--@profileColour section" data-cy="profile-tag-parser">
+            <partial name="ProfileTagParserContent" />
         </div>
-    </a>
-</div> *@
+    }
+    else {
+        <a href="/profile/@Model.Profile.Slug" class="profile-tag-parser profile-tag-parser--@profileColour section" data-cy="profile-tag-parser">
+            <partial name="ProfileTagParserContent" />
+        </a>
+    }
+</section>
