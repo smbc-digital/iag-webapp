@@ -30,8 +30,8 @@
 
                                         <span class="visuallyhidden">
                                             @{
-                                                var filterCount = Model.FilterCounts.GetValueOrDefault(filter.Slug, 0);
-                                                var countValueForSR = filterCount.Equals(1) ? $"{filterCount} result" : $"{filterCount} results";
+                                                int filterCount = Model.FilterCounts.GetValueOrDefault(filter.Slug, 0);
+                                                string countValueForSR = filterCount.Equals(1) ? $"{filterCount} result" : $"{filterCount} results";
                                             }
                                             @countValueForSR
                                         </span>

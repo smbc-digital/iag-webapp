@@ -1,11 +1,11 @@
 ﻿@model NavCardList
 @{
-    var borderTealDesktop = " navcard--border-top-6-desktop navcard--theme-teal-lighter-top-desktop ";
-    var borderTealTablet = " navcard--border-top-6-tablet navcard--theme-teal-lighter-top-tablet";
-    var borderTealMobile = " navcard--border-left-6-mobile navcard--theme-teal-lighter-left-mobile";
-    var borderTealMobileRtl = " navcard--border-rtl-right-6-mobile navcard--theme-teal-lighter-rtl-right-mobile";
+    string borderTealDesktop = " navcard--border-top-6-desktop navcard--theme-teal-lighter-top-desktop ";
+    string borderTealTablet = " navcard--border-top-6-tablet navcard--theme-teal-lighter-top-tablet";
+    string borderTealMobile = " navcard--border-left-6-mobile navcard--theme-teal-lighter-left-mobile";
+    string borderTealMobileRtl = " navcard--border-rtl-right-6-mobile navcard--theme-teal-lighter-rtl-right-mobile";
     
-    var borderCssClasses = $"{borderTealDesktop} + {borderTealTablet} + {borderTealMobile} + {borderTealMobileRtl}";
+    string borderCssClasses = $"{borderTealDesktop} + {borderTealTablet} + {borderTealMobile} + {borderTealMobileRtl}";
 }
 
 <ul class="navcard-wrapper">

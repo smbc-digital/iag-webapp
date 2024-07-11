@@ -2,14 +2,14 @@
 @{
     bool displayImage = (bool)ViewData["displayImage"];
     
-    var borderCssDesktop = " navcard-all-desktop navcard--theme-grey-accent-all-desktop";
-    var borderCssTablet = " navcard-all-tablet navcard--theme-grey-accent-all-tablet";
-    var noBorder = " navcard--border-top-0-desktop navcard--border-top-0-tablet";
-    var noBorderImage = " navcard--border-bottom-0-desktop navcard--border-bottom-0-tablet";
-    var borderRadius = " navcard--radius-bottom-left navcard--radius-bottom-right";
-    var borderImageRadius = " navcard--radius-top-left navcard--radius-top-right";
+    string borderCssDesktop = " navcard-all-desktop navcard--theme-grey-accent-all-desktop";
+    string borderCssTablet = " navcard-all-tablet navcard--theme-grey-accent-all-tablet";
+    string noBorder = " navcard--border-top-0-desktop navcard--border-top-0-tablet";
+    string noBorderImage = " navcard--border-bottom-0-desktop navcard--border-bottom-0-tablet";
+    string borderRadius = " navcard--radius-bottom-left navcard--radius-bottom-right";
+    string borderImageRadius = " navcard--radius-top-left navcard--radius-top-right";
 
-    var borderCssClasses = displayImage 
+    string borderCssClasses = displayImage 
         ? $"{noBorderImage} {borderImageRadius}"
         : $"{noBorder} {borderRadius}";
 }
