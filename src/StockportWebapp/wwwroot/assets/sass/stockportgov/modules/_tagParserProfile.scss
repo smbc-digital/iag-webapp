@@ -11,7 +11,7 @@
     &:hover {
         text-decoration: none;
 
-        .profile-tag-parser-content__read-more {
+        .profile-tag-parser-content__read-more, .profile-tag-parser-content__title {
             text-decoration: underline;
             text-decoration-thickness: 3px;
         }
