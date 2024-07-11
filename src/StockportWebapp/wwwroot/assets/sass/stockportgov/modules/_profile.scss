@@ -1,4 +1,20 @@
 .profile {
+    &__title {
+        margin: 1.25rem 0 2rem;
+
+        @media #{$mobile} {
+            margin-inline: 5px;
+            margin: 1.25rem 5px 1.75rem;
+        }
+    }
+
+    &__sub-title {
+        @media #{$mobile} {
+            margin-inline: 5px;
+            margin-block-end: 1.75rem;
+        }
+    }
+
     &__figure {
         float: right;    
         max-width: 33%;
@@ -72,6 +88,7 @@
 
             span {
                 color: $stockport-green;
+                vertical-align: super;
             }
         }
     }
