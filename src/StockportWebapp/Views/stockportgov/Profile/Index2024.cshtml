@@ -23,10 +23,10 @@
 
             <section class="article">
                 <div class="section article--70">
-                    @if(!string.IsNullOrEmpty(profile.Image))
+                    @if(!string.IsNullOrEmpty(profile.Image.Url))
                     {
                         <figure class="profile__figure">
-                            <img src=@profile.Image alt="" />
+                            <img src=@profile.Image.Url alt="@profile.Image.Description" />
 
                             @if(!string.IsNullOrEmpty(profile.ImageCaption))
                             {
