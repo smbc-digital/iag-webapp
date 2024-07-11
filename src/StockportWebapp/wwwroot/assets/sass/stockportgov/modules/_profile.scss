@@ -51,7 +51,7 @@
         height: 100%;
 
         &--border {
-            border-left: 0.5em solid;
+            border-inline-start: 0.5em solid;
 
             &-pink {
                 border-color: rgba($stockport-pink, 0.7);
@@ -79,15 +79,21 @@
         } 
 
         &__text {
-            padding-left: 1em;
+            padding-inline-start: 1em;
 
             @media #{$mobile} {
-                padding-left: 0.8em;
+                padding-inline-start: 0.8em;
             }
 
             span {
                 color: $stockport-green;
                 vertical-align: super;
+            }
+        }
+
+        &__marks {
+            &--rtl {
+                display: none !important;
             }
         }
     }
@@ -99,5 +105,15 @@ html[dir="rtl"] {
             float: left;
             margin: 0 1em 1em 0;
         }
+
+        &-quote {
+            &__marks {
+            display: none !important;
+
+            &--rtl {
+                display: inline-block !important;
+            }
+        }
     }
+}
 }
