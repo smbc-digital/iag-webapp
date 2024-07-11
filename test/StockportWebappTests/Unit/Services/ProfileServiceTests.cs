@@ -47,7 +47,7 @@ public class ProfileServiceTests
             Alerts = new List<Alert>(),
             Breadcrumbs = new List<Crumb>(),
             TriviaSection = new List<Trivia>(),
-            Image = "testimage",
+            Image = new MediaAsset(),
             ImageCaption = "image caption",
             Teaser = "test",
             Title = "test",

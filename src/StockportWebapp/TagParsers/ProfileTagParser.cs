@@ -21,8 +21,12 @@ public class ProfileTagParser : IDynamicTagParser<Profile>
             string profileSlug = match.Groups[1].Value;
             Profile profile = GetProfileMatchingSlug(profiles, profileSlug);
             ProfileViewModel viewModel = new(profile);
+
             if (profile is not null)
-                content = TagRegex.Replace(content, _viewRenderer.Render("Profile", viewModel), 1);
+            {
+                string htmlBody = _viewRenderer.Render("Profile", viewModel);
+                content = TagRegex.Replace(content, htmlBody, 1);
+            }
         }
         
         return RemoveEmptyTags(content);
