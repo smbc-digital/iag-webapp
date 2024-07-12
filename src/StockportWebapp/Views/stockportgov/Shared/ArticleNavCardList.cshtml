@@ -22,9 +22,9 @@
             if (!item.NavigationLink.Equals(Model.Article.NavigationLink))
             {
                 <li class="@liClasses">
-                    <div class="@borderGrey @(item.Equals(sidebarSubItems.Last()) ? paddingBottom : null)">
+                    <div class="@borderGrey @(item.Equals(sidebarSubItems.Last()) && !hasMoreButton ? paddingBottom : null)">
                         <partial name="ArticleNavCard" model="item"
-                                 view-data='item.Equals(sidebarSubItems.Last())
+                                 view-data='item.Equals(sidebarSubItems.Last()) && !hasMoreButton
                                     ? new ViewDataDictionary(ViewData) {{ "navcardPadding", " navcard--padding-bottom" }}
                                     : null' />
                     </div>
