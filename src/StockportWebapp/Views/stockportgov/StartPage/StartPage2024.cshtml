@@ -13,16 +13,16 @@
     <div class="grid-container start-page">
         <div class="grid-100">
             <div class="article--70">
-                <h1>@Model.Title</h1>
+                <h1 class="article__title">@Model.Title</h1>
                 
                 @if(!string.IsNullOrEmpty(Model.Summary))
                 {
-                    <div class="lead">
+                    <div class="article lead">
                         @Html.Raw(@Model.Summary)
                     </div>
                 }
 
-                <section>
+                <section class="article">
                     <article>
                         <div class="start-page_upper" >
                             @Html.Raw(Model.UpperBody)
