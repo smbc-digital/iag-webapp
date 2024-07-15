@@ -1,7 +1,7 @@
 ﻿@model ProfileViewModel
 
 <a class="profile-inline-container" href="/profile/@Model.Profile.Slug">
-    <img class="profile-inline-image" src="@Model.Profile.Image" alt="@Model.Profile.Title" />
+    <img class="profile-inline-image" src="@Model.Profile.Image.Url" alt="@Model.Profile.Title" />
     <div class="profile-inline-quote">
         <h2>@Model.Profile.Title</h2>
         <p class="subtitle">@Model.Profile.Subtitle</p>

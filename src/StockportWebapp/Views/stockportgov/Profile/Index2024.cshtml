@@ -17,16 +17,16 @@
     <div class="grid-container">
         <div class="grid-100">
             <div class="article--70">
-                <h1 class="article__title">@profile.Title</h1>
-                <h2 class="article__sub-title">@profile.Subtitle</21>
+                <h1 class="profile__title">@profile.Title</h1>
+                <h2 class="profile__sub-title">@profile.Subtitle</21>
             </div>
 
             <section class="article">
                 <div class="section article--70">
-                    @if(!string.IsNullOrEmpty(profile.Image))
+                    @if(!string.IsNullOrEmpty(profile.Image.Url))
                     {
                         <figure class="profile__figure">
-                            <img src=@profile.Image alt="" />
+                            <img src=@profile.Image.Url alt="@profile.Image.Description" />
 
                             @if(!string.IsNullOrEmpty(profile.ImageCaption))
                             {

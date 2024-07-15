@@ -1,6 +1,7 @@
 .article {
     display: flex;
     flex-direction: row;
+    word-wrap: break-word;
     
     @media #{$mobile} {
         margin-inline: 5px;
