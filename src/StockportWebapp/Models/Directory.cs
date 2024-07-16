@@ -3,6 +3,7 @@ namespace StockportWebapp.Models;
 public class Directory
 {
     public string Title { get; set; } = string.Empty;
+    public string NavigationTitle { get; set; } = string.Empty;
     public string Slug { get; set; } = string.Empty;
     public string ContentfulId { get; set; } = string.Empty;
     public string Teaser { get; set; } = string.Empty;
