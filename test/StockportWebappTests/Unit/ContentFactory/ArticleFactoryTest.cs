@@ -31,7 +31,7 @@ public class ArticleFactoryTest
         _sectionFactory.Setup(_ => _.Build(_sectionOne, _article.Title)).Returns(_processedSectionOne);
         _repository.Setup(_ => _.Get<List<PrivacyNotice>>(It.IsAny<string>(), It.IsAny<List<Query>>())).ReturnsAsync(new HttpResponse(200, new List<PrivacyNotice>(), string.Empty));
         _markdownWrapper.Setup(_ => _.ConvertToHtml(Body)).Returns(Body);
-        _tagParserContainer.Setup(_ => _.ParseAll(Body, It.IsAny<string>(), It.IsAny<bool>(), It.IsAny<IEnumerable<Alert>>(), It.IsAny<IEnumerable<Document>>(), It.IsAny<IEnumerable<InlineQuote>>(), It.IsAny<IEnumerable<PrivacyNotice>>(), It.IsAny<IEnumerable<Profile>>())).Returns(Body);
+        _tagParserContainer.Setup(_ => _.ParseAll(Body, It.IsAny<string>(), It.IsAny<bool>(), It.IsAny<IEnumerable<Alert>>(), It.IsAny<IEnumerable<Document>>(), It.IsAny<IEnumerable<InlineQuote>>(), It.IsAny<IEnumerable<PrivacyNotice>>(), It.IsAny<IEnumerable<Profile>>(), true)).Returns(Body);
     }
 
     [Fact]
@@ -86,7 +86,7 @@ public class ArticleFactoryTest
         _articleFactory.Build(_article);
 
         // Assert
-        _tagParserContainer.Verify(_ => _.ParseAll(Body, It.IsAny<string>(), It.IsAny<bool>(), It.IsAny<IEnumerable<Alert>>(), It.IsAny<IEnumerable<Document>>(), It.IsAny<IEnumerable<InlineQuote>>(), It.IsAny<IEnumerable<PrivacyNotice>>(), It.IsAny<IEnumerable<Profile>>()), Times.Once);
+        _tagParserContainer.Verify(_ => _.ParseAll(Body, It.IsAny<string>(), It.IsAny<bool>(), It.IsAny<IEnumerable<Alert>>(), It.IsAny<IEnumerable<Document>>(), It.IsAny<IEnumerable<InlineQuote>>(), It.IsAny<IEnumerable<PrivacyNotice>>(), It.IsAny<IEnumerable<Profile>>(), It.IsAny<bool>()), Times.Once);
     }
 
     [Fact]
@@ -96,6 +96,6 @@ public class ArticleFactoryTest
         _articleFactory.Build(_article);
         
         // Assert
-        _tagParserContainer.Verify(_ => _.ParseAll(Body, _article.Title, It.IsAny<bool>(), It.IsAny<IEnumerable<Alert>>(), It.IsAny<IEnumerable<Document>>(), It.IsAny<IEnumerable<InlineQuote>>(), It.IsAny<IEnumerable<PrivacyNotice>>(), It.IsAny<IEnumerable<Profile>>()), Times.Once);
+        _tagParserContainer.Verify(_ => _.ParseAll(Body, _article.Title, It.IsAny<bool>(), It.IsAny<IEnumerable<Alert>>(), It.IsAny<IEnumerable<Document>>(), It.IsAny<IEnumerable<InlineQuote>>(), It.IsAny<IEnumerable<PrivacyNotice>>(), It.IsAny<IEnumerable<Profile>>(), It.IsAny<bool>()), Times.Once);
     }
 }
