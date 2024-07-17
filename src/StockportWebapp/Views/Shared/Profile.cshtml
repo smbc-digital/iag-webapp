@@ -21,7 +21,7 @@
 </feature>
 
 <feature name="OldProfilesTagParser">
-    @if(string.IsNullOrEmpty(Model.Profile.Body)) {
+    @if(!string.IsNullOrEmpty(Model.Profile.Body)) {
         <div>
             <a href="/profile/@Model.Profile.Slug" class="profile profile-success-story-new profile-link" alt="Read more about @Model.Profile.Title">
                 @{
