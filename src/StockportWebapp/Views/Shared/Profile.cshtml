@@ -1,6 +1,4 @@
-﻿@inject HostHelper hostHelper
-
-@using StockportWebapp.Models;
+﻿@using StockportWebapp.Models;
 @model ProfileViewModel
 @{
     string profileColour = !string.IsNullOrEmpty(Model.Profile.Colour) ? Model.Profile.Colour.ToLower() : "teal";
@@ -24,5 +22,5 @@
     </section>
 }
 else {
-    <partial name="OldDesignProfile" />
+    <partial name="ProfileOldDesign" />
 }
