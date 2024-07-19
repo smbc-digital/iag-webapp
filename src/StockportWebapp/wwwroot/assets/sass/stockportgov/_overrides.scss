@@ -32,6 +32,10 @@ a {
     }
 }
 
+hr {
+    margin: 2em 0;
+}
+
 /*------ View more services button spacing ------*/
 @media #{$mobile} {
     .featured-content-button-wrapper {
