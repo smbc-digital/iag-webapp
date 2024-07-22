@@ -9,7 +9,7 @@ public class ContentFactoryTest
         var repository = new Mock<IRepository>();
         var tagParserContainer = new Mock<ITagParserContainer>();
         var httpContextAccessor = new Mock<IHttpContextAccessor>();
-        tagParserContainer.Setup(o => o.ParseAll(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool>(), null, null, null, null, null)).Returns("");
+        tagParserContainer.Setup(o => o.ParseAll(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool>(), null, null, null, null, null, It.IsAny<bool>())).Returns("");
 
         _factory = new ContentTypeFactory(tagParserContainer.Object, new MarkdownWrapper(), httpContextAccessor.Object, repository.Object);
     }
