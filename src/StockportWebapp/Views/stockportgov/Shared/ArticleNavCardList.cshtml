@@ -4,7 +4,7 @@
     string liClasses = "navcard navcard--grey navcard--no-margin navcard--no-padding-right-rtl navcard--width-100";
     string paddingBottom = $"navcard--border-bottom-1 navcard--radius-bottom-left navcard--radius-bottom-right";
     bool hasMoreButton;
-    var sidebarSubItems = Model.SidebarSubItems(out hasMoreButton)
+    IEnumerable<SubItem> sidebarSubItems = Model.SidebarSubItems(out hasMoreButton)
                             .Where(subItem => !subItem.NavigationLink.Equals(Model.Article.NavigationLink));
 }
 
