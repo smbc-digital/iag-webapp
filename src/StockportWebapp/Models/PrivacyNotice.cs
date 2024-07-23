@@ -18,7 +18,7 @@ public class PrivacyNotice
     public string UrlThree { get; set; }
     public IEnumerable<Crumb> Breadcrumbs { get; set; }
     public Topic ParentTopic { get; set; }
-
+    
     public PrivacyNotice() { }
 
     public PrivacyNotice(string slug, string title, string category, string purpose, string typeOfData, string legislation, string obtained, string externallyShared, string retentionPeriod, bool outsideEu, bool automatedDecision, string urlOne, string urlTwo, string urlThree, IEnumerable<Crumb> breadcrumbs)
