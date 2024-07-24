@@ -48,9 +48,6 @@ public class PrivacyNoticeFactoryTest
             RetentionPeriod = "test-retention",
             OutsideEu = false,
             AutomatedDecision = false,
-            UrlOne = "test-url-1",
-            UrlTwo = "test-url-2",
-            UrlThree = "test-url-3",
             Breadcrumbs = new List<Crumb>()
         };
 
@@ -69,8 +66,5 @@ public class PrivacyNoticeFactoryTest
         Assert.Equal("test-retention-html", processedPrivacyNotice.RetentionPeriod);
         Assert.False(processedPrivacyNotice.OutsideEu);
         Assert.False(processedPrivacyNotice.AutomatedDecision);
-        Assert.Equal("test-url-1", processedPrivacyNotice.UrlOne);
-        Assert.Equal("test-url-2", processedPrivacyNotice.UrlTwo);
-        Assert.Equal("test-url-3", processedPrivacyNotice.UrlThree);
     }
 }

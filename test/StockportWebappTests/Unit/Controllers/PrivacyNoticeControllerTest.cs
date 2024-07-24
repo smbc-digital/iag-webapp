@@ -16,7 +16,7 @@ public class PrivacyNoticeControllerTest
         // Arrange
         ProcessedPrivacyNotice privacyNotice = new("slug", "title", "category", "purpose", "type of data",
             "legislation", "obtained", "externally shared", "retention period",
-            false, false, "urlOne", "urlTwo", "urlThree", new List<Crumb>(), new NullTopic()
+            false, false, new List<Crumb>(), new NullTopic()
         );
 
         _processedRepository

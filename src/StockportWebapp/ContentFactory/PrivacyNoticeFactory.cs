@@ -16,7 +16,7 @@ public class PrivacyNoticeFactory
         string retentionPeriodHtml = _markdownWrapper.ConvertToHtml(privacyNotice.RetentionPeriod);
         string legistationHtml = _markdownWrapper.ConvertToHtml(privacyNotice.Legislation);
 
-        ProcessedPrivacyNotice processedPrivacyNotice = new(privacyNotice.Slug, privacyNotice.Title, privacyNotice.Category, purposeHtml, typeOfDataHtml, legistationHtml, obtainedHtml, externallySharedHtml, retentionPeriodHtml, privacyNotice.OutsideEu, privacyNotice.AutomatedDecision, privacyNotice.UrlOne, privacyNotice.UrlTwo, privacyNotice.UrlThree, privacyNotice.Breadcrumbs, privacyNotice.ParentTopic);
+        ProcessedPrivacyNotice processedPrivacyNotice = new(privacyNotice.Slug, privacyNotice.Title, privacyNotice.Category, purposeHtml, typeOfDataHtml, legistationHtml, obtainedHtml, externallySharedHtml, retentionPeriodHtml, privacyNotice.OutsideEu, privacyNotice.AutomatedDecision, privacyNotice.Breadcrumbs, privacyNotice.ParentTopic);
 
         return processedPrivacyNotice;
     }
