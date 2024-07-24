@@ -6,6 +6,6 @@
 @if (Model.Any())
 {
     <div class="directory--border-top directory--no-margin @additionalWrapperCssClasses">
-        <partial name="LogoArea" model='Model' view-data='new ViewDataDictionary(ViewData) {{"logoAreaTitle", "In partnership with"}, {"borderTopClass", $"{additionalCssClasses} directory--padding"}}' />
+        <partial name="LogoArea" model='Model' view-data='new ViewDataDictionary(ViewData) {{"logoAreaArticle", false}, {"logoAreaTitle", "In partnership with"}, {"borderTopClass", $"{additionalCssClasses} directory--padding"}}' />
     </div>
 }
