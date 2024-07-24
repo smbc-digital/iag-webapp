@@ -10,7 +10,7 @@ public class PrivacyNoticeTagParser : IDynamicTagParser<PrivacyNotice>
 
     public bool HasMatches(string content) => TagRegex.IsMatch(content);
 
-    public string Parse(string content, IEnumerable<PrivacyNotice> privacyNotices)
+    public string Parse(string content, IEnumerable<PrivacyNotice> privacyNotices, bool redesigned = false)
     {
         MatchCollection matches = TagRegex.Matches(content);
 

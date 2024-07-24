@@ -11,7 +11,7 @@ public class InlineQuoteTagParser : IDynamicTagParser<InlineQuote>
     public bool HasMatches(string content) => TagRegex.IsMatch(content);
 
 
-    public string Parse(string body, IEnumerable<InlineQuote> dynamicContent)
+    public string Parse(string body, IEnumerable<InlineQuote> dynamicContent, bool redesigned = false)
     {
         var matches = TagRegex.Matches(body);
 

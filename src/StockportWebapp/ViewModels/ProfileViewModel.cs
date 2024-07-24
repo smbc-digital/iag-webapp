@@ -6,6 +6,7 @@ namespace StockportWebapp.ViewModels;
 public class ProfileViewModel
 {
     public readonly Profile Profile;
+    public bool Redesigned;
     public ProfileViewModel(Profile profile)
     {
         Profile = profile;
