@@ -1,7 +1,7 @@
 ﻿@model DirectoryViewModel
 @{
     bool showPagination = Model.PaginationInfo.TotalEntries > Model.PaginationInfo.PageSize;
-    var urlWithParams = $"?{string.Join("&", Model.QueryParameters.Select(q => $"{q.Name}={q.Value}"))}";
+    string urlWithParams = $"?{string.Join("&", Model.QueryParameters.Select(q => $"{q.Name}={q.Value}"))}";
 }
 
 @if (showPagination)

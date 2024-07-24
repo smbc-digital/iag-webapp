@@ -1,4 +1,4 @@
-@model ArticleViewModel
+@model ExternalLinksViewModel
 @{
     string borderGrey = " navcard--border-left-1 navcard--border-right-1 navcard--theme-grey-accent-all";
     string liClasses = "navcard navcard--grey navcard--no-margin navcard--no-padding-right-rtl navcard--width-100";
@@ -14,14 +14,14 @@
             </div>
         </li>
 
-        @foreach (var item in Model.Article.RelatedContent)
+        @foreach (var item in Model.RelatedContent)
         {
             <li class="@liClasses">
-                <div class="@(item.Equals(Model.Article.RelatedContent.Last()) 
+                <div class="@(item.Equals(Model.RelatedContent.Last()) 
                     ? $"{borderGrey} navcard--border-bottom-1 navcard--radius-bottom-left navcard--radius-bottom-right" 
                     : borderGrey)">
 
-                    <partial name="ArticleNavCard" model='item' view-data='item.Equals(Model.Article.RelatedContent.Last()) ? new ViewDataDictionary(ViewData) {{ "navcardPadding", " navcard--padding-bottom" }} : null' />
+                    <partial name="ArticleNavCard" model='item' view-data='item.Equals(Model.RelatedContent.Last()) ? new ViewDataDictionary(ViewData) {{ "navcardPadding", " navcard--padding-bottom" }} : null' />
                 </div>
             </li>
         }
