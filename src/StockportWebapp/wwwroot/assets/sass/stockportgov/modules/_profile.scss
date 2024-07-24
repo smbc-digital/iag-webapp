@@ -7,13 +7,6 @@
         }
     }
 
-    &__sub-title {
-        @media #{$mobile} {
-            margin-inline: 5px;
-            margin-block-end: 1.75rem;
-        }
-    }
-
     &__figure {
         float: right;    
         max-width: 33%;
@@ -92,6 +85,14 @@
                 display: none !important;
             }
         }
+    }
+
+    h3 {
+        margin-bottom: 20px;    
+    }
+
+    h4, h5, h6 {
+        margin-bottom: 10px;
     }
 }
 

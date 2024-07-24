@@ -22,8 +22,8 @@
     &__sub-title {
         @media #{$mobile} {
             margin-inline: 5px;
-            margin-block-end: 2rem;
-        }  
+            margin-block-end: 1.75rem;
+        }
     }
 
     &--70 {
@@ -69,6 +69,10 @@
 
     &-body {
         margin-top: 2em;
+
+        &--no-margin {
+            margin-top: 0;
+        }
     }
 
     &-date {
@@ -101,7 +105,7 @@
         overflow-wrap: anywhere;
 
         h3 {
-            margin-bottom: 20px;
+            margin-bottom: 20px;    
         }
 
         h4, h5, h6 {

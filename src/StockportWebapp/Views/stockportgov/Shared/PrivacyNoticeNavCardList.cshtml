@@ -1,0 +1,48 @@
+﻿@model PrivacyNoticeViewModel
+@{
+    string borderGrey = " navcard--border-left-1 navcard--border-right-1 navcard--theme-grey-accent-all";
+    string liClasses = "navcard navcard--grey navcard--no-margin navcard--no-padding-right-rtl navcard--width-100";
+    string paddingBottom = $"navcard--border-bottom-1 navcard--radius-bottom-left navcard--radius-bottom-right";
+    bool hasMoreButton;
+    IEnumerable<SubItem> sidebarSubItems = Model.SidebarSubItems(out hasMoreButton)
+                            .Where(subItem => !subItem.NavigationLink.Equals(Model.PrivacyNotice.NavigationLink));
+}
+
+<nav aria-labelledby="navcard__title">
+    <ul class="navcard navcard-wrapper--no-margin navcard--border-top-10 navcard--no-padding-right-rtl navcard--theme-teal-lighter-top navcard--width-100">
+        <li class="@liClasses">
+            <div class="@borderGrey">
+                <div class="navcard--padding navcard--padding-top navcard--grey">
+                    <h2 class="h-ml h--no-top-margin h--no-bottom-margin" id="navcard__title">Also in @Model.PrivacyNotice.ParentTopic.Name</h2>
+                </div>
+            </div>
+        </li>
+
+        @foreach (var item in sidebarSubItems)
+        {
+            bool isLastItem = item.Equals(sidebarSubItems.Last()) && !hasMoreButton;
+            <li class="@liClasses">
+                <div class="@borderGrey @(isLastItem ? paddingBottom : null)">
+                    <partial name="ArticleNavCard" model="item"
+                                view-data='isLastItem
+                                ? new ViewDataDictionary(ViewData) {{ "navcardPadding", " navcard--padding-bottom" }}
+                                : null' />
+                </div>
+            </li>
+        }
+
+        @if (hasMoreButton)
+        {
+            <li class="@liClasses">
+                <div class="@borderGrey navcard--border-bottom-1 navcard--radius-bottom-left navcard--radius-bottom-right">
+                    <partial name="ArticleNavCard"
+                             model='new SubItem(Model.PrivacyNotice.ParentTopic.Slug, Model.PrivacyNotice.ParentTopic.Name, Model.PrivacyNotice.ParentTopic.Teaser, Model.PrivacyNotice.ParentTopic.Icon, "topic", Model.PrivacyNotice.ParentTopic.Image, new List<SubItem>(), "teal")'
+                             view-data='@(new ViewDataDictionary(ViewData) {
+                                    {"url", @Url.Action("Index", "Topic", new { topicSlug = Model.PrivacyNotice.ParentTopic.Slug })},
+                                    {"hasMoreButton", @hasMoreButton},
+                                    {"navcardPadding", "navcard--padding-bottom"}})' />
+                </div>
+            </li>
+        }
+    </ul>
+</nav>
