@@ -16,7 +16,7 @@
 
             <section class="article">
                 <div class="section article--70 article-body article-body--no-margin">
-                    @if(!string.IsNullOrEmpty(Model.PrivacyNotice.Purpose))
+                    @if (!string.IsNullOrEmpty(Model.PrivacyNotice.Purpose))
                     {
                         <section>
                             <h3>We collect your information to:</h3>
@@ -24,7 +24,7 @@
                         </section>
                     }
 
-                    @if(!string.IsNullOrEmpty(Model.PrivacyNotice.TypeOfData))
+                    @if (!string.IsNullOrEmpty(Model.PrivacyNotice.TypeOfData))
                     {
                         <section>
                             <h3>What type(s) of information do we use?</h3>
@@ -32,25 +32,25 @@
                         </section>
                     }
 
-                    @if(!string.IsNullOrEmpty(Model.PrivacyNotice.Legislation))
+                    @if (!string.IsNullOrEmpty(Model.PrivacyNotice.Legislation))
                     {
                         <h3>What is the legal basis for using your information?</h3>
                         @Html.Raw(Model.PrivacyNotice.Legislation)
                     }
 
-                    @if(!string.IsNullOrEmpty(Model.PrivacyNotice.Obtained))
+                    @if (!string.IsNullOrEmpty(Model.PrivacyNotice.Obtained))
                     {
                         <h3>Where do we get your information?</h3>
                         @Html.Raw(Model.PrivacyNotice.Obtained)
                     }
 
-                    @if(!string.IsNullOrEmpty(Model.PrivacyNotice.ExternallyShared))
+                    @if (!string.IsNullOrEmpty(Model.PrivacyNotice.ExternallyShared))
                     {
                         <h3>Who do we share your information with?</h3>
                         @Html.Raw(Model.PrivacyNotice.ExternallyShared)
                     }
 
-                    @if(!string.IsNullOrEmpty(Model.PrivacyNotice.RetentionPeriod))
+                    @if (!string.IsNullOrEmpty(Model.PrivacyNotice.RetentionPeriod))
                     {
                         <h3>How long will we keep your information?</h3>
                         @Html.Raw(Model.PrivacyNotice.RetentionPeriod)
