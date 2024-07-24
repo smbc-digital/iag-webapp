@@ -4,7 +4,8 @@
     string liClasses = "navcard navcard--grey navcard--no-margin navcard--no-padding-right-rtl navcard--width-100";
     string paddingBottom = $"navcard--border-bottom-1 navcard--radius-bottom-left navcard--radius-bottom-right";
     bool hasMoreButton;
-    var sidebarSubItems = Model.SidebarSubItems(out hasMoreButton);
+    IEnumerable<SubItem> sidebarSubItems = Model.SidebarSubItems(out hasMoreButton)
+                            .Where(subItem => !subItem.NavigationLink.Equals(Model.PrivacyNotice.NavigationLink));
 }
 
 <nav aria-labelledby="navcard__title">
@@ -19,18 +20,15 @@
 
         @foreach (var item in sidebarSubItems)
         {
-            if (!item.NavigationLink.Equals(Model.PrivacyNotice.NavigationLink))
-            {
-                bool isLastItem = item.Equals(sidebarSubItems.Last()) && !hasMoreButton;
-                <li class="@liClasses">
-                    <div class="@borderGrey @(isLastItem ? paddingBottom : null)">
-                        <partial name="PrivacyNoticeNavCard" model="item"
-                                 view-data='isLastItem
-                                    ? new ViewDataDictionary(ViewData) {{ "navcardPadding", " navcard--padding-bottom" }}
-                                    : null' />
-                    </div>
-                </li>
-            }
+            bool isLastItem = item.Equals(sidebarSubItems.Last()) && !hasMoreButton;
+            <li class="@liClasses">
+                <div class="@borderGrey @(isLastItem ? paddingBottom : null)">
+                    <partial name="PrivacyNoticeNavCard" model="item"
+                                view-data='isLastItem
+                                ? new ViewDataDictionary(ViewData) {{ "navcardPadding", " navcard--padding-bottom" }}
+                                : null' />
+                </div>
+            </li>
         }
 
         @if (hasMoreButton)
