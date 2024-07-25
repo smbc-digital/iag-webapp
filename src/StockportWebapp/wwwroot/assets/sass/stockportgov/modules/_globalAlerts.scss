@@ -69,7 +69,6 @@
     &-icon {
       display: table-cell;
       text-align: center;
-      background-color: $borderDefault;
       width: 2.368em;
       vertical-align: middle;
   
@@ -81,20 +80,22 @@
   
       &-warning {
         span:before {
-          content: "\f05a";
+          content: "\f06a";
+          color: $stockport-black;
         }
       }
   
       &-information {
         span:before {
           content: "\f05a";
-          color: $whiteOpaque3;
+          color: white;
         }
       }
   
       &-error {
         span:before {
-          content: "\f071";
+          content: "\f06a";
+          color: white;
         }
       }
     }
@@ -163,7 +164,7 @@
   }
   
   .global-alert-warning {
-    background-color: $carrotOrange;
+    background-color: $stockport-orange;
   
     a:focus {
         outline: 3px solid $black !important;
@@ -171,11 +172,11 @@
   }
   
   .global-alert-error {
-    background-color: $tallPoppyRed;
+    background-color: $stockport-alert-red;
   }
   
   .global-alert-information {
-    background-color: $colorPrimaryDark;
+    background-color: $stockport-blue;
   }
   
   .global-alert-container {

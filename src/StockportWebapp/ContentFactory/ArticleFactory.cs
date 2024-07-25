@@ -18,11 +18,11 @@ public class ArticleFactory
     public virtual ProcessedArticle Build(Article article)
     {
         List<ProcessedSection> processedSections = article.Sections.Select(section => _sectionFactory.Build(section, article.Title)).ToList();
-        string body = _markdownWrapper.ConvertToHtml(article.Body ?? "");
+        string body = _markdownWrapper.ConvertToHtml(article.Body ?? string.Empty);
         if (body.Contains("PrivacyNotice:"))
             article.PrivacyNotices = GetPrivacyNotices().Result;
 
-        body = _tagParserContainer.ParseAll(body, article.Title, true, article.AlertsInline, article.Documents, null, article.PrivacyNotices, article.Profiles, false);
+        body = _tagParserContainer.ParseAll(body ?? string.Empty, article.Title, true, article.AlertsInline, article.Documents, null, article.PrivacyNotices, article.Profiles, false);
 
         return new ProcessedArticle(article.Title, article.Slug, body, article.Teaser, article.MetaDescription,
             processedSections, article.Icon, article.BackgroundImage, article.Image, article.AltText, article.Breadcrumbs, article.Alerts, article.ParentTopic, article.AlertsInline, article.UpdatedAt, article.HideLastUpdated, article.ArticleBranding, article.LogoAreaTitle, article.RelatedContent);
