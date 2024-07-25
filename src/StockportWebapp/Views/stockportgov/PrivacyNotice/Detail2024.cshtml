@@ -14,12 +14,12 @@
                 <h2 class="article__sub-title">@Html.Raw(Model.PrivacyNotice.Category) privacy notice</h2>
             </div>
 
-            <section class="article">
+            <section class="article article-body">
                 <div class="section article--70 article-body article-body--no-margin">
                     @if (!string.IsNullOrEmpty(Model.PrivacyNotice.Purpose))
                     {
                         <section>
-                            <h3>We collect your information to:</h3>
+                            <h3 class="article-heading--no-margin">We collect your information to:</h3>
                             @Html.Raw(Model.PrivacyNotice.Purpose)
                         </section>
                     }
