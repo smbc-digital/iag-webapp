@@ -91,6 +91,15 @@ public class PaymentReferenceValidationTests
     [InlineData(EPaymentReferenceValidation.StockportBereavementInvoice, "Sb1222")]
     [InlineData(EPaymentReferenceValidation.ParkingPermit, "ABC\\12345")]
     [InlineData(EPaymentReferenceValidation.ParkingPermit, "AB0\\12345")]
+    [InlineData(EPaymentReferenceValidation.PlanningApplication, "PS/123456")]
+    [InlineData(EPaymentReferenceValidation.PlanningApplication, "ps/358456")]
+    [InlineData(EPaymentReferenceValidation.PlanningApplication, "ps/sk13pj")]
+    [InlineData(EPaymentReferenceValidation.PlanningApplication, "pS/sk1 3pj")]
+    [InlineData(EPaymentReferenceValidation.PlanningApplication, "pS/anything")]
+    [InlineData(EPaymentReferenceValidation.PlanningApplication, "DC/123456")]
+    [InlineData(EPaymentReferenceValidation.PlanningApplication, "dc/456789")]
+    [InlineData(EPaymentReferenceValidation.PlanningApplication, "ENQ/000456")]
+    [InlineData(EPaymentReferenceValidation.PlanningApplication, "enq/112366")]
     public void Should_ReturnSuccess_ForValidReference(EPaymentReferenceValidation referenceValidation, string reference)
     {
         // Arrange
@@ -144,6 +153,15 @@ public class PaymentReferenceValidationTests
     [InlineData(EPaymentReferenceValidation.StockportBereavementInvoice, "Sb1222")]
     [InlineData(EPaymentReferenceValidation.ParkingPermit, "ABC\\12345")]
     [InlineData(EPaymentReferenceValidation.ParkingPermit, "AB0\\12345")]
+    [InlineData(EPaymentReferenceValidation.PlanningApplication, "PS/123456")]
+    [InlineData(EPaymentReferenceValidation.PlanningApplication, "ps/358456")]
+    [InlineData(EPaymentReferenceValidation.PlanningApplication, "ps/sk13pj")]
+    [InlineData(EPaymentReferenceValidation.PlanningApplication, "pS/sk1 3pj")]
+    [InlineData(EPaymentReferenceValidation.PlanningApplication, "pS/anything")]
+    [InlineData(EPaymentReferenceValidation.PlanningApplication, "DC/123456")]
+    [InlineData(EPaymentReferenceValidation.PlanningApplication, "dc/456789")]
+    [InlineData(EPaymentReferenceValidation.PlanningApplication, "ENQ/000456")]
+    [InlineData(EPaymentReferenceValidation.PlanningApplication, "enq/112366")]
     public void Should_ReturnSuccess_ForValidReference_ForServicePayPayment(EPaymentReferenceValidation referenceValidation, string reference)
     {
         // Arrange
@@ -197,6 +215,14 @@ public class PaymentReferenceValidationTests
     [InlineData(EPaymentReferenceValidation.ParkingPermit, "123\\12345")]
     [InlineData(EPaymentReferenceValidation.ParkingPermit, "A1B\\12345")]
     [InlineData(EPaymentReferenceValidation.ParkingPermit, "AB0\\A2345")]
+    [InlineData(EPaymentReferenceValidation.PlanningApplication, "/anything")]
+    [InlineData(EPaymentReferenceValidation.PlanningApplication, "pS123456")]
+    [InlineData(EPaymentReferenceValidation.PlanningApplication, "pS/")]
+    [InlineData(EPaymentReferenceValidation.PlanningApplication, "pSanything000")]
+    [InlineData(EPaymentReferenceValidation.PlanningApplication, "DC/12345")]
+    [InlineData(EPaymentReferenceValidation.PlanningApplication, "dc/4567892")]
+    [InlineData(EPaymentReferenceValidation.PlanningApplication, "ENQ/00045")]
+    [InlineData(EPaymentReferenceValidation.PlanningApplication, "enq/1123664")]
     public void Should_ReturnFalse_ForInvalidReference(EPaymentReferenceValidation referenceValidation, string reference)
     {
         // Arrange
@@ -249,6 +275,15 @@ public class PaymentReferenceValidationTests
     [InlineData(EPaymentReferenceValidation.ParkingPermit, "123\\12345")]
     [InlineData(EPaymentReferenceValidation.ParkingPermit, "A1B\\12345")]
     [InlineData(EPaymentReferenceValidation.ParkingPermit, "AB0\\A2345")]
+    [InlineData(EPaymentReferenceValidation.PlanningApplication, "/anything")]
+    [InlineData(EPaymentReferenceValidation.PlanningApplication, "pS123456")]
+    [InlineData(EPaymentReferenceValidation.PlanningApplication, "pS/")]
+    [InlineData(EPaymentReferenceValidation.PlanningApplication, "pSanything000")]
+    [InlineData(EPaymentReferenceValidation.PlanningApplication, "DC/12345")]
+    [InlineData(EPaymentReferenceValidation.PlanningApplication, "dc/4567892")]
+    [InlineData(EPaymentReferenceValidation.PlanningApplication, "ENQ/00045")]
+    [InlineData(EPaymentReferenceValidation.PlanningApplication, "enq/1123664")]
+    
     public void Should_ReturnFalse_ForInvalidReference_ForServicePayPayment(EPaymentReferenceValidation referenceValidation, string reference)
     {
         // Arrange
