@@ -112,4 +112,11 @@
             margin-bottom: 10px;
         }
     }
+
+    &-heading
+    {
+        &--no-margin {
+            margin-top: 0;
+        }
+    }
 }
