@@ -1,7 +1,7 @@
 ﻿@{
-    var colourScheme = (string)ViewData["ColourScheme"];
-    var displayIcons = (bool)ViewData["DisplayIcons"];
-    var isRootDirectory = (bool)ViewData["IsRootDirectory"];
+    string colourScheme = (string)ViewData["ColourScheme"];
+    bool displayIcons = (bool)ViewData["DisplayIcons"];
+    bool isRootDirectory = (bool)ViewData["IsRootDirectory"];
     var navcardPaddingClasses = (string)ViewData["NavcardPaddingClasses"];
 }
 @if (!isRootDirectory)

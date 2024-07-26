@@ -9,21 +9,34 @@
     Layout = "../Shared/_Layout2023.cshtml";
 }
 
-<div class="grid-container-full-width" style="background-color:white;">
+<div class="grid-container-full-width" style="background-color:white;" data-cy="profile">
+    <partial name="GlobalAlerts" model='Model.Profile.Alerts' />
+
     <partial name="Breadcrumb2023" model='@profile.Breadcrumbs' />
 
     <div class="grid-container">
         <div class="grid-100">
             <div class="article--70">
-                <h1 class="article__title">@profile.Title</h1>
+                <h1 class="profile__title">@profile.Title</h1>
+                <h2 class="article__sub-title">@profile.Subtitle</h2>
             </div>
 
             <section class="article">
-                <div class="article--70 section">
-                    <div class="placeholder placeholder-bg-teal placeholder__padded-top placeholder__padded-bottom placeholder-large" id="article-page-content">
-                        <div class="grid-container">
-                            <h2 class="placeholder-article-header-description">Body text</h2>
-                        </div>
+                <div class="section article--70">
+                    @if(!string.IsNullOrEmpty(profile.Image.Url))
+                    {
+                        <figure class="profile__figure">
+                            <img src=@profile.Image.Url alt="@profile.Image.Description" />
+
+                            @if(!string.IsNullOrEmpty(profile.ImageCaption))
+                            {
+                                <figcaption>@profile.ImageCaption</figcaption>
+                            }
+                        </figure>
+                    }
+
+                    <div class="profile__text"> 
+                        @Html.Raw(profile.Body)
                     </div>
                 </div>
 

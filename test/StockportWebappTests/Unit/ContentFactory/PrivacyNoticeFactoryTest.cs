@@ -15,36 +15,27 @@ public class PrivacyNoticeFactoryTest
     public void Build_ShouldReturnAPrivacyNotice()
     {
         // Arrange
-        var privacyNotice = new PrivacyNotice();
+        PrivacyNotice privacyNotice = new();
+
         // Act
-        var processedPrivacyNotice = _factory.Build(privacyNotice);
+        ProcessedPrivacyNotice processedPrivacyNotice = _factory.Build(privacyNotice);
+        
         // Assert
-        processedPrivacyNotice.Should().BeOfType<ProcessedPrivacyNotice>();
+        Assert.IsType<ProcessedPrivacyNotice>(processedPrivacyNotice);
     }
 
     [Fact]
     public void Build_ShouldConvertPrivacyNoticeToProcessedPrivacyNotice()
     {
         // Arrange
-        var typeOfData = "test-type-of-data";
-        _markdownWrapper.Setup(_ => _.ConvertToHtml(typeOfData)).Returns("test-type-of-data-html");
+        _markdownWrapper.Setup(_ => _.ConvertToHtml("test-type-of-data")).Returns("test-type-of-data-html");
+        _markdownWrapper.Setup(_ => _.ConvertToHtml("test-purpose")).Returns("test-purpose-html");
+        _markdownWrapper.Setup(_ => _.ConvertToHtml("test-externally-shared")).Returns("test-externally-shared-html");
+        _markdownWrapper.Setup(_ => _.ConvertToHtml("test-obtained")).Returns("test-obtained-html");
+        _markdownWrapper.Setup(_ => _.ConvertToHtml("test-retention")).Returns("test-retention-html");
+        _markdownWrapper.Setup(_ => _.ConvertToHtml("test-legislation")).Returns("test-legislation-html");
 
-        var purpose = "test-purpose";
-        _markdownWrapper.Setup(_ => _.ConvertToHtml(purpose)).Returns("test-purpose-html");
-
-        var externallyShared = "test-externally-shared";
-        _markdownWrapper.Setup(_ => _.ConvertToHtml(externallyShared)).Returns("test-externally-shared-html");
-
-        var obtained = "test-obtained";
-        _markdownWrapper.Setup(_ => _.ConvertToHtml(obtained)).Returns("test-obtained-html");
-
-        var retentionPeriod = "test-retention";
-        _markdownWrapper.Setup(_ => _.ConvertToHtml(retentionPeriod)).Returns("test-retention-html");
-
-        var legislation = "test-legislation";
-        _markdownWrapper.Setup(_ => _.ConvertToHtml(legislation)).Returns("test-legislation-html");
-
-        var privacyNotice = new PrivacyNotice()
+        PrivacyNotice privacyNotice = new()
         {
             Slug = "test-slug",
             Title = "test-title",
@@ -57,29 +48,23 @@ public class PrivacyNoticeFactoryTest
             RetentionPeriod = "test-retention",
             OutsideEu = false,
             AutomatedDecision = false,
-            UrlOne = "test-url-1",
-            UrlTwo = "test-url-2",
-            UrlThree = "test-url-3",
             Breadcrumbs = new List<Crumb>()
         };
 
         //Act
-        var processedPrivacyNotice = _factory.Build(privacyNotice);
+        ProcessedPrivacyNotice processedPrivacyNotice = _factory.Build(privacyNotice);
 
         //Assert
-        processedPrivacyNotice.Slug.Should().Be("test-slug");
-        processedPrivacyNotice.Title.Should().Be("test-title");
-        processedPrivacyNotice.Category.Should().Be("test-categories");
-        processedPrivacyNotice.Purpose.Should().Be("test-purpose-html");
-        processedPrivacyNotice.TypeOfData.Should().Be("test-type-of-data-html");
-        processedPrivacyNotice.Legislation.Should().Be("test-legislation-html");
-        processedPrivacyNotice.Obtained.Should().Be("test-obtained-html");
-        processedPrivacyNotice.ExternallyShared.Should().Be("test-externally-shared-html");
-        processedPrivacyNotice.RetentionPeriod.Should().Be("test-retention-html");
-        processedPrivacyNotice.OutsideEu.Should().Be(false);
-        processedPrivacyNotice.AutomatedDecision.Should().Be(false);
-        processedPrivacyNotice.UrlOne.Should().Be("test-url-1");
-        processedPrivacyNotice.UrlTwo.Should().Be("test-url-2");
-        processedPrivacyNotice.UrlThree.Should().Be("test-url-3");
+        Assert.Equal("test-slug", processedPrivacyNotice.Slug);
+        Assert.Equal("test-title", processedPrivacyNotice.Title);
+        Assert.Equal("test-categories", processedPrivacyNotice.Category);
+        Assert.Equal("test-purpose-html", processedPrivacyNotice.Purpose);
+        Assert.Equal("test-type-of-data-html", processedPrivacyNotice.TypeOfData);
+        Assert.Equal("test-legislation-html", processedPrivacyNotice.Legislation);
+        Assert.Equal("test-obtained-html", processedPrivacyNotice.Obtained);
+        Assert.Equal("test-externally-shared-html", processedPrivacyNotice.ExternallyShared);
+        Assert.Equal("test-retention-html", processedPrivacyNotice.RetentionPeriod);
+        Assert.False(processedPrivacyNotice.OutsideEu);
+        Assert.False(processedPrivacyNotice.AutomatedDecision);
     }
 }

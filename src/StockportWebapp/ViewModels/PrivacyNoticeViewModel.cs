@@ -1,5 +1,5 @@
 ﻿namespace StockportWebapp.ViewModels;
-
+[ExcludeFromCodeCoverage]
 public class PrivacyNoticeViewModel
 {
     public readonly ProcessedPrivacyNotice PrivacyNotice;
@@ -21,8 +21,8 @@ public class PrivacyNoticeViewModel
 
     public IEnumerable<SubItem> SidebarSubItems(out bool hasMoreButton)
     {
-        var parentTopic = PrivacyNotice.ParentTopic;
-        var sidebarSubItems = new List<SubItem>();
+        Topic parentTopic = PrivacyNotice.ParentTopic;
+        List<SubItem> sidebarSubItems = new();
         sidebarSubItems.AddRange(parentTopic.SubItems);
         sidebarSubItems.AddRange(parentTopic.SecondaryItems);
         hasMoreButton = sidebarSubItems.Count > 6;

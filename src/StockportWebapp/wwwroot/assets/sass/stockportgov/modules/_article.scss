@@ -1,6 +1,7 @@
 .article {
     display: flex;
     flex-direction: row;
+    word-wrap: break-word;
     
     @media #{$mobile} {
         margin-inline: 5px;
@@ -15,6 +16,13 @@
 
         @media #{$mobile} {
             margin-inline: 5px;
+        }
+    }
+
+    &__sub-title {
+        @media #{$mobile} {
+            margin-inline: 5px;
+            margin-block-end: 1.75rem;
         }
     }
 
@@ -61,10 +69,13 @@
 
     &-body {
         margin-top: 2em;
+
+        &--no-margin {
+            margin-top: 0;
+        }
     }
 
     &-date {
-        color: $stockport-green;
         margin-block: 2em;
     }
 
@@ -94,11 +105,18 @@
         overflow-wrap: anywhere;
 
         h3 {
-            margin-bottom: 20px;
+            margin-bottom: 20px;    
         }
 
         h4, h5, h6 {
             margin-bottom: 10px;
+        }
+    }
+
+    &-heading
+    {
+        &--no-margin {
+            margin-top: 0;
         }
     }
 }

@@ -10,6 +10,7 @@
 <partial name="GlobalAlerts" model='Model.Article.Alerts' />
 
 <div class="grid-container-full-width" style="background-color:white;" data-cy="@dataCy">
+    <partial name="GlobalAlerts" model='Model.Article.Alerts' />
     <partial name="Breadcrumb2023" model="Model.Article.Breadcrumbs" />
 
     <div class="grid-container">
@@ -82,11 +83,11 @@
 
                     @if (Model.ArticleWithSection && Model.DisplayedSection.SectionBranding.Any())
                     {
-                        <partial name="LogoAreaArticle" model='@Model.DisplayedSection.SectionBranding' view-data='@(new ViewDataDictionary(ViewData) {{"logoAreaTitle", @Model.DisplayedSection.LogoAreaTitle}, {"articleWithSection", Model.ArticleWithSection}})' />
+                        <partial name="LogoArea" model='@Model.DisplayedSection.SectionBranding' view-data='@(new ViewDataDictionary(ViewData) {{"logoAreaTitle", @Model.DisplayedSection.LogoAreaTitle}, {"articleWithSection", Model.ArticleWithSection}, {"logoAreaArticle", true}})' />
                     }
                     else
                     {
-                        <partial name="LogoAreaArticle" model='@Model.Article.ArticleBranding' view-data='@(new ViewDataDictionary(ViewData) {{"logoAreaTitle", @Model.Article.LogoAreaTitle}, {"articleWithSection", Model.ArticleWithSection}})' />
+                        <partial name="LogoArea" model='@Model.Article.ArticleBranding' view-data='@(new ViewDataDictionary(ViewData) {{"logoAreaTitle", @Model.Article.LogoAreaTitle}, {"articleWithSection", Model.ArticleWithSection}, {"logoAreaArticle", true}})' />
                     }
                 </div>
 
@@ -98,7 +99,7 @@
 
                     @if (Model.HasRelatedContentWithSubItems())
                     {
-                        <partial name="ArticleRelatedContent" />
+                        <partial name="ArticleRelatedContent" model='new ExternalLinksViewModel() { RelatedContent=Model.Article.RelatedContent }' />
                     }
                 </div>
             </section>

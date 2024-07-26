@@ -1,9 +1,9 @@
 ﻿@model DirectoryEntryViewModel
 @{
-    var imageExists = string.IsNullOrEmpty(Model.DirectoryEntry.Image);
-    var directoryClass = imageExists ? "directory-result__content--full-width" : string.Empty;
-    var navcardBorder = " navcard--border-top-10 navcard--theme-teal-lighter-top";
-    var brandPinnedEntry = "";
+    bool imageExists = string.IsNullOrEmpty(Model.DirectoryEntry.Image);
+    string directoryClass = imageExists ? "directory-result__content--full-width" : string.Empty;
+    string navcardBorder = " navcard--border-top-10 navcard--theme-teal-lighter-top";
+    string brandPinnedEntry = string.Empty;
     
     if(Model.IsPinned){
         navcardBorder = " navcard--border-top-0-mobile navcard--border-top-10 navcard--theme-pink-top";

@@ -3,23 +3,28 @@
 public class PrivacyNoticeController : Controller
 {
     private readonly IProcessedContentRepository _repository;
+    private readonly IFeatureManager _featureManager;
 
-    public PrivacyNoticeController(IProcessedContentRepository repository)
+    public PrivacyNoticeController(IProcessedContentRepository repository, IFeatureManager featureManager = null)
     {
         _repository = repository;
-    }
+        _featureManager = featureManager;
+    } 
 
     [HttpGet]
     [Route("/privacy-notices/{slug}")]
     public async Task<IActionResult> Detail(string slug)
     {
-        var result = await _repository.Get<PrivacyNotice>(slug);
+        HttpResponse result = await _repository.Get<PrivacyNotice>(slug);
 
         if (!result.IsSuccessful())
             return result;
 
-        var viewModel = new PrivacyNoticeViewModel(result.Content as ProcessedPrivacyNotice);
+        PrivacyNoticeViewModel viewModel = new(result.Content as ProcessedPrivacyNotice);
 
+        if (_featureManager is not null && _featureManager.IsEnabledAsync("PrivacyNotices").Result)
+            return View("Detail2024", viewModel);
+        
         return View(viewModel);
     }
 }

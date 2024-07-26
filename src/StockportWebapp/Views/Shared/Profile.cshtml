@@ -1,38 +1,28 @@
 ﻿@using StockportWebapp.Models;
 @model ProfileViewModel
 @{
-    Profile profile = Model.Profile;
+    string profileColour = !string.IsNullOrEmpty(Model.Profile.Colour) ? Model.Profile.Colour.ToLower() : "teal";
+    string businessId = Context.Request.Headers["BUSINESS-ID"];
 }
-<div>
-    <a href="/profile/@profile.Slug" class="profile profile-success-story-new profile-link" alt="Read more about @profile.Title">
-        @{
-            var width = "100";
-        }
-        @if (!string.IsNullOrEmpty(profile.Image))
+
+@if(businessId.Equals("stockportgov") && Model.Redesigned)
+{
+    <section class="section section--white">
+        @if(string.IsNullOrEmpty(Model.Profile.Body))
         {
-            width = "75";
-            <div class="grid-25 tablet-grid-25 mobile-grid-100">
-                <div class="profile-image-mask">
-                    <img src="@profile.Image" alt="@profile.Title" />
-                </div>
+            <div class="profile-tag-parser profile-tag-parser--@profileColour section" data-cy="profile-tag-parser">
+                <partial name="ProfileTagParserContent" />
             </div>
         }
-        <div class="grid-@width tablet-grid-@width mobile-grid-100">
-            <div class="mobile-push-10 headings">
-                <h2>@profile.Title</h2>
-                <span class="summary">@profile.Subtitle</span>
-            </div>
-            <div class="grid-100 grid-parent body">
-                <div class="grid-10 tablet-grid-10 mobile-grid-10"><span class="green open fa fa-2x fa-quote-left" aria-hidden="true"></span></div>
-                <div class="grid-80 tablet-grid-80 mobile-grid-80 main-body">
-                    <p>@profile.Quote</p>
-                </div>
-                <div class="grid-10 tablet-grid-10 mobile-grid-10"></div>
-            </div>
-            <div class="grid-100 grid-parent closing-quote">
-                <div class="grid-10 tablet-grid-10 mobile-grid-10 tablet-push-90 mobile-push-90 push-90"><span class="green fa fa-2x fa-quote-right" aria-hidden="true"></span></div>
-            </div>
-            <p class="read-more">Read more</p>
-        </div>
-    </a>
-</div>
+        else
+        {
+            <a href="/profile/@Model.Profile.Slug" class="profile-tag-parser profile-tag-parser--@profileColour section" data-cy="profile-tag-parser">
+                <partial name="ProfileTagParserContent" />
+            </a>
+        }
+    </section>
+}
+else
+{
+    <partial name="ProfileOldDesign" />
+}

@@ -1,33 +1,25 @@
 ﻿@model List<GroupBranding>
 @{
-    string logoAreaTitle = (string)ViewData["logoAreaTitle"];
     string borderTopClass = (string)ViewData["borderTopClass"];
-    string titleCssClasses = (string)ViewData["titleCssClasses"];
+    bool isLogoOnArticle = (bool)ViewData["logoAreaArticle"];
 }
 
-@if(Model.Any())
+@if (Model.Any() && isLogoOnArticle)
 {
     <section class="section section--white section--no-margin @borderTopClass" data-cy="logo-area">
         <div class="grid-container">
             <div class="grid-100">
-                <h2 class="@titleCssClasses">@(logoAreaTitle ?? "Our partners")</h2>
-                <div class="section__content section__content--no-margin">
-                    <div class="logo-area">
-                        @foreach (var branding in Model)
-                        {
-                            <div class="logo-area__item">
-                                <a href="@branding.Url">
-                                    <img src="@branding.File.Url?w=340&q=89&fm=webp"
-                                        class="logo-area__image"
-                                        alt="@(branding.File.Description ?? string.Empty)"
-                                        loading="lazy"
-                                        width="200"
-                                        height="125"/>
-                                </a>
-                            </div>
-                        }
-                    </div>
-                </div>
+                <partial name="LogoAreaImage" model='@Model' />
+            </div>
+        </div>
+    </section>
+}
+else if (Model.Any())
+{
+    <section class="section section--white section--no-margin @borderTopClass" data-cy="logo-area">
+        <div class="grid-container">
+            <div class="grid-100">
+                <partial name="LogoAreaImage" model='@Model' />
             </div>
         </div>
     </section>
