@@ -4,7 +4,7 @@
     List<string> alertCookies = CookiesHelper.GetCookies<Alert>("alerts");
     bool isDismissed = alertCookies is not null && alertCookies.Contains(Model.Slug) && !Model.IsStatic;
     string alertSeverity = Model.Severity.ToLowerInvariant();
-    string alertType = ViewData["AlertType"] is not null ? $"{ViewData["AlertType"]}-alert-{alertSeverity}" : "";
+    string alertType = ViewData["AlertType"] is not null ? $"{ViewData["AlertType"]}-alert-{alertSeverity}" : string.Empty;
 }
 
 @if (!isDismissed)
