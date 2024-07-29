@@ -1,211 +1,223 @@
 .global-alert {
-    display: table;
-    width: 100%;
-  
-    &-text-container {
-      display: table;
-      height: 55px;
+	display: table;
+	width: 100%;
 
-      @media #{$mobile} {
-        padding: 0px 5px;
-      }
-  
-      .global-alert-text-error, .global-alert-text-information, .global-alert-text-warning {
-        display: table-cell;
-        vertical-align: middle;
-        padding: 10px;
-  
-        h2, p {
-          @media #{$desktop} {
-            display: inline;
-          }
-  
-          @media #{$tablet} {
-            display: block;
-            line-height: 0.7em;
-          }
-        }
-  
-        h2 {
-          margin-top: 0;
-          line-height: 1em;
-  
-          @media #{$desktop} {
-            margin-right: 15px;
-          }
-        }
-  
-        p {
-          margin-bottom: 0;
-  
-          @media #{$tablet} {
-            line-height: 1.4em;
-          }
-        }
-  
-        a {
-          color: white;
-        }
-      }
-  
-      .global-alert-text-warning {
-        h2, p {
-          color: $black;
-        }
-  
-        a {
-          color: $black;
-        }
-      }
-  
-      .global-alert-text-error, .global-alert-text-information {
-        color: white;
-        h2, p {
-          color: white;
-        }
-      }
-    }
-  
-    &-icon {
-      display: table-cell;
-      text-align: center;
-      width: 2.368em;
-      vertical-align: middle;
-  
-      span:before{
-        font-family: "FontAwesome";
-        font-style: normal;
-        font-size: 1.315em;
-      }
-  
-      &-warning {
-        span:before {
-          content: "\f06a";
-          color: $stockport-black;
-        }
-      }
-  
-      &-information {
-        span:before {
-          content: "\f05a";
-          color: white;
-        }
-      }
-  
-      &-error {
-        span:before {
-          content: "\f06a";
-          color: white;
-        }
-      }
-    }
-  
-    &-close-container {
-      display: table-cell;
-      vertical-align: middle;
-  
-      @media #{$tablet} {
-        padding-right: 10px;
-      }
+	&-text-container {
+		display: table;
+		height: 55px;
+		padding-left: 2em;
+		
+		@media #{$tablet} {
+			padding-left: 10px;
+		}
 
-      @media #{$mobile} {
-        padding-right: 15px !important;  
-      }
-  
-      a {
-        float: right;
-        display: inline-block;
-      }
-  
-      .global-alert-close-warning, .global-alert-close-error, .global-alert-close-information {
-        border-radius: 100%;
-        width: 1.947em;
-        height: 1.947em;
-        text-align: center;
-        float: right;
-  
-        span:before {
-          content: "\f00d";
-          font-family: "FontAwesome";
-          font-style: normal;
-          font-size: 1.052em;
-          color: white;
-          text-align: center;
-          position: relative;
-          top: calc(50% - 1em);
-        }
-      }
-  
-      .global-alert-close-warning {
-        border: 1px solid $blackOpaque7;
-  
-        &:hover {
-          background-color: $whiteOpaque6;
-        }
-  
-        span:before {
-          color: $blackOpaque7;
-        }
-      }
-  
-      .global-alert-close-error, .global-alert-close-information {
-        border: 1px solid $whiteOpaque1;
-        background-color: $whiteOpaque1;
-  
-        &:hover {
-          background-color: $whiteOpaque6;
-        }
-  
-        span:before {
-          color: white;
-        }
-      }
-    }
-  }
-  
-  .global-alert-warning {
-    background-color: $stockport-orange;
-  
-    a:focus {
-        outline: 3px solid $black !important;
-    }
-  }
-  
-  .global-alert-error {
-    background-color: $stockport-alert-red;
-  }
-  
-  .global-alert-information {
-    background-color: $stockport-blue;
-  }
-  
-  .global-alert-container {
-    @media #{$tablet} {
-      padding: 0;
-    }
-  }
+		@media #{$mobile} {
+			padding: 0px 5px;
+		}
 
-  .close-alert {
-    line-height: 2;
-  }
-  
-  html[dir="rtl"] {
-    .global-alert {
-      &-close-container {
-        padding-left: 9.6px;
-  
-        @media #{$tablet} {
-          padding-left: 24.6px;
-        }
-  
-        a {
-          float: left;
-        }
-      }
-      
-      &-text-container {
-        float: right;
-      }
-    }
-  }
+		.global-alert-text-error, .global-alert-text-information, .global-alert-text-warning {
+			display: table-cell;
+			vertical-align: middle;
+			padding: 10px;
+			padding-inline-start: 5px;
 
+			h2, p {
+			@media #{$desktop} {
+				display: block;
+			}
+
+			@media #{$tablet} {
+				display: block;
+				line-height: 0.7em;
+			}
+			}
+
+			h2 {
+			margin-top: 0;
+			line-height: 1em;
+			margin-bottom: 0.5em;
+
+			@media #{$desktop} {
+				margin-right: 15px;
+			}
+			}
+
+			p {
+			margin-bottom: 0;
+
+			@media #{$tablet} {
+				line-height: 1.4em;
+			}
+			}
+
+			a {
+			color: white;
+			}
+		}
+
+		.global-alert-text-warning {
+			h2, h3, h4, h5, h6, ul, p {
+				color: $black;
+			}
+
+			a {
+				color: $black;
+			}
+
+			h3 {
+				margin-bottom: 20px;
+			}
+		}
+
+		.global-alert-text-error, .global-alert-text-information {
+				color: white;
+			h2, h3, h4, h5, h6, ul, p {
+				color: white;
+			}
+
+			h3 {
+				margin-bottom: 20px;
+			}
+		}
+	}
+
+	&-icon {
+		display: table-cell;
+		vertical-align: middle;
+
+		span:before{
+			font-family: "FontAwesome";
+			font-style: normal;
+			font-size: 1.315em;
+		}
+
+		&-warning {
+			span:before {
+			content: "\f06a";
+			color: $stockport-black;
+			}
+		}
+
+		&-information {
+			span:before {
+			content: "\f05a";
+			color: white;
+			}
+		}
+
+		&-error {
+			span:before {
+			content: "\f06a";
+			color: white;
+			}
+		}
+	}
+
+	&-close-container {
+		display: table-cell;
+		vertical-align: middle;
+
+		@media #{$tablet} {
+			padding-right: 10px;
+		}
+
+		@media #{$mobile} {
+			padding-right: 15px !important;  
+		}
+
+		a {
+			float: right;
+			display: inline-block;
+		}
+
+		.global-alert-close-warning, .global-alert-close-error, .global-alert-close-information {
+			border-radius: 100%;
+			width: 1.947em;
+			height: 1.947em;
+			text-align: center;
+			float: right;
+
+			span:before {
+			content: "\f00d";
+			font-family: "FontAwesome";
+			font-style: normal;
+			font-size: 1.052em;
+			color: white;
+			text-align: center;
+			position: relative;
+			top: calc(50% - 1em);
+			}
+		}
+
+		.global-alert-close-warning {
+			border: 1px solid $blackOpaque7;
+
+			&:hover {
+			background-color: $whiteOpaque6;
+			}
+
+			span:before {
+			color: $blackOpaque7;
+			}
+		}
+
+		.global-alert-close-error, .global-alert-close-information {
+			border: 1px solid $whiteOpaque1;
+			background-color: $whiteOpaque1;
+
+			&:hover {
+			background-color: $whiteOpaque6;
+			}
+
+			span:before {
+			color: white;
+			}
+		}
+	}
+}
+
+.global-alert-warning {
+	background-color: $stockport-orange;
+
+	a:focus {
+		outline: 3px solid $black !important;
+	}
+}
+
+.global-alert-error {
+	background-color: $stockport-alert-red;
+}
+
+.global-alert-information {
+	background-color: $stockport-blue;
+}
+
+.global-alert-container {
+	@media #{$tablet} {
+		padding: 0;
+	}
+}
+
+.close-alert {
+	line-height: 2;
+}
+
+html[dir="rtl"] {
+	.global-alert {
+		&-close-container {
+			padding-left: 9.6px;
+
+			@media #{$tablet} {
+			padding-left: 24.6px;
+			}
+
+			a {
+			float: left;
+			}
+		}
+		
+		&-text-container {
+			float: right;
+		}
+	}
+}
