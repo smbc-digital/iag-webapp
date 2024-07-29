@@ -1,0 +1,37 @@
+﻿@inject ICookiesHelper CookiesHelper
+@model Alert
+@{
+    List<string> alertCookies = CookiesHelper.GetCookies<Alert>("alerts");
+    bool isDismissed = alertCookies is not null && alertCookies.Contains(Model.Slug) && !Model.IsStatic;
+    string alertSeverity = Model.Severity.ToLowerInvariant();
+    string alertType = ViewData["AlertType"] is not null ? $"{ViewData["AlertType"]}-alert-{alertSeverity}" : string.Empty;
+}
+
+@if (!isDismissed)
+{
+    <div class="global-alert-@alertSeverity @alertType" data-cy="global-alert-wrapper">
+        <div class="grid-container">
+            <div class="grid-100 global-alert_content">
+                <div class="hide-on-mobile hide-on-tablet h-ml global-alert-icon global-alert-icon-@alertSeverity" data-cy="alert-icon">
+                    <span></span>
+                </div>
+                
+                <div class="global-alert_text">
+                    <h2 class="h-m">@Model.Title</h2>
+                    @Html.Raw(Model.Body)
+                </div>
+                
+                @if (!Model.IsStatic)
+                {
+                    <div class="global-alert_close-container">
+                        <a class="global-alert-close" href="javascript:void(0)" title="Close @Model.Title alert" aria-label="Close @Model.Title alert" data-cy="global-alert" data-slug="@Model.Slug" data-parent="global-alert-@alertSeverity">
+                            <div class="global-alert-close-@alertSeverity">
+                                <span></span>
+                            </div>
+                        </a>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+}
