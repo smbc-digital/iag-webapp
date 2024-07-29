@@ -77,7 +77,7 @@
 }
 
 [dir='rtl'] .slick-prev:before {
-  content: '\f104';
+  content: '\f105';
 
   @media #{$mobile} {
     content: '';
@@ -106,7 +106,7 @@
 }
 
 [dir='rtl'] .slick-next:before {
-  content: '\f105';
+  content: '\f104';
 
   @media #{$mobile} {
     content: '';
@@ -356,4 +356,9 @@ article {
       }
     }
   }
+}
+
+
+[dir='rtl'] .slick-track {
+  transform: none !important;
 }

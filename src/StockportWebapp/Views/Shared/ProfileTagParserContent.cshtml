@@ -1,6 +1,7 @@
 ﻿@model ProfileViewModel
 @{
     string contentNoImageClass = string.IsNullOrEmpty(Model.Profile.Image.Url) ? "profile-tag-parser-content--no-image" : string.Empty;
+    string contentNoBody = !string.IsNullOrEmpty(Model.Profile.Body) ? "profile-tag-parser-content__read-more" : string.Empty;
 }
 
 @if(!string.IsNullOrEmpty(Model.Profile.Image.Url))
@@ -9,8 +10,8 @@
 }
 
 <div class="profile-tag-parser-content @contentNoImageClass">
-    <h2 class="profile-tag-parser-content__title ">@Model.Profile.Title</h2>
-    <p class="profile-tag-parser-content__subTitle ">@Model.Profile.Subtitle</p>
+    <h2 class="profile-tag-parser-content__title @contentNoBody">@Model.Profile.Title</h2>
+    <p class="profile-tag-parser-content__subTitle">@Model.Profile.Subtitle</p>
     
     <span class="fa-solid fa-quote-left profile-tag-parser-quote"></span>
     <span class="fa-solid fa-quote-right profile-tag-parser-quote--rtl"></span>
