@@ -6,27 +6,12 @@ public class ArticleController : Controller
     private readonly IRepository _repository;
     private readonly IProcessedContentRepository _processedRepository;
     private readonly IContactUsMessageTagParser _contactUsMessageParser;
-    private readonly BusinessId _businessId;
-    private readonly IFeatureManager _featureManager;
-    private readonly bool _isStockportGovArticle;
-    private readonly bool _flatArticleToggle = true;
-    private readonly bool _sectionArticleToggle = false;
 
-    public ArticleController(IRepository repository, IProcessedContentRepository processedRepository, IContactUsMessageTagParser contactUsMessageParser, BusinessId businessId, IFeatureManager featureManager = null)
+    public ArticleController(IRepository repository, IProcessedContentRepository processedRepository, IContactUsMessageTagParser contactUsMessageParser)
     {
         _repository = repository;
         _processedRepository = processedRepository;
         _contactUsMessageParser = contactUsMessageParser;
-        _businessId = businessId;
-        _featureManager = featureManager;
-
-        _isStockportGovArticle = _businessId.ToString().Equals("stockportgov");
-
-        if (_featureManager is not null)
-        {
-            _flatArticleToggle = _featureManager.IsEnabledAsync("Articles").Result;
-            _sectionArticleToggle = _featureManager.IsEnabledAsync("ArticlesWithSections").Result;
-        }
     }
 
     [Route("/{articleSlug}")]
@@ -38,16 +23,11 @@ public class ArticleController : Controller
 
         ProcessedArticle article = articleHttpResponse.Content as ProcessedArticle;
 
-        _contactUsMessageParser.Parse(article, message, "");
-
-        ArticleViewModel viewModel = new(article);
+        _contactUsMessageParser.Parse(article, message, string.Empty);
 
         ViewBag.CurrentUrl = Request?.GetDisplayUrl();
 
-        if (ShouldReturnArticle2024(article))
-            return View("Article2024", viewModel);
-        else
-            return View(viewModel);
+        return View(new ArticleViewModel(article));
     }
 
     [Route("/{articleSlug}/{sectionSlug}")]
@@ -65,22 +45,13 @@ public class ArticleController : Controller
 
         try
         {
-            ArticleViewModel viewModel = new(article, sectionSlug);
-            if (ShouldReturnArticle2024(article))
-                return View("Article2024", viewModel);
-            else
-                return View("Article", viewModel);
+            return View("Article", new ArticleViewModel(article, sectionSlug));
         }
         catch (SectionDoesNotExistException)
         {
             return NotFound();
         }
     }
-
-    private bool ShouldReturnArticle2024(ProcessedArticle article) => 
-        _isStockportGovArticle &&
-            ((_sectionArticleToggle && article.Sections?.Any() is true) ||
-                (_flatArticleToggle && (article.Sections?.Any() is not true)));
 
     private void SetArticlesCanonicalUrl(string articleSlug, string sectionSlug, ProcessedArticle article)
     {

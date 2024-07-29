@@ -7,13 +7,22 @@ public class ArticleViewModelTest
     private readonly ProcessedSection _sectionThree;
     private readonly ProcessedArticle _article;
     private readonly ArticleViewModel _viewModel;
-
+    private readonly List<SubItem> subItems = new(){ new("slug", "title", "teaser", "icon", "type", "image", null, "colour") };
+    private readonly Topic parentTopic = new("Name", "slug", "Summary", "Teaser", "metaDescription", "Icon", "Image", "Image", null, new List<SubItem>(), new List<SubItem>(),
+            new List<Crumb>(), null, true, "test-id", null, string.Empty, true,
+            new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty), string.Empty, null, string.Empty);
+    private readonly Topic parentTopicWithSubItems;
+    
     public ArticleViewModelTest()
     {
         _sectionOne = BuildSection("test-slug");
         _sectionTwo = BuildSection("test-slug-section-two");
         _sectionThree = BuildSection("test-slug-section-three");
-        _article = BuildArticle(string.Empty, new List<ProcessedSection> { _sectionOne, _sectionTwo, _sectionThree });
+        _article = BuildArticle(string.Empty, new List<ProcessedSection> { _sectionOne, _sectionTwo, _sectionThree }, parentTopic);
+        parentTopicWithSubItems = new("Name", "slug", "Summary", "Teaser", "metaDescription", "Icon", "Image", "Image", null, subItems, subItems,
+            new List<Crumb>(), null, true, "test-id", null, string.Empty, true,
+            new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty), string.Empty, null, string.Empty);
+
         _viewModel = new ArticleViewModel(_article, _sectionOne.Slug);
 
     }
@@ -22,39 +31,37 @@ public class ArticleViewModelTest
     public void ArticleViewModel_SetsTheFirstSectionAsTheDisplayedSection_If_NoSectionSlugIsGiven()
     {
         // Arrange
-        var article = BuildArticle(string.Empty, new List<ProcessedSection> { _sectionOne, _sectionTwo });
-        
-        // Act
-        var viewModel = new ArticleViewModel(article);
+        ProcessedArticle article = BuildArticle(string.Empty, new List<ProcessedSection> { _sectionOne, _sectionTwo }, parentTopic);
+        ArticleViewModel viewModel = new(article);
 
-        // Assert
+        // Act & Assert
         Assert.Equal(_sectionOne, viewModel.DisplayedSection);
     }
 
     [Fact]
     public void ArticleViewModel_ShowsArticleSummary_If_DisplayedSectionIsFirstSection()
     {
-        // Assert
+        // Act & Assert
         Assert.True(_viewModel.ShouldShowArticleSummary);
     }
 
     [Fact]
     public void ArticleViewModel_DoesNotShowArticleSummary_If_DisplayedSectionIsNotTheFirstSection()
     {
-        // Act
-        var viewModel = new ArticleViewModel(_article, _sectionTwo.Slug);
+        // Arrange
+        ArticleViewModel viewModel = new(_article, _sectionTwo.Slug);
 
-        // Assert
+        // Act & Assert
         Assert.False(viewModel.ShouldShowArticleSummary);
     }
 
     [Fact]
     public void ArticleViewModel_ReturnsTheDisplayedSectionIndex()
     {
-        // Act
-        var viewModel = new ArticleViewModel(_article, _sectionTwo.Slug);
+        // Arrange
+        ArticleViewModel viewModel = new(_article, _sectionTwo.Slug);
 
-        // Assert
+        // Act & Assert
         Assert.Equal(2, viewModel.DisplayedSectionIndex);
     }
 
@@ -62,7 +69,7 @@ public class ArticleViewModelTest
     public void NextSection_ReturnsTheNextSection_If_TheDisplayedSectionIsNotTheLast()
     {
         // Arrange
-        var viewModel = new ArticleViewModel(_article, _sectionTwo.Slug);
+        ArticleViewModel viewModel = new(_article, _sectionTwo.Slug);
 
         // Act & Assert
         Assert.Equal(_sectionThree, viewModel.NextSection());
@@ -72,7 +79,7 @@ public class ArticleViewModelTest
     public void NextSection_ReturnsNullForNextSection_If_DisplayedSectionIsTheLast()
     {
         // Arrange
-        var viewModel = new ArticleViewModel(_article, _sectionThree.Slug);
+        ArticleViewModel viewModel = new(_article, _sectionThree.Slug);
 
         // Act & Assert
         Assert.Null(viewModel.NextSection());
@@ -82,7 +89,7 @@ public class ArticleViewModelTest
     public void ShouldShowNextSectionButton_ReturnsNextSection_If_DisplayedSectionIsNotTheLast()
     {
         // Arrange
-        var viewModel = new ArticleViewModel(_article, _sectionTwo.Slug);
+        ArticleViewModel viewModel = new(_article, _sectionTwo.Slug);
 
         // Act & Assert
         Assert.True(viewModel.ShouldShowNextSectionButton());
@@ -92,7 +99,7 @@ public class ArticleViewModelTest
     public void ShouldShowNextSectionButton_DoesNotShowNextSectionButton_If_DisplayedSectionIsTheLast()
     {
         // Arrange
-        var viewModel = new ArticleViewModel(_article, _sectionThree.Slug);
+        ArticleViewModel viewModel = new(_article, _sectionThree.Slug);
 
         // Act & Assert
         Assert.False(viewModel.ShouldShowNextSectionButton());
@@ -102,7 +109,7 @@ public class ArticleViewModelTest
     public void ReturnsThePreviousSectionIfTheDisplayedSectionIsNotTheFirst()
     {
         // Arrange
-        var viewModel = new ArticleViewModel(_article, _sectionTwo.Slug);
+        ArticleViewModel viewModel = new(_article, _sectionTwo.Slug);
 
         // Act & Assert
         Assert.Equal(_sectionOne, viewModel.PreviousSection());
@@ -119,7 +126,7 @@ public class ArticleViewModelTest
     public void ShouldShowPreviousSectionButton_ReturnsPreviousSectionButton_If_DisplayedSectionIsNotTheFirst()
     {
         // Arrange
-        var viewModel = new ArticleViewModel(_article, _sectionTwo.Slug);
+        ArticleViewModel viewModel = new(_article, _sectionTwo.Slug);
 
         // Act & Assert
         Assert.True(viewModel.ShouldShowPreviousSectionButton());
@@ -133,13 +140,118 @@ public class ArticleViewModelTest
     }
 
     [Fact]
+    public void HasParentTopicWithSubItems_ReturnsFalse_If_ParentTopicIsNull()
+    {
+        // Act & Assert
+        Assert.False(_viewModel.HasParentTopicWithSubItems());
+    }
+
+    [Fact]
+    public void HasParentTopicWithSubItems_ReturnsTrue_If_SubItemsHasItems()
+    {
+        // Arrange
+        ProcessedArticle article = BuildArticle("Article title", new List<ProcessedSection> { _sectionOne }, parentTopicWithSubItems);
+        var viewModel = new ArticleViewModel(article);
+
+        // Act & Assert
+        Assert.True(viewModel.HasParentTopicWithSubItems());
+    }
+
+    [Fact]
+    public void HasRelatedContentWithSubItems_ReturnsFalse_If_RelatedContentIsNull()
+    {
+        // Act & Assert
+        Assert.False(_viewModel.HasRelatedContentWithSubItems());
+    }
+
+    [Fact]
+    public void HasRelatedContentWithSubItems_ReturnsTrue_If_RelatedContentHasItems()
+    {
+        // Arrange
+        ProcessedArticle article = BuildArticle("Article title", new List<ProcessedSection> { _sectionOne }, parentTopicWithSubItems, subItems);
+        var viewModel = new ArticleViewModel(article);
+
+        // Act & Assert
+        Assert.True(viewModel.HasRelatedContentWithSubItems());
+    }
+
+    [Fact]
+    public void HasSecondarySubItems_ReturnsFalse_If_SecondaryItemsEmpty()
+    {
+        // Act & Assert
+        Assert.False(_viewModel.HasSecondarySubItems());
+    }
+
+    [Fact]
+    public void HasSecondarySubItems_ReturnsTrue_If_SecondaryItemsHasItems()
+    {
+        // Arrange
+        ProcessedArticle article = BuildArticle("Article title", new List<ProcessedSection> { _sectionOne }, parentTopicWithSubItems, subItems);
+        var viewModel = new ArticleViewModel(article);
+
+        // Act & Assert
+        Assert.True(viewModel.HasSecondarySubItems());
+    }
+    
+    [Fact]
+    public void ArticleWithSection_ReturnsFalse_If_SectionIsNull()
+    {
+        // Arrange
+        ProcessedArticle article = BuildArticle("Article title", new List<ProcessedSection> { null }, parentTopicWithSubItems, subItems);
+        var viewModel = new ArticleViewModel(article);
+
+        // Act & Assert
+        Assert.False(viewModel.ArticleWithSection);
+    }
+
+    [Fact]
+    public void ArticleWithSection_ReturnsFalse_If_DisplayedSectionIsNull()
+    {
+        // Arrange
+        ProcessedArticle article = BuildArticle("Article title", null, parentTopicWithSubItems, subItems);
+        var viewModel = new ArticleViewModel(article);
+
+        // Act & Assert
+        Assert.False(viewModel.ArticleWithSection);
+    }
+
+    [Fact]
+    public void ArticleWithSection_ReturnsTrue_If_SectionHasItems_And_DisplayedSectionIsNotNull()
+    {
+        // Arrange
+        ProcessedArticle article = BuildArticle("Article title", new List<ProcessedSection> { _sectionOne, _sectionTwo, _sectionThree }, parentTopicWithSubItems, subItems);
+        var viewModel = new ArticleViewModel(article);
+
+        // Act & Assert
+        Assert.True(viewModel.ArticleWithSection);
+    }
+
+    [Fact]
+    public void ArticleWithImage_ReturnsTrue_If_ImageIsNull()
+    {
+        // Act & Assert
+        Assert.True(_viewModel.ArticleWithImage);
+    }
+
+    [Fact]
+    public void ArticleWithImage_ReturnsFalse_If_ImageHasValue()
+    {
+        // Arrange
+        ProcessedArticle article = BuildArticle("Article title", new List<ProcessedSection> { _sectionOne, _sectionTwo, _sectionThree }, parentTopic, null, "image");
+        ArticleViewModel viewModel = new(article, _sectionOne.Slug);
+
+        // Act & Assert
+        Assert.False(viewModel.ArticleWithImage);
+    }
+
+    [Fact]
     public void ArticleViewModel_ShouldSetOgTitleUsingTitleAndDisplayedSection()
     {
         // Arrange
-        var article = BuildArticle("Article title", new List<ProcessedSection> { _sectionOne, _sectionTwo, _sectionThree });
+        ProcessedArticle article = BuildArticle("Article title", new List<ProcessedSection> { _sectionOne, _sectionTwo, _sectionThree }, parentTopic);
 
         // Act
-        var viewModel = new ArticleViewModel(article, _sectionOne.Slug);
+        ArticleViewModel viewModel = new(article, _sectionOne.Slug);
 
         // Assert
         Assert.Equal($"{viewModel.Article.Title} - {viewModel.DisplayedSection.Title}", viewModel.OgTitleMetaData);
@@ -149,10 +261,10 @@ public class ArticleViewModelTest
     public void ArticleViewModel_ShowsArticleWhenThereAreNoSections()
     {
         // Arrange
-        var article = BuildArticle("article-slug", new List<ProcessedSection> { });
+        ProcessedArticle article = BuildArticle("article-slug", new List<ProcessedSection> { }, parentTopic);
 
         // Act
-        var viewModel = new ArticleViewModel(article);
+        ArticleViewModel viewModel = new(article);
         
         // Assert
         Assert.Empty(viewModel.Article.Sections);
@@ -165,10 +277,10 @@ public class ArticleViewModelTest
     public void ArticleViewModel_ThrowsException_IfSectionSlugNotFound()
     {
         // Arrange
-        var article = BuildArticle("Article Title", new List<ProcessedSection> { _sectionOne, _sectionTwo });
+        ProcessedArticle article = BuildArticle("Article Title", new List<ProcessedSection> { _sectionOne, _sectionTwo }, parentTopic);
 
         // Act & Assert
-        var exception = Assert.Throws<SectionDoesNotExistException>(() => new ArticleViewModel(article, "non-existent-section-slug"));
+        SectionDoesNotExistException exception = Assert.Throws<SectionDoesNotExistException>(() => new ArticleViewModel(article, "non-existent-section-slug"));
         Assert.Equal("Section with slug: non-existent-section-slug does not exist", exception.Message);
     }
 
@@ -176,7 +288,8 @@ public class ArticleViewModelTest
     public void SidebarSubItems_ShouldReturnTopicSubItemsListForSideBar()
     {
         // Arrange
-        List<SubItem> featuredItems = new() { 
+        List<SubItem> featuredItems = new() 
+        { 
             new(It.IsAny<string>(), "first-featureditem", It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), new List<SubItem>(), "teal")
         };
         SubItem firstSubitem = new(It.IsAny<string>(), "first-subitem", It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), new List<SubItem>(), "teal");
@@ -193,7 +306,7 @@ public class ArticleViewModelTest
         ArticleViewModel articleViewModel = new(article);
 
         // Act
-        var sidebarSubItems = articleViewModel.SidebarSubItems(out bool showMoreButton);
+        IEnumerable<SubItem> sidebarSubItems = articleViewModel.SidebarSubItems(out bool showMoreButton);
 
         // Assert
         Assert.Equal(2, sidebarSubItems.Count());
@@ -230,7 +343,7 @@ public class ArticleViewModelTest
         ArticleViewModel articleViewModel = new(article);
 
         // Act
-        var sidebarSubItems = articleViewModel.SidebarSubItems(out bool showMoreButton);
+        IEnumerable<SubItem> sidebarSubItems = articleViewModel.SidebarSubItems(out bool showMoreButton);
 
         // Assert
         Assert.Equal(6, sidebarSubItems.Count());
@@ -263,15 +376,9 @@ public class ArticleViewModelTest
         Assert.Equal(expectedMeta, model.MetaDescription);
     }
 
-    private static ProcessedArticle BuildArticle(string slug, List<ProcessedSection> sections)
-    {
-        Topic parentTopic = new("Name", "slug", "Summary", "Teaser", "metaDescription", "Icon", "Image", "Image", null, null, null,
-            new List<Crumb>(), null, true, "test-id", null, string.Empty, true,
-            new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty), string.Empty, null, string.Empty);
-
-        return new(It.IsAny<string>(), slug, It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), sections,
-            It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), new List<Crumb>(), new List<Alert>(), parentTopic, new List<Alert>(), new DateTime(), new bool(), new List<GroupBranding>(), It.IsAny<string>(), new List<SubItem>());
-    }
+    private static ProcessedArticle BuildArticle(string slug, List<ProcessedSection> sections, Topic topic, List<SubItem> relatedContent=null, string image="") 
+        => new(It.IsAny<string>(), slug, It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), sections,
+            It.IsAny<string>(), It.IsAny<string>(), image, It.IsAny<string>(), new List<Crumb>(), new List<Alert>(), topic, new List<Alert>(), new DateTime(), new bool(), new List<GroupBranding>(), It.IsAny<string>(), relatedContent);
 
     private static ProcessedSection BuildSection(string slug) => 
         new("title", slug, It.IsAny<string>(), It.IsAny<string>(), new List<Profile>(), new List<Document>(), new List<Alert>(), new List<GroupBranding>(), "logoAreaTitle", new DateTime());
