@@ -13,7 +13,7 @@ public class ArticleControllerTest
 
     public ArticleControllerTest()
     {
-        _controller = new(_repository.Object, _processedRepository.Object, _contactUsMessageParser.Object, new BusinessId("stockportgov"));
+        _controller = new(_repository.Object, _processedRepository.Object, _contactUsMessageParser.Object);
         article = new ProcessedArticle(
             string.Empty, string.Empty, string.Empty, string.Empty, string.Empty,
             new List<ProcessedSection> { sectionOne, sectionTwo },

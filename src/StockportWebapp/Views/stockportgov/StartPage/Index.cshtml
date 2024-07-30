@@ -1,34 +1,48 @@
 ﻿@model ProcessedStartPage
+
 @{
     ViewData["Title"] = Model.Title;
-    ViewData["og:title"] = Model.Title;
     ViewData["Description"] = Model.Teaser;
-    Layout = "../Shared/_Layout.cshtml";
+    ViewData["og:title"] = Model.Title;
+    Layout = "../Shared/_Layout2023.cshtml";
 }
 
-@section Breadcrumbs {
-    <partial name="Breadcrumb" model='Model.Breadcrumbs' />
-}
+<div class="grid-container-full-width" style="background-color:white;" data-cy="start-page">
+    <partial name="GlobalAlerts" model='Model.Alerts' />
+    <partial name="Breadcrumb2023" model="Model.Breadcrumbs" />
 
-<div class="grid-container-full-width">
-    <div class="grid-container grid-100">
-        <div class="l-body-section-filled grid-100">
-            <section id="content" aria-label="@Model.Title content" class="grid-100 mobile-grid-100">
-                <div class="l-content-container l-article-container">
-                    @if (Model.Alerts is not null)
-                    {
-                        foreach (var alert in Model.Alerts)
+    <div class="grid-container start-page">
+        <div class="grid-100">
+            <div class="article--70">
+                <h1 class="article__title">@Model.Title</h1>
+                
+                @if(!string.IsNullOrEmpty(Model.Summary))
+                {
+                    <div class="lead start-page_summary">
+                        @Html.Raw(@Model.Summary)
+                    </div>
+                }   
+
+                <section>
+                    <article>
+                        <div class="start-page_upper" >
+                            @Html.Raw(Model.UpperBody)
+                        </div>
+                        
+                        <div class="start-page_btn">
+                            <a href="@Model.FormLink" class="btn btn--width-30 btn--chevron-forward">@Model.FormLinkLabel</a>
+                        </div>
+
+                        @if (!string.IsNullOrEmpty(Model.LowerBody))
                         {
-                            <partial name="DisplayTemplates/Alert" model='alert' />
+                            <div class="start-page_lower">
+                                @Html.Raw(Model.LowerBody)
+                            </div>
                         }
-                    }
-                    <h1>@Model.Title</h1>
-                    <p class="subtitle">@Model.Summary</p>
-                    @Html.Raw(Model.UpperBody)
-                    <stock-button as-link="true" href="@Model.FormLink">@Model.FormLinkLabel</stock-button>
-                    @Html.Raw(Model.LowerBody)
-                </div>
-            </section>
+                    </article>
+                </section>
+
+            </div>
         </div>
     </div>
 </div>
