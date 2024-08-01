@@ -19,4 +19,5 @@ public class Profile
     public string Subject { get; set; } = string.Empty;
     public EventBanner EventsBanner { get; set; }
     public string Colour { get; set; } = string.Empty;
+    public Topic ParentTopic { get; set; }
 }
