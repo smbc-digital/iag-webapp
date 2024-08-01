@@ -14,11 +14,6 @@ public class PrivacyNoticeViewModel
         return PrivacyNotice.ParentTopic != null && PrivacyNotice.ParentTopic.SubItems.Any();
     }
 
-    public bool HasSecondarySubItems()
-    {
-        return PrivacyNotice.ParentTopic.SecondaryItems.Any();
-    }
-
     public IEnumerable<SubItem> SidebarSubItems(out bool hasMoreButton)
     {
         Topic parentTopic = PrivacyNotice.ParentTopic;
