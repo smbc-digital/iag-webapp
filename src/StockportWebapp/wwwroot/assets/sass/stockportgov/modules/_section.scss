@@ -52,6 +52,12 @@
     &__content {
         margin: 0px;
 
+        &--action {
+            @media #{$desktop} {
+                margin-top: 27px;
+            }
+        }
+
         &--no-margin {
             margin: 0px;
         }
