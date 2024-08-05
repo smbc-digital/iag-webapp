@@ -182,10 +182,6 @@ namespace StockportWebapp.Utils.Extensions
               p =>
                   new TopicRepository(p.GetService<TopicFactory>(), p.GetService<UrlGenerator>(), p.GetService<IHttpClient>(),
                       p.GetService<IApplicationConfiguration>(), p.GetService<UrlGeneratorSimple>()));
-            services.AddTransient<IDocumentPageRepository>(
-                p =>
-                    new DocumentPageRepository(p.GetService<UrlGenerator>(), p.GetService<IHttpClient>(),
-                        p.GetService<DocumentPageFactory>(), p.GetService<IApplicationConfiguration>()));
             services.AddSingleton<IEventFactory>(p => new EventFactory(p.GetService<ITagParserContainer>(), p.GetService<MarkdownWrapper>()));
             services.AddTransient<ILoggedInHelper>(p => new LoggedInHelper(p.GetService<IHttpContextAccessor>(), p.GetService<CurrentEnvironment>(), p.GetService<IJwtDecoder>(), p.GetService<ILogger<LoggedInHelper>>()));
             

@@ -3,34 +3,30 @@ namespace StockportWebapp.Controllers;
 public class DocumentController : Controller
 {
     private readonly IProcessedContentRepository _repository;
-    private readonly IDocumentPageRepository _documentPageRepository;
     private readonly IContactUsMessageTagParser _contactUsMessageParser;
 
     public DocumentController(
         IProcessedContentRepository repository,
-        IContactUsMessageTagParser contactUsMessageParser,
-        IDocumentPageRepository documentPageRepository
-        )
+        IContactUsMessageTagParser contactUsMessageParser)
     {
         _repository = repository;
         _contactUsMessageParser = contactUsMessageParser;
-        _documentPageRepository = documentPageRepository;
     }
 
     [Route("/documents/{documentPageSlug}")]
     public async Task<IActionResult> Index(string documentPageSlug)
     {
-        var documentPageHttpResponse = await _documentPageRepository.Get(documentPageSlug);
+        HttpResponse documentPageHttpResponse = await _repository.Get<DocumentPage>(documentPageSlug);
 
         if (!documentPageHttpResponse.IsSuccessful())
             return documentPageHttpResponse;
 
-        var documentPage = documentPageHttpResponse.Content as ProcessedDocumentPage;
+        DocumentPage documentPage = documentPageHttpResponse.Content as DocumentPage;
 
-        var viewModel = new DocumentPageViewModel(documentPage);
+        DocumentPageViewModel viewModel = new(documentPage);
 
         ViewBag.CurrentUrl = Request?.GetDisplayUrl();
 
-        return View(viewModel);
+        return View("Index2024", viewModel);
     }
 }
