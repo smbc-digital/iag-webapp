@@ -31,7 +31,7 @@ public class DocumentPageFactory
         Regex regex = new("(\\n-)");
         bool hasMultipleDocuments = documents is not null && documents.Skip(1).Any();
         bool hasSingleDocumentWithAwsDocuments = documents is not null && documents.Any() && !string.IsNullOrEmpty(awsDocuments);
-        bool matchesAwsDocumentsPattern = regex.IsMatch(awsDocuments);
+        bool matchesAwsDocumentsPattern = !string.IsNullOrEmpty(awsDocuments) && regex.IsMatch(awsDocuments);
 
         return hasMultipleDocuments || hasSingleDocumentWithAwsDocuments || matchesAwsDocumentsPattern;
     }

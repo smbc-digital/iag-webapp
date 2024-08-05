@@ -1,0 +1,75 @@
+﻿.document {
+	padding-bottom: 5px;
+	margin-bottom: 2em !important;
+	
+	@media #{$mobile} {
+		text-align: left;
+	}
+
+	div:first-of-type {
+		display: flex;
+		align-items: center;
+	}
+
+	&-icon {
+		vertical-align: top;
+		float: left;
+		padding-right: 0px;
+		width: 65px;
+
+		@media #{$mobile} {
+			float: unset !important;
+		}
+
+		a {
+			text-decoration: none
+		}
+
+		span {
+			color: $colorPrimary;
+			padding-left: 00px;
+			font-size: 3em;
+
+			@media #{$mobile} {
+				font-size: 2.2em;
+			}
+		}
+  	}
+
+  	&-detail {
+		border-left: solid 2px $greyLighter;
+		vertical-align: top;
+		padding-left: 20px;
+		border-top: none;
+		border-bottom: none;
+		
+		@media #{$mobile} {
+			border: none !important;
+			padding-left: 0 !important;
+			padding-top: 20px;
+		}
+
+		&__title {
+			@include h-s;
+			color: $stockport-green;
+			text-decoration: underline;
+			margin-bottom: 0.5em;
+		}
+
+		// old style - should be removed after decommissioning old document pages
+		.document-detail-title {
+			color: $colorPrimary;
+			font-size: 1.25em;
+			line-height: normal;
+			font-weight: 600;
+
+			@media #{$mobile} {
+				font-size: 1.125em;
+			}
+		}
+
+		p {
+			margin-bottom: 0px;
+		}
+  	}
+}

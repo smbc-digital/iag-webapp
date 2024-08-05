@@ -6,6 +6,7 @@
     Layout = "../Shared/_Layout2023.cshtml";
 
     string multipleDocuments = Model.DocumentPage.MultipleDocuments ? "About these documents" : "About the document";
+    string multipleDocumentsTitle = Model.DocumentPage.MultipleDocuments ? "Documents" : "Document";
 }
 
 <div class="grid-container-full-width" style="background-color: white;" data-cy="document-page">
@@ -16,14 +17,15 @@
             <div class="article--70">
                 <h1 class="article__title">@Model.DocumentPage.Title</h1>
 
-                <section>
+                <section class="document-page">
                     <p class="lead">@multipleDocuments</p>
 
                     @Html.Raw(Model.DocumentPage.AboutTheDocument)
 
+                    <h2>@multipleDocumentsTitle</h2>
                     @foreach (var document in Model.DocumentPage.Documents)
                     {
-                        <partial name="../Shared/Document" model='document' />
+                        <partial name="../Shared/Document2024" model='document' />
                     }
 
                     @Html.Raw(Model.DocumentPage.AwsDocuments)
@@ -54,12 +56,16 @@
                         </ul>
                     }
 
-                    <p class="article-date">
+                    <p>
                         Date published <strong>@Model.DocumentPage.DatePublished.ToString("d MMMM yyyy")</strong>
                     </p>
 
-                    <p class="article-date">
-                        Last published <strong>@Model.DocumentPage.UpdatedAt.ToString("d MMMM yyyy")</strong>
+                    <p>
+                        Last published <strong>@Model.DocumentPage.LastUpdated.ToString("d MMMM yyyy")</strong>
+                    </p>
+
+                    <p class="document-page-date">
+                        Last updated <partial name="FormattedDate" model='Model.DocumentPage.UpdatedAt' />
                     </p>
                 </section>
             </div>

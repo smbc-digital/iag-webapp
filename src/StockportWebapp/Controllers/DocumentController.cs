@@ -2,31 +2,35 @@ namespace StockportWebapp.Controllers;
 
 public class DocumentController : Controller
 {
-    private readonly IProcessedContentRepository _repository;
+    private readonly IDocumentPageRepository _documentPageRepository;
     private readonly IContactUsMessageTagParser _contactUsMessageParser;
+    private readonly IFeatureManager _featureManager;
 
     public DocumentController(
-        IProcessedContentRepository repository,
-        IContactUsMessageTagParser contactUsMessageParser)
+        IDocumentPageRepository documentPageRepository,
+        IContactUsMessageTagParser contactUsMessageParser,
+        IFeatureManager featureManager = null)
     {
-        _repository = repository;
+        _documentPageRepository = documentPageRepository;
         _contactUsMessageParser = contactUsMessageParser;
+        _featureManager = featureManager;
     }
 
     [Route("/documents/{documentPageSlug}")]
     public async Task<IActionResult> Index(string documentPageSlug)
     {
-        HttpResponse documentPageHttpResponse = await _repository.Get<DocumentPage>(documentPageSlug);
+        HttpResponse result = await _documentPageRepository.Get(documentPageSlug);
 
-        if (!documentPageHttpResponse.IsSuccessful())
-            return documentPageHttpResponse;
+        if (!result.IsSuccessful())
+            return result;
 
-        DocumentPage documentPage = documentPageHttpResponse.Content as DocumentPage;
-
-        DocumentPageViewModel viewModel = new(documentPage);
+        DocumentPageViewModel viewModel = new(result.Content as DocumentPage);
 
         ViewBag.CurrentUrl = Request?.GetDisplayUrl();
 
-        return View("Index2024", viewModel);
+        if (_featureManager is not null && _featureManager.IsEnabledAsync("DocumentPages").Result)
+            return View("Index2024", viewModel);
+        
+        return View(viewModel);
     }
 }

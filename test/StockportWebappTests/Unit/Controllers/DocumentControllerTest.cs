@@ -2,7 +2,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers;
 
 public class DocumentControllerTests
 {
-    private readonly Mock<IProcessedContentRepository> _mockRepository = new();
+    private readonly Mock<IDocumentPageRepository> _mockRepository = new();
     private readonly Mock<IContactUsMessageTagParser> _mockContactUsMessageParser = new();
     private readonly DocumentController _controller;
 
@@ -18,9 +18,8 @@ public class DocumentControllerTests
     public async Task Index_ReturnsUnsuccessfulResponse_WhenDocumentPageHttpResponseIsUnsuccessful()
     {
         // Arrange
-        _mockRepository
-            .Setup(_ => _.Get<DocumentPage>(It.IsAny<string>(), It.IsAny<List<Query>>()))
-            .ReturnsAsync(HttpResponse.Successful(500, null));
+        _mockRepository.Setup(_ => _.Get(It.IsAny<string>()))
+                .ReturnsAsync(new HttpResponse(500, "error", string.Empty));
 
         // Act
         StatusCodeResult result = await _controller.Index("some-slug") as StatusCodeResult;
@@ -41,9 +40,8 @@ public class DocumentControllerTests
             Teaser = "teaser"
         };
 
-        _mockRepository
-            .Setup(_ => _.Get<DocumentPage>(It.IsAny<string>(), It.IsAny<List<Query>>()))
-            .ReturnsAsync(HttpResponse.Successful(200, documentPage));
+        _mockRepository.Setup(_ => _.Get(It.IsAny<string>()))
+                .ReturnsAsync(new HttpResponse(200, documentPage, string.Empty));
 
         // Act
         ViewResult result = await _controller.Index(documentPageSlug) as ViewResult;
