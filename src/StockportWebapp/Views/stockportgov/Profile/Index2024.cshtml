@@ -41,9 +41,10 @@
                 </div>
 
                 <div class="article--30 section">
-                    <div class="placeholder placeholder-bg-grey placeholder-large" id="article-page-content">
-                        <h2 class="placeholder-article-header-description">Side bar</h2>
-                    </div>
+                    @if (Model.HasParentTopicWithSubItems())
+                    {
+                        <partial name="ProfileNavCardList" />
+                    }
                 </div>
             </section>
         </div>

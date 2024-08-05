@@ -3,102 +3,105 @@
     ViewData["Title"] = Model.Article.Title;
     ViewData["Description"] = Model.MetaDescription;
     ViewData["og:title"] = Model.OgTitleMetaData;
-    Layout = "../Shared/_Layout.cshtml";
-    var dataCy = Model.DisplayedSection is null ? "flat-article" : "article-with-sections";
+    Layout = "../Shared/_Layout2023.cshtml";
+    string dataCy = Model.DisplayedSection is null ? "flat-article" : "article-with-sections";
+    string articleMarginBottom = !Model.Article.ArticleBranding.Any() || Model.Article.ArticleBranding is null ? " section" : string.Empty;
 }
 
-@section Breadcrumbs {
-    <partial name="Breadcrumb" model="Model.Article.Breadcrumbs" />
-}
-    <div class="grid-container-full-width" data-cy="@dataCy">
-        <div class="grid-container grid-100 article-cols">
-            <div tabindex="-1" id="content"></div>
-            <article id="uitest-page-has-loaded" class="article-col l-body-section-filled grid-parent mobile-grid-100 tablet-grid-100 @(Model.HasParentTopicWithSubItems() ? "grid-70" : "grid-100")">
-                <section aria-label="@Model.Article.Title content" class="grid-100 mobile-grid-100 ">
-                    <div class="l-content-container">
-                    @if (!string.IsNullOrEmpty(Model.Article.Image))
-                    {
-                        <div class="title-card-background-image" style="background-image: url(@Model.Article.Image)">
-                            <div class="title-card content">
-                                <h1>@Model.Article.Title</h1>
-                            </div>
-                        </div>
-                        <div class="title-spacer"></div>
-                    }
-                    <div class="grid-100">
-                        @if (Model.Article.Alerts is not null)
-                        {
-                            <div class="alert-container">
-                                @foreach (var alert in Model.Article.Alerts)
-                                {
-                                    <partial name="DisplayTemplates/Alert" model='alert' />
-                                }
-                            </div>
-                        }
+<div class="grid-container-full-width" style="background-color:white;" data-cy="@dataCy">
+    <partial name="GlobalAlerts" model='Model.Article.Alerts' />
+    <partial name="Breadcrumb2023" model="Model.Article.Breadcrumbs" />
 
-                        @if (string.IsNullOrEmpty(Model.Article.Image))
-                        {
-                            <div class="grid-100">
-                                <h1>@Model.Article.Title</h1>
-                            </div>
-                        }
+    <div class="grid-container">
+        <div class="grid-100">
+            <div class="article--70">
+                <h1 class="article__title">@Model.Article.Title</h1>
 
-                        <div class="grid-100">
-
-                            @if (!string.Equals("<p></p>\n", Model.Article.Body))
-                            {
-                                <div class="map-content">
-                                    @if (!Model.HideLastUpdated)
-                                    {
-                                        <p class="article-date">
-                                            <span class="fa fa-clock-o" aria-hidden="true"></span>Last updated <partial name="FormattedDate" model='Model.Article.UpdatedAt' />
-                                        </p>
-                                    }
-                                    @Html.Raw(Model.Article.Body)
-                                </div>
-                            }
-
-                            @if (Model.DisplayedSection is not null)
-                            {
-                                <partial name="../Shared/Section-Nav" />
-                                <partial name="Article-Single-Section" model='Model' />
-                                <partial name="DisplayTemplates/Section-Pagination" />
-                            }
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </article>
-        @if (Model.HasParentTopicWithSubItems())
-        {
-            <div class="l-right-side-bar grid-30 tablet-grid-100 mobile-grid-100 grid-parent article-col article-col-sidebar">
-                @if (Model.HasParentTopicWithSubItems())
+                @if (Model.ArticleWithSection && Model.ArticleWithImage)
                 {
-                    <div class="l-right-side-bar-section">
-                        <h2>@Model.Article.ParentTopic.Name</h2>
-                        <ul>
-                            @{
-                                var showMoreButton = false;
-                            }
-                            @foreach (var item in Model.SidebarSubItems(out showMoreButton))
-                            {
-                                <li class="@(item.NavigationLink == Model.Article.NavigationLink ? "active" : "")">
-                                    <a href="@item.NavigationLink"><span>@item.Title</span></a>
-                                </li>
-                            }
-
-                            @if (showMoreButton)
-                            {
-                                <li>
-                                    <a href="@Url.Action("Index", "Topic", new {topicSlug = Model.Article.ParentTopic.Slug})">
-                                        <strong>More about @Model.Article.ParentTopic.Name</strong>
-                                    </a>
-                                </li>
-                            }
-                        </ul>
-                    </div>
+                    <partial name="ArticleSections" />
                 }
             </div>
-        }
+
+            <section class="article">
+                <div class="article--70 @articleMarginBottom">
+                    @if (!Model.ArticleWithImage)
+                    {
+                        <div class="article-hero">
+                            <img src="@Model.Article.Image?q=89&fm=webp"
+                                 srcset="@Model.Article.Image?w=967&q=89&fm=webp 967w,
+                                        @Model.Article.Image?w=853&q=89&fm=webp 853w,
+                                        @Model.Article.Image?w=712&q=89&fm=webp 712w"
+                                 sizes="(max-width: 767px) 712px,
+                                        ((min-width: 768px) and (max-width: 1023px)) 967px,
+                                        (min-width: 1024px) 853px"
+                                 class="article-hero__image"
+                                 width="712"
+                                 height="350"
+                                 alt="@Model.Article.AltText" />
+                        </div>
+                    }
+
+                    @if (Model.ArticleWithSection && !Model.ArticleWithImage)
+                    {
+                        <partial name="ArticleSections" />
+                    }
+
+                    @if (Model.ArticleWithSection)
+                    {
+                        <article class="article-body">
+                            <h2 id="@Model.DisplayedSection.Slug">@Model.DisplayedSection.Title</h2>
+                            @Html.Raw(Model.DisplayedSection.Body)
+                        </article>
+                    }
+
+                    @if (!string.IsNullOrEmpty(Model.Article.Body))
+                    {
+                        <article>
+                            @Html.Raw(Model.Article.Body)
+                        </article>
+                    }
+
+                    @if (!Model.HideLastUpdated && Model.ArticleWithSection)
+                    {
+                        <p class="article-date">
+                            Last updated <partial name="FormattedDate" model='Model.DisplayedSection.UpdatedAt' />
+                        </p>
+                    }
+                    else if (!Model.HideLastUpdated)
+                    {
+                        <p class="article-date">
+                            Last updated <partial name="FormattedDate" model='Model.Article.UpdatedAt' />
+                        </p>
+                    }
+
+                    @if (Model.ShouldShowPreviousSectionButton() || Model.ShouldShowNextSectionButton())
+                    {
+                        <partial name="ArticleSectionPagination" />
+                    }
+
+                    @if (Model.ArticleWithSection && Model.DisplayedSection.SectionBranding.Any())
+                    {
+                        <partial name="LogoArea" model='@Model.DisplayedSection.SectionBranding' view-data='@(new ViewDataDictionary(ViewData) {{"logoAreaTitle", @Model.DisplayedSection.LogoAreaTitle}, {"articleWithSection", Model.ArticleWithSection}, {"logoAreaArticle", true}})' />
+                    }
+                    else
+                    {
+                        <partial name="LogoArea" model='@Model.Article.ArticleBranding' view-data='@(new ViewDataDictionary(ViewData) {{"logoAreaTitle", @Model.Article.LogoAreaTitle}, {"articleWithSection", Model.ArticleWithSection}, {"logoAreaArticle", true}})' />
+                    }
+                </div>
+
+                <div class="article--30 section">
+                    @if (Model.HasParentTopicWithSubItems())
+                    {
+                        <partial name="ArticleNavCardList" />
+                    }
+
+                    @if (Model.HasRelatedContentWithSubItems())
+                    {
+                        <partial name="ArticleRelatedContent" model='new ExternalLinksViewModel() { RelatedContent=Model.Article.RelatedContent }' />
+                    }
+                </div>
+            </section>
+        </div>
     </div>
 </div>

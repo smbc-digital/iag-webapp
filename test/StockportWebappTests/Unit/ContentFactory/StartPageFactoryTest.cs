@@ -35,7 +35,7 @@ public class StartPageFactoryTests
     public void ShouldSetTheCorrespondingFieldsForAProcessedServicePayPayment()
     {
         // Act
-        var result = _factory.Build(_startPage);
+        ProcessedStartPage result = _factory.Build(_startPage);
 
         // Assert
         Assert.Equal(_startPage.Slug, result.Slug);

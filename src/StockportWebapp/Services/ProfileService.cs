@@ -38,9 +38,9 @@ public class ProfileService : IProfileService
         List<Trivia> triviaSection = _triviaFactory.Build(profile.TriviaSection);
         profile.TriviaSection = triviaSection;
         string body = _markdownWrapper.ConvertToHtml(profile.Body ?? string.Empty);
-        string processedBody = _parser.ParseAll(body ?? string.Empty, profile.Title, false, profile.InlineAlerts, null, profile.InlineQuotes, null, null);
+        string processedBody = _parser.ParseAll(body ?? string.Empty, profile.Title, true, profile.InlineAlerts, null, profile.InlineQuotes, null, null);
         profile.Body = processedBody;
-
+        
         return profile;
     }
 }
