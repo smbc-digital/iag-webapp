@@ -84,3 +84,18 @@
 		}
   	}
 }
+
+html[dir="rtl"] {
+	.document {
+		text-align: right;
+		
+		&-detail {
+			border-left: none;
+			border-right: solid 2px #ccc;
+
+			@media #{$mobile} {
+				padding-inline: 0 !important;
+			}
+		}
+	}
+}
