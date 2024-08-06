@@ -1,8 +1,8 @@
 ﻿@inject ICookiesHelper CookiesHelper
 @model Alert
 @{
-    var alertCookies = CookiesHelper.GetCookies<Alert>("alerts");
-    var isDismissed = alertCookies != null && alertCookies.Contains(Model.Slug) && !Model.IsStatic;
+    List<string> alertCookies = CookiesHelper.GetCookies<Alert>("alerts");
+    bool isDismissed = alertCookies != null && alertCookies.Contains(Model.Slug) && !Model.IsStatic;
 }
 
 @if (!isDismissed)
@@ -14,6 +14,7 @@
                     <h2 class="h-m">@Model.Title</h2>
                     @Html.Raw(Model.Body)
                 </div>
+                
                 @if (!string.IsNullOrEmpty(Model.ImageUrl))
                 {
                     <div class="condolence_image">

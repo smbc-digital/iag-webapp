@@ -1,11 +1,11 @@
 ﻿@model NavCard
 @{
-    var displayIcons = (bool)ViewData["DisplayIcons"];
-    var isRootDirectory = (bool)ViewData["IsRootDirectory"];
-    var alternativeColourScheme = (string)ViewData["AlternativeColourScheme"];
-    var navcardPaddingClasses = (string)ViewData["NavcardPaddingClasses"];
+    bool displayIcons = (bool)ViewData["DisplayIcons"];
+    bool isRootDirectory = (bool)ViewData["IsRootDirectory"];
+    string alternativeColourScheme = (string)ViewData["AlternativeColourScheme"];
+    string navcardPaddingClasses = (string)ViewData["NavcardPaddingClasses"];
 
-    var colourScheme = isRootDirectory
+    string colourScheme = isRootDirectory
                         ? string.IsNullOrEmpty(Model.ColourScheme)
                             ? "teal"
                             : Model.ColourScheme.ToLower()

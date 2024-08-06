@@ -9,18 +9,15 @@ public class StartPageControllerTest
 
     public StartPageControllerTest()
     {
-        // declarations
         _repository = new Mock<IProcessedContentRepository>();
         _featureManager = new Mock<IFeatureManager>();
 
-        // data
-        var alerts = new List<Alert> { new Alert("title", "subHeading", "body", "severity", new DateTime(0001, 1, 1, 0, 0, 0, DateTimeKind.Utc),
-                                                             new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc), string.Empty, false, string.Empty) };
-        // data
-        var inlineAlerts = new List<Alert> { new Alert("title", "subHeading", "body", "severity", new DateTime(0001, 1, 1, 0, 0, 0, DateTimeKind.Utc),
-                                                             new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc), string.Empty, false, string.Empty) };
+        List<Alert> alerts = new(){ new("title", "subHeading", "body", "severity", new DateTime(0001, 1, 1, 0, 0, 0, DateTimeKind.Utc),
+                                        new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc), string.Empty, false, string.Empty) };
+        List<Alert> inlineAlerts = new(){ new("title", "subHeading", "body", "severity", new DateTime(0001, 1, 1, 0, 0, 0, DateTimeKind.Utc),
+                                        new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc), string.Empty, false, string.Empty) };
 
-        var startPage = new ProcessedStartPage(
+        ProcessedStartPage startPage = new(
             "start-page",
             "Start Page",
             "this is a teaser",
@@ -38,42 +35,41 @@ public class StartPageControllerTest
             alerts
         );
 
-        // setup mocks
-        _repository.Setup(o => o.Get<StartPage>("start-page", null)).ReturnsAsync(new HttpResponse(200, startPage, string.Empty));
-        _repository.Setup(o => o.Get<StartPage>("doesnt-exist", null)).ReturnsAsync(new HttpResponse(404, null, "No start-page found for 'doesnt-exist'"));
-
-        _featureManager.Setup(o => o.IsEnabledAsync(It.IsAny<string>())).ReturnsAsync(true);
-
-        // objects
-        _controller = new StartPageController(_repository.Object, _featureManager.Object);
+        _repository.Setup(_ => _.Get<StartPage>("start-page", null)).ReturnsAsync(new HttpResponse(200, startPage, string.Empty));
+        _repository.Setup(_ => _.Get<StartPage>("doesnt-exist", null)).ReturnsAsync(new HttpResponse(404, null, "No start-page found for 'doesnt-exist'"));
+        _controller = new(_repository.Object);
     }
 
     [Fact]
     public async Task GetAStartPage()
     {
-        var indexPage = await _controller.Index("start-page") as ViewResult;
-        var result = indexPage.ViewData.Model as ProcessedStartPage;
+        // Act
+        ViewResult indexPage = await _controller.Index("start-page") as ViewResult;
+        ProcessedStartPage result = indexPage.ViewData.Model as ProcessedStartPage;
 
-        result.Title.Should().Be("Start Page");
-        result.Slug.Should().Be("start-page");
-        result.Teaser.Should().Be("this is a teaser");
-        result.Summary.Should().Be("This is a summary");
-        result.UpperBody.Should().Be(MarkdownWrapper.ToHtml("An upper body"));
-        result.FormLinkLabel.Should().Be("Start now");
-        result.FormLink.Should().Be("http://start.com");
-        result.LowerBody.Should().Be(MarkdownWrapper.ToHtml("Lower body"));
-        result.Breadcrumbs.Should().HaveCount(1);
-        result.Alerts.First().Title.Should().Be("title");
-        result.Alerts.First().Body.Should().Contain("body");
-        result.Alerts.First().SubHeading.Should().Be("subHeading");
-        result.Alerts.First().Severity.Should().Be("severity");
+        // Assert
+        Assert.Equal("Start Page", result.Title);
+        Assert.Equal("start-page", result.Slug);
+        Assert.Equal("this is a teaser", result.Teaser);
+        Assert.Equal("This is a summary", result.Summary);
+        Assert.Equal(MarkdownWrapper.ToHtml("An upper body"), result.UpperBody);
+        Assert.Equal("Start now", result.FormLinkLabel);
+        Assert.Equal("http://start.com", result.FormLink);
+        Assert.Equal(MarkdownWrapper.ToHtml("Lower body"), result.LowerBody);
+        Assert.Single(result.Breadcrumbs);
+        Assert.Equal("title", result.Alerts.First().Title);
+        Assert.Contains("body", result.Alerts.First().Body);
+        Assert.Equal("subHeading", result.Alerts.First().SubHeading);
+        Assert.Equal("severity", result.Alerts.First().Severity);
     }
 
     [Fact]
     public async Task GivesNotFoundOnRequestForNonExistentStartPage()
     {
-        var result = await _controller.Index("doesnt-exist") as StatusCodeResult;
+        // Act
+        StatusCodeResult result = await _controller.Index("doesnt-exist") as StatusCodeResult;
 
-        result.StatusCode.Should().Be((int)HttpStatusCode.NotFound);
+        // Assert
+        Assert.Equal((int)HttpStatusCode.NotFound, result.StatusCode);
     }
 }

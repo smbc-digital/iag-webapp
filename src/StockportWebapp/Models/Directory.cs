@@ -1,5 +1,6 @@
 using StockportWebapp.Comparers;
 namespace StockportWebapp.Models;
+
 public class Directory
 {
     public string Title { get; set; } = string.Empty;
@@ -63,7 +64,4 @@ public class Directory
     [JsonIgnore]
     public IEnumerable<DirectoryEntry> AllEntries
         => RegularEntries.Concat(PinnedEntries);
-
-    //public string ToKml()
-    //    => CummulativeEntries.GetKmlForList();
 }

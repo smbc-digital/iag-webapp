@@ -12,31 +12,29 @@ public class ProfileTagParser : IDynamicTagParser<Profile>
 
     public bool HasMatches(string content) => TagRegex.IsMatch(content);
 
-    public string Parse(string content, IEnumerable<Profile> profiles)
+    public string Parse(string content, IEnumerable<Profile> profiles, bool redesigned)
     {
         MatchCollection matches = TagRegex.Matches(content);
-
+        
         foreach (Match match in matches)
         {
-            int tagDataIndex = 1;
-            string profileSlug = match.Groups[tagDataIndex].Value;
+            string profileSlug = match.Groups[1].Value;
             Profile profile = GetProfileMatchingSlug(profiles, profileSlug);
-            ProfileViewModel viewModel = new(profile);
-            if (profile is not null)
+            ProfileViewModel viewModel = new(profile)
             {
-                string profileHtml = string.IsNullOrEmpty(profile.Body)
-                    ? _viewRenderer.Render("ProfileWithoutBody", viewModel)
-                    : _viewRenderer.Render("Profile", viewModel);
+                Redesigned = redesigned
+            };
 
-                content = TagRegex.Replace(content, profileHtml, 1);
-            }
+            if (profile is not null)
+                content = TagRegex.Replace(content, _viewRenderer.Render("Profile", viewModel), 1);
         }
+        
         return RemoveEmptyTags(content);
     }
 
     private string RemoveEmptyTags(string content) =>
         TagRegex.Replace(content, string.Empty);
 
-    private Profile GetProfileMatchingSlug(IEnumerable<Profile> profiles, string slug) =>
-        profiles?.FirstOrDefault(s => s.Slug.Equals(slug));
+    private static Profile GetProfileMatchingSlug(IEnumerable<Profile> profiles, string slug) =>
+        profiles?.FirstOrDefault(_ => _.Slug.Equals(slug));
 }

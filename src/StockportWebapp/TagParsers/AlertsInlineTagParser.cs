@@ -11,7 +11,7 @@ public class AlertsInlineTagParser : IDynamicTagParser<Alert>
 
     public bool HasMatches(string content) => TagRegex.IsMatch(content);
 
-    public string Parse(string content, IEnumerable<Alert> alertsInline)
+    public string Parse(string content, IEnumerable<Alert> alertsInline, bool redesigned = false)
     {
         var matches = TagRegex.Matches(content);
 

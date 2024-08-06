@@ -29,12 +29,12 @@ public class DirectoryService : IDirectoryService {
 
     public async Task<Directory> Get<T>(string slug = "")
     {
-        var httpResponse = await _repository.Get<Directory>(slug);
+        HttpResponse httpResponse = await _repository.Get<Directory>(slug);
 
         if (!httpResponse.IsSuccessful())
             return null;
-            
-        var directory = (Directory)httpResponse.Content;
+
+        Directory directory = (Directory)httpResponse.Content;
 
         directory.Body = _markdownWrapper.ConvertToHtml(directory.Body ?? "");
         directory.Body = _tagParserContainer.ParseAll(directory.Body, directory.Title, true, directory.AlertsInline, null, null, null, null);
@@ -44,14 +44,14 @@ public class DirectoryService : IDirectoryService {
 
     public async Task<DirectoryEntry> GetEntry<T>(string slug = "")
     {
-        var httpResponse = await _repository.Get<DirectoryEntry>(slug);
+        HttpResponse httpResponse = await _repository.Get<DirectoryEntry>(slug);
 
         if (!httpResponse.IsSuccessful())
             return null;
 
-        var directoryEntry = (DirectoryEntry)httpResponse.Content;
-        directoryEntry.Description = _markdownWrapper.ConvertToHtml(directoryEntry.Description ?? "");
-        directoryEntry.Address = _markdownWrapper.ConvertToHtml(directoryEntry.Address ?? "");
+        DirectoryEntry directoryEntry = (DirectoryEntry)httpResponse.Content;
+        directoryEntry.Description = _markdownWrapper.ConvertToHtml(directoryEntry.Description ?? string.Empty);
+        directoryEntry.Address = _markdownWrapper.ConvertToHtml(directoryEntry.Address ?? string.Empty);
         directoryEntry.Description = _tagParserContainer.ParseAll(directoryEntry.Description, directoryEntry.Name, true, directoryEntry.AlertsInline, null, null, null, null);
 
         return directoryEntry;
@@ -81,8 +81,8 @@ public class DirectoryService : IDirectoryService {
 
     public IEnumerable<DirectoryEntry> GetFilteredEntries(IEnumerable<DirectoryEntry> entries, string[] appliedFilters)
     {
-        var allFilterThemes = GetFilterThemes(entries);
-        var appliedThemes = GetFilters(appliedFilters, allFilterThemes)
+        IEnumerable<FilterTheme> allFilterThemes = GetFilterThemes(entries);
+        Dictionary<string, List<string>> appliedThemes = GetFilters(appliedFilters, allFilterThemes)
                                 .GetFilterThemesFromFilters();
 
         if(!appliedThemes.Any())

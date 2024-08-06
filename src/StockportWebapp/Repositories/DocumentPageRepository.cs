@@ -1,4 +1,4 @@
-﻿namespace StockportWebapp.Repositories;
+namespace StockportWebapp.Repositories;
 
 public interface IDocumentPageRepository
 {
@@ -24,15 +24,15 @@ public class DocumentPageRepository : IDocumentPageRepository
 
     public async Task<HttpResponse> Get(string slug = "")
     {
-        var url = _urlGenerator.UrlFor<DocumentPage>(slug);
-        var httpResponse = await _httpClient.Get(url, authenticationHeaders);
+        string url = _urlGenerator.UrlFor<DocumentPage>(slug);
+        HttpResponse httpResponse = await _httpClient.Get(url, authenticationHeaders);
 
         if (!httpResponse.IsSuccessful())
             return httpResponse;
 
-        var model = HttpResponse.Build<DocumentPage>(httpResponse);
-        var documentPage = (DocumentPage)model.Content;
-        var processedModel = _documentPageFactory.Build(documentPage);
+        HttpResponse model = HttpResponse.Build<DocumentPage>(httpResponse);
+        DocumentPage documentPage = (DocumentPage)model.Content;
+        DocumentPage processedModel = _documentPageFactory.Build(documentPage);
 
         return HttpResponse.Successful(200, processedModel);
     }

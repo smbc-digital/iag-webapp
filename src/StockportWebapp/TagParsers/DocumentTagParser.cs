@@ -10,7 +10,7 @@ public class DocumentTagParser : IDynamicTagParser<Document>
     public bool HasMatches(string content) => TagRegex.IsMatch(content);
 
 
-    public string Parse(string content, IEnumerable<Document> documents)
+    public string Parse(string content, IEnumerable<Document> documents, bool redesigned = false)
     {
         var matches = TagRegex.Matches(content);
 

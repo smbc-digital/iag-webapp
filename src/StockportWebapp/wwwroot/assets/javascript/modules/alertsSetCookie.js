@@ -5,7 +5,7 @@
     };
 
     let hasInitialized = false;
-
+    
     return {
         Init: function () {
             if (!hasInitialized) {
@@ -17,6 +17,11 @@
                 });
 
                 $(".dismiss a").click(function () {
+                    var slug = $(this).attr("data-slug");
+                    addCookie(slug, "alert");
+                });
+
+                $(".global-alert-close").click(function () {
                     var slug = $(this).attr("data-slug");
                     addCookie(slug, "alert");
                 });

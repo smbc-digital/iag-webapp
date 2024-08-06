@@ -15,11 +15,11 @@ public class StartPageFactoryTests
             "fa-test", new List<Alert>(), new List<Alert>());
 
         _mockTagParser
-            .Setup(_ => _.ParseAll(_startPage.UpperBody, It.IsAny<string>(), It.IsAny<bool>(), It.IsAny<IEnumerable<Alert>>(), null, null, null, null))
+            .Setup(_ => _.ParseAll(_startPage.UpperBody, It.IsAny<string>(), It.IsAny<bool>(), It.IsAny<IEnumerable<Alert>>(), null, null, null, null, It.IsAny<bool>()))
             .Returns(_startPage.UpperBody);
 
         _mockTagParser
-            .Setup(_ => _.ParseAll(_startPage.LowerBody, It.IsAny<string>(), It.IsAny<bool>(), It.IsAny<IEnumerable<Alert>>(), null, null, null, null))
+            .Setup(_ => _.ParseAll(_startPage.LowerBody, It.IsAny<string>(), It.IsAny<bool>(), It.IsAny<IEnumerable<Alert>>(), null, null, null, null, It.IsAny<bool>()))
             .Returns(_startPage.LowerBody);
 
         _mockMarkdownWrapper
@@ -35,7 +35,7 @@ public class StartPageFactoryTests
     public void ShouldSetTheCorrespondingFieldsForAProcessedServicePayPayment()
     {
         // Act
-        var result = _factory.Build(_startPage);
+        ProcessedStartPage result = _factory.Build(_startPage);
 
         // Assert
         Assert.Equal(_startPage.Slug, result.Slug);
@@ -69,6 +69,6 @@ public class StartPageFactoryTests
         _factory.Build(_startPage);
         
         // Assert
-        _mockTagParser.Verify(_ => _.ParseAll(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool>(), It.IsAny<IEnumerable<Alert>>(), null, null, null, null), Times.Exactly(2));
+        _mockTagParser.Verify(_ => _.ParseAll(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool>(), It.IsAny<IEnumerable<Alert>>(), null, null, null, null, It.IsAny<bool>()), Times.Exactly(2));
     }
 }

@@ -4,21 +4,19 @@ public class PrivacyNoticeFactory
 {
     private readonly MarkdownWrapper _markdownWrapper;
 
-    public PrivacyNoticeFactory(MarkdownWrapper markdownWrapper)
-    {
-        _markdownWrapper = markdownWrapper;
-    }
+    public PrivacyNoticeFactory(MarkdownWrapper markdownWrapper) 
+        => _markdownWrapper = markdownWrapper;
 
     public virtual ProcessedPrivacyNotice Build(PrivacyNotice privacyNotice)
     {
-        var typeOfDataHtml = _markdownWrapper.ConvertToHtml(privacyNotice.TypeOfData);
-        var purposeHtml = _markdownWrapper.ConvertToHtml(privacyNotice.Purpose);
-        var externallySharedHtml = _markdownWrapper.ConvertToHtml(privacyNotice.ExternallyShared);
-        var obtainedHtml = _markdownWrapper.ConvertToHtml(privacyNotice.Obtained);
-        var retentionPeriodHtml = _markdownWrapper.ConvertToHtml(privacyNotice.RetentionPeriod);
-        var legistationHtml = _markdownWrapper.ConvertToHtml(privacyNotice.Legislation);
+        string typeOfDataHtml = _markdownWrapper.ConvertToHtml(privacyNotice.TypeOfData);
+        string purposeHtml = _markdownWrapper.ConvertToHtml(privacyNotice.Purpose);
+        string externallySharedHtml = _markdownWrapper.ConvertToHtml(privacyNotice.ExternallyShared);
+        string obtainedHtml = _markdownWrapper.ConvertToHtml(privacyNotice.Obtained);
+        string retentionPeriodHtml = _markdownWrapper.ConvertToHtml(privacyNotice.RetentionPeriod);
+        string legistationHtml = _markdownWrapper.ConvertToHtml(privacyNotice.Legislation);
 
-        var processedPrivacyNotice = new ProcessedPrivacyNotice(privacyNotice.Slug, privacyNotice.Title, privacyNotice.Category, purposeHtml, typeOfDataHtml, legistationHtml, obtainedHtml, externallySharedHtml, retentionPeriodHtml, privacyNotice.OutsideEu, privacyNotice.AutomatedDecision, privacyNotice.UrlOne, privacyNotice.UrlTwo, privacyNotice.UrlThree, privacyNotice.Breadcrumbs, privacyNotice.ParentTopic);
+        ProcessedPrivacyNotice processedPrivacyNotice = new(privacyNotice.Slug, privacyNotice.Title, privacyNotice.Category, purposeHtml, typeOfDataHtml, legistationHtml, obtainedHtml, externallySharedHtml, retentionPeriodHtml, privacyNotice.OutsideEu, privacyNotice.AutomatedDecision, privacyNotice.Breadcrumbs, privacyNotice.ParentTopic);
 
         return processedPrivacyNotice;
     }

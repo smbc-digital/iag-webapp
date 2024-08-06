@@ -17,6 +17,9 @@ public class ArticleViewModel
     public bool ArticleWithSection =>
         Article.Sections is not null && Article.Sections.Any() && DisplayedSection is not null;
 
+    public bool ArticleWithImage =>
+        string.IsNullOrEmpty(Article.Image);
+
     public ArticleViewModel(ProcessedArticle article)
     {
         Article = article;

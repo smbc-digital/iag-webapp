@@ -4,7 +4,7 @@ namespace StockportWebapp.TagParsers;
 
 public interface ITagParserContainer
 {
-    string ParseAll(string content, string title = null, bool removeEmptyTags = true, IEnumerable<Alert> alerts = null, IEnumerable<Document> documents = null, IEnumerable<InlineQuote> quotes = null, IEnumerable<PrivacyNotice> privacyNotices = null, IEnumerable<Profile> profiles = null);
+    string ParseAll(string content, string title = null, bool removeEmptyTags = true, IEnumerable<Alert> alerts = null, IEnumerable<Document> documents = null, IEnumerable<InlineQuote> inlineQuotes = null, IEnumerable<PrivacyNotice> privacyNotices = null, IEnumerable<Profile> profiles = null, bool redesigned = false);
 }
 
 public class TagParserContainer : ITagParserContainer
@@ -18,7 +18,7 @@ public class TagParserContainer : ITagParserContainer
     private static Regex EmptyTagRegex => new("{{([�$%^&*()@<>?~#|\\'\":\\w\\s]*)}}", RegexOptions.Compiled);
 
 
-    public TagParserContainer(IEnumerable<ISimpleTagParser> tagParsers, IDynamicTagParser<Alert> alertsInlineTagParser, IDynamicTagParser<Document> documentTagParser, IDynamicTagParser<InlineQuote> inlineQuoteTagParser, IDynamicTagParser<PrivacyNotice> privacyNoticeTagParser, IDynamicTagParser<Profile> profileTagParser)
+    public TagParserContainer(IEnumerable<ISimpleTagParser> tagParsers, IDynamicTagParser<Alert> alertsInlineTagParser, IDynamicTagParser<Document> documentTagParser, IDynamicTagParser<InlineQuote> inlineQuoteTagParser,IDynamicTagParser<PrivacyNotice> privacyNoticeTagParser, IDynamicTagParser<Profile> profileTagParser)
     {
         _tagParsers = tagParsers;
         _alertsInlineTagParser = alertsInlineTagParser;
@@ -28,14 +28,15 @@ public class TagParserContainer : ITagParserContainer
         _profileTagParser = profileTagParser;
     } 
 
-    public string ParseAll(string content, string title = null, bool removeEmptyTags = true, IEnumerable<Alert> alerts = null, IEnumerable<Document> documents = null, IEnumerable<InlineQuote> quotes = null, IEnumerable<PrivacyNotice> privacyNotices = null, IEnumerable<Models.Profile> profiles = null)
+    public string ParseAll(string content, string title = null, bool removeEmptyTags = true, IEnumerable<Alert> alerts = null, IEnumerable<Document> documents = null, IEnumerable<InlineQuote> inlineQuotes = null,
+    IEnumerable<PrivacyNotice> privacyNotices = null, IEnumerable<Models.Profile> profiles = null, bool redesigned = false)
     {
         string parsedContent = _tagParsers.Aggregate(content, (c, tagParser) => tagParser.Parse(c, title));
-        parsedContent = _alertsInlineTagParser.Parse(parsedContent, alerts);
-        parsedContent = _documentTagParser.Parse(parsedContent, documents);
-        parsedContent = _inlineQuoteTagParser.Parse(parsedContent, quotes);
-        parsedContent = _privacyNoticeTagParser.Parse(parsedContent, privacyNotices);
-        parsedContent = _profileTagParser.Parse(parsedContent, profiles);
+        parsedContent = _alertsInlineTagParser.Parse(parsedContent, alerts, redesigned);
+        parsedContent = _documentTagParser.Parse(parsedContent, documents, redesigned);
+        parsedContent = _inlineQuoteTagParser.Parse(parsedContent, inlineQuotes, redesigned);
+        parsedContent = _privacyNoticeTagParser.Parse(parsedContent, privacyNotices, redesigned);
+        parsedContent = _profileTagParser.Parse(parsedContent, profiles, redesigned);
 
         return removeEmptyTags ? RemoveEmptyTags(parsedContent) : parsedContent;
     }

@@ -49,9 +49,9 @@ public class EventFactoryTest
             Alerts = _alerts
         };
 
-        _tagParserContainer.Setup(o => o.ParseAll(Description, It.IsAny<string>(), It.IsAny<bool>(), null, null, null, null, null)).Returns(Description);
+        _tagParserContainer.Setup(o => o.ParseAll(Description, It.IsAny<string>(), It.IsAny<bool>(), null, null, null, null, null, It.IsAny<bool>())).Returns(Description);
         _markdownWrapper.Setup(o => o.ConvertToHtml(Description)).Returns(Description);
-        _documentTagParser.Setup(o => o.Parse(Description, _event.Documents)).Returns(Description);
+        _documentTagParser.Setup(o => o.Parse(Description, _event.Documents, It.IsAny<bool>())).Returns(Description);
     }
 
     [Fact]
@@ -90,7 +90,7 @@ public class EventFactoryTest
     {
         _factory.Build(_event);
 
-        _tagParserContainer.Verify(o => o.ParseAll(Description, _event.Title, It.IsAny<bool>(), null, null, null, null, null), Times.Once);
+        _tagParserContainer.Verify(o => o.ParseAll(Description, _event.Title, It.IsAny<bool>(), null, null, null, null, null, It.IsAny<bool>()), Times.Once);
     }
 
     [Fact]
@@ -98,7 +98,7 @@ public class EventFactoryTest
     {
         _factory.Build(_event);
 
-        _tagParserContainer.Verify(o => o.ParseAll(Description, _event.Title, It.IsAny<bool>(), null, _event.Documents, null, null, null), Times.Once);
+        _tagParserContainer.Verify(o => o.ParseAll(Description, _event.Title, It.IsAny<bool>(), null, _event.Documents, null, null, null, It.IsAny<bool>()), Times.Once);
 
     }
 }

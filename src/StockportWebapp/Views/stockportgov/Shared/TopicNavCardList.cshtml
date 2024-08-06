@@ -1,14 +1,14 @@
 ﻿@model NavCardList
 @{
     bool displayImage = Model.Items.All(item => !string.IsNullOrEmpty(item.Image));
-    var borderTealDesktop = " navcard--border-top-10-desktop navcard--theme-teal-lighter-top-desktop";
-    var borderTealTablet = " navcard--border-top-10-tablet navcard--theme-teal-lighter-top-tablet";
-    var borderTealMobile = " navcard--border-left-10-mobile navcard--theme-teal-lighter-left-mobile";
-    var rtlBorderCssClasses = " navcard--border-rtl-right-10-mobile navcard--theme-teal-lighter-rtl-right-mobile navcard--border-rtl-left-1-mobile navcard--theme-grey-accent-rtl-left-mobile ";
+    string borderTealDesktop = " navcard--border-top-10-desktop navcard--theme-teal-lighter-top-desktop";
+    string borderTealTablet = " navcard--border-top-10-tablet navcard--theme-teal-lighter-top-tablet";
+    string borderTealMobile = " navcard--border-left-10-mobile navcard--theme-teal-lighter-left-mobile";
+    string rtlBorderCssClasses = " navcard--border-rtl-right-10-mobile navcard--theme-teal-lighter-rtl-right-mobile navcard--border-rtl-left-1-mobile navcard--theme-grey-accent-rtl-left-mobile ";
     
-    var borderGreyMobile = " navcard-all-mobile navcard--theme-grey-accent-all";
+    string borderGreyMobile = " navcard-all-mobile navcard--theme-grey-accent-all";
 
-    var borderCssClasses = displayImage 
+    string borderCssClasses = displayImage 
         ? $"navcard--border-bottom-10 navcard--theme-teal-lighter-bottom {borderGreyMobile}"
         : $"{borderTealDesktop} {borderTealTablet} {borderTealMobile} {borderGreyMobile} {rtlBorderCssClasses}";
 }

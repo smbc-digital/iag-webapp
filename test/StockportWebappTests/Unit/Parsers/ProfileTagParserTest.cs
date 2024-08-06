@@ -47,7 +47,7 @@ public class ProfileTagParserTest
             .Returns("<p>John's bio</p>");
 
         // Act
-        string result = _parser.Parse("Hello, {{PROFILE:john-doe}}!", _profiles);
+        string result = _parser.Parse("Hello, {{PROFILE:john-doe}}!", _profiles, It.IsAny<bool>());
 
         // Assert
         Assert.Equal("Hello, <p>John's bio</p>!", result);
@@ -57,7 +57,7 @@ public class ProfileTagParserTest
     public void Parse_WithNonExistingProfile_RemovesTag()
     {
         // Act
-        string result = _parser.Parse("Hello, {{PROFILE: non-existing}}!", _profiles);
+        string result = _parser.Parse("Hello, {{PROFILE: non-existing}}!", _profiles, It.IsAny<bool>());
         
         // Assert
         Assert.Equal("Hello, !", result);

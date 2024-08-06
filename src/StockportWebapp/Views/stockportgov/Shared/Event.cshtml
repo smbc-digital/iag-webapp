@@ -1,7 +1,7 @@
 ﻿@inject ViewHelpers ViewHelpers
 @model Event
 @{
-    var fee = Model.Fee;
+    string fee = Model.Fee;
     if (Model.Fee == "0")
     {
         fee = "Free";

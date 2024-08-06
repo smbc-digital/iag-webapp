@@ -1,7 +1,7 @@
 ﻿@model TopicViewModel
 @{
     bool displayImage = Model.Topic.PrimaryItems.Items.All(item => !string.IsNullOrEmpty(item.Image));
-    var dataCy = displayImage ? "primary-items-images" : "primary-items";
+    string dataCy = displayImage ? "primary-items-images" : "primary-items";
 }
 
 @if (Model.Topic.PrimaryItems.Items.Any())

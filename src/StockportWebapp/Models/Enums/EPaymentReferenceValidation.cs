@@ -11,5 +11,6 @@ public enum EPaymentReferenceValidation
     Applications,
     ParkingPermit,
     FPN4or5,
-    StockportBereavementInvoice
+    StockportBereavementInvoice,
+    PlanningApplication
 }

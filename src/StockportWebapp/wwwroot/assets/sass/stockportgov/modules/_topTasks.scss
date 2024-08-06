@@ -66,19 +66,17 @@
             float: left;
             text-align: left;
             align-self: center;
-            padding: 0.5em 0.5em 0.4em 0.4em;
+            padding: 0;
+            margin: 0 0.5em 0 0;
 
             @media #{$tablet} {
                 @include h-l;
 
                 flex-basis: auto;
-                padding: 0.1em 0 0.1em 0.4em;
             }
     
             @media #{$mobile} {
-                flex-basis: auto;
-                margin: 0;
-                padding: 0.6em;
+                align-self: auto;
             }
         }
 
@@ -115,18 +113,19 @@
         }
 
         &__content {
-            padding: 0;
-            width: 90%;
             display: flex;
+            width: 90%;
+            padding: 1em;
+
 
             @media #{$tablet} {
                 line-height: 1.5;
-                margin: 0.8em 0;
+                padding: 0.8em;
             }
             
             @media #{$mobile} {
                 line-height: 1.75;
-                margin: 0.2em 0;
+                padding: 0.5em;
             }
         }
     }
@@ -158,7 +157,7 @@
     
         @media #{$tablet} {
           float: right;
-          margin: 0 15px 0 15px;
+          margin: 0 15px;
         }
     
         @media #{$mobile} {

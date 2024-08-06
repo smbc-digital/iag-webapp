@@ -104,7 +104,7 @@ public class ContactUsMessageTagParserTest
 
     private static ProcessedSection ProcessedSectionWithDefaultSlugAndBody(string slug = "slug", string body = DefaultBody, string metaDescription = MetaDescription)
     {
-        return new ProcessedSection("title", slug, metaDescription, body, new List<Profile>(), null, new List<Alert>(), new List<GroupBranding>(), "logoAreaTitle");
+        return new ProcessedSection("title", slug, metaDescription, body, new List<Profile>(), null, new List<Alert>(), new List<GroupBranding>(), "logoAreaTitle", new DateTime());
     }
 
     private static Topic DefaultTopic()

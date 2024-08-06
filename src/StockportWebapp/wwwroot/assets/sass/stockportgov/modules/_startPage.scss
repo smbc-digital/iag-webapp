@@ -1,6 +1,8 @@
 .start-page {
-    &_upper {
-        margin-block-start: 2em;
+    word-break:break-word;
+
+    &_summary {
+        margin-block-end: 1.25em;
     }
 
     &_btn {
@@ -12,5 +14,12 @@
         padding-block-start: 1em;
         margin-block-end: 2em;
         border-top: 1px solid $stockport-grey-accent;
+    }
+
+    @media #{$mobile}
+    {
+        &--inline-margin {
+            margin-inline: 5px;
+        }
     }
 }

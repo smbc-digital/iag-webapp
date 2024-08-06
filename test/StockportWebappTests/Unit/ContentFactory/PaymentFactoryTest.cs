@@ -38,7 +38,7 @@ public class PaymentFactoryTest
             MetaDescription = MetaDescription
         };
 
-        _tagParserContainer.Setup(o => o.ParseAll(Description, It.IsAny<string>(), It.IsAny<bool>(), null, null, null, null, null)).Returns(Description);
+        _tagParserContainer.Setup(o => o.ParseAll(Description, It.IsAny<string>(), It.IsAny<bool>(), null, null, null, null, null, It.IsAny<bool>())).Returns(Description);
         _markdownWrapper.Setup(o => o.ConvertToHtml(Description)).Returns(Description);
     }
 
@@ -66,6 +66,6 @@ public class PaymentFactoryTest
     {
         _factory.Build(_payment);
 
-        _tagParserContainer.Verify(o => o.ParseAll(Description, _payment.Title, It.IsAny<bool>(), null, null, null, null, null), Times.Once);
+        _tagParserContainer.Verify(o => o.ParseAll(Description, _payment.Title, It.IsAny<bool>(), null, null, null, null, null, It.IsAny<bool>()), Times.Once);
     }
 }
