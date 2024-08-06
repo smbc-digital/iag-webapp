@@ -37,9 +37,9 @@
   	}
 
   	&-detail {
-		border-left: solid 2px $greyLighter;
+		border-left: solid 2px #ccc;
 		vertical-align: top;
-		padding-left: 20px;
+		padding-inline: 1em;
 		border-top: none;
 		border-bottom: none;
 		
@@ -53,7 +53,18 @@
 			@include h-s;
 			color: $stockport-green;
 			text-decoration: underline;
-			margin-bottom: 0.5em;
+		}
+
+		&__info {
+			font-size: 1em;
+		}
+
+		p:first-of-type {
+			margin-top: 0.5em;
+		}
+
+		p {
+			margin-bottom: 0px;
 		}
 
 		// old style - should be removed after decommissioning old document pages
@@ -66,10 +77,6 @@
 			@media #{$mobile} {
 				font-size: 1.125em;
 			}
-		}
-
-		p {
-			margin-bottom: 0px;
 		}
   	}
 }
