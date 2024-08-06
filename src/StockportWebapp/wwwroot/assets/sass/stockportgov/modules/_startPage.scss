@@ -15,4 +15,11 @@
         margin-block-end: 2em;
         border-top: 1px solid $stockport-grey-accent;
     }
+
+    @media #{$mobile}
+    {
+        &--inline-margin {
+            margin-inline: 5px;
+        }
+    }
 }

@@ -18,12 +18,12 @@
                 
                 @if(!string.IsNullOrEmpty(Model.Summary))
                 {
-                    <div class="lead start-page_summary">
+                    <div class="lead start-page_summary start-page--inline-margin">
                         @Html.Raw(@Model.Summary)
                     </div>
                 }   
 
-                <section>
+                <section class="start-page--inline-margin">
                     <article>
                         <div class="start-page_upper" >
                             @Html.Raw(Model.UpperBody)
@@ -41,7 +41,6 @@
                         }
                     </article>
                 </section>
-
             </div>
         </div>
     </div>
