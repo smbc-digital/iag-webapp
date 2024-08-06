@@ -7,11 +7,7 @@
 @if (Model.Any() && isLogoOnArticle)
 {
     <section class="section section--white section--no-margin @borderTopClass" data-cy="logo-area">
-        <div class="grid-container">
-            <div class="grid-100">
-                <partial name="LogoAreaImage" model='@Model' />
-            </div>
-        </div>
+        <partial name="LogoAreaImage" model='@Model' />
     </section>
 }
 else if (Model.Any())

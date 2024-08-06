@@ -9,6 +9,10 @@
 	div:first-of-type {
 		display: flex;
 		align-items: center;
+
+		@media #{$mobile} {
+			display: block;
+		}
 	}
 
 	&-icon {
