@@ -31,7 +31,7 @@ public class TopicRepositoryTests
                     .ReturnsAsync(new HttpResponse(404, It.IsAny<string>(), It.IsAny<string>()));
 
         // Act
-        var result = await _topicRepository.Get<Topic>();
+        HttpResponse result = await _topicRepository.Get<Topic>();
 
         // Assert
         Assert.Equal(404, result.StatusCode);
@@ -53,9 +53,9 @@ public class TopicRepositoryTests
         HttpResponse httpResponse = new(200, JsonConvert.SerializeObject(processedTopic), "OK");
         _httpClient.Setup(_ => _.Get(It.IsAny<string>(), It.IsAny<Dictionary<string, string>>()))
                     .ReturnsAsync(httpResponse);
-        
+
         // Act
-        var result = await _topicRepository.Get<Topic>();
+        HttpResponse result = await _topicRepository.Get<Topic>();
 
         // Assert
         Assert.Equal(200, result.StatusCode);

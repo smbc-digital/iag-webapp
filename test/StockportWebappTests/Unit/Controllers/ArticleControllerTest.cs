@@ -279,9 +279,9 @@ public class ArticleControllerTest
         _processedRepository
             .Setup(_ => _.Get<Article>(It.IsAny<string>(), It.IsAny<List<Query>>()))
             .ReturnsAsync(HttpResponse.Successful(200, article));
-        
+
         // Act
-        var result = await _controller.ArticleWithSection(string.Empty, "test-slug", string.Empty) as ViewResult;
+        ViewResult result = await _controller.ArticleWithSection(string.Empty, "test-slug", string.Empty) as ViewResult;
         var resultModel = result.ViewData.Model as ArticleViewModel;
 
         // Assert

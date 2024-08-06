@@ -1,6 +1,7 @@
 using StockportWebapp.Comparers;
-
 namespace StockportWebapp.Models;
+
+[ExcludeFromCodeCoverage]
 public class DirectoryEntry : ISlugComparable
 {
     public string Slug { get; set; }
