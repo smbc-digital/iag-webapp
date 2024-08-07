@@ -40,6 +40,7 @@ public class ShowcaseControllerTest
                     "teaser",
                     "icon",
                     "type",
+                    "contentType",
                     "image.jpg",
                     new List<SubItem>(), "teal")
             },

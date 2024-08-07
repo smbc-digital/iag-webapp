@@ -16,12 +16,12 @@ public class HomeControllerTest
     private readonly List<string> _popularSearchTerms = new() { "popular", "search", "terms" };
     private readonly List<SubItem> _featuredTasks = new()
     {
-        new SubItem("slug featuredTasks", "featured Tasks", "teaser Featured Tasks", "fa fa-home", "", "image", new List<SubItem>(), "teal")
+        new SubItem("slug featuredTasks", "featured Tasks", "teaser Featured Tasks", "fa fa-home", "", "", "image", new List<SubItem>(), "teal")
     };
     
     private readonly List<SubItem> _featuredTopics = new()
     {
-        new SubItem("Council Tax", "council-tax", "How to pay, discounts", "", "", "", new List<SubItem>(), "teal")
+        new SubItem("Council Tax", "council-tax", "How to pay, discounts", "", "", "", "", new List<SubItem>(), "teal")
     };
 
     private readonly List<Alert> _alerts = new()

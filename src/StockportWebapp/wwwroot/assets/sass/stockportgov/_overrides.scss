@@ -101,9 +101,34 @@ hr {
         }   
     }
 
+    &-bg-pink {
+        background-color: $stockport-pink;
+
+        h1, h2, p {
+            color: white !important; 
+        }   
+    }
+
+    &-bg-blue {
+        background-color: $stockport-blue;
+
+        h1, h2, p {
+            color: white !important; 
+        }   
+    }
+
     &-bg-grey {
         background-color: $stockport-light-grey;
         text-align: center;
+
+        h1, h2, p {
+            color: black !important; 
+        }  
+    }
+
+    &-inline-margin {
+        margin-inline: 1em;
+        padding: 0.5em;
     }
 
     &-article {

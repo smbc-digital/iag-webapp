@@ -1,0 +1,22 @@
+﻿@model List<SubItem>
+@{
+    
+}
+
+@if (Model is not null)
+{
+    <section class="section section--white">
+        <div class="grid-container">
+            <div class="grid-100">
+                <div class="placeholder placeholder-bg-blue placeholder-small">
+                    @foreach(var subItem in Model)
+                    {
+                        <div class="placeholder placeholder-bg-grey placeholder-small placeholder-inline-margin">
+                            <h2>TRIVIA LIST</h2>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </section>
+}

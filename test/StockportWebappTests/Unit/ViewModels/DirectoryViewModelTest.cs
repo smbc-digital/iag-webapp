@@ -90,8 +90,8 @@ public class DirectoryViewModelTest
         {
             SubItems = new List<SubItem> ()
             {
-                new("slug", "title", "teaser", "icon", "directory", "image", new List<SubItem>(), "teal"),
-                new("slug2", "title2", "teaser2", "icon2", "directory2", "image2", new List<SubItem>(), "teal")
+                new("slug", "title", "teaser", "icon", "directory", string.Empty, "image", new List<SubItem>(), "teal"),
+                new("slug2", "title2", "teaser2", "icon2", "directory2", string.Empty, "image2", new List<SubItem>(), "teal")
             },
         };
 
@@ -160,8 +160,8 @@ public class DirectoryViewModelTest
         var directory = new Directory
         {
             SubItems = new List<SubItem>(){
-                new("slug", "title", "teaser", "icon1", "type", "image", new List<SubItem>(), "teal"),
-                new("slug2", "title2", "teaser2", "", "type2", "image2", new List<SubItem>(), "teal")
+                new("slug", "title", "teaser", "icon1", "type", "contentType", "image", new List<SubItem>(), "teal"),
+                new("slug2", "title2", "teaser2", "", "type2", "contentType", "image2", new List<SubItem>(), "teal")
             }
         };
 
