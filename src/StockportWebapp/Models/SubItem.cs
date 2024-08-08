@@ -10,10 +10,12 @@ public class SubItem
     public readonly string ContentType;
     public readonly string NavigationLink;
     public readonly string Image;
+    public int MailingListId;
+    public string Body;
     public string ColourScheme;
     public readonly List<SubItem> SubItems;
 
-    public SubItem(string slug, string title, string teaser, string icon, string type, string contentType, string image, List<SubItem> subItems, string colourScheme)
+    public SubItem(string slug, string title, string teaser, string icon, string type, string contentType, string image, int mailingListId, string body, List<SubItem> subItems, string colourScheme)
     {
         Slug = slug;
         Title = title;
@@ -23,6 +25,8 @@ public class SubItem
         ContentType = contentType;
         NavigationLink = TypeRoutes.GetUrlFor(type, slug);
         Image = image;
+        MailingListId = mailingListId;
+        Body = body;
         SubItems = subItems;
         ColourScheme = colourScheme;
     }

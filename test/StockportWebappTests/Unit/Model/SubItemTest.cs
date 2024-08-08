@@ -5,25 +5,30 @@ public class SubItemTest
     [Fact]
     public void SetsNavigationLinkForATopic()
     {
-        var subItem = new SubItem("slug", "title", "Teaser", "Icon", "topic", "contentType", "image", new List<SubItem>(), "teal");
+        // Arrange
+        SubItem subItem = new("slug", "title", "Teaser", "Icon", "topic", "contentType", "image", 0, "body text", new List<SubItem>(), "teal");
 
+        // Act & Assert
         Assert.Equal("/topic/slug", subItem.NavigationLink);
     }
 
     [Fact]
     public void SetsNavigationLinkForAnArticle()
     {
-        var subItem = new SubItem("slug", "title", "Teaser", "Icon", "article", "contentType", "image", new List<SubItem>(), "teal");
+        // Arrange
+        SubItem subItem = new("slug", "title", "Teaser", "Icon", "article", "contentType", "image", 0, "body text", new List<SubItem>(), "teal");
 
+        // Act & Assert
         Assert.Equal("/slug", subItem.NavigationLink);
     }
 
     [Fact]
     public void SetsNavigationLinkForAStartPage()
     {
-        var subItem = new SubItem("slug", "title", "Teaser", "Icon", "start-page", "contentType", "image", new List<SubItem>(), "teal");
+        // Arrange
+        SubItem subItem = new("slug", "title", "Teaser", "Icon", "start-page", "contentType", "image", 0, "body text", new List<SubItem>(), "teal");
 
+        // Act & Assert
         Assert.Equal("/start/slug", subItem.NavigationLink);
     }
-
 }
