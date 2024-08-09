@@ -4,8 +4,11 @@
     var additionalCssClasses = ViewData["AdditionalCssClasses"];
 }
 @if (Model.Any())
-{
-    <div class="directory--border-top directory--no-margin @additionalWrapperCssClasses">
-        <partial name="LogoArea" model='Model' view-data='new ViewDataDictionary(ViewData) {{"logoAreaArticle", false}, {"logoAreaTitle", "In partnership with"}, {"borderTopClass", $"{additionalCssClasses} directory--padding"}}' />
+{   <div class="@additionalWrapperCssClasses">
+        <div class="directory__wrapper navcard--white @additionalCssClasses">
+            <div class="directory--border-top directory--no-margin">
+                <partial name="LogoArea" model='Model' view-data='new ViewDataDictionary(ViewData) {{"logoAreaTitleStylingBlank", true}, {"logoAreaArticle", false}, {"logoAreaTitle", "In partnership with"}, {"borderTopClass", $"{additionalCssClasses} directory--padding"}}' />
+            </div>
+        </div>
     </div>
 }
