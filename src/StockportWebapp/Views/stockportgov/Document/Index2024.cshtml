@@ -7,6 +7,7 @@
 
     string multipleDocuments = Model.DocumentPage.MultipleDocuments ? "About these documents" : "About the document";
     string multipleDocumentsTitle = Model.DocumentPage.MultipleDocuments ? "Documents" : "Document";
+    string datePublishedClass = Model.DisplayLastUpdated ? string.Empty : "document-page-date";
 }
 
 <div class="grid-container-full-width" style="background-color: white;" data-cy="document-page">
@@ -56,17 +57,16 @@
                         </ul>
                     }
 
-                    <p>
-                        Date published <strong>@Model.DocumentPage.DatePublished.ToString("d MMMM yyyy")</strong>
+                    <p class="@datePublishedClass">
+                        Date published: <strong>@Model.DocumentPage.DatePublished.ToString("d MMMM yyyy")</strong>
                     </p>
 
-                    <p>
-                        Last published <strong>@Model.DocumentPage.LastUpdated.ToString("d MMMM yyyy")</strong>
-                    </p>
-
-                    <p class="document-page-date">
-                        Last updated <partial name="FormattedDate" model='Model.DocumentPage.UpdatedAt' />
-                    </p>
+                    @if(Model.DisplayLastUpdated)
+                    {
+                        <p class="document-page-date">
+                            Last updated: <strong>@Model.DocumentPage.LastUpdated.ToString("d MMMM yyyy")</strong>
+                        </p>
+                    }
                 </section>
             </div>
         </div>

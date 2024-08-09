@@ -12,4 +12,6 @@ public class DocumentPageViewModel
         DocumentPage = documentPage;
         OgTitleMetaData = documentPage.Title;
     }
+
+    public bool DisplayLastUpdated => !DocumentPage.LastUpdated.Equals(DateTime.MaxValue);
 }
