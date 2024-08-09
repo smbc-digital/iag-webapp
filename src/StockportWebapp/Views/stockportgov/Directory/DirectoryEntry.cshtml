@@ -36,5 +36,10 @@
         </div>
     </div>
 
-    <partial name="DirectoryContentDisclaimer">
+    <section class="section section--white section--padded section--no-margin">
+        <div class="grid-container">
+            <partial name="DirectoryReportProblem" model='Html.UrlEncoder.Encode(Model.DirectoryEntry.Name)' />
+            <partial name="DirectoryContentDisclaimer" />
+        </div>
+    </section>
 </div>

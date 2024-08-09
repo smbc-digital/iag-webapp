@@ -16,8 +16,11 @@
 <partial name="GlobalAlerts" model='Model.Alerts' />
 
 <div class="grid-container-full-width" style="background-color:white;" data-cy=@dataCy>
+    
     <partial name="Breadcrumb2023" model='@Model.Breadcrumbs' />
+    
     <partial name="DirectorySearch" model="new DirectorySearchViewModel(){ Slug = Model.ParentDirectory.Slug, Title = Model.ParentDirectory.Title, Branding=Model.ParentDirectory.SearchBranding, SearchTerm = Model.SearchTerm }" />
+ 
     <div class="grid-container">
         <div class="grid-100">
             @if(!Model.IsRootDirectory)
@@ -32,14 +35,23 @@
     </div>
 
     <h2 class="visuallyhidden">Services in @Model.Title</h2>
+
     <partial name="CallToAction" model='Model.CallToAction' view-data='new ViewDataDictionary(ViewData) { { "AdditionalCssClass", "section--margin-top-1"  } }'/>
     <partial name="DirectoryNavCardList" />
+    
     @if (!string.IsNullOrEmpty(Model.EventBanner.Title))
     {
         <div class="event-calendar-banner--margin-top">
             <partial name="EventBanner" model='Model.EventBanner'/>
         </div>
     }
+
     <partial name="ExternalLinks" model='new ExternalLinksViewModel() { ExternalLinks=Model.ExternalLinks, RelatedContent=Model.RelatedContent }'/>
-    <partial name="DirectoryContentDisclaimer"/>
+
+    <section class="section section--grey section--padded section--no-margin">
+        <div class="grid-container">
+            <partial name="DirectorySignUp" />
+            <partial name="DirectoryContentDisclaimer" />
+        </div>
+    </section>
 </div>
