@@ -6,14 +6,30 @@
 	letter-spacing: 0;
 }
 
-.document-page {
-	@media #{$mobile}
-	{
-		margin-inline: 5px;
-	}
+.document{
+	&-page {
+		@media #{$mobile}
+		{
+			margin-inline: 5px;
+		}
 
-	&-date {
-		margin-bottom: 2em;
+		&-date {
+			margin-bottom: 2em;
+		}
+
+		ul {
+			li {
+				margin-bottom: 10px;
+			}
+		}
+
+		h2 {
+			margin-top: 1em;
+		}
+		
+		h3 {
+			margin-bottom: 20px;
+		}
 	}
 }
 
