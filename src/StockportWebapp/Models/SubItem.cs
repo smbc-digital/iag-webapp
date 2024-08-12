@@ -26,7 +26,7 @@ public class SubItem
         NavigationLink = TypeRoutes.GetUrlFor(type, slug);
         Image = image;
         MailingListId = mailingListId;
-        Body = body;
+        Body = MarkdownWrapper.ToHtml(body);
         SubItems = subItems;
         ColourScheme = colourScheme;
     }

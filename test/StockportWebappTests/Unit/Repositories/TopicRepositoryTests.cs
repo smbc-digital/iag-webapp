@@ -21,7 +21,7 @@ public class TopicRepositoryTests
         _markdownWrapper = new Mock<MarkdownWrapper>();
 
         _topicFactory = new TopicFactory(_tagParserContainer.Object, _markdownWrapper.Object);
-        _topicRepository = new TopicRepository(_topicFactory, _urlGenerator, _httpClient.Object, _applicationConfiguration.Object, _urlGeneratorSimple.Object);
+        _topicRepository = new TopicRepository(_topicFactory, _urlGenerator, _httpClient.Object, _applicationConfiguration.Object);
     }
 
     [Fact]

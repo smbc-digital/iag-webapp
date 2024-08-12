@@ -1,4 +1,4 @@
-﻿@model List<SubItem>
+﻿@model SubItem
 @{
  
 }
@@ -7,8 +7,11 @@
     <section class="section section--white">
         <div class="grid-container">
             <div class="grid-100">
-                <div class="placeholder placeholder-bg-pink placeholder-small">
-                    <h2>BODY</h2>
+                <div class="placeholder placeholder-bg-pink placeholder-large">
+                    <div>
+                        <h2>BODY</h2>
+                        @Html.Raw(Model.Body)
+                    </div>
                 </div>
             </div>
         </div>
