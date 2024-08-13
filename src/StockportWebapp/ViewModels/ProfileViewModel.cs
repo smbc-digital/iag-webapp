@@ -7,9 +7,12 @@ public class ProfileViewModel
 {
     public readonly Profile Profile;
     public bool Redesigned;
+    public SidebarViewModel Sidebar;
+
     public ProfileViewModel(Profile profile)
     {
         Profile = profile;
+        Sidebar = new SidebarViewModel(this);
     }
 
     public bool HasParentTopicWithSubItems() =>
