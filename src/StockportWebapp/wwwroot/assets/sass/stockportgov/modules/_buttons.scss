@@ -224,16 +224,6 @@ html[dir="rtl"] {
 }
 
 /*
-    Overrides for the specfic use case of vertically centering the button to email subscription area
-*/
-.email-subsciption {
-    .btn {
-        @media #{$desktop} {
-            margin-top: 27px;
-        }
-    }
-}
-/*
     The following are legacys tles theat will hopefully be migrated to the above.
 */
 .reCaptcha {

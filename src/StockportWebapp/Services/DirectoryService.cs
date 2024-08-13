@@ -75,8 +75,7 @@ public class DirectoryService : IDirectoryService {
                                             && theme.Filters.Any(filter => filter is not null
                                                                     && !string.IsNullOrEmpty(filter.DisplayName)
                                                                     && filter.DisplayName.ToLower().Contains(searchTerm)))))
-            .ToList()
-            .OrderBy(directoryEntry => directoryEntry.Name);
+            .ToList();
     }
 
     public IEnumerable<DirectoryEntry> GetFilteredEntries(IEnumerable<DirectoryEntry> entries, string[] appliedFilters)

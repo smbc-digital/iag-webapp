@@ -2,21 +2,29 @@
 @{
     string borderTopClass = (string)ViewData["borderTopClass"];
     bool isLogoOnArticle = (bool)ViewData["logoAreaArticle"];
+    bool displayInSection = ViewData["displayInSection"] is null 
+                                ? false 
+                                : (bool)ViewData["displayInSection"];
 }
 
-@if (Model.Any() && isLogoOnArticle)
+@if (displayInSection && Model.Any() )
 {
     <section class="section section--white section--no-margin @borderTopClass" data-cy="logo-area">
-        <partial name="LogoAreaImage" model='@Model' />
+        @if(isLogoOnArticle)
+        {
+            <partial name="LogoAreaImage" model='@Model' />
+        }
+        else
+        {
+            <div class="grid-container">
+                <div class="grid-100">
+                    <partial name="LogoAreaImage" model='@Model' />
+                </div>
+            </div>
+        }   
     </section>
 }
 else if (Model.Any())
 {
-    <section class="section section--white section--no-margin @borderTopClass" data-cy="logo-area">
-        <div class="grid-container">
-            <div class="grid-100">
-                <partial name="LogoAreaImage" model='@Model' />
-            </div>
-        </div>
-    </section>
+    <partial name="LogoAreaImage" model='@Model' />
 }

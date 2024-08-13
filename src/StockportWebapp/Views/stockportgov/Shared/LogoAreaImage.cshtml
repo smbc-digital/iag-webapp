@@ -1,9 +1,23 @@
 @model List<GroupBranding>
 @{
     string logoAreaTitle = (string)ViewData["logoAreaTitle"];
-    string headingClass = (bool)ViewData["logoAreaArticle"] && (bool)ViewData["articleWithSection"]
-        ? "section__title section__title--padded-bottom section__title--padding-top"
-        : "section__title section__title--padded-bottom section__title--border-top";
+    bool logoAreaTitleStylingBlank = ViewData["logoAreaTitleStylingBlank"] is not null
+        ? (bool)ViewData["logoAreaTitleStylingBlank"]
+        : false;
+
+    string headingClass = string.Empty;
+
+    if (!logoAreaTitleStylingBlank)
+    {
+        headingClass = "section__title section__title--padded-bottom";
+        bool articleWithSection = ViewData["articleWithSection"] is null 
+                                    ? true 
+                                    : (bool)ViewData["articleWithSection"];
+
+        headingClass += (bool)ViewData["logoAreaArticle"] && (bool)ViewData["articleWithSection"]
+            ? " section__title--padding-top"
+            : " section__title--border-top";
+    }
 }
 
 <h2 class="@headingClass">@(logoAreaTitle ?? "Our partners")</h2>
