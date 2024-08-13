@@ -48,7 +48,7 @@ public class DirectoryController : Controller
         var parentDirectories = await GetParentDirectories(pageLocation.ParentSlugs);
         var entries = GetSearchedFilteredSortedEntries(directory.AllEntries, filters, orderBy, searchTerm);
         var pinnedEntries = entries.Where(entry => directory.PinnedEntries.Any(pinnedEntry => pinnedEntry.Slug.Equals(entry.Slug)));
-        var regularEntries = entries.Where(entry => directory.RegularEntries.Any(regularEntry => regularEntry.Slug.Equals(entry.Slug)));
+        var regularEntries = entries.Where(entry => directory.RegularEntries.Any(regularEntry => regularEntry.Slug.Equals(entry.Slug))).OrderBy(directoryEntry => directoryEntry.Name);
         var allFilterThemes = _directoryService.GetFilterThemes(entries);
 
         DirectoryViewModel viewModel = new(slug, directory, GetBreadcrumbsForDirectories(directory, parentDirectories, false, true), pinnedEntries, regularEntries, page)
@@ -69,7 +69,7 @@ public class DirectoryController : Controller
     {
         entries = filters.Any()
             ? _directoryService.GetFilteredEntries(entries, filters) 
-            : entries.OrderBy(directoryEntry => directoryEntry.Name);
+            : entries;
 
         if (!string.IsNullOrEmpty(searchTerm))
             entries = _directoryService.GetSearchedEntryForDirectories(entries, searchTerm);
