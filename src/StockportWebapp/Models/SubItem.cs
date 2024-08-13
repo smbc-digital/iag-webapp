@@ -13,9 +13,10 @@ public class SubItem
     public int MailingListId;
     public string Body;
     public string ColourScheme;
+    public string ComponentWidth;
     public readonly List<SubItem> SubItems;
 
-    public SubItem(string slug, string title, string teaser, string icon, string type, string contentType, string image, int mailingListId, string body, List<SubItem> subItems, string colourScheme)
+    public SubItem(string slug, string title, string teaser, string icon, string type, string contentType, string image, int mailingListId, string body, List<SubItem> subItems, string colourScheme, string componentWidth)
     {
         Slug = slug;
         Title = title;
@@ -29,6 +30,7 @@ public class SubItem
         Body = MarkdownWrapper.ToHtml(body);
         SubItems = subItems;
         ColourScheme = colourScheme;
+        ComponentWidth = componentWidth;
     }
 
     public string GetNavigationLink(string additionalUrlContent) => TypeRoutes.GetUrlFor(Type, $"{additionalUrlContent}/{Slug}");

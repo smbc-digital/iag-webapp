@@ -41,7 +41,9 @@ public class ShowcaseControllerTest
                     "image.jpg",
                     0,
                     "body text",
-                    new List<SubItem>(), "teal")
+                    new List<SubItem>(),
+                    "teal",
+                    string.Empty)
             },
             new List<Crumb>
             {
