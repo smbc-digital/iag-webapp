@@ -1,0 +1,81 @@
+@{
+    string borderGrey = "navcard--border-left-1 navcard--border-right-1 navcard--theme-grey-accent-all";
+    string liClasses = "navcard navcard--grey navcard--no-margin navcard--no-padding-right-rtl navcard--width-100";
+    string paddingBottom = "navcard--border-bottom-1 navcard--radius-bottom-left navcard--radius-bottom-right";
+    bool hasMoreButton = false;
+    IEnumerable<SubItem> sidebarSubItems = new List<SubItem>();
+    string parentTopicName = string.Empty;
+    string parentTopicSlug = string.Empty;
+    string parentTopicTeaser = string.Empty;
+    string parentTopicIcon = string.Empty;
+    string parentTopicImage = string.Empty;
+
+    if (Model is ProfileViewModel profileViewModel)
+    {
+        sidebarSubItems = profileViewModel.SidebarSubItems(out hasMoreButton);
+        parentTopicName = profileViewModel.Profile.ParentTopic.Name;
+        parentTopicSlug = profileViewModel.Profile.ParentTopic.Slug;
+        parentTopicTeaser = profileViewModel.Profile.ParentTopic.Teaser;
+        parentTopicIcon = profileViewModel.Profile.ParentTopic.Icon;
+        parentTopicImage = profileViewModel.Profile.ParentTopic.Image;
+    }
+    else if (Model is ArticleViewModel articleViewModel)
+    {
+        sidebarSubItems = articleViewModel.SidebarSubItems(out hasMoreButton)
+                            .Where(subItem => !subItem.NavigationLink.Equals(articleViewModel.Article.NavigationLink));
+        parentTopicName = articleViewModel.Article.ParentTopic.Name;
+        parentTopicSlug = articleViewModel.Article.ParentTopic.Slug;
+        parentTopicTeaser = articleViewModel.Article.ParentTopic.Teaser;
+        parentTopicIcon = articleViewModel.Article.ParentTopic.Icon;
+        parentTopicImage = articleViewModel.Article.ParentTopic.Image;
+    }
+    else if (Model is PrivacyNoticeViewModel privacyNoticeViewModel)
+    {
+        sidebarSubItems = privacyNoticeViewModel.SidebarSubItems(out hasMoreButton)
+                            .Where(subItem => !subItem.NavigationLink.Equals(privacyNoticeViewModel.PrivacyNotice.NavigationLink));
+        parentTopicName = privacyNoticeViewModel.PrivacyNotice.ParentTopic.Name;
+        parentTopicSlug = privacyNoticeViewModel.PrivacyNotice.ParentTopic.Slug;
+        parentTopicTeaser = privacyNoticeViewModel.PrivacyNotice.ParentTopic.Teaser;
+        parentTopicIcon = privacyNoticeViewModel.PrivacyNotice.ParentTopic.Icon;
+        parentTopicImage = privacyNoticeViewModel.PrivacyNotice.ParentTopic.Image;
+    }
+}
+
+<nav aria-labelledby="navcard__title">
+    <ul class="navcard navcard-wrapper--no-margin navcard--border-top-10 navcard--no-padding-right-rtl navcard--theme-teal-lighter-top navcard--width-100">
+        <li class="@liClasses">
+            <div class="@borderGrey">
+                <div class="navcard--padding navcard--padding-top navcard--grey">
+                    <h2 class="h-ml h--no-top-margin h--no-bottom-margin" id="navcard__title">Also in @parentTopicName</h2>
+                </div>
+            </div>
+        </li>
+
+        @foreach (SubItem item in sidebarSubItems)
+        {
+            bool isLastItem = item.Equals(sidebarSubItems.Last()) && !hasMoreButton;
+            <li class="@liClasses">
+                <div class="@borderGrey @(isLastItem ? paddingBottom : null)">
+                    <partial name="SidebarNavCard" model="item"
+                             view-data='isLastItem
+                                ? new ViewDataDictionary(ViewData) {{ "navcardPadding", "navcard--padding-bottom" }}
+                                : null' />
+                </div>
+            </li>
+        }
+
+        @if (hasMoreButton)
+        {
+            <li class="@liClasses">
+                <div class="@borderGrey navcard--border-bottom-1 navcard--radius-bottom-left navcard--radius-bottom-right">
+                    <partial name="SidebarNavCard"
+                             model='new SubItem(parentTopicSlug, parentTopicName, parentTopicTeaser, parentTopicIcon, "topic", string.Empty, parentTopicImage, 0, string.Empty, new List<SubItem>(), "teal", string.Empty)'
+                             view-data='@(new ViewDataDictionary(ViewData) {
+                                    {"url", @Url.Action("Index", "Topic", new { topicSlug = parentTopicSlug })},
+                                    {"hasMoreButton", @hasMoreButton},
+                                    {"navcardPadding", "navcard--padding-bottom"}})' />
+                </div>
+            </li>
+        }
+    </ul>
+</nav>

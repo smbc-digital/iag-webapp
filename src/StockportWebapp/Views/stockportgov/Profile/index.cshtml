@@ -1,38 +1,50 @@
-﻿@using StockportWebapp.Models;
+@using StockportWebapp.Models;
 @model ProfileViewModel
 @{
     Profile profile = Model.Profile;
     ViewData["Title"] = profile.Title;
-    ViewData["FullWidth"] = "full-width profile";
-    var articleTitle = profile.Breadcrumbs.LastOrDefault() != null ? $"{profile.Breadcrumbs.LastOrDefault().Title} - " : string.Empty;
+    string articleTitle = profile.Breadcrumbs.LastOrDefault() is not null ? $"{profile.Breadcrumbs.LastOrDefault().Title} - " : string.Empty;
     ViewData["og:title"] = articleTitle + profile.Title;
-    Layout = "../Shared/_LayoutSemantic.cshtml";
+    Layout = "../Shared/_Layout2023.cshtml";
 }
 
-@section Breadcrumbs {
-    <partial name="SemanticBreadcrumb" model='profile.Breadcrumbs' />
-}
+<div class="grid-container-full-width" style="background-color:white;" data-cy="profile">
+    <partial name="GlobalAlerts" model='Model.Profile.Alerts' />
+    <partial name="Breadcrumb2023" model='@profile.Breadcrumbs' />
 
-<article class="page-container" data-cy="profile-page">
-    <h1 tabindex="-1">@ViewData["Title"]</h1>
-    <p class="lead-paragraph">@profile.Subtitle</p>
-    <hr class="thick-divider" />
-    <section>
-        @Html.Raw(profile.Body)
-    </section>
+    <div class="grid-container">
+        <div class="grid-100">
+            <div class="article--70">
+                <h1 class="profile__title">@profile.Title</h1>
+                <h2 class="article__sub-title">@profile.Subtitle</h2>
+            </div>
 
-    @if (Model.Profile.TriviaSection is not null)
-    {
-        <hr class="thick-divider" />
-        <partial name="Components/Trivia/Default" model="new TriviaViewModel(){ TriviaList = Model.Profile.TriviaSection, TriviaTitle = profile.TriviaSubheading }" />
-    }
-</article>
+            <section class="article">
+                <div class="section article--70">
+                    @if(!string.IsNullOrEmpty(profile.Image.Url))
+                    {
+                        <figure class="profile__figure">
+                            <img src=@profile.Image.Url alt="@profile.Image.Description" />
 
-@if (!string.IsNullOrEmpty(profile.EventsBanner.Title))
-{
-    <div class="banner-section">
-        <section>
-            <partial name="Events/Semantic/EventBanner" model='profile.EventsBanner'/>
-        </section>
+                            @if(!string.IsNullOrEmpty(profile.ImageCaption))
+                            {
+                                <figcaption>@profile.ImageCaption</figcaption>
+                            }
+                        </figure>
+                    }
+
+                    <div class="profile__text"> 
+                        @Html.Raw(profile.Body)
+                    </div>
+                </div>
+
+                <div class="article--30 section">
+                    @if (Model.HasParentTopicWithSubItems())
+                    {
+                        <partial name="SidebarNavCardList" />
+                    }
+                </div>
+            </section>
+        </div>
     </div>
-}
+</div>

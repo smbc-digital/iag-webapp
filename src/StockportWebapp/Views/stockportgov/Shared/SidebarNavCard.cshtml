@@ -1,0 +1,12 @@
+﻿@model SubItem
+@{
+    string url = (string)ViewData["url"] ?? Model.NavigationLink;
+    string navcardPadding = (string)ViewData["navcardPadding"];
+    bool useNormalWeight = string.IsNullOrEmpty((string)ViewData["url"]);
+}
+
+<a class="navcard--padding navcard__link @navcardPadding" href="@url">
+    <h3 class="navcard__title navcard__title--no-margin @(useNormalWeight ? "navcard__title--normal-weight" : null)">
+        @Model.Title
+    </h3>
+</a>
