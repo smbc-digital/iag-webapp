@@ -16,12 +16,12 @@ public class HomeControllerTest
     private readonly List<string> _popularSearchTerms = new() { "popular", "search", "terms" };
     private readonly List<SubItem> _featuredTasks = new()
     {
-        new SubItem("slug featuredTasks", "featured Tasks", "teaser Featured Tasks", "fa fa-home", "", "image", new List<SubItem>(), "teal")
+        new SubItem("slug featuredTasks", "featured Tasks", "teaser Featured Tasks", "fa fa-home", string.Empty, string.Empty, "image", 123, string.Empty, new List<SubItem>(), "teal", string.Empty)
     };
     
     private readonly List<SubItem> _featuredTopics = new()
     {
-        new SubItem("Council Tax", "council-tax", "How to pay, discounts", "", "", "", new List<SubItem>(), "teal")
+        new SubItem("Council Tax", "council-tax", "How to pay, discounts", string.Empty, string.Empty, string.Empty, string.Empty, 0, string.Empty, new List<SubItem>(), "teal", string.Empty)
     };
 
     private readonly List<Alert> _alerts = new()
@@ -35,9 +35,9 @@ public class HomeControllerTest
         new CarouselContent("Carousel Title", "Carousel Teaser", "Carousel Image", "Carousel Url")
     };
 
-    private readonly CarouselContent _campaignBanner = new CarouselContent("Campaign Title", "Campaign Teaser", "Campaign Image", "Campaign Url");
-    private readonly DateTime _sunrise = new DateTime(2015, 9, 10);
-    private readonly DateTime _sunset = new DateTime(2015, 9, 20);
+    private readonly CarouselContent _campaignBanner = new("Campaign Title", "Campaign Teaser", "Campaign Image", "Campaign Url");
+    private readonly DateTime _sunrise = new(2015, 9, 10);
+    private readonly DateTime _sunset = new(2015, 9, 20);
 
     private readonly News _newsContent = new("title", "slug", "teaser", "purpose", "image", "thumbnail", "body",
         new List<Crumb>(), new DateTime(2015, 9, 10), new DateTime(2015, 9, 20), new DateTime(2015, 9, 15), new List<Alert>(),
@@ -50,13 +50,13 @@ public class HomeControllerTest
         Featured = true
     };
 
-    private readonly CallToActionBanner _callToActionBanner = new CallToActionBanner();
+    private readonly CallToActionBanner _callToActionBanner = new();
 
     #endregion
 
     public HomeControllerTest()
     {
-        var homePageContent = new ProcessedHomepage(_popularSearchTerms, "heading", "summary", _featuredTasks, _featuredTopics, _alerts, _carouselContents, "image.jpg", "foregroundimage.jpg", string.Empty, string.Empty, string.Empty, new List<News>(), "homepage text", null, "", "meta description", _campaignBanner, _callToActionBanner, _callToActionBanner, new List<SpotlightOnBanner>());
+        ProcessedHomepage homePageContent = new(_popularSearchTerms, "heading", "summary", _featuredTasks, _featuredTopics, _alerts, _carouselContents, "image.jpg", "foregroundimage.jpg", string.Empty, string.Empty, string.Empty, new List<News>(), "homepage text", null, "", "meta description", _campaignBanner, _callToActionBanner, _callToActionBanner, new List<SpotlightOnBanner>());
 
         _homepageService
             .Setup(_ => _.GetHomepage())
@@ -65,8 +65,8 @@ public class HomeControllerTest
         _newsService
             .Setup(_ => _.GetLatestNewsItem())
             .ReturnsAsync(_newsContent);
-        
-        var appSetting = AppSetting.GetAppSetting(EmailAlertsUrl);
+
+        AppSetting appSetting = AppSetting.GetAppSetting(EmailAlertsUrl);
         _config.Setup(_ => _.GetEmailAlertsUrl(BusinessId)).Returns(appSetting);
         _config.Setup(_ => _.GetEmailAlertsNewSubscriberUrl(BusinessId)).Returns(AppSetting.GetAppSetting("email_alerts_url"));
         _controller = new HomeController(new BusinessId(BusinessId), _config.Object, _newsService.Object, _eventsService.Object, _homepageService.Object, _stockportApiService.Object);
@@ -81,8 +81,8 @@ public class HomeControllerTest
             .ReturnsAsync(_eventsContent);
 
         // Act
-        var indexPage = await _controller.Index() as ViewResult;
-        var page = indexPage.ViewData.Model as HomepageViewModel;
+        ViewResult indexPage = await _controller.Index() as ViewResult;
+        HomepageViewModel page = indexPage.ViewData.Model as HomepageViewModel;
 
         // Assert
         Assert.NotNull(page.HomepageContent.PopularSearchTerms);
@@ -100,15 +100,15 @@ public class HomeControllerTest
             .ReturnsAsync(_eventsContent);
 
         // Act
-        var indexPage = await _controller.Index() as ViewResult;
-        var page = indexPage.ViewData.Model as HomepageViewModel;
+        ViewResult indexPage = await _controller.Index() as ViewResult;
+        HomepageViewModel page = indexPage.ViewData.Model as HomepageViewModel;
 
         // Assert
         Assert.Equal("heading", page.HomepageContent.FeaturedTasksHeading);
         Assert.Equal("summary", page.HomepageContent.FeaturedTasksSummary);
         page.HomepageContent.FeaturedTasks.Should().HaveCount(1);
         Assert.Single(page.HomepageContent.FeaturedTasks);
-        var featuredTask = page.HomepageContent.FeaturedTasks.First();
+        SubItem featuredTask = page.HomepageContent.FeaturedTasks.First();
         Assert.Equal("featured Tasks", featuredTask.Title);
         Assert.Contains("slug featuredTasks", featuredTask.NavigationLink);
         Assert.Equal("teaser Featured Tasks", featuredTask.Teaser);
@@ -125,12 +125,12 @@ public class HomeControllerTest
             .ReturnsAsync(_eventsContent);
 
         // Act
-        var indexPage = await _controller.Index() as ViewResult;
-        var page = indexPage.ViewData.Model as HomepageViewModel;
+        ViewResult indexPage = await _controller.Index() as ViewResult;
+        HomepageViewModel page = indexPage.ViewData.Model as HomepageViewModel;
 
         // Assert
         Assert.Single(page.HomepageContent.FeaturedTopics);
-        var featuredTopic = page.HomepageContent.FeaturedTopics.First();
+        SubItem featuredTopic = page.HomepageContent.FeaturedTopics.First();
         Assert.Equal("council-tax", featuredTopic.Title);
         Assert.Equal("How to pay, discounts", featuredTopic.Teaser);
         Assert.Empty(featuredTopic.SubItems);
@@ -145,12 +145,12 @@ public class HomeControllerTest
             .ReturnsAsync(_eventsContent);
 
         // Act
-        var indexPage = await _controller.Index() as ViewResult;
-        var page = indexPage.ViewData.Model as HomepageViewModel;
+        ViewResult indexPage = await _controller.Index() as ViewResult;
+        HomepageViewModel page = indexPage.ViewData.Model as HomepageViewModel;
 
         // Assert
         Assert.Single(page.HomepageContent.Alerts);
-        var alert = page.HomepageContent.Alerts.First();
+        Alert alert = page.HomepageContent.Alerts.First();
         Assert.Equal("title", alert.Title);
         Assert.Equal("subHeading", alert.SubHeading);
         Assert.Contains("body", alert.Body);
@@ -166,12 +166,12 @@ public class HomeControllerTest
             .ReturnsAsync(_eventsContent);
 
         // Act
-        var indexPage = await _controller.Index() as ViewResult;
-        var page = indexPage.ViewData.Model as HomepageViewModel;
+        ViewResult indexPage = await _controller.Index() as ViewResult;
+        HomepageViewModel page = indexPage.ViewData.Model as HomepageViewModel;
 
         // Assert
         Assert.Single(page.HomepageContent.CarouselContents);
-        var carouselContent = page.HomepageContent.CarouselContents.First();
+        CarouselContent carouselContent = page.HomepageContent.CarouselContents.First();
         Assert.Equal("Carousel Title", carouselContent.Title);
         Assert.Equal("Carousel Teaser", carouselContent.Teaser);
         Assert.Equal("Carousel Image", carouselContent.Image);
@@ -187,8 +187,8 @@ public class HomeControllerTest
             .ReturnsAsync(_eventsContent);
 
         // Act
-        var indexPage = await _controller.Index() as ViewResult;
-        var page = indexPage.ViewData.Model as HomepageViewModel;
+        ViewResult indexPage = await _controller.Index() as ViewResult;
+        HomepageViewModel page = indexPage.ViewData.Model as HomepageViewModel;
 
         // Assert
         Assert.Equal("image.jpg", page.HomepageContent.BackgroundImage);
@@ -205,8 +205,8 @@ public class HomeControllerTest
             .ReturnsAsync(_eventsContent);
 
         // Act
-        var indexPage = await _controller.Index() as ViewResult;
-        var page = indexPage.ViewData.Model as HomepageViewModel;
+        ViewResult indexPage = await _controller.Index() as ViewResult;
+        HomepageViewModel page = indexPage.ViewData.Model as HomepageViewModel;
 
         // Assert
         Assert.Equal("title", page.FeaturedNews.Title);
@@ -224,8 +224,8 @@ public class HomeControllerTest
             .ReturnsAsync(_eventsContent);
 
         // Act
-        var indexPage = await _controller.Index() as ViewResult;
-        var page = indexPage.ViewData.Model as HomepageViewModel;
+        ViewResult indexPage = await _controller.Index() as ViewResult;
+        HomepageViewModel page = indexPage.ViewData.Model as HomepageViewModel;
 
         // Assert
         Assert.Equal("title", page.FeaturedEvent.Title);
@@ -236,8 +236,8 @@ public class HomeControllerTest
     public async Task Index_Should_ReturnHomeView_WithCampaignBanner()
     {
         // Act
-        var indexPage = await _controller.Index() as ViewResult;
-        var page = indexPage.ViewData.Model as HomepageViewModel;
+        ViewResult indexPage = await _controller.Index() as ViewResult;
+        HomepageViewModel page = indexPage.ViewData.Model as HomepageViewModel;
 
         // Assert
         Assert.Equal("Campaign Title", page.HomepageContent.CampaignBanner.Title);
@@ -255,8 +255,8 @@ public class HomeControllerTest
             .ReturnsAsync((Event)null);
 
         // Act
-        var indexPage = await _controller.Index() as ViewResult;
-        var response = indexPage.ViewData.Model as HomepageViewModel;
+        ViewResult indexPage = await _controller.Index() as ViewResult;
+        HomepageViewModel response = indexPage.ViewData.Model as HomepageViewModel;
 
         // Assert
         Assert.NotNull(response.HomepageContent);
@@ -270,7 +270,7 @@ public class HomeControllerTest
         _homepageService.Setup(_ => _.GetHomepage()).ReturnsAsync((ProcessedHomepage)null);
 
         // Act
-        var response = await _controller.Index() as NotFoundResult;
+        NotFoundResult response = await _controller.Index() as NotFoundResult;
 
         // Assert
         Assert.Equal((int)HttpStatusCode.NotFound, response.StatusCode);
@@ -280,7 +280,7 @@ public class HomeControllerTest
     public async Task Index_Should_CallApiService_IfEventsCategoryNotEmpty()
     {
         // Arrange
-        var homePageContent = new ProcessedHomepage(new List<string>(), "heading", "summary", new List<SubItem>(), new List<SubItem>(), new List<Alert>(), new List<CarouselContent>(), "image.jpg", "foregroundImage.jpg", string.Empty, string.Empty, string.Empty, new List<News>(), "homepage text", null, "unittest", "meta description", _campaignBanner, _callToActionBanner, _callToActionBanner, new List<SpotlightOnBanner>());
+        ProcessedHomepage homePageContent = new(new List<string>(), "heading", "summary", new List<SubItem>(), new List<SubItem>(), new List<Alert>(), new List<CarouselContent>(), "image.jpg", "foregroundImage.jpg", string.Empty, string.Empty, string.Empty, new List<News>(), "homepage text", null, "unittest", "meta description", _campaignBanner, _callToActionBanner, _callToActionBanner, new List<SpotlightOnBanner>());
 
         _homepageService.Setup(_ => _.GetHomepage()).ReturnsAsync(homePageContent);
         _stockportApiService.Setup(_ => _.GetEventsByCategory("unittest", true)).ReturnsAsync(new List<Event> { new EventBuilder().Build() });
@@ -309,7 +309,7 @@ public class HomeControllerTest
         const string emailAddress = "me@email.com";
 
         // Act
-        var result = await _controller.EmailSubscribe(emailAddress, null) as RedirectResult;
+        RedirectResult result = await _controller.EmailSubscribe(emailAddress, null) as RedirectResult;
 
         // Assert
         Assert.IsType<RedirectResult>(result);
@@ -321,13 +321,13 @@ public class HomeControllerTest
     public async Task EmailSubscribe_Should_ReturnNotFound_IfEmailConfigurationIsMissing()
     {
         // Arrange
-        var appSetting = AppSetting.GetAppSetting(null);
+        AppSetting appSetting = AppSetting.GetAppSetting(null);
         _config
             .Setup(_ => _.GetEmailAlertsUrl(BusinessId))
             .Returns(appSetting);
 
         // Act
-        var response = await _controller.EmailSubscribe("me@email.com", "") as StatusCodeResult; ;
+        StatusCodeResult response = await _controller.EmailSubscribe("me@email.com", "") as StatusCodeResult; ;
 
         // Assert
         Assert.Equal((int)HttpStatusCode.NotFound, response.StatusCode);
@@ -340,7 +340,7 @@ public class HomeControllerTest
         const string emailAlertsTopicId = "test@email.com";
 
         // Act
-        var result = await _controller.EmailSubscribe(null, emailAlertsTopicId) as RedirectResult;
+        RedirectResult result = await _controller.EmailSubscribe(null, emailAlertsTopicId) as RedirectResult;
 
         // Assert
         Assert.IsType<RedirectResult>(result);

@@ -181,7 +181,7 @@ namespace StockportWebapp.Utils.Extensions
             services.AddTransient<ITopicRepository>(
               p =>
                   new TopicRepository(p.GetService<TopicFactory>(), p.GetService<UrlGenerator>(), p.GetService<IHttpClient>(),
-                      p.GetService<IApplicationConfiguration>(), p.GetService<UrlGeneratorSimple>()));
+                      p.GetService<IApplicationConfiguration>()));
             services.AddTransient<IDocumentPageRepository>(
                 p =>
                     new DocumentPageRepository(p.GetService<UrlGenerator>(), p.GetService<IHttpClient>(),

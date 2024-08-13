@@ -36,7 +36,7 @@ public class DirectoryService : IDirectoryService {
 
         Directory directory = (Directory)httpResponse.Content;
 
-        directory.Body = _markdownWrapper.ConvertToHtml(directory.Body ?? "");
+        directory.Body = _markdownWrapper.ConvertToHtml(directory.Body ?? string.Empty);
         directory.Body = _tagParserContainer.ParseAll(directory.Body, directory.Title, true, directory.AlertsInline, null, null, null, null);
 
         return directory;
