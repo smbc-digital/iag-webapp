@@ -34,12 +34,12 @@ public class ShowcaseBuilder
     public string _featuredItemsSubheading { get; set; } = "";
     public IEnumerable<SubItem> _featuredItems = new List<SubItem>()
     {
-        new("slug", "title", "teaser", "icon", "type", "contentType", "image.jpg", 0, string.Empty, new List<SubItem>() {new("slug", "title", "teaser", "icon", "type", "contentType", "image.jpg", 0, string.Empty, new List<SubItem>(), "teal", string.Empty) }, "teal", string.Empty)
+        new("slug", "title", "teaser", "icon", "type", "contentType", "image.jpg", 0, string.Empty, new List<SubItem>() {new("slug", "title", "teaser", "icon", "type", "contentType", "image.jpg", 0, string.Empty, new List<SubItem>(), string.Empty, "teal") }, string.Empty, "teal")
     };
 
     private readonly IEnumerable<SubItem> _secondaryItems = new List<SubItem>()
     {
-        new("slug", "title", "teaser", "icon", "type", "contentType", "image.jpg", 0, string.Empty, new List<SubItem>() {new("slug", "title", "teaser", "icon", "type", "contentType", "image.jpg", 0, string.Empty, new List<SubItem>(), "teal", string.Empty) }, "teal", string.Empty)
+        new("slug", "title", "teaser", "icon", "type", "contentType", "image.jpg", 0, string.Empty, new List<SubItem>() {new("slug", "title", "teaser", "icon", "type", "contentType", "image.jpg", 0, string.Empty, new List<SubItem>(), string.Empty, "teal") }, string.Empty, "teal")
     };
 
     public Showcase Build() => new()

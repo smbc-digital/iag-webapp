@@ -42,8 +42,8 @@ public class ShowcaseControllerTest
                     0,
                     "body text",
                     new List<SubItem>(),
-                    "teal",
-                    string.Empty)
+                    string.Empty,
+                    "teal")
             },
             new List<Crumb>
             {
