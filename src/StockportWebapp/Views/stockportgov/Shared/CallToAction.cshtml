@@ -1,7 +1,7 @@
 ﻿@model CallToActionBanner
 @{
-    string containerColourClass = !string.IsNullOrEmpty(Model?.Colour) && !Model.Colour.Equals("Teal") ? $"call-to-action--{Model.Colour.ToLower()}" : String.Empty;
-    string buttonColourClass = !string.IsNullOrEmpty(Model?.Colour) && !Model.Colour.Equals("Teal") ? $"btn--{Model.Colour.ToLower()}" : String.Empty;
+    string containerColourClass = !string.IsNullOrEmpty(Model?.Colour.ToString()) && !Model.Colour.Equals("Teal") ? $"call-to-action--{Model.Colour.ToString().ToLower()}" : String.Empty;
+    string buttonColourClass = !string.IsNullOrEmpty(Model?.Colour.ToString()) && !Model.Colour.Equals("Teal") ? $"btn--{Model.Colour.ToString().ToLower()}" : String.Empty;
     string additionalCSS = string.IsNullOrEmpty((string)ViewData["AdditionalCssClass"]) 
                         ? string.Empty 
                         : (string)ViewData["AdditionalCssClass"];

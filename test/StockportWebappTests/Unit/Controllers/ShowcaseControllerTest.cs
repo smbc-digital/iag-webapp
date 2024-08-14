@@ -43,7 +43,7 @@ public class ShowcaseControllerTest
                     "body text",
                     new List<SubItem>(),
                     string.Empty,
-                    "teal")
+                    EColourScheme.Teal)
             },
             new List<Crumb>
             {

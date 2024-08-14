@@ -6,9 +6,9 @@
     string navcardPaddingClasses = (string)ViewData["NavcardPaddingClasses"];
 
     string colourScheme = isRootDirectory
-                        ? string.IsNullOrEmpty(Model.ColourScheme)
+                        ? string.IsNullOrEmpty(Model.ColourScheme.ToString())
                             ? "teal"
-                            : Model.ColourScheme.ToLower()
+                            : Model.ColourScheme.ToString().ToLower()
                         : string.IsNullOrEmpty(alternativeColourScheme)
                             ? "teal"
                             : alternativeColourScheme.ToLower();

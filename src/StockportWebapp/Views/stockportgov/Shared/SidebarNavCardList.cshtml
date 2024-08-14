@@ -34,7 +34,7 @@
             <li class="@liClasses">
                 <div class="@borderGrey navcard--border-bottom-1 navcard--radius-bottom-left navcard--radius-bottom-right">
                     <partial name="SidebarNavCard"
-                             model='new SubItem(Model.ParentTopicSlug, @Model.ParentTopicName, Model.ParentTopicTeaser, Model.ParentTopicIcon, "topic", string.Empty, Model.ParentTopicImage, 0, string.Empty, new List<SubItem>(), "teal", string.Empty)'
+                             model='new SubItem(Model.ParentTopicSlug, @Model.ParentTopicName, Model.ParentTopicTeaser, Model.ParentTopicIcon, "topic", string.Empty, Model.ParentTopicImage, 0, string.Empty, new List<SubItem>(), "teal", @EColourScheme.None)'
                              view-data='@(new ViewDataDictionary(ViewData) {
                                     {"url", @Url.Action("Index", "Topic", new { topicSlug = Model.ParentTopicSlug })},
                                     {"hasMoreButton", @Model.HasMoreButton},

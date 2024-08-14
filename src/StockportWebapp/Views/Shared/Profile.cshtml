@@ -1,7 +1,7 @@
 ﻿@using StockportWebapp.Models;
 @model ProfileViewModel
 @{
-    string profileColour = !string.IsNullOrEmpty(Model.Profile.Colour) ? Model.Profile.Colour.ToLower() : "teal";
+    string profileColour = !string.IsNullOrEmpty(Model.Profile.Colour.ToString()) ? Model.Profile.Colour.ToString().ToLower() : "teal";
     string businessId = Context.Request.Headers["BUSINESS-ID"];
 }
 

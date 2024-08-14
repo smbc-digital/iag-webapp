@@ -90,8 +90,8 @@ public class DirectoryViewModelTest
         {
             SubItems = new List<SubItem> ()
             {
-                new("slug", "title", "teaser", "icon", "directory", string.Empty, "image", 0, string.Empty, new List<SubItem>(), string.Empty, "teal"),
-                new("slug2", "title2", "teaser2", "icon2", "directory2", string.Empty, "image2", 0, string.Empty, new List<SubItem>(), string.Empty, "teal")
+                new("slug", "title", "teaser", "icon", "directory", string.Empty, "image", 0, string.Empty, new List<SubItem>(), string.Empty, EColourScheme.Teal),
+                new("slug2", "title2", "teaser2", "icon2", "directory2", string.Empty, "image2", 0, string.Empty, new List<SubItem>(), string.Empty, EColourScheme.Teal)
             },
         };
 
@@ -160,8 +160,8 @@ public class DirectoryViewModelTest
         Directory directory = new()
         {
             SubItems = new List<SubItem>(){
-                new("slug", "title", "teaser", "icon1", "type", "contentType", "image", 0, string.Empty, new List<SubItem>(), string.Empty, "teal"),
-                new("slug2", "title2", "teaser2", "", "type2", "contentType", "image2", 0, string.Empty, new List<SubItem>(), string.Empty, "teal")
+                new("slug", "title", "teaser", "icon1", "type", "contentType", "image", 0, string.Empty, new List<SubItem>(), string.Empty, EColourScheme.Teal),
+                new("slug2", "title2", "teaser2", "", "type2", "contentType", "image2", 0, string.Empty, new List<SubItem>(), string.Empty, EColourScheme.Teal)
             }
         };
 
@@ -386,11 +386,11 @@ public class DirectoryViewModelTest
         // Arrange
         DirectoryViewModel viewModel = new()
         {
-            FirstSubDirectory = new DirectoryViewModel() { ColourScheme = "" }
+            FirstSubDirectory = new DirectoryViewModel() { ColourScheme = EColourScheme.None }
         };
 
         // Act & Assert
-        Assert.Equal("teal", viewModel.InheritedColourScheme);
+        Assert.Equal(EColourScheme.Teal, viewModel.InheritedColourScheme);
     }
 
     [Fact]
@@ -399,10 +399,10 @@ public class DirectoryViewModelTest
         // Arrange
         DirectoryViewModel viewModel = new()
         {
-            FirstSubDirectory = new DirectoryViewModel() { ColourScheme = "pink" }
+            FirstSubDirectory = new DirectoryViewModel() { ColourScheme = EColourScheme.Pink }
         };
 
         // Act & Assert
-        Assert.Equal("pink", viewModel.InheritedColourScheme);
+        Assert.Equal(EColourScheme.Pink, viewModel.InheritedColourScheme);
     }
 }
