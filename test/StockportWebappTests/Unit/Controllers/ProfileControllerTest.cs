@@ -5,11 +5,7 @@ public class ProfileControllerTest
     private readonly Mock<IProfileService> _profileService = new();
     private readonly ProfileController _profileController;
 
-
-    public ProfileControllerTest()
-    {
-        _profileController = new ProfileController(_profileService.Object, new BusinessId("stockportgov"));
-    }
+    public ProfileControllerTest() => _profileController = new ProfileController(_profileService.Object);
 
     [Fact]
     public async Task GetProfile_ReturnsAProfileWithProcessedBody()

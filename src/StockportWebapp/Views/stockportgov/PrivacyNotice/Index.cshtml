@@ -102,7 +102,7 @@
                 <div class="section article--30">
                     @if (Model.HasParentTopicWithSubItems())
                     {
-                        <partial name="PrivacyNoticeNavCardList" />
+                        <partial name="SidebarNavCardList" model="@Model.Sidebar" />
                     }
                 </div>
             </section>

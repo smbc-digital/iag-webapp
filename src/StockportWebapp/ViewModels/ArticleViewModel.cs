@@ -9,6 +9,7 @@ public class ArticleViewModel
     public readonly bool ShouldShowArticleSummary;
     public readonly bool ShouldShowCanonicalLink;
     public readonly string OgTitleMetaData;
+    public SidebarViewModel Sidebar;
     public string MetaDescription => 
         string.IsNullOrEmpty(DisplayedSection?.MetaDescription) 
             ? Article.MetaDescription 
@@ -28,6 +29,7 @@ public class ArticleViewModel
         ShouldShowArticleSummary = true;
         ShouldShowCanonicalLink = false;
         OgTitleMetaData = Article.Title;
+        Sidebar = new SidebarViewModel(this);
     }
 
     public ArticleViewModel(ProcessedArticle article, string sectionSlug)

@@ -5,10 +5,7 @@ public class StartPageController : Controller
 {
     private readonly IProcessedContentRepository _processedContentRepository;
 
-    public StartPageController(IProcessedContentRepository processedContnentRepository)
-    {
-        _processedContentRepository = processedContnentRepository;
-    }
+    public StartPageController(IProcessedContentRepository processedContnentRepository) => _processedContentRepository = processedContnentRepository;
 
     [HttpGet]
     [Route("/start/{slug}")]

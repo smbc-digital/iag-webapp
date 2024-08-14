@@ -3,7 +3,6 @@
 @{
     Profile profile = Model.Profile;
     ViewData["Title"] = profile.Title;
-    ViewData["FullWidth"] = "full-width profile";
     string articleTitle = profile.Breadcrumbs.LastOrDefault() is not null ? $"{profile.Breadcrumbs.LastOrDefault().Title} - " : string.Empty;
     ViewData["og:title"] = articleTitle + profile.Title;
     Layout = "../Shared/_Layout2023.cshtml";
@@ -42,7 +41,7 @@
                 <div class="article--30 section">
                     @if (Model.HasParentTopicWithSubItems())
                     {
-                        <partial name="ProfileNavCardList" />
+                        <partial name="SidebarNavCardList" model="@Model.Sidebar" />
                     }
                 </div>
             </section>

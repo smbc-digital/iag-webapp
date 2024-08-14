@@ -3,10 +3,12 @@
 public class PrivacyNoticeViewModel
 {
     public readonly ProcessedPrivacyNotice PrivacyNotice;
+    public SidebarViewModel Sidebar;
 
     public PrivacyNoticeViewModel(ProcessedPrivacyNotice privacyNotice)
     {
         PrivacyNotice = privacyNotice;
+        Sidebar = new SidebarViewModel(this);
     }
 
     public bool HasParentTopicWithSubItems()
