@@ -13,11 +13,11 @@ public class SidebarViewModel
     public SidebarViewModel(ProfileViewModel profileViewModel)
     {
         SidebarSubItems = profileViewModel.SidebarSubItems(out bool hasMoreButton);
-        ParentTopicName = profileViewModel.Profile.ParentTopic.Name;
-        ParentTopicSlug = profileViewModel.Profile.ParentTopic.Slug;
-        ParentTopicTeaser = profileViewModel.Profile.ParentTopic.Teaser;
-        ParentTopicIcon = profileViewModel.Profile.ParentTopic.Icon;
-        ParentTopicImage = profileViewModel.Profile.ParentTopic.Image;
+        ParentTopicName = profileViewModel.Profile.ParentTopic?.Name;
+        ParentTopicSlug = profileViewModel.Profile.ParentTopic?.Slug;
+        ParentTopicTeaser = profileViewModel.Profile.ParentTopic?.Teaser;
+        ParentTopicIcon = profileViewModel.Profile.ParentTopic?.Icon;
+        ParentTopicImage = profileViewModel.Profile.ParentTopic?.Image;
         HasMoreButton = hasMoreButton;
     }
 
@@ -37,11 +37,11 @@ public class SidebarViewModel
     {
         SidebarSubItems = privacyNoticeViewModel.SidebarSubItems(out bool hasMoreButton)
                            .Where(subItem => !subItem.NavigationLink.Equals(privacyNoticeViewModel.PrivacyNotice.NavigationLink));
-        ParentTopicName = privacyNoticeViewModel.PrivacyNotice.ParentTopic.Name;
-        ParentTopicSlug = privacyNoticeViewModel.PrivacyNotice.ParentTopic.Slug;
-        ParentTopicTeaser = privacyNoticeViewModel.PrivacyNotice.ParentTopic.Teaser;
-        ParentTopicIcon = privacyNoticeViewModel.PrivacyNotice.ParentTopic.Icon;
-        ParentTopicImage = privacyNoticeViewModel.PrivacyNotice.ParentTopic.Image;
+        ParentTopicName = privacyNoticeViewModel.PrivacyNotice.ParentTopic?.Name;
+        ParentTopicSlug = privacyNoticeViewModel.PrivacyNotice.ParentTopic?.Slug;
+        ParentTopicTeaser = privacyNoticeViewModel.PrivacyNotice.ParentTopic?.Teaser;
+        ParentTopicIcon = privacyNoticeViewModel.PrivacyNotice.ParentTopic?.Icon;
+        ParentTopicImage = privacyNoticeViewModel.PrivacyNotice.ParentTopic?.Image;
         HasMoreButton = hasMoreButton;
     }
 }
