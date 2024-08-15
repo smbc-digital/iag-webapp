@@ -3,7 +3,7 @@
 @model ProfileViewModel
 
 @{
-    string profileColour =  $"profile-tag-parser{CssClassMapper.GetCssClass(Model.Profile.Colour)}";
+    string profileColour =  $"profile-tag-parser-{CssClassMapper.GetCssClass(Model.Profile.Colour)}";
     string businessId = Context.Request.Headers["BUSINESS-ID"];
 }
 
