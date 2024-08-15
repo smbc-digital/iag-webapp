@@ -1,5 +1,6 @@
 ﻿@model EventCalendarBanner
 @{
+    
     string containerColourClass = !string.IsNullOrEmpty(Model?.Colour.ToString()) && !Model.Colour.ToString().Equals("Teal") ? $"event-calendar-banner--{Model.Colour.ToString().ToLower()}" : String.Empty;
     string additionalCSS = string.IsNullOrEmpty((string)ViewData["AdditionalCssClass"]) 
                         ? string.Empty 

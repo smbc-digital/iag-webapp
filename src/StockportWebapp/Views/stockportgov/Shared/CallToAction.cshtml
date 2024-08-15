@@ -1,7 +1,11 @@
 ﻿@model CallToActionBanner
+@using StockportWebapp.Models.Enums
+@using StockportWebapp.Models.Mappers
 @{
-    string containerColourClass = !string.IsNullOrEmpty(Model?.Colour.ToString()) && !Model.Colour.Equals("Teal") ? $"call-to-action--{Model.Colour.ToString().ToLower()}" : String.Empty;
-    string buttonColourClass = !string.IsNullOrEmpty(Model?.Colour.ToString()) && !Model.Colour.Equals("Teal") ? $"btn--{Model.Colour.ToString().ToLower()}" : String.Empty;
+    string containerColourClass = $"call-to-action{@CssClassMapper.GetCssClass(Model.Colour)}";
+    @* string containerColourClass = !string.IsNullOrEmpty(Model?.Colour.ToString()) && !Model.Colour.Equals("Teal") ? $"call-to-action--{Model.Colour.ToString().ToLower()}" : String.Empty; *@
+    string buttonColourClass = $"btn{@CssClassMapper.GetCssClass(Model.Colour)}";
+    @* string buttonColourClass = !string.IsNullOrEmpty(Model?.Colour.ToString()) && !Model.Colour.Equals("Teal") ? $"btn--{Model.Colour.ToString().ToLower()}" : String.Empty; *@
     string additionalCSS = string.IsNullOrEmpty((string)ViewData["AdditionalCssClass"]) 
                         ? string.Empty 
                         : (string)ViewData["AdditionalCssClass"];

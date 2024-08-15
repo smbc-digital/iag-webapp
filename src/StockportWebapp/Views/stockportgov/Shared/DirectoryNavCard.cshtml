@@ -6,11 +6,12 @@
     string navcardPaddingClasses = (string)ViewData["NavcardPaddingClasses"];
 
     string colourScheme = isRootDirectory
-                        ? string.IsNullOrEmpty(Model.ColourScheme.ToString())
-                            ? "teal"
-                            : Model.ColourScheme.ToString().ToLower()
+                        ? Model.ColourScheme.ToString()
+                        @* ? string.IsNullOrEmpty(Model.ColourScheme.ToString()) *@
+                            @* ? "teal" *@
+                            @* : Model.ColourScheme.ToString().ToLower() *@
                         : string.IsNullOrEmpty(alternativeColourScheme)
-                            ? "teal"
+                            ? EColourScheme.Teal.ToString()
                             : alternativeColourScheme.ToLower();
 }
 <li class="navcard navcard--width-33 navcard--center navcard-all navcard--border-top-10 navcard--theme-@colourScheme navcard--theme-@colourScheme-all">

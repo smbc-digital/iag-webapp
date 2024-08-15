@@ -1,7 +1,14 @@
 ﻿@using StockportWebapp.Models;
+@using StockportWebapp.Models.Enums;
+@using StockportWebapp.Models.Mappers;
 @model ProfileViewModel
+
 @{
-    string profileColour = !string.IsNullOrEmpty(Model.Profile.Colour.ToString()) ? Model.Profile.Colour.ToString().ToLower() : "teal";
+    string profileColour = "profile-tag-parser" + Model.Profile?.Colour is not null 
+            ? CssClassMapper.GetCssClass(Model.Profile.Colour) 
+            : EColourScheme.Teal.ToString();
+
+    @* string profileColour = !string.IsNullOrEmpty(Model.Profile.Colour.ToString()) ? Model.Profile.Colour.ToString().ToLower() : "teal"; *@
     string businessId = Context.Request.Headers["BUSINESS-ID"];
 }
 
@@ -10,13 +17,13 @@
     <section class="section section--white">
         @if(string.IsNullOrEmpty(Model.Profile.Body))
         {
-            <div class="profile-tag-parser profile-tag-parser--@profileColour section" data-cy="profile-tag-parser">
+            <div class="profile-tag-parser @profileColour section" data-cy="profile-tag-parser">
                 <partial name="ProfileTagParserContent" />
             </div>
         }
         else
         {
-            <a href="/profile/@Model.Profile.Slug" class="profile-tag-parser profile-tag-parser--@profileColour section" data-cy="profile-tag-parser">
+            <a href="/profile/@Model.Profile.Slug" class="profile-tag-parser @profileColour section" data-cy="profile-tag-parser">
                 <partial name="ProfileTagParserContent" />
             </a>
         }
