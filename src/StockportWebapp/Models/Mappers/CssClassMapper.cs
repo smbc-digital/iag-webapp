@@ -10,6 +10,8 @@ public static class CssClassMapper
             EColourScheme.BlueLight => "--blue-light",
             EColourScheme.Green => "--green",
             EColourScheme.GreenLight => "--green-light",
+            EColourScheme.Grey => "--grey",
+            EColourScheme.GreyLight => "--grey-light",
             EColourScheme.Orange => "--orange",
             EColourScheme.Pink => "--pink",
             EColourScheme.PinkLight => "--pink-light",

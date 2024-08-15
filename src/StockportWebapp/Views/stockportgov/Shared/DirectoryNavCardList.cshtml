@@ -22,10 +22,10 @@
                 <ul class="navcard-wrapper navcard-wrapper--no-margin" data-cy="navcard">
                     @foreach (var subitem in Model.PrimaryItems.Items)
                     {
-                        <partial name="DirectoryNavCard" model='subitem' view-data='@(new ViewDataDictionary(ViewData) { { "DisplayIcons", @Model.DisplayIcons  }, {"IsRootDirectory", Model.IsRootDirectory}, { "AlternativeColourScheme", Model.InheritedColourScheme }, {"NavcardPaddingClasses", navcardPaddingClasses} })' />
+                        <partial name="DirectoryNavCard" model='subitem' view-data='@(new ViewDataDictionary(ViewData) { { "DisplayIcons", @Model.DisplayIcons  }, {"IsRootDirectory", Model.IsRootDirectory}, { "AlternativeColourScheme", Model.InheritedColourScheme.ToString() }, {"NavcardPaddingClasses", navcardPaddingClasses} })' />
                     }
 
-                    <partial name="DirectoryNavCardViewAll" view-data='@(new ViewDataDictionary(ViewData) { { "DisplayIcons", @Model.DisplayIcons  }, {"IsRootDirectory", Model.IsRootDirectory}, { "ColourScheme", Model.InheritedColourScheme }, {"NavcardPaddingClasses", navcardPaddingClasses} })' />
+                    <partial name="DirectoryNavCardViewAll" view-data='@(new ViewDataDictionary(ViewData) { { "DisplayIcons", @Model.DisplayIcons  }, {"IsRootDirectory", Model.IsRootDirectory}, { "ColourScheme", Model.InheritedColourScheme.ToString().ToLower() }, {"NavcardPaddingClasses", navcardPaddingClasses} })' />
                 </ul>
             </div>
         </div>

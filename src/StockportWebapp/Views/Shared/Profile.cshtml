@@ -4,11 +4,7 @@
 @model ProfileViewModel
 
 @{
-    string profileColour = "profile-tag-parser" + Model.Profile?.Colour is not null 
-            ? CssClassMapper.GetCssClass(Model.Profile.Colour) 
-            : EColourScheme.Teal.ToString();
-
-    @* string profileColour = !string.IsNullOrEmpty(Model.Profile.Colour.ToString()) ? Model.Profile.Colour.ToString().ToLower() : "teal"; *@
+    string profileColour =  $"profile-tag-parser{CssClassMapper.GetCssClass(Model.Profile.Colour)}";
     string businessId = Context.Request.Headers["BUSINESS-ID"];
 }
 

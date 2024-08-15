@@ -7,6 +7,8 @@ public enum EColourScheme
     BlueLight,
     Green,
     GreenLight,
+    Grey,
+    GreyLight,
     Orange,
     Pink,
     PinkLight,
