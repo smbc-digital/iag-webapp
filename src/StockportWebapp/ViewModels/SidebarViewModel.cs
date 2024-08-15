@@ -25,11 +25,11 @@ public class SidebarViewModel
     {
         SidebarSubItems = articleViewModel.SidebarSubItems(out bool hasMoreButton)
                            .Where(subItem => !subItem.NavigationLink.Equals(articleViewModel.Article.NavigationLink));
-        ParentTopicName = articleViewModel.Article.ParentTopic.Name;
-        ParentTopicSlug = articleViewModel.Article.ParentTopic.Slug;
-        ParentTopicTeaser = articleViewModel.Article.ParentTopic.Teaser;
-        ParentTopicIcon = articleViewModel.Article.ParentTopic.Icon;
-        ParentTopicImage = articleViewModel.Article.ParentTopic.Image;
+        ParentTopicName = articleViewModel.Article.ParentTopic?.Name;
+        ParentTopicSlug = articleViewModel.Article.ParentTopic?.Slug;
+        ParentTopicTeaser = articleViewModel.Article.ParentTopic?.Teaser;
+        ParentTopicIcon = articleViewModel.Article.ParentTopic?.Icon;
+        ParentTopicImage = articleViewModel.Article.ParentTopic?.Image;
         HasMoreButton = hasMoreButton;
     }
 
