@@ -7,7 +7,7 @@ public class ProcessedHomepageTests
                                                             "Featured tasks summary",
                                                             Enumerable.Empty<SubItem>(),
                                                             new List<SubItem> {
-                                                                new("test-slug", "Featured Item", "Teaser", "Icon.ico", "Article", string.Empty, string.Empty, 0, string.Empty, new List<SubItem>(), string.Empty, EColourScheme.Teal)
+                                                                new("test-slug", "Featured Item", "Teaser", "Icon.ico", "Article", string.Empty, string.Empty, 0, string.Empty, new List<SubItem>(), string.Empty, string.Empty, EColourScheme.Teal)
                                                             },
                                                             new List<Alert> {
                                                                 new("Test Alert", "Test", "Test Body", "Warning", new DateTime(2020, 1, 1), new DateTime(2040, 1, 1), "test-warning-alert", false, string.Empty),
