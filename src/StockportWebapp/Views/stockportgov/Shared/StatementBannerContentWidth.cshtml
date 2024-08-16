@@ -1,5 +1,11 @@
-﻿@model List<SubItem>
+﻿@using StockportWebapp.Models.Mappers
+@model SubItem
 @{
+    string containerColourClass = $"statement-banner-{CssClassMapper.GetCssClass(Model.ColourScheme)}";
+    string borderColourClass = $"statement-banner--border{CssClassMapper.GetBorderCssClass(Model.ColourScheme)}";
+    string iconColourClass = $"statement-banner__icon-{CssClassMapper.GetBorderCssClass(Model.ColourScheme)}";
+    string titleColourCss = $"statement-banner-content__title-{CssClassMapper.GetBorderCssClass(Model.ColourScheme)}";
+    string buttonColourClass = $"btn-{CssClassMapper.GetBorderCssClass(Model.ColourScheme)}";
 
 }
 @if (Model is not null)
@@ -7,9 +13,25 @@
     <section class="section section--white">
         <div class="grid-container">
             <div class="grid-100">
-                <div class="placeholder placeholder-bg-blue placeholder-small">
-                    <h2>STATEMENT BANNER CONTENT BANNER</h2>
-                    <p>@Model.FirstOrDefault().Title</p>
+                <div class="statement-banner section__content @containerColourClass @borderColourClass" data-cy="statement-banner-content-width">
+                    <span class="@Model.Icon statement-banner__icon @iconColourClass"></span>
+                    <div class="statement-banner-content">
+                        <h3 class="statement-banner-content__title @titleColourCss">@Model.Title</h3>
+                        <div class="statement-banner-content__text">@Html.Raw(Model.Body)</div>
+
+                        @if(Model.SubItems.Any())
+                        {
+                            <a href="@Model.SubItems.FirstOrDefault().NavigationLink" class="btn btn--inverse btn--width-30 btn--chevron-forward btn--bold btn--chevron-bold @buttonColourClass" data-cy="statement-banner-link">
+                                <span class="btn_text">Read more</span>
+                            </a>
+                        }
+                        else 
+                        {
+                            <a href="@Model.Link" class="btn btn--inverse btn--width-30 btn--chevron-forward btn--bold btn--chevron-bold @buttonColourClass" data-cy="statement-banner-link">
+                                <span class="btn_text">Read more</span>
+                            </a>
+                        }
+                    </div>
                 </div>
             </div>
         </div>

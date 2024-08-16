@@ -4,16 +4,16 @@ public enum EColourScheme
 {  
     None,
     Blue,
-    BlueLight,
+    Blue_Light,
     Green,
-    GreenLight,
+    Green_Light,
     Grey,
-    GreyLight,
+    Grey_Light,
     Orange,
     Pink,
-    PinkLight,
+    Pink_Light,
     Purple,
-    PurpleLight,
+    Purple_Light,
     Teal,
-    TealLight
+    Teal_Light
 }

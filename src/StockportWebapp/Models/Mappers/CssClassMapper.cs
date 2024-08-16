@@ -7,18 +7,38 @@ public static class CssClassMapper
         {
             EColourScheme.None => "-teal",
             EColourScheme.Blue => "-blue",
-            EColourScheme.BlueLight => "-blue-light",
+            EColourScheme.Blue_Light => "-blue-light",
             EColourScheme.Green => "-green",
-            EColourScheme.GreenLight => "-green-light",
+            EColourScheme.Green_Light => "-green-light",
             EColourScheme.Grey => "-grey",
-            EColourScheme.GreyLight => "-grey-light",
+            EColourScheme.Grey_Light => "-grey-light",
             EColourScheme.Orange => "-orange",
             EColourScheme.Pink => "-pink",
-            EColourScheme.PinkLight => "-pink-light",
+            EColourScheme.Pink_Light => "-pink-light",
             EColourScheme.Purple => "-purple",
-            EColourScheme.PurpleLight => "-purple-light",
+            EColourScheme.Purple_Light => "-purple-light",
             EColourScheme.Teal => "-teal",
-            EColourScheme.TealLight => "-teal-light",
+            EColourScheme.Teal_Light => "-teal-light",
+            _ => "-teal"
+        };
+
+    public static string GetBorderCssClass(EColourScheme colourScheme)
+        => colourScheme switch
+        {
+            EColourScheme.None => "-teal",
+            EColourScheme.Blue => "-blue",
+            EColourScheme.Blue_Light => "-blue",
+            EColourScheme.Green => "-green",
+            EColourScheme.Green_Light => "-green",
+            EColourScheme.Grey => "-grey",
+            EColourScheme.Grey_Light => "-grey",
+            EColourScheme.Orange => "-orange",
+            EColourScheme.Pink => "-pink",
+            EColourScheme.Pink_Light => "-pink",
+            EColourScheme.Purple => "-purple",
+            EColourScheme.Purple_Light => "-purple",
+            EColourScheme.Teal => "-teal",
+            EColourScheme.Teal_Light => "-teal",
             _ => "-teal"
         };
 }

@@ -139,6 +139,16 @@
         }
     }
 
+    &--grey {
+        color: $stockport-grey;
+        border: 1px solid $stockport-grey;
+
+        &:hover, &:focus {
+            color: darken($stockport-grey, 5%);
+            background-color: rgba(white, 0.9);
+        }
+    }
+
     &--border {
         border-width: 1px;
         border-style: solid;

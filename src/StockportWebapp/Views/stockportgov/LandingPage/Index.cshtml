@@ -27,6 +27,10 @@
                 {
                     <partial name="CallToActionBanner" model="@contentBlock.SubItems" />
                 }
+                else if(contentBlock.ContentType.Equals("StatementBannerContentWidth"))
+                {
+                    <partial name="StatementBannerContentWidth" model="@contentBlock" />
+                }
                 else
                 {
                     <partial name="@contentBlock.ContentType" model="@(contentBlock.SubItems.Any() ? contentBlock.SubItems : contentBlock)" />
