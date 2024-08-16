@@ -7,16 +7,12 @@
 {
     <section class="section">
         <div class="framed-header__body framed-header__body--@backgroundColour">
-            <div class="grid-container">
-                <div class="grid-100">
-                    <div class="framed-header__text">
-                        <h1 class="h-xl framed-header__title">@Model.LandingPage.Title</h1>
-                        <p class="framed-header__teaser">@Model.LandingPage.Teaser</p>
-                    </div>
-                    <div class="framed-header__container">
-                        <img src="@Model.LandingPage.Image?&q=89" srcset="@Model.LandingPage.Image?q=89&fm=webp" class="framed-header__image" loading="lazy" alt="@Model.LandingPage.Image" width="200" height="200">
-                    </div>
-                </div>
+            <div class="framed-header__text">
+                <h1 class="h-xl framed-header__title">@Model.LandingPage.Title</h1>
+                <p class="framed-header__teaser">@Model.LandingPage.Teaser</p>
+            </div>
+            <div class="framed-header__container">
+                <img src="@Model.LandingPage.Image?&q=89" srcset="@Model.LandingPage.Image?q=89&fm=webp" class="framed-header__image" alt="@Model.LandingPage.Image" width="200" height="200">
             </div>
         </div>
     </section>
