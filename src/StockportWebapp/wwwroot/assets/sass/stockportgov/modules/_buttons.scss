@@ -93,7 +93,6 @@
         }
     }
 
-
     &--on-white {
         &:hover, &:focus {
             background-color: rgba($stockport-grey, 0.1);
@@ -148,6 +147,27 @@
             background-color: rgba(white, 0.9);
         }
     }
+
+    &--green {
+        color: $stockport-green;
+        border: 1px solid $stockport-green;
+
+        &:hover, &:focus {
+            color: darken($stockport-green, 5%);
+            background-color: rgba(white, 0.9);
+        }
+    }
+
+    &--teal {
+        color: $stockport-teal-darker;
+        border: 1px solid $stockport-teal-darker;
+
+        &:hover, &:focus {
+            color: darken($stockport-teal-darker, 5%);
+            background-color: rgba(white, 0.9);
+        }
+    }
+
 
     &--border {
         border-width: 1px;

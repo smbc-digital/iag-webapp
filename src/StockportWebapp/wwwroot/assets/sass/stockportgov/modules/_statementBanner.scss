@@ -1,5 +1,4 @@
 .statement-banner {
-    background-color: rgba($stockport-teal-darker, 0.08);
     border-radius: 50px;
     display: flex;
     flex-basis: 0;
@@ -22,30 +21,6 @@
         @media #{$mobile} {
             font-size: 5rem;
         }
-
-        &--teal {
-            color: $stockport-teal-darker;
-        }
-
-        &--green {
-            color: $stockport-green;
-        }
-
-        &--pink {
-            color: $stockport-pink;
-        }
-        
-        &--blue {
-            color: $stockport-blue;
-        }
-
-        &--purple {
-            color: $stockport-purple;
-        }
-
-        &--grey {
-            color: $stockport-grey;
-        }
     }
 
     &-content {
@@ -57,96 +32,19 @@
         &__title {
             @include h-ml;
             margin-bottom: 0.75em;
-            color: $stockport-teal-darker;
             margin-top: 0;
             text-align: center;
-
-            &--teal {
-                color: $stockport-teal-darker;
-            }
-    
-            &--green {
-                color: $stockport-green;
-            }
-    
-            &--pink {
-                color: $stockport-pink;
-            }
-            
-            &--blue {
-                color: $stockport-blue;
-            }
-    
-            &--purple {
-                color: $stockport-purple;
-            }
-    
-            &--grey {
-                color: $stockport-grey;
-            }
         }
 
         &__text {
             text-align: left;
-        }
-    }
-
-    &--border-teal {
-        border: 4px solid $stockport-teal-darker;
-    }
-
-    &--border-green {
-        border: 4px solid $stockport-green;
-    }
-    
-    &--border-pink {
-        border: 4px solid $stockport-pink;
-    }
-
-    &--border-blue {
-        border: 4px solid $stockport-blue;
-    }
-
-    &--border-purple {
-        border: 4px solid $stockport-purple;
-    }
-    
-    &--border-grey {
-        border: 4px solid $stockport-grey;
-    }
-
-    &--teal-light {
-        background-color: rgba($stockport-teal-darker, 0.08);
-    }
-
-    &--green-light {
-        background-color: rgba($stockport-green, 0.08);
-    }
-
-    &--pink-light {
-        background-color: rgba($stockport-pink, 0.08);
-    }
-    
-    &--blue-light {
-        background-color: rgba($stockport-blue, 0.08);
-    }
-
-    &--purple-light {
-        background-color: rgba($stockport-purple, 0.08);
-    }
-
-    &--grey-light {
-        background-color: rgba($stockport-grey, 0.08);
-    }
-}
-
-html[dir="rtl"] {
-    .call-to-action {
-        border-radius: 3px 50px 3px 50px;
-
-
-        &__image {
-            border-radius: 0px 50px 3px 0px;
+            
+            &__text-no-button
+            {
+                p:last-of-type {
+                    margin: 0;
+                }
+            }
         }
     }
 }
