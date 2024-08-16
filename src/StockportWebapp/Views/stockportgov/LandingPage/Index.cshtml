@@ -1,15 +1,17 @@
 @model LandingPageViewModel
 @{
-    ViewData["Title"] = Model.LandingPage.Title;
-    ViewData["Description"] = Model.LandingPage.MetaDescription;
-    ViewData["og:title"] = Model.LandingPage.Title;
+    LandingPage landingPage = Model.LandingPage;
+    ViewData["Title"] = landingPage.Title;
+    ViewData["Description"] = landingPage.MetaDescription;
+    ViewData["og:title"] = landingPage.Title;
     Layout = "../Shared/_Layout2023.cshtml";
+    string backgroundColour = landingPage.HeaderTheme.Equals("grey") ? "directories-breadcrumb-container--grey" : "directories-breadcrumb-container--teal"; 
 }
 
 <div class="grid-container-full-width" style="background-color:white;" data-cy="landing-page">
     <partial name="GlobalAlerts" model='Model.LandingPage.Alerts' />
-    <partial name="Breadcrumb2023" model='Model.LandingPage.Breadcrumbs' />
-    
+    <partial name="Breadcrumb2023" model='Model.LandingPage.Breadcrumbs' view-data='@(new ViewDataDictionary(ViewData) {{"backgroundColour", backgroundColour}})'/>
+
     @if(Model.LandingPage.HeaderType.Equals("Full Image"))
     {
         <partial name="FullImageHeader" model="@Model" />
