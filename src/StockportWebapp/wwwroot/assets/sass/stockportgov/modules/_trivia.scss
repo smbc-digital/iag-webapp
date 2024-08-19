@@ -4,11 +4,25 @@
         margin-bottom: 0;
         display: flex;
         flex-direction: row;
+
+        @media #{$mobile} {
+            display: block;
+            margin-inline: 5px;
+        }
+
+        li {
+            margin: 0;
+        }
+    }
+
+    &__link {
+        display: flex;
     }
 
     &-link {
-        &__container {
-            // width: 50%;
+        &__icon {
+            font-size: 3rem;
+            margin-inline-end: .5em;
         }
     }
 }

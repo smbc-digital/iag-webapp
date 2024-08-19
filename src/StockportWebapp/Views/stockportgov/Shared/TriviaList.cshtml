@@ -13,9 +13,9 @@
                 <ul class="trivia__list">
                     @foreach(var subItem in Model)
                     {
-                        <li class="trivia-link__container grid-50 tablet-grid-50 mobile-grid-100">
+                        <li class="trivia-link__container">
                             <a href="@subItem.NavigationLink" class="trivia__link" data-cy="trivia-list-link">
-                                <span class="@subItem.Icon trivia-link__title"></span>
+                                <span class="@subItem.Icon trivia-link__icon"></span>
                                 <div class="trivia-link__body">
                                     @Html.Raw(subItem.Body)
                                 </div>
