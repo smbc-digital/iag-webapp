@@ -38,7 +38,6 @@
 
 @mixin borderRadius() {
     $sides: (top-left, top-right, bottom-left, bottom-right, all);
-
     @each $side in $sides {
         $properties: (
             top-left: (border-top-left-radius),
@@ -76,7 +75,6 @@
 
 @mixin theme($theme: $stockport-teal) {
     $sides: (top, right, bottom, left, all);
-
     @each $side in $sides {
         $properties: (
             top: (border-top-color),

@@ -6,7 +6,6 @@ public class ProfileServiceTests
     private readonly Mock<IRepository> _repository;
     private readonly Mock<ITagParserContainer> _parser;
     private readonly MarkdownWrapper _markdownWrapper;
-    private readonly Mock<IViewRender> _viewRender;
     private readonly Mock<ITriviaFactory> _triviaFactory;
 
     public ProfileServiceTests()
@@ -15,7 +14,6 @@ public class ProfileServiceTests
         _repository = new Mock<IRepository>();
         _parser = new Mock<ITagParserContainer>();
         _markdownWrapper = new MarkdownWrapper();
-        _viewRender = new Mock<IViewRender>();
         _service = new ProfileService(_repository.Object, _parser.Object, _markdownWrapper, _triviaFactory.Object);
     }
 
@@ -23,23 +21,23 @@ public class ProfileServiceTests
     public async Task GetProfile_ShouldReturnNullWhenFailure()
     {
         // Arrange
-        var response = HttpResponse.Failure(500, "Test Error");
+        HttpResponse response = HttpResponse.Failure(500, "Test Error");
         _repository
             .Setup(_ => _.Get<Profile>(It.IsAny<string>(), It.IsAny<List<Query>>()))
             .ReturnsAsync(response);
 
         // Act
-        var result = await _service.GetProfile("testing slug");
+        Profile result = await _service.GetProfile("testing slug");
 
         // Assert
-        result.Should().BeNull();
+        Assert.Null(result);
     }
 
     [Fact]
     public async Task GetProfile_ShouldReturnProfileWhenSuccessful()
     {
         // Arrange
-        var response = HttpResponse.Successful(200, new Profile
+        HttpResponse response = HttpResponse.Successful(200, new Profile
         {
             Body = "Test",
             Slug = "test",
@@ -51,7 +49,7 @@ public class ProfileServiceTests
             ImageCaption = "image caption",
             Teaser = "test",
             Title = "test",
-            Colour = "blue"
+            Colour = EColourScheme.Blue
         });
         _repository
             .Setup(_ => _.Get<Profile>(It.IsAny<string>(), It.IsAny<List<Query>>()))
@@ -61,9 +59,9 @@ public class ProfileServiceTests
             .Returns("testProcessedBody");
 
         // Act
-        var result = await _service.GetProfile("testing slug");
+        Profile result = await _service.GetProfile("testing slug");
 
         // Assert
-        result.Should().BeOfType<Profile>();
+        Assert.IsType<Profile>(result);
     }
 }

@@ -1,13 +1,15 @@
-﻿@model CallToActionBanner
-@{
-    string containerColourClass = !string.IsNullOrEmpty(Model?.Colour) && !Model.Colour.Equals("Teal") ? $"call-to-action--{Model.Colour.ToLower()}" : String.Empty;
-    string buttonColourClass = !string.IsNullOrEmpty(Model?.Colour) && !Model.Colour.Equals("Teal") ? $"btn--{Model.Colour.ToLower()}" : String.Empty;
+﻿@using StockportWebapp.Models.Enums
+@using StockportWebapp.Models.Mappers
+@model CallToActionBanner
+
+@if (Model is not null)
+{
+    string containerColourClass = $"call-to-action-{@CssClassMapper.GetCssClass(Model.Colour)}";
+    string buttonColourClass = $"btn-{@CssClassMapper.GetCssClass(Model.Colour)}";
     string additionalCSS = string.IsNullOrEmpty((string)ViewData["AdditionalCssClass"]) 
                         ? string.Empty 
                         : (string)ViewData["AdditionalCssClass"];
-}
-@if (Model is not null)
-{
+    
     <section class="section section--white @additionalCSS">
         <div class="grid-container">
             <div class="grid-100">

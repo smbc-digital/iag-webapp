@@ -1,6 +1,8 @@
-﻿@model InlineQuote
+﻿@using StockportWebapp.Models.Mappers;
+@using StockportWebapp.Models.Enums;
+@model InlineQuote
 @{
-    string themeTag = !string.IsNullOrEmpty(Model.Theme) ? $"profile-quote--border-{Model.Theme}" : "profile-quote--border-pink";
+    string themeTag = $"profile-quote__border-{CssClassMapper.GetCssClass(Model.Theme)}";
 }
 
 <div class="profile-quote">
@@ -8,13 +10,11 @@
     {
         <h3>@Model.Author</h3>
     }
-    <div class="profile-quote--border @themeTag">
+    <div class="profile-quote__border @themeTag">
         <p class="profile-quote__text lead">
             <span class="h-s fa fa-quote-left profile-quote__marks" aria-hidden="true"></span>
-            @* <span class="h-s fa fa-quote-right profile-quote__marks--rtl" aria-hidden="true"></span> *@
             @Model.Quote
             <span class="h-s fa fa-quote-right profile-quote__marks" aria-hidden="true"></span>
-            @* <span class="h-s fa fa-quote-left profile-quote__marks--rtl" aria-hidden="true"></span> *@
         </p>
     </div>
 </div>

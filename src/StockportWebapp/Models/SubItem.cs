@@ -12,11 +12,11 @@ public class SubItem
     public readonly string Image;
     public int MailingListId;
     public string Body;
-    public string ColourScheme;
+    public EColourScheme ColourScheme;
     public string Link;
     public readonly List<SubItem> SubItems;
 
-    public SubItem(string slug, string title, string teaser, string icon, string type, string contentType, string image, int mailingListId, string body, List<SubItem> subItems, string link, string colourScheme)
+    public SubItem(string slug, string title, string teaser, string icon, string type, string contentType, string image, int mailingListId, string body, List<SubItem> subItems, string link, EColourScheme colourScheme)
     {
         Slug = slug;
         Title = title;
