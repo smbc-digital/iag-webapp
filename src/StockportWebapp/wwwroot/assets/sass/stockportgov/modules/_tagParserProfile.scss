@@ -57,6 +57,11 @@
             text-decoration: underline;
             display: block;
             margin-top: 2em;
+
+            
+            &--no-margin {
+                margin-top: 0;
+            }
         }
 
         &--no-image {
