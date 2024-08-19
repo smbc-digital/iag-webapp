@@ -8,5 +8,5 @@ public class InlineQuote
     public string Quote { get; set; }
     public string Author { get; set; }
     public string Slug { get; set; }
-    public EColourScheme Theme { get; set; }
+    public EColourScheme Theme { get; set; } = EColourScheme.Pink;
 }

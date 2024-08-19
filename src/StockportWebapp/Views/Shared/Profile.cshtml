@@ -3,12 +3,13 @@
 @model ProfileViewModel
 
 @{
-    string profileColour =  $"profile-tag-parser-{CssClassMapper.GetCssClass(Model.Profile.Colour)}";
     string businessId = Context.Request.Headers["BUSINESS-ID"];
 }
 
 @if(businessId.Equals("stockportgov") && Model.Redesigned)
 {
+    string profileColour =  $"profile-tag-parser-{CssClassMapper.GetCssClass(Model.Profile.Colour)}";
+
     <section class="section section--white">
         @if(string.IsNullOrEmpty(Model.Profile.Body))
         {
