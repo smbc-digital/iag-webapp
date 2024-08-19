@@ -2,7 +2,7 @@
 @{
     string contentNoImageClass = string.IsNullOrEmpty(Model.Profile.Image.Url) ? "profile-tag-parser-content--no-image" : string.Empty;
     string contentNoBody = !string.IsNullOrEmpty(Model.Profile.Body) ? "profile-tag-parser-content__read-more" : string.Empty;
-    string contentBodyNoImage = !string.IsNullOrEmpty(Model.Profile.Body) ? "profile-tag-parser-content__read-more--no-margin" : string.Empty;
+    string contentBodyNoImage = !string.IsNullOrEmpty(Model.Profile.Body) && string.IsNullOrEmpty(Model.Profile.Image.Url) ? "profile-tag-parser-content__read-more--no-margin" : string.Empty;
 }
 
 @if(!string.IsNullOrEmpty(Model.Profile.Image.Url))
