@@ -1,6 +1,4 @@
-﻿@using StockportWebapp.Models.Mappers;
-@using StockportWebapp.Models.Enums;
-@model InlineQuote
+﻿@model InlineQuote
 @{
     string colourScheme = CssClassMapper.GetCssClass(Model.Theme);
     string themeTag = CssClassMapper.GetCssClass(Model.Theme).Equals(EColourScheme.None.ToString()) ? $"profile-quote__border{EColourScheme.Pink.ToString()}" : $"profile-quote__border{CssClassMapper.GetCssClass(Model.Theme)}";
