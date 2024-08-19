@@ -8,15 +8,21 @@
     <section class="section section--white">
         <div class="grid-container">
             <div class="grid-100">
-                <div class="placeholder placeholder-bg-blue placeholder-small">
+                <h2 class="section__title section__title--no-padding section__title--margin-bottom">@Model.FirstOrDefault().Title</h2>
+                
+                <ul class="trivia__list">
                     @foreach(var subItem in Model)
                     {
-                        <div class="placeholder placeholder-bg-grey placeholder-small placeholder-inline-margin">
-                            <h2>TRIVIA LIST</h2>
-                            <p>@subItem.Title</p>
-                        </div>
+                        <li class="trivia-link__container">
+                            <a href="@subItem.NavigationLink" class="trivia__link" data-cy="trivia-list-link">
+                                <span class="@subItem.Icon trivia-link__title"></span>
+                                <div class="trivia-link__body">
+                                    @Html.Raw(subItem.Body)
+                                </div>
+                            </a>
+                        </li>
                     }
-                </div>
+                </ul>
             </div>
         </div>
     </section>
