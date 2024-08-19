@@ -36,7 +36,7 @@ public class DirectoryController : Controller
 
     [HttpGet]
     [Route("/directories/results/{**slug}")]
-    public async Task<IActionResult> DirectoryResults([Required][FromRoute]string slug, string[] filters, string orderBy, string searchTerm, [FromQuery] int page)
+    public async Task<IActionResult> DirectoryResults([Required][FromRoute]string slug, string[]filters, string orderBy, string searchTerm, [FromQuery] int page)
     {
         PageLocation pageLocation = slug.ProcessAsWildcardSlug();
         Directory directory = await _directoryService.Get<Directory>(pageLocation.Slug);
