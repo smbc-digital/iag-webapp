@@ -1,5 +1,4 @@
-﻿@using StockportWebapp.Models.Mappers
-@model SubItem
+﻿@model SubItem
 @if (Model is not null)
 {
     string contentTextClass = (Model.SubItems is not null && Model.SubItems.Any()) || !string.IsNullOrEmpty(Model.Link) ? string.Empty : "statement-banner-content__text-no-button";
@@ -15,7 +14,7 @@
 
                         @if(Model.SubItems.Any() || !string.IsNullOrEmpty(Model.Link))
                         {
-                            <a href="@(Model.SubItems.Any() ? Model.SubItems.FirstOrDefault().NavigationLink : Model.Link)" class="btn btn--inverse btn--width-30 btn--chevron-forward btn--bold btn--chevron-bold btn-@CssClassMapper.GetBorderCssClass(Model.ColourScheme)" data-cy="statement-banner-content-width-link">
+                            <a href="@(Model.SubItems.Any() ? Model.SubItems.FirstOrDefault().NavigationLink : Model.Link)" class="btn btn--inverse btn--width-30 btn--chevron-forward btn--bold btn--chevron-bold btn-@CssClassMapper.GetBoldCssClass(Model.ColourScheme)" data-cy="statement-banner-content-width-link">
                                 <span class="btn_text">@(!string.IsNullOrEmpty(Model.ButtonText) ? Model.ButtonText : "Read more")</span>
                                 @if(string.IsNullOrEmpty(Model.ButtonText))
                                 {
