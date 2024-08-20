@@ -3,7 +3,7 @@
 @if (Model is not null)
 {
     <ul class="trivia__list">
-        @foreach(var trivia in Model)
+        @foreach(Trivia trivia in Model)
         {
             <li class="trivia-link__container">
                 @if(!string.IsNullOrEmpty(trivia.Link))
