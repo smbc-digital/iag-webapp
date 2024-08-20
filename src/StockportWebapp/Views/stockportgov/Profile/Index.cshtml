@@ -6,6 +6,7 @@
     string articleTitle = profile.Breadcrumbs.LastOrDefault() is not null ? $"{profile.Breadcrumbs.LastOrDefault().Title} - " : string.Empty;
     ViewData["og:title"] = articleTitle + profile.Title;
     Layout = "../Shared/_Layout2023.cshtml";
+    string profileTextMarginBottom = (!string.IsNullOrEmpty(Model.Profile.TriviaSubheading) || Model.Profile.TriviaSection.Any()) ? "profile__text--margin-bottom" : string.Empty;
 }
 
 <div class="grid-container-full-width" style="background-color:white;" data-cy="profile">
@@ -33,9 +34,19 @@
                         </figure>
                     }
 
-                    <div class="profile__text"> 
+                    <div class="profile__text @profileTextMarginBottom"> 
                         @Html.Raw(profile.Body)
                     </div>
+
+                    @if(!string.IsNullOrEmpty(Model.Profile.TriviaSubheading))
+                    {
+                        <div class="trivia-title">
+                            <h2 class="section__title section__title--no-padding section__title--margin-bottom">@Model.Profile.TriviaSubheading</h2>
+                            <hr />
+                        </div>
+                    }
+
+                    <partial name="ProfileTriviaList" model="@Model.Profile.TriviaSection" />
                 </div>
 
                 <div class="article--30 section">
