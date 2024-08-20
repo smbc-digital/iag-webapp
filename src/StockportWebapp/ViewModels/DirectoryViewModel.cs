@@ -64,14 +64,14 @@ public class DirectoryViewModel
     public CallToActionBanner CallToAction { get; set; }
     public IEnumerable<Alert> Alerts { get; set; }
     public EventCalendarBanner EventBanner { get; set; }
-    public string ColourScheme { get; set; }
+    public EColourScheme ColourScheme { get; set; }
     public string SearchBranding => ParentDirectory != null
                                     && !string.IsNullOrEmpty(ParentDirectory.SearchBranding)
                                         ? ParentDirectory.SearchBranding
                                         : _searchBranding;
-    public string InheritedColourScheme => string.IsNullOrEmpty(FirstSubDirectory.ColourScheme)
-                                            ? "teal"
-                                            : FirstSubDirectory.ColourScheme.ToLower();
+    public EColourScheme InheritedColourScheme => FirstSubDirectory.ColourScheme.Equals(EColourScheme.None)
+                                            ? EColourScheme.Teal
+                                            : FirstSubDirectory.ColourScheme;
     public NavCardList PrimaryItems { get; set; }
     public IEnumerable<Crumb> Breadcrumbs { get; set; }
     public IEnumerable<SubItem> RelatedContent { get; set; }

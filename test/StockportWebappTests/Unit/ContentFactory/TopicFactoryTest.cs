@@ -18,12 +18,12 @@ public class TopicFactoryTest
     private readonly List<SubItem> _featuredTasks;
     private readonly List<SubItem> _subItems;
     private readonly List<SubItem> _secondaryItems;
-    private readonly EventCalendarBanner _eventCalendarBanner = new EventCalendarBanner() {
+    private readonly EventCalendarBanner _eventCalendarBanner = new() {
         Title = "title",
         Teaser = "teaser",
         Link = "link",
         Icon = "icon",
-        Colour = "colour",
+        Colour = EColourScheme.Teal
     };
 
     public TopicFactoryTest()
@@ -53,7 +53,7 @@ public class TopicFactoryTest
     public void Build_ShouldSetTheCorrespondingFields_For_AProcessedTopic()
     {
         // Act
-        var result = _topicFactory.Build(_topic);
+        ProcessedTopic result = _topicFactory.Build(_topic);
 
         // Assert
         Assert.Equal(Title, result.Title);

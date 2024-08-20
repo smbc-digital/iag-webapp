@@ -1,4 +1,6 @@
-﻿namespace StockportWebappTests_Unit.Unit.Model;
+﻿using Org.BouncyCastle.Crypto.Modes;
+
+namespace StockportWebappTests_Unit.Unit.Model;
 
 public class ProcessedTopicTests
 {
@@ -11,13 +13,13 @@ public class ProcessedTopicTests
                                                             "backgroundImage",
                                                             "image",
                                                             new List<SubItem> {
-                                                                new("featured-items", "Featured Items", "Teaser", "Icon.ico", "Article", string.Empty, string.Empty, 0, string.Empty, new List<SubItem>(), string.Empty, "teal")
+                                                                new("featured-items", "Featured Items", "Teaser", "Icon.ico", "Article", string.Empty, string.Empty, 0, string.Empty, new List<SubItem>(), string.Empty, string.Empty, EColourScheme.Teal)
                                                             },
                                                             new List<SubItem> {
-                                                                new("primary-items", "Primary Items", "Teaser", "Icon.ico", "Article", string.Empty, string.Empty, 0, string.Empty, new List<SubItem>(), string.Empty, "teal")
+                                                                new("primary-items", "Primary Items", "Teaser", "Icon.ico", "Article", string.Empty, string.Empty, 0, string.Empty, new List<SubItem>(), string.Empty, string.Empty, EColourScheme.Teal)
                                                             },
                                                             new List<SubItem> {
-                                                                new("test-slug", "Featured Item", "Teaser", "Icon.ico", "Article", string.Empty, string.Empty, 0, string.Empty, new List<SubItem>(), string.Empty, "teal")
+                                                                new("test-slug", "Featured Item", "Teaser", "Icon.ico", "Article", string.Empty, string.Empty, 0, string.Empty, new List<SubItem>(), string.Empty, string.Empty, EColourScheme.Teal)
                                                             },
                                                             new List<Crumb>(),
                                                             new List<Alert> {
@@ -34,7 +36,7 @@ public class ProcessedTopicTests
                                                                 Teaser = "teaser",
                                                                 Link = "link",
                                                                 Icon = "icon",
-                                                                Colour = "colour"
+                                                                Colour = EColourScheme.Teal
                                                             },
                                                             "title",
                                                             true,

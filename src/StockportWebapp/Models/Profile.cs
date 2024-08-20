@@ -18,6 +18,6 @@ public class Profile
     public string Author { get; set; } = string.Empty;
     public string Subject { get; set; } = string.Empty;
     public EventBanner EventsBanner { get; set; }
-    public string Colour { get; set; } = string.Empty;
+    public EColourScheme Colour { get; set; } = EColourScheme.Teal;
     public Topic ParentTopic { get; set; }
 }

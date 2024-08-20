@@ -39,6 +39,7 @@ public class ArticleViewModel
         ShouldShowArticleSummary = Article.Sections.First().Slug.Equals(DisplayedSection.Slug);
         OgTitleMetaData = string.Concat(Article.Title, !string.IsNullOrEmpty(DisplayedSection.Title) ? " - " : "", DisplayedSection.Title);
         HideLastUpdated = Article.HideLastUpdated;
+        Sidebar = new SidebarViewModel(this);
     }
 
     private ProcessedSection GetSectionOrThrowSectionNotFound(string sectionSlug) => 
@@ -90,8 +91,13 @@ public class ArticleViewModel
     {
         Topic parentTopic = Article.ParentTopic;
         List<SubItem> sidebarSubItems = new();
-        sidebarSubItems.AddRange(parentTopic.SubItems);
-        sidebarSubItems.AddRange(parentTopic.SecondaryItems);
+
+        if (parentTopic is not null)
+        {
+            sidebarSubItems.AddRange(parentTopic.SubItems);
+            sidebarSubItems.AddRange(parentTopic.SecondaryItems);
+        }
+
         hasMoreButton = sidebarSubItems.Count > 6;
         return sidebarSubItems.Take(6);
     }

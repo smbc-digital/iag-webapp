@@ -24,7 +24,7 @@ public class TopicControllerTest
             Teaser = "teaser",
             Icon = "icon",
             Link = "link",
-            Colour = "colour"
+            Colour = EColourScheme.Teal
         };
         _eventBanner = new("title", "teaser", "icon", "link");
         _callToAction = new CallToActionBanner()
@@ -32,14 +32,14 @@ public class TopicControllerTest
             Title = "title",
             AltText = "altText",
             ButtonText = "buttonText",
-            Colour = "colour",
+            Colour = EColourScheme.Teal,
             Image = "image",
             Link = "link",
             Teaser = "teaser"
         };
     }
 
-    public SubItem CreateASubItem(int i) => new("sub-topic" + i, "Title" + i, "Teaser", "Icon", "topic", "contentType", "image", 123, "text body", new List<SubItem>(), string.Empty, "teal");
+    public SubItem CreateASubItem(int i) => new("sub-topic" + i, "Title" + i, "Teaser", "Icon", "topic", "contentType", "image", 123, "text body", new List<SubItem>(), string.Empty, string.Empty, EColourScheme.Teal);
 
     [Fact]
     public async Task Index_ReturnsTopicWithExpectedProperties()

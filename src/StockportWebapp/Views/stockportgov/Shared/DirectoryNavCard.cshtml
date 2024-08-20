@@ -1,4 +1,6 @@
-﻿@model NavCard
+﻿@using StockportWebapp.Models.Mappers;
+@using StockportWebapp.Models.Enums;
+@model NavCard
 @{
     bool displayIcons = (bool)ViewData["DisplayIcons"];
     bool isRootDirectory = (bool)ViewData["IsRootDirectory"];
@@ -6,15 +8,13 @@
     string navcardPaddingClasses = (string)ViewData["NavcardPaddingClasses"];
 
     string colourScheme = isRootDirectory
-                        ? string.IsNullOrEmpty(Model.ColourScheme)
-                            ? "teal"
-                            : Model.ColourScheme.ToLower()
+                        ? $"navcard--theme{CssClassMapper.GetCssClass(Model.ColourScheme)}"
                         : string.IsNullOrEmpty(alternativeColourScheme)
-                            ? "teal"
-                            : alternativeColourScheme.ToLower();
+                            ? $"navcard--theme{EColourScheme.Teal.ToString().ToLower()}"
+                            : $"navcard--theme{alternativeColourScheme.ToLower()}";
 }
-<li class="navcard navcard--width-33 navcard--center navcard-all navcard--border-top-10 navcard--theme-@colourScheme navcard--theme-@colourScheme-all">
-        
+
+<li class="navcard navcard--width-33 navcard--center navcard-all navcard--border-top-10 @colourScheme @colourScheme-all">
     <a href="@Model.Url" class="navcard__link">
         <div class="navcard__content">
             @if (!string.IsNullOrEmpty(Model.Icon) && displayIcons)
