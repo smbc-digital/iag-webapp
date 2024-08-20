@@ -27,7 +27,7 @@
             {
                 if(contentBlock.ContentType.Equals("CallToAction"))
                 {
-                    <partial name="CallToActionBanner" model="@contentBlock" />
+                    <partial name="CallToActionBanner" model="@contentBlock.SubItems.FirstOrDefault()" />
                 }
                 else
                 {
