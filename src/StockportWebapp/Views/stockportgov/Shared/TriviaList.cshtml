@@ -1,4 +1,4 @@
-﻿@model List<SubItem>
+﻿@model SubItem
 @{
     
 }
@@ -8,10 +8,10 @@
     <section class="section section--white">
         <div class="grid-container">
             <div class="grid-100">
-                <h2 class="section__title section__title--no-padding section__title--margin-bottom">@Model.FirstOrDefault().Title</h2>
+                <h2 class="section__title section__title--no-padding section__title--margin-bottom">@Model.Title</h2>
                 
                 <ul class="trivia__list">
-                    @foreach(var subItem in Model)
+                    @foreach(var subItem in Model.SubItems)
                     {
                         <li class="trivia-link__container">
                             <a href="@subItem.NavigationLink" class="trivia__link" data-cy="trivia-list-link">

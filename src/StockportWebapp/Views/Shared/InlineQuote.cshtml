@@ -1,8 +1,6 @@
 ﻿@model InlineQuote
 @{
-    string colourScheme = CssClassMapper.GetCssClass(Model.Theme);
-    string themeTag = CssClassMapper.GetCssClass(Model.Theme).Equals(EColourScheme.None.ToString()) ? $"profile-quote__border{EColourScheme.Pink.ToString()}" : $"profile-quote__border{CssClassMapper.GetCssClass(Model.Theme)}";
-    @* string themeTag = !string.IsNullOrEmpty(Model.Theme.ToString()) ? $"profile-quote--border-{Model.Theme.ToString()}" : "profile-quote--border-pink"; *@
+    string themeTag = $"profile-quote__border-{CssClassMapper.GetCssClass(Model.Theme)}";
 }
 
 <div class="profile-quote">
