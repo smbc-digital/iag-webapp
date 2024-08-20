@@ -1,0 +1,49 @@
+.statement-banner {
+    border-radius: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    @media #{$mobile} {
+        border-radius: 30px;
+    }
+
+    &__icon {
+        font-size: 6rem;
+        font-weight: 600;
+        letter-spacing: -1px;
+        line-height: 1.0416666667;
+        padding-inline: 1rem;
+        padding-top: 1.5rem;
+        text-align: center;
+        
+        @media #{$mobile} {
+            font-size: 5rem;
+        }
+    }
+
+    &-content {
+        padding: 1.5em;
+        padding-top: 1em;
+        color: $stockport-black;
+        text-align: center;
+        
+        &__title {
+            @include h-ml;
+            margin-bottom: 0.75em;
+            margin-top: 0;
+            text-align: center;
+        }
+
+        &__text {
+            text-align: left;
+            
+            &__text-no-button
+            {
+                p:last-of-type {
+                    margin: 0;
+                }
+            }
+        }
+    }
+}

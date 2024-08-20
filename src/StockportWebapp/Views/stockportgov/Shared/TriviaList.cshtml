@@ -1,4 +1,4 @@
-﻿@model List<SubItem>
+﻿@model SubItem
 @{
     
 }
@@ -9,7 +9,7 @@
         <div class="grid-container">
             <div class="grid-100">
                 <div class="placeholder placeholder-bg-blue placeholder-small">
-                    @foreach(var subItem in Model)
+                    @foreach(var subItem in Model.SubItems)
                     {
                         <div class="placeholder placeholder-bg-grey placeholder-small placeholder-inline-margin">
                             <h2>TRIVIA LIST</h2>
