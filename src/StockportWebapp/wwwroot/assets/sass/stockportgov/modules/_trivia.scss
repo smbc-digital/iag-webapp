@@ -25,10 +25,16 @@
         flex-direction: row;
         flex-wrap: wrap;
         box-sizing: border-box;
+        margin-top: 4em;
 
         @media #{$tablet} {
             display: block;
             margin-inline: 5px;
+            margin-top: 2em;
+        }
+
+        &--no-margin {
+            margin-top: 0;
         }
 
         li {
@@ -38,7 +44,6 @@
 
     &__link {
         display: flex;
-        text-decoration: none;
         cursor: pointer;
 
         &:hover {
@@ -49,6 +54,11 @@
                 text-decoration-thickness: 3px;
             }
         }
+    }
+
+    &__text {
+        display: flex;
+        text-decoration: none;
     }
 
     &-link {
@@ -62,6 +72,8 @@
                 width: 100%;
                 margin-inline-end: 0;
             }
+
+            .text-orange { color: $stockport-orange !important; }
 
             &:nth-child(6n+1) .trivia-link__icon {
                 color: $stockport-green;
@@ -104,4 +116,5 @@
             }
         }
     }
+
 }

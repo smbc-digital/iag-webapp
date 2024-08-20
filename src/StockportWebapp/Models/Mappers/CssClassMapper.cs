@@ -22,10 +22,10 @@ public static class CssClassMapper
             _ => "-teal"
         };
 
-    public static string GetBorderCssClass(EColourScheme colourScheme)
+    public static string GetBoldCssClass(EColourScheme colourScheme)
         => colourScheme switch
         {
-            EColourScheme.None => "-teal",
+            EColourScheme.None => "-none",
             EColourScheme.Blue => "-blue",
             EColourScheme.Blue_Light => "-blue",
             EColourScheme.Green => "-green",

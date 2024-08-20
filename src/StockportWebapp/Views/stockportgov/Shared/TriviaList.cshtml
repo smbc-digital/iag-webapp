@@ -1,30 +1,44 @@
 ﻿@model SubItem
-@{
-    
-}
-
 @if (Model is not null)
 {
     <section class="section section--white">
         <div class="grid-container">
             <div class="grid-100">
-                <div class="trivia-title">
-                    <h2 class="section__title section__title--no-padding section__title--margin-bottom">@Model.Title</h2>
-                    <hr />
-                </div>
-                <ul class="trivia__list">
-                    @foreach(var subItem in Model.SubItems)
+                @if(!string.IsNullOrEmpty(Model.Title))
+                {
+                    <div class="trivia-title">
+                        <h2 class="section__title section__title--no-padding section__title--margin-bottom">@Model.Title</h2>
+                        <hr />
+                    </div>
+                }
+
+                <ul class="trivia__list @(string.IsNullOrEmpty(Model.Title) ? "trivia__list--no-margin" : string.Empty)">
+                    @foreach(SubItem subItem in Model.SubItems)
                     {
                         <li class="trivia-link__container">
-                            <a href="@subItem.NavigationLink" class="trivia__link" data-cy="trivia-list-link">
-                                <div>
-                                    <span class="@subItem.Icon trivia-link__icon"></span>
+                            @if(!string.IsNullOrEmpty(subItem.Link))
+                            {
+                                <a href="@subItem.Link" class="trivia__link" data-cy="trivia-list-link">
+                                    <div>
+                                        <span class="@subItem.Icon trivia-link__icon @Model.TextColourClass"></span>
+                                    </div>
+                                    
+                                    <div class="trivia-link__body">
+                                        @Html.Raw(subItem.Body)
+                                    </div>
+                                </a>
+                            }
+                            else {
+                                <div class="trivia__text" data-cy="trivia-list-text">
+                                    <div>
+                                        <span class="@subItem.Icon trivia-link__icon @Model.TextColourClass"></span>
+                                    </div>
+                                    
+                                    <div class="trivia-link__body">
+                                        @Html.Raw(subItem.Body)
+                                    </div>
                                 </div>
-                                
-                                <div class="trivia-link__body">
-                                    @Html.Raw(subItem.Body)
-                                </div>
-                            </a>
+                            }
                         </li>
                     }
                 </ul>

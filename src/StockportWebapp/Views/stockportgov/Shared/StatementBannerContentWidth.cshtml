@@ -1,24 +1,19 @@
 ﻿@model SubItem
 @if (Model is not null)
 {
-    string containerColourClass = $"bg{CssClassMapper.GetCssClass(Model.ColourScheme)}";
-    string borderColourClass = $"border{CssClassMapper.GetBorderCssClass(Model.ColourScheme)}";
-    string textColourClass = $"text{CssClassMapper.GetBorderCssClass(Model.ColourScheme)}";
-    string buttonText = !string.IsNullOrEmpty(Model.ButtonText) ? Model.ButtonText : "Read more";
     string contentTextClass = (Model.SubItems is not null && Model.SubItems.Any()) || !string.IsNullOrEmpty(Model.Link) ? string.Empty : "statement-banner-content__text-no-button";
-    string url = Model.SubItems.Any() ? Model.SubItems.FirstOrDefault().NavigationLink : Model.Link;
     
     <section class="section section--white">
         <div class="grid-container">
             <div class="grid-100">
-                <div class="statement-banner section__content bg-default-light border-default @containerColourClass @borderColourClass" data-cy="statement-banner-content-width">
-                    <span class="@Model.Icon statement-banner__icon text-default @textColourClass"></span>
+                <div class="statement-banner section__content bg-default-light border-default @Model.BackgroundColourClass @Model.BorderColourClass" data-cy="statement-banner-content-width">
+                    <span class="@Model.Icon statement-banner__icon text-default @Model.TextColourClass"></span>
                     <div class="statement-banner-content">
-                        <h3 class="statement-banner-content__title text-default @textColourClass">@Model.Title</h3>
+                        <h3 class="statement-banner-content__title text-default @Model.TextColourClass">@Model.Title</h3>
                         <div class="statement-banner-content__text @contentTextClass">@Html.Raw(Model.Body)</div>
 
-                        <a href="@url" class="btn btn--inverse btn--width-30 btn--chevron-forward btn--bold btn--chevron-bold btn-@CssClassMapper.GetBorderCssClass(Model.ColourScheme)" data-cy="statement-banner-content-width-link">
-                            <span class="btn_text">@buttonText</span>
+                        <a href="@(Model.SubItems.Any() ? Model.SubItems.FirstOrDefault().NavigationLink : Model.Link)" class="btn btn--inverse btn--width-30 btn--chevron-forward btn--bold btn--chevron-bold btn-@CssClassMapper.GetBoldCssClass(Model.ColourScheme)" data-cy="statement-banner-content-width-link">
+                            <span class="btn_text">@(!string.IsNullOrEmpty(Model.ButtonText) ? Model.ButtonText : "Read more")</span>
                             @if(string.IsNullOrEmpty(Model.ButtonText))
                             {
                                 <span class="visuallyhidden">about @Model.Title</span>

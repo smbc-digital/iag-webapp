@@ -36,4 +36,8 @@ public class SubItem
     }
 
     public string GetNavigationLink(string additionalUrlContent) => TypeRoutes.GetUrlFor(Type, $"{additionalUrlContent}/{Slug}");
+
+    public string BackgroundColourClass => $"bg{CssClassMapper.GetCssClass(ColourScheme)}";
+    public string TextColourClass => $"text{CssClassMapper.GetBoldCssClass(ColourScheme)}";
+    public string BorderColourClass => $"border{CssClassMapper.GetBoldCssClass(ColourScheme)}";
 }

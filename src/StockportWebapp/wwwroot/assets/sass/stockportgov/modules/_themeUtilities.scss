@@ -1,10 +1,10 @@
-.text-default { color: $stockport-teal-darker; }
-.text-teal { color: $stockport-teal-darker; }
-.text-green { color: $stockport-green; }
-.text-pink { color: $stockport-pink; }
-.text-blue { color: $stockport-blue; }
-.text-purple { color: $stockport-purple; }
-.text-grey { color: $stockport-grey; }
+.text-default { color: $stockport-teal-darker !important; }
+.text-teal { color: $stockport-teal-darker !important; }
+.text-green { color: $stockport-green !important; }
+.text-pink { color: $stockport-pink !important; }
+.text-blue { color: $stockport-blue !important; }
+.text-purple { color: $stockport-purple !important; }
+.text-grey { color: $stockport-grey !important; }
 
 .bg-default-light { background-color: rgba($stockport-teal-darker, 0.08); }
 .bg-teal-light, .bg-teal { background-color: rgba($stockport-teal-darker, 0.08); }
