@@ -2,8 +2,8 @@
 
 @if (Model is not null)
 {
-        string containerColourClass = $"call-to-action-{@CssClassMapper.GetBorderCssClass(Model.ColourScheme)}";
-        string buttonColourClass = $"btn-{@CssClassMapper.GetBorderCssClass(Model.ColourScheme)}";
+        string containerColourClass = $"call-to-action-{@CssClassMapper.GetBoldCssClass(Model.ColourScheme)}";
+        string buttonColourClass = $"btn-{@CssClassMapper.GetBoldCssClass(Model.ColourScheme)}";
         string additionalCSS = string.IsNullOrEmpty((string)ViewData["AdditionalCssClass"])
                             ? string.Empty
                             : (string)ViewData["AdditionalCssClass"];

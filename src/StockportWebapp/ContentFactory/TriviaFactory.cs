@@ -18,7 +18,7 @@ public class TriviaFactory : ITriviaFactory
         => triviaSection?.Select(item => new Trivia (
             item.Name,
             item.Icon,
-            _markdownWrapper.ConvertToHtml(item.Text),
+            _markdownWrapper.ConvertToHtml(item.Body),
             item.Link
         )).ToList();
 }
