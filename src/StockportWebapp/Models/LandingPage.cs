@@ -12,6 +12,6 @@ public class LandingPage
     public string Image { get; set; }
     public string HeaderType { get; set; }
     public string HeaderImage { get; set; }
-    public string HeaderTheme { get; set; }
+    public EColourScheme HeaderColourScheme { get; set; } = EColourScheme.Teal;
     public IEnumerable<SubItem> ContentBlocks { get; set; }
 }
