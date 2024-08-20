@@ -16,7 +16,15 @@
         justify-content: center;
         margin-top: 2em;
         background-color: $teal;
-
+        
+        &--teal {
+            background-color: $teal;
+        }
+    
+        &--grey {
+            background-color: $stockport-dark-grey;
+        }
+        
         @media #{$mobile} {
             margin-top: 0;
             flex-direction: column;
