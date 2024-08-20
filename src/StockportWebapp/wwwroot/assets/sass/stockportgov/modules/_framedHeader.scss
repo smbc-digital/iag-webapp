@@ -1,0 +1,90 @@
+.framed-header {
+    overflow: hidden;
+
+    &--teal {
+        background-color: $teal;
+    }
+
+    &--grey {
+        background-color: $stockport-dark-grey;
+    }
+
+    &__content {
+        display: flex;
+        height: 100%;
+        color: white;
+        justify-content: center;
+        margin-top: 2em;
+        background-color: $teal;
+
+        @media #{$mobile} {
+            margin-top: 0;
+            flex-direction: column;
+            align-items: center;
+        }
+    }
+
+    &__text {
+        margin-top: 2em;
+        width: 25%;
+        flex: 1;
+
+        @media #{$mobile} {
+            margin-top: 0;
+            margin-inline: 5px;
+            width: 100%;
+        }
+    }
+
+    &__image-wrapper {
+        width: 40vw;
+        height: 40vw;
+        overflow: hidden;
+        position: relative;
+
+        @media #{$tablet} {
+            width: 50vw;
+            height: 50vw;
+        }
+
+        @media #{$mobile} {
+            margin-inline: auto;
+            height: 100vw;
+            width: 100vw;
+        }
+
+        img {
+            border-radius: 50%;
+            height: 100%;
+            left: 50%;
+            max-width: 110%;
+            object-fit: cover;
+            position: absolute;
+            top: 50%;
+            transform: translate(-49.5%, -45%);
+            width: 99%;
+
+            @media #{$mobile}
+            {
+                position: absolute;
+                width: 110%;
+                height: 110%;
+                transform: translate(-52.5%, -45%);
+            }
+        }
+    }
+
+    &__title {
+        @include h-xl;
+
+        @media #{$tablet} {
+            @include h-l;
+        }
+
+        @media #{$mobile} {
+            @include h-xl;
+        }
+
+        color: white;
+    }
+}

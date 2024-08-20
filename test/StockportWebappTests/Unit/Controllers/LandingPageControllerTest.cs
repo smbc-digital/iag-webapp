@@ -14,7 +14,7 @@ public class LandingPageControllerTest
         Alerts = new List<Alert>(),
         Teaser = "teaser",
         MetaDescription = "metaDescription",
-        Image = "image",
+        Image = new MediaAsset(),
         HeaderType = "header type",
         HeaderImage = "header image",
         ContentBlocks = new List<SubItem>()
