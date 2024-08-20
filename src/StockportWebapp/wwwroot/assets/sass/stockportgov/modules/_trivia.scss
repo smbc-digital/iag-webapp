@@ -1,28 +1,107 @@
-.trivia {
+.trivia {    
+    &-title {
+        text-align: center;
+        text-align: -webkit-center;
+        text-align: -moz-center;
+
+        hr {
+            width: 20%;
+            margin-top: 0;
+
+            @media #{$mobile} {
+                width: 40%;
+            }
+
+            @media #{$tablet} {
+                width: 30%;
+            }
+        }
+    }
+
     &__list {
         list-style-type: none;
         margin-bottom: 0;
         display: flex;
         flex-direction: row;
+        flex-wrap: wrap;
+        box-sizing: border-box;
 
-        @media #{$mobile} {
+        @media #{$tablet} {
             display: block;
             margin-inline: 5px;
         }
 
         li {
-            margin: 0;
+            margin-inline-start: 0;
         }
     }
 
     &__link {
         display: flex;
+        text-decoration: none;
+        cursor: pointer;
+
+        &:hover {
+            text-decoration: none;
+
+            .trivia-link__body {
+                text-decoration: underline;
+                text-decoration-thickness: 3px;
+            }
+        }
     }
 
     &-link {
+        &__container {
+            margin-bottom: 2em;
+            margin-inline-end: 50px;
+            flex-grow: 1;
+            width: calc(50% - 50px);
+
+            @media #{$tablet} {
+                width: 100%;
+                margin-inline-end: 0;
+            }
+
+            &:nth-child(6n+1) .trivia-link__icon {
+                color: $stockport-green;
+            }
+
+            &:nth-child(6n+2) .trivia-link__icon {
+                color: $stockport-purple;
+            }
+
+            &:nth-child(6n+3) .trivia-link__icon {
+                color: $stockport-pink;
+            }
+
+            &:nth-child(6n+4) .trivia-link__icon {
+                color: $stockport-teal-darker;
+            }
+
+            &:nth-child(6n+5) .trivia-link__icon {
+                color: $stockport-orange;
+            }
+
+            &:nth-child(6n) .trivia-link__icon {
+                color: $stockport-blue;
+            }
+        }
+
         &__icon {
             font-size: 3rem;
-            margin-inline-end: .5em;
+            margin-inline-end: 0.5em;
+            width: 1.2em;
+            margin-top: 5px;
+            display: block;
+        }
+
+        &__body {
+            color: $stockport-black;
+
+            p:last-of-type {
+                margin-block-end: 0;
+            }
         }
     }
 }
