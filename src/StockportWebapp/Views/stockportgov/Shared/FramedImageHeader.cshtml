@@ -1,12 +1,52 @@
 ﻿@model LandingPageViewModel
-@{
- 
-}
 @if (Model is not null)
 {
-    <section class="section section--white">
-        <div class="placeholder placeholder__full-width-block placeholder-bg-green placeholder-medium">
-            <h2>FRAMED IMAGE HEADER placeholder</h2>
+    string backgroundColour = CssClassMapper.GetCssClass(Model.LandingPage.HeaderColourScheme);
+
+    <section class="section hide-on-mobile framed-header framed-header-@backgroundColour">
+        <div class="grid-container">
+            <div class="grid-100">
+                <div class="framed-header__content framed-header__content-@backgroundColour">
+                    <div class="framed-header__text">
+                        <h1 class="h-xl framed-header__title">@Model.LandingPage.Title</h1>
+                        <p class="framed-header__subtitle">@Model.LandingPage.Subtitle</p>
+                    </div>
+
+                    <div class="framed-header__image-wrapper">
+                        <img src="@Model.LandingPage.Image.Url?w=1015&q=89"
+                             srcset="@Model.LandingPage.Image.Url?w=1015&q=89&fm=webp,
+                                    @Model.LandingPage.Image.Url?w=507&q=89&fm=webp 507w"
+                             sizes="(min-width: 768px) and (max-width: 1023px)) 507px,
+                                    (min-width: 1024px) 1015px"
+                             class="framed-header__image"
+                             alt="@Model.LandingPage.Image.Description"
+                             width="1015"
+                             height="1024">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section hide-on-desktop hide-on-tablet framed-header framed-header-@backgroundColour">
+        <div class="framed-header__content framed-header__content-@backgroundColour">
+            <div class="grid-container">
+                <div class="grid-100">
+                    <div class="framed-header__text">
+                        <h1 class="h-xl framed-header__title">@Model.LandingPage.Title</h1>
+                        <p class="framed-header__subtitle">@Model.LandingPage.Subtitle</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="framed-header__image-wrapper">
+                <img src="@Model.LandingPage.Image.Url?w=844&q=89"
+                        srcset="@Model.LandingPage.Image.Url?w=844&q=89&fm=webp"
+                        class="framed-header__image"
+                        alt="@Model.LandingPage.Image.Description"
+                        width="844"
+                        height="575">
+            </div>
         </div>
     </section>
 }
