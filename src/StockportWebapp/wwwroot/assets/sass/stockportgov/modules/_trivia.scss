@@ -31,14 +31,28 @@
             display: block;
             margin-inline: 5px;
             margin-top: 2em;
+
+            li {
+                margin-inline: 0 !important;
+            }
         }
 
         &--no-margin {
             margin-top: 0;
         }
 
-        li {
+        &--profile {
+            flex-direction: column;
+            margin-top: 2.5em;
+        }
+
+        .trivia-link__container:nth-child(odd) {
+            margin-inline-end: 25px;
             margin-inline-start: 0;
+        }
+
+        .trivia-link__container:nth-child(even) {
+            margin-inline-start: 25px;
         }
     }
 
@@ -64,15 +78,20 @@
     &-link {
         &__container {
             margin-bottom: 2em;
-            margin-inline-end: 50px;
             flex-grow: 1;
-            width: calc(50% - 50px);
-            max-width: 50%;
+            width: calc(50% - 25px);
+            max-width: 48%;
 
             @media #{$tablet} {
                 width: 100%;
                 max-width: 100%;
                 margin-inline-end: 0;
+            }
+
+            &--profile {
+                width: 100%;
+                max-width: 100%;
+                margin-inline: 0 !important;
             }
 
             .text-orange { color: $stockport-orange !important; }

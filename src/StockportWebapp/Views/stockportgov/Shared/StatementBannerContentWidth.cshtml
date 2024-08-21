@@ -7,14 +7,18 @@
         <div class="grid-container">
             <div class="grid-100">
                 <div class="statement-banner section__content bg-default-light border-default @Model.BackgroundColourClass @Model.BorderColourClass" data-cy="statement-banner-content-width">
-                    <span class="@Model.Icon statement-banner__icon text-default @Model.TextColourClass"></span>
+                    @if(!string.IsNullOrEmpty(Model.Icon) && !Model.Icon.Equals("si-default"))
+                    {
+                        <span class="@Model.Icon statement-banner__icon text-default @Model.TextColourClass"></span>
+                    }
+                    
                     <div class="statement-banner-content">
                         <h3 class="statement-banner-content__title text-default @Model.TextColourClass">@Model.Title</h3>
                         <div class="statement-banner-content__text @contentTextClass">@Html.Raw(Model.Body)</div>
 
                         @if(Model.SubItems.Any() || !string.IsNullOrEmpty(Model.Link))
                         {
-                            <a href="@(Model.SubItems.Any() ? Model.SubItems.FirstOrDefault().NavigationLink : Model.Link)" class="btn btn--inverse btn--width-30 btn--chevron-forward btn--bold btn--chevron-bold btn-@CssClassMapper.GetBoldCssClass(Model.ColourScheme)" data-cy="statement-banner-content-width-link">
+                            <a href="@(Model.SubItems.Any() ? Model.SubItems.FirstOrDefault().NavigationLink : Model.Link)" class="btn btn--inverse btn--width-30 btn--chevron-forward btn--bold btn--chevron-bold btn--outline btn-@CssClassMapper.GetBoldCssClass(Model.ColourScheme) btn-@CssClassMapper.GetBoldCssClass(Model.ColourScheme)-outline" data-cy="statement-banner-content-width-link">
                                 <span class="btn_text">@(!string.IsNullOrEmpty(Model.ButtonText) ? Model.ButtonText : "Read more")</span>
                                 @if(string.IsNullOrEmpty(Model.ButtonText))
                                 {
