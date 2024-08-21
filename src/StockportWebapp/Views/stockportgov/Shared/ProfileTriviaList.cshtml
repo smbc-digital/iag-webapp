@@ -2,10 +2,10 @@
 
 @if (Model is not null)
 {
-    <ul class="trivia__list">
+    <ul class="trivia__list trivia__list--profile">
         @foreach(Trivia trivia in Model)
         {
-            <li class="trivia-link__container">
+            <li class="trivia-link__container trivia-link__container--profile">
                 @if(!string.IsNullOrEmpty(trivia.Link))
                 {
                     <a href="@trivia.Link" class="trivia__link" data-cy="trivia-list-link">

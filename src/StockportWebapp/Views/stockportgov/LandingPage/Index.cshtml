@@ -21,19 +21,15 @@
         <partial name="FramedImageHeader" model="@Model" />
     }
 
-    <div class="grid-container">
-        <div class="grid-100">
-            @foreach(var contentBlock in Model.LandingPage.ContentBlocks)
-            {
-                if(contentBlock.ContentType.Equals("CallToAction"))
-                {
-                    <partial name="CallToActionBanner" model="@contentBlock.SubItems.FirstOrDefault()" />
-                }
-                else
-                {
-                    <partial name="@contentBlock.ContentType" model="@contentBlock" />
-                }
-            }
-        </div>
-    </div>
+    @foreach(var contentBlock in Model.LandingPage.ContentBlocks)
+    {
+        if(contentBlock.ContentType.Equals("CallToAction"))
+        {
+            <partial name="CallToActionBanner" model="@contentBlock.SubItems.FirstOrDefault()" />
+        }
+        else
+        {
+            <partial name="@contentBlock.ContentType" model="@contentBlock" />
+        }
+    }
 </div>
