@@ -35,6 +35,8 @@ public class TypeRoutes
                 return slug.StartsWith("/directories/") 
                         ? slug 
                         : $"/directories/{slug}";
+            case "landingPage":
+                return $"/landing/{slug}";
             default:
                 return $"/{slug}";
         }
