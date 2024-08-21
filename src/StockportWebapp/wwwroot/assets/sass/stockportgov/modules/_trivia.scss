@@ -91,7 +91,7 @@
             &--profile {
                 width: 100%;
                 max-width: 100%;
-                margin-inline-end: 0;
+                margin-inline: 0 !important;
             }
 
             .text-orange { color: $stockport-orange !important; }
