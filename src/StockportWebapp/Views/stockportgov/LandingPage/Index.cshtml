@@ -22,7 +22,6 @@
     }
 
     <div class="grid-container">
-        <div class="grid-100">
             @foreach(var contentBlock in Model.LandingPage.ContentBlocks)
             {
                 if(contentBlock.ContentType.Equals("CallToAction"))
@@ -34,6 +33,5 @@
                     <partial name="@contentBlock.ContentType" model="@contentBlock" />
                 }
             }
-        </div>
     </div>
 </div>

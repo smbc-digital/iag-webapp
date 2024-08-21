@@ -34,7 +34,6 @@
 
     &__text {
         margin-top: 2em;
-        width: 25%;
         flex: 1;
 
         @media #{$mobile} {
@@ -45,8 +44,9 @@
     }
 
     &__image-wrapper {
-        width: 40vw;
-        height: 40vw;
+        width: 35vw;
+        height: 35vw;
+        max-height: 800px;
         overflow: hidden;
         position: relative;
 
@@ -65,7 +65,8 @@
             border-radius: 50%;
             height: 100%;
             left: 50%;
-            max-width: 110%;
+            max-width: 800px;
+            max-height: 800px;
             object-fit: cover;
             position: absolute;
             top: 50%;
@@ -74,10 +75,12 @@
 
             @media #{$mobile}
             {
-                position: absolute;
-                width: 110%;
-                height: 110%;
-                transform: translate(-52.5%, -45%);
+                position: static;
+                border-radius: 0;
+                height: 100%;
+                width: 100%;
+                object-fit: fill;
+                transform: translate(0, 0);
             }
         }
     }
@@ -94,5 +97,13 @@
         }
 
         color: white;
+    }
+
+    &__subtitle {
+        width: 90%;
+
+        @media #{$mobile} {
+            width: 100%;
+        }
     }
 }
