@@ -11,7 +11,7 @@ public class LandingPage
     public string MetaDescription { get; set; }
     public MediaAsset Image { get; set; }
     public string HeaderType { get; set; }
-    public string HeaderImage { get; set; }
+    public MediaAsset HeaderImage { get; set; }
     public EColourScheme HeaderColourScheme { get; set; } = EColourScheme.Teal;
     public IEnumerable<SubItem> ContentBlocks { get; set; }
 }

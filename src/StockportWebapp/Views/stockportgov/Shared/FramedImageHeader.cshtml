@@ -12,17 +12,20 @@
                         <p class="framed-header__subtitle">@Model.LandingPage.Subtitle</p>
                     </div>
 
-                    <div class="framed-header__image-wrapper">
-                        <img src="@Model.LandingPage.Image.Url?w=1015&q=89"
-                             srcset="@Model.LandingPage.Image.Url?w=1015&q=89&fm=webp,
-                                    @Model.LandingPage.Image.Url?w=507&q=89&fm=webp 507w"
-                             sizes="(min-width: 768px) and (max-width: 1023px)) 507px,
-                                    (min-width: 1024px) 1015px"
-                             class="framed-header__image"
-                             alt="@Model.LandingPage.Image.Description"
-                             width="1015"
-                             height="1024">
-                    </div>
+                    @if(!string.IsNullOrEmpty(Model.LandingPage.HeaderImage.Url))
+                    {
+                        <div class="framed-header__image-wrapper">
+                            <img src="@Model.LandingPage.HeaderImage.Url?w=1015&q=89"
+                                srcset="@Model.LandingPage.HeaderImage.Url?w=1015&q=89&fm=webp,
+                                        @Model.LandingPage.HeaderImage.Url?w=507&q=89&fm=webp 507w"
+                                sizes="(min-width: 768px) and (max-width: 1023px)) 507px,
+                                        (min-width: 1024px) 1015px"
+                                class="framed-header__image"
+                                alt="@Model.LandingPage.HeaderImage.Description"
+                                width="1015"
+                                height="1024">
+                        </div>
+                    }
                 </div>
             </div>
         </div>
@@ -40,10 +43,10 @@
             </div>
 
             <div class="framed-header__image-wrapper">
-                <img src="@Model.LandingPage.Image.Url?w=844&q=89"
-                        srcset="@Model.LandingPage.Image.Url?w=844&q=89&fm=webp"
+                <img src="@Model.LandingPage.HeaderImage.Url?w=844&q=89"
+                        srcset="@Model.LandingPage.HeaderImage.Url?w=844&q=89&fm=webp"
                         class="framed-header__image"
-                        alt="@Model.LandingPage.Image.Description"
+                        alt="@Model.LandingPage.HeaderImage.Description"
                         width="844"
                         height="575">
             </div>

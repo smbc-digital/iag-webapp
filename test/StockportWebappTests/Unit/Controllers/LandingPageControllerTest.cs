@@ -16,7 +16,7 @@ public class LandingPageControllerTest
         MetaDescription = "metaDescription",
         Image = new MediaAsset(),
         HeaderType = "header type",
-        HeaderImage = "header image",
+        HeaderImage = new MediaAsset(),
         ContentBlocks = new List<SubItem>()
     };
 
