@@ -3,10 +3,10 @@
 {
     string contentTextClass = (Model.SubItems is not null && Model.SubItems.Any()) || !string.IsNullOrEmpty(Model.Link) ? string.Empty : "statement-banner-content__text-no-button";
     
-    <section class="section section--white">
+    <section class="section section--white" data-cy="statement-banner-content-width">
         <div class="grid-container">
             <div class="grid-100">
-                <div class="statement-banner section__content bg-default-light border-default @Model.BackgroundColourClass @Model.BorderColourClass" data-cy="statement-banner-content-width">
+                <div class="statement-banner section__content bg-default-light border-default @Model.BackgroundColourClass @Model.BorderColourClass">
                     @if(!string.IsNullOrEmpty(Model.Icon) && !Model.Icon.Equals("si-default"))
                     {
                         <span class="@Model.Icon statement-banner__icon text-default @Model.TextColourClass"></span>
