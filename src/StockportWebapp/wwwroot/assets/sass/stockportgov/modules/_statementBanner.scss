@@ -45,5 +45,13 @@
                 }
             }
         }
+
+        &-screen-width {
+            padding-inline: 0;
+        }
+    }
+
+    &-screen-width {
+        border-radius: 0;
     }
 }

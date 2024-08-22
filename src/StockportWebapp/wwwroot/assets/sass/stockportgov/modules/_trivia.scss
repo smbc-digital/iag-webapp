@@ -29,12 +29,15 @@
 
         @media #{$tablet} {
             display: block;
-            margin-inline: 5px;
             margin-top: 2em;
 
             li {
                 margin-inline: 0 !important;
             }
+        }
+
+        @media #{$mobile} {
+            margin-inline: 5px;
         }
 
         &--no-margin {
