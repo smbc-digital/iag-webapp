@@ -6,13 +6,14 @@
         ? Model.LandingPage.HeaderImage.Url 
         : string.Empty;
     string imageAlt = Model.LandingPage.HeaderImage.Description ?? string.Empty;
+    string titleNoMargin = !backgroundColour.Equals(EColourScheme.Grey) ? "framed-header__title--no-margin" : string.Empty;
 
     <section class="section hide-on-mobile framed-header framed-header-@backgroundColour">
         <div class="grid-container">
             <div class="grid-100">
                 <div class="framed-header__content framed-header__content-@backgroundColour">
                     <div class="framed-header__text">
-                        <h1 class="h-xl framed-header__title">@Model.LandingPage.Title</h1>
+                        <h1 class="h-xl framed-header__title @titleNoMargin">@Model.LandingPage.Title</h1>
                         <p class="framed-header__subtitle">@Model.LandingPage.Subtitle</p>
                     </div>
 
@@ -40,7 +41,7 @@
             <div class="grid-container">
                 <div class="grid-100">
                     <div class="framed-header__text">
-                        <h1 class="h-xl framed-header__title">@Model.LandingPage.Title</h1>
+                        <h1 class="h-xl framed-header__title @titleNoMargin">@Model.LandingPage.Title</h1>
                         <p class="framed-header__subtitle">@Model.LandingPage.Subtitle</p>
                     </div>
                 </div>

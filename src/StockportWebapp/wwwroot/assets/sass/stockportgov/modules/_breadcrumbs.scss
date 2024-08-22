@@ -67,9 +67,7 @@
 }
 
 .landing-breadcrumb-container {
-    @media #{$mobile} {
-        padding-block: 20px;
-    }
+    padding-block: 20px;
 }
 
 .directories-breadcrumb-container {

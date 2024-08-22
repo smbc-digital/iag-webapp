@@ -92,6 +92,10 @@
 
         @media #{$mobile} {
             @include h-xl;
+
+            &--no-margin {
+                margin-top: 0;
+            }
         }
 
         color: white;
