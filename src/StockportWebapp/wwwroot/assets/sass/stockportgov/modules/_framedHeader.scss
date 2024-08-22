@@ -56,9 +56,9 @@
         }
 
         @media #{$mobile} {
-            margin-inline: auto;
             height: 100vw;
             width: 100vw;
+            max-height: 500px;
         }
 
         img {
@@ -92,6 +92,10 @@
 
         @media #{$mobile} {
             @include h-xl;
+
+            &--no-margin {
+                margin-top: 0;
+            }
         }
 
         color: white;

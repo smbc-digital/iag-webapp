@@ -2,26 +2,31 @@
 @if (Model is not null)
 {
     string backgroundColour = CssClassMapper.GetCssClass(Model.LandingPage.HeaderColourScheme);
+    string imageSrc = !string.IsNullOrEmpty(Model.LandingPage.HeaderImage.Url) 
+        ? Model.LandingPage.HeaderImage.Url 
+        : string.Empty;
+    string imageAlt = Model.LandingPage.HeaderImage.Description ?? string.Empty;
+    string titleNoMargin = !backgroundColour.Equals(EColourScheme.Grey) ? "framed-header__title--no-margin" : string.Empty;
 
     <section class="section hide-on-mobile framed-header framed-header-@backgroundColour">
         <div class="grid-container">
             <div class="grid-100">
                 <div class="framed-header__content framed-header__content-@backgroundColour">
                     <div class="framed-header__text">
-                        <h1 class="h-xl framed-header__title">@Model.LandingPage.Title</h1>
+                        <h1 class="h-xl framed-header__title @titleNoMargin">@Model.LandingPage.Title</h1>
                         <p class="framed-header__subtitle">@Model.LandingPage.Subtitle</p>
                     </div>
 
-                    @if(!string.IsNullOrEmpty(Model.LandingPage.HeaderImage.Url))
+                    @if(!string.IsNullOrEmpty(imageSrc))
                     {
                         <div class="framed-header__image-wrapper">
-                            <img src="@Model.LandingPage.HeaderImage.Url?w=1015&q=89"
-                                srcset="@Model.LandingPage.HeaderImage.Url?w=1015&q=89&fm=webp,
-                                        @Model.LandingPage.HeaderImage.Url?w=507&q=89&fm=webp 507w"
+                            <img src="@imageSrc?w=1015&q=89"
+                                srcset="@imageSrc?w=1015&q=89&fm=webp,
+                                        @imageSrc?w=507&q=89&fm=webp 507w"
                                 sizes="(min-width: 768px) and (max-width: 1023px)) 507px,
                                         (min-width: 1024px) 1015px"
                                 class="framed-header__image"
-                                alt="@Model.LandingPage.HeaderImage.Description"
+                                alt="@imageAlt"
                                 width="1015"
                                 height="1024">
                         </div>
@@ -36,20 +41,23 @@
             <div class="grid-container">
                 <div class="grid-100">
                     <div class="framed-header__text">
-                        <h1 class="h-xl framed-header__title">@Model.LandingPage.Title</h1>
+                        <h1 class="h-xl framed-header__title @titleNoMargin">@Model.LandingPage.Title</h1>
                         <p class="framed-header__subtitle">@Model.LandingPage.Subtitle</p>
                     </div>
                 </div>
             </div>
 
-            <div class="framed-header__image-wrapper">
-                <img src="@Model.LandingPage.HeaderImage.Url?w=844&q=89"
-                        srcset="@Model.LandingPage.HeaderImage.Url?w=844&q=89&fm=webp"
-                        class="framed-header__image"
-                        alt="@Model.LandingPage.HeaderImage.Description"
-                        width="844"
-                        height="575">
-            </div>
+            @if(!string.IsNullOrEmpty(imageSrc))
+            {
+                <div class="framed-header__image-wrapper">
+                    <img src="@imageSrc?w=844&q=89"
+                            srcset="@imageSrc?w=844&q=89&fm=webp"
+                            class="framed-header__image"
+                            alt="@imageAlt"
+                            width="844"
+                            height="575">
+                </div>
+            }
         </div>
     </section>
 }
