@@ -16,8 +16,11 @@ public class SubItem
     public string Link;
     public string ButtonText;
     public readonly List<SubItem> SubItems;
+    public string Statistic;
+    public string StatisticSubheading;
 
-    public SubItem(string slug, string title, string teaser, string icon, string type, string contentType, string image, int mailingListId, string body, List<SubItem> subItems, string link, string buttonText, EColourScheme colourScheme)
+
+    public SubItem(string slug, string title, string teaser, string icon, string type, string contentType, string image, int mailingListId, string body, List<SubItem> subItems, string link, string buttonText, EColourScheme colourScheme, string statistic, string statisticSubheading)
     {
         Slug = slug;
         Title = title;
@@ -33,6 +36,8 @@ public class SubItem
         ColourScheme = colourScheme;
         Link = link;
         ButtonText = buttonText;
+        Statistic = statistic;
+        StatisticSubheading = statisticSubheading;
     }
 
     public string GetNavigationLink(string additionalUrlContent) => TypeRoutes.GetUrlFor(Type, $"{additionalUrlContent}/{Slug}");

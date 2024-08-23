@@ -90,8 +90,8 @@ public class DirectoryViewModelTest
         {
             SubItems = new List<SubItem> ()
             {
-                new("slug", "title", "teaser", "icon", "directory", string.Empty, "image", 0, string.Empty, new List<SubItem>(), string.Empty, string.Empty, EColourScheme.Teal),
-                new("slug2", "title2", "teaser2", "icon2", "directory2", string.Empty, "image2", 0, string.Empty, new List<SubItem>(), string.Empty, string.Empty, EColourScheme.Teal)
+                new("slug", "title", "teaser", "icon", "directory", string.Empty, "image", 0, string.Empty, new List<SubItem>(), string.Empty, string.Empty, EColourScheme.Teal, string.Empty, string.Empty),
+                new("slug2", "title2", "teaser2", "icon2", "directory2", string.Empty, "image2", 0, string.Empty, new List<SubItem>(), string.Empty, string.Empty, EColourScheme.Teal, string.Empty, string.Empty)
             },
         };
 
@@ -160,8 +160,8 @@ public class DirectoryViewModelTest
         Directory directory = new()
         {
             SubItems = new List<SubItem>(){
-                new("slug", "title", "teaser", "icon1", "type", "contentType", "image", 0, string.Empty, new List<SubItem>(), string.Empty, string.Empty, EColourScheme.Teal),
-                new("slug2", "title2", "teaser2", "", "type2", "contentType", "image2", 0, string.Empty, new List<SubItem>(), string.Empty, string.Empty, EColourScheme.Teal)
+                new("slug", "title", "teaser", "icon1", "type", "contentType", "image", 0, string.Empty, new List<SubItem>(), string.Empty, string.Empty, EColourScheme.Teal, string.Empty, string.Empty),
+                new("slug2", "title2", "teaser2", "", "type2", "contentType", "image2", 0, string.Empty, new List<SubItem>(), string.Empty, string.Empty, EColourScheme.Teal, string.Empty, string.Empty)
             }
         };
 

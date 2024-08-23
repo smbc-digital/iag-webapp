@@ -20,12 +20,11 @@
 
     &__list {
         list-style-type: none;
-        margin-bottom: 0;
+        margin: 4em 0 0;
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
         box-sizing: border-box;
-        margin-top: 4em;
 
         @media #{$tablet} {
             display: block;
@@ -98,30 +97,13 @@
             }
 
             .text-orange { color: $stockport-orange !important; }
-
-            &:nth-child(6n+1) .trivia-link__icon {
-                color: $stockport-green;
-            }
-
-            &:nth-child(6n+2) .trivia-link__icon {
-                color: $stockport-purple;
-            }
-
-            &:nth-child(6n+3) .trivia-link__icon {
-                color: $stockport-pink;
-            }
-
-            &:nth-child(6n+4) .trivia-link__icon {
-                color: $stockport-teal-darker;
-            }
-
-            &:nth-child(6n+5) .trivia-link__icon {
-                color: $stockport-orange;
-            }
-
-            &:nth-child(6n) .trivia-link__icon {
-                color: $stockport-blue;
-            }
+            
+            &:nth-child(6n+1) .trivia-link__icon { color: $stockport-green; }
+            &:nth-child(6n+2) .trivia-link__icon { color: $stockport-purple; }
+            &:nth-child(6n+3) .trivia-link__icon { color: $stockport-pink; }
+            &:nth-child(6n+4) .trivia-link__icon { color: $stockport-teal-darker; }
+            &:nth-child(6n+5) .trivia-link__icon { color: $stockport-orange; }
+            &:nth-child(6n) .trivia-link__icon { color: $stockport-blue; }
         }
 
         &__icon {
@@ -141,4 +123,61 @@
         }
     }
 
+    &__cards {
+        display: flex;
+        flex-direction: row;
+        list-style-type: none;
+    }
+
+    &-card {
+        border-radius: 50px;
+        
+        @media #{$mobile} {
+            border-radius: 30px;
+            margin-bottom: 1.5em;
+        }
+
+        &:nth-child(n+1) {
+            border: 4px solid $stockport-teal-darker;
+            background-color: rgba($stockport-teal-darker, 0.08);
+
+            .trivia-card__icon,
+            .trivia-card__title {
+                color: $stockport-teal-darker;
+            }
+        }
+
+        &:nth-child(n+2) {
+            border: 4px solid $stockport-pink;
+            background-color: rgba($stockport-pink, 0.08);
+
+            .trivia-card__icon,
+            .trivia-card__title {
+                color: $stockport-pink;
+            }
+        }
+
+        &:nth-child(n+3) {
+            border: 4px solid $stockport-purple;
+            background-color: rgba($stockport-purple, 0.08);
+
+            .trivia-card__icon,
+            .trivia-card__title {
+                color: $stockport-purple;
+            }
+        }
+
+        &__icon {
+            &--padding {
+                padding: 1.5rem 1.5rem 0;
+            }
+        };
+
+        &__body {
+            color: $stockport-black;
+            p {
+                margin-bottom: 0;
+            }
+       }
+    }
 }

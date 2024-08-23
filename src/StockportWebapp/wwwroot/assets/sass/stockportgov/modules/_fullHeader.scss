@@ -76,3 +76,12 @@
         margin-bottom: 0;
     }
 }
+
+html[dir="rtl"] {
+    .full-header {
+        &__content {
+            border-bottom-right-radius: 0;
+            border-bottom-left-radius: 50px;
+        }
+    }
+}

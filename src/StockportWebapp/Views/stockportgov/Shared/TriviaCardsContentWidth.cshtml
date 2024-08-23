@@ -1,20 +1,16 @@
 ﻿@model SubItem
-@{
-
-}
 @if (Model is not null)
 {
     <section class="section section--white">
         <div class="grid-container">
             <div class="grid-100">
-                <div class="placeholder placeholder-bg-grey placeholder-small">
-                    @foreach(var subItem in Model.SubItems)
-                    {
-                        <div class="placeholder placeholder-bg-green placeholder-small placeholder-inline-margin">
-                            <h2>TRIVIA CARDS CONTENT WIDTH</h2>
-                            @subItem.Title
-                        </div>
-                    }
+                <div class="section__content">
+                    <ul class="navcard-wrapper navcard-wrapper--no-margin">
+                        @foreach(SubItem subItem in Model.SubItems)
+                        {
+                            <partial name="TriviaCard" model="@subItem" view-data="@(new ViewDataDictionary(ViewData) { {"BackgroundColourClass", Model.BackgroundColourClass}, {"BorderColourClass", Model.BorderColourClass}, {"TextColourClass", Model.TextColourClass} })" />
+                        }
+                    </ul>
                 </div>
             </div>
         </div>

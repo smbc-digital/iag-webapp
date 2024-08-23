@@ -21,12 +21,16 @@
         <partial name="FramedImageHeader" model="@Model" />
     }
 
-    @foreach(var contentBlock in Model.LandingPage.ContentBlocks)
+    @foreach(SubItem contentBlock in Model.LandingPage.ContentBlocks)
     {
         if(contentBlock.ContentType.Equals("CallToAction"))
         {
             <partial name="CallToActionBanner" model="@contentBlock.SubItems.FirstOrDefault()" />
         }
+        @* else if(contentBlock.ContentType.Equals("TriviaCardsContentWidth") && contentBlock.SubItems.Count > 3)
+        {
+            <partial name="TriviaList" model="@contentBlock" />
+        } *@
         else
         {
             <partial name="@contentBlock.ContentType" model="@contentBlock" />
