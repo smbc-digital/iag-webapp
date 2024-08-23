@@ -27,10 +27,10 @@
         {
             <partial name="CallToActionBanner" model="@contentBlock.SubItems.FirstOrDefault()" />
         }
-        @* else if(contentBlock.ContentType.Equals("TriviaCardsContentWidth") && contentBlock.SubItems.Count > 3)
+        else if(contentBlock.ContentType.Equals("TriviaCardsContentWidth") && contentBlock.SubItems.Count > 3)
         {
             <partial name="TriviaList" model="@contentBlock" />
-        } *@
+        }
         else
         {
             <partial name="@contentBlock.ContentType" model="@contentBlock" />
