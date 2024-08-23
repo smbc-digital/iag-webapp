@@ -21,7 +21,7 @@
         <partial name="FramedImageHeader" model="@Model" />
     }
 
-    @foreach(var contentBlock in Model.LandingPage.ContentBlocks)
+    @foreach(SubItem contentBlock in Model.LandingPage.ContentBlocks)
     {
         if(contentBlock.ContentType.Equals("CallToAction"))
         {

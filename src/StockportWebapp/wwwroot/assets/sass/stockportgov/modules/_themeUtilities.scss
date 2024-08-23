@@ -6,18 +6,18 @@
 .text-purple { color: $stockport-purple !important; }
 .text-grey { color: $stockport-grey !important; }
 
-.bg-default-light { background-color: rgba($stockport-teal-darker, 0.08); }
-.bg-teal-light, .bg-teal { background-color: rgba($stockport-teal-darker, 0.08); }
-.bg-green-light, .bg-green { background-color: rgba($stockport-green, 0.08); }
-.bg-pink-light, .bg-pink { background-color: rgba($stockport-pink, 0.08); }
-.bg-blue-light, .bg-blue { background-color: rgba($stockport-blue, 0.08); }
-.bg-purple-light, .bg-purple { background-color: rgba($stockport-purple, 0.08); }
-.bg-grey-light, .bg-grey { background-color: rgba($stockport-grey, 0.08); }
+.bg-default-light { background-color: rgba($stockport-teal-darker, 0.08) !important; }
+.bg-teal-light, .bg-teal { background-color: rgba($stockport-teal-darker, 0.08) !important; }
+.bg-green-light, .bg-green { background-color: rgba($stockport-green, 0.08) !important; }
+.bg-pink-light, .bg-pink { background-color: rgba($stockport-pink, 0.08) !important; }
+.bg-blue-light, .bg-blue { background-color: rgba($stockport-blue, 0.08) !important; }
+.bg-purple-light, .bg-purple { background-color: rgba($stockport-purple, 0.08) !important; }
+.bg-grey-light, .bg-grey { background-color: rgba($stockport-grey, 0.08) !important; }
 
-.border-default { border: 4px solid $stockport-teal-darker; }
-.border-teal { border: 4px solid $stockport-teal-darker; }
-.border-green { border: 4px solid $stockport-green; }
-.border-pink { border: 4px solid $stockport-pink; }
-.border-blue { border: 4px solid $stockport-blue; }
-.border-purple { border: 4px solid $stockport-purple; }
-.border-grey { border: 4px solid $stockport-grey; }
+.border-default { border: 4px solid $stockport-teal-darker !important; }
+.border-teal { border: 4px solid $stockport-teal-darker !important; }
+.border-green { border: 4px solid $stockport-green !important; }
+.border-pink { border: 4px solid $stockport-pink !important; }
+.border-blue { border: 4px solid $stockport-blue !important; }
+.border-purple { border: 4px solid $stockport-purple !important; }
+.border-grey { border: 4px solid $stockport-grey !important; }

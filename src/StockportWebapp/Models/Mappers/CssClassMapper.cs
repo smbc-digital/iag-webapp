@@ -5,7 +5,7 @@ public static class CssClassMapper
     public static string GetCssClass(EColourScheme colourScheme)
         => colourScheme switch
         {
-            EColourScheme.None => "-teal",
+            EColourScheme.None => "-none",
             EColourScheme.Blue => "-blue",
             EColourScheme.Blue_Light => "-blue-light",
             EColourScheme.Green => "-green",
