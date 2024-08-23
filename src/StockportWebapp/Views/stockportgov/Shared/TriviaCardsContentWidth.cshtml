@@ -1,18 +1,24 @@
 ﻿@model SubItem
 @if (Model is not null)
 {
-    <section class="section section--white">
-        <div class="grid-container">
-            <div class="grid-100">
-                <div class="section__content">
-                    <ul class="navcard-wrapper navcard-wrapper--no-margin">
-                        @foreach(SubItem subItem in Model.SubItems)
-                        {
-                            <partial name="TriviaCard" model="@subItem" view-data="@(new ViewDataDictionary(ViewData) { {"BackgroundColourClass", Model.BackgroundColourClass}, {"BorderColourClass", Model.BorderColourClass}, {"TextColourClass", Model.TextColourClass} })" />
-                        }
-                    </ul>
+    @if(Model.SubItems.Count <= 3)
+    {
+        <section class="section section--white">
+            <div class="grid-container">
+                <div class="grid-100">
+                    <div class="section__content">
+                        <ul class="navcard-wrapper navcard-wrapper--no-margin">
+                            @foreach(SubItem subItem in Model.SubItems)
+                            {
+                                <partial name="TriviaCard" model="@subItem" view-data="@(new ViewDataDictionary(ViewData) { {"BackgroundColourClass", Model.BackgroundColourClass}, {"BorderColourClass", Model.BorderColourClass}, {"TextColourClass", Model.TextColourClass} })" />
+                            }
+                        </ul>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    }
+    else {
+        <partial name="TriviaList" model="@Model" />
+    }
 }
