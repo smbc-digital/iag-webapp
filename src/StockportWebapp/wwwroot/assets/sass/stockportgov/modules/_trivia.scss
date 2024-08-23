@@ -48,12 +48,12 @@
             margin-top: 2.5em;
         }
 
-        .trivia-link__container:nth-child(odd) {
+        .trivia__container:nth-child(odd) {
             margin-inline-end: 25px;
             margin-inline-start: 0;
         }
 
-        .trivia-link__container:nth-child(even) {
+        .trivia__container:nth-child(even) {
             margin-inline-start: 25px;
         }
     }
@@ -65,7 +65,7 @@
         &:hover {
             text-decoration: none;
 
-            .trivia-link__body {
+            .trivia__body {
                 text-decoration: underline;
                 text-decoration-thickness: 3px;
             }
@@ -77,49 +77,47 @@
         text-decoration: none;
     }
 
-    &-link {
-        &__container {
-            margin-bottom: 2em;
-            flex-grow: 1;
-            width: calc(50% - 25px);
-            max-width: 48%;
+    &__container {
+        margin-bottom: 2em;
+        flex-grow: 1;
+        width: calc(50% - 25px);
+        max-width: 48%;
 
-            @media #{$tablet} {
-                width: 100%;
-                max-width: 100%;
-                margin-inline-end: 0;
-            }
-
-            &--profile {
-                width: 100%;
-                max-width: 100%;
-                margin-inline: 0 !important;
-            }
-
-            .text-orange { color: $stockport-orange !important; }
-            
-            &:nth-child(6n+1) .trivia-link__icon { color: $stockport-green; }
-            &:nth-child(6n+2) .trivia-link__icon { color: $stockport-purple; }
-            &:nth-child(6n+3) .trivia-link__icon { color: $stockport-pink; }
-            &:nth-child(6n+4) .trivia-link__icon { color: $stockport-teal-darker; }
-            &:nth-child(6n+5) .trivia-link__icon { color: $stockport-orange; }
-            &:nth-child(6n) .trivia-link__icon { color: $stockport-blue; }
+        @media #{$tablet} {
+            width: 100%;
+            max-width: 100%;
+            margin-inline-end: 0;
         }
 
-        &__icon {
-            font-size: 3rem;
-            margin-inline-end: 0.5em;
-            width: 1.2em;
-            margin-top: 5px;
-            display: block;
+        &--profile {
+            width: 100%;
+            max-width: 100%;
+            margin-inline: 0 !important;
         }
 
-        &__body {
-            color: $stockport-black;
+        .text-orange { color: $stockport-orange !important; }
+        
+        &:nth-child(6n+1) .trivia__icon { color: $stockport-green; }
+        &:nth-child(6n+2) .trivia__icon { color: $stockport-purple; }
+        &:nth-child(6n+3) .trivia__icon { color: $stockport-pink; }
+        &:nth-child(6n+4) .trivia__icon { color: $stockport-teal-darker; }
+        &:nth-child(6n+5) .trivia__icon { color: $stockport-orange; }
+        &:nth-child(6n) .trivia__icon { color: $stockport-blue; }
+    }
 
-            p:last-of-type {
-                margin-block-end: 0;
-            }
+    &__icon {
+        font-size: 3rem;
+        margin-inline-end: 0.5em;
+        width: 1.2em;
+        margin-top: 5px;
+        display: block;
+    }
+
+    &__body {
+        color: $stockport-black;
+
+        p:last-of-type {
+            margin-block-end: 0;
         }
     }
 
@@ -131,7 +129,7 @@
 
     &-card {
         border-radius: 50px;
-        
+
         @media #{$mobile} {
             border-radius: 30px;
             margin-bottom: 1.5em;
@@ -171,6 +169,10 @@
             &--padding {
                 padding: 1.5rem 1.5rem 0;
             }
+        }
+
+        &__title {
+            text-decoration: none;
         }
 
         &__body {
