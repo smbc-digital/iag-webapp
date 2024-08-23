@@ -1,32 +1,28 @@
 ﻿@model SubItem
 @if (Model is not null)
 {
-    string backgroundColourClass = (string)ViewData["BackgroundColourClass"];
-    string textColourClass = (string)ViewData["TextColourClass"];
-    string borderColourClass = (string)ViewData["BorderColourClass"];
+    string backgroundColourClass = (string)ViewData["BackgroundColourClass"] ?? string.Empty;
+    string textColourClass = (string)ViewData["TextColourClass"] ?? string.Empty;
+    string borderColourClass = (string)ViewData["BorderColourClass"] ?? string.Empty;
 
     <li class="navcard navcard--width-33 navcard--center trivia-card @backgroundColourClass @borderColourClass">
         <div class="navcard__content">
-            @if(!string.IsNullOrEmpty(Model.Icon) && string.IsNullOrEmpty(Model.Statistic))
-            {
-                <div class="navcard__icon trivia-card__icon--padding">
-                    <span class="@Model.Icon.ToLower() trivia-card__icon @textColourClass" aria-hidden="true"></span>
-                </div>
-            }
-            else {
-                <div class="navcard__icon trivia-card__icon--padding navcard__icon--no-padding-bottom">
+            <div class="navcard__icon trivia-card__icon--padding">
+                @if (!string.IsNullOrEmpty(Model.Statistic) && !string.IsNullOrEmpty(Model.StatisticSubheading))
+                {
                     <span class="trivia-card__icon @textColourClass" aria-hidden="true">@Model.Statistic</span>
-                </div>
-            }
+                }
+
+                else if (!string.IsNullOrEmpty(Model.Icon))
+                {
+                    <span class="@Model.Icon.ToLower() trivia-card__icon @textColourClass" aria-hidden="true"></span>
+                }
+             </div>
 
             <div class="navcard-content--padding">
-                @if(!string.IsNullOrEmpty(Model.Statistic) && !string.IsNullOrEmpty(Model.StatisticSubheading))
-                {
-                    <h3 class="navcard__title trivia-card__title @textColourClass">@Model.StatisticSubheading</h3>
-                }
-                else {
-                    <h3 class="navcard__title trivia-card__title @textColourClass">@Model.Title</h3>
-                }
+                <h3 class="navcard__title trivia-card__title @textColourClass">
+                    @(!string.IsNullOrEmpty(Model.Statistic) && !string.IsNullOrEmpty(Model.StatisticSubheading) ? Model.StatisticSubheading : Model.Title)
+                </h3>
 
                 <div class="trivia-card__body">
                     @Html.Raw(Model.Body)
