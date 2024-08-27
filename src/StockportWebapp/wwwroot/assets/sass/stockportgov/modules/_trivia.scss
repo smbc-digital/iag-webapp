@@ -140,7 +140,7 @@
             background-color: rgba($stockport-teal-darker, 0.08);
 
             .trivia-card__icon,
-            .trivia-card__title {
+            .trivia-card__subtitle {
                 color: $stockport-teal-darker;
             }
         }
@@ -150,7 +150,7 @@
             background-color: rgba($stockport-pink, 0.08);
 
             .trivia-card__icon,
-            .trivia-card__title {
+            .trivia-card__subtitle {
                 color: $stockport-pink;
             }
         }
@@ -160,7 +160,7 @@
             background-color: rgba($stockport-purple, 0.08);
 
             .trivia-card__icon,
-            .trivia-card__title {
+            .trivia-card__subtitle {
                 color: $stockport-purple;
             }
         }
@@ -171,7 +171,7 @@
             }
         }
 
-        &__title {
+        &__subtitle {
             text-decoration: none;
         }
 
@@ -190,6 +190,10 @@
         
         &__title {
             padding-top: .75em;
+        }
+
+        &__subtitle {
+            text-decoration: none;
         }
 
         &__body {
