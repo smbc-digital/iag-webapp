@@ -39,7 +39,7 @@ public class ShowcaseControllerTest
                     "type",
                     "contentType",
                     "image.jpg",
-                    0,
+                    string.Empty,
                     "body text",
                     new List<SubItem>(),
                     string.Empty,

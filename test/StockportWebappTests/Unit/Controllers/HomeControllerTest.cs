@@ -16,12 +16,12 @@ public class HomeControllerTest
     private readonly List<string> _popularSearchTerms = new() { "popular", "search", "terms" };
     private readonly List<SubItem> _featuredTasks = new()
     {
-        new SubItem("slug featuredTasks", "featured Tasks", "teaser Featured Tasks", "fa fa-home", string.Empty, string.Empty, "image", 123, string.Empty, new List<SubItem>(), string.Empty, string.Empty, EColourScheme.Teal, string.Empty, string.Empty)
+        new SubItem("slug featuredTasks", "featured Tasks", "teaser Featured Tasks", "fa fa-home", string.Empty, string.Empty, "image", "123", string.Empty, new List<SubItem>(), string.Empty, string.Empty, EColourScheme.Teal, string.Empty, string.Empty)
     };
     
     private readonly List<SubItem> _featuredTopics = new()
     {
-        new SubItem("Council Tax", "council-tax", "How to pay, discounts", string.Empty, string.Empty, string.Empty, string.Empty, 0, string.Empty, new List<SubItem>(), string.Empty, string.Empty, EColourScheme.Teal, string.Empty, string.Empty)
+        new SubItem("Council Tax", "council-tax", "How to pay, discounts", string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, new List<SubItem>(), string.Empty, string.Empty, EColourScheme.Teal, string.Empty, string.Empty)
     };
 
     private readonly List<Alert> _alerts = new()
@@ -309,7 +309,7 @@ public class HomeControllerTest
         const string emailAddress = "me@email.com";
 
         // Act
-        RedirectResult result = await _controller.EmailSubscribe(emailAddress, null) as RedirectResult;
+        RedirectResult result = await _controller.EmailSubscribe(emailAddress, string.Empty, string.Empty) as RedirectResult;
 
         // Assert
         Assert.IsType<RedirectResult>(result);
@@ -327,7 +327,7 @@ public class HomeControllerTest
             .Returns(appSetting);
 
         // Act
-        StatusCodeResult response = await _controller.EmailSubscribe("me@email.com", "") as StatusCodeResult; ;
+        StatusCodeResult response = await _controller.EmailSubscribe("me@email.com", string.Empty, string.Empty) as StatusCodeResult; ;
 
         // Assert
         Assert.Equal((int)HttpStatusCode.NotFound, response.StatusCode);
@@ -340,11 +340,26 @@ public class HomeControllerTest
         const string emailAlertsTopicId = "test@email.com";
 
         // Act
-        RedirectResult result = await _controller.EmailSubscribe(null, emailAlertsTopicId) as RedirectResult;
+        RedirectResult result = await _controller.EmailSubscribe(string.Empty, emailAlertsTopicId, string.Empty) as RedirectResult;
 
         // Assert
         Assert.IsType<RedirectResult>(result);
         _config.Verify(_ => _.GetEmailAlertsNewSubscriberUrl(BusinessId), Times.Once);
         Assert.Equal($"{EmailAlertsUrl}?topic_id={emailAlertsTopicId}", result.Url);
+    }
+
+    [Fact]
+    public async Task EmailSubscribe_Should_RedirectToConfiguredUrlWithMailingListId()
+    {
+        // Arrange
+        const string mailingListId = "123";
+
+        // Act
+        RedirectResult result = await _controller.EmailSubscribe(string.Empty, string.Empty, mailingListId) as RedirectResult;
+
+        // Assert
+        Assert.IsType<RedirectResult>(result);
+        _config.Verify(_ => _.GetEmailAlertsNewSubscriberUrl(BusinessId), Times.Once);
+        Assert.Equal($"{EmailAlertsUrl}?topic_id={mailingListId}", result.Url);
     }
 }
