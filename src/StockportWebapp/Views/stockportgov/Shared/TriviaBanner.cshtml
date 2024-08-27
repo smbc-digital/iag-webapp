@@ -1,17 +1,34 @@
 ﻿@model SubItem
-@{
-
-}
 @if (Model is not null)
 {
-    <section class="section section--white">
-        <div class="grid-container">
-            <div class="grid-100">
-                <div class="placeholder placeholder-bg-orange placeholder-small">
-                    <h2>TRIVIA BANNER</h2>
-                    <p>@Model.Title</p>
+    @if(Model.SubItems.Count <= 3)
+    {
+        string textClass = $"text-default {Model.TextColourClass}";
+        <section class="section section--white">
+            <div class="bg-default-light @Model.BackgroundColourClass">
+                <div class="grid-container">
+                    <div class="grid-100">
+                        @if(!string.IsNullOrEmpty(Model.Title))
+                        {
+                            <div class="trivia-title">
+                                <h2 class="section__title section__title--no-padding section__title--margin-bottom trivia-banner__title">@Model.Title</h2>
+                                <hr />
+                            </div>
+                        }
+
+                        <ul class="navcard-wrapper navcard-wrapper--no-margin">
+                            @foreach(SubItem subItem in Model.SubItems)
+                            {
+                                <partial name="TriviaCard" model="@subItem" view-data="@(new ViewDataDictionary(ViewData) { {"BackgroundColourClass", "trivia-banner--background"}, {"BorderColourClass", string.Empty}, {"TextColourClass", textClass}, {"CardType", "trivia-banner"} })" />
+                            }
+                        </ul>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    }
+    else
+    {
+        <partial name="TriviaList" model="@Model" />
+    }
 }

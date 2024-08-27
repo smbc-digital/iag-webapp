@@ -182,4 +182,30 @@
             }
        }
     }
+
+    &-banner {
+        margin-bottom: 0;
+
+        .text-orange { color: $stockport-teal-darker !important; }
+        
+        &__title {
+            padding-top: .75em;
+        }
+
+        &__body {
+            p {
+                margin-bottom: 0;
+            }
+        }
+
+        &__icon {
+            &--padding {
+                padding: 0 1.5rem;
+            }
+        }
+
+        &--background {
+            background-color: transparent !important;
+        }
+    }
 }
