@@ -13,13 +13,13 @@ public class ProcessedTopicTests
                                                             "backgroundImage",
                                                             "image",
                                                             new List<SubItem> {
-                                                                new("featured-items", "Featured Items", "Teaser", "Icon.ico", "Article", string.Empty, string.Empty, string.Empty, string.Empty, new List<SubItem>(), string.Empty, string.Empty, EColourScheme.Teal)
+                                                                new("featured-items", "Featured Items", "Teaser", "Icon.ico", "Article", string.Empty, string.Empty, string.Empty, string.Empty, new List<SubItem>(), string.Empty, string.Empty, EColourScheme.Teal, string.Empty, string.Empty)
                                                             },
                                                             new List<SubItem> {
-                                                                new("primary-items", "Primary Items", "Teaser", "Icon.ico", "Article", string.Empty, string.Empty, string.Empty, string.Empty, new List<SubItem>(), string.Empty, string.Empty, EColourScheme.Teal)
+                                                                new("primary-items", "Primary Items", "Teaser", "Icon.ico", "Article", string.Empty, string.Empty, string.Empty, string.Empty, new List<SubItem>(), string.Empty, string.Empty, EColourScheme.Teal, string.Empty, string.Empty)
                                                             },
                                                             new List<SubItem> {
-                                                                new("test-slug", "Featured Item", "Teaser", "Icon.ico", "Article", string.Empty, string.Empty, string.Empty, string.Empty, new List<SubItem>(), string.Empty, string.Empty, EColourScheme.Teal)
+                                                                new("test-slug", "Featured Item", "Teaser", "Icon.ico", "Article", string.Empty, string.Empty, string.Empty, string.Empty, new List<SubItem>(), string.Empty, string.Empty, EColourScheme.Teal, string.Empty, string.Empty)
                                                             },
                                                             new List<Crumb>(),
                                                             new List<Alert> {

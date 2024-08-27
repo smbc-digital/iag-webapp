@@ -94,7 +94,7 @@ public class DirectoryControllerTest
         processedDirectoryWithSubdirectories.Entries = new List<DirectoryEntry>() { directoryEntry };
         processedDirectoryWithSubdirectories.SubDirectories = new List<Directory>() { directory };
         processedDirectoryWithSubdirectories.SubItems = new List<SubItem>() {
-            new("slug", "title", "teaser", "icon", "type", "contentType", "image", string.Empty, "test body", new List<SubItem>(), string.Empty, string.Empty, EColourScheme.Teal)
+            new("slug", "title", "teaser", "icon", "type", "contentType", "image", string.Empty, "test body", new List<SubItem>(), string.Empty, string.Empty, EColourScheme.Teal, string.Empty, string.Empty)
         };
         
         string[] filters = { "value1", "value2", "value3" };

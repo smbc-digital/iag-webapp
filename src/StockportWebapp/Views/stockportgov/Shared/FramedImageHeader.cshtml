@@ -8,7 +8,7 @@
     string imageAlt = Model.LandingPage.HeaderImage.Description ?? string.Empty;
     string titleNoMargin = !backgroundColour.Equals(EColourScheme.Grey) ? "framed-header__title--no-margin" : string.Empty;
 
-    <section class="section hide-on-mobile framed-header framed-header-@backgroundColour">
+    <section class="section hide-on-mobile framed-header framed-header-@backgroundColour" data-cy="framed-image-header">
         <div class="grid-container">
             <div class="grid-100">
                 <div class="framed-header__content framed-header__content-@backgroundColour">
