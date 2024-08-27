@@ -1,0 +1,9 @@
+.email-subscription {
+    color: white;
+    border-radius: 3px;
+    padding: 2em 1em;
+
+    @media #{$tablet} {
+        margin: 0 10px;
+    }
+}

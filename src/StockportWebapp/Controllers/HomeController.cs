@@ -58,7 +58,7 @@ public class HomeController : Controller
     }
 
     [Route("/subscribe")]
-    public async Task<IActionResult> EmailSubscribe(string emailAddress, string emailAlertsTopicId)
+    public async Task<IActionResult> EmailSubscribe(string emailAddress, string emailAlertsTopicId, string mailingListId)
     {
         AppSetting urlSetting = null;
         string redirectUrl = null;
@@ -72,6 +72,11 @@ public class HomeController : Controller
         {
             urlSetting = _config.GetEmailAlertsNewSubscriberUrl(_businessId.ToString());
             redirectUrl += string.Concat(urlSetting, $"?topic_id={emailAlertsTopicId}");
+        }
+        else if (!string.IsNullOrEmpty(mailingListId))
+        {
+            urlSetting = _config.GetEmailAlertsNewSubscriberUrl(_businessId.ToString());
+            redirectUrl += string.Concat(urlSetting, $"?topic_id={mailingListId}");
         }
 
         if (urlSetting is null || !urlSetting.IsValid())
