@@ -5,15 +5,15 @@
     <ul class="trivia__list trivia__list--profile">
         @foreach(Trivia trivia in Model)
         {
-            <li class="trivia-link__container trivia-link__container--profile">
+            <li class="trivia__container trivia__container--profile">
                 @if(!string.IsNullOrEmpty(trivia.Link))
                 {
                     <a href="@trivia.Link" class="trivia__link" data-cy="trivia-list-link">
                         <div>
-                            <span class="@trivia.Icon trivia-link__icon"></span>
+                            <span class="@trivia.Icon trivia__icon"></span>
                         </div>
                         
-                        <div class="trivia-link__body">
+                        <div class="trivia__body">
                             @Html.Raw(trivia.Body)
                         </div>
                     </a>
@@ -21,10 +21,10 @@
                 else {
                     <div class="trivia__text" data-cy="trivia-list-text">
                         <div>
-                            <span class="@trivia.Icon trivia-link__icon"></span>
+                            <span class="@trivia.Icon trivia__icon"></span>
                         </div>
                         
-                        <div class="trivia-link__body">
+                        <div class="trivia__body">
                             @Html.Raw(trivia.Body)
                         </div>
                     </div>
