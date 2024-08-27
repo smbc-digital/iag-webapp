@@ -2,24 +2,24 @@
 
 @if (Model is not null)
 {
-<section class="section section--white" data-cy="personalised-services">
-    <div class="grid-container">
-        <div class="grid-100 email-subscription @Model.SolidBackgroundColourClass" data-cy="subscription">
-            <div class="section__content">
-                <div class="grid-70">
-                    <h2 class="section__title section__title--white section__title--padded-bottom h-l">@Model.Title</h2>
-                    <div class="section__content">
-                        @Html.Raw(Model.Body)
+    <section class="section section--white" data-cy="personalised-services">
+        <div class="grid-container">
+            <div class="grid-100 email-subscription @Model.SolidBackgroundColourClass" data-cy="subscription">
+                <div class="section__content">
+                    <div class="grid-70">
+                        <h2 class="section__title section__title--white section__title--padded-bottom h-l">@Model.Title</h2>
+                        <div class="section__content">
+                            @Html.Raw(Model.Body)
+                        </div>
                     </div>
-                </div>
-                <div class="grid-30">
+                    <div class="grid-30">
                         <form method="post" role="form" action="/subscribe">
                             <button type="submit" data-cy="subscribe-button" class="btn btn--inverse btn--bold btn--full btn--chevron-forward section__content--action btn-@CssClassMapper.GetBoldCssClass(Model.ColourScheme)"><span class="btn_text">Subscribe now</span></button>
                             @Html.HiddenFor(contentBlock => contentBlock.MailingListId)
                         </form>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 }
