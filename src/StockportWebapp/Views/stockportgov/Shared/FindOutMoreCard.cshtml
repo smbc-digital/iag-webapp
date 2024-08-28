@@ -1,0 +1,33 @@
+﻿@model SubItem
+@if (Model is not null)
+{
+    string textColourClass = (string)ViewData["TextColourClass"] ?? string.Empty;
+
+    <li class="navcard navcard--width-33 navcard--center navcard find-out-more-card">
+        <a href="@Model.NavigationLink" class="navcard__link">
+            <div class="navcard__content">
+                <div class="navcard__icon find-out-more-card__icon--padding">
+                    @if (!string.IsNullOrEmpty(Model.Icon))
+                    {
+                        <span class="@Model.Icon.ToLower() find-out-more-card__icon @textColourClass" aria-hidden="true"></span>
+                    }
+                </div>
+
+                <div class="find-out-more-card--padding">
+                    @if(!string.IsNullOrEmpty(Model.StatisticSubheading) && !string.IsNullOrEmpty(Model.Statistic))
+                    {
+                        <h3 class="navcard__title navcard__title--black find-out-more-card__subtitle">@Model.StatisticSubheading</h3>
+                    }
+                    else if(string.IsNullOrEmpty(Model.Statistic))
+                    {
+                        <h3 class="navcard__title navcard__title--black find-out-more-card__subtitle">@Model.Title</h3>
+                    }
+
+                    <div class="navcard__teaser">
+                        @Model.Teaser
+                    </div>
+                </div>
+            </div>
+        </a>
+    </li>
+}

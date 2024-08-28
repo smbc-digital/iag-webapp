@@ -1,20 +1,24 @@
 ﻿@model SubItem
-@{
-
-}
-@if (Model is not null)
+@if (Model is not null && Model.SubItems.Count.Equals(3))
 {
-    <section class="section section--white ">
+    <section class="section section--white">
         <div class="grid-container">
             <div class="grid-100">
-                <div class="placeholder placeholder-bg-teal placeholder-small">
-                    @foreach(var subItem in Model.SubItems)
-                    {
-                        <div class="placeholder placeholder-bg-pink placeholder-small placeholder-inline-margin">
-                            <h2>FIND OUT MORE CARDS</h2>
-                            <p>@subItem.Title</p>
-                        </div>
-                    }
+                @if(!string.IsNullOrEmpty(Model.Title))
+                {
+                    <div class="find-out-more__title">
+                        <h2 class="section__title section__title--no-padding section__title--margin-bottom">@Model.Title</h2>
+                        <hr />
+                    </div>
+                }
+                
+                <div class="section__content">
+                    <ul class="navcard-wrapper navcard-wrapper--no-margin">
+                        @foreach(SubItem subItem in Model.SubItems)
+                        {
+                            <partial name="FindOutMoreCard" model="@subItem" view-data="@(new ViewDataDictionary(ViewData) { {"TextColourClass", Model.TextColourClass} })" />
+                        }
+                    </ul>
                 </div>
             </div>
         </div>
