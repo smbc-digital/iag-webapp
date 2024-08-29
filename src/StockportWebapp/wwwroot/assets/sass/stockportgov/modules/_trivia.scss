@@ -129,6 +129,7 @@
 
     &-card {
         border-radius: 50px;
+        margin-bottom: 0;
 
         @media #{$mobile} {
             border-radius: 30px;
