@@ -1,7 +1,7 @@
 ﻿@model SubItem
 @if (Model is not null)
 {
-    @if(Model.SubItems.Count <= 3)
+    @if(Model.SubItems.Count.Equals(3))
     {
         <section class="section section--white">
             <div class="grid-container">
@@ -18,7 +18,7 @@
             </div>
         </section>
     }
-    else
+    else if (Model.SubItems.Count > 3)
     {
         <partial name="TriviaList" model="@Model" />
     }
