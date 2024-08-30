@@ -47,6 +47,7 @@
             width: fit-content;
             border-bottom: 3px solid;
             padding-bottom: 0.5em;
+            border-color: $stockport-teal-darker;
 
             @media #{$mobile} {
                margin-top: 0.5em;
@@ -70,16 +71,12 @@
         }
 
         &__button {
-            color: white;
-        }
+            color: $stockport-teal-darker;
+            border: 1px solid $stockport-teal-darker;
+            background: white;
 
-        &:nth-child(n+1) {
-            .find-out-more-banner__button {
-                background-color: $stockport-teal-darker;
-            }
-
-            .find-out-more-banner__title {
-                border-color: $stockport-teal-darker;
+            &:hover, &:focus {
+                color: white;
             }
         }
 
@@ -99,7 +96,13 @@
             }
 
             .find-out-more-banner__button {
-                background-color: $stockport-pink;
+                color: $stockport-pink;
+                border: 1px solid $stockport-pink;
+
+                &:hover, &:focus {
+                    background-color: $stockport-pink;
+                    color: white;
+                }
             }
 
             .find-out-more-banner__title {
@@ -119,7 +122,12 @@
             }
 
             .find-out-more-banner__button {
-                background-color: $stockport-purple;
+                color: $stockport-purple;
+                border: 1px solid $stockport-purple;
+
+                &:hover, &:focus {
+                    background-color: $stockport-purple;
+                }
             }
 
             .find-out-more-banner__title {

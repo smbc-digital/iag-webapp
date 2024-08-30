@@ -3,10 +3,10 @@
 {
     string backgroundColourClass = (string)ViewData["BackgroundColourClass"] ?? string.Empty;
     string textColourClass = (string)ViewData["TextColourClass"] ?? string.Empty;
-    string BorderClass = (string)ViewData["BorderClass"] ?? string.Empty;
+    string borderClass = (string)ViewData["BorderClass"] ?? string.Empty;
     string cardType = (string)ViewData["CardType"] ?? string.Empty;
 
-    <li class="navcard navcard--width-33 navcard--center @cardType @backgroundColourClass @BorderClass">
+    <li class="navcard navcard--width-33 navcard--center @cardType @backgroundColourClass @borderClass">
         <div class="navcard__content">
             <div class="navcard__icon @(cardType)__icon--padding">
                 @if (!string.IsNullOrEmpty(Model.Statistic))
