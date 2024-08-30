@@ -45,5 +45,6 @@ public class SubItem
     public string SolidBackgroundColourClass => $"bg-solid{CssClassMapper.GetCssClass(ColourScheme)}"; 
     public string BackgroundColourClass => $"bg{CssClassMapper.GetCssClass(ColourScheme)}";
     public string TextColourClass => $"text{CssClassMapper.GetBoldCssClass(ColourScheme)}";
-    public string BorderColourClass => $"border{CssClassMapper.GetBoldCssClass(ColourScheme)}";
+    public string BorderClass => $"border{CssClassMapper.GetBoldCssClass(ColourScheme)}";
+    public string BorderColourClass => $"border-colour{CssClassMapper.GetBoldCssClass(ColourScheme)}";
 }

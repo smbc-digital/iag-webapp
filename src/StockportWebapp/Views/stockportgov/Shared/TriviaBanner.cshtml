@@ -19,7 +19,7 @@
                         <ul class="navcard-wrapper navcard-wrapper--no-margin">
                             @foreach(SubItem subItem in Model.SubItems)
                             {
-                                <partial name="TriviaCard" model="@subItem" view-data="@(new ViewDataDictionary(ViewData) { {"BackgroundColourClass", "trivia-banner--background"}, {"BorderColourClass", string.Empty}, {"TextColourClass", textClass}, {"CardType", "trivia-banner"} })" />
+                                <partial name="TriviaCard" model="@subItem" view-data="@(new ViewDataDictionary(ViewData) { {"BackgroundColourClass", "trivia-banner--background"}, {"BorderClass", string.Empty}, {"TextColourClass", textClass}, {"CardType", "trivia-banner"} })" />
                             }
                         </ul>
                     </div>
