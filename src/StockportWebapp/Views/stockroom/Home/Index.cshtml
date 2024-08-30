@@ -1,0 +1,14 @@
+﻿@model HomepageViewModel
+@{
+    ViewData["Title"] = "Welcome to Stockport Council";
+    ViewData["og:title"] = "Welcome to Stockport Council";
+    ViewData["Description"] = @Model.HomepageContent.MetaDescription;
+    Layout = "../Shared/_Layout.cshtml";
+}
+<div class="grid-container">
+    <div class="grid-100">
+        <p>
+            Stockport Room Body Content
+        </p>
+    </div>
+</div>
