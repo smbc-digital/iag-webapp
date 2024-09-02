@@ -77,10 +77,4 @@
             }
         }
     }
-
-    @supports (-webkit-touch-callout: none) {
-		&-close {
-            margin-top: 5px;
-		}
-	}
 }

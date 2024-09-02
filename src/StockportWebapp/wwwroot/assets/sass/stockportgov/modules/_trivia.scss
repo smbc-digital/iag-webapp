@@ -10,6 +10,7 @@
 
             @media #{$mobile} {
                 width: 40%;
+                margin-bottom: 1em;
             }
 
             @media #{$tablet} {
@@ -61,6 +62,11 @@
     &__link {
         display: flex;
         cursor: pointer;
+        text-decoration: none;
+
+        .trivia__body {
+            text-decoration: underline;
+        }
 
         &:hover {
             text-decoration: none;
@@ -129,6 +135,7 @@
 
     &-card {
         border-radius: 50px;
+        margin-bottom: 0;
 
         @media #{$mobile} {
             border-radius: 30px;
@@ -163,6 +170,10 @@
             .trivia-card__subtitle {
                 color: $stockport-purple;
             }
+
+            @media #{$mobile} {
+                margin-bottom: 0;
+            }
         }
 
         &__icon {
@@ -190,8 +201,12 @@
 
         .text-orange { color: $stockport-teal-darker !important; }
         
-        &__title {
-            padding-top: .75em;
+        &__section {
+            padding-block: 2em;
+
+            @media #{$mobile} {
+                padding-bottom: 0;
+            }
         }
 
         &__subtitle {
