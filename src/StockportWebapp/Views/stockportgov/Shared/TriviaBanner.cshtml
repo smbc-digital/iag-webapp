@@ -5,13 +5,13 @@
     {
         string textClass = $"text-default {Model.TextColourClass}";
         <section class="section section--white">
-            <div class="bg-default-light @Model.BackgroundColourClass">
+            <div class="bg-default-light @Model.BackgroundColourClass trivia-banner__section">
                 <div class="grid-container">
                     <div class="grid-100">
                         @if(!string.IsNullOrEmpty(Model.Title))
                         {
                             <div class="trivia-title">
-                                <h2 class="section__title section__title--no-padding section__title--margin-bottom trivia-banner__title">@Model.Title</h2>
+                                <h2 class="section__title section__title--no-padding section__title--margin-bottom">@Model.Title</h2>
                                 <hr />
                             </div>
                         }
