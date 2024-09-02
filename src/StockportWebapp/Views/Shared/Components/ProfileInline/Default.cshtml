@@ -1,15 +1,42 @@
 ﻿@model ProfileViewModel
 
-<a class="profile-inline-container" href="/profile/@Model.Profile.Slug">
-    <img class="profile-inline-image" src="@Model.Profile.Image.Url" alt="@Model.Profile.Title" />
-    <div class="profile-inline-quote">
-        <h2>@Model.Profile.Title</h2>
-        <p class="subtitle">@Model.Profile.Subtitle</p>
-        <div class="profile-inline-quote-content">
-            <span class="green open fa fa-2x fa-quote-left" aria-hidden="true"></span>
-            <p class="lead-paragraph">@Model.Profile.Teaser</p>
-            <span class="green fa fa-2x fa-quote-right" aria-hidden="true"></span>
+
+@if(string.IsNullOrEmpty(Model.Profile.Body))
+{
+    <div class="profile-inline-container">
+        @if(!string.IsNullOrEmpty(Model.Profile.Image.Url))
+        {
+            <img class="profile-inline-image" src="@Model.Profile.Image.Url" alt="@Model.Profile.Title" />
+        }
+
+        <div class="profile-inline-quote">
+            <h2>@Model.Profile.Title</h2>
+            <p class="subtitle">@Model.Profile.Subtitle</p>
+            <div class="profile-inline-quote-content">
+                <span class="green open fa fa-2x fa-quote-left" aria-hidden="true"></span>
+                <p class="lead-paragraph">@Model.Profile.Teaser</p>
+                <span class="green fa fa-2x fa-quote-right" aria-hidden="true"></span>
+            </div>
         </div>
-        <p class="read-more">Read more</p>
     </div>
-</a>
+}
+else
+{
+    <a class="profile-inline-container" href="/profile/@Model.Profile.Slug">
+        @if(!string.IsNullOrEmpty(Model.Profile.Image.Url))
+        {
+            <img class="profile-inline-image" src="@Model.Profile.Image.Url" alt="@Model.Profile.Title" />
+        }
+        
+        <div class="profile-inline-quote">
+            <h2>@Model.Profile.Title</h2>
+            <p class="subtitle">@Model.Profile.Subtitle</p>
+            <div class="profile-inline-quote-content">
+                <span class="green open fa fa-2x fa-quote-left" aria-hidden="true"></span>
+                <p class="lead-paragraph">@Model.Profile.Teaser</p>
+                <span class="green fa fa-2x fa-quote-right" aria-hidden="true"></span>
+            </div>
+            <p class="read-more">Read more</p>
+        </div>
+    </a>
+}
