@@ -4,7 +4,7 @@
     @if(Model.SubItems.Count.Equals(3))
     {
         string textClass = $"text-default {Model.TextColourClass}";
-        <section class="section section--white">
+        <section class="section section--white" data-cy="trivia-banner">
             <div class="bg-default-light @Model.BackgroundColourClass trivia-banner__section">
                 <div class="grid-container">
                     <div class="grid-100">
