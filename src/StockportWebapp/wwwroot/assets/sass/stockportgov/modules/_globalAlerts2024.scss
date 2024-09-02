@@ -143,12 +143,4 @@
 	&-information {
 		background-color: $stockport-blue;
 	}
-
-	@supports (-webkit-touch-callout: none) {
-		&-close {
-			&-information, &-warning, &-error {
-				margin-top: 5px;
-			}
-		}
-	}
 }

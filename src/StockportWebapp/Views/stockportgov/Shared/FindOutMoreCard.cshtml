@@ -4,14 +4,14 @@
     string textColourClass = (string)ViewData["TextColourClass"] ?? string.Empty;
 
     <li class="navcard navcard--width-33 navcard--center navcard find-out-more-card">
-        <a href="@Model.NavigationLink" class="navcard__link">
+        <a href="@Model.NavigationLink" class="navcard__link" data-cy="find-out-more-card-link">
             <div class="navcard__content">
-                <div class="navcard__icon find-out-more-card__icon--padding">
-                    @if (!string.IsNullOrEmpty(Model.Icon))
-                    {
+                @if (!string.IsNullOrEmpty(Model.Icon))
+                {
+                    <div class="navcard__icon find-out-more-card__icon--padding">
                         <span class="@Model.Icon.ToLower() find-out-more-card__icon @textColourClass" aria-hidden="true"></span>
-                    }
-                </div>
+                    </div>
+                }
 
                 <div class="find-out-more-card--padding">
                     @if(!string.IsNullOrEmpty(Model.StatisticSubheading) && !string.IsNullOrEmpty(Model.Statistic))
