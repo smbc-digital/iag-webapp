@@ -41,15 +41,15 @@
         }
     }
 
-    &--pink {
+    &--pink, &--pink-light {
         background-color: $stockport-pink;
     }
     
-    &--purple {
+    &--purple, &--purple-light {
         background-color: $stockport-purple;
     }
 
-    &--blue {
+    &--blue, &--blue-light {
         background-color: $stockport-blue;
     }
 }
@@ -57,7 +57,6 @@
 html[dir="rtl"] {
     .call-to-action {
         border-radius: 3px 50px 3px 50px;
-
 
         &__image {
             border-radius: 0px 50px 3px 0px;

@@ -158,7 +158,7 @@
 
         &:nth-child(n+3) {
             .find-out-more-card__icon {
-                color: $stockport-blue;
+                color: $stockport-purple;
             }
         }
 
@@ -172,8 +172,10 @@
         }
 
         &__icon {
+            font-size: 5rem;
+
             &--padding {
-                padding: 1.5rem 1.5rem 0;
+                padding: 0 1.5rem;
             }
         }
     }

@@ -33,6 +33,7 @@
 	&_close-container {
 		margin-left: 0.5em;
 		align-content: center;
+		place-self: center;
 
 		a {
 			display: inline-block;
@@ -75,6 +76,7 @@
 
 	&-icon {
 		align-content: center;
+		place-self: center;
 
 		span:before{
 			font-family: "FontAwesome";
