@@ -13,7 +13,7 @@
                     }
                     
                     <div class="statement-banner-content">
-                        <h3 class="statement-banner-content__title text-default @Model.TextColourClass">@Model.Title</h3>
+                        <h2 class="statement-banner-content__title text-default @Model.TextColourClass">@Model.Title</h2>
                         <div class="statement-banner-content__text @contentTextClass">@Html.Raw(Model.Body)</div>
 
                         @if(Model.SubItems.Any() || !string.IsNullOrEmpty(Model.Link))

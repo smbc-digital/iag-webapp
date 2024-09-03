@@ -23,13 +23,15 @@
 
     @foreach(SubItem contentBlock in Model.LandingPage.ContentBlocks)
     {
-        if(contentBlock.ContentType.Equals("CallToAction"))
-        {
-            <partial name="CallToActionBanner" model="@contentBlock.SubItems.FirstOrDefault()" />
-        }
-        else
-        {
-            <partial name="@contentBlock.ContentType" model="@contentBlock" />
-        }
+        <partial name="@contentBlock.ContentType" model="@(contentBlock.ContentType.Equals("CallToAction") 
+            ? new CallToActionBanner() {
+                    Image = contentBlock.SubItems.FirstOrDefault().Image,
+                    AltText = contentBlock.SubItems.FirstOrDefault().Title,
+                    ButtonText = contentBlock.SubItems.FirstOrDefault().ButtonText,
+                    Colour = contentBlock.ColourScheme,
+                    Link = contentBlock.SubItems.FirstOrDefault().Link,
+                    Teaser = contentBlock.SubItems.FirstOrDefault().Teaser,
+                    Title = contentBlock.SubItems.FirstOrDefault().Title }
+            : contentBlock)" />
     }
 </div>
