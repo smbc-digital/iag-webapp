@@ -1,4 +1,4 @@
-﻿@model SubItem
+@model SubItem
 @{
     string overlayFade = !string.IsNullOrEmpty(Model.Body) ? "image-banner__content-fade" : string.Empty;
     string href = string.Empty;
@@ -13,8 +13,10 @@
 @if (Model is not null)
 {
     <section class="section image-banner" data-cy="image-banner-header">
+        <div class="grid-container">
+            <div class="grid-100">
                 <a @href>
-                    <div class="image-banner__background image-banner__background" style="background-image: url(@Model.Image?fm=webp)"></div>
+                    <img class="image-banner__background" src="@Model.Image?fm=webp" loading="lazy"/>
                     @if (!string.IsNullOrEmpty(Model.Body))
                     {
                         <div class="image-banner__content  @overlayFade">
@@ -23,5 +25,7 @@
                         </div>
                     }
                 </a>
+            </div>
+        </div>
     </section>
 }
