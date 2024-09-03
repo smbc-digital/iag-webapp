@@ -21,9 +21,7 @@
     &-banner {
         display: flex;
         flex-direction: row;
-        color: white;
         max-height: 350px;
-        border-radius: 50px 3px 50px 3px;
         margin-bottom: 3em;
 
         @media #{$mobile} {
@@ -50,7 +48,7 @@
             border-color: $stockport-teal-darker;
 
             @media #{$mobile} {
-               margin-top: 0.5em;
+                margin-top: 0.5em;
             }
         }
 
