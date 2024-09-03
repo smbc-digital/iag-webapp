@@ -108,7 +108,7 @@
         }
     }
 
-    &--pink {
+    &--pink, &--pink-light {
         color: $stockport-pink;
         border: 1px solid $stockport-pink;
 
@@ -127,7 +127,7 @@
         }
     }
 
-    &--purple {
+    &--purple, &--purple-light {
         color: $stockport-purple;
         border: 1px solid $stockport-purple;
 
@@ -146,7 +146,7 @@
         }
     }
 
-    &--blue {
+    &--blue, &--blue-light {
         color: $stockport-blue;
         border: 1px solid $stockport-blue;
 
