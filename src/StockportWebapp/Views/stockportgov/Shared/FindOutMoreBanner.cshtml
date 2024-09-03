@@ -1,7 +1,9 @@
 ﻿@model SubItem
 @{
-    var colour = @Model.BorderColourClass ?? string.Empty;
-    string buttonColour = Model.ColourScheme is not EColourScheme.None ? $"btn-{@CssClassMapper.GetBoldCssClass(Model.ColourScheme)} btn-{@CssClassMapper.GetBoldCssClass(Model.ColourScheme)}-outline" : "find-out-more-banner__button";
+    string borderBottomColour = @Model.BorderColourClass ?? string.Empty;
+    string buttonColour = Model.ColourScheme is not EColourScheme.None 
+        ? $"btn-{@CssClassMapper.GetBoldCssClass(Model.ColourScheme)} btn-{@CssClassMapper.GetBoldCssClass(Model.ColourScheme)}-outline" 
+        : "find-out-more-banner__button";
 }
 @if (Model is not null && Model.SubItems.Count.Equals(3))
 {
@@ -12,7 +14,7 @@
                 {
                     <div class="find-out-more-banner" data-cy="find-out-more-banner">
                         <div class="find-out-more-banner-content">
-                            <h2 class="section__title find-out-more-banner__title section__title--margin-bottom @colour">@subItem.Title</h2>
+                            <h2 class="section__title find-out-more-banner__title section__title--margin-bottom @borderBottomColour">@subItem.Title</h2>
                             <p class="find-out-more-banner__teaser">@subItem.Teaser</p>
                             <a href="@subItem.NavigationLink" class="btn btn--width-30 btn--chevron-forward btn--bold btn--chevron-bold @buttonColour" data-cy="find-out-more-link">
                                 <span class="btn_text">Find out more</span>
