@@ -222,6 +222,25 @@
         }
     }
 
+    &--one-stockport-purple, &--one-stockport-purple-light {
+        color: $one-stockport-purple;
+        border: 1px solid $one-stockport-purple;
+
+        &:hover, &:focus {
+            color: darken($one-stockport-purple, 5%);
+            background-color: rgba(white, 0.9);
+        }
+
+        &-outline {
+            background: white;
+
+            &:hover, &:focus {
+                background-color: $one-stockport-purple;
+                color: white;
+            }
+        }
+    }
+
     &--border {
         border-width: 1px;
         border-style: solid;

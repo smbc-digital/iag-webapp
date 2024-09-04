@@ -96,6 +96,18 @@
                 }
             }
         }
+
+        &--one-stockport-purple {
+            background-color: $one-stockport-purple;
+
+            li {
+                color: white;
+    
+                a {
+                  color: white;  
+                }
+            }
+        }
 }
 
 html[dir="rtl"] {

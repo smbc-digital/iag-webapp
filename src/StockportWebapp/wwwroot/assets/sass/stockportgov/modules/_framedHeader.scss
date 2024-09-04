@@ -9,6 +9,10 @@
         background-color: $stockport-dark-grey;
     }
 
+    &--one-stockport-purple {
+        background-color: $one-stockport-purple;
+    }
+
     &__content {
         display: flex;
         height: 100%;
@@ -23,6 +27,10 @@
     
         &--grey {
             background-color: $stockport-dark-grey;
+        }
+
+        &--one-stockport-purple {
+            background-color: $one-stockport-purple;
         }
         
         @media #{$mobile} {
