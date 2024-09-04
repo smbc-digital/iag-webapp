@@ -1,16 +1,28 @@
 ﻿@model SubItem
 @{
-
+    string borderBottomColour = @Model.BorderColourClass ?? string.Empty;
+    string buttonColour = Model.ColourScheme is not EColourScheme.None 
+        ? $"btn-{@CssClassMapper.GetBoldCssClass(Model.ColourScheme)} btn-{@CssClassMapper.GetBoldCssClass(Model.ColourScheme)}-outline" 
+        : "find-out-more-banner__button";
 }
-@if (Model is not null)
+@if (Model is not null && Model.SubItems.Count.Equals(3))
 {
     <section class="section section--white">
         <div class="grid-container">
             <div class="grid-100">
-                <div class="placeholder placeholder-bg-green placeholder-small">
-                    <h2>FIND OUT MORE BANNER</h2>
-                    <p>@Model.Title</p>
-                </div>
+                @foreach (SubItem subItem in Model.SubItems)
+                {
+                    <div class="find-out-more-banner" data-cy="find-out-more-banner">
+                        <div class="find-out-more-banner-content">
+                            <h2 class="section__title find-out-more-banner__title section__title--margin-bottom @borderBottomColour">@subItem.Title</h2>
+                            <p class="find-out-more-banner__teaser">@subItem.Teaser</p>
+                            <a href="@subItem.NavigationLink" class="btn btn--width-30 btn--chevron-forward btn--bold btn--chevron-bold @buttonColour" data-cy="find-out-more-link">
+                                <span class="btn_text">Find out more</span>
+                            </a>
+                        </div>
+                        <img src="@Model.Image?w=500&q=89" srcset="@subItem.Image?w=500&q=89&fm=webp" class="find-out-more-banner__image" loading="lazy" alt="@subItem.Title" width="452" height="342">
+                    </div>
+                }
             </div>
         </div>
     </section>
