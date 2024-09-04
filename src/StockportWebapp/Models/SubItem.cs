@@ -42,7 +42,7 @@ public class SubItem
 
     public string GetNavigationLink(string additionalUrlContent) => TypeRoutes.GetUrlFor(Type, $"{additionalUrlContent}/{Slug}");
 
-    public string SolidBackgroundColourClass => $"bg-solid{CssClassMapper.GetCssClass(ColourScheme)}"; 
+    public string SolidBackgroundColourClass => $"bg-solid{CssClassMapper.GetBoldCssClass(ColourScheme)}"; 
     public string BackgroundColourClass => $"bg{CssClassMapper.GetCssClass(ColourScheme)}";
     public string TextColourClass => $"text{CssClassMapper.GetBoldCssClass(ColourScheme)}";
     public string BorderClass => $"border{CssClassMapper.GetBoldCssClass(ColourScheme)}";
