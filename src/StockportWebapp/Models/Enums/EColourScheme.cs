@@ -10,6 +10,8 @@ public enum EColourScheme
     Grey,
     Grey_Light,
     Multi,
+    One_Stockport_Purple,
+    One_Stockport_Purple_Light,
     Orange,
     Pink,
     Pink_Light,

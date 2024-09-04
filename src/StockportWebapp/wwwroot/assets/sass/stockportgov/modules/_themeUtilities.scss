@@ -5,6 +5,7 @@
 .text-blue { color: $stockport-blue !important; }
 .text-purple { color: $stockport-purple !important; }
 .text-grey { color: $stockport-grey !important; }
+.text-one-stockport-purple { color: $one-stockport-purple !important; }
 
 .bg-default-light { background-color: rgba($stockport-teal-darker, 0.08) !important; }
 .bg-teal-light, .bg-teal { background-color: rgba($stockport-teal-darker, 0.08) !important; }
@@ -13,6 +14,7 @@
 .bg-blue-light, .bg-blue { background-color: rgba($stockport-blue, 0.08) !important; }
 .bg-purple-light, .bg-purple { background-color: rgba($stockport-purple, 0.08) !important; }
 .bg-grey-light, .bg-grey { background-color: rgba($stockport-grey, 0.08) !important; }
+.bg-one-stockport-purple-light, .bg-one-stockport-purple { background-color: rgba($one-stockport-purple, 0.08) !important; }
 
 .bg-solid-teal { background-color: $stockport-teal-darker !important; }
 .bg-solid-green { background-color: $stockport-green !important; }
@@ -20,6 +22,7 @@
 .bg-solid-blue { background-color: $stockport-blue !important; }
 .bg-solid-purple { background-color: $stockport-purple !important; }
 .bg-solid-grey { background-color: $stockport-grey !important; }
+.bg-solid-one-stockport-purple { background-color: $one-stockport-purple !important; }
 
 .border-default { border: 4px solid $stockport-teal-darker !important; }
 .border-teal { border: 4px solid $stockport-teal-darker !important; }
@@ -28,3 +31,4 @@
 .border-blue { border: 4px solid $stockport-blue !important; }
 .border-purple { border: 4px solid $stockport-purple !important; }
 .border-grey { border: 4px solid $stockport-grey !important; }
+.border-one-stockport-purple { border: 4px solid $one-stockport-purple !important; }
