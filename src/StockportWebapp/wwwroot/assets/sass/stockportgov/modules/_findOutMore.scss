@@ -21,12 +21,10 @@
     &-banner {
         display: flex;
         flex-direction: row;
-        max-height: 350px;
         margin-bottom: 3em;
 
         @media #{$mobile} {
             flex-direction: column-reverse;
-            max-height: none;
             margin-bottom: 2em;
         }
 
@@ -59,11 +57,19 @@
 
         &__image {
             width: 55%;
-            object-fit: cover;
+            max-height: 350px;
             border-radius: 50px 0 50px 0;
+            object-fit: cover;
+            align-self: center;
+
+            @media #{$tablet} {
+                width: 50%;
+                height: 350px;
+            }
 
             @media #{$mobile} {
                 width: 100%;
+                height: auto;
                 max-height: 300px;
             }
         }
