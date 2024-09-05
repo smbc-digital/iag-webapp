@@ -12,24 +12,26 @@
     <partial name="GlobalAlerts" model='Model.LandingPage.Alerts' />
     <partial name="Breadcrumb2023" model='Model.LandingPage.Breadcrumbs' view-data='@(new ViewDataDictionary(ViewData) {{"backgroundColour", backgroundColour}, {"landingBreadcrumb", "landing-breadcrumb-container"}})'/>
 
-    @if(Model.LandingPage.HeaderType.Equals("Full Image"))
-    {
-        <partial name="FullImageHeader" model="@Model" />
-    }
-    else
+    @if(Model.LandingPage.HeaderType.Equals("Framed Image"))
     {
         <partial name="FramedImageHeader" model="@Model" />
     }
-
-    @foreach(SubItem contentBlock in Model.LandingPage.ContentBlocks)
+    else
     {
-        if(contentBlock.ContentType.Equals("CallToAction"))
-        {
-            <partial name="CallToActionBanner" model="@contentBlock.SubItems.FirstOrDefault()" />
-        }
-        else
-        {
-            <partial name="@contentBlock.ContentType" model="@contentBlock" />
-        }
+        <partial name="FullImageHeader" model="@Model" />
+    }
+
+    @foreach(SubItem pageSection in Model.LandingPage.PageSections)
+    {
+        <partial name="@pageSection.ContentType" model="@(pageSection.ContentType.Equals("CallToAction") 
+            ? new CallToActionBanner() {
+                    Image = pageSection.SubItems.FirstOrDefault().Image,
+                    AltText = pageSection.SubItems.FirstOrDefault().Title,
+                    ButtonText = pageSection.SubItems.FirstOrDefault().ButtonText,
+                    Colour = pageSection.ColourScheme,
+                    Link = pageSection.SubItems.FirstOrDefault().Link,
+                    Teaser = pageSection.SubItems.FirstOrDefault().Teaser,
+                    Title = pageSection.SubItems.FirstOrDefault().Title }
+            : pageSection)" />
     }
 </div>

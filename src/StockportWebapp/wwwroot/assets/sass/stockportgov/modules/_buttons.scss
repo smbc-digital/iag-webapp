@@ -108,7 +108,7 @@
         }
     }
 
-    &--pink {
+    &--pink, &--pink-light {
         color: $stockport-pink;
         border: 1px solid $stockport-pink;
 
@@ -127,7 +127,7 @@
         }
     }
 
-    &--purple {
+    &--purple, &--purple-light {
         color: $stockport-purple;
         border: 1px solid $stockport-purple;
 
@@ -146,7 +146,7 @@
         }
     }
 
-    &--blue {
+    &--blue, &--blue-light {
         color: $stockport-blue;
         border: 1px solid $stockport-blue;
 
@@ -217,6 +217,25 @@
 
             &:hover, &:focus {
                 background-color: $stockport-teal-darker;
+                color: white;
+            }
+        }
+    }
+
+    &--one-stockport-purple, &--one-stockport-purple-light {
+        color: $one-stockport-purple;
+        border: 1px solid $one-stockport-purple;
+
+        &:hover, &:focus {
+            color: darken($one-stockport-purple, 5%);
+            background-color: rgba(white, 0.9);
+        }
+
+        &-outline {
+            background: white;
+
+            &:hover, &:focus {
+                background-color: $one-stockport-purple;
                 color: white;
             }
         }

@@ -1,7 +1,7 @@
 ﻿@model EventCalendarBanner
 @if (Model is not null)
 {
-    string containerColourClass = !CssClassMapper.GetCssClass(Model.Colour).Equals(EColourScheme.Teal) ? $"event-calendar-banner{CssClassMapper.GetCssClass(Model.Colour)}" : string.Empty;
+    string containerColourClass = !CssClassMapper.GetCssClass(Model.Colour).Equals(EColourScheme.Teal) ? $"event-calendar-banner-{CssClassMapper.GetCssClass(Model.Colour)}" : string.Empty;
     string additionalCSS = string.IsNullOrEmpty((string)ViewData["AdditionalCssClass"]) 
                         ? string.Empty 
                         : (string)ViewData["AdditionalCssClass"];

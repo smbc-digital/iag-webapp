@@ -233,6 +233,14 @@
     &--theme-green {
         @include theme($theme: $stockport-green);
     }
+
+    &--theme-none {
+        @include theme($theme: $stockport-teal);
+    }
+
+    &--theme-one-stockport-purple {
+        @include theme($theme: $one-stockport-purple);
+    }
 }
 
 html[dir="rtl"] {

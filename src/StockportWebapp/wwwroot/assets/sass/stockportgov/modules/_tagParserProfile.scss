@@ -93,6 +93,10 @@
     &--teal {
         border-inline-start: 0.55em solid $stockport-teal;
     }
+
+    &--one-stockport-purple {
+        border-inline-start: 0.55em solid $one-stockport-purple;
+    }
 }
 
 html[dir="rtl"] {
