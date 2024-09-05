@@ -9,5 +9,5 @@ public class LandingPageViewModel
         LandingPage = landingPage;
     }
 
-    public bool ScreenWidth => LandingPage.ContentBlocks.Any(contentBlock => contentBlock is not null && contentBlock.ContentType.Contains("ScreenWidth"));
+    public bool ScreenWidth => LandingPage.PageSections.Any(pageSection => pageSection is not null && pageSection.ContentType.Contains("ScreenWidth"));
 }

@@ -2,6 +2,7 @@
 @{
     string borderBottomColour = @Model.BorderColourClass ?? string.Empty;
     string buttonColour = Model.ColourScheme is not EColourScheme.None 
+        && Model.ColourScheme is not EColourScheme.Multi
         ? $"btn-{@CssClassMapper.GetBoldCssClass(Model.ColourScheme)} btn-{@CssClassMapper.GetBoldCssClass(Model.ColourScheme)}-outline" 
         : "find-out-more-banner__button";
 }
