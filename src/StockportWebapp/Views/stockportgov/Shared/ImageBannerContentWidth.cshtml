@@ -1,14 +1,12 @@
 @model SubItem
 @{
-    string overlayFade = !string.IsNullOrEmpty(Model.Body) ? "image-banner__content-fade" : string.Empty;
-    string href = string.Empty;
-    
-    if (Model.SubItems.Any())
-        href = Model.SubItems.First().NavigationLink ?? string.Empty;
-    
-    href = !string.IsNullOrEmpty(href) 
-        ? $"href={@href}" : !string.IsNullOrEmpty(Model.Link) 
+    string href = Model.SubItems.Any() 
+        ? $"href={Model.SubItems.First().NavigationLink}" : !string.IsNullOrEmpty(Model.Link) 
         ? $"href={@Model.Link}" : string.Empty;
+
+    string backgroundTheme = Model.ColourScheme is EColourScheme.Dark
+        ? $"image-banner-{CssClassMapper.GetCssClass(Model.ColourScheme)}"
+        : string.Empty;
 }
 @if (Model is not null)
 {
@@ -19,9 +17,9 @@
                     <img class="image-banner__background" src="@Model.Image?fm=webp" loading="lazy"/>
                     @if (!string.IsNullOrEmpty(Model.Body))
                     {
-                        <div class="image-banner__content  @overlayFade">
+                        <div class="image-banner__content @backgroundTheme">
                             <h1 class="image-banner__title">@Model.Title</h1>
-                            <p class="image-banner__subtitle">@Html.Raw(Model.Body)</p>
+                            @Html.Raw(Model.Body)
                         </div>
                     }
                 </a>
