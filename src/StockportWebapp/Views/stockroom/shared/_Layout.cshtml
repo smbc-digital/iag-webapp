@@ -1,0 +1,38 @@
+﻿@using StockportWebapp.Models.Config
+@inject IApplicationConfiguration ApplicationConfiguration
+@inject BusinessId BusinessId
+
+<!DOCTYPE html>
+<html lang=en-GB>
+<head>
+    <meta charset=utf-8 />
+    <meta name=viewport content="width=device-width, initial-scale=1" />
+    <title>@ViewData["Title"] - Stockroom</title>
+    <meta name=description content='@ViewData["Description"]' />
+    <meta property=og:title content='@ViewData["og:title"]' />
+
+    <link rel=stylesheet href=~/assets/stylesheets/vendor/unsemantic-grid-responsive-tablet.min.css asp-append-version=true />
+    <link rel=stylesheet href=~/assets/stylesheets/site-stockroom.min.css asp-append-version=true />
+    <link rel=preload as=style onload="this.onload=null;this.rel='stylesheet'" href="https://fonts.googleapis.com/css?family=Noto+Sans:400,700&display=swap">
+    
+    <script type=text/javascript src=~/assets/javascript/vendor/require.min.js asp-append-version=true></script>
+</head>
+<body>
+    <partial name=Header />
+
+    <main>
+        @RenderBody()
+    </main>
+
+    <section class="placeholder placeholder--yellow">
+        SIGNUP
+    </section>
+    <footer class="placeholder placeholder--blue">
+        <div class="grid-container">
+            <div class="grid-100">
+                Stockroom Footer
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

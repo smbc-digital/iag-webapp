@@ -1,0 +1,94 @@
+﻿@using System.Web
+@model EventCalendar
+@{
+    var category = Model.Homepage.Categories.Where(c => c.Slug == Model.Category).FirstOrDefault();
+    ViewData["og:title"] = string.IsNullOrWhiteSpace(Model.Category) 
+                            ? "What's on in Stockport" 
+                            : category == null 
+                                ? HttpUtility.HtmlEncode(Model.Category) 
+                                : HttpUtility.HtmlEncode(category.Name);
+
+    ViewData["Title"] = ViewData["og:title"];
+    ViewData["Description"] = Model.Homepage.MetaDescription;
+    Layout = "../Shared/_Layout.cshtml";
+}
+
+<section class="article-hero" style="background-position: 50%; background-size: cover; height: 700px; width: 100%; background-image: url(@Model.Events.First().ImageUrl?q=89&fm=webp);">
+    <div class="grid-container" style="height:700px; position:relative;">
+        <div style="display:inline-block; position:absolute; margin-top:38px; background-color:#ff522a; border-radius:5px; padding:1em;">
+            <h1>What's On</h1>
+            <h2>
+                A Guide to what's <br />
+                happening <br />
+                at stockroom
+            </h2>
+        </div>
+
+        <h3 class="h-m" style="position:absolute; bottom:20px; background-color:white; border-radius:5px; padding:1em; display:inline-block; margin: 0px; ">Park Run - 01/01/2025 - Get fit with friends</h3>    
+    </div>
+</section>
+<div style="background-color:#ff522a;">
+    <nav class="grid-container" style="padding:1em;">
+        <div class="grid-100">
+            Art / Children / Culture / Food and Drink / History / Learning / Literature / Social / Music 
+        </div>
+    </nav> 
+</div>
+
+<section class="grid-container" style="margin-top:2em;">
+    <div class="grid-33">
+        <img src="~/assets/stockroom/live-local-meet-here.jpg" style="width:100%; height:auto; border-top-left-radius:20px; border-top-right-radius:20px; " />
+        <div style="padding:1em; background-color:#ff522a;  border-bottom-left-radius:5px; border-bottom-right-radius:5px;">
+            <h3>Event</h3>
+            <p>Lorem ipsum odor amet, consectetuer adipiscing elit. Integer dolor dignissim at sed; porttitor quam viverra.</p>
+            <p><stong>01/03/2025</stong></p>
+        </div>
+    </div>
+
+    <div class="grid-33">
+        <img src="~/assets/stockroom/explosion.jpg" style="width:100%; height:auto; border-top-left-radius:20px; border-top-right-radius:20px; " />
+        <div style="padding:1em; background-color:#ff522a;  border-bottom-left-radius:5px; border-bottom-right-radius:5px;">
+            <h3>Event</h3>
+            <p>Lorem ipsum odor amet, consectetuer adipiscing elit. Integer dolor dignissim at sed; porttitor quam viverra.</p>
+            <p><stong>01/03/2025</stong></p>
+        </div>
+    </div>
+
+    <div class="grid-33">
+        <img src="~/assets/stockroom/live-local-meet-here.jpg" style="width:100%; height:auto; border-top-left-radius:20px; border-top-right-radius:20px; " />
+        <div style="padding:1em; background-color:#ff522a;  border-bottom-left-radius:5px; border-bottom-right-radius:5px;">
+            <h3>Event</h3>
+            <p>Lorem ipsum odor amet, consectetuer adipiscing elit. Integer dolor dignissim at sed; porttitor quam viverra.</p>
+            <p><stong>01/03/2025</stong></p>
+        </div>
+    </div>
+</section>
+
+<section class="grid-container" style="margin-top:2em; margin-bottom:2em;">
+    <div class="grid-33">
+        <img src="~/assets/stockroom/explosion.jpg" style="width:100%; height:auto; border-top-left-radius:20px; border-top-right-radius:20px; " />
+        <div style="padding:1em; background-color:#ff522a;  border-bottom-left-radius:5px; border-bottom-right-radius:5px;">
+            <h3>Event</h3>
+            <p>Lorem ipsum odor amet, consectetuer adipiscing elit. Integer dolor dignissim at sed; porttitor quam viverra.</p>
+            <p><stong>01/03/2025</stong></p>
+        </div>
+    </div>
+
+    <div class="grid-33">
+        <img src="~/assets/stockroom/live-local-meet-here.jpg" style="width:100%; height:auto; border-top-left-radius:20px; border-top-right-radius:20px; " />
+        <div style="padding:1em; background-color:#ff522a;  border-bottom-left-radius:5px; border-bottom-right-radius:5px;">
+            <h3>Event</h3>
+            <p>Lorem ipsum odor amet, consectetuer adipiscing elit. Integer dolor dignissim at sed; porttitor quam viverra.</p>
+            <p><stong>01/03/2025</stong></p>
+        </div>
+    </div>
+
+    <div class="grid-33">
+        <img src="~/assets/stockroom/explosion.jpg" style="width:100%; height:auto; border-top-left-radius:20px; border-top-right-radius:20px; " />
+        <div style="padding:1em; background-color:#ff522a;  border-bottom-left-radius:5px; border-bottom-right-radius:5px;">
+            <h3>Event</h3>
+            <p>Lorem ipsum odor amet, consectetuer adipiscing elit. Integer dolor dignissim at sed; porttitor quam viverra.</p>
+            <p><stong>01/03/2025</stong></p>
+        </div>
+    </div>
+</section>

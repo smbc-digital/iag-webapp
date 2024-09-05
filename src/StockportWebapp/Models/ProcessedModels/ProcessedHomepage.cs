@@ -1,6 +1,7 @@
 ﻿namespace StockportWebapp.Models.ProcessedModels;
 public class ProcessedHomepage : IProcessedContentType
 {
+    public string Title;
     public readonly IEnumerable<string> PopularSearchTerms;
     public readonly string FeaturedTasksHeading;
     public readonly string FeaturedTasksSummary;
@@ -23,8 +24,9 @@ public class ProcessedHomepage : IProcessedContentType
     public readonly CallToActionBanner CallToActionPrimary;
     public readonly IEnumerable<SpotlightOnBanner> SpotlightOnBanner;
 
-    public ProcessedHomepage(IEnumerable<string> popularSearchTerms, string featuredTasksHeading, string featuredTasksSummary, IEnumerable<SubItem> featuredTasks, IEnumerable<SubItem> featuredTopics, IEnumerable<Alert> alerts, IEnumerable<CarouselContent> carouselContents, string backgroundImage, string foregroundImage, string foregroundImageLocation, string foregroundImageLink, string foregroundImageAlt, IEnumerable<News> lastNews, string freeText, Group featuredGroup, string eventCategory, string metaDescription, CarouselContent campaignBanner, CallToActionBanner callToAction, CallToActionBanner callToActionPrimary, IEnumerable<SpotlightOnBanner> spotlightOnBanner)
+    public ProcessedHomepage(string title, IEnumerable<string> popularSearchTerms, string featuredTasksHeading, string featuredTasksSummary, IEnumerable<SubItem> featuredTasks, IEnumerable<SubItem> featuredTopics, IEnumerable<Alert> alerts, IEnumerable<CarouselContent> carouselContents, string backgroundImage, string foregroundImage, string foregroundImageLocation, string foregroundImageLink, string foregroundImageAlt, IEnumerable<News> lastNews, string freeText, Group featuredGroup, string eventCategory, string metaDescription, CarouselContent campaignBanner, CallToActionBanner callToAction, CallToActionBanner callToActionPrimary, IEnumerable<SpotlightOnBanner> spotlightOnBanner)
     {
+        Title = title;
         PopularSearchTerms = popularSearchTerms;
         FeaturedTasksHeading = featuredTasksHeading;
         FeaturedTasksSummary = featuredTasksSummary;

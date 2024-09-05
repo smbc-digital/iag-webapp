@@ -43,16 +43,13 @@ public class EventsController : Controller
     public async Task<IActionResult> Index(EventCalendar eventsCalendar, [FromQuery] int Page, [FromQuery] int pageSize)
     {
         if (ModelState["DateTo"] is not null && ModelState["DateTo"].Errors.Count > 0)
-        {
             ModelState["DateTo"].Errors.Clear();
-        }
 
         if (ModelState["DateFrom"] is not null && ModelState["DateFrom"].Errors.Count > 0)
-        {
             ModelState["DateFrom"].Errors.Clear();
-        }
 
-        if (!string.IsNullOrEmpty(eventsCalendar.Tag)) { eventsCalendar.KeepTag = eventsCalendar.Tag; }
+        if (!string.IsNullOrEmpty(eventsCalendar.Tag)) 
+            eventsCalendar.KeepTag = eventsCalendar.Tag;
 
         eventsCalendar.FromSearch = eventsCalendar.FromSearch 
             || !string.IsNullOrWhiteSpace(eventsCalendar.Category) 
@@ -83,6 +80,7 @@ public class EventsController : Controller
 
         DoPagination(eventsCalendar, Page, eventResponse, pageSize);
 
+        
         if (eventResponse is not null)
         {
             eventsCalendar.AddEvents(eventResponse.Events);

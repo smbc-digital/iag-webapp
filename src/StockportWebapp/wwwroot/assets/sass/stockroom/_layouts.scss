@@ -1,0 +1,32 @@
+.grid-container {
+    max-width: 1260px
+}
+
+.skip-to-main-content {
+    display: block;
+    background: white;
+
+    a.skip-main {
+        position: absolute;
+        left: auto;
+        top: auto;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        z-index: -999;
+        background: white;
+        display: inline-block;
+        margin: 0.75em 30px 0 30px;
+        padding: 5px;
+    }
+
+    a.skip-main:focus, a.skip-main:active {
+        color: white;
+        background-color: $skrm-yellow;
+        width: auto;
+        height: auto;
+        text-align: center;
+        z-index: 999;
+        color: black;
+    }
+}
