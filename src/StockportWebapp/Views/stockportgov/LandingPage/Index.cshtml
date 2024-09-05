@@ -21,17 +21,17 @@
         <partial name="FullImageHeader" model="@Model" />
     }
 
-    @foreach(SubItem contentBlock in Model.LandingPage.PageSections)
+    @foreach(SubItem pageSection in Model.LandingPage.PageSections)
     {
-        <partial name="@contentBlock.ContentType" model="@(contentBlock.ContentType.Equals("CallToAction") 
+        <partial name="@pageSection.ContentType" model="@(pageSection.ContentType.Equals("CallToAction") 
             ? new CallToActionBanner() {
-                    Image = contentBlock.SubItems.FirstOrDefault().Image,
-                    AltText = contentBlock.SubItems.FirstOrDefault().Title,
-                    ButtonText = contentBlock.SubItems.FirstOrDefault().ButtonText,
-                    Colour = contentBlock.ColourScheme,
-                    Link = contentBlock.SubItems.FirstOrDefault().Link,
-                    Teaser = contentBlock.SubItems.FirstOrDefault().Teaser,
-                    Title = contentBlock.SubItems.FirstOrDefault().Title }
-            : contentBlock)" />
+                    Image = pageSection.SubItems.FirstOrDefault().Image,
+                    AltText = pageSection.SubItems.FirstOrDefault().Title,
+                    ButtonText = pageSection.SubItems.FirstOrDefault().ButtonText,
+                    Colour = pageSection.ColourScheme,
+                    Link = pageSection.SubItems.FirstOrDefault().Link,
+                    Teaser = pageSection.SubItems.FirstOrDefault().Teaser,
+                    Title = pageSection.SubItems.FirstOrDefault().Title }
+            : pageSection)" />
     }
 </div>
