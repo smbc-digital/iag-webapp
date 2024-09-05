@@ -2,6 +2,31 @@
     color: black;
     background-color: $skrm-orange;
 
+    &_dropdown {
+        &:hover .site-header_dropdown--content {
+            display: block;
+        }
+
+        &--content {
+            background-color: $skrm-yellow;
+            display: none;
+            position: absolute;
+            width: 100%;
+            left: 0;
+            top: 67px;
+            z-index: 1;
+
+            
+        }
+    }
+
+    &_logo {
+        margin-top: 8px;
+        margin-bottom: 8px;
+        height: 51px;
+        width: auto;
+    }
+
     &_menu {
         margin: 0px;
         text-align: right;

@@ -1,6 +1,6 @@
 ﻿/*------ Typography Styles ------*/
 
-$fontStack: 'Lexend', 'Noto Sans', sans-serif;
+$fontStack: 'Noto Sans', sans-serif;
 
 @mixin body {
     font: 1.1875rem / 1.5 $fontStack;
@@ -9,6 +9,9 @@ $fontStack: 'Lexend', 'Noto Sans', sans-serif;
 body {
     @include body;
     background-color: white;
+    p {
+        margin-bottom: 1em;
+    }
 }
 
 @mixin body--small {
@@ -31,6 +34,7 @@ body {
     line-height: 1.0416666667;
     font-weight: 600;
     letter-spacing: -1px;
+    margin-bottom: 2rem;
 
     @media #{$mobile} {
         font-size: 2rem;
