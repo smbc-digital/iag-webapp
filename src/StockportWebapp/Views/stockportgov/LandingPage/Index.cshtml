@@ -21,7 +21,7 @@
         <partial name="FullImageHeader" model="@Model" />
     }
 
-    @foreach(SubItem contentBlock in Model.LandingPage.ContentReference)
+    @foreach(SubItem contentBlock in Model.LandingPage.PageSections)
     {
         <partial name="@contentBlock.ContentType" model="@(contentBlock.ContentType.Equals("CallToAction") 
             ? new CallToActionBanner() {
