@@ -15,7 +15,7 @@
                     <div class="grid-30">
                         <form method="post" role="form" action="/subscribe">
                             <button type="submit" data-cy="subscribe-button" class="btn btn--inverse btn--bold btn--full btn--chevron-forward section__content--action btn-@CssClassMapper.GetBoldCssClass(Model.ColourScheme)"><span class="btn_text">Subscribe now</span></button>
-                            @Html.HiddenFor(contentBlock => contentBlock.MailingListId)
+                            @Html.HiddenFor(pageSection => pageSection.MailingListId)
                         </form>
                     </div>
                 </div>
