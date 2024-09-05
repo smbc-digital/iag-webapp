@@ -25,8 +25,8 @@
 
         @media #{$mobile} {
             flex-direction: column-reverse;
-            margin-left: 5px;
-            margin-right: 5px;
+            margin-inline-start: 5px;
+            margin-inline-end: 5px;
         }
 
         &-content {
