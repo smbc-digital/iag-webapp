@@ -14,7 +14,7 @@
         <div class="grid-container">
             <div class="grid-100">
                 <a @href>
-                    <img class="image-banner__background" src="@Model.Image?fm=webp" loading="lazy"/>
+                    <img class="image-banner__background" src="@Model.Image?fm=webp" alt="@Model.Title image" loading="lazy"/>
                     @if (!string.IsNullOrEmpty(Model.Body))
                     {
                         <div class="image-banner__content @backgroundTheme">
