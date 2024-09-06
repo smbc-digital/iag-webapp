@@ -4,7 +4,7 @@
         ? $"href={Model.SubItems.First().NavigationLink}" : !string.IsNullOrEmpty(Model.Link)
         ? $"href={@Model.Link}" : string.Empty;
 
-    string backgroundTheme = Model.ColourScheme is EColourScheme.Dark
+    string backgroundTheme = Model.ColourScheme is EColourScheme.Dark_Overlay
         ? $"image-banner-{CssClassMapper.GetCssClass(Model.ColourScheme)}"
         : string.Empty;
 }
