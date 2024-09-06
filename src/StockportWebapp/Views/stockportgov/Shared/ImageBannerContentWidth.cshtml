@@ -4,7 +4,7 @@
         ? $"href={Model.SubItems.First().NavigationLink}" : !string.IsNullOrEmpty(Model.Link) 
         ? $"href={@Model.Link}" : string.Empty;
 
-    string backgroundTheme = Model.ColourScheme is EColourScheme.Dark
+    string backgroundTheme = Model.ColourScheme is EColourScheme.Dark_Overlay
         ? $"image-banner-{CssClassMapper.GetCssClass(Model.ColourScheme)}"
         : string.Empty;
 }
@@ -14,7 +14,8 @@
         <div class="grid-container">
             <div class="grid-100">
                 <a @href>
-                    <img class="image-banner__background" src="@Model.Image?fm=webp" alt="@Model.Title image" loading="lazy"/>
+                    <img class="image-banner__background" img src="@Model.Image?w=1015&q=89" srcset="@Model.Image?w=1015&q=89&fm=webp, @Model.Image?w=507&q=89&fm=webp 507w"
+                    sizes="(max-width: 1023px) 507px, (min-width: 1024px) 1015px" loading="lazy" alt="@Model.Title image" />
                     @if (!string.IsNullOrEmpty(Model.Body))
                     {
                         <div class="image-banner__content @backgroundTheme">
