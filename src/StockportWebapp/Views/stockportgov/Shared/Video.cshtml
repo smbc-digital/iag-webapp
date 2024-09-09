@@ -1,6 +1,6 @@
 ﻿@model SubItem
 @{
-    VideoViewModel videoViewModel = new VideoViewModel(Model.VideoTitle, Model.VideoToken, Model.VideoPlaceholderPhotoId);
+    VideoViewModel videoViewModel = new(Model.VideoTitle, Model.VideoToken, Model.VideoPlaceholderPhotoId);
 }
 
 <section class="section section--white" data-cy="find-out-more-cards">
