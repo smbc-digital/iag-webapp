@@ -1,18 +1,25 @@
 ﻿@model SubItem
 @{
-    
+    VideoViewModel videoViewModel = new(Model.VideoTitle, Model.VideoToken, Model.VideoPlaceholderPhotoId);
 }
 
-@if (Model is not null)
-{
-    <section class="section section--white">
-        <div class="grid-container">
-            <div class="grid-100">
-                <div class="placeholder placeholder-bg-green placeholder-large">
-                    <h2>VIDEO</h2>
-                    <p>@Model.Title</p>
+<section class="section section--white" data-cy="find-out-more-cards">
+    <div class="grid-container">
+        <div class="grid-100">
+            @if (!string.IsNullOrEmpty(Model.Title))
+            {
+                <div class="find-out-more__title">
+                    <h2 class="section__title section__title--no-padding section__title--margin-bottom">@Model.Title</h2>
+                    @Html.Raw(Model.Body)
+                    <hr />
+                </div>
+            }
+
+            <div class="section__content">
+                <div class="video-wrapper">
+                    <partial name="VideoIFrame" model="@videoViewModel" />
                 </div>
             </div>
         </div>
-    </section>
-}
+    </div>
+</section>
