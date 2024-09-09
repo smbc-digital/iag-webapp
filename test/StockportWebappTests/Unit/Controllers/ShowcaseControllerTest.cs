@@ -45,7 +45,7 @@ public class ShowcaseControllerTest
                     string.Empty,
                     string.Empty,
                     EColourScheme.Teal,
-                    string.Empty, string.Empty)
+                    string.Empty, string.Empty, string.Empty, string.Empty, string.Empty)
             },
             new List<Crumb>
             {
