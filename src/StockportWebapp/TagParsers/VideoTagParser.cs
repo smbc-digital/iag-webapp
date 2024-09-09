@@ -16,7 +16,14 @@ public class VideoTagParser : ISimpleTagParser
     protected string GenerateHtml(string tagData)
     {
         var videoData = tagData.Split(';');
-        var iframe = _viewRenderer.Render("VideoIFrame", new VideoViewModel(videoData[2], videoData[1], videoData[0]));
+        VideoViewModel videoViewModel = new(videoData[1], videoData[0])
+        {
+            Title = videoData.Length > 2
+                                ? videoData[2]
+                                : string.Empty
+        };
+
+        var iframe = _viewRenderer.Render("VideoIFrame", videoViewModel);
         return $"<div class=\"video-wrapper\">{iframe}</div>";
     }
 
