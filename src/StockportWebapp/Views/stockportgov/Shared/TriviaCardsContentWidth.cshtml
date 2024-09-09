@@ -1,7 +1,7 @@
 ﻿@model SubItem
-@if (Model is not null)
+@if (Model is not null && Model.SubItems.All(subItem => subItem.ContentType.Equals("TriviaCardsContentWidth")))
 {
-    @if (Model.SubItems.Count.Equals(3))
+    @if (Model.SubItems.Count.Equals(3) && Model.SubItems.All(subItem => subItem.ContentType.Equals("TriviaCardsContentWidth")))
     {
         <section class="section section--white" data-cy="trivia-cards-content-width">
             <div class="grid-container">

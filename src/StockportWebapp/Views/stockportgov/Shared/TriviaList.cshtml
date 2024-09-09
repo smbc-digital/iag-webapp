@@ -1,5 +1,5 @@
 ﻿@model SubItem
-@if (Model is not null)
+@if (Model is not null && Model.SubItems.All(subItem => subItem.ContentType.Equals("TriviaList")))
 {
     <section class="section section--white">
         <div class="grid-container">
