@@ -11,7 +11,10 @@
                         <ul class="navcard-wrapper navcard-wrapper--no-margin">
                             @foreach (SubItem subItem in Model.SubItems)
                             {
-                                <partial name="TriviaCard" model="@subItem" view-data="@(new ViewDataDictionary(ViewData) { {"BackgroundColourClass", Model.BackgroundColourClass}, {"BorderClass", Model.BorderClass}, {"TextColourClass", Model.TextColourClass},  {"CardType", "trivia-card"} })" />
+                                if (subItem.Type.Equals("informationList"))
+                                {
+                                    <partial name="TriviaCard" model="@subItem" view-data="@(new ViewDataDictionary(ViewData) { {"BackgroundColourClass", Model.BackgroundColourClass}, {"BorderClass", Model.BorderClass}, {"TextColourClass", Model.TextColourClass},  {"CardType", "trivia-card"} })" />
+                                }
                             }
                         </ul>
                     </div>
