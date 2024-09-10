@@ -238,6 +238,7 @@ public class ContentSecurityPolicyBuilder
             .AddSource("forms-eu1.hsforms.com")
             .AddSource("www.freeprivacypolicy.com")
             .AddSource("unpkg.com/@googlemaps/")
+            .AddSource("https://kit.fontawesome.com/")
             .Finish());
     }
 
