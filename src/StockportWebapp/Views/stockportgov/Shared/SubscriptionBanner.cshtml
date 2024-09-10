@@ -1,10 +1,18 @@
 @model SubItem
+@{
+    bool defaultScheme = Model.ColourScheme is EColourScheme.None 
+        || Model.ColourScheme is EColourScheme.Orange 
+        || Model.ColourScheme is EColourScheme.Multi; 
+    
+    string backgroundColour = defaultScheme ? "bg-solid-teal" : Model.SolidBackgroundColourClass;
+    string buttonColour = defaultScheme ? "btn--teal" : $"btn-{CssClassMapper.GetBoldCssClass(Model.ColourScheme)}";
+}
 
 @if (Model is not null)
 {
     <section class="section section--white" data-cy="personalised-services">
         <div class="grid-container">
-            <div class="grid-100 email-subscription @Model.SolidBackgroundColourClass" data-cy="subscription">
+            <div class="grid-100 email-subscription @backgroundColour" data-cy="subscription">
                 <div class="section__content">
                     <div class="grid-70">
                         <h2 class="section__title section__title--white section__title--padded-bottom h-l">@Model.Title</h2>
@@ -14,7 +22,7 @@
                     </div>
                     <div class="grid-30">
                         <form method="post" role="form" action="/subscribe">
-                            <button type="submit" data-cy="subscribe-button" class="btn btn--inverse btn--bold btn--full btn--chevron-forward section__content--action btn-@CssClassMapper.GetBoldCssClass(Model.ColourScheme)"><span class="btn_text">Subscribe now</span></button>
+                            <button type="submit" data-cy="subscribe-button" class="btn btn--inverse btn--bold btn--full btn--chevron-forward section__content--action @buttonColour"><span class="btn_text">Subscribe now</span></button>
                             @Html.HiddenFor(pageSection => pageSection.MailingListId)
                         </form>
                     </div>
