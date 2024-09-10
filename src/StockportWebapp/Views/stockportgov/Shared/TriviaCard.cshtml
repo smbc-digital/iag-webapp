@@ -18,14 +18,14 @@
                 {
                     <span class="@Model.Icon.ToLower() @(cardType)__icon @textColourClass" aria-hidden="true"></span>
                 }
-             </div>
+            </div>
 
             <div class="navcard-content--padding @navcardPadding">
-                @if(!string.IsNullOrEmpty(Model.StatisticSubheading) && !string.IsNullOrEmpty(Model.Statistic))
+                @if (!string.IsNullOrEmpty(Model.StatisticSubheading) && !string.IsNullOrEmpty(Model.Statistic))
                 {
                     <h3 class="navcard__title @(cardType)__subtitle @textColourClass">@Model.StatisticSubheading</h3>
                 }
-                else if(string.IsNullOrEmpty(Model.Statistic))
+                else if (string.IsNullOrEmpty(Model.Statistic))
                 {
                     <h3 class="navcard__title @(cardType)__subtitle @textColourClass">@Model.Title</h3>
                 }
