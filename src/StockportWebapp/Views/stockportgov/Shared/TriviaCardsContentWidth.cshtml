@@ -7,7 +7,13 @@
             <div class="grid-container">
                 <div class="grid-100">
                     <div class="section__content">
-                        <h2 class="visuallyhidden">@Model.Title</h2>
+                        @if (!string.IsNullOrEmpty(Model.Title))
+                        {
+                            <div class="trivia-title">
+                                <h2 class="section__title section__title--no-padding section__title--margin-bottom">@Model.Title</h2>
+                                <hr />
+                            </div>
+                        }
                         <ul class="navcard-wrapper navcard-wrapper--no-margin">
                             @foreach (SubItem subItem in Model.SubItems)
                             {
