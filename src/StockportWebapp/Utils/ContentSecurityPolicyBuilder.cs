@@ -239,6 +239,7 @@ public class ContentSecurityPolicyBuilder
             .AddSource("www.freeprivacypolicy.com")
             .AddSource("unpkg.com/@googlemaps/")
             .AddSource("https://kit.fontawesome.com/")
+            .AddSource("ka-p.fontawesome.com/")
             .Finish());
     }
 
@@ -288,6 +289,7 @@ public class ContentSecurityPolicyBuilder
             .AddSource("forms-eu1.hscollectedforms.net")
             .AddSource("api-eu1.hubapi.com")
             .AddSource("hubspot-forms-static-embed-eu1.s3.amazonaws.com/")
+            .AddSource("ka-p.fontawesome.com/")
             .Finish());
     }
 
