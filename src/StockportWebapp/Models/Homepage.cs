@@ -2,6 +2,7 @@
 [ExcludeFromCodeCoverage]
 public class Homepage
 {
+    public string Title { get; }
     public IEnumerable<string> PopularSearchTerms { get; }
     public string FeaturedTasksHeading { get; }
     public string FeaturedTasksSummary { get; }
@@ -25,8 +26,9 @@ public class Homepage
 
     public IEnumerable<SpotlightOnBanner> SpotlightOnBanner { get; set; }
 
-    public Homepage(IEnumerable<string> popularSearchTerms, string featuredTasksHeading, string featuredTasksSummary, IEnumerable<SubItem> featuredTasks, IEnumerable<SubItem> featuredTopics, IEnumerable<Alert> alerts, IEnumerable<CarouselContent> carouselContents, string backgroundImage, string foregroundImage, string foregroundImageLocation, string foregroundImageLink, string foregroundImageAlt, string freeText, Group featuredGroup, string eventCategory, string metaDescription, CarouselContent campaignBanner, CallToActionBanner callToAction, CallToActionBanner callToActionPrimary, IEnumerable<SpotlightOnBanner> spotlightOnBanner)
+    public Homepage(string title, IEnumerable<string> popularSearchTerms, string featuredTasksHeading, string featuredTasksSummary, IEnumerable<SubItem> featuredTasks, IEnumerable<SubItem> featuredTopics, IEnumerable<Alert> alerts, IEnumerable<CarouselContent> carouselContents, string backgroundImage, string foregroundImage, string foregroundImageLocation, string foregroundImageLink, string foregroundImageAlt, string freeText, Group featuredGroup, string eventCategory, string metaDescription, CarouselContent campaignBanner, CallToActionBanner callToAction, CallToActionBanner callToActionPrimary, IEnumerable<SpotlightOnBanner> spotlightOnBanner)
     {
+        Title = title;
         PopularSearchTerms = popularSearchTerms;
         FeaturedTasksHeading = featuredTasksHeading;
         FeaturedTasksSummary = featuredTasksSummary;

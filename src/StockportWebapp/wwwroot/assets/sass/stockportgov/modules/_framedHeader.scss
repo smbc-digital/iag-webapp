@@ -17,8 +17,7 @@
         display: flex;
         height: 100%;
         color: white;
-        justify-content: center;
-        margin-top: 2em;
+        justify-content: center;        
         background-color: $teal;
         
         &--teal {
@@ -40,7 +39,6 @@
     }
 
     &__text {
-        margin-top: 2em;
         flex: 1;
 
         @media #{$mobile} {

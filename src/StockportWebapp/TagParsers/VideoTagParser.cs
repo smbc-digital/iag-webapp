@@ -3,33 +3,29 @@
 public class VideoTagParser : ISimpleTagParser
 {
     private readonly TagReplacer _tagReplacer;
+    private readonly IViewRender _viewRenderer;
+
     protected Regex TagRegex => new("{{VIDEO:([0-9aA-zZ]*;[0-9aA-zZ]*;?[0-9aA-zZ '#+]*)}}", RegexOptions.Compiled);
+
+    public VideoTagParser(IViewRender viewRenderer)
+    {
+        _viewRenderer = viewRenderer;
+        _tagReplacer = new TagReplacer(GenerateHtml, TagRegex);
+    }
 
     protected string GenerateHtml(string tagData)
     {
         var videoData = tagData.Split(';');
-        var outputHtml = new StringBuilder();
+        VideoViewModel videoViewModel = new(videoData[1], videoData[0])
+        {
+            Title = videoData.Length > 2
+                                ? videoData[2]
+                                : string.Empty
+        };
 
-        var iFrameTitle = videoData.Length > 2 ? $"title=\"{videoData[2]}\"" : string.Empty;
-
-        outputHtml.Append("<div class=\"video-wrapper\">");
-        outputHtml.Append($"<iframe {iFrameTitle} src=");
-        outputHtml.Append($"\"https://video.stockport.gov.uk/v.ihtml/player.html?token={videoData[1]}&source=embed&");
-        outputHtml.Append($"photo%5fid={videoData[0]}\" style=\"width:100%; height:100%; position:absolute; top:0; left:0;\" ");
-        outputHtml.Append("frameborder=\"0\" border=\"0\" scrolling=\"no\" allowfullscreen=\"1\" mozallowfullscreen=\"1\" ");
-        outputHtml.Append("webkitallowfullscreen=\"1\" allow=\"autoplay; fullscreen\">");
-        outputHtml.Append("</iframe></div>");
-
-        return outputHtml.ToString();
+        var iframe = _viewRenderer.Render("VideoIFrame", videoViewModel);
+        return $"<div class=\"video-wrapper\">{iframe}</div>";
     }
 
-    public VideoTagParser()
-    {
-        _tagReplacer = new TagReplacer(GenerateHtml, TagRegex);
-    }
-
-    public string Parse(string body, string title = null)
-    {
-        return _tagReplacer.ReplaceAllTags(body);
-    }
+    public string Parse(string body, string title = null) => _tagReplacer.ReplaceAllTags(body);
 }

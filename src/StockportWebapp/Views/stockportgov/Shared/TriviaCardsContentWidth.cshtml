@@ -1,16 +1,20 @@
 ﻿@model SubItem
 @if (Model is not null)
 {
-    @if(Model.SubItems.Count.Equals(3))
+    @if (Model.SubItems.Count.Equals(3))
     {
         <section class="section section--white" data-cy="trivia-cards-content-width">
             <div class="grid-container">
                 <div class="grid-100">
                     <div class="section__content">
+                        <h2 class="visuallyhidden">@Model.Title</h2>
                         <ul class="navcard-wrapper navcard-wrapper--no-margin">
-                            @foreach(SubItem subItem in Model.SubItems)
+                            @foreach (SubItem subItem in Model.SubItems)
                             {
-                                <partial name="TriviaCard" model="@subItem" view-data="@(new ViewDataDictionary(ViewData) { {"BackgroundColourClass", Model.BackgroundColourClass}, {"BorderClass", Model.BorderClass}, {"TextColourClass", Model.TextColourClass},  {"CardType", "trivia-card"} })" />
+                                if (subItem.Type.Equals("informationList"))
+                                {
+                                    <partial name="TriviaCard" model="@subItem" view-data="@(new ViewDataDictionary(ViewData) { {"BackgroundColourClass", Model.BackgroundColourClass}, {"BorderClass", Model.BorderClass}, {"TextColourClass", Model.TextColourClass},  {"CardType", "trivia-card"} })" />
+                                }
                             }
                         </ul>
                     </div>

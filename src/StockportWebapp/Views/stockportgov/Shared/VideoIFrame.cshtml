@@ -1,0 +1,6 @@
+﻿@model VideoViewModel;
+@{
+    string url = $"https://video.stockport.gov.uk/v.ihtml/player.html?token={Model.VideoToken}&source=embed&photo%5fid={Model.PhotoId}";
+}
+<iframe title="@Model.Title" src="@url" style="width:100%; height:100%; position:absolute; top:0; left:0;" frameborder="0" border="0" scrolling="no" allowfullscreen="1" mozallowfullscreen="1" webkitallowfullscreen="1" allow="autoplay; fullscreen">
+</iframe>   

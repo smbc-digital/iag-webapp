@@ -38,7 +38,8 @@
         border-bottom-right-radius: 50px;
         padding: 1.5em;
         box-sizing: border-box;
-        max-width: 33%;
+        width: 33%;
+        max-width: 450px;
         
         @media #{$tablet} {
             padding: 1em;

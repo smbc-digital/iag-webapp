@@ -1,16 +1,36 @@
-﻿@model SubItem
+@model SubItem
 @{
+    string href = Model.SubItems.Any()
+        ? $"href={Model.SubItems.First().NavigationLink}" : !string.IsNullOrEmpty(Model.Link)
+        ? $"href={@Model.Link}" : string.Empty;
 
+    string backgroundTheme = Model.ColourScheme is EColourScheme.Dark_Overlay
+        ? $"image-banner-{CssClassMapper.GetCssClass(Model.ColourScheme)}"
+        : string.Empty;
 }
 @if (Model is not null)
 {
-    <section class="section section--white">
+    <section class="section image-banner" data-cy="image-banner-header">
         <div class="grid-container">
             <div class="grid-100">
-                <div class="placeholder placeholder-bg-pink placeholder-large">
-                    <h2>IMAGE BANNER</h2>
-                    <p>@Model.Title</p>
-                </div>
+                <a @href>
+                    <img class="image-banner__background"
+                         src="@Model.Image?w=1015&q=89"
+                         srcset="@Model.Image?w=507&q=89&fm=webp 507w,
+                                @Model.Image?w=1015&q=100&fm=webp"
+                         sizes="(max-width: 1023px) 507px,
+                                (min-width: 1024px) 1015px"
+                         loading="lazy"
+                         alt="@Model.Title image">
+
+                    @if (!string.IsNullOrEmpty(Model.Body))
+                    {
+                        <div class="image-banner__content @backgroundTheme">
+                            <h1 class="image-banner__title">@Model.Title</h1>
+                            @Html.Raw(Model.Body)
+                        </div>
+                    }
+                </a>
             </div>
         </div>
     </section>

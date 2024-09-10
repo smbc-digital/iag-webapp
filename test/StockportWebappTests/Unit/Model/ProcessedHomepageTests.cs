@@ -2,12 +2,12 @@
 
 public class ProcessedHomepageTests
 {
-    private readonly ProcessedHomepage processedHomepage = new(Enumerable.Empty<string>(),
+    private readonly ProcessedHomepage processedHomepage = new("Title", Enumerable.Empty<string>(),
                                                             "Featured Tasks",
                                                             "Featured tasks summary",
                                                             Enumerable.Empty<SubItem>(),
                                                             new List<SubItem> {
-                                                                new("test-slug", "Featured Item", "Teaser", "Icon.ico", "Article", string.Empty, string.Empty, string.Empty, string.Empty, new List<SubItem>(), string.Empty, string.Empty, EColourScheme.Teal, string.Empty, string.Empty)
+                                                                new("test-slug", "Featured Item", "Teaser", "Icon.ico", "Article", string.Empty, string.Empty, string.Empty, string.Empty, new List<SubItem>(), string.Empty, string.Empty, EColourScheme.Teal, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty)
                                                             },
                                                             new List<Alert> {
                                                                 new("Test Alert", "Test", "Test Body", "Warning", new DateTime(2020, 1, 1), new DateTime(2040, 1, 1), "test-warning-alert", false, string.Empty),

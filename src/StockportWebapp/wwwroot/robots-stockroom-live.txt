@@ -1,0 +1,34 @@
+﻿User-agent: *
+Disallow: /*.jpg$
+Disallow: /*.jpeg$
+Disallow: /*.png$
+Disallow: /*.gif$
+Disallow: /*.tiff$
+Disallow: /*.bmp$
+Disallow: /*.pdf$
+Disallow: /*.svg$
+Disallow: /*_hidden
+Disallow: /events/add-to-calendar/
+Disallow: /events/add-to-calendar
+Crawl-delay: 10
+
+User-agent: SemrushBot
+User-agent: BLEXBot
+User-agent: AhrefsBot
+User-agent: petalbot
+User-agent: paqlebot
+User-agent: ClaudeBot
+Disallow: /
+
+User-agent: GPTBot
+Disallow: /news/
+Disallow: /events/
+Crawl-delay: 10
+
+User-agent: Bingbot
+Disallow: /news
+Disallow: /events
+Crawl-delay: 10
+
+User-agent: *
+Disallow: /

@@ -16,12 +16,12 @@ public class HomeControllerTest
     private readonly List<string> _popularSearchTerms = new() { "popular", "search", "terms" };
     private readonly List<SubItem> _featuredTasks = new()
     {
-        new SubItem("slug featuredTasks", "featured Tasks", "teaser Featured Tasks", "fa fa-home", string.Empty, string.Empty, "image", "123", string.Empty, new List<SubItem>(), string.Empty, string.Empty, EColourScheme.Teal, string.Empty, string.Empty)
+        new SubItem("slug featuredTasks", "featured Tasks", "teaser Featured Tasks", "fa fa-home", string.Empty, string.Empty, "image", "123", string.Empty, new List<SubItem>(), string.Empty, string.Empty, EColourScheme.Teal, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty)
     };
     
     private readonly List<SubItem> _featuredTopics = new()
     {
-        new SubItem("Council Tax", "council-tax", "How to pay, discounts", string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, new List<SubItem>(), string.Empty, string.Empty, EColourScheme.Teal, string.Empty, string.Empty)
+        new SubItem("Council Tax", "council-tax", "How to pay, discounts", string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, new List<SubItem>(), string.Empty, string.Empty, EColourScheme.Teal, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty)
     };
 
     private readonly List<Alert> _alerts = new()
@@ -56,7 +56,7 @@ public class HomeControllerTest
 
     public HomeControllerTest()
     {
-        ProcessedHomepage homePageContent = new(_popularSearchTerms, "heading", "summary", _featuredTasks, _featuredTopics, _alerts, _carouselContents, "image.jpg", "foregroundimage.jpg", string.Empty, string.Empty, string.Empty, new List<News>(), "homepage text", null, "", "meta description", _campaignBanner, _callToActionBanner, _callToActionBanner, new List<SpotlightOnBanner>());
+        ProcessedHomepage homePageContent = new("Title", _popularSearchTerms, "heading", "summary", _featuredTasks, _featuredTopics, _alerts, _carouselContents, "image.jpg", "foregroundimage.jpg", string.Empty, string.Empty, string.Empty, new List<News>(), "homepage text", null, "", "meta description", _campaignBanner, _callToActionBanner, _callToActionBanner, new List<SpotlightOnBanner>());
 
         _homepageService
             .Setup(_ => _.GetHomepage())
@@ -280,7 +280,7 @@ public class HomeControllerTest
     public async Task Index_Should_CallApiService_IfEventsCategoryNotEmpty()
     {
         // Arrange
-        ProcessedHomepage homePageContent = new(new List<string>(), "heading", "summary", new List<SubItem>(), new List<SubItem>(), new List<Alert>(), new List<CarouselContent>(), "image.jpg", "foregroundImage.jpg", string.Empty, string.Empty, string.Empty, new List<News>(), "homepage text", null, "unittest", "meta description", _campaignBanner, _callToActionBanner, _callToActionBanner, new List<SpotlightOnBanner>());
+        ProcessedHomepage homePageContent = new("Title", new List<string>(), "heading", "summary", new List<SubItem>(), new List<SubItem>(), new List<Alert>(), new List<CarouselContent>(), "image.jpg", "foregroundImage.jpg", string.Empty, string.Empty, string.Empty, new List<News>(), "homepage text", null, "unittest", "meta description", _campaignBanner, _callToActionBanner, _callToActionBanner, new List<SpotlightOnBanner>());
 
         _homepageService.Setup(_ => _.GetHomepage()).ReturnsAsync(homePageContent);
         _stockportApiService.Setup(_ => _.GetEventsByCategory("unittest", true)).ReturnsAsync(new List<Event> { new EventBuilder().Build() });

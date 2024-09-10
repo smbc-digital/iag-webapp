@@ -16,6 +16,7 @@ var paths = {
     stylesToLint: [
         "./wwwroot/assets/sass/stockportgov/**/*.scss",
         "./wwwroot/assets/sass/healthystockport/**/*.scss",
+        "./wwwroot/assets/sass/stockroom/**/*.scss",
         "./wwwroot/assets/sass/StockportStyleGuide/**/*.scss"
     ],
     sassToWatch: "./wwwroot/assets/sass/**/*.scss",
