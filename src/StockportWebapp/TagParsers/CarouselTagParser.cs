@@ -30,8 +30,7 @@ public class CarouselTagParser : ISimpleTagParser
                     HtmlAgilityPack.HtmlAttribute altTxt = doc.DocumentNode.SelectSingleNode("//img").Attributes["alt"];
 
                     if (!string.IsNullOrEmpty(srcTxt.Value))
-                        returnCarousel.Append(
-                            $"<div class=\"carousel-image stockport-carousel\" style=\"background-image:url({srcTxt.Value});\" title=\"{altTxt.Value}\" /><div class=\"stockport-carousel-text article-carousel-text\"><p class=\"carousel-text\">{altTxt.Value}</p></div></div>");
+                        returnCarousel.Append($"<div class=\"carousel-image stockport-carousel\" style=\"background-image:url({srcTxt.Value}?q=89&fm=webp);\" title=\"{altTxt.Value}\"><div class=\"stockport-carousel-text article-carousel-text\"><p class=\"carousel-text\">{altTxt.Value}</p></div></div>");
                 }
                 else
                 {
@@ -39,11 +38,11 @@ public class CarouselTagParser : ISimpleTagParser
                     System.Text.RegularExpressions.Group altText = altRegex.Match(item).Groups[1];
                     if (!string.IsNullOrEmpty(srcText.Value))
                         returnCarousel.Append(
-                            $"<div class=\"carousel-image stockport-carousel\" style=\"background-image:url({srcText});\" title=\"{altText}\" /><div class=\"stockport-carousel-text article-carousel-text\"><p class=\"carousel-text\">{altText}</p></div></div>");
+                            $"<div class=\"carousel-image stockport-carousel\" style=\"background-image:url({srcText});\" title=\"{altText}\"><div class=\"stockport-carousel-text article-carousel-text\"><p class=\"carousel-text\">{altText}</p></div></div>");
                 }
             }
         }
-        string scriptTag = "<script>\r\nrequire(['/assets/javascript/config-830b1ebe.min.js'],function(){\r\nrequire(['slick', 'carousel'],\r\nfunction(_, carousel){\r\ncarousel.Init();\r\n}\r\n);\r\n});\r\n</script>";
+        string scriptTag = "<script>\r\nrequire(['/assets/javascript/config-2b312449.min.js'],function(){\r\nrequire(['slick', 'carousel'],\r\nfunction(_, carousel){\r\ncarousel.Init();\r\n}\r\n);\r\n});\r\n</script>";
         return returnCarousel.Append("</div>" + scriptTag).ToString();
     }
 

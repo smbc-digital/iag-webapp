@@ -1,6 +1,7 @@
 ﻿@model PrivacyNoticeViewModel
 @{
     ViewData["Title"] = Model.PrivacyNotice.Category + " privacy notice";
+    ViewData["Description"] = Model.PrivacyNotice.Title + " privacy notice";
     Layout = "../Shared/_Layout2023.cshtml";
 }
 
@@ -79,7 +80,7 @@
                     <hr />
 
                     <h3>Your rights</h3>
-                    <p>In our <a href="/your-rights-data-protection" alt="guidance document on exercising your data privacy rights">guide on exercising your rights</a> you can find information about how to:</p>
+                    <p>In our <a href="/your-rights-data-protection" title="guidance document on exercising your data privacy rights">guide on exercising your rights</a> you can find information about how to:</p>
                     <ul>
                         <li>exercise your rights</li>
                         <li>contact our Data Protection Officer</li>
@@ -95,7 +96,7 @@
                     <h3>Updates (notice)</h3>
                     <p>Our core data protection obligations and commitments are set out in our primary privacy notice.</p>
                     <p>
-                        We may update or revise this privacy notice at any time. If you are reading this as a printed copy please refer to <a href="http://www.stockport.gov.uk" alt="Stockport Council Website">www.stockport.gov.uk</a> for the most up to date version.
+                        We may update or revise this privacy notice at any time. If you are reading this as a printed copy please refer to <a href="http://www.stockport.gov.uk" title="Stockport Council Website">www.stockport.gov.uk</a> for the most up to date version.
                     </p>
                 </div>
 
