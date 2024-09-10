@@ -1,4 +1,6 @@
-﻿@model ArticleViewModel
+﻿@using StockportWebapp.Utils;
+
+@model ArticleViewModel
 @{
     ViewData["Title"] = Model.Article.Title;
     ViewData["Description"] = Model.MetaDescription;
@@ -58,7 +60,7 @@
                     @if (!string.IsNullOrEmpty(Model.Article.Body))
                     {
                         <article>
-                            @Html.Raw(Model.Article.Body)
+                            @Html.Raw(StockportWebapp.Utils.HtmlHelper.AddImageAttributes(Model.Article.Body, "720", "511", "720", "937", "852"))
                         </article>
                     }
 

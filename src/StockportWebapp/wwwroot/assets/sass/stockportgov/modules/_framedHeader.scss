@@ -80,12 +80,13 @@
             transform: translate(-49.5%, -45%);
             width: 99%;
 
-            @media #{$mobile}
-            {
+            @media #{$mobile} {
                 position: static;
                 border-radius: 0;
                 width: 100%;
                 transform: translate(0);
+                max-width: 768px;
+                max-height: 500px;
             }
         }
     }

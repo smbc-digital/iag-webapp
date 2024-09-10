@@ -1,4 +1,10 @@
 ﻿define(['jquery', 'slick'], function ($) {
+    var addSlickCssToHead = function () {
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = '/assets/stylesheets/vendor/slick.min.css'; 
+        document.head.appendChild(link);
+    };
 
     return {
         Init: function () {
@@ -7,17 +13,18 @@
             $(document).ready(
                 function () {
                     $(".carousel").slick(
-                        {
-                            dots: true,
-                            focusOnChange: true,
+                    {
+                        dots: true,
+                        focusOnChange: true,
 
-                            // Overriden for accessibility
-                            customPaging: function (slider, i) {
-                                return $('<button type="button" />');
-                            },
-                        });
+                        // Overriden for accessibility
+                        customPaging: function (slider, i) {
+                            return $('<button type="button" />');
+                        },
+                    });
                 }
             );
+            addSlickCssToHead();
         }
     }
 });
