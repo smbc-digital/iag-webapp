@@ -1,4 +1,4 @@
-﻿@model SubItem
+﻿@model ContentBlock
 @if (Model is not null)
 {
     @if (Model.SubItems.Count.Equals(3))
@@ -17,11 +17,11 @@
                             }
 
                             <ul class="navcard-wrapper navcard-wrapper--no-margin">
-                                @foreach (SubItem subItem in Model.SubItems)
+                                @foreach (ContentBlock contentBlock in Model.SubItems)
                                 {
-                                    if (subItem.Type.Equals("informationList"))
+                                    if (contentBlock.Type.Equals("informationList"))
                                     {
-                                        <partial name="TriviaCard" model="@subItem" view-data="@(new ViewDataDictionary(ViewData) { {"BackgroundColourClass", "trivia-banner--background"}, {"BorderClass", string.Empty}, {"TextColourClass", textClass}, {"CardType", "trivia-banner"} })" />
+                                        <partial name="TriviaCard" model="@contentBlock" view-data="@(new ViewDataDictionary(ViewData) { {"BackgroundColourClass", "trivia-banner--background"}, {"BorderClass", string.Empty}, {"TextColourClass", textClass}, {"CardType", "trivia-banner"} })" />
                                     }
                                 }
                             </ul>

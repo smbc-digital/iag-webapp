@@ -1,5 +1,6 @@
-@model SubItem
-@{
+@model ContentBlock
+@if (Model is not null)
+{
     string href = Model.SubItems.Any()
         ? $"href={Model.SubItems.First().NavigationLink}" : !string.IsNullOrEmpty(Model.Link)
         ? $"href={@Model.Link}" : string.Empty;
@@ -7,9 +8,7 @@
     string backgroundTheme = Model.ColourScheme is EColourScheme.Dark_Overlay
         ? $"image-banner-{CssClassMapper.GetCssClass(Model.ColourScheme)}"
         : string.Empty;
-}
-@if (Model is not null)
-{
+    
     <section class="section image-banner" data-cy="image-banner-header">
         <div class="grid-container">
             <div class="grid-100">

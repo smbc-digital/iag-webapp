@@ -1,4 +1,4 @@
-﻿@model SubItem
+﻿@model ContentBlock
 @if (Model is not null)
 {
     string contentTextClass = (Model.SubItems is not null && Model.SubItems.Any()) || !string.IsNullOrEmpty(Model.Link) ? string.Empty : "statement-banner-content__text-no-button";

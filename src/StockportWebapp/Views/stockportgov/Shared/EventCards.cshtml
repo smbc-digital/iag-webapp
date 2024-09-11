@@ -1,18 +1,15 @@
-﻿@model SubItem
-@{
-
-}
+﻿@model ContentBlock
 @if (Model is not null)
 {
     <section class="section section--white">
         <div class="grid-container">
             <div class="grid-100">
                 <div class="placeholder placeholder-bg-blue placeholder-small">
-                    @foreach(var subItem in Model.SubItems)
+                    @foreach(ContentBlock contentBlock in Model.SubItems)
                     {
                         <div class="placeholder placeholder-bg-teal placeholder-small placeholder-inline-margin">
                             <h2>EVENTS CARDS</h2>
-                            <p>@subItem.Title</p>
+                            <p>@contentBlock.Title</p>
                         </div>
                     }
                 </div>

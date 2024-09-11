@@ -34,12 +34,12 @@ public class ShowcaseBuilder
     public string _featuredItemsSubheading { get; set; } = "";
     public IEnumerable<SubItem> _featuredItems = new List<SubItem>()
     {
-        new("slug", "title", "teaser", "icon", "type", "contentType", "image.jpg", string.Empty, string.Empty, new List<SubItem>() {new("slug", "title", "teaser", "icon", "type", "contentType", "image.jpg", string.Empty, string.Empty, new List<SubItem>(), string.Empty, string.Empty, EColourScheme.Blue, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty) }, string.Empty, string.Empty, EColourScheme.Blue, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty)
+        new("slug", "title", "teaser", "icon", "type", "image.jpg", new List<SubItem>() {new("slug", "title", "teaser", "icon", "type", "image.jpg", new List<SubItem>(), EColourScheme.Blue) }, EColourScheme.Blue)
     };
 
     private readonly IEnumerable<SubItem> _secondaryItems = new List<SubItem>()
     {
-        new("slug", "title", "teaser", "icon", "type", "contentType", "image.jpg", string.Empty, string.Empty, new List<SubItem>() {new("slug", "title", "teaser", "icon", "type", "contentType", "image.jpg", string.Empty, string.Empty, new List<SubItem>(), string.Empty, string.Empty, EColourScheme.Blue, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty) }, string.Empty, string.Empty,EColourScheme.Blue, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty)
+        new("slug", "title", "teaser", "icon", "type", "image.jpg", new List<SubItem>() {new("slug", "title", "teaser", "icon", "type", "image.jpg", new List<SubItem>(), EColourScheme.Blue) }, EColourScheme.Blue)
     };
 
     public Showcase Build() => new()

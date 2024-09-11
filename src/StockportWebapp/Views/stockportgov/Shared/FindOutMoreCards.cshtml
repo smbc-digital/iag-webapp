@@ -1,4 +1,4 @@
-﻿@model SubItem
+﻿@model ContentBlock
 @if (Model is not null && Model.SubItems.Count.Equals(3))
 {
     <section class="section section--white" data-cy="find-out-more-cards">
@@ -14,9 +14,9 @@
                 
                 <div class="section__content">
                     <ul class="navcard-wrapper navcard-wrapper--no-margin">
-                        @foreach(SubItem subItem in Model.SubItems)
+                        @foreach(ContentBlock contentBlock in Model.SubItems)
                         {
-                            <partial name="FindOutMoreCard" model="@subItem" view-data="@(new ViewDataDictionary(ViewData) { {"TextColourClass", Model.TextColourClass} })" />
+                            <partial name="FindOutMoreCard" model="@contentBlock" view-data="@(new ViewDataDictionary(ViewData) { {"TextColourClass", Model.TextColourClass} })" />
                         }
                     </ul>
                 </div>

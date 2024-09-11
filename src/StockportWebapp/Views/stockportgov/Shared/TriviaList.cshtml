@@ -1,4 +1,4 @@
-﻿@model SubItem
+﻿@model ContentBlock
 @if (Model is not null)
 {
     <section class="section section--white">
@@ -13,20 +13,20 @@
                 }
 
                 <ul class="trivia__list @(string.IsNullOrEmpty(Model.Title) ? "trivia__list--no-margin" : string.Empty)">
-                    @foreach(SubItem subItem in Model.SubItems)
+                    @foreach(ContentBlock contentBlock in Model.SubItems)
                     {
-                        if (subItem.Type.Equals("informationList"))
+                        if (contentBlock.Type.Equals("informationList"))
                         {
                             <li class="trivia__container">
-                                @if(!string.IsNullOrEmpty(subItem.Link))
+                                @if(!string.IsNullOrEmpty(contentBlock.Link))
                                 {
-                                    <a href="@subItem.Link" class="trivia__link" data-cy="trivia-list-link">
+                                    <a href="@contentBlock.Link" class="trivia__link" data-cy="trivia-list-link">
                                         <div>
-                                            <span class="@subItem.Icon trivia__icon @Model.TextColourClass"></span>
+                                            <span class="@contentBlock.Icon trivia__icon @Model.TextColourClass"></span>
                                         </div>
                                         
                                         <div class="trivia__body">
-                                            @Html.Raw(subItem.Body)
+                                            @Html.Raw(contentBlock.Body)
                                         </div>
                                     </a>
                                 }
@@ -34,11 +34,11 @@
                                 {
                                     <div class="trivia__text" data-cy="trivia-list-text">
                                         <div>
-                                            <span class="@subItem.Icon trivia__icon @Model.TextColourClass"></span>
+                                            <span class="@contentBlock.Icon trivia__icon @Model.TextColourClass"></span>
                                         </div>
                                         
                                         <div class="trivia__body">
-                                            @Html.Raw(subItem.Body)
+                                            @Html.Raw(contentBlock.Body)
                                         </div>
                                     </div>
                                 }
