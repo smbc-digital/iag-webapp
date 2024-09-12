@@ -1,4 +1,4 @@
-.email-subscription {
+.subscription-banner {
     color: white;
     border-radius: 3px;
     padding: 2em 1em;
@@ -9,7 +9,7 @@
 }
 
 html[dir="rtl"] {
-    .email-subscription {
+    .subscription-banner {
         &__content {
             display: flex;
 
