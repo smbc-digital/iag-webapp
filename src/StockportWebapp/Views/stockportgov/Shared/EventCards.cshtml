@@ -1,5 +1,5 @@
 ﻿@model ContentBlock
-@if (Model is not null)
+@if (Model is not null && Model.SubItems?.Any() == true)
 {
     <section class="section section--white">
         <div class="grid-container">
