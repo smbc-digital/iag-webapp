@@ -2,7 +2,9 @@
 @{
     bool defaultScheme = Model.ColourScheme is EColourScheme.None 
         || Model.ColourScheme is EColourScheme.Orange 
-        || Model.ColourScheme is EColourScheme.Multi; 
+        || Model.ColourScheme is EColourScheme.Multi
+        || Model.ColourScheme is EColourScheme.Light_Overlay
+        || Model.ColourScheme is EColourScheme.Dark_Overlay; 
     
     string backgroundColour = defaultScheme ? "bg-solid-teal" : Model.SolidBackgroundColourClass;
     string buttonColour = defaultScheme ? "btn--teal" : $"btn-{CssClassMapper.GetBoldCssClass(Model.ColourScheme)}";
@@ -10,10 +12,10 @@
 
 @if (Model is not null)
 {
-    <section class="section section--white" data-cy="personalised-services">
+    <section class="section section--white" data-cy="subscription-banner">
         <div class="grid-container">
             <div class="grid-100 email-subscription @backgroundColour" data-cy="subscription">
-                <div class="section__content">
+                <div class="section__content email-subscription__content">
                     <div class="grid-70">
                         <h2 class="section__title section__title--white section__title--padded-bottom h-l">@Model.Title</h2>
                         <div class="section__content">
