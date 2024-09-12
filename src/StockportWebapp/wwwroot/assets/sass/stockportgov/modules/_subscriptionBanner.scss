@@ -1,0 +1,21 @@
+.subscription-banner {
+    color: white;
+    border-radius: 3px;
+    padding: 2em 1em;
+
+    @media #{$tablet} {
+        margin: 0 10px;
+    }
+}
+
+html[dir="rtl"] {
+    .subscription-banner {
+        &__content {
+            display: flex;
+
+            @media #{$tablet} {
+                display: block;
+            }
+        }
+    }
+}
