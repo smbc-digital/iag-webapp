@@ -12,7 +12,7 @@
     <partial name="GlobalAlerts" model='Model.LandingPage.Alerts' />
     <partial name="Breadcrumb2023" model='Model.LandingPage.Breadcrumbs' view-data='@(new ViewDataDictionary(ViewData) {{"backgroundColour", backgroundColour}, {"landingBreadcrumb", "landing-breadcrumb-container"}})'/>
 
-    @if(Model.LandingPage.HeaderType.Equals("Framed Image"))
+    @if (Model.LandingPage.HeaderType.Equals("Framed Image"))
     {
         <partial name="FramedImageHeader" model="@Model" />
     }
@@ -21,13 +21,13 @@
         <partial name="FullImageHeader" model="@Model" />
     }
 
-    @if(Model.LandingPage.PageSections is not null && Model.LandingPage.PageSections.Any())
+    @if (Model.LandingPage.PageSections is not null && Model.LandingPage.PageSections.Any())
     {
         @foreach (ContentBlock pageSection in Model.LandingPage.PageSections)
         {
             @if (pageSection.ContentType.Equals("CallToAction"))
             {
-                CallToActionBanner callToActionBanner = pageSection.SubItems?.Any() == true 
+                CallToActionBanner callToActionBanner = pageSection.SubItems?.Any() is true 
                     ? new() {
                             Image = pageSection.SubItems.FirstOrDefault().Image,
                             AltText = pageSection.SubItems.FirstOrDefault().Title,

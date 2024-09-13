@@ -1,5 +1,6 @@
 namespace StockportWebapp.Models;
 
+[ExcludeFromCodeCoverage]
 public class ContentBlock
 {
     public readonly string Slug;

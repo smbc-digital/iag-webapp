@@ -1,5 +1,6 @@
 namespace StockportWebapp.Models;
 
+[ExcludeFromCodeCoverage]
 public class SubItem
 {
     public readonly string Slug;
