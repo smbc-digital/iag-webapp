@@ -12,7 +12,7 @@
             <div class="navcard__icon @(cardType)__icon--padding">
                 @if (!string.IsNullOrEmpty(Model.Statistic))
                 {
-                    <span class="@(cardType)__icon @textColourClass" aria-hidden="true">@Model.Statistic</span>
+                    <span class="@(cardType)__icon trivia__statistic @textColourClass" aria-hidden="true">@Model.Statistic</span>
                 }
                 else
                 {
@@ -23,7 +23,12 @@
             <div class="navcard-content--padding @navcardPadding">
                 @if (!string.IsNullOrEmpty(Model.StatisticSubheading) && !string.IsNullOrEmpty(Model.Statistic))
                 {
-                    <h3 class="navcard__title @(cardType)__subtitle @textColourClass">@Model.StatisticSubheading</h3>
+                    <h3 class="visuallyhidden">@Model.Statistic @Model.StatisticSubheading</h3>
+                    <h3 class="navcard__title @(cardType)__subtitle @textColourClass" aria-hidden="true">@Model.StatisticSubheading</h3>
+                }
+                else if (string.IsNullOrEmpty(Model.StatisticSubheading) && !string.IsNullOrEmpty(Model.Statistic))
+                {
+                    <span class="visuallyhidden">@Model.Statistic</span>
                 }
                 else if (string.IsNullOrEmpty(Model.Statistic))
                 {

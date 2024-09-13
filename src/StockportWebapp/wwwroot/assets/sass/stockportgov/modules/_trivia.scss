@@ -119,6 +119,10 @@
         display: block;
     }
 
+    &__statistic {
+        overflow-wrap: break-word;
+    }
+
     &__body {
         color: $stockport-black;
 
