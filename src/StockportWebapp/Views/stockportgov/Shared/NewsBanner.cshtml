@@ -1,13 +1,25 @@
 ﻿@model ContentBlock
-@if (Model is not null)
+@if (Model is not null && Model.NewsArticle is not null && !string.IsNullOrEmpty(Model.NewsArticle.Image))
 {
-    <section class="section section--white">
+    SpotlightOnBanner newsBanner = new(Model.NewsArticle.Title, Model.NewsArticle.Image, Model.NewsArticle.Title, Model.NewsArticle.Teaser, Url.Action("Detail", "News", new {slug = Model.NewsArticle.Slug}), Model.NewsArticle.UpdatedAt);
+    
+    <section class="section section--white" data-cy="news-banner">
         <div class="grid-container">
             <div class="grid-100">
-                <div class="placeholder placeholder-bg-pink placeholder-small">
-                    <h2>NEWS BANNER</h2>
-                    <p>@Model.Title</p>
+                <div class="news-banner-title">
+                    <div class="news-banner-title-container">
+                        <h2 class="section__title section__title--no-padding section__title--margin-bottom">@Model.Title</h2>
+                        <hr />
+                    </div>
+
+                    <a href="@Url.Action("Index", "News", new {category = Model.AssociatedTagCategory})" class="hide-on-mobile hide-on-tablet">View more news</a>
                 </div>
+                
+                <div class="featured-item-container">
+                    <partial name="FeaturedItem" model="@newsBanner" view-data='@(new ViewDataDictionary(ViewData){ {"additionalClasses", "news-banner"} })' />
+                </div>
+
+                <a href="@Url.Action("Index", "News", new {category = Model.AssociatedTagCategory})" class="hide-on-desktop btn btn--center btn--width-30 btn--margin-25 btn--chevron-forward">View more news</a>
             </div>
         </div>
     </section>
