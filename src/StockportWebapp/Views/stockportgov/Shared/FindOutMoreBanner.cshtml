@@ -1,28 +1,30 @@
 ﻿@model ContentBlock
-@{
+@if (Model is not null && Model.SubItems.Count <=3 && Model.SubItems.Any(contentBlock => !string.IsNullOrEmpty(contentBlock.Image)))
+{
     string borderBottomColour = @Model.BorderColourClass ?? string.Empty;
     string buttonColour = Model.ColourScheme is not EColourScheme.None 
         && Model.ColourScheme is not EColourScheme.Multi
         ? $"btn-{@CssClassMapper.GetBoldCssClass(Model.ColourScheme)} btn-{@CssClassMapper.GetBoldCssClass(Model.ColourScheme)}-outline" 
         : "find-out-more-banner__button";
-}
-@if (Model is not null && Model.SubItems.Count.Equals(3))
-{
+    
     <section class="section section--white">
         <div class="grid-container">
             <div class="grid-100">
                 @foreach (ContentBlock contentBlock in Model.SubItems)
                 {
-                    <div class="find-out-more-banner" data-cy="find-out-more-banner">
-                        <div class="find-out-more-banner-content">
-                            <h2 class="section__title find-out-more-banner__title section__title--margin-bottom @borderBottomColour">@contentBlock.Title</h2>
-                            <p class="find-out-more-banner__teaser">@contentBlock.Teaser</p>
-                            <a href="@contentBlock.NavigationLink" class="btn btn--width-30 btn--chevron-forward btn--bold btn--chevron-bold @buttonColour" data-cy="find-out-more-link">
-                                <span class="btn_text">Find out more</span>
-                            </a>
+                    @if (!string.IsNullOrEmpty(contentBlock.Image))
+                    {
+                        <div class="find-out-more-banner" data-cy="find-out-more-banner">
+                            <div class="find-out-more-banner-content">
+                                <h2 class="section__title find-out-more-banner__title section__title--margin-bottom @borderBottomColour">@contentBlock.Title</h2>
+                                <p class="find-out-more-banner__teaser">@contentBlock.Teaser</p>
+                                <a href="@contentBlock.NavigationLink" class="btn btn--width-30 btn--chevron-forward btn--bold btn--chevron-bold @buttonColour" data-cy="find-out-more-link">
+                                    <span class="btn_text">Find out more</span>
+                                </a>
+                            </div>
+                            <img src="@contentBlock.Image?w=500&q=89" srcset="@contentBlock.Image?w=500&q=89&fm=webp" class="find-out-more-banner__image" loading="lazy" alt="@contentBlock.Title" width="452" height="342">
                         </div>
-                        <img src="@Model.Image?w=500&q=89" srcset="@contentBlock.Image?w=500&q=89&fm=webp" class="find-out-more-banner__image" loading="lazy" alt="@contentBlock.Title" width="452" height="342">
-                    </div>
+                    }
                 }
             </div>
         </div>
