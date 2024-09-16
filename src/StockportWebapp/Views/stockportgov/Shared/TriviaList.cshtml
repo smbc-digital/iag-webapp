@@ -1,5 +1,5 @@
-﻿@model SubItem
-@if (Model is not null)
+﻿@model ContentBlock
+@if (Model is not null && Model.SubItems?.Any() is true)
 {
     <section class="section section--white">
         <div class="grid-container">
@@ -13,37 +13,34 @@
                 }
 
                 <ul class="trivia__list @(string.IsNullOrEmpty(Model.Title) ? "trivia__list--no-margin" : string.Empty)">
-                    @foreach(SubItem subItem in Model.SubItems)
+                    @foreach(ContentBlock contentBlock in Model.SubItems)
                     {
-                        if (subItem.Type.Equals("informationList"))
-                        {
-                            <li class="trivia__container">
-                                @if(!string.IsNullOrEmpty(subItem.Link))
-                                {
-                                    <a href="@subItem.Link" class="trivia__link" data-cy="trivia-list-link">
-                                        <div>
-                                            <span class="@subItem.Icon trivia__icon @Model.TextColourClass"></span>
-                                        </div>
-                                        
-                                        <div class="trivia__body">
-                                            @Html.Raw(subItem.Body)
-                                        </div>
-                                    </a>
-                                }
-                                else
-                                {
-                                    <div class="trivia__text" data-cy="trivia-list-text">
-                                        <div>
-                                            <span class="@subItem.Icon trivia__icon @Model.TextColourClass"></span>
-                                        </div>
-                                        
-                                        <div class="trivia__body">
-                                            @Html.Raw(subItem.Body)
-                                        </div>
+                        <li class="trivia__container">
+                            @if(!string.IsNullOrEmpty(contentBlock.Link))
+                            {
+                                <a href="@contentBlock.Link" class="trivia__link" data-cy="trivia-list-link">
+                                    <div>
+                                        <span class="@contentBlock.Icon trivia__icon @Model.TextColourClass"></span>
                                     </div>
-                                }
-                            </li>
-                        }
+                                    
+                                    <div class="trivia__body">
+                                        @Html.Raw(contentBlock.Body)
+                                    </div>
+                                </a>
+                            }
+                            else
+                            {
+                                <div class="trivia__text" data-cy="trivia-list-text">
+                                    <div>
+                                        <span class="@contentBlock.Icon trivia__icon @Model.TextColourClass"></span>
+                                    </div>
+                                    
+                                    <div class="trivia__body">
+                                        @Html.Raw(contentBlock.Body)
+                                    </div>
+                                </div>
+                            }
+                        </li>
                     }
                 </ul>
             </div>

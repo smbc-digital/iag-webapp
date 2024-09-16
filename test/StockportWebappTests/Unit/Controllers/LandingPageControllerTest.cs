@@ -17,7 +17,7 @@ public class LandingPageControllerTest
         Image = new MediaAsset(),
         HeaderType = "header type",
         HeaderImage = new MediaAsset(),
-        PageSections = new List<SubItem>()
+        PageSections = new List<ContentBlock>()
     };
 
     public LandingPageControllerTest()

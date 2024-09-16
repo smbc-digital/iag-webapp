@@ -7,7 +7,7 @@ public class ArticleViewModelTest
     private readonly ProcessedSection _sectionThree;
     private readonly ProcessedArticle _article;
     private readonly ArticleViewModel _viewModel;
-    private readonly List<SubItem> subItems = new(){ new("slug", "title", "teaser", "icon", "type", "contentType", "image", string.Empty, "body text", null, string.Empty, string.Empty, EColourScheme.Teal, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty) };
+    private readonly List<SubItem> subItems = new(){ new("slug", "title", "teaser", "icon", "type", "image", null, EColourScheme.Teal) };
     private readonly Topic parentTopic = new("Name", "slug", "Summary", "Teaser", "metaDescription", "Icon", "Image", "Image", null, new List<SubItem>(), new List<SubItem>(),
             new List<Crumb>(), null, true, "test-id", null, string.Empty, true,
             new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty), string.Empty, null, string.Empty);
@@ -290,11 +290,11 @@ public class ArticleViewModelTest
         // Arrange
         List<SubItem> featuredItems = new() 
         { 
-            new(It.IsAny<string>(), "first-featureditem", It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(),new List<SubItem>(), string.Empty, string.Empty, EColourScheme.Teal, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty)
+            new(It.IsAny<string>(), "first-featureditem", It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(),new List<SubItem>(), EColourScheme.Teal)
         };
-        SubItem firstSubitem = new(It.IsAny<string>(), "first-subitem", It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), new List<SubItem>(), string.Empty, string.Empty, EColourScheme.Teal, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty);
+        SubItem firstSubitem = new(It.IsAny<string>(), "first-subitem", It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), new List<SubItem>(), EColourScheme.Teal);
         List<SubItem> subItems = new() { firstSubitem };
-        SubItem firstSecondaryitem = new(It.IsAny<string>(), "first-secondaryitem", It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), new List<SubItem>(), string.Empty, string.Empty, EColourScheme.Teal, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty);
+        SubItem firstSecondaryitem = new(It.IsAny<string>(), "first-secondaryitem", It.IsAny<string>(), It.IsAny<string>(),It.IsAny<string>(), It.IsAny<string>(), new List<SubItem>(), EColourScheme.Teal);
         List<SubItem> secondaryItems = new() { firstSecondaryitem };
 
         Topic topic = new(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), featuredItems, subItems, secondaryItems, new List<Crumb>(), new List<Alert>(), false, It.IsAny<string>(), null, string.Empty, true,
@@ -319,16 +319,16 @@ public class ArticleViewModelTest
     public void SidebarSubItems_ShouldReturnSixTopicsSubItemsForSideBar()
     {
         // Arrange
-        SubItem firstSubItem = new(It.IsAny<string>(), "first-subitem", It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), new List<SubItem>(), string.Empty, string.Empty, EColourScheme.Teal, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty);
-        SubItem secondSubItem = new(It.IsAny<string>(), "second-subitem", It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), new List<SubItem>(), string.Empty, string.Empty, EColourScheme.Teal, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty);
-        SubItem thirdSubItem = new(It.IsAny<string>(), "third-subitem", It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), new List<SubItem>(), string.Empty, string.Empty, EColourScheme.Teal, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty);
-        SubItem fourthSubItem = new(It.IsAny<string>(), "fourth-subitem", It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), new List<SubItem>(), string.Empty, string.Empty, EColourScheme.Teal, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty);
-        SubItem fifthSubItem = new(It.IsAny<string>(), "fifth-subitem", It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), new List<SubItem>(), string.Empty, string.Empty, EColourScheme.Teal, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty);
-        SubItem sixthSubItem = new(It.IsAny<string>(), "sixth-subitem", It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), new List<SubItem>(), string.Empty, string.Empty, EColourScheme.Teal, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty);
-        SubItem seventhSubItem = new(It.IsAny<string>(), "seventh-subitem", It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), new List<SubItem>(), string.Empty, string.Empty, EColourScheme.Teal, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty);
-        SubItem eightSubItem = new(It.IsAny<string>(), "eigth-subitem", It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), new List<SubItem>(), string.Empty, string.Empty, EColourScheme.Teal, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty);
-        SubItem ninthSubItem = new(It.IsAny<string>(), "ninth-subitem", It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), new List<SubItem>(), string.Empty, string.Empty, EColourScheme.Teal, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty);
-        SubItem tenthSubItem = new(It.IsAny<string>(), "tenth-subitem", It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), new List<SubItem>(), string.Empty, string.Empty, EColourScheme.Teal, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty);
+        SubItem firstSubItem = new(It.IsAny<string>(), "first-subitem", It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), new List<SubItem>(), EColourScheme.Teal);
+        SubItem secondSubItem = new(It.IsAny<string>(), "second-subitem", It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), new List<SubItem>(), EColourScheme.Teal);
+        SubItem thirdSubItem = new(It.IsAny<string>(), "third-subitem", It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), new List<SubItem>(), EColourScheme.Teal);
+        SubItem fourthSubItem = new(It.IsAny<string>(), "fourth-subitem", It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), new List<SubItem>(), EColourScheme.Teal);
+        SubItem fifthSubItem = new(It.IsAny<string>(), "fifth-subitem", It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), new List<SubItem>(), EColourScheme.Teal);
+        SubItem sixthSubItem = new(It.IsAny<string>(), "sixth-subitem", It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), new List<SubItem>(), EColourScheme.Teal);
+        SubItem seventhSubItem = new(It.IsAny<string>(), "seventh-subitem", It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), new List<SubItem>(), EColourScheme.Teal);
+        SubItem eightSubItem = new(It.IsAny<string>(), "eigth-subitem", It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), new List<SubItem>(), EColourScheme.Teal);
+        SubItem ninthSubItem = new(It.IsAny<string>(), "ninth-subitem", It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), new List<SubItem>(), EColourScheme.Teal);
+        SubItem tenthSubItem = new(It.IsAny<string>(), "tenth-subitem", It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), new List<SubItem>(), EColourScheme.Teal);
 
         List<SubItem> subItems = new() { firstSubItem, secondSubItem, thirdSubItem, fourthSubItem };
         List<SubItem> secondaryItems = new() { fifthSubItem, sixthSubItem, seventhSubItem, eightSubItem };

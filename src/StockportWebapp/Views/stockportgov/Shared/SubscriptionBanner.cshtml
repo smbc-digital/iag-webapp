@@ -1,5 +1,6 @@
-@model SubItem
-@{
+@model ContentBlock
+@if (Model is not null && !string.IsNullOrEmpty(Model.MailingListId))
+{
     bool defaultScheme = Model.ColourScheme is EColourScheme.None
         || Model.ColourScheme is EColourScheme.Orange
         || Model.ColourScheme is EColourScheme.Multi
@@ -8,10 +9,7 @@
 
     string backgroundColour = defaultScheme ? "bg-solid-teal" : Model.SolidBackgroundColourClass;
     string buttonColour = defaultScheme ? "btn--teal" : $"btn-{CssClassMapper.GetBoldCssClass(Model.ColourScheme)}";
-}
 
-@if (Model is not null && !string.IsNullOrEmpty(Model.MailingListId))
-{
     <section class="section section--white" data-cy="subscription-banner">
         <div class="grid-container">
             <div class="grid-100 subscription-banner @backgroundColour" data-cy="subscription">

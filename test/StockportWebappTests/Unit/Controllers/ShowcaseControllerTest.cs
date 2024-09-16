@@ -37,15 +37,9 @@ public class ShowcaseControllerTest
                     "teaser",
                     "icon",
                     "type",
-                    "contentType",
                     "image.jpg",
-                    string.Empty,
-                    "body text",
                     new List<SubItem>(),
-                    string.Empty,
-                    string.Empty,
-                    EColourScheme.Teal,
-                    string.Empty, string.Empty, string.Empty, string.Empty, string.Empty)
+                    EColourScheme.Teal)
             },
             new List<Crumb>
             {
