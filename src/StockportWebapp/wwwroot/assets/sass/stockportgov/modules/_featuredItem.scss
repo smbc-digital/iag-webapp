@@ -230,6 +230,16 @@ html[dir="rtl"] {
             }
         }
 
+        &-content {
+            @media #{$desktop} {
+                &-news-banner {
+                    &::after {
+                        right: 0 !important;
+                    }
+                }
+            }
+        }
+
         &:nth-child(even) .featured-item__image {
             @media #{$desktop} {
                 border-radius: 3px 0 0 3px;
