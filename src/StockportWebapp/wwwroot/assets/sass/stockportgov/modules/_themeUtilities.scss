@@ -41,3 +41,13 @@
 .border-colour-purple { border-color: $stockport-purple !important; }
 .border-colour-grey { border-color: $stockport-grey !important; }
 .border-colour-one-stockport-purple { border-color: $one-stockport-purple !important; }
+
+
+.border-pseudo-colour-default:after { border-bottom: 0.368em solid $stockport-teal-darker !important; }
+.border-pseudo-colour-teal:after { border-bottom: 0.368em solid $stockport-teal-darker !important; }
+.border-pseudo-colour-green:after { border-bottom: 0.368em solid $stockport-green !important; }
+.border-pseudo-colour-pink:after { border-bottom: 0.368em solid $stockport-pink !important; }
+.border-pseudo-colour-blue:after { border-bottom: 0.368em solid $stockport-blue !important; }
+.border-pseudo-colour-purple:after { border-bottom: 0.368em solid $stockport-purple !important; }
+.border-pseudo-colour-grey:after { border-bottom: 0.368em solid $stockport-grey !important; }
+.border-pseudo-colour-one-stockport-purple:after { border-bottom: 0.368em solid $one-stockport-purple !important; }
