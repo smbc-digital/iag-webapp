@@ -1,9 +1,21 @@
 ﻿@model ContentBlock
 @if (Model is not null && Model.NewsArticle is not null && !string.IsNullOrEmpty(Model.NewsArticle.Image))
 {
-    SpotlightOnBanner newsBanner = new(Model.NewsArticle.Title, Model.NewsArticle.Image, Model.NewsArticle.Title, Model.NewsArticle.Teaser, Url.Action("Detail", "News", new {slug = Model.NewsArticle.Slug}), Model.NewsArticle.UpdatedAt);
-    
-    <section class="section section--white" data-cy="news-banner">
+    SpotlightOnBanner newsBanner = new(
+        Model.NewsArticle.Title,
+        Model.NewsArticle.Image,
+        Model.NewsArticle.Title,
+        Model.NewsArticle.Teaser,
+        Url.Action("Detail", "News", new {slug = Model.NewsArticle.Slug}),
+        Model.NewsArticle.UpdatedAt
+    );
+
+    string associatedTagCategoryLower = Model.AssociatedTagCategory?.ToLower();
+    string viewMoreUrl = Model.NewsArticle.Tags.Any() 
+        ? Url.Action("Index", "News", new {tags = associatedTagCategoryLower}) 
+        : Url.Action("Index", "News", new {category = associatedTagCategoryLower});
+
+    <section class="section section--white news-banner" data-cy="news-banner">
         <div class="grid-container">
             <div class="grid-100">
                 <div class="news-banner-title">
@@ -12,14 +24,20 @@
                         <hr />
                     </div>
 
-                    <a href="@Url.Action("Index", "News", new {category = Model.AssociatedTagCategory})" class="hide-on-mobile hide-on-tablet">View more news</a>
+                    <a href="@viewMoreUrl" class="hide-on-mobile hide-on-tablet">
+                        View more @associatedTagCategoryLower news
+                    </a>
                 </div>
                 
                 <div class="featured-item-container">
                     <partial name="FeaturedItem" model="@newsBanner" view-data='@(new ViewDataDictionary(ViewData){ {"additionalClasses", "news-banner"} })' />
                 </div>
 
-                <a href="@Url.Action("Index", "News", new {category = Model.AssociatedTagCategory})" class="hide-on-desktop btn btn--center btn--width-30 btn--margin-25 btn--chevron-forward">View more news</a>
+                <div class="news-banner-button">
+                    <a href="@viewMoreUrl" class="hide-on-desktop btn btn--center btn--width-30 btn--margin-25 btn--chevron-forward">
+                        View more @associatedTagCategoryLower news
+                    </a>
+                </div>
             </div>
         </div>
     </section>

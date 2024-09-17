@@ -1,4 +1,11 @@
-.news-banner {    
+.news-banner {
+    margin-bottom: 3em;
+
+    @media #{$mobile} {
+        &-button {
+            margin-inline: 5px;
+        }
+    }
     &-title {
         display: flex;
         flex-direction: row;
