@@ -1,0 +1,48 @@
+.news-banner {
+    margin-bottom: 3em;
+
+    @media #{$mobile} {
+        &-button {
+            margin-inline: 5px;
+        }
+    }
+    &-title {
+        display: flex;
+        flex-direction: row;
+
+        @media #{$tablet} {
+            display: block;
+        }
+
+        a {
+            font-weight: 700;
+            height: 40%;
+            min-height: 44px;
+        }
+
+        &-container {
+            text-align: center;
+            text-align: -webkit-center;
+            text-align: -moz-center;
+            width: 86%;
+
+            @media #{$tablet} {
+                width: 100%;
+            }
+
+            hr {
+                width: 20%;
+                margin-top: 0;
+
+                @media #{$mobile} {
+                    width: 40%;
+                    margin-bottom: 1em;
+                }
+
+                @media #{$tablet} {
+                    width: 30%;
+                }
+            }
+        }
+    }
+}

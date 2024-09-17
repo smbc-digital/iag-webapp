@@ -1,7 +1,10 @@
 ﻿@model SpotlightOnBanner
 
+@{
+    string additionalClasses = (string)ViewData["additionalClasses"];
+}
 <div class="featured-item section__content" data-cy="featured-item">
-    <a href="@Model.Link" class="featured-item__link" data-cy="featured-item-link">
+    <a href="@Model.Link" class="featured-item__link featured-item__link-@additionalClasses" data-cy="featured-item-link">
 
         <img srcset="@Model.Image?w=720&q=89&fm=webp 720w,
                             @Model.Image?w=937&q=89&fm=webp 937w,
@@ -16,7 +19,7 @@
              width="433"
              height="293">
         
-        <div class="featured-item-content">
+        <div class="featured-item-content featured-item-content-@additionalClasses">
             <div class="featured-item-wrapper">
                 <h3 class="featured-item__title featured-item__title--padded-bottom">@Model.Title</h3>
                 <p class="featured-item-content__teaser">@Model.Teaser</p>
