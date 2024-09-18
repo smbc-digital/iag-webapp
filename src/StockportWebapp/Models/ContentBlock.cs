@@ -31,9 +31,10 @@ public class ContentBlock
     public string TextColourClass => $"text{CssClassMapper.GetBoldCssClass(ColourScheme)}";
     public string BorderClass => $"border{CssClassMapper.GetBoldCssClass(ColourScheme)}";
     public string BorderColourClass => $"border-colour{CssClassMapper.GetBoldCssClass(ColourScheme)}";
+    public string PseudoBorderColourClass => $"border-pseudo-colour{CssClassMapper.GetBoldCssClass(ColourScheme)}";
 
     public ContentBlock(string slug, string title, string teaser, string icon, string type, string contentType, string image, string mailingListId, string body, List<ContentBlock> subItems, string link, string buttonText, EColourScheme colourScheme,
-                        string statistic, string statisticSubheading, string videoTitle, string videoToken, string videoPlaceholderPhotoId)
+                        string statistic, string statisticSubheading, string videoTitle, string videoToken, string videoPlaceholderPhotoId, string associatedTagCategory, News newsArticle, List<Event> events)
     {
         Slug = slug;
         Title = title;
@@ -54,5 +55,8 @@ public class ContentBlock
         VideoTitle = videoTitle;
         VideoToken = videoToken;
         VideoPlaceholderPhotoId = videoPlaceholderPhotoId;
+        AssociatedTagCategory = associatedTagCategory;
+        NewsArticle = newsArticle;
+        Events = events;
     }
 }
