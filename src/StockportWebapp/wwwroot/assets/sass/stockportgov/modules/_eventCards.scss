@@ -1,0 +1,69 @@
+.event-card {
+    text-align: left;
+
+    &__link {
+        border-bottom: 7px solid;
+        border-color: $stockport-teal-darker;
+    }
+
+    &__image {
+        border-radius: 3px;
+        
+    }
+  
+    @media #{$mobile} {
+        margin-bottom: 1.5em;
+    }
+  
+    &:nth-child(n+2) {
+        .event-card__link {
+            border-color: $stockport-pink;
+        }
+    }
+  
+    &:nth-child(n+3) {
+        .event-card__link {
+            border-color: $stockport-purple;
+        }
+    }
+
+    p {
+        margin-top: 0.5em;
+    }
+  
+    &--padding {
+        flex-grow: 1;
+        padding: 1em 0.75em 1.5em 0.75em;
+    }
+
+}
+
+.event-cards {
+    &__title {
+        text-align: center;
+        text-align: -webkit-center;
+        text-align: -moz-center;
+
+        hr {
+            width: 20%;
+            margin-top: 0;
+
+            @media #{$mobile} {
+                width: 40%;
+            }
+
+            @media #{$tablet} {
+                width: 30%;
+            }
+        }
+    }
+
+    &__heading {
+
+    }
+
+    &__link {
+        float: right;
+        margin-top: 0.5em;
+    }
+}

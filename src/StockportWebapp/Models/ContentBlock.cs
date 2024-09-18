@@ -22,6 +22,9 @@ public class ContentBlock
     public string VideoTitle;
     public string VideoToken;
     public string VideoPlaceholderPhotoId;
+    public string AssociatedTagCategory;
+    public News NewsArticle;
+    public List<Event> Events;
     public string GetNavigationLink(string additionalUrlContent) => TypeRoutes.GetUrlFor(Type, $"{additionalUrlContent}/{Slug}");
     public string SolidBackgroundColourClass => $"bg-solid{CssClassMapper.GetBoldCssClass(ColourScheme)}"; 
     public string BackgroundColourClass => $"bg{CssClassMapper.GetCssClass(ColourScheme)}";

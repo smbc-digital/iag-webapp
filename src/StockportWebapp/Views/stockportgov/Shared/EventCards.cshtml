@@ -1,17 +1,34 @@
 ﻿@model ContentBlock
-@if (Model is not null && Model.SubItems?.Any() is true)
+@if (Model is not null)
 {
+    string buttonColour = Model.ColourScheme is not EColourScheme.None 
+        && Model.ColourScheme is not EColourScheme.Multi
+        ? $"btn-{@CssClassMapper.GetBoldCssClass(Model.ColourScheme)}" 
+        : string.Empty;
+
     <section class="section section--white">
         <div class="grid-container">
             <div class="grid-100">
-                <div class="placeholder placeholder-bg-blue placeholder-small">
-                    @foreach(ContentBlock contentBlock in Model.SubItems)
-                    {
-                        <div class="placeholder placeholder-bg-teal placeholder-small placeholder-inline-margin">
-                            <h2>EVENTS CARDS</h2>
-                            <p>@contentBlock.Title</p>
-                        </div>
-                    }
+                <div class="event-cards__heading">
+                    <a href="/events?category=@Model.AssociatedTagCategory" class="event-cards__link hide-on-mobile" data-cy="view-more-events-link">
+                            <span>View more events</span>
+                    </a>
+                    <div class="event-cards__title">
+                        <h2 class="section__title section__title--no-padding section__title--margin-bottom">Upcoming @Model.Title events</h2>
+                        <hr />
+                    </div>
+                </div>
+
+                <div class="section__content">
+                    <ul class="navcard-wrapper navcard-wrapper--no-margin">
+                        @foreach (Event upcomingEvent in Model.Events)
+                        {
+                            <partial name="EventCard" model="@upcomingEvent" view-data="@(new ViewDataDictionary(ViewData) { {"BorderColourClass", Model.BorderColourClass} })" />
+                        }
+                        <a href="/events?category=@Model.AssociatedTagCategory" class="btn btn--width-30 btn--chevron-forward btn--bold btn--chevron-bold hide-on-desktop hide-on-tablet" data-cy="view-more-events-link">
+                            <span class="btn_text">View more events</span>
+                        </a>
+                    </ul>
                 </div>
             </div>
         </div>
