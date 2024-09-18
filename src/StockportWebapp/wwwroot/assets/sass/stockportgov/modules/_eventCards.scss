@@ -7,8 +7,11 @@
     }
 
     &__image {
+         border-radius: 3px;  
+    }
+
+    &__title {
         border-radius: 3px;
-        
     }
   
     @media #{$mobile} {
