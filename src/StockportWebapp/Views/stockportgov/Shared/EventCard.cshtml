@@ -3,7 +3,6 @@
 @if (Model is not null)
 {
     string borderColourClass = (string)ViewData["BorderColourClass"] ?? string.Empty;
-    string textColourClass = (string)ViewData["TextColourClass"] ?? string.Empty;
     
     <li class="navcard navcard--width-33 navcard--center navcard event-card">
         <a href="/events/@Model.Slug" class="navcard__link event-card__link @borderColourClass" data-cy="event-card-link">
@@ -23,7 +22,7 @@
                 }
 
                 <div class="find-out-more-card--padding">
-                    <h3 class="navcard__title @textColourClass">@Model.Title</h3>
+                    <h3 class="navcard__title">@Model.Title</h3>
                     <p class="navcard__teaser">@ViewHelpers.FormatEventDate(Model.EventDate, Model.StartTime)</p>
                     <p class="navcard__teaser">@Model.Teaser</p> 
                     <p class="navcard__teaser"><strong>@Model.Location</strong></p>
