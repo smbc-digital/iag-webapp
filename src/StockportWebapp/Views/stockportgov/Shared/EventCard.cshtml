@@ -4,13 +4,13 @@
 {
     string borderColourClass = (string)ViewData["BorderColourClass"] ?? string.Empty;
     
-    <li class="navcard navcard--width-33 navcard event-card">
-        <a href="/events/@Model.Slug" class="navcard__link event-card__link @borderColourClass" data-cy="event-card-link">
+    <li class="navcard navcard--width-33 navcard event-cards">
+        <a href="/events/@Model.Slug" class="navcard__link event-cards__link @borderColourClass" data-cy="event-card-link">
             <div class="navcard__content">
                 @if (!string.IsNullOrEmpty(Model.ImageUrl))
                 {
                     <div>
-                        <img src="@Model.ImageUrl?w=730&q=89" class="navcard__image event-card__image"
+                        <img src="@Model.ImageUrl?w=730&q=89" class="navcard__image event-cards__image"
                      srcset="@Model.ImageUrl?w=720&q=89&fm=webp 720w,
                             @Model.ImageUrl?w=294&q=89&fm=webp 294w,
                             @Model.ImageUrl?w=378&q=89&fm=webp 378w"
@@ -21,7 +21,7 @@
                     </div>
                 }
 
-                <div class="event-card--padding">
+                <div class="event-cards--padding">
                     <h3 class="navcard__title">@Model.Title</h3>
                     <p class="navcard__teaser">@ViewHelpers.FormatEventDate(Model.EventDate, Model.StartTime)</p>
                     <p class="navcard__teaser">@Model.Teaser</p> 
