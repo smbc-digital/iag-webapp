@@ -4,7 +4,7 @@
 {
     string borderColourClass = (string)ViewData["BorderColourClass"] ?? string.Empty;
     
-    <li class="navcard navcard--width-33 navcard--center navcard event-card">
+    <li class="navcard navcard--width-33 navcard event-card">
         <a href="/events/@Model.Slug" class="navcard__link event-card__link @borderColourClass" data-cy="event-card-link">
             <div class="navcard__content">
                 @if (!string.IsNullOrEmpty(Model.ImageUrl))

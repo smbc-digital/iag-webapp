@@ -1,17 +1,19 @@
 ﻿@model ContentBlock
 @if (Model is not null & Model.Events.Any())
 {
-    bool isDefaultColourScheme = Model.IsDefaultColourScheme;
-
-    string buttonColour = isDefaultColourScheme
+    string buttonColour = Model.IsDefaultColourScheme
         ? "btn--teal btn--teal-outline"
         : $"btn-{@CssClassMapper.GetBoldCssClass(Model.ColourScheme)} btn-{@CssClassMapper.GetBoldCssClass(Model.ColourScheme)}-outline";
+
+    string tagOrCategory = Model.UsingTag 
+        ? "tag"
+        : "category";
 
     <section class="section section--white">
         <div class="grid-container">
             <div class="grid-100">
                 <div class="event-cards__heading">
-                    <a href="/events?category=@Model.AssociatedTagCategory" class="event-cards__link hide-on-tablet hide-on-mobile" data-cy="view-more-events-link">
+                    <a href="/events?@tagOrCategory=@Model.AssociatedTagCategory" class="event-cards__link hide-on-tablet hide-on-mobile" data-cy="view-more-events-link">
                             <span>View more events</span>
                     </a>
                     <div class="event-cards__title">
@@ -26,7 +28,7 @@
                         {
                             <partial name="EventCard" model="@upcomingEvent" view-data="@(new ViewDataDictionary(ViewData) { {"BorderColourClass", Model.BorderColourClass}})" />
                         }
-                        <a href="/events?category=@Model.AssociatedTagCategory" class="btn btn--width-30 btn--chevron-forward btn--bold btn--chevron-bold hide-on-desktop @buttonColour" data-cy="view-more-events-link">
+                        <a href="/events?@tagOrCategory=@Model.AssociatedTagCategory" class="btn btn--width-30 btn--chevron-forward btn--bold btn--chevron-bold hide-on-desktop @buttonColour" data-cy="view-more-events-link">
                             <span class="btn_text">View more events</span>
                         </a>
                     </ul>
