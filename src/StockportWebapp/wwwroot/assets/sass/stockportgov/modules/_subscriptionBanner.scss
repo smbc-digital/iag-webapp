@@ -1,10 +1,22 @@
 .subscription-banner {
-    color: white;
-    border-radius: 3px;
-    padding: 2em 1em;
+    padding: 0 10px;
 
     @media #{$tablet} {
-        margin: 0 10px;
+        padding: 0;
+    }
+
+    @media #{$mobile} {
+        margin: 0 5px;
+    }
+
+    &__container {
+        color: white;
+        border-radius: 3px;
+        padding: 2em 1em;
+
+        @media #{$tablet} {
+            margin: 0 10px;
+        }
     }
 }
 
