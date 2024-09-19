@@ -1,5 +1,4 @@
 .event-card {
-
     &__link {
         border-bottom: 7px solid;
         border-color: $stockport-teal-darker;
@@ -7,10 +6,6 @@
 
     &__image {
          border-radius: 3px;  
-    }
-
-    &__title {
-        border-radius: 3px;
     }
   
     @media #{$mobile} {
