@@ -14,5 +14,4 @@ public class LandingPage
     public MediaAsset HeaderImage { get; set; }
     public EColourScheme HeaderColourScheme { get; set; } = EColourScheme.Teal;
     public IEnumerable<ContentBlock> PageSections { get; set; }
-    public List<Event> Events { get; set; }
 }
