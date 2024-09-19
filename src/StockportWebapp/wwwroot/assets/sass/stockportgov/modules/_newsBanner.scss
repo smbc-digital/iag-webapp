@@ -1,11 +1,17 @@
 .news-banner {
-    margin-bottom: 3em;
+    margin-bottom: 0;
 
     @media #{$mobile} {
         &-button {
             margin-inline: 5px;
         }
     }
+
+    &-container {
+        margin-top: 2em;
+        margin-bottom: 2em;
+    }
+
     &-title {
         display: flex;
         flex-direction: row;
@@ -18,13 +24,14 @@
             font-weight: 700;
             height: 40%;
             min-height: 44px;
+            width: 20%;
         }
 
         &-container {
             text-align: center;
             text-align: -webkit-center;
             text-align: -moz-center;
-            width: 86%;
+            width: 100%;
 
             @media #{$tablet} {
                 width: 100%;
