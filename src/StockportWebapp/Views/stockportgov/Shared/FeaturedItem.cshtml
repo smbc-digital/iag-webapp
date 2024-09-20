@@ -4,8 +4,6 @@
     string additionalClasses = (string)ViewData["additionalClasses"];
     string pseudoBorderColour = (string)ViewData["pseudoBorderColour"];
     string borderColour = (string)ViewData["borderColour"];
-    bool hideDate = (bool)ViewData["hideDate"];
-    bool displayQuotes = (bool)ViewData["displayQuotes"];
 }
 
 <div class="featured-item section__content" data-cy="featured-item">
@@ -25,29 +23,13 @@
         
         <div class="featured-item-content featured-item-content-@additionalClasses @pseudoBorderColour @borderColour">
             <div class="featured-item-wrapper">
-                <h3 class="featured-item__title featured-item__title--padded-bottom featured-item__title-@additionalClasses">@Model.Title</h3>
-                
-                @if (displayQuotes)
-                {
-                    <span class="fa-solid fa-quote-left profile-tag-parser-quote"></span>
-                    <span class="fa-solid fa-quote-right profile-tag-parser-quote--rtl"></span>
-                }
-                
+                <h3 class="featured-item__title featured-item__title--padded-bottom">@Model.Title</h3>
                 <p class="featured-item-content__teaser">@Model.Teaser</p>
-                
-                @if (displayQuotes)
-                {
-                    <span class="fa-solid fa-quote-right profile-tag-parser-quote"></span>
-                    <span class="fa-solid fa-quote-left profile-tag-parser-quote--rtl"></span>
-                }
             </div>
 
-            @if (!hideDate)
-            {
-                <div class="featured-item-content-last-updated"> 
-                    <partial name="FormattedDate" model='Model.LastUpdated' />
-                </div>
-            }
+            <div class="featured-item-content-last-updated"> 
+                <partial name="FormattedDate" model='Model.LastUpdated' />
+            </div>
         </div>
     </a>
 </div>

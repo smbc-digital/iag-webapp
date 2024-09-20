@@ -15,7 +15,7 @@
                 <div class="featured-item-container">
                     @foreach (var spotlight in Model.HomepageContent.SpotlightOnBanner)
                     {
-                        <partial name="FeaturedItem" model='spotlight' view-data='@(new ViewDataDictionary(ViewData){ {"hideDate", false}, {"displayQuotes", false} })'/>
+                        <partial name="FeaturedItem" model='spotlight' />
                     }
                 </div>
             </div>

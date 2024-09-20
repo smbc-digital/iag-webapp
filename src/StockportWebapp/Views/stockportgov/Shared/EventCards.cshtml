@@ -1,5 +1,5 @@
 ﻿@model ContentBlock
-@if (Model is not null & Model.Events.Any())
+@if (Model is not null & Model.Events?.Any() is true)
 {
     string buttonColour = Model.IsDefaultColourScheme
         ? "btn--teal btn--teal-outline"
