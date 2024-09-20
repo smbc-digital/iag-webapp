@@ -1,4 +1,4 @@
-﻿@model SpotlightOnBanner
+﻿@model ProfileViewModel
 
 @{
     string additionalClasses = (string)ViewData["additionalClasses"];
@@ -9,45 +9,40 @@
 }
 
 <div class="featured-item section__content" data-cy="featured-item">
-    <a href="@Model.Link" class="featured-item__link featured-item__link-@additionalClasses" data-cy="featured-item-link">
-        <img srcset="@Model.Image?w=720&q=89&fm=webp 720w,
-                            @Model.Image?w=937&q=89&fm=webp 937w,
-                            @Model.Image?w=452&q=89&fm=webp 452w"
+    <a href="@Url.Action("Index", "Profile", new {slug = Model.Profile.Slug})" class="featured-item__link featured-item__link-@additionalClasses" data-cy="featured-item-link">
+        <img srcset="@Model.Profile.Image.Url?w=720&q=89&fm=webp 720w,
+                            @Model.Profile.Image.Url?w=937&q=89&fm=webp 937w,
+                            @Model.Profile.Image.Url?w=452&q=89&fm=webp 452w"
              sizes="(max-width: 767px) 720px,
                             ((min-width: 768px) and (max-width: 1023px)) 937px,
                             (min-width: 1024px) 452px"
-             src="@Model.Image?w=937&q=89"
+             src="@Model.Profile.Image?w=937&q=89"
              class="featured-item__image featured-item__image-@additionalClasses"
              loading="lazy"
-             alt="@Model.AltText"
+             alt="@Model.Profile.Image.Description"
              width="433"
              height="293">
         
         <div class="featured-item-content featured-item-content-@additionalClasses @pseudoBorderColour @borderColour">
             <div class="featured-item-wrapper">
-                <h3 class="featured-item__title featured-item__title--padded-bottom featured-item__title-@additionalClasses">@Model.Title</h3>
+                <h3 class="featured-item__title featured-item__title--padded-bottom featured-item__title-@additionalClasses">@Model.Profile.Title</h3>
                 
-                @if (displayQuotes)
-                {
+                <div class="profile-tag-parser-content profile-tag-parser-content-banner">
+                    <p class="profile-tag-parser-content__subTitle">@Model.Profile.Subtitle</p>
+                    
                     <span class="fa-solid fa-quote-left profile-tag-parser-quote"></span>
                     <span class="fa-solid fa-quote-right profile-tag-parser-quote--rtl"></span>
-                }
-                
-                <p class="featured-item-content__teaser">@Model.Teaser</p>
-                
-                @if (displayQuotes)
-                {
+
+                    <p class="profile-tag-parser-content__teaser">@Model.Profile.Teaser</p>
                     <span class="fa-solid fa-quote-right profile-tag-parser-quote"></span>
                     <span class="fa-solid fa-quote-left profile-tag-parser-quote--rtl"></span>
-                }
-            </div>
 
-            @if (!hideDate)
-            {
-                <div class="featured-item-content-last-updated"> 
-                    <partial name="FormattedDate" model='Model.LastUpdated' />
+                    @if(!string.IsNullOrEmpty(Model.Profile.Body))
+                    {
+                        <span class="profile-tag-parser-content__read-more featured-item-read-more">Read more <span class="visuallyhidden">about @Model.Profile.Title</span></span>
+                    }
                 </div>
-            }
+            </div>
         </div>
     </a>
 </div>

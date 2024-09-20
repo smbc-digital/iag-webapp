@@ -49,6 +49,16 @@
             min-height: 200px;
             max-height: 300px
         }
+
+        &-profile-banner {
+            border-top-left-radius: 50px !important;
+            border-bottom-right-radius: 50px !important;
+
+            @media #{$tablet} {
+                border-top-left-radius: 30px !important;
+                border-bottom-right-radius: 30px !important;
+            }
+        }
     }
 
     &__link {
@@ -72,7 +82,7 @@
         }
 
         &:hover {
-            .featured-item__title {
+            .featured-item__title, .featured-item-read-more {
                 text-decoration-thickness: 3px;
             }
         }
@@ -82,10 +92,15 @@
         @include h-s;
         color: $stockport-green;
         text-decoration: underline;
+        text-decoration-thickness: 1px;
         margin: 0;        
 
         &--padded-bottom {
             padding-bottom: 0.75em;
+        }
+
+        &-profile-banner {
+            @include h-l;
         }
     }
 
@@ -153,10 +168,14 @@
             width: 60%;
             padding: 1.5em;
             
-            &-news-banner {
+            &-news-banner, &-profile-banner {
                 &::after {
                     left: 0 !important;
                 }
+            }
+
+            &-profile-banner {
+                padding-left: 1.5em !important;
             }
 
             &::after {
@@ -228,11 +247,25 @@ html[dir="rtl"] {
             @media #{$desktop} {
                 border-radius: 0 3px 3px 0;
             }
+
+            &-profile-banner {
+                border-top-right-radius: 50px !important;
+                border-bottom-left-radius: 50px !important;
+                border-top-left-radius: 3px !important;
+                border-bottom-right-radius: 3px !important;
+    
+                @media #{$tablet} {
+                    border-top-right-radius: 30px !important;
+                    border-bottom-left-radius: 30px !important;
+                    border-top-left-radius: 3px !important;
+                    border-bottom-right-radius: 3px !important;
+                }
+            }
         }
 
         &-content {
             @media #{$desktop} {
-                &-news-banner {
+                &-news-banner, &-profile-banner {
                     &::after {
                         right: 0 !important;
                     }

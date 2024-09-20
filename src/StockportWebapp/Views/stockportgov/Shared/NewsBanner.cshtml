@@ -39,7 +39,7 @@
                     </div>
                     
                     <div class="featured-item-container">
-                        <partial name="FeaturedItem" model="@newsBanner" view-data='@(new ViewDataDictionary(ViewData){ {"additionalClasses", "news-banner"}, {"pseudoBorderColour", pseudoBorderColour}, {"borderColour", borderColour} })' />
+                        <partial name="FeaturedItem" model="@newsBanner" view-data='@(new ViewDataDictionary(ViewData){ {"additionalClasses", "news-banner"}, {"pseudoBorderColour", pseudoBorderColour}, {"borderColour", borderColour}, {"hideDate", false}, {"displayQuotes", false} })' />
                     </div>
 
                     <div class="news-banner-button">

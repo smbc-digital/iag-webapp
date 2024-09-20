@@ -1,0 +1,34 @@
+.profile-banner {
+    margin-bottom: 0;
+
+    @media #{$mobile} {
+        &-button {
+            margin-inline: 5px;
+        }
+    }
+
+    &-container {
+        margin-top: 2em;
+        margin-bottom: 2em;
+    }
+
+    &-title {
+        text-align: center;
+        text-align: -webkit-center;
+        text-align: -moz-center;
+
+        hr {
+            width: 20%;
+            margin-top: 0;
+
+            @media #{$mobile} {
+                width: 40%;
+                margin-bottom: 1em;
+            }
+
+            @media #{$tablet} {
+                width: 30%;
+            }
+        }
+    }
+}
