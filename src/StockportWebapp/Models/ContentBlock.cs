@@ -24,6 +24,7 @@ public class ContentBlock
     public string VideoPlaceholderPhotoId;
     public string AssociatedTagCategory;
     public News NewsArticle;
+    public List<Event> Events;
     public string GetNavigationLink(string additionalUrlContent) => TypeRoutes.GetUrlFor(Type, $"{additionalUrlContent}/{Slug}");
     public string SolidBackgroundColourClass => $"bg-solid{CssClassMapper.GetBoldCssClass(ColourScheme)}"; 
     public string BackgroundColourClass => $"bg{CssClassMapper.GetCssClass(ColourScheme)}";
@@ -31,9 +32,14 @@ public class ContentBlock
     public string BorderClass => $"border{CssClassMapper.GetBoldCssClass(ColourScheme)}";
     public string BorderColourClass => $"border-colour{CssClassMapper.GetBoldCssClass(ColourScheme)}";
     public string PseudoBorderColourClass => $"border-pseudo-colour{CssClassMapper.GetBoldCssClass(ColourScheme)}";
+    public bool IsDefaultColourScheme =>
+        ColourScheme is EColourScheme.None
+        || ColourScheme is EColourScheme.Multi
+        || ColourScheme is EColourScheme.Light_Overlay
+        || ColourScheme is EColourScheme.Dark_Overlay;
 
     public ContentBlock(string slug, string title, string teaser, string icon, string type, string contentType, string image, string mailingListId, string body, List<ContentBlock> subItems, string link, string buttonText, EColourScheme colourScheme,
-                        string statistic, string statisticSubheading, string videoTitle, string videoToken, string videoPlaceholderPhotoId, string associatedTagCategory, News newsArticle)
+                        string statistic, string statisticSubheading, string videoTitle, string videoToken, string videoPlaceholderPhotoId, string associatedTagCategory, News newsArticle, List<Event> events)
     {
         Slug = slug;
         Title = title;
@@ -56,5 +62,6 @@ public class ContentBlock
         VideoPlaceholderPhotoId = videoPlaceholderPhotoId;
         AssociatedTagCategory = associatedTagCategory;
         NewsArticle = newsArticle;
+        Events = events;
     }
 }

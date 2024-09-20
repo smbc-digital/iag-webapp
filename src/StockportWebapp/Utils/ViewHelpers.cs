@@ -11,41 +11,27 @@ public class ViewHelpers
 
     public string FormatEventDate(DateTime eventDate, string startTime = "")
     {
-        var date = "";
-        if (eventDate == _timeProvider.Now().Date)
-        {
+        string date;
+        
+        if (eventDate.Equals(_timeProvider.Now().Date))
             date = "Today";
-        }
-        else if (eventDate == _timeProvider.Now().AddDays(1).Date)
-        {
+        else if (eventDate.Equals(_timeProvider.Now().AddDays(1).Date))
             date = "Tomorrow";
-        }
         else
-        {
             date = eventDate.ToString("dddd dd MMMM");
-        }
 
         if (startTime.IndexOf(':') > 0)
         {
-            var time = startTime.Split(':');
-            var hour = 0;
-            int.TryParse(time[0], out hour);
-            if (hour == 0)
+            string[] time = startTime.Split(':');
+            int.TryParse(time[0], out int hour);
+
+            date = hour switch
             {
-                date = $"{date} at 12:{time[1]}am";
-            }
-            else if (hour == 12)
-            {
-                date = $"{date} at 12:{time[1]}pm";
-            }
-            else if (hour > 12)
-            {
-                date = $"{date} at {hour - 12}:{time[1]}pm";
-            }
-            else
-            {
-                date = $"{date} at {hour}:{time[1]}am";
-            }
+                0 => $"{date} at 12:{time[1]}am",
+                12 => $"{date} at 12:{time[1]}pm",
+                int t when t > 12 => $"{date} at {hour - 12}:{time[1]}pm",
+                _ => $"{date} at {hour}:{time[1]}am"
+            };
         }
 
         return date;
