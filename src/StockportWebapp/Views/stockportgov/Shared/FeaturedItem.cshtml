@@ -8,7 +8,6 @@
 
 <div class="featured-item section__content" data-cy="featured-item">
     <a href="@Model.Link" class="featured-item__link featured-item__link-@additionalClasses" data-cy="featured-item-link">
-
         <img srcset="@Model.Image?w=720&q=89&fm=webp 720w,
                             @Model.Image?w=937&q=89&fm=webp 937w,
                             @Model.Image?w=452&q=89&fm=webp 452w"
@@ -16,7 +15,7 @@
                             ((min-width: 768px) and (max-width: 1023px)) 937px,
                             (min-width: 1024px) 452px"
              src="@Model.Image?w=937&q=89"
-             class="featured-item__image"
+             class="featured-item__image featured-item__image-@additionalClasses"
              loading="lazy"
              alt="@Model.AltText"
              width="433"
@@ -27,6 +26,7 @@
                 <h3 class="featured-item__title featured-item__title--padded-bottom">@Model.Title</h3>
                 <p class="featured-item-content__teaser">@Model.Teaser</p>
             </div>
+
             <div class="featured-item-content-last-updated"> 
                 <partial name="FormattedDate" model='Model.LastUpdated' />
             </div>
