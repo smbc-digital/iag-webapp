@@ -16,7 +16,7 @@
     );
 
     string associatedTagCategoryLower = Model.AssociatedTagCategory?.ToLower();
-    string viewMoreUrl = Model.NewsArticle.Tags.Any() 
+    string viewMoreUrl = Model.UseTag 
         ? Url.Action("Index", "News", new {tags = associatedTagCategoryLower}) 
         : Url.Action("Index", "News", new {category = associatedTagCategoryLower});
 

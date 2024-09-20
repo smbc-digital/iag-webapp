@@ -23,6 +23,7 @@ public class ContentBlock
     public string VideoToken;
     public string VideoPlaceholderPhotoId;
     public string AssociatedTagCategory;
+    public bool UseTag;
     public News NewsArticle;
     public Profile Profile;
     public List<Event> Events;
