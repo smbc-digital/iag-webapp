@@ -9,7 +9,7 @@
         ? $"image-banner-{CssClassMapper.GetCssClass(Model.ColourScheme)}"
         : string.Empty;
 
-    <section class="section image-banner" data-cy="image-banner-header">
+    <section class="section image-banner" data-cy="image-banner-screen-width">
         <a @href>
             <div class="image-banner__background image-banner__background" style="background-image: url(@Model.Image?fm=webp)"></div>
             @if (!string.IsNullOrEmpty(Model.Body))

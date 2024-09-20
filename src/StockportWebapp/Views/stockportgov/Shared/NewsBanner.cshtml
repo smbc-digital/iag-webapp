@@ -1,13 +1,10 @@
 ﻿@model ContentBlock
 @if (Model is not null && Model.NewsArticle is not null && !string.IsNullOrEmpty(Model.NewsArticle.Image))
 {
-    bool defaultScheme = Model.ColourScheme is EColourScheme.None
-        || Model.ColourScheme is EColourScheme.Multi
-        || Model.ColourScheme is EColourScheme.Light_Overlay
-        || Model.ColourScheme is EColourScheme.Dark_Overlay;
+    bool isDefaultColourScheme = Model.IsDefaultColourScheme;
 
-    string pseudoBorderColour = defaultScheme ? "border-pseudo-colour-teal" : Model.PseudoBorderColourClass;
-    string borderColour = defaultScheme ? "border-colour-teal" : Model.BorderColourClass;
+    string pseudoBorderColour = isDefaultColourScheme ? "border-pseudo-colour-teal" : Model.PseudoBorderColourClass;
+    string borderColour = isDefaultColourScheme ? "border-colour-teal" : Model.BorderColourClass;
 
     SpotlightOnBanner newsBanner = new(
         Model.NewsArticle.Title,

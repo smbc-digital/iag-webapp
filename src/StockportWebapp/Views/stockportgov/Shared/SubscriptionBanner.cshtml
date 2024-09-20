@@ -1,24 +1,20 @@
 @model ContentBlock
 @if (Model is not null && !string.IsNullOrEmpty(Model.MailingListId))
 {
-    bool defaultScheme = Model.ColourScheme is EColourScheme.None
-        || Model.ColourScheme is EColourScheme.Orange
-        || Model.ColourScheme is EColourScheme.Multi
-        || Model.ColourScheme is EColourScheme.Light_Overlay
-        || Model.ColourScheme is EColourScheme.Dark_Overlay;
+    bool isDefaultColourScheme = Model.IsDefaultColourScheme 
+        || Model.ColourScheme is EColourScheme.Orange;
 
-    string backgroundColour = defaultScheme ? "bg-solid-teal" : Model.SolidBackgroundColourClass;
-    string buttonColour = defaultScheme ? "btn--teal" : $"btn-{CssClassMapper.GetBoldCssClass(Model.ColourScheme)}";
+    string backgroundColour = isDefaultColourScheme ? "bg-solid-teal" : Model.SolidBackgroundColourClass;
+    string buttonColour = isDefaultColourScheme ? "btn--teal" : $"btn-{CssClassMapper.GetBoldCssClass(Model.ColourScheme)}";
 
     <section class="section section--white" data-cy="subscription-banner">
         <div class="grid-container">
-            <div class="grid-100 subscription-banner @backgroundColour" data-cy="subscription">
+        <div class="subscription-banner">
+            <div class="grid-100 subscription-banner__container @backgroundColour" data-cy="subscription">
                 <div class="section__content subscription-banner__content">
                     <div class="grid-70">
                         <h2 class="section__title section__title--white section__title--padded-bottom h-l">@Model.Title</h2>
-                        <div class="section__content">
                             @Html.Raw(Model.Body)
-                        </div>
                     </div>
                     <div class="grid-30">
                         <form method="post" role="form" action="/subscribe">
@@ -27,6 +23,7 @@
                         </form>
                     </div>
                 </div>
+            </div>
             </div>
         </div>
     </section>
