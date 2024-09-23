@@ -1,5 +1,5 @@
 ﻿@model LandingPageViewModel
-@if (Model is not null)
+@if (Model is not null && !string.IsNullOrEmpty(Model.LandingPage.HeaderImage.Url))
 {
     string backgroundColour = CssClassMapper.GetCssClass(Model.LandingPage.HeaderColourScheme);
     string imageSrc = !string.IsNullOrEmpty(Model.LandingPage.HeaderImage.Url) 

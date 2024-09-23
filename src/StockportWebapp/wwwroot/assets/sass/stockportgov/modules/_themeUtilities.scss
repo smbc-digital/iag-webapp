@@ -33,6 +33,11 @@
 .border-grey { border: 4px solid $stockport-grey !important; }
 .border-one-stockport-purple { border: 4px solid $one-stockport-purple !important; }
 
+.border-colour-none,
+.border-pseudo-colour-none:after {
+    border: none !important;
+}
+
 .border-colour-default, 
 .border-pseudo-colour-default:after {
     border-color: $stockport-teal-darker !important;
