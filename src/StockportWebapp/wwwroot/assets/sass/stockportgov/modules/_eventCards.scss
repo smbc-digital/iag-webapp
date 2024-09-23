@@ -1,26 +1,57 @@
 .event-cards {
-    &__title {
-        text-align: center;
-        text-align: -webkit-center;
-        text-align: -moz-center;
 
-        hr {
-            width: 20%;
-            margin-top: 0;
+    @media #{$mobile} {
+        margin-bottom: 3em; 
 
-            @media #{$mobile} {
-                width: 40%;
-            }
-
-            @media #{$tablet} {
-                width: 30%;
-            }
+        &-button {
+            margin-inline: 5px;
+            margin-bottom: 1.5em;
         }
     }
 
-    &__view-more {
-        float: right;
-        margin-top: 0.5em;
+    &-title {
+        display: flex;
+        flex-direction: row;
+
+        @media #{$tablet} {
+            display: block;
+        }
+
+        a {
+            font-weight: 700;
+            height: 40%;
+            min-height: 44px;
+            width: 20%;
+        }
+
+        &-container {
+            text-align: center;
+            text-align: -webkit-center;
+            text-align: -moz-center;
+            width: 100%;
+
+            @media #{$tablet} {
+                width: 100%;
+            }
+
+            hr {
+                width: 20%;
+                margin-top: 0;
+
+                @media #{$mobile} {
+                    width: 40%;
+                    margin-bottom: 1em;
+                }
+
+                @media #{$tablet} {
+                    width: 30%;
+                }
+            }
+        }
+    }  
+
+    &-view-more {
+        margin-top: 0.6em;
     }
 
     &__link {
@@ -32,8 +63,10 @@
         border-radius: 3px;
     }
 
-    @media #{$mobile} {
-        margin-bottom: 1.5em;
+    &__location {
+        @media #{$mobile} {
+            margin-bottom: 0.5em;
+        }
     }
 
     &:nth-child(n+2) {
@@ -43,6 +76,12 @@
     }
 
     &:nth-child(n+3) {
+        .event-cards {
+            @media #{$mobile} {
+                margin-bottom: 2em;
+            }
+        }
+
         .event-cards__link {
             border-color: $stockport-purple;
         }
@@ -53,6 +92,6 @@
     }
 
     &--padding {
-        padding: 1em 0.75em 1.5em 0.75em;
+        padding: 1em 0.75em 0.5em 0.75em;
     }
 }

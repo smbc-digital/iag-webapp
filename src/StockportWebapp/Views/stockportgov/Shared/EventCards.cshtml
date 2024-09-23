@@ -13,14 +13,14 @@
     <section class="section section--white">
         <div class="grid-container">
             <div class="grid-100">
-                <div class="event-cards__heading">
-                    <a href="@tagOrCategory" class="event-cards__view-more hide-on-tablet hide-on-mobile" data-cy="view-more-events-link">
-                            <span>View more events</span>
+                <div class="event-cards-title">
+                        <div class="event-cards-title-container">
+                            <h2 class="section__title section__title--no-padding section__title--margin-bottom">@Model.Title</h2>
+                            <hr />
+                        </div>
+                    <a href="@tagOrCategory" class="event-cards-view-more hide-on-mobile hide-on-tablet">
+                            View more events
                     </a>
-                    <div class="event-cards__title">
-                        <h2 class="section__title section__title--no-padding section__title--margin-bottom">Upcoming @Model.Title events</h2>
-                        <hr />
-                    </div>
                 </div>
 
                 <div class="section__content">
@@ -29,7 +29,7 @@
                         {
                             <partial name="EventCard" model="@upcomingEvent" view-data="@(new ViewDataDictionary(ViewData) { {"BorderColourClass", Model.BorderColourClass}})" />
                         }
-                        <a href="@tagOrCategory" class="btn btn--width-30 btn--chevron-forward btn--bold btn--chevron-bold hide-on-desktop @buttonColour" data-cy="view-more-events-link">
+                        <a href="@tagOrCategory" class="btn btn--width-30 btn--chevron-forward btn--bold btn--chevron-bold hide-on-desktop navcard-button @buttonColour" data-cy="view-more-events-link">
                             <span class="btn_text">View more events</span>
                         </a>
                     </ul>
