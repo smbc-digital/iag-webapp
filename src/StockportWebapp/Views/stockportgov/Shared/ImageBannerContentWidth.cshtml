@@ -1,5 +1,5 @@
 @model ContentBlock
-@if (Model is not null)
+@if (Model is not null && !string.IsNullOrEmpty(Model.Image))
 {
     string href = Model.SubItems.Any()
         ? $"href={Model.SubItems.First().NavigationLink}" : !string.IsNullOrEmpty(Model.Link)

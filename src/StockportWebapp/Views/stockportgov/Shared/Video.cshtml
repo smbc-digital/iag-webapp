@@ -1,25 +1,27 @@
 ﻿@model ContentBlock
-@{
+
+@if (Model is not null)
+{
     VideoViewModel videoViewModel = new(Model.VideoTitle, Model.VideoToken, Model.VideoPlaceholderPhotoId);
-}
+    
+    <section class="section section--white" data-cy="video">
+        <div class="grid-container">
+            <div class="grid-100">
+                @if (!string.IsNullOrEmpty(Model.Title))
+                {
+                    <div class="find-out-more__title">
+                        <h2 class="section__title section__title--no-padding section__title--margin-bottom">@Model.Title</h2>
+                        @Html.Raw(Model.Body)
+                        <hr />
+                    </div>
+                }
 
-<section class="section section--white" data-cy="find-out-more-cards">
-    <div class="grid-container">
-        <div class="grid-100">
-            @if (!string.IsNullOrEmpty(Model.Title))
-            {
-                <div class="find-out-more__title">
-                    <h2 class="section__title section__title--no-padding section__title--margin-bottom">@Model.Title</h2>
-                    @Html.Raw(Model.Body)
-                    <hr />
-                </div>
-            }
-
-            <div class="section__content">
-                <div class="video-wrapper">
-                    <partial name="VideoIFrame" model="@videoViewModel" />
+                <div class="section__content">
+                    <div class="video-wrapper">
+                        <partial name="VideoIFrame" model="@videoViewModel" />
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
+}

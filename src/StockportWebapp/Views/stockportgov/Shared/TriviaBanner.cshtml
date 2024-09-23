@@ -1,5 +1,5 @@
 ﻿@model ContentBlock
-@if (Model is not null)
+@if (Model is not null && Model.SubItems.Any() is true)
 {
     @if (Model.SubItems.Count.Equals(3))
     {
