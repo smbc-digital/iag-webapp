@@ -6,6 +6,7 @@
     string borderColour = (string)ViewData["borderColour"];
     bool hideDate = (bool)ViewData["hideDate"];
     bool displayQuotes = (bool)ViewData["displayQuotes"];
+    string altText = !string.IsNullOrEmpty(Model.Profile.Image.Description) ? Model.Profile.Image.Description : string.Empty;
 }
 
 <div class="featured-item section__content" data-cy="featured-item">
@@ -19,7 +20,7 @@
              src="@Model.Profile.Image?w=937&q=89"
              class="featured-item__image featured-item__image-@additionalClasses"
              loading="lazy"
-             alt="@Model.Profile.Image.Description"
+             alt="@altText"
              width="433"
              height="293">
         
