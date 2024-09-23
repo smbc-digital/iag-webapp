@@ -81,6 +81,10 @@
             .featured-item__title, .featured-item-read-more {
                 text-decoration-thickness: 3px;
             }
+
+            .featured-item--no-decoration {
+                text-decoration-thickness: 1px; 
+            }
         }
     }
 
@@ -221,6 +225,11 @@
         &-news-banner {
             margin-top: 1em;
         }
+    }
+
+    &--no-decoration {
+        text-decoration: none;
+        color: $stockport-black;
     }
 }
 
