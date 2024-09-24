@@ -7,6 +7,16 @@
         }
     }
 
+    &__link {
+        &:focus
+        {
+            .image-banner__background {
+                box-sizing: border-box;
+                outline: #ef8a16 solid 3px !important;
+            }
+        }
+    }
+
     &__background {
         height: 750px;
         width: 100%;

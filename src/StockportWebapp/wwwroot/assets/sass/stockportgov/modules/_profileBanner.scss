@@ -31,4 +31,16 @@
             }
         }
     }
+
+    &__subTitle {
+        font-size: 1em !important;
+    }
+
+    &__teaser {
+        @include lead;
+    }
+
+    &__quote {
+        font-size: 1.2em !important;
+    }
 }

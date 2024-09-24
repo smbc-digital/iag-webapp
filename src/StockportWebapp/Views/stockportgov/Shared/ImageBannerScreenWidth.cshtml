@@ -14,7 +14,7 @@
     <section class="section image-banner" data-cy="image-banner-screen-width">
         @if (!string.IsNullOrEmpty(href))
         {
-            <a @href>
+            <a @href class="image-banner__link">
                 <div class="image-banner__background image-banner__background" style="background-image: url(@Model.Image?fm=webp)"></div>
                 @if (!string.IsNullOrEmpty(Model.Body))
                 {

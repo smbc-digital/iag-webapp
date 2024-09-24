@@ -31,14 +31,14 @@
                 <h2 class="featured-item__title featured-item__title--padded-bottom featured-item__title-@additionalClasses">@Model.Profile.Title</h2>
                 
                 <div class="profile-tag-parser-content profile-tag-parser-content-banner">
-                    <p class="profile-tag-parser-content__subTitle">@Model.Profile.Subtitle</p>
+                    <p class="profile-tag-parser-content__subTitle profile-banner__subTitle">@Model.Profile.Subtitle</p>
                     
-                    <span class="fa-solid fa-quote-left profile-tag-parser-quote"></span>
-                    <span class="fa-solid fa-quote-right profile-tag-parser-quote--rtl"></span>
+                    <span class="fa-solid fa-quote-left profile-tag-parser-quote profile-banner__quote"></span>
+                    <span class="fa-solid fa-quote-right profile-tag-parser-quote--rtl profile-banner__quote"></span>
 
-                    <p class="profile-tag-parser-content__teaser">@Model.Profile.Teaser</p>
-                    <span class="fa-solid fa-quote-right profile-tag-parser-quote"></span>
-                    <span class="fa-solid fa-quote-left profile-tag-parser-quote--rtl"></span>
+                    <p class="profile-tag-parser-content__teaser profile-banner__teaser">@Model.Profile.Teaser</p>
+                    <span class="fa-solid fa-quote-right profile-tag-parser-quote profile-banner__quote"></span>
+                    <span class="fa-solid fa-quote-left profile-tag-parser-quote--rtl profile-banner__quote"></span>
 
                     @if(!string.IsNullOrEmpty(Model.Profile.Body))
                     {
@@ -70,14 +70,14 @@ else
                 <h2 class="featured-item__title featured-item__title--padded-bottom featured-item__title-@additionalClasses @contentNoBody">@Model.Profile.Title</h2>
                 
                 <div class="profile-tag-parser-content profile-tag-parser-content-banner">
-                    <p class="profile-tag-parser-content__subTitle">@Model.Profile.Subtitle</p>
+                    <p class="profile-tag-parser-content__subTitle profile-banner__subTitle">@Model.Profile.Subtitle</p>
                     
-                    <span class="fa-solid fa-quote-left profile-tag-parser-quote"></span>
-                    <span class="fa-solid fa-quote-right profile-tag-parser-quote--rtl"></span>
+                    <span class="fa-solid fa-quote-left profile-tag-parser-quote profile-banner__quote"></span>
+                    <span class="fa-solid fa-quote-right profile-tag-parser-quote--rtl profile-banner__quote"></span>
 
-                    <p class="profile-tag-parser-content__teaser">@Model.Profile.Teaser</p>
-                    <span class="fa-solid fa-quote-right profile-tag-parser-quote"></span>
-                    <span class="fa-solid fa-quote-left profile-tag-parser-quote--rtl"></span>
+                    <p class="profile-tag-parser-content__teaser profile-banner__teaser">@Model.Profile.Teaser</p>
+                    <span class="fa-solid fa-quote-right profile-tag-parser-quote profile-banner__quote"></span>
+                    <span class="fa-solid fa-quote-left profile-tag-parser-quote--rtl profile-banner__quote"></span>
                 </div>
             </div>
         </div>
