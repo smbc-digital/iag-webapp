@@ -18,13 +18,15 @@
                 {
                     <a @href>
                         <img class="image-banner__background"
-                            src="@Model.Image?w=1015&q=89"
-                            srcset="@Model.Image?w=507&q=89&fm=webp 507w,
-                                    @Model.Image?w=1015&q=100&fm=webp"
-                            sizes="(max-width: 1023px) 507px,
-                                    (min-width: 1024px) 1015px"
-                            loading="lazy"
-                            alt="">
+                             src="@Model.Image?w=1240&q=89"
+                             srcset="@Model.Image?w=720&q=89&fm=webp 720w,
+                                    @Model.Image?w=967&q=89&fm=webp 967w,
+                                    @Model.Image?w=1240&q=89&fm=webp"
+                             sizes="(max-width: 767px) 720px,
+                                    ((min-width: 768px) and (max-width: 1023px)) 937px,
+                                    (min-width: 1024px) 1240px"
+                             loading="lazy"
+                             alt="">
 
                         @if (!string.IsNullOrEmpty(Model.Body))
                         {
@@ -42,13 +44,15 @@
                 else
                 {
                     <img class="image-banner__background"
-                        src="@Model.Image?w=1015&q=89"
-                        srcset="@Model.Image?w=507&q=89&fm=webp 507w,
-                                @Model.Image?w=1015&q=100&fm=webp"
-                        sizes="(max-width: 1023px) 507px,
-                                (min-width: 1024px) 1015px"
-                        loading="lazy"
-                        alt="">
+                            src="@Model.Image?w=1240&q=89"
+                         srcset="@Model.Image?w=720&q=89&fm=webp 720w,
+                                @Model.Image?w=967&q=89&fm=webp 967w,
+                                @Model.Image?w=1240&q=89&fm=webp"
+                         sizes="(max-width: 767px) 720px,
+                                ((min-width: 768px) and (max-width: 1023px)) 937px,
+                                (min-width: 1024px) 1240px"
+                         loading="lazy"
+                         alt="">
 
                     @if (!string.IsNullOrEmpty(Model.Body))
                     {
