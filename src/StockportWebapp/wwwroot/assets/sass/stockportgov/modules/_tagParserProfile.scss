@@ -21,11 +21,11 @@
         width: 40%;
         height: auto;
         object-fit: cover;
-        border-radius: 50px 3px 50px 3px;
+        border-radius: 50px 3px;
 
         @media #{$mobile} {
             width: 100%;
-            border-radius: 30px 3px 30px 3px;
+            border-radius: 30px 3px;
         }
     }
 
@@ -118,11 +118,11 @@ html[dir="rtl"] {
         }
 
         &__image {
-            border-radius: 3px 50px 3px 50px;
+            border-radius: 3px 50px;
     
             @media #{$mobile} {
                 width: 100%;
-                border-radius: 3px 30px 3px 30px;
+                border-radius: 3px 30px;
             }
         }
     }
