@@ -3,6 +3,10 @@
     @media #{$mobile} {
         margin-bottom: 3em; 
 
+        &:last-of-type {
+            margin-bottom: 2em;
+        }
+
         &-button {
             margin-inline: 5px;
             margin-bottom: 1.5em;
@@ -16,19 +20,16 @@
         @media #{$tablet} {
             display: block;
         }
-
-        a {
-            font-weight: 700;
-            height: 40%;
-            min-height: 44px;
-            width: 20%;
-        }
-
+        
         &-container {
             text-align: center;
             text-align: -webkit-center;
             text-align: -moz-center;
             width: 100%;
+
+            @media #{$desktop} {
+                margin-left: 8em;
+            }
 
             @media #{$tablet} {
                 width: 100%;
@@ -51,7 +52,12 @@
     }  
 
     &-view-more {
+        text-align: right;
         margin-top: 0.6em;
+        height: 40%;
+        min-height: 32px;
+        width: 15%;
+        font-weight: 700;
     }
 
     &__link {
