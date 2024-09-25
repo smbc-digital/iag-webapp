@@ -25,6 +25,7 @@
 
         @media #{$mobile} {
             width: 100%;
+            border-radius: 30px 3px 30px 3px;
         }
     }
 
@@ -113,6 +114,15 @@ html[dir="rtl"] {
                 display: inline-block !important;
                 color: $stockport-green;
                 font-size: 1em;
+            }
+        }
+
+        &__image {
+            border-radius: 3px 50px 3px 50px;
+    
+            @media #{$mobile} {
+                width: 100%;
+                border-radius: 3px 30px 3px 30px;
             }
         }
     }
