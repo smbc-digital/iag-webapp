@@ -23,8 +23,11 @@
         flex-direction: row;
         margin-bottom: 3em;
 
-        @media #{$mobile} {
+        @media #{$tablet} {
             flex-direction: column-reverse;
+        }
+
+        @media #{$mobile} {
             margin-inline: 5px;
         }
 
@@ -33,7 +36,7 @@
             align-content: center;
             padding-inline-end: 3em;
             
-            @media #{$mobile} {
+            @media #{$tablet} {
                 width: 100%;
                 padding: 0;
             }
@@ -45,7 +48,7 @@
             padding-bottom: 0.5em;
             border-color: $stockport-teal-darker;
 
-            @media #{$mobile} {
+            @media #{$tablet} {
                 margin: 0.5em 0;
                 width: 100%;
             }
@@ -64,7 +67,7 @@
             align-self: center;
 
             @media #{$tablet} {
-                width: 50%;
+                width: 100%;
                 height: 350px;
                 border-radius: 30px 3px;
             }
@@ -90,14 +93,14 @@
         &:nth-child(n+2) {
             flex-direction: row-reverse;
 
-            @media #{$mobile} {
+            @media #{$tablet} {
                 flex-direction: column-reverse;
             }
 
             .find-out-more-banner-content {
                 padding-inline-start: 3em;
 
-                @media #{$mobile} {
+                @media #{$tablet} {
                     padding: 0;
                 }
             }
@@ -120,7 +123,7 @@
         &:nth-child(n+3) {
             flex-direction: row;
 
-            @media #{$mobile} {
+            @media #{$tablet} {
                 flex-direction: column-reverse;
             }
 
