@@ -23,7 +23,9 @@
                             </div>
                         </div>
                         
-                        <partial name="ProfileFeaturedItem" model="@profileViewModel" view-data='@(new ViewDataDictionary(ViewData){ {"additionalClasses", "profile-banner"}, {"pseudoBorderColour", pseudoBorderColour}, {"borderColour", borderColour}, {"hideDate", true}, {"displayQuotes", true} })' />
+                        <div class="featured-item section__content" data-cy="featured-item">
+                            <partial name="ProfileFeaturedItem" model="@profileViewModel" view-data='@(new ViewDataDictionary(ViewData){ {"additionalClasses", "profile-banner"}, {"pseudoBorderColour", pseudoBorderColour}, {"borderColour", borderColour}, {"hideDate", true}, {"displayQuotes", true} })' />
+                        </div>
                     </div>
                 </div>
             </div>

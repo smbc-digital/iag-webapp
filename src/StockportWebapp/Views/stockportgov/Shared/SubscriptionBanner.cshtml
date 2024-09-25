@@ -9,21 +9,21 @@
 
     <section class="section section--white" data-cy="subscription-banner">
         <div class="grid-container">
-        <div class="subscription-banner">
-            <div class="grid-100 subscription-banner__container @backgroundColour" data-cy="subscription">
-                <div class="section__content subscription-banner__content">
-                    <div class="grid-70">
-                        <h2 class="section__title section__title--white section__title--padded-bottom h-l">@Model.Title</h2>
-                            @Html.Raw(Model.Body)
-                    </div>
-                    <div class="grid-30">
-                        <form method="post" role="form" action="/subscribe">
-                            <button type="submit" data-cy="subscribe-button" class="btn btn--inverse btn--bold btn--full btn--chevron-forward section__content--action @buttonColour"><span class="btn_text">Subscribe now</span></button>
-                            @Html.HiddenFor(pageSection => pageSection.MailingListId)
-                        </form>
+            <div class="subscription-banner">
+                <div class="grid-100 subscription-banner__container @backgroundColour" data-cy="subscription">
+                    <div class="section__content subscription-banner__content">
+                        <div class="grid-70">
+                            <h2 class="section__title section__title--white section__title--padded-bottom h-l">@Model.Title</h2>
+                                @Html.Raw(Model.Body)
+                        </div>
+                        <div class="grid-30">
+                            <form method="post" action="/subscribe">
+                                <button type="submit" data-cy="subscribe-button" class="btn btn--inverse btn--bold btn--full btn--chevron-forward section__content--action @buttonColour"><span class="btn_text">Subscribe now</span></button>
+                                @Html.HiddenFor(pageSection => pageSection.MailingListId)
+                            </form>
+                        </div>
                     </div>
                 </div>
-            </div>
             </div>
         </div>
     </section>

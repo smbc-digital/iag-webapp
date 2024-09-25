@@ -1,16 +1,18 @@
 ﻿@model ContentBlock
 @if (Model is not null && Model.SubItems.Count <=3 && Model.SubItems.Any(contentBlock => !string.IsNullOrEmpty(contentBlock.Image)))
 {
+    bool isDefaultColourScheme = Model.IsDefaultColourScheme 
+        || Model.ColourScheme is EColourScheme.Orange;
+    
     string borderBottomColour = @Model.BorderColourClass ?? string.Empty;
-    string buttonColour = Model.ColourScheme is not EColourScheme.None 
-        && Model.ColourScheme is not EColourScheme.Multi
+    string buttonColour = !isDefaultColourScheme
         ? $"btn-{@CssClassMapper.GetBoldCssClass(Model.ColourScheme)} btn-{@CssClassMapper.GetBoldCssClass(Model.ColourScheme)}-outline" 
         : "find-out-more-banner__button";
     
     <section class="section section--white" data-cy="find-out-more-banner">
         <div class="grid-container">
             <div class="grid-100">
-                @foreach (ContentBlock contentBlock in Model.SubItems)
+                @foreach (ContentBlock contentBlock in Model.SubItems.Where(cb => !string.IsNullOrEmpty(cb.Image)))
                 {
                     <div class="find-out-more-banner">
                         <div class="find-out-more-banner-content">
@@ -20,7 +22,18 @@
                                 <span class="btn_text">Find out more</span>
                             </a>
                         </div>
-                        <img src="@contentBlock.Image?w=500&q=89" srcset="@contentBlock.Image?w=500&q=89&fm=webp" class="find-out-more-banner__image" loading="lazy" alt="@contentBlock.Title" width="452" height="342">
+                        <img src="@contentBlock.Image?w=720&q=89"
+                             srcset="@contentBlock.Image?w=720&q=89&fm=webp 720w,
+                                     @contentBlock.Image?w=966&q=89&fm=webp 966w,
+                                     @contentBlock.Image?w=660&q=89&fm=webp 660w"
+                             sizes="(max-width: 767px) 720px,
+                                    ((min-width: 768px) and (max-width: 1023px)) 966px,
+                                    (min-width: 1024px) 660px"
+                             class="find-out-more-banner__image"
+                             loading="lazy"
+                             alt="@contentBlock.Title"
+                             width="720"
+                             height="300">
                     </div>
                 }
             </div>

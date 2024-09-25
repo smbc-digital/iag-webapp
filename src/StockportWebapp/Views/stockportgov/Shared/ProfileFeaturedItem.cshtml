@@ -7,9 +7,11 @@
     bool hideDate = (bool)ViewData["hideDate"];
     bool displayQuotes = (bool)ViewData["displayQuotes"];
     string altText = !string.IsNullOrEmpty(Model.Profile.Image.Description) ? Model.Profile.Image.Description : string.Empty;
+    string contentNoBody = string.IsNullOrEmpty(Model.Profile.Body) ? "featured-item--no-decoration" : string.Empty;
 }
 
-<div class="featured-item section__content" data-cy="featured-item">
+@if (!string.IsNullOrEmpty(Model.Profile.Body))
+{
     <a href="@Url.Action("Index", "Profile", new {slug = Model.Profile.Slug})" class="featured-item__link featured-item__link-@additionalClasses" data-cy="featured-item-link">
         <img srcset="@Model.Profile.Image.Url?w=720&q=89&fm=webp 720w,
                             @Model.Profile.Image.Url?w=937&q=89&fm=webp 937w,
@@ -26,17 +28,17 @@
         
         <div class="featured-item-content featured-item-content-@additionalClasses @pseudoBorderColour @borderColour">
             <div class="featured-item-wrapper">
-                <h3 class="featured-item__title featured-item__title--padded-bottom featured-item__title-@additionalClasses">@Model.Profile.Title</h3>
+                <h2 class="featured-item__title featured-item__title--padded-bottom featured-item__title-@additionalClasses">@Model.Profile.Title</h2>
                 
                 <div class="profile-tag-parser-content profile-tag-parser-content-banner">
-                    <p class="profile-tag-parser-content__subTitle">@Model.Profile.Subtitle</p>
+                    <p class="profile-tag-parser-content__subTitle profile-banner__subTitle">@Model.Profile.Subtitle</p>
                     
-                    <span class="fa-solid fa-quote-left profile-tag-parser-quote"></span>
-                    <span class="fa-solid fa-quote-right profile-tag-parser-quote--rtl"></span>
+                    <span class="fa-solid fa-quote-left profile-tag-parser-quote profile-banner__quote"></span>
+                    <span class="fa-solid fa-quote-right profile-tag-parser-quote--rtl profile-banner__quote"></span>
 
-                    <p class="profile-tag-parser-content__teaser">@Model.Profile.Teaser</p>
-                    <span class="fa-solid fa-quote-right profile-tag-parser-quote"></span>
-                    <span class="fa-solid fa-quote-left profile-tag-parser-quote--rtl"></span>
+                    <p class="profile-tag-parser-content__teaser profile-banner__teaser">@Model.Profile.Teaser</p>
+                    <span class="fa-solid fa-quote-right profile-tag-parser-quote profile-banner__quote"></span>
+                    <span class="fa-solid fa-quote-left profile-tag-parser-quote--rtl profile-banner__quote"></span>
 
                     @if(!string.IsNullOrEmpty(Model.Profile.Body))
                     {
@@ -46,4 +48,38 @@
             </div>
         </div>
     </a>
-</div>
+}
+else
+{
+    <div class="featured-item__link featured-item__link-@additionalClasses" data-cy="featured-item-link">
+        <img srcset="@Model.Profile.Image.Url?w=720&q=89&fm=webp 720w,
+                            @Model.Profile.Image.Url?w=937&q=89&fm=webp 937w,
+                            @Model.Profile.Image.Url?w=452&q=89&fm=webp 452w"
+             sizes="(max-width: 767px) 720px,
+                            ((min-width: 768px) and (max-width: 1023px)) 937px,
+                            (min-width: 1024px) 452px"
+             src="@Model.Profile.Image?w=937&q=89"
+             class="featured-item__image featured-item__image-@additionalClasses"
+             loading="lazy"
+             alt="@altText"
+             width="433"
+             height="293">
+        
+        <div class="featured-item-content featured-item-content-@additionalClasses @pseudoBorderColour @borderColour">
+            <div class="featured-item-wrapper">
+                <h2 class="featured-item__title featured-item__title--padded-bottom featured-item__title-@additionalClasses @contentNoBody">@Model.Profile.Title</h2>
+                
+                <div class="profile-tag-parser-content profile-tag-parser-content-banner">
+                    <p class="profile-tag-parser-content__subTitle profile-banner__subTitle">@Model.Profile.Subtitle</p>
+                    
+                    <span class="fa-solid fa-quote-left profile-tag-parser-quote profile-banner__quote"></span>
+                    <span class="fa-solid fa-quote-right profile-tag-parser-quote--rtl profile-banner__quote"></span>
+
+                    <p class="profile-tag-parser-content__teaser profile-banner__teaser">@Model.Profile.Teaser</p>
+                    <span class="fa-solid fa-quote-right profile-tag-parser-quote profile-banner__quote"></span>
+                    <span class="fa-solid fa-quote-left profile-tag-parser-quote--rtl profile-banner__quote"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+}
