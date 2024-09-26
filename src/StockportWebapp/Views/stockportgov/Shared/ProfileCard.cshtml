@@ -1,22 +1,24 @@
 @model ContentBlock
-@if (Model is not null)
-{
+@{
     string borderColourClass = (string)ViewData["BorderColourClass"] ?? string.Empty;
+}
 
-    <li class="navcard navcard--width-33 navcard--center navcard">
-        <a href="@Model.NavigationLink" class="navcard__link profile-card__link @borderColourClass" data-cy="find-out-more-card-link">
+@if (!string.IsNullOrEmpty(Model.Body))
+{
+    <li class="navcard navcard--width-33 navcard--center navcard profile-card @borderColourClass">
+        <a href="@Model.NavigationLink" class="navcard__link profile-card__link" data-cy="find-out-more-card-link">
             <div class="navcard__content">
                 @if (!string.IsNullOrEmpty(Model.Image))
                 {
                     <div>
                         <img src="@Model.Image?w=730&q=89" class="navcard__image profile-card__image"
-                             srcset="@Model.Image?w=720&q=89&fm=webp 720w,
+                            srcset="@Model.Image?w=720&q=89&fm=webp 720w,
                                     @Model.Image?w=294&q=89&fm=webp 294w,
                                     @Model.Image?w=378&q=89&fm=webp 378w"
-                             sizes="(max-width: 767px) 720px,
+                            sizes="(max-width: 767px) 720px,
                                     ((min-width: 768px) and (max-width: 1023px)) 294px,
                                     (min-width: 1024px) 378px"
-                             loading="lazy" alt="" height="215" width="350">
+                            loading="lazy" alt="" height="215" width="350">
                     </div>
                 }
 
@@ -27,10 +29,41 @@
                     </div>
                     @if (!string.IsNullOrEmpty(Model.Body))
                     {
-                        <span class="profile-tag-parser-content__read-more featured-item-read-more">Read more <span class="visuallyhidden">about @Model.Title</span></span>
+                        <span class="profile-card__read-more featured-item-read-more">Read more <span class="visuallyhidden">about @Model.Title</span></span>
                     }
                 </div>
             </div>
         </a>
+    </li>
+}
+else
+{
+    <li class="navcard navcard--width-33 navcard--center navcard profile-card @borderColourClass">
+        <div class="navcard__content">
+            @if (!string.IsNullOrEmpty(Model.Image))
+            {
+                <div>
+                    <img src="@Model.Image?w=730&q=89" class="navcard__image profile-card__image"
+                            srcset="@Model.Image?w=720&q=89&fm=webp 720w,
+                                @Model.Image?w=294&q=89&fm=webp 294w,
+                                @Model.Image?w=378&q=89&fm=webp 378w"
+                            sizes="(max-width: 767px) 720px,
+                                ((min-width: 768px) and (max-width: 1023px)) 294px,
+                                (min-width: 1024px) 378px"
+                            loading="lazy" alt="" height="215" width="350">
+                </div>
+            }
+
+            <div class="profile-card--padding">
+                <h3 class="navcard__title profile-card--no-decoration">@Model.Title</h3>
+                <div class="navcard__teaser">
+                    @Model.Teaser
+                </div>
+                @if (!string.IsNullOrEmpty(Model.Body))
+                {
+                    <span class="profile-card__read-more featured-item-read-more">Read more <span class="visuallyhidden">about @Model.Title</span></span>
+                }
+            </div>
+        </div>
     </li>
 }

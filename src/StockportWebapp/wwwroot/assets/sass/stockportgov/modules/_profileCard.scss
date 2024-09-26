@@ -1,0 +1,55 @@
+.profile-card {
+    border-bottom: 7px solid;
+    border-color: $stockport-teal-darker;
+
+    @media #{$mobile} {
+        margin-bottom: 1.5em;
+    }
+
+    &--no-decoration {
+        text-decoration: none;
+        color: $stockport-black;
+    }
+
+    &__image {
+        height: 320px;
+        border-radius: 50px 3px 50px 3px;
+
+        @media #{$tablet} {
+            height: 215px;
+        }
+
+        @media #{$mobile} {
+            max-height: 400px;
+        }
+    }
+
+    &__link {
+
+        &:hover {
+            .profile-card__read-more {
+                text-decoration-thickness: 3px;
+            }
+        }
+    }
+
+    &__read-more {
+        color: $stockport-green;
+        text-decoration: underline;
+        display: block;
+        margin-top: 2em;
+    }
+
+    &--padding {
+        flex-grow: 1;
+        padding: 1em 0.75em 1.5em 0.75em;
+    }
+
+    &:nth-child(n+2) {
+        border-color: $stockport-pink;
+    }
+
+    &:nth-child(n+3) {
+        border-color: $stockport-purple;
+    }
+}
