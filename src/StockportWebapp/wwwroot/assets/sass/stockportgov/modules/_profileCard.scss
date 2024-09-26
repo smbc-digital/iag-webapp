@@ -13,10 +13,11 @@
 
     &__image {
         height: 320px;
-        border-radius: 50px 3px 50px 3px;
+        border-radius: 50px 3px;
 
         @media #{$tablet} {
             height: 215px;
+            border-radius: 30px 3px;
         }
 
         @media #{$mobile} {
@@ -25,7 +26,6 @@
     }
 
     &__link {
-
         &:hover {
             .profile-card__read-more {
                 text-decoration-thickness: 3px;
@@ -41,8 +41,7 @@
     }
 
     &--padding {
-        flex-grow: 1;
-        padding: 1em 0.75em 1.5em 0.75em;
+        padding: 1em 0.75em 1.5em;
     }
 
     &:nth-child(n+2) {

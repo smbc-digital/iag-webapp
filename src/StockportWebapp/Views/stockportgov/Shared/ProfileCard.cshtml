@@ -27,10 +27,7 @@
                     <div class="navcard__teaser">
                         @Model.Teaser
                     </div>
-                    @if (!string.IsNullOrEmpty(Model.Body))
-                    {
-                        <span class="profile-card__read-more featured-item-read-more">Read more <span class="visuallyhidden">about @Model.Title</span></span>
-                    }
+                    <span class="profile-card__read-more featured-item-read-more">Read more <span class="visuallyhidden">about @Model.Title</span></span>
                 </div>
             </div>
         </a>
@@ -59,10 +56,6 @@ else
                 <div class="navcard__teaser">
                     @Model.Teaser
                 </div>
-                @if (!string.IsNullOrEmpty(Model.Body))
-                {
-                    <span class="profile-card__read-more featured-item-read-more">Read more <span class="visuallyhidden">about @Model.Title</span></span>
-                }
             </div>
         </div>
     </li>
