@@ -6,7 +6,7 @@
 @if (!string.IsNullOrEmpty(Model.Body))
 {
     <li class="navcard navcard--width-33 navcard--center navcard profile-card @borderColourClass">
-        <a href="@Model.NavigationLink" class="navcard__link profile-card__link" data-cy="find-out-more-card-link">
+        <a href="@Model.NavigationLink" class="navcard__link profile-card__link" data-cy="profile-card-link">
             <div class="navcard__content">
                 @if (!string.IsNullOrEmpty(Model.Image))
                 {

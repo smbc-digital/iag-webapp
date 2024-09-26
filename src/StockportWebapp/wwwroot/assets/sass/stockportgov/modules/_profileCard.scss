@@ -11,6 +11,25 @@
         color: $stockport-black;
     }
 
+    &__title {
+        text-align: center;
+        text-align: -webkit-center;
+        text-align: -moz-center;
+
+        hr {
+            width: 20%;
+            margin-top: 0;
+
+            @media #{$mobile} {
+                width: 40%;
+            }
+
+            @media #{$tablet} {
+                width: 30%;
+            }
+        }
+    }
+
     &__image {
         height: 320px;
         border-radius: 50px 3px;

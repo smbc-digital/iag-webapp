@@ -5,12 +5,12 @@
         ? string.Empty
         : Model.BorderColourClass;
 
-    <section class="section section--white" data-cy="find-out-more-cards">
+    <section class="section section--white" data-cy="profile-cards">
         <div class="grid-container">
             <div class="grid-100">
                 @if (!string.IsNullOrEmpty(Model.Title))
                 {
-                    <div class="find-out-more__title">
+                    <div class="profile-card__title">
                         <h2 class="section__title section__title--no-padding section__title--margin-bottom">@Model.Title</h2>
                         <hr />
                     </div>
