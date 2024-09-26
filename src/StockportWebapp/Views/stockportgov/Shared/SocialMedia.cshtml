@@ -1,13 +1,31 @@
 ﻿@model ContentBlock
-@if (Model is not null)
+@if (Model is not null && Model.SubItems?.Any() is true)
 {
-    <section class="section section--white">
+    <section class="section section--white" data-cy="social-media">
         <div class="grid-container">
             <div class="grid-100">
-                <div class="placeholder placeholder-bg-teal placeholder-small">
-                    <h2>SOCIAL MEDIA</h2>
-                    <p>@Model.Title</p>
-                </div>
+                @if(!string.IsNullOrEmpty(Model.Title))
+                {
+                    <div class="trivia-title">
+                        <h2 class="section__title section__title--no-padding section__title--margin-bottom">@Model.Title</h2>
+                        <hr />
+                    </div>
+                }
+
+                <ul class="social-media">
+                    @foreach(ContentBlock contentBlock in Model.SubItems)
+                    {
+                        <li class="social-media__container @Model.SolidBackgroundColourClass">
+                            <a href="@contentBlock.Link" aria-label="@contentBlock.ScreenReader" target="_blank" data-cy="social-media-link">
+                                <div class="icon-bordered icon-bordered-fixed icon-container">
+                                    <span class="fa fa-2x @contentBlock.Icon"></span>
+                                </div>
+
+                                @contentBlock.Title
+                            </a>
+                        </li>
+                    }
+                </ul>
             </div>
         </div>
     </section>

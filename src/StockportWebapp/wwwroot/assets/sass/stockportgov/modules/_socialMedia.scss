@@ -1,0 +1,74 @@
+.social-media {
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    &__container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: calc(33.3333% - 1em);
+        margin: 0.5em;
+        box-sizing: border-box;
+        background-color: $stockport-teal-darker;
+        color: white;
+        text-align: center;
+        border-radius: 3px;
+        
+        @media #{$mobile} {
+            width: 100%;
+            margin-inline: 0;
+        }
+
+        a {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            color: white;
+            width: 100%;
+            padding: 1em;
+        }
+    }
+}
+
+
+.social-media__container:nth-child(6n + 1) {
+    background-color: $stockport-teal-darker;
+}
+
+.social-media__container:nth-child(6n + 2) {
+    background-color: $stockport-pink;
+}
+
+.social-media__container:nth-child(6n + 3) {
+    background-color: $stockport-purple;
+}
+
+.social-media__container:nth-child(6n + 4) {
+    background-color: $stockport-blue;
+}
+
+.social-media__container:nth-child(6n + 5) {
+    background-color: $stockport-green;
+}
+.social-media__container:nth-child(6n + 6) {
+    background-color: $stockport-grey;
+}
+
+.icon-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 0.5em;
+}
+
+.social-media__container:nth-child(3n+1) {
+    margin-left: 0;
+}
+
+.social-media__container:nth-child(3n) {
+    margin-right: 0;
+}
