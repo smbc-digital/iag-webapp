@@ -1,7 +1,7 @@
 .event-cards {
 
     @media #{$mobile} {
-        margin-bottom: 3em; 
+        margin-bottom: 3em;
 
         &-button {
             margin-inline: 5px;
@@ -17,18 +17,15 @@
             display: block;
         }
 
-        a {
-            font-weight: 700;
-            height: 40%;
-            min-height: 44px;
-            width: 20%;
-        }
-
         &-container {
             text-align: center;
             text-align: -webkit-center;
             text-align: -moz-center;
             width: 100%;
+
+            @media #{$desktop} {
+                margin-left: 7em;
+            }
 
             @media #{$tablet} {
                 width: 100%;
@@ -51,7 +48,12 @@
     }  
 
     &-view-more {
+        text-align: right;
         margin-top: 0.6em;
+        height: 40%;
+        min-height: 44px;
+        width: 15%;
+        font-weight: 700;
     }
 
     &__link {

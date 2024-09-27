@@ -5,31 +5,29 @@
         ? "btn--teal btn--teal-outline"
         : $"btn-{@CssClassMapper.GetBoldCssClass(Model.ColourScheme)} btn-{@CssClassMapper.GetBoldCssClass(Model.ColourScheme)}-outline";
 
-    string tagOrCategory = Model.Events.Any(evnt => evnt.Categories.Any(category => category.Equals(Model.AssociatedTagCategory))) 
-        ? Url.Action("Index", "Events", new {category = Model.AssociatedTagCategory})
-        : Url.Action("Index", "Events", new {tag = Model.AssociatedTagCategory});
+    string tagOrCategory = Model.Events.Any(evnt => evnt.Categories.Any(category => category.Equals(Model.AssociatedTagCategory)))
+        ? Url.Action("Index", "Events", new { category = Model.AssociatedTagCategory })
+        : Url.Action("Index", "Events", new { tag = Model.AssociatedTagCategory });
 
     <section class="section section--white" data-cy="event-cards">
         <div class="grid-container">
             <div class="grid-100">
                 <div class="event-cards-title">
-                        <div class="event-cards-title-container">
-                            <h2 class="section__title section__title--no-padding section__title--margin-bottom">@Model.Title</h2>
-                            <hr />
-                        </div>
-                    <a href="@tagOrCategory" class="event-cards-view-more hide-on-mobile hide-on-tablet" data-cy="view-more-events-link">
-                            View more events
-                    </a>
+                    <div class="event-cards-title-container">
+                        <h2 class="section__title section__title--no-padding section__title--margin-bottom">@Model.Title</h2>
+                        <hr />
+                    </div>
+                    <a href="@tagOrCategory" class="event-cards-view-more hide-on-mobile hide-on-tablet" aria-label="View more @Model.AssociatedTagCategory events" data-cy="view-more-events-link">View more</a>
                 </div>
 
                 <div class="section__content">
                     <ul class="navcard-wrapper navcard-wrapper--no-margin">
                         @foreach (Event upcomingEvent in Model.Events)
                         {
-                            <partial name="EventCard" model="@upcomingEvent" view-data="@(new ViewDataDictionary(ViewData) { {"BorderColourClass", Model.BorderColourClass}})" />
+                            <partial name="EventCard" model="@upcomingEvent" view-data="@(new ViewDataDictionary(ViewData) {{"BorderColourClass", Model.BorderColourClass}})" />
                         }
-                        <a href="@tagOrCategory" class="btn btn--width-30 btn--chevron-forward btn--bold btn--chevron-bold hide-on-desktop navcard-button @buttonColour" data-cy="view-more-events-link">
-                            <span class="btn_text">View more events</span>
+                        <a href="@tagOrCategory" class="btn btn--width-30 btn--chevron-forward btn--bold btn--chevron-bold hide-on-desktop navcard-button @buttonColour" aria-label="View more @Model.AssociatedTagCategory events" data-cy="view-more-events-link">
+                            <span class="btn_text">View more</span>
                         </a>
                     </ul>
                 </div>

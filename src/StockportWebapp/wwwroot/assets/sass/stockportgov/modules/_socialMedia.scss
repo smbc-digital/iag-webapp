@@ -5,6 +5,26 @@
     padding: 0;
     margin: 0;
 
+    &__title {
+        text-align: center;
+        text-align: -webkit-center;
+        text-align: -moz-center;
+
+        hr {
+            width: 20%;
+            margin-top: 0;
+
+            @media #{$mobile} {
+                width: 40%;
+                margin-bottom: 1em;
+            }
+
+            @media #{$tablet} {
+                width: 30%;
+            }
+        }
+    }
+
     &__container {
         display: flex;
         justify-content: center;
