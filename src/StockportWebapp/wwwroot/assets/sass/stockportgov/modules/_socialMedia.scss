@@ -9,8 +9,8 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        width: calc(33.3333% - 1em);
-        margin: 0.5em;
+        width: calc(33.3333% - 10px);
+        margin: 7.5px;
         box-sizing: border-box;
         background-color: $stockport-teal-darker;
         color: white;
@@ -30,45 +30,46 @@
             color: white;
             width: 100%;
             padding: 1em;
+            word-break: break-word;
+        }
+
+        &:nth-child(3n+1) {
+            margin-inline-start: 0;
+        }
+
+        &:nth-child(3n) {
+            margin-inline-end: 0;
+        }
+
+        &:nth-child(6n + 1) {
+            background-color: $stockport-teal-darker;
+        }
+
+        &:nth-child(6n + 2) {
+            background-color: $stockport-pink;
+        }
+
+        &:nth-child(6n + 3) {
+            background-color: $stockport-purple;
+        }
+
+        &:nth-child(6n + 4) {
+            background-color: $stockport-blue;
+        }
+
+        &:nth-child(6n + 5) {
+            background-color: $stockport-green;
+        }
+
+        &:nth-child(6n + 6) {
+            background-color: $stockport-grey;
         }
     }
-}
 
-
-.social-media__container:nth-child(6n + 1) {
-    background-color: $stockport-teal-darker;
-}
-
-.social-media__container:nth-child(6n + 2) {
-    background-color: $stockport-pink;
-}
-
-.social-media__container:nth-child(6n + 3) {
-    background-color: $stockport-purple;
-}
-
-.social-media__container:nth-child(6n + 4) {
-    background-color: $stockport-blue;
-}
-
-.social-media__container:nth-child(6n + 5) {
-    background-color: $stockport-green;
-}
-.social-media__container:nth-child(6n + 6) {
-    background-color: $stockport-grey;
-}
-
-.icon-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-right: 0.5em;
-}
-
-.social-media__container:nth-child(3n+1) {
-    margin-left: 0;
-}
-
-.social-media__container:nth-child(3n) {
-    margin-right: 0;
+    &__icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-inline-end: 0.5em;
+    }
 }

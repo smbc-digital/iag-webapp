@@ -1,6 +1,9 @@
 ﻿@model ContentBlock
 @if (Model is not null && Model.SubItems?.Any() is true)
 {
+    bool isDefaultColourScheme = Model.IsDefaultColourScheme || Model.ColourScheme is EColourScheme.Orange;
+    string backgroundColour = isDefaultColourScheme ? "bg-solid-teal" : Model.SolidBackgroundColourClass;
+
     <section class="section section--white" data-cy="social-media">
         <div class="grid-container">
             <div class="grid-100">
@@ -16,10 +19,17 @@
                     @foreach(ContentBlock contentBlock in Model.SubItems)
                     {
                         <li class="social-media__container @Model.SolidBackgroundColourClass">
-                            <a href="@contentBlock.Link" aria-label="@contentBlock.ScreenReader" target="_blank" data-cy="social-media-link">
-                                <div class="icon-bordered icon-bordered-fixed icon-container">
-                                    <span class="fa fa-2x @contentBlock.Icon"></span>
-                                </div>
+                            @{
+                                bool isEmailOrPhone = contentBlock.Link.StartsWith("mailto:") || contentBlock.Link.StartsWith("tel:");
+                                string target = isEmailOrPhone ? string.Empty : "target=_blank";
+                            }
+                            <a href="@contentBlock.Link" aria-label="@contentBlock.ScreenReader" @target data-cy="social-media-link">
+                                @if (!string.IsNullOrEmpty(contentBlock.Icon))
+                                {
+                                    <div class="social-media__icon">
+                                        <span class="fa fa-2x @contentBlock.Icon"></span>
+                                    </div>
+                                }
 
                                 @contentBlock.Title
                             </a>
