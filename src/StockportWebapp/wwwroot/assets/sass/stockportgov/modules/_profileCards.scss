@@ -3,7 +3,7 @@
     border-color: $stockport-teal-darker;
 
     @media #{$mobile} {
-        margin-bottom: 1.5em;
+        margin-bottom: 2em;
     }
 
     &--no-decoration {
@@ -11,7 +11,7 @@
         color: $stockport-black;
     }
 
-    &__title {
+    &__heading {
         text-align: center;
         text-align: -webkit-center;
         text-align: -moz-center;
@@ -42,6 +42,10 @@
         @media #{$mobile} {
             max-height: 400px;
         }
+    }
+
+    &__title {
+        color: black;
     }
 
     &__link {
