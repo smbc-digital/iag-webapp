@@ -1,9 +1,6 @@
 ﻿@model ContentBlock
 @if (Model is not null && Model.SubItems?.Any() is true)
 {
-    bool isDefaultColourScheme = Model.IsDefaultColourScheme || Model.ColourScheme is EColourScheme.Orange;
-    string backgroundColour = isDefaultColourScheme ? "bg-solid-teal" : Model.SolidBackgroundColourClass;
-
     <section class="section section--white" data-cy="social-media">
         <div class="grid-container">
             <div class="grid-100">
