@@ -6,7 +6,7 @@
 @if (!string.IsNullOrEmpty(Model.Body))
 {
     <li class="navcard navcard--width-33 navcard--center navcard profile-card @borderColourClass">
-        <a href="@Model.NavigationLink" class="navcard__link profile-card__link" data-cy="profile-card-link">
+        <a href="@Url.Action("Index", "Profile", new { slug = Model.Slug })" class="navcard__link profile-card__link" data-cy="profile-card-link">
             <div class="navcard__content">
                 @if (!string.IsNullOrEmpty(Model.Image))
                 {
@@ -23,11 +23,10 @@
                 }
 
                 <div class="profile-card--padding">
-                    <h3 class="navcard__title">@Model.Title</h3>
+                    <h3 class="navcard__title profile-card__title">@Model.Title</h3>
                     <div class="navcard__teaser">
                         @Model.Teaser
                     </div>
-                    <span class="profile-card__read-more featured-item-read-more">Read more <span class="visuallyhidden">about @Model.Title</span></span>
                 </div>
             </div>
         </a>
@@ -52,7 +51,7 @@ else
             }
 
             <div class="profile-card--padding">
-                <h3 class="navcard__title profile-card--no-decoration">@Model.Title</h3>
+                <h3 class="navcard__title profile-card__title profile-card--no-decoration">@Model.Title</h3>
                 <div class="navcard__teaser">
                     @Model.Teaser
                 </div>
