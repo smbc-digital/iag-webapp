@@ -2,9 +2,8 @@
 @if (Model is not null)
 {
     string contentTextClass = (Model.SubItems is not null && Model.SubItems.Any()) || !string.IsNullOrEmpty(Model.Link) ? string.Empty : "statement-banner-content__text-no-button";
-    bool displayComponent = !string.IsNullOrEmpty(Model.Title) && !string.IsNullOrEmpty(Model.Body);
 
-    @if (displayComponent)
+    @if (!string.IsNullOrEmpty(Model.Title) && !string.IsNullOrEmpty(Model.Body))
     {
         <section class="section section--white" data-cy="statement-banner-content-width">
             <div class="grid-container">

@@ -1,26 +1,16 @@
 ﻿@model ContentBlock
 @if (Model is not null && !string.IsNullOrEmpty(Model.Image))
 {
-    string href = Model.SubItems.Any()
-        ? $"href={Model.SubItems.First().NavigationLink}"
-        : !string.IsNullOrEmpty(Model.Link)
-            ? $"href={@Model.Link} target=_blank"
-            : string.Empty;
-
-    string backgroundTheme = Model.ColourScheme is EColourScheme.Dark_Overlay
-        ? $"image-banner-{CssClassMapper.GetCssClass(Model.ColourScheme)}"
-        : string.Empty;
-
     <section class="section image-banner" data-cy="image-banner-screen-width">
-        @if (!string.IsNullOrEmpty(href))
+        @if (!string.IsNullOrEmpty(Model.Href))
         {
-            <a @href class="image-banner__link">
+            <a @Model.Href class="image-banner__link">
                 <div class="image-banner__background image-banner__background" style="background-image: url(@Model.Image?fm=webp)"></div>
                 @if (!string.IsNullOrEmpty(Model.Body))
                 {
                     <div class="grid-container">
                         <div class="grid-100">
-                        <div class="image-banner__content @backgroundTheme">
+                        <div class="image-banner__content @Model.ImageBannerOverlayTheme">
                                 <h2 class="image-banner__title">@Model.Title</h2>
                                 @Html.Raw(Model.Body)
                             </div>
@@ -40,7 +30,7 @@
             {
                 <div class="grid-container">
                     <div class="grid-100">
-                    <div class="image-banner__content @backgroundTheme">
+                    <div class="image-banner__content @Model.ImageBannerOverlayTheme">
                             <h2 class="image-banner__title">@Model.Title</h2>
                             @Html.Raw(Model.Body)
                         </div>

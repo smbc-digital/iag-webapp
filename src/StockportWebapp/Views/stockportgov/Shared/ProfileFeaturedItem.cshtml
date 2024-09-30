@@ -4,8 +4,6 @@
     string additionalClasses = (string)ViewData["additionalClasses"];
     string pseudoBorderColour = (string)ViewData["pseudoBorderColour"];
     string borderColour = (string)ViewData["borderColour"];
-    bool hideDate = (bool)ViewData["hideDate"];
-    bool displayQuotes = (bool)ViewData["displayQuotes"];
     string altText = !string.IsNullOrEmpty(Model.Profile.Image.Description) ? Model.Profile.Image.Description : string.Empty;
     string contentNoBody = string.IsNullOrEmpty(Model.Profile.Body) ? "featured-item--no-decoration" : string.Empty;
 }

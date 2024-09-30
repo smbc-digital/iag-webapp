@@ -40,6 +40,20 @@ public class ContentBlock
         || ColourScheme is EColourScheme.Multi
         || ColourScheme is EColourScheme.Light_Overlay
         || ColourScheme is EColourScheme.Dark_Overlay;
+    
+    public string OutlineButtonColour => IsDefaultColourScheme 
+        ? "btn--teal btn --teal-outline"
+        : $"btn-{@CssClassMapper.GetBoldCssClass(ColourScheme)} btn-{@CssClassMapper.GetBoldCssClass(ColourScheme)}-outline";
+
+    public string ImageBannerOverlayTheme => ColourScheme is EColourScheme.Dark_Overlay
+        ? $"image-banner-{CssClassMapper.GetCssClass(ColourScheme)}"
+        : string.Empty;
+
+    public string Href => SubItems.Any()
+        ? $"href={SubItems.First().NavigationLink}"
+        : !string.IsNullOrEmpty(Link)
+            ? $"href={Link} target=_blank"
+            : string.Empty;
 
     public ContentBlock(string slug, string title, string teaser, string icon, string type, string contentType, string image, string mailingListId, string body, List<ContentBlock> subItems, string link, string buttonText, EColourScheme colourScheme,
                         string statistic, string statisticSubheading, string videoTitle, string videoToken, string videoPlaceholderPhotoId, string associatedTagCategory, News newsArticle, List<Event> events, string screenReader)
