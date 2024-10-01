@@ -43,7 +43,7 @@ public class ContentBlock
     
     public string OutlineButtonColour => IsDefaultColourScheme 
         ? "btn--teal btn--teal-outline"
-        : $"btn-{@CssClassMapper.GetBoldCssClass(ColourScheme)} btn-{@CssClassMapper.GetBoldCssClass(ColourScheme)}-outline";
+        : $"btn-{CssClassMapper.GetBoldCssClass(ColourScheme)} btn-{CssClassMapper.GetBoldCssClass(ColourScheme)}-outline";
 
     public string ImageBannerOverlayTheme => ColourScheme is EColourScheme.Dark_Overlay
         ? $"image-banner-{CssClassMapper.GetCssClass(ColourScheme)}"
