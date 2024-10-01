@@ -1,0 +1,14 @@
+@model string
+@if (!string.IsNullOrEmpty(Model))
+{
+	string additionalClasses = (string)ViewData["imageAdditionalClasses"] ?? string.Empty;
+
+	<img src="@Model?w=730&q=89" class="navcard__image @additionalClasses"
+		 srcset="@Model?w=720&q=89&fm=webp 720w,
+				@Model?w=294&q=89&fm=webp 294w,
+				@Model?w=378&q=89&fm=webp 378w"
+		 sizes="(max-width: 767px) 720px,
+				((min-width: 768px) and (max-width: 1023px)) 294px,
+				(min-width: 1024px) 378px"
+		 loading="lazy" alt="" height="215" width="350">
+}
