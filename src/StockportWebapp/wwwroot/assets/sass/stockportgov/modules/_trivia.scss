@@ -10,11 +10,18 @@
 
             @media #{$mobile} {
                 width: 40%;
-                margin-bottom: 1em;
             }
 
             @media #{$tablet} {
                 width: 30%;
+            }
+        }
+
+        @media #{$mobile} {
+            &-banner {
+                hr {
+                    margin-bottom: 1em;
+                }
             }
         }
     }
