@@ -44,3 +44,7 @@
         font-size: 1.2em !important;
     }
 }
+
+.border-pseudo-colour-orange::after, .border-colour-orange {
+    border-color: $stockport-orange !important;
+}
