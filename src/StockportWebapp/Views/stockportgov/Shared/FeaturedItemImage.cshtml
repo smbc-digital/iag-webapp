@@ -1,0 +1,19 @@
+﻿@model string
+
+@{
+    string additionalClasses = (string)ViewData["imageAdditionalClasses"];
+    string altText = (string)ViewData["altText"] ?? string.Empty;
+}
+
+<img srcset="@Model?w=720&q=89&fm=webp 720w,
+                    @Model?w=937&q=89&fm=webp 937w,
+                    @Model?w=452&q=89&fm=webp 452w"
+     sizes="(max-width: 767px) 720px,
+                    ((min-width: 768px) and (max-width: 1023px)) 937px,
+                    (min-width: 1024px) 452px"
+     src="@Model?w=937&q=89"
+     class="featured-item__image featured-item__image-@additionalClasses"
+     loading="lazy"
+     alt="@altText"
+     width="433"
+     height="293">

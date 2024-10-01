@@ -3,15 +3,13 @@
 {
     @if (Model.SubItems.Count.Equals(3))
     {
-        string textClass = $"text-default {Model.TextColourClass}";
-
         <section class="section section--white" data-cy="trivia-banner">
             <div class="bg-default-light @Model.BackgroundColourClass trivia-banner__section">
                 <div class="grid-container">
                     <div class="grid-100">
                         @if (!string.IsNullOrEmpty(Model.Title))
                         {
-                            <div class="trivia-title">
+                            <div class="trivia-title trivia-title-banner">
                                 <h2 class="section__title section__title--no-padding section__title--margin-bottom">@Model.Title</h2>
                                 <hr class="border-colour-default @Model.BorderColourClass"/>
                             </div>
@@ -22,7 +20,7 @@
                             {
                                 if (contentBlock.Type.Equals("informationList"))
                                 {
-                                    <partial name="TriviaCard" model="@contentBlock" view-data="@(new ViewDataDictionary(ViewData) { {"BackgroundColourClass", "trivia-banner--background"}, {"BorderClass", string.Empty}, {"TextColourClass", textClass}, {"CardType", "trivia-banner"} })" />
+                                    <partial name="TriviaCard" model="@contentBlock" view-data="@(new ViewDataDictionary(ViewData) { {"BackgroundColourClass", "trivia-banner--background"}, {"BorderClass", string.Empty}, {"TextColourClass", $"text-default {Model.TextColourClass}"}, {"CardType", "trivia-banner"} })" />
                                 }
                             }
                         </ul>

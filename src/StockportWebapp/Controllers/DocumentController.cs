@@ -4,16 +4,13 @@ public class DocumentController : Controller
 {
     private readonly IDocumentPageRepository _documentPageRepository;
     private readonly IContactUsMessageTagParser _contactUsMessageParser;
-    private readonly IFeatureManager _featureManager;
 
     public DocumentController(
         IDocumentPageRepository documentPageRepository,
-        IContactUsMessageTagParser contactUsMessageParser,
-        IFeatureManager featureManager = null)
+        IContactUsMessageTagParser contactUsMessageParser)
     {
         _documentPageRepository = documentPageRepository;
         _contactUsMessageParser = contactUsMessageParser;
-        _featureManager = featureManager;
     }
 
     [Route("/documents/{documentPageSlug}")]
@@ -28,9 +25,6 @@ public class DocumentController : Controller
 
         ViewBag.CurrentUrl = Request?.GetDisplayUrl();
 
-        if (_featureManager is not null && _featureManager.IsEnabledAsync("DocumentPages").Result)
-            return View("Index2024", viewModel);
-        
         return View(viewModel);
     }
 }

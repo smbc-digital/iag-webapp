@@ -2,9 +2,8 @@
 @if (Model is not null)
 {
     string contentTextClass = (Model.SubItems is not null && Model.SubItems.Any()) || !string.IsNullOrEmpty(Model.Link) ? string.Empty : "statement-banner-content__text-no-button";
-    bool displayComponent = !string.IsNullOrEmpty(Model.Title) && !string.IsNullOrEmpty(Model.Body);
 
-    @if (displayComponent)
+    @if (!string.IsNullOrEmpty(Model.Title) && !string.IsNullOrEmpty(Model.Body))
     {
         <section class="section section--white" data-cy="statement-banner-content-width">
             <div class="grid-container">
@@ -21,7 +20,7 @@
 
                             @if(Model.SubItems.Any() || !string.IsNullOrEmpty(Model.Link))
                             {
-                                <a href="@(Model.SubItems.Any() ? Model.SubItems.FirstOrDefault().NavigationLink : Model.Link)" class="btn btn--inverse btn--width-30 btn--chevron-forward btn--bold btn--chevron-bold btn--outline btn-@CssClassMapper.GetBoldCssClass(Model.ColourScheme) btn-@CssClassMapper.GetBoldCssClass(Model.ColourScheme)-outline" data-cy="statement-banner-content-width-link">
+                                <a href="@(Model.SubItems.Any() ? Model.SubItems.FirstOrDefault().NavigationLink : Model.Link)" class="btn btn--inverse btn--width-30 btn--chevron-forward btn--bold btn--chevron-bold btn--outline @Model.OutlineButtonColour" data-cy="statement-banner-content-width-link">
                                     <span class="btn_text">@(!string.IsNullOrEmpty(Model.ButtonText) ? Model.ButtonText : "Find out more")</span>
                                     @if(string.IsNullOrEmpty(Model.ButtonText))
                                     {

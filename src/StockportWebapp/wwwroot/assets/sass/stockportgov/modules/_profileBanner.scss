@@ -23,7 +23,6 @@
 
             @media #{$mobile} {
                 width: 40%;
-                margin-bottom: 1em;
             }
 
             @media #{$tablet} {
@@ -43,4 +42,8 @@
     &__quote {
         font-size: 1.2em !important;
     }
+}
+
+.border-pseudo-colour-orange::after, .border-colour-orange {
+    border-color: $stockport-orange !important;
 }

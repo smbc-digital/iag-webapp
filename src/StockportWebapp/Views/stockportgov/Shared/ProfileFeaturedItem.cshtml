@@ -4,8 +4,6 @@
     string additionalClasses = (string)ViewData["additionalClasses"];
     string pseudoBorderColour = (string)ViewData["pseudoBorderColour"];
     string borderColour = (string)ViewData["borderColour"];
-    bool hideDate = (bool)ViewData["hideDate"];
-    bool displayQuotes = (bool)ViewData["displayQuotes"];
     string altText = !string.IsNullOrEmpty(Model.Profile.Image.Description) ? Model.Profile.Image.Description : string.Empty;
     string contentNoBody = string.IsNullOrEmpty(Model.Profile.Body) ? "featured-item--no-decoration" : string.Empty;
 }
@@ -13,22 +11,12 @@
 @if (!string.IsNullOrEmpty(Model.Profile.Body))
 {
     <a href="@Url.Action("Index", "Profile", new {slug = Model.Profile.Slug})" class="featured-item__link featured-item__link-@additionalClasses" data-cy="featured-item-link">
-        <img srcset="@Model.Profile.Image.Url?w=720&q=89&fm=webp 720w,
-                            @Model.Profile.Image.Url?w=937&q=89&fm=webp 937w,
-                            @Model.Profile.Image.Url?w=452&q=89&fm=webp 452w"
-             sizes="(max-width: 767px) 720px,
-                            ((min-width: 768px) and (max-width: 1023px)) 937px,
-                            (min-width: 1024px) 452px"
-             src="@Model.Profile.Image?w=937&q=89"
-             class="featured-item__image featured-item__image-@additionalClasses"
-             loading="lazy"
-             alt="@altText"
-             width="433"
-             height="293">
+        
+        <partial name="FeaturedItemImage" model="@Model.Profile.Image.Url" view-data='@(new ViewDataDictionary(ViewData) { {"imageAdditionalClasses", "profile-banner"}, {"altText", altText} })'/>
         
         <div class="featured-item-content featured-item-content-@additionalClasses @pseudoBorderColour @borderColour">
             <div class="featured-item-wrapper">
-                <h2 class="featured-item__title featured-item__title--padded-bottom featured-item__title-@additionalClasses">@Model.Profile.Title</h2>
+                <h3 class="featured-item__title featured-item__title--padded-bottom featured-item__title-@additionalClasses">@Model.Profile.Title</h3>
                 
                 <div class="profile-tag-parser-content profile-tag-parser-content-banner">
                     <p class="profile-tag-parser-content__subTitle profile-banner__subTitle">@Model.Profile.Subtitle</p>
@@ -52,22 +40,11 @@
 else
 {
     <div class="featured-item__link featured-item__link-@additionalClasses" data-cy="featured-item-link">
-        <img srcset="@Model.Profile.Image.Url?w=720&q=89&fm=webp 720w,
-                            @Model.Profile.Image.Url?w=937&q=89&fm=webp 937w,
-                            @Model.Profile.Image.Url?w=452&q=89&fm=webp 452w"
-             sizes="(max-width: 767px) 720px,
-                            ((min-width: 768px) and (max-width: 1023px)) 937px,
-                            (min-width: 1024px) 452px"
-             src="@Model.Profile.Image?w=937&q=89"
-             class="featured-item__image featured-item__image-@additionalClasses"
-             loading="lazy"
-             alt="@altText"
-             width="433"
-             height="293">
+        <partial name="FeaturedItemImage" model="@Model.Profile.Image.Url" view-data='@(new ViewDataDictionary(ViewData) { {"imageAdditionalClasses", "profile-banner"}, {"altText", altText} })'/>
         
         <div class="featured-item-content featured-item-content-@additionalClasses @pseudoBorderColour @borderColour">
             <div class="featured-item-wrapper">
-                <h2 class="featured-item__title featured-item__title--padded-bottom featured-item__title-@additionalClasses @contentNoBody">@Model.Profile.Title</h2>
+                <h3 class="featured-item__title featured-item__title--padded-bottom featured-item__title-@additionalClasses @contentNoBody">@Model.Profile.Title</h3>
                 
                 <div class="profile-tag-parser-content profile-tag-parser-content-banner">
                     <p class="profile-tag-parser-content__subTitle profile-banner__subTitle">@Model.Profile.Subtitle</p>

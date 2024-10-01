@@ -4,7 +4,6 @@
     bool isDefaultColourScheme = Model.IsDefaultColourScheme 
         || Model.ColourScheme is EColourScheme.Orange;
     
-    string borderBottomColour = @Model.BorderColourClass ?? string.Empty;
     string buttonColour = !isDefaultColourScheme
         ? $"btn-{@CssClassMapper.GetBoldCssClass(Model.ColourScheme)} btn-{@CssClassMapper.GetBoldCssClass(Model.ColourScheme)}-outline" 
         : "find-out-more-banner__button";
@@ -16,8 +15,9 @@
                 {
                     <div class="find-out-more-banner">
                         <div class="find-out-more-banner-content">
-                            <h2 class="section__title find-out-more-banner__title section__title--margin-bottom @borderBottomColour">@contentBlock.Title</h2>
+                            <h2 class="section__title find-out-more-banner__title section__title--margin-bottom @Model.BorderColourClass">@contentBlock.Title</h2>
                             <p class="find-out-more-banner__teaser">@contentBlock.Teaser</p>
+    
                             <a href="@contentBlock.NavigationLink" class="btn btn--width-30 btn--chevron-forward btn--bold btn--chevron-bold @buttonColour" data-cy="find-out-more-link">
                                 <span class="btn_text">Find out more</span>
                             </a>
