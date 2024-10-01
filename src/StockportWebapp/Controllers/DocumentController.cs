@@ -25,6 +25,6 @@ public class DocumentController : Controller
 
         ViewBag.CurrentUrl = Request?.GetDisplayUrl();
 
-        return View("Index2024", viewModel);
+        return View(viewModel);
     }
 }
