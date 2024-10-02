@@ -3,6 +3,7 @@
     string contentNoImageClass = string.IsNullOrEmpty(Model.Profile.Image.Url) ? "profile-tag-parser-content--no-image" : string.Empty;
     string contentNoBody = !string.IsNullOrEmpty(Model.Profile.Body) ? "profile-tag-parser-content__read-more" : string.Empty;
     string contentBodyNoImage = !string.IsNullOrEmpty(Model.Profile.Body) && string.IsNullOrEmpty(Model.Profile.Image.Url) ? "profile-tag-parser-content__read-more--no-margin" : string.Empty;
+    string additionalClasses = (string)ViewData["additionalClasses"] ?? string.Empty;
 }
 
 @if(!string.IsNullOrEmpty(Model.Profile.Image.Url))
@@ -14,12 +15,12 @@
     <h2 class="profile-tag-parser-content__title @contentNoBody @contentBodyNoImage">@Model.Profile.Title</h2>
     <p class="profile-tag-parser-content__subTitle">@Model.Profile.Subtitle</p>
     
-    <span class="fa-solid fa-quote-left profile-tag-parser-quote"></span>
-    <span class="fa-solid fa-quote-right profile-tag-parser-quote--rtl"></span>
+    <span class="fa-solid fa-quote-left profile-tag-parser-quote @additionalClasses"></span>
+    <span class="fa-solid fa-quote-right profile-tag-parser-quote--rtl @additionalClasses"></span>
 
     <p class="profile-tag-parser-content__teaser">@Model.Profile.Teaser</p>
-    <span class="fa-solid fa-quote-right profile-tag-parser-quote"></span>
-    <span class="fa-solid fa-quote-left profile-tag-parser-quote--rtl"></span>
+    <span class="fa-solid fa-quote-right profile-tag-parser-quote @additionalClasses"></span>
+    <span class="fa-solid fa-quote-left profile-tag-parser-quote--rtl @additionalClasses"></span>
 
     @if(!string.IsNullOrEmpty(Model.Profile.Body))
     {

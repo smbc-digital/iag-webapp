@@ -86,6 +86,10 @@
         &--rtl {
             display: none !important;
         }
+
+        &--black {
+            color: $stockport-black;
+        }
     }
 
     &--pink {
