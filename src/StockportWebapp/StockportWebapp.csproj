@@ -18,7 +18,6 @@
     <None Include="node_modules\**\*" CopyToPublishDirectory="PreserveNewest" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="AWSSDK.S3" Version="3.7.403.6" />
     <PackageReference Include="AWSSDK.SecretsManager" Version="3.7.400.27" />
     <PackageReference Include="Kralizek.Extensions.Configuration.AWSSecretsManager" Version="1.7.0" />
     <PackageReference Include="Markdig" Version="0.37.0" />
