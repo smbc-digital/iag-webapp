@@ -17,7 +17,7 @@ public class ShowcaseFactoryTest
     public void ShouldSetTheCorrespondingFieldsForAProcessedShowcase()
     {
         // Arrange
-        var showcase = new ShowcaseBuilder()
+        Showcase showcase = new ShowcaseBuilder()
             .Title("test title")
             .Slug("test_slug")
             .Teaser("test teaser")
@@ -28,14 +28,14 @@ public class ShowcaseFactoryTest
             .Breadcrumbs(new List<Crumb> { new Crumb("test link", "test title", "test type") })
             .FeaturedItems(new List<SubItem>
                 {
-                    new SubItem("slug","title", "icon", "teaser", "link", "image-url.jpg", new List<SubItem>(), "teal")
+                    new("slug","title", "icon", "teaser", "link", "image-url.jpg", new List<SubItem>(), EColourScheme.Teal)
                 })
             .Build();
 
-        var _showcaseFactory = new ShowcaseFactory(_tagParserContainer.Object, _markdownWrapper.Object, _triviaFactory.Object);
+        ShowcaseFactory _showcaseFactory = new(_tagParserContainer.Object, _markdownWrapper.Object, _triviaFactory.Object);
 
         // Act
-        var processedShowcase = _showcaseFactory.Build(showcase);
+        ProcessedShowcase processedShowcase = _showcaseFactory.Build(showcase);
 
         // Assert   
         processedShowcase.Should().BeEquivalentTo(showcase);

@@ -3,6 +3,10 @@
     padding: 5px 0;
     margin-bottom: 0;
 
+    &-teal {
+        background-color: $stockport-green;
+    }
+
     li {
         display: inline-block;
         margin-inline-start: 0;
@@ -62,8 +66,48 @@
     }
 }
 
+.landing-breadcrumb-container {
+    padding-block: 20px;
+}
+
 .directories-breadcrumb-container {
     padding-top: 20px;
+
+        &--teal {
+        background-color: $teal;
+
+            li {
+                color: white;
+
+                a {
+                color: white;  
+                }
+            }
+        }
+
+        &--grey {
+            background-color: $stockport-dark-grey;
+
+            li {
+                color: white;
+    
+                a {
+                  color: white;  
+                }
+            }
+        }
+
+        &--one-stockport-purple {
+            background-color: $one-stockport-purple;
+
+            li {
+                color: white;
+    
+                a {
+                  color: white;  
+                }
+            }
+        }
 }
 
 html[dir="rtl"] {

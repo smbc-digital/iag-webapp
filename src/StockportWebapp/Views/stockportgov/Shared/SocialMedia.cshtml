@@ -1,0 +1,39 @@
+﻿@model ContentBlock
+@if (Model is not null && Model.SubItems?.Any() is true)
+{
+    <section class="section section--white" data-cy="social-media">
+        <div class="grid-container">
+            <div class="grid-100">
+                @if(!string.IsNullOrEmpty(Model.Title))
+                {
+                    <div class="social-media__title">
+                        <h2 class="section__title section__title--no-padding section__title--margin-bottom">@Model.Title</h2>
+                        <hr />
+                    </div>
+                }
+
+                <ul class="social-media">
+                    @foreach(ContentBlock contentBlock in Model.SubItems)
+                    {
+                        <li class="social-media__container @Model.SolidBackgroundColourClass">
+                            @{
+                                bool isEmailOrPhone = contentBlock.Link.StartsWith("mailto:") || contentBlock.Link.StartsWith("tel:");
+                                string target = isEmailOrPhone ? string.Empty : "target=_blank";
+                            }
+                            <a href="@contentBlock.Link" aria-label="@contentBlock.ScreenReader" @target data-cy="social-media-link">
+                                @if (!string.IsNullOrEmpty(contentBlock.Icon))
+                                {
+                                    <div class="social-media__icon">
+                                        <span class="fa fa-2x @contentBlock.Icon"></span>
+                                    </div>
+                                }
+
+                                @contentBlock.Title
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </section>
+}

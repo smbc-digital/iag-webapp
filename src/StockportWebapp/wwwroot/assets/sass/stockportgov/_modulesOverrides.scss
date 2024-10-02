@@ -41,9 +41,25 @@
 @import "modules/directoryPagination";
 @import "modules/mapPin";
 
+// landing pages
+@import "modules/themeUtilities";
+@import "modules/landingPage";
+@import "modules/statementBanner";
+@import "modules/framedHeader";
+@import "modules/fullHeader";
+@import "modules/trivia";
+@import "modules/findOutMore";
+@import "modules/subscriptionBanner";
+@import "modules/imageBanner";
+@import "modules/video";
+@import "modules/eventCards";
+@import "modules/newsBanner";
+@import "modules/profileBanner";
+@import "modules/profileCards";
+@import "modules/socialMedia";
+
 //Tag Parsers
 @import "modules/alertInline";
-@import "modules/tagParserVideo";
 @import "modules/tagParserLeaflet";
 @import "modules/tagParserDocument"; 
 @import "modules/tagParserProfile";

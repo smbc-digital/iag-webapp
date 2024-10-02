@@ -1,0 +1,30 @@
+﻿@model ContentBlock
+@if (Model is not null && Model.SubItems?.Any() is true)
+{
+    string borderColour = Model.IsDefaultColourScheme
+        ? string.Empty
+        : Model.BorderColourClass;
+
+    <section class="section section--white" data-cy="profile-cards">
+        <div class="grid-container">
+            <div class="grid-100">
+                @if (!string.IsNullOrEmpty(Model.Title))
+                {
+                    <div class="profile-card__heading">
+                        <h2 class="section__title section__title--no-padding section__title--margin-bottom">@Model.Title</h2>
+                        <hr />
+                    </div>
+                }
+
+                <div class="section__content">
+                    <ul class="navcard-wrapper navcard-wrapper--no-margin">
+                        @foreach (ContentBlock contentBlock in Model.SubItems)
+                        {
+                            <partial name="ProfileCard" model="@contentBlock" view-data="@(new ViewDataDictionary(ViewData) {{"BorderColourClass", borderColour}})" />
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+}

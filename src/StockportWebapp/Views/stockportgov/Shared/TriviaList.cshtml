@@ -1,0 +1,45 @@
+﻿@model ContentBlock
+@if (Model is not null && Model.SubItems?.Any() is true)
+{
+    <section class="section section--white" data-cy="trivia-list">
+        <div class="grid-container">
+            <div class="grid-100">
+                @if(!string.IsNullOrEmpty(Model.Title))
+                {
+                    <div class="trivia-title">
+                        <h2 class="section__title section__title--no-padding section__title--margin-bottom">@Model.Title</h2>
+                        <hr />
+                    </div>
+                }
+
+                <ul class="trivia__list @(string.IsNullOrEmpty(Model.Title) ? "trivia__list--no-margin" : string.Empty)">
+                    @foreach(ContentBlock contentBlock in Model.SubItems)
+                    {
+                        <li class="trivia__container">
+                            @if(!string.IsNullOrEmpty(contentBlock.Link))
+                            {
+                                <a href="@contentBlock.Link" class="trivia__link" data-cy="trivia-list-link">
+                                    <span class="@contentBlock.Icon trivia__icon @Model.TextColourClass"></span>
+                                    
+                                    <div class="trivia__body" data-cy="trivia-list-body">
+                                        @Html.Raw(contentBlock.Body)
+                                    </div>
+                                </a>
+                            }
+                            else
+                            {
+                                <div class="trivia__text" data-cy="trivia-list-text">
+                                    <span class="@contentBlock.Icon trivia__icon @Model.TextColourClass"></span>
+                                    
+                                    <div class="trivia__body" data-cy="trivia-list-body">
+                                        @Html.Raw(contentBlock.Body)
+                                    </div>
+                                </div>
+                            }
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </section>
+}

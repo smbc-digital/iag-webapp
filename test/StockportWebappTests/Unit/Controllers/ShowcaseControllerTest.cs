@@ -4,20 +4,17 @@ public class ShowcaseControllerTest
 {
     private readonly ShowcaseController _controller;
 
-    private readonly Mock<IProcessedContentRepository> _mockContentRepository = new Mock<IProcessedContentRepository>();
+    private readonly Mock<IProcessedContentRepository> _mockContentRepository = new();
 
-    public ShowcaseControllerTest()
-    {
-        _controller = new ShowcaseController(_mockContentRepository.Object, new Mock<IApplicationConfiguration>().Object);
-    }
+    public ShowcaseControllerTest() => _controller = new ShowcaseController(_mockContentRepository.Object, new Mock<IApplicationConfiguration>().Object);
 
     [Fact]
     public async Task ItReturnsShowcaseWithProcessedBody()
     {
         const string showcaseSlug = "showcase-slug";
-        var alerts = new List<Alert> {new Alert("title", "subHeading", "body", Severity.Information, new DateTime(0001, 1, 1, 0, 0, 0, DateTimeKind.Utc),
-                                                             new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc), string.Empty, false, string.Empty)};
-        var showcase = new ProcessedShowcase(
+        List<Alert> alerts = new() { new("title", "subHeading", "body", Severity.Information, new DateTime(0001, 1, 1, 0, 0, 0, DateTimeKind.Utc),
+                                        new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc), string.Empty, false, string.Empty) };
+        ProcessedShowcase showcase = new(
             "Test showcase",
             showcaseSlug,
             "showcase teaser",
@@ -35,37 +32,38 @@ public class ShowcaseControllerTest
             "af981b9771822643da7a03a9ae95886f/picture.jpg",
             new List<SubItem>
             {
-                new SubItem("slug",
+                new("slug",
                     "title",
                     "teaser",
                     "icon",
                     "type",
                     "image.jpg",
-                    new List<SubItem>(), "teal")
+                    new List<SubItem>(),
+                    EColourScheme.Teal)
             },
             new List<Crumb>
             {
-                new Crumb("title", "slug", "type")
+                new("title", "slug", "type")
             },
-            "",
+            string.Empty,
             new List<SocialMediaLink>(),
             new List<Event>(),
             "email alerts topic id",
             "emailAlertsText",
             alerts,
             new List<SubItem>(),
-            "",
+            string.Empty,
             new List<SubItem>(),
             null,
             null,
             new CallToActionBanner(),
             new FieldOrder(),
             "fa-icon",
-            "",
+            string.Empty,
             null,
-            "",
-            "",
-            "",
+            string.Empty,
+            string.Empty,
+            string.Empty,
             new Video(),
             new SpotlightBanner("test", "test", "test"));
 
@@ -73,8 +71,8 @@ public class ShowcaseControllerTest
             .Setup(_ => _.Get<Showcase>(It.IsAny<string>(), It.IsAny<List<Query>>()))
             .ReturnsAsync(new HttpResponse(200, showcase, string.Empty));
 
-        var showcasePage = await _controller.Showcase(showcaseSlug) as ViewResult; ;
-        var processedShowcase = showcasePage.Model as ProcessedShowcase;
+        ViewResult showcasePage = await _controller.Showcase(showcaseSlug) as ViewResult; ;
+        ProcessedShowcase processedShowcase = showcasePage.Model as ProcessedShowcase;
 
         processedShowcase.Title.Should().Be("Test showcase");
         processedShowcase.Slug.Should().Be("showcase-slug");
@@ -95,7 +93,7 @@ public class ShowcaseControllerTest
             .Setup(_ => _.Get<Showcase>(It.IsAny<string>(), It.IsAny<List<Query>>()))
             .ReturnsAsync(new HttpResponse((int)HttpStatusCode.NotFound, null, string.Empty));
 
-        var response = await _controller.Showcase("not-found-slug") as HttpResponse; ;
+        HttpResponse response = await _controller.Showcase("not-found-slug") as HttpResponse; ;
 
         response.StatusCode.Should().Be((int)HttpStatusCode.NotFound);
     }
@@ -107,7 +105,7 @@ public class ShowcaseControllerTest
             .Setup(_ => _.Get<Showcase>(It.IsAny<string>(), It.IsAny<List<Query>>()))
             .ReturnsAsync(new HttpResponse((int)HttpStatusCode.NotFound, null, string.Empty));
 
-        var response = await _controller.Showcase("not-found-slug") as HttpResponse; ;
+        HttpResponse response = await _controller.Showcase("not-found-slug") as HttpResponse; ;
 
         response.StatusCode.Should().Be((int)HttpStatusCode.NotFound);
     }

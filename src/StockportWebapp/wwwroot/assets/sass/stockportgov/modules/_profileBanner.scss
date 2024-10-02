@@ -1,0 +1,49 @@
+.profile-banner {
+    margin-bottom: 0;
+
+    @media #{$mobile} {
+        &-button {
+            margin-inline: 5px;
+        }
+    }
+
+    &-container {
+        margin-top: 2em;
+        margin-bottom: 2em;
+    }
+
+    &-title {
+        text-align: center;
+        text-align: -webkit-center;
+        text-align: -moz-center;
+
+        hr {
+            width: 20%;
+            margin-top: 0;
+
+            @media #{$mobile} {
+                width: 40%;
+            }
+
+            @media #{$tablet} {
+                width: 30%;
+            }
+        }
+    }
+
+    &__subTitle {
+        font-size: 1em !important;
+    }
+
+    &__teaser {
+        @include lead;
+    }
+
+    &__quote {
+        font-size: 1.2em !important;
+    }
+}
+
+.border-pseudo-colour-orange::after, .border-colour-orange {
+    border-color: $stockport-orange !important;
+}

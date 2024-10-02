@@ -1,0 +1,37 @@
+@model ContentBlock
+@{
+    string borderColourClass = (string)ViewData["BorderColourClass"] ?? string.Empty;
+}
+
+@if (!string.IsNullOrEmpty(Model.Body))
+{
+    <li class="navcard navcard--width-33 navcard--center navcard profile-card @borderColourClass">
+        <a href="@Url.Action("Index", "Profile", new { slug = Model.Slug })" class="navcard__link profile-card__link" data-cy="profile-card-link">
+            <div class="navcard__content">
+                <partial name="NavCardImage" model="@Model.Image" view-data='@(new ViewDataDictionary(ViewData) { {"imageAdditionalClasses", "profile-card__image"} })'/>
+
+                <div class="profile-card--padding">
+                    <h3 class="navcard__title profile-card__title">@Model.Title</h3>
+                    <div class="navcard__teaser">
+                        @Model.Teaser
+                    </div>
+                </div>
+            </div>
+        </a>
+    </li>
+}
+else
+{
+    <li class="navcard navcard--width-33 navcard--center navcard profile-card @borderColourClass">
+        <div class="navcard__content">
+            <partial name="NavCardImage" model="@Model.Image" view-data='@(new ViewDataDictionary(ViewData) { {"imageAdditionalClasses", "profile-card__image"} })'/>
+
+            <div class="profile-card--padding">
+                <h3 class="navcard__title profile-card__title profile-card--no-decoration">@Model.Title</h3>
+                <div class="navcard__teaser">
+                    @Model.Teaser
+                </div>
+            </div>
+        </div>
+    </li>
+}

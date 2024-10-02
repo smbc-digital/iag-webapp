@@ -1,6 +1,10 @@
 ﻿@model IEnumerable<Crumb>
+@{
+    string backgroundColour = (string)ViewData["backgroundColour"];
+    string landingBreadcrumb = (string)ViewData["landingBreadcrumb"];
+}
 
-<nav class="directories-breadcrumb-container" aria-label="Breadcrumb" data-cy="breadcrumb-navigation">
+<nav class="directories-breadcrumb-container @landingBreadcrumb @backgroundColour" aria-label="Breadcrumb" data-cy="breadcrumb-navigation">
     <div class="grid-container">
         <div class="grid-100">
             <ul class="breadcrumb">

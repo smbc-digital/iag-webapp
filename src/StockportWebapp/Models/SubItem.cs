@@ -1,5 +1,6 @@
 namespace StockportWebapp.Models;
 
+[ExcludeFromCodeCoverage]
 public class SubItem
 {
     public readonly string Slug;
@@ -9,10 +10,10 @@ public class SubItem
     public readonly string Type;
     public readonly string NavigationLink;
     public readonly string Image;
-    public string ColourScheme;
+    public EColourScheme ColourScheme;
     public readonly List<SubItem> SubItems;
 
-    public SubItem(string slug, string title, string teaser, string icon, string type, string image, List<SubItem> subItems, string colourScheme)
+    public SubItem(string slug, string title, string teaser, string icon, string type, string image, List<SubItem> subItems, EColourScheme colourScheme)
     {
         Slug = slug;
         Title = title;

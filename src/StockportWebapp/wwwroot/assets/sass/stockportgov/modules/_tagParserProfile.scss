@@ -21,10 +21,11 @@
         width: 40%;
         height: auto;
         object-fit: cover;
-        border-radius: 50px 3px 50px 3px;
+        border-radius: 50px 3px;
 
         @media #{$mobile} {
             width: 100%;
+            border-radius: 30px 3px;
         }
     }
 
@@ -57,6 +58,11 @@
             text-decoration: underline;
             display: block;
             margin-top: 2em;
+
+            
+            &--no-margin {
+                margin-top: 0;
+            }
         }
 
         &--no-image {
@@ -65,6 +71,11 @@
             @media #{$mobile} {
                 margin-top: 0;
             }
+        }
+
+        &-banner {
+            width: 100%;
+            margin-top: 0;
         }
     }
 
@@ -88,6 +99,10 @@
     &--teal {
         border-inline-start: 0.55em solid $stockport-teal;
     }
+
+    &--one-stockport-purple {
+        border-inline-start: 0.55em solid $one-stockport-purple;
+    }
 }
 
 html[dir="rtl"] {
@@ -99,6 +114,15 @@ html[dir="rtl"] {
                 display: inline-block !important;
                 color: $stockport-green;
                 font-size: 1em;
+            }
+        }
+
+        &__image {
+            border-radius: 3px 50px;
+    
+            @media #{$mobile} {
+                width: 100%;
+                border-radius: 3px 30px;
             }
         }
     }

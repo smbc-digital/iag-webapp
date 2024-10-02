@@ -13,7 +13,7 @@ public class TopicFactory
 
     public virtual ProcessedTopic Build(Topic topic)
     {
-        var summary = _markdownWrapper.ConvertToHtml(topic.Summary ?? "");
+        string summary = _markdownWrapper.ConvertToHtml(topic.Summary ?? "");
         summary = _tagParserContainer.ParseAll(summary, topic.Title);
 
         // 02/11 Hotfix to maintain backwards compatibility 

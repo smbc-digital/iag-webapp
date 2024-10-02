@@ -49,6 +49,16 @@
             min-height: 200px;
             max-height: 300px
         }
+
+        &-profile-banner {
+            border-top-left-radius: 50px !important;
+            border-bottom-right-radius: 50px !important;
+
+            @media #{$tablet} {
+                border-top-left-radius: 30px !important;
+                border-bottom-right-radius: 30px !important;
+            }
+        }
     }
 
     &__link {
@@ -61,9 +71,19 @@
             justify-content: space-between;
         }
 
+        @media #{$desktop} {
+            &-news-banner {
+                margin-bottom: 2em !important;
+            }
+        }
+
         &:hover {
-            .featured-item__title {
+            .featured-item__title, .featured-item-read-more {
                 text-decoration-thickness: 3px;
+            }
+
+            .featured-item--no-decoration {
+                text-decoration-thickness: 1px; 
             }
         }
     }
@@ -72,10 +92,15 @@
         @include h-s;
         color: $stockport-green;
         text-decoration: underline;
+        text-decoration-thickness: 1px;
         margin: 0;        
 
         &--padded-bottom {
             padding-bottom: 0.75em;
+        }
+
+        &-profile-banner {
+            @include h-l;
         }
     }
 
@@ -142,6 +167,20 @@
             height: auto;
             width: 60%;
             padding: 1.5em;
+            
+            &-profile-banner {
+                &::after {
+                    left: 0 !important;
+                }
+            }
+
+            &-news-banner {
+                align-self: center;
+            }
+
+            &-profile-banner {
+                padding-left: 1.5em !important;
+            }
 
             &::after {
                 content: "";
@@ -151,6 +190,10 @@
                 width: calc(100% - 1em);
                 left: 1em;
                 border-radius: 0 0 3px 0;
+            }
+
+            &-profile-banner::after {
+                width: calc(100% - 2em);
             }
         }
 
@@ -165,6 +208,10 @@
             margin: 0;
             border-radius: 0 0 3px 3px;
             margin-bottom: 1em;
+
+            &-news-banner {
+                margin-bottom: 2em;
+            } 
         }
     }
 
@@ -178,6 +225,15 @@
 
     &-wrapper {
         height: 100%;
+
+        &-news-banner {
+            margin-top: 1em;
+        }
+    }
+
+    &--no-decoration {
+        text-decoration: none;
+        color: $stockport-black;
     }
 }
 
@@ -211,6 +267,30 @@ html[dir="rtl"] {
         &__image {
             @media #{$desktop} {
                 border-radius: 0 3px 3px 0;
+            }
+
+            &-profile-banner {
+                border-top-right-radius: 50px !important;
+                border-bottom-left-radius: 50px !important;
+                border-top-left-radius: 3px !important;
+                border-bottom-right-radius: 3px !important;
+    
+                @media #{$tablet} {
+                    border-top-right-radius: 30px !important;
+                    border-bottom-left-radius: 30px !important;
+                    border-top-left-radius: 3px !important;
+                    border-bottom-right-radius: 3px !important;
+                }
+            }
+        }
+
+        &-content {
+            @media #{$desktop} {
+                &-news-banner, &-profile-banner {
+                    &::after {
+                        right: 0 !important;
+                    }
+                }
             }
         }
 

@@ -31,10 +31,14 @@ public class TypeRoutes
                 return "/sia";
             case "privacy-notices":
                 return $"/privacy-notices/{slug}";
+            case "documentPage":
+                return $"/documents/{slug}";
             case "directory":
                 return slug.StartsWith("/directories/") 
                         ? slug 
                         : $"/directories/{slug}";
+            case "landingPage":
+                return $"/landing/{slug}";
             default:
                 return $"/{slug}";
         }

@@ -1,0 +1,58 @@
+@model ContentBlock
+@if (Model is not null && !string.IsNullOrEmpty(Model.Image))
+{
+    <section class="section image-banner image-banner-content-width" data-cy="image-banner-content-width">
+        <div class="grid-container">
+            <div class="grid-100">
+                @if (!string.IsNullOrEmpty(Model.Href))
+                {
+                    <a @Model.Href>
+                        <img class="image-banner__background"
+                             src="@Model.Image?w=1240&q=89"
+                             srcset="@Model.Image?w=720&q=89&fm=webp 720w,
+                                    @Model.Image?w=967&q=89&fm=webp 967w,
+                                    @Model.Image?w=1240&q=89&fm=webp 1240w"
+                             sizes="(max-width: 767px) 720px,
+                                    ((min-width: 768px) and (max-width: 1023px)) 937px,
+                                    (min-width: 1024px) 1240px"
+                             loading="lazy"
+                             alt="">
+
+                        @if (!string.IsNullOrEmpty(Model.Body))
+                        {
+                            <div class="image-banner__content @Model.ImageBannerOverlayTheme">
+                                <h2 class="image-banner__title">@Model.Title</h2>
+                                @Html.Raw(Model.Body)
+                            </div>
+                        }
+                        else
+                        {
+                            <span class="visuallyhidden">@Model.Title</span>
+                        }
+                    </a>
+                }
+                else
+                {
+                    <img class="image-banner__background"
+                         src="@Model.Image?w=1240&q=89"
+                         srcset="@Model.Image?w=720&q=89&fm=webp 720w,
+                                @Model.Image?w=967&q=89&fm=webp 967w,
+                                @Model.Image?w=1240&q=89&fm=webp"
+                         sizes="(max-width: 767px) 720px,
+                                ((min-width: 768px) and (max-width: 1023px)) 937px,
+                                (min-width: 1024px) 1240px"
+                         loading="lazy"
+                         alt="">
+
+                    @if (!string.IsNullOrEmpty(Model.Body))
+                    {
+                        <div class="image-banner__content @Model.ImageBannerOverlayTheme">
+                            <h2 class="image-banner__title">@Model.Title</h2>
+                            @Html.Raw(Model.Body)
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </section>
+}

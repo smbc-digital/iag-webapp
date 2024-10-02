@@ -7,15 +7,15 @@ public class Trivia
 
     public string Icon { get; set; }
 
-    public string Text { get; set; }
+    public string Body { get; set; }
 
     public string Link { get; set; }
 
-    public Trivia(string name, string icon, string text, string link)
+    public Trivia(string name, string icon, string body, string link)
     {
         Name = name;
         Icon = icon;
-        Text = text;
+        Body = body;
         Link = link;
     }
 }

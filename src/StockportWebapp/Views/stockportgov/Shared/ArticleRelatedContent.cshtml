@@ -21,7 +21,7 @@
                     ? $"{borderGrey} navcard--border-bottom-1 navcard--radius-bottom-left navcard--radius-bottom-right" 
                     : borderGrey)">
 
-                    <partial name="ArticleNavCard" model='item' view-data='item.Equals(Model.RelatedContent.Last()) ? new ViewDataDictionary(ViewData) {{ "navcardPadding", " navcard--padding-bottom" }} : null' />
+                    <partial name="SidebarNavCard" model='item' view-data='item.Equals(Model.RelatedContent.Last()) ? new ViewDataDictionary(ViewData) {{ "navcardPadding", " navcard--padding-bottom" }} : null' />
                 </div>
             </li>
         }

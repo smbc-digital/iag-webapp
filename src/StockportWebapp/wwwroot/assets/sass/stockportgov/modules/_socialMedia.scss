@@ -1,0 +1,97 @@
+.social-media {
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    &__title {
+        text-align: center;
+        text-align: -webkit-center;
+        text-align: -moz-center;
+
+        hr {
+            width: 20%;
+            margin-top: 0;
+
+            @media #{$mobile} {
+                width: 40%;
+                margin-bottom: 1em;
+            }
+
+            @media #{$tablet} {
+                width: 30%;
+            }
+        }
+    }
+
+    &__container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: calc(33.3333% - 10px);
+        margin: 7.5px;
+        box-sizing: border-box;
+        background-color: $stockport-teal-darker;
+        color: white;
+        text-align: center;
+        border-radius: 3px;
+        
+        @media #{$mobile} {
+            width: 100%;
+            margin-inline: 0;
+        }
+
+        a {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            color: white;
+            width: 100%;
+            padding: 1em;
+            word-break: break-word;
+            height: 100%;
+            box-sizing: border-box;
+        }
+
+        &:nth-child(3n+1) {
+            margin-inline-start: 0;
+        }
+
+        &:nth-child(3n) {
+            margin-inline-end: 0;
+        }
+
+        &:nth-child(6n + 1) {
+            background-color: $stockport-teal-darker;
+        }
+
+        &:nth-child(6n + 2) {
+            background-color: $stockport-pink;
+        }
+
+        &:nth-child(6n + 3) {
+            background-color: $stockport-purple;
+        }
+
+        &:nth-child(6n + 4) {
+            background-color: $stockport-blue;
+        }
+
+        &:nth-child(6n + 5) {
+            background-color: $stockport-green;
+        }
+
+        &:nth-child(6n + 6) {
+            background-color: $stockport-grey;
+        }
+    }
+
+    &__icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-inline-end: 0.5em;
+    }
+}

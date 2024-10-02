@@ -1,0 +1,46 @@
+﻿@model ContentBlock
+@if (Model is not null && Model.NewsArticle is not null && !string.IsNullOrEmpty(Model.NewsArticle.Image))
+{
+    SpotlightOnBanner newsBanner = new(
+        Model.NewsArticle.Title,
+        Model.NewsArticle.Image,
+        string.Empty,
+        Model.NewsArticle.Teaser,
+        Url.Action("Detail", "News", new {slug = Model.NewsArticle.Slug}),
+        Model.NewsArticle.UpdatedAt
+    );
+
+    string associatedTagCategoryLower = Model.AssociatedTagCategory?.ToLower();
+    string viewMoreUrl = Model.UseTag 
+        ? Url.Action("Index", "News", new {tags = associatedTagCategoryLower}) 
+        : Url.Action("Index", "News", new {category = associatedTagCategoryLower});
+
+    <section class="section section--white news-banner" data-cy="news-banner">
+        <div class="grid-container">
+            <div class="grid-100">
+                <div class="news-banner-container">
+                    <div class="news-banner-title">
+                        <div class="news-banner-title-container">
+                            <h2 class="section__title section__title--no-padding section__title--margin-bottom">@Model.Title</h2>
+                            <hr />
+                        </div>
+
+                        <a href="@viewMoreUrl" class="hide-on-mobile hide-on-tablet">
+                            View more @associatedTagCategoryLower news
+                        </a>
+                    </div>
+                    
+                    <div class="featured-item-container">
+                        <partial name="FeaturedItem" model="@newsBanner" view-data='@(new ViewDataDictionary(ViewData){ {"additionalClasses", "news-banner"}, {"pseudoBorderColour", "border-pseudo-colour-none"}, {"borderColour", "border-colour-none"} })' />
+                    </div>
+
+                    <div class="news-banner-button">
+                        <a href="@viewMoreUrl" class="hide-on-desktop btn btn--inverse btn--width-30 btn--chevron-forward btn--bold btn--chevron-bold btn--outline">
+                            View more @associatedTagCategoryLower news
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+}

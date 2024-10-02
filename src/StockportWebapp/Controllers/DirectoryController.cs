@@ -15,13 +15,13 @@ public class DirectoryController : Controller
     [Route("/directories/{**slug}")]
     public async Task<IActionResult> Directory([Required]string slug)
     {
-        var pageLocation = slug.ProcessAsWildcardSlug();
-        var directory = await _directoryService.Get<Directory>(pageLocation.Slug);
+        PageLocation pageLocation = slug.ProcessAsWildcardSlug();
+        Directory directory = await _directoryService.Get<Directory>(pageLocation.Slug);
 
         if (directory is null)
             return NotFound();
-        
-        var parentDirectories = await GetParentDirectories(pageLocation.ParentSlugs);
+
+        List<Directory> parentDirectories = await GetParentDirectories(pageLocation.ParentSlugs);
         DirectoryViewModel viewModel = new(slug, directory, GetBreadcrumbsForDirectories(directory, parentDirectories, false, false))
         {
             ParentDirectory = new DirectoryViewModel(parentDirectories.FirstOrDefault() ?? directory),
@@ -38,18 +38,23 @@ public class DirectoryController : Controller
     [Route("/directories/results/{**slug}")]
     public async Task<IActionResult> DirectoryResults([Required][FromRoute]string slug, string[] filters, string orderBy, string searchTerm, [FromQuery] int page)
     {
-        var pageLocation = slug.ProcessAsWildcardSlug();
-        var directory = await _directoryService.Get<Directory>(pageLocation.Slug);
+        PageLocation pageLocation = slug.ProcessAsWildcardSlug();
+        Directory directory = await _directoryService.Get<Directory>(pageLocation.Slug);
 
         if(directory is null)
             return NotFound();
 
+        List<Directory> parentDirectories = await GetParentDirectories(pageLocation.ParentSlugs);
+        IEnumerable<DirectoryEntry> entries = GetSearchedFilteredSortedEntries(directory.AllEntries, filters, orderBy, searchTerm);
+        IEnumerable<DirectoryEntry> pinnedEntries = entries.Where(entry => directory.PinnedEntries.Any(pinnedEntry => pinnedEntry.Slug.Equals(entry.Slug)));
+        IEnumerable<DirectoryEntry> regularEntries;
 
-        var parentDirectories = await GetParentDirectories(pageLocation.ParentSlugs);
-        var entries = GetSearchedFilteredSortedEntries(directory.AllEntries, filters, orderBy, searchTerm);
-        var pinnedEntries = entries.Where(entry => directory.PinnedEntries.Any(pinnedEntry => pinnedEntry.Slug.Equals(entry.Slug)));
-        var regularEntries = entries.Where(entry => directory.RegularEntries.Any(regularEntry => regularEntry.Slug.Equals(entry.Slug)));
-        var allFilterThemes = _directoryService.GetFilterThemes(entries);
+        if (string.IsNullOrEmpty(orderBy))
+            regularEntries = entries.Where(entry => directory.RegularEntries.Any(regularEntry => regularEntry.Slug.Equals(entry.Slug))).OrderBy(directoryEntry => directoryEntry.Name);
+        else
+            regularEntries = entries.Where(entry => directory.RegularEntries.Any(regularEntry => regularEntry.Slug.Equals(entry.Slug)));
+
+        IEnumerable<FilterTheme> allFilterThemes = _directoryService.GetFilterThemes(entries);
 
         DirectoryViewModel viewModel = new(slug, directory, GetBreadcrumbsForDirectories(directory, parentDirectories, false, true), pinnedEntries, regularEntries, page)
         {
@@ -69,7 +74,7 @@ public class DirectoryController : Controller
     {
         entries = filters.Any()
             ? _directoryService.GetFilteredEntries(entries, filters) 
-            : entries.OrderBy(directoryEntry => directoryEntry.Name);
+            : entries;
 
         if (!string.IsNullOrEmpty(searchTerm))
             entries = _directoryService.GetSearchedEntryForDirectories(entries, searchTerm);
@@ -83,8 +88,8 @@ public class DirectoryController : Controller
     [Route("directories/entry/{**slug}")]
     public async Task<IActionResult> DirectoryEntry([Required]string slug)
     {
-        var pageLocation = slug.ProcessAsWildcardSlug();
-        var directoryEntry = await _directoryService.GetEntry<DirectoryEntry>(pageLocation.Slug);
+        PageLocation pageLocation = slug.ProcessAsWildcardSlug();
+        DirectoryEntry directoryEntry = await _directoryService.GetEntry<DirectoryEntry>(pageLocation.Slug);
 
         if(directoryEntry is null)
             return NotFound();
@@ -111,15 +116,15 @@ public class DirectoryController : Controller
     
     private Crumb GetBreadcrumbForDirectory(Directory directory, IList<Directory> parentDirectories, bool viewLastBreadcrumbAsResults = false)
     {
-        var relativeUrl = string.Join("/", parentDirectories
+        string relativeUrl = string.Join("/", parentDirectories
                                             .Take(parentDirectories.IndexOf(directory) + 1)
                                             .Select(_ => _.Slug));
-        var url = "";
+        string url = "";
         if(parentDirectories.Any())
         {
             url = directory.Equals(parentDirectories[^1]) && viewLastBreadcrumbAsResults
-            ? $"{_defaultUrlPrefix}/results/{relativeUrl}"
-            : $"{_defaultUrlPrefix}/{relativeUrl}";
+                    ? $"{_defaultUrlPrefix}/results/{relativeUrl}"
+                    : $"{_defaultUrlPrefix}/{relativeUrl}";
         }
         else 
         {
@@ -131,8 +136,8 @@ public class DirectoryController : Controller
 
     private Crumb GetBreadcrumbForCurrentDirectory(Directory directory, IList<Directory> parentDirectories)
     {
-        var relativeUrl = string.Join("/", parentDirectories.Select(_ => _.Slug));
-        var url = $"{_defaultUrlPrefix}/{relativeUrl}/{directory.Slug}"; 
+        string relativeUrl = string.Join("/", parentDirectories.Select(_ => _.Slug));
+        string url = $"{_defaultUrlPrefix}/{relativeUrl}/{directory.Slug}"; 
 
         return new Crumb(directory.Title, url, "Directories");
     }
@@ -142,7 +147,7 @@ public class DirectoryController : Controller
         List<Directory> parentDirectories = new();
         foreach (var directorySlug in parentSlugs)
         {
-            var parent = await _directoryService.Get<Directory>(directorySlug);
+            Directory parent = await _directoryService.Get<Directory>(directorySlug);
             if (parent is not null)
                 parentDirectories.Add(parent);
         }

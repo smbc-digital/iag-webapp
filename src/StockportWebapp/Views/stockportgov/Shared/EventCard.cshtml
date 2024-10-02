@@ -1,0 +1,21 @@
+@inject ViewHelpers ViewHelpers
+@model Event
+@if (Model is not null)
+{
+    string borderColourClass = (string)ViewData["BorderColourClass"] ?? string.Empty;
+
+    <li class="navcard navcard--width-33 navcard event-cards">
+        <a href="/events/@Model.Slug" class="navcard__link event-cards__link @borderColourClass" data-cy="event-card-link">
+            <div class="navcard__content">
+                <partial name="NavCardImage" model="@Model.ImageUrl" view-data='@(new ViewDataDictionary(ViewData) { {"imageAdditionalClasses", "event-cards__image"} })'/>
+
+                <div class="event-cards--padding">
+                    <h3 class="navcard__title">@Model.Title</h3>
+                    <p class="navcard__teaser"><strong>@ViewHelpers.FormatEventDate(Model.EventDate, Model.StartTime)</strong></p>
+                    <p class="navcard__teaser">@Model.Teaser</p>
+                    <p class="navcard__teaser"><strong>@Model.Location</strong></p>
+                </div>
+            </div>
+        </a>
+    </li>
+}

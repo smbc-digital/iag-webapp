@@ -1,0 +1,49 @@
+@using StockportWebapp.Models.Enums;
+@model SidebarViewModel
+@{
+    string borderGrey = "navcard--border-left-1 navcard--border-right-1 navcard--theme-grey-accent-all";
+    string liClasses = "navcard navcard--grey navcard--no-margin navcard--no-padding-right-rtl navcard--width-100";
+    string paddingBottom = "navcard--border-bottom-1 navcard--radius-bottom-left navcard--radius-bottom-right";
+}
+
+<nav aria-labelledby="navcard__title">
+    <ul class="navcard navcard-wrapper--no-margin navcard--border-top-10 navcard--no-padding-right-rtl navcard--theme-teal-lighter-top navcard--width-100">
+        <li class="@liClasses">
+            <div class="@borderGrey">
+                <div class="navcard--padding navcard--padding-top navcard--grey">
+                    <h2 class="h-ml h--no-top-margin h--no-bottom-margin" id="navcard__title">Also in @Model.ParentTopicName</h2>
+                </div>
+            </div>
+        </li>
+
+        @foreach (SubItem item in Model.SidebarSubItems)
+        {
+            bool isLastItem = item.Equals(Model.SidebarSubItems.Last()) && !Model.HasMoreButton;
+            <li class="@liClasses">
+                <div class="@borderGrey @(isLastItem ? paddingBottom : null)">
+                    <partial name="SidebarNavCard" model="item"
+                             view-data='isLastItem
+                                ? new ViewDataDictionary(ViewData) {{ "navcardPadding", "navcard--padding-bottom" }}
+                                : null' />
+                </div>
+            </li>
+        }
+
+        @if (Model.HasMoreButton)
+        {
+            <li class="@liClasses">
+                <div class="@borderGrey navcard--border-bottom-1 navcard--radius-bottom-left navcard--radius-bottom-right">
+                    @{
+                        SubItem subItem = new(Model.ParentTopicSlug, @Model.ParentTopicName, Model.ParentTopicTeaser, Model.ParentTopicIcon, "topic", Model.ParentTopicImage, new List<SubItem>(), @EColourScheme.None);
+                    }
+                    <partial name="SidebarNavCard"
+                             model='@subItem'
+                             view-data='@(new ViewDataDictionary(ViewData) {
+                                    {"url", @Url.Action("Index", "Topic", new { topicSlug = Model.ParentTopicSlug })},
+                                    {"hasMoreButton", @Model.HasMoreButton},
+                                    {"navcardPadding", "navcard--padding-bottom"}})' />
+                </div>
+            </li>
+        }
+    </ul>
+</nav>

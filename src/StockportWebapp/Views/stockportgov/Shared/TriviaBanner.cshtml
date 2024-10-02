@@ -1,0 +1,36 @@
+﻿@model ContentBlock
+@if (Model is not null && Model.SubItems.Any() is true)
+{
+    @if (Model.SubItems.Count.Equals(3))
+    {
+        <section class="section section--white" data-cy="trivia-banner">
+            <div class="bg-default-light @Model.BackgroundColourClass trivia-banner__section">
+                <div class="grid-container">
+                    <div class="grid-100">
+                        @if (!string.IsNullOrEmpty(Model.Title))
+                        {
+                            <div class="trivia-title trivia-title-banner">
+                                <h2 class="section__title section__title--no-padding section__title--margin-bottom">@Model.Title</h2>
+                                <hr class="border-colour-default @Model.BorderColourClass"/>
+                            </div>
+                        }
+
+                        <ul class="navcard-wrapper navcard-wrapper--no-margin">
+                            @foreach (ContentBlock contentBlock in Model.SubItems)
+                            {
+                                if (contentBlock.Type.Equals("informationList"))
+                                {
+                                    <partial name="TriviaCard" model="@contentBlock" view-data="@(new ViewDataDictionary(ViewData) { {"BackgroundColourClass", "trivia-banner--background"}, {"BorderClass", string.Empty}, {"TextColourClass", $"text-default {Model.TextColourClass}"}, {"CardType", "trivia-banner"} })" />
+                                }
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    }
+    else if (Model.SubItems.Count > 3)
+    {
+        <partial name="TriviaList" model="@Model" />
+    }
+}

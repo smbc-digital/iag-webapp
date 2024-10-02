@@ -12,7 +12,7 @@ public class TopicControllerTest
 
     public TopicControllerTest()
     {
-        var config = new Mock<IApplicationConfiguration>();
+        Mock<IApplicationConfiguration> config = new();
 
         config.Setup(_ => _.GetEmailAlertsNewSubscriberUrl(BusinessId)).Returns(AppSetting.GetAppSetting("email-alerts-url"));
 
@@ -24,7 +24,7 @@ public class TopicControllerTest
             Teaser = "teaser",
             Icon = "icon",
             Link = "link",
-            Colour = "colour"
+            Colour = EColourScheme.Teal
         };
         _eventBanner = new("title", "teaser", "icon", "link");
         _callToAction = new CallToActionBanner()
@@ -32,23 +32,20 @@ public class TopicControllerTest
             Title = "title",
             AltText = "altText",
             ButtonText = "buttonText",
-            Colour = "colour",
+            Colour = EColourScheme.Teal,
             Image = "image",
             Link = "link",
             Teaser = "teaser"
         };
     }
 
-    public SubItem CreateASubItem(int i)
-    {
-        return new SubItem("sub-topic" + i, "Title" + i, "Teaser", "Icon", "topic", "image", new List<SubItem>(), "teal");
-    }
+    public SubItem CreateASubItem(int i) => new("sub-topic" + i, "Title" + i, "Teaser", "Icon", "topic", "image", new List<SubItem>(), EColourScheme.Teal);
 
     [Fact]
     public async Task Index_ReturnsTopicWithExpectedProperties()
     {
         // Arrange
-        var subItems = Enumerable.Range(0, 1).Select(CreateASubItem).ToList();
+        List<SubItem> subItems = Enumerable.Range(0, 1).Select(CreateASubItem).ToList();
 
         ProcessedTopic topic = new("Name", "slug", "<p>Summary</p>\n", "Teaser", "metaDescription", "Icon", "Image", "Image", null, subItems, null,
             new List<Crumb>(), new List<Alert>(), true, "test-id", _eventBanner, _eventCalendarBanner,
@@ -59,9 +56,9 @@ public class TopicControllerTest
         _repository.Setup(_ => _.Get<ProcessedTopic>(slug)).ReturnsAsync(new HttpResponse(200, topic, string.Empty));
 
         // Act
-        var indexPage = await _controller.Index(slug) as ViewResult;
-        var viewModel = indexPage.ViewData.Model as TopicViewModel;
-        var result = viewModel.Topic;
+        ViewResult indexPage = await _controller.Index(slug) as ViewResult;
+        TopicViewModel viewModel = indexPage.ViewData.Model as TopicViewModel;
+        ProcessedTopic result = viewModel.Topic;
 
         // Assert
         Assert.Equal("Name", result.Name);
@@ -92,7 +89,7 @@ public class TopicControllerTest
     public async Task Index_ReturnsListOfSubItemsByTopic()
     {
         // Arrange
-        var subItems = Enumerable.Range(0, 1).Select(CreateASubItem).ToList();
+        List<SubItem> subItems = Enumerable.Range(0, 1).Select(CreateASubItem).ToList();
 
         ProcessedTopic topic = new("Name", "slug", "<p>Summary</p>", "Teaser", "metaDescription", "Icon", "Image", "Image", null, subItems, null,
           new List<Crumb>(), new List<Alert>(), true, "test-id", _eventBanner, _eventCalendarBanner, string.Empty, true,
@@ -101,10 +98,10 @@ public class TopicControllerTest
         _repository.Setup(_ => _.Get<ProcessedTopic>("healthy-living")).ReturnsAsync(new HttpResponse(200, topic, string.Empty));
 
         // Act
-        var indexPage = await _controller.Index("healthy-living") as ViewResult;
-        var viewModel = indexPage.ViewData.Model as TopicViewModel;
-        var result = viewModel.Topic;
-        var subItem = result.SubItems.FirstOrDefault();
+        ViewResult indexPage = await _controller.Index("healthy-living") as ViewResult;
+        TopicViewModel viewModel = indexPage.ViewData.Model as TopicViewModel;
+        ProcessedTopic result = viewModel.Topic;
+        SubItem subItem = result.SubItems.FirstOrDefault();
 
         // Assert
         Assert.Equal("Title0", subItem.Title);
@@ -123,7 +120,7 @@ public class TopicControllerTest
         _repository.Setup(_ => _.Get<ProcessedTopic>(nonExistentTopic)).ReturnsAsync(new HttpResponse(404, null, "No topic found for 'doesnt-exist'"));
 
         // Act
-        var result = await _controller.Index(nonExistentTopic) as StatusCodeResult;
+        StatusCodeResult result = await _controller.Index(nonExistentTopic) as StatusCodeResult;
 
         // Assert
         Assert.Equal(404, result.StatusCode);
@@ -146,9 +143,9 @@ public class TopicControllerTest
         _repository.Setup(_ => _.Get<ProcessedTopic>("healthy-living")).ReturnsAsync(new HttpResponse(200, topic, string.Empty));
 
         // Act
-        var indexPage = await _controller.Index("healthy-living") as ViewResult;
-        var viewModel = indexPage.ViewData.Model as TopicViewModel;
-        var result = viewModel.Topic;
+        ViewResult indexPage = await _controller.Index("healthy-living") as ViewResult;
+        TopicViewModel viewModel = indexPage.ViewData.Model as TopicViewModel;
+        ProcessedTopic result = viewModel.Topic;
 
         // Assert
         Assert.Single(result.Alerts);
@@ -164,7 +161,7 @@ public class TopicControllerTest
     public async Task Index_Should_CallApiService_IfEventCategoryNotEmpty()
     {
         // Arrange
-        var subItems = Enumerable.Range(0, 1).Select(CreateASubItem).ToList();
+        List<SubItem> subItems = Enumerable.Range(0, 1).Select(CreateASubItem).ToList();
 
         ProcessedTopic topic = new("Name", "slug", "<p>Summary</p>", "Teaser", "metaDescription", "Icon", "Image", "Image", null, subItems, null,
             new List<Crumb>(), new List<Alert>(), true, "test-id", _eventBanner, _eventCalendarBanner, string.Empty, true,

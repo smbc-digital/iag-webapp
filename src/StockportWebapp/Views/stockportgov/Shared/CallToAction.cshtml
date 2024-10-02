@@ -1,20 +1,20 @@
 ﻿@model CallToActionBanner
-@{
-    string containerColourClass = !string.IsNullOrEmpty(Model?.Colour) && !Model.Colour.Equals("Teal") ? $"call-to-action--{Model.Colour.ToLower()}" : String.Empty;
-    string buttonColourClass = !string.IsNullOrEmpty(Model?.Colour) && !Model.Colour.Equals("Teal") ? $"btn--{Model.Colour.ToLower()}" : String.Empty;
+
+@if (Model is not null)
+{
+    string containerColourClass = $"call-to-action-{@CssClassMapper.GetCssClass(Model.Colour)}";
+    string buttonColourClass = $"btn-{@CssClassMapper.GetCssClass(Model.Colour)}";
     string additionalCSS = string.IsNullOrEmpty((string)ViewData["AdditionalCssClass"]) 
                         ? string.Empty 
                         : (string)ViewData["AdditionalCssClass"];
-}
-@if (Model is not null)
-{
+    
     <section class="section section--white @additionalCSS">
         <div class="grid-container">
             <div class="grid-100">
                 <div class="call-to-action section__content @containerColourClass" data-cy="call-to-action">
                     <img src="@Model.Image?w=500&q=89" srcset="@Model.Image?w=500&q=89&fm=webp" class="call-to-action__image" loading="lazy" alt="@Model.AltText" width="452" height="342">
                     <div class="call-to-action-content">
-                        <h3 class="call-to-action-content__title ">@Model.Title</h3>
+                        <h2 class="call-to-action-content__title ">@Model.Title</h2>
                         <p class="call-to-action-content__teaser">@Model.Teaser</p>
                         <a href="@Model.Link" class="btn btn--inverse btn--width-30 btn--chevron-forward btn--bold btn--chevron-bold @buttonColourClass" data-cy="call-to-action-link">
                             <span class="btn_text">@Model.ButtonText</span>
