@@ -1,7 +1,5 @@
 ﻿global using Amazon;
 global using Amazon.Runtime;
-global using Amazon.S3;
-global using Amazon.S3.Model;
 global using Amazon.SimpleEmail;
 global using Amazon.SimpleEmail.Model;
 global using Ical.Net.CalendarComponents;

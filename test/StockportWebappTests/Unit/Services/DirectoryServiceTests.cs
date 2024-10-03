@@ -272,7 +272,7 @@ public class DirectoryServiceTests
             .ReturnsAsync(HttpResponse.Failure(404, It.IsAny<string>()));
 
         // Act & Assert
-        Assert.ThrowsAsync<HttpRequestException>(async () => await _service.Get<Directory>(It.IsAny<string>()));
+        Task<HttpRequestException> task = Assert.ThrowsAsync<HttpRequestException>(async () => await _service.Get<Directory>(It.IsAny<string>()));
     }
 
     [Fact]
@@ -314,7 +314,7 @@ public class DirectoryServiceTests
             .ReturnsAsync(HttpResponse.Failure(404, It.IsAny<string>()));
 
         // Act & Assert
-        Assert.ThrowsAsync<HttpRequestException>(async () => await _service.GetEntry<DirectoryEntry>(It.IsAny<string>()));
+        Task<HttpRequestException> task = Assert.ThrowsAsync<HttpRequestException>(async () => await _service.GetEntry<DirectoryEntry>(It.IsAny<string>()));
     }
 
     [Fact]
