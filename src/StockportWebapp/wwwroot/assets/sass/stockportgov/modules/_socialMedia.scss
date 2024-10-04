@@ -65,26 +65,62 @@
 
         &:nth-child(6n + 1) {
             background-color: $stockport-teal-darker;
+
+            &:hover, &:focus {
+                box-shadow: none;
+                background-color: darken($stockport-teal-darker, 5%);
+                text-decoration: none;
+            }
         }
 
         &:nth-child(6n + 2) {
             background-color: $stockport-pink;
+
+            &:hover, &:focus {
+                box-shadow: none;
+                background-color: darken($stockport-pink, 5%);
+                text-decoration: none;
+            }
         }
 
         &:nth-child(6n + 3) {
             background-color: $stockport-purple;
+
+            &:hover, &:focus {
+                box-shadow: none;
+                background-color: darken($stockport-purple, 5%);
+                text-decoration: none;
+            }
         }
 
         &:nth-child(6n + 4) {
-            background-color: $stockport-blue;
+            background-color: lighten($stockport-blue, 5%);
+
+            &:hover, &:focus {
+                box-shadow: none;
+                background-color: $stockport-blue;
+                text-decoration: none;
+            }
         }
 
         &:nth-child(6n + 5) {
-            background-color: $stockport-green;
+            background-color: lighten($stockport-green, 5%);
+
+            &:hover, &:focus {
+                box-shadow: none;
+                background-color: $stockport-green;
+                text-decoration: none;
+            }
         }
 
         &:nth-child(6n + 6) {
-            background-color: $stockport-grey;
+            background-color: lighten($stockport-grey, 5%);
+
+            &:hover, &:focus {
+                box-shadow: none;
+                background-color: $stockport-grey;
+                text-decoration: none;
+            }
         }
     }
 
