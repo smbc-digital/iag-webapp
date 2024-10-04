@@ -21,7 +21,7 @@
 
                                 @if(Model.SubItems.Any() || !string.IsNullOrEmpty(Model.Link))
                                 {
-                                    <a href="@(Model.SubItems.Any() ? Model.SubItems.FirstOrDefault().NavigationLink : Model.Link)" class="btn btn--inverse btn--width-30 btn--chevron-forward btn--bold btn--chevron-bold btn--outline @Model.OutlineButtonColour" data-cy="statement-banner-screen-width-link">
+                                    <a @Model.Href class="btn btn--inverse btn--width-30 btn--chevron-forward btn--bold btn--chevron-bold btn--outline @Model.OutlineButtonColour" data-cy="statement-banner-screen-width-link">
                                         <span class="btn_text">@(!string.IsNullOrEmpty(Model.ButtonText) ? Model.ButtonText : "Find out more")</span>
                                         @if(string.IsNullOrEmpty(Model.ButtonText))
                                         {

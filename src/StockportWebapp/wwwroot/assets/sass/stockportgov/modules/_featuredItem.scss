@@ -54,9 +54,19 @@
             border-top-left-radius: 50px !important;
             border-bottom-right-radius: 50px !important;
 
+            @media #{$desktop} {
+                max-height: 520px;
+            }
+
             @media #{$tablet} {
                 border-top-left-radius: 30px !important;
                 border-bottom-right-radius: 30px !important;
+            }
+        }
+
+        &-news-banner {
+            @media #{$desktop} {
+                max-height: 440px;
             }
         }
     }
@@ -100,7 +110,7 @@
         }
 
         &-profile-banner {
-            @include h-l;
+            @include h-ml;
         }
     }
 
@@ -208,6 +218,7 @@
             margin: 0;
             border-radius: 0 0 3px 3px;
             margin-bottom: 1em;
+            overflow-wrap: break-word;
 
             &-news-banner {
                 margin-bottom: 2em;

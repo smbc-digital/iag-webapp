@@ -12,7 +12,7 @@
         @if(string.IsNullOrEmpty(Model.Profile.Body))
         {
             <div class="profile-tag-parser @profileColour section" data-cy="profile-tag-parser">
-                <partial name="ProfileTagParserContent" />
+                <partial name="ProfileTagParserContent" view-data='@(new ViewDataDictionary(ViewData) { {"additionalClasses", "profile-tag-parser-quote--black"} })' />
             </div>
         }
         else

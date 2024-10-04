@@ -20,14 +20,8 @@
             <div class="grid-100">
                 <div class="news-banner-container">
                     <div class="news-banner-title">
-                        <div class="news-banner-title-container">
-                            <h2 class="section__title section__title--no-padding section__title--margin-bottom">@Model.Title</h2>
-                            <hr />
-                        </div>
-
-                        <a href="@viewMoreUrl" class="hide-on-mobile hide-on-tablet">
-                            View more @associatedTagCategoryLower news
-                        </a>
+                        <h2 class="section__title section__title--no-padding section__title--margin-bottom">@Model.Title</h2>
+                        <hr />
                     </div>
                     
                     <div class="featured-item-container">
@@ -35,7 +29,7 @@
                     </div>
 
                     <div class="news-banner-button">
-                        <a href="@viewMoreUrl" class="hide-on-desktop btn btn--inverse btn--width-30 btn--chevron-forward btn--bold btn--chevron-bold btn--outline">
+                        <a href="@viewMoreUrl" class="btn btn--center btn--width-30 btn--margin-25 btn--chevron-forward">
                             View more @associatedTagCategoryLower news
                         </a>
                     </div>
