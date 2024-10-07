@@ -1,6 +1,20 @@
-﻿/*------ Typography Styles ------*/
+﻿/*--Need to arrange licensing for these fonts as web fonts--*/
+@font-face {
+    font-family: 'OTNeueMontrealBoldExtraSqueezed';
+    src: url("/assets/fonts/OTNeueMontreal-BoldExtraSqueezed.otf") format('opentype');
+}
 
-$fontStack: 'Noto Sans', sans-serif;
+@font-face {
+    font-family: 'OTNeueMontrealMediumSqueezed';
+    src: url("/assets/fonts/OTNeueMontreal-MediumSqueezed.otf") format('opentype');
+}
+
+@font-face {
+    font-family: 'OTNeueMontrealRegularSemiSqueezed';
+    src: url("/assets/fonts/OTNeueMontreal-RegularSemiSqueezed.otf") format('opentype');
+} 
+/*------ Typography Styles ------*/
+$fontStack: 'OTNeueMontrealRegularSemiSqueezed', sans-serif;
 
 @mixin body {
     font: 1.1875rem / 1.5 $fontStack;
@@ -141,4 +155,16 @@ body {
 
 .h-xs {
     @include h-xs;
+}
+
+.font--medium-squeezed {
+    font-family: OTNeueMontrealMediumSqueezed, 'Noto Sans', sans-serif;
+}
+
+.font--semi-squeezed {
+    font-family: OTNeueMontrealRegularSemiSqueezed, 'Noto Sans', sans-serif;
+}
+
+.font--bold-extra-squeezed {
+    font-family: OTNeueMontrealBoldExtraSqueezed, 'Noto Sans', sans-serif;
 }
