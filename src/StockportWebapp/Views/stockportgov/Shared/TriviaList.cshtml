@@ -19,8 +19,10 @@
                             @if(!string.IsNullOrEmpty(contentBlock.Link))
                             {
                                 <a href="@contentBlock.Link" class="trivia__link" data-cy="trivia-list-link">
-                                    <span class="@contentBlock.Icon trivia__icon @Model.TextColourClass"></span>
-                                    
+                                    <div>
+                                        <span class="@contentBlock.Icon trivia__icon @Model.TextColourClass"></span>
+                                    </div>
+
                                     <div class="trivia__body" data-cy="trivia-list-body">
                                         @Html.Raw(contentBlock.Body)
                                     </div>
@@ -29,7 +31,9 @@
                             else
                             {
                                 <div class="trivia__text" data-cy="trivia-list-text">
-                                    <span class="@contentBlock.Icon trivia__icon @Model.TextColourClass"></span>
+                                    <div>
+                                        <span class="@contentBlock.Icon trivia__icon @Model.TextColourClass"></span>
+                                    </div>
                                     
                                     <div class="trivia__body" data-cy="trivia-list-body">
                                         @Html.Raw(contentBlock.Body)
