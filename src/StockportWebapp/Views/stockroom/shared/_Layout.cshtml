@@ -18,7 +18,11 @@
     <script type=text/javascript src=~/assets/javascript/vendor/require.min.js asp-append-version=true></script>
 </head>
 <body>
-    <partial name=Header />
+    @* <distributed-cache name=footer2023 expires-after=@TimeSpan.FromMinutes(ApplicationConfiguration.GetFooterCache(BusinessId.ToString())) enabled=true> *@
+        @await Component.InvokeAsync("Header")
+    @* </distributed-cache> *@
+
+    @* <partial name=Header /> *@
 
     <main>
         @RenderBody()

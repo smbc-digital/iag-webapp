@@ -27,6 +27,7 @@ public class UrlGenerator : IStubToUrlConverter
         {typeof(Newsroom), "news"},
         {typeof(List<News>), "news"},
         {typeof(List<AtoZ>), "atoz/"},
+        {typeof(SiteHeader), "header"},
         {typeof(Footer), "footer"},
         {typeof(Event), "events/"},
         {typeof(EventCalendar), "events"},

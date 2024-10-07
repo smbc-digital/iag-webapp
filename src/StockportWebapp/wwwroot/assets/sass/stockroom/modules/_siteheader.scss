@@ -1,28 +1,9 @@
 .site-header {
     color: black;
-    background-color: $skrm-orange;
-
-    &_dropdown {
-        &:hover .site-header_dropdown--content {
-            display: block;
-        }
-
-        &--content {
-            background-color: $skrm-yellow;
-            display: none;
-            position: absolute;
-            width: 100%;
-            left: 0;
-            top: 67px;
-            z-index: 1;
-
-            
-        }
-    }
+    background-color: $skrm-yellow;
 
     &_logo {
-        margin-top: 8px;
-        margin-bottom: 8px;
+        margin-block: 8px;
         height: 51px;
         width: auto;
     }
@@ -37,14 +18,15 @@
             padding: 0;
             overflow: hidden;
 
-            a {
+            li {
                 display: block;
                 text-align: center;
-                text-decoration: none;
-                padding: 1em;
+                margin-inline: 1rem;
+                padding-inline: .5rem;
                 text-decoration: none;
                 float: right;
                 color: black;
+                text-transform: uppercase;
 
                 &.primary {
                     background-color: $skrm-light-green;
@@ -56,6 +38,17 @@
 
                 &.tertiary {
                     background-color: $skrm-yellow;
+                }
+
+                a {
+                    // font-size: 3em;
+                    text-decoration: none;
+                    color: black;
+                    padding: .5rem;
+
+                    &:hover {
+                        background-color: $skrm-orange;
+                    }
                 }
             }
         }

@@ -1,0 +1,35 @@
+@model SiteHeader;
+
+<div class="site-header grid-container-full-width">
+    <nav aria-label="Skip to main content">
+        <div class="skip-to-main-content">
+            <a href="#content" class="skip-main">Skip to main content</a>
+        </div>
+    </nav>
+
+    <header role="banner" id="header" class="grid-container" data-cy="header-new">
+        <div class="grid-20 tablet-grid-100 mobile-grid-100">
+            <a href="/">
+                <img src="@Model.Logo"
+                     class="site-header_logo"
+                     width="394"
+                     height="50">
+            </a>
+        </div>
+
+        <div class="grid-80 tablet-grid-100 mobile-grid-100">
+            <nav class="site-header_menu font--bold-extra-squeezed">
+                <ul>
+                    @foreach(var item in Model.Items)
+                    {
+                        <li class="site-header_menu-item h-xl">
+                            <a href="@item.NavigationLink">
+                                @item.Title
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </nav>
+        </div>
+    </header>
+</div>
