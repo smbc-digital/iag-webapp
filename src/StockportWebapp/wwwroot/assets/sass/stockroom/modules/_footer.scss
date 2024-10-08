@@ -1,31 +1,31 @@
 .footer {
-    background-color: $skrm-blue;
+	background-color: $skrm-blue;
 	padding: 2em 0 1em 0;
-    width: 100%;
-    position: relative;
-    z-index: 5;
-    color: black;
+	width: 100%;
+	position: relative;
+	z-index: 5;
+	color: black;
 
-    ul {
-        list-style: none;
-    }
+	ul {
+		list-style: none;
+	}
 
-    @media #{$mobile} {
+	@media #{$mobile} {
 		padding: 0 0 1em;
 	}
 
-    a {
+	a {
 		color: black;
-        text-underline-offset: 0.1em;
+		text-underline-offset: 0.1em;
 
-        &:hover {
-            text-decoration-thickness: 3px;
-            text-decoration-skip-ink: none;
-        }
+		&:hover {
+			text-decoration-thickness: 3px;
+			text-decoration-skip-ink: none;
+		}
 	}
 
-    &_links {
-        margin-top: 2em;
+	&_links {
+		margin-top: 2em;
 
 		li {
 			box-sizing: border-box;
@@ -48,8 +48,12 @@
 		}
 	}
 
-    &_logo {
+	&_logo {
 		margin-top: 0;
+
+		@media #{$mobile} {
+			padding-inline: 2em;
+		}
 
 		img {
 			height: auto;
@@ -57,7 +61,7 @@
 			max-width: 275px;
 
 			@media #{$mobile} {
-				padding: 0 10px;
+				padding-top: 30px;
 			}
 		}
 
@@ -71,27 +75,32 @@
 		}
 	}
 
-    &__info {
-	    padding-block: 2em;
-    }
+	&__info {
+		padding-block: 2em;
 
-    &_copyright, &_attribution {
-		margin-top: 2em;
-        text-align: left;
-
-        p {
-            padding-inline: 10px;
-        }
+		@media #{$mobile} {
+			padding-inline: 2em;
+		}
 	}
 
-    &_attribution {
-        text-align: right;
-    }
+	&_copyright, &_attribution {
+		margin-top: 2em;
+		text-align: left;
 
-    &__social {
-        margin-top: 0;
-        li {
-            padding-bottom: 0;
-        }
-    }
+		p {
+			padding-inline: 10px;
+		}
+	}
+
+	&_attribution {
+		text-align: right;
+	}
+
+	&__social {
+		margin-top: 0;
+
+		li {
+			padding-bottom: 0;
+		}
+	}
 }
