@@ -8,29 +8,30 @@
     </nav>
 
     <header role="banner" id="header" class="grid-container" data-cy="header-new">
-        <div class="grid-20 tablet-grid-100 mobile-grid-100">
-            <a href="/">
-                <img src="@Model.Logo" 
-                     class="site-header_logo"
-                     width="394"
-                     height="50"
-                     alt="Stockroom logo">
-            </a>
-        </div>
+        <a href="/" style="float:left" class="site-header_logo">
+            <img src="@Model.Logo" 
+                    class="site-header_logo--image"
+                    width="394"
+                    height="50"
+                    alt="Stockroom logo">
+        </a>
+        
+        <nav class="site-header_menu font--bold-extra-squeezed">
+            <label class="h-xxl" for='menu' tabindex="0">
+                Menu
+            </label>
+            <input id='menu' type='checkbox' />
 
-        <div class="grid-80 tablet-grid-100 mobile-grid-100">
-            <nav class="site-header_menu font--bold-extra-squeezed">
-                <ul>
-                    @foreach(var item in Model.Items)
-                    {
-                        <li class="site-header_menu-item h-xl">
-                            <a href="@item.NavigationLink">
-                                @item.Title
-                            </a>
-                        </li>
-                    }
-                </ul>
-            </nav>
-        </div>
+            <ul>    
+                @foreach(var item in Model.Items)
+                {
+                    <li class="site-header_menu-item h-xxl">
+                        <a href="@item.NavigationLink">
+                            @item.Title
+                        </a>
+                    </li>
+                }
+            </ul>
+        </nav>
     </header>
 </div>

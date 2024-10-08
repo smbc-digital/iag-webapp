@@ -43,6 +43,19 @@ body {
     }
 }
 
+@mixin h-xxl {
+    font-size: 4rem;
+    line-height: 1.02;
+    font-weight: 600;
+    letter-spacing: -1px;
+    margin-bottom: 2rem;
+
+    @media #{$mobile} {
+        font-size: 3rem;
+        line-height: 1.0416666667;
+    }
+}
+
 @mixin h-xl {
     font-size: 3rem;
     line-height: 1.0416666667;
@@ -131,6 +144,10 @@ body {
 
 .lead {
     @include lead;
+}
+
+.h-xxl {
+    @include h-xxl;
 }
 
 .h-xl, h1 {

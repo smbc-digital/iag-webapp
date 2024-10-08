@@ -11,6 +11,7 @@ public class Homepage
     public IEnumerable<Alert> Alerts { get; }
     public IEnumerable<CarouselContent> CarouselContents { get; }
     public string BackgroundImage { get; }
+    public string ImageOverlayText { get; }
     public string ForegroundImage { get; }
     public string ForegroundImageLocation { get; }
     public string ForegroundImageLink { get; }

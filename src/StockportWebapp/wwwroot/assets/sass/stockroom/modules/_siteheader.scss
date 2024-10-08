@@ -1,16 +1,51 @@
 .site-header {
     color: black;
     background-color: $skrm-yellow;
+    min-height: 98px;
 
     &_logo {
-        margin-block: 8px;
-        height: 51px;
-        width: auto;
+        &--image {
+            height: 60px;
+            width: auto;
+            margin-top: 1rem;
+            display: inline-block;
+
+            @media #{$mobile} {
+                max-width: 100%;
+                min-height: 35px;
+            }
+        }
+
+        @media #{$mobile} {
+            width: 70%;
+            height: auto;
+        }
     }
 
     &_menu {
         margin: 0px;
         text-align: right;
+
+        input[type='checkbox'], label {
+            display: none;
+            margin-bottom: 0px;
+        }
+
+        @media #{$tablet} {
+            label {
+                display: block;
+                padding: 1rem;
+                text-transform: uppercase;
+
+                @media #{$mobile} {
+                    padding: 1.5rem;
+                }
+            }
+
+            input[type='checkbox']:not(:checked) + ul {
+                display: none;
+            }
+        }
 
         ul {
             list-style-type: none;
@@ -21,12 +56,12 @@
             li {
                 display: block;
                 text-align: center;
-                margin-inline: 1rem;
-                padding-inline: .5rem;
                 text-decoration: none;
                 float: right;
                 color: black;
                 text-transform: uppercase;
+                margin: 0px;
+                margin-inline: 0.5rem;
 
                 &.primary {
                     background-color: $skrm-light-green;
@@ -41,14 +76,31 @@
                 }
 
                 a {
-                    // font-size: 3em;
+                    display: inline-block;
                     text-decoration: none;
                     color: black;
-                    padding: .5rem;
+                    padding: 1rem;
 
                     &:hover {
                         background-color: $skrm-orange;
                     }
+                }
+
+                @media #{$tablet} {
+                    float: none;
+                    margin-inline: 0;
+
+                    a {
+                        display: block;
+                    }
+                }
+
+                &:first-child {
+                    margin-inline-end: 0rem;
+                }
+
+                &:last-child {
+                    margin-inline-start: 0rem;
                 }
             }
         }
