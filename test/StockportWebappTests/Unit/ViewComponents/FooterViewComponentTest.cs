@@ -16,7 +16,7 @@ public class FooterViewComponentTest
     [Fact]
     public async Task ShouldReturnFooterAsModelInView()
     {
-        var footer = new Footer("Title", "Slug", new List<SubItem>(), new List<SocialMediaLink>());
+        var footer = new Footer("Title", "Slug", new List<SubItem>(), new List<SocialMediaLink>(), string.Empty, string.Empty, string.Empty);
         _repository.Setup(o => o.Get<Footer>(It.IsAny<string>(), It.IsAny<List<Query>>())).ReturnsAsync(HttpResponse.Successful(200, footer));
 
         var result = await _footerViewComponent.InvokeAsync() as ViewViewComponentResult;

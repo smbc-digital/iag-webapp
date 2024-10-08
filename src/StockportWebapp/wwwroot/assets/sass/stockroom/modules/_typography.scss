@@ -157,6 +157,11 @@ body {
     @include h-xs;
 }
 
+h2, h3, h4 {
+    margin-bottom: 1em;
+    font-weight: 400;
+}
+
 .font--medium-squeezed {
     font-family: OTNeueMontrealMediumSqueezed, 'Noto Sans', sans-serif;
 }
