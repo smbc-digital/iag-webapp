@@ -30,7 +30,6 @@
 		li {
 			box-sizing: border-box;
 			margin: 0;
-			padding-left: 0;
 			padding-bottom: 0.5em;
 
 			@media #{$mobile} {
@@ -80,7 +79,20 @@
 
 		@media #{$mobile} {
 			padding-inline: 2em;
+            padding-block-end: 0;
 		}
+
+        &-container {
+            padding-left: 1em;
+        }
+
+        &--border {
+            border-top: 1px solid black;
+        }
+
+        &--padding {
+            padding-block-end: 1em;
+        }
 	}
 
 	&_copyright, &_attribution {
@@ -90,10 +102,18 @@
 		p {
 			padding-inline: 10px;
 		}
+
+        @media #{$mobile} {
+            margin-top: 1em;
+        }
 	}
 
 	&_attribution {
 		text-align: right;
+
+        @media #{$mobile} {
+            text-align: left;
+        }
 	}
 
 	&__social {

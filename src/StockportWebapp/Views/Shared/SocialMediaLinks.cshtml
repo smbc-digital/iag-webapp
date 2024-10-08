@@ -1,9 +1,9 @@
 ﻿@model IEnumerable<StockportWebapp.Models.SocialMediaLink>
 @inject BusinessId BusinessId
 @{ 
-        string nameOfSite = BusinessId.ToString() == "stockportgov" ? "stockport council" : string.Empty; 
-        if (BusinessId.ToString() == "healthystockport")
-            nameOfSite = "healthy stockport ";
+    string nameOfSite = BusinessId.ToString() == "stockportgov" ? "stockport council" : string.Empty; 
+    if (BusinessId.ToString() == "healthystockport")
+        nameOfSite = "healthy stockport ";
 }
 
 <div class="footer-social-links">
