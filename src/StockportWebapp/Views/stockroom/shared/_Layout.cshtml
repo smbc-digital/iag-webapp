@@ -22,8 +22,6 @@
         @await Component.InvokeAsync("Header")
     @* </distributed-cache> *@
 
-    @* <partial name=Header /> *@
-
     <main>
         @RenderBody()
     </main>
@@ -31,12 +29,7 @@
     <section class="placeholder placeholder--yellow">
         SIGNUP
     </section>
-    <footer class="placeholder placeholder--blue">
-        <div class="grid-container">
-            <div class="grid-100">
-                Stockroom Footer
-            </div>
-        </div>
-    </footer>
+
+    @await Component.InvokeAsync("Footer")
 </body>
 </html>

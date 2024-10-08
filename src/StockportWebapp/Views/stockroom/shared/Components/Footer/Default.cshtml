@@ -1,0 +1,92 @@
+@inject IStaticAssets StaticAssets
+@inject IApplicationConfiguration appConfig
+@inject BusinessId BusinessId
+@model Footer
+
+<footer class="footer grid-container-full-width footer--stockroom" data-cy="footer">
+    <div class="grid-container">
+        <div class="footer_top">
+            <div class="grid-100 tablet-grid-100 mobile-grid-100">
+                <div class="grid-100 tablet-grid-100 mobile-grid-100">
+                    <div class="footer_logo">
+                        <img src="//images.ctfassets.net/6jh3uby2vw58/1Qj2a3ymG2YTLAfh0jgbaB/8489b3d254a022eec8d6c02e6e73a681/stockroom_logo.png?fm=webp" alt="Stockroom logo" loading="lazy" width="394" height="50">
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer__info">
+                <div class="grid-25 tablet-grid-25 mobile-grid-100">
+                    <div class="grid-100 tablet-grid-100 mobile-grid-100">
+                        <ul class="">
+                            @if (!string.IsNullOrEmpty(Model.FooterContent1))
+                            {
+                                @Html.Raw(Model.FooterContent1)
+                            }
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="grid-25 tablet-grid-25 mobile-grid-100">
+                    <div class="grid-100 tablet-grid-100 mobile-grid-100">
+                        <ul class="">
+                            @if (!string.IsNullOrEmpty(Model.FooterContent2))
+                            {
+                                @Html.Raw(Model.FooterContent2)
+                            }
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="grid-25 tablet-grid-25 mobile-grid-100">
+                    <div class="grid-100 tablet-grid-100 mobile-grid-100">
+                        <ul class="">
+                            @if (!string.IsNullOrEmpty(Model.FooterContent3))
+                            {
+                                @Html.Raw(Model.FooterContent3)
+                            }
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="grid-25 tablet-grid-20 mobile-grid-100">
+                    @if (Model.SocialMediaLinks is not null)
+                    {
+                        <h2>Follow</h2>
+
+                        <ul class="footer_links footer__social">
+                            @foreach (SocialMediaLink socialMediaLink in Model.SocialMediaLinks)
+                            {
+                                <li>
+                                    <a href="@socialMediaLink.Link" aria-label="@socialMediaLink.ScreenReader" target="_blank" data-cy="social-media-links">
+                                        @socialMediaLink.Title
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                    }
+                </div>
+
+                <div class="grid-75 tablet-grid-75 mobile-grid-100">
+                    <div class="grid-100 tablet-grid-100 mobile-grid-100">
+                        <ul class="footer_links">
+                            @if (Model.Links is not null)
+                            {
+                                <partial name="FooterLinks" model='Model.Links' />
+                            }
+                        </ul>
+                    </div>
+                </div>
+        
+                <div class="grid-50 tablet-grid-50 footer_copyright">
+                    <p>
+                        &#xA9; @DateTime.Now.Year Stockroom
+                    </p>
+                </div>
+
+                <div class="grid-50 tablet-grid-50 footer_attribution">
+                    <p>Design by StudioDBD</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
