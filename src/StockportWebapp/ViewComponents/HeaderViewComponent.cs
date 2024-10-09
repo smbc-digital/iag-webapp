@@ -22,6 +22,6 @@ public class HeaderViewComponent : ViewComponent
 
         SiteHeader model = httpResponse.Content as SiteHeader;
 
-        return await Task.FromResult(View("Header", model));
+        return await Task.FromResult(View(model));
     }
 }
