@@ -1,22 +1,22 @@
 .site-header {
     color: black;
     background-color: $skrm-yellow;
-    min-height: 98px;
+    min-height: 95px;
 
     &_logo {
         &--image {
             max-height: 60px;
             width: auto;
-            margin-top: 1rem;
+            margin-block-start: 1.5rem;
             display: inline-block;
 
-            @media #{$mobile} {
-                max-width:100%;
+            @media #{$tablet} {
+                max-width: 100%;
                 min-height: 35px;
             }
         }
 
-        @media #{$mobile} {
+        @media #{$tablet} {
             width: 75%;
             height: auto;
         }
@@ -28,19 +28,16 @@
 
         input[type='checkbox'], label {
             display: none;
-            margin-bottom: 0px;
+            margin-block-end: 0px;
         }
 
         @media #{$tablet} {
             label {
                 display: block;
                 padding: 1rem;
+                padding-block-start: 1.5rem;
                 text-transform: uppercase;
-                cursor:pointer; 
-
-                @media #{$mobile} {
-                    padding: 1.5rem;
-                }
+                cursor: pointer;
             }
 
             input[type='checkbox']:not(:checked) + ul {
