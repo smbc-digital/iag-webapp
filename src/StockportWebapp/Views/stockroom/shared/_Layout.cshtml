@@ -18,7 +18,9 @@
     <script type=text/javascript src=~/assets/javascript/vendor/require.min.js asp-append-version=true></script>
 </head>
 <body>
-    <partial name=Header />
+    <distributed-cache name=headerStockroom expires-after=@TimeSpan.FromMinutes(ApplicationConfiguration.GetHeaderCache(BusinessId.ToString())) enabled=true>
+        @await Component.InvokeAsync("Header")
+    </distributed-cache>
 
     <main>
         @RenderBody()
@@ -27,12 +29,10 @@
     <section class="placeholder placeholder--yellow">
         SIGNUP
     </section>
-    <footer class="placeholder placeholder--blue">
-        <div class="grid-container">
-            <div class="grid-100">
-                Stockroom Footer
-            </div>
-        </div>
-    </footer>
+    
+    <distributed-cache name=footerStockroom expires-after=@TimeSpan.FromMinutes(ApplicationConfiguration.GetFooterCache(BusinessId.ToString())) enabled=true>
+        @await Component.InvokeAsync("Footer")
+    </distributed-cache>
+    
 </body>
 </html>

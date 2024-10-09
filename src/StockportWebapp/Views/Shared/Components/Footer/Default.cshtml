@@ -35,7 +35,7 @@
                         <ul class="footer-nav">
                             @if (Model.Links != null)
                             {
-                                <partial name="FooterLinks" model='Model.Links' />
+                                <partial name="FooterLinks" model='Model.Links' view-data='@(new ViewDataDictionary(ViewData) {{"cssClasses", "grid-50 tablet-grid-50"}})' />
                             }
                         </ul>
                     </div>
