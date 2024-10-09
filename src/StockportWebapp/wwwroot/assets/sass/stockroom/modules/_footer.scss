@@ -12,6 +12,10 @@
 
 	@media #{$mobile} {
 		padding: 0 0 1em;
+
+        h2 {
+            margin-bottom: 0.5em;
+        }
 	}
 
 	a {
@@ -75,10 +79,6 @@
 		@media #{$mobile} {
 			margin-top: 25px;
 			padding-bottom: 20px;
-
-			img {
-				max-width: 246px;
-			}
 		}
 	}
 
@@ -88,6 +88,7 @@
 		@media #{$mobile} {
 			padding-inline: 1em;
 			padding-block-end: 0;
+            padding-block-start: 1em;;
 		}
 
 		&-container {
@@ -108,7 +109,13 @@
 
 			@media #{$mobile} {
 				padding-left: 0;
+
+                &:last-of-type {
+                    padding-block-end: 2em;
+                } 
 			}
+
+            
 		}
 	}
 
@@ -127,6 +134,7 @@
 
 		@media #{$mobile} {
 			text-align: left;
+            margin-top: 0;
 		}
 	}
 
@@ -135,6 +143,12 @@
 
 		li {
 			padding-bottom: 0;
+
+            @media #{$mobile} {
+                &:last-of-type {
+                    margin-bottom: 1em;
+                }
+            }
 		}
 	}
 }
