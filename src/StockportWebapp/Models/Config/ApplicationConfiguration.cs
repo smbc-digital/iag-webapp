@@ -18,6 +18,7 @@ public interface IApplicationConfiguration
     AppSetting GetGroupArchiveEmail(string businessId);
     AppSetting GetReCaptchaKey();
     int GetFooterCache(string businessId);
+    int GetHeaderCache(string businessId);
     string GetGroupManageContactUrl();
     string GetMyAccountUrl();
     string GetStaticAssetsRootUrl();
@@ -146,6 +147,12 @@ public class ApplicationConfiguration : IApplicationConfiguration
     public int GetFooterCache(string businessId)
     {
         int.TryParse(_appsettings[$"{businessId}:FooterCache"], out int output);
+        return output;
+    }
+
+    public int GetHeaderCache(string businessId)
+    {
+        int.TryParse(_appsettings[$"{businessId}:HeaderCache"], out int output);
         return output;
     }
 

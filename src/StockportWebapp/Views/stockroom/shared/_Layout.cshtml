@@ -18,9 +18,9 @@
     <script type=text/javascript src=~/assets/javascript/vendor/require.min.js asp-append-version=true></script>
 </head>
 <body>
-    @* <distributed-cache name=footer2023 expires-after=@TimeSpan.FromMinutes(ApplicationConfiguration.GetFooterCache(BusinessId.ToString())) enabled=true> *@
+    <distributed-cache name=headerStockroom expires-after=@TimeSpan.FromMinutes(ApplicationConfiguration.GetHeaderCache(BusinessId.ToString())) enabled=true>
         @await Component.InvokeAsync("Header")
-    @* </distributed-cache> *@
+    </distributed-cache>
 
     <main>
         @RenderBody()
@@ -29,7 +29,10 @@
     <section class="placeholder placeholder--yellow">
         SIGNUP
     </section>
-
-    @await Component.InvokeAsync("Footer")
+    
+    <distributed-cache name=footerStockroom expires-after=@TimeSpan.FromMinutes(ApplicationConfiguration.GetFooterCache(BusinessId.ToString())) enabled=true>
+        @await Component.InvokeAsync("Footer")
+    </distributed-cache>
+    
 </body>
 </html>
