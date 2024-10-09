@@ -13,7 +13,7 @@ public class RobotsMiddleware
 
         if (context.Request.Path.ToString().EndsWith("robots.txt"))
         {
-            var isLive = context.Request.Host.Value.StartsWith("www.");
+            var isLive = context.Request.Host.Value.StartsWith("www.") || context.Request.Host.Value.StartsWith("prod-");
             var url = string.Concat("/robots-", businessId, isLive ? "-live" : "", ".txt");
             context.Request.Path = context.Request.PathBase.Add(new PathString(url));
         }

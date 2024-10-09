@@ -1,8 +1,14 @@
 ﻿@model IEnumerable<SubItem>
+@{
+    string cssClasses = (string)ViewData["cssClasses"] ?? string.Empty;
+}
+
 
 @foreach (var link in Model)
 {
-    <li class="grid-50 tablet-grid-50 mobile-grid-100">
-        <a data-cy="footer-links" href="@link.NavigationLink">@link.Title</a>
+    <li class="@cssClasses mobile-grid-100">
+        <div class="footer__info-container">
+            <a data-cy="footer-links" href="@link.NavigationLink">@link.Title</a>
+        </div>
     </li>
 }
