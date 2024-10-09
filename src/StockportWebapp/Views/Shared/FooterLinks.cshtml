@@ -1,11 +1,35 @@
 ﻿@model IEnumerable<SubItem>
 @{
     string cssClasses = (string)ViewData["cssClasses"] ?? string.Empty;
+    string isStockroom = (string)ViewData["isStockroom"] ?? string.Empty;
 }
 
-@foreach (var link in Model)
+@if (string.IsNullOrEmpty(isStockroom))
 {
-    <li class="@cssClasses mobile-grid-100">
-        <a data-cy="footer-links" href="@link.NavigationLink">@link.Title</a>
-    </li>
+    @foreach (var link in Model)
+    {
+        <li class="@cssClasses mobile-grid-100">
+            <a data-cy="footer-links" href="@link.NavigationLink">@link.Title</a>
+        </li>
+    }
+}
+else
+{
+    @for (var link = 1; link <= Model.Count(); link++)
+    {
+        @if (link % 2 == 0 || link % 3 == 0 || link % 4 == 0)
+        {
+            <div class="@cssClasses mobile-grid-100 footer__info--link-padding">
+                <li class="footer__info-container">
+                    <a data-cy="footer-links" href="@Model.ElementAt(link - 1).NavigationLink">@Model.ElementAt(link - 1).Title</a>
+                </li>
+            </div>
+        }
+        else
+        {
+            <li class="@cssClasses mobile-grid-100 footer__info--link-padding">
+                <a data-cy="footer-links" href="@Model.ElementAt(link - 1).NavigationLink">@Model.ElementAt(link - 1).Title</a>
+            </li>
+        }
+    }
 }

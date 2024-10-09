@@ -62,7 +62,7 @@
                     <ul class="footer_links">
                         @if (Model.Links is not null)
                         {
-                            <partial name="FooterLinks" model='Model.Links' view-data='@(new ViewDataDictionary(ViewData) {{"cssClasses", "grid-25 tablet-grid-25"}})' />
+                            <partial name="FooterLinks" model='Model.Links' view-data='@(new ViewDataDictionary(ViewData) {{"cssClasses", "grid-25 tablet-grid-25"}, {"isStockroom", "isStockroom"}})' />
                         }
                     </ul>
                 </div>
