@@ -1,5 +1,6 @@
 ﻿namespace StockportWebapp.ViewComponents;
 
+[ExcludeFromCodeCoverage]
 public class Footer2023ViewComponent : ViewComponent
 {
     private readonly IRepository _repository;
