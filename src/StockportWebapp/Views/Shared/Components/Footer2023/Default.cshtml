@@ -18,7 +18,7 @@
                         @if (Model.Links != null)
                         {
                             @*TODO: There is nothing in here that requires overrides so safe to use the same component until redesign *@
-                            <partial name="FooterLinks" model='Model.Links' />
+                            <partial name="FooterLinks" model='Model.Links' view-data='@(new ViewDataDictionary(ViewData) {{"cssClasses", "grid-50 tablet-grid-50"}})' />
                         }
                     </ul>
                 </div>

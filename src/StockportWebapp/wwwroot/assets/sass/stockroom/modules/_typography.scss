@@ -1,6 +1,20 @@
-﻿/*------ Typography Styles ------*/
+﻿/*--Need to arrange licensing for these fonts as web fonts--*/
+@font-face {
+    font-family: 'OTNeueMontrealBoldExtraSqueezed';
+    src: url("/assets/fonts/OTNeueMontreal-BoldExtraSqueezed.otf") format('opentype');
+}
 
-$fontStack: 'Noto Sans', sans-serif;
+@font-face {
+    font-family: 'OTNeueMontrealMediumSqueezed';
+    src: url("/assets/fonts/OTNeueMontreal-MediumSqueezed.otf") format('opentype');
+}
+
+@font-face {
+    font-family: 'OTNeueMontrealRegularSemiSqueezed';
+    src: url("/assets/fonts/OTNeueMontreal-RegularSemiSqueezed.otf") format('opentype');
+} 
+/*------ Typography Styles ------*/
+$fontStack: 'OTNeueMontrealRegularSemiSqueezed', sans-serif;
 
 @mixin body {
     font: 1.1875rem / 1.5 $fontStack;
@@ -26,6 +40,19 @@ body {
     @media #{$mobile} {
         font-size: 1.1875rem;
         line-height: 1.5;
+    }
+}
+
+@mixin h-xxl {
+    font-size: 4rem;
+    line-height: 1.02;
+    font-weight: 600;
+    letter-spacing: -1px;
+    margin-bottom: 2rem;
+
+    @media #{$mobile} {
+        font-size: 3rem;
+        line-height: 1.0416666667;
     }
 }
 
@@ -119,6 +146,10 @@ body {
     @include lead;
 }
 
+.h-xxl {
+    @include h-xxl;
+}
+
 .h-xl, h1 {
     @include h-xl;
 }
@@ -141,4 +172,21 @@ body {
 
 .h-xs {
     @include h-xs;
+}
+
+h2, h3, h4 {
+    margin-bottom: 1em;
+    font-weight: 400;
+}
+
+.font--medium-squeezed {
+    font-family: OTNeueMontrealMediumSqueezed, 'Noto Sans', sans-serif;
+}
+
+.font--semi-squeezed {
+    font-family: OTNeueMontrealRegularSemiSqueezed, 'Noto Sans', sans-serif;
+}
+
+.font--bold-extra-squeezed {
+    font-family: OTNeueMontrealBoldExtraSqueezed, 'Noto Sans', sans-serif;
 }

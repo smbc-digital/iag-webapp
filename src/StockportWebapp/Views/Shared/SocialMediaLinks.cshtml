@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<StockportWebapp.Models.SocialMediaLink>
 @inject BusinessId BusinessId
 @{ 
-        var nameOfSite = BusinessId.ToString() == "stockportgov" ? "stockport council" : string.Empty; 
-        if (BusinessId.ToString() == "healthystockport")
-            nameOfSite = "healthy stockport ";
+    string nameOfSite = BusinessId.ToString() == "stockportgov" ? "stockport council" : string.Empty; 
+    if (BusinessId.ToString() == "healthystockport")
+        nameOfSite = "healthy stockport ";
 }
 
 <div class="footer-social-links">
-    @foreach (var socialMediaLink in Model)
+    @foreach (SocialMediaLink socialMediaLink in Model)
     {
         string socialMediaCSS = socialMediaLink.Icon.Replace("fa-", "icon-");
         <a href="@socialMediaLink.Link" aria-label="@socialMediaLink.ScreenReader" target="_blank" data-cy="social-media-links">
