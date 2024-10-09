@@ -45,6 +45,14 @@
 				text-decoration-thickness: 3px;
 			}
 		}
+
+		&--bottom {
+			li {
+				&:nth-child(4n+1) .footer__info-container {
+					padding-inline-start: 0;
+				}
+			}
+		}
 	}
 
 	&_logo {
@@ -98,12 +106,6 @@
 		&--padding {
 			padding-block-end: 1em;
 
-			@media #{$mobile} {
-				padding-left: 0;
-			}
-		}
-
-		&--link-padding {
 			@media #{$mobile} {
 				padding-left: 0;
 			}

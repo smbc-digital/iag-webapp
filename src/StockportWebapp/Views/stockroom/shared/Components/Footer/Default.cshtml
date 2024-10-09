@@ -59,10 +59,10 @@
                 </div>
 
                 <div class="grid-100 tablet-grid-100 mobile-grid-100 footer__info--border">
-                    <ul class="footer_links">
+                    <ul class="footer_links footer_links--bottom">
                         @if (Model.Links is not null)
                         {
-                            <partial name="FooterLinks" model='Model.Links' view-data='@(new ViewDataDictionary(ViewData) {{"cssClasses", "grid-25 tablet-grid-25"}, {"isStockroom", "isStockroom"}})' />
+                            <partial name="FooterLinks" model='Model.Links' view-data='@(new ViewDataDictionary(ViewData) {{"cssClasses", "grid-25 tablet-grid-25"}})' />
                         }
                     </ul>
                 </div>
