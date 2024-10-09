@@ -119,22 +119,13 @@
 		}
 	}
 
-	&_copyright, &_attribution {
+	&_copyright {
 		margin-top: 2em;
 		text-align: left;
 
 		@media #{$mobile} {
 			margin-top: 1em;
 			padding-left: 0;
-		}
-	}
-
-	&_attribution {
-		text-align: right;
-
-		@media #{$mobile} {
-			text-align: left;
-            margin-top: 0;
 		}
 	}
 
