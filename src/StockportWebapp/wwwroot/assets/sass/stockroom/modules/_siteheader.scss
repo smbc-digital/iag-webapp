@@ -7,7 +7,7 @@
         &--image {
             max-height: 60px;
             width: auto;
-            margin-block-start: 1.5rem;
+            margin-block: 1.5rem;
             display: inline-block;
 
             @media #{$tablet} {
@@ -81,6 +81,10 @@
 
                     &:hover {
                         background-color: $skrm-orange;
+                    }
+
+                    &:focus {
+                        outline: none !important;
                     }
                 }
 
