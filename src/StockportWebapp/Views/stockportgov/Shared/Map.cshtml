@@ -2,7 +2,7 @@
 
 @if (Model is not null && !string.IsNullOrEmpty(Model.Link))
 {
-    MapViewModel mapViewModel = new(Model.Title, Model.Link);
+    MapViewModel mapViewModel = new(Model.Link);
     
     <noscript>
         <style>
@@ -22,13 +22,9 @@
                 }
 
                 <div class="section__content">
-                    <div class="video-wrapper">
-                        <partial name="MapIFrame" model="@mapViewModel" />
-                    </div>
+                    <partial name="MapContent" model="@mapViewModel" />
                 </div>
             </div>
         </div>
     </section>
-
-    <script type='text/javascript' src='{tagData}/main-latest.js'></script><link rel=stylesheet href='https://kit.fontawesome.com/d14fbc06e0.css' crossorigin='anonymous'>
 }
