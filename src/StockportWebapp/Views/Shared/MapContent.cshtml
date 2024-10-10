@@ -1,0 +1,8 @@
+@model MapViewModel;
+
+@if (!string.IsNullOrEmpty(Model.TagData))
+{
+    string url = $"{Model.TagData}/main-latest.js";
+    
+    <div id='root' class='leaflet-map'></div><script type='text/javascript' src='@url'></script><link rel=stylesheet href='https://kit.fontawesome.com/d14fbc06e0.css' crossorigin='anonymous'>
+}
