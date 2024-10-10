@@ -105,6 +105,10 @@
                     margin-inline-start: 0rem;
                 }
             }
+
+            @media #{$tablet} {
+                overflow: unset;
+            }
         }
     }
 }
