@@ -13,23 +13,23 @@
             </div>
 
             <div class="footer__info">
-                <div class="grid-25 tablet-grid-25 mobile-grid-100 footer__info--padding">
+                <div class="grid-100 tablet-grid-100 mobile-grid-100 footer__info--padding">
                     @if (!string.IsNullOrEmpty(Model.FooterContent1))
                     {
                         @Html.Raw(Model.FooterContent1)
                     }
                 </div>
 
-                <div class="grid-25 tablet-grid-25 mobile-grid-100 footer__info--padding">
+                <div class="grid-33 tablet-grid-33 mobile-grid-100 footer__info--padding">
                     @if (!string.IsNullOrEmpty(Model.FooterContent2))
                     {
-                        <div class="footer__info-container">
+                        @* <div class="footer__info-container"> *@
                             @Html.Raw(Model.FooterContent2)
-                        </div>
+                        @* </div> *@
                     }
                 </div>
 
-                <div class="grid-25 tablet-grid-25 mobile-grid-100 footer__info--padding">
+                <div class="grid-33 tablet-grid-33 mobile-grid-100 footer__info--padding">
                     @if (!string.IsNullOrEmpty(Model.FooterContent3))
                     {
                         <div class="footer__info-container">
@@ -38,7 +38,7 @@
                     }
                 </div>
 
-                <div class="grid-25 tablet-grid-25 mobile-grid-100 footer__info--padding">
+                <div class="grid-33 tablet-grid-33 mobile-grid-100 footer__info--padding">
                     @if (Model.SocialMediaLinks is not null)
                     {
                         <div class="footer__info-container">
@@ -62,7 +62,7 @@
                     <ul class="footer_links footer_links--bottom">
                         @if (Model.Links is not null)
                         {
-                            <partial name="FooterLinks" model='Model.Links' view-data='@(new ViewDataDictionary(ViewData) {{"cssClasses", "grid-25 tablet-grid-25"}})' />
+                            <partial name="FooterLinks" model='Model.Links' view-data='@(new ViewDataDictionary(ViewData) {{"cssClasses", "grid-33 tablet-grid-33"}})' />
                         }
                     </ul>
                 </div>
