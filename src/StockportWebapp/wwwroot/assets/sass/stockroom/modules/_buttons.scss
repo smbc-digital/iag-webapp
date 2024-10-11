@@ -1,0 +1,23 @@
+.btn {
+    font-family: $fontStack;
+    border-radius: 20px;
+    text-decoration: none;
+    color: white;
+    text-align: center;
+    padding: 0.8em;
+    display: inline-block;
+    box-sizing: border-box;
+    line-height: 1.3rem;
+    font-size: 2rem;
+    border: 3px solid white;
+    cursor: pointer;
+
+    @media #{$mobile} {
+        font-size: 1.5rem;
+        padding: 0.6em;
+    }
+
+    &:hover, &:focus {
+        background: rgba(0, 0, 0, 0.8);
+    }
+}

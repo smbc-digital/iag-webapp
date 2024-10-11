@@ -1,36 +1,21 @@
 ﻿.image-banner {
     position: relative;
 
-    &-content-width {
-        @media #{$mobile} {
-            margin-inline: 5px;
-        }
-    }
-
-    &__link {
-        &:focus {
-            .image-banner__background {
-                box-sizing: border-box;
-                outline: #ef8a16 solid 3px !important;
-            }
-        }
-    }
-
     &__background {
         height: 750px;
         width: 100%;
         object-fit: cover;
         background-size: cover;
         background-position: 50%;
-        max-height: 40vw;
+        max-height: 60vw;
 
         @media #{$tablet} {
-            height: 50vw;
+            height: 60vw;
             max-height: 500px;
         }
 
         @media #{$mobile} {
-            height: 60vw;
+            height: 90vw;
         }
     }
 
@@ -40,14 +25,14 @@
         max-width: 100%;
         color: white;
         display: flex;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
         width: 100%;
         height: 100%;
+        background: rgba(0, 0, 0, 0.5);
 
         @media #{$mobile} {
-            padding: 0.5em;
-            left: 0;
             max-width: 100%;
         }
     }
@@ -56,26 +41,18 @@
         margin-block-start: 0;
         @include h-xxl;
         letter-spacing: 2px;
-        font-size: 6rem;
+        font-size: 9rem;
         width: 50%;
         text-align: center;
+        margin-block-end: 0.5em;
 
         @media #{$tablet} {
-            @include h-ml;
+            font-size: 6rem;
         }
 
         @media #{$mobile} {
-            margin-block-end: 0;
-        }
-    }
-
-    &--dark {
-        background: rgb(0, 0, 0);
-        background: rgba(0, 0, 0, 0.7);
-        color: white;
-
-        h2 {
-            color: white;
+            width: 95%;
+            font-size: 4rem;
         }
     }
 
