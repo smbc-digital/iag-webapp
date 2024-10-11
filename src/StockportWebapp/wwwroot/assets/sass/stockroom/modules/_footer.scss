@@ -133,11 +133,14 @@
 		margin-top: 0;
 
 		li {
-			padding-bottom: 0;
+            @media #{$tablet-only, $desktop} {
+				padding-bottom: 0;
+			}
 
             @media #{$mobile} {
                 &:last-of-type {
                     margin-bottom: 1em;
+					padding-bottom: 0;
                 }
             }
 		}

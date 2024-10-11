@@ -11,8 +11,17 @@
             display: inline-block;
 
             @media #{$tablet} {
-                max-width: 100%;
+                max-width: 90%;
                 min-height: 35px;
+                object-fit: contain;
+            }
+
+            @media #{$mobile} {
+                margin-block: 1.2rem;
+            }
+
+            @media #{$small-mobile} {
+                margin-block: 1.1rem;
             }
         }
 
@@ -42,6 +51,20 @@
 
             input[type='checkbox']:not(:checked) + ul {
                 display: none;
+            }
+        }
+
+        @media #{$mobile} {
+            svg {
+                width: 40px;
+                height: 40px;
+            }
+        }
+
+        @media #{$small-mobile} {
+            svg {
+                width: 35px;
+                height: 35px;
             }
         }
 
