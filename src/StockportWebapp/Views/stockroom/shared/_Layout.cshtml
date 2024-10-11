@@ -25,10 +25,6 @@
     <main>
         @RenderBody()
     </main>
-
-    <section class="placeholder placeholder--yellow">
-        SIGNUP
-    </section>
     
     <distributed-cache name=footerStockroom expires-after=@TimeSpan.FromMinutes(ApplicationConfiguration.GetFooterCache(BusinessId.ToString())) enabled=true>
         @await Component.InvokeAsync("Footer")
