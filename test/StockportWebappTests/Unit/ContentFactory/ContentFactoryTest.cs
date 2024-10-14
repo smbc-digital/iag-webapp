@@ -9,7 +9,9 @@ public class ContentFactoryTest
         var repository = new Mock<IRepository>();
         var tagParserContainer = new Mock<ITagParserContainer>();
         var httpContextAccessor = new Mock<IHttpContextAccessor>();
-        tagParserContainer.Setup(o => o.ParseAll(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool>(), null, null, null, null, null, It.IsAny<bool>())).Returns("");
+        tagParserContainer
+            .Setup(parser => parser.ParseAll(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool>(), null, null, null, null, null, It.IsAny<bool>()))
+            .Returns(string.Empty);
 
         _factory = new ContentTypeFactory(tagParserContainer.Object, new MarkdownWrapper(), httpContextAccessor.Object, repository.Object);
     }
@@ -17,31 +19,82 @@ public class ContentFactoryTest
     [Fact]
     public void ItUsesSectionFactoryToBuildProcessedSectionFromSection()
     {
-        var section = new Section(TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<Profile>(), new List<Document>(), new List<Alert>(), new List<GroupBranding>(), "logoAreaTitle", new DateTime());
+        // Arrange
+        Section section = new(TextHelper.AnyString,
+                                  TextHelper.AnyString,
+                                  TextHelper.AnyString,
+                                  TextHelper.AnyString,
+                                  new List<Profile>(),
+                                  new List<Document>(),
+                                  new List<Alert>(),
+                                  new List<GroupBranding>(),
+                                  "logoAreaTitle",
+                                  new DateTime());
 
-        var processedSection = _factory.Build<Section>(section);
+        // Act
+        IProcessedContentType processedSection = _factory.Build(section);
 
-        processedSection.Should().BeOfType<ProcessedSection>();
+        // Assert
+        Assert.IsType<ProcessedSection>(processedSection);
     }
 
     [Fact]
     public void ItUsesArticleFactoryToBuildProcessedArticleFromArticle()
     {
-        var article = new Article(TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString,
-            new List<Section>(), TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<Crumb>(), new List<Profile>(), new List<Document>(), new List<Alert>(), new DateTime(), new bool(), new List<GroupBranding>(), TextHelper.AnyString, null);
+        // Arrange
+        Article article = new(TextHelper.AnyString,
+                            TextHelper.AnyString,
+                            TextHelper.AnyString,
+                            TextHelper.AnyString,
+                            TextHelper.AnyString,
+                            new List<Section>(),
+                            TextHelper.AnyString,
+                            TextHelper.AnyString,
+                            TextHelper.AnyString,
+                            TextHelper.AnyString,
+                            new List<Crumb>(),
+                            new List<Profile>(),
+                            new List<Document>(),
+                            new List<Alert>(),
+                            new DateTime(),
+                            new bool(),
+                            new List<GroupBranding>(),
+                            TextHelper.AnyString,
+                            null,
+                            "author",
+                            "photographer");
 
-        var processedArticle = _factory.Build<Article>(article);
+        // Act
+        IProcessedContentType processedArticle = _factory.Build(article);
 
-        processedArticle.Should().BeOfType<ProcessedArticle>();
+        // Assert
+        Assert.IsType<ProcessedArticle>(processedArticle);
     }
 
     [Fact]
     public void ItUsesNewsFactoryToBuildProcessedNewsFromNews()
     {
-        var news = new News(TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<Crumb>(), new DateTime(), new DateTime(), new DateTime(), new List<Alert>(), new List<string>(), new List<Document>(), new List<Profile>());
+        // Arrange
+        News news = new(TextHelper.AnyString,
+                        TextHelper.AnyString,
+                        TextHelper.AnyString,
+                        TextHelper.AnyString,
+                        TextHelper.AnyString,
+                        TextHelper.AnyString,
+                        TextHelper.AnyString,
+                        new List<Crumb>(),
+                        new DateTime(),
+                        new DateTime(),
+                        new DateTime(),
+                        new List<Alert>(),
+                        new List<string>(),
+                        new List<Document>(),
+                        new List<Profile>());
 
-        var processed = _factory.Build<News>(news);
+        // Act
+        IProcessedContentType processedNews= _factory.Build(news);
 
-        processed.Should().BeOfType<ProcessedNews>();
+        // Assert
+        Assert.IsType<ProcessedNews>(processedNews);
     }
 }

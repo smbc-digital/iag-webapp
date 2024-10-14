@@ -25,10 +25,30 @@ public class ProcessedArticle : IProcessedContentType, IContactUsMessageContaine
     public List<GroupBranding> ArticleBranding;
     public string LogoAreaTitle;
     public IEnumerable<SubItem> RelatedContent;
+    public string Author;
+    public string Photographer;
 
-    public ProcessedArticle(string title, string slug, string body, string teaser, string metaDescription,
-        IEnumerable<ProcessedSection> sections, string icon, string backgroundImage, string image, string altText, IEnumerable<Crumb> breadcrumbs,
-        IEnumerable<Alert> alerts, Topic topic, IEnumerable<Alert> alertsInline, DateTime updatedAt, bool hideLastUpdated, List<GroupBranding> articleBranding, string logoAreaTitle, IEnumerable<SubItem> relatedContent)
+    public ProcessedArticle(string title,
+                            string slug,
+                            string body,
+                            string teaser,
+                            string metaDescription,
+                            IEnumerable<ProcessedSection> sections,
+                            string icon,
+                            string backgroundImage,
+                            string image,
+                            string altText,
+                            IEnumerable<Crumb> breadcrumbs,
+                            IEnumerable<Alert> alerts,
+                            Topic topic,
+                            IEnumerable<Alert> alertsInline,
+                            DateTime updatedAt,
+                            bool hideLastUpdated,
+                            List<GroupBranding> articleBranding,
+                            string logoAreaTitle,
+                            IEnumerable<SubItem> relatedContent,
+                            string author,
+                            string photographer)
     {
         Title = title;
         NavigationLink = TypeRoutes.GetUrlFor("article", slug);
@@ -49,6 +69,8 @@ public class ProcessedArticle : IProcessedContentType, IContactUsMessageContaine
         ArticleBranding = articleBranding;
         LogoAreaTitle = logoAreaTitle;
         RelatedContent = relatedContent;
+        Author = author;
+        Photographer = photographer;
     }
 
     public void AddContactUsMessage(string message, string slug = "")
