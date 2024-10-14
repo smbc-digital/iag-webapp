@@ -69,6 +69,10 @@
                 font-size: 5rem;
             }
 
+            @media #{$tablet-only} {
+                font-weight: normal;
+            }
+
             @media #{$mobile} {
                 width: 95%;
                 font-size: 3rem;
