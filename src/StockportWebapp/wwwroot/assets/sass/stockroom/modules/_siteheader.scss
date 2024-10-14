@@ -102,6 +102,10 @@
                     color: black;
                     padding: 1rem;
 
+                    @media #{$tablet-only, $desktop} {
+                        font-weight: normal;
+                    }
+                    
                     &:hover {
                         background-color: $skrm-orange;
                     }
