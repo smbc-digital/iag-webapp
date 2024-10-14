@@ -6,8 +6,11 @@
     Layout = "../Shared/_Layout.cshtml";
 }
 
-<section class="article-hero" style="background-position: 50%; background-size: cover; height: 800px; width: 100%; background-image: url(@Model.HomepageContent.BackgroundImage?q=89&fm=webp);">
-
+<section class="section image-banner" data-cy="image-banner-screen-width">
+    <div class="image-banner__background image-banner__background-hero" style="background-image: url(@Model.HomepageContent.BackgroundImage?fm=webp)"></div>
+    <div class="image-banner__content">
+        <div class="image-banner__title image-banner__title-hero font--bold-extra-squeezed">@Html.Raw(@Model.HomepageContent.ImageOverlayText)</div>
+    </div>
 </section>
 
 

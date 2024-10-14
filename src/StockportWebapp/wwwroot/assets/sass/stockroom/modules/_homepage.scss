@@ -16,6 +16,10 @@
 
         @media #{$mobile} {
             height: 90vw;
+
+            &-hero {
+                height: 120vw;
+            }
         }
     }
 
@@ -53,6 +57,26 @@
         @media #{$mobile} {
             width: 95%;
             font-size: 4rem;
+        }
+
+        &-hero {
+            text-transform: uppercase;
+            font-size: 7rem;
+            width: 100%;
+            margin: 0;
+
+            @media #{$tablet} {
+                font-size: 5rem;
+            }
+
+            @media #{$mobile} {
+                width: 95%;
+                font-size: 3rem;
+            }
+
+            p {
+                margin: 0;
+            }
         }
     }
 

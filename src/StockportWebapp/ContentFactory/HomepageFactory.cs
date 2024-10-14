@@ -15,6 +15,30 @@ public class HomepageFactory
 
         string featuredTasksSummary = _markdownWrapper.ConvertToHtml(homepage.FeaturedTasksSummary);
 
-        return new ProcessedHomepage(homepage.Title, homepage.PopularSearchTerms, homepage.FeaturedTasksHeading, featuredTasksSummary, homepage.FeaturedTasks, homepage.FeaturedTopics, homepage.Alerts, homepage.CarouselContents, homepage.BackgroundImage, homepage.ForegroundImage, homepage.ForegroundImageLocation, homepage.ForegroundImageLink, homepage.ForegroundImageAlt, homepage.LastNews, freeText, homepage.FeaturedGroup, homepage.EventCategory, homepage.MetaDescription, homepage.CampaignBanner, homepage.CallToAction, homepage.CallToActionPrimary, homepage.SpotlightOnBanner);
+        string imageOverlayText = _markdownWrapper.ConvertToHtml(homepage.ImageOverlayText ?? string.Empty);
+
+        return new ProcessedHomepage(homepage.Title,
+            homepage.PopularSearchTerms,
+            homepage.FeaturedTasksHeading,
+            featuredTasksSummary,
+            homepage.FeaturedTasks,
+            homepage.FeaturedTopics,
+            homepage.Alerts,
+            homepage.CarouselContents,
+            homepage.BackgroundImage,
+            homepage.ForegroundImage,
+            homepage.ForegroundImageLocation,
+            homepage.ForegroundImageLink,
+            homepage.ForegroundImageAlt,
+            homepage.LastNews,
+            freeText,
+            homepage.FeaturedGroup,
+            homepage.EventCategory,
+            homepage.MetaDescription,
+            homepage.CampaignBanner,
+            homepage.CallToAction,
+            homepage.CallToActionPrimary,
+            homepage.SpotlightOnBanner,
+            imageOverlayText);
     }
 }
