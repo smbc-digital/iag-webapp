@@ -28,7 +28,8 @@ public class ProcessedHomepageTests
                                                             null,
                                                             new CallToActionBanner(),
                                                             new CallToActionBanner(),
-                                                            Enumerable.Empty<SpotlightOnBanner>());
+                                                            Enumerable.Empty<SpotlightOnBanner>(),
+                                                            "image overlay text");
 
     [Fact]
     public void Should_Separate_CondolenceAlerts_From_Other_Alerts()

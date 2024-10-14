@@ -17,9 +17,9 @@
     border: none;
     cursor: pointer;
 
-    @media #{$mobile, $tablet} {
+    @media #{$tablet} {
         text-decoration: none;
-        color: $white;
+        color: white;
         width: 100%;
     }
 
