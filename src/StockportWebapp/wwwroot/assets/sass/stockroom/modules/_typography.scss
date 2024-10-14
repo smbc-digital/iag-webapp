@@ -2,16 +2,19 @@
 @font-face {
     font-family: 'OTNeueMontrealBoldExtraSqueezed';
     src: url("/assets/fonts/OTNeueMontreal-BoldExtraSqueezed.otf") format('opentype');
+    font-display: swap;
 }
 
 @font-face {
     font-family: 'OTNeueMontrealMediumSqueezed';
     src: url("/assets/fonts/OTNeueMontreal-MediumSqueezed.otf") format('opentype');
+    font-display: swap;
 }
 
 @font-face {
     font-family: 'OTNeueMontrealRegularSemiSqueezed';
     src: url("/assets/fonts/OTNeueMontreal-RegularSemiSqueezed.otf") format('opentype');
+    font-display: swap;
 } 
 /*------ Typography Styles ------*/
 $fontStack: 'OTNeueMontrealRegularSemiSqueezed', sans-serif;

@@ -50,6 +50,10 @@
         text-align: center;
         margin-block-end: 0.5em;
 
+        @media #{$tablet-only, $desktop} {
+            font-weight: normal;
+        }
+
         @media #{$tablet} {
             font-size: 6rem;
         }
@@ -67,10 +71,6 @@
 
             @media #{$tablet} {
                 font-size: 5rem;
-            }
-
-            @media #{$tablet-only, $desktop} {
-                font-weight: normal;
             }
 
             @media #{$mobile} {
