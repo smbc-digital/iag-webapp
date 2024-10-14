@@ -7,10 +7,17 @@
 }
 
 <section class="section image-banner" data-cy="image-banner-screen-width">
-    <div class="image-banner__background image-banner__background-hero" style="background-image: url(@Model.HomepageContent.BackgroundImage?fm=webp)"></div>
-    <div class="image-banner__content">
-        <div class="image-banner__title image-banner__title-hero font--bold-extra-squeezed">@Html.Raw(@Model.HomepageContent.ImageOverlayText)</div>
-    </div>
+    @if (string.IsNullOrEmpty(Model.HomepageContent.ImageOverlayText))
+    {
+        <div class="image-banner__background image-banner__background-hero" style="background-image: url(@Model.HomepageContent.BackgroundImage?fm=webp)"></div>
+    }
+    else
+    {
+        <div class="image-banner__background image-banner__background-hero" style="background-image: url(@Model.HomepageContent.BackgroundImage?fm=webp)"></div>
+        <div class="image-banner__content">
+            <div class="image-banner__title image-banner__title-hero font--bold-extra-squeezed">@Html.Raw(@Model.HomepageContent.ImageOverlayText)</div>
+        </div>
+    }
 </section>
 
 
