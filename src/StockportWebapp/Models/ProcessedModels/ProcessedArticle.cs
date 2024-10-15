@@ -28,25 +28,6 @@ public class ProcessedArticle : IProcessedContentType, IContactUsMessageContaine
     public string Author;
     public string Photographer;
     public DateTime PublishedOn;
-    private string v1;
-    private string v2;
-    private string defaultBody;
-    private string v3;
-    private string v4;
-    private List<ProcessedSection> processedSections;
-    private string v5;
-    private string v6;
-    private string v7;
-    private string v8;
-    private List<Crumb> crumbs;
-    private List<Alert> alerts1;
-    private Topic topic;
-    private List<Alert> alerts2;
-    private DateTime dateTime;
-    private bool v9;
-    private object value1;
-    private string v10;
-    private object value2;
 
     public ProcessedArticle(string title,
                             string slug,
