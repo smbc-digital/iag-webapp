@@ -1,6 +1,5 @@
 .profile-card {
     border-bottom: 7px solid;
-    border-color: $stockport-teal-darker;
 
     @media #{$mobile} {
         margin-bottom: 2em;
@@ -67,11 +66,31 @@
         padding: 1em 0.75em 1.5em;
     }
 
-    &:nth-child(n+2) {
+    &:nth-child(3n+1) {
+        border-color: $stockport-green;
+    }
+
+    &:nth-child(3n+2) {
         border-color: $stockport-pink;
     }
 
-    &:nth-child(n+3) {
-        border-color: $stockport-purple;
+    &:nth-child(3n+3) {
+            border-color: $stockport-purple;
+    }
+}
+
+html[dir="rtl"] {
+    .profile-card {
+        &__image {
+            border-radius: 3px 50px;
+    
+            @media #{$tablet} {
+                border-radius: 3px 30px;
+            }
+        }
+
+        @media #{$mobile} {
+            padding: 0;
+        }
     }
 }
