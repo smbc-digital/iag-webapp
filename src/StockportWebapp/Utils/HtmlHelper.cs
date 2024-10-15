@@ -1,5 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-using HtmlAgilityPack;
+﻿using HtmlAgilityPack;
 
 namespace StockportWebapp.Utils;
 
@@ -9,7 +8,7 @@ public class HtmlHelper
     {
         HtmlDocument document = new();
         document.LoadHtml(htmlContent);
-        var imageNodes = document.DocumentNode.SelectNodes("//img");
+        HtmlNodeCollection imageNodes = document.DocumentNode.SelectNodes("//img");
 
         if(imageNodes is null)
             return htmlContent;
