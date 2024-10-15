@@ -43,7 +43,7 @@ public class ArticleViewModel
     }
 
     private ProcessedSection GetSectionOrThrowSectionNotFound(string sectionSlug) => 
-        Article.Sections.FirstOrDefault(_ => _.Slug.Equals(sectionSlug)) ?? throw new SectionDoesNotExistException($"Section with slug: {sectionSlug} does not exist");
+        Article.Sections?.FirstOrDefault(_ => _.Slug.Equals(sectionSlug)) ?? throw new SectionDoesNotExistException($"Section with slug: {sectionSlug} does not exist");
 
     private static ProcessedSection FirstOrNull(IEnumerable<ProcessedSection> sections) =>
         sections is not null && sections.Any() ? sections.FirstOrDefault() : null;

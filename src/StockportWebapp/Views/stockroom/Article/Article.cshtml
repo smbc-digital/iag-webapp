@@ -3,23 +3,60 @@
     ViewData["Title"] = Model.Article.Title;
     ViewData["Description"] = Model.MetaDescription;
     ViewData["og:title"] = Model.OgTitleMetaData;
-    Layout = "../Shared/_Layout.cshtml";
+    Layout = "../shared/_Layout.cshtml";
 }
 
-<section class="article-hero" style="background-position: 50%; background-size: cover; height: 700px; margin-bottom:3em; width: 100%; background-image: url(@Model.Article.Image?q=89&fm=webp);">
-    <div class="grid-container" style="height:700px; position:relative;">
-        <div style="display: inline-block; position:absolute; bottom:-25px;">
-            <h1 class="h-xl" style="display:inline-block;margin: 0px; background-color:#ff522a; border-radius:5px; padding:1em;">@Model.Article.Title</h1>
+<div class="grid-container-full-width" style="background-color:white;" data-cy="article">
+    <div class="article-hero">
+        @if (!Model.ArticleWithImage)
+        {
+            <div class="article-hero__background" style="background-image: url(@Model.Article.Image?fm=webp)"></div>
+        }
+        
+        <div class="grid-container article-hero__wrapper">
+            <div class="grid-100">
+                <div class="article-hero__image"></div>
+
+                <div class="article-hero__content">
+                    <h1 class="article-hero__title">@Model.Article.Title</h1>
+
+                    <div class="article-hero__about">
+                        <p>@Model.Article.Teaser</p>
+                        
+                        <p class="article-hero__about-attribution">
+                            @if (!string.IsNullOrEmpty(Model.Article.Author))
+                            {
+                                <span>Author: <strong>@Model.Article.Author</strong></span>
+                            }
+                            
+                            @if (!string.IsNullOrEmpty(Model.Article.Author) && !string.IsNullOrEmpty(Model.Article.Photographer))
+                            {
+                                <span class="article-hero__about-break">|</span>
+                            }
+
+                            @if (!string.IsNullOrEmpty(Model.Article.Photographer))
+                            {
+                                <span>Photographer: <strong>@Model.Article.Photographer</strong></span>
+                            }
+                        </p>
+
+                        <p>Published: <strong><partial name="FormattedDate" model="@Model.Article.PublishedOn" /></strong></p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-</section>
 
-<section class="grid-container">
-    <div class="grid-80 body">
-        <p class="lead">Lorem ipsum odor amet, consectetuer adipiscing elit. Integer dolor dignissim at sed; porttitor quam viverra. Penatibus vitae amet pulvinar iaculis arcu dis per dui himenaeos. Habitant efficitur sem dictum et; taciti dolor nam eget. Semper libero erat id vivamus vehicula sem arcu.</p>
-        <p style="font-size:1em;">Author: <strong>A. Writer</strong> | Photos: <strong>A Photographer</strong></p>
-        <p style="font-size:1rem;">02 September 2024</p>
-        <hr style="height:2px; width:40%; margin-bottom:1em; border-top:5px solid #ff522a;" />
-        @Html.Raw(Model.Article.Body)
+    <div class="grid-container">
+        <div class="grid-100">
+            <section class="article">
+                @if (!string.IsNullOrEmpty(Model.Article.Body))
+                {
+                    <article>
+                        @Html.Raw(StockportWebapp.Utils.HtmlHelper.AddImageAttributes(Model.Article.Body, "720", "511", "720", "937", "852"))
+                    </article>
+                }
+            </section>
+        </div>
     </div>
-</section>
+</div>
