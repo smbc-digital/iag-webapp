@@ -10,12 +10,6 @@
     }
 }
 
-img {
-    border-radius: 20px;
-    width: 100%;
-    height: auto;
-}
-
 img[src*='#left'], img[src*='#right'] {
 	display: block;
 	max-width: 40%;
@@ -31,28 +25,4 @@ img[src*='#right'] {
 img[src*='#left'] {
 	float: left;
 	margin-right: 1.1875rem;
-}
-
-figure {
-	p {
-		margin-bottom: 0 !important;
-	}
-
-	img {
-		height: auto;
-		width: auto;
-		max-width: 100%;
-		border-top-left-radius: 3px;
-		border-top-right-radius: 3px;
-		border-bottom-left-radius: 0;
-		border-bottom-right-radius: 0;
-	}
-}
-
-figcaption {
-	background-color: black;
-	color: white;
-	border-bottom-left-radius: 3px;
-	border-bottom-right-radius: 3px;
-	padding: 0.55em;
 }

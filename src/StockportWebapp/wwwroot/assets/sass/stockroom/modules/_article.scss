@@ -2,6 +2,16 @@
     word-wrap: break-word;
     padding: 0 1.27em 1.27em;
 
+    @media #{$mobile} {
+        padding: 0 0.5em 1em;
+    }
+
+    img {
+        border-radius: 20px;
+        width: 100%;
+        height: auto;
+    }
+
     &-hero {
         position: relative;
 
@@ -13,7 +23,7 @@
                 background-size: cover;
                 position: absolute;
             }
-    
+
             @media #{$mobile} {
                 height: 350px;
             }
@@ -38,6 +48,11 @@
             padding: 0.5em;
             margin: 0;
             font-weight: 400;
+
+            @media #{$mobile} {
+                padding: 0.3em;
+                border-radius: 10px 10px 0 0;
+            }
         }
 
         &__content {
@@ -47,10 +62,28 @@
 
         &__about {
             padding: 1.27em 1.27em 0;
-        }
 
-        &__break {
-            margin-inline: 0.5em;
+            @media #{$mobile} {
+                padding: 1em 0.5em 0;
+
+                &-attribution {
+                    span {
+                        display: block;
+                    }
+
+                    span:first-of-type {
+                        margin-bottom: 1em;
+                    }
+                }
+            }
+
+            &-break {
+                margin-inline: 0.5em;
+
+                @media #{$mobile} {
+                    display: none !important;
+                }
+            }
         }
     }
 }
