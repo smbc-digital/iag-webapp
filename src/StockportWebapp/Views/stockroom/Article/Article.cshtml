@@ -7,35 +7,48 @@
 }
 
 <div class="grid-container-full-width" style="background-color:white;" data-cy="article">
-    <div class="">
+    <div class="article-hero">
         @if (!Model.ArticleWithImage)
         {
-            <div class="article-hero">
-                <img src="@Model.Article.Image?q=89&fm=webp"
-                        srcset="@Model.Article.Image?w=967&q=89&fm=webp 967w,
-                            @Model.Article.Image?w=853&q=89&fm=webp 853w,
-                            @Model.Article.Image?w=712&q=89&fm=webp 712w"
-                        sizes="(max-width: 767px) 712px,
-                            ((min-width: 768px) and (max-width: 1023px)) 967px,
-                            (min-width: 1024px) 853px"
-                        class="article-hero__image"
-                        width="712"
-                        height="350"
-                        alt="@Model.Article.AltText" />
-            </div>
+            <div class="article-hero__background" style="background-image: url(@Model.Article.Image?fm=webp)"></div>
         }
+        
+        <div class="grid-container article-hero__wrapper">
+            <div class="grid-100">
+                <div class="article-hero__image"></div>
+
+                <div class="article-hero__content">
+                    <h1 class="article-hero__title">@Model.Article.Title</h1>
+
+                    <div class="article-hero__about">
+                        <p>@Model.Article.Teaser</p>
+                        
+                        <p>
+                            @if(!string.IsNullOrEmpty(Model.Article.Author))
+                            {
+                                <span>Author: <strong>@Model.Article.Author</strong></span>
+                            }
+                            
+                            @if(!string.IsNullOrEmpty(Model.Article.Author) && !string.IsNullOrEmpty(Model.Article.Photographer))
+                            {
+                                <span class="article-hero__break">|</span>
+                            }
+
+                            @if(!string.IsNullOrEmpty(Model.Article.Photographer))
+                            {
+                                <span>Photographer: <strong>@Model.Article.Photographer</strong></span>
+                            }
+                        </p>
+
+                        <p>Last updated: <strong><partial name="FormattedDate" model="@Model.Article.UpdatedAt" /></strong></p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="grid-container">
         <div class="grid-100">
-            <div class="">
-                <h1 class="article__title">@Model.Article.Title</h1>
-
-                <p>@Model.Article.Teaser</p>
-                <p>Author: <strong>@Model.Article.Author</strong> | Photographer: <strong>@Model.Article.Photographer</strong></p>
-                <p>@Model.Article.UpdatedAt</p>
-            </div>
-
             <section class="article">
                 @if (!string.IsNullOrEmpty(Model.Article.Body))
                 {

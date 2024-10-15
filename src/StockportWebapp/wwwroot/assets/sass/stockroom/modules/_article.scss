@@ -1,7 +1,8 @@
-﻿article {
+﻿.article {
     display: flex;
     flex-direction: row;
     word-wrap: break-word;
+    padding: 0 1.27em 1.27em;
 
     @media #{$mobile} {
         margin-inline: 5px;
@@ -12,13 +13,54 @@
     }
 
     &-hero {
-        margin-bottom: 2em;
+        position: relative;
+
+        &__background {
+            @media #{$tablet, $desktop} {
+                height: 525px;
+                width: 100%;
+                background-position: center;
+                background-size: cover;
+                position: absolute;
+            }
+    
+            @media #{$mobile} {
+                height: 350px;
+            }
+        }
+
+        &__wrapper {
+            position: relative;
+        }
 
         &__image {
-            box-sizing: border-box;
-            height: auto;
-            width: 100%;
-            border-radius: 3px;
+            height: 300px;
+
+            @media #{$mobile} {
+                height: 150px;
+            }
+        }
+
+        &__title {
+            background: black;
+            color: white;
+            border-radius: 20px 20px 0 0;
+            padding: 0.5em;
+            margin: 0;
+            font-weight: 400;
+        }
+
+        &__content {
+            border-radius: 20px 20px 0 0;
+            background: white;
+        }
+
+        &__about {
+            padding: 1.27em;
+        }
+
+        &__break {
+            margin-inline: 0.5em;
         }
     }
 }
