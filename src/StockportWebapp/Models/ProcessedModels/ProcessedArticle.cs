@@ -95,29 +95,6 @@ public class ProcessedArticle : IProcessedContentType, IContactUsMessageContaine
         PublishedOn = publishedOn;
     }
 
-    public ProcessedArticle(string v1, string v2, string defaultBody, string v3, string v4, List<ProcessedSection> processedSections, string v5, string v6, string v7, string v8, List<Crumb> crumbs, List<Alert> alerts1, Topic topic, List<Alert> alerts2, DateTime dateTime, bool v9, object value1, string v10, object value2)
-    {
-        this.v1 = v1;
-        this.v2 = v2;
-        this.defaultBody = defaultBody;
-        this.v3 = v3;
-        this.v4 = v4;
-        this.processedSections = processedSections;
-        this.v5 = v5;
-        this.v6 = v6;
-        this.v7 = v7;
-        this.v8 = v8;
-        this.crumbs = crumbs;
-        this.alerts1 = alerts1;
-        this.topic = topic;
-        this.alerts2 = alerts2;
-        this.dateTime = dateTime;
-        this.v9 = v9;
-        this.value1 = value1;
-        this.v10 = v10;
-        this.value2 = value2;
-    }
-
     public void AddContactUsMessage(string message, string slug = "")
     {
         if (string.IsNullOrEmpty(slug))
