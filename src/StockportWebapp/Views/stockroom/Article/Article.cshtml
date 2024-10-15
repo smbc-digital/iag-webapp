@@ -24,17 +24,17 @@
                         <p>@Model.Article.Teaser</p>
                         
                         <p class="article-hero__about-attribution">
-                            @if(!string.IsNullOrEmpty(Model.Article.Author))
+                            @if (!string.IsNullOrEmpty(Model.Article.Author))
                             {
                                 <span>Author: <strong>@Model.Article.Author</strong></span>
                             }
                             
-                            @if(!string.IsNullOrEmpty(Model.Article.Author) && !string.IsNullOrEmpty(Model.Article.Photographer))
+                            @if (!string.IsNullOrEmpty(Model.Article.Author) && !string.IsNullOrEmpty(Model.Article.Photographer))
                             {
                                 <span class="article-hero__about-break">|</span>
                             }
 
-                            @if(!string.IsNullOrEmpty(Model.Article.Photographer))
+                            @if (!string.IsNullOrEmpty(Model.Article.Photographer))
                             {
                                 <span>Photographer: <strong>@Model.Article.Photographer</strong></span>
                             }
