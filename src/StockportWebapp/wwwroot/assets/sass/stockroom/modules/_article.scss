@@ -1,16 +1,6 @@
 ﻿.article {
-    display: flex;
-    flex-direction: row;
     word-wrap: break-word;
     padding: 0 1.27em 1.27em;
-
-    @media #{$mobile} {
-        margin-inline: 5px;
-    }
-
-    @media #{$tablet} {
-        display: block;
-    }
 
     &-hero {
         position: relative;
@@ -37,7 +27,7 @@
             height: 300px;
 
             @media #{$mobile} {
-                height: 150px;
+                height: 200px;
             }
         }
 
@@ -56,7 +46,7 @@
         }
 
         &__about {
-            padding: 1.27em;
+            padding: 1.27em 1.27em 0;
         }
 
         &__break {

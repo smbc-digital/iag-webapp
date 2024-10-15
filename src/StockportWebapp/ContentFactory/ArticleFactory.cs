@@ -44,7 +44,8 @@ public class ArticleFactory
                                     article.LogoAreaTitle,
                                     article.RelatedContent,
                                     article.Author,
-                                    article.Photographer);
+                                    article.Photographer,
+                                    article.PublishedOn);
     }
 
     private async Task<IEnumerable<PrivacyNotice>> GetPrivacyNotices()

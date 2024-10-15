@@ -1,4 +1,6 @@
-﻿namespace StockportWebappTests_Unit.Unit.ViewModels;
+﻿using StockportGovUK.NetStandard.Gateways.Models.RevsAndBens;
+
+namespace StockportWebappTests_Unit.Unit.ViewModels;
 
 public class ArticleViewModelTest
 {
@@ -377,9 +379,38 @@ public class ArticleViewModelTest
     }
 
     private static ProcessedArticle BuildArticle(string slug, List<ProcessedSection> sections, Topic topic, List<SubItem> relatedContent=null, string image="") 
-        => new(It.IsAny<string>(), slug, It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), sections,
-            It.IsAny<string>(), It.IsAny<string>(), image, It.IsAny<string>(), new List<Crumb>(), new List<Alert>(), topic, new List<Alert>(), new DateTime(), new bool(), new List<GroupBranding>(), It.IsAny<string>(), relatedContent);
+        => new(It.IsAny<string>(),
+               slug,
+               It.IsAny<string>(),
+               It.IsAny<string>(),
+               It.IsAny<string>(),
+               sections,
+               It.IsAny<string>(),
+               It.IsAny<string>(),
+               image,
+               It.IsAny<string>(),
+               new List<Crumb>(),
+               new List<Alert>(),
+               topic,
+               new List<Alert>(),
+               new DateTime(),
+               new bool(),
+               new List<GroupBranding>(),
+               It.IsAny<string>(),
+               relatedContent,
+               It.IsAny<string>(),
+               It.IsAny<string>(),
+               new DateTime());
 
     private static ProcessedSection BuildSection(string slug) => 
-        new("title", slug, It.IsAny<string>(), It.IsAny<string>(), new List<Profile>(), new List<Document>(), new List<Alert>(), new List<GroupBranding>(), "logoAreaTitle", new DateTime());
+        new("title",
+            slug,
+            It.IsAny<string>(),
+            It.IsAny<string>(),
+            new List<Profile>(),
+            new List<StockportWebapp.Models.Document>(),
+            new List<Alert>(),
+            new List<GroupBranding>(),
+            "logoAreaTitle",
+            new DateTime());
 }

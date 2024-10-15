@@ -61,8 +61,9 @@ public class ContentFactoryTest
                             new List<GroupBranding>(),
                             TextHelper.AnyString,
                             null,
-                            "author",
-                            "photographer");
+                            It.IsAny<string>(),
+                            It.IsAny<string>(),
+                            new DateTime());
 
         // Act
         IProcessedContentType processedArticle = _factory.Build(article);

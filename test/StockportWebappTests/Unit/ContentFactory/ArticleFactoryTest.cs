@@ -1,4 +1,5 @@
-﻿using Document = StockportWebapp.Models.Document;
+﻿using StockportGovUK.NetStandard.Gateways.Models.RevsAndBens;
+using Document = StockportWebapp.Models.Document;
 
 namespace StockportWebappTests_Unit.Unit.ContentFactory;
 
@@ -46,7 +47,8 @@ public class ArticleFactoryTest
                     "logoAreaTitle",
                     new List<SubItem>(),
                     "author",
-                    "photographer");
+                    "photographer",
+                    new DateTime());
 
         _sectionFactory
             .Setup(_ => _.Build(_sectionOne, _article.Title))
