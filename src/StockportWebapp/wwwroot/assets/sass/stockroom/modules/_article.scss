@@ -1,0 +1,24 @@
+﻿article {
+    display: flex;
+    flex-direction: row;
+    word-wrap: break-word;
+
+    @media #{$mobile} {
+        margin-inline: 5px;
+    }
+
+    @media #{$tablet} {
+        display: block;
+    }
+
+    &-hero {
+        margin-bottom: 2em;
+
+        &__image {
+            box-sizing: border-box;
+            height: auto;
+            width: 100%;
+            border-radius: 3px;
+        }
+    }
+}
