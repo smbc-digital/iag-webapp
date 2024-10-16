@@ -38,12 +38,14 @@
                             Title = pageSection.SubItems.FirstOrDefault().Title
                         }
                     : null;
-                
-                <partial name="CallToAction" model="@callToActionBanner" />
+
+                <div class="section section--extra-margin">
+                    <partial name="CallToAction" model="@callToActionBanner" />
+                </div>
             }
             else 
-            {
-                <partial name="@pageSection.ContentType" model="@pageSection" />
+            {   
+                <partial name="@pageSection.ContentType" model="@pageSection" />   
             }
         }
     }

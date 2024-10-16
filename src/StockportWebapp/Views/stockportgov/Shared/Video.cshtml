@@ -4,12 +4,15 @@
 {
     VideoViewModel videoViewModel = new(string.IsNullOrEmpty(Model.VideoTitle) ? Model.Title : Model.VideoTitle, Model.VideoToken, Model.VideoPlaceholderPhotoId);
     
-    <noscript>
-        <style>
-            .js-only { display: none; }
-        </style>
-    </noscript>
-    <section class="section section--white js-only" data-cy="video">
+
+    <section class="section section--extra-margin section--white js-only" data-cy="video">
+        <noscript>
+            <style>
+                .js-only {
+                    display: none;
+                }
+            </style>
+        </noscript>
         <div class="grid-container">
             <div class="grid-100">
                 @if (!string.IsNullOrEmpty(Model.Title))
@@ -29,4 +32,5 @@
             </div>
         </div>
     </section>
+
 }

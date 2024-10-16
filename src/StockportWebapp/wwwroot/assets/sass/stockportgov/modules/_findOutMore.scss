@@ -35,7 +35,7 @@
             width: 45%;
             align-content: center;
             padding-inline-end: 3em;
-            
+
             @media #{$tablet} {
                 width: 100%;
                 padding: 0;
@@ -144,10 +144,15 @@
                 border-color: $stockport-purple;
             }
         }
+
+        &:last-of-type {
+            margin-bottom: 0px;
+        }
     }
 
     &-card {
-        border-bottom: 9px solid $stockport-teal-lighter;
+        border-bottom: 7px solid $stockport-teal-lighter;
+        margin-bottom: 0;
 
         @media #{$mobile} {
             margin-bottom: 1.5em;

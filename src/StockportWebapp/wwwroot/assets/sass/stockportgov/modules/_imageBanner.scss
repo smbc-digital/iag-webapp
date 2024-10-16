@@ -1,5 +1,10 @@
 .image-banner {
     position: relative;
+    margin-bottom: 0px;
+
+    & + .image-banner {
+        margin-top: 2em;
+    }
 
     &-content-width {
         @media #{$mobile} {
@@ -8,8 +13,7 @@
     }
 
     &__link {
-        &:focus
-        {
+        &:focus {
             .image-banner__background {
                 box-sizing: border-box;
                 outline: #ef8a16 solid 3px !important;
@@ -48,7 +52,7 @@
 
         p {
             margin-block-end: 0;
-            
+
             @media #{$mobile} {
                 display: none;
             }

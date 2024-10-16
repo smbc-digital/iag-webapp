@@ -1,7 +1,7 @@
 ﻿@model LandingPageViewModel
 @if (Model is not null && !string.IsNullOrEmpty(Model.LandingPage.HeaderImage.Url))
 {
-    <section class="section full-header" data-cy="full-image-header">
+    <section class="section section--no-margin full-header" data-cy="full-image-header">
         <div class="full-header__background" style="background-image: url(@Model.LandingPage.HeaderImage.Url?fm=webp)"></div>
 
         <div class="grid-container">
