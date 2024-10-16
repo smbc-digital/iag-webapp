@@ -6,6 +6,7 @@ public interface ITimeProvider
     DateTime Today();
 }
 
+[ExcludeFromCodeCoverage]
 public class TimeProvider : ITimeProvider
 {
     public DateTime Now()

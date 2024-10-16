@@ -1,5 +1,6 @@
 ﻿namespace StockportWebapp.Middleware;
 
+[ExcludeFromCodeCoverage]
 public class BusinessIdMiddleware
 {
     private readonly RequestDelegate _next;

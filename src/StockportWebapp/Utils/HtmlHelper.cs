@@ -2,6 +2,7 @@
 
 namespace StockportWebapp.Utils;
 
+[ExcludeFromCodeCoverage]
 public class HtmlHelper
 {
     public static string AddImageAttributes(string htmlContent, string width, string height, string maxMobileWidth, string maxTabletWidth, string maxDesktopWidth)

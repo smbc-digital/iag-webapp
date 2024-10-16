@@ -6,6 +6,7 @@ public interface IHttpEmailClient
     string GenerateEmailBodyFromHtml<T>(T details, string templateName = null);
 }
 
+[ExcludeFromCodeCoverage]
 public class HttpEmailClient : IHttpEmailClient
 {
     private readonly IAmazonSimpleEmailService _amazonSimpleEmailService;

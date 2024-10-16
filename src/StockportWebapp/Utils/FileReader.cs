@@ -1,5 +1,6 @@
 ﻿namespace StockportWebapp.Utils;
 
+[ExcludeFromCodeCoverage]
 public class FileReader
 {
     public string GetStringResponseFromFile(string file)

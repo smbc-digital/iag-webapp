@@ -1,5 +1,6 @@
 ﻿namespace StockportWebapp.Utils.Extensions;
 
+[ExcludeFromCodeCoverage]
 public static class ApplicationBuilderExtensions
 {
     public static IApplicationBuilder UseCustomStaticFiles(this IApplicationBuilder app)

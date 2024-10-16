@@ -1,5 +1,6 @@
 ﻿namespace StockportWebapp.Middleware;
 
+[ExcludeFromCodeCoverage]
 public class SecurityHeaderMiddleware
 {
     private readonly RequestDelegate _next;

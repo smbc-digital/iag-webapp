@@ -6,6 +6,7 @@ public interface IFileWrapper
     string[] ReadAllLines(string path);
 }
 
+[ExcludeFromCodeCoverage]
 public class FileWrapper : IFileWrapper
 {
     public bool Exists(string path)

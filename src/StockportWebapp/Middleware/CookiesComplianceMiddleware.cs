@@ -6,6 +6,7 @@
 /// that we know require consent (Google Analytics, SiteImprove, Alerts dismissal, Old cookie consent)
 /// </summary>
 /// 
+[ExcludeFromCodeCoverage]
 public class CookiesComplianceMiddleware
 {
     private readonly RequestDelegate _next;
