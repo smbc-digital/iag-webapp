@@ -1,5 +1,6 @@
 ﻿namespace StockportWebapp.Middleware;
 
+[ExcludeFromCodeCoverage]
 public class RobotsMiddleware
 {
     private readonly RequestDelegate _next;

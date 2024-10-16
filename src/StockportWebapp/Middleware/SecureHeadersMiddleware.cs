@@ -1,5 +1,6 @@
 namespace StockportWebapp.Middleware;
 
+[ExcludeFromCodeCoverage]
 public class SecureHeadersMiddleware
 {
     public static SecureHeadersMiddlewareConfiguration CustomConfiguration() =>

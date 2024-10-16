@@ -1,5 +1,6 @@
 ﻿namespace StockportWebapp.Filters;
 
+[ExcludeFromCodeCoverage]
 public class GroupAuthorisation : ActionFilterAttribute
 {
     private readonly IApplicationConfiguration _configuration;

@@ -5,6 +5,7 @@ public interface IUrlHelperWrapper
     string RouteUrl(RouteValueDictionary routeValueDictionary);
 }
 
+[ExcludeFromCodeCoverage]
 public class UrlHelperWrapper : IUrlHelperWrapper
 {
     private readonly IUrlHelper _actualUrlHelper;
