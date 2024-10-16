@@ -46,11 +46,11 @@
         }
 
         &__subTitle {
-            @include lead;
+            font-size: 1em !important;
         }
-
+    
         &__teaser {
-            display: inline;
+            @include lead;
         }
 
         &__read-more {
@@ -58,6 +58,7 @@
             text-decoration: underline;
             display: block;
             margin-top: 2em;
+            margin-bottom: 1em;
             font-weight: 700;
             
             &--no-margin {
@@ -81,7 +82,7 @@
 
     &-quote {
         color: $stockport-green;
-        font-size: 1em;
+        font-size: 1.2em;
 
         &--rtl {
             display: none !important;
