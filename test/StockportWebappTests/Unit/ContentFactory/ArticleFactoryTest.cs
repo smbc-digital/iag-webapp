@@ -1,5 +1,4 @@
-﻿using StockportGovUK.NetStandard.Gateways.Models.RevsAndBens;
-using Document = StockportWebapp.Models.Document;
+﻿using Document = StockportWebapp.Models.Document;
 
 namespace StockportWebappTests_Unit.Unit.ContentFactory;
 
