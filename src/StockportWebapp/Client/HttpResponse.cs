@@ -1,5 +1,6 @@
 ﻿namespace StockportWebapp.Client;
 
+[ExcludeFromCodeCoverage]
 public class HttpResponse : StatusCodeResult
 {
     public readonly object Content;
@@ -30,6 +31,7 @@ public class HttpResponse : StatusCodeResult
     }
 }
 
+[ExcludeFromCodeCoverage]
 public static class StatusCodeResultExtensions
 {
     internal static bool IsSuccessful(this StatusCodeResult result) =>

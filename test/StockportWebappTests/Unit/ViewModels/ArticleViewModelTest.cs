@@ -1,4 +1,6 @@
-﻿namespace StockportWebappTests_Unit.Unit.ViewModels;
+﻿using StockportGovUK.NetStandard.Gateways.Models.RevsAndBens;
+
+namespace StockportWebappTests_Unit.Unit.ViewModels;
 
 public class ArticleViewModelTest
 {
@@ -300,8 +302,28 @@ public class ArticleViewModelTest
         Topic topic = new(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), featuredItems, subItems, secondaryItems, new List<Crumb>(), new List<Alert>(), false, It.IsAny<string>(), null, string.Empty, true,
             new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty), string.Empty, null, string.Empty);
       
-        ProcessedArticle article = new(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), new List<ProcessedSection>(),
-            It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), new List<Crumb>(), new List<Alert>(), topic, new List<Alert>(), new DateTime(), new bool(), new List<GroupBranding>(), It.IsAny<string>(), new List<SubItem>());
+        ProcessedArticle article = new(It.IsAny<string>(),
+            It.IsAny<string>(),
+            It.IsAny<string>(),
+            It.IsAny<string>(),
+            It.IsAny<string>(),
+            new List<ProcessedSection>(),
+            It.IsAny<string>(),
+            It.IsAny<string>(),
+            It.IsAny<string>(),
+            It.IsAny<string>(),
+            new List<Crumb>(),
+            new List<Alert>(),
+            topic,
+            new List<Alert>(),
+            new DateTime(),
+            new bool(),
+            new List<GroupBranding>(),
+            It.IsAny<string>(),
+            new List<SubItem>(),
+            It.IsAny<string>(),
+            It.IsAny<string>(),
+            new DateTime());
 
         ArticleViewModel articleViewModel = new(article);
 
@@ -334,11 +356,54 @@ public class ArticleViewModelTest
         List<SubItem> secondaryItems = new() { fifthSubItem, sixthSubItem, seventhSubItem, eightSubItem };
         List<SubItem> featuredItems = new() { ninthSubItem, tenthSubItem };
 
-        Topic topic = new(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(),
-            featuredItems, subItems, secondaryItems, new List<Crumb>(), new List<Alert>(), false, It.IsAny<string>(), null, string.Empty, true,
-            new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty), string.Empty, null, string.Empty);
-        ProcessedArticle article = new(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), new List<ProcessedSection>(),
-            It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), new List<Crumb>(), new List<Alert>(), topic, new List<Alert>(), new DateTime(), new bool(), new List<GroupBranding>(), It.IsAny<string>(), new List<SubItem>());
+        Topic topic = new(It.IsAny<string>(),
+            It.IsAny<string>(),
+            It.IsAny<string>(),
+            It.IsAny<string>(),
+            It.IsAny<string>(),
+            It.IsAny<string>(),
+            It.IsAny<string>(),
+            It.IsAny<string>(),
+            featuredItems,
+            subItems,
+            secondaryItems,
+            new List<Crumb>(),
+            new List<Alert>(),
+            false,
+            It.IsAny<string>(),
+            null,
+            string.Empty,
+            true,
+            new CarouselContent(string.Empty,
+                string.Empty,
+                string.Empty,
+                string.Empty),
+            string.Empty,
+            null,
+            string.Empty);
+
+        ProcessedArticle article = new(It.IsAny<string>(),
+            It.IsAny<string>(),
+            It.IsAny<string>(),
+            It.IsAny<string>(),
+            It.IsAny<string>(),
+            new List<ProcessedSection>(),
+            It.IsAny<string>(),
+            It.IsAny<string>(),
+            It.IsAny<string>(),
+            It.IsAny<string>(),
+            new List<Crumb>(),
+            new List<Alert>(),
+            topic,
+            new List<Alert>(),
+            new DateTime(),
+            new bool(),
+            new List<GroupBranding>(),
+            It.IsAny<string>(),
+            new List<SubItem>(),
+            It.IsAny<string>(),
+            It.IsAny<string>(),
+            new DateTime());
 
         ArticleViewModel articleViewModel = new(article);
 
@@ -365,8 +430,31 @@ public class ArticleViewModelTest
     {
         // Arrange
         ProcessedSection section = new(string.Empty, "test-slug", sectionMeta, string.Empty, null, null, null, null, string.Empty, new DateTime());
-        ProcessedArticle article = new(string.Empty, string.Empty, string.Empty, string.Empty, articleMeta, 
-            new List<ProcessedSection> { section }, string.Empty, It.IsAny<string>(), string.Empty, null, null, null, null, null, new DateTime(), new bool(), new List<GroupBranding>(), string.Empty, new List<SubItem>()
+        ProcessedArticle article = new(string.Empty,
+            string.Empty,
+            string.Empty,
+            string.Empty,
+            articleMeta,
+            new List<ProcessedSection>
+            {
+                section
+            },
+            string.Empty,
+            It.IsAny<string>(),
+            string.Empty,
+            null,
+            null,
+            null,
+            null,
+            null,
+            new DateTime(),
+            new bool(),
+            new List<GroupBranding>(),
+            string.Empty,
+            new List<SubItem>(),
+            string.Empty,
+            string.Empty,
+            new DateTime()
         );
 
         // Act
@@ -377,9 +465,38 @@ public class ArticleViewModelTest
     }
 
     private static ProcessedArticle BuildArticle(string slug, List<ProcessedSection> sections, Topic topic, List<SubItem> relatedContent=null, string image="") 
-        => new(It.IsAny<string>(), slug, It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), sections,
-            It.IsAny<string>(), It.IsAny<string>(), image, It.IsAny<string>(), new List<Crumb>(), new List<Alert>(), topic, new List<Alert>(), new DateTime(), new bool(), new List<GroupBranding>(), It.IsAny<string>(), relatedContent);
+        => new(It.IsAny<string>(),
+               slug,
+               It.IsAny<string>(),
+               It.IsAny<string>(),
+               It.IsAny<string>(),
+               sections,
+               It.IsAny<string>(),
+               It.IsAny<string>(),
+               image,
+               It.IsAny<string>(),
+               new List<Crumb>(),
+               new List<Alert>(),
+               topic,
+               new List<Alert>(),
+               new DateTime(),
+               new bool(),
+               new List<GroupBranding>(),
+               It.IsAny<string>(),
+               relatedContent,
+               It.IsAny<string>(),
+               It.IsAny<string>(),
+               new DateTime());
 
     private static ProcessedSection BuildSection(string slug) => 
-        new("title", slug, It.IsAny<string>(), It.IsAny<string>(), new List<Profile>(), new List<Document>(), new List<Alert>(), new List<GroupBranding>(), "logoAreaTitle", new DateTime());
+        new("title",
+            slug,
+            It.IsAny<string>(),
+            It.IsAny<string>(),
+            new List<Profile>(),
+            new List<StockportWebapp.Models.Document>(),
+            new List<Alert>(),
+            new List<GroupBranding>(),
+            "logoAreaTitle",
+            new DateTime());
 }

@@ -3,12 +3,12 @@
 public class OrganisationFactory
 {
     private readonly MarkdownWrapper _markdownWrapper;
-    private readonly CookiesHelper cookiesHelper;
+    private readonly CookiesHelper _cookiesHelper;
 
     public OrganisationFactory(MarkdownWrapper markdownWrapper, IHttpContextAccessor httpContextAccessor)
     {
         _markdownWrapper = markdownWrapper;
-        cookiesHelper = new CookiesHelper(httpContextAccessor);
+        _cookiesHelper = new CookiesHelper(httpContextAccessor);
     }
 
     public virtual ProcessedOrganisation Build(Organisation organisation)
@@ -25,16 +25,23 @@ public class OrganisationFactory
             Type = "organisation"
         };
 
-        var donations = new Donations()
+        var donations = new Donations
         {
             Email = organisation.Email,
             GetDonations = organisation.Donations,
             Url = $"groups/{organisation.Slug}"
         };
 
-        var groupsWithFavourites = cookiesHelper.PopulateCookies(organisation.Groups, "favourites");
+        var groupsWithFavourites = _cookiesHelper.PopulateCookies(organisation.Groups, "favourites");
 
-        return new ProcessedOrganisation(organisation.Title, organisation.Slug, organisation.ImageUrl, body, organisation.Phone,
-            organisation.Email, groupsWithFavourites, volunteering, donations);
+        return new ProcessedOrganisation(organisation.Title,
+            organisation.Slug,
+            organisation.ImageUrl,
+            body,
+            organisation.Phone,
+            organisation.Email,
+            groupsWithFavourites,
+            volunteering,
+            donations);
     }
 }

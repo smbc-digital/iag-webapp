@@ -5,6 +5,7 @@ public interface IViewRender
     string Render<TModel>(string name, TModel model);
 }
 
+[ExcludeFromCodeCoverage]
 public class ViewRender : IViewRender
 {
     private readonly IRazorViewEngine _viewEngine;

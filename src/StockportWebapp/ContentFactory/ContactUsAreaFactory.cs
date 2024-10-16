@@ -2,21 +2,14 @@
 
 public class ContactUsAreaFactory
 {
-    private readonly ITagParserContainer _tagParserContainer;
-    private readonly MarkdownWrapper _markdownWrapper;
     private readonly IContactUsCategoryFactory _contactUsCategoryFactory;
 
-
-    public ContactUsAreaFactory(ITagParserContainer tagParserContainer, MarkdownWrapper markdownWrapper, IContactUsCategoryFactory contactUsCategoryFactory)
-    {
-        _tagParserContainer = tagParserContainer;
-        _markdownWrapper = markdownWrapper;
+    public ContactUsAreaFactory(IContactUsCategoryFactory contactUsCategoryFactory) =>
         _contactUsCategoryFactory = contactUsCategoryFactory;
-    }
 
     public virtual ProcessedContactUsArea Build(ContactUsArea contactUsArea)
     {
-        var processedContactUsCategories = new List<ProcessedContactUsCategory>();
+        List<ProcessedContactUsCategory> processedContactUsCategories = new();
         foreach (var contactUsCategory in contactUsArea.ContactUsCategories)
         {
             processedContactUsCategories.Add(_contactUsCategoryFactory.Build(contactUsCategory));

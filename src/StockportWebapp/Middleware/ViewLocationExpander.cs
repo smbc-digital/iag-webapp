@@ -1,5 +1,6 @@
 namespace StockportWebapp.Middleware;
 
+[ExcludeFromCodeCoverage]
 public class ViewLocationExpander : IViewLocationExpander
 {
     public IEnumerable<string> ExpandViewLocations(ViewLocationExpanderContext context, IEnumerable<string> viewLocations)

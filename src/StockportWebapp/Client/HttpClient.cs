@@ -11,6 +11,7 @@ public interface IHttpClient
     Task PostMessage(string requestURI, HttpContent content, Dictionary<string, string> headers);
 }
 
+[ExcludeFromCodeCoverage]
 public class HttpClient : IHttpClient
 {
     private readonly System.Net.Http.HttpClient _client;

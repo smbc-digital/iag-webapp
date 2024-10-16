@@ -6,6 +6,7 @@ public interface IUrlGeneratorSimple
     string StockportApiUrl<T>();
 }
 
+[ExcludeFromCodeCoverage]
 public class UrlGeneratorSimple : IUrlGeneratorSimple
 {
     private readonly IApplicationConfiguration _config;
