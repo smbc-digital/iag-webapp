@@ -36,17 +36,52 @@ figure {
 		height: auto;
 		width: auto;
 		max-width: 100%;
-		border-top-left-radius: 3px;
-		border-top-right-radius: 3px;
-		border-bottom-left-radius: 0;
-		border-bottom-right-radius: 0;
+        border-radius: 20px 20px 0 0 !important;
 	}
 }
 
 figcaption {
 	background-color: black;
 	color: white;
-	border-bottom-left-radius: 3px;
-	border-bottom-right-radius: 3px;
 	padding: 0.55em;
+    border-radius: 0 0 20px 20px !important;
+}
+
+.image-right, .image-left {
+    display: flex;
+    flex-direction: column;
+    max-width: 50%;
+
+    img {
+        border-radius: 20px 20px 0 0 !important;
+        height: auto;
+        width: 100%;
+        margin: 0;
+        max-width: 100%;
+    }
+
+    figcaption {
+        background-color: black;
+        border-radius: 0 0 20px 20px;
+        color: #fff;
+        padding: .55em;
+    }
+}
+
+.image-left {
+    float: left;
+	margin: 1.1875rem 1.1875rem 1.1875rem 0;
+
+    img, figcaption {
+        float: left;
+    }
+}
+
+.image-right {
+    float: right;
+	margin: 1.1875rem 0 1.1875rem 1.1875rem;
+
+    img, figcaption {
+        float: right;
+    }
 }
