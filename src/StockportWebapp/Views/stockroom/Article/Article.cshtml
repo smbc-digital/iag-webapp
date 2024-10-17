@@ -61,30 +61,33 @@
     </div>
 </div>
 
-<div class="grid-container-full-width" style="background-color:#f2f2f2;" data-cy="article">
-    <div class="grid-container">
-        <div class="grid-100">
-            <section class="article">
-               <h2 class="card-title">More like this</h2>
-                <ul class="card-wrapper">
-                    @foreach (SubItem relatedContent in Model.Article.RelatedContent)
-                    {
-                        <li class="card-item">
-                            <img src="@relatedContent.Image" class="card-item__image">
+@if(Model.Article.RelatedContent.Any())
+{
+    <div class="grid-container-full-width" style="background-color:#f2f2f2;" data-cy="article">
+        <div class="grid-container">
+            <div class="grid-100">
+                <section class="article">
+                <h2 class="card-title">More like this</h2>
+                    <ul class="card-wrapper">
+                        @foreach (SubItem relatedContent in Model.Article.RelatedContent)
+                        {
+                            <li class="card-item">
+                                <img src="@relatedContent.Image" class="card-item__image">
 
-                            <div class="card-item__container">
-                                <div class="card-item__content">
-                                    <h3 class="card-item__content-title">@relatedContent.Title</h3>
-                                    <p class="card-item__content-teaser">@relatedContent.Teaser</p>
+                                <div class="card-item__container">
+                                    <div class="card-item__content">
+                                        <h3 class="card-item__content-title">@relatedContent.Title</h3>
+                                        <p class="card-item__content-teaser">@relatedContent.Teaser</p>
+                                    </div>
+                                    <a href="@relatedContent.NavigationLink"
+                                    target="_blank"
+                                    class="btn card-item__container-btn">Read more</a>
                                 </div>
-                                <a href="@relatedContent.NavigationLink"
-                                   target="_blank"
-                                   class="btn card-item__container-btn">Read more</a>
-                            </div>
-                        </li>
-                    }
-                </ul>
-            </section>
+                            </li>
+                        }
+                    </ul>
+                </section>
+            </div>
         </div>
     </div>
-</div>
+}
