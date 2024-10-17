@@ -18,6 +18,7 @@
     }
 
     &:hover, &:focus {
-        background: rgba(0, 0, 0, 0.8);
+        background-color: $skrm-yellow;
+        color: black;
     }
 }

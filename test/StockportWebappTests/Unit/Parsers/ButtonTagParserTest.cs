@@ -72,7 +72,7 @@ public class ButtonTagParserTest
 
     private static string HtmlButton(string link, string title)
     {
-        const string buttonClassStyle = "btn button button-primary button-outline button-partialrounded btn--chevron-forward button-call-to-action";
+        const string buttonClassStyle = "btn button button-primary button-outline button-partialrounded btn--chevron-forward";
         return $"<a class=\"{buttonClassStyle}\" href=\"{link}\">{title}</a>";
     }
 }
