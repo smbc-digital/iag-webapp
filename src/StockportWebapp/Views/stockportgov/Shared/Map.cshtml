@@ -3,13 +3,8 @@
 @if (Model is not null && !string.IsNullOrEmpty(Model.Link))
 {
     MapViewModel mapViewModel = new(Model.Link);
-    
-    <noscript>
-        <style>
-            .js-only { display: none; }
-        </style>
-    </noscript>
-    <section class="section section--white js-only" data-cy="map">
+
+    <section class="content-block content-block--extra-margin js-only" data-cy="map">
         <div class="grid-container">
             <div class="grid-100">
                 @if (!string.IsNullOrEmpty(Model.Title))

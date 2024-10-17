@@ -1,0 +1,7 @@
+.content-block {
+    margin: 0px;
+
+    & + .content-block--extra-margin {
+        margin-top: 4em;
+    }
+}
