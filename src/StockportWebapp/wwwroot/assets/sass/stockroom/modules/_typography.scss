@@ -27,9 +27,6 @@ $fontStack: 'OTNeueMontrealRegularSemiSqueezed', sans-serif;
 body {
     @include body;
     background-color: white;
-    p {
-        margin-bottom: 1em;
-    }
 }
 
 @mixin body--small {

@@ -1,0 +1,74 @@
+﻿/*------------------- Spacing -------------------*/
+
+ol {
+    list-style: decimal;
+}
+
+ul {
+    list-style: disc;
+}
+
+li {
+    margin-inline-start: 30px;
+}
+
+p,
+dl,
+hr,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+ol,
+ul,
+pre,
+table,
+address,
+fieldset,
+figure {
+    margin-bottom: 20px;
+}
+
+/*------------------- Tables -------------------*/
+
+.table {
+    overflow-x: auto;
+    -ms-overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    overflow-wrap: normal;
+}
+
+table, tr, th, td {
+    border: none;
+}
+
+thead {
+    border-bottom: 1px solid #454240;
+}
+
+th {
+    font-weight: 700;
+    padding: 9px 15px 9px 0;
+}
+
+tbody td {
+    font-weight: 500;
+    padding: 9px 15px 9px 0;
+}
+
+tbody tr {
+    border-bottom: 1px solid #5a5a594d;
+}
+
+tbody tr:last-child {
+    border-bottom: 0;
+}
+
+tbody {
+    border-bottom: 1px solid #454240;
+}
