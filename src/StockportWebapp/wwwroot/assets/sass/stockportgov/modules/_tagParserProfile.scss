@@ -51,6 +51,8 @@
     
         &__teaser {
             @include lead;
+
+            display: inline;
         }
 
         &__read-more {
