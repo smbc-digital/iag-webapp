@@ -1,59 +1,27 @@
 .card {
+    &-title {
+        margin-top: 20px;
+    }
+
     &-wrapper {
         display: flex;
         flex-direction: row;
         list-style: none;
     }
-    
+
     &-item {
         width: calc(33.33333% - 33.33333px);
         margin: 0 25px 2em 25px;
-        border: 1px solid #5a5a594d;
         border-radius: 20px 20px 0 0;
-        background-color: #f2f2f2;
+        background-color: white;
 
         @media #{$tablet} {
             width: calc(33.33333% - 20px);
             margin: 0 15px 2em 15px;
         }
-    
+
         @media #{$mobile} {
             width: calc(33.33333% - 33.33333px);
-        }
-
-        &__link {
-            display: block;
-            text-decoration: none;
-            height: 100%;
-    
-            &--padding {
-                padding-top: 1em;
-    
-                @media #{$mobile} {
-                    padding: 0 0 0 1em;
-                }
-            }
-    
-            &--active {
-                color: black;
-            }
-    
-            &--underline {
-                text-decoration: underline;
-            }
-    
-            &--inline {
-                display: inline-block;
-            }
-    
-            &:hover {
-                text-decoration: none;
-    
-                .card-item__content-title {
-                    text-decoration: underline;
-                    text-decoration-thickness: 3px;
-                }
-            }
         }
 
         &__image {
@@ -61,16 +29,31 @@
         }
 
         &__content {
-            padding: 1em .75em 1.5em;
-            color: black;
+            min-height: 200px;
 
             &-title {
-                text-decoration: underline;
                 font-weight: 600;
             }
 
             &-teaser {
                 margin-bottom: 0;
+            }
+        }
+
+        &__container {
+            padding: 1em .75em 1.5em;
+            color: black;
+            display: flex;
+            flex-direction: column;
+
+            &-btn {
+                border-radius: 15px;
+                padding: 0.8em;
+                line-height: 1rem;
+                font-size: 1.1875rem;
+                border: 2px solid black;
+                color: black;
+                width: fit-content;
             }
         }
     }

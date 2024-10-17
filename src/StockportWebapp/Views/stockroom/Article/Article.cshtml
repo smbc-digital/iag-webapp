@@ -56,20 +56,31 @@
                         @Html.Raw(StockportWebapp.Utils.HtmlHelper.AddImageAttributes(Model.Article.Body, "691", "389", "691", "919", "1192"))
                     </article>
                 }
+            </section>
+        </div>
+    </div>
+</div>
 
-                <h2 class="card-title">More like this</h2>
+<div class="grid-container-full-width" style="background-color:#f2f2f2;" data-cy="article">
+    <div class="grid-container">
+        <div class="grid-100">
+            <section class="article">
+               <h2 class="card-title">More like this</h2>
                 <ul class="card-wrapper">
                     @foreach (SubItem relatedContent in Model.Article.RelatedContent)
                     {
                         <li class="card-item">
-                            <a href="@relatedContent.NavigationLink" class="card-item__link">
-                                <img src="@relatedContent.Image" class="card-item__image">
+                            <img src="@relatedContent.Image" class="card-item__image">
 
+                            <div class="card-item__container">
                                 <div class="card-item__content">
                                     <h3 class="card-item__content-title">@relatedContent.Title</h3>
                                     <p class="card-item__content-teaser">@relatedContent.Teaser</p>
                                 </div>
-                            </a>
+                                <a href="@relatedContent.NavigationLink"
+                                   target="_blank"
+                                   class="btn card-item__container-btn">Read more</a>
+                            </div>
                         </li>
                     }
                 </ul>
