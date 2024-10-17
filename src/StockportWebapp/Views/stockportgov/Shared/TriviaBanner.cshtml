@@ -3,8 +3,8 @@
 {
     @if (Model.SubItems.Count.Equals(3))
     {
-        <section class="section section--white" data-cy="trivia-banner">
-            <div class="bg-default-light @Model.BackgroundColourClass trivia-banner__section">
+        <section class="section section--white section--padded section--no-margin @Model.BackgroundColourClass" data-cy="trivia-banner">
+            <div class="trivia-banner__section">
                 <div class="grid-container">
                     <div class="grid-100">
                         @if (!string.IsNullOrEmpty(Model.Title))
