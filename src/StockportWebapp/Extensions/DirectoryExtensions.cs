@@ -14,15 +14,15 @@ public static class DirectoryExtensions
 
         var kml = new Kml();
         
-        var mainFolder = new Folder()
+        var mainFolder = new Folder
         {
             Name = $"Directory Entries for {name}"
         };
 
-        mainFolder.AddStyle(new Style()
+        mainFolder.AddStyle(new Style
         {
             Id = "Default",
-            Icon = new IconStyle()
+            Icon = new IconStyle
             {
                 Color = new Color32(0, 0,128, 128),
                 ColorMode = ColorMode.Normal,                
@@ -30,10 +30,10 @@ public static class DirectoryExtensions
             }
         });
 
-        mainFolder.AddStyle(new Style()
+        mainFolder.AddStyle(new Style
         {
             Id = "Pink",
-            Icon = new IconStyle()
+            Icon = new IconStyle
             { 
                 Color = new Color32(0, 179, 35, 132),
                 ColorMode = ColorMode.Normal,
