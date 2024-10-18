@@ -2,23 +2,19 @@
 
 @if (Model is not null && !string.IsNullOrEmpty(Model.Link))
 {
-    MapViewModel mapViewModel = new(Model.Link);
+    MapViewModel mapViewModel = new MapViewModel(Model.Link);
 
     <section class="content-block content-block--margin js-only" data-cy="map">
         <div class="grid-container">
             <div class="grid-100">
                 @if (!string.IsNullOrEmpty(Model.Title))
                 {
-                    <div class="find-out-more__title">
-                        <h2 class="section__title section__title--no-padding section__title--margin-bottom">@Model.Title</h2>
-                        @Html.Raw(Model.Body)
-                        <hr />
-                    </div>
+                    <h2 class="section__title section__title--no-padding section__title--margin-bottom">@Model.Title</h2>
+                    @Html.Raw(Model.Body)
+                    <hr />
                 }
-
-                <div class="section__content">
-                    <partial name="MapContent" model="@mapViewModel" />
-                </div>
+    
+                <partial name="MapContent" model="@mapViewModel" />                
             </div>
         </div>
     </section>

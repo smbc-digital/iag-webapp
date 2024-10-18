@@ -1,4 +1,37 @@
 .content-block {
+    .section__title, p {
+        text-align: center;
+        text-align: -webkit-center;
+        text-align: -moz-center;
+    }
+
+    .section__content p {
+        text-align: left;
+        text-align: -webkit-left;
+        text-align: -moz-left;
+    }
+
+    .subscription-banner .section__title {
+        text-align: left;
+        text-align: -webkit-left;
+        text-align: -moz-left;
+    }
+
+    hr {
+        margin: auto;
+        width: 20%;
+        margin-top: 0;
+        margin-bottom: 2em;
+        color: $stockport-grey-accent;
+
+        @media #{$mobile} {
+            width: 40%;
+        }
+
+        @media #{$tablet} {
+            width: 30%;
+        }
+    }
 
     &--margin {
         margin: 4em 0;
@@ -9,11 +42,19 @@
     }
 
     &:last-child {
-        margin-bottom:2em;
+        margin-bottom: 2em;
     }
 
     .navcard {
         padding-bottom: 0px;
         margin-bottom: 0px
+    }
+    /*overides for maps in content blocks*/
+    #root {
+        border: 1px solid $stockport-grey-accent;
+    }
+
+    .smbc-map__container {
+        margin-bottom: 0px;
     }
 }

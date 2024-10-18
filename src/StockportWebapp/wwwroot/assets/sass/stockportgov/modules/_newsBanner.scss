@@ -6,28 +6,4 @@
             margin-inline: 5px;
         }
     }
-
-    &-title {
-        text-align: center;
-        text-align: -webkit-center;
-        text-align: -moz-center;
-        width: 100%;
-
-        @media #{$tablet} {
-            width: 100%;
-        }
-
-        hr {
-            width: 20%;
-            margin-top: 0;
-
-            @media #{$mobile} {
-                width: 40%;
-            }
-
-            @media #{$tablet} {
-                width: 30%;
-            }
-        }
-    }
 }

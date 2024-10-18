@@ -6,10 +6,8 @@
             <div class="grid-100">
                 @if(!string.IsNullOrEmpty(Model.Title))
                 {
-                    <div class="trivia-title">
-                        <h2 class="section__title section__title--no-padding section__title--margin-bottom">@Model.Title</h2>
-                        <hr />
-                    </div>
+                    <h2 class="section__title section__title--no-padding section__title--margin-bottom">@Model.Title</h2>
+                    <hr />
                 }
 
                 <ul class="trivia__list @(string.IsNullOrEmpty(Model.Title) ? "trivia__list--no-margin" : string.Empty)">
