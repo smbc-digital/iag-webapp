@@ -1,4 +1,48 @@
-﻿.events-grid-container-margins {
+﻿.event-detail {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+
+    &__image {
+      width: 100%;
+      object-fit: cover;
+      max-height: 350px;
+      border-radius: 3px;
+  }
+
+  &--top {
+      height: 100%;
+  }
+
+  &--50 {
+      width: calc(50% - 1em);
+      box-sizing: border-box;
+
+      &-left {
+            margin-right: 2em;
+      }
+
+      @media #{$tablet} {
+          margin-left: 0;
+      }
+  }
+
+  &--100 {
+      margin-top: 2em;
+      width: 100%;
+      box-sizing: border-box;
+  }
+
+  &__wrapper {
+    padding: 1.5em;
+
+    h3 {
+      margin: 0;
+    }
+  }
+}
+
+.events-grid-container-margins {
   margin-top: -20px;
   margin-bottom: -30px;
 }
