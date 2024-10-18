@@ -11,18 +11,94 @@
 }
 
 img[src*='#left'], img[src*='#right'] {
-	display: block;
-	max-width: 40%;
-	margin-top: 1.1875rem;
-	margin-bottom: 1.1875rem;
+    display: block;
+    max-width: 50%;
+    margin-top: 1.1875rem;
+    margin-bottom: 1.1875rem;
+
+    @media #{$mobile} {
+        max-width: 100%;
+    }
 }
 
 img[src*='#right'] {
 	float: right;
-	margin-left: 1rem;
+	margin-left: 1.1875rem;
 }
 
 img[src*='#left'] {
 	float: left;
 	margin-right: 1.1875rem;
+}
+
+figure {
+	p {
+		margin-bottom: 0 !important;
+	}
+
+	img {
+		height: auto;
+		width: auto;
+		max-width: 100%;
+        border-radius: 20px 20px 0 0 !important;
+	}
+}
+
+figcaption {
+	background-color: black;
+	color: white;
+	padding: 0.55em;
+    border-radius: 0 0 20px 20px !important;
+}
+
+.image-right, .image-left {
+    display: flex;
+    flex-direction: column;
+    max-width: 50%;
+
+    @media #{$mobile} {
+        max-width: 100%;
+        margin: 0 0 1.1875rem 0;
+    }
+
+    img {
+        border-radius: 20px 20px 0 0 !important;
+        height: auto;
+        width: 100%;
+        margin: 0;
+        max-width: 100%;
+    }
+
+    figcaption {
+        background-color: black;
+        border-radius: 0 0 20px 20px;
+        color: #fff;
+        padding: .55em;
+    }
+}
+
+.image-left {
+    float: left;
+    margin: 1.1875rem 1.1875rem 1.1875rem 0;
+
+    @media #{$mobile} {
+        margin: 0 0 1.1875rem 0;
+    }
+
+    img, figcaption {
+        float: left;
+    }
+}
+
+.image-right {
+    float: right;
+    margin: 1.1875rem 0 1.1875rem 1.1875rem;
+
+    @media #{$mobile} {
+        margin: 0 0 1.1875rem 0;
+    }
+
+    img, figcaption {
+        float: right;
+    }
 }

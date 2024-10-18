@@ -73,12 +73,17 @@
             margin: 0;
             padding: 0;
             overflow: hidden;
+            float: right;
+
+            @media #{$tablet} {
+                float: none;
+            }
 
             li {
                 display: block;
                 text-align: center;
                 text-decoration: none;
-                float: right;
+                float: left;
                 color: black;
                 text-transform: uppercase;
                 margin: 0px;
@@ -105,13 +110,14 @@
                     @media #{$tablet-only, $desktop} {
                         font-weight: normal;
                     }
-                    
+
                     &:hover {
                         background-color: $skrm-orange;
                     }
 
                     &:focus {
                         outline: none !important;
+                        background-color: $skrm-orange;
                     }
                 }
 
