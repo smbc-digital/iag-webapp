@@ -45,9 +45,8 @@
                         }
                     : null;
 
-                <div class="section section--extra-margin">
-                    <partial name="CallToAction" model="@callToActionBanner" />
-                </div>
+
+                <partial name="CallToAction" model="@callToActionBanner" view-data='@(new ViewDataDictionary(ViewData) {{"AdditionalCssClass", "content-block content-block--margin"}})' />
             }
             else 
             {   

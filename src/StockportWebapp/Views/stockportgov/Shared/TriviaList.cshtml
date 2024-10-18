@@ -1,7 +1,7 @@
 ﻿@model ContentBlock
 @if (Model is not null && Model.SubItems?.Any() is true)
 {
-    <section class="section section--extra-margin section--white" data-cy="trivia-list">
+    <section class="content-block content-block--margin" data-cy="trivia-list">
         <div class="grid-container">
             <div class="grid-100">
                 @if(!string.IsNullOrEmpty(Model.Title))

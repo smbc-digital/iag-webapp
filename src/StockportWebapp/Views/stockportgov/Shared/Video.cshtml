@@ -4,7 +4,7 @@
 {
     VideoViewModel videoViewModel = new(string.IsNullOrEmpty(Model.VideoTitle) ? Model.Title : Model.VideoTitle, Model.VideoToken, Model.VideoPlaceholderPhotoId);
 
-    <section class="section section--extra-margin section--white js-only" data-cy="video">
+    <section class="content-block content-block--margin js-only" data-cy="video">
         <div class="grid-container">
             <div class="grid-100">
                 @if (!string.IsNullOrEmpty(Model.Title))
