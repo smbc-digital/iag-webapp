@@ -1,11 +1,6 @@
 ﻿.section {
     margin-bottom: 2em;
 
-    & + .section--extra-margin {
-        margin-top:4em;
-    }
-
-
     &--no-margin {
         margin-bottom: 0;
     }

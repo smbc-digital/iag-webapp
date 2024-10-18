@@ -1,31 +1,4 @@
 .trivia {    
-    &-title {
-        text-align: center;
-        text-align: -webkit-center;
-        text-align: -moz-center;
-
-        hr {
-            width: 20%;
-            margin-top: 0;
-
-            @media #{$mobile} {
-                width: 40%;
-            }
-
-            @media #{$tablet} {
-                width: 30%;
-            }
-        }
-
-        @media #{$mobile} {
-            &-banner {
-                hr {
-                    margin-bottom: 1em;
-                }
-            }
-        }
-    }
-
     &__list {
         list-style-type: none;
         margin: 4em 0 0;
