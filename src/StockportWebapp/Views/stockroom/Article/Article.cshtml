@@ -61,7 +61,7 @@
     </div>
 </div>
 
-@if(Model.Article.RelatedContent.Any())
+@if (Model.Article.RelatedContent.Any())
 {
     <partial name="RelatedContent" model="@Model.Article.RelatedContent" />
 }

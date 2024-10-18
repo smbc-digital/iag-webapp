@@ -1,6 +1,4 @@
-﻿using System.Net.NetworkInformation;
-
-namespace StockportWebapp.Utils;
+﻿namespace StockportWebapp.Utils;
 
 public class MarkdownWrapper
 {
