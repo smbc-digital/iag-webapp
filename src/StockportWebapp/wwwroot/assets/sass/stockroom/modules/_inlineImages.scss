@@ -18,6 +18,7 @@ img[src*='#left'], img[src*='#right'] {
 
     @media #{$mobile} {
         max-width: 100%;
+        margin-top: 0;
     }
 }
 
