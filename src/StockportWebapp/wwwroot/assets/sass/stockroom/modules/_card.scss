@@ -27,6 +27,7 @@
 
         @media #{$mobile} {
             width: 100%;
+            margin: 0 0 2em 0;
         }
 
         &__image {
@@ -71,8 +72,16 @@
 
 .card-item:nth-child(3n+1) {
     margin-inline-start: 0;
+
+    @media #{$mobile} {
+        margin: 0 0 2em 0;
+    }
 }
 
 .card-item:nth-child(3n+3) {
     margin-inline-end: 0;
+
+    @media #{$mobile} {
+        margin: 0;
+    }
 }
