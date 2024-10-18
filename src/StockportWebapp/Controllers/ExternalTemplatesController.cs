@@ -1,5 +1,6 @@
 ﻿namespace StockportWebapp.Controllers;
 
+[ExcludeFromCodeCoverage]
 [ResponseCache(Location = ResponseCacheLocation.Any, Duration = Cache.Short)]
 public class ExternalTemplatesController : Controller
 {

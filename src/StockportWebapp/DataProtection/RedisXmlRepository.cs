@@ -20,7 +20,7 @@
 /// </para>
 /// <para>
 /// Consumers of the repository are responsible for caching the XML items as needed.
-/// Typically repositories are consumed by things like <see cref="Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingProvider"/>
+/// Typically, repositories are consumed by things like <see cref="Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingProvider"/>
 /// which generates <see cref="Microsoft.AspNetCore.DataProtection.KeyManagement.Internal.CacheableKeyRing"/>
 /// values that get cached. The mechanism is already optimized for caching so there's
 /// no need to create a redundant cache.
@@ -28,6 +28,7 @@
 /// </remarks>
 /// <seealso cref="Microsoft.AspNetCore.DataProtection.Repositories.IXmlRepository" />
 /// <seealso cref="System.IDisposable" />
+[ExcludeFromCodeCoverage]
 public class RedisXmlRepository : IXmlRepository, IDisposable
 {
     /// <summary>

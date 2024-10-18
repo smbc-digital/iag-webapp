@@ -31,24 +31,17 @@ public static class CssClassMapper
         => colourScheme switch
         {
             EColourScheme.None => "-none",
-            EColourScheme.Blue => "-blue",
-            EColourScheme.Blue_Light => "-blue",
+            EColourScheme.Blue or EColourScheme.Blue_Light => "-blue",
             EColourScheme.Dark_Overlay => "-dark",
-            EColourScheme.Green => "-green",
-            EColourScheme.Green_Light => "-green",
-            EColourScheme.Grey => "-grey",
-            EColourScheme.Grey_Light => "-grey",
+            EColourScheme.Green or EColourScheme.Green_Light => "-green",
+            EColourScheme.Grey or EColourScheme.Grey_Light => "-grey",
             EColourScheme.Light_Overlay => "-light",
             EColourScheme.Multi => "-multi",
-            EColourScheme.One_Stockport_Purple => "-one-stockport-purple",
-            EColourScheme.One_Stockport_Purple_Light => "-one-stockport-purple",
+            EColourScheme.One_Stockport_Purple or EColourScheme.One_Stockport_Purple_Light => "-one-stockport-purple",
             EColourScheme.Orange => "-orange",
-            EColourScheme.Pink => "-pink",
-            EColourScheme.Pink_Light => "-pink",
-            EColourScheme.Purple => "-purple",
-            EColourScheme.Purple_Light => "-purple",
-            EColourScheme.Teal => "-teal",
-            EColourScheme.Teal_Light => "-teal",
+            EColourScheme.Pink or EColourScheme.Pink_Light => "-pink",
+            EColourScheme.Purple or EColourScheme.Purple_Light => "-purple",
+            EColourScheme.Teal or EColourScheme.Teal_Light => "-teal",
             _ => "-teal"
         };
 }

@@ -106,16 +106,16 @@
                                         <div class="schedule_multiple_events_inputs">
                                             <label asp-for="@Model.Frequency"></label>
                                             <ul class="radio-list">
-                                                @foreach (var item in Model.Frequencylist.Keys)
+                                                @foreach (var item in Model.FrequencyList.Keys)
                                                 {
                                                     <li>
                                                         <label><input type="radio" value="@item" asp-for="Frequency">@item</label>
 
                                                     </li>
-                                                    if (!string.IsNullOrWhiteSpace(@Model.Frequencylist[item]))
+                                                    if (!string.IsNullOrWhiteSpace(@Model.FrequencyList[item]))
                                                     {
                                                         <p>
-                                                            <i>@Model.Frequencylist[item]</i>
+                                                            <i>@Model.FrequencyList[item]</i>
                                                         </p>
                                                     }
                                                 }

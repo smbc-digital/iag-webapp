@@ -1,5 +1,6 @@
 ﻿namespace StockportWebapp.ContentFactory;
 
+[ExcludeFromCodeCoverage]
 public class OrganisationFactory
 {
     private readonly MarkdownWrapper _markdownWrapper;
