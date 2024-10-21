@@ -1,7 +1,7 @@
 @model ContentBlock
 @if (Model is not null)
 {
-    <section class="content-block content-block--margin">
+    <section class="content-block content-block--margin" data-cy="body-text">
         <div class="grid-container">
             <div class="grid-100">
                 @if (!string.IsNullOrEmpty(Model.Title))
