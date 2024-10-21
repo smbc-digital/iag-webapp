@@ -1,4 +1,5 @@
 ﻿namespace StockportWebapp.Models.ProcessedModels;
+[ExcludeFromCodeCoverage]
 public class ProcessedOrganisation : IProcessedContentType
 {
     public string Title { get; }
