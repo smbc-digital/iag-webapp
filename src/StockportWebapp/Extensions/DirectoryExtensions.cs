@@ -12,9 +12,9 @@ public static class DirectoryExtensions
         // Ref 
         // https://github.com/samcragg/sharpkml/blob/main/docs/BasicUsage.md
 
-        var kml = new Kml();
+        Kml kml = new();
         
-        var mainFolder = new Folder
+        Folder mainFolder = new()
         {
             Name = $"Directory Entries for {name}"
         };
@@ -49,8 +49,8 @@ public static class DirectoryExtensions
 
         kml.Feature = mainFolder;
 
-        var kmlStream = KmlFile.Create(kml, false);
-        using (var stream = new MemoryStream())
+        KmlFile kmlStream = KmlFile.Create(kml, false);
+        using (MemoryStream stream = new MemoryStream())
         {
             kmlStream.Save(stream);
             stream.Seek(0, SeekOrigin.Begin);
@@ -79,9 +79,9 @@ public static class DirectoryExtensions
     /// <returns></returns>
     public static Dictionary<string, List<string>> GetFilterThemesFromFilters(this IEnumerable<Filter> filters)
     {
-        var appliedThemes = new Dictionary<string, List<string>>();
+        Dictionary<string, List<string>> appliedThemes = new Dictionary<string, List<string>>();
 
-        foreach (var filter in filters)
+        foreach (Filter filter in filters)
         {
             if (!appliedThemes.ContainsKey(filter.Theme))
                 appliedThemes[filter.Theme] = new List<string>();
