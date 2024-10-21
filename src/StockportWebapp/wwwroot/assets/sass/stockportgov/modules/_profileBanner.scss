@@ -11,25 +11,6 @@
         margin-top: 2em;
         margin-bottom: 2em;
     }
-
-    &-title {
-        text-align: center;
-        text-align: -webkit-center;
-        text-align: -moz-center;
-
-        hr {
-            width: 20%;
-            margin-top: 0;
-
-            @media #{$mobile} {
-                width: 40%;
-            }
-
-            @media #{$tablet} {
-                width: 30%;
-            }
-        }
-    }
 }
 
 .border-pseudo-colour-orange::after, .border-colour-orange {

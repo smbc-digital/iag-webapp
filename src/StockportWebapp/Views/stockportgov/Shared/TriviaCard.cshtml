@@ -9,14 +9,14 @@
 
     <li class="navcard navcard--width-33 navcard--center @cardType @backgroundColourClass @borderClass">
         <div class="navcard__content">
-            <div class="navcard__icon @(cardType)__icon--padding">
+            <div class="navcard__icon @(cardType)__icon @(cardType)__icon--padding @textColourClass">
                 @if (!string.IsNullOrEmpty(Model.Statistic))
                 {
-                    <span class="@(cardType)__icon trivia__statistic @textColourClass" aria-hidden="true">@Model.Statistic</span>
+                    <span class="trivia__statistic"  aria-hidden="true">@Model.Statistic</span>
                 }
                 else
                 {
-                    <span class="@Model.Icon.ToLower() @(cardType)__icon @textColourClass" aria-hidden="true"></span>
+                    <span class="@Model.Icon.ToLower()" aria-hidden="true"></span>
                 }
             </div>
 
