@@ -10,8 +10,7 @@
     <partial name="Breadcrumb" model='Model.Payment.Breadcrumbs' />
 }
 
-<form asp-controller="ServicePayPayment" asp-action="Detail" method="post" role="form" enctype="multipart/form-data" data-cy="service-pay-payment-page" asp-antiforgery="false">
-    @Html.AntiForgeryToken()
+<form asp-controller="ServicePayPayment" asp-action="Detail" method="post" role="form" enctype="multipart/form-data" data-cy="service-pay-payment-page">
     <div class="grid-container-full-width">
         <div class="grid-container grid-100">
             <div class="l-body-section-filled grid-100">
