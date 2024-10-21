@@ -8,7 +8,7 @@
         ? $"btn-{@CssClassMapper.GetBoldCssClass(Model.ColourScheme)} btn-{@CssClassMapper.GetBoldCssClass(Model.ColourScheme)}-outline" 
         : "find-out-more-banner__button";
 
-    <section class="content-block content-block--margin" data-cy="find-out-more-banner">
+    <section class="content-block content-block--margin content-block--screen" data-cy="find-out-more-banner">
         <div class="grid-container">
             <div class="grid-100">
                 @foreach (ContentBlock contentBlock in Model.SubItems.Where(cb => !string.IsNullOrEmpty(cb.Image)))

@@ -43,11 +43,16 @@
         margin-bottom: 2em;
     }
 
+    &--screen {
+        &:last-child {
+            margin-bottom: 0em;
+        }
+    }
+
     .navcard {
         padding-bottom: 0px;
-
         margin-bottom: 0px;
-        
+
         @media #{$mobile} {
             margin-bottom: 2em;
 
