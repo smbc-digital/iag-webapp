@@ -12,14 +12,7 @@
                 <h2 class="content-block__title">@Model.Title</h2>
                 <hr />
 
-                <div class="featured-item-container">
- @*                    <div class="profile-banner-title">
-                        <div class="profile-banner-title-container">
-                            <h2 class="content-block__title">@Model.Title</h2>
-                            <hr />
-                        </div>
-                    </div> *@
-                        
+                <div class="featured-item-container">                        
                     <div class="featured-item section__content" data-cy="profile-featured-item">
                         <partial name="ProfileFeaturedItem" model="@profileViewModel" view-data='@(new ViewDataDictionary(ViewData){ {"additionalClasses", "profile-banner"}, {"pseudoBorderColour", pseudoBorderColour}, {"borderColour", borderColour} })' />
                     </div>
