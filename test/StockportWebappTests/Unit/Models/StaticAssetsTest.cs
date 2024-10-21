@@ -1,4 +1,4 @@
-﻿namespace StockportWebappTests_Unit.Unit.Model;
+﻿namespace StockportWebappTests_Unit.Unit.Models;
 
 public class StaticAssetsTest
 {

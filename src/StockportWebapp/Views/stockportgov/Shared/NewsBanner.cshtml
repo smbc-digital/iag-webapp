@@ -15,24 +15,21 @@
         ? Url.Action("Index", "News", new {tags = associatedTagCategoryLower}) 
         : Url.Action("Index", "News", new {category = associatedTagCategoryLower});
 
-    <section class="section section--white news-banner" data-cy="news-banner">
+    <section class="content-block content-block--margin news-banner" data-cy="news-banner">
         <div class="grid-container">
-            <div class="grid-100">
-                <div class="news-banner-container">
-                    <div class="news-banner-title">
-                        <h2 class="section__title section__title--no-padding section__title--margin-bottom">@Model.Title</h2>
-                        <hr />
-                    </div>
+            <div class="grid-100"> 
+                
+                <h2 class="section__title section__title--no-padding section__title--margin-bottom">@Model.Title</h2>
+                <hr />
                     
-                    <div class="featured-item-container">
-                        <partial name="FeaturedItem" model="@newsBanner" view-data='@(new ViewDataDictionary(ViewData){ {"additionalClasses", "news-banner"}, {"pseudoBorderColour", "border-pseudo-colour-none"}, {"borderColour", "border-colour-none"} })' />
-                    </div>
+                <div class="featured-item-container">
+                    <partial name="FeaturedItem" model="@newsBanner" view-data='@(new ViewDataDictionary(ViewData){ {"additionalClasses", "news-banner"}, {"pseudoBorderColour", "border-pseudo-colour-none"}, {"borderColour", "border-colour-none"} })' />
+                </div>
 
-                    <div class="news-banner-button">
-                        <a href="@viewMoreUrl" class="btn btn--center btn--width-30 btn--margin-25 btn--chevron-forward" data-cy="view-more-news">
-                            View more @associatedTagCategoryLower news
-                        </a>
-                    </div>
+                <div class="news-banner-button">
+                    <a href="@viewMoreUrl" class="btn btn--center btn--width-30 btn--margin-25 btn--chevron-forward" data-cy="view-more-news">
+                        View more @associatedTagCategoryLower news
+                    </a>
                 </div>
             </div>
         </div>

@@ -1,5 +1,6 @@
 ﻿namespace StockportWebapp.Models;
 
+[ExcludeFromCodeCoverage]
 public class EventSubmission
 {
     [Required]
@@ -35,7 +36,7 @@ public class EventSubmission
     public bool IsRecurring { get; set; }
     public int Occurrences { get; set; }
 
-    public Dictionary<string, string> Frequencylist = new Dictionary<string, string>()
+    public Dictionary<string, string> FrequencyList = new()
     {
         { "Daily",""},
         { "Weekly",""},

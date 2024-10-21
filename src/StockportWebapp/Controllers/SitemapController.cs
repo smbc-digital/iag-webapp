@@ -1,3 +1,5 @@
+using Profile = StockportWebapp.Models.Profile;
+
 namespace StockportWebapp.Controllers;
 
 [ResponseCache(Location = ResponseCacheLocation.Any, Duration = Cache.Short)]
@@ -15,24 +17,24 @@ public class SitemapController : Controller
     [Route("/sitemap.xml")]
     public async Task<IActionResult> Sitemap(string type)
     {
-        var baseURL = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}";
-        var now = DateTime.Now;
+        string baseURL = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}";
+        DateTime now = DateTime.Now;
         _logger.LogInformation(string.Concat("Hitting site map for: ", type));
 
-        var xml = string.Empty;
+        string xml = string.Empty;
         switch (type)
         {
             case "news":
-                var queries = new List<Query>();
+                List<Query> queries = new();
                 queries.Add(new Query("DateFrom", DateTime.MinValue.ToString("yyyy-MM-dd")));
                 queries.Add(new Query("DateTo", now.ToString("yyyy-MM-dd")));
 
-                var response = await _repository.Get<Newsroom>(queries: queries);
-                var news = response.Content as Newsroom;
-                var listOfSitemaps =
+                HttpResponse response = await _repository.Get<Newsroom>(queries: queries);
+                Newsroom news = response.Content as Newsroom;
+                List<SitemapGoogle> listOfSitemaps =
                     news.News.Select(
                         n =>
-                            new SitemapGoogle()
+                            new SitemapGoogle
                             {
                                 changefreq = "daily",
                                 lastmod = now.ToString("yyyy-MM-ddTHH:mm:sszzz"),
@@ -40,7 +42,7 @@ public class SitemapController : Controller
                                 priority = "1.0"
                             }).ToList();
 
-                listOfSitemaps.Insert(0, new SitemapGoogle()
+                listOfSitemaps.Insert(0, new SitemapGoogle
                 {
                     changefreq = "weekly",
                     lastmod = now.ToString("yyyy-MM-ddTHH:mm:sszzz"),
@@ -52,13 +54,13 @@ public class SitemapController : Controller
                 break;
 
             case "events":
-                var queriesEvent = new List<Query>();
+                List<Query> queriesEvent = new List<Query>();
                 queriesEvent.Add(new Query("DateFrom", DateTime.MinValue.ToString("yyyy-MM-dd")));
                 queriesEvent.Add(new Query("DateTo", DateTime.MaxValue.ToString("yyyy-MM-dd")));
 
-                var responseEvent = await _repository.Get<EventCalendar>(queries: queriesEvent);
-                var events = responseEvent.Content as EventCalendar;
-                var listOfSitemapsEvents =
+                HttpResponse responseEvent = await _repository.Get<EventCalendar>(queries: queriesEvent);
+                EventCalendar events = responseEvent.Content as EventCalendar;
+                List<SitemapGoogle> listOfSitemapsEvents =
                     events.Events.Select(e => e.Slug).Distinct().Select(
                         slug =>
                             new SitemapGoogle()
@@ -81,9 +83,9 @@ public class SitemapController : Controller
                 break;
 
             case "article":
-                var responseArticle = await _repository.Get<List<ArticleSiteMap>>();
-                var articles = responseArticle.Content as List<ArticleSiteMap>;
-                var listOfSitemapsArticles =
+                HttpResponse responseArticle = await _repository.Get<List<ArticleSiteMap>>();
+                List<ArticleSiteMap> articles = responseArticle.Content as List<ArticleSiteMap>;
+                List<SitemapGoogle> listOfSitemapsArticles =
                     articles.Select(e => e.Slug).Distinct().Select(
                         slug =>
                             new SitemapGoogle()
@@ -98,7 +100,7 @@ public class SitemapController : Controller
                 break;
 
             case "homepage":
-                var sitemapHomepage = new SitemapGoogle()
+                SitemapGoogle sitemapHomepage = new SitemapGoogle()
                 {
                     changefreq = "weekly",
                     lastmod = now.ToString("yyyy-MM-ddTHH:mm:sszzz"),
@@ -106,16 +108,16 @@ public class SitemapController : Controller
                     priority = "0.5"
                 };
 
-                var list = new List<SitemapGoogle>();
+                List<SitemapGoogle> list = new List<SitemapGoogle>();
                 list.Add(sitemapHomepage);
 
                 xml = SerializeObject(list);
                 break;
 
             case "groups":
-                var responseGroups = await _repository.Get<List<Group>>();
-                var groups = responseGroups.Content as List<Group>;
-                var listOfGroupSitemaps =
+                HttpResponse responseGroups = await _repository.Get<List<Group>>();
+                List<Group> groups = responseGroups.Content as List<Group>;
+                List<SitemapGoogle> listOfGroupSitemaps =
                     groups.Select(
                         n =>
                             new SitemapGoogle()
@@ -138,9 +140,9 @@ public class SitemapController : Controller
                 break;
 
             case "showcase":
-                var responseShowcases = await _repository.Get<List<Showcase>>();
-                var showcases = responseShowcases.Content as List<Showcase>;
-                var listOfShowcaseSitemaps =
+                HttpResponse responseShowcases = await _repository.Get<List<Showcase>>();
+                List<Showcase> showcases = responseShowcases.Content as List<Showcase>;
+                List<SitemapGoogle> listOfShowcaseSitemaps =
                     showcases.Select(
                         n =>
                             new SitemapGoogle()
@@ -155,9 +157,9 @@ public class SitemapController : Controller
                 break;
 
             case "section":
-                var responseSections = await _repository.Get<List<SectionSiteMap>>();
-                var sections = responseSections.Content as List<SectionSiteMap>;
-                var listOfSectionSitemaps =
+                HttpResponse responseSections = await _repository.Get<List<SectionSiteMap>>();
+                List<SectionSiteMap> sections = responseSections.Content as List<SectionSiteMap>;
+                List<SitemapGoogle> listOfSectionSitemaps =
                     sections.Select(
                         n =>
                             new SitemapGoogle()
@@ -172,9 +174,9 @@ public class SitemapController : Controller
                 break;
 
             case "topic":
-                var responseTopic = await _repository.Get<List<TopicSitemap>>();
-                var topics = responseTopic.Content as List<TopicSitemap>;
-                var listOfTopicSitemaps =
+                HttpResponse responseTopic = await _repository.Get<List<TopicSitemap>>();
+                List<TopicSitemap> topics = responseTopic.Content as List<TopicSitemap>;
+                List<SitemapGoogle> listOfTopicSitemaps =
                     topics.Select(
                         n =>
                             new SitemapGoogle()
@@ -189,9 +191,9 @@ public class SitemapController : Controller
                 break;
 
             case "profile":
-                var responseProfiles = await _repository.Get<List<Models.Profile>>();
-                var profiles = responseProfiles.Content as List<Models.Profile>;
-                var listOfProfileSitemaps =
+                HttpResponse responseProfiles = await _repository.Get<List<Models.Profile>>();
+                List<Profile> profiles = responseProfiles.Content as List<Models.Profile>;
+                List<SitemapGoogle> listOfProfileSitemaps =
                     profiles.Select(
                         n =>
                             new SitemapGoogle()
@@ -206,9 +208,9 @@ public class SitemapController : Controller
                 break;
 
             case "payment":
-                var responsePayments = await _repository.Get<List<Payment>>();
-                var payments = responsePayments.Content as List<Payment>;
-                var listOfPaymentSitemaps =
+                HttpResponse responsePayments = await _repository.Get<List<Payment>>();
+                List<Payment> payments = responsePayments.Content as List<Payment>;
+                List<SitemapGoogle> listOfPaymentSitemaps =
                     payments.Select(
                         n =>
                             new SitemapGoogle()
@@ -223,9 +225,9 @@ public class SitemapController : Controller
                 break;
 
             case "start":
-                var responseStarts = await _repository.Get<List<StartPage>>();
-                var starts = responseStarts.Content as List<StartPage>;
-                var listOfStartSitemaps =
+                HttpResponse responseStarts = await _repository.Get<List<StartPage>>();
+                List<StartPage> starts = responseStarts.Content as List<StartPage>;
+                List<SitemapGoogle> listOfStartSitemaps =
                     starts.Select(
                         n =>
                             new SitemapGoogle()
@@ -241,7 +243,7 @@ public class SitemapController : Controller
 
             default:
 
-                var result = new List<SitemapGoogleIndex>();
+                List<SitemapGoogleIndex> result = new List<SitemapGoogleIndex>();
                 result.Add(new SitemapGoogleIndex { lastmod = now.ToString("yyyy-MM-ddTHH:mm:sszzz"), loc = $"{baseURL}/google-sitemap.xml?type=news" });
                 result.Add(new SitemapGoogleIndex { lastmod = now.ToString("yyyy-MM-ddTHH:mm:sszzz"), loc = $"{baseURL}/google-sitemap.xml?type=events" });
                 result.Add(new SitemapGoogleIndex { lastmod = now.ToString("yyyy-MM-ddTHH:mm:sszzz"), loc = $"{baseURL}/google-sitemap.xml?type=article" });
@@ -264,14 +266,14 @@ public class SitemapController : Controller
 
     private string SerializeObject<T>(T dataToSerialize, bool indexPage = false)
     {
-        var xml = string.Empty;
-        var attribute = indexPage ? "sitemapindex" : "urlset";
+        string xml = string.Empty;
+        string attribute = indexPage ? "sitemapindex" : "urlset";
         XmlSerializerNamespaces xmlSerializerNamespace = new XmlSerializerNamespaces();
         string ns = "http://www.sitemaps.org/schemas/sitemap/0.9";
         xmlSerializerNamespace.Add(string.Empty, ns);
-        var xsSubmit = new XmlSerializer(typeof(T), null, null, new XmlRootAttribute(attribute), ns);
+        XmlSerializer xsSubmit = new XmlSerializer(typeof(T), null, null, new XmlRootAttribute(attribute), ns);
 
-        using (var sww = new Utf8StringWriter())
+        using (Utf8StringWriter sww = new Utf8StringWriter())
         {
             using (XmlWriter writer = XmlWriter.Create(sww))
             {

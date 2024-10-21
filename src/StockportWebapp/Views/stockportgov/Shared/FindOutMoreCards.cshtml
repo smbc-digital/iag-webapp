@@ -1,15 +1,13 @@
 ﻿@model ContentBlock
 @if (Model is not null && Model.SubItems.Count.Equals(3))
 {
-    <section class="section section--extra-margin section--white" data-cy="find-out-more-cards">
+    <section class="content-block content-block--margin" data-cy="find-out-more-cards">
         <div class="grid-container">
             <div class="grid-100">
                 @if(!string.IsNullOrEmpty(Model.Title))
                 {
-                    <div class="find-out-more__title">
-                        <h2 class="section__title section__title--no-padding section__title--margin-bottom">@Model.Title</h2>
-                        <hr />
-                    </div>
+                    <h2 class="section__title section__title--no-padding section__title--margin-bottom">@Model.Title</h2>
+                    <hr />   
                 }
                 
                 <div class="section__content">

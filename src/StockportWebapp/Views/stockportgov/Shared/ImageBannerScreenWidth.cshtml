@@ -1,7 +1,7 @@
 ﻿@model ContentBlock
 @if (Model is not null && !string.IsNullOrEmpty(Model.Image))
 {
-    <section class="section image-banner" data-cy="image-banner-screen-width">
+    <section class="content-block image-banner" data-cy="image-banner-screen-width">
         @if (!string.IsNullOrEmpty(Model.Href))
         {
             <a @Model.Href class="image-banner__link">

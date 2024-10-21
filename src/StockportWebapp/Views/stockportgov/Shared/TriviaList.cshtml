@@ -1,15 +1,13 @@
 ﻿@model ContentBlock
 @if (Model is not null && Model.SubItems?.Any() is true)
 {
-    <section class="section section--extra-margin section--white" data-cy="trivia-list">
+    <section class="content-block content-block--margin" data-cy="trivia-list">
         <div class="grid-container">
             <div class="grid-100">
                 @if(!string.IsNullOrEmpty(Model.Title))
                 {
-                    <div class="trivia-title">
-                        <h2 class="section__title section__title--no-padding section__title--margin-bottom">@Model.Title</h2>
-                        <hr />
-                    </div>
+                    <h2 class="section__title section__title--no-padding section__title--margin-bottom">@Model.Title</h2>
+                    <hr />
                 }
 
                 <ul class="trivia__list @(string.IsNullOrEmpty(Model.Title) ? "trivia__list--no-margin" : string.Empty)">
