@@ -1,15 +1,13 @@
 @model ContentBlock
 @if (Model is not null)
 {
-    <section class="section section--white" data-cy="body-text">
+    <section class="content-block content-block--margin" data-cy="body-text">
         <div class="grid-container">
             <div class="grid-100">
                 @if (!string.IsNullOrEmpty(Model.Title))
                 {
-                    <div class="find-out-more__title">
-                        <h2 class="section__title section__title--no-padding section__title--margin-bottom">@Model.Title</h2>
-                        <hr />
-                    </div>
+                    <h2 class="section__title section__title--no-padding section__title--margin-bottom">@Model.Title</h2>
+                    <hr />   
                 }
                 <div class="section__content body-text__content">
                     @Html.Raw(Model.Body)
