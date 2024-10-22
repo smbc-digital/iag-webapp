@@ -9,8 +9,8 @@
             <div class="grid-100">
                 @if (!string.IsNullOrEmpty(Model.Title))
                 {
-                    <h2 class="section__title section__title--no-padding section__title--margin-bottom">@Model.Title</h2>
-                    @Html.Raw(Model.Body)
+                    <h2 class="content-block__title">@Model.Title</h2>
+                    <div class="content-block__teaser">@Html.Raw(Model.Body)</div>
                     <hr />
                 }
 

@@ -1,20 +1,14 @@
 .content-block {
-    .section__title, p {
+    &__title {
         text-align: center;
         text-align: -webkit-center;
         text-align: -moz-center;
     }
 
-    .section__content p {
-        text-align: left;
-        text-align: -webkit-left;
-        text-align: -moz-left;
-    }
-
-    .subscription-banner .section__title {
-        text-align: left;
-        text-align: -webkit-left;
-        text-align: -moz-left;
+    &__teaser {
+        text-align: center;
+        text-align: -webkit-center;
+        text-align: -moz-center;
     }
 
     hr {
@@ -35,6 +29,10 @@
 
     &--margin {
         margin: 4em 0;
+
+        @media #{$mobile, $tablet} {
+            margin: 3em 0;
+        }
     }
 
     &--padding {
@@ -45,9 +43,23 @@
         margin-bottom: 2em;
     }
 
+    &--screen {
+        &:last-child {
+            margin-bottom: 0em;
+        }
+    }
+
     .navcard {
         padding-bottom: 0px;
-        margin-bottom: 0px
+        margin-bottom: 0px;
+
+        @media #{$mobile} {
+            margin-bottom: 2em;
+
+            &:last-child {
+                margin-bottom: 0em;
+            }
+        }
     }
     /*overides for maps in content blocks*/
     #root {

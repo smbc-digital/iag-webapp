@@ -23,7 +23,6 @@
     @media #{$mobile} {
         display: flex;
         flex-direction: column-reverse;
-        margin-bottom: 1em;
         background-color: $stockport-teal-darker;
 
         div {
