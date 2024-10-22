@@ -12,9 +12,14 @@
 
 img[src*='#left'], img[src*='#right'] {
     display: block;
-    max-width: 50%;
-    margin-top: 1.1875rem;
+    max-width: 49%;
+    margin-top: 0;
     margin-bottom: 1.1875rem;
+    max-height: 450px;
+
+    @media #{$tablet} {
+        max-height: 400px;
+    }
 
     @media #{$mobile} {
         max-width: 100%;
@@ -42,6 +47,14 @@ figure {
 		width: auto;
 		max-width: 100%;
         border-radius: 20px 20px 0 0 !important;
+        
+        @media #{$desktop} {
+            max-height: 450px;
+        }
+
+        @media #{$non-mobile} {
+            max-height: 400px;
+        }
 	}
 }
 
@@ -55,7 +68,7 @@ figcaption {
 .image-right, .image-left {
     display: flex;
     flex-direction: column;
-    max-width: 50%;
+    max-width: 49%;
 
     @media #{$mobile} {
         max-width: 100%;
@@ -80,7 +93,7 @@ figcaption {
 
 .image-left {
     float: left;
-    margin: 1.1875rem 1.1875rem 1.1875rem 0;
+    margin: 0 1.1875rem 1.1875rem 0;
 
     @media #{$mobile} {
         margin: 0 0 1.1875rem 0;
@@ -93,7 +106,7 @@ figcaption {
 
 .image-right {
     float: right;
-    margin: 1.1875rem 0 1.1875rem 1.1875rem;
+    margin: 0 0 1.1875rem 1.1875rem;
 
     @media #{$mobile} {
         margin: 0 0 1.1875rem 0;
