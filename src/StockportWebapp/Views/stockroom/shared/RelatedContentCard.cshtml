@@ -1,13 +1,13 @@
 @model SubItem;
 
 <li class="card-item">
-    <img src="@Model.Image" class="card-item__image">
+    <img src="@Model.Image" class="card-item__image" alt="">
 
     <div class="card-item__container">
         <div class="card-item__content">
             <h3 class="card-item__content-title">@Model.Title</h3>
             <p class="card-item__content-teaser">@Model.Teaser</p>
         </div>
-        <a href="@Model.NavigationLink" class="btn card-item__container-btn">Read more</a>
+        <a href="@Model.NavigationLink" class="btn card-item__container-btn" aria-label="Read more about @Model.Title">Read more</a>
     </div>
 </li>

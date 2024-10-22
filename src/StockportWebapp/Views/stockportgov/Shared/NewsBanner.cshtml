@@ -12,7 +12,7 @@
 
     string associatedTagCategoryLower = Model.AssociatedTagCategory?.ToLower();
     string viewMoreUrl = Model.UseTag 
-        ? Url.Action("Index", "News", new {tags = associatedTagCategoryLower}) 
+        ? Url.Action("Index", "News", new {tag = associatedTagCategoryLower}) 
         : Url.Action("Index", "News", new {category = associatedTagCategoryLower});
 
     <section class="content-block content-block--margin news-banner" data-cy="news-banner">

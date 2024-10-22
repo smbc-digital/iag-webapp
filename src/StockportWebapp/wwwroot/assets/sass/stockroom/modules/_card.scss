@@ -8,6 +8,7 @@
         flex-direction: row;
         list-style: none;
         flex-wrap: wrap;
+        margin-bottom: 0;
     }
 
     &-item {
@@ -80,8 +81,4 @@
 
 .card-item:nth-child(3n+3) {
     margin-inline-end: 0;
-
-    @media #{$mobile} {
-        margin: 0;
-    }
 }

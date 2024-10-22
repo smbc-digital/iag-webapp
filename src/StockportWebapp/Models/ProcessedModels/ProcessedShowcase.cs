@@ -39,7 +39,7 @@ public class ProcessedShowcase : IProcessedContentType
     public string EventsReadMoreText;
     public readonly Video Video;
     public readonly string TypeformUrl;
-    public readonly SpotlightBanner SpotlightBanner;
+    public readonly SpotlightOnBanner SpotlightBanner;
 
     public ProcessedShowcase()
     { }
@@ -81,7 +81,7 @@ public class ProcessedShowcase : IProcessedContentType
         string profileLink,
         string eventsReadMoreText,
         Video video,
-        SpotlightBanner spotlightBanner)
+        SpotlightOnBanner spotlightBanner)
     {
         Title = title;
         Slug = slug;
