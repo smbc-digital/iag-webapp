@@ -1,6 +1,4 @@
 .news-banner {
-    margin-bottom: 0;
-
     @media #{$mobile} {
         &-button {
             margin-inline: 5px;
