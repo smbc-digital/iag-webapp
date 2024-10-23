@@ -7,7 +7,7 @@
     string backgroundColour = isDefaultColourScheme ? "bg-solid-teal" : Model.SolidBackgroundColourClass;
     string buttonColour = isDefaultColourScheme ? "btn--teal" : $"btn-{CssClassMapper.GetBoldCssClass(Model.ColourScheme)}";
 
-    <section class="content-block" data-cy="subscription-banner">
+    <section class="content-block content-block--margin" data-cy="subscription-banner">
         <div class="grid-container subscription-banner">
             <div class="grid-100 subscription-banner__container @backgroundColour" data-cy="subscription">
                 <div class="grid-70">
