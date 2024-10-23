@@ -16,7 +16,7 @@
                         <ul class="navcard-wrapper navcard-wrapper--no-margin">
                             @foreach (ContentBlock contentBlock in Model.SubItems)
                             {
-                                if (contentBlock.Type.Equals("informationList"))
+                                if (contentBlock.Type.Equals("informationList") || contentBlock.Type.Equals("trivia"))
                                 {
                                     <partial name="TriviaCard" model="@contentBlock" view-data="@(new ViewDataDictionary(ViewData) { {"BackgroundColourClass", "trivia-banner--background"}, {"BorderClass", string.Empty}, {"TextColourClass", $"text-default {Model.TextColourClass}"}, {"CardType", "trivia-banner"} })" />
                                 }
