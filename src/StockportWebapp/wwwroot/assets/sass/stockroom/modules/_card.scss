@@ -37,6 +37,15 @@
             width: 100%;
             min-height: 350px;
             object-fit: cover;
+            flex-basis: 0;
+
+            @media #{$tablet} {
+                min-height: 300px;
+            }
+    
+            @media #{$mobile} {
+                min-height: 250px;
+            }
         }
 
         &__content {
@@ -67,6 +76,10 @@
                 width: fit-content;
                 margin-top: 1em;
             }
+        }
+
+        &--empty {
+            background: none;
         }
     }
 }
