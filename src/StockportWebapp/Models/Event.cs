@@ -30,7 +30,7 @@ public class Event
     public int Occurences { get; set; }
     public List<EventCategory> EventCategories { get; set; }
     public string AccessibleTransportLink { get; set; }
-    public List<GroupBranding> TrustedLogos { get; set; } = new List<GroupBranding>();
+    public List<GroupBranding> EventBranding { get; set; } = new List<GroupBranding>();
     public string PhoneNumber { get; set; }
     public string Email { get; set; }
     public string Website { get; set; }

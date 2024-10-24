@@ -52,7 +52,7 @@
                 {
                     <partial name="DetailMap" model='@Model' view-data='@(new ViewDataDictionary(ViewData) {{ "EventWrapperCssClasses", eventWrapperCssClasses }, {"BorderTop", borderTop}})' />
                 }
-                @if (Model.TrustedLogos.Any())
+                @if (Model.EventBranding.Any())
                 {
                     <partial name="DetailBranding" model='@Model' view-data='@(new ViewDataDictionary(ViewData) {{ "EventWrapperCssClasses", eventWrapperCssClasses }, {"BorderTop", borderTop}})' />
                 }
