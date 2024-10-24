@@ -10,25 +10,6 @@
         color: $stockport-black;
     }
 
-    &__heading {
-        text-align: center;
-        text-align: -webkit-center;
-        text-align: -moz-center;
-
-        hr {
-            width: 20%;
-            margin-top: 0;
-
-            @media #{$mobile} {
-                width: 40%;
-            }
-
-            @media #{$tablet} {
-                width: 30%;
-            }
-        }
-    }
-
     &__image {
         height: 320px;
         border-radius: 50px 3px;
@@ -76,6 +57,22 @@
 
     &:nth-child(3n+3) {
         border-color: $stockport-purple;
+    }
+
+    &:nth-child(n+4) {
+        margin-top: 2em;
+
+        @media #{$mobile} {
+            margin-top: 0em;
+        }
+    }
+
+    @media #{$mobile} {
+        margin-bottom: 2em;
+
+        &:last-child {
+            margin-bottom: 0em;
+        }
     }
 }
 

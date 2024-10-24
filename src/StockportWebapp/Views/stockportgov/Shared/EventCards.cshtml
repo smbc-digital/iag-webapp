@@ -4,8 +4,12 @@
     string tagOrCategory = Model.Events.Any(eventArticle => eventArticle.Categories.Any(category => category.Equals(Model.AssociatedTagCategory)))
         ? Url.Action("Index", "Events", new { category = Model.AssociatedTagCategory })
         : Url.Action("Index", "Events", new { tag = Model.AssociatedTagCategory });
+    
+    string borderColour = Model.IsDefaultColourScheme
+        ? string.Empty
+        : Model.BorderColourClass;
 
-    <section class="section section--extra-margin section--white" data-cy="event-cards">
+    <section class="content-block content-block--margin" data-cy="event-cards">
         <div class="grid-container">
             <div class="grid-100">
                 <div class="event-cards-title">
@@ -20,7 +24,7 @@
                     <ul class="navcard-wrapper navcard-wrapper--no-margin">
                         @foreach (Event upcomingEvent in Model.Events)
                         {
-                            <partial name="EventCard" model="@upcomingEvent" view-data="@(new ViewDataDictionary(ViewData) {{"BorderColourClass", Model.BorderColourClass}})" />
+                            <partial name="EventCard" model="@upcomingEvent" view-data="@(new ViewDataDictionary(ViewData) {{"BorderColourClass", borderColour}})" />
                         }
 
                         <a href="@tagOrCategory" class="btn btn--width-30 btn--chevron-forward btn--bold btn--chevron-bold hide-on-desktop navcard-button @Model.OutlineButtonColour" aria-label="View more @Model.AssociatedTagCategory events" data-cy="view-more-events-button">

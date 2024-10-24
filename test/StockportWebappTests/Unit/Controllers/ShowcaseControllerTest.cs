@@ -65,7 +65,7 @@ public class ShowcaseControllerTest
             string.Empty,
             string.Empty,
             new Video(),
-            new SpotlightBanner("test", "test", "test"));
+            new SpotlightOnBanner("test", "test", "test", "test", "test", new DateTime()));
 
         _mockContentRepository
             .Setup(_ => _.Get<Showcase>(It.IsAny<string>(), It.IsAny<List<Query>>()))

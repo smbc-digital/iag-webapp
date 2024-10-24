@@ -1,0 +1,29 @@
+@model List<SubItem>;
+
+@{
+    int extraLi = (Model.Count() % 3 == 0) ? 0 : 3 - (Model.Count() % 3);
+}
+
+<div class="grid-container-full-width" style="background-color:#f2f2f2;" data-cy="article">
+    <div class="grid-container">
+        <div class="grid-100">
+            <section class="article">
+                <h2 class="card-title">More like this</h2>
+                <ul class="card-wrapper">
+                    @foreach (SubItem relatedContent in Model)
+                    {
+                        <partial name="RelatedContentCard" model="@relatedContent" />
+                    }
+
+                    @if (extraLi > 0)
+                    {
+                        for (int i = 0; i < extraLi; i++)
+                        {
+                            <li class="card-item card-item--empty"></li>
+                        }
+                    }
+                </ul>
+            </section>
+        </div>
+    </div>
+</div>

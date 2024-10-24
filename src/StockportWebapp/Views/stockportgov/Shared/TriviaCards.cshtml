@@ -3,27 +3,24 @@
 {
     @if (Model.SubItems.Count.Equals(3))
     {
-        <section class="section section--extra-margin section--white" data-cy="trivia-cards">
+        <section class="content-block content-block--margin" data-cy="trivia-cards">
             <div class="grid-container">
                 <div class="grid-100">
-                    <div class="section__content">
-                        @if (!string.IsNullOrEmpty(Model.Title))
+                    @if (!string.IsNullOrEmpty(Model.Title))
+                    {
+                        <h2 class="content-block__title">@Model.Title</h2>
+                        <hr />
+                    }
+
+                    <ul class="navcard-wrapper navcard-wrapper--no-margin">
+                        @foreach (ContentBlock contentBlock in Model.SubItems)
                         {
-                            <div class="trivia-title">
-                                <h2 class="section__title section__title--no-padding section__title--margin-bottom">@Model.Title</h2>
-                                <hr />
-                            </div>
-                        }
-                        <ul class="navcard-wrapper navcard-wrapper--no-margin">
-                            @foreach (ContentBlock contentBlock in Model.SubItems)
+                            if (contentBlock.Type.Equals("informationList") || contentBlock.Type.Equals("trivia"))
                             {
-                                if (contentBlock.Type.Equals("informationList"))
-                                {
-                                    <partial name="TriviaCard" model="@contentBlock" view-data="@(new ViewDataDictionary(ViewData) { {"BackgroundColourClass", Model.BackgroundColourClass}, {"BorderClass", Model.BorderClass}, {"TextColourClass", Model.TextColourClass},  {"CardType", "trivia-card"} })" />
-                                }
+                                <partial name="TriviaCard" model="@contentBlock" view-data="@(new ViewDataDictionary(ViewData) { {"BackgroundColourClass", Model.BackgroundColourClass}, {"BorderClass", Model.BorderClass}, {"TextColourClass", Model.TextColourClass},  {"CardType", "trivia-card"} })" />
                             }
-                        </ul>
-                    </div>
+                        }
+                    </ul>
                 </div>
             </div>
         </section>

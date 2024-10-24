@@ -6,21 +6,15 @@
     string pseudoBorderColour = Model.IsDefaultColourScheme ? "border-pseudo-colour-teal" : Model.PseudoBorderColourClass;
     string borderColour = Model.IsDefaultColourScheme ? "border-colour-teal" : Model.BorderColourClass;
 
-    <section class="section section--extra-margin section--white profile-banner" data-cy="profile-banner">
+    <section class="content-block content-block--margin" data-cy="profile-banner">
         <div class="grid-container">
             <div class="grid-100">
-                <div class="profile-banner-container">
-                    <div class="featured-item-container">
-                        <div class="profile-banner-title">
-                            <div class="profile-banner-title-container">
-                                <h2 class="section__title section__title--no-padding section__title--margin-bottom">@Model.Title</h2>
-                                <hr />
-                            </div>
-                        </div>
-                        
-                        <div class="featured-item section__content" data-cy="profile-featured-item">
-                            <partial name="ProfileFeaturedItem" model="@profileViewModel" view-data='@(new ViewDataDictionary(ViewData){ {"additionalClasses", "profile-banner"}, {"pseudoBorderColour", pseudoBorderColour}, {"borderColour", borderColour} })' />
-                        </div>
+                <h2 class="content-block__title">@Model.Title</h2>
+                <hr />
+
+                <div class="featured-item-container">                        
+                    <div class="featured-item section__content" data-cy="profile-featured-item">
+                        <partial name="ProfileFeaturedItem" model="@profileViewModel" view-data='@(new ViewDataDictionary(ViewData){ {"additionalClasses", "profile-banner"}, {"pseudoBorderColour", pseudoBorderColour}, {"borderColour", borderColour} })' />
                     </div>
                 </div>
             </div>

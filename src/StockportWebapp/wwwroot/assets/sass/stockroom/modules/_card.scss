@@ -1,0 +1,97 @@
+.card {
+    &-title {
+        margin-top: 20px;
+    }
+
+    &-wrapper {
+        display: flex;
+        flex-direction: row;
+        list-style: none;
+        flex-wrap: wrap;
+        margin-bottom: 0;
+    }
+
+    &-item {
+        width: calc(33.33333% - 33.33333px);
+        margin: 0 25px 2em 25px;
+        border-radius: 20px 20px 0 0;
+        background-color: white;
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        justify-content: space-between;
+
+        @media #{$tablet} {
+            width: calc(33.33333% - 20px);
+            margin: 0 15px 2em 15px;
+        }
+
+        @media #{$mobile} {
+            width: 100%;
+            margin: 0 0 2em 0;
+        }
+
+        &__image {
+            border-radius: 20px 20px 0 0 !important;
+            height: 100%;
+            width: 100%;
+            min-height: 350px;
+            object-fit: cover;
+            flex-basis: 0;
+
+            @media #{$tablet} {
+                min-height: 300px;
+            }
+    
+            @media #{$mobile} {
+                min-height: 250px;
+            }
+        }
+
+        &__content {
+            &-title {
+                font-weight: 600;
+            }
+
+            &-teaser {
+                margin-bottom: 0;
+            }
+        }
+
+        &__container {
+            padding: 1em .75em 1.5em;
+            color: black;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            justify-content: space-between;
+
+            &-btn {
+                border-radius: 15px;
+                padding: 0.8em;
+                line-height: 1rem;
+                font-size: 1.1875rem;
+                border: 2px solid black;
+                color: black;
+                width: fit-content;
+                margin-top: 1em;
+            }
+        }
+
+        &--empty {
+            background: none;
+        }
+    }
+}
+
+.card-item:nth-child(3n+1) {
+    margin-inline-start: 0;
+
+    @media #{$mobile} {
+        margin: 0 0 2em 0;
+    }
+}
+
+.card-item:nth-child(3n+3) {
+    margin-inline-end: 0;
+}

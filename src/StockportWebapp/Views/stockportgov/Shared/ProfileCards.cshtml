@@ -5,25 +5,21 @@
         ? string.Empty
         : Model.BorderColourClass;
 
-    <section class="section section--extra-margin section--white" data-cy="profile-cards">
+    <section class="content-block content-block--margin" data-cy="profile-cards">
         <div class="grid-container">
             <div class="grid-100">
                 @if (!string.IsNullOrEmpty(Model.Title))
                 {
-                    <div class="profile-card__heading">
-                        <h2 class="section__title section__title--no-padding section__title--margin-bottom">@Model.Title</h2>
-                        <hr />
-                    </div>
+                    <h2 class="content-block__title">@Model.Title</h2>
+                    <hr />
                 }
 
-                <div class="section__content">
-                    <ul class="navcard-wrapper navcard-wrapper--no-margin">
-                        @foreach (ContentBlock contentBlock in Model.SubItems)
-                        {
-                            <partial name="ProfileCard" model="@contentBlock" view-data="@(new ViewDataDictionary(ViewData) {{"BorderColourClass", borderColour}})" />
-                        }
-                    </ul>
-                </div>
+                <ul class="navcard-wrapper navcard-wrapper--no-margin">
+                    @foreach (ContentBlock contentBlock in Model.SubItems)
+                    {
+                        <partial name="ProfileCard" model="@contentBlock" view-data="@(new ViewDataDictionary(ViewData) {{"BorderColourClass", borderColour}})" />
+                    }
+                </ul>                
             </div>
         </div>
     </section>

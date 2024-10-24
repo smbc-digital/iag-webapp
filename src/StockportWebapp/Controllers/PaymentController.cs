@@ -44,9 +44,8 @@ public class PaymentController : Controller
 
     [HttpPost]
     [Route("/payment/{slug}")]
-    [ValidateAntiForgeryToken]
     public async Task<IActionResult> Detail(string slug, PaymentSubmission paymentSubmission)
-    {
+        {
         var response = await _repository.Get<Payment>(slug);
 
         if (!response.IsSuccessful())

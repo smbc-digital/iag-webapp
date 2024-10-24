@@ -3,25 +3,15 @@
 @if (Model is not null && !string.IsNullOrEmpty(Model.VideoToken) && !string.IsNullOrEmpty(Model.VideoPlaceholderPhotoId))
 {
     VideoViewModel videoViewModel = new(string.IsNullOrEmpty(Model.VideoTitle) ? Model.Title : Model.VideoTitle, Model.VideoToken, Model.VideoPlaceholderPhotoId);
-    
 
-    <section class="section section--extra-margin section--white js-only" data-cy="video">
-        <noscript>
-            <style>
-                .js-only {
-                    display: none;
-                }
-            </style>
-        </noscript>
+    <section class="content-block content-block--margin js-only" data-cy="video">
         <div class="grid-container">
             <div class="grid-100">
                 @if (!string.IsNullOrEmpty(Model.Title))
                 {
-                    <div class="find-out-more__title">
-                        <h2 class="section__title section__title--no-padding section__title--margin-bottom">@Model.Title</h2>
-                        @Html.Raw(Model.Body)
-                        <hr />
-                    </div>
+                    <h2 class="content-block__title">@Model.Title</h2>
+                    <div class="content-block__teaser">@Html.Raw(Model.Body)</div>
+                    <hr />
                 }
 
                 <div class="section__content">

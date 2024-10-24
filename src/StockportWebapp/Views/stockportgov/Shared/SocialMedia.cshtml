@@ -1,15 +1,13 @@
 ﻿@model ContentBlock
 @if (Model is not null && Model.SubItems?.Any() is true)
 {
-    <section class="section section--white" data-cy="social-media">
+    <section class="content-block content-block--margin" data-cy="social-media">
         <div class="grid-container">
             <div class="grid-100">
                 @if(!string.IsNullOrEmpty(Model.Title))
                 {
-                    <div class="social-media__title">
-                        <h2 class="section__title section__title--no-padding section__title--margin-bottom">@Model.Title</h2>
-                        <hr />
-                    </div>
+                    <h2 class="content-block__title">@Model.Title</h2>
+                    <hr />
                 }
 
                 <ul class="social-media">

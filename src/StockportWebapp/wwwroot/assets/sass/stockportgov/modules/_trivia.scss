@@ -1,31 +1,4 @@
-.trivia {    
-    &-title {
-        text-align: center;
-        text-align: -webkit-center;
-        text-align: -moz-center;
-
-        hr {
-            width: 20%;
-            margin-top: 0;
-
-            @media #{$mobile} {
-                width: 40%;
-            }
-
-            @media #{$tablet} {
-                width: 30%;
-            }
-        }
-
-        @media #{$mobile} {
-            &-banner {
-                hr {
-                    margin-bottom: 1em;
-                }
-            }
-        }
-    }
-
+.trivia {
     &__list {
         list-style-type: none;
         margin: 4em 0 0;
@@ -108,14 +81,33 @@
             margin-inline: 0 !important;
         }
 
-        .text-orange { color: $stockport-orange !important; }
-        
-        &:nth-child(6n+1) .trivia__icon { color: $stockport-green; }
-        &:nth-child(6n+2) .trivia__icon { color: $stockport-purple; }
-        &:nth-child(6n+3) .trivia__icon { color: $stockport-pink; }
-        &:nth-child(6n+4) .trivia__icon { color: $stockport-teal-darker; }
-        &:nth-child(6n+5) .trivia__icon { color: $stockport-orange; }
-        &:nth-child(6n) .trivia__icon { color: $stockport-blue; }
+        .text-orange {
+            color: $stockport-orange !important;
+        }
+
+        &:nth-child(6n+1) .trivia__icon {
+            color: $stockport-green;
+        }
+
+        &:nth-child(6n+2) .trivia__icon {
+            color: $stockport-purple;
+        }
+
+        &:nth-child(6n+3) .trivia__icon {
+            color: $stockport-pink;
+        }
+
+        &:nth-child(6n+4) .trivia__icon {
+            color: $stockport-teal-darker;
+        }
+
+        &:nth-child(6n+5) .trivia__icon {
+            color: $stockport-orange;
+        }
+
+        &:nth-child(6n) .trivia__icon {
+            color: $stockport-blue;
+        }
     }
 
     &__icon {
@@ -190,12 +182,8 @@
         &__icon {
             font-size: 4rem;
 
-            @media #{$mobile} {
-                font-size: 5rem;
-            }
-
             &--padding {
-                padding: 1.5rem 1.5rem 0;
+                padding: 3rem 1.5rem 0;
             }
         }
 
@@ -205,17 +193,20 @@
 
         &__body {
             color: $stockport-black;
+
             p {
                 margin-bottom: 0;
             }
-       }
+        }
     }
 
     &-banner {
         margin-bottom: 0;
 
-        .text-orange { color: $stockport-teal-darker !important; }
-        
+        .text-orange {
+            color: $stockport-teal-darker !important;
+        }
+
         &__section {
             padding-block: 2em;
 
@@ -236,7 +227,7 @@
 
         &__icon {
             font-size: 4rem;
-            
+
             @media #{$mobile} {
                 font-size: 5rem;
             }

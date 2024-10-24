@@ -1,9 +1,9 @@
 ﻿.article {
     word-wrap: break-word;
-    padding: 0 1.27em 1.27em;
+    padding: 0 1.27em;
 
     @media #{$mobile} {
-        padding: 0 0.5em 1em;
+        padding: 0 0.5em;
     }
 
     img {
