@@ -1,0 +1,14 @@
+@model ProcessedEvents
+@{
+    string eventWrapperCssClasses = (string)ViewData["EventWrapperCssClasses"];
+    string borderTop = (string)ViewData["BorderTop"];
+}
+
+<div class="event-detail--100 event-detail--margin-top">
+    <div class="@borderTop">
+        <div class="@eventWrapperCssClasses">
+            <h2 class="event-detail__heading">About this event</h2>
+            @Html.Raw(Model.Description)
+        </div>
+    </div>
+</div>

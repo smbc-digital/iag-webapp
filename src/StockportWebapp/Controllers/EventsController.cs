@@ -168,37 +168,29 @@ public class EventsController : Controller
     [Route("/events/{slug}")]
     public async Task<IActionResult> Detail(string slug, [FromQuery] DateTime? date = null)
     {
-        var queries = new List<Query>();
-        if (date.HasValue) queries.Add(new Query("date", date.Value.ToString("yyyy-MM-dd")));
+        List<Query> queries = new();
 
-        var httpResponse = await _processedContentRepository.Get<Event>(slug, queries);
+        if (date.HasValue)
+            queries.Add(new Query("date", date.Value.ToString("yyyy-MM-dd")));
 
-        if (!httpResponse.IsSuccessful()) return httpResponse;
+        HttpResponse httpResponse = await _processedContentRepository.Get<Event>(slug, queries);
 
-        var response = httpResponse.Content as ProcessedEvents;
+        if (httpResponse.IsSuccessful() is not true)
+            return httpResponse;
+
+        ProcessedEvents response = httpResponse.Content as ProcessedEvents;
 
         ViewBag.CurrentUrl = Request?.GetDisplayUrl();
+        ViewBag.EventDate = date?.ToString("yyyy-MM-dd") ?? response?.EventDate.ToString("yyyy-MM-dd");
 
-        if (date is not null || date.Equals(DateTime.MinValue))
-        {
-            ViewBag.Eventdate = date.Value.ToString("yyyy-MM-dd");
-        }
-        else
-        {
-            ViewBag.Eventdate = response?.EventDate.ToString("yyyy-MM-dd");
-        }
-
-        var httpHomeResponse = await _repository.Get<EventHomepage>();
+        HttpResponse httpHomeResponse = await _repository.Get<EventHomepage>();
 
         if (httpHomeResponse.IsSuccessful())
         {
-            var eventHomeResponse = httpHomeResponse.Content as EventHomepage;
+            EventHomepage eventHomeResponse = httpHomeResponse.Content as EventHomepage;
 
-            if (eventHomeResponse.Alerts is not null)
-            {
-                foreach (var item in eventHomeResponse.Alerts)
-                    response.GlobalAlerts.Add(item);
-            }
+            if (eventHomeResponse?.Alerts is not null)
+                response.GlobalAlerts.AddRange(eventHomeResponse.Alerts);
         }
 
         return View(response);

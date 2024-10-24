@@ -1,5 +1,6 @@
 @model List<GroupBranding>
 @{
+    string eventDetailHeading = (string)ViewData["eventDetailHeading"] ?? string.Empty;
     string logoAreaTitle = (string)ViewData["logoAreaTitle"];
     bool logoAreaTitleStylingBlank = ViewData["logoAreaTitleStylingBlank"] is not null
         ? (bool)ViewData["logoAreaTitleStylingBlank"]
@@ -20,7 +21,7 @@
     }
 }
 
-<h2 class="@headingClass">@(logoAreaTitle ?? "Our partners")</h2>
+<h2 class="@headingClass @eventDetailHeading">@(logoAreaTitle ?? "Our partners")</h2>
 <div class="section__content section__content--no-margin">
     <div class="logo-area">
         @foreach (var branding in Model)
