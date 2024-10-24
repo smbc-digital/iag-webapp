@@ -1,111 +1,120 @@
 ﻿@model ProcessedEvents
 @{
+    Layout = "../Shared/_Layout2023.cshtml";
+
     ViewData["Title"] = Model.Title;
     ViewData["og:title"] = Model.Title;
     ViewData["Description"] = Model.MetaDescription;
     ViewData["Location"] = Model.Location;
-    Layout = "../Shared/_Layout.cshtml";
-    var borderTeal = " navcard--border-top-10 navcard--theme-teal-lighter-top ";
-    var borderGrey = " navcard-all navcard--theme-grey-accent-all";
-    var noBorder = " navcard--border-top-0";
-    var borderRadius = " navcard--radius-bottom-left navcard--radius-bottom-right";
-    var greyBorderCssClasses = $"{borderGrey} {noBorder} {borderRadius}";
-    var crumb = new List<Crumb> {new Crumb("What's on in Stockport", "events", "event")};
+
+    string borderTeal = "navcard--border-top-10 navcard--theme-teal-lighter-top";
+    string greyBorderCssClasses = "navcard-all navcard--theme-grey-accent-all navcard--border-top-0 navcard--radius-bottom-left navcard--radius-bottom-right";
+
+    string divStyling = "event-detail__wrapper navcard--white navcard-all navcard--theme-grey-accent-all navcard--border-top-0 navcard--radius-bottom-left navcard--radius-bottom-right";
+    List<Crumb> crumb = new() { new Crumb("What's on in Stockport", "events", "event") };
 }
 
 <div class="grid-container-full-width" data-cy="directory-entry">
     <partial name="GlobalAlerts" model='Model.Alerts' />
     <partial name="Breadcrumb2023" model='@Model.Breadcrumbs' />
-    
+
     <div class="grid-container">
         <div class="grid-100">
-             <h1 class="directory__title">@Model.Title</h1>
-                <section class="event-detail" aria-label="@Model.Title content">
-                    <div class="event-detail--50 event-detail--50-left">
-                            @if (!string.IsNullOrEmpty(Model.ImageUrl))
+            <h1 class="directory__title">@Model.Title</h1>
+            <section class="event-detail" aria-label="@Model.Title content">
+                <div class="event-detail--50 event-detail--50-left">
+                    @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                    {
+                        <img src="@Model.ImageUrl?w=350&q=89&fm=webp" class="event-detail__image" alt="">
+                    }
+                </div>
+                <div class="event-detail--50 event-detail--50-right @borderTeal">
+                    <div class="event-detail--top navcard--white @greyBorderCssClasses">
+                        <div class="event-detail__wrapper">
+                            <h3 class="event-detail__details">Date and time</h3>
+                                <p>
+                                    @Model.EventDate.ToString("dddd dd MMMM yyyy")
+                                    @DateTime.Parse(Model.StartTime).ToString("h:mmtt").ToLower() -
+                                    @DateTime.Parse(Model.EndTime).ToString("h:mmtt").ToLower()
+                                </p>
+                            <h3 class="event-detail__details">Location</h3>
+                                <p> 
+                                    @Model.Location
+                                </p>
+                            <h3 class="event-detail__details">Submitted by</h3>
+                            @if (!string.IsNullOrEmpty(Model.Group.Name))
                             {
-                                <img src="@Model.ImageUrl?w=350&q=89&fm=webp"
-                                                class="event-detail__image"
-                                                alt="">
+                                <p>
+                                    <a href="@Url.Action("DirectoryEntry", "Directory" , new { slug=Model.Group.Slug })">@Model.Group.Name</a>
+                                </p>
                             }
+                            else
+                            {
+                                <p>@Model.SubmittedBy</p>
+                            }
+                        </div>
                     </div>
-                    <div class="event-detail--50 event-detail--50-right">
-                        <div class="directory--border-top event-detail--top navcard--border-top-10 navcard--theme-teal-lighter-top">
-                            <div class="event-detail__wrapper navcard--white @greyBorderCssClasses">
-                                <h3 class="event-detail__details">Date and time</h2>
-                                <p>@Model.EventDate.ToString("dddd dd MMMM yyyy") @DateTime.Parse(Model.StartTime).ToString("h:mmtt").ToLower() - @DateTime.Parse(Model.EndTime).ToString("h:mmtt").ToLower()</p>
-                                <h3 class="event-detail__details">Location</h2>
-                                @Html.Raw(Model.Location)
-                                <h3 class="event-detail__details">Submitted by</h2>
-                                @if (!string.IsNullOrEmpty(Model.Group.Name))
-                                {
-                                    <a href="/groups/@Model.Group.Slug">@Model.Group.Name</a>
-                                }
-                                else if (!string.IsNullOrEmpty(Model.SubmittedBy))
-                                {
-                                    @Model.SubmittedBy
-                                }
+                </div>
+                <div class="event-detail--100 event-detail__about">
+                    <div class="directory--border-top @borderTeal">
+                        <div class="@divStyling">
+                            <h2 class="event-detail__heading">About this event</h2>
+                            @Html.Raw(Model.Description)
+                        </div>
+                    </div>
+                </div>
+                <div class="event-detail--100">
+                    <div class="directory--border-top @borderTeal">
+                        <div class="@divStyling">
+                            <h2 class="event-detail__heading">Event and booking details</h2>
+                            <p class="event-detail__details"><strong>Cost:</strong> @Model.Fee</p>
+                            @if (!string.IsNullOrEmpty(Model.PhoneNumber))
+                            {
+                                <p class="event-detail__details"><strong>Phone:</strong> @Model.PhoneNumber</p>
+                            }
+                            @if (!string.IsNullOrEmpty(Model.Email))
+                            {
+                                <p class="event-detail__details"><strong>Email:</strong> <a href="mailto:@Model.Email">@Model.Email</a></p>
+                            }
+                            @if (!string.IsNullOrEmpty(Model.Website))
+                            {
+                                <p class="event-detail__details"><strong>Visit:</strong> <a href="@Model.Website">@Model.Website</a></p>
+                            }
+                            <a href="@Url.Action("DirectoryEntry", "Events" , new { slug=Model.Group.Name })" data-cy="subscribe-button" class="btn btn--bold btn--width-25 btn--chevron-forward">
+                                <span class="btn_text">Book a place</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                @if (Model.MapDetails.MapPosition is not null && !Model.MapDetails.MapPosition.Lat.Equals(0.0) && !Model.MapDetails.MapPosition.Lon.Equals(0.0))
+                {
+                    <div class="event-detail--100">
+                        <div class="directory--border-top @borderTeal">
+                            <div class="@divStyling">
+                                <h2 class="event-detail__heading">How to find us</h2>
+                                <div class="event-map-container">
+                                    <partial name="MapPosition" model='Model.MapDetails' view-data='@(new ViewDataDictionary(ViewData) {{ "eventMap", true }})' />
+                                </div>
                             </div>
                         </div>
                     </div>
+                }
+                @if (Model.TrustedLogos.Any())
+                {
                     <div class="event-detail--100">
                         <div class="directory--border-top @borderTeal">
-                            <div class="event-detail__wrapper navcard--white  navcard-all navcard--theme-grey-accent-all navcard--border-top-0 navcard--radius-bottom-left navcard--radius-bottom-right">
-                                <h2>About this event</h3>
-                                @Html.Raw(Model.Description)
-                                <h3>Age range</h3>
-                                <p>hardcoded text</p>
-                            <div>
+                            <div class="@divStyling">
+                                <partial name="LogoArea" model='@Model.TrustedLogos' view-data='new ViewDataDictionary(ViewData) {{"logoAreaTitleStylingBlank", true}, {"logoAreaArticle", false}, {"logoAreaTitle", "Our partners"}, {"borderTopClass", "directory--padding"}, {"eventDetailHeading", "event-detail__heading"}}' />
+                            </div>
                         </div>
                     </div>
-                    <div class="event-detail--100">
-                        <div class="directory--border-top @borderTeal">
-                            <div class="event-detail__wrapper navcard--white  navcard-all navcard--theme-grey-accent-all navcard--border-top-0 navcard--radius-bottom-left navcard--radius-bottom-right">
-                                <h2>Event and booking details</h3>
-                                <h3>Cost:</h3>
-                                <h3>Phone:</h3>
-                                <h3>Email:</h3>
-                                <h3>Visit:</h3>
-                                <button data-cy="subscribe-button" class="btn btn--bold btn--width-25 btn--chevron-forward"><span class="btn_text">Book a place</span></button>
-                            <div>
-                        </div>
-                    </div> 
-                    <div class="event-detail--100">
-                        <div class="directory--border-top @borderTeal">
-                            <div class="event-detail__wrapper navcard--white  navcard-all navcard--theme-grey-accent-all navcard--border-top-0 navcard--radius-bottom-left navcard--radius-bottom-right">
-                                <h2>How to find us</h3>
-                                <p>Map here</p>
-                                 @if (Model.MapDetails.MapPosition is not null && Model.MapDetails.MapPosition.Lat != 0.0 && Model.MapDetails.MapPosition.Lon != 0.0)
-                                {
-                                    <div class="event-map-container">
-                                        <br />
-                                    <partial name="MapPosition" model='Model.MapDetails' />
-                                    </div>
-                                }
-                                <button data-cy="subscribe-button" class="btn btn--bold btn--width-25 btn--chevron-forward"><span class="btn_text">Get directions</span></button>
-                            <div>
-                        </div>
-                    </div>
-                    <div class="event-detail--100">
-                        <div class="directory--border-top @borderTeal">
-                            <div class="event-detail__wrapper navcard--white  navcard-all navcard--theme-grey-accent-all navcard--border-top-0 navcard--radius-bottom-left navcard--radius-bottom-right">
-                                <h2>Our partners</h3>
-                                <p>Logos here</p>
-                                @* @if(Model.Categories is not null)
-                                {
-                                    <partial name="LogoAreaImage" model='@Model' />
-                                }
-                                else
-                                {
-                                    <div class="grid-container">
-                                        <div class="grid-100">
-                                            <partial name="LogoAreaImage" model='@Model' />
-                                        </div>
-                                    </div>
-                                }    *@
-                            <div>
-                        </div>
-                    </div>   
+                }
+            </section>
+            <section class="section section--no-margin">
+                <div class="grid-container">
+                    <partial name="DirectoryContentDisclaimer" />
+                </div>
             </section>
         </div>
+    </div>
 </div>

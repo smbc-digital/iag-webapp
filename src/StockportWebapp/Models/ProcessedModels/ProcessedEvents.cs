@@ -19,6 +19,10 @@ public class ProcessedEvents : IProcessedContentType
     public readonly List<Alert> Alerts;
     public readonly List<Alert> GlobalAlerts = new List<Alert>();
     public MapDetails MapDetails { get; set; }
+    public List<GroupBranding> TrustedLogos { get; set; } = new List<GroupBranding>();
+    public string PhoneNumber { get; }
+    public string Email { get; }
+    public string Website { get; }
 
     public string MetaDescription { get; set; }
 
@@ -27,7 +31,7 @@ public class ProcessedEvents : IProcessedContentType
 
     public ProcessedEvents(string title, string slug, string teaser, string imageUrl, string thumbnailImageUrl, string description,
                             string fee, string location, string submittedBy, DateTime eventDate, string startTime, string endTime,
-                            List<Crumb> breadcrumbs, List<string> categories, MapDetails mapDetails, string bookingInformation, Group group, List<Alert> alerts, string accessibleTransportLink, string metaDescription)
+                            List<Crumb> breadcrumbs, List<string> categories, MapDetails mapDetails, string bookingInformation, Group group, List<Alert> alerts, string accessibleTransportLink, List<GroupBranding> trustedLogos, string phoneNumber, string email, string website, string metaDescription)
     {
         Title = title;
         Slug = slug;
@@ -47,11 +51,13 @@ public class ProcessedEvents : IProcessedContentType
         Group = group;
         Alerts = alerts;
         MapDetails = mapDetails;
+        TrustedLogos = trustedLogos;
+        PhoneNumber = phoneNumber;
+        Email = email;
+        Website = website;
         MetaDescription = metaDescription;
     }
 
     public bool IsAlertDisplayed(Alert alert)
-    {
-        return alert.SunriseDate <= EventDate && alert.SunsetDate >= EventDate;
-    }
+        => alert.SunriseDate <= EventDate && alert.SunsetDate >= EventDate;
 }
