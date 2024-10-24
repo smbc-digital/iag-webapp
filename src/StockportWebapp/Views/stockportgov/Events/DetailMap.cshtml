@@ -1,0 +1,16 @@
+@model ProcessedEvents
+@{
+    string eventWrapperCssClasses = (string)ViewData["eventWrapperCssClasses"];
+    string borderTop = (string)ViewData["BorderTop"];
+}
+
+<div class="event-detail--100">
+    <div class="@borderTop">
+        <div class="@eventWrapperCssClasses">
+            <h2 class="event-detail__heading">How to find us</h2>
+            <div class="event-map-container">
+                <partial name="MapPosition" model='@Model.MapDetails' view-data='@(new ViewDataDictionary(ViewData) {{ "eventMap", true }})' />
+            </div>
+        </div>
+    </div>
+</div>
