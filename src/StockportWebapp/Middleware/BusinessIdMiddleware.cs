@@ -29,14 +29,15 @@ public class BusinessIdMiddleware
             else
             {
                 businessId.SetId(new StringValues("stockportgov"));
-
-                if (context.Request.Path.HasValue
-                    && !context.Request.Path.Value.ToLower().Contains("/assets/")
-                    && !context.Request.Path.Value.ToLower().Contains("healthcheck")) _logger.LogInformation("BUSINESS-ID has not been set, setting to default");
             }
 
             context.Request.Headers.Add("BUSINESS-ID", businessId.ToString());
         }
+
+        if (context.Request.Path.HasValue
+                    && !context.Request.Path.Value.ToLower().Contains("/assets/")
+                    && !context.Request.Path.Value.ToLower().Contains("healthcheck")) 
+            _logger.LogInformation("BUSINESS-ID has not been set, setting to default");
 
         return _next(context);
     }
