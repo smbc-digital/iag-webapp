@@ -41,10 +41,14 @@
         }
     }
 
+    &--grey, &--grey-light {
+        background-color: $stockport-grey;
+    }
+
     &--pink, &--pink-light {
         background-color: $stockport-pink;
     }
-    
+
     &--purple, &--purple-light {
         background-color: $stockport-purple;
     }

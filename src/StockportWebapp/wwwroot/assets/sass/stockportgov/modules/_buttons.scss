@@ -127,6 +127,26 @@
         }
     }
 
+    &--orange, &--orange-light {
+        color: $stockport-orange;
+        border: 1px solid $stockport-orange;
+
+        &:hover, &:focus {
+            color: darken($stockport-orange, 5%);
+            background-color: rgba(white, 0.9);
+        }
+
+        &-outline {
+            background: white;
+
+            &:hover, &:focus {
+                background-color: $stockport-orange;
+                color: white;
+            }
+        }
+    }
+
+
     &--purple, &--purple-light {
         color: $stockport-purple;
         border: 1px solid $stockport-purple;

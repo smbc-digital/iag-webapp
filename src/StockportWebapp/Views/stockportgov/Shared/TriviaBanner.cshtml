@@ -1,16 +1,33 @@
 ﻿@model ContentBlock
+@{
+    var overrideToDefault = false;
+    if (Model.ColourScheme == EColourScheme.None ||
+        Model.ColourScheme == EColourScheme.Multi ||
+        Model.ColourScheme == EColourScheme.Dark_Overlay ||
+        Model.ColourScheme == EColourScheme.Light_Overlay)
+        overrideToDefault = true;
+
+    var backgroundColourClass = overrideToDefault
+                                ? "bg-default-light"
+                                : Model.BackgroundColourClass;
+
+    string borderColourClass = overrideToDefault
+                                ? ""
+                                : Model.BorderColourClass;
+}
+
 @if (Model is not null && Model.SubItems.Any() is true)
 {
     @if (Model.SubItems.Count.Equals(3))
     {
-        <section class="content-block content-block--padding content-block--screen @Model.BackgroundColourClass" data-cy="trivia-banner">
+        <section class="content-block content-block--padding content-block--screen @backgroundColourClass" data-cy="trivia-banner">
             <div class="trivia-banner__section">
                 <div class="grid-container">
                     <div class="grid-100">
                         @if (!string.IsNullOrEmpty(Model.Title))
                         {
                             <h2 class="content-block__title">@Model.Title</h2>
-                            <hr class="border-colour-default @Model.BorderColourClass"/>   
+                            <hr class="border-colour-default @borderColourClass"/>   
                         }
 
                         <ul class="navcard-wrapper navcard-wrapper--no-margin">

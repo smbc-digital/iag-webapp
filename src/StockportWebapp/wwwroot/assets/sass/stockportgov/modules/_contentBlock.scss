@@ -3,6 +3,7 @@
         text-align: center;
         text-align: -webkit-center;
         text-align: -moz-center;
+        margin-block-start: 0px;
     }
 
     &__teaser {
@@ -36,7 +37,11 @@
     }
 
     &--padding {
-        padding: 2em 0;
+        padding: 4em 0;
+
+        @media #{$mobile} {
+            padding: 2em 0;
+        }
     }
 
     &:last-child {

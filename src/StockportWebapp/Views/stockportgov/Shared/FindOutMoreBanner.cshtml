@@ -2,7 +2,11 @@
 @if (Model is not null && Model.SubItems.Count <=3 && Model.SubItems.Any(contentBlock => !string.IsNullOrEmpty(contentBlock.Image)))
 {
     bool isDefaultColourScheme = Model.IsDefaultColourScheme 
-        || Model.ColourScheme is EColourScheme.Orange;
+        || Model.ColourScheme ==  EColourScheme.None;
+
+    string borderColourClass = Model.ColourScheme == EColourScheme.None 
+                                ? "" 
+                                : Model.BorderColourClass;
     
     string buttonColour = !isDefaultColourScheme
         ? $"btn-{@CssClassMapper.GetBoldCssClass(Model.ColourScheme)} btn-{@CssClassMapper.GetBoldCssClass(Model.ColourScheme)}-outline" 
@@ -15,7 +19,7 @@
                 {
                     <div class="find-out-more-banner">
                         <div class="find-out-more-banner-content">
-                            <h2 class="section__title find-out-more-banner__title section__title--margin-bottom @Model.BorderColourClass">@contentBlock.Title</h2>
+                            <h2 class="section__title find-out-more-banner__title section__title--margin-bottom @borderColourClass">@contentBlock.Title</h2>
                             <p class="find-out-more-banner__teaser">@contentBlock.Teaser</p>
     
                             <a href="@contentBlock.NavigationLink" class="btn btn--width-30 btn--chevron-forward btn--bold btn--chevron-bold @buttonColour" data-cy="find-out-more-link">
