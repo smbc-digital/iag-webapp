@@ -30,6 +30,6 @@ public class EventFactory : IEventFactory
         return new ProcessedEvents(eventItem.Title, eventItem.Slug, eventItem.Teaser, eventItem.ImageUrl,
                                    eventItem.ThumbnailImageUrl, description, eventItem.Fee, eventItem.Location, eventItem.SubmittedBy,
                                    eventItem.EventDate, eventItem.StartTime, eventItem.EndTime, eventItem.Breadcrumbs, eventItem.Categories,
-                                   mapDetails, eventItem.BookingInformation, eventItem.Group, eventItem.Alerts, eventItem.AccessibleTransportLink, eventItem.MetaDescription);
+                                   mapDetails, eventItem.BookingInformation, eventItem.Group, eventItem.Alerts, eventItem.AccessibleTransportLink, eventItem.EventBranding, eventItem.PhoneNumber, eventItem.Email, eventItem.Website, eventItem.MetaDescription);
     }
 }

@@ -1,0 +1,32 @@
+@model ProcessedEvents
+@{
+    string eventWrapperCssClasses = (string)ViewData["eventWrapperCssClasses"];
+    string borderTop = (string)ViewData["BorderTop"];
+}
+
+<div class="event-detail--100">
+    <div class="@borderTop">
+        <div class="@eventWrapperCssClasses">
+            <h2 class="event-detail__heading">Event and booking details</h2>
+            <p class="event-detail__details"><strong>Cost:</strong> @Model.Fee</p>
+            @if (!string.IsNullOrEmpty(Model.PhoneNumber))
+            {
+                <p class="event-detail__details"><strong>Phone:</strong> @Model.PhoneNumber</p>
+            }
+            @if (!string.IsNullOrEmpty(Model.Email))
+            {
+                <p class="event-detail__details"><strong>Email:</strong> <a href="mailto:@Model.Email">@Model.Email</a></p>
+            }
+            @if (!string.IsNullOrEmpty(Model.Website))
+            {
+                <p class="event-detail__details"><strong>Visit:</strong> <a href="@Model.Website">@Model.Website</a></p>
+            }
+            @if (!string.IsNullOrEmpty(Model.BookingInformation))
+            {
+                <a href="@Model.BookingInformation" data-cy="book-event-button" class="btn btn--bold btn--width-25 btn--chevron-forward">
+                    <span class="btn_text">Book a place</span>
+                </a>
+            }
+        </div>
+    </div>
+</div> 

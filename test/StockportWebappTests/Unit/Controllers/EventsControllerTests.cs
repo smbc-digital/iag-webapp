@@ -17,6 +17,7 @@ public class EventsControllerTest
     private const string BusinessId = "businessId";
     private readonly Mock<IFilteredUrl> _filteredUrl;
     private readonly DateCalculator _datetimeCalculator;
+    private Mock<IFeatureManager> _featureManager = new();
     private readonly Group _group = new GroupBuilder().Build();
 
     private readonly List<Alert> _alerts = new List<Alert> { new Alert("title", "subHeading", "body",
@@ -53,7 +54,7 @@ public class EventsControllerTest
         var eventsCalendar = new EventResponse(new List<Event> { _eventsItem }, _categories);
         var eventItem = new ProcessedEvents("title", "slug", "teaser", "image.png", "image.png", "description",
             "fee", "location", "submittedBy", new DateTime(2016, 12, 30, 00, 00, 00), "startTime", "endTime",
-            new List<Crumb>(), _categories, new MapDetails(), "booking information", _group, _alerts, string.Empty, string.Empty);
+            new List<Crumb>(), _categories, new MapDetails(), "booking information", _group, _alerts, string.Empty, new(), string.Empty, string.Empty, string.Empty, string.Empty);
 
         var eventHomepage = new EventHomepage(new List<Alert>()) { Categories = new List<EventCategory>(), Rows = new List<EventHomepageRow>() };
 
@@ -90,6 +91,8 @@ public class EventsControllerTest
         _config.Setup(o => o.GetRssEmail(BusinessId)).Returns(AppSetting.GetAppSetting("rss-email"));
         _config.Setup(o => o.GetEmailAlertsNewSubscriberUrl(BusinessId)).Returns(AppSetting.GetAppSetting("email-alerts-url"));
 
+        _featureManager.Setup(featureManager => featureManager.IsEnabledAsync(It.IsAny<string>())).ReturnsAsync(true);
+
         _controller = new EventsController(
             _repository.Object,
             _processedContentRepository.Object,
@@ -101,7 +104,8 @@ public class EventsControllerTest
             null,
             null,
             _datetimeCalculator,
-            null
+            null,
+            _featureManager.Object
             );
     }
 
@@ -277,7 +281,8 @@ public class EventsControllerTest
             null,
             null,
             _datetimeCalculator,
-            null
+            null,
+            _featureManager.Object
         );
 
         return controller;
