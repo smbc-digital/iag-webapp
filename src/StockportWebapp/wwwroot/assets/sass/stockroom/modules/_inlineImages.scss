@@ -46,7 +46,7 @@ figure {
 		height: auto;
 		width: auto;
 		max-width: 100%;
-        border-radius: 20px 20px 0 0 !important;
+        border-radius: 3px 3px 0 0 !important;
         
         @media #{$desktop} {
             max-height: 450px;
@@ -62,7 +62,7 @@ figcaption {
 	background-color: black;
 	color: white;
 	padding: 0.55em;
-    border-radius: 0 0 20px 20px !important;
+    border-radius: 0 0 3px 3px !important;
 }
 
 .image-right, .image-left {
@@ -76,7 +76,7 @@ figcaption {
     }
 
     img {
-        border-radius: 20px 20px 0 0 !important;
+        border-radius: 3px 3px 0 0 !important;
         height: auto;
         width: 100%;
         margin: 0;
@@ -85,7 +85,7 @@ figcaption {
 
     figcaption {
         background-color: black;
-        border-radius: 0 0 20px 20px;
+        border-radius: 0 0 3px 3px;
         color: #fff;
         padding: .55em;
     }

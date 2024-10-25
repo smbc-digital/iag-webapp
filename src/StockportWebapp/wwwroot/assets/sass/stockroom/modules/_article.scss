@@ -7,7 +7,7 @@
     }
 
     img {
-        border-radius: 20px;
+        border-radius: 3px;
         width: 100%;
         height: auto;
     }
@@ -34,10 +34,10 @@
         }
 
         &__image {
-            height: 330px;
+            height: 427px;
 
             @media #{$mobile} {
-                height: 210px;
+                height: 295.5px;
             }
         }
 
