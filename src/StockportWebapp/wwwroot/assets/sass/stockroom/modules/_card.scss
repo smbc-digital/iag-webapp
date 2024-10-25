@@ -1,6 +1,6 @@
 .card {
     &-title {
-        margin-top: 20px;
+        margin-top: 1.333em;
     }
 
     &-wrapper {
@@ -50,11 +50,18 @@
 
         &__content {
             &-title {
-                font-weight: 600;
+                font-weight: 900;
+                font-size: 1.75rem;
             }
 
             &-teaser {
                 margin-bottom: 0;
+                display: -webkit-box;
+                line-clamp: 3;
+                -webkit-line-clamp: 3;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+                text-overflow: ellipsis;
             }
         }
 
@@ -76,10 +83,6 @@
                 width: fit-content;
                 margin-top: 1em;
             }
-        }
-
-        &--empty {
-            background: none;
         }
     }
 }
