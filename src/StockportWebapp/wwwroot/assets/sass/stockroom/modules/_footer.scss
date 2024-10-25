@@ -51,6 +51,10 @@
 		}
 
 		&--bottom {
+			display: flex;
+			flex-wrap: wrap;
+			flex-direction: row;
+
 			li {
 				&:nth-child(4n+1) .footer__info-container {
 					padding-inline-start: 0;
@@ -63,7 +67,7 @@
 		margin-top: 0;
 
 		@media #{$mobile} {
-			padding-inline: 0.5em;
+			padding-inline: 0.416em;
 		}
 
 		img {
@@ -78,7 +82,7 @@
 
 		@media #{$mobile} {
 			margin-top: 25px;
-			padding-bottom: 20px;
+			padding-bottom: 0.833em;
 		}
 	}
 
@@ -86,7 +90,7 @@
 		padding-block: 2em;
 
 		@media #{$mobile} {
-			padding-inline: 1em;
+			padding-inline: 0.833em;
 			padding-block-end: 0;
             padding-block-start: 1em;;
 		}
