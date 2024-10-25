@@ -157,7 +157,7 @@
                     {
                         <div class="event-map-container">
                             <br />
-                            <partial name="MapPosition" model='Model.MapDetails' />
+                            <partial name="MapPosition" model='Model.MapDetails' view-data='@(new ViewDataDictionary(ViewData) {{ "eventMap", false }})' />
                         </div>
                     }
 
