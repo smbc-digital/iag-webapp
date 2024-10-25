@@ -191,3 +191,9 @@ h2, h3, h4 {
 .font--bold-extra-squeezed {
     font-family: OTNeueMontrealBoldExtraSqueezed, 'Noto Sans', sans-serif;
 }
+
+.grid-container-full-width .grid-container {
+    @media #{$mobile, $tablet} {
+        padding: 0;
+    }
+}
