@@ -12,6 +12,7 @@ public class EventsController : Controller
     private readonly IFilteredUrl _filteredUrl;
     private readonly CalendarHelper _helper;
     private readonly IDateCalculator _dateCalculator;
+    private readonly IFeatureManager _featureManager;
     private readonly IStockportApiEventsService _stockportApiEventsService;
 
     public EventsController(
@@ -25,7 +26,8 @@ public class EventsController : Controller
         CalendarHelper helper,
         ITimeProvider timeProvider,
         IDateCalculator dateCalculator,
-        IStockportApiEventsService stockportApiEventsService)
+        IStockportApiEventsService stockportApiEventsService,
+        IFeatureManager featureManager)
     {
         _repository = repository;
         _processedContentRepository = processedContentRepository;
@@ -37,6 +39,7 @@ public class EventsController : Controller
         _helper = helper;
         _dateCalculator = dateCalculator;
         _stockportApiEventsService = stockportApiEventsService;
+        _featureManager = featureManager;
     }
 
     [Route("/events")]
@@ -193,7 +196,7 @@ public class EventsController : Controller
                 response.GlobalAlerts.AddRange(eventHomeResponse.Alerts);
         }
 
-        return View(response);
+        return View(await _featureManager.IsEnabledAsync("Events") ? "Detail2024" : "Detail", response);
     }
 
     [Route("/events/details/{slug}")]
