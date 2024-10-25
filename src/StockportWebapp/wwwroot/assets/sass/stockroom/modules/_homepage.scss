@@ -50,13 +50,15 @@
         width: 50%;
         text-align: center;
         margin-block-end: 0.5em;
-
+        line-height: 0.8;
+        
         @media #{$tablet-only, $desktop} {
             font-weight: normal;
         }
 
         @media #{$tablet} {
             font-size: 6rem;
+            line-height: 0.8;
         }
 
         @media #{$mobile} {

@@ -101,4 +101,14 @@ public class ArticleViewModel
         hasMoreButton = sidebarSubItems.Count > 6;
         return sidebarSubItems.Take(6);
     }
+
+    public List<SubItem> GetItemsToDisplay(List<SubItem> relatedItems)
+    {
+        if (relatedItems is null || relatedItems.Count < 3)
+            return relatedItems;
+
+        int countToDisplay = (relatedItems.Count / 3) * 3;
+
+        return relatedItems.Take(countToDisplay).ToList();
+    }
 }
