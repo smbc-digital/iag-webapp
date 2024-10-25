@@ -11,9 +11,6 @@
 @if (!string.IsNullOrEmpty(Model.Profile.Body))
 {
     <a href="@Url.Action("Index", "Profile", new {slug = Model.Profile.Slug})" class="featured-item__link featured-item__link-@additionalClasses" data-cy="featured-item-link">
-        
-        <partial name="FeaturedItemImage" model="@Model.Profile.Image.Url" view-data='@(new ViewDataDictionary(ViewData) { {"imageAdditionalClasses", "profile-banner"}, {"altText", altText} })'/>
-        
         <div class="featured-item-content featured-item-content-@additionalClasses @pseudoBorderColour @borderColour">
             <div class="featured-item-wrapper">
                 <h3 class="featured-item__title featured-item__title--padded-bottom featured-item__title-@additionalClasses" data-cy="profile-featured-item-title">@Model.Profile.Title</h3>
@@ -32,13 +29,12 @@
                 </div>
             </div>
         </div>
+        <partial name="FeaturedItemImage" model="@Model.Profile.Image.Url" view-data='@(new ViewDataDictionary(ViewData) { {"imageAdditionalClasses", "profile-banner"}, {"altText", altText} })' />
     </a>
 }
 else
 {
     <div class="featured-item__link featured-item__link-@additionalClasses" data-cy="featured-item-link">
-        <partial name="FeaturedItemImage" model="@Model.Profile.Image.Url" view-data='@(new ViewDataDictionary(ViewData) { {"imageAdditionalClasses", "profile-banner"}, {"altText", altText} })'/>
-        
         <div class="featured-item-content featured-item-content-@additionalClasses @pseudoBorderColour @borderColour">
             <div class="featured-item-wrapper">
                 <h3 class="featured-item__title featured-item__title--padded-bottom featured-item__title-@additionalClasses @contentNoBody">@Model.Profile.Title</h3>
@@ -55,5 +51,6 @@ else
                 </div>
             </div>
         </div>
+        <partial name="FeaturedItemImage" model="@Model.Profile.Image.Url" view-data='@(new ViewDataDictionary(ViewData) { {"imageAdditionalClasses", "profile-banner"}, {"altText", altText} })' />
     </div>
 }

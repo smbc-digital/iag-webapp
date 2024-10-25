@@ -8,13 +8,16 @@
         border-radius: 30px;
     }
 
+    &__padding {
+        padding: 2em;
+    }
+
     &__icon {
         font-size: 6rem;
         font-weight: 600;
         letter-spacing: -1px;
         line-height: 1.0416666667;
         padding-inline: 1rem;
-        padding-top: 1.5rem;
         text-align: center;
         
         @media #{$mobile} {
@@ -23,7 +26,6 @@
     }
 
     &-content {
-        padding: 1.5em;
         padding-top: 1em;
         color: $stockport-black;
         text-align: center;
