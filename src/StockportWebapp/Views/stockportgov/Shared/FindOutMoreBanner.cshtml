@@ -1,11 +1,11 @@
 ﻿@model ContentBlock
-@if (Model is not null && Model.SubItems.Count <=3 && Model.SubItems.Any(contentBlock => !string.IsNullOrEmpty(contentBlock.Image)))
+@if (Model?.SubItems?.Count >= 3 && Model.SubItems.Any(contentBlock => !string.IsNullOrEmpty(contentBlock.Image)))
 {
     bool isDefaultColourScheme = Model.IsDefaultColourScheme 
-        || Model.ColourScheme ==  EColourScheme.None;
+        || Model.ColourScheme.Equals(EColourScheme.None);
 
-    string borderColourClass = Model.ColourScheme == EColourScheme.None 
-                                ? "" 
+    string borderColourClass = Model.ColourScheme.Equals(EColourScheme.None) 
+                                ? string.Empty 
                                 : Model.BorderColourClass;
     
     string buttonColour = !isDefaultColourScheme
@@ -15,7 +15,7 @@
     <section class="content-block content-block--margin content-block--screen" data-cy="find-out-more-banner">
         <div class="grid-container">
             <div class="grid-100">
-                @foreach (ContentBlock contentBlock in Model.SubItems.Where(cb => !string.IsNullOrEmpty(cb.Image)))
+                @foreach (ContentBlock contentBlock in Model.SubItems.Where(cb => !string.IsNullOrEmpty(cb.Image)).Take(3))
                 {
                     <div class="find-out-more-banner">
                         <div class="find-out-more-banner-content">
@@ -39,6 +39,10 @@
                              width="720"
                              height="300">
                     </div>
+                }
+                @if (Model.SubItems?.Count > 3)
+                {
+                    <partial name="ContentBlockViewMore" />
                 }
             </div>
         </div>
