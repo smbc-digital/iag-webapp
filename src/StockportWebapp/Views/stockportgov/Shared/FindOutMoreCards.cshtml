@@ -1,5 +1,5 @@
 ﻿@model ContentBlock
-@if (Model is not null && Model.SubItems.Count.Equals(3))
+@if (Model?.SubItems?.Count >= 3)
 {
     <section class="content-block content-block--margin" data-cy="find-out-more-cards">
         <div class="grid-container">
@@ -12,12 +12,16 @@
                 
                 <div class="section__content">
                     <ul class="navcard-wrapper navcard-wrapper--no-margin">
-                        @foreach(ContentBlock contentBlock in Model.SubItems)
+                        @foreach(ContentBlock contentBlock in Model.SubItems.Take(3))
                         {
                             <partial name="FindOutMoreCard" model="@contentBlock" view-data="@(new ViewDataDictionary(ViewData) { {"TextColourClass", Model.TextColourClass} })" />
                         }
                     </ul>
                 </div>
+                @if (Model?.SubItems?.Count > 3)
+                {
+                    <partial name="ContentBlockViewMore" />
+                }
             </div>
         </div>
     </section>
