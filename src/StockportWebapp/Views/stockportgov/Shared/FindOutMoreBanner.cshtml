@@ -1,5 +1,5 @@
 ﻿@model ContentBlock
-@if (Model is not null && Model.SubItems.Count >=3 && Model.SubItems.Any(contentBlock => !string.IsNullOrEmpty(contentBlock.Image)))
+@if (Model?.SubItems?.Count >= 3 && Model.SubItems.Any(contentBlock => !string.IsNullOrEmpty(contentBlock.Image)))
 {
     bool isDefaultColourScheme = Model.IsDefaultColourScheme 
         || Model.ColourScheme ==  EColourScheme.None;
