@@ -12,6 +12,16 @@
         text-align: -moz-center;
     }
 
+    &__view-more {
+        display: flex;
+        justify-content: center;
+        margin-top: 2em;
+        
+        @media #{$mobile} {
+            margin-top: 1em;
+        }
+    }
+
     hr {
         margin: auto;
         width: 20%;
