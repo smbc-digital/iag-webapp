@@ -10,6 +10,22 @@
     }
 }
 
+img {
+    border-radius: 3px;
+    width: 100%;
+    height: auto;
+    
+    @media #{$tablet} {
+        max-height: 450px;
+        object-fit: cover;
+    }
+
+    @media #{$mobile} {
+        max-height: 400px;
+        object-fit: cover;
+    }
+}
+
 img[src*='#left'], img[src*='#right'] {
     display: block;
     max-width: 49%;
