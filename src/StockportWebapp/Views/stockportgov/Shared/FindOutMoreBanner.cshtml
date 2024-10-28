@@ -2,9 +2,9 @@
 @if (Model?.SubItems?.Count >= 3 && Model.SubItems.Any(contentBlock => !string.IsNullOrEmpty(contentBlock.Image)))
 {
     bool isDefaultColourScheme = Model.IsDefaultColourScheme 
-        || Model.ColourScheme ==  EColourScheme.None;
+        || Model.ColourScheme.Equals(EColourScheme.None);
 
-    string borderColourClass = Model.ColourScheme == EColourScheme.None 
+    string borderColourClass = Model.ColourScheme.Equals(EColourScheme.None) 
                                 ? string.Empty 
                                 : Model.BorderColourClass;
     
