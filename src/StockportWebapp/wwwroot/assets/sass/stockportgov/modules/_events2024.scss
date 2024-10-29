@@ -2,88 +2,82 @@
     background-color: $stockport-light-grey;
   }
   
-  .event-detail {
+.event-detail {
     display: flex;
     flex-wrap: wrap;
     align-items: stretch;
-  
+
     @media #{$mobile} {
-      flex-direction: column;
-    }
-  
-    &__image {
-      width: 100%;
-      object-fit: cover;
-      object-position: center;
-      max-height: 365px;
-      border-radius: 3px;
-  
-      @media #{$mobile} {
-        max-height: 300px;
-      }
-    }
-  
-    &--50 {
-      width: calc(50% - 1em);
-      box-sizing: border-box;
-      display: flex;
-      flex-direction: column;
-  
-      &-left {
-        margin-inline-end: 2em;
-  
-        @media #{$tablet} {
-          margin-inline-end: 1em;
-        }
-  
-        @media #{$mobile} {
-          margin-block-end: 1em;
-        }
-      }
-  
-      @media #{$tablet} {
-        width: calc(50% - 0.5em);
-        margin-inline-start: 0;
-      }
-  
-      @media #{$mobile} {
-        width: 100%;
-      }
-    }
-  
-    &--100 {
-      width: 100%;
-      box-sizing: border-box;
-    }
-  
-    &--margin-top {
-      margin-block-start: 2em;
-  
-      @media #{$tablet} {
-        margin-block-start: 1em;
-      }
-    }
-  
-    &__wrapper {
-      padding: 1.5em;
-      flex-grow: 1;
-  
-      h3 {
-        margin: 0;
-      }
-    }
-  
-    &__heading {
-      margin-top: 0;
-    }
-  
-    &__button {
-      margin: 1em 0;
+        flex-direction: column;
     }
 
-    &__disclaimer {
-        hr {
-            margin-top: 0;
+    &__image {
+        width: 100%;
+        object-fit: cover;
+        object-position: center;
+        max-height: 365px;
+        border-radius: 3px;
+
+        @media #{$mobile} {
+        max-height: 300px;
         }
     }
-  }  
+
+    &--50 {
+        width: calc(50% - 1em);
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+
+        &-left {
+        margin-inline-end: 2em;
+
+        @media #{$tablet} {
+            margin-inline-end: 1em;
+        }
+
+        @media #{$mobile} {
+            margin-block-end: 1em;
+        }
+        }
+
+        @media #{$tablet} {
+        width: calc(50% - 0.5em);
+        margin-inline-start: 0;
+        }
+
+        @media #{$mobile} {
+        width: 100%;
+        }
+    }
+
+    &--100 {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    &--margin-top {
+        margin-block-start: 2em;
+
+        @media #{$tablet} {
+        margin-block-start: 1em;
+        }
+    }
+
+    &__wrapper {
+        padding: 1.5em;
+        flex-grow: 1;
+
+        h3 {
+        margin: 0;
+        }
+    }
+
+    &__heading {
+        margin-top: 0;
+    }
+
+    &__button {
+        margin: 1em 0;
+    }
+}  
