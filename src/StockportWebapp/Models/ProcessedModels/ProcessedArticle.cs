@@ -1,4 +1,6 @@
-﻿namespace StockportWebapp.Models.ProcessedModels;
+﻿using Markdig.Syntax.Inlines;
+
+namespace StockportWebapp.Models.ProcessedModels;
 public interface IContactUsMessageContainer
 {
     void AddContactUsMessage(string message, string slug = "");
@@ -28,7 +30,8 @@ public class ProcessedArticle : IProcessedContentType, IContactUsMessageContaine
     public string Author;
     public string Photographer;
     public DateTime PublishedOn;
-
+    public readonly IEnumerable<InlineQuote> InlineQuotes;
+    
     public ProcessedArticle(string title,
                             string slug,
                             string body,
@@ -50,7 +53,8 @@ public class ProcessedArticle : IProcessedContentType, IContactUsMessageContaine
                             IEnumerable<SubItem> relatedContent,
                             string author,
                             string photographer,
-                            DateTime publishedOn)
+                            DateTime publishedOn,
+                            IEnumerable<InlineQuote> inlineQuotes)
     {
         Title = title;
         NavigationLink = TypeRoutes.GetUrlFor("article", slug);
@@ -74,6 +78,7 @@ public class ProcessedArticle : IProcessedContentType, IContactUsMessageContaine
         Author = author;
         Photographer = photographer;
         PublishedOn = publishedOn;
+        InlineQuotes = inlineQuotes;
     }
 
     public void AddContactUsMessage(string message, string slug = "")

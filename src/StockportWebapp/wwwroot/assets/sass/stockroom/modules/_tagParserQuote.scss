@@ -1,0 +1,25 @@
+.profile-quote {
+    height: 100%;
+
+    h3 {
+        @include h-l;
+    }
+
+    &__border {
+        border-inline-start: 0.4em solid;
+        border-color: $skrm-blue-darker;
+    } 
+
+    &__text {
+        padding-inline-start: 1em;
+
+        @media #{$mobile} {
+            padding-inline-start: 0.8em;
+        }
+
+        span {
+            color: $skrm-orange-darker;
+            vertical-align: super;
+        }
+    }
+}

@@ -28,10 +28,31 @@ public class Article
     public string Author { get; }
     public string Photographer { get; }
     public DateTime PublishedOn { get; set; }
+    public IEnumerable<InlineQuote> InlineQuotes { get; set; }
 
-    public Article(string title, string slug, string body, string teaser, string metaDescription, IEnumerable<Section> sections, string icon, string backgroundImage, string image, string altText,
-        IEnumerable<Crumb> breadcrumbs, IEnumerable<Profile> profiles, IEnumerable<Document> documents, IEnumerable<Alert> alertsInline, DateTime updatedAt, bool hideLastUpdated,
-        List<GroupBranding> articleBranding, string logoAreaTitle, IEnumerable<SubItem> relatedContent, string author, string photographer, DateTime publishedOn)
+    public Article(string title,
+                   string slug,
+                   string body,
+                   string teaser,
+                   string metaDescription,
+                   IEnumerable<Section> sections,
+                   string icon,
+                   string backgroundImage,
+                   string image,
+                   string altText,
+                   IEnumerable<Crumb> breadcrumbs,
+                   IEnumerable<Profile> profiles,
+                   IEnumerable<Document> documents,
+                   IEnumerable<Alert> alertsInline,
+                   DateTime updatedAt,
+                   bool hideLastUpdated,
+                   List<GroupBranding> articleBranding,
+                   string logoAreaTitle,
+                   IEnumerable<SubItem> relatedContent,
+                   string author,
+                   string photographer,
+                   DateTime publishedOn,
+                   IEnumerable<InlineQuote> inlineQuotes)
     {
         Title = title;
         Slug = slug;
@@ -55,5 +76,6 @@ public class Article
         Author = author;
         Photographer = photographer;
         PublishedOn = publishedOn;
+        InlineQuotes = inlineQuotes;
     }
 }

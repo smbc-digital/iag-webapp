@@ -74,7 +74,7 @@ body {
     font-size: 2.25rem;
     line-height: 1.1111111111;
     font-weight: 600;
-    letter-spacing: -1px;
+    letter-spacing: 0;
 
     @media #{$mobile} {
         font-size: 1.75rem;
