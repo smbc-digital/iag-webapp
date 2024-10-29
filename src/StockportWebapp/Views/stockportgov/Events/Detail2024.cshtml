@@ -11,8 +11,6 @@
         ? $"<p><a href=\"{Url.Action("DirectoryEntry", "Directory", new { slug = Model.Group.Slug })}\">{Model.Group.Name}</a></p>"
         : $"<p>{Model.SubmittedBy}</p>";
     
-    string eventDetailMargin = "event-detail__disclaimer";
-
     string borderTeal = "navcard--border-top-10 navcard--theme-teal-lighter-top";
     string borderTop = $"directory--border-top {borderTeal}";
     string eventWrapperCssClasses = "event-detail__wrapper navcard--white navcard-all navcard--theme-grey-accent-all navcard--border-top-0 navcard--radius-bottom-left navcard--radius-bottom-right";
@@ -61,7 +59,7 @@
                         </section>
             </div>
             <section class="section section--no-margin">
-                <partial name="DirectoryContentDisclaimer">
+                <partial name="DirectoryContentDisclaimer" />
             </section>
     </div>
 </div>
