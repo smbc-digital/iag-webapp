@@ -193,7 +193,7 @@ h2, h3, h4 {
 }
 
 .grid-container-full-width .grid-container {
-    @media #{$mobile, $tablet} {
+    @media #{$tablet} {
         padding: 0;
     }
 }
