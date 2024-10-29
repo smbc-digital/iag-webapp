@@ -10,6 +10,8 @@
     string submittedBy = !string.IsNullOrEmpty(Model.Group.Name)
         ? $"<p><a href=\"{Url.Action("DirectoryEntry", "Directory", new { slug = Model.Group.Slug })}\">{Model.Group.Name}</a></p>"
         : $"<p>{Model.SubmittedBy}</p>";
+    
+    string eventDetailMargin = "event-detail__disclaimer";
 
     string borderTeal = "navcard--border-top-10 navcard--theme-teal-lighter-top";
     string borderTop = $"directory--border-top {borderTeal}";
@@ -56,10 +58,10 @@
                 {
                     <partial name="DetailBranding" model='@Model' view-data='@(new ViewDataDictionary(ViewData) {{ "EventWrapperCssClasses", eventWrapperCssClasses }, {"BorderTop", borderTop}})' />
                 }
-            </section>
+                        </section>
+            </div>
             <section class="section section--no-margin">
-                <partial name="DirectoryContentDisclaimer" />
+                <partial name="DirectoryContentDisclaimer" view-data='@(new ViewDataDictionary(ViewData) {{ "EventDetailMargin", eventDetailMargin }})' />
             </section>
-        </div>
     </div>
 </div>

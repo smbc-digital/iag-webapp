@@ -80,4 +80,10 @@
     &__button {
       margin: 1em 0;
     }
+
+    &__disclaimer {
+        hr {
+            margin-top: 0;
+        }
+    }
   }  
