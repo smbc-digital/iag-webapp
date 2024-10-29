@@ -6,7 +6,7 @@ public class Repository : IRepository
     private readonly IUrlGeneratorSimple _urlGeneratorSimple;
     private readonly IHttpClient _httpClient;
     private readonly IApplicationConfiguration _config;
-    private Dictionary<string, string> _authenticationHeaders;
+    private readonly Dictionary<string, string> _authenticationHeaders;
 
     private ILogger<Repository> _logger;
 
@@ -27,29 +27,17 @@ public class Repository : IRepository
         return HttpResponse.Build<T>(httpResponse);
     }
 
-    public async Task<HttpResponse> Put<T>(HttpContent content, string slug = "")
-    {
-        var url = $"{_urlGenerator.UrlFor<T>(slug)}";
-        return await _httpClient.PutAsync(url, content, _authenticationHeaders);
-    }
+    public async Task<HttpResponse> Put<T>(HttpContent content, string slug = "") =>
+        await _httpClient.PutAsync(_urlGenerator.UrlFor<T>(slug), content, _authenticationHeaders);
 
-    public async Task<HttpResponse> Delete<T>(string slug = "")
-    {
-        var url = $"{_urlGenerator.UrlFor<T>(slug)}";
-        return await _httpClient.DeleteAsync(url, _authenticationHeaders);
-    }
+    public async Task<HttpResponse> Delete<T>(string slug = "") =>
+        await _httpClient.DeleteAsync(_urlGenerator.UrlFor<T>(slug), _authenticationHeaders);
 
-    public async Task<HttpResponse> Archive<T>(HttpContent content, string slug = "")
-    {
-        var url = $"{_urlGenerator.UrlFor<T>(slug)}";
-        return await _httpClient.PutAsync(url, content, _authenticationHeaders);
-    }
+    public async Task<HttpResponse> Archive<T>(HttpContent content, string slug = "") =>
+        await _httpClient.PutAsync(_urlGenerator.UrlFor<T>(slug), content, _authenticationHeaders);
 
-    public async Task<HttpResponse> Publish<T>(HttpContent content, string slug = "")
-    {
-        var url = $"{_urlGenerator.UrlFor<T>(slug)}";
-        return await _httpClient.PutAsync(url, content, _authenticationHeaders);
-    }
+    public async Task<HttpResponse> Publish<T>(HttpContent content, string slug = "") =>
+        await _httpClient.PutAsync(_urlGenerator.UrlFor<T>(slug), content, _authenticationHeaders);
 
     public async Task<HttpResponse> GetLatest<T>(int limit)
     {
