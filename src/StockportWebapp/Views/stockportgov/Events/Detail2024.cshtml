@@ -32,17 +32,17 @@
                 </div>
                 <div class="event-detail--50 @borderTeal">
                     <div class="@eventWrapperCssClasses">
-                            <h3 class="event-detail__details">Date and time</h3>
-                            <p>
-                                @Model.EventDate.ToString("dddd dd MMMM yyyy")
-                                @DateTime.Parse(Model.StartTime).ToString("h:mmtt").ToLower() -
-                                @DateTime.Parse(Model.EndTime).ToString("h:mmtt").ToLower()
-                            </p>
-                            <h3 class="event-detail__details">Location</h3>
-                            <p>@Model.Location</p>
-                            <h3 class="event-detail__details">Submitted by</h3>
-                            @Html.Raw(submittedBy)
-                        </div>
+                        <h3 class="event-detail__details">Date and time</h3>
+                        <p>
+                            @Model.EventDate.ToString("dddd dd MMMM yyyy")
+                            @DateTime.Parse(Model.StartTime).ToString("h:mmtt").ToLower() -
+                            @DateTime.Parse(Model.EndTime).ToString("h:mmtt").ToLower()
+                        </p>
+                        <h3 class="event-detail__details">Location</h3>
+                        <p>@Model.Location</p>
+                        <h3 class="event-detail__details">Submitted by</h3>
+                        @Html.Raw(submittedBy)
+                    </div>
                 </div>
 
                 <partial name="DetailAbout" model='@Model' view-data='@(new ViewDataDictionary(ViewData) {{ "EventWrapperCssClasses", eventWrapperCssClasses }, {"BorderTop", borderTop}})' />
@@ -57,9 +57,9 @@
                     <partial name="DetailBranding" model='@Model' view-data='@(new ViewDataDictionary(ViewData) {{ "EventWrapperCssClasses", eventWrapperCssClasses }, {"BorderTop", borderTop}})' />
                 }
             </section>
-            <section class="section section--no-margin">
-                <partial name="DirectoryContentDisclaimer" />
-            </section>
         </div>
+        <section class="section section--no-margin">
+            <partial name="DirectoryContentDisclaimer" />
+        </section>
     </div>
 </div>
