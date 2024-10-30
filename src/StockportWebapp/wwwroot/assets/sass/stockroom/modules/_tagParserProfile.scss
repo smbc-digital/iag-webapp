@@ -4,6 +4,7 @@
     text-decoration: none;
     padding: 1em 0 1em 1em;
     border-inline-start: 0.4em solid $skrm-blue;
+    margin-bottom: 1em;
 
     @media #{$mobile} {
         flex-direction: column;
@@ -22,7 +23,12 @@
         width: 40%;
         height: auto;
         object-fit: cover;
-        border-radius: 20px;
+        border-radius: 3px;
+        max-height: 450px;
+
+        @media #{$tablet} {
+            max-height: 400px;
+        }
 
         @media #{$mobile} {
             width: 100%;
@@ -42,7 +48,8 @@
 
         &__title {
             @include h-l;
-            margin: 0 0 .75em;
+            margin: 0 0 0.56em;
+            margin-top: 0;
         }
 
         &__subTitle {
@@ -58,12 +65,12 @@
             color: black;
             text-decoration: underline;
             display: block;
-            margin-top: 2em;
-            margin-bottom: 1em;
-            font-weight: 700;
-            
-            &--no-margin {
-                margin-top: 0;
+            margin-bottom: 0.56em;
+            font-weight: 900;
+
+            &-button {
+                margin-top: 2em;
+                margin-bottom: 0;
             }
         }
 
@@ -82,7 +89,7 @@
     }
 
     &-quote {
-        color: $skrm-blue;
+        color: black;
         font-size: 1.2em;
 
         &--rtl {
@@ -92,5 +99,17 @@
         &--black {
             color: black;
         }
+    }
+
+    &--blue {
+        border-inline-start: 0.4em solid $skrm-blue;
+    }
+
+    &--green {
+        border-inline-start: 0.4em solid $skrm-green;
+    }
+
+    &--pink {
+        border-inline-start: 0.4em solid $skrm-pink;
     }
 }

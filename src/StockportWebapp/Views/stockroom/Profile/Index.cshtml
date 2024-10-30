@@ -1,0 +1,44 @@
+@using StockportWebapp.Models;
+@model ProfileViewModel
+@{
+    Profile profile = Model.Profile;
+    ViewData["Title"] = profile.Title;
+    ViewData["Description"] = profile.Teaser;
+    Layout = "../shared/_Layout.cshtml";
+    string articleTitle = profile.Breadcrumbs.LastOrDefault() is not null ? $"{profile.Breadcrumbs.LastOrDefault().Title} - " : string.Empty;
+    string profileTextMarginBottom = (!string.IsNullOrEmpty(Model.Profile.TriviaSubheading) || Model.Profile.TriviaSection.Any()) ? "profile__text--margin-bottom" : string.Empty;
+}
+
+<div class="grid-container-full-width" style="background-color:white;" data-cy="profile">
+    <div class="grid-container">
+        <div class="grid-100">
+            <section class="profile">
+                <h1 class="profile__title">@profile.Title</h1>
+                <h2 class="article__sub-title">@profile.Subtitle</h2>
+
+                @if(!string.IsNullOrEmpty(profile.Image.Url))
+                {
+                    <figure class="profile__figure">
+                        <img src="@profile.Image.Url?w=720&q=89&fm=webp"
+                                srcset="@profile.Image.Url?w=720&q=89&fm=webp 720w,
+                                        @profile.Image.Url?w=320&q=89&fm=webp 320w,
+                                        @profile.Image.Url?w=282&q=89&fm=webp 282w"
+                                sizes="(max-width: 767px) 720px,
+                                        ((min-width: 768px) and (max-width: 1023px)) 320px,
+                                        (min-width: 1024px) 282px"
+                                alt="@profile.Image.Description" width="720" height="400" />
+
+                        @if(!string.IsNullOrEmpty(profile.ImageCaption))
+                        {
+                            <figcaption>@profile.ImageCaption</figcaption>
+                        }
+                    </figure>
+                }
+
+                <div class="profile__text @profileTextMarginBottom"> 
+                    @Html.Raw(StockportWebapp.Utils.HtmlHelper.AddImageAttributes(profile.Body, "720", "511", "720", "967", "853"))
+                </div>
+            </section>
+        </div>
+    </div>
+</div>

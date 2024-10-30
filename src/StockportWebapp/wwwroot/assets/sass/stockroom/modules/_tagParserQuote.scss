@@ -1,24 +1,47 @@
 .profile-quote {
     height: 100%;
+    margin-bottom: 1em;
 
     h3 {
         @include h-l;
     }
 
     &__border {
-        border-inline-start: 0.4em solid;
-        border-color: $skrm-blue-darker;
-    } 
-
-    &__text {
         padding-inline-start: 1em;
+        border-inline-start: 0.4em solid;
+        padding-block: 0.5em;
+        border-color: $skrm-blue-darker;
 
         @media #{$mobile} {
             padding-inline-start: 0.8em;
         }
 
+        &--blue {
+            border-color: rgba($skrm-blue, 0.8);
+        }
+
+        &--green {
+            border-color: rgba($skrm-green, 0.8);
+        }
+
+        &--orange {
+            border-color: rgba($skrm-orange, 0.8);
+        }
+
+        &--pink {
+            border-color: rgba($skrm-pink, 0.7);
+        }
+
+        &--purple {
+            border-color: rgba($skrm-purple, 0.8);
+        }
+    } 
+
+    &__text {
+        margin-bottom: 0;
+
         span {
-            color: $skrm-orange-darker;
+            color: $skrm-green;
             vertical-align: super;
         }
     }
