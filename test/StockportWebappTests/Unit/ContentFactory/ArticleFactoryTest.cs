@@ -47,7 +47,8 @@ public class ArticleFactoryTest
                     new List<SubItem>(),
                     "author",
                     "photographer",
-                    new DateTime());
+                    new DateTime(),
+                    new List<InlineQuote>());
 
         _sectionFactory
             .Setup(_ => _.Build(_sectionOne, _article.Title))

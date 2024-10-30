@@ -37,7 +37,8 @@ public class ArticleControllerTest
                                     new List<SubItem>(),
                                     string.Empty,
                                     string.Empty,
-                                    DateTime.Now);
+                                    DateTime.Now,
+                                    new List<InlineQuote>());
 
         _processedRepository
             .Setup(_ => _.Get<Article>(It.IsAny<string>(), It.IsAny<List<Query>>()))
@@ -69,7 +70,8 @@ public class ArticleControllerTest
                                     new List<SubItem>(),
                                     string.Empty,
                                     string.Empty,
-                                    new DateTime());
+                                    new DateTime(),
+                                    new List<InlineQuote>());
 
         _processedRepository
             .Setup(_ => _.Get<Article>(It.IsAny<string>(), It.IsAny<List<Query>>()))
@@ -152,7 +154,8 @@ public class ArticleControllerTest
                                     new List<SubItem>(),
                                     string.Empty,
                                     string.Empty,
-                                    new DateTime());
+                                    new DateTime(),
+                                    new List<InlineQuote>());
 
         _processedRepository
             .Setup(_ => _.Get<Article>(It.IsAny<string>(), It.IsAny<List<Query>>()))
@@ -198,7 +201,8 @@ public class ArticleControllerTest
                                     new List<SubItem>(),
                                     string.Empty,
                                     string.Empty,
-                                    new DateTime());
+                                    new DateTime(),
+                                    new List<InlineQuote>());
 
         _processedRepository
             .Setup(_ => _.Get<Article>(It.IsAny<string>(), It.IsAny<List<Query>>()))
@@ -246,7 +250,8 @@ public class ArticleControllerTest
                                     new List<SubItem>(),
                                     string.Empty,
                                     string.Empty,
-                                    new DateTime());
+                                    new DateTime(),
+                                    new List<InlineQuote>());
 
         _processedRepository
             .Setup(_ => _.Get<Article>(It.IsAny<string>(), It.IsAny<List<Query>>()))
@@ -329,7 +334,8 @@ public class ArticleControllerTest
                                     new List<SubItem>(),
                                     string.Empty,
                                     string.Empty,
-                                    new DateTime());
+                                    new DateTime(),
+                                    new List<InlineQuote>());
 
         _processedRepository
             .Setup(_ => _.Get<Article>(It.IsAny<string>(), It.IsAny<List<Query>>()))
@@ -388,7 +394,8 @@ public class ArticleControllerTest
                                     new List<SubItem>(),
                                     string.Empty,
                                     string.Empty,
-                                    new DateTime());
+                                    new DateTime(),
+                                    new List<InlineQuote>());
 
         _processedRepository
             .Setup(_ => _.Get<Article>(It.IsAny<string>(), It.IsAny<List<Query>>()))
@@ -430,7 +437,8 @@ public class ArticleControllerTest
                                     new List<SubItem>(),
                                     string.Empty,
                                     string.Empty,
-                                    new DateTime());
+                                    new DateTime(),
+                                    new List<InlineQuote>());
 
         _processedRepository
             .Setup(_ => _.Get<Article>(It.IsAny<string>(), It.IsAny<List<Query>>()))
@@ -498,7 +506,8 @@ public class ArticleControllerTest
             new List<SubItem>(),
             It.IsAny<string>(),
             It.IsAny<string>(),
-            new DateTime());
+            new DateTime(),
+            new List<InlineQuote>());
 
     private static ProcessedSection DummySection() => 
         new(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), new List<Profile>(), new List<StockportWebapp.Models.Document>(), new List<Alert>(), new List<GroupBranding>(), "logoAreaTitle", new DateTime());
