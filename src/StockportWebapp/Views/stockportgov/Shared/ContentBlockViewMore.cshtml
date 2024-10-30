@@ -1,0 +1,9 @@
+@{
+    string buttonText = (string)ViewData["ButtonText"] ?? "View more topics";
+}
+
+<div class ="content-block__view-more">
+    <a href="@Model.SubItems[3].NavigationLink" class="btn btn--width-25 btn--chevron-forward btn--bold btn--chevron-bold" data-cy="view-more-button">
+        <span class="btn_text">@buttonText</span>
+    </a>
+</div>
