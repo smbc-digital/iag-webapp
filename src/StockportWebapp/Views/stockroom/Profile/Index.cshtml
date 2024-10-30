@@ -19,14 +19,14 @@
                 @if(!string.IsNullOrEmpty(profile.Image.Url))
                 {
                     <figure class="profile__figure">
-                        <img src="@profile.Image.Url?w=720&q=89&fm=webp"
-                                srcset="@profile.Image.Url?w=720&q=89&fm=webp 720w,
+                        <img src="@profile.Image.Url?w=730&q=89&fm=webp"
+                                srcset="@profile.Image.Url?w=730&q=89&fm=webp 730w,
                                         @profile.Image.Url?w=320&q=89&fm=webp 320w,
-                                        @profile.Image.Url?w=282&q=89&fm=webp 282w"
-                                sizes="(max-width: 767px) 720px,
+                                        @profile.Image.Url?w=273&q=89&fm=webp 273w"
+                                sizes="(max-width: 767px) 730px,
                                         ((min-width: 768px) and (max-width: 1023px)) 320px,
-                                        (min-width: 1024px) 282px"
-                                alt="@profile.Image.Description" width="720" height="400" />
+                                        (min-width: 1024px) 273px"
+                                alt="@profile.Image.Description" width="730" height="400" />
 
                         @if(!string.IsNullOrEmpty(profile.ImageCaption))
                         {

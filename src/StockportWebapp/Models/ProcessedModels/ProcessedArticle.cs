@@ -1,6 +1,4 @@
-﻿using Markdig.Syntax.Inlines;
-
-namespace StockportWebapp.Models.ProcessedModels;
+﻿namespace StockportWebapp.Models.ProcessedModels;
 public interface IContactUsMessageContainer
 {
     void AddContactUsMessage(string message, string slug = "");

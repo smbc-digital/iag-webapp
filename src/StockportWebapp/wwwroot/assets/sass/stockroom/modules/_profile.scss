@@ -23,11 +23,15 @@
             margin-inline-end: 0;
             padding: 0;
             max-width: 100%;
-            margin-bottom: 0;
+            margin-bottom: 1em;
         }
 
         img {
-            border-radius: 3px;
+            border-radius: 3px !important;
+            max-width: 100%;
+            object-fit: cover;
+            max-height: unset;
+            width: 100%;
         }
 
         figcaption {
