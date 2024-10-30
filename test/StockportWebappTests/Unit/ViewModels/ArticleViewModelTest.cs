@@ -323,7 +323,8 @@ public class ArticleViewModelTest
             new List<SubItem>(),
             It.IsAny<string>(),
             It.IsAny<string>(),
-            new DateTime());
+            new DateTime(),
+            new List<InlineQuote>());
 
         ArticleViewModel articleViewModel = new(article);
 
@@ -403,7 +404,8 @@ public class ArticleViewModelTest
             new List<SubItem>(),
             It.IsAny<string>(),
             It.IsAny<string>(),
-            new DateTime());
+            new DateTime(),
+            new List<InlineQuote>());
 
         ArticleViewModel articleViewModel = new(article);
 
@@ -454,7 +456,8 @@ public class ArticleViewModelTest
             new List<SubItem>(),
             string.Empty,
             string.Empty,
-            new DateTime()
+            new DateTime(),
+            new List<InlineQuote>()
         );
 
         // Act
@@ -486,7 +489,8 @@ public class ArticleViewModelTest
                relatedContent,
                It.IsAny<string>(),
                It.IsAny<string>(),
-               new DateTime());
+               new DateTime(),
+               new List<InlineQuote>());
 
     private static ProcessedSection BuildSection(string slug) => 
         new("title",

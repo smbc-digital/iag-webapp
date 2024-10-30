@@ -56,7 +56,8 @@ public class ContactUsMessageTagParserTest
                                                 null,
                                                 string.Empty,
                                                 string.Empty,
-                                                new DateTime());
+                                                new DateTime(),
+                                                new List<InlineQuote>());
         _tagParser.Parse(processedArticle, message, slug);
 
         processedArticle.Body.Should().Be(DefaultBody);
@@ -90,7 +91,8 @@ public class ContactUsMessageTagParserTest
                                                 null,
                                                 string.Empty,
                                                 string.Empty,
-                                                new DateTime());
+                                                new DateTime(),
+                                                new List<InlineQuote>());
         _tagParser.Parse(processedArticle, Message, string.Empty);
 
         processedArticle.Body.Should().Be($"This is some content <p>{Message}</p> <form><form>");
@@ -121,7 +123,8 @@ public class ContactUsMessageTagParserTest
                                                 null,
                                                 string.Empty,
                                                 string.Empty,
-                                                new DateTime());
+                                                new DateTime(),
+                                                new List<InlineQuote>());
 
         _tagParser.Parse(processedArticle, Message, string.Empty);
 
@@ -156,7 +159,8 @@ public class ContactUsMessageTagParserTest
                                                 null,
                                                 string.Empty,
                                                 string.Empty,
-                                                new DateTime());
+                                                new DateTime(),
+                                                new List<InlineQuote>());
 
         _tagParser.Parse(processedArticle, Message, slug);
 
@@ -190,7 +194,8 @@ public class ContactUsMessageTagParserTest
                                                 null,
                                                 string.Empty,
                                                 string.Empty,
-                                                new DateTime());
+                                                new DateTime(),
+                                                new List<InlineQuote>());
 
         _tagParser.Parse(processedArticle, Message, slug);
 
@@ -222,7 +227,8 @@ public class ContactUsMessageTagParserTest
                                                 null,
                                                 string.Empty,
                                                 string.Empty,
-                                                new DateTime());
+                                                new DateTime(),
+                                                new List<InlineQuote>());
 
         _tagParser.Parse(processedArticle, Message, slug);
 
