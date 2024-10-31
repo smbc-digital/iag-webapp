@@ -96,6 +96,12 @@
                 text-decoration-thickness: 1px; 
             }
         }
+
+        &-profile-banner {
+            @media #{$tablet} {
+                flex-direction: column-reverse !important;
+            }
+        }
     }
 
     &__title {

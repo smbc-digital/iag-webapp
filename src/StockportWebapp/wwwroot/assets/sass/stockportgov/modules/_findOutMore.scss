@@ -106,6 +106,7 @@
 
             @media #{$tablet} {
                 flex-direction: column-reverse;
+                margin-bottom: 0;
             }
 
             .find-out-more-banner-content {
@@ -124,10 +125,6 @@
             .find-out-more-banner__title {
                 border-color: $stockport-purple;
             }
-        }
-
-        &:last-of-type {
-            margin-bottom: 0px;
         }
     }
 
