@@ -181,7 +181,7 @@
         {
             <div class="group-map-container group-map-container-padding">
                 <h2 class="group-details-heading">How to find us</h2>
-                <partial name="MapPosition" model='Model.Group.MapDetails' />
+                <partial name="MapPosition" model='Model.Group.MapDetails' view-data='@(new ViewDataDictionary(ViewData) {{ "eventMap", false }})'/>
             </div>
         }
 
