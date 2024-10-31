@@ -10,7 +10,7 @@
                     <hr />   
                 }
                 <div class="section__content body-text__content">
-                    @Html.Raw(Model.Body)
+                    @Html.Raw(StockportWebapp.Utils.HtmlHelper.AddImageAttributes(Model.Body, "720", "511", "720", "937", "852"))
                 </div>
             </div>
         </div>

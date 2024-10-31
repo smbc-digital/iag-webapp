@@ -22,7 +22,7 @@
 
         @media #{$mobile} {
             li:nth-last-of-type {
-                margin-bottom: 0px;
+                margin-bottom: 0;
             }
         }
 
@@ -85,6 +85,10 @@
                 width: 100%;
                 max-width: 100%;
                 margin-inline-end: 0;
+                
+                &:last-of-type {
+                    margin-bottom: 0;
+                }
             }
 
             &--profile {
