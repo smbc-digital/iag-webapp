@@ -39,7 +39,7 @@
                 }
             }
         }
-    }  
+    }
 
     &-view-more {
         text-align: right;
@@ -53,6 +53,7 @@
     &__link {
         border-bottom: 7px solid;
         border-color: $stockport-teal-darker;
+        box-sizing: border-box;
     }
 
     &__image {

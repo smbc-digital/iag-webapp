@@ -22,7 +22,7 @@ public class ArticleFactory
         if (body.Contains("PrivacyNotice:"))
             article.PrivacyNotices = GetPrivacyNotices().Result;
 
-        body = _tagParserContainer.ParseAll(body ?? string.Empty, article.Title, true, article.AlertsInline, article.Documents, null, article.PrivacyNotices, article.Profiles, true);
+        body = _tagParserContainer.ParseAll(body ?? string.Empty, article.Title, true, article.AlertsInline, article.Documents, article.InlineQuotes, article.PrivacyNotices, article.Profiles, true);
 
         return new ProcessedArticle(article.Title,
                                     article.Slug,
@@ -45,7 +45,8 @@ public class ArticleFactory
                                     article.RelatedContent,
                                     article.Author,
                                     article.Photographer,
-                                    article.PublishedOn);
+                                    article.PublishedOn,
+                                    article.InlineQuotes);
     }
 
     private async Task<IEnumerable<PrivacyNotice>> GetPrivacyNotices()

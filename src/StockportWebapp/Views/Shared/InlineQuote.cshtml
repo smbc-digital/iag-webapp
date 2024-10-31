@@ -1,14 +1,21 @@
 ﻿@model InlineQuote
 @{
     string themeTag = $"profile-quote__border-{CssClassMapper.GetCssClass(Model.Theme)}";
+    string businessId = Context.Request.Headers["BUSINESS-ID"];
 }
 
 <div class="profile-quote">
-    @if (!string.IsNullOrEmpty(Model.Author))
+    @if (!string.IsNullOrEmpty(Model.Author) && !businessId.Equals("stockroom"))
     {
         <h3>@Model.Author</h3>
     }
+
     <div class="profile-quote__border @themeTag">
+        @if (!string.IsNullOrEmpty(Model.Author) && businessId.Equals("stockroom"))
+        {
+            <h3>@Model.Author</h3>
+        }
+
         <p class="profile-quote__text lead">
             <span class="h-s fa fa-quote-left profile-quote__marks" aria-hidden="true"></span>
             @Model.Quote

@@ -64,14 +64,6 @@ figure {
         width: auto;
         max-width: 100%;
         border-radius: 3px 3px 0 0 !important;
-
-        @media #{$desktop} {
-            max-height: 450px;
-        }
-
-        @media #{$tablet} {
-            max-height: 400px;
-        }
     }
 }
 
@@ -99,6 +91,14 @@ figcaption {
         margin: 0;
         max-width: 100%;
         object-fit: cover;
+
+        @media #{$desktop} {
+            max-height: 450px;
+        }
+    
+        @media #{$tablet} {
+            max-height: 400px;
+        }
     }
 
     figcaption {
