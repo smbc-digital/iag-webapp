@@ -2,11 +2,6 @@
 
     @media #{$mobile} {
         margin-bottom: 3em;
-
-        &-button {
-            margin-inline: 5px;
-            margin-bottom: 1.5em;
-        }
     }
 
     &-title {
@@ -68,6 +63,12 @@
     &__location {
         @media #{$mobile} {
             margin-bottom: 0.5em;
+        }
+    }
+
+    &-button {
+        @media #{$tablet} {
+            margin-top: 2em;
         }
     }
 

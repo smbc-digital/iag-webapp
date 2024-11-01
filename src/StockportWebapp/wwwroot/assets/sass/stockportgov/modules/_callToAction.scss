@@ -60,6 +60,10 @@
     &--one-stockport-purple, &--one-stockport-purple-light {
         background-color: $one-stockport-purple;
     }
+
+    &--orange {
+        background-color: $stockport-orange;
+    }
 }
 
 html[dir="rtl"] {
