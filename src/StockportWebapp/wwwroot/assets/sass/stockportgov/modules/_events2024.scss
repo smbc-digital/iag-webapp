@@ -64,6 +64,14 @@
         }
     }
 
+    &__details {
+        margin-bottom: 20px;
+
+         h3, p {
+            display: inline;
+         }
+    }
+
     &__wrapper {
         padding: 1em 1.5em;
         flex-grow: 1;
