@@ -1,6 +1,7 @@
 ﻿@model MapDetails
 @{
     bool eventMap = (bool)ViewData["EventMap"];
+    string title = (string)ViewData["Location"];
 }
 
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCPMO2lE7np9cG_zG63JH_pNVmRfoajZjg&callback=initMap"></script>
@@ -16,10 +17,25 @@
         var marker = new google.maps.Marker({
             position: eventLocation,
             map: map,
-            title: "@ViewData["Location"]"
+            title: title
+        });
+
+        // Change aria-label for screen readers
+        map.addListener('tilesloaded', () => {
+            let mapDiv = document.querySelector("#map > div > div[aria-label='Map']");
+            let mapArea = document.querySelector("#gmimap0 > area");
+            if(mapDiv)
+                mapDiv.setAttribute("aria-label", "Showing position for @title");
+            
+            if(mapArea)
+                mapArea.setAttribute("alt", "Clickable area representing a point of interest on the map.");
         });
     }
 </script>
+
+<div class="embed-map-container">
+    <img src="https://maps.googleapis.com/maps/api/staticmap?center=@Model.MapPosition.Lat,@Model.MapPosition.Lon&zoom=17&size=1024x250&scale=2&markers=@Model.MapPosition.Lat,@Model.MapPosition.Lon&key=AIzaSyCPMO2lE7np9cG_zG63JH_pNVmRfoajZjg" />
+</div>
 
 @if (eventMap is true)
 {
@@ -29,10 +45,6 @@
 }
 else
 {
-    <div class="embed-map-container">
-        <img src="https://maps.googleapis.com/maps/api/staticmap?center=@Model.MapPosition.Lat,@Model.MapPosition.Lon&zoom=17&size=1024x250&scale=2&markers=@Model.MapPosition.Lat,@Model.MapPosition.Lon&key=AIzaSyCPMO2lE7np9cG_zG63JH_pNVmRfoajZjg" />
-    </div>
-
     <ul class="grid-100 grid-parent directions-list">
         <li class="grid-25 grid-parent">
             <span class="fa fa-male fa-2x" aria-hidden="true"></span>
