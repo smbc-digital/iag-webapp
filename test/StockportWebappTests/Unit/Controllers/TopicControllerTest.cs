@@ -39,7 +39,7 @@ public class TopicControllerTest
         };
     }
 
-    public SubItem CreateASubItem(int i) => new("sub-topic" + i, "Title" + i, "Teaser", "Icon", "topic", "image", new List<SubItem>(), EColourScheme.Teal);
+    public SubItem CreateASubItem(int i) => new("sub-topic" + i, "Title" + i, "Teaser", "teaser image", "Icon", "topic", "image", new List<SubItem>(), EColourScheme.Teal);
 
     [Fact]
     public async Task Index_ReturnsTopicWithExpectedProperties()

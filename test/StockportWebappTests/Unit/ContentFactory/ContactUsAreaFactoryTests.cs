@@ -19,7 +19,7 @@ public class ContactUsAreaFactoryTests
         },
         new List<SubItem>
         {
-            new("slug", "title", "teaser", "icon", "type", "image", new List<SubItem>(), EColourScheme.Blue)
+            new("slug", "title", "teaser", "teaser image", "icon", "type", "image", new List<SubItem>(), EColourScheme.Blue)
         },
         new List<ContactUsCategory>
         {

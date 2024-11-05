@@ -67,6 +67,6 @@ public class ProcessedTopic
 
     public NavCardList PrimaryItems => new()
     {
-        Items = SubItems.Select(subItem => new NavCard(subItem.Title, subItem.NavigationLink, subItem.Teaser, subItem.Image)).ToList()
+        Items = SubItems.Select(subItem => new NavCard(subItem.Title, subItem.NavigationLink, subItem.Teaser, subItem.TeaserImage, subItem.Image)).ToList()
     };
 }

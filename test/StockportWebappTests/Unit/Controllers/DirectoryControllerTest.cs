@@ -94,7 +94,7 @@ public class DirectoryControllerTest
         processedDirectoryWithSubdirectories.Entries = new List<DirectoryEntry>() { directoryEntry };
         processedDirectoryWithSubdirectories.SubDirectories = new List<Directory>() { directory };
         processedDirectoryWithSubdirectories.SubItems = new List<SubItem>() {
-            new("slug", "title", "teaser", "icon", "type", "image", new List<SubItem>(), EColourScheme.Teal)
+            new("slug", "title", "teaser", "teaser image", "icon", "type", "image", new List<SubItem>(), EColourScheme.Teal)
         };
         
         string[] filters = { "value1", "value2", "value3" };
@@ -150,7 +150,7 @@ public class DirectoryControllerTest
             PrimaryItems = new NavCardList()
             {
                 Items = new List<NavCard> { 
-                    new("title", "/slug", "teaser", "image", "icon", EColourScheme.Teal)
+                    new("title", "/slug", "teaser", "teaser image", "image", "icon", EColourScheme.Teal)
                 }
             }
         };

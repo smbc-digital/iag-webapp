@@ -35,6 +35,7 @@ public class ShowcaseControllerTest
                 new("slug",
                     "title",
                     "teaser",
+                    "teaser image",
                     "icon",
                     "type",
                     "image.jpg",
