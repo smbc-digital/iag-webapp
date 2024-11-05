@@ -8,18 +8,30 @@
     <div class="@borderTop">
         <div class="@eventWrapperCssClasses">
             <h2 class="event-detail__heading">Event and booking details</h2>
-            <p class="event-detail__details"><strong>Cost:</strong> @Model.Fee</p>
+            <div class="event-detail__details">
+                <h3>Cost:</h3>
+                <p>@Model.Fee</p>
+            </div>
             @if (!string.IsNullOrEmpty(Model.PhoneNumber))
             {
-                <p class="event-detail__details"><strong>Phone:</strong> @Model.PhoneNumber</p>
+                <div class="event-detail__details">
+                    <h3>Phone:</h3>
+                    <p>@Model.PhoneNumber</p>
+                </div>
             }
             @if (!string.IsNullOrEmpty(Model.Email))
             {
-                <p class="event-detail__details"><strong>Email:</strong> <a href="mailto:@Model.Email">@Model.Email</a></p>
+                <div class="event-detail__details">
+                    <h3>Email:</h3>
+                    <p><a href="mailto:@Model.Email">@Model.Email</a></p>
+                </div>
             }
             @if (!string.IsNullOrEmpty(Model.Website))
             {
-                <p class="event-detail__details"><strong>Visit:</strong> <a href="@Model.Website">@Model.Website</a></p>
+                <div class="event-detail__details">
+                    <h3>Visit:</h3>
+                    <p><a href="@Model.Website">@Model.Website</a></p>
+                </div>
             }
             @if (!string.IsNullOrEmpty(Model.BookingInformation))
             {

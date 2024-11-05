@@ -2,7 +2,7 @@
 
 @if (Model is not null && !string.IsNullOrEmpty(Model.Link))
 {
-    MapViewModel mapViewModel = new MapViewModel(Model.Link);
+    MapViewModel mapViewModel = new(Model.Link);
 
     <section class="content-block content-block--margin js-only" data-cy="map">
         <div class="grid-container">

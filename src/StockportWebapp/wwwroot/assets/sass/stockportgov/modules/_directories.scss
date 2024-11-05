@@ -505,13 +505,12 @@
 
     &__wrapper {
         padding: 1em 1.5em;
+        margin-bottom: 10px;
 
         @media #{$tablet} {
             padding-left: 1em;
             padding-right: 1em;
         }
-
-        margin-bottom: 10px;
 
         h3 {
             margin-bottom: 0.5em;
