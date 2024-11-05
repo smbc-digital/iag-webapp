@@ -90,8 +90,8 @@ public class DirectoryViewModelTest
         {
             SubItems = new List<SubItem> ()
             {
-                new("slug", "title", "teaser", "icon", "directory", "image", new List<SubItem>(), EColourScheme.Teal),
-                new("slug2", "title2", "teaser2", "icon2", "directory2", "image2", new List<SubItem>(), EColourScheme.Teal)
+                new("slug", "title", "teaser", "teaser image", "icon", "directory", "image", new List<SubItem>(), EColourScheme.Teal),
+                new("slug2", "title2", "teaser2", "teaser image2", "icon2", "directory2", "image2", new List<SubItem>(), EColourScheme.Teal)
             },
         };
 
@@ -160,8 +160,8 @@ public class DirectoryViewModelTest
         Directory directory = new()
         {
             SubItems = new List<SubItem>(){
-                new("slug", "title", "teaser", "icon1", "type", "image", new List<SubItem>(), EColourScheme.Teal),
-                new("slug2", "title2", "teaser2", "", "type2", "image2", new List<SubItem>(), EColourScheme.Teal)
+                new("slug", "title", "teaser", "teaser image", "icon1", "type", "image", new List<SubItem>(), EColourScheme.Teal),
+                new("slug2", "title2", "teaser2", "teaser image2", "", "type2", "image2", new List<SubItem>(), EColourScheme.Teal)
             }
         };
 

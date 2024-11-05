@@ -2,6 +2,7 @@
     position: relative;
 
     &__background {
+        min-height: 400px;
         position: relative;
         height: 750px;
         width: 100%;
@@ -17,6 +18,7 @@
         @media #{$mobile} {
             height: 100vw;
             max-height: 400px;
+            min-height: 300px;
         }
     }
 

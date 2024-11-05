@@ -45,8 +45,8 @@ public class DirectoryViewModel
         RelatedContent = directory.RelatedContent;
         ExternalLinks = directory.ExternalLinks;
         _searchBranding = directory.SearchBranding;
-        var directoryItems = directory.SubItems.Where(item => item.Type == "directory").Select(subItem => new NavCard(subItem.Title, subItem.GetNavigationLink(Slug), subItem.Teaser, subItem.Image, subItem.Icon, subItem.ColourScheme));
-        var nonDirectoryItems = directory.SubItems.Where(item => item.Type != "directory").Select(subItem => new NavCard(subItem.Title, subItem.NavigationLink, subItem.Teaser, subItem.Image, subItem.Icon, subItem.ColourScheme));
+        var directoryItems = directory.SubItems.Where(item => item.Type == "directory").Select(subItem => new NavCard(subItem.Title, subItem.GetNavigationLink(Slug), subItem.Teaser, subItem.TeaserImage, subItem.Image, subItem.Icon, subItem.ColourScheme));
+        var nonDirectoryItems = directory.SubItems.Where(item => item.Type != "directory").Select(subItem => new NavCard(subItem.Title, subItem.NavigationLink, subItem.Teaser, subItem.TeaserImage, subItem.Image, subItem.Icon, subItem.ColourScheme));
         PrimaryItems = new NavCardList() { Items = directoryItems.Concat(nonDirectoryItems).ToList() };
     }
 

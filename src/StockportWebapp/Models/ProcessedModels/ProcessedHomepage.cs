@@ -76,7 +76,7 @@ public class ProcessedHomepage : IProcessedContentType
 
     public NavCardList Services => new()
     {
-        Items = FeaturedTopics.Select(topic => new NavCard(topic.Title, topic.NavigationLink, topic.Teaser, string.Empty)).ToList(),
+        Items = FeaturedTopics.Select(topic => new NavCard(topic.Title, topic.NavigationLink, topic.Teaser, topic.TeaserImage, string.Empty)).ToList(),
         ButtonText = "View more services"
     };
 }
