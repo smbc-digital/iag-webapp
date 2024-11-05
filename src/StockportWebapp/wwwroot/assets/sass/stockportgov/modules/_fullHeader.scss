@@ -18,6 +18,7 @@
         @media #{$mobile} {
             height: 100vw;
             max-height: 400px;
+            min-height: 300px;
         }
     }
 
