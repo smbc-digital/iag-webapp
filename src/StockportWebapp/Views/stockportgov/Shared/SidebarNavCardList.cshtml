@@ -34,7 +34,7 @@
             <li class="@liClasses">
                 <div class="@borderGrey navcard--border-bottom-1 navcard--radius-bottom-left navcard--radius-bottom-right">
                     @{
-                        SubItem subItem = new(Model.ParentTopicSlug, @Model.ParentTopicName, Model.ParentTopicTeaser, Model.ParentTopicIcon, "topic", Model.ParentTopicImage, new List<SubItem>(), @EColourScheme.None);
+                        SubItem subItem = new(Model.ParentTopicSlug, @Model.ParentTopicName, Model.ParentTopicTeaser, string.Empty, Model.ParentTopicIcon, "topic", Model.ParentTopicImage, new List<SubItem>(), @EColourScheme.None);
                     }
                     <partial name="SidebarNavCard"
                              model='@subItem'

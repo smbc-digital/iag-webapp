@@ -7,18 +7,20 @@ public class SubItem
     public readonly string Title;
     public readonly string Icon;
     public readonly string Teaser;
+    public readonly string TeaserImage;
     public readonly string Type;
     public readonly string NavigationLink;
     public readonly string Image;
     public EColourScheme ColourScheme;
     public readonly List<SubItem> SubItems;
 
-    public SubItem(string slug, string title, string teaser, string icon, string type, string image, List<SubItem> subItems, EColourScheme colourScheme)
+    public SubItem(string slug, string title, string teaser, string teaserImage, string icon, string type, string image, List<SubItem> subItems, EColourScheme colourScheme)
     {
         Slug = slug;
         Title = title;
         Icon = icon;
         Teaser = teaser;
+        TeaserImage = teaserImage;
         Type = type;
         NavigationLink = TypeRoutes.GetUrlFor(type, slug);
         Image = image;

@@ -13,13 +13,13 @@ public class ProcessedTopicTests
                                                             "backgroundImage",
                                                             "image",
                                                             new List<SubItem> {
-                                                                new("featured-items", "Featured Items", "Teaser", "Icon.ico", string.Empty, string.Empty, new List<SubItem>(), EColourScheme.Teal)
+                                                                new("featured-items", "Featured Items", "Teaser", "teaser image", "Icon.ico", string.Empty, string.Empty, new List<SubItem>(), EColourScheme.Teal)
                                                             },
                                                             new List<SubItem> {
-                                                                new("primary-items", "Primary Items", "Teaser", "Icon.ico", string.Empty, string.Empty, new List<SubItem>(), EColourScheme.Teal)
+                                                                new("primary-items", "Primary Items", "Teaser", "teaser image", "Icon.ico", string.Empty, string.Empty, new List<SubItem>(), EColourScheme.Teal)
                                                             },
                                                             new List<SubItem> {
-                                                                new("test-slug", "Featured Item", "Teaser", "Icon.ico", string.Empty, string.Empty, new List<SubItem>(), EColourScheme.Teal)
+                                                                new("test-slug", "Featured Item", "Teaser", "teaser image", "Icon.ico", string.Empty, string.Empty, new List<SubItem>(), EColourScheme.Teal)
                                                             },
                                                             new List<Crumb>(),
                                                             new List<Alert> {

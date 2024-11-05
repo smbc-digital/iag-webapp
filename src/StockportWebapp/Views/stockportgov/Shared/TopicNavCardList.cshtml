@@ -1,6 +1,6 @@
 ﻿@model NavCardList
 @{
-    bool displayImage = Model.Items.All(item => !string.IsNullOrEmpty(item.Image));
+    bool displayImage = Model.Items.All(item => !string.IsNullOrEmpty(item.TeaserImage) || !string.IsNullOrEmpty(item.Image));
     string borderTealDesktop = " navcard--border-top-10-desktop navcard--theme-teal-lighter-top-desktop";
     string borderTealTablet = " navcard--border-top-10-tablet navcard--theme-teal-lighter-top-tablet";
     string borderTealMobile = " navcard--border-left-10-mobile navcard--theme-teal-lighter-left-mobile";

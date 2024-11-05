@@ -6,7 +6,7 @@ public class SubItemTest
     public void SetsNavigationLinkForATopic()
     {
         // Arrange
-        SubItem subItem = new("slug", "title", "Teaser", "Icon", "topic", "image", new List<SubItem>(), EColourScheme.Teal);
+        SubItem subItem = new("slug", "title", "Teaser", "teaser image", "Icon", "topic", "image", new List<SubItem>(), EColourScheme.Teal);
 
         // Act & Assert
         Assert.Equal("/topic/slug", subItem.NavigationLink);
@@ -16,7 +16,7 @@ public class SubItemTest
     public void SetsNavigationLinkForAnArticle()
     {
         // Arrange
-        SubItem subItem = new("slug", "title", "Teaser", "Icon", "article", "image", new List<SubItem>(), EColourScheme.Teal);
+        SubItem subItem = new("slug", "title", "Teaser", "teaser image", "Icon", "article", "image", new List<SubItem>(), EColourScheme.Teal);
 
         // Act & Assert
         Assert.Equal("/slug", subItem.NavigationLink);
@@ -26,7 +26,7 @@ public class SubItemTest
     public void SetsNavigationLinkForAStartPage()
     {
         // Arrange
-        SubItem subItem = new("slug", "title", "Teaser", "Icon", "start-page", "image", new List<SubItem>(), EColourScheme.Teal);
+        SubItem subItem = new("slug", "title", "Teaser", "teaser image", "Icon", "start-page", "image", new List<SubItem>(), EColourScheme.Teal);
 
         // Act & Assert
         Assert.Equal("/start/slug", subItem.NavigationLink);

@@ -28,7 +28,7 @@ public class ShowcaseFactoryTest
             .Breadcrumbs(new List<Crumb> { new Crumb("test link", "test title", "test type") })
             .FeaturedItems(new List<SubItem>
                 {
-                    new("slug","title", "icon", "teaser", "link", "image-url.jpg", new List<SubItem>(), EColourScheme.Teal)
+                    new("slug","title", "icon", "teaser", "teaser image", "link", "image-url.jpg", new List<SubItem>(), EColourScheme.Teal)
                 })
             .Build();
 
