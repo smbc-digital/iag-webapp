@@ -1,0 +1,14 @@
+@model ContentBlock
+@if (Model is not null && !string.IsNullOrEmpty(Model.Image))
+{
+    <section class="content-block content-block--screen image-banner" data-cy="image-screen-width">
+        <figure>
+            <div class="image-banner__background image-banner--height" style="background-image: url(@Model.Image?fm=webp)">
+            </div>
+            @if(!string.IsNullOrEmpty(Model.Body))
+            {
+                <figcaption>@Html.Raw(Model.Body)</figcaption>
+            }
+        </figure>
+    </section>
+}
