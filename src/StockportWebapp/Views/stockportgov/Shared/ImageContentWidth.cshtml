@@ -6,20 +6,20 @@
             <div class="grid-100">
                 <figure>
                     <img class="image-banner__background image-banner--height"
-                         src="@Model.Image?w=1240&q=89"
-                         srcset="@Model.Image?w=720&q=89&fm=webp 720w,
+                        src="@Model.Image?w=1240&q=89"
+                        srcset="@Model.Image?w=720&q=89&fm=webp 720w,
                                 @Model.Image?w=967&q=89&fm=webp 967w,
                                 @Model.Image?w=1240&q=89&fm=webp 1240w"
-                         sizes="(max-width: 767px) 720px,
+                        sizes="(max-width: 767px) 720px,
                                 ((min-width: 768px) and (max-width: 1023px)) 937px,
                                 (min-width: 1024px) 1240px"
-                         loading="lazy"
-                         alt="">
-                         @if(!string.IsNullOrEmpty(Model.Body))
-                            {
-                                <figcaption>@Html.Raw(Model.Body)</figcaption>
-                            }
-                    </figure>
+                        loading="lazy"
+                        alt="">
+                        @if(!string.IsNullOrEmpty(Model.Body))
+                        {
+                            <figcaption>@Html.Raw(Model.Body)</figcaption>
+                        }
+                </figure>
             </div>
         </div>
     </section>
