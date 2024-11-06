@@ -126,6 +126,10 @@
                 border-color: $stockport-purple;
             }
         }
+
+        &:last-of-type {
+            margin-bottom: 0;
+        }
     }
 
     &-card {
