@@ -2,7 +2,32 @@
 
 public class ProcessedEventsTests
 {
-    private readonly ProcessedEvents processedEvent = new ProcessedEvents("title", "slug", "teaser", "image.png", "image.png", "description", "fee", "location", "submittedBy", DateTime.Now.AddDays(1), "startTime", "endTime", new List<Crumb>(), null, new MapDetails(), "booking information", null, null, null, new(), string.Empty, string.Empty, string.Empty, null);
+    private readonly ProcessedEvents processedEvent = new ProcessedEvents("title",
+                                                                        "slug",
+                                                                        "teaser",
+                                                                        "image.png",
+                                                                        "image.png",
+                                                                        "description",
+                                                                        "fee",
+                                                                        "location",
+                                                                        "submittedBy",
+                                                                        DateTime.Now.AddDays(1),
+                                                                        "startTime",
+                                                                        "endTime",
+                                                                        new List<Crumb>(),
+                                                                        null,
+                                                                        new MapDetails(),
+                                                                        "booking information",
+                                                                        null,
+                                                                        null,
+                                                                        null,
+                                                                        new(),
+                                                                        string.Empty,
+                                                                        string.Empty,
+                                                                        string.Empty,
+                                                                        null,
+                                                                        string.Empty,
+                                                                        string.Empty);
 
     [Fact]
     public void ShouldBeTrueIsAlertSunsetDateIsNotPassed()
