@@ -1,5 +1,6 @@
 ﻿namespace StockportWebapp.Models.Validation;
 
+[ExcludeFromCodeCoverage]
 public class EndDateLaterThanStartDateValidation : ValidationAttribute
 {
     private readonly string _otherPropertyName;

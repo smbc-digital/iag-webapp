@@ -1,5 +1,6 @@
 ﻿namespace StockportWebapp.Models.Validation;
 
+[ExcludeFromCodeCoverage]
 public class RequiredIf : ValidationAttribute
 {
     private readonly string _otherPropertyName;
@@ -19,10 +20,8 @@ public class RequiredIf : ValidationAttribute
 
         if ((bool)extensionValue)
         {
-            if (value == null)
-            {
+            if (value is null)
                 return new ValidationResult(_errorMessage);
-            }
         }
 
         return ValidationResult.Success;

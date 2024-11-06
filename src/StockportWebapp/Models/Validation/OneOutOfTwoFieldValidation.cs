@@ -1,5 +1,6 @@
 ﻿namespace StockportWebapp.Models.Validation;
 
+[ExcludeFromCodeCoverage]
 public class OneOutOfTwoFieldValidation : ValidationAttribute
 {
     private readonly string _otherPropertyName1;
@@ -26,9 +27,8 @@ public class OneOutOfTwoFieldValidation : ValidationAttribute
         var secondValue = extensionValue2 as string;
 
         if (string.IsNullOrWhiteSpace(firstValue) && string.IsNullOrWhiteSpace(secondValue))
-        {
             return new ValidationResult("The group email address or group phone number field is required");
-        }
+
         return ValidationResult.Success;
     }
 }

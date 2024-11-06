@@ -1,14 +1,13 @@
 ﻿namespace StockportWebapp.Models.Validation;
 
+[ExcludeFromCodeCoverage]
 public class RequiredIfVolunteeringCheckedOnEditGroup : ValidationAttribute
 {
     protected override ValidationResult IsValid(object value, ValidationContext validationContext)
     {
         var model = (GroupSubmission)validationContext.ObjectInstance;
         if (!model.Volunteering)
-        {
             return ValidationResult.Success;
-        }
 
         var stringValue = value as string;
         var displayName = validationContext.DisplayName;

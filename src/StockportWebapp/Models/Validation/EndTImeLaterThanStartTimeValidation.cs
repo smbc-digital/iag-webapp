@@ -1,5 +1,6 @@
 ﻿namespace StockportWebapp.Models.Validation;
 
+[ExcludeFromCodeCoverage]
 public class EndTimeLaterThanStartTimeValidation : ValidationAttribute
 {
     private readonly string _otherPropertyName;
@@ -7,12 +8,10 @@ public class EndTimeLaterThanStartTimeValidation : ValidationAttribute
     public EndTimeLaterThanStartTimeValidation(string otherPropertyName, string errorMessage) : base(errorMessage)
     {
         _otherPropertyName = otherPropertyName;
-
     }
 
     protected override ValidationResult IsValid(object value, ValidationContext validationContext)
     {
-
         var containerType = validationContext.ObjectInstance.GetType();
         var field = containerType.GetProperty(_otherPropertyName, BindingFlags.Public | BindingFlags.Instance);
 
@@ -22,13 +21,14 @@ public class EndTimeLaterThanStartTimeValidation : ValidationAttribute
         if (!startTime.HasValue)
             return new ValidationResult("Should enter valid Start Time");
 
-        if (value == null) return ValidationResult.Success;
+        if (value is null) return ValidationResult.Success;
         var endTime = value as DateTime?;
         if (!endTime.HasValue)
             return new ValidationResult("Should enter valid End Time");
 
         if (endTime.Value > startTime.Value)
             return ValidationResult.Success;
+
         return new ValidationResult("End Time should be after Start Time");
     }
 }
