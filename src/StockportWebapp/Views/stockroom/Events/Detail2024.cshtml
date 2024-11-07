@@ -37,7 +37,7 @@
                                 From @DateTime.Parse(Model.StartTime).ToString("h:mmtt").ToLower()
                             </p>
 
-                           <a href="#" class="btn event-btn" aria-label="Book @Model.Title">Book now</a>
+                           <a href="@Model.BookingInformation" target="_blank" class="btn event-btn" aria-label="Book @Model.Title">Book now</a>
 
                             @Html.Raw(Model.Description)
                         </div>
