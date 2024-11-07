@@ -10,30 +10,30 @@
         padding-inline-start: 1em;
         border-inline-start: 0.4em solid;
         padding-block: 0.5em;
-        border-color: $skrm-blue-darker;
+        border-color: $skrm-blue;
 
         @media #{$mobile} {
             padding-inline-start: 0.8em;
         }
 
         &--blue {
-            border-color: rgba($skrm-blue, 0.8);
+            border-color: $skrm-blue;
         }
 
         &--green {
-            border-color: rgba($skrm-green, 0.8);
+            border-color: $skrm-green;
         }
 
         &--orange {
-            border-color: rgba($skrm-orange, 0.8);
+            border-color: $skrm-orange;
         }
 
         &--pink {
-            border-color: rgba($skrm-pink, 0.7);
+            border-color: $skrm-pink;
         }
 
         &--purple {
-            border-color: rgba($skrm-purple, 0.8);
+            border-color: $skrm-purple;
         }
     } 
 
@@ -41,7 +41,7 @@
         margin-bottom: 0;
 
         span {
-            color: $skrm-green;
+            color: black;
             vertical-align: super;
         }
     }

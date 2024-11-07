@@ -12,6 +12,7 @@
 
         &__content {
             position: relative;
+            background-color: black;
 
             &--70 {
                 margin-inline-end: 0.8em;
@@ -85,31 +86,31 @@
         }
 
         &-wrapper {
-            height: 90px;
-            width: 90px;
             position: absolute;
             right: 10px;
+
+            border-radius: 50%;
+            padding: 0.8em 0.5em;
+            background-color: $skrm-pink;
+            top: calc(100% - 37px)
         }
 
         &__fee {
-            background: radial-gradient(
-                ellipse at center,
-                $skrm-pink 0%,
-                $skrm-pink 70%,
-                rgba(0, 128, 172, 0) 70.3%
-            );
-            
             width: 100%;
             height: 100%;
-
-            @media #{$mobile} {
-                top: 31%;
-            }
 
             &-text {
                 height: 100%;
                 display: block;
                 text-align: center;
+            }
+        }
+
+        &__title {
+            width: 85%;
+
+            @media #{$mobile} {
+                width: 70%;
             }
         }
     }
