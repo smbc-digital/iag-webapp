@@ -90,6 +90,28 @@
         }
     }
 
+    &--height {
+        height: 525px;
+
+        @media #{$mobile} {
+            max-height: 300px;
+        }
+
+        figcaption {
+            background-color: white;
+            color: black;
+            font-weight: 700;
+            padding-inline: 0;
+            padding-block: 1em;
+            border-bottom: 1px solid #ccc;
+            border-radius: 0;
+
+            @media #{$mobile} {
+                border-bottom: none;
+            }
+        }
+    }
+
     a {
         &:hover {
             .image-banner__title {

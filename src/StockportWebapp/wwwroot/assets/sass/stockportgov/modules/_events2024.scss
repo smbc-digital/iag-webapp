@@ -1,6 +1,6 @@
 .type-events.background-grey {
     background-color: $stockport-light-grey;
-  }
+}
   
 .event-detail {
     display: flex;
@@ -19,7 +19,7 @@
         border-radius: 3px;
 
         @media #{$mobile} {
-        max-height: 300px;
+            max-height: 300px;
         }
     }
 
@@ -30,24 +30,24 @@
         flex-direction: column;
 
         &-left {
-        margin-inline-end: 2em;
+            margin-inline-end: 2em;
+
+            @media #{$tablet} {
+                margin-inline-end: 1em;
+            }
+
+            @media #{$mobile} {
+                margin-block-end: 1em;
+            }
+        }
 
         @media #{$tablet} {
-            margin-inline-end: 1em;
+            width: calc(50% - 0.5em);
+            margin-inline-start: 0;
         }
 
         @media #{$mobile} {
-            margin-block-end: 1em;
-        }
-        }
-
-        @media #{$tablet} {
-        width: calc(50% - 0.5em);
-        margin-inline-start: 0;
-        }
-
-        @media #{$mobile} {
-        width: 100%;
+            width: 100%;
         }
     }
 
@@ -60,16 +60,8 @@
         margin-block-start: 2em;
 
         @media #{$tablet} {
-        margin-block-start: 1em;
+            margin-block-start: 1em;
         }
-    }
-
-    &__details {
-        margin-bottom: 20px;
-
-         h3, p {
-            display: inline;
-         }
     }
 
     &__wrapper {
@@ -77,7 +69,19 @@
         flex-grow: 1;
 
         h3 {
-        margin: 0;
+            margin: 0;
+        }
+    }
+    
+    &__details {
+        margin-bottom: 20px;
+
+        h3, p {
+            display: inline;
+        }
+
+        h3 {
+            margin-right: 0.1em;
         }
     }
 
