@@ -198,7 +198,8 @@ public class EventsController : Controller
 
         return View(await _featureManager.IsEnabledAsync("Events") ? "Detail2024" : "Detail", response);
     }
-
+    
+    // this is not used!
     [Route("/events/details/{slug}")]
     public async Task<IActionResult> EventDetail(string slug, [FromQuery] DateTime? date = null)
     {

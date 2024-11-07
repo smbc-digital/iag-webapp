@@ -11,6 +11,7 @@ public class Event
     public string ThumbnailImageUrl { get; set; }
     public string Description { get; set; }
     public string Fee { get; set; }
+    public bool Free { get; set; }
     public string Location { get; set; }
     public string SubmittedBy { get; set; }
     public DateTime EventDate { get; set; }
@@ -30,8 +31,10 @@ public class Event
     public int Occurences { get; set; }
     public List<EventCategory> EventCategories { get; set; }
     public string AccessibleTransportLink { get; set; }
-    public List<GroupBranding> EventBranding { get; set; } = new List<GroupBranding>();
+    public List<GroupBranding> EventBranding { get; set; } = new();
     public string PhoneNumber { get; set; }
     public string Email { get; set; }
     public string Website { get; set; }
+    public string Duration { get; set; }
+    public string Languages { get; set; }
 }

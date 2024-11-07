@@ -1,0 +1,88 @@
+@model ProcessedEvents
+@{
+    ViewData["Title"] = Model.Title;
+    ViewData["Description"] = Model.MetaDescription;
+    Layout = "../shared/_Layout.cshtml";
+}
+
+<div class="grid-container-full-width" style="background-color:white;" data-cy="article">
+    <div class="article-hero">
+        @if (!string.IsNullOrEmpty(Model.ImageUrl))
+        {
+            <div class="article-hero__background" style="background-image: url(@Model.ImageUrl?fm=webp)"></div>
+        }
+       
+        <div class="grid-container article-hero__wrapper">
+            <div class="grid-100">
+                <div class="article-hero__image"></div>
+                
+                <div class="article-hero__content event-hero__content event-hero__content--70">
+                    <h1 class="article-hero__title event-hero__title">@Model.Title</h1>
+                    
+                    @if(Model.Free)
+                    {
+                        <div class="event-hero-wrapper">
+                            <div class="event-hero__fee">
+                                <span class="event-hero__fee-text"><strong>FREE&#33;</strong></span>
+                            </div>
+                        </div>
+                    }
+                </div>
+
+                <div class="event-hero-container">
+                    <div class="article-hero__content event-hero__content--70">
+                        <div class="article-hero__about event-hero__about--extra-padding">
+                            <p>
+                                @Model.EventDate.ToString("dddd dd MMMM yyyy") -
+                                From @DateTime.Parse(Model.StartTime).ToString("h:mmtt").ToLower()
+                            </p>
+
+                           <a href="@Model.BookingInformation" target="_blank" class="btn event-btn" aria-label="Book @Model.Title">Book now</a>
+
+                            @Html.Raw(Model.Description)
+                        </div>
+                    </div>
+
+                    <div class="article-hero__content event-hero__content--30">
+                        <div class="article-hero__about event-hero__about">
+                            <h3>Information</h3>
+                            <div class="event-hero__about--border"></div>
+
+                            @if(!string.IsNullOrEmpty(Model.Fee))
+                            {
+                                <div class="event-hero__about--padding-top event-hero__about-fee">
+                                    <p>Cost:</p>
+                                    <p>@Model.Fee</p>
+                                </div>
+                            }
+
+                            @if(!string.IsNullOrEmpty(Model.Duration))
+                            {
+                                <div class="event-hero__about--padding-top event-hero__about-duration">
+                                    <p>Duration:</p>
+                                    <p>@Model.Duration</p>
+                                </div>
+                            }
+                            
+                            @if(!string.IsNullOrEmpty(Model.Languages))
+                            {
+                                <div class="event-hero__about--padding-top">
+                                    <p class="">Languages:</p>
+                                    <p>@Model.Languages</p>
+                                </div>
+                            }
+
+                            @if(!string.IsNullOrEmpty(Model.Duration) || !string.IsNullOrEmpty(Model.Languages) || !string.IsNullOrEmpty(Model.Fee))
+                            {
+                                <div class="event-hero__about--border"></div>
+                            }
+
+                            <p style="padding-top: 20px; margin-bottom: 0;"><a href="#">Access information</a></p>
+                            <a href="#">Share</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
