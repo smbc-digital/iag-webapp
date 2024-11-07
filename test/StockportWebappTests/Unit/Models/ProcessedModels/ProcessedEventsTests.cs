@@ -9,6 +9,7 @@ public class ProcessedEventsTests
                                                                         "image.png",
                                                                         "description",
                                                                         "fee",
+                                                                        false,
                                                                         "location",
                                                                         "submittedBy",
                                                                         DateTime.Now.AddDays(1),

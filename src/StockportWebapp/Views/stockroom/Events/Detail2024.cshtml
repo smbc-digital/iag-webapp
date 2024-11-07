@@ -19,11 +19,14 @@
                 <div class="article-hero__content event-hero__content event-hero__content--70">
                     <h1 class="article-hero__title event-hero__title">@Model.Title</h1>
                     
-                    <div class="event-hero-wrapper">
-                        <div class="event-hero__fee">
-                            <span class="event-hero__fee-text"><strong>FREE&#33;</strong></span>
+                    @if(Model.Free)
+                    {
+                        <div class="event-hero-wrapper">
+                            <div class="event-hero__fee">
+                                <span class="event-hero__fee-text"><strong>FREE&#33;</strong></span>
+                            </div>
                         </div>
-                    </div>
+                    }
                 </div>
 
                 <div class="event-hero-container">
@@ -45,6 +48,14 @@
                             <h3>Information</h3>
                             <div class="event-hero__about--border"></div>
 
+                            @if(!string.IsNullOrEmpty(Model.Fee))
+                            {
+                                <div class="event-hero__about--padding-top event-hero__about-fee">
+                                    <p>Cost:</p>
+                                    <p>@Model.Fee</p>
+                                </div>
+                            }
+
                             @if(!string.IsNullOrEmpty(Model.Duration))
                             {
                                 <div class="event-hero__about--padding-top event-hero__about-duration">
@@ -61,7 +72,7 @@
                                 </div>
                             }
 
-                            @if(!string.IsNullOrEmpty(Model.Duration) || !string.IsNullOrEmpty(Model.Languages))
+                            @if(!string.IsNullOrEmpty(Model.Duration) || !string.IsNullOrEmpty(Model.Languages) || !string.IsNullOrEmpty(Model.Fee))
                             {
                                 <div class="event-hero__about--border"></div>
                             }

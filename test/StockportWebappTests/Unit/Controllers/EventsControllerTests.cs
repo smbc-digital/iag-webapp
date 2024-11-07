@@ -59,6 +59,7 @@ public class EventsControllerTest
                                             "image.png",
                                             "description",
                                             "fee",
+                                            false,
                                             "location",
                                             "submittedBy",
                                             new DateTime(2016, 12, 30, 00, 00, 00),

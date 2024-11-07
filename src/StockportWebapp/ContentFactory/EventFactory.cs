@@ -34,6 +34,7 @@ public class EventFactory : IEventFactory
                                 eventItem.ThumbnailImageUrl,
                                 description,
                                 eventItem.Fee,
+                                eventItem.Free,
                                 eventItem.Location,
                                 eventItem.SubmittedBy,
                                 eventItem.EventDate,

@@ -8,6 +8,7 @@ public class ProcessedEvents : IProcessedContentType
     public string ThumbnailImageUrl { get; }
     public string Description { get; set; }
     public string Fee { get; }
+    public bool Free { get; }
     public string Location { get; }
     public string SubmittedBy { get; }
     public DateTime EventDate { get; }
@@ -35,6 +36,7 @@ public class ProcessedEvents : IProcessedContentType
                         string thumbnailImageUrl,
                         string description,
                         string fee,
+                        bool free,
                         string location,
                         string submittedBy,
                         DateTime eventDate,
@@ -62,6 +64,7 @@ public class ProcessedEvents : IProcessedContentType
         Description = description;
         ThumbnailImageUrl = thumbnailImageUrl;
         Fee = fee;
+        Free = free;
         Location = location;
         SubmittedBy = submittedBy;
         EventDate = eventDate;
