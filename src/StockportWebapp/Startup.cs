@@ -34,7 +34,8 @@ public class Startup
 
         JsonConvert.DefaultSettings = () => new JsonSerializerSettings
         {
-            ContractResolver = new CamelCasePropertyNamesContractResolver()
+            ContractResolver = new CamelCasePropertyNamesContractResolver(),
+            NullValueHandling = NullValueHandling.Ignore
         };
 
         services.AddRazorPages();
