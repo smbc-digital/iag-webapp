@@ -4,25 +4,33 @@ public class EventsControllerTest
 {
     private readonly EventsController _controller;
     private readonly Mock<IRepository> _repository = new Mock<IRepository>();
-    private readonly Mock<IProcessedContentRepository> _processedContentRepository = new Mock<IProcessedContentRepository>();
+    private readonly Mock<IProcessedContentRepository> _processedContentRepository = new();
     private readonly Event _eventsItem;
     private readonly List<string> _categories;
     private readonly HttpResponse responseListing;
     private readonly HttpResponse _responseDetail;
-    private readonly Mock<IHttpEmailClient> _emailClient;
     private readonly Mock<IApplicationConfiguration> _applicationConfiguration;
-    private readonly Mock<IRssFeedFactory> _mockRssFeedFactory;
+    private readonly Mock<IRssFeedFactory> _mockRssFeedFactory = new();
     private readonly Mock<ILogger<EventsController>> _logger;
-    private readonly Mock<IApplicationConfiguration> _config;
+    private readonly Mock<IApplicationConfiguration> _config = new();
     private const string BusinessId = "businessId";
-    private readonly Mock<IFilteredUrl> _filteredUrl;
+    private readonly Mock<IFilteredUrl> _filteredUrl = new();
     private readonly DateCalculator _datetimeCalculator;
     private Mock<IFeatureManager> _featureManager = new();
     private readonly Group _group = new GroupBuilder().Build();
 
-    private readonly List<Alert> _alerts = new List<Alert> { new Alert("title", "subHeading", "body",
-                                                             "severity", new DateTime(0001, 1, 1, 0, 0, 0, DateTimeKind.Utc),
-                                                             new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc), string.Empty, false, string.Empty) };
+    private readonly List<Alert> _alerts = new()
+        {
+            new Alert("title",
+                    "subHeading",
+                    "body",
+                    "severity",
+                    new DateTime(0001, 1, 1, 0, 0, 0, DateTimeKind.Utc),
+                    new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc),
+                    string.Empty,
+                    false,
+                    string.Empty)
+        };
 
     public const int MaxNumberOfItemsPerPage = 15;
 
@@ -46,77 +54,89 @@ public class EventsControllerTest
             Group = _group,
             Alerts = _alerts
         };
-        _categories = new List<string> { "Category 1", "Category 2" };
 
-        var mockTime = new Mock<ITimeProvider>();
+        _categories = new() { "Category 1", "Category 2" };
+
+        Mock<ITimeProvider> mockTime = new();
         _datetimeCalculator = new DateCalculator(mockTime.Object);
 
-        var eventsCalendar = new EventResponse(new List<Event> { _eventsItem }, _categories);
-        var eventItem = new ProcessedEvents("title",
-                                            "slug",
-                                            "teaser",
-                                            "image.png",
-                                            "image.png",
-                                            "description",
-                                            "fee",
-                                            false,
-                                            "location",
-                                            "submittedBy",
-                                            new DateTime(2016, 12, 30, 00, 00, 00),
-                                            "startTime",
-                                            "endTime",
-                                            new List<Crumb>(),
-                                            _categories,
-                                            new MapDetails(),
-                                            "booking information",
-                                            _group,
-                                            _alerts,
-                                            string.Empty,
-                                            new(),
-                                            string.Empty,
-                                            string.Empty,
-                                            string.Empty,
-                                            string.Empty,
-                                            string.Empty,
-                                            string.Empty,
-                                            new());
+        EventResponse eventsCalendar = new(new List<Event> { _eventsItem }, _categories);
+        ProcessedEvents eventItem = new("title",
+                                        "slug",
+                                        "teaser",
+                                        "image.png",
+                                        "image.png",
+                                        "description",
+                                        "fee",
+                                        false,
+                                        "location",
+                                        "submittedBy",
+                                        new DateTime(2016, 12, 30, 00, 00, 00),
+                                        "startTime",
+                                        "endTime",
+                                        new List<Crumb>(),
+                                        _categories,
+                                        new MapDetails(),
+                                        "booking information",
+                                        _group,
+                                        _alerts,
+                                        string.Empty,
+                                        new(),
+                                        string.Empty,
+                                        string.Empty,
+                                        string.Empty,
+                                        string.Empty,
+                                        string.Empty,
+                                        string.Empty,
+                                        new());
 
-        var eventHomepage = new EventHomepage(new List<Alert>()) { Categories = new List<EventCategory>(), Rows = new List<EventHomepageRow>() };
+        EventHomepage eventHomepage = new(new List<Alert>())
+        {
+            Categories = new(),
+            Rows = new()
+        };
 
         // setup responses (with mock data)
-        responseListing = new HttpResponse(200, eventsCalendar, "");
-        _responseDetail = new HttpResponse(200, eventItem, "");
-        var responseHomepage = new HttpResponse(200, eventHomepage, "");
-        var response404 = new HttpResponse(404, null, "not found");
+        responseListing = new HttpResponse(200, eventsCalendar, string.Empty);
+        _responseDetail = new HttpResponse(200, eventItem, string.Empty);
+        HttpResponse responseHomepage = new(200, eventHomepage, string.Empty);
+        HttpResponse response404 = new(404, null, "not found");
 
         // setup mocks
-        _repository.Setup(o => o.Get<EventHomepage>(It.IsAny<string>(), It.IsAny<List<Query>>()))
+        _repository
+            .Setup(repo => repo.Get<EventHomepage>(It.IsAny<string>(), It.IsAny<List<Query>>()))
             .ReturnsAsync(responseHomepage);
 
-        _repository.Setup(o => o.Get<EventResponse>(It.IsAny<string>(), It.IsAny<List<Query>>()))
+        _repository
+            .Setup(repo => repo.Get<EventResponse>(It.IsAny<string>(), It.IsAny<List<Query>>()))
             .ReturnsAsync(responseListing);
 
-        _processedContentRepository.Setup(o => o.Get<Event>("event-of-the-century", It.Is<List<Query>>(l => l.Count == 0)))
+        _processedContentRepository
+            .Setup(processedContentRepo => processedContentRepo.Get<Event>("event-of-the-century", It.Is<List<Query>>(l => l.Count.Equals(0))))
             .ReturnsAsync(_responseDetail);
 
-        _processedContentRepository.Setup(o => o.Get<Event>("404-event", It.Is<List<Query>>(l => l.Count == 0)))
+        _processedContentRepository
+            .Setup(processedContentRepo => processedContentRepo.Get<Event>("404-event", It.Is<List<Query>>(l => l.Count.Equals(0))))
             .ReturnsAsync(response404);
 
-        _emailClient = new Mock<IHttpEmailClient>();
         _applicationConfiguration = new Mock<IApplicationConfiguration>();
         _logger = new Mock<ILogger<EventsController>>();
 
-        _applicationConfiguration.Setup(a => a.GetEmailEmailFrom(It.IsAny<string>()))
+        _applicationConfiguration
+            .Setup(appConfig => appConfig.GetEmailEmailFrom(It.IsAny<string>()))
             .Returns(AppSetting.GetAppSetting("GroupSubmissionEmail"));
 
-        _mockRssFeedFactory = new Mock<IRssFeedFactory>();
-        _config = new Mock<IApplicationConfiguration>();
-        _filteredUrl = new Mock<IFilteredUrl>();
+        _config
+            .Setup(config => config.GetRssEmail(BusinessId))
+            .Returns(AppSetting.GetAppSetting("rss-email"));
+        
+        _config
+            .Setup(config => config.GetEmailAlertsNewSubscriberUrl(BusinessId))
+            .Returns(AppSetting.GetAppSetting("email-alerts-url"));
 
-        _config.Setup(o => o.GetRssEmail(BusinessId)).Returns(AppSetting.GetAppSetting("rss-email"));
-        _config.Setup(o => o.GetEmailAlertsNewSubscriberUrl(BusinessId)).Returns(AppSetting.GetAppSetting("email-alerts-url"));
-
-        _featureManager.Setup(featureManager => featureManager.IsEnabledAsync(It.IsAny<string>())).ReturnsAsync(true);
+        _featureManager
+            .Setup(featureManager => featureManager.IsEnabledAsync(It.IsAny<string>()))
+            .ReturnsAsync(true);
 
         _controller = new EventsController(
             _repository.Object,
@@ -127,7 +147,6 @@ public class EventsControllerTest
             new BusinessId(BusinessId),
             _filteredUrl.Object,
             null,
-            null,
             _datetimeCalculator,
             null,
             _featureManager.Object
@@ -135,76 +154,92 @@ public class EventsControllerTest
     }
 
     [Fact]
-    public async Task ShouldReturnEventsCalendar()
+    public async Task Index_ShouldReturnEventsCalendar()
     {
-        var actionResponse = await _controller.Index(new EventCalendar() { FromSearch = true }, 1, 12) as ViewResult;
+        // Act
+        ViewResult actionResponse = await _controller.Index(new EventCalendar() { FromSearch = true }, 1, 12) as ViewResult;
+        EventCalendar events = actionResponse.ViewData.Model as EventCalendar;
 
-        var events = actionResponse.ViewData.Model as EventCalendar;
-        events.Events.Count.Should().Be(1);
-
-        events.Events[0].Should().Be(_eventsItem);
+        // Assert
+        Assert.Single(events.Events);
+        Assert.Equal(_eventsItem, events.Events.First());
     }
 
     [Fact]
-    public async Task ShouldReturnEventsCalendarWhenQueryStringIsPassed()
+    public async Task Index_ShouldReturnEventsCalendarWhenQueryStringIsPassed()
     {
-        var actionResponse = await _controller.Index(new EventCalendar { FromSearch = true, Category = "test", DateFrom = new DateTime(2017, 01, 20), DateTo = new DateTime(2017, 01, 25), DateRange = "customdate" }, 1, 12) as ViewResult;
+        // Act
+        ViewResult actionResponse = await _controller.Index(new EventCalendar
+        {
+            FromSearch = true,
+            Category = "test",
+            DateFrom = new DateTime(2017, 01, 20),
+            DateTo = new DateTime(2017, 01, 25),
+            DateRange = "customdate"
+        },
+        1, 12) as ViewResult;
 
-        var events = actionResponse.ViewData.Model as EventCalendar;
-        events.Events.Count.Should().Be(1);
+        EventCalendar events = actionResponse.ViewData.Model as EventCalendar;
 
-        events.Events[0].Should().Be(_eventsItem);
-
-        events.Category.Should().Be("test");
-        events.DateFrom.Should().Be(new DateTime(2017, 01, 20));
-        events.DateTo.Should().Be(new DateTime(2017, 01, 25));
-        events.DateRange.Should().Be("customdate");
+        // Assert
+        Assert.Single(events.Events);
+        Assert.Equal(_eventsItem, events.Events.First());
+        Assert.Equal("test", events.Category);
+        Assert.Equal(new DateTime(2017, 01, 20), events.DateFrom);
+        Assert.Equal(new DateTime(2017, 01, 25), events.DateTo);
+        Assert.Equal("customdate", events.DateRange);
     }
 
     [Fact]
-    public async Task ShouldReturnEvent()
+    public async Task Detail_ShouldReturnEvent()
     {
-        var actionResponse = await _controller.Detail("event-of-the-century") as ViewResult; ;
-
-        var model = actionResponse.ViewData.Model as ProcessedEvents;
-
-        model.Title.Should().Be("title");
-        model.Slug.Should().Be("slug");
-        model.Teaser.Should().Be("teaser");
-        model.Fee.Should().Be("fee");
-        model.Location.Should().Be("location");
-        model.SubmittedBy.Should().Be("submittedBy");
-        model.EventDate.Should().Be(new DateTime(2016, 12, 30, 00, 00, 00));
-        model.StartTime.Should().Be("startTime");
-        model.EndTime.Should().Be("endTime");
-        model.BookingInformation.Should().Be("booking information");
-        model.Group.Name.Should().Be(_group.Name);
-        model.Alerts[0].Title.Should().Be(_alerts[0].Title);
-        model.Alerts[0].Body.Should().Be(_alerts[0].Body);
-        model.Alerts[0].Severity.Should().Be(_alerts[0].Severity);
-        model.Alerts[0].SubHeading.Should().Be(_alerts[0].SubHeading);
-        model.Alerts[0].SunriseDate.Should().Be(_alerts[0].SunriseDate);
-        model.Alerts[0].SunsetDate.Should().Be(_alerts[0].SunsetDate);
+        // Act
+        ViewResult actionResponse = await _controller.Detail("event-of-the-century") as ViewResult; ;
+        ProcessedEvents model = actionResponse.ViewData.Model as ProcessedEvents;
+        
+        // Assert
+        Assert.Equal("title", model.Title);
+        Assert.Equal("slug", model.Slug);
+        Assert.Equal("teaser", model.Teaser);
+        Assert.Equal("fee", model.Fee);
+        Assert.Equal("location", model.Location);
+        Assert.Equal("submittedBy", model.SubmittedBy);
+        Assert.Equal(new DateTime(2016, 12, 30, 00, 00, 00), model.EventDate);
+        Assert.Equal("startTime", model.StartTime);
+        Assert.Equal("endTime", model.EndTime);
+        Assert.Equal("booking information", model.BookingInformation);
+        Assert.Equal(_group.Name, model.Group.Name);
+        Assert.Equal(_alerts.First().Title, model.Alerts.First().Title);
+        Assert.Equal(_alerts.First().Body, model.Alerts.First().Body);
+        Assert.Equal(_alerts.First().Severity, model.Alerts.First().Severity);
+        Assert.Equal(_alerts.First().SubHeading, model.Alerts.First().SubHeading);
+        Assert.Equal(_alerts.First().SunriseDate, model.Alerts.First().SunriseDate);
+        Assert.Equal(_alerts.First().SunsetDate, model.Alerts.First().SunsetDate);
     }
 
     [Fact]
-    public async Task ShouldReturnEventWhenDateQueryPassedIn()
+    public async Task Detail_ShouldReturnEventWhenDateQueryPassedIn()
     {
-        var date = new DateTime();
-        const string slug = "event-of-the-century";
-        _processedContentRepository.Setup(o => o.Get<Event>(slug, It.Is<List<Query>>(q => q.Contains(new Query("date", date.ToString("yyyy-MM-dd")))))).ReturnsAsync(_responseDetail);
+        // Arrange
+        _processedContentRepository
+            .Setup(processedContentRepo => processedContentRepo.Get<Event>("event-of-the-century", It.Is<List<Query>>(query => query.Contains(new Query("date", new DateTime().ToString("yyyy-MM-dd"))))))
+            .ReturnsAsync(_responseDetail);
 
-        await _controller.Detail(slug, date);
-
-        _processedContentRepository.Verify(o => o.Get<Event>(slug, It.Is<List<Query>>(q => q.Contains(new Query("date", date.ToString("yyyy-MM-dd"))))));
+        // Act
+        await _controller.Detail("event-of-the-century", new DateTime());
+        
+        // Assert
+        _processedContentRepository.Verify(processedContentRepo => processedContentRepo.Get<Event>("event-of-the-century", It.Is<List<Query>>(query => query.Contains(new Query("date", new DateTime().ToString("yyyy-MM-dd"))))));
     }
 
     [Fact]
-    public async Task ItReturns404NotFoundForEvent()
+    public async Task Detail_ItReturns404NotFoundForEvent()
     {
-        var actionResponse = await _controller.Detail("404-event") as HttpResponse; ;
+        // Act
+        HttpResponse actionResponse = await _controller.Detail("404-event") as HttpResponse; ;
 
-        actionResponse.StatusCode.Should().Be(404);
+        // Assert
+        Assert.Equal(404, actionResponse.StatusCode);
     }
 
     [Theory]
@@ -213,89 +248,85 @@ public class EventsControllerTest
     [InlineData(MaxNumberOfItemsPerPage, 1, MaxNumberOfItemsPerPage, 1)]
     [InlineData(MaxNumberOfItemsPerPage * 3, 1, MaxNumberOfItemsPerPage, 3)]
     [InlineData(MaxNumberOfItemsPerPage + 1, 2, 1, 2)]
-    public async Task PaginationShouldResultInCorrectNumItemsOnPageAndCorrectNumPages(
+    public async Task Index_PaginationShouldResultInCorrectNumItemsOnPageAndCorrectNumPages(
         int totalNumItems,
         int requestedPageNumber,
         int expectedNumItemsOnPage,
         int expectedNumPages)
     {
         // Arrange
-        var controller = SetUpController(totalNumItems);
-        var model = new EventCalendar() { FromSearch = true };
+        EventsController controller = SetUpController(totalNumItems);
+        EventCalendar model = new() { FromSearch = true };
 
         // Act
-        var actionResponse = await controller.Index(model, requestedPageNumber, MaxNumberOfItemsPerPage) as ViewResult; ;
+        ViewResult actionResponse = await controller.Index(model, requestedPageNumber, MaxNumberOfItemsPerPage) as ViewResult; ;
 
         // Assert
-        var viewModel = actionResponse.ViewData.Model as EventCalendar;
-        viewModel.Events.Count.Should().Be(expectedNumItemsOnPage);
-        model.Pagination.TotalPages.Should().Be(expectedNumPages);
+        EventCalendar viewModel = actionResponse.ViewData.Model as EventCalendar;
+        Assert.Equal(expectedNumItemsOnPage, viewModel.Events.Count);
+        Assert.Equal(expectedNumPages, model.Pagination.TotalPages);
     }
 
     [Theory]
     [InlineData(0, 50, 1)]
     [InlineData(5, MaxNumberOfItemsPerPage * 3, 3)]
-    public async Task IfSpecifiedPageNumIsImpossibleThenActualPageNumWillBeAdjustedAccordingly(
+    public async Task Index_IfSpecifiedPageNumIsImpossibleThenActualPageNumWillBeAdjustedAccordingly(
         int specifiedPageNumber,
         int numItems,
         int expectedPageNumber)
     {
         // Arrange
-        var controller = SetUpController(numItems);
-        var model = new EventCalendar() { FromSearch = true };
+        EventsController controller = SetUpController(numItems);
+        EventCalendar model = new() { FromSearch = true };
 
         // Act
         await controller.Index(model, specifiedPageNumber, MaxNumberOfItemsPerPage);
 
         // Assert
-        model.Pagination.CurrentPageNumber.Should().Be(expectedPageNumber);
+        Assert.Equal(expectedPageNumber, model.Pagination.CurrentPageNumber);
     }
 
     [Fact]
-    public async Task ShouldReturnEmptyPaginationObjectIfNoEventsExist()
+    public async Task Index_ShouldReturnEmptyPaginationObjectIfNoEventsExist()
     {
         // Arrange
-        const int zeroItems = 0;
-        var controller = SetUpController(zeroItems);
-        var model = new EventCalendar() { FromSearch = true };
+        EventsController controller = SetUpController(0);
+        EventCalendar model = new() { FromSearch = true };
 
         // Act
         await controller.Index(model, 0, 12);
 
         // Assert
-        model.Pagination.Should().NotBeNull();
+        Assert.NotNull(model.Pagination);
     }
 
     [Fact]
-    public async Task ShouldReturnCurrentURLForPagination()
+    public async Task Index_ShouldReturnCurrentURLForPagination()
     {
         // Arrange
-        int numItems = 10;
-        var controller = SetUpController(numItems);
-        var model = new EventCalendar() { FromSearch = true };
+        EventsController controller = SetUpController(10);
+        EventCalendar model = new() { FromSearch = true };
 
         // Act
         await controller.Index(model, 0, 12);
 
         // Assert
-        model.Pagination.CurrentUrl.Should().NotBeNull();
+        Assert.NotNull(model.Pagination.CurrentUrl);
     }
 
     private EventsController SetUpController(int numItems)
     {
         List<Event> listOfEvents = BuildEventList(numItems);
 
-        var categories = new List<string> { "Category 1", "Category 2" };
-        var eventsCalendar = new EventResponse(listOfEvents, categories);
-        var eventListResponse = new HttpResponse(200, eventsCalendar, "");
+        List<string> categories = new() { "Category 1", "Category 2" };
+        EventResponse eventsCalendar = new(listOfEvents, categories);
+        HttpResponse eventListResponse = new(200, eventsCalendar, string.Empty);
 
-        _repository.Setup(o =>
-            o.Get<EventResponse>(
-                It.IsAny<string>(),
-                It.IsAny<List<Query>>()))
+        _repository
+            .Setup(repo => repo.Get<EventResponse>(It.IsAny<string>(), It.IsAny<List<Query>>()))
             .ReturnsAsync(eventListResponse);
 
-        var controller = new EventsController(
+        EventsController controller = new(
             _repository.Object,
             _processedContentRepository.Object,
             _mockRssFeedFactory.Object,
@@ -303,7 +334,6 @@ public class EventsControllerTest
             _config.Object,
             new BusinessId(BusinessId),
             _filteredUrl.Object,
-            null,
             null,
             _datetimeCalculator,
             null,
@@ -315,11 +345,11 @@ public class EventsControllerTest
 
     private List<Event> BuildEventList(int numberOfItems)
     {
-        List<Event> listOfEvents = new List<Event>();
+        List<Event> listOfEvents = new();
 
         for (int i = 0; i < numberOfItems; i++)
         {
-            var eventItem = new Event
+            Event eventItem = new()
             {
                 Title = "title",
                 Slug = "slug",

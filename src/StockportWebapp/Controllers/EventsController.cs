@@ -24,7 +24,6 @@ public class EventsController : Controller
         BusinessId businessId,
         IFilteredUrl filteredUrl,
         CalendarHelper helper,
-        ITimeProvider timeProvider,
         IDateCalculator dateCalculator,
         IStockportApiEventsService stockportApiEventsService,
         IFeatureManager featureManager)
@@ -60,8 +59,8 @@ public class EventsController : Controller
             || eventsCalendar.DateFrom != null 
             || eventsCalendar.DateTo != null;
 
-        var queries = new List<Query>();
-        var dateFormat = "yyyy-MM-dd";
+        List<Query> queries = new();
+        string dateFormat = "yyyy-MM-dd";
 
         if (eventsCalendar.DateFrom.HasValue) queries.Add(new Query("DateFrom", eventsCalendar.DateFrom.Value.ToString(dateFormat)));
         if (eventsCalendar.DateTo.HasValue) queries.Add(new Query("DateTo", eventsCalendar.DateTo.Value.ToString(dateFormat)));
@@ -71,11 +70,11 @@ public class EventsController : Controller
         if (eventsCalendar.Longitude != 0) queries.Add(new Query("longitude", string.Join(",", eventsCalendar.Longitude)));
         if (eventsCalendar.Latitude != 0) queries.Add(new Query("latitude", string.Join(",", eventsCalendar.Latitude)));
 
-        var httpResponse = await _repository.Get<EventResponse>(queries: queries);
+        HttpResponse httpResponse = await _repository.Get<EventResponse>(queries: queries);
 
         if (!httpResponse.IsSuccessful()) return httpResponse;
 
-        var eventResponse = httpResponse.Content as EventResponse;
+        EventResponse eventResponse = httpResponse.Content as EventResponse;
 
         eventsCalendar.AddQueryUrl(new QueryUrl(Url?.ActionContext.RouteData.Values, Request?.Query));
         _filteredUrl.SetQueryUrl(eventsCalendar.CurrentUrl);
@@ -83,18 +82,17 @@ public class EventsController : Controller
 
         DoPagination(eventsCalendar, Page, eventResponse, pageSize);
 
-        
         if (eventResponse is not null)
         {
             eventsCalendar.AddEvents(eventResponse.Events);
             eventsCalendar.AddCategories(eventResponse.Categories);
         }
 
-        var httpHomeResponse = await _repository.Get<EventHomepage>();
+        HttpResponse httpHomeResponse = await _repository.Get<EventHomepage>();
 
         if (!httpHomeResponse.IsSuccessful()) return httpHomeResponse;
 
-        var eventHomeResponse = httpHomeResponse.Content as EventHomepage;
+        EventHomepage eventHomeResponse = httpHomeResponse.Content as EventHomepage;
 
         eventsCalendar.Homepage = eventHomeResponse;
 
@@ -104,15 +102,16 @@ public class EventsController : Controller
     [Route("/events/category/{category}")]
     public async Task<IActionResult> IndexWithCategory(string category, [FromQuery] int page, [FromQuery] int pageSize)
     {
-        var categories = await _stockportApiEventsService.GetEventCategories();
+        List<EventCategory> categories = await _stockportApiEventsService.GetEventCategories();
 
-        var viewModel = new EventResultsViewModel() { Title = category };
+        EventResultsViewModel viewModel = new() { Title = category };
 
-        var events = await _stockportApiEventsService.GetEventsByCategory(category, false);
+        List<Event> events = await _stockportApiEventsService.GetEventsByCategory(category, false);
 
-        if (events is null || !events.Any()) return View("Index", viewModel);
+        if (events is null || !events.Any())
+            return View("Index", viewModel);
 
-        var eventCategory = categories.FirstOrDefault(c => c.Slug.Equals(category));
+        EventCategory eventCategory = categories.FirstOrDefault(c => c.Slug.Equals(category));
 
         viewModel.Title = eventCategory is not null ? eventCategory.Name : category;
         viewModel.Events = events;
@@ -130,7 +129,7 @@ public class EventsController : Controller
     {
         if (eventResponse is not null && eventResponse.Events.Any())
         {
-            var paginatedEvents = PaginationHelper.GetPaginatedItemsForSpecifiedPage(
+            PaginatedItems<Event> paginatedEvents = PaginationHelper.GetPaginatedItemsForSpecifiedPage(
                 eventResponse.Events,
                 currentPageNumber,
                 "events",
@@ -151,7 +150,7 @@ public class EventsController : Controller
     {
         if (model is not null && model.Events.Any())
         {
-            var paginatedEvents = PaginationHelper.GetPaginatedItemsForSpecifiedPage(
+            PaginatedItems<Event> paginatedEvents = PaginationHelper.GetPaginatedItemsForSpecifiedPage(
                 model.Events,
                 currentPageNumber,
                 "events",
@@ -210,13 +209,9 @@ public class EventsController : Controller
         ViewBag.CurrentUrl = Request?.GetDisplayUrl();
 
         if (date is not null || date.Equals(DateTime.MinValue))
-        {
             ViewBag.Eventdate = date.Value.ToString("yyyy-MM-dd");
-        }
         else
-        {
             ViewBag.Eventdate = eventItem?.EventDate.ToString("yyyy-MM-dd");
-        }
 
         return View("Detail", eventItem);
     }
@@ -224,9 +219,9 @@ public class EventsController : Controller
     [Route("events/rss")]
     public async Task<IActionResult> Rss()
     {
-        var httpResponse = await _repository.Get<EventResponse>();
+        HttpResponse httpResponse = await _repository.Get<EventResponse>();
 
-        var host = Request is not null && Request.Host.HasValue ?
+        string host = Request is not null && Request.Host.HasValue ?
             string.Concat(Request.IsHttps ? "https://" : "http://", Request.Host.Value, "/events/") :
             string.Empty;
 
@@ -236,9 +231,9 @@ public class EventsController : Controller
             return httpResponse;
         }
 
-        var response = httpResponse.Content as EventResponse;
-        var emailFromAppSetting = _config.GetRssEmail(_businessId.ToString());
-        var email = emailFromAppSetting.IsValid() ? emailFromAppSetting.ToString() : string.Empty;
+        EventResponse response = httpResponse.Content as EventResponse;
+        AppSetting emailFromAppSetting = _config.GetRssEmail(_businessId.ToString());
+        string email = emailFromAppSetting.IsValid() ? emailFromAppSetting.ToString() : string.Empty;
 
         _logger.LogDebug("Rss: Creating News Feed");
         return await Task.FromResult(Content(_rssFeedFactory.BuildRssFeed(response.Events, host, email), "application/rss+xml"));
@@ -252,7 +247,7 @@ public class EventsController : Controller
         if (string.IsNullOrEmpty(type))
             return NotFound();
 
-        var eventItem = new Event()
+        Event eventItem = new()
         {
             Slug = slug,
             EventDate = eventDate,
