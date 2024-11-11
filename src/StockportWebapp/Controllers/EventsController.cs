@@ -203,7 +203,7 @@ public class EventsController : Controller
     [Route("/events/details/{slug}")]
     public async Task<IActionResult> EventDetail(string slug, [FromQuery] DateTime? date = null)
     {
-        var eventItem = await _stockportApiEventsService.GetProcessedEvent(slug, date);
+        ProcessedEvents eventItem = await _stockportApiEventsService.GetProcessedEvent(slug, date);
 
         if (eventItem is null) return NotFound();
 

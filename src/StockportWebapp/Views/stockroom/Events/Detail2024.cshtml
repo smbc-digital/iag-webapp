@@ -86,3 +86,8 @@
         </div>
     </div>
 </div>
+
+@if (Model.RelatedEvents.Any() && Model.RelatedEvents.Count >= 3)
+{
+    <partial name="RelatedEvents" model="@Model.RelatedEvents" view-data='@(new ViewDataDictionary(ViewData) { { "itemsToDisplay", Model.RelatedEvents.Take(3).ToList() } })' />
+}

@@ -28,6 +28,7 @@ public class ProcessedEvents : IProcessedContentType
     public Group Group { get; set; }
     public string Duration { get; }
     public string Languages { get; }
+    public List<ProcessedEvents> RelatedEvents { get; set; }
 
     public ProcessedEvents(string title,
                         string slug,
@@ -55,7 +56,8 @@ public class ProcessedEvents : IProcessedContentType
                         string website,
                         string metaDescription,
                         string duration,
-                        string languages)
+                        string languages,
+                        List<ProcessedEvents> relatedEvents)
     {
         Title = title;
         Slug = slug;
@@ -83,6 +85,7 @@ public class ProcessedEvents : IProcessedContentType
         MetaDescription = metaDescription;
         Duration = duration;
         Languages = languages;
+        RelatedEvents = relatedEvents;
     }
 
     public bool IsAlertDisplayed(Alert alert)
