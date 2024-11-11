@@ -78,7 +78,8 @@ public class EventsControllerTest
                                             string.Empty,
                                             string.Empty,
                                             string.Empty,
-                                            string.Empty);
+                                            string.Empty,
+                                            new());
 
         var eventHomepage = new EventHomepage(new List<Alert>()) { Categories = new List<EventCategory>(), Rows = new List<EventHomepageRow>() };
 
