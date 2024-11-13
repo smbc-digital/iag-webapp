@@ -62,17 +62,31 @@ public class EventsController : Controller
         List<Query> queries = new();
         string dateFormat = "yyyy-MM-dd";
 
-        if (eventsCalendar.DateFrom.HasValue) queries.Add(new Query("DateFrom", eventsCalendar.DateFrom.Value.ToString(dateFormat)));
-        if (eventsCalendar.DateTo.HasValue) queries.Add(new Query("DateTo", eventsCalendar.DateTo.Value.ToString(dateFormat)));
-        if (!string.IsNullOrWhiteSpace(eventsCalendar.Category)) queries.Add(new Query("Category", eventsCalendar.Category));
-        if (!string.IsNullOrWhiteSpace(eventsCalendar.Tag)) queries.Add(new Query("tag", eventsCalendar.Tag));
-        if (eventsCalendar.Price != null) queries.Add(new Query("price", string.Join(",", eventsCalendar.Price)));
-        if (eventsCalendar.Longitude != 0) queries.Add(new Query("longitude", string.Join(",", eventsCalendar.Longitude)));
-        if (eventsCalendar.Latitude != 0) queries.Add(new Query("latitude", string.Join(",", eventsCalendar.Latitude)));
+        if (eventsCalendar.DateFrom.HasValue)
+            queries.Add(new Query("DateFrom", eventsCalendar.DateFrom.Value.ToString(dateFormat)));
+        
+        if (eventsCalendar.DateTo.HasValue)
+            queries.Add(new Query("DateTo", eventsCalendar.DateTo.Value.ToString(dateFormat)));
+        
+        if (!string.IsNullOrWhiteSpace(eventsCalendar.Category))
+            queries.Add(new Query("Category", eventsCalendar.Category));
+        
+        if (!string.IsNullOrWhiteSpace(eventsCalendar.Tag))
+            queries.Add(new Query("tag", eventsCalendar.Tag));
+        
+        if (eventsCalendar.Price is not null)
+            queries.Add(new Query("price", string.Join(",", eventsCalendar.Price)));
+        
+        if (!eventsCalendar.Longitude.Equals(0))
+            queries.Add(new Query("longitude", string.Join(",", eventsCalendar.Longitude)));
+        
+        if (!eventsCalendar.Latitude.Equals(0))
+            queries.Add(new Query("latitude", string.Join(",", eventsCalendar.Latitude)));
 
         HttpResponse httpResponse = await _repository.Get<EventResponse>(queries: queries);
 
-        if (!httpResponse.IsSuccessful()) return httpResponse;
+        if (!httpResponse.IsSuccessful())
+            return httpResponse;
 
         EventResponse eventResponse = httpResponse.Content as EventResponse;
 
@@ -240,9 +254,16 @@ public class EventsController : Controller
     }
 
     [Route("events/add-to-calendar")]
-    public IActionResult AddToCalendar(string type, string eventUrl,
-        string slug, DateTime eventDate, string name, string location,
-        string startTime, string endTime, string description, string summary)
+    public IActionResult AddToCalendar(string type,
+                                    string eventUrl,
+                                    string slug,
+                                    DateTime eventDate,
+                                    string name,
+                                    string location,
+                                    string startTime,
+                                    string endTime,
+                                    string description,
+                                    string summary)
     {
         if (string.IsNullOrEmpty(type))
             return NotFound();

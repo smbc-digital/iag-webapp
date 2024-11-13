@@ -16,7 +16,9 @@ public class EventsControllerTest
     private const string BusinessId = "businessId";
     private readonly Mock<IFilteredUrl> _filteredUrl = new();
     private readonly DateCalculator _datetimeCalculator;
+    private readonly Mock<IStockportApiEventsService> _stockportApiEventsService = new();
     private Mock<IFeatureManager> _featureManager = new();
+    private readonly CalendarHelper _calendarhelper = new();
     private readonly Group _group = new GroupBuilder().Build();
 
     private readonly List<Alert> _alerts = new()
@@ -146,9 +148,9 @@ public class EventsControllerTest
             _config.Object,
             new BusinessId(BusinessId),
             _filteredUrl.Object,
-            null,
+            _calendarhelper,
             _datetimeCalculator,
-            null,
+            _stockportApiEventsService.Object,
             _featureManager.Object
             );
     }
@@ -175,7 +177,10 @@ public class EventsControllerTest
             Category = "test",
             DateFrom = new DateTime(2017, 01, 20),
             DateTo = new DateTime(2017, 01, 25),
-            DateRange = "customdate"
+            DateRange = "customdate",
+            Price = ["5", "10"],
+            Longitude = 12345.60,
+            Latitude = 12345.61
         },
         1, 12) as ViewResult;
 
@@ -188,6 +193,9 @@ public class EventsControllerTest
         Assert.Equal(new DateTime(2017, 01, 20), events.DateFrom);
         Assert.Equal(new DateTime(2017, 01, 25), events.DateTo);
         Assert.Equal("customdate", events.DateRange);
+        Assert.Equal(new List<string>() { "5", "10" } , events.Price);
+        Assert.Equal(12345.60, events.Longitude);
+        Assert.Equal(12345.61, events.Latitude);
     }
 
     [Fact]
@@ -301,6 +309,58 @@ public class EventsControllerTest
     }
 
     [Fact]
+    public async Task Index_ClearsModelStateErrors_ForDateToAndDateFrom()
+    {
+        // Arrange
+        var eventCalendar = new EventCalendar();
+        _controller.ModelState.AddModelError("DateTo", "DateTo is invalid");
+        _controller.ModelState.AddModelError("DateFrom", "DateFrom is invalid");
+
+        // Act
+        await _controller.Index(eventCalendar, 1, 1);
+
+        // Assert
+        Assert.Empty(_controller.ModelState["DateTo"].Errors);
+        Assert.Empty(_controller.ModelState["DateFrom"].Errors);
+    }
+
+    [Fact]
+    public void Index_DoesNotThrow_WhenDateToOrDateFromModelStateKeyIsMissing()
+    {
+        // Act
+        Exception exception = Record.Exception(() => _controller.Index(new EventCalendar(), 1, 1).Wait());
+
+        // Assert
+        Assert.Null(exception);
+    }
+
+    [Fact]
+    public async Task Index_AssignsTagToKeepTag_WhenTagIsNotEmpty()
+    {
+        // Arrange
+        EventCalendar eventCalendar = new() { Tag = "music" };
+
+        // Act
+        await _controller.Index(eventCalendar, 1, 1);
+
+        // Assert
+        Assert.Equal("music", eventCalendar.KeepTag);
+    }
+
+    [Fact]
+    public async Task Index_DoesNotAssignKeepTag_WhenTagIsEmpty()
+    {
+        // Arrange
+        EventCalendar eventCalendar = new() { Tag = string.Empty };
+
+        // Act
+        await _controller.Index(eventCalendar, 1, 1);
+
+        // Assert
+        Assert.Null(eventCalendar.KeepTag);
+    }
+
+    [Fact]
     public async Task Index_ShouldReturnCurrentURLForPagination()
     {
         // Arrange
@@ -313,11 +373,219 @@ public class EventsControllerTest
         // Assert
         Assert.NotNull(model.Pagination.CurrentUrl);
     }
+    
+    [Fact]
+    public async Task IndexWithCategory_ReturnsViewResult_WithExpectedModel()
+    {
+        // Arrange
+        List<Event> events = new() { new Event { Title = "Concert" } };
+        List<EventCategory> categories = new() { new EventCategory { Slug = "music", Name = "Music Events" } };
+
+        _stockportApiEventsService
+            .Setup(service => service.GetEventsByCategory("music", false))
+            .ReturnsAsync(events);
+        
+        _stockportApiEventsService
+            .Setup(service => service.GetEventCategories())
+            .ReturnsAsync(categories);
+
+        // Act
+        IActionResult result = await _controller.IndexWithCategory("music", 1, 10);
+
+        // Assert
+        ViewResult viewResult = Assert.IsType<ViewResult>(result);
+        EventResultsViewModel model = Assert.IsAssignableFrom<EventResultsViewModel>(viewResult.Model);
+        Assert.Equal("Music Events", model.Title);
+        Assert.Equal(events, model.Events);
+    }
+
+    [Fact]
+    public async Task IndexWithCategory_ReturnsIndexView_WhenEventsAreNull()
+    {
+        // Arrange
+        EventResultsViewModel viewModel = new() { Title = "music" };
+        _stockportApiEventsService
+            .Setup(service => service.GetEventsByCategory("music", It.IsAny<bool>()))
+            .ReturnsAsync((List<Event>)null);
+
+        // Act
+        IActionResult result = await _controller.IndexWithCategory("music", page: 1, pageSize: 10);
+
+        // Assert
+        ViewResult viewResult = Assert.IsType<ViewResult>(result);
+        Assert.Equal("Index", viewResult.ViewName);
+        Assert.Equal(viewModel.Title, ((EventResultsViewModel)viewResult.Model).Title);
+    }
+
+    [Fact]
+    public async Task IndexWithCategory_ReturnsIndexView_WhenEventsAreEmpty()
+    {
+        // Arrange
+        EventResultsViewModel viewModel = new() { Title = "music" };
+        _stockportApiEventsService
+            .Setup(service => service.GetEventsByCategory("music", It.IsAny<bool>()))
+            .ReturnsAsync(new List<Event>());
+
+        // Act
+        IActionResult result = await _controller.IndexWithCategory("music", page: 1, pageSize: 10);
+
+        // Assert
+        ViewResult viewResult = Assert.IsType<ViewResult>(result);
+        Assert.Equal("Index", viewResult.ViewName);
+        Assert.Equal(viewModel.Title, ((EventResultsViewModel)viewResult.Model).Title);
+    }
+
+    [Fact]
+    public async Task EventDetail_ReturnsViewResult_WithExpectedModel_WhenEventExists()
+    {
+        // Arrange
+        ProcessedEvents eventItem = new("Special Event",
+                                        "event-slug",
+                                        "teaser",
+                                        "imageUrl",
+                                        "thumbnailImageUrl",
+                                        "description",
+                                        "fee",
+                                        false,
+                                        "location",
+                                        "submittedBy",
+                                        new DateTime(),
+                                        "start time",
+                                        "end time",
+                                        new List<Crumb>(),
+                                        new List<string>(),
+                                        new MapDetails(),
+                                        "booking information",
+                                        null,
+                                        new List<Alert>(),
+                                        "accessible transport",
+                                        new List<GroupBranding>(),
+                                        "0123456789",
+                                        "email",
+                                        "website",
+                                        "metadescription",
+                                        "duration",
+                                        "languages",
+                                        new List<ProcessedEvents>());
+
+        _stockportApiEventsService
+            .Setup(service => service.GetProcessedEvent("event-slug", null))
+            .ReturnsAsync(eventItem);
+
+        // Act
+        IActionResult result = await _controller.EventDetail("event-slug");
+
+        // Assert
+        ViewResult viewResult = Assert.IsType<ViewResult>(result);
+        Assert.Equal("Detail", viewResult.ViewName);
+        Assert.Equal(eventItem, viewResult.Model);
+    }
+
+    [Fact]
+    public void AddToCalendar_ReturnsRedirectResult_ForGoogleCalendar()
+    {
+        // Act
+        IActionResult result = _controller.AddToCalendar("google",
+                                                        "http://example.com/event",
+                                                        "event-slug",
+                                                        new DateTime(2024, 10, 12),
+                                                        "Sample Event",
+                                                        "Some Place",
+                                                        "10:00",
+                                                        "12:00",
+                                                        "Event Description",
+                                                        "Event Summary");
+
+        // Assert
+        RedirectResult redirectResult = Assert.IsType<RedirectResult>(result);
+        Assert.Equal("https://www.google.com/calendar/render?action=TEMPLATE&text=Sample Event&dates=20241012T100000/20241012T120000&details=For+details,+link+here: http://example.com/event &location=Some Place&sf=true&output=xml", redirectResult.Url);   
+    }
+
+    [Fact]
+    public void AddToCalendar_ReturnsRedirectResult_ForYahooCalendar()
+    {
+        // Act
+        IActionResult result = _controller.AddToCalendar("yahoo",
+                                                        "http://example.com/event",
+                                                        "event-slug",
+                                                        new DateTime(2024, 10, 12),
+                                                        "Sample Event",
+                                                        "Some Place",
+                                                        "10:00",
+                                                        "12:00",
+                                                        "Event Description",
+                                                        "Event Summary");
+
+        // Assert
+        RedirectResult redirectResult = Assert.IsType<RedirectResult>(result);
+        Assert.Equal("https://calendar.yahoo.com/?v=60&view=d&type=20&title=Sample Event&st=20241012T100000&et=20241012T120000&desc=For+details,+link+here: http://example.com/event&in_loc=Some Place", redirectResult.Url);   
+    }
+
+    [Fact]
+    public void AddToCalendar_ReturnsIcsFile_WhenTypeIsWindows()
+    {
+
+        // Act
+        FileContentResult result = _controller.AddToCalendar("windows",
+                                                            "url",
+                                                            "slug",
+                                                            DateTime.Now,
+                                                            "name",
+                                                            "location",
+                                                            "start",
+                                                            "end",
+                                                            "desc",
+                                                            "summary") as FileContentResult;
+
+        // Assert
+        Assert.NotNull(result);
+        Assert.Equal("text/calendar", result.ContentType);
+        Assert.Equal("slug.ics", result.FileDownloadName);
+    }
+    
+    [Fact]
+    public void AddToCalendar_ReturnsIcsFile_WhenTypeIsApple()
+    {
+        // Act
+        FileContentResult result = _controller.AddToCalendar("apple",
+                                                            "url",
+                                                            "slug",
+                                                            DateTime.Now,
+                                                            "name",
+                                                            "location",
+                                                            "start",
+                                                            "end",
+                                                            "desc",
+                                                            "summary") as FileContentResult;
+
+        // Assert
+        Assert.NotNull(result);
+        Assert.Equal("text/calendar", result.ContentType);
+        Assert.Equal("slug.ics", result.FileDownloadName);
+    }
+
+    [Fact]
+    public void AddToCalendar_ReturnsNotFoundIfTypeIsEmpty()
+    {
+        // Act
+        IActionResult result = _controller.AddToCalendar(string.Empty,
+                                                            "url",
+                                                            "slug",
+                                                            DateTime.Now,
+                                                            "name",
+                                                            "location",
+                                                            "start",
+                                                            "end",
+                                                            "desc",
+                                                            "summary");
+
+        // Assert
+        Assert.IsType<NotFoundResult>(result);
+    }
 
     private EventsController SetUpController(int numItems)
     {
         List<Event> listOfEvents = BuildEventList(numItems);
-
         List<string> categories = new() { "Category 1", "Category 2" };
         EventResponse eventsCalendar = new(listOfEvents, categories);
         HttpResponse eventListResponse = new(200, eventsCalendar, string.Empty);

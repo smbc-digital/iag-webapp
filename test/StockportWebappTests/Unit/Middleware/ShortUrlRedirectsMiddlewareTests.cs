@@ -21,18 +21,18 @@ public class ShortUrlRedirectsMiddlewareTests
     }
 
     [Fact]
-    public void Invoke_ShouldNotCallRepository_IfCachedRedirectsNotExpired()
+    public async Task Invoke_ShouldNotCallRepository_IfCachedRedirectsNotExpired()
     {
         var httpContext = new DefaultHttpContext();
         httpContext.Request.Path = "/short-test";
 
-        _middleware.Invoke(httpContext, _businessId).Wait();
+        await _middleware.Invoke(httpContext, _businessId);
 
         _mockRepository.Verify(_ => _.GetRedirects(), Times.Never);
     }
 
     [Fact]
-    public void Invoke_ShouldCallRepository_IfCachedRedirectsHaveExpired()
+    public async Task Invoke_ShouldCallRepository_IfCachedRedirectsHaveExpired()
     {
         var next = new Mock<RequestDelegate>();
         var shortItems = new BusinessIdRedirectDictionary { { "unittest", new RedirectDictionary { { "/short-test", "short-redirect-url" } } } };
@@ -48,18 +48,18 @@ public class ShortUrlRedirectsMiddlewareTests
         var httpContext = new DefaultHttpContext();
         httpContext.Request.Path = "/short-test";
 
-        middleware.Invoke(httpContext, _businessId).Wait();
+        await middleware.Invoke(httpContext, _businessId);
 
         _mockRepository.Verify(_ => _.GetRedirects(), Times.Once);
     }
 
     [Fact]
-    public void ItReturns302ForCorrectHttpRedirect_ForShortUrlRedirect()
+    public async Task ItReturns302ForCorrectHttpRedirect_ForShortUrlRedirect()
     {
         var httpContext = new DefaultHttpContext();
         httpContext.Request.Path = "/short-test";
 
-        _middleware.Invoke(httpContext, _businessId).Wait();
+        await _middleware.Invoke(httpContext, _businessId);
 
         httpContext.Response.StatusCode.Should().Be(302);
         httpContext.Response.Headers["Location"][0].Should().Be("short-redirect-url");
@@ -68,43 +68,43 @@ public class ShortUrlRedirectsMiddlewareTests
     }
 
     [Fact]
-    public void ItReturns302ForCorrectHttpRedirectIgnoringCase()
+    public async Task ItReturns302ForCorrectHttpRedirectIgnoringCase()
     {
         var httpContext = new DefaultHttpContext();
         httpContext.Request.Path = "/SHORT-TEST";
 
-        _middleware.Invoke(httpContext, _businessId).Wait();
+        await _middleware.Invoke(httpContext, _businessId);
 
         httpContext.Response.StatusCode.Should().Be(302);
         httpContext.Response.Headers["Location"][0].Should().Be("short-redirect-url");
     }
 
     [Fact]
-    public void ItReturns200ForKeyNotInRedirects()
+    public async Task ItReturns200ForKeyNotInRedirects()
     {
         var httpContext = new DefaultHttpContext();
         httpContext.Request.Path = "/not-in-redirects";
 
-        _middleware.Invoke(httpContext, _businessId).Wait();
+        await _middleware.Invoke(httpContext, _businessId);
 
         httpContext.Response.StatusCode.Should().Be(200);
         httpContext.Response.Headers.Count.Should().Be(0);
     }
 
     [Fact]
-    public void ItReturns200ForRootPath()
+    public async Task ItReturns200ForRootPath()
     {
         var httpContext = new DefaultHttpContext();
         httpContext.Request.Path = "/";
 
-        _middleware.Invoke(httpContext, _businessId).Wait();
+        await _middleware.Invoke(httpContext, _businessId);
 
         httpContext.Response.StatusCode.Should().Be(200);
         httpContext.Response.Headers.Count.Should().Be(0);
     }
 
     [Fact]
-    public void ItShouldReturn200ForBusinessIdNotInRedirects()
+    public async Task ItShouldReturn200ForBusinessIdNotInRedirects()
     {
         var logger = new Mock<ILogger<ShortUrlRedirectsMiddleware>>();
         var next = new Mock<RequestDelegate>();
@@ -119,7 +119,7 @@ public class ShortUrlRedirectsMiddlewareTests
         var httpContext = new DefaultHttpContext();
         httpContext.Request.Path = "/short-test";
 
-        middleware.Invoke(httpContext, businessId).Wait();
+        await middleware.Invoke(httpContext, businessId);
 
         httpContext.Response.StatusCode.Should().Be(200);
         httpContext.Response.Headers.Count.Should().Be(0);

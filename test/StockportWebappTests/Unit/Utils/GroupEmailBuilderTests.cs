@@ -23,7 +23,7 @@ public class GroupEmailBuilderTests
     }
 
     [Fact]
-    public async void ItShouldSendAnEmailAndReturnAStatusCodeOf200()
+    public async Task ItShouldSendAnEmailAndReturnAStatusCodeOf200()
     {
         _emailClient.Setup(e => e.SendEmailToService(It.Is<EmailMessage>(message => message.ToEmail == AppSetting.GetAppSetting("GroupSubmissionEmail").ToString()))).ReturnsAsync(HttpStatusCode.OK);
 
@@ -44,7 +44,7 @@ public class GroupEmailBuilderTests
     }
 
     [Fact]
-    public async void ItShouldLogThatAnEmailWasSent()
+    public async Task ItShouldLogThatAnEmailWasSent()
     {
         var groupSubmission = new GroupSubmission { Email = "test@testing.xyz" };
         await _groupEmailBuilder.SendEmailAddNew(groupSubmission);

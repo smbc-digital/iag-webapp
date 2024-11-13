@@ -19,7 +19,7 @@ public class GroupsServiceTests
     }
 
     [Fact]
-    public async void HandleStaleGroupsShouldCallContentApiRepository()
+    public async Task HandleStaleGroupsShouldCallContentApiRepository()
     {
         // Arrange
         _mockStockportApiRepository.Setup(_ => _.GetResponse<List<Group>>()).ReturnsAsync(new List<Group> { new GroupBuilder().Build() });
@@ -33,7 +33,7 @@ public class GroupsServiceTests
     }
 
     [Fact]
-    public async void IfNoGroupsReturned_HandleStaleGroups_ShouldThrowException()
+    public async Task IfNoGroupsReturned_HandleStaleGroups_ShouldThrowException()
     {
         // Arrange
         _mockStockportApiRepository.Setup(_ => _.GetResponse<List<Group>>(It.IsAny<string>()))
@@ -44,7 +44,7 @@ public class GroupsServiceTests
     }
 
     [Fact]
-    public async void HandleStaleGroups_ShouldEmailStagedGroupsAdministrators()
+    public async Task HandleStaleGroups_ShouldEmailStagedGroupsAdministrators()
     {
         // Arrange
         _mockStockportApiRepository.Setup(_ => _.GetResponse<List<Group>>()).ReturnsAsync(new List<Group>
@@ -65,7 +65,7 @@ public class GroupsServiceTests
     }
 
     [Fact]
-    public async void HandleStaleGroups_ShouldBuildEmailEntities()
+    public async Task HandleStaleGroups_ShouldBuildEmailEntities()
     {
         // Arrange
         _mockStockportApiRepository.Setup(_ => _.GetResponse<List<Group>>()).ReturnsAsync(new List<Group>
@@ -98,7 +98,7 @@ public class GroupsServiceTests
     }
 
     [Fact]
-    public async void HandleStaleGroups_ShouldGetEmailPeriodsFromConfig()
+    public async Task HandleStaleGroups_ShouldGetEmailPeriodsFromConfig()
     {
         // Arrange
         _mockStockportApiRepository.Setup(_ => _.GetResponse<List<Group>>()).ReturnsAsync(new List<Group>
@@ -128,7 +128,7 @@ public class GroupsServiceTests
     }
 
     [Fact]
-    public async void HandleStaleGroups_ShouldThrowExceptionWhenNoPeriodsReturned()
+    public async Task HandleStaleGroups_ShouldThrowExceptionWhenNoPeriodsReturned()
     {
         // Arrange
         _mockStockportApiRepository.Setup(_ => _.GetResponse<List<Group>>()).ReturnsAsync(new List<Group>
@@ -153,7 +153,7 @@ public class GroupsServiceTests
     }
 
     [Fact]
-    public async void HandleStaleGroups_ShouldArchiveGroups_InLastPeriod()
+    public async Task HandleStaleGroups_ShouldArchiveGroups_InLastPeriod()
     {
         // Arrange
         _mockApplicationConfiguration.Setup(_ => _.GetArchiveEmailPeriods()).Returns(new List<ArchiveEmailPeriod>()

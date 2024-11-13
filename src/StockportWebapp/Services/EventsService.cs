@@ -11,28 +11,26 @@ public class EventsService : IEventsService
 {
     private readonly IRepository _eventsRepository;
 
-    public EventsService(IRepository eventsRepository)
-    {
+    public EventsService(IRepository eventsRepository) =>
         _eventsRepository = eventsRepository;
-    }
 
     public async Task<List<Event>> GetEventsByLimit(int limit)
     {
-        var response = await _eventsRepository.GetLatest<EventCalendar>(limit);
+        HttpResponse response = await _eventsRepository.GetLatest<EventCalendar>(limit);
         return response.Content as List<Event>;
     }
 
     public async Task<Event> GetLatestEventsItem()
     {
-        var response = await _eventsRepository.GetLatest<EventCalendar>(1);
-        var eventCalendar = response.Content as EventCalendar;
+        HttpResponse response = await _eventsRepository.GetLatest<EventCalendar>(1);
+        EventCalendar eventCalendar = response.Content as EventCalendar;
         return eventCalendar?.Events?.First();
     }
 
     public async Task<Event> GetLatestFeaturedEventItem()
     {
-        var response = await _eventsRepository.GetLatestOrderByFeatured<EventCalendar>(1);
-        var eventCalendar = response.Content as EventCalendar;
+        HttpResponse response = await _eventsRepository.GetLatestOrderByFeatured<EventCalendar>(1);
+        EventCalendar eventCalendar = response.Content as EventCalendar;
         return eventCalendar?.Events?.FirstOrDefault();
     }
 }
