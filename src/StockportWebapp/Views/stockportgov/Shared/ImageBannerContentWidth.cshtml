@@ -20,10 +20,13 @@
 
                         @if (!string.IsNullOrEmpty(Model.Body))
                         {
-                            <div class="image-banner__content @Model.ImageBannerOverlayTheme">
+                            <div class="image-banner__content @Model.ImageBannerOverlayTheme hide-on-mobile">
                                 <h2 class="image-banner__title">@Model.Title</h2>
                                 @Html.Raw(Model.Body)
                             </div>
+                            <figcaption class="hide-on-desktop hide-on-tablet">
+                                @Model.Title
+                            </figcaption>
                         }
                         else
                         {

@@ -8,9 +8,9 @@
                                 ? HttpUtility.HtmlEncode(Model.Category) 
                                 : HttpUtility.HtmlEncode(category.Name);
 
+    Layout = "../Shared/_Layout2023.cshtml";
     ViewData["Title"] = ViewData["og:title"];
     ViewData["Description"] = Model.Homepage.MetaDescription;
-    Layout = "../Shared/_Layout.cshtml";
 }
 
 <section class="article-hero" style="background-position: 50%; background-size: cover; height: 700px; width: 100%; background-image: url(@Model.Events.First().ImageUrl?q=89&fm=webp);">

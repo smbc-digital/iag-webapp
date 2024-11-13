@@ -10,12 +10,15 @@
                 {
                     <div class="grid-container">
                         <div class="grid-100">
-                        <div class="image-banner__content @Model.ImageBannerOverlayTheme">
+                        <div class="image-banner__content @Model.ImageBannerOverlayTheme hide-on-mobile">
                                 <h2 class="image-banner__title">@Model.Title</h2>
                                 @Html.Raw(Model.Body)
                             </div>
                         </div>
                     </div>
+                    <figcaption class="hide-on-desktop hide-on-tablet">
+                        @Model.Title
+                    </figcaption>
                 }
                 else
                 {
