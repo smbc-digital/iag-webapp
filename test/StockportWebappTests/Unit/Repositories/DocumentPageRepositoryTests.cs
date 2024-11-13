@@ -21,7 +21,8 @@ public class DocumentPageRepositoryTests
     }
 
     [Fact]
-    public async void Get_ShouldReturnHttpResponse_IfNotSuccessful(){
+    public async Task Get_ShouldReturnHttpResponse_IfNotSuccessful()
+    {
         // Arrange
         _httpClient.Setup(_ => _.Get(It.IsAny<string>(), It.IsAny<Dictionary<string, string>>()))
                     .ReturnsAsync(new HttpResponse(404, It.IsAny<string>(), It.IsAny<string>()));
@@ -35,7 +36,7 @@ public class DocumentPageRepositoryTests
     }
 
     [Fact]
-    public async void Get_ShouldReturnHttpResponse_Successful()
+    public async Task Get_ShouldReturnHttpResponse_Successful()
     {
         // Arrange
         DocumentPage documentPage = new()

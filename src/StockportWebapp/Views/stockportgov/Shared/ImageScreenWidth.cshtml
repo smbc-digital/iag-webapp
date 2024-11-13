@@ -3,16 +3,16 @@
 {
     <section class="content-block content-block--screen image-banner" data-cy="image-screen-width">
         <figure>
-            <div class="image-banner__background image-banner--height" style="background-image: url(@Model.Image?fm=webp)">
-            </div>
+            <div class="image-banner__background image-banner--height" style="background-image: url(@Model.Image?fm=webp)"></div>
+            
             @if(!string.IsNullOrEmpty(Model.Body))
             {
                 <figcaption>
-                        <div class="grid-container">
-                            <div class="grid-100">
-                                @Html.Raw(Model.Body)
-                            </div>
+                    <div class="grid-container">
+                        <div class="grid-100">
+                            @Html.Raw(Model.Body)
                         </div>
+                    </div>
                 </figcaption>
             }
         </figure>

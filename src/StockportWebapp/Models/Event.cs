@@ -37,4 +37,5 @@ public class Event
     public string Website { get; set; }
     public string Duration { get; set; }
     public string Languages { get; set; }
+    public List<ProcessedEvents> RelatedEvents { get; set; }
 }
