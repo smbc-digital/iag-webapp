@@ -104,7 +104,8 @@ public class EventsController : Controller
 
         HttpResponse httpHomeResponse = await _repository.Get<EventHomepage>();
 
-        if (!httpHomeResponse.IsSuccessful()) return httpHomeResponse;
+        if (!httpHomeResponse.IsSuccessful())
+            return httpHomeResponse;
 
         EventHomepage eventHomeResponse = httpHomeResponse.Content as EventHomepage;
 
