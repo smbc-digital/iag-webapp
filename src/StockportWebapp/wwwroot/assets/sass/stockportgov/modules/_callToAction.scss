@@ -22,6 +22,7 @@
 
         @media #{$tablet} {
             width: 100%;
+            border-radius: 50px 3px;
         }
 
         @media #{$mobile} {
