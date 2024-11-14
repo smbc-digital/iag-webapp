@@ -19,7 +19,7 @@
                 <div class="article-hero__content event-hero__content event-hero__content--70">
                     <h1 class="article-hero__title event-hero__title">@Model.Title</h1>
                     
-                    @if(Model.Free)
+                    @if(Model.Free is not null && Model.Free is true)
                     {
                         <div class="event-hero-wrapper">
                             <div class="event-hero__fee">
