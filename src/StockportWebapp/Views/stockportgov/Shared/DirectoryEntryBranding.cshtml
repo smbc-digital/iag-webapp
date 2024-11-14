@@ -4,7 +4,7 @@
     var additionalCssClasses = ViewData["AdditionalCssClasses"];
 }
 @if (Model.Any())
-{   <div class="@additionalWrapperCssClasses">
+{   <div class="@additionalWrapperCssClasses directory--border-top">
         <div class="directory__wrapper navcard--white @additionalCssClasses">
             <div class="directory--border-top directory--no-margin">
                 <partial name="LogoArea" model='Model' view-data='new ViewDataDictionary(ViewData) {{"logoAreaTitleStylingBlank", true}, {"logoAreaArticle", false}, {"logoAreaTitle", "In partnership with"}, {"borderTopClass", $"{additionalCssClasses} directory--padding"}}' />
