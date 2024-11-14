@@ -2,10 +2,10 @@
 
 <section id="carousel" aria-labelledby="carouselheading" class="carousel">
     <h3 id="carouselheading" class="visuallyhidden">Recent news</h3>
-    <ul class="carousel-items" role="list">
+    <ul class="carousel-items">
         @foreach (var item in Model)
         {
-            <li class="carousel-item" role="listitem">
+            <li class="carousel-item">
                 <img src="@item.src?q=89&fm-webp" alt="@item.alt">
             </li>
         }
@@ -14,23 +14,30 @@
     <button class="carousel-control prev carousel-control-prev" aria-label="Previous Slide">‹</button>
     <button class="carousel-control next carousel-control-next" aria-label="Next Slide">›</button>
     
-    <ul class="carousel-indicators">
-        @for(int i=0; i<Model.Count; i++)
+    <ul class="carousel-indicators hide-on-mobile">
+        @for(int i=1; i<=Model.Count; i++)
         {
             <li>
-                <button class="current" data-slide="0">
+                <button class="current" data-slide="1">
                 <span class="visuallyhidden">News</span> @i
                 <span class="visuallyhidden">(Current Slide)</span>
             </li>
         }
     </ul>
 
-    @* <div class="carousel-indicators">
-        @for(int i=0; i<Model.Count; i++)
-        {
-            <button aria-label="Go to slide @i"></button>
-        }
-    </div> *@
+    <ul class="carousel-indicators-mob hide-on-tablet hide-on-desktop">
+        <li>
+            <button class="current mob-prev" data-slide="1">
+            <span class="visuallyhidden">News</span> < Previous
+            <span class="visuallyhidden">(Current Slide)</span>
+        </li>
+
+        <li>
+            <button class="current mob-next" data-slide="1">
+            <span class="visuallyhidden">News</span> Next >
+            <span class="visuallyhidden">(Current Slide)</span>
+        </li>
+    </ul>
 
     <div id="carousel-status" class="visuallyhidden" aria-live="polite"></div>
 </section>
@@ -47,7 +54,6 @@
 
             indicators.forEach((indicator, index) => {
                 indicator.classList.toggle("active", index === currentIndex);
-                indicator.setAttribute("aria-selected", index === currentIndex);
             });
 
             status.textContent = `Slide ${currentIndex + 1} of ${carouselItems.length}`;
@@ -59,6 +65,16 @@
         });
 
         document.querySelector(".prev").addEventListener("click", function () {
+            currentIndex = (currentIndex - 1 + carouselItems.length) % carouselItems.length;
+            updateCarousel();
+        });
+
+        document.querySelector(".mob-next").addEventListener("click", function () {
+            currentIndex = (currentIndex + 1) % carouselItems.length;
+            updateCarousel();
+        });
+
+        document.querySelector(".mob-prev").addEventListener("click", function () {
             currentIndex = (currentIndex - 1 + carouselItems.length) % carouselItems.length;
             updateCarousel();
         });

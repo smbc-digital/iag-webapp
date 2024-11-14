@@ -23,6 +23,12 @@
             display: block;
             min-height: 600px;
             position: relative;
+
+            @media #{$mobile} {
+                max-height: 300px;
+                min-height: 250px;
+            }
+
         }
     }
 
@@ -30,13 +36,18 @@
         position: absolute;
         top: 50%;
         transform: translateY(-50%);
-        background-color: rgba(0, 0, 0, 0.5);
+        background-color: rgba(0, 0, 0, 0.8);
         color: #fff;
         border: none;
         font-size: 2rem;
         padding: 0.5rem;
         cursor: pointer;
         z-index: 1;
+        width: 53px;
+        
+        @media #{$mobile} {
+            display: none;
+        }
 
         &-prev {
             left: 10px;
@@ -46,26 +57,50 @@
             right: 10px;
         }
         
+        &:focus {
+            outline: #ef8a16 solid 3px !important;
+        }
     }
 
-    &-indicators {
-        position: absolute;
-        bottom: 10px;
-        left: 50%;
-        transform: translateX(-50%);
+    &-indicators, &-indicators-mob {
+        list-style: none;
         display: flex;
-        gap: 0.5rem;
+        gap: 1rem;
+        flex-direction: row;
+        justify-content: center;
 
-        button {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background-color: rgba(255, 255, 255, 0.5);
-            border: none;
+        li {
+            text-align: center;
+            margin-inline-start: 0;
+            border: black;
+        }
+
+        li button {
+            width: 50px;
+            height: 50px;
             cursor: pointer;
+            border: 2px solid black;
+            background-color: $skrm-blue;
+            font-size: 1.5rem;
+            border-radius: 3px;
 
+            @media #{$mobile} {
+                font-size: 1.3rem;
+                height: 60px;
+                width: 100px;
+            }
+            
             &.active {
-                background-color: #fff;
+                background-color: $skrm-orange;
+            }
+
+            &:hover {
+                background-color: white;
+                color: black;
+            }
+
+            &:focus {
+                outline: #ef8a16 solid 3px !important;
             }
         }
     }
