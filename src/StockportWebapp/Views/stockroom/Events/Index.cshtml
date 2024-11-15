@@ -33,20 +33,32 @@
     <ul class="carousel-items">
         @foreach (var item in Model.HeroCarouselItems)
         {
-            <li class="carousel-item">
-                <h3>@item.Title</h3>
-                <p>@item.Date</p>
-                <p>@item.Teaser</p>
-                <a href="@item.Link">Read more</a>
-                <img src="@item.ImageSrc?q=89&fm=webp" alt="@item.Title">
+            <li class="carousel-item carousel-item__hero" style="background-image: url('@item.ImageSrc?q=89&fm=webp');">
+                <div class="carousel-item__hero--overlay">
+                    <div class="grid-container">
+                        <div class="grid-100">
+                            <article class="carousel-item__article">
+                                <a href="@item.Link" class="h-l carousel-item__title">@item.Title</a>
+                                <p>@item.Date</p>
+                                <p class="carousel-item__teaser--hide-on-mobile">@item.Teaser</p>
+                            </article>
+                        </div>
+                    </div>
+                </div>
             </li>
+
         }
     </ul>
     
-    <button class="carousel-control prev carousel-control-prev" aria-label="Previous Slide">‹</button>
-    <button class="carousel-control next carousel-control-next" aria-label="Next Slide">›</button>
+    <button class="carousel-control carousel-control__hero prev carousel-control-prev carousel-control__hero--prev" aria-label="Previous Slide">
+        <span class="fa-solid fa-chevron-left"></span>
+    </button>
+
+    <button class="carousel-control carousel-control__hero next carousel-control-next" aria-label="Next Slide">
+        <span class="fa-solid fa-chevron-right"></span>
+    </button>
     
-    <ul class="carousel-indicators">
+    <ul class="carousel-indicators hide-on-mobile">
         @for(int i=1; i<=Model.HeroCarouselItems.Count; i++)
         {
             <li>
@@ -132,6 +144,7 @@
         require(['carouselTagParser'],
             function (carouselTagParser) {
                 carouselTagParser.Init();
+                console.log("test")
             }
         );
     });
