@@ -13,7 +13,7 @@
     Layout = "../Shared/_Layout.cshtml";
 }
 
-<section class="article-hero" style="background-position: 50%; background-size: cover; height: 700px; width: 100%; background-image: url(@Model.Events.First().ImageUrl?q=89&fm=webp);">
+@* <section class="article-hero" style="background-position: 50%; background-size: cover; height: 700px; width: 100%; background-image: url(@Model.Events.First().ImageUrl?q=89&fm=webp);">
     <div class="grid-container" style="height:700px; position:relative;">
         <div style="display:inline-block; position:absolute; margin-top:38px; background-color:#ff522a; border-radius:5px; padding:1em;">
             <h1>What's On</h1>
@@ -26,7 +26,41 @@
 
         <h3 class="h-m" style="position:absolute; bottom:20px; background-color:white; border-radius:5px; padding:1em; display:inline-block; margin: 0px; ">Park Run - 01/01/2025 - Get fit with friends</h3>    
     </div>
+</section> *@
+
+<section id="carousel" aria-labelledby="carouselheading" class="carousel">
+    <h2 id="carouselheading" class="visuallyhidden">Image carousel</h2>
+    <ul class="carousel-items">
+        @foreach (var item in Model.HeroCarouselItems)
+        {
+            <li class="carousel-item">
+                <h3>@item.Title</h3>
+                <p>@item.Date</p>
+                <p>@item.Teaser</p>
+                <a href="@item.Link">Read more</a>
+                <img src="@item.ImageSrc?q=89&fm=webp" alt="@item.Title">
+            </li>
+        }
+    </ul>
+    
+    <button class="carousel-control prev carousel-control-prev" aria-label="Previous Slide">‹</button>
+    <button class="carousel-control next carousel-control-next" aria-label="Next Slide">›</button>
+    
+    <ul class="carousel-indicators">
+        @for(int i=1; i<=Model.HeroCarouselItems.Count; i++)
+        {
+            <li>
+                <button class="current" data-slide="1">
+                <span class="visuallyhidden">Image</span> @i
+                @* This will need to be dynamically added using the js *@
+                <span class="visuallyhidden">(Current Slide)</span>
+            </li>
+        }
+    </ul>
+
+    <div id="carousel-status" class="visuallyhidden" aria-live="polite"></div>
 </section>
+
 <div style="background-color:#ff522a;">
     <nav class="grid-container" style="padding:1em;">
         <div class="grid-100">
@@ -92,3 +126,13 @@
         </div>
     </div>
 </section>
+
+<script>
+    require(['/assets/javascript/config-9c49ceec.min.js'], function () {
+        require(['carouselTagParser'],
+            function (carouselTagParser) {
+                carouselTagParser.Init();
+            }
+        );
+    });
+</script>

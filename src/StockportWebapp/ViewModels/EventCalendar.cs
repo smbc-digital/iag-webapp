@@ -25,6 +25,7 @@ public class EventCalendar
     public Pagination Pagination { get; set; }
 
     public EventHomepage Homepage { get; set; }
+    public List<HeroCarouselItem> HeroCarouselItems { get; set; }
 
     public EventCalendar() { }
 
@@ -45,6 +46,19 @@ public class EventCalendar
 
     public void AddEvents(List<Event> events) =>
         Events = events;
+
+    public void AddHeroCarouselItems(List<Event> events)
+    {
+        if (events is not null)
+            HeroCarouselItems = events.Select(evnt => new HeroCarouselItem
+            {
+                Title = evnt.Title,
+                Link = evnt.Slug,
+                Date = evnt.EventDate.ToString("dddd dd MMMM yyyy"),
+                Teaser = evnt.Teaser,
+                ImageSrc = evnt.ImageUrl
+            }).ToList();
+    }
 
     public List<SelectListItem> CategoryOptions()
     {
