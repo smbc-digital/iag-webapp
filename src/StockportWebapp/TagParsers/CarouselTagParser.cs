@@ -1,58 +1,59 @@
-﻿using HtmlAgilityPack;
+﻿namespace StockportWebapp.TagParsers;
 
-namespace StockportWebapp.TagParsers;
-
+// This CarouselTagParser will eventually be replaced for stockportgov + hs by InlineCarouselTagParser
 public class CarouselTagParser : ISimpleTagParser
 {
     private readonly TagReplacer _tagReplacer;
     protected Regex TagRegex => new("{{CAROUSEL:(.*)}}", RegexOptions.Compiled);
-    private readonly IViewRender _viewRenderer;
 
-    public CarouselTagParser(IViewRender viewRenderer)
-    {
-        _viewRenderer = viewRenderer;
-        _tagReplacer = new TagReplacer(GenerateHtml, TagRegex);
-    }
-    
     protected string GenerateHtml(string tagData)
     {
-        tagData = tagData.Replace("{{CAROUSEL:", string.Empty);
-        tagData = tagData.Replace("}}", string.Empty);
+        tagData = tagData.Replace("{{CAROUSEL:", "");
+        tagData = tagData.Replace("}}", "");
 
         string[] tagArray = tagData.Split(',');
 
-        List<(string Src, string Alt)> carouselItems = new();
+        Regex altRegex = new(@"\[([^\]]*)\]");
+        Regex srcRegex = new(@"\(([^\)]*)\)");
 
-        foreach (string item in tagArray)
+        StringBuilder returnCarousel = new("<div class='carousel'>");
+
+        if (tagArray[0] != "")
         {
-            HtmlDocument doc = new();
-            doc.LoadHtml(item);
-
-            // Attempt to extract the src and alt attributes
-            string src = doc.DocumentNode.SelectSingleNode("//img")?.GetAttributeValue("src", string.Empty) ?? string.Empty;
-            string alt = doc.DocumentNode.SelectSingleNode("//img")?.GetAttributeValue("alt", string.Empty) ?? string.Empty;
-
-            if (!string.IsNullOrEmpty(src))
+            foreach (string item in tagArray)
             {
-                carouselItems.Add((src, alt));
-            }
-            else
-            {
-                // Regex fallback for (src) and [alt] syntax
-                Regex srcRegex = new(@"\(([^\)]*)\)");
-                Regex altRegex = new(@"\[([^\]]*)\]");
+                HtmlAgilityPack.HtmlDocument doc = new();
+                doc.LoadHtml(item);
 
-                var srcText = srcRegex.Match(item).Groups[1].Value;
-                var altText = altRegex.Match(item).Groups[1].Value;
+                if (doc.DocumentNode.SelectSingleNode("//img") != null)
+                {
+                    HtmlAgilityPack.HtmlAttribute srcTxt = doc.DocumentNode.SelectSingleNode("//img").Attributes["src"];
+                    HtmlAgilityPack.HtmlAttribute altTxt = doc.DocumentNode.SelectSingleNode("//img").Attributes["alt"];
 
-                if (!string.IsNullOrEmpty(srcText))
-                    carouselItems.Add((srcText, altText));
+                    if (!string.IsNullOrEmpty(srcTxt.Value))
+                        returnCarousel.Append($"<div class=\"carousel-image stockport-carousel\" style=\"background-image:url({srcTxt.Value}?q=89&fm=webp);\" title=\"{altTxt.Value}\"><div class=\"stockport-carousel-text article-carousel-text\"><p class=\"carousel-text\">{altTxt.Value}</p></div></div>");
+                }
+                else
+                {
+                    System.Text.RegularExpressions.Group srcText = srcRegex.Match(item).Groups[1];
+                    System.Text.RegularExpressions.Group altText = altRegex.Match(item).Groups[1];
+                    if (!string.IsNullOrEmpty(srcText.Value))
+                        returnCarousel.Append(
+                            $"<div class=\"carousel-image stockport-carousel\" style=\"background-image:url({srcText});\" title=\"{altText}\"><div class=\"stockport-carousel-text article-carousel-text\"><p class=\"carousel-text\">{altText}</p></div></div>");
+                }
             }
         }
-
-        return _viewRenderer.Render("CarouselTagParserContent", carouselItems);
+        string scriptTag = "<script>\r\nrequire(['/assets/javascript/config-9c49ceec.min.js'],function(){\r\nrequire(['slick', 'carousel'],\r\nfunction(_, carousel){\r\ncarousel.Init();\r\n}\r\n);\r\n});\r\n</script>";
+        return returnCarousel.Append("</div>" + scriptTag).ToString();
     }
 
-    public string Parse(string body, string title = null) =>
-        _tagReplacer.ReplaceAllTags(body);
+    public CarouselTagParser()
+    {
+        _tagReplacer = new TagReplacer(GenerateHtml, TagRegex);
+    }
+
+    public string Parse(string body, string title = null)
+    {
+        return _tagReplacer.ReplaceAllTags(body);
+    }
 }
