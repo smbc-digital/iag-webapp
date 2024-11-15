@@ -1,0 +1,46 @@
+﻿@model List<HeroCarouselItem>
+
+<section id="carousel" aria-labelledby="carouselheading" class="carousel">
+    <h2 id="carouselheading" class="visuallyhidden">Image carousel</h2>
+    <ul class="carousel-items">
+        @foreach (var item in Model)
+        {
+            <li class="carousel-item carousel-item__hero" style="background-image: url('@item.ImageSrc?q=89&fm=webp');">
+                <div class="carousel-item__hero--overlay">
+                    <div class="grid-container">
+                        <div class="grid-100">
+                            <article class="carousel-item__article">
+                                <a href="@item.Link" class="h-l carousel-item__title">@item.Title</a>
+                                <p>@item.Date</p>
+                                <p class="carousel-item__teaser--hide-on-mobile">@item.Teaser</p>
+                            </article>
+                        </div>
+                    </div>
+                </div>
+            </li>
+
+        }
+    </ul>
+
+    <button class="carousel-control carousel-control__hero prev carousel-control-prev carousel-control__hero--prev" aria-label="Previous Slide">
+        <span class="fa-solid fa-chevron-left"></span>
+    </button>
+
+    <button class="carousel-control carousel-control__hero next carousel-control-next" aria-label="Next Slide">
+        <span class="fa-solid fa-chevron-right"></span>
+    </button>
+
+    <ul class="carousel-indicators carousel-indicators__hero hide-on-mobile">
+        @for (int i = 0; i < Model.Count; i++)
+        {
+            <li>
+                <button class data-slide="@i">
+                    <span class="visuallyhidden">Image</span> @(i + 1)
+                    @* This will need to be dynamically added using the js *@
+                    <span id="@i" class="visuallyhidden"></span>
+            </li>
+        }
+    </ul>
+
+    <div id="carousel-status" class="visuallyhidden" aria-live="polite"></div>
+</section>

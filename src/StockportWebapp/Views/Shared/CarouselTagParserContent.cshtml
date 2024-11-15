@@ -15,13 +15,12 @@
     <button class="carousel-control next carousel-control-next" aria-label="Next Slide">›</button>
     
     <ul class="carousel-indicators hide-on-mobile">
-        @for(int i=1; i<=Model.Count; i++)
+        @for(int i=0; i < Model.Count; i++)
         {
             <li>
-                <button class="current" data-slide="1">
-                <span class="visuallyhidden">Image</span> @i
-                @* This will need to be dynamically added using the js *@
-                <span class="visuallyhidden">(Current Slide)</span>
+                <button class data-slide="@i">
+                <span class="visuallyhidden">Image</span> @(i+1)
+                <span id="@i" class="visuallyhidden"></span>
             </li>
         }
     </ul>
@@ -48,9 +47,9 @@
 
 <script>
     require(['/assets/javascript/config-9c49ceec.min.js'], function () {
-        require(['carouselTagParser'],
-            function (carouselTagParser) {
-                carouselTagParser.Init();
+        require(['carousel2024'],
+            function (carousel2024) {
+                carousel2024.Init();
             }
         );
     });

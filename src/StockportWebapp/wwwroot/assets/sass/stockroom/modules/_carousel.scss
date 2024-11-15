@@ -13,7 +13,7 @@
         min-width: 100%;
         box-sizing: border-box;
         margin: 0;
-    
+
         img, &__hero {
             max-height: 400px;
             background-position: 50%;
@@ -48,7 +48,7 @@
             @media #{$non-mobile} {
                 width: 70%;
             }
-            
+
             p:first-of-type {
                 margin-block: 1rem;
             }
@@ -92,7 +92,7 @@
         cursor: pointer;
         z-index: 1;
         width: 53px;
-        
+
         @media #{$mobile} {
             display: none;
         }
@@ -100,21 +100,21 @@
         &-prev {
             left: 10px;
         }
-        
+
         &-next {
             right: 10px;
         }
-        
+
         &:focus {
             outline: #ef8a16 solid 3px !important;
         }
 
         &__hero {
             top: 35px;
-            
+
             &--prev {
                 left: unset;
-                right: 73px;
+                right: 75px;
             }
 
             @media #{$mobile} {
@@ -126,7 +126,7 @@
     &-indicators, &-indicators-mob {
         list-style: none;
         display: flex;
-        gap: 1rem;
+        gap: 0.75rem;
         flex-direction: row;
         justify-content: center;
 
@@ -150,8 +150,8 @@
                 height: 60px;
                 width: 100px;
             }
-            
-            &.active {
+
+            &.current {
                 background-color: $skrm-orange;
             }
 
@@ -163,6 +163,12 @@
             &:focus {
                 outline: #ef8a16 solid 3px !important;
             }
+        }
+
+        &__hero {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
         }
     }
 }

@@ -11,7 +11,13 @@ define(function () {
                     document.querySelector(".carousel-items").style.transform = `translateX(-${currentIndex * 100}%)`;
 
                     indicators.forEach((indicator, index) => {
-                        indicator.classList.toggle("active", index === currentIndex);
+                        indicator.classList.toggle("current", index === currentIndex);
+                        if (index === currentIndex) {
+                            document.getElementById(index).innerHTML = "Current slide"
+                        }
+                        else {
+                            document.getElementById(index).innerHTML = ""
+                        }
                     });
 
                     status.textContent = `Slide ${currentIndex + 1} of ${carouselItems.length}`;
@@ -27,15 +33,17 @@ define(function () {
                     updateCarousel();
                 });
 
-                document.querySelector(".mob-next").addEventListener("click", function () {
-                    currentIndex = (currentIndex + 1) % carouselItems.length;
-                    updateCarousel();
-                });
+                if (document.querySelector(".mob-next") != null) {
+                    document.querySelector(".mob-next").addEventListener("click", function () {
+                        currentIndex = (currentIndex + 1) % carouselItems.length;
+                        updateCarousel();
+                    });
 
-                document.querySelector(".mob-prev").addEventListener("click", function () {
-                    currentIndex = (currentIndex - 1 + carouselItems.length) % carouselItems.length;
-                    updateCarousel();
-                });
+                    document.querySelector(".mob-prev").addEventListener("click", function () {
+                        currentIndex = (currentIndex - 1 + carouselItems.length) % carouselItems.length;
+                        updateCarousel();
+                    });
+                }
 
                 indicators.forEach((indicator, index) => {
                     indicator.addEventListener("click", function () {

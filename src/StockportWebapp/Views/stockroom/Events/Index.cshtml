@@ -13,65 +13,7 @@
     Layout = "../Shared/_Layout.cshtml";
 }
 
-@* <section class="article-hero" style="background-position: 50%; background-size: cover; height: 700px; width: 100%; background-image: url(@Model.Events.First().ImageUrl?q=89&fm=webp);">
-    <div class="grid-container" style="height:700px; position:relative;">
-        <div style="display:inline-block; position:absolute; margin-top:38px; background-color:#ff522a; border-radius:5px; padding:1em;">
-            <h1>What's On</h1>
-            <h2>
-                A Guide to what's <br />
-                happening <br />
-                at stockroom
-            </h2>
-        </div>
-
-        <h3 class="h-m" style="position:absolute; bottom:20px; background-color:white; border-radius:5px; padding:1em; display:inline-block; margin: 0px; ">Park Run - 01/01/2025 - Get fit with friends</h3>    
-    </div>
-</section> *@
-
-<section id="carousel" aria-labelledby="carouselheading" class="carousel">
-    <h2 id="carouselheading" class="visuallyhidden">Image carousel</h2>
-    <ul class="carousel-items">
-        @foreach (var item in Model.HeroCarouselItems)
-        {
-            <li class="carousel-item carousel-item__hero" style="background-image: url('@item.ImageSrc?q=89&fm=webp');">
-                <div class="carousel-item__hero--overlay">
-                    <div class="grid-container">
-                        <div class="grid-100">
-                            <article class="carousel-item__article">
-                                <a href="@item.Link" class="h-l carousel-item__title">@item.Title</a>
-                                <p>@item.Date</p>
-                                <p class="carousel-item__teaser--hide-on-mobile">@item.Teaser</p>
-                            </article>
-                        </div>
-                    </div>
-                </div>
-            </li>
-
-        }
-    </ul>
-    
-    <button class="carousel-control carousel-control__hero prev carousel-control-prev carousel-control__hero--prev" aria-label="Previous Slide">
-        <span class="fa-solid fa-chevron-left"></span>
-    </button>
-
-    <button class="carousel-control carousel-control__hero next carousel-control-next" aria-label="Next Slide">
-        <span class="fa-solid fa-chevron-right"></span>
-    </button>
-    
-    <ul class="carousel-indicators hide-on-mobile">
-        @for(int i=1; i<=Model.HeroCarouselItems.Count; i++)
-        {
-            <li>
-                <button class="current" data-slide="1">
-                <span class="visuallyhidden">Image</span> @i
-                @* This will need to be dynamically added using the js *@
-                <span class="visuallyhidden">(Current Slide)</span>
-            </li>
-        }
-    </ul>
-
-    <div id="carousel-status" class="visuallyhidden" aria-live="polite"></div>
-</section>
+<partial name="HeroCarousel" model="@Model.HeroCarouselItems" />
 
 <div style="background-color:#ff522a;">
     <nav class="grid-container" style="padding:1em;">
@@ -141,10 +83,9 @@
 
 <script>
     require(['/assets/javascript/config-9c49ceec.min.js'], function () {
-        require(['carouselTagParser'],
-            function (carouselTagParser) {
-                carouselTagParser.Init();
-                console.log("test")
+        require(['carousel2024'],
+            function (carousel2024) {
+                carousel2024.Init();
             }
         );
     });
