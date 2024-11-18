@@ -20,7 +20,7 @@
 
                         @if (!string.IsNullOrEmpty(Model.Body))
                         {
-                            <div class="image-banner__content @Model.ImageBannerOverlayTheme">
+                            <div class="image-banner__content hide-on-mobile @Model.ImageBannerOverlayTheme">
                                 <h2 class="image-banner__title">@Model.Title</h2>
                                 @Html.Raw(Model.Body)
                             </div>

@@ -1,10 +1,12 @@
 @model ContentBlock
 @if (Model is not null && !string.IsNullOrEmpty(Model.Image))
 {
+    bool hasBody = !string.IsNullOrEmpty(Model.Body);
+
     <section class="content-block content-block--margin image-banner image-banner-content-width" data-cy="image-content-width">
         <div class="grid-container">
             <div class="grid-100">
-                <figure>
+                <figure aria-label="@(hasBody ? $"{Model.Title} image" : string.Empty)">
                     <img class="image-banner__background image-banner--height"
                         src="@Model.Image?w=1240&q=89"
                         srcset="@Model.Image?w=720&q=89&fm=webp 720w,
@@ -16,7 +18,7 @@
                         loading="lazy"
                         alt="">
 
-                        @if(!string.IsNullOrEmpty(Model.Body))
+                        @if(hasBody)
                         {
                             <figcaption>@Html.Raw(Model.Body)</figcaption>
                         }
