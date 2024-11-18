@@ -28,7 +28,7 @@ public class UrlGeneratorSimple : IUrlGeneratorSimple
         {typeof(List<AtoZ>), "atoz/"},
         {typeof(Footer), "footer"},
         {typeof(Event), "events"},
-        {typeof(EventCalendar), "events"},
+        {typeof(EventCalendarViewModel), "events"},
         {typeof(EventHomepage), "eventhomepage"},
         {typeof(GroupHomepage), "grouphomepage"},
         {typeof(EventResponse), "events"},

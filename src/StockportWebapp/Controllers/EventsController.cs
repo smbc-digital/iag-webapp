@@ -42,7 +42,7 @@ public class EventsController : Controller
     }
 
     [Route("/events")]
-    public async Task<IActionResult> Index(EventCalendar eventsCalendar, [FromQuery] int Page, [FromQuery] int pageSize)
+    public async Task<IActionResult> Index(EventCalendarViewModel eventsCalendar, [FromQuery] int Page, [FromQuery] int pageSize)
     {
         if (ModelState["DateTo"] is not null && ModelState["DateTo"].Errors.Count > 0)
             ModelState["DateTo"].Errors.Clear();
@@ -141,7 +141,7 @@ public class EventsController : Controller
         return View("Index", viewModel);
     }
 
-    private void DoPagination(EventCalendar model, int currentPageNumber, EventResponse eventResponse, int pageSize)
+    private void DoPagination(EventCalendarViewModel model, int currentPageNumber, EventResponse eventResponse, int pageSize)
     {
         if (eventResponse is not null && eventResponse.Events.Any())
         {

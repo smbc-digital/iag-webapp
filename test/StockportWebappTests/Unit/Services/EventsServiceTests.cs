@@ -20,7 +20,7 @@ public class EventsServiceTests
         };
 
         _mockEventsRepository
-            .Setup(repo => repo.GetLatest<EventCalendar>(5))
+            .Setup(repo => repo.GetLatest<EventCalendarViewModel>(5))
             .ReturnsAsync(new HttpResponse(200, expectedEvents, null));
 
         // Act
@@ -36,7 +36,7 @@ public class EventsServiceTests
         // Arrange
         EventResponse eventCalendar = new(new List<Event>(), new List<string>());
 
-        _mockEventsRepository.Setup(repo => repo.GetLatest<EventCalendar>(1))
+        _mockEventsRepository.Setup(repo => repo.GetLatest<EventCalendarViewModel>(1))
             .ReturnsAsync(new HttpResponse(200, eventCalendar, null));
 
         // Act
@@ -50,10 +50,10 @@ public class EventsServiceTests
     public async Task GetLatestFeaturedEventItem_ShouldReturnNull_WhenNoFeaturedEventsExist()
     {
         // Arrange
-        EventCalendar eventCalendar = new(new List<Event>(), new List<string>());
+        EventCalendarViewModel eventCalendar = new(new List<Event>(), new List<string>());
 
         _mockEventsRepository
-            .Setup(repo => repo.GetLatestOrderByFeatured<EventCalendar>(1))
+            .Setup(repo => repo.GetLatestOrderByFeatured<EventCalendarViewModel>(1))
             .ReturnsAsync(new HttpResponse(200, eventCalendar, null));
 
         // Act

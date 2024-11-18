@@ -1,6 +1,6 @@
 ﻿namespace StockportWebapp.ViewModels;
 
-public class EventCalendar
+public class EventCalendarViewModel
 {
     [Display(Name = "Start date")]
     [DataType(DataType.Date)]
@@ -15,8 +15,8 @@ public class EventCalendar
 
     public string DateRange { get; set; }
 
-    public List<Event> Events { get; private set; } = new List<Event>();
-    public List<string> Categories { get; private set; } = new List<string>();
+    public List<Event> Events { get; private set; } = new();
+    public List<string> Categories { get; private set; } = new();
     public string Tag { get; set; }
     public string[] Price { get; set; }
     public string HomepageTags { get; set; }
@@ -25,9 +25,9 @@ public class EventCalendar
     public Pagination Pagination { get; set; }
 
     public EventHomepage Homepage { get; set; }
-    public List<HeroCarouselItem> HeroCarouselItems { get; set; }
+    public List<HeroCarouselItem> HeroCarouselItems { get; set; } = new();
 
-    public EventCalendar() { }
+    public EventCalendarViewModel() { }
 
     public bool FromSearch { get; set; }
     public string KeepTag { get; set; }
@@ -35,7 +35,7 @@ public class EventCalendar
     public double Longitude { get; set; }
     public double Latitude { get; set; }
 
-    public EventCalendar(List<Event> events, List<string> categories)
+    public EventCalendarViewModel(List<Event> events, List<string> categories)
     {
         Events = events;
         Categories = categories;

@@ -1,5 +1,5 @@
 ﻿@using System.Web;
-@model EventCalendar
+@model EventCalendarViewModel
 @{
     var closeThis = (Model.FromSearch) ? "close-this-section" : string.Empty;
     var hasSearched = (Model.FromSearch) || !string.IsNullOrWhiteSpace(Model.Tag);

@@ -159,8 +159,8 @@ public class EventsControllerTest
     public async Task Index_ShouldReturnEventsCalendar()
     {
         // Act
-        ViewResult actionResponse = await _controller.Index(new EventCalendar() { FromSearch = true }, 1, 12) as ViewResult;
-        EventCalendar events = actionResponse.ViewData.Model as EventCalendar;
+        ViewResult actionResponse = await _controller.Index(new EventCalendarViewModel() { FromSearch = true }, 1, 12) as ViewResult;
+        EventCalendarViewModel events = actionResponse.ViewData.Model as EventCalendarViewModel;
 
         // Assert
         Assert.Single(events.Events);
@@ -171,7 +171,7 @@ public class EventsControllerTest
     public async Task Index_ShouldReturnEventsCalendarWhenQueryStringIsPassed()
     {
         // Act
-        ViewResult actionResponse = await _controller.Index(new EventCalendar
+        ViewResult actionResponse = await _controller.Index(new EventCalendarViewModel
         {
             FromSearch = true,
             Category = "test",
@@ -184,7 +184,7 @@ public class EventsControllerTest
         },
         1, 12) as ViewResult;
 
-        EventCalendar events = actionResponse.ViewData.Model as EventCalendar;
+        EventCalendarViewModel events = actionResponse.ViewData.Model as EventCalendarViewModel;
 
         // Assert
         Assert.Single(events.Events);
@@ -264,13 +264,13 @@ public class EventsControllerTest
     {
         // Arrange
         EventsController controller = SetUpController(totalNumItems);
-        EventCalendar model = new() { FromSearch = true };
+        EventCalendarViewModel model = new() { FromSearch = true };
 
         // Act
         ViewResult actionResponse = await controller.Index(model, requestedPageNumber, MaxNumberOfItemsPerPage) as ViewResult; ;
 
         // Assert
-        EventCalendar viewModel = actionResponse.ViewData.Model as EventCalendar;
+        EventCalendarViewModel viewModel = actionResponse.ViewData.Model as EventCalendarViewModel;
         Assert.Equal(expectedNumItemsOnPage, viewModel.Events.Count);
         Assert.Equal(expectedNumPages, model.Pagination.TotalPages);
     }
@@ -285,7 +285,7 @@ public class EventsControllerTest
     {
         // Arrange
         EventsController controller = SetUpController(numItems);
-        EventCalendar model = new() { FromSearch = true };
+        EventCalendarViewModel model = new() { FromSearch = true };
 
         // Act
         await controller.Index(model, specifiedPageNumber, MaxNumberOfItemsPerPage);
@@ -299,7 +299,7 @@ public class EventsControllerTest
     {
         // Arrange
         EventsController controller = SetUpController(0);
-        EventCalendar model = new() { FromSearch = true };
+        EventCalendarViewModel model = new() { FromSearch = true };
 
         // Act
         await controller.Index(model, 0, 12);
@@ -312,7 +312,7 @@ public class EventsControllerTest
     public async Task Index_ClearsModelStateErrors_ForDateToAndDateFrom()
     {
         // Arrange
-        var eventCalendar = new EventCalendar();
+        var eventCalendar = new EventCalendarViewModel();
         _controller.ModelState.AddModelError("DateTo", "DateTo is invalid");
         _controller.ModelState.AddModelError("DateFrom", "DateFrom is invalid");
 
@@ -328,7 +328,7 @@ public class EventsControllerTest
     public void Index_DoesNotThrow_WhenDateToOrDateFromModelStateKeyIsMissing()
     {
         // Act
-        Exception exception = Record.Exception(() => _controller.Index(new EventCalendar(), 1, 1).Wait());
+        Exception exception = Record.Exception(() => _controller.Index(new EventCalendarViewModel(), 1, 1).Wait());
 
         // Assert
         Assert.Null(exception);
@@ -338,7 +338,7 @@ public class EventsControllerTest
     public async Task Index_AssignsTagToKeepTag_WhenTagIsNotEmpty()
     {
         // Arrange
-        EventCalendar eventCalendar = new() { Tag = "music" };
+        EventCalendarViewModel eventCalendar = new() { Tag = "music" };
 
         // Act
         await _controller.Index(eventCalendar, 1, 1);
@@ -351,7 +351,7 @@ public class EventsControllerTest
     public async Task Index_DoesNotAssignKeepTag_WhenTagIsEmpty()
     {
         // Arrange
-        EventCalendar eventCalendar = new() { Tag = string.Empty };
+        EventCalendarViewModel eventCalendar = new() { Tag = string.Empty };
 
         // Act
         await _controller.Index(eventCalendar, 1, 1);
@@ -365,7 +365,7 @@ public class EventsControllerTest
     {
         // Arrange
         EventsController controller = SetUpController(10);
-        EventCalendar model = new() { FromSearch = true };
+        EventCalendarViewModel model = new() { FromSearch = true };
 
         // Act
         await controller.Index(model, 0, 12);

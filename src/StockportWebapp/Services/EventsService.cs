@@ -16,21 +16,21 @@ public class EventsService : IEventsService
 
     public async Task<List<Event>> GetEventsByLimit(int limit)
     {
-        HttpResponse response = await _eventsRepository.GetLatest<EventCalendar>(limit);
+        HttpResponse response = await _eventsRepository.GetLatest<EventCalendarViewModel>(limit);
         return response.Content as List<Event>;
     }
 
     public async Task<Event> GetLatestEventsItem()
     {
-        HttpResponse response = await _eventsRepository.GetLatest<EventCalendar>(1);
-        EventCalendar eventCalendar = response.Content as EventCalendar;
+        HttpResponse response = await _eventsRepository.GetLatest<EventCalendarViewModel>(1);
+        EventCalendarViewModel eventCalendar = response.Content as EventCalendarViewModel;
         return eventCalendar?.Events?.First();
     }
 
     public async Task<Event> GetLatestFeaturedEventItem()
     {
-        HttpResponse response = await _eventsRepository.GetLatestOrderByFeatured<EventCalendar>(1);
-        EventCalendar eventCalendar = response.Content as EventCalendar;
+        HttpResponse response = await _eventsRepository.GetLatestOrderByFeatured<EventCalendarViewModel>(1);
+        EventCalendarViewModel eventCalendar = response.Content as EventCalendarViewModel;
         return eventCalendar?.Events?.FirstOrDefault();
     }
 }

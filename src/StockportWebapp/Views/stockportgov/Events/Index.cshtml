@@ -1,5 +1,5 @@
 ﻿@using System.Web
-@model EventCalendar
+@model EventCalendarViewModel
 @{
     var category = Model.Homepage.Categories.Where(c => c.Slug == Model.Category).FirstOrDefault();
     ViewData["og:title"] = string.IsNullOrWhiteSpace(Model.Category) 

@@ -30,7 +30,7 @@ public class UrlGenerator : IStubToUrlConverter
         {typeof(SiteHeader), "header"},
         {typeof(Footer), "footer"},
         {typeof(Event), "events/"},
-        {typeof(EventCalendar), "events"},
+        {typeof(EventCalendarViewModel), "events"},
         {typeof(List<Event>), "events"},
         {typeof(EventHomepage), "eventhomepage"},
         {typeof(GroupHomepage), "grouphomepage"},

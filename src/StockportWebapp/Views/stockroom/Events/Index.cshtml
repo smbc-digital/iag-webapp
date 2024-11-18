@@ -1,5 +1,5 @@
 ﻿@using System.Web
-@model EventCalendar
+@model EventCalendarViewModel
 @{
     var category = Model.Homepage.Categories.Where(c => c.Slug == Model.Category).FirstOrDefault();
     ViewData["og:title"] = string.IsNullOrWhiteSpace(Model.Category) 
@@ -13,7 +13,10 @@
     Layout = "../Shared/_Layout.cshtml";
 }
 
-<partial name="HeroCarousel" model="@Model.HeroCarouselItems" />
+@if (Model.HeroCarouselItems is not null && Model.HeroCarouselItems.Any())
+{
+    <partial name="HeroCarousel" model="@Model.HeroCarouselItems" />
+}
 
 <div style="background-color:#ff522a;">
     <nav class="grid-container" style="padding:1em;">
