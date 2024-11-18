@@ -18,7 +18,6 @@
                     </div>
                 </div>
             </li>
-
         }
     </ul>
 
@@ -35,12 +34,21 @@
         {
             <li>
                 <button class data-slide="@i">
-                    <span class="visuallyhidden">Image</span> @(i + 1)
-                    @* This will need to be dynamically added using the js *@
-                    <span id="@i" class="visuallyhidden"></span>
+                <span class="visuallyhidden">Image</span> @(i + 1)
+                <span id="@i" class="visuallyhidden"></span>
             </li>
         }
     </ul>
 
     <div id="carousel-status" class="visuallyhidden" aria-live="polite"></div>
 </section>
+
+<script>
+    require(['/assets/javascript/config-9c49ceec.min.js'], function () {
+        require(['carousel2024'],
+            function (carousel2024) {
+                carousel2024.Init();
+            }
+        );
+    });
+</script>

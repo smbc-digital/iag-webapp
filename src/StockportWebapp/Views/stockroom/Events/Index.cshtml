@@ -1,4 +1,4 @@
-﻿@    using System.Web
+﻿@using System.Web
 @model EventCalendar
 @{
     var category = Model.Homepage.Categories.Where(c => c.Slug == Model.Category).FirstOrDefault();
@@ -83,13 +83,3 @@
         </div>
     </div>
 </section>
-
-<script>
-    require(['/assets/javascript/config-9c49ceec.min.js'], function () {
-        require(['carousel2024'],
-            function (carousel2024) {
-                carousel2024.Init();
-            }
-        );
-    });
-</script>
