@@ -6,7 +6,7 @@
     <section class="content-block content-block--margin image-banner image-banner-content-width" data-cy="image-content-width">
         <div class="grid-container">
             <div class="grid-100">
-                <figure aria-label="@(hasBody ? $"{Model.Title} image" : string.Empty)">
+                <figure>
                     <img class="image-banner__background image-banner--height"
                         src="@Model.Image?w=1240&q=89"
                         srcset="@Model.Image?w=720&q=89&fm=webp 720w,
@@ -16,6 +16,7 @@
                                 ((min-width: 768px) and (max-width: 1023px)) 937px,
                                 (min-width: 1024px) 1240px"
                         loading="lazy"
+                        aria-label="@(hasBody ? $"{Model.Title} image" : string.Empty)"
                         alt="">
 
                         @if(hasBody)
