@@ -4,7 +4,7 @@
     var category = Model.Homepage.Categories.Where(c => c.Slug == Model.Category).FirstOrDefault();
     ViewData["og:title"] = string.IsNullOrWhiteSpace(Model.Category) 
                             ? "What's on in Stockport" 
-                            : category == null 
+                            : category is null 
                                 ? HttpUtility.HtmlEncode(Model.Category) 
                                 : HttpUtility.HtmlEncode(category.Name);
 
@@ -18,13 +18,19 @@
     <partial name="HeroCarousel" model="@Model.HeroCarouselItems" />
 }
 
-<div style="background-color:#ff522a;">
-    <nav class="grid-container" style="padding:1em;">
-        <div class="grid-100">
-            Art / Children / Culture / Food and Drink / History / Learning / Literature / Social / Music 
-        </div>
-    </nav> 
-</div>
+<nav class="grid-container">
+    <div class="grid-100">
+        <ul class="event-homepage__categories">
+            @foreach (var eventCategory in Model.Homepage.Categories)
+            {
+                <li class="event-homepage__categories-item">
+                    <a href="events?category=@eventCategory.Slug">@eventCategory.Name</a>
+                </li>
+            }
+        </ul> 
+    </div>
+</nav>
+
 
 <section class="grid-container" style="margin-top:2em;">
     <div class="grid-33">
