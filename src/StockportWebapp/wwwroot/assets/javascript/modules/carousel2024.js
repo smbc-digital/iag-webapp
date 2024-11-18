@@ -17,7 +17,7 @@ define(function () {
                         document.getElementsByClassName("carousel-item__title")[index]?.setAttribute("tabindex", index !== currentIndex ? "-1" : "0")
 
                         if(index === currentIndex)
-                            document.getElementsByClassName("carousel-item__title")[index]?.focus()
+                            slide.focus()
                     });
 
                     if (indicators.length) {

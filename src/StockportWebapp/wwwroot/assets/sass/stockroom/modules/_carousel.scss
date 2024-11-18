@@ -63,11 +63,7 @@
             text-underline-offset: .1em;
 
             &:hover {
-                text-decoration-thickness: 8px;
-
-                @media #{$mobile} {
-                    text-decoration-thickness: 5px;
-                }
+                text-decoration-thickness: 5px;
             }
         }
 
