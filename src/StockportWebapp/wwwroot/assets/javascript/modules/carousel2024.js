@@ -14,6 +14,10 @@ define(function () {
                     
                     carouselItems.forEach((slide, index) => {
                         slide.setAttribute("aria-hidden", index !== currentIndex ? "true" : "false");
+                        document.getElementsByClassName("carousel-item__title")[index]?.setAttribute("tabindex", index !== currentIndex ? "-1" : "0")
+
+                        if(index === currentIndex)
+                            document.getElementsByClassName("carousel-item__title")[index]?.focus()
                     });
 
                     if (indicators.length) {
