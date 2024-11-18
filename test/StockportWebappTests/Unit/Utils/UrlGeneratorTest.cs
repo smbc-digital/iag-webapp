@@ -98,7 +98,7 @@ public class UrlGeneratorTest
     [Fact]
     public void ItReturnsUrlForEventCalendar()
     {
-        var url = _urlGenerator.UrlFor<EventCalendarViewModel>();
+        var url = _urlGenerator.UrlFor<EventCalendar>();
 
         url.Should().Be("http://localhost.com/test-id/events");
     }
@@ -114,7 +114,7 @@ public class UrlGeneratorTest
     [Fact]
     public void ItReturnsUrlForLatestEventRequest()
     {
-        var url = _urlGenerator.UrlForLimit<EventCalendarViewModel>(2);
+        var url = _urlGenerator.UrlForLimit<EventCalendar>(2);
 
         url.Should().Be("http://localhost.com/test-id/events/latest/2");
     }

@@ -14,7 +14,7 @@ public class SitemapControllerTests
         new List<string>(),
         new List<DateTime>());
 
-    private readonly EventCalendarViewModel _eventCalendar = new(new List<Event>
+    private readonly EventCalendar _eventCalendar = new(new List<Event>
     {
         new()
         {
@@ -49,7 +49,7 @@ public class SitemapControllerTests
             .ReturnsAsync(new HttpResponse(200, _newsroom, ""));
 
         _mockRepository
-            .Setup(repository => repository.Get<EventCalendarViewModel>("", It.IsAny<List<Query>>()))
+            .Setup(repository => repository.Get<EventCalendar>("", It.IsAny<List<Query>>()))
             .ReturnsAsync(new HttpResponse(200, _eventCalendar, ""));
 
         _mockRepository

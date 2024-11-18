@@ -1,11 +1,11 @@
-﻿namespace StockportWebappTests_Unit.Unit.ViewModels;
+﻿namespace StockportWebappTests_Unit.Unit.Models;
 
-public class EventsCalendarViewModelTest
+public class EventCalendarTests
 {
     [Fact]
     public void DoesCategoryExist_ShouldReturnTrueForExistingCategory()
     {
-        EventCalendarViewModel eventCalendar = new(new List<Event>(), new List<string> { "test", "test2" });
+        EventCalendar eventCalendar = new(new List<Event>(), new List<string> { "test", "test2" });
 
         Assert.True(eventCalendar.DoesCategoryExist("test"));
     }
@@ -13,7 +13,7 @@ public class EventsCalendarViewModelTest
     [Fact]
     public void DoesCategoryExist_ShouldReturnFalseForNonExistingCategory()
     {
-        EventCalendarViewModel eventCalendar = new(new List<Event>(), new List<string> { "test1", "test2" });
+        EventCalendar eventCalendar = new(new List<Event>(), new List<string> { "test1", "test2" });
 
         Assert.False(eventCalendar.DoesCategoryExist("test"));
     }
@@ -21,7 +21,7 @@ public class EventsCalendarViewModelTest
     [Fact]
     public void GetCustomEventFilterName_ShouldReturnDateRangeForCustomDate()
     {
-        EventCalendarViewModel eventCalendar = new()
+        EventCalendar eventCalendar = new()
         {
             DateRange = "customdate",
             DateFrom = new DateTime(2016, 01, 01),
@@ -36,7 +36,7 @@ public class EventsCalendarViewModelTest
     [Fact]
     public void GetCustomEventFilterName_ShouldReturnEmptyStringForBlankDates()
     {
-        EventCalendarViewModel eventCalendar = new();
+        EventCalendar eventCalendar = new();
 
         string result = eventCalendar.GetCustomEventFilterName();
 
@@ -46,7 +46,7 @@ public class EventsCalendarViewModelTest
     [Fact]
     public void AddHeroCarouselItems_ShouldAddItemsIfNotNull()
     {
-        EventCalendarViewModel eventCalendar = new();
+        EventCalendar eventCalendar = new();
         Event eventToAdd = new()
         {
             Title = "Title",
@@ -64,7 +64,7 @@ public class EventsCalendarViewModelTest
     [Fact]
     public void AddHeroCarouselItems_ShouldNotAddItemsIfNull()
     {
-        EventCalendarViewModel eventCalendar = new();
+        EventCalendar eventCalendar = new();
 
         eventCalendar.AddHeroCarouselItems(null);
 
@@ -74,7 +74,7 @@ public class EventsCalendarViewModelTest
     [Fact]
     public void AddHeroCarouselItems_ShouldNotAddItemsIfEventsEmpty()
     {
-        EventCalendarViewModel eventCalendar = new();
+        EventCalendar eventCalendar = new();
 
         eventCalendar.AddHeroCarouselItems(new List<Event>());
 

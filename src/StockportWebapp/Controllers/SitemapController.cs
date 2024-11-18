@@ -58,8 +58,8 @@ public class SitemapController : Controller
                 queriesEvent.Add(new Query("DateFrom", DateTime.MinValue.ToString("yyyy-MM-dd")));
                 queriesEvent.Add(new Query("DateTo", DateTime.MaxValue.ToString("yyyy-MM-dd")));
 
-                HttpResponse responseEvent = await _repository.Get<EventCalendarViewModel>(queries: queriesEvent);
-                EventCalendarViewModel events = responseEvent.Content as EventCalendarViewModel;
+                HttpResponse responseEvent = await _repository.Get<EventCalendar>(queries: queriesEvent);
+                EventCalendar events = responseEvent.Content as EventCalendar;
                 List<SitemapGoogle> listOfSitemapsEvents =
                     events.Events.Select(e => e.Slug).Distinct().Select(
                         slug =>
