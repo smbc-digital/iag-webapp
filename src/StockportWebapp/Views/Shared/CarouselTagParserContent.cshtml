@@ -18,7 +18,7 @@
         @for(int i=0; i < Model.Count; i++)
         {
             <li>
-                <button class data-slide="@i">
+                <button class data-slide="@i" aria-label="Go to slide @(i + 1 )">
                 <span class="visuallyhidden">Image</span> @(i+1)
                 <span id="@i" class="visuallyhidden"></span>
             </li>
@@ -28,14 +28,16 @@
     <ul class="carousel-indicators-mob hide-on-tablet hide-on-desktop">
         <li>
             <button class="current mob-prev" data-slide="1">
-            <span class="visuallyhidden">Image</span> < Previous
-            <span class="visuallyhidden">(Current Slide)</span>
+                <span class="visuallyhidden">Image</span> < Previous
+                <span class="visuallyhidden"></span>
+            </button>
         </li>
 
         <li>
             <button class="current mob-next" data-slide="1">
-            <span class="visuallyhidden">Image</span> Next >
-            <span class="visuallyhidden">(Current Slide)</span>
+                <span class="visuallyhidden">Image</span> Next >
+                <span class="visuallyhidden"></span>
+            </button>
         </li>
     </ul>
 

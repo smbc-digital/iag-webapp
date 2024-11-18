@@ -6,22 +6,46 @@ define(function () {
                 const indicators = document.querySelectorAll(".carousel-indicators button");
                 const status = document.getElementById("carousel-status");
                 let currentIndex = 0;
+                    
+                status.setAttribute("aria-live", "off");
 
                 function updateCarousel() {
                     document.querySelector(".carousel-items").style.transform = `translateX(-${currentIndex * 100}%)`;
-
-                    indicators.forEach((indicator, index) => {
-                        indicator.classList.toggle("current", index === currentIndex);
-                        if (index === currentIndex) {
-                            document.getElementById(index).innerHTML = "Current slide"
-                        }
-                        else {
-                            document.getElementById(index).innerHTML = ""
-                        }
+                    
+                    carouselItems.forEach((slide, index) => {
+                        slide.setAttribute("aria-hidden", index !== currentIndex ? "true" : "false");
                     });
 
-                    status.textContent = `Slide ${currentIndex + 1} of ${carouselItems.length}`;
+                    if (indicators.length) {
+                        indicators.forEach((indicator, index) => {
+                            indicator.classList.toggle("current", index === currentIndex);
+                            if (index === currentIndex) {
+                                document.getElementById(index).innerHTML = "Current slide"
+                            }
+                            else {
+                                document.getElementById(index).innerHTML = ""
+                            }
+                        });
+                    }
+
+                    const currentSlide = carouselItems[currentIndex];
+                    const slideImage = currentSlide.querySelector("img");
+                    const slideTitle = currentSlide.querySelector(".carousel-item__title")?.textContent.trim() || "";
+                    const slideDate = currentSlide.querySelector("p")?.textContent.trim() || "";
+                    const slideTeaser = currentSlide.querySelector(".carousel-item__teaser--hide-on-mobile")?.textContent.trim() || "";
+                    
+                    const slideDetails = slideImage
+                        ? `Image: ${slideImage.alt}`
+                        : `${slideTitle}. ${slideDate}. ${slideTeaser}`.trim();
+                    
+                    if (status.getAttribute("aria-live") === "polite") {
+                        status.textContent = `Slide ${currentIndex + 1} of ${carouselItems.length}: ${slideDetails}`;
+                    }
                 }
+
+                setTimeout(() => {
+                    status.setAttribute("aria-live", "polite");
+                }, 500);
 
                 document.querySelector(".next").addEventListener("click", function () {
                     currentIndex = (currentIndex + 1) % carouselItems.length;

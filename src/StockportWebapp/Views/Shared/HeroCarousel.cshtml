@@ -5,7 +5,7 @@
     <ul class="carousel-items">
         @foreach (var item in Model)
         {
-            <li class="carousel-item carousel-item__hero" style="background-image: url('@item.ImageSrc?q=89&fm=webp');">
+            <li class="carousel-item carousel-item__hero" aria-hidden="true" style="background-image: url('@item.ImageSrc?q=89&fm=webp');">
                 <div class="carousel-item__hero--overlay">
                     <div class="grid-container">
                         <div class="grid-100">
@@ -33,9 +33,10 @@
         @for (int i = 0; i < Model.Count; i++)
         {
             <li>
-                <button class data-slide="@i">
-                <span class="visuallyhidden">Image</span> @(i + 1)
-                <span id="@i" class="visuallyhidden"></span>
+                <button class data-slide="@i" aria-label="Go to slide @(i + 1 )">
+                    <span class="visuallyhidden">Image</span> @(i + 1)
+                    <span id="@i" class="visuallyhidden"></span>
+                </button>
             </li>
         }
     </ul>
