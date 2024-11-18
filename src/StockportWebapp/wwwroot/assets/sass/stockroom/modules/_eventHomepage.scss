@@ -1,0 +1,27 @@
+﻿.event-homepage {
+    &__categories {
+        list-style: none;
+        text-align: center;
+
+        &-item {
+            display: inline;
+            margin-inline-start: 0;
+            padding: 0.5rem;
+            white-space: nowrap;
+
+            a {
+                color: black;
+
+                &:hover {
+                    text-decoration-thickness: 3px;
+                }
+            }
+
+            &:not(:last-child):after {
+                content: "\7c";
+                margin-inline-end: 0.5rem;
+                margin-inline-start: 1rem;
+            }
+        }
+    }
+}
