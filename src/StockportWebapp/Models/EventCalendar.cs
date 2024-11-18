@@ -1,4 +1,4 @@
-﻿namespace StockportWebapp.ViewModels;
+﻿namespace StockportWebapp.Models;
 
 public class EventCalendar
 {
@@ -15,8 +15,8 @@ public class EventCalendar
 
     public string DateRange { get; set; }
 
-    public List<Event> Events { get; private set; } = new List<Event>();
-    public List<string> Categories { get; private set; } = new List<string>();
+    public List<Event> Events { get; private set; } = new();
+    public List<string> Categories { get; private set; } = new();
     public string Tag { get; set; }
     public string[] Price { get; set; }
     public string HomepageTags { get; set; }
@@ -25,6 +25,7 @@ public class EventCalendar
     public Pagination Pagination { get; set; }
 
     public EventHomepage Homepage { get; set; }
+    public List<HeroCarouselItem> HeroCarouselItems { get; set; } = new();
 
     public EventCalendar() { }
 
@@ -45,6 +46,19 @@ public class EventCalendar
 
     public void AddEvents(List<Event> events) =>
         Events = events;
+
+    public void AddHeroCarouselItems(List<Event> events)
+    {
+        if (events is not null)
+            HeroCarouselItems = events.Select(evnt => new HeroCarouselItem
+            {
+                Title = evnt.Title,
+                Link = evnt.Slug,
+                Date = evnt.EventDate.ToString("dddd dd MMMM yyyy"),
+                Teaser = evnt.Teaser,
+                ImageSrc = evnt.ImageUrl
+            }).ToList();
+    }
 
     public List<SelectListItem> CategoryOptions()
     {

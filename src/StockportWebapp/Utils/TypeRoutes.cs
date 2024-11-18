@@ -16,6 +16,7 @@ public class TypeRoutes
             case "news":
                 return "/news";
             case "events":
+            case "eventHomepage":
                 return "/events";
             case "groups":
                 slug = slug == "groups" ? string.Empty : slug;

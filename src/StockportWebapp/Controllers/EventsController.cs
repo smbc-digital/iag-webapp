@@ -110,6 +110,7 @@ public class EventsController : Controller
         EventHomepage eventHomeResponse = httpHomeResponse.Content as EventHomepage;
 
         eventsCalendar.Homepage = eventHomeResponse;
+        eventsCalendar.AddHeroCarouselItems(eventHomeResponse?.Rows?.FirstOrDefault(row => !row.IsLatest)?.Events.ToList());
 
         return View(eventsCalendar);
     }
