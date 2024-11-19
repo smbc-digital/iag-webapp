@@ -21,6 +21,10 @@
         flex-grow: 1;
         justify-content: space-between;
 
+        &--restricted-width {
+            flex-grow:0;
+        }
+
         @media #{$tablet} {
             width: calc(33.33333% - 20px);
             margin: 0 15px 2em 15px;

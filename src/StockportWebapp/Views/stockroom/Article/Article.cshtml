@@ -7,23 +7,23 @@
 }
 
 <div class="grid-container-full-width" style="background-color:white;" data-cy="article">
-    <div class="article-hero">
-        @if (!Model.ArticleWithImage)
+    <div class="hero">
+        @if (Model.ArticleHasImage)
         {
-            <div class="article-hero__background" style="background-image: url(@Model.Article.Image?fm=webp)"></div>
+            <div class="hero__background" style="background-image: url(@Model.Article.Image?fm=webp)"></div>
         }
         
-        <div class="grid-container article-hero__wrapper">
+        <div class="grid-container hero__wrapper">
             <div class="grid-100">
-                <div class="article-hero__image"></div>
+                <div class="hero__image"></div>
 
-                <div class="article-hero__content">
-                    <h1 class="article-hero__title">@Model.Article.Title</h1>
+                <div class="hero__content">
+                    <h1 class="hero__title">@Model.Article.Title</h1>
 
-                    <div class="article-hero__about">
+                    <div class="hero__about">
                         <p>@Model.Article.Teaser</p>
                         
-                        <p class="article-hero__about-attribution">
+                        <p class="hero__about-attribution">
                             @if (!string.IsNullOrEmpty(Model.Article.Author))
                             {
                                 <span>Author: <strong>@Model.Article.Author</strong></span>
