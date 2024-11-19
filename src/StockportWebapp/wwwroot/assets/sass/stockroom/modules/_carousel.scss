@@ -45,6 +45,9 @@
         }
 
         &__article {
+            position: absolute;
+            bottom: 0;
+
             @media #{$non-mobile} {
                 width: 70%;
             }
@@ -80,7 +83,7 @@
         position: absolute;
         top: 50%;
         transform: translateY(-50%);
-        background-color: rgba(0, 0, 0, 0.8);
+        background-color: rgba(0, 0, 0, 0.9);
         color: #fff;
         border: none;
         font-size: 2rem;
@@ -105,8 +108,15 @@
             outline: #ef8a16 solid 3px !important;
         }
 
+        &:hover {
+            background-color: white;
+            color: black;
+        }
+
         &__hero {
             top: 35px;
+            border: 2px solid grey;
+            border-radius: 3px;
 
             &--prev {
                 left: unset;
@@ -136,10 +146,12 @@
             width: 50px;
             height: 50px;
             cursor: pointer;
-            border: 2px solid black;
-            background-color: $skrm-blue;
+            border: 2px solid grey;
+            color: white;
+            background-color: rgba(0, 0, 0, 0.7);
             font-size: 1.5rem;
             border-radius: 3px;
+            padding: 0;
 
             @media #{$mobile} {
                 font-size: 1.3rem;
@@ -149,6 +161,8 @@
 
             &.current {
                 background-color: $skrm-orange;
+                color: black;
+                border: 2px solid black;
             }
 
             &:hover {
