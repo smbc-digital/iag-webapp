@@ -64,6 +64,7 @@
         &__title {
             color: white;
             text-underline-offset: .1em;
+            text-transform: uppercase;
 
             &:hover {
                 text-decoration-thickness: 5px;
@@ -81,21 +82,23 @@
 
     &-control {
         position: absolute;
-        top: 50%;
+        top: calc(50% - 50px);
         transform: translateY(-50%);
         background-color: rgba(0, 0, 0, 0.9);
         color: #fff;
         border: none;
         font-size: 2rem;
-        padding: 0.5rem;
+        padding: 0;
         cursor: pointer;
         z-index: 1;
-        width: 53px;
-
+        width: 50px;
+        height: 50px;
+        border: 2px solid grey;
+        
         @media #{$mobile} {
-            display: none;
+            top: 50%;
         }
-
+        
         &-prev {
             left: 10px;
         }
@@ -115,7 +118,6 @@
 
         &__hero {
             top: 35px;
-            border: 2px solid grey;
             border-radius: 3px;
 
             &--prev {
@@ -129,7 +131,7 @@
         }
     }
 
-    &-indicators, &-indicators-mob {
+    &-indicators {
         list-style: none;
         display: flex;
         gap: 0.75rem;
@@ -148,7 +150,7 @@
             cursor: pointer;
             border: 2px solid grey;
             color: white;
-            background-color: rgba(0, 0, 0, 0.7);
+            background-color: rgba(0, 0, 0, 0.9);
             font-size: 1.5rem;
             border-radius: 3px;
             padding: 0;
@@ -179,6 +181,7 @@
             position: absolute;
             bottom: 10px;
             right: 10px;
+            background-color: rgba(0, 0, 0, 0.7);
         }
     }
 }
