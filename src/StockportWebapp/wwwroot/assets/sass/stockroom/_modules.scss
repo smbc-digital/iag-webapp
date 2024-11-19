@@ -1,19 +1,24 @@
 ﻿// @import all the modules
+@import "modules/text";
 @import "modules/typography";
-@import "modules/siteheader";
-@import "modules/placeholder";
-@import "modules/inlineImages";
+
+@import "modules/buttons";
+@import "modules/alertInline";
+@import "modules/article";
+@import "modules/buttons";
+@import "modules/hero";
+@import "modules/card";
+@import "modules/carousel";
+@import "modules/eventDetail";
+@import "modules/eventHomepage";
 @import "modules/footer";
 @import "modules/homepage";
-@import "modules/buttons";
-@import "modules/article";
-@import "modules/hero";
 @import "modules/text";
-@import "modules/card";
-@import "modules/alertInline";
-@import "modules/video";
-@import "modules/tagParserProfile";
-@import "modules/tagParserQuote";
 @import "modules/topic";
 @import "modules/profile";
-@import "modules/eventDetail";
+@import "modules/inlineImages";
+@import "modules/placeholder";
+@import "modules/siteheader";
+@import "modules/tagParserProfile";
+@import "modules/tagParserQuote";
+@import "modules/video";

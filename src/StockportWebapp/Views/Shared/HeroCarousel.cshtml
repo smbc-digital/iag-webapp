@@ -1,0 +1,55 @@
+﻿@model List<HeroCarouselItem>
+
+<section id="carousel" aria-labelledby="carouselheading" class="carousel">
+    <h2 id="carouselheading" class="visuallyhidden">Image carousel</h2>
+    <ul class="carousel-items">
+        @foreach (var item in Model)
+        {
+            <li class="carousel-item carousel-item__hero" aria-hidden="true" style="background-image: url('@item.ImageSrc?q=89&fm=webp');">
+                <div class="carousel-item__hero--overlay">
+                    <div class="grid-container">
+                        <div class="grid-100">
+                            <article aria-label="@item.Title" class="carousel-item__article">
+                                <a href="events/@item.Link" class="h-l carousel-item__title" tabindex="-1">@item.Title</a>
+                                <p>@item.Date</p>
+                                <p class="carousel-item__teaser--hide-on-mobile">@item.Teaser</p>
+                            </article>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        }
+    </ul>
+
+    <button class="carousel-control carousel-control__hero prev carousel-control-prev carousel-control__hero--prev" aria-label="Previous Slide">
+        <span class="fa-solid fa-chevron-left"></span>
+    </button>
+
+    <button class="carousel-control carousel-control__hero next carousel-control-next" aria-label="Next Slide">
+        <span class="fa-solid fa-chevron-right"></span>
+    </button>
+
+    <ul class="carousel-indicators carousel-indicators__hero hide-on-mobile">
+        @for (int i = 0; i < Model.Count; i++)
+        {
+            <li>
+                <button class data-slide="@i" aria-label="Go to slide @(i + 1 )">
+                    <span class="visuallyhidden">Image</span> @(i + 1)
+                    <span id="@i" class="visuallyhidden"></span>
+                </button>
+            </li>
+        }
+    </ul>
+
+    <div id="carousel-status" class="visuallyhidden" aria-live="polite"></div>
+</section>
+
+<script>
+    require(['/assets/javascript/config-9c49ceec.min.js'], function () {
+        require(['carousel2024'],
+            function (carousel2024) {
+                carousel2024.Init();
+            }
+        );
+    });
+</script>

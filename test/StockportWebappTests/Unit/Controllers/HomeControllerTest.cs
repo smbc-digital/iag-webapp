@@ -269,7 +269,7 @@ public class HomeControllerTest
     }
 
     [Fact]
-    public async void Index_Should_ReturnHomepage_WhenThereAreNoEvents()
+    public async Task Index_Should_ReturnHomepage_WhenThereAreNoEvents()
     {
         // Arrange
         _eventsService

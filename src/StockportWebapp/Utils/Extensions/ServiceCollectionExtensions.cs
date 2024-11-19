@@ -62,6 +62,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<ISimpleTagParser, ContactUsTagParser>();
         services.AddSingleton<ISimpleTagParser, VideoTagParser>();
         services.AddSingleton<ISimpleTagParser, CarouselTagParser>();
+        services.AddSingleton<ISimpleTagParser, InlineCarouselTagParser>();
         services.AddSingleton<ISimpleTagParser, IFrameTagParser>();
         services.AddSingleton<ISimpleTagParser, FormBuilderTagParser>();
         services.AddSingleton<ISimpleTagParser, MapTagParser>();

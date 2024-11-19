@@ -50,7 +50,7 @@
                 
                 @if (Model.MapDetails.MapPosition is not null && !Model.MapDetails.MapPosition.Lat.Equals(0.0) && !Model.MapDetails.MapPosition.Lon.Equals(0.0))
                 {
-                    <partial name="DetailMap" model='@Model' view-data='@(new ViewDataDictionary(ViewData) {{ "EventWrapperCssClasses", eventWrapperCssClasses }, {"BorderTop", borderTop}})' />
+                    <partial name="DetailMap" model='@Model.MapDetails' view-data='@(new ViewDataDictionary(ViewData) { { "AdditionalWrapperCssClasses", @borderTeal }, { "AdditionalCssClasses", @eventWrapperCssClasses }, { "DisplayMap", true }, { "EntryNameString", @Model.Title } })' />
                 }
                 @if (Model.EventBranding.Any())
                 {

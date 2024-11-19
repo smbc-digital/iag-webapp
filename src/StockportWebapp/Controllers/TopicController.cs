@@ -19,18 +19,21 @@ public class TopicController : Controller
     [Route("/topic/{topicSlug}")]
     public async Task<IActionResult> Index(string topicSlug)
     {
-        var topicHttpResponse = await _topicRepository.Get<ProcessedTopic>(topicSlug);
+        HttpResponse topicHttpResponse = await _topicRepository.Get<ProcessedTopic>(topicSlug);
 
         if (!topicHttpResponse.IsSuccessful())
             return topicHttpResponse;
 
-        var processedTopic = topicHttpResponse.Content as ProcessedTopic;
+        ProcessedTopic processedTopic = topicHttpResponse.Content as ProcessedTopic;
 
-        var urlSetting = _config.GetEmailAlertsNewSubscriberUrl(_businessId.ToString());
+        AppSetting urlSetting = _config.GetEmailAlertsNewSubscriberUrl(_businessId.ToString());
 
         TopicViewModel topicViewModel = new(processedTopic, urlSetting.ToString());
 
-        var eventsFromApi = !string.IsNullOrEmpty(processedTopic.EventCategory) ? await _stockportApiEventsService.GetEventsByCategory(processedTopic.EventCategory) : new List<Event>();
+        List<Event> eventsFromApi = !string.IsNullOrEmpty(processedTopic.EventCategory)
+            ? await _stockportApiEventsService.GetEventsByCategory(processedTopic.EventCategory) 
+            : new();
+            
         topicViewModel.EventsFromApi = eventsFromApi?.Take(3).ToList();
 
         return View(topicViewModel);

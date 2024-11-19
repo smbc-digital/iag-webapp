@@ -25,7 +25,7 @@ public class EventFactory : IEventFactory
         };
 
         string description = _tagParserContainer.ParseAll(eventItem.Description, eventItem.Title, true, null, eventItem.Documents, null, null, null);
-        description = _markdownWrapper.ConvertToHtml(description ?? "");
+        description = _markdownWrapper.ConvertToHtml(description ?? string.Empty);
 
         return new ProcessedEvents(eventItem.Title,
                                 eventItem.Slug,
@@ -53,6 +53,7 @@ public class EventFactory : IEventFactory
                                 eventItem.Website,
                                 eventItem.MetaDescription,
                                 eventItem.Duration,
-                                eventItem.Languages);
+                                eventItem.Languages,
+                                eventItem.RelatedEvents);
     }
 }

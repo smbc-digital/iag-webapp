@@ -1,4 +1,4 @@
-﻿namespace StockportWebapp.ViewModels;
+﻿namespace StockportWebapp.Models;
 
 public class EventCalendar
 {
@@ -15,8 +15,8 @@ public class EventCalendar
 
     public string DateRange { get; set; }
 
-    public List<Event> Events { get; private set; } = new List<Event>();
-    public List<string> Categories { get; private set; } = new List<string>();
+    public List<Event> Events { get; private set; } = new();
+    public List<string> Categories { get; private set; } = new();
     public string Tag { get; set; }
     public string[] Price { get; set; }
     public string HomepageTags { get; set; }
@@ -25,6 +25,7 @@ public class EventCalendar
     public Pagination Pagination { get; set; }
 
     public EventHomepage Homepage { get; set; }
+    public List<HeroCarouselItem> HeroCarouselItems { get; set; } = new();
 
     public EventCalendar() { }
 
@@ -40,21 +41,33 @@ public class EventCalendar
         Categories = categories;
     }
 
-    public bool DoesCategoryExist(string categoryItem)
-    {
-        return Categories.Contains(categoryItem);
-    }
+    public bool DoesCategoryExist(string categoryItem) =>
+        Categories.Contains(categoryItem);
 
-    public void AddEvents(List<Event> events)
-    {
+    public void AddEvents(List<Event> events) =>
         Events = events;
+
+    public void AddHeroCarouselItems(List<Event> events)
+    {
+        if (events is not null)
+            HeroCarouselItems = events.Select(evnt => new HeroCarouselItem
+            {
+                Title = evnt.Title,
+                Link = evnt.Slug,
+                Date = evnt.EventDate.ToString("dddd dd MMMM yyyy"),
+                Teaser = evnt.Teaser,
+                ImageSrc = evnt.ImageUrl
+            }).ToList();
     }
 
     public List<SelectListItem> CategoryOptions()
     {
-        var result = new List<SelectListItem>();
-        result.Add(new SelectListItem { Text = "All categories", Value = string.Empty });
-        foreach (var cat in Categories)
+        List<SelectListItem> result = new()
+        {
+            new SelectListItem { Text = "All categories", Value = string.Empty }
+        };
+
+        foreach (string cat in Categories)
         {
             result.Add(new SelectListItem { Text = cat, Value = cat });
         }
@@ -64,9 +77,12 @@ public class EventCalendar
 
     public List<SelectListItem> EventCategoryOptions()
     {
-        var result = new List<SelectListItem>();
-        result.Add(new SelectListItem { Text = "All categories", Value = string.Empty });
-        foreach (var cat in Homepage.Categories)
+        List<SelectListItem> result = new()
+        {
+            new SelectListItem { Text = "All categories", Value = string.Empty }
+        };
+
+        foreach (EventCategory cat in Homepage.Categories)
         {
             result.Add(new SelectListItem { Text = cat.Name, Value = cat.Slug });
         }
@@ -74,31 +90,23 @@ public class EventCalendar
         return result;
     }
 
-    public void AddCategories(List<string> categories)
-    {
+    public void AddCategories(List<string> categories) =>
         Categories = categories;
-    }
 
-    public void AddFilteredUrl(IFilteredUrl filteredUrl)
-    {
+    public void AddFilteredUrl(IFilteredUrl filteredUrl) =>
         FilteredUrl = filteredUrl;
-    }
 
-    public void AddQueryUrl(QueryUrl queryUrl)
-    {
+    public void AddQueryUrl(QueryUrl queryUrl) =>
         CurrentUrl = queryUrl;
-    }
 
-    public string GetCustomEventFilterName()
-    {
-        return DateFrom.HasValue && DateTo.HasValue
-            ? DateFrom.Value.ToString("dd/MM/yyyy") + " to " + DateTo.Value.ToString("dd/MM/yyyy")
+    public string GetCustomEventFilterName() =>
+        DateFrom.HasValue && DateTo.HasValue
+            ? $"{DateFrom.Value:dd/MM/yyyy} to {DateTo.Value:dd/MM/yyyy}"
             : string.Empty;
-    }
 
     public RefineByBar RefineByBar()
     {
-        var bar = new RefineByBar
+        RefineByBar bar = new()
         {
             ShowLocation = true,
             Filters = new List<RefineByFilters>()
@@ -106,29 +114,29 @@ public class EventCalendar
 
         if (!string.IsNullOrEmpty(KeepTag) || !string.IsNullOrEmpty(Tag))
         {
-            var featured = new RefineByFilters
+            RefineByFilters featured = new()
             {
                 Label = "Featured events",
                 Mandatory = false,
                 Name = "tag",
                 Items = new List<RefineByFilterItems>
                 {
-                    new RefineByFilterItems { Label = KeepTag, Checked = !string.IsNullOrEmpty(Tag), Value = KeepTag }
+                    new() { Label = KeepTag, Checked = !string.IsNullOrEmpty(Tag), Value = KeepTag }
                 }
             };
 
             bar.Filters.Add(featured);
         }
 
-        var price = new RefineByFilters
+        RefineByFilters price = new()
         {
             Label = "Price",
             Mandatory = true,
             Name = "price",
             Items = new List<RefineByFilterItems>
             {
-                new RefineByFilterItems { Label = "Paid", Checked = Price == null || Price.Any(p => p == "paid"), Value = "paid" },
-                new RefineByFilterItems { Label = "Free", Checked = Price == null || Price.Any(p => p == "free"), Value = "free" }
+                new() { Label = "Paid", Checked = Price is null || Price.Any(p => p.Equals("paid")), Value = "paid" },
+                new() { Label = "Free", Checked = Price is null || Price.Any(p => p.Equals("free")), Value = "free" }
             }
         };
 

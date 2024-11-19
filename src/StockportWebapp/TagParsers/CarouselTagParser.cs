@@ -1,5 +1,6 @@
 ﻿namespace StockportWebapp.TagParsers;
 
+// This CarouselTagParser will eventually be replaced for stockportgov + hs by InlineCarouselTagParser
 public class CarouselTagParser : ISimpleTagParser
 {
     private readonly TagReplacer _tagReplacer;
@@ -42,7 +43,7 @@ public class CarouselTagParser : ISimpleTagParser
                 }
             }
         }
-        string scriptTag = "<script>\r\nrequire(['/assets/javascript/config-2b312449.min.js'],function(){\r\nrequire(['slick', 'carousel'],\r\nfunction(_, carousel){\r\ncarousel.Init();\r\n}\r\n);\r\n});\r\n</script>";
+        string scriptTag = "<script>\r\nrequire(['/assets/javascript/config-9c49ceec.min.js'],function(){\r\nrequire(['slick', 'carousel'],\r\nfunction(_, carousel){\r\ncarousel.Init();\r\n}\r\n);\r\n});\r\n</script>";
         return returnCarousel.Append("</div>" + scriptTag).ToString();
     }
 

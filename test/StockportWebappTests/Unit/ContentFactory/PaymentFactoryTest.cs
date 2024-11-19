@@ -6,7 +6,6 @@ public class PaymentFactoryTest
     private readonly Mock<ITagParserContainer> _tagParserContainer;
     private readonly Payment _payment;
     private readonly PaymentFactory _factory;
-
     private readonly string Title = "Pay your council Tax";
     private readonly string Slug = "council-tax";
     private readonly string Description = "Description";
@@ -16,9 +15,6 @@ public class PaymentFactoryTest
     private readonly string Fund = "Fund";
     private readonly string ReferenceLabel = "Reference label";
     private readonly string MetaDescription = "Meta description";
-
-
-
 
     public PaymentFactoryTest()
     {

@@ -3,8 +3,8 @@
 
 <div class="event-li grid-33 tablet-grid-50 mobile-grid-100">
     <a class="event-card matchbox-child" href="@Url.Action("Detail", "Events", new {slug = Model.Slug, date = Model.EventDate.ToString("yyyy-MM-dd")})">
-        <div> 
-            <span class="event-image" style="background-image: url(@Model.ThumbnailImageUrl)" role="img" aria-label="@Model.Title"></span>
+        <div>
+            <span class="event-image" style="background-image: url(@Model.ThumbnailImageUrl?h=250)" role="img" aria-label="@Model.Title"></span>
         </div>
         <div class="event-card-information grid-100">
             <div class="grid-100 event-title">

@@ -7,13 +7,7 @@
     Layout = "../Shared/_Layout2023.cshtml";
     string backgroundColour = Model.LandingPage.HeaderType.Equals("Framed Image") ? $"directories-breadcrumb-container-{CssClassMapper.GetCssClass(landingPage.HeaderColourScheme)}" : "topic-breadcrumb-container";
 }
-<noscript>
-    <style>
-        .js-only {
-            display: none;
-        }
-    </style>
-</noscript>
+
 <div class="grid-container-full-width" style="background-color:white;" data-cy="landing-page">
     <partial name="GlobalAlerts" model='Model.LandingPage.Alerts' />
     <partial name="Breadcrumb2023" model='Model.LandingPage.Breadcrumbs' view-data='@(new ViewDataDictionary(ViewData) {{"backgroundColour", backgroundColour}, {"landingBreadcrumb", "landing-breadcrumb-container"}})'/>

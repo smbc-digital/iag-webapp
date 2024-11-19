@@ -11,7 +11,7 @@ public class Event
     public string ThumbnailImageUrl { get; set; }
     public string Description { get; set; }
     public string Fee { get; set; }
-    public bool Free { get; set; }
+    public bool? Free { get; set; }
     public string Location { get; set; }
     public string SubmittedBy { get; set; }
     public DateTime EventDate { get; set; }
@@ -37,4 +37,5 @@ public class Event
     public string Website { get; set; }
     public string Duration { get; set; }
     public string Languages { get; set; }
+    public List<ProcessedEvents> RelatedEvents { get; set; }
 }
