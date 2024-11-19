@@ -1,6 +1,10 @@
 .image-banner {
     position: relative;
-    margin-bottom: 0px;
+    margin-bottom: 0;
+
+    figure {
+        margin-bottom: 0;
+    }
 
     & + .image-banner {
         margin-top: 2em;
