@@ -8,7 +8,7 @@
                 <div class="image-banner__background image-banner__background" style="background-image: url(@Model.Image?fm=webp)"></div>
                 @if (!string.IsNullOrEmpty(Model.Body))
                 {
-                    <div class="grid-container">
+                    <div class="grid-container hide-on-mobile">
                         <div class="grid-100">
                             <div class="image-banner__content @Model.ImageBannerOverlayTheme">
                                 <h2 class="image-banner__title">@Model.Title</h2>
@@ -22,6 +22,11 @@
                     <span class="visuallyhidden">@Model.Title</span>
                 }
             </a>
+            <figure class="image-banner__figure hide-on-desktop hide-on-tablet">
+                <figcaption>
+                    @Html.Raw(Model.Title)
+                </figcaption>
+            </figure>
         }
         else
         {

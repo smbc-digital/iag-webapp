@@ -4,6 +4,14 @@
 
     figure {
         margin-bottom: 0;
+        
+        figcaption {
+
+            a {
+                color: white;
+                text-decoration-color: white;    
+            }
+        }
     }
 
     & + .image-banner {
@@ -114,6 +122,11 @@
                 border-bottom: none;
             }
         }
+    }
+
+    &__figure {    
+        text-decoration: 1px solid underline white;
+        text-underline-offset: 0.1em;      
     }
 
     a {
