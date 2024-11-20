@@ -1,17 +1,26 @@
 @model List<ProcessedEvents>;
 @{
     List<ProcessedEvents> itemsToDisplay = (List<ProcessedEvents>)ViewData["itemsToDisplay"];
+    bool isEventHomepage = (bool)ViewData["isEventHomepage"];
 }
 
 <div class="grid-container-full-width" style="background-color:#f2f2f2;" data-cy="article">
     <div class="grid-container">
         <div class="grid-100">
             <section class="article">
-                <h2 class="card-title">More like this</h2>
+                @if (isEventHomepage)
+                {
+                    <h2 class="visuallyhidden">Upcoming events</h2>
+                }
+                else
+                {
+                    <h2 class="card-title">More like this</h2>
+                }
+                
                 <ul class="card-wrapper">
                     @foreach (ProcessedEvents relatedContent in itemsToDisplay)
                     {
-                        <partial name="RelatedEventCard" model="@relatedContent" />
+                        <partial name="RelatedEventCard" model="@relatedContent"/>
                     }
                 </ul>
             </section>
