@@ -2,6 +2,7 @@
     position: relative;
     width: 100%;
     overflow: hidden;
+    background-color: #f2f2f2;
 
     &-items {
         display: flex;
@@ -50,7 +51,7 @@
             bottom: 0;
 
             @media #{$non-mobile} {
-                width: 70%;
+                width: 60%;
             }
 
             p:first-of-type {

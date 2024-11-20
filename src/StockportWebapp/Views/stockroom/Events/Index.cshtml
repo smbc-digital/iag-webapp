@@ -18,16 +18,18 @@
     <partial name="HeroCarousel" model="@Model.HeroCarouselItems" />
 }
 
-<nav aria-label="Event category navigation" class="grid-container">
-    <div class="grid-100">
-        <ul class="event-homepage__categories">
-            @foreach (var eventCategory in Model.Homepage.Categories)
-            {
-                <li class="event-homepage__categories-item">
-                    <a href="events?category=@eventCategory.Slug">@eventCategory.Name</a>
-                </li>
-            }
-        </ul> 
+<nav aria-label="Event category navigation" class="event-homepage__category-wrapper">
+    <div class="grid-container">
+        <div class="grid-100">
+            <ul class="event-homepage__categories">
+                @foreach (var eventCategory in Model.Homepage.Categories)
+                {
+                    <li class="event-homepage__categories-item">
+                        <a href="events?category=@eventCategory.Slug">@eventCategory.Name</a>
+                    </li>
+                }
+            </ul> 
+        </div>
     </div>
 </nav>
 
