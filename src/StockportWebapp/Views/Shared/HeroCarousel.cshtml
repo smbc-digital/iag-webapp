@@ -1,6 +1,6 @@
 ﻿@model List<HeroCarouselItem>
 
-<section id="carousel" aria-labelledby="carouselheading" class="carousel">
+<section id="carousel" aria-labelledby="carouselheading" class="carousel carousel-hero">
     <h2 id="carouselheading" class="visuallyhidden">Image carousel</h2>
     <ul class="carousel-items">
         @foreach (var item in Model)
@@ -10,9 +10,9 @@
                     <div class="grid-container">
                         <div class="grid-100">
                             <article aria-label="@item.Title" class="carousel-item__article">
-                                <a href="events/@item.Link" class="h-xl carousel-item__title" tabindex="-1">@item.Title</a>
+                                <h2 class="image-banner__title image-banner__title-hero carousel-item__title font--bold-extra-squeezed">@item.Title</h2>
                                 <p>@item.Date</p>
-                                <p class="carousel-item__teaser--hide-on-mobile">@item.Teaser</p>
+                                <a href="events/@item.Link" class="btn carousel-item__link" aria-label="Read more about @item.Title" tabindex="-1">Read more</a>
                             </article>
                         </div>
                     </div>
@@ -20,7 +20,7 @@
             </li>
         }
     </ul>
-
+    
     <button class="carousel-control carousel-control__hero prev carousel-control-prev carousel-control__hero--prev" aria-label="Previous Slide">
         <span class="fa-solid fa-chevron-left"></span>
     </button>

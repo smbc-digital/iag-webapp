@@ -2,7 +2,10 @@
     position: relative;
     width: 100%;
     overflow: hidden;
-    background-color: #f2f2f2;
+
+    &-hero {
+        background-color: #f2f2f2;
+    }
 
     &-items {
         display: flex;
@@ -49,10 +52,9 @@
         &__article {
             position: absolute;
             bottom: 0;
-
-            @media #{$non-mobile} {
-                width: 60%;
-            }
+            width: 100%;
+            text-align: center;
+            margin-bottom: 2rem;
 
             p:first-of-type {
                 margin-block: 1rem;
@@ -65,12 +67,7 @@
 
         &__title {
             color: white;
-            text-underline-offset: .1em;
             text-transform: uppercase;
-
-            &:hover {
-                text-decoration-thickness: 5px;
-            }
         }
 
         &__teaser {
@@ -156,6 +153,7 @@
             font-size: 1.5rem;
             border-radius: 3px;
             padding: 0;
+            font-family: inherit;
 
             @media #{$mobile} {
                 font-size: 1.3rem;
