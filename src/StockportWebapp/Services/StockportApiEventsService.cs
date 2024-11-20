@@ -5,6 +5,7 @@ public interface IStockportApiEventsService
     Task<List<EventCategory>> GetEventCategories();
     Task<List<Event>> GetEventsByCategory(string category, bool onlyNextOccurrence = true);
     Task<ProcessedEvents> GetProcessedEvent(string slug, DateTime? date);
+    ProcessedEvents BuildProcessedEvent(Event baseEvent);
 }
 
 public class StockportApiEventsService : IStockportApiEventsService
@@ -41,4 +42,7 @@ public class StockportApiEventsService : IStockportApiEventsService
 
         return _eventFactory.Build(eventItem);
     }
+
+    public ProcessedEvents BuildProcessedEvent(Event baseEvent) =>
+        _eventFactory.Build(baseEvent);
 }

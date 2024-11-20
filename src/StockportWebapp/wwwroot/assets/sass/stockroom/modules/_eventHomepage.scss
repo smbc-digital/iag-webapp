@@ -1,8 +1,14 @@
 ﻿.event-homepage {
+    &__category {
+        &-wrapper {
+            background-color: #f2f2f2;
+        }
+    }
+
     &__categories {
         list-style: none;
         text-align: center;
-        margin-bottom: 0;
+        margin-bottom: 2rem;
 
         &-item {
             display: inline;
