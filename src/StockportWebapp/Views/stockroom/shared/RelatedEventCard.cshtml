@@ -1,3 +1,5 @@
+@inject ViewHelpers viewHelper
+
 @model ProcessedEvents;
 <li class="card-item">
     <img src="@Model.ThumbnailImageUrl?w=692&q=89"
@@ -16,7 +18,8 @@
     <div class="card-item__container">
         <div class="card-item__content">
             <h3 class="card-item__content-title">@Model.Title</h3>
-            <p class="card-item__content-teaser">@Model.EventDate.ToString("dddd dd MMMM yyyy")</p>
+            <p class="card-item__content-teaser">@viewHelper.FormatEventDate(@Model.EventDate, @Model.StartTime)</p>
+
         </div>
 
         <a href="@Model.Slug" class="btn card-item__container-btn" aria-label="Read more about @Model.Title">Read more</a>
