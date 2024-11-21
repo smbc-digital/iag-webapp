@@ -14,7 +14,7 @@
                             <article aria-label="@item.Title" class="carousel-item__article">
                                 <h2 class="image-banner__title image-banner__title-hero carousel-item__title font--bold-extra-squeezed">@item.Title</h2>
                                 <p>@viewHelper.FormatEventDate(@item.Date, @item.StartTime)</p>
-                                <a href="events/@item.Link" class="btn carousel-item__link" aria-label="Read more about @item.Title" tabindex="-1">Read more</a>
+                                <a href="@Url.Action("Detail", "Events", new {slug = item.Link, date = item.Date.ToString("yyyy-MM-dd")})" class="btn carousel-item__link" aria-label="Read more about @item.Title" tabindex="-1">Read more</a>
                             </article>
                         </div>
                     </div>

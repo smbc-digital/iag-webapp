@@ -1,6 +1,7 @@
 @inject ViewHelpers viewHelper
 
 @model ProcessedEvents;
+
 <li class="card-item">
     <img src="@Model.ThumbnailImageUrl?w=692&q=89"
         srcset="@Model.ThumbnailImageUrl?w=692&q=89&fm=webp 692w,
@@ -22,6 +23,6 @@
 
         </div>
 
-        <a href="@Model.Slug" class="btn card-item__container-btn" aria-label="Read more about @Model.Title">Read more</a>
+        <a href="@Url.Action("Detail", "Events", new {slug = Model.Slug, date = Model.EventDate.ToString("yyyy-MM-dd")})" class="btn card-item__container-btn" aria-label="Read more about @Model.Title">Read more</a>
     </div>
 </li>
