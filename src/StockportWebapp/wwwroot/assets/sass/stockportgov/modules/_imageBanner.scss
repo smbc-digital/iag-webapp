@@ -4,14 +4,6 @@
 
     figure {
         margin-bottom: 0;
-        
-        figcaption {
-
-            a {
-                color: white;
-                text-decoration-color: white;    
-            }
-        }
     }
 
     & + .image-banner {
@@ -29,6 +21,21 @@
             .image-banner__background {
                 box-sizing: border-box;
                 outline: #ef8a16 solid 3px !important;
+            }
+        }
+
+        @media #{$mobile} {
+            color: white;
+            background-color: $stockport-black;
+
+            &--light {
+                background-color: white;
+                color: $stockport-black;
+    
+                figcaption {
+                    color: $stockport-black;
+                    background-color: white;
+                }
             }
         }
     }
@@ -92,16 +99,6 @@
         }
     }
 
-    &--dark {
-        background: rgb(0, 0, 0);
-        background: rgba(0, 0, 0, 0.7);
-        color: white;
-
-        h2 {
-            color: white;
-        }
-    }
-
     &--height {
         height: 525px;
 
@@ -124,9 +121,10 @@
         }
     }
 
-    &__figure {    
-        text-decoration: 1px solid underline white;
-        text-underline-offset: 0.1em;      
+    &__figure {
+        figcaption {
+            padding-left: 15px;
+        }
     }
 
     a {
@@ -134,6 +132,16 @@
             .image-banner__title {
                 text-decoration-thickness: 3px;
             }
+        }
+    }
+
+    &--dark {
+        background: rgb(0, 0, 0);
+        background: rgba(0, 0, 0, 0.7);
+        color: white;
+
+        h2 {
+            color: white;
         }
     }
 }

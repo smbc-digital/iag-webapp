@@ -4,29 +4,29 @@
     <section class="content-block content-block--screen image-banner" data-cy="image-banner-screen-width">
         @if (!string.IsNullOrEmpty(Model.Href))
         {
-            <a @Model.Href class="image-banner__link">
+            <a class="image-banner__link image-banner__link-@Model.ImageBannerOverlayTheme" @Model.Href>
                 <div class="image-banner__background image-banner__background" style="background-image: url(@Model.Image?fm=webp)"></div>
                 @if (!string.IsNullOrEmpty(Model.Body))
                 {
                     <div class="grid-container hide-on-mobile">
                         <div class="grid-100">
-                            <div class="image-banner__content @Model.ImageBannerOverlayTheme">
+                            <div class="image-banner__content image-banner-@Model.ImageBannerOverlayTheme">
                                 <h2 class="image-banner__title">@Model.Title</h2>
                                 @Html.Raw(Model.Body)
                             </div>
                         </div>
                     </div>
+                    <figure class="image-banner__figure hide-on-desktop hide-on-tablet">
+                        <figcaption>
+                            @Html.Raw(Model.Title)
+                        </figcaption>
+                    </figure>
                 }
                 else
                 {
                     <span class="visuallyhidden">@Model.Title</span>
                 }
             </a>
-            <figure class="image-banner__figure hide-on-desktop hide-on-tablet">
-                <figcaption>
-                    @Html.Raw(Model.Title)
-                </figcaption>
-            </figure>
         }
         else
         {
@@ -35,7 +35,7 @@
             {
                 <div class="grid-container">
                     <div class="grid-100">
-                    <div class="image-banner__content @Model.ImageBannerOverlayTheme">
+                        <div class="image-banner__content image-banner-@Model.ImageBannerOverlayTheme">
                             <h2 class="image-banner__title">@Model.Title</h2>
                             @Html.Raw(Model.Body)
                         </div>

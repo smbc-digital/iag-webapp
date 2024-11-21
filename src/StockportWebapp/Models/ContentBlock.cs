@@ -46,8 +46,8 @@ public class ContentBlock
         ? "btn--teal btn--teal-outline"
         : $"btn-{CssClassMapper.GetBoldCssClass(ColourScheme)} btn-{CssClassMapper.GetBoldCssClass(ColourScheme)}-outline";
 
-    public string ImageBannerOverlayTheme => ColourScheme is EColourScheme.Dark_Overlay
-        ? $"image-banner-{CssClassMapper.GetCssClass(ColourScheme)}"
+    public string ImageBannerOverlayTheme => ColourScheme is EColourScheme.Dark_Overlay || ColourScheme is EColourScheme.Light_Overlay
+        ? $"{CssClassMapper.GetCssClass(ColourScheme)}"
         : string.Empty;
 
     public string Href => SubItems.Any()
