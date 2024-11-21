@@ -54,7 +54,8 @@ public class EventCalendar
             {
                 Title = evnt.Title,
                 Link = evnt.Slug,
-                Date = evnt.EventDate.ToString("dddd dd MMMM yyyy"),
+                Date = evnt.EventDate,
+                StartTime = evnt.StartTime,
                 Teaser = evnt.Teaser,
                 ImageSrc = evnt.ImageUrl
             }).ToList();

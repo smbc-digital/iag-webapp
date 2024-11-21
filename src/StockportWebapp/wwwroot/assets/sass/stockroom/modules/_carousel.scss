@@ -50,11 +50,18 @@
         }
 
         &__article {
-            position: absolute;
-            bottom: 0;
             width: 100%;
             text-align: center;
-            margin-bottom: 2rem;
+            margin-bottom: 5rem;
+            justify-items: center;
+
+            @media #{$tablet} {
+                margin-bottom: 5.5rem;
+            }
+
+            @media #{$mobile } {
+                margin-bottom: 2rem;
+            }
 
             p:first-of-type {
                 margin-block: 1rem;
@@ -62,6 +69,10 @@
 
             p:last-of-type {
                 margin-bottom: 2rem;
+
+                @media #{$mobile } {
+                    margin-bottom: 1rem;
+                }
             }
         }
 
@@ -118,14 +129,40 @@
         &__hero {
             top: 35px;
             border-radius: 3px;
+            position: unset;
 
             &--prev {
                 left: unset;
                 right: 75px;
+                margin-right: 0.75rem;
+                
             }
 
             @media #{$mobile} {
                 display: block;
+            }
+        }
+    }
+
+    &-controls {
+        &-wrapper {
+            position: relative;
+        }
+
+        &-container {
+            position: absolute;
+            right: 10px;
+            top: -580px;
+            padding-inline: 1em;
+        
+            @media #{$tablet} {
+                right: 0;
+            }
+        
+            @media #{$mobile} {
+                top: -380px;
+                display: flex;
+                padding-inline: 0.5em;
             }
         }
     }
@@ -179,12 +216,24 @@
 
         &__hero {
             position: absolute;
-            bottom: 10px;
+            bottom: 20px;
             right: 10px;
+            padding-inline: 1em;
+            
+            @media #{$tablet} {
+                right: 0;
+            }
 
             li button {
                 background-color: rgba(0, 0, 0, 0.7);
             }
+        }
+
+        &-wrapper {
+            display: flex;
+            justify-content: center;
+            position: relative;
+            align-items: center;
         }
     }
 }
