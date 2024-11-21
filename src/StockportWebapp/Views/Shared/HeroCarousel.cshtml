@@ -1,6 +1,8 @@
-﻿@model List<HeroCarouselItem>
+﻿@inject ViewHelpers viewHelper
 
-<section id="carousel" aria-labelledby="carouselheading" class="carousel">
+@model List<HeroCarouselItem>
+
+<section id="carousel" aria-labelledby="carouselheading" class="carousel carousel-hero">
     <h2 id="carouselheading" class="visuallyhidden">Image carousel</h2>
     <ul class="carousel-items">
         @foreach (var item in Model)
@@ -10,9 +12,9 @@
                     <div class="grid-container">
                         <div class="grid-100">
                             <article aria-label="@item.Title" class="carousel-item__article">
-                                <a href="events/@item.Link" class="h-l carousel-item__title" tabindex="-1">@item.Title</a>
-                                <p>@item.Date</p>
-                                <p class="carousel-item__teaser--hide-on-mobile">@item.Teaser</p>
+                                <h2 class="image-banner__title image-banner__title-hero carousel-item__title font--bold-extra-squeezed">@item.Title</h2>
+                                <p>@viewHelper.FormatEventDate(@item.Date, @item.StartTime)</p>
+                                <a href="@Url.Action("Detail", "Events", new {slug = item.Link, date = item.Date.ToString("yyyy-MM-dd")})" class="btn carousel-item__link" aria-label="Read more about @item.Title" tabindex="-1">Read more</a>
                             </article>
                         </div>
                     </div>
@@ -20,26 +22,36 @@
             </li>
         }
     </ul>
-
-    <button class="carousel-control carousel-control__hero prev carousel-control-prev carousel-control__hero--prev" aria-label="Previous Slide">
-        <span class="fa-solid fa-chevron-left"></span>
-    </button>
-
-    <button class="carousel-control carousel-control__hero next carousel-control-next" aria-label="Next Slide">
-        <span class="fa-solid fa-chevron-right"></span>
-    </button>
-
-    <ul class="carousel-indicators carousel-indicators__hero hide-on-mobile">
-        @for (int i = 0; i < Model.Count; i++)
-        {
-            <li>
-                <button class data-slide="@i" aria-label="Go to slide @(i + 1 )">
-                    <span class="visuallyhidden">Image</span> @(i + 1)
-                    <span id="@i" class="visuallyhidden"></span>
+    
+    <div class="grid-container">
+        <div class="grid-100 carousel-controls-wrapper">
+            <div class="carousel-controls-container">
+                <button class="carousel-control carousel-control__hero prev carousel-control-prev carousel-control__hero--prev" aria-label="Previous Slide">
+                    <span class="fa-solid fa-chevron-left"></span>
                 </button>
-            </li>
-        }
-    </ul>
+
+                <button class="carousel-control carousel-control__hero next carousel-control-next" aria-label="Next Slide">
+                    <span class="fa-solid fa-chevron-right"></span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="grid-container">
+        <div class="grid-100 carousel-indicators-wrapper">
+            <ul class="carousel-indicators carousel-indicators__hero hide-on-mobile">
+                @for (int i = 0; i < Model.Count; i++)
+                {
+                    <li>
+                        <button class data-slide="@i" aria-label="Go to slide @(i + 1 )">
+                            <span class="visuallyhidden">Image</span> @(i + 1)
+                            <span id="@i" class="visuallyhidden"></span>
+                        </button>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
 
     <div id="carousel-status" class="visuallyhidden" aria-live="polite"></div>
 </section>

@@ -18,74 +18,30 @@
     <partial name="HeroCarousel" model="@Model.HeroCarouselItems" />
 }
 
-<nav aria-label="Event category navigation" class="grid-container">
-    <div class="grid-100">
-        <ul class="event-homepage__categories">
-            @foreach (var eventCategory in Model.Homepage.Categories)
-            {
-                <li class="event-homepage__categories-item">
-                    <a href="events?category=@eventCategory.Slug">@eventCategory.Name</a>
-                </li>
-            }
-        </ul> 
+<nav aria-label="Event category navigation" class="event-homepage__category-wrapper">
+    <div class="grid-container">
+        <div class="grid-100">
+            <ul class="event-homepage__categories">
+                @foreach (var eventCategory in Model.Homepage.Categories)
+                {
+                    <li class="event-homepage__categories-item">
+                        <a href="events?category=@eventCategory.Slug">@eventCategory.Name</a>
+                    </li>
+                }
+            </ul> 
+        </div>
     </div>
 </nav>
 
+@if (Model.Homepage.NextEvents.Any()) 
+{
+    @if (Model.Homepage.NextEvents.Count() >= 3 && Model.Homepage.NextEvents.Count() < 6)
+    {
+        <partial name="RelatedEvents" model="@Model.Homepage.NextEvents" view-data='@(new ViewDataDictionary(ViewData) { { "isEventHomepage", true }, { "itemsToDisplay", Model.Homepage.NextEvents.Take(3).ToList() } })' />
+    }
 
-<section class="grid-container" style="margin-top:2em;">
-    <div class="grid-33">
-        <img src="~/assets/stockroom/live-local-meet-here.jpg" style="width:100%; height:auto; border-top-left-radius:20px; border-top-right-radius:20px; " />
-        <div style="padding:1em; background-color:#ff522a;  border-bottom-left-radius:5px; border-bottom-right-radius:5px;">
-            <h3>Event</h3>
-            <p>Lorem ipsum odor amet, consectetuer adipiscing elit. Integer dolor dignissim at sed; porttitor quam viverra.</p>
-            <p><stong>01/03/2025</stong></p>
-        </div>
-    </div>
-
-    <div class="grid-33">
-        <img src="~/assets/stockroom/explosion.jpg" style="width:100%; height:auto; border-top-left-radius:20px; border-top-right-radius:20px; " />
-        <div style="padding:1em; background-color:#ff522a;  border-bottom-left-radius:5px; border-bottom-right-radius:5px;">
-            <h3>Event</h3>
-            <p>Lorem ipsum odor amet, consectetuer adipiscing elit. Integer dolor dignissim at sed; porttitor quam viverra.</p>
-            <p><stong>01/03/2025</stong></p>
-        </div>
-    </div>
-
-    <div class="grid-33">
-        <img src="~/assets/stockroom/live-local-meet-here.jpg" style="width:100%; height:auto; border-top-left-radius:20px; border-top-right-radius:20px; " />
-        <div style="padding:1em; background-color:#ff522a;  border-bottom-left-radius:5px; border-bottom-right-radius:5px;">
-            <h3>Event</h3>
-            <p>Lorem ipsum odor amet, consectetuer adipiscing elit. Integer dolor dignissim at sed; porttitor quam viverra.</p>
-            <p><stong>01/03/2025</stong></p>
-        </div>
-    </div>
-</section>
-
-<section class="grid-container" style="margin-top:2em; margin-bottom:2em;">
-    <div class="grid-33">
-        <img src="~/assets/stockroom/explosion.jpg" style="width:100%; height:auto; border-top-left-radius:20px; border-top-right-radius:20px; " />
-        <div style="padding:1em; background-color:#ff522a;  border-bottom-left-radius:5px; border-bottom-right-radius:5px;">
-            <h3>Event</h3>
-            <p>Lorem ipsum odor amet, consectetuer adipiscing elit. Integer dolor dignissim at sed; porttitor quam viverra.</p>
-            <p><stong>01/03/2025</stong></p>
-        </div>
-    </div>
-
-    <div class="grid-33">
-        <img src="~/assets/stockroom/live-local-meet-here.jpg" style="width:100%; height:auto; border-top-left-radius:20px; border-top-right-radius:20px; " />
-        <div style="padding:1em; background-color:#ff522a;  border-bottom-left-radius:5px; border-bottom-right-radius:5px;">
-            <h3>Event</h3>
-            <p>Lorem ipsum odor amet, consectetuer adipiscing elit. Integer dolor dignissim at sed; porttitor quam viverra.</p>
-            <p><stong>01/03/2025</stong></p>
-        </div>
-    </div>
-
-    <div class="grid-33">
-        <img src="~/assets/stockroom/explosion.jpg" style="width:100%; height:auto; border-top-left-radius:20px; border-top-right-radius:20px; " />
-        <div style="padding:1em; background-color:#ff522a;  border-bottom-left-radius:5px; border-bottom-right-radius:5px;">
-            <h3>Event</h3>
-            <p>Lorem ipsum odor amet, consectetuer adipiscing elit. Integer dolor dignissim at sed; porttitor quam viverra.</p>
-            <p><stong>01/03/2025</stong></p>
-        </div>
-    </div>
-</section>
+    @if (Model.Homepage.NextEvents.Count() >= 6)
+    {
+        <partial name="RelatedEvents" model="@Model.Homepage.NextEvents" view-data='@(new ViewDataDictionary(ViewData) { { "isEventHomepage", true }, { "itemsToDisplay", Model.Homepage.NextEvents.Take(6).ToList() } })' />
+    }
+}
