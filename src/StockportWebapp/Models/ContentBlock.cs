@@ -28,6 +28,7 @@ public class ContentBlock
     public Profile Profile;
     public List<Event> Events;
     public string ScreenReader;
+    public string AccountName;
     public string GetNavigationLink(string additionalUrlContent) => TypeRoutes.GetUrlFor(Type, $"{additionalUrlContent}/{Slug}");
     public string SolidBackgroundColourClass => $"bg-solid{CssClassMapper.GetBoldCssClass(ColourScheme)}"; 
     public string SolidBackgroundColourHoverClass => $"bg-solid{CssClassMapper.GetBoldCssClass(ColourScheme)}-hover"; 
@@ -57,7 +58,7 @@ public class ContentBlock
             : string.Empty;
 
     public ContentBlock(string slug, string title, string teaser, string icon, string type, string contentType, string image, string mailingListId, string body, List<ContentBlock> subItems, string link, string buttonText, EColourScheme colourScheme,
-                        string statistic, string statisticSubheading, string videoTitle, string videoToken, string videoPlaceholderPhotoId, string associatedTagCategory, News newsArticle, List<Event> events, string screenReader)
+                        string statistic, string statisticSubheading, string videoTitle, string videoToken, string videoPlaceholderPhotoId, string associatedTagCategory, News newsArticle, List<Event> events, string screenReader, string accountName)
     {
         Slug = slug;
         Title = title;
@@ -82,5 +83,6 @@ public class ContentBlock
         NewsArticle = newsArticle;
         Events = events;
         ScreenReader = screenReader;
+        AccountName = accountName;
     }
 }
