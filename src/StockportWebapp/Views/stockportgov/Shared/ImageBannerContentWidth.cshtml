@@ -1,6 +1,8 @@
 @model ContentBlock
 @if (Model is not null && !string.IsNullOrEmpty(Model.Image))
 {
+    string overlayTheme = $"image-banner{Model.ImageBannerOverlayTheme}";
+
     <section class="content-block content-block--margin image-banner image-banner-content-width" data-cy="image-banner-content-width">
         <div class="grid-container">
             <div class="grid-100">
@@ -20,11 +22,11 @@
 
                         @if (!string.IsNullOrEmpty(Model.Body))
                         {
-                            <div class="image-banner__content image-banner-@Model.ImageBannerOverlayTheme hide-on-mobile">
+                            <div class="image-banner__content @overlayTheme hide-on-mobile">
                                 <h2 class="image-banner__title">@Model.Title</h2>
                                 @Html.Raw(Model.Body)
                             </div>
-                            <figure class="image-banner-@Model.ImageBannerOverlayTheme hide-on-desktop hide-on-tablet">
+                            <figure class="@overlayTheme hide-on-desktop hide-on-tablet">
                                 <figcaption>
                                     @Html.Raw(Model.Title)
                                 </figcaption>
@@ -51,7 +53,7 @@
 
                     @if (!string.IsNullOrEmpty(Model.Body))
                     {
-                        <div class="image-banner__content image-banner-@Model.ImageBannerOverlayTheme">
+                        <div class="image-banner__content @overlayTheme">
                             <h2 class="image-banner__title">@Model.Title</h2>
                             @Html.Raw(Model.Body)
                         </div>
