@@ -14,7 +14,7 @@ define(function () {
                     
                     carouselItems.forEach((slide, index) => {
                         slide.setAttribute("aria-hidden", index !== currentIndex ? "true" : "false");
-                        document.getElementsByClassName("carousel-item__title")[index]?.setAttribute("tabindex", index !== currentIndex ? "-1" : "0")
+                        document.getElementsByClassName("carousel-item__link")[index]?.setAttribute("tabindex", index !== currentIndex ? "-1" : "0")
 
                         if(index === currentIndex)
                             slide.focus()
@@ -36,11 +36,10 @@ define(function () {
                     const slideImage = currentSlide.querySelector("img");
                     const slideTitle = currentSlide.querySelector(".carousel-item__title")?.textContent.trim() || "";
                     const slideDate = currentSlide.querySelector("p")?.textContent.trim() || "";
-                    const slideTeaser = currentSlide.querySelector(".carousel-item__teaser--hide-on-mobile")?.textContent.trim() || "";
                     
                     const slideDetails = slideImage
                         ? `Image: ${slideImage.alt}`
-                        : `${slideTitle}. ${slideDate}. ${slideTeaser}`.trim();
+                        : `${slideTitle}. ${slideDate}.`.trim();
                     
                     if (status.getAttribute("aria-live") === "polite") {
                         status.textContent = `Slide ${currentIndex + 1} of ${carouselItems.length}: ${slideDetails}`;

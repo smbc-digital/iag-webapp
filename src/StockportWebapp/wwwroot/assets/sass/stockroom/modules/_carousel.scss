@@ -2,7 +2,10 @@
     position: relative;
     width: 100%;
     overflow: hidden;
-    background-color: #f2f2f2;
+
+    &-hero {
+        background-color: #f2f2f2;
+    }
 
     &-items {
         display: flex;
@@ -47,11 +50,17 @@
         }
 
         &__article {
-            position: absolute;
-            bottom: 0;
+            width: 100%;
+            text-align: center;
+            margin-bottom: 5rem;
+            justify-items: center;
 
-            @media #{$non-mobile} {
-                width: 60%;
+            @media #{$tablet} {
+                margin-bottom: 5.5rem;
+            }
+
+            @media #{$mobile } {
+                margin-bottom: 2rem;
             }
 
             p:first-of-type {
@@ -60,17 +69,16 @@
 
             p:last-of-type {
                 margin-bottom: 2rem;
+
+                @media #{$mobile } {
+                    margin-bottom: 1rem;
+                }
             }
         }
 
         &__title {
             color: white;
-            text-underline-offset: .1em;
             text-transform: uppercase;
-
-            &:hover {
-                text-decoration-thickness: 5px;
-            }
         }
 
         &__teaser {
@@ -121,14 +129,40 @@
         &__hero {
             top: 35px;
             border-radius: 3px;
+            position: unset;
 
             &--prev {
                 left: unset;
                 right: 75px;
+                margin-right: 0.75rem;
+                
             }
 
             @media #{$mobile} {
                 display: block;
+            }
+        }
+    }
+
+    &-controls {
+        &-wrapper {
+            position: relative;
+        }
+
+        &-container {
+            position: absolute;
+            right: 10px;
+            top: -580px;
+            padding-inline: 1em;
+        
+            @media #{$tablet} {
+                right: 0;
+            }
+        
+            @media #{$mobile} {
+                top: -380px;
+                display: flex;
+                padding-inline: 0.5em;
             }
         }
     }
@@ -156,6 +190,7 @@
             font-size: 1.5rem;
             border-radius: 3px;
             padding: 0;
+            font-family: inherit;
 
             @media #{$mobile} {
                 font-size: 1.3rem;
@@ -181,12 +216,24 @@
 
         &__hero {
             position: absolute;
-            bottom: 10px;
+            bottom: 20px;
             right: 10px;
+            padding-inline: 1em;
+            
+            @media #{$tablet} {
+                right: 0;
+            }
 
             li button {
                 background-color: rgba(0, 0, 0, 0.7);
             }
+        }
+
+        &-wrapper {
+            display: flex;
+            justify-content: center;
+            position: relative;
+            align-items: center;
         }
     }
 }
