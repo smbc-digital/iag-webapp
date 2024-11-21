@@ -111,12 +111,33 @@ public class EventsController : Controller
 
         eventsCalendar.Homepage = eventHomeResponse ?? new EventHomepage(new List<Alert>());
         eventsCalendar.AddHeroCarouselItems(eventHomeResponse?.Rows?.FirstOrDefault(row => !row.IsLatest)?.Events.Take(5).ToList());
-        eventsCalendar.Homepage.NextEvents = eventHomeResponse?.Rows?.FirstOrDefault(row => row.IsLatest)?.Events
-            .Select(baseEvent => _stockportApiEventsService.BuildProcessedEvent(baseEvent)).ToList();
+
+        //if (!eventsCalendar.Events.Any())
+            eventsCalendar.Homepage.NextEvents = eventHomeResponse?.Rows?.FirstOrDefault(row => row.IsLatest)?.Events
+                .Select(baseEvent => _stockportApiEventsService.BuildProcessedEvent(baseEvent)).ToList();
 
         return View(eventsCalendar);
     }
 
+    [Route("/events/free")]
+    public async Task<IActionResult> IndexWithFreeEvents([FromQuery] int page, [FromQuery] int pageSize)
+    {
+        HttpResponse httpHomeResponse = await _repository.Get<List<Event>>("/free");
+
+        if (!httpHomeResponse.IsSuccessful())
+            return httpHomeResponse;
+
+        EventHomepage eventHomeResponse = httpHomeResponse.Content as EventHomepage;
+
+
+        //if (events is null || !events.Any())
+        //    return View("Index");
+
+
+        return View("Index");
+    }
+
+    // This is the healthy stockport filtered events homepage
     [Route("/events/category/{category}")]
     public async Task<IActionResult> IndexWithCategory(string category, [FromQuery] int page, [FromQuery] int pageSize)
     {
