@@ -23,6 +23,21 @@
                 outline: #ef8a16 solid 3px !important;
             }
         }
+
+        @media #{$mobile} {
+            color: white;
+            background-color: $stockport-black;
+
+            &--light {
+                background-color: white;
+                color: $stockport-black;
+    
+                figcaption {
+                    color: $stockport-black;
+                    background-color: white;
+                }
+            }
+        }
     }
 
     &__background {
@@ -84,16 +99,6 @@
         }
     }
 
-    &--dark {
-        background: rgb(0, 0, 0);
-        background: rgba(0, 0, 0, 0.7);
-        color: white;
-
-        h2 {
-            color: white;
-        }
-    }
-
     &--height {
         height: 525px;
 
@@ -116,11 +121,27 @@
         }
     }
 
+    &__figure {
+        figcaption {
+            padding-left: 15px;
+        }
+    }
+
     a {
         &:hover {
             .image-banner__title {
                 text-decoration-thickness: 3px;
             }
+        }
+    }
+
+    &--dark {
+        background: rgb(0, 0, 0);
+        background: rgba(0, 0, 0, 0.7);
+        color: white;
+
+        h2 {
+            color: white;
         }
     }
 }
