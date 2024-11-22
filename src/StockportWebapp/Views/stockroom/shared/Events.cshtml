@@ -49,29 +49,15 @@
 
                     @Html.Raw(start);
 
-
-                    <partial name="EventCard" model='eventItem'/>
+                    <partial name="EventCard" model='eventItem' />
 
                     previousEnteredDate = eventItem.EventDate.Date;
                 }
 
-                <partial name="Pagination" model='Model.Pagination'/>
+                @Html.Raw("</ul>");
+
+                <partial name="Pagination" model='Model.Pagination' />
             }
         </div>
     </div>
-
-    @* <div class="grid-container">
-        <div class="grid-100">
-            <section class="article">
-                <h2 class="card-title">Free events</h2>
-                
-                <ul class="card-wrapper">
-                    @foreach (Event item in itemsToDisplay)
-                    {
-                        <partial name="EventCard" model="@item" />
-                    }
-                </ul>
-            </section>
-        </div>
-    </div> *@
 </div>
