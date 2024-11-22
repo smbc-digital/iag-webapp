@@ -21,6 +21,10 @@
                 height: 120vw;
             }
         }
+
+        &--position {
+            position: relative;
+        }
     }
 
     &__content {
@@ -93,5 +97,9 @@
                 text-decoration-thickness: 3px;
             }
         }
+    }
+
+    &-content-width {
+        margin-bottom: 2em;
     }
 }

@@ -44,6 +44,8 @@
     {
         <partial name="RelatedEvents" model="@Model.Homepage.NextEvents" view-data='@(new ViewDataDictionary(ViewData) { { "isEventHomepage", true }, { "itemsToDisplay", Model.Homepage.NextEvents.Take(6).ToList() } })' />
     }
+
+    <partial name="ImageBannerContentWidth" />
 }
 else
 {
