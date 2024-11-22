@@ -1,4 +1,6 @@
-﻿namespace StockportWebapp.Controllers;
+﻿using StockportWebapp.Models;
+
+namespace StockportWebapp.Controllers;
 
 [ResponseCache(Location = ResponseCacheLocation.Any, Duration = Cache.Medium)]
 public class EventsController : Controller
@@ -120,21 +122,36 @@ public class EventsController : Controller
     }
 
     [Route("/events/free")]
-    public async Task<IActionResult> IndexWithFreeEvents([FromQuery] int page, [FromQuery] int pageSize)
+    public async Task<IActionResult> IndexWithFreeEvents(EventCalendar eventsCalendar, [FromQuery] int page, [FromQuery] int pageSize)
     {
-        HttpResponse httpHomeResponse = await _repository.Get<List<Event>>("/free");
+        HttpResponse httpFreeEventsResponse = await _repository.Get<List<Event>>("/free");
+
+        if (!httpFreeEventsResponse.IsSuccessful())
+            return httpFreeEventsResponse;
+
+        List<Event> freeEvents = (List<Event>)httpFreeEventsResponse.Content;
+
+        if (freeEvents is not null)
+            eventsCalendar.AddEvents(freeEvents);
+
+        HttpResponse httpHomeResponse = await _repository.Get<EventHomepage>();
 
         if (!httpHomeResponse.IsSuccessful())
             return httpHomeResponse;
 
         EventHomepage eventHomeResponse = httpHomeResponse.Content as EventHomepage;
 
+        eventsCalendar.Homepage = eventHomeResponse ?? new EventHomepage(new List<Alert>());
+        eventsCalendar.AddHeroCarouselItems(eventHomeResponse?.Rows?.FirstOrDefault(row => !row.IsLatest)?.Events.Take(5).ToList());
+        eventsCalendar.Homepage.NextEvents = new List<ProcessedEvents>();
 
-        //if (events is null || !events.Any())
-        //    return View("Index");
+        eventsCalendar.AddQueryUrl(new QueryUrl(Url?.ActionContext.RouteData.Values, Request?.Query));
+        _filteredUrl.SetQueryUrl(eventsCalendar.CurrentUrl);
+        eventsCalendar.AddFilteredUrl(_filteredUrl);
 
+        DoPagination(eventsCalendar, page, new EventResponse(eventsCalendar.Events, new List<string>()), pageSize);
 
-        return View("Index");
+        return View("Index", eventsCalendar);
     }
 
     // This is the healthy stockport filtered events homepage
@@ -173,7 +190,7 @@ public class EventsController : Controller
                 currentPageNumber,
                 "events",
                 pageSize,
-                _config.GetEventsDefaultPageSize("stockportgov"));
+                _config.GetEventsDefaultPageSize(_businessId.ToString().Equals("stockroom") ? "stockroom" : "stockportgov"));
 
             eventResponse.Events = paginatedEvents.Items;
             model.Pagination = paginatedEvents.Pagination;
@@ -185,6 +202,7 @@ public class EventsController : Controller
         }
     }
 
+    // This is used for Healthy Stockport only
     private void DoPagination(EventResultsViewModel model, int currentPageNumber, int pageSize)
     {
         if (model is not null && model.Events.Any())
