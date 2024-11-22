@@ -131,7 +131,7 @@ public class EventsController : Controller
 
         List<Event> freeEvents = (List<Event>)httpFreeEventsResponse.Content;
 
-        if (freeEvents is not null)
+        if (freeEvents is not null) {}
             eventsCalendar.AddEvents(freeEvents);
 
         HttpResponse httpHomeResponse = await _repository.Get<EventHomepage>();
