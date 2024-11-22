@@ -25,22 +25,30 @@
             {
                 @foreach (var eventItem in Model.Events)
                 {
+                    bool isSameDate = previousEnteredDate == eventItem.EventDate;
+
                     string start = string.Empty;
                     string end = string.Empty;
-                    if (previousEnteredDate != eventItem.EventDate.Date)
+                    
+                    if (!isSameDate)
                     {
                         if (previousEnteredDate != DateTime.MinValue)
                         {
                             end = "</ul>";
                         }
 
-                        <h2>@viewHelper.FormatEventDate(eventItem.EventDate)</h2>
-
                         start = "<ul class=\"card-wrapper\">";
                     }
 
                     @Html.Raw(end);
+
+                    if (!isSameDate)
+                    {
+                        <h2>@viewHelper.FormatEventDate(eventItem.EventDate)</h2>
+                    }
+
                     @Html.Raw(start);
+
 
                     <partial name="EventCard" model='eventItem'/>
 
