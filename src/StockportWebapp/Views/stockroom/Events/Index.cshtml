@@ -45,7 +45,9 @@
         <partial name="RelatedEvents" model="@Model.Homepage.NextEvents" view-data='@(new ViewDataDictionary(ViewData) { { "isEventHomepage", true }, { "itemsToDisplay", Model.Homepage.NextEvents.Take(6).ToList() } })' />
     }
 
-    <partial name="ImageBannerContentWidth" view-data='@(new ViewDataDictionary(ViewData) { { "bannerSlug", "events/free" }, { "bannerTitle", "Free events" }, { "bannerTeaser", "Stockroom is free to visit, and there are lots of free events and activities too!" } })' />
+    <div class="grid-container-full-width" style="background-color:#f2f2f2;" data-cy="article">
+        <partial name="ImageBannerContentWidth" view-data='@(new ViewDataDictionary(ViewData) { { "bannerSlug", "events/free" }, { "bannerTitle", "Free events" }, { "bannerTeaser", "Stockroom is free to visit, and there are lots of free events and activities too!" } })' />
+    </div>
 }
 else
 {

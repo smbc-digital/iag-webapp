@@ -7,14 +7,16 @@
 <section class="section image-banner image-banner-content-width" data-cy="image-banner-content-width">
     <div class="grid-container">
         <div class="grid-100">
-            <a href="@slug"
-                class="image-banner__background image-banner__background--position"
-                style="background-image: url(//images.ctfassets.net/6jh3uby2vw58/Vqjq4yD37DxPI7XYo3b74/34702304383a49ce1767ab62d395ef86/runners.jpg?q=89&fm=webp)">
-                <div class="image-banner__content">
-                    <h2 class="image-banner__title font--bold-extra-squeezed">@title</h2>
-                    <p>@teaser</p>
-                </div>
-            </a>
+            <div class="image-banner__wrapper">
+                <a href="@slug"
+                    class="image-banner__background image-banner__background--position"
+                    style="background-image: url(//images.ctfassets.net/6jh3uby2vw58/Vqjq4yD37DxPI7XYo3b74/34702304383a49ce1767ab62d395ef86/runners.jpg?q=89&fm=webp)">
+                    <div class="image-banner__content image-banner__content--border-radius">
+                        <h2 class="image-banner__title font--bold-extra-squeezed">@title</h2>
+                        <p>@teaser</p>
+                    </div>
+                </a>
+            </div>
         </div>
     </div>
 </section>

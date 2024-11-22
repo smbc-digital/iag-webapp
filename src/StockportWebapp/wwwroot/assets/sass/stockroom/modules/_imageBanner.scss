@@ -26,7 +26,8 @@
             position: relative;
             display: block;
             max-height: 500px;
-
+            border-radius: 3px;
+            
             @media #{$tablet} {
                 max-height: 400px;
             }
@@ -75,6 +76,10 @@
         @media #{$mobile} {
             max-width: 100%;
         }
+
+        &--border-radius {
+            border-radius: 3px;
+        }
     }
 
     &__title {
@@ -119,6 +124,13 @@
             p {
                 margin: 0;
             }
+        }
+    }
+
+    &__wrapper {
+        padding-inline: 1em;
+        @media #{$mobile} {
+            padding-inline: 0.5em;
         }
     }
 
