@@ -12,7 +12,19 @@
     ViewData["Description"] = Model.Homepage.MetaDescription;
     Layout = "../Shared/_Layout.cshtml";
 
-    string eventsTitle = Model.FromSearch ? category.Name : "Free events";
+    string eventsTitle = "";
+    if (category is not null)
+    {
+        eventsTitle = category.Name;
+    }
+    else if (Model.DateFrom.HasValue)
+    {
+        eventsTitle = "All upcoming events";
+    }
+    else
+    {
+        eventsTitle = "Free events";
+    }
 }
 
 <h1 class="visuallyhidden">Stockroom events</h1>
@@ -30,6 +42,7 @@
                 {
                     <li class="event-homepage__categories-item">
                         <a href="events?category=@eventCategory.Slug">@eventCategory.Name</a>
+                        @* <a href="@Url.Action("Index", )">@eventCategory.Name</a> *@
                     </li>
                 }
             </ul> 
@@ -48,6 +61,10 @@
     {
         <partial name="RelatedEvents" model="@Model.Homepage.NextEvents" view-data='@(new ViewDataDictionary(ViewData) { { "isEventHomepage", true }, { "itemsToDisplay", Model.Homepage.NextEvents.Take(6).ToList() } })' />
     }
+
+    <div class="btn-container">
+        <a class="btn btn--on-grey btn--no-margin-top" title="View more upcoming events" href="/events?datefrom=@DateTime.Now.Date">View more</a>
+    </div>
 
     <div class="grid-container-full-width" style="background-color:#f2f2f2;" data-cy="article">
         <partial name="ImageBannerContentWidth" view-data='@(new ViewDataDictionary(ViewData) { { "bannerSlug", "events/free" }, { "bannerTitle", "Free events" }, { "bannerTeaser", "Stockroom is free to visit, and there are lots of free events and activities too!" } })' />
