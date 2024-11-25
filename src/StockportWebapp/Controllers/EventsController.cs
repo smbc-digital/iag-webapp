@@ -124,15 +124,21 @@ public class EventsController : Controller
     [Route("/events/free")]
     public async Task<IActionResult> IndexWithFreeEvents(EventCalendar eventsCalendar, [FromQuery] int page, [FromQuery] int pageSize)
     {
-        HttpResponse httpFreeEventsResponse = await _repository.Get<List<Event>>("/free");
+        HttpResponse httpFreeEventsResponse = await _repository.Get<EventResponse>("/free");
 
         if (!httpFreeEventsResponse.IsSuccessful())
             return httpFreeEventsResponse;
 
-        List<Event> freeEvents = (List<Event>)httpFreeEventsResponse.Content;
+        EventResponse freeEvents = (EventResponse)httpFreeEventsResponse.Content;
 
-        if (freeEvents is not null) {}
-            eventsCalendar.AddEvents(freeEvents);
+        eventsCalendar.AddQueryUrl(new QueryUrl(Url?.ActionContext.RouteData.Values, Request?.Query));
+        _filteredUrl.SetQueryUrl(eventsCalendar.CurrentUrl);
+        eventsCalendar.AddFilteredUrl(_filteredUrl);
+
+        DoPagination(eventsCalendar, page, freeEvents, pageSize);
+
+        if (freeEvents is not null)
+            eventsCalendar.AddEvents(freeEvents.Events);
 
         HttpResponse httpHomeResponse = await _repository.Get<EventHomepage>();
 
@@ -144,12 +150,6 @@ public class EventsController : Controller
         eventsCalendar.Homepage = eventHomeResponse ?? new EventHomepage(new List<Alert>());
         eventsCalendar.AddHeroCarouselItems(eventHomeResponse?.Rows?.FirstOrDefault(row => !row.IsLatest)?.Events.Take(5).ToList());
         eventsCalendar.Homepage.NextEvents = new List<ProcessedEvents>();
-
-        eventsCalendar.AddQueryUrl(new QueryUrl(Url?.ActionContext.RouteData.Values, Request?.Query));
-        _filteredUrl.SetQueryUrl(eventsCalendar.CurrentUrl);
-        eventsCalendar.AddFilteredUrl(_filteredUrl);
-
-        DoPagination(eventsCalendar, page, new EventResponse(eventsCalendar.Events, new List<string>()), pageSize);
 
         return View("Index", eventsCalendar);
     }
