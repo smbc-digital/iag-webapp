@@ -32,6 +32,7 @@
                 </div>
                 <div class="event-detail--50 @borderTeal">
                     <div class="@eventWrapperCssClasses">
+                        <h2 class="visuallyhidden">Event Information</h2>
                         <h3 class="event-detail__details">Date and time</h3>
                         <p>
                             @Model.EventDate.ToString("dddd dd MMMM yyyy")
@@ -50,7 +51,7 @@
                 
                 @if (Model.MapDetails.MapPosition is not null && !Model.MapDetails.MapPosition.Lat.Equals(0.0) && !Model.MapDetails.MapPosition.Lon.Equals(0.0))
                 {
-                    <partial name="DetailMap" model='@Model.MapDetails' view-data='@(new ViewDataDictionary(ViewData) { { "AdditionalWrapperCssClasses", @borderTeal }, { "AdditionalCssClasses", @eventWrapperCssClasses }, { "DisplayMap", true }, { "EntryNameString", @Model.Title } })' />
+                    <partial name="DetailMap" model='@Model.MapDetails' view-data='@(new ViewDataDictionary(ViewData) {{ "EventWrapperCssClasses", eventWrapperCssClasses }, {"BorderTop", borderTop }, { "DisplayMap", true }, { "EntryNameString", @Model.Title } })' />
                 }
                 @if (Model.EventBranding.Any())
                 {
