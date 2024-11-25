@@ -436,6 +436,60 @@ public class EventsControllerTest
     }
 
     [Fact]
+    public async Task IndexWithFreeEvents_ShouldCall_Repository_Twice()
+    {
+        // Act
+        await _controller.IndexWithFreeEvents(new EventCalendar(new List<Event>(), new List<string>()), page: 1, pageSize: 12);
+
+        // Assert
+        _repository.Verify(repository => repository.Get<EventResponse>(It.IsAny<string>(), It.IsAny<List<Query>>()), Times.Once);
+        _repository.Verify(repository => repository.Get<EventHomepage>(It.IsAny<string>(), It.IsAny<List<Query>>()), Times.Once);
+    }
+
+    [Fact]
+    public async Task IndexWithFreeEvents_ShouldReturnError_FailedToGetEventResponse()
+    {
+        // Arrange
+        _repository
+            .Setup(repo => repo.Get<EventResponse>(It.IsAny<string>(), It.IsAny<List<Query>>()))
+            .ReturnsAsync(new HttpResponse(500, null, "error"));
+
+        // Act
+        IActionResult result = await _controller.IndexWithFreeEvents(new EventCalendar(new List<Event>(), new List<string>()), page: 1, pageSize: 12);
+
+        // Assert
+        HttpResponse viewResult = Assert.IsType<HttpResponse>(result);
+        Assert.Equal(500, viewResult.StatusCode);
+    }
+
+    [Fact]
+    public async Task IndexWithFreeEvents_ShouldReturnError_FailedToGetEventHomepage()
+    {
+        // Arrange
+        _repository
+            .Setup(repo => repo.Get<EventHomepage>(It.IsAny<string>(), It.IsAny<List<Query>>()))
+            .ReturnsAsync(new HttpResponse(500, null, "error"));
+
+        // Act
+        IActionResult result = await _controller.IndexWithFreeEvents(new EventCalendar(new List<Event>(), new List<string>()), page: 1, pageSize: 12);
+
+        // Assert
+        HttpResponse viewResult = Assert.IsType<HttpResponse>(result);
+        Assert.Equal(500, viewResult.StatusCode);
+    }
+
+    [Fact]
+    public async Task IndexWithFreeEvents_ShouldReturnIndexView()
+    {
+        // Act
+        IActionResult result = await _controller.IndexWithFreeEvents(new EventCalendar(new List<Event>(), new List<string>()), page: 1, pageSize: 12);
+
+        // Assert
+        ViewResult viewResult = Assert.IsType<ViewResult>(result);
+        Assert.Equal("Index", viewResult.ViewName);
+    }
+
+    [Fact]
     public async Task EventDetail_ReturnsViewResult_WithExpectedModel_WhenEventExists()
     {
         // Arrange

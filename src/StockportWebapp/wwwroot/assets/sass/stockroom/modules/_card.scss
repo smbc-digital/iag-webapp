@@ -9,6 +9,11 @@
         list-style: none;
         flex-wrap: wrap;
         margin-bottom: 0;
+
+        li:nth-last-child(3n):first-child,
+        li:nth-last-child(3n):first-child ~ li {
+            flex-grow: 1;
+        }
     }
 
     &-item {
@@ -18,9 +23,9 @@
         background-color: white;
         display: flex;
         flex-direction: column;
-        flex-grow: 1;
+        flex-grow: 0;
         justify-content: space-between;
-
+        
         @media #{$tablet} {
             width: calc(33.33333% - 20px);
             margin: 0 15px 2em 15px;
