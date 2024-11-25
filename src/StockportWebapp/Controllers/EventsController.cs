@@ -55,11 +55,12 @@ public class EventsController : Controller
         if (!string.IsNullOrEmpty(eventsCalendar.Tag)) 
             eventsCalendar.KeepTag = eventsCalendar.Tag;
 
-        eventsCalendar.FromSearch = eventsCalendar.FromSearch 
+        eventsCalendar.FromSearch = eventsCalendar.FromSearch
+            || free 
             || !string.IsNullOrWhiteSpace(eventsCalendar.Category) 
             || !string.IsNullOrWhiteSpace(eventsCalendar.Tag)
-            || eventsCalendar.DateFrom != null 
-            || eventsCalendar.DateTo != null;
+            || eventsCalendar.DateFrom is not null 
+            || eventsCalendar.DateTo is not null;
 
         List<Query> queries = new();
         string dateFormat = "yyyy-MM-dd";
@@ -85,14 +86,10 @@ public class EventsController : Controller
         if (!eventsCalendar.Latitude.Equals(0))
             queries.Add(new Query("latitude", string.Join(",", eventsCalendar.Latitude)));
 
-        // Add the Free query here
+        if (free)
+            queries.Add(new Query("free", "true"));
         
-        HttpResponse httpResponse;
-        // Remove the if/else and just use line 93
-        if (!free)
-            httpResponse = await _repository.Get<EventResponse>(queries: queries);
-        else
-            httpResponse = await _repository.Get<EventResponse>("/free", queries: queries);
+        HttpResponse httpResponse = await _repository.Get<EventResponse>(queries: queries);
 
         if (!httpResponse.IsSuccessful())
             return httpResponse;
@@ -123,41 +120,9 @@ public class EventsController : Controller
 
         if (!eventsCalendar.FromSearch)
             eventsCalendar.Homepage.NextEvents = eventHomeResponse?.Rows?.FirstOrDefault(row => row.IsLatest)?.Events
-                .Select(baseEvent => _stockportApiEventsService.BuildProcessedEvent(baseEvent)).ToList();
+                .Select(_stockportApiEventsService.BuildProcessedEvent).ToList();
 
         return View(eventsCalendar);
-    }
-
-    [Route("/events/free")]
-    public async Task<IActionResult> IndexWithFreeEvents(EventCalendar eventsCalendar, [FromQuery] int page, [FromQuery] int pageSize)
-    {
-        HttpResponse httpFreeEventsResponse = await _repository.Get<EventResponse>("/free");
-
-        if (!httpFreeEventsResponse.IsSuccessful())
-            return httpFreeEventsResponse;
-
-        EventResponse freeEvents = (EventResponse)httpFreeEventsResponse.Content;
-
-        eventsCalendar.AddQueryUrl(new QueryUrl(Url?.ActionContext.RouteData.Values, Request?.Query));
-        _filteredUrl.SetQueryUrl(eventsCalendar.CurrentUrl);
-        eventsCalendar.AddFilteredUrl(_filteredUrl);
-
-        DoPagination(eventsCalendar, page, freeEvents, pageSize);
-
-        if (freeEvents is not null)
-            eventsCalendar.AddEvents(freeEvents.Events);
-
-        HttpResponse httpHomeResponse = await _repository.Get<EventHomepage>();
-
-        if (!httpHomeResponse.IsSuccessful())
-            return httpHomeResponse;
-
-        EventHomepage eventHomeResponse = httpHomeResponse.Content as EventHomepage;
-
-        eventsCalendar.Homepage = eventHomeResponse ?? new EventHomepage(new List<Alert>());
-        eventsCalendar.AddHeroCarouselItems(eventHomeResponse?.Rows?.FirstOrDefault(row => !row.IsLatest)?.Events.Take(5).ToList());
-
-        return View("Index", eventsCalendar);
     }
 
     // This is the healthy stockport filtered events homepage

@@ -42,7 +42,6 @@
                 {
                     <li class="event-homepage__categories-item">
                         <a href="events?category=@eventCategory.Slug">@eventCategory.Name</a>
-                        @* <a href="@Url.Action("Index", )">@eventCategory.Name</a> *@
                     </li>
                 }
             </ul> 
@@ -66,8 +65,8 @@
         <a class="btn btn--on-grey btn--no-margin-top" title="View more upcoming events" href="/events?datefrom=@DateTime.Now.Date">View more</a>
     </div>
 
-    <div class="grid-container-full-width" style="background-color:#f2f2f2;" data-cy="article">
-        <partial name="ImageBannerContentWidth" view-data='@(new ViewDataDictionary(ViewData) { { "bannerSlug", "events/free" }, { "bannerTitle", "Free events" }, { "bannerTeaser", "Stockroom is free to visit, and there are lots of free events and activities too!" } })' />
+    <div class="grid-container-full-width" style="background-color:#f2f2f2;">
+        <partial name="ImageBannerContentWidth" view-data='@(new ViewDataDictionary(ViewData) { { "bannerSlug", "events?free=true" }, { "bannerTitle", "Free events" }, { "bannerTeaser", "Stockroom is free to visit, and there are lots of free events and activities too!" } })' />
     </div>
 }
 else
