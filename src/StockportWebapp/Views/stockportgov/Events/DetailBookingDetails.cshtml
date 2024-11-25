@@ -9,33 +9,33 @@
         <div class="@eventWrapperCssClasses">
             <h2 class="event-detail__heading">Event and booking details</h2>
             <div class="event-detail__details">
-                <h3>Cost:</h3>
+                <p>Cost:</p>
                 <p>@Model.Fee</p>
             </div>
             @if (!string.IsNullOrEmpty(Model.PhoneNumber))
             {
                 <div class="event-detail__details">
-                    <h3>Phone:</h3>
-                    <p>@Model.PhoneNumber</p>
+                    <p>Phone:</p>
+                    <p><strong>@Model.PhoneNumber</strong></p>
                 </div>
             }
             @if (!string.IsNullOrEmpty(Model.Email))
             {
                 <div class="event-detail__details">
-                    <h3>Email:</h3>
+                    <p>Email:</p>
                     <p><a href="mailto:@Model.Email">@Model.Email</a></p>
                 </div>
             }
             @if (!string.IsNullOrEmpty(Model.Website))
             {
                 <div class="event-detail__details">
-                    <h3>Visit:</h3>
+                    <p>Visit:</p>
                     <p><a href="@Model.Website">@Model.Website</a></p>
                 </div>
             }
             @if (!string.IsNullOrEmpty(Model.BookingInformation))
             {
-                <a href="@Model.BookingInformation" data-cy="book-event-button" class="btn btn--bold btn--width-25 btn--chevron-forward">
+                <a href="@Model.BookingInformation" data-cy="book-event-button" class="btn event-detail__button btn--width-30 btn--chevron-forward btn--bold btn--chevron-bold">
                     <span class="btn_text">Book a place</span>
                 </a>
             }
