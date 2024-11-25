@@ -39,52 +39,55 @@
         </div>
     </div>
 
-    <nav class="pagination" aria-label="Pagination">
-        <div class="pagination__prev">
-            @if (PaginationHelper.ShowPreviousLink(Model.CurrentPageNumber))
-            {
-                <a href="@getPageUrl(Model.CurrentPageNumber - 1)" class="pagination__links">
-                    <span class="pagination__left"></span>
-                    <span class="pagination__right--rtl"></span>
-                    Previous
-                    <span class="visuallyhidden">page</span>
-                </a>
-            }
-        </div>
-
-        <ul class="pagination__list">
-            @foreach (int? page in pageSequence)
-            {
-                if (page.HasValue)
+    @if (PaginationHelper.DisplayPagination(Model.TotalItems))
+    {
+        <nav class="pagination" aria-label="Pagination">
+            <div class="pagination__prev">
+                @if (PaginationHelper.ShowPreviousLink(Model.CurrentPageNumber))
                 {
-                    int pageNumber = page.Value;
-                    string ariaCurrent = pageNumber.Equals(Model.CurrentPageNumber) ? "aria-current=page" : string.Empty;
-                    string className = pageNumber.Equals(Model.CurrentPageNumber) ? "pagination__current" : "pagination__number";
-
-                    <li class="pagination__item">
-                        <a href="@getPageUrl(pageNumber)" 
-                           class="@className"
-                           aria-label="Page @pageNumber"
-                           @ariaCurrent>@pageNumber</a>
-                    </li>
+                    <a href="@getPageUrl(Model.CurrentPageNumber - 1)" class="pagination__links">
+                        <span class="pagination__left"></span>
+                        <span class="pagination__right--rtl"></span>
+                        Previous
+                        <span class="visuallyhidden">page</span>
+                    </a>
                 }
-                else
+            </div>
+
+            <ul class="pagination__list">
+                @foreach (int? page in pageSequence)
                 {
-                    <li class="pagination__item pagination__ellipses">...</li>
-                }
-            }
-        </ul>
+                    if (page.HasValue)
+                    {
+                        int pageNumber = page.Value;
+                        string ariaCurrent = pageNumber.Equals(Model.CurrentPageNumber) ? "aria-current=page" : string.Empty;
+                        string className = pageNumber.Equals(Model.CurrentPageNumber) ? "pagination__current" : "pagination__number";
 
-        <div class="pagination__next">
-            @if (PaginationHelper.ShowNextLink(Model.CurrentPageNumber, Model.TotalPages))
-            {
-                <a href="@getPageUrl(Model.CurrentPageNumber + 1)" class="pagination__links">
-                    Next
-                    <span class="visuallyhidden">page</span>
-                    <span class="pagination__left--rtl"></span>
-                    <span class="pagination__right"></span>
-                </a>
-            }
-        </div>
-    </nav>
+                        <li class="pagination__item">
+                            <a href="@getPageUrl(pageNumber)" 
+                            class="@className"
+                            aria-label="Page @pageNumber"
+                            @ariaCurrent>@pageNumber</a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="pagination__item pagination__ellipses">...</li>
+                    }
+                }
+            </ul>
+
+            <div class="pagination__next">
+                @if (PaginationHelper.ShowNextLink(Model.CurrentPageNumber, Model.TotalPages))
+                {
+                    <a href="@getPageUrl(Model.CurrentPageNumber + 1)" class="pagination__links">
+                        Next
+                        <span class="visuallyhidden">page</span>
+                        <span class="pagination__left--rtl"></span>
+                        <span class="pagination__right"></span>
+                    </a>
+                }
+            </div>
+        </nav>
+    }
 </div> 

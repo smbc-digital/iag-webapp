@@ -221,4 +221,7 @@ public static class PaginationHelper
 
         return pages;
     }
+
+    public static bool DisplayPagination(int totalEntries) =>
+        totalEntries > 12;
 }

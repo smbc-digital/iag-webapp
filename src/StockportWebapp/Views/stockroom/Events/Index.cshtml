@@ -11,7 +11,11 @@
     ViewData["Title"] = ViewData["og:title"];
     ViewData["Description"] = Model.Homepage.MetaDescription;
     Layout = "../Shared/_Layout.cshtml";
+
+    string eventsTitle = Model.FromSearch ? category.Name : "Free events";
 }
+
+<h1 class="visuallyhidden">Stockroom events</h1>
 
 @if (Model.HeroCarouselItems is not null && Model.HeroCarouselItems.Any())
 {
@@ -51,5 +55,5 @@
 }
 else
 {
-    <partial name="Events" model="@Model" />
+    <partial name="Events" model="@Model" view-data='@(new ViewDataDictionary(ViewData) {{ "eventsTitle", eventsTitle }})' />
 }

@@ -3,16 +3,17 @@
 @{
     DateTime previousEnteredDate = DateTime.MinValue;
     bool hasEvents = Model.Events.Any();
+    string eventsTitle = (string)ViewData["eventsTitle"];
 }
 
 <div class="grid-container-full-width" style="background-color:#f2f2f2;" data-cy="article">
     <div class="grid-container">
         <div class="grid-100">
-            <h2 class="card-title">Free events</h2>
+            <h2 class="card-title">@eventsTitle</h2>
             @if (!hasEvents)
             {
                 <div class="no-results">
-                    <h1>There are currently no events matching your search.</h1>
+                    <h2>There are currently no events matching your search.</h2>
                     @if (Model.DateFrom.HasValue && Model.DateTo.HasValue && Model.DateFrom > Model.DateTo)
                     {
                         <p>This is because you searched for an invalid date range.</p>

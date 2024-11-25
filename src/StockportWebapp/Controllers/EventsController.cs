@@ -114,8 +114,9 @@ public class EventsController : Controller
         eventsCalendar.Homepage = eventHomeResponse ?? new EventHomepage(new List<Alert>());
         eventsCalendar.AddHeroCarouselItems(eventHomeResponse?.Rows?.FirstOrDefault(row => !row.IsLatest)?.Events.Take(5).ToList());
 
-        eventsCalendar.Homepage.NextEvents = eventHomeResponse?.Rows?.FirstOrDefault(row => row.IsLatest)?.Events
-            .Select(baseEvent => _stockportApiEventsService.BuildProcessedEvent(baseEvent)).ToList();
+        if (!eventsCalendar.FromSearch)
+            eventsCalendar.Homepage.NextEvents = eventHomeResponse?.Rows?.FirstOrDefault(row => row.IsLatest)?.Events
+                .Select(baseEvent => _stockportApiEventsService.BuildProcessedEvent(baseEvent)).ToList();
 
         return View(eventsCalendar);
     }
@@ -148,7 +149,6 @@ public class EventsController : Controller
 
         eventsCalendar.Homepage = eventHomeResponse ?? new EventHomepage(new List<Alert>());
         eventsCalendar.AddHeroCarouselItems(eventHomeResponse?.Rows?.FirstOrDefault(row => !row.IsLatest)?.Events.Take(5).ToList());
-        eventsCalendar.Homepage.NextEvents = new List<ProcessedEvents>();
 
         return View("Index", eventsCalendar);
     }
