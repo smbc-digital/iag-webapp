@@ -111,7 +111,6 @@
                 }
             }
 
-
             <li class="pagination__item">
                 @{
                     string ariaCurrentAttribute = Model.CurrentPageNumber == Model.TotalPages ? "aria-current=page" : string.Empty;
@@ -120,7 +119,6 @@
                     @ariaCurrentAttribute aria-label="Page @Model.TotalPages">@Model.TotalPages</a>
             </li>
         </ul>
-
 
         <div class="pagination__next">
             @if (PaginationHelper.ShowNextLink(Model.CurrentPageNumber, Model.TotalPages))

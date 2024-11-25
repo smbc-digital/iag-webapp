@@ -114,9 +114,8 @@ public class EventsController : Controller
         eventsCalendar.Homepage = eventHomeResponse ?? new EventHomepage(new List<Alert>());
         eventsCalendar.AddHeroCarouselItems(eventHomeResponse?.Rows?.FirstOrDefault(row => !row.IsLatest)?.Events.Take(5).ToList());
 
-        //if (!eventsCalendar.Events.Any())
-            eventsCalendar.Homepage.NextEvents = eventHomeResponse?.Rows?.FirstOrDefault(row => row.IsLatest)?.Events
-                .Select(baseEvent => _stockportApiEventsService.BuildProcessedEvent(baseEvent)).ToList();
+        eventsCalendar.Homepage.NextEvents = eventHomeResponse?.Rows?.FirstOrDefault(row => row.IsLatest)?.Events
+            .Select(baseEvent => _stockportApiEventsService.BuildProcessedEvent(baseEvent)).ToList();
 
         return View(eventsCalendar);
     }

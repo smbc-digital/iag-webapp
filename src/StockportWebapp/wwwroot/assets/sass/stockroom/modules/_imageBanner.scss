@@ -129,6 +129,7 @@
 
     &__wrapper {
         padding-inline: 1em;
+    
         @media #{$mobile} {
             padding-inline: 0.5em;
         }
