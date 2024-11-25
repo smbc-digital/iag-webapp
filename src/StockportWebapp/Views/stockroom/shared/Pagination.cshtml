@@ -5,6 +5,9 @@
     int indexOfLastItemOnPage = PaginationHelper.CalculateIndexOfLastItemOnPage(Model.CurrentPageNumber, Model.TotalItemsOnPage, Model.MaxItemsPerPage);
     int pageSize = PaginationHelper.GetOtherPageSizeByCurrentPageSize(Model.MaxItemsPerPage, Model.TotalItems, Model.DefaultPageSize);
     List<VisiblePageNumber> visiblePageNumbers = PaginationHelper.GenerateVisiblePageNumbers(Model.CurrentPageNumber, Model.TotalPages);
+    List<int?> pageSequence = PaginationHelper.GeneratePageSequence(Model.CurrentPageNumber, Model.TotalPages);
+
+    Func<int, string> getPageUrl = page => PaginationHelper.BuildUrl(page, Model.CurrentUrl, urlHelper);
 }
 
 <div class="pagination-section grid-parent pagination-margin-bottom">
@@ -40,9 +43,7 @@
         <div class="pagination__prev">
             @if (PaginationHelper.ShowPreviousLink(Model.CurrentPageNumber))
             {
-                var url = PaginationHelper.BuildUrl(Model.CurrentPageNumber - 1, Model.CurrentUrl, urlHelper);
-
-                <a href="@url" class="pagination__links">
+                <a href="@getPageUrl(Model.CurrentPageNumber - 1)" class="pagination__links">
                     <span class="pagination__left"></span>
                     <span class="pagination__right--rtl"></span>
                     Previous
@@ -52,80 +53,32 @@
         </div>
 
         <ul class="pagination__list">
-            <li class="pagination__item">
-                @{
-                    string ariaCurrent = Model.CurrentPageNumber == 1 ? "aria-current=page" : string.Empty;
-                }
-                <a href="page=1" class="@(Model.CurrentPageNumber == 1 ? "pagination__current" : "pagination__number")"
-                    aria-label="Page 1" @ariaCurrent>1</a>
-                   
-            </li>
-
-            @if (Model.CurrentPageNumber > 4 && Model.TotalPages > 7)
+            @foreach (var page in pageSequence)
             {
-                <li class="pagination__item pagination__ellipses">...</li>
-            }
-
-            @if (Model.TotalPages <= 7)
-            {
-                @for (int i = 2; i <= Math.Min(Model.TotalPages - 1, 7); i++)
+                if (page.HasValue)
                 {
-                    string ariaCurrentAttr = Model.CurrentPageNumber == i ? "aria-current=page" : string.Empty;
+                    int pageNumber = page.Value;
+                    string ariaCurrent = pageNumber.Equals(Model.CurrentPageNumber) ? "aria-current=page" : string.Empty;
+                    string className = pageNumber.Equals(Model.CurrentPageNumber) ? "pagination__current" : "pagination__number";
 
                     <li class="pagination__item">
-
-                        <a href="?page=@i" class="@(i == Model.CurrentPageNumber ? "pagination__current" : "pagination__number")"
-                            @ariaCurrentAttr aria-label="Page @i">@i</a>
+                        <a href="@getPageUrl(pageNumber)" 
+                           class="@className"
+                           aria-label="Page @pageNumber"
+                           @ariaCurrent>@pageNumber</a>
                     </li>
                 }
-            }
-            else
-            {
-                @if(Model.CurrentPageNumber == 4){
-                    @for (int i = Math.Max(2, Model.CurrentPageNumber - 2); i <= Math.Min(Model.TotalPages - 1, Model.CurrentPageNumber + 1); i++)
-                    {
-                        string ariaCurrentAttr = Model.CurrentPageNumber == i ? "aria-current=page" : string.Empty;
-
-                        <li class="pagination__item">
-                            <a href="?page=@i" class="@(i == Model.CurrentPageNumber ? "pagination__current" : "pagination__number")"
-                                @ariaCurrentAttr aria-label="Page @i">@i</a>
-                        </li>
-                    }
-                }
                 else
-                {
-                    @for (int i = Math.Max(2, Model.CurrentPageNumber - 1); i <= Math.Min(Model.TotalPages - 1, Model.CurrentPageNumber + 1); i++)
-                    {
-                        string ariaCurrentAttr = Model.CurrentPageNumber == i ? "aria-current=page" : string.Empty;
-
-                        <li class="pagination__item">
-                            <a href="?page=@i" class="@(i == Model.CurrentPageNumber ? "pagination__current" : "pagination__number")"
-                                @ariaCurrentAttr aria-label="Page @i">@i</a>
-                        </li>
-                    }
-                }
-
-                @if (Model.TotalPages - Model.CurrentPageNumber > 2)
                 {
                     <li class="pagination__item pagination__ellipses">...</li>
                 }
             }
-
-            <li class="pagination__item">
-                @{
-                    string ariaCurrentAttribute = Model.CurrentPageNumber == Model.TotalPages ? "aria-current=page" : string.Empty;
-                }
-                <a href="?page=@Model.TotalPages" class="@(Model.CurrentPageNumber == Model.TotalPages ? "pagination__current" : "pagination__number")"
-                    @ariaCurrentAttribute aria-label="Page @Model.TotalPages">@Model.TotalPages</a>
-            </li>
         </ul>
 
         <div class="pagination__next">
             @if (PaginationHelper.ShowNextLink(Model.CurrentPageNumber, Model.TotalPages))
             {
-                string url = PaginationHelper.BuildUrl(Model.CurrentPageNumber + 1, Model.CurrentUrl, urlHelper);
-
-                <a href="@url" class="pagination__links">
+                <a href="@getPageUrl(Model.CurrentPageNumber + 1)" class="pagination__links">
                     Next
                     <span class="visuallyhidden">page</span>
                     <span class="pagination__left--rtl"></span>

@@ -41,15 +41,11 @@ public static class PaginationHelper
         return result;
     }
 
-    public static bool ShowPreviousLink(int currentPageNumber)
-    {
-        return currentPageNumber > 1;
-    }
+    public static bool ShowPreviousLink(int currentPageNumber) =>
+        currentPageNumber > 1;
 
-    public static bool ShowNextLink(int currentPageNumber, int totalPages)
-    {
-        return currentPageNumber < totalPages;
-    }
+    public static bool ShowNextLink(int currentPageNumber, int totalPages) =>
+        currentPageNumber < totalPages;
 
     public static PaginatedItems<T> GetPaginatedItemsForSpecifiedPage<T>(List<T> items, int currentPageNumber, string itemDescription, int maxNumberOfItemsPerPage, int defaultPageSize)
     {
@@ -57,7 +53,11 @@ public static class PaginationHelper
             items.Count,
             currentPageNumber,
             itemDescription,
-            maxNumberOfItemsPerPage == -1 ? items.Count() : maxNumberOfItemsPerPage == 0 ? defaultPageSize : maxNumberOfItemsPerPage,
+            maxNumberOfItemsPerPage.Equals(-1)
+                ? items.Count()
+                    : maxNumberOfItemsPerPage.Equals(0)
+                    ? defaultPageSize
+                : maxNumberOfItemsPerPage,
             defaultPageSize);
 
         int ExistingPageNumber = MakeSurePageNumberExists(currentPageNumber, items.Count, pagination.MaxItemsPerPage);
@@ -114,13 +114,9 @@ public static class PaginationHelper
         int highestPageNumber = CalculateHighestPageNumber(totalItems, numberOfItemsPerPage);
 
         if (suggestedPageNumber == 0)
-        {
             actualPageNumber = 1;
-        }
         else if (suggestedPageNumber > highestPageNumber)
-        {
             actualPageNumber = highestPageNumber;
-        }
 
         return actualPageNumber;
     }
@@ -143,17 +139,11 @@ public static class PaginationHelper
         bool currentPageIsLastVisiblePage = CurrentPageIsLastVisiblePage(currentPageNumber, totalPages);
 
         if (totalPages < 5 || currentPageIsNearStartOfVisiblePages)
-        {
             firstVisiblePage = 1;
-        }
         else if (currentPageIsLastVisiblePage || currentPageIsPenultimateVisiblePage)
-        {
             firstVisiblePage = totalPages - 4;
-        }
         else
-        {
             firstVisiblePage = currentPageNumber - 2;
-        }
 
         return firstVisiblePage;
     }
@@ -169,55 +159,70 @@ public static class PaginationHelper
         bool currentPageIsLastVisiblePage = CurrentPageIsLastVisiblePage(currentPageNumber, totalPages);
 
         if (currentPageIsNearStartOfVisiblePages)
-        {
             currentPageIndex = currentPageNumber - 1;
-        }
         else if (currentPageIsPenultimateVisiblePage)
-        {
             currentPageIndex = numVisiblePages - 2;
-        }
         else if (currentPageIsLastVisiblePage)
-        {
             currentPageIndex = numVisiblePages - 1;
-        }
         else
-        {
-            const int middleIndexOutOfFive = 2;
-            currentPageIndex = middleIndexOutOfFive;
-        }
+            currentPageIndex = 2;
 
         return currentPageIndex;
     }
 
-    private static bool CurrentPageIsNearStartOfVisiblePages(int currentPageNumber)
-    {
-        return currentPageNumber == 1
-            || currentPageNumber == 2;
-    }
+    private static bool CurrentPageIsNearStartOfVisiblePages(int currentPageNumber) =>
+        currentPageNumber.Equals(1) || currentPageNumber.Equals(2);
 
-    private static bool CurrentPageIsLastVisiblePage(int currentPageNumber, int totalPages)
-    {
-        return currentPageNumber == totalPages;
-    }
+    private static bool CurrentPageIsLastVisiblePage(int currentPageNumber, int totalPages) =>
+        currentPageNumber == totalPages;
 
-    private static bool CurrentPageIsPenultimateVisiblePage(int currentPageNumber, int totalPages)
-    {
-        return currentPageNumber == (totalPages - 1);
-    }
+    private static bool CurrentPageIsPenultimateVisiblePage(int currentPageNumber, int totalPages) =>
+        currentPageNumber == (totalPages - 1);
 
     public static int GetOtherPageSizeByCurrentPageSize(int maxItemsPerPage, int totalItems, int defaultPageSize)
     {
         if (maxItemsPerPage == defaultPageSize && totalItems < 60)
-        {
             return 60;
-        }
         else if (maxItemsPerPage == defaultPageSize && totalItems > 60)
-        {
             return 60;
+        else
+            return defaultPageSize;
+    }
+
+    public static List<int?> GeneratePageSequence(int currentPage, int totalPages)
+    {
+        const int maxVisiblePages = 7;
+
+        if (totalPages <= maxVisiblePages)
+            return Enumerable.Range(1, totalPages).Cast<int?>().ToList();
+
+        List<int?> pages = new(){ 1 };
+
+        if (currentPage > 4 && totalPages > 7)
+            pages.Add(null);
+
+        if (totalPages <= 7)
+        {
+            for (int i = 2; i <= Math.Min(totalPages - 1, 7); i++)
+                pages.Add(i);
+        }
+
+        if (currentPage.Equals(4))
+        {
+            for (int i = Math.Max(2, currentPage - 2); i <= Math.Min(totalPages - 1, currentPage + 1); i++)
+                pages.Add(i);
         }
         else
         {
-            return defaultPageSize;
+            for (int i =  Math.Max(2, currentPage - 1); i <= Math.Min(totalPages - 1, currentPage + 1); i++)
+                pages.Add(i);
         }
+
+        if (totalPages - currentPage > 2)
+            pages.Add(null);
+
+        pages.Add(totalPages);
+
+        return pages;
     }
 }
