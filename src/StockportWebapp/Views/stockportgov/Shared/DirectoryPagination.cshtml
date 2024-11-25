@@ -76,7 +76,8 @@
                                 </li>
                             }
                         }
-                        else{
+                        else
+                        {
                             @for (int i = Math.Max(2, Model.PaginationInfo.CurrentPage - 1); i <= Math.Min(Model.PaginationInfo.TotalPages - 1, Model.PaginationInfo.CurrentPage + 1); i++)
                             {
                                 string ariaCurrentAttr = Model.PaginationInfo.CurrentPage == i ? "aria-current=page" : string.Empty;

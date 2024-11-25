@@ -1,50 +1,139 @@
 ﻿@model Pagination
+@{
+    IUrlHelperWrapper urlHelper = new UrlHelperWrapper(Url);
+    int indexOfFirstItemOnPage = PaginationHelper.CalculateIndexOfFirstItemOnPage(Model.CurrentPageNumber, Model.MaxItemsPerPage);
+    int indexOfLastItemOnPage = PaginationHelper.CalculateIndexOfLastItemOnPage(Model.CurrentPageNumber, Model.TotalItemsOnPage, Model.MaxItemsPerPage);
+    int pageSize = PaginationHelper.GetOtherPageSizeByCurrentPageSize(Model.MaxItemsPerPage, Model.TotalItems, Model.DefaultPageSize);
+    List<VisiblePageNumber> visiblePageNumbers = PaginationHelper.GenerateVisiblePageNumbers(Model.CurrentPageNumber, Model.TotalPages);
+}
 
 <div class="pagination-section grid-parent pagination-margin-bottom">
-    @{
-        IUrlHelperWrapper urlHelper = new UrlHelperWrapper(Url);
-        var indexOfFirstItemOnPage = PaginationHelper.CalculateIndexOfFirstItemOnPage(Model.CurrentPageNumber, Model.MaxItemsPerPage);
-        var indexOfLastItemOnPage = PaginationHelper.CalculateIndexOfLastItemOnPage(Model.CurrentPageNumber, Model.TotalItemsOnPage, Model.MaxItemsPerPage);
-        var pageSize = PaginationHelper.GetOtherPageSizeByCurrentPageSize(Model.MaxItemsPerPage, Model.TotalItems, Model.DefaultPageSize);
-    }
+    <div class="pagination__count">
+        <div class="grid-container">
+            <div class="grid-100">
+                <span class="pagination__count-span">
+                    Showing 
+                    <span class="bold">@indexOfFirstItemOnPage</span>
+                    to
+                    <span class="bold">@indexOfLastItemOnPage</span>
+                    of
+                    <span class="bold"> @Model.TotalItems</span>
+                    results
+                </span>
 
-    @if (Model.TotalItems > Model.DefaultPageSize)
-    {
-        <div class="grid-parent grid-50 mobile-grid-100 tablet-grid-50 page-size">
-            <a href="@PaginationHelper.BuildPageSizeUrl(Model.DefaultPageSize, Model.MaxItemsPerPage, Model.TotalItems, Model.CurrentUrl, urlHelper)"> View @(pageSize == 60 && Model.TotalItems < 60 ? "all" : pageSize.ToString()) @Model.ItemDescription @(pageSize == 60 && Model.TotalItems < 60 ? string.Empty : "per page")</a>
+                @if (Model.TotalItems > Model.DefaultPageSize)
+                {
+                    <a class="pagination__count-view-all"
+                        href="@PaginationHelper.BuildPageSizeUrl(Model.DefaultPageSize, Model.MaxItemsPerPage, Model.TotalItems, Model.CurrentUrl, urlHelper)">
+                        View @(pageSize.Equals(60) && Model.TotalItems < 60
+                            ? "all"
+                            : pageSize.ToString()) @Model.ItemDescription @(pageSize.Equals(60) && Model.TotalItems < 60
+                                ? string.Empty
+                                : "per page")
+                    </a>
+                }
+            </div>
         </div>
-    }
+    </div>
 
-    <div class="grid-parent grid-@(Model.TotalItems > Model.DefaultPageSize ? "50" : "100") tablet-grid-@(Model.TotalItems > Model.DefaultPageSize ? "50" : "100") mobile-grid-100 pagination-display">Showing @indexOfFirstItemOnPage - @indexOfLastItemOnPage of @Model.TotalItems @Model.ItemDescription</div>
-
-    <div class="grid-parent grid-100 tablet-grid-100 mobile-grid-100 pagination-page-numbers">
-        @{
-            if (PaginationHelper.ShowPreviousLink(Model.CurrentPageNumber))
+    <nav class="pagination" aria-label="Pagination">
+        <div class="pagination__prev">
+            @if (PaginationHelper.ShowPreviousLink(Model.CurrentPageNumber))
             {
                 var url = PaginationHelper.BuildUrl(Model.CurrentPageNumber - 1, Model.CurrentUrl, urlHelper);
-                <a href="@url">Previous</a>
+
+                <a href="@url" class="pagination__links">
+                    <span class="pagination__left"></span>
+                    <span class="pagination__right--rtl"></span>
+                    Previous
+                    <span class="visuallyhidden">page</span>
+                </a>
+            }
+        </div>
+
+        <ul class="pagination__list">
+            <li class="pagination__item">
+                @{
+                    string ariaCurrent = Model.CurrentPageNumber == 1 ? "aria-current=page" : string.Empty;
+                }
+                <a href="page=1" class="@(Model.CurrentPageNumber == 1 ? "pagination__current" : "pagination__number")"
+                    aria-label="Page 1" @ariaCurrent>1</a>
+                   
+            </li>
+
+            @if (Model.CurrentPageNumber > 4 && Model.TotalPages > 7)
+            {
+                <li class="pagination__item pagination__ellipses">...</li>
             }
 
-            var visiblePageNumbers = PaginationHelper.GenerateVisiblePageNumbers(Model.CurrentPageNumber, Model.TotalPages);
-
-            foreach (var visiblePageNumber in visiblePageNumbers)
+            @if (Model.TotalPages <= 7)
             {
-                if (visiblePageNumber.IsCurrentPage)
+                @for (int i = 2; i <= Math.Min(Model.TotalPages - 1, 7); i++)
                 {
-                    <span>@visiblePageNumber.PageNumber.ToString()</span>
+                    string ariaCurrentAttr = Model.CurrentPageNumber == i ? "aria-current=page" : string.Empty;
+
+                    <li class="pagination__item">
+
+                        <a href="?page=@i" class="@(i == Model.CurrentPageNumber ? "pagination__current" : "pagination__number")"
+                            @ariaCurrentAttr aria-label="Page @i">@i</a>
+                    </li>
+                }
+            }
+            else
+            {
+                @if(Model.CurrentPageNumber == 4){
+                    @for (int i = Math.Max(2, Model.CurrentPageNumber - 2); i <= Math.Min(Model.TotalPages - 1, Model.CurrentPageNumber + 1); i++)
+                    {
+                        string ariaCurrentAttr = Model.CurrentPageNumber == i ? "aria-current=page" : string.Empty;
+
+                        <li class="pagination__item">
+                            <a href="?page=@i" class="@(i == Model.CurrentPageNumber ? "pagination__current" : "pagination__number")"
+                                @ariaCurrentAttr aria-label="Page @i">@i</a>
+                        </li>
+                    }
                 }
                 else
                 {
-                    var url = PaginationHelper.BuildUrl(visiblePageNumber.PageNumber, Model.CurrentUrl, urlHelper);
-                    <a href="@url">@visiblePageNumber.PageNumber.ToString()</a>
+                    @for (int i = Math.Max(2, Model.CurrentPageNumber - 1); i <= Math.Min(Model.TotalPages - 1, Model.CurrentPageNumber + 1); i++)
+                    {
+                        string ariaCurrentAttr = Model.CurrentPageNumber == i ? "aria-current=page" : string.Empty;
+
+                        <li class="pagination__item">
+                            <a href="?page=@i" class="@(i == Model.CurrentPageNumber ? "pagination__current" : "pagination__number")"
+                                @ariaCurrentAttr aria-label="Page @i">@i</a>
+                        </li>
+                    }
+                }
+
+                @if (Model.TotalPages - Model.CurrentPageNumber > 2)
+                {
+                    <li class="pagination__item pagination__ellipses">...</li>
                 }
             }
 
-            if (PaginationHelper.ShowNextLink(Model.CurrentPageNumber, Model.TotalPages))
+
+            <li class="pagination__item">
+                @{
+                    string ariaCurrentAttribute = Model.CurrentPageNumber == Model.TotalPages ? "aria-current=page" : string.Empty;
+                }
+                <a href="?page=@Model.TotalPages" class="@(Model.CurrentPageNumber == Model.TotalPages ? "pagination__current" : "pagination__number")"
+                    @ariaCurrentAttribute aria-label="Page @Model.TotalPages">@Model.TotalPages</a>
+            </li>
+        </ul>
+
+
+        <div class="pagination__next">
+            @if (PaginationHelper.ShowNextLink(Model.CurrentPageNumber, Model.TotalPages))
             {
-                var url = PaginationHelper.BuildUrl(Model.CurrentPageNumber + 1, Model.CurrentUrl, urlHelper);
-                <a href="@url">Next</a>
+                string url = PaginationHelper.BuildUrl(Model.CurrentPageNumber + 1, Model.CurrentUrl, urlHelper);
+
+                <a href="@url" class="pagination__links">
+                    Next
+                    <span class="visuallyhidden">page</span>
+                    <span class="pagination__left--rtl"></span>
+                    <span class="pagination__right"></span>
+                </a>
             }
-        }
-    </div>
-</div>
+        </div>
+    </nav>
+</div> 

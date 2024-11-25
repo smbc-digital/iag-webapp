@@ -35,6 +35,19 @@
             margin-left: 5px;
             margin-right: 5px;
         }
+
+        &-span {
+            display: block;
+            margin-bottom: 0.5em;
+        }
+
+        &-view-all {
+            color: black;
+
+            &:hover {
+                text-decoration-thickness: 3px;
+            }
+        }
     }
 
     &__list {
@@ -72,6 +85,11 @@
     &__links {
         padding: 10px 15px;
         font-weight: 700;
+        color: black;
+
+        &:hover {
+            text-decoration-thickness: 3px;
+        }
     }
 
     &__current {
@@ -95,6 +113,11 @@
 
     &__number {
         padding: 12px 19px;
+        color: black;
+        
+        &:hover {
+            text-decoration-thickness: 3px;
+        }
     }
 
     &__ellipses {
