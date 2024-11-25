@@ -41,7 +41,7 @@
                 @foreach (var eventCategory in Model.Homepage.Categories)
                 {
                     <li class="event-homepage__categories-item">
-                        <a href="events?category=@eventCategory.Slug">@eventCategory.Name</a>
+                        <a href="@($"{Url.Action("Index", "Events")}?category={eventCategory.Slug}")">@eventCategory.Name</a>
                     </li>
                 }
             </ul> 
@@ -66,7 +66,7 @@
     </div>
 
     <div class="grid-container-full-width" style="background-color:#f2f2f2;">
-        <partial name="ImageBannerContentWidth" view-data='@(new ViewDataDictionary(ViewData) { { "bannerSlug", "events?free=true" }, { "bannerTitle", "Free events" }, { "bannerTeaser", "Stockroom is free to visit, and there are lots of free events and activities too!" } })' />
+        <partial name="ImageBannerContentWidth" view-data='@(new ViewDataDictionary(ViewData) { { "bannerSlug", $"{Url.Action("Index", "Events")}?free=true" }, { "bannerTitle", "Free events" }, { "bannerTeaser", "Stockroom is free to visit, and there are lots of free events and activities too!" } })' />
     </div>
 }
 else
