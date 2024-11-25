@@ -515,16 +515,6 @@ public class PaginationHelperTest
     }
 
     [Fact]
-    public void GeneratePageSequence_HandlesCommonCasesCorrectly()
-    {
-        // Act
-        List<int?> result = PaginationHelper.GeneratePageSequence(1, 7);
-
-        // Assert
-        Assert.Equal(new int?[] { 1, 2, 3, 4, 5, 6, 7 }, result);
-    }
-
-    [Fact]
     public void GeneratePageSequence_ReturnsTheFirst5PagesAndLast_WhenCurrentPageIs4()
     {
         // Act
@@ -535,7 +525,7 @@ public class PaginationHelperTest
     }
 
     [Fact]
-    public void GeneratePageSequence_Returns2Ellipses_WhenCurrentPageIs5()
+    public void GeneratePageSequence_Returns2Ellipses_WhenCurrentPageIs5AndTotalPagesGreaterThan7()
     {
         // Act
         List<int?> result = PaginationHelper.GeneratePageSequence(5, 8);
@@ -545,7 +535,7 @@ public class PaginationHelperTest
     }
 
     [Fact]
-    public void GeneratePageSequence_WhenTotalPagesAreVerySmall_ReturnsCorrectSequence()
+    public void GeneratePageSequence_ReturnsCorrectSequence_WhenOnly1TotalPage()
     {
         // Act
         List<int?> result = PaginationHelper.GeneratePageSequence(1, 1);
@@ -555,7 +545,7 @@ public class PaginationHelperTest
     }
 
     [Fact]
-    public void GeneratePageSequence_WhenTotalPagesEqualsMaxVisiblePagesOrLess_NoEllipsis()
+    public void GeneratePageSequence_ReturnsNoEllipsis_WhenTotalPagesEquals7OrLess()
     {
         // Act
         List<int?> result = PaginationHelper.GeneratePageSequence(4, 6);

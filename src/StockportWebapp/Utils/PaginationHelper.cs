@@ -191,33 +191,31 @@ public static class PaginationHelper
 
     public static List<int?> GeneratePageSequence(int currentPage, int totalPages)
     {
-        const int maxVisiblePages = 7;
-
-        if (totalPages <= maxVisiblePages)
+        // add all pages
+        if (totalPages <= 7)
             return Enumerable.Range(1, totalPages).Cast<int?>().ToList();
 
+        // always add first page
         List<int?> pages = new(){ 1 };
 
+        // add ellipses between page 1 and page before current
         if (currentPage > 4 && totalPages > 7)
             pages.Add(null);
 
-        if (totalPages <= 7)
-        {
-            for (int i = 2; i <= Math.Min(totalPages - 1, 7); i++)
-                pages.Add(i);
-        }
-
         if (currentPage.Equals(4))
         {
+            // add second, third and fifth pages
             for (int i = Math.Max(2, currentPage - 2); i <= Math.Min(totalPages - 1, currentPage + 1); i++)
                 pages.Add(i);
         }
         else
         {
+            // add page before and after current
             for (int i =  Math.Max(2, currentPage - 1); i <= Math.Min(totalPages - 1, currentPage + 1); i++)
                 pages.Add(i);
         }
-
+        
+        // add ellipses between page after current and last page
         if (totalPages - currentPage > 2)
             pages.Add(null);
 

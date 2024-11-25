@@ -53,7 +53,7 @@
         </div>
 
         <ul class="pagination__list">
-            @foreach (var page in pageSequence)
+            @foreach (int? page in pageSequence)
             {
                 if (page.HasValue)
                 {
