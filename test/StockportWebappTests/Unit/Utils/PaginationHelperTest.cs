@@ -11,14 +11,11 @@ public class PaginationHelperTest
     [InlineData(13, (MaxNumberOfItemsPerPage * 12) + 1)]
     public void IndexOfFirstItemOnAnyPageShouldBeNumberOfItemsOnPreviousPagesPlusOne(int currentPageNumber, int expectedResult)
     {
-        // Arrange
-        int indexOfFirstItemOnPage;
-
         // Act
-        indexOfFirstItemOnPage = PaginationHelper.CalculateIndexOfFirstItemOnPage(currentPageNumber, MaxNumberOfItemsPerPage);
+        int indexOfFirstItemOnPage = PaginationHelper.CalculateIndexOfFirstItemOnPage(currentPageNumber, MaxNumberOfItemsPerPage);
 
         // Assert
-        indexOfFirstItemOnPage.Should().Be(expectedResult);
+        Assert.Equal(expectedResult, indexOfFirstItemOnPage);
     }
 
     [Theory]
@@ -26,19 +23,16 @@ public class PaginationHelperTest
     [InlineData(2, MaxNumberOfItemsPerPage, MaxNumberOfItemsPerPage * 2)]
     [InlineData(3, 2, (MaxNumberOfItemsPerPage * 2) + 2)]
     [InlineData(11, 3, (MaxNumberOfItemsPerPage * 10) + 3)]
-    public void IndexOfLastItemOnPageShouldBeNumberOfItemsBeforeThisPagePlusNumberOfItemsOnThisPage(
+    public void CalculateIndexOfLastItemOnPage_IndexOfLastItemOnPageShouldBeNumberOfItemsBeforeThisPagePlusNumberOfItemsOnThisPage(
         int currentPageNumber,
         int numItemsOnThisPage,
         int expectedResult)
     {
-        // Arrange
-        int indexOfLastItemOnPage;
-
         // Act
-        indexOfLastItemOnPage = PaginationHelper.CalculateIndexOfLastItemOnPage(currentPageNumber, numItemsOnThisPage, MaxNumberOfItemsPerPage);
+        int indexOfLastItemOnPage = PaginationHelper.CalculateIndexOfLastItemOnPage(currentPageNumber, numItemsOnThisPage, MaxNumberOfItemsPerPage);
 
         // Assert
-        indexOfLastItemOnPage.Should().Be(expectedResult);
+        Assert.Equal(expectedResult, indexOfLastItemOnPage);
     }
 
     [Theory]
@@ -64,11 +58,11 @@ public class PaginationHelperTest
         List<VisiblePageNumber> results = PaginationHelper.GenerateVisiblePageNumbers(currentPageNumber, totalPages);
 
         // Assert
-        results[0].IsCurrentPage.Should().Be(page1IsCurrentPage, Error(1, currentPageNumber, totalPages, page1IsCurrentPage));
-        results[1].IsCurrentPage.Should().Be(page2IsCurrentPage, Error(2, currentPageNumber, totalPages, page2IsCurrentPage));
-        results[2].IsCurrentPage.Should().Be(page3IsCurrentPage, Error(3, currentPageNumber, totalPages, page3IsCurrentPage));
-        results[3].IsCurrentPage.Should().Be(page4IsCurrentPage, Error(4, currentPageNumber, totalPages, page4IsCurrentPage));
-        results[4].IsCurrentPage.Should().Be(page5IsCurrentPage, Error(5, currentPageNumber, totalPages, page5IsCurrentPage));
+        Assert.Equal(page1IsCurrentPage, results[0].IsCurrentPage);
+        Assert.Equal(page2IsCurrentPage, results[1].IsCurrentPage);
+        Assert.Equal(page3IsCurrentPage, results[2].IsCurrentPage);
+        Assert.Equal(page4IsCurrentPage, results[3].IsCurrentPage);
+        Assert.Equal(page5IsCurrentPage, results[4].IsCurrentPage);
     }
 
     [Theory]
@@ -83,17 +77,14 @@ public class PaginationHelperTest
         bool page3IsCurrentPage,
         bool page4IsCurrentPage)
     {
-        // Arrange
-        const int totalPages = 4;
-
         // Act 
-        List<VisiblePageNumber> results = PaginationHelper.GenerateVisiblePageNumbers(currentPageNumber, totalPages);
+        List<VisiblePageNumber> results = PaginationHelper.GenerateVisiblePageNumbers(currentPageNumber, 4);
 
         // Assert
-        results[0].IsCurrentPage.Should().Be(page1IsCurrentPage, Error(1, currentPageNumber, totalPages, page1IsCurrentPage));
-        results[1].IsCurrentPage.Should().Be(page2IsCurrentPage, Error(2, currentPageNumber, totalPages, page2IsCurrentPage));
-        results[2].IsCurrentPage.Should().Be(page3IsCurrentPage, Error(3, currentPageNumber, totalPages, page3IsCurrentPage));
-        results[3].IsCurrentPage.Should().Be(page4IsCurrentPage, Error(4, currentPageNumber, totalPages, page4IsCurrentPage));
+        Assert.Equal(page1IsCurrentPage, results[0].IsCurrentPage);
+        Assert.Equal(page2IsCurrentPage, results[1].IsCurrentPage);
+        Assert.Equal(page3IsCurrentPage, results[2].IsCurrentPage);
+        Assert.Equal(page4IsCurrentPage, results[3].IsCurrentPage);
     }
 
     [Theory]
@@ -106,16 +97,13 @@ public class PaginationHelperTest
         bool page2IsCurrentPage,
         bool page3IsCurrentPage)
     {
-        // Arrange
-        const int totalPages = 3;
-
         // Act 
-        List<VisiblePageNumber> results = PaginationHelper.GenerateVisiblePageNumbers(currentPageNumber, totalPages);
+        List<VisiblePageNumber> results = PaginationHelper.GenerateVisiblePageNumbers(currentPageNumber, 3);
 
         // Assert
-        results[0].IsCurrentPage.Should().Be(page1IsCurrentPage, Error(1, currentPageNumber, totalPages, page1IsCurrentPage));
-        results[1].IsCurrentPage.Should().Be(page2IsCurrentPage, Error(2, currentPageNumber, totalPages, page2IsCurrentPage));
-        results[2].IsCurrentPage.Should().Be(page3IsCurrentPage, Error(3, currentPageNumber, totalPages, page3IsCurrentPage));
+        Assert.Equal(page1IsCurrentPage, results[0].IsCurrentPage);
+        Assert.Equal(page2IsCurrentPage, results[1].IsCurrentPage);
+        Assert.Equal(page3IsCurrentPage, results[2].IsCurrentPage);
     }
 
     [Theory]
@@ -126,24 +114,13 @@ public class PaginationHelperTest
         bool page1IsCurrentPage,
         bool page2IsCurrentPage)
     {
-        // Arrange
-        const int totalPages = 2;
-
         // Act 
-        List<VisiblePageNumber> results = PaginationHelper.GenerateVisiblePageNumbers(currentPageNumber, totalPages);
+        List<VisiblePageNumber> results = PaginationHelper.GenerateVisiblePageNumbers(currentPageNumber, 2);
 
         // Assert
-        results[0].IsCurrentPage.Should().Be(page1IsCurrentPage, Error(1, currentPageNumber, totalPages, page1IsCurrentPage));
-        results[1].IsCurrentPage.Should().Be(page2IsCurrentPage, Error(2, currentPageNumber, totalPages, page2IsCurrentPage));
-    }
+        Assert.Equal(page1IsCurrentPage, results[0].IsCurrentPage);
+        Assert.Equal(page2IsCurrentPage, results[1].IsCurrentPage);
 
-    private string Error(int visiblePageIndex, int currentPageNumber, int totalPages, bool isCurrentPage)
-    {
-        return string.Format("When current page is {0} out of {1}, visible page with index {2} should {3}be current page",
-            currentPageNumber,
-            totalPages,
-            visiblePageIndex,
-            isCurrentPage ? "" : "NOT ");
     }
 
     [Theory]
@@ -156,11 +133,11 @@ public class PaginationHelperTest
         List<VisiblePageNumber> results = PaginationHelper.GenerateVisiblePageNumbers(currentPageNumber, totalPages);
 
         // Assert
-        results[0].PageNumber.Should().Be(1);
-        results[1].PageNumber.Should().Be(2);
-        results[2].PageNumber.Should().Be(3);
-        results[3].PageNumber.Should().Be(4);
-        results[4].PageNumber.Should().Be(5);
+        Assert.Equal(1, results[0].PageNumber);
+        Assert.Equal(2, results[1].PageNumber);
+        Assert.Equal(3, results[2].PageNumber);
+        Assert.Equal(4, results[3].PageNumber);
+        Assert.Equal(5, results[4].PageNumber);
     }
 
     [Theory]
@@ -168,14 +145,11 @@ public class PaginationHelperTest
     [InlineData(9)]
     public void IfNumTotalPagesIsFiveOrMoreThenNumVisiblePagesShouldBeFive(int totalPages)
     {
-        // Arrange
-        int thisNumberIsIrrelevant = 0;
-
         // Act
-        int numVisiblePages = PaginationHelper.GenerateVisiblePageNumbers(thisNumberIsIrrelevant, totalPages).Count;
+        int numVisiblePages = PaginationHelper.GenerateVisiblePageNumbers(0, totalPages).Count;
 
         // Assert
-        numVisiblePages.Should().Be(5);
+        Assert.Equal(5, numVisiblePages);
     }
 
     [Theory]
@@ -185,10 +159,10 @@ public class PaginationHelperTest
     public void IfTotalPagesIsFewerThanFiveThenNumVisiblePagesShouldBeEqualToTotalPages(int currentPage, int totalPages)
     {
         // Act
-        var numVisiblePages = PaginationHelper.GenerateVisiblePageNumbers(currentPage, totalPages);
+        List<VisiblePageNumber> numVisiblePages = PaginationHelper.GenerateVisiblePageNumbers(currentPage, totalPages);
 
         // Assert
-        numVisiblePages.Count.Should().Be(totalPages);
+        Assert.Equal(totalPages, numVisiblePages.Count);
     }
 
     [Theory]
@@ -205,10 +179,10 @@ public class PaginationHelperTest
     public void IfCurrentPageNumberIsOneOrTwoThenFirstVisiblePageNumberShouldBeOne(int currentPageNumber, int totalPages)
     {
         // Act
-        var results = PaginationHelper.GenerateVisiblePageNumbers(currentPageNumber, totalPages);
+        List<VisiblePageNumber> results = PaginationHelper.GenerateVisiblePageNumbers(currentPageNumber, totalPages);
 
         // Assert
-        results[0].PageNumber.Should().Be(1);
+        Assert.Equal(1, results[0].PageNumber);
     }
 
     [Theory]
@@ -220,10 +194,10 @@ public class PaginationHelperTest
         (int currentPageNumber, int totalPages)
     {
         // Act
-        var results = PaginationHelper.GenerateVisiblePageNumbers(currentPageNumber, totalPages);
+        List<VisiblePageNumber> results = PaginationHelper.GenerateVisiblePageNumbers(currentPageNumber, totalPages);
 
         // Assert
-        results[0].PageNumber.Should().Be(totalPages - 4);
+        Assert.Equal(totalPages - 4, results[0].PageNumber);
     }
 
     [Theory]
@@ -235,10 +209,10 @@ public class PaginationHelperTest
         (int currentPageNumber, int totalPages)
     {
         // Act
-        var results = PaginationHelper.GenerateVisiblePageNumbers(currentPageNumber, totalPages);
+        List<VisiblePageNumber> results = PaginationHelper.GenerateVisiblePageNumbers(currentPageNumber, totalPages);
 
         // Assert
-        results[0].PageNumber.Should().Be(currentPageNumber - 2);
+        Assert.Equal(currentPageNumber - 2, results[0].PageNumber);
     }
 
     [Theory]
@@ -266,16 +240,15 @@ public class PaginationHelperTest
         int totalPages)
     {
         // Arrange
-        const int maxVisiblePages = 5;
-        int numVisiblePages = Math.Min(totalPages, maxVisiblePages);
+        int numVisiblePages = Math.Min(totalPages, 5);
         int indexOfLastVisiblePage = numVisiblePages - 1;
 
         // Act
-        var results = PaginationHelper.GenerateVisiblePageNumbers(currentPageNumber, totalPages);
+        List<VisiblePageNumber> results = PaginationHelper.GenerateVisiblePageNumbers(currentPageNumber, totalPages);
 
         // Assert
         int expectedResult = firstVisiblePageNumber + numVisiblePages - 1;
-        results[indexOfLastVisiblePage].PageNumber.Should().Be(expectedResult);
+        Assert.Equal(expectedResult, results[indexOfLastVisiblePage].PageNumber);
     }
 
     [Fact]
@@ -286,10 +259,10 @@ public class PaginationHelperTest
         const int totalPages = 1;
 
         // Act
-        var result = PaginationHelper.GenerateVisiblePageNumbers(currentPageNumber, totalPages);
+        List<VisiblePageNumber> result = PaginationHelper.GenerateVisiblePageNumbers(currentPageNumber, totalPages);
 
         // Assert
-        result.Count.Should().Be(0);
+        Assert.Empty(result);
     }
 
     [Theory]
@@ -298,14 +271,15 @@ public class PaginationHelperTest
     [InlineData(MaxNumberOfItemsPerPage)]
     public void IfNumItemsIsMaxPageSizeOrLessThenNumItemsOnPageShouldBeNumItemsReturnedByContentful(int numItems)
     {
-        // Arrange
-        List<News> listofNewsItems = BuildListofNewsItems(numItems);
-
         // Act
-        var newListofNewsItems = PaginationHelper.GetPaginatedItemsForSpecifiedPage(listofNewsItems, 1, "Display Name", MaxNumberOfItemsPerPage, 12).Items;
+        List<News> newListofNewsItems = PaginationHelper.GetPaginatedItemsForSpecifiedPage(BuildListofNewsItems(numItems),
+                                                                                        1,
+                                                                                        "Display Name",
+                                                                                        MaxNumberOfItemsPerPage,
+                                                                                        12).Items;
 
         // Assert
-        newListofNewsItems.Count.Should().Be(numItems);
+        Assert.Equal(numItems, newListofNewsItems.Count);
     }
 
     [Theory]
@@ -314,14 +288,15 @@ public class PaginationHelperTest
     [InlineData(MaxNumberOfItemsPerPage * 10)]
     public void IfNumItemsIsEvenlyDivisibleByMaxPageSizeThenNumItemsOnPageShouldBeFifteen(int numItems)
     {
-        // Arrange
-        List<News> listofNewsItems = BuildListofNewsItems(numItems);
-
         // Act
-        var newListofNewsItems = PaginationHelper.GetPaginatedItemsForSpecifiedPage(listofNewsItems, 1, "", MaxNumberOfItemsPerPage, 12).Items;
+        List<News> newListofNewsItems = PaginationHelper.GetPaginatedItemsForSpecifiedPage(BuildListofNewsItems(numItems),
+                                                                                        1,
+                                                                                        string.Empty,
+                                                                                        MaxNumberOfItemsPerPage,
+                                                                                        12).Items;
 
         // Assert
-        newListofNewsItems.Count.Should().Be(MaxNumberOfItemsPerPage);
+        Assert.Equal(MaxNumberOfItemsPerPage, newListofNewsItems.Count);
     }
 
     [Theory]
@@ -332,14 +307,15 @@ public class PaginationHelperTest
         IfNumItemsIsGreaterThanMaxPageSizeAndNotEvenlyDivisibleByMaxPageSizeThenThenLastPageShouldReturnNumItemsModMaxPageSize(
         int numItems, int lastPageNum)
     {
-        // Arrange
-        List<News> listofNewsItems = BuildListofNewsItems(numItems);
-
         // Act
-        var newListofNewsItems = PaginationHelper.GetPaginatedItemsForSpecifiedPage(listofNewsItems, lastPageNum, "item description", MaxNumberOfItemsPerPage, 12).Items;
+        List<News> newListofNewsItems = PaginationHelper.GetPaginatedItemsForSpecifiedPage(BuildListofNewsItems(numItems),
+                                                                                        lastPageNum,
+                                                                                        "item description",
+                                                                                        MaxNumberOfItemsPerPage,
+                                                                                        12).Items;
 
         // Assert
-        newListofNewsItems.Count.Should().Be(numItems % MaxNumberOfItemsPerPage);
+        Assert.Equal(numItems % MaxNumberOfItemsPerPage, newListofNewsItems.Count);
     }
 
     [Theory]
@@ -348,14 +324,15 @@ public class PaginationHelperTest
     [InlineData(4)]
     public void IfNumItemsIsMaxPageSizeOrLessShouldReturnOnePage(int numItems)
     {
-        // Arrange
-        List<News> listofNewsItems = BuildListofNewsItems(numItems);
-
         // Act
-        var pagination = PaginationHelper.GetPaginatedItemsForSpecifiedPage(listofNewsItems, 1, "item description", MaxNumberOfItemsPerPage, 12).Pagination;
+        Pagination pagination = PaginationHelper.GetPaginatedItemsForSpecifiedPage(BuildListofNewsItems(numItems),
+                                                                                1,
+                                                                                "item description",
+                                                                                MaxNumberOfItemsPerPage,
+                                                                                12).Pagination;
 
         // Assert
-        pagination.TotalPages.Should().Be(1);
+        Assert.Equal(1, pagination.TotalPages);
     }
 
     [Theory]
@@ -364,15 +341,15 @@ public class PaginationHelperTest
     [InlineData(MaxNumberOfItemsPerPage * 10)]
     public void IfNumItemsIsEvenlyDivisibleByMaxPageSizeNumPagesReturnedShouldBeNumItemsDividedByMaxPageSize(int numItems)
     {
-        // Arrange
-        int thisNumberIsIrrelevant = 1;
-        List<News> listofNewsItems = BuildListofNewsItems(numItems);
-
         // Act
-        var pagination = PaginationHelper.GetPaginatedItemsForSpecifiedPage(listofNewsItems, thisNumberIsIrrelevant, "item description", MaxNumberOfItemsPerPage, 12).Pagination;
+        Pagination pagination = PaginationHelper.GetPaginatedItemsForSpecifiedPage(BuildListofNewsItems(numItems),
+                                                                                1,
+                                                                                "item description",
+                                                                                MaxNumberOfItemsPerPage,
+                                                                                12).Pagination;
 
         // Assert
-        pagination.TotalPages.Should().Be(numItems / MaxNumberOfItemsPerPage);
+        Assert.Equal(numItems / MaxNumberOfItemsPerPage, pagination.TotalPages);
     }
 
     [Theory]
@@ -381,29 +358,29 @@ public class PaginationHelperTest
     [InlineData(MaxNumberOfItemsPerPage + 4)]
     public void IfNumItemsAboveMaxPageSizeAndNotEvenlyDivisibleByMaxPageSizeNumPagesReturnedShouldBeNumItemsDividedByMaxPageSizePlusOne(int numItems)
     {
-        // Arrange
-        int thisNumberIsIrrelevant = 1;
-        List<News> listofNewsItems = BuildListofNewsItems(numItems);
-
         // Act
-        var pagination = PaginationHelper.GetPaginatedItemsForSpecifiedPage(listofNewsItems, thisNumberIsIrrelevant, "item description", MaxNumberOfItemsPerPage, 12).Pagination;
+        Pagination pagination = PaginationHelper.GetPaginatedItemsForSpecifiedPage(BuildListofNewsItems(numItems),
+                                                                                1,
+                                                                                "item description",
+                                                                                MaxNumberOfItemsPerPage,
+                                                                                12).Pagination;
 
         // Assert
-        pagination.TotalPages.Should().Be((numItems / MaxNumberOfItemsPerPage) + 1);
+        Assert.Equal((numItems / MaxNumberOfItemsPerPage) + 1, pagination.TotalPages);
     }
 
     [Fact]
     public void IfSpecifiedPageNumIsZeroThenActualPageNumIsOne()
     {
-        // Arrange
-        int thisNumberIsIrrelevant = 3;
-        List<News> listofNewsItems = BuildListofNewsItems(thisNumberIsIrrelevant);
-
         // Act
-        var pagination = PaginationHelper.GetPaginatedItemsForSpecifiedPage(listofNewsItems, 0, "item description", MaxNumberOfItemsPerPage, 12).Pagination;
+        Pagination pagination = PaginationHelper.GetPaginatedItemsForSpecifiedPage(BuildListofNewsItems(3),
+                                                                                0,
+                                                                                "item description",
+                                                                                MaxNumberOfItemsPerPage,
+                                                                                12).Pagination;
 
         // Assert
-        pagination.CurrentPageNumber.Should().Be(1);
+        Assert.Equal(1, pagination.CurrentPageNumber);
     }
 
     [Theory]
@@ -413,95 +390,82 @@ public class PaginationHelperTest
     public void IfSpecifiedPageNumIsTooHighThenActualPageNumIsLastPageNum(int numItems)
     {
         // Arrange
-        var lastPageNumber = numItems / MaxNumberOfItemsPerPage;
+        int lastPageNumber = numItems / MaxNumberOfItemsPerPage;
         if (numItems % MaxNumberOfItemsPerPage > 0)
             lastPageNumber++;
 
-        int tooHigh = lastPageNumber + 10;
-        List<News> listofNewsItems = BuildListofNewsItems(numItems);
-
         // Act
-        var pagination = PaginationHelper.GetPaginatedItemsForSpecifiedPage(listofNewsItems, tooHigh, "item description", MaxNumberOfItemsPerPage, 12).Pagination;
+        Pagination pagination = PaginationHelper.GetPaginatedItemsForSpecifiedPage(BuildListofNewsItems(numItems),
+                                                                                lastPageNumber + 10,
+                                                                                "item description",
+                                                                                MaxNumberOfItemsPerPage,
+                                                                                12).Pagination;
 
         // Assert
-        pagination.CurrentPageNumber.Should().Be(lastPageNumber);
+        Assert.Equal(lastPageNumber, pagination.CurrentPageNumber);
     }
 
     [Fact]
     public void PreviousLinkIsShownWhenPageNumberIsGreaterThanOne()
     {
-        // Arrange
-        const int currentPageNumber = 5;
-
         // Act
-        var result = PaginationHelper.ShowPreviousLink(currentPageNumber);
+        bool result = PaginationHelper.ShowPreviousLink(5);
 
         // Assert
-        result.Should().Be(true);
+        Assert.True(result);
     }
 
     [Fact]
     public void PreviousLinkIsNotShownWhenPageNumberIsEqualToOne()
     {
-        // Arrange
-        const int currentPageNumber = 1;
-
         // Act
-        var result = PaginationHelper.ShowPreviousLink(currentPageNumber);
+        bool result = PaginationHelper.ShowPreviousLink(1);
 
         // Assert
-        result.Should().Be(false);
+        Assert.False(result);
     }
 
     [Fact]
     public void NextLinkIsNotShownWhenPageNumberIsEqualToTotalPages()
     {
-        // Arrange
-        const int totalPages = 10;
-        const int currentPageNumber = totalPages;
-
         // Act
-        var result = PaginationHelper.ShowNextLink(currentPageNumber, totalPages);
+        bool result = PaginationHelper.ShowNextLink(10, 10);
 
         // Assert
-        result.Should().Be(false);
+        Assert.False(result);
     }
 
     [Fact]
     public void NextLinkIsShownWhenPageNumberIsLessThanTotalPages()
     {
-        // Arrange
-        const int totalPages = 10;
-        const int currentPageNumber = totalPages - 1;
-
         // Act
-        var result = PaginationHelper.ShowNextLink(currentPageNumber, totalPages);
+        bool result = PaginationHelper.ShowNextLink(9, 10);
 
         // Assert
-        result.Should().Be(true);
+        Assert.True(result);
     }
 
     private List<News> BuildListofNewsItems(int numberOfItems)
     {
-        List<News> listofNewsItems = new List<News>();
+        List<News> listofNewsItems = new();
 
         for (int i = 0; i < numberOfItems; i++)
         {
-            var NewsItem = new News("News Article " + i.ToString(),
-                "another-news-article",
-                "This is another news article",
-                "purpose",
-                "image.jpg",
-                "thumbnail.jpg",
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam gravida eu mauris in consectetur. Nullam nulla urna, sagittis a ex sit amet, ultricies rhoncus mauris. Quisque vel placerat turpis, vitae consectetur mauris.",
-                new List<Crumb>(),
-                new DateTime(2015, 9, 10),
-                new DateTime(2015, 9, 20),
-                new DateTime(2015, 9, 15),
-                new List<Alert>(),
-                new List<string>(),
-                new List<Document>(),
-                new List<Profile>());
+            News NewsItem = new("News Article " + i.ToString(),
+                                "another-news-article",
+                                "This is another news article",
+                                "purpose",
+                                "image.jpg",
+                                "thumbnail.jpg",
+                                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam gravida eu mauris in consectetur. Nullam nulla urna, sagittis a ex sit amet, ultricies rhoncus mauris. Quisque vel placerat turpis, vitae consectetur mauris.",
+                                new List<Crumb>(),
+                                new DateTime(2015, 9, 10),
+                                new DateTime(2015, 9, 20),
+                                new DateTime(2015, 9, 15),
+                                new List<Alert>(),
+                                new List<string>(),
+                                new List<Document>(),
+                                new List<Profile>());
 
             listofNewsItems.Add(NewsItem);
         }
@@ -513,17 +477,14 @@ public class PaginationHelperTest
     public void BuildUrlShouldUseUrlHelperToCreateUrlWithPageQueryParamWithCorrectPageNumber()
     {
         // Arrange
-        int pageNumber = 5;
-        QueryUrl queryUrl = new QueryUrl(new RouteValueDictionary(), new QueryCollection());
-        var urlHelper = new Mock<IUrlHelperWrapper>();
+        QueryUrl queryUrl = new(new RouteValueDictionary(), new QueryCollection());
+        Mock<IUrlHelperWrapper> urlHelper = new();
         urlHelper
-            .Setup(u => u.RouteUrl(It.Is<RouteValueDictionary>(x =>
-                x.ContainsKey("Page")
-                && x.Values.Contains(pageNumber.ToString()))))
+            .Setup(u => u.RouteUrl(It.Is<RouteValueDictionary>(x => x.ContainsKey("Page") && x.Values.Contains(5.ToString()))))
             .Returns("this string is not relevant");
 
         // Act
-        PaginationHelper.BuildUrl(pageNumber, queryUrl, urlHelper.Object);
+        PaginationHelper.BuildUrl(5, queryUrl, urlHelper.Object);
 
         // Assert 
         urlHelper.Verify();
@@ -534,15 +495,62 @@ public class PaginationHelperTest
     [InlineData(12, 50, 60)]
     [InlineData(60, 70, 12)]
     [InlineData(60, 50, 12)]
-    public void ShouldReturnCorrectPageSizeBasedOnCurrentPageSizeForGroupsButton(int maxItemsPerPage, int totalItems, int pageSizeShouldBe)
+    public void ShouldReturnCorrectPageSizeBasedOnCurrentPageSizeForGroupsButton(int maxItemsPerPage, int totalItems, int expectedResult)
     {
-        // Arrange
-
-
         // Act
         int result = PaginationHelper.GetOtherPageSizeByCurrentPageSize(maxItemsPerPage, totalItems, 12);
 
         // Assert 
-        result.Should().Be(pageSizeShouldBe);
+        Assert.Equal(expectedResult, result);
+    }
+
+    [Fact]
+    public void GeneratePageSequence_ReturnsAllPages_WhenTotalPagesLessThanOrEqualToMaxVisiblePages()
+    {
+        // Act
+        List<int?> result = PaginationHelper.GeneratePageSequence(1, 7);
+
+        // Assert
+        Assert.Equal(new int?[] { 1, 2, 3, 4, 5, 6, 7 }, result);
+    }
+
+    [Fact]
+    public void GeneratePageSequence_ReturnsTheFirst5PagesAndLast_WhenCurrentPageIs4()
+    {
+        // Act
+        List<int?> result = PaginationHelper.GeneratePageSequence(4, 8);
+
+        // Assert
+        Assert.Equal(new int?[] { 1, 2, 3, 4, 5, null, 8 }, result);
+    }
+
+    [Fact]
+    public void GeneratePageSequence_Returns2Ellipses_WhenCurrentPageIs5AndTotalPagesGreaterThan7()
+    {
+        // Act
+        List<int?> result = PaginationHelper.GeneratePageSequence(5, 8);
+
+        // Assert
+        Assert.Equal(new int?[] { 1, null, 4, 5, 6, null, 8 }, result);
+    }
+
+    [Fact]
+    public void GeneratePageSequence_ReturnsCorrectSequence_WhenOnly1TotalPage()
+    {
+        // Act
+        List<int?> result = PaginationHelper.GeneratePageSequence(1, 1);
+
+        // Assert
+        Assert.Equal(new int?[] { 1 }, result);
+    }
+
+    [Fact]
+    public void GeneratePageSequence_ReturnsNoEllipsis_WhenTotalPagesEquals7OrLess()
+    {
+        // Act
+        List<int?> result = PaginationHelper.GeneratePageSequence(4, 6);
+
+        // Assert
+        Assert.Equal(new int?[] { 1, 2, 3, 4, 5, 6 }, result);
     }
 }
