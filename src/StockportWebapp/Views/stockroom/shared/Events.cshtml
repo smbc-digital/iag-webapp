@@ -2,7 +2,7 @@
 @model EventCalendar
 @{
     DateTime previousEnteredDate = DateTime.MinValue;
-    var hasEvents = Model.Events.Any();
+    bool hasEvents = Model.Events.Any();
 }
 
 <div class="grid-container-full-width" style="background-color:#f2f2f2;" data-cy="article">
@@ -23,7 +23,7 @@
             }
             else
             {
-                @foreach (var eventItem in Model.Events)
+                @foreach (Event eventItem in Model.Events)
                 {
                     bool isSameDate = previousEnteredDate == eventItem.EventDate;
 

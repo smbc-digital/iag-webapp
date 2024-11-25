@@ -113,7 +113,7 @@ public static class PaginationHelper
         int actualPageNumber = suggestedPageNumber;
         int highestPageNumber = CalculateHighestPageNumber(totalItems, numberOfItemsPerPage);
 
-        if (suggestedPageNumber == 0)
+        if (suggestedPageNumber.Equals(0))
             actualPageNumber = 1;
         else if (suggestedPageNumber > highestPageNumber)
             actualPageNumber = highestPageNumber;
@@ -174,16 +174,14 @@ public static class PaginationHelper
         currentPageNumber.Equals(1) || currentPageNumber.Equals(2);
 
     private static bool CurrentPageIsLastVisiblePage(int currentPageNumber, int totalPages) =>
-        currentPageNumber == totalPages;
+        currentPageNumber.Equals(totalPages);
 
     private static bool CurrentPageIsPenultimateVisiblePage(int currentPageNumber, int totalPages) =>
-        currentPageNumber == (totalPages - 1);
+        currentPageNumber.Equals(totalPages - 1);
 
     public static int GetOtherPageSizeByCurrentPageSize(int maxItemsPerPage, int totalItems, int defaultPageSize)
     {
-        if (maxItemsPerPage == defaultPageSize && totalItems < 60)
-            return 60;
-        else if (maxItemsPerPage == defaultPageSize && totalItems > 60)
+        if (maxItemsPerPage.Equals(defaultPageSize) && !totalItems.Equals(60))
             return 60;
         else
             return defaultPageSize;
