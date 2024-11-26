@@ -39,6 +39,12 @@
         background-color: white;
     }
 
+    &--on-yellow {
+        &:hover {
+            background-color: $skrm-orange;
+        }
+    }
+
     &--no-margin-top {
         margin-top: 0;
     }

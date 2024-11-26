@@ -49,7 +49,10 @@
     </div>
 </nav>
 
-<partial name="EventsDateFilters" model='Model'/>
+@if (Model.FromSearch)
+{
+    <partial name="EventsDateFilters" model='Model'/>
+}
 
 @if (Model.Homepage.NextEvents.Any()) 
 {
