@@ -20,6 +20,7 @@ public class EventCalendar
     public List<Event> Events { get; private set; } = new();
     public List<string> Categories { get; private set; } = new();
     public string Tag { get; set; }
+    public bool Free { get; set; }
     public string[] Price { get; set; }
     public string HomepageTags { get; set; }
     public IFilteredUrl FilteredUrl { get; private set; }

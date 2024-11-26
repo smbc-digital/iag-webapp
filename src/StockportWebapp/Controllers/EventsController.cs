@@ -44,7 +44,7 @@ public class EventsController : Controller
     }
 
     [Route("/events")]
-    public async Task<IActionResult> Index(EventCalendar eventsCalendar, [FromQuery] bool free, [FromQuery] int page, [FromQuery] int pageSize, [FromQuery] string dateSelection)
+    public async Task<IActionResult> Index(EventCalendar eventsCalendar, [FromQuery] int page, [FromQuery] int pageSize, [FromQuery] string dateSelection)
     {
         if (ModelState["DateTo"] is not null && ModelState["DateTo"].Errors.Count > 0)
             ModelState["DateTo"].Errors.Clear();
@@ -56,8 +56,8 @@ public class EventsController : Controller
             eventsCalendar.KeepTag = eventsCalendar.Tag;
 
         eventsCalendar.FromSearch = eventsCalendar.FromSearch
-            || free 
-            || !string.IsNullOrWhiteSpace(eventsCalendar.Category) 
+            || eventsCalendar.Free
+            || !string.IsNullOrWhiteSpace(eventsCalendar.Category)
             || !string.IsNullOrWhiteSpace(eventsCalendar.Tag)
             || eventsCalendar.DateFrom is not null 
             || eventsCalendar.DateTo is not null;
@@ -128,7 +128,7 @@ public class EventsController : Controller
         if (!eventsCalendar.Latitude.Equals(0))
             queries.Add(new Query("latitude", string.Join(",", eventsCalendar.Latitude)));
 
-        if (free)
+        if (eventsCalendar.Free)
             queries.Add(new Query("free", "true"));
         
         HttpResponse httpResponse = await _repository.Get<EventResponse>(queries: queries);

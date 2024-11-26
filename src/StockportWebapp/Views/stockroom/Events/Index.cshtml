@@ -41,7 +41,7 @@
                 @foreach (var eventCategory in Model.Homepage.Categories)
                 {
                     <li class="event-homepage__categories-item">
-                        <a href="@($"{Url.Action("Index", "Events")}?category={eventCategory.Slug}")">@eventCategory.Name</a>
+                        <a href="@($"{Url.Action("Index", "Events")}?category={eventCategory.Slug}&free={Model.Free}")">@eventCategory.Name</a>
                     </li>
                 }
             </ul> 
@@ -54,7 +54,7 @@
     <div class="grid-container-full-width event-homepage__category-wrapper">
         <div class="grid-container">
             <div class="grid-100">
-                <h2 class="">@eventsTitle</h2>
+                <h2>@eventsTitle</h2>
             </div>
         </div>
     </div>
