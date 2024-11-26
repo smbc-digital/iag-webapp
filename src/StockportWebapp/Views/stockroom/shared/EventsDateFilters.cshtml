@@ -1,83 +1,45 @@
-@using System.Web;
 @using StockportWebapp.Models;
 @model EventCalendar
-@{
-    var closeThis = (Model.FromSearch) ? "close-this-section" : string.Empty;
-    var hasSearched = (Model.FromSearch) || !string.IsNullOrWhiteSpace(Model.Tag);
-    var hideOnMobile = hasSearched ? "hide-on-mobile" : "mobile-grid-100";
-    var showOnMobile = hasSearched ? "hide-on-desktop hide-on-tablet" : "hide-on-mobile hide-on-desktop hide-on-tablet";
-    var nowShowing = string.Concat(string.IsNullOrWhiteSpace(Model.Category) ? "Showing <strong>All</strong> events " : $"Showing <strong>{HttpUtility.HtmlEncode(Model.Category)}</strong> events ",
-                        Model.DateFrom == null || Model.DateTo == null || Model.DateFrom != Model.DateTo ? string.Empty : $"for <strong>{((DateTime)Model.DateFrom).ToString("dd/MM/yy")}</strong> ",
-                        Model.DateFrom == Model.DateTo || Model.DateFrom == null ? string.Empty : $"from <strong>{((DateTime)Model.DateFrom).ToString("dd/MM/yy")}</strong> ",
-                        Model.DateFrom == Model.DateTo || Model.DateTo == null ? string.Empty : $"to <string>{((DateTime)Model.DateTo).ToString("dd/MM/yy")}</strong>",
-                        Model.DateFrom == null && Model.DateTo == null ? "from <strong>All dates</strong>" : string.Empty);
 
-
-    DateTime today = DateTime.Today;
-    DateTime startOfWeek= today.AddDays(-(int)today.DayOfWeek + 1);
-    DateTime startOfMonth = new DateTime(today.Year, today.Month, 1);
-    DateTime startOfNextMonth = startOfMonth.AddMonths(1);
-
-    DateTime endOfWeek = today.AddDays(DayOfWeek.Saturday - today.DayOfWeek + 1);
-    DateTime endOfMonth = new DateTime(today.Year, today.Month, DateTime.DaysInMonth(today.Year, today.Month));
-    DateTime endOfNextMonth = new DateTime(startOfNextMonth.Year, startOfNextMonth.Month, DateTime.DaysInMonth(startOfNextMonth.Year, startOfNextMonth.Month));
-}
-<form action="/events" method="get" class="events-filters-bar-container">
+<form action="/events" method="get">
     <input type="hidden" asp-for="@Model.FromSearch" value="true" />
-        <div class="grid-container">
-            <div class="grid-100">
-                <div class="events-filters__wrapper">
-                    <h3 class="visuallyhidden">Filter</h3>
+    <div class="grid-container">
+        <div class="grid-100">
+            <div class="events-filters__wrapper">
+                <h3 class="visuallyhidden">Filter</h3>
 
-                    <div class="events-filters">
-                        <div class="events-filters__radio-item">
-                            <input type="radio" asp-for="@Model.DateSelection" value="today" id="radio-today" class="events-filters__radio"/>
-                            <label for="radio-today" class="events-filters__label">Today</label>
-                        </div>
-
-                        <div class="events-filters__radio-item">
-                            <input type="radio" asp-for="@Model.DateSelection" value="thisWeek" id="radio-this-week" class="events-filters__radio"/>
-                            <label for="radio-this-week" class="events-filters__label">This week</label>
-                        </div>
-
-                        <div class="events-filters__radio-item">
-                            <input type="radio" asp-for="@Model.DateSelection" value="thisMonth" id="radio-this-month" class="events-filters__radio"/>
-                            <label for="radio-this-month" class="events-filters__label">This month</label>
-                        </div>
-
-                        <div class="events-filters__radio-item">
-                            <input type="radio" asp-for="@Model.DateSelection" value="nextMonth" id="radio-next-month" class="events-filters__radio"/>
-                            <label for="radio-next-month" class="events-filters__label">Next month</label>
-                        </div>
-
-                        <div class="events-filters__radio-item" id="events-search-filter-container">
-                            <label asp-for="@Model.DateSelection" class="events-filters__date-label">Choose a date</label>
-                            <input type="date" asp-for="@Model.DateSelection" placeholder="Select date" class="events-filters__date"/>
-                        </div>
+                <div class="events-filters">
+                    <div class="events-filters__radio-item">
+                        <input type="radio" asp-for="@Model.DateSelection" value="today" id="radio-today" class="events-filters__radio"/>
+                        <label for="radio-today" class="events-filters__label">Today</label>
                     </div>
 
-                    <div class="events-filters__button">
-                        <input type="hidden" asp-for="@Model.Category"/>
-                        <button class="btn btn--on-yellow">Find what's on</button>
+                    <div class="events-filters__radio-item">
+                        <input type="radio" asp-for="@Model.DateSelection" value="thisWeek" id="radio-this-week" class="events-filters__radio"/>
+                        <label for="radio-this-week" class="events-filters__label">This week</label>
                     </div>
+
+                    <div class="events-filters__radio-item">
+                        <input type="radio" asp-for="@Model.DateSelection" value="thisMonth" id="radio-this-month" class="events-filters__radio"/>
+                        <label for="radio-this-month" class="events-filters__label">This month</label>
+                    </div>
+
+                    <div class="events-filters__radio-item">
+                        <input type="radio" asp-for="@Model.DateSelection" value="nextMonth" id="radio-next-month" class="events-filters__radio"/>
+                        <label for="radio-next-month" class="events-filters__label">Next month</label>
+                    </div>
+
+                    <div class="events-filters__radio-item">
+                        <label asp-for="@Model.DateSelection" class="events-filters__date-label">Choose a date</label>
+                        <input type="date" asp-for="@Model.DateSelection" placeholder="Select date" class="events-filters__date"/>
+                    </div>
+                </div>
+
+                <div class="events-filters__button">
+                    <input type="hidden" asp-for="@Model.Category"/>
+                    <button class="btn btn--on-yellow">Find what's on</button>
                 </div>
             </div>
         </div>
+    </div>
 </form>
-
-<script type="text/javascript">    
-
-    function toggleSearch() {
-        var container = $('.form-section', '#events-filter-bar');
-        var button = $('#edit-search-link');
-    
-        if ($(button).hasClass('open')) {
-            $(button).removeClass('open');
-            $(container).removeClass('closed');
-        } else {
-            $(button).addClass('open');
-            $(container).addClass('closed');
-        }
-    }
-
-</script>

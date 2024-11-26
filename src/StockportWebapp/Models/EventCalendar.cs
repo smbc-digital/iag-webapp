@@ -33,6 +33,7 @@ public class EventCalendar
     public EventCalendar() { }
 
     public bool FromSearch { get; set; }
+
     public string KeepTag { get; set; }
     public string Location { get; set; }
     public double Longitude { get; set; }
@@ -43,6 +44,13 @@ public class EventCalendar
         Events = events;
         Categories = categories;
     }
+
+    public bool IsFromSearch() => FromSearch 
+        || Free
+        || !string.IsNullOrWhiteSpace(Category)
+        || !string.IsNullOrWhiteSpace(Tag)
+        || DateFrom is not null
+        || DateTo is not null;
 
     public bool DoesCategoryExist(string categoryItem) =>
         Categories.Contains(categoryItem);

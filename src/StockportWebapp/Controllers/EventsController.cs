@@ -52,85 +52,13 @@ public class EventsController : Controller
         if (ModelState["DateFrom"] is not null && ModelState["DateFrom"].Errors.Count > 0)
             ModelState["DateFrom"].Errors.Clear();
 
-        if (!string.IsNullOrEmpty(eventsCalendar.Tag)) 
+        if (!string.IsNullOrEmpty(eventsCalendar.Tag))
             eventsCalendar.KeepTag = eventsCalendar.Tag;
 
-        eventsCalendar.FromSearch = eventsCalendar.FromSearch
-            || eventsCalendar.Free
-            || !string.IsNullOrWhiteSpace(eventsCalendar.Category)
-            || !string.IsNullOrWhiteSpace(eventsCalendar.Tag)
-            || eventsCalendar.DateFrom is not null 
-            || eventsCalendar.DateTo is not null;
+        eventsCalendar.FromSearch = eventsCalendar.IsFromSearch();
 
-        List<Query> queries = new();
-        string dateFormat = "yyyy-MM-dd";
+        List<Query> queries = EventsFilters(eventsCalendar, dateSelection);
 
-        DateTime? dateFrom = null;
-        DateTime? dateTo = null;
-
-        DateTime today = DateTime.Today;
-        DateTime endOfWeek = today.AddDays(DayOfWeek.Saturday - today.DayOfWeek + 1);
-        DateTime endOfMonth = new DateTime(today.Year, today.Month, DateTime.DaysInMonth(today.Year, today.Month));
-        DateTime startOfNextMonth = new DateTime(today.Year, today.Month, 1).AddMonths(1);
-        DateTime endOfNextMonth = new DateTime(startOfNextMonth.Year, startOfNextMonth.Month, DateTime.DaysInMonth(startOfNextMonth.Year, startOfNextMonth.Month));
-        DateTime dateValue;
-
-        if (!string.IsNullOrEmpty(dateSelection))
-            switch (dateSelection)
-            {
-                case "today":
-                    dateFrom = today;
-                    dateTo = today;
-                    break;
-                case "thisWeek":
-                    dateFrom = today;
-                    dateTo = endOfWeek;
-                    break;
-                case "thisMonth":
-                    dateFrom = today;
-                    dateTo = endOfMonth;
-                    break;
-                case "nextMonth":
-                    dateFrom = startOfNextMonth;
-                    dateTo = endOfNextMonth;
-                    break;
-                default:
-                    DateTime.TryParse(dateSelection, out dateValue);
-                    dateFrom = dateValue;
-                    dateTo = dateValue;
-                    break;
-            }
-
-        if (eventsCalendar.DateFrom.HasValue)
-            queries.Add(new Query("DateFrom", eventsCalendar.DateFrom.Value.ToString(dateFormat)));
-        
-        if (dateFrom is not null)
-            queries.Add(new Query("DateFrom", dateFrom.Value.ToString(dateFormat)));
-
-        if (dateTo is not null)
-            queries.Add(new Query("DateTo", dateTo.Value.ToString(dateFormat)));
-
-        if (eventsCalendar.DateTo.HasValue)
-            queries.Add(new Query("DateTo", eventsCalendar.DateTo.Value.ToString(dateFormat)));
-        
-        if (!string.IsNullOrWhiteSpace(eventsCalendar.Category))
-            queries.Add(new Query("Category", eventsCalendar.Category));
-        
-        if (!string.IsNullOrWhiteSpace(eventsCalendar.Tag))
-            queries.Add(new Query("tag", eventsCalendar.Tag));
-        
-        if (eventsCalendar.Price is not null)
-            queries.Add(new Query("price", string.Join(",", eventsCalendar.Price)));
-        
-        if (!eventsCalendar.Longitude.Equals(0))
-            queries.Add(new Query("longitude", string.Join(",", eventsCalendar.Longitude)));
-        
-        if (!eventsCalendar.Latitude.Equals(0))
-            queries.Add(new Query("latitude", string.Join(",", eventsCalendar.Latitude)));
-
-        if (eventsCalendar.Free)
-            queries.Add(new Query("free", "true"));
-        
         HttpResponse httpResponse = await _repository.Get<EventResponse>(queries: queries);
 
         if (!httpResponse.IsSuccessful())
@@ -194,49 +122,6 @@ public class EventsController : Controller
         return View("Index", viewModel);
     }
 
-    private void DoPagination(EventCalendar model, int currentPageNumber, EventResponse eventResponse, int pageSize)
-    {
-        if (eventResponse is not null && eventResponse.Events.Any())
-        {
-            PaginatedItems<Event> paginatedEvents = PaginationHelper.GetPaginatedItemsForSpecifiedPage(
-                eventResponse.Events,
-                currentPageNumber,
-                "events",
-                pageSize,
-                _config.GetEventsDefaultPageSize(_businessId.ToString().Equals("stockroom") ? "stockroom" : "stockportgov"));
-
-            eventResponse.Events = paginatedEvents.Items;
-            model.Pagination = paginatedEvents.Pagination;
-            model.Pagination.CurrentUrl = model.CurrentUrl;
-        }
-        else
-        {
-            model.Pagination = new Pagination();
-        }
-    }
-
-    // This is used for Healthy Stockport only
-    private void DoPagination(EventResultsViewModel model, int currentPageNumber, int pageSize)
-    {
-        if (model is not null && model.Events.Any())
-        {
-            PaginatedItems<Event> paginatedEvents = PaginationHelper.GetPaginatedItemsForSpecifiedPage(
-                model.Events,
-                currentPageNumber,
-                "events",
-                pageSize,
-                _config.GetEventsDefaultPageSize("stockportgov"));
-
-            model.Events = paginatedEvents.Items;
-            model.Pagination = paginatedEvents.Pagination;
-            model.Pagination.CurrentUrl = model.CurrentUrl;
-        }
-        else
-        {
-            model.Pagination = new Pagination();
-        }
-    }
-
     [Route("/events/{slug}")]
     public async Task<IActionResult> Detail(string slug, [FromQuery] DateTime? date = null)
     {
@@ -247,7 +132,7 @@ public class EventsController : Controller
 
         HttpResponse httpResponse = await _processedContentRepository.Get<Event>(slug, queries);
 
-        if (httpResponse.IsSuccessful() is not true)
+        if (!httpResponse.IsSuccessful())
             return httpResponse;
 
         ProcessedEvents response = httpResponse.Content as ProcessedEvents;
@@ -255,6 +140,7 @@ public class EventsController : Controller
         ViewBag.CurrentUrl = Request?.GetDisplayUrl();
         ViewBag.EventDate = date?.ToString("yyyy-MM-dd") ?? response?.EventDate.ToString("yyyy-MM-dd");
 
+        // review this when we look at events as a whole
         HttpResponse httpHomeResponse = await _repository.Get<EventHomepage>();
 
         if (httpHomeResponse.IsSuccessful())
@@ -268,7 +154,7 @@ public class EventsController : Controller
         return View(await _featureManager.IsEnabledAsync("Events") ? "Detail2024" : "Detail", response);
     }
     
-    // this is not used!
+    // This is used for Healthy Stockport only
     [Route("/events/details/{slug}")]
     public async Task<IActionResult> EventDetail(string slug, [FromQuery] DateTime? date = null)
     {
@@ -343,5 +229,122 @@ public class EventsController : Controller
             return File(Encoding.UTF8.GetBytes(_helper.GetIcsText(eventItem, eventUrl)), "text/calendar", slug + ".ics");
 
         return Ok();
+    }
+
+    private static List<Query> EventsFilters(EventCalendar eventsCalendar, string dateSelection)
+    {
+        List<Query> queries = new();
+        string dateFormat = "yyyy-MM-dd";
+
+        DateTime? dateFrom = null;
+        DateTime? dateTo = null;
+
+        DateTime today = DateTime.Today;
+        DateTime endOfWeek = today.AddDays(DayOfWeek.Saturday - today.DayOfWeek + 1);
+        DateTime endOfMonth = new(today.Year, today.Month, DateTime.DaysInMonth(today.Year, today.Month));
+        DateTime startOfNextMonth = new DateTime(today.Year, today.Month, 1).AddMonths(1);
+        DateTime endOfNextMonth = new(startOfNextMonth.Year, startOfNextMonth.Month, DateTime.DaysInMonth(startOfNextMonth.Year, startOfNextMonth.Month));
+        DateTime dateValue;
+
+        if (!string.IsNullOrEmpty(dateSelection))
+            switch (dateSelection)
+            {
+                case "today":
+                    dateFrom = today;
+                    dateTo = today;
+                    break;
+                case "thisWeek":
+                    dateFrom = today;
+                    dateTo = endOfWeek;
+                    break;
+                case "thisMonth":
+                    dateFrom = today;
+                    dateTo = endOfMonth;
+                    break;
+                case "nextMonth":
+                    dateFrom = startOfNextMonth;
+                    dateTo = endOfNextMonth;
+                    break;
+                default:
+                    DateTime.TryParse(dateSelection, out dateValue);
+                    dateFrom = dateValue;
+                    dateTo = dateValue;
+                    break;
+            }
+
+        if (eventsCalendar.DateFrom.HasValue)
+            queries.Add(new Query("DateFrom", eventsCalendar.DateFrom.Value.ToString(dateFormat)));
+
+        if (dateFrom is not null)
+            queries.Add(new Query("DateFrom", dateFrom.Value.ToString(dateFormat)));
+
+        if (dateTo is not null)
+            queries.Add(new Query("DateTo", dateTo.Value.ToString(dateFormat)));
+
+        if (eventsCalendar.DateTo.HasValue)
+            queries.Add(new Query("DateTo", eventsCalendar.DateTo.Value.ToString(dateFormat)));
+
+        if (!string.IsNullOrWhiteSpace(eventsCalendar.Category))
+            queries.Add(new Query("Category", eventsCalendar.Category));
+
+        if (!string.IsNullOrWhiteSpace(eventsCalendar.Tag))
+            queries.Add(new Query("tag", eventsCalendar.Tag));
+
+        if (eventsCalendar.Price is not null)
+            queries.Add(new Query("price", string.Join(",", eventsCalendar.Price)));
+
+        if (!eventsCalendar.Longitude.Equals(0))
+            queries.Add(new Query("longitude", string.Join(",", eventsCalendar.Longitude)));
+
+        if (!eventsCalendar.Latitude.Equals(0))
+            queries.Add(new Query("latitude", string.Join(",", eventsCalendar.Latitude)));
+
+        if (eventsCalendar.Free)
+            queries.Add(new Query("free", "true"));
+
+        return queries;
+    }
+
+    private void DoPagination(EventCalendar model, int currentPageNumber, EventResponse eventResponse, int pageSize)
+    {
+        if (eventResponse is not null && eventResponse.Events.Any())
+        {
+            PaginatedItems<Event> paginatedEvents = PaginationHelper.GetPaginatedItemsForSpecifiedPage(
+                eventResponse.Events,
+                currentPageNumber,
+                "events",
+                pageSize,
+                _config.GetEventsDefaultPageSize(_businessId.ToString().Equals("stockroom") ? "stockroom" : "stockportgov"));
+
+            eventResponse.Events = paginatedEvents.Items;
+            model.Pagination = paginatedEvents.Pagination;
+            model.Pagination.CurrentUrl = model.CurrentUrl;
+        }
+        else
+        {
+            model.Pagination = new Pagination();
+        }
+    }
+
+    // This is used for Healthy Stockport only
+    private void DoPagination(EventResultsViewModel model, int currentPageNumber, int pageSize)
+    {
+        if (model is not null && model.Events.Any())
+        {
+            PaginatedItems<Event> paginatedEvents = PaginationHelper.GetPaginatedItemsForSpecifiedPage(
+                model.Events,
+                currentPageNumber,
+                "events",
+                pageSize,
+                _config.GetEventsDefaultPageSize("stockportgov"));
+
+            model.Events = paginatedEvents.Items;
+            model.Pagination = paginatedEvents.Pagination;
+            model.Pagination.CurrentUrl = model.CurrentUrl;
+        }
+        else
+        {
+            model.Pagination = new Pagination();
+        }
     }
 }
