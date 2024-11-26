@@ -75,30 +75,31 @@ public class EventsController : Controller
         DateTime endOfNextMonth = new DateTime(startOfNextMonth.Year, startOfNextMonth.Month, DateTime.DaysInMonth(startOfNextMonth.Year, startOfNextMonth.Month));
         DateTime dateValue;
 
-        switch (dateSelection)
-        {
-            case "today":
-                dateFrom = today;
-                dateTo = today;
-                break;
-            case "thisWeek":
-                dateFrom = today;
-                dateTo = endOfWeek;
-                break;
-            case "thisMonth":
-                dateFrom = today;
-                dateTo = endOfMonth;
-                break;
-            case "nextMonth":
-                dateFrom = startOfNextMonth;
-                dateTo = endOfNextMonth;
-                break;
-            default:
-                DateTime.TryParse(dateSelection, out dateValue);
-                dateFrom = dateValue;
-                dateTo = dateValue;
-                break;
-        }
+        if (!string.IsNullOrEmpty(dateSelection))
+            switch (dateSelection)
+            {
+                case "today":
+                    dateFrom = today;
+                    dateTo = today;
+                    break;
+                case "thisWeek":
+                    dateFrom = today;
+                    dateTo = endOfWeek;
+                    break;
+                case "thisMonth":
+                    dateFrom = today;
+                    dateTo = endOfMonth;
+                    break;
+                case "nextMonth":
+                    dateFrom = startOfNextMonth;
+                    dateTo = endOfNextMonth;
+                    break;
+                default:
+                    DateTime.TryParse(dateSelection, out dateValue);
+                    dateFrom = dateValue;
+                    dateTo = dateValue;
+                    break;
+            }
 
         if (eventsCalendar.DateFrom.HasValue)
             queries.Add(new Query("DateFrom", eventsCalendar.DateFrom.Value.ToString(dateFormat)));

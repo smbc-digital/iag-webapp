@@ -3,6 +3,16 @@
     flex-direction: row;
     justify-content: center;
     gap: 50px;
+    flex-wrap: wrap;
+
+    @media #{$tablet} {
+        gap: 20px;
+    }
+
+    &-bar-container {
+        background-color: #f2f2f2;
+        padding-bottom: 1.5em;
+    }
 
     &__button {
         text-align: center;
@@ -23,6 +33,10 @@
         height: 44px;
         font-family: inherit;
         padding-inline: 0.5em;
+
+        &-label {
+            margin-right: 1em;
+        }
     }
 
     &__radio {
@@ -39,6 +53,7 @@
             flex-direction: row;
             flex-wrap: wrap;
             position: relative;
+            align-items: center;
         }
     }
 
@@ -78,7 +93,7 @@
         }
     }
 
-    .events-filters__radio:checked+.events-filters__label:after {
+    .events-filters__radio:checked + .events-filters__label:after {
         opacity: 1;
     }
 }

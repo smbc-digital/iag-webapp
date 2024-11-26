@@ -51,6 +51,14 @@
 
 @if (Model.FromSearch)
 {
+    <div class="grid-container-full-width event-homepage__category-wrapper">
+        <div class="grid-container">
+            <div class="grid-100">
+                <h2 class="">@eventsTitle</h2>
+            </div>
+        </div>
+    </div>
+
     <partial name="EventsDateFilters" model='Model'/>
 }
 
