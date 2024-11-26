@@ -44,7 +44,7 @@ public class EventsController : Controller
     }
 
     [Route("/events")]
-    public async Task<IActionResult> Index(EventCalendar eventsCalendar, [FromQuery] bool free, [FromQuery] int page, [FromQuery] int pageSize)
+    public async Task<IActionResult> Index(EventCalendar eventsCalendar, [FromQuery] bool free, [FromQuery] int page, [FromQuery] int pageSize, [FromQuery] string dateSelection)
     {
         if (ModelState["DateTo"] is not null && ModelState["DateTo"].Errors.Count > 0)
             ModelState["DateTo"].Errors.Clear();
@@ -65,9 +65,50 @@ public class EventsController : Controller
         List<Query> queries = new();
         string dateFormat = "yyyy-MM-dd";
 
+        DateTime? dateFrom = null;
+        DateTime? dateTo = null;
+
+        DateTime today = DateTime.Today;
+        DateTime endOfWeek = today.AddDays(DayOfWeek.Saturday - today.DayOfWeek + 1);
+        DateTime endOfMonth = new DateTime(today.Year, today.Month, DateTime.DaysInMonth(today.Year, today.Month));
+        DateTime startOfNextMonth = new DateTime(today.Year, today.Month, 1).AddMonths(1);
+        DateTime endOfNextMonth = new DateTime(startOfNextMonth.Year, startOfNextMonth.Month, DateTime.DaysInMonth(startOfNextMonth.Year, startOfNextMonth.Month));
+        DateTime dateValue;
+
+        switch (dateSelection)
+        {
+            case "today":
+                dateFrom = today;
+                dateTo = today;
+                break;
+            case "thisWeek":
+                dateFrom = today;
+                dateTo = endOfWeek;
+                break;
+            case "thisMonth":
+                dateFrom = today;
+                dateTo = endOfMonth;
+                break;
+            case "nextMonth":
+                dateFrom = startOfNextMonth;
+                dateTo = endOfNextMonth;
+                break;
+            default:
+                DateTime.TryParse(dateSelection, out dateValue);
+                dateFrom = dateValue;
+                dateTo = dateValue;
+                break;
+        }
+
         if (eventsCalendar.DateFrom.HasValue)
             queries.Add(new Query("DateFrom", eventsCalendar.DateFrom.Value.ToString(dateFormat)));
         
+        if (dateFrom is not null)
+            queries.Add(new Query("DateFrom", dateFrom.Value.ToString(dateFormat)));
+
+        if (dateTo is not null)
+            queries.Add(new Query("DateTo", dateTo.Value.ToString(dateFormat)));
+
         if (eventsCalendar.DateTo.HasValue)
             queries.Add(new Query("DateTo", eventsCalendar.DateTo.Value.ToString(dateFormat)));
         

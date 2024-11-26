@@ -49,6 +49,8 @@
     </div>
 </nav>
 
+<partial name="EventsDateFilters" model='Model'/>
+
 @if (Model.Homepage.NextEvents.Any()) 
 {
     @if (Model.Homepage.NextEvents.Count() >= 3 && Model.Homepage.NextEvents.Count() < 6)

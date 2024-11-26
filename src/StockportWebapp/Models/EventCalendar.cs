@@ -1,4 +1,6 @@
-﻿namespace StockportWebapp.Models;
+﻿using System.Runtime.CompilerServices;
+
+namespace StockportWebapp.Models;
 
 public class EventCalendar
 {
@@ -14,7 +16,7 @@ public class EventCalendar
     public string Category { get; set; }
 
     public string DateRange { get; set; }
-
+    public string DateSelection { get; set; }
     public List<Event> Events { get; private set; } = new();
     public List<string> Categories { get; private set; } = new();
     public string Tag { get; set; }

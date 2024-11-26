@@ -1,0 +1,88 @@
+@using System.Web;
+@using StockportWebapp.Models;
+@model EventCalendar
+@{
+    var closeThis = (Model.FromSearch) ? "close-this-section" : string.Empty;
+    var hasSearched = (Model.FromSearch) || !string.IsNullOrWhiteSpace(Model.Tag);
+    var hideOnMobile = hasSearched ? "hide-on-mobile" : "mobile-grid-100";
+    var showOnMobile = hasSearched ? "hide-on-desktop hide-on-tablet" : "hide-on-mobile hide-on-desktop hide-on-tablet";
+    var nowShowing = string.Concat(string.IsNullOrWhiteSpace(Model.Category) ? "Showing <strong>All</strong> events " : $"Showing <strong>{HttpUtility.HtmlEncode(Model.Category)}</strong> events ",
+                        Model.DateFrom == null || Model.DateTo == null || Model.DateFrom != Model.DateTo ? string.Empty : $"for <strong>{((DateTime)Model.DateFrom).ToString("dd/MM/yy")}</strong> ",
+                        Model.DateFrom == Model.DateTo || Model.DateFrom == null ? string.Empty : $"from <strong>{((DateTime)Model.DateFrom).ToString("dd/MM/yy")}</strong> ",
+                        Model.DateFrom == Model.DateTo || Model.DateTo == null ? string.Empty : $"to <string>{((DateTime)Model.DateTo).ToString("dd/MM/yy")}</strong>",
+                        Model.DateFrom == null && Model.DateTo == null ? "from <strong>All dates</strong>" : string.Empty);
+
+
+    DateTime today = DateTime.Today;
+    DateTime startOfWeek= today.AddDays(-(int)today.DayOfWeek + 1);
+    DateTime startOfMonth = new DateTime(today.Year, today.Month, 1);
+    DateTime startOfNextMonth = startOfMonth.AddMonths(1);
+
+    DateTime endOfWeek = today.AddDays(DayOfWeek.Saturday - today.DayOfWeek + 1);
+    DateTime endOfMonth = new DateTime(today.Year, today.Month, DateTime.DaysInMonth(today.Year, today.Month));
+    DateTime endOfNextMonth = new DateTime(startOfNextMonth.Year, startOfNextMonth.Month, DateTime.DaysInMonth(startOfNextMonth.Year, startOfNextMonth.Month));
+}
+<form action="/events" method="get" id="events-filter-bar-container">
+    <input type="hidden" asp-for="@Model.FromSearch" value="true" />
+    <div class="full-width-title" id="events-filter-bar">
+        <div class="grid-container grid-parent grid-100">
+            <h3>Filter</h3>
+
+             <div>
+                <div class="">
+                    <input type="radio" asp-for="@Model.DateSelection" value="today" id="radio-today" class="form-control" />
+                    <label for="radio-today">Today</label>
+                </div>
+
+                <div class="">
+                    <input type="radio" asp-for="@Model.DateSelection" value="thisWeek" id="radio-this-week" class="form-control" />
+                    <label for="radio-this-week">This week</label>
+                </div>
+                
+                <div class="">
+                    <input type="radio" asp-for="@Model.DateSelection" value="thisMonth" id="radio-this-month" class="form-control" />
+                    <label for="radio-this-month">This month</label>
+                </div>
+
+                <div class="">
+                    <input type="radio" asp-for="@Model.DateSelection" value="nextMonth" id="radio-next-month" class="form-control" />
+                    <label for="radio-next-month">Next month</label>
+                </div>
+            </div>
+
+            <div class="grid-100 tablet-grid-100 mobile-grid-100 grid-parent form-section @closeThis" id="events-search-filter-container">
+                <label asp-for="@Model.DateSelection"></label>
+                <input type="date" asp-for="@Model.DateSelection" placeholder="Select date" class="form-control" />
+
+                <div class="grid-25 tablet-grid-100 mobile-grid-100">
+                    <div class="invisible hide-on-tablet hide-on-mobile"><label>Hide me</label></div>
+                    <div class="button-container"><stock-button class="button-outline-white-transparent">Find what's on</stock-button></div>
+                </div>
+            </div>
+
+            <div class="mobile-grid-100 @showOnMobile">
+                <div class="edit-search">
+                    <a href="javascript:toggleSearch();" id="edit-search-link">Edit search</a>
+                </div> 
+            </div>
+            
+        </div>
+    </div>
+</form>
+
+<script type="text/javascript">    
+
+    function toggleSearch() {
+        var container = $('.form-section', '#events-filter-bar');
+        var button = $('#edit-search-link');
+    
+        if ($(button).hasClass('open')) {
+            $(button).removeClass('open');
+            $(container).removeClass('closed');
+        } else {
+            $(button).addClass('open');
+            $(container).addClass('closed');
+        }
+    }
+
+</script>
