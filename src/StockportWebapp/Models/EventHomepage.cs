@@ -6,6 +6,7 @@ public class EventHomepage
     public List<EventCategory> Categories { get; set; }
     public string MetaDescription { get; set; }
     public List<Alert> Alerts { get; set; }
+    public List<ProcessedEvents> NextEvents { get; set; } = new();
 
     public EventHomepage(List<Alert> alerts)
     {

@@ -1,0 +1,93 @@
+﻿@model Pagination
+@{
+    IUrlHelperWrapper urlHelper = new UrlHelperWrapper(Url);
+    int indexOfFirstItemOnPage = PaginationHelper.CalculateIndexOfFirstItemOnPage(Model.CurrentPageNumber, Model.MaxItemsPerPage);
+    int indexOfLastItemOnPage = PaginationHelper.CalculateIndexOfLastItemOnPage(Model.CurrentPageNumber, Model.TotalItemsOnPage, Model.MaxItemsPerPage);
+    int pageSize = PaginationHelper.GetOtherPageSizeByCurrentPageSize(Model.MaxItemsPerPage, Model.TotalItems, Model.DefaultPageSize);
+    List<VisiblePageNumber> visiblePageNumbers = PaginationHelper.GenerateVisiblePageNumbers(Model.CurrentPageNumber, Model.TotalPages);
+    List<int?> pageSequence = PaginationHelper.GeneratePageSequence(Model.CurrentPageNumber, Model.TotalPages);
+
+    Func<int, string> getPageUrl = page => PaginationHelper.BuildUrl(page, Model.CurrentUrl, urlHelper);
+}
+
+<div class="pagination-section grid-parent pagination-margin-bottom">
+    <div class="pagination__count">
+        <div class="grid-container">
+            <div class="grid-100">
+                <span class="pagination__count-span">
+                    Showing 
+                    <span class="bold">@indexOfFirstItemOnPage</span>
+                    to
+                    <span class="bold">@indexOfLastItemOnPage</span>
+                    of
+                    <span class="bold"> @Model.TotalItems</span>
+                    results
+                </span>
+
+                @if (Model.TotalItems > Model.DefaultPageSize)
+                {
+                    <a class="pagination__count-view-all"
+                        href="@PaginationHelper.BuildPageSizeUrl(Model.DefaultPageSize, Model.MaxItemsPerPage, Model.TotalItems, Model.CurrentUrl, urlHelper)">
+                        View @(pageSize.Equals(60) && Model.TotalItems < 60
+                            ? "all"
+                            : pageSize.ToString()) @Model.ItemDescription @(pageSize.Equals(60) && Model.TotalItems < 60
+                                ? string.Empty
+                                : "per page")
+                    </a>
+                }
+            </div>
+        </div>
+    </div>
+
+    @if (PaginationHelper.DisplayPagination(Model.TotalItems))
+    {
+        <nav class="pagination" aria-label="Pagination">
+            <div class="pagination__prev">
+                @if (PaginationHelper.ShowPreviousLink(Model.CurrentPageNumber))
+                {
+                    <a href="@getPageUrl(Model.CurrentPageNumber - 1)" class="pagination__links">
+                        <span class="pagination__left"></span>
+                        <span class="pagination__right--rtl"></span>
+                        Previous
+                        <span class="visuallyhidden">page</span>
+                    </a>
+                }
+            </div>
+
+            <ul class="pagination__list">
+                @foreach (int? page in pageSequence)
+                {
+                    if (page.HasValue)
+                    {
+                        int pageNumber = page.Value;
+                        string ariaCurrent = pageNumber.Equals(Model.CurrentPageNumber) ? "aria-current=page" : string.Empty;
+                        string className = pageNumber.Equals(Model.CurrentPageNumber) ? "pagination__current" : "pagination__number";
+
+                        <li class="pagination__item">
+                            <a href="@getPageUrl(pageNumber)" 
+                            class="@className"
+                            aria-label="Page @pageNumber"
+                            @ariaCurrent>@pageNumber</a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="pagination__item pagination__ellipses">...</li>
+                    }
+                }
+            </ul>
+
+            <div class="pagination__next">
+                @if (PaginationHelper.ShowNextLink(Model.CurrentPageNumber, Model.TotalPages))
+                {
+                    <a href="@getPageUrl(Model.CurrentPageNumber + 1)" class="pagination__links">
+                        Next
+                        <span class="visuallyhidden">page</span>
+                        <span class="pagination__left--rtl"></span>
+                        <span class="pagination__right"></span>
+                    </a>
+                }
+            </div>
+        </nav>
+    }
+</div> 

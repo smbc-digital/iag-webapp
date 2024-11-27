@@ -1,0 +1,63 @@
+@inject ViewHelpers viewHelper
+@model EventCalendar
+@{
+    DateTime previousEnteredDate = DateTime.MinValue;
+    bool hasEvents = Model.Events.Any();
+    string eventsTitle = (string)ViewData["eventsTitle"];
+}
+
+<div class="grid-container-full-width" style="background-color:#f2f2f2;" data-cy="article">
+    <div class="grid-container">
+        <div class="grid-100">
+            @if (!hasEvents)
+            {
+                <div class="no-results">
+                    <h2>There are currently no events matching your search.</h2>
+                    @if (Model.DateFrom.HasValue && Model.DateTo.HasValue && Model.DateFrom > Model.DateTo)
+                    {
+                        <p>This is because you searched for an invalid date range.</p>
+                    }
+
+                    <p>Please edit your search and try again.</p>
+                </div>
+            }
+            else
+            {
+                @foreach (Event eventItem in Model.Events)
+                {
+                    bool isSameDate = previousEnteredDate == eventItem.EventDate;
+
+                    string start = string.Empty;
+                    string end = string.Empty;
+                    
+                    if (!isSameDate)
+                    {
+                        if (previousEnteredDate != DateTime.MinValue)
+                        {
+                            end = "</ul>";
+                        }
+
+                        start = "<ul class=\"card-wrapper\">";
+                    }
+
+                    @Html.Raw(end);
+
+                    if (!isSameDate)
+                    {
+                        <h2>@viewHelper.FormatEventDate(eventItem.EventDate)</h2>
+                    }
+
+                    @Html.Raw(start);
+
+                    <partial name="EventCard" model='eventItem' />
+
+                    previousEnteredDate = eventItem.EventDate.Date;
+                }
+
+                @Html.Raw("</ul>");
+
+                <partial name="Pagination" model='Model.Pagination' />
+            }
+        </div>
+    </div>
+</div>

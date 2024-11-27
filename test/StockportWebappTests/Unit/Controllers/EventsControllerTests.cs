@@ -159,7 +159,7 @@ public class EventsControllerTest
     public async Task Index_ShouldReturnEventsCalendar()
     {
         // Act
-        ViewResult actionResponse = await _controller.Index(new EventCalendar() { FromSearch = true }, 1, 12) as ViewResult;
+        ViewResult actionResponse = await _controller.Index(new EventCalendar() { FromSearch = true }, 1, 12, "today") as ViewResult;
         EventCalendar events = actionResponse.ViewData.Model as EventCalendar;
 
         // Assert
@@ -180,9 +180,11 @@ public class EventsControllerTest
             DateRange = "customdate",
             Price = ["5", "10"],
             Longitude = 12345.60,
-            Latitude = 12345.61
+            Latitude = 12345.61,
+            Free = true,
+            DateSelection = DateTime.Now.ToString("yyyy-MM-dd")
         },
-        1, 12) as ViewResult;
+        1, 12, DateTime.Now.ToString("yyyy-MM-dd")) as ViewResult;
 
         EventCalendar events = actionResponse.ViewData.Model as EventCalendar;
 
@@ -196,6 +198,8 @@ public class EventsControllerTest
         Assert.Equal(new List<string>() { "5", "10" } , events.Price);
         Assert.Equal(12345.60, events.Longitude);
         Assert.Equal(12345.61, events.Latitude);
+        Assert.True(events.Free);
+        Assert.Equal(DateTime.Now.ToString("yyyy-MM-dd"), events.DateSelection);
     }
 
     [Fact]
@@ -267,7 +271,7 @@ public class EventsControllerTest
         EventCalendar model = new() { FromSearch = true };
 
         // Act
-        ViewResult actionResponse = await controller.Index(model, requestedPageNumber, MaxNumberOfItemsPerPage) as ViewResult; ;
+        ViewResult actionResponse = await controller.Index(model, requestedPageNumber, MaxNumberOfItemsPerPage, "thisWeek") as ViewResult; ;
 
         // Assert
         EventCalendar viewModel = actionResponse.ViewData.Model as EventCalendar;
@@ -288,7 +292,7 @@ public class EventsControllerTest
         EventCalendar model = new() { FromSearch = true };
 
         // Act
-        await controller.Index(model, specifiedPageNumber, MaxNumberOfItemsPerPage);
+        await controller.Index(model, specifiedPageNumber, MaxNumberOfItemsPerPage, "thisMonth");
 
         // Assert
         Assert.Equal(expectedPageNumber, model.Pagination.CurrentPageNumber);
@@ -302,7 +306,7 @@ public class EventsControllerTest
         EventCalendar model = new() { FromSearch = true };
 
         // Act
-        await controller.Index(model, 0, 12);
+        await controller.Index(model, 0, 12, "nextMonth");
 
         // Assert
         Assert.NotNull(model.Pagination);
@@ -317,7 +321,7 @@ public class EventsControllerTest
         _controller.ModelState.AddModelError("DateFrom", "DateFrom is invalid");
 
         // Act
-        await _controller.Index(eventCalendar, 1, 1);
+        await _controller.Index(eventCalendar, 1, 1, string.Empty);
 
         // Assert
         Assert.Empty(_controller.ModelState["DateTo"].Errors);
@@ -328,7 +332,7 @@ public class EventsControllerTest
     public void Index_DoesNotThrow_WhenDateToOrDateFromModelStateKeyIsMissing()
     {
         // Act
-        Exception exception = Record.Exception(() => _controller.Index(new EventCalendar(), 1, 1).Wait());
+        Exception exception = Record.Exception(() => _controller.Index(new EventCalendar(), 1, 1, string.Empty).Wait());
 
         // Assert
         Assert.Null(exception);
@@ -341,7 +345,7 @@ public class EventsControllerTest
         EventCalendar eventCalendar = new() { Tag = "music" };
 
         // Act
-        await _controller.Index(eventCalendar, 1, 1);
+        await _controller.Index(eventCalendar, 1, 1, string.Empty);
 
         // Assert
         Assert.Equal("music", eventCalendar.KeepTag);
@@ -354,7 +358,7 @@ public class EventsControllerTest
         EventCalendar eventCalendar = new() { Tag = string.Empty };
 
         // Act
-        await _controller.Index(eventCalendar, 1, 1);
+        await _controller.Index(eventCalendar, 1, 1, string.Empty);
 
         // Assert
         Assert.Null(eventCalendar.KeepTag);
@@ -368,7 +372,7 @@ public class EventsControllerTest
         EventCalendar model = new() { FromSearch = true };
 
         // Act
-        await controller.Index(model, 0, 12);
+        await controller.Index(model, 0, 12, string.Empty);
 
         // Assert
         Assert.NotNull(model.Pagination.CurrentUrl);

@@ -1,4 +1,6 @@
-﻿namespace StockportWebapp.Models;
+﻿using System.Runtime.CompilerServices;
+
+namespace StockportWebapp.Models;
 
 public class EventCalendar
 {
@@ -14,10 +16,11 @@ public class EventCalendar
     public string Category { get; set; }
 
     public string DateRange { get; set; }
-
+    public string DateSelection { get; set; }
     public List<Event> Events { get; private set; } = new();
     public List<string> Categories { get; private set; } = new();
     public string Tag { get; set; }
+    public bool Free { get; set; }
     public string[] Price { get; set; }
     public string HomepageTags { get; set; }
     public IFilteredUrl FilteredUrl { get; private set; }
@@ -41,6 +44,13 @@ public class EventCalendar
         Categories = categories;
     }
 
+    public bool IsFromSearch() => FromSearch 
+        || Free
+        || !string.IsNullOrWhiteSpace(Category)
+        || !string.IsNullOrWhiteSpace(Tag)
+        || DateFrom is not null
+        || DateTo is not null;
+
     public bool DoesCategoryExist(string categoryItem) =>
         Categories.Contains(categoryItem);
 
@@ -54,7 +64,8 @@ public class EventCalendar
             {
                 Title = evnt.Title,
                 Link = evnt.Slug,
-                Date = evnt.EventDate.ToString("dddd dd MMMM yyyy"),
+                Date = evnt.EventDate,
+                StartTime = evnt.StartTime,
                 Teaser = evnt.Teaser,
                 ImageSrc = evnt.ImageUrl
             }).ToList();

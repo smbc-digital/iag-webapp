@@ -27,7 +27,6 @@
                                         <label for="@filter.Slug" class="directory-filters__label">@filter.DisplayName</label>
                                         <span class="directory-filters__count" aria-hidden="true">(@Model.FilterCounts.GetValueOrDefault(filter.Slug, 0))</span>
 
-
                                         <span class="visuallyhidden">
                                             @{
                                                 int filterCount = Model.FilterCounts.GetValueOrDefault(filter.Slug, 0);

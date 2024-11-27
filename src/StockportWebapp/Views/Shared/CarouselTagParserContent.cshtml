@@ -11,9 +11,14 @@
         }
     </ul>
     
-    <button class="carousel-control prev carousel-control-prev" aria-label="Previous Slide">‹</button>
-    <button class="carousel-control next carousel-control-next" aria-label="Next Slide">›</button>
-    
+    <button class="carousel-control prev carousel-control-prev" aria-label="Previous Slide">
+        <span class="fa-solid fa-chevron-left"></span>
+    </button>
+
+    <button class="carousel-control next carousel-control-next" aria-label="Next Slide">
+        <span class="fa-solid fa-chevron-right"></span>
+    </button>
+
     <ul class="carousel-indicators hide-on-mobile">
         @for(int i=0; i < Model.Count; i++)
         {
@@ -26,25 +31,8 @@
         }
     </ul>
 
-    <ul class="carousel-indicators-mob hide-on-tablet hide-on-desktop">
-        <li>
-            <button class="current mob-prev" data-slide="1">
-                <span class="visuallyhidden">Image</span> < Previous
-                <span class="visuallyhidden"></span>
-            </button>
-        </li>
-
-        <li>
-            <button class="current mob-next" data-slide="1">
-                <span class="visuallyhidden">Image</span> Next >
-                <span class="visuallyhidden"></span>
-            </button>
-        </li>
-    </ul>
-
     <div id="carousel-status" class="visuallyhidden" aria-live="polite"></div>
 </section>
-
 
 <script>
     require(['/assets/javascript/config-9c49ceec.min.js'], function () {

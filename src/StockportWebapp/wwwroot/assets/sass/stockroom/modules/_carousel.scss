@@ -3,10 +3,15 @@
     width: 100%;
     overflow: hidden;
 
+    &-hero {
+        background-color: #f2f2f2;
+    }
+
     &-items {
         display: flex;
         transition: transform 0.5s ease;
         list-style: none;
+        transition: transform 1s ease-in-out;
     }
 
     &-item {
@@ -34,7 +39,8 @@
             &--overlay {
                 height: 100%;
                 background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.8) 100%);
-                align-content: end;
+                display: flex;
+                place-items: flex-end;
             }
 
 
@@ -45,8 +51,17 @@
         }
 
         &__article {
-            @media #{$non-mobile} {
-                width: 70%;
+            width: 100%;
+            text-align: center;
+            margin-bottom: 5rem;
+            justify-items: center;
+
+            @media #{$tablet} {
+                margin-bottom: 5.5rem;
+            }
+
+            @media #{$mobile } {
+                margin-bottom: 2rem;
             }
 
             p:first-of-type {
@@ -55,16 +70,16 @@
 
             p:last-of-type {
                 margin-bottom: 2rem;
+
+                @media #{$mobile } {
+                    margin-bottom: 1rem;
+                }
             }
         }
 
         &__title {
             color: white;
-            text-underline-offset: .1em;
-
-            &:hover {
-                text-decoration-thickness: 5px;
-            }
+            text-transform: uppercase;
         }
 
         &__teaser {
@@ -78,21 +93,24 @@
 
     &-control {
         position: absolute;
-        top: 50%;
+        top: calc(50% - 50px);
         transform: translateY(-50%);
-        background-color: rgba(0, 0, 0, 0.8);
+        background-color: rgba(0, 0, 0, 0.9);
         color: #fff;
         border: none;
         font-size: 2rem;
-        padding: 0.5rem;
+        padding: 0;
         cursor: pointer;
         z-index: 1;
-        width: 53px;
-
+        width: 50px;
+        height: 50px;
+        border: 2px solid grey;
+        border-radius: 15px;
+        
         @media #{$mobile} {
-            display: none;
+            top: 50%;
         }
-
+        
         &-prev {
             left: 10px;
         }
@@ -105,12 +123,21 @@
             outline: #ef8a16 solid 3px !important;
         }
 
+        &:hover {
+            background-color: $skrm-orange;
+            color: black;
+            border-color: black;
+        }
+
         &__hero {
             top: 35px;
+            position: unset;
 
             &--prev {
                 left: unset;
                 right: 75px;
+                margin-right: 0.75rem;
+                
             }
 
             @media #{$mobile} {
@@ -119,7 +146,30 @@
         }
     }
 
-    &-indicators, &-indicators-mob {
+    &-controls {
+        &-wrapper {
+            position: relative;
+        }
+
+        &-container {
+            position: absolute;
+            right: 10px;
+            top: -580px;
+            padding-inline: 1em;
+        
+            @media #{$tablet} {
+                right: 0;
+            }
+        
+            @media #{$mobile} {
+                top: -380px;
+                display: flex;
+                padding-inline: 0.5em;
+            }
+        }
+    }
+
+    &-indicators {
         list-style: none;
         display: flex;
         gap: 0.75rem;
@@ -136,10 +186,13 @@
             width: 50px;
             height: 50px;
             cursor: pointer;
-            border: 2px solid black;
-            background-color: $skrm-blue;
+            border: 2px solid grey;
+            color: white;
+            background-color: rgba(0, 0, 0, 0.9);
             font-size: 1.5rem;
-            border-radius: 3px;
+            border-radius: 15px;
+            padding: 0;
+            font-family: inherit;
 
             @media #{$mobile} {
                 font-size: 1.3rem;
@@ -148,12 +201,15 @@
             }
 
             &.current {
-                background-color: $skrm-orange;
+                background-color: $skrm-yellow;
+                color: black;
+                border: 2px solid white;
             }
 
             &:hover {
-                background-color: white;
+                background-color: $skrm-orange;
                 color: black;
+                border-color: black;
             }
 
             &:focus {
@@ -163,8 +219,24 @@
 
         &__hero {
             position: absolute;
-            bottom: 10px;
+            bottom: 20px;
             right: 10px;
+            padding-inline: 1em;
+            
+            @media #{$tablet} {
+                right: 0;
+            }
+
+            li button {
+                background-color: rgba(0, 0, 0, 0.7);
+            }
+        }
+
+        &-wrapper {
+            display: flex;
+            justify-content: center;
+            position: relative;
+            align-items: center;
         }
     }
 }
