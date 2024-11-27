@@ -26,7 +26,7 @@ public class ProcessedEvents : IProcessedContentType
     public string Website { get; }
     public string Facebook { get; }
     public string Instagram { get; }
-    public string Linkedin { get; }
+    public string LinkedIn { get; }
     public string MetaDescription { get; set; }
     public Group Group { get; set; }
     public string Duration { get; }
@@ -90,7 +90,7 @@ public class ProcessedEvents : IProcessedContentType
         Website = website;
         Facebook = facebook;
         Instagram = instagram;
-        Linkedin = linkedin;
+        LinkedIn = linkedin;
         MetaDescription = metaDescription;
         Duration = duration;
         Languages = languages;

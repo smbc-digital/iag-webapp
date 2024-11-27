@@ -53,7 +53,7 @@ public class EventFactory : IEventFactory
                                 eventItem.Website,
                                 eventItem.Facebook,
                                 eventItem.Instagram,
-                                eventItem.Linkedin,
+                                eventItem.LinkedIn,
                                 eventItem.MetaDescription,
                                 eventItem.Duration,
                                 eventItem.Languages,

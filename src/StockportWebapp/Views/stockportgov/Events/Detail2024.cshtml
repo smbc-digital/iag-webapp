@@ -28,12 +28,16 @@
                 <div class="event-detail--50 event-detail--50-left">
                     @if (!string.IsNullOrEmpty(Model.ImageUrl))
                     {
-                        <img src="@Model.ImageUrl?w=350&q=89&fm=webp" 
-                            srcset="@Model.ImageUrl?w=350&q=89&fm=webp 350w,
-                                @Model.ImageUrl?w=700&q=89&fm=webp 700w,
-                                @Model.ImageUrl?w=1050&q=89&fm=webp 1050w" 
-                            sizes="(max-width: 600px) 350px, (max-width: 900px) 700px, 1050px"
-                            class="event-detail__image" 
+                        <img src="@Model.ImageUrl?q=89&fm=webp"
+                            srcset="@Model.ImageUrl?w=967&q=89&fm=webp 967w,
+                                @Model.ImageUrl?w=853&q=89&fm=webp 853w,
+                                @Model.ImageUrl?w=712&q=89&fm=webp 712w"
+                            sizes="(max-width: 767px) 712px,
+                                ((min-width: 768px) and (max-width: 1023px)) 967px,
+                                (min-width: 1024px) 853px"
+                            class="event-detail__image"
+                            width="712"
+                            height="350"
                             alt="" />
                     }
                 </div>
