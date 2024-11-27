@@ -90,6 +90,9 @@ public class EventsControllerTest
                                         string.Empty,
                                         string.Empty,
                                         string.Empty,
+                                        string.Empty,
+                                        string.Empty,
+                                        string.Empty,
                                         new());
 
         EventHomepage eventHomepage = new(new List<Alert>())
@@ -517,6 +520,9 @@ public class EventsControllerTest
                                         "0123456789",
                                         "email",
                                         "website",
+                                        "facebook",
+                                        "instagram",
+                                        "linkedin",
                                         "metadescription",
                                         "duration",
                                         "languages",

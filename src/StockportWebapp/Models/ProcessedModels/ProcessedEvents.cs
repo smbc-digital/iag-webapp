@@ -24,6 +24,9 @@ public class ProcessedEvents : IProcessedContentType
     public string PhoneNumber { get; }
     public string Email { get; }
     public string Website { get; }
+    public string Facebook { get; }
+    public string Instagram { get; }
+    public string Linkedin { get; }
     public string MetaDescription { get; set; }
     public Group Group { get; set; }
     public string Duration { get; }
@@ -54,6 +57,9 @@ public class ProcessedEvents : IProcessedContentType
                         string phoneNumber,
                         string email,
                         string website,
+                        string facebook,
+                        string instagram,
+                        string linkedin,
                         string metaDescription,
                         string duration,
                         string languages,
@@ -82,6 +88,9 @@ public class ProcessedEvents : IProcessedContentType
         PhoneNumber = phoneNumber;
         Email = email;
         Website = website;
+        Facebook = facebook;
+        Instagram = instagram;
+        Linkedin = linkedin;
         MetaDescription = metaDescription;
         Duration = duration;
         Languages = languages;
