@@ -31,17 +31,31 @@
                         </div>
 
                         <div class="events-filters__radio-item">
-                            <label asp-for="@Model.DateSelection" class="events-filters__date-label">Choose a date</label>
-                            <input type="date" asp-for="@Model.DateSelection" placeholder="Select date" class="events-filters__date"/>
+                            <label for="event-date" class="events-filters__date-label">Choose a date</label>
+                            <input type="date" id="event-date" asp-for="@Model.DateSelection" placeholder="Select date" class="events-filters__date"/>
                         </div>
                     </div>
 
-                    <div class="events-filters__button">
-                        <input type="hidden" asp-for="@Model.Category"/>
-                        <button class="btn btn--on-yellow">Find what's on</button>
-                    </div>
+                    <input type="hidden" asp-for="@Model.Category"/>
+
+                    <noscript>
+                        <div class="events-filters__button">
+                            @* <input type="hidden" asp-for="@Model.Category"/> *@
+                            <button class="btn btn--on-yellow">Find what's on</button>
+                        </div>
+                    </noscript>
                 </div>
             </div>
         </div>
     </form>
 </div>
+
+<script>
+    require(['/assets/javascript/config-9c49ceec.min.js'], function () {
+        require(['eventFilters'],
+            function (eventFilters) {
+                eventFilters.Init();
+            }
+        );
+    });
+</script>
