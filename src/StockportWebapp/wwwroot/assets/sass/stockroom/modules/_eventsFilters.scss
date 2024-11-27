@@ -20,7 +20,8 @@
 
     &__wrapper {
         background-color: $skrm-yellow;
-        padding-block: 1em;
+        padding: 1em;
+        border-radius: 3px;
     }
 
     &__date {

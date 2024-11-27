@@ -2,6 +2,10 @@
     &__category {
         &-wrapper {
             background-color: #f2f2f2;
+
+            &--margin-bottom {
+                padding-bottom: 2em;
+            }
         }
     }
 
