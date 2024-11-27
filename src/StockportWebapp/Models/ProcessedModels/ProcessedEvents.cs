@@ -59,7 +59,7 @@ public class ProcessedEvents : IProcessedContentType
                         string website,
                         string facebook,
                         string instagram,
-                        string linkedin,
+                        string linkedIn,
                         string metaDescription,
                         string duration,
                         string languages,
@@ -90,7 +90,7 @@ public class ProcessedEvents : IProcessedContentType
         Website = website;
         Facebook = facebook;
         Instagram = instagram;
-        LinkedIn = linkedin;
+        LinkedIn = linkedIn;
         MetaDescription = metaDescription;
         Duration = duration;
         Languages = languages;

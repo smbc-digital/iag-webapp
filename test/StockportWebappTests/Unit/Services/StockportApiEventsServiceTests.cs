@@ -96,7 +96,7 @@ public class StockportApiEventsServiceTests
                                             "website",
                                             "facebook",
                                             "instagram",
-                                            "linkedin",
+                                            "linkedIn",
                                             "meta description",
                                             "duration",
                                             "languages",

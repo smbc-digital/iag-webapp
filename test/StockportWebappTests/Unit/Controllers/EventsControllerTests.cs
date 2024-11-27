@@ -522,7 +522,7 @@ public class EventsControllerTest
                                         "website",
                                         "facebook",
                                         "instagram",
-                                        "linkedin",
+                                        "linkedIn",
                                         "metadescription",
                                         "duration",
                                         "languages",
