@@ -11,7 +11,23 @@
     ViewData["Title"] = ViewData["og:title"];
     ViewData["Description"] = Model.Homepage.MetaDescription;
     Layout = "../Shared/_Layout.cshtml";
+
+    string eventsTitle = "";
+    if (category is not null)
+    {
+        eventsTitle = category.Name;
+    }
+    else if (Model.DateFrom.HasValue)
+    {
+        eventsTitle = "All upcoming events";
+    }
+    else
+    {
+        eventsTitle = "Free events";
+    }
 }
+
+<h1 class="visuallyhidden">Stockroom events</h1>
 
 @if (Model.HeroCarouselItems is not null && Model.HeroCarouselItems.Any())
 {
@@ -25,13 +41,26 @@
                 @foreach (var eventCategory in Model.Homepage.Categories)
                 {
                     <li class="event-homepage__categories-item">
-                        <a href="events?category=@eventCategory.Slug">@eventCategory.Name</a>
+                        <a href="@($"{Url.Action("Index", "Events")}?category={eventCategory.Slug}&free={Model.Free}")">@eventCategory.Name</a>
                     </li>
                 }
             </ul> 
         </div>
     </div>
 </nav>
+
+@if (Model.FromSearch)
+{
+    <div class="grid-container-full-width event-homepage__category-wrapper">
+        <div class="grid-container">
+            <div class="grid-100">
+                <h2>@eventsTitle</h2>
+            </div>
+        </div>
+    </div>
+
+    <partial name="EventsDateFilters" model='Model'/>
+}
 
 @if (Model.Homepage.NextEvents.Any()) 
 {
@@ -45,11 +74,15 @@
         <partial name="RelatedEvents" model="@Model.Homepage.NextEvents" view-data='@(new ViewDataDictionary(ViewData) { { "isEventHomepage", true }, { "itemsToDisplay", Model.Homepage.NextEvents.Take(6).ToList() } })' />
     }
 
-    <div class="grid-container-full-width" style="background-color:#f2f2f2;" data-cy="article">
-        <partial name="ImageBannerContentWidth" view-data='@(new ViewDataDictionary(ViewData) { { "bannerSlug", "events/free" }, { "bannerTitle", "Free events" }, { "bannerTeaser", "Stockroom is free to visit, and there are lots of free events and activities too!" } })' />
+    <div class="btn-container">
+        <a class="btn btn--on-grey btn--no-margin-top" title="View more upcoming events" href="/events?datefrom=@DateTime.Now.Date">View more</a>
+    </div>
+
+    <div class="grid-container-full-width" style="background-color:#f2f2f2;">
+        <partial name="ImageBannerContentWidth" view-data='@(new ViewDataDictionary(ViewData) { { "bannerSlug", $"{Url.Action("Index", "Events")}?free=true" }, { "bannerTitle", "Free events" }, { "bannerTeaser", "Stockroom is free to visit, and there are lots of free events and activities too!" } })' />
     </div>
 }
 else
 {
-    <partial name="Events" model="@Model" />
+    <partial name="Events" model="@Model" view-data='@(new ViewDataDictionary(ViewData) {{ "eventsTitle", eventsTitle }})' />
 }
