@@ -129,8 +129,8 @@ public class DirectoryEntryViewModelTest
     [InlineData(null, "twitter", null, null, null, true)]
     [InlineData(null, null, "youtube", null, null, true)]
     [InlineData(null, null, null, "instagram", null, true)]
-    [InlineData(null, null, null, null, "linkedin", true)]
-    [InlineData("facebook", "twitter", "youtube", "instagram", "linkedin", true)]
+    [InlineData(null, null, null, null, "linkedIn", true)]
+    [InlineData("facebook", "twitter", "youtube", "instagram", "linkedIn", true)]
     public void DisplaySocials_ReturnsCorrectValue(string facebook, string twitter, string youtube, string instagram, string linkedIn, bool expected)
     {
         // Arrange
