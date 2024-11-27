@@ -33,7 +33,6 @@ public class EventCalendar
     public EventCalendar() { }
 
     public bool FromSearch { get; set; }
-
     public string KeepTag { get; set; }
     public string Location { get; set; }
     public double Longitude { get; set; }

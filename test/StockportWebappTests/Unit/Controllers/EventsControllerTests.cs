@@ -180,9 +180,11 @@ public class EventsControllerTest
             DateRange = "customdate",
             Price = ["5", "10"],
             Longitude = 12345.60,
-            Latitude = 12345.61
+            Latitude = 12345.61,
+            Free = true,
+            DateSelection = DateTime.Now.ToString("yyyy-MM-dd")
         },
-        1, 12, string.Empty) as ViewResult;
+        1, 12, DateTime.Now.ToString("yyyy-MM-dd")) as ViewResult;
 
         EventCalendar events = actionResponse.ViewData.Model as EventCalendar;
 
@@ -196,6 +198,8 @@ public class EventsControllerTest
         Assert.Equal(new List<string>() { "5", "10" } , events.Price);
         Assert.Equal(12345.60, events.Longitude);
         Assert.Equal(12345.61, events.Latitude);
+        Assert.True(events.Free);
+        Assert.Equal(DateTime.Now.ToString("yyyy-MM-dd"), events.DateSelection);
     }
 
     [Fact]
