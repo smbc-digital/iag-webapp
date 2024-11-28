@@ -33,6 +33,27 @@
                     <p><a href="@Model.Website">@Model.Website</a></p>
                 </div>
             }
+            @if (!string.IsNullOrEmpty(Model.Facebook))
+            {
+                <div class="event-detail__details">
+                    <p>Facebook:</p>
+                    <p><a href="@Model.Facebook" target="_blank">@Model.Facebook</a></p>
+                </div>
+            }
+            @if (!string.IsNullOrEmpty(Model.Instagram))
+            {
+                <div class="event-detail__details">
+                    <p>Instagram:</p>
+                    <p><a href="@Model.Instagram" target="_blank">@Model.Instagram</a></p>
+                </div>
+            }
+            @if (!string.IsNullOrEmpty(Model.LinkedIn))
+            {
+                <div class="event-detail__details">
+                    <p>LinkedIn:</p>
+                    <p><a href="@Model.LinkedIn" target="_blank">@Model.LinkedIn</a></p>
+                </div>
+            }
             @if (!string.IsNullOrEmpty(Model.BookingInformation))
             {
                 <a href="@Model.BookingInformation" data-cy="book-event-button" target="_blank" class="btn event-detail__button btn--width-30 btn--chevron-forward btn--bold btn--chevron-bold">

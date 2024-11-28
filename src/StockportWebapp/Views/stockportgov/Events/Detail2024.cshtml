@@ -12,6 +12,7 @@
         : $"<p>{Model.SubmittedBy}</p>";
 
     string borderTeal = "navcard--border-top-10 navcard--theme-teal-lighter-top";
+    
     string borderTop = $"directory--border-top {borderTeal}";
     string eventWrapperCssClasses = "event-detail__wrapper navcard--white navcard-all navcard--theme-grey-accent-all navcard--border-top-0 navcard--radius-bottom-left navcard--radius-bottom-right";
 }
@@ -27,7 +28,17 @@
                 <div class="event-detail--50 event-detail--50-left">
                     @if (!string.IsNullOrEmpty(Model.ImageUrl))
                     {
-                        <img src="@Model.ImageUrl?w=350&q=89&fm=webp" class="event-detail__image" alt="">
+                        <img src="@Model.ImageUrl?q=89&fm=webp"
+                            srcset="@Model.ImageUrl?w=967&q=89&fm=webp 967w,
+                                @Model.ImageUrl?w=853&q=89&fm=webp 853w,
+                                @Model.ImageUrl?w=712&q=89&fm=webp 712w"
+                            sizes="(max-width: 767px) 712px,
+                                ((min-width: 768px) and (max-width: 1023px)) 967px,
+                                (min-width: 1024px) 853px"
+                            class="event-detail__image"
+                            width="712"
+                            height="350"
+                            alt="" />
                     }
                 </div>
                 <div class="event-detail--50 @borderTeal">
