@@ -1,0 +1,41 @@
+﻿@model NavCard
+<li class="card-item">
+    @if (!string.IsNullOrEmpty(Model.TeaserImage))
+    {
+        <img src="@Model.TeaserImage?w=692&q=89"
+             srcset="@Model.TeaserImage?w=692&q=89&fm=webp 692w,
+                    @Model.TeaserImage?w=287&q=89&fm=webp 287w,
+                    @Model.TeaserImage?w=364&q=89&fm=webp 364w"
+             sizes="(max-width: 767px) 692px,
+                    ((min-width: 768px) and (max-width: 1023px)) 287px,
+                    (min-width: 1024px) 364px"
+             class="card-item__image"
+             alt=""
+             width="692"
+             height="350"
+             loading="lazy">
+    }
+    else
+    {
+        <img src="@Model.Image?w=692&q=89"
+             srcset="@Model.Image?w=692&q=89&fm=webp 692w,
+                    @Model.Image?w=287&q=89&fm=webp 287w,
+                    @Model.Image?w=364&q=89&fm=webp 364w"
+             sizes="(max-width: 767px) 692px,
+                    ((min-width: 768px) and (max-width: 1023px)) 287px,
+                    (min-width: 1024px) 364px"
+             class="card-item__image"
+             alt=""
+             width="692"
+             height="350"
+             loading="lazy">
+    }
+
+    <div class="card-item__container">
+        <div class="card-item__content">
+            <h3 class="card-item__content-title">@Model.Title</h3>
+            <p class="card-item__content-teaser">@Model.Teaser</p>
+        </div>
+        <a href="@Model.Url" class="btn card-item__container-btn" aria-label="Read more about @Model.Title">Read more</a>
+    </div>
+</li>

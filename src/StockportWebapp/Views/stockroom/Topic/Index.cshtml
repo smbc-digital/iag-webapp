@@ -6,84 +6,42 @@
     Layout = "../Shared/_Layout.cshtml";
 }
 
+<div class="grid-container-full-width topic" data-cy="topic">
+    <div class="hero">
+        @if (Model.TopicHasImage)
+        {
+            <div class="hero__background" style="background-image: url(@Model.Topic.Image?fm=webp)"></div>
+        }
 
-<section class="grid-container">
-    <div class="grid-80 body">
-        <h1 class="h-xl" style="margin-top:1em; margin-bottom:1em;">This is the title</h1>
-        <p class="lead">Lorem ipsum odor amet, consectetuer adipiscing elit. Integer dolor dignissim at sed; porttitor quam viverra.</p>
-        <hr style="height:2px; width:40%; margin-bottom:1em; border-top:5px solid #ff522a;" />
-    </div>
-</section>
+        <div class="grid-container hero__wrapper">
+            <div class="grid-100">
+                <div class="hero__image"></div>
 
-<section class="grid-container">
-    <div class="grid-60">
-        <img src="~/assets/stockroom/Stockroom_-_Cafe_Bistro_CGI_Visual.jpg" style="width:100%; height:auto; border-radius:5px;" />
-    </div>
-    <div class="grid-40" style="background-color: #ff522a; padding:1em; border-radius:5px; position:relative; top:20px; left:-35px;">
-        <h2 class="h-l" style="margin-bottom:1rem;">Top task 1</h2>
-        <p>Lorem ipsum odor amet, consectetuer adipiscing elit. Integer dolor dignissim at sed; porttitor quam viverra.</p>
-        
-    </div>
-</section>
-
-<section class="grid-container" style="margin-top:2em;">
-    <div class="grid-33">
-        <img src="~/assets/stockroom/Stockroom_-_Cafe_Bistro_CGI_Visual.jpg" style="width:100%; height:auto; border-radius:5px" />
-        <div style=" padding:1em; background-color:#ff522a; border-bottom-left-radius:5px; border-bottom-right-radius:5px;">
-            <h3>Primary Item 1</h3>
-            <p>Lorem ipsum odor amet, consectetuer adipiscing elit. Integer dolor dignissim at sed; porttitor quam viverra.</p>
+                <div class="topic__content">
+                    <h1 class="hero__title">@Model.Topic.Name</h1>
+                </div>
+            </div>
         </div>
-    </div>
 
-    <div class="grid-33">
-        <img src="~/assets/stockroom/Stockroom_-_Cafe_Bistro_CGI_Visual.jpg" style="width:100%; height:auto border-radius:5px" />
-        <div style=" padding:1em; background-color:#ff522a; border-bottom-left-radius:5px; border-bottom-right-radius:5px;">
-            <h3>Primary Item 2</h3>
-            <p>Lorem ipsum odor amet, consectetuer adipiscing elit. Integer dolor dignissim at sed; porttitor quam viverra.</p>
+
+        <div class="grid-container">
+            <div class="grid-100">
+                <div class="hero__about">
+                    <p>@Model.Topic.Teaser</p>
+
+                    @if (Model.Topic.PrimaryItems.Items.Any())
+                    {
+                        <partial name="NavCards" model="@Model.Topic.PrimaryItems" )' />
+                    }
+
+                    @if (Model.Topic.SecondaryItems.Any())
+                    {
+                        <h2>More in @Model.Topic.Name</h2>
+                        <partial name="SecondaryItems" model="@Model.Topic.SecondaryItems" />
+                    }
+                </div>
+            </div>
         </div>
-    </div>
 
-    <div class="grid-33">
-        <img src="~/assets/stockroom/Stockroom_-_Cafe_Bistro_CGI_Visual.jpg" style="width:100%; height:auto border-radius:5px" />
-        <div style=" padding:1em; background-color:#ff522a; border-bottom-left-radius:5px; border-bottom-right-radius:5px;">
-            <h3>Primary Item 3</h3>
-            <p>Lorem ipsum odor amet, consectetuer adipiscing elit. Integer dolor dignissim at sed; porttitor quam viverra.</p>
-        </div>
-    </div>
-</section>
-
-<div class="grid-container" style="margin-top:2em;">
-    <div class="grid-100">
-        <h2 style="margin-bottom:2em;">More In ...</h2>
-    </div>
-
-    <div class="grid-30">
-        <img src="~/assets/stockroom/Stockroom_-_Cafe_Bistro_CGI_Visual.jpg" style="width:100%; height:auto; border-radius:5px" />
-    </div>
-    <div class="grid-70">
-        <h3>Secondary Item 1</h3>
-        <p>Lorem ipsum odor amet, consectetuer adipiscing elit. Integer dolor dignissim at sed; porttitor quam viverra.</p>
-    </div>    
-</div>
-
-<div class="grid-container" style="margin-top:2em;">
-    <div class="grid-30">
-        <img src="~/assets/stockroom/Stockroom_-_Cafe_Bistro_CGI_Visual.jpg" style="width:100%; height:auto; border-radius:5px" />
-    </div>
-    <div class="grid-70">
-        <h3>Secondary Item 2</h3>
-        <p>Lorem ipsum odor amet, consectetuer adipiscing elit. Integer dolor dignissim at sed; porttitor quam viverra.</p>
     </div>
 </div>
-
-<div class="grid-container" style="margin-top:2em;">
-    <div class="grid-30">
-        <img src="~/assets/stockroom/Stockroom_-_Cafe_Bistro_CGI_Visual.jpg" style="width:100%; height:auto; border-radius:5px" />
-    </div>
-    <div class="grid-70">
-        <h3>Secondary Item 2</h3>
-        <p>Lorem ipsum odor amet, consectetuer adipiscing elit. Integer dolor dignissim at sed; porttitor quam viverra.</p>
-    </div>
-</div>
-
-<div style="clear:both; margin-top:2em;"></div>

@@ -25,7 +25,7 @@
         flex-direction: column;
         flex-grow: 0;
         justify-content: space-between;
-        
+
         @media #{$tablet} {
             width: calc(33.33333% - 20px);
             margin: 0 15px 2em 15px;

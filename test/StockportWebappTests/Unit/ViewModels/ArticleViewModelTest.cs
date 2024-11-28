@@ -229,21 +229,21 @@ public class ArticleViewModelTest
     }
 
     [Fact]
-    public void ArticleWithImage_ReturnsTrue_If_ImageIsNull()
+    public void ArticleHasImage_ReturnsFalse_If_ImageIsNull()
     {
         // Act & Assert
-        Assert.True(_viewModel.ArticleWithImage);
+        Assert.False(_viewModel.ArticleHasImage);
     }
 
     [Fact]
-    public void ArticleWithImage_ReturnsFalse_If_ImageHasValue()
+    public void ArticleHasImage_ReturnsTrue_If_ImageHasValue()
     {
         // Arrange
         ProcessedArticle article = BuildArticle("Article title", new List<ProcessedSection> { _sectionOne, _sectionTwo, _sectionThree }, parentTopic, null, "image");
         ArticleViewModel viewModel = new(article, _sectionOne.Slug);
 
         // Act & Assert
-        Assert.False(viewModel.ArticleWithImage);
+        Assert.True(viewModel.ArticleHasImage);
     }
 
     [Fact]
@@ -469,28 +469,28 @@ public class ArticleViewModelTest
 
     private static ProcessedArticle BuildArticle(string slug, List<ProcessedSection> sections, Topic topic, List<SubItem> relatedContent=null, string image="") 
         => new(It.IsAny<string>(),
-               slug,
-               It.IsAny<string>(),
-               It.IsAny<string>(),
-               It.IsAny<string>(),
-               sections,
-               It.IsAny<string>(),
-               It.IsAny<string>(),
-               image,
-               It.IsAny<string>(),
-               new List<Crumb>(),
-               new List<Alert>(),
-               topic,
-               new List<Alert>(),
-               new DateTime(),
-               new bool(),
-               new List<GroupBranding>(),
-               It.IsAny<string>(),
-               relatedContent,
-               It.IsAny<string>(),
-               It.IsAny<string>(),
-               new DateTime(),
-               new List<InlineQuote>());
+            slug,
+            It.IsAny<string>(),
+            It.IsAny<string>(),
+            It.IsAny<string>(),
+            sections,
+            It.IsAny<string>(),
+            It.IsAny<string>(),
+            image,
+            It.IsAny<string>(),
+            new List<Crumb>(),
+            new List<Alert>(),
+            topic,
+            new List<Alert>(),
+            new DateTime(),
+            new bool(),
+            new List<GroupBranding>(),
+            It.IsAny<string>(),
+            relatedContent,
+            It.IsAny<string>(),
+            It.IsAny<string>(),
+            new DateTime(),
+            new List<InlineQuote>());
 
     private static ProcessedSection BuildSection(string slug) => 
         new("title",

@@ -19,7 +19,7 @@
             <div class="article--70">
                 <h1 class="article__title">@Model.Article.Title</h1>
 
-                @if (Model.ArticleWithSection && Model.ArticleWithImage)
+                @if (Model.ArticleWithSection && !Model.ArticleHasImage)
                 {
                     <partial name="ArticleSections" />
                 }
@@ -27,7 +27,7 @@
 
             <section class="article">
                 <div class="article--70 @articleMarginBottom">
-                    @if (!Model.ArticleWithImage)
+                    @if (Model.ArticleHasImage)
                     {
                         <div class="article-hero">
                             <img src="@Model.Article.Image?q=89&fm=webp"
@@ -44,7 +44,7 @@
                         </div>
                     }
 
-                    @if (Model.ArticleWithSection && !Model.ArticleWithImage)
+                    @if (Model.ArticleWithSection && Model.ArticleHasImage)
                     {
                         <partial name="ArticleSections" />
                     }
