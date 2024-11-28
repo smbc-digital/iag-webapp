@@ -1,7 +1,9 @@
 @model ContentBlock
 @if (Model is not null && !string.IsNullOrEmpty(Model.Image))
 {
-    string overlayTheme = $"image-banner{Model.ImageBannerOverlayTheme}";
+    string overlayTheme = !string.IsNullOrEmpty(Model.ImageBannerOverlayTheme) 
+        ? $"image-banner-{Model.ImageBannerOverlayTheme}" 
+        : "image-banner--light"; 
 
     <section class="content-block content-block--margin image-banner image-banner-content-width" data-cy="image-banner-content-width">
         <div class="grid-container">
