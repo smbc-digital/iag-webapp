@@ -1,6 +1,96 @@
 .type-events.background-grey {
     background-color: $stockport-light-grey;
 }
+
+.event-homepage {
+    background-color: $stockport-teal-darker;
+    color: white;
+
+    &__heading {
+        flex: 1;
+        padding-right: 0;
+    }
+
+    &__container {
+        padding: 1em 0 2em 0;
+    }
+
+    &__thing {
+        display: flex;
+        align-items: center;
+        margin-bottom: 2em;
+    }
+
+    &__title {
+        color: white;   
+    }
+
+    &__button {
+        padding-left: 0;
+        flex: 0;
+    }
+
+    &__filters {
+        display: flex;
+        align-items: end;
+        padding-left: 0;
+
+        label {
+            font-weight: 500;
+        }
+
+        &-options {
+            margin-top: 1em; 
+            background-color: white;
+            position: relative;
+            display: flex;
+            width: 90%;
+            margin-inline-end: 0.5em;
+
+            input {
+                width: 100%;
+                padding: 1em;
+                font-size: 1em;
+                text-align: left;
+                width: -webkit-fill-available;
+                border: none;
+                border-radius: 3px;
+            }
+
+            select {
+                width: 100%;
+                padding: 1em;
+                font-size: 1em;
+                text-align: left;
+                width: -webkit-fill-available;
+                appearance: none;
+                -webkit-appearance: none;
+                -moz-appearance: none;
+                background-color: #fff;
+                background-image: url(/assets/images/ui-images/chevron-down-black.svg);
+                background-position: right 1.35em center;
+                background-repeat: no-repeat;
+                background-size: 1em;
+                border: none;
+                border-radius: 3px;
+
+                @media #{$small-mobile} {
+                    background-image: none;
+                }
+            }
+
+            @media #{$mobile} {
+                margin-inline-end: 0;
+                margin-block-end: 0.5em;
+                width: 100%;
+            }
+        }
+
+        &-button {
+            height: fit-content;
+        }
+    }
+}
   
 .event-detail {
     display: flex;

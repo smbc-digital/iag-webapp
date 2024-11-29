@@ -1,54 +1,42 @@
 ﻿@using System.Web
 @model EventCalendar
 @{
-    var category = Model.Homepage.Categories.Where(c => c.Slug == Model.Category).FirstOrDefault();
+    EventCategory category = Model.Homepage.Categories.Where(c => c.Slug.Equals(Model.Category)).FirstOrDefault();
+    
     ViewData["og:title"] = string.IsNullOrWhiteSpace(Model.Category) 
                             ? "What's on in Stockport" 
-                            : category == null 
+                            : category is null 
                                 ? HttpUtility.HtmlEncode(Model.Category) 
                                 : HttpUtility.HtmlEncode(category.Name);
 
     ViewData["Title"] = ViewData["og:title"];
     ViewData["Description"] = Model.Homepage.MetaDescription;
-    Layout = "../Shared/_Layout.cshtml";
+    Layout = "../Shared/_Layout2023.cshtml";
 }
 
-@if (Model.Homepage.Alerts is not null)
-{
-    foreach (var alert in Model.Homepage.Alerts)
-    {
-        <div>
-            <partial name="GlobalAlert" model='alert' />
-        </div>
-    }
-}
+<div class="grid-container-full-width" data-cy="event-homepage">
+    <partial name="GlobalAlerts" model='Model.Homepage.Alerts' />
+        <partial name="Breadcrumb2023" model='new List<Crumb>()' view-data='@(new ViewDataDictionary(ViewData) {{"landingBreadcrumb", "topic-breadcrumb-container"}})'/>
 
-@if (string.IsNullOrWhiteSpace(Model.Category))
-{
-    @section Breadcrumbs {
-       <partial name="Breadcrumb" model='new List<Crumb>()'/>
-    }
-}
-else
-{
-    @section Breadcrumbs {
-        <partial name="Breadcrumb" model='new List<Crumb>() { new Crumb("What’s on in Stockport", "events", "event") }' />
-    }
-}
+    <div class="event-homepage">
+        <div class="grid-container">
+            <section class="event-homepage__container" aria-label="content">
+                <div class="event-homepage__thing">
+                    <div class="grid-70 event-homepage__heading">
+                        <h1 class="event-homepage__title">What's on in Stockport</h1>
+                    </div>
+                    <div class="grid-30 event-homepage__button">
+                        <a href="https://forms.stockport.gov.uk/add-an-event" data-cy="book-event-button" class="btn btn--white-outline btn--width-30 btn--chevron-forward btn--bold btn--chevron-bold">
+                            <span class="btn_text">Add your event</span>
+                        </a>
+                    </div>
+                </div>
 
-<div class="l-page-content" data-cy="event-homepage">
-    <div class="full-width-title">
-        <div class="grid-container grid-parent grid-100">
-            <div tabindex="-1" id="content" class="grid-70 tablet-grid-70 mobile-grid-100">
-                <h1 class="full-width-title-with-button">What's on in Stockport</h1>
-            </div>
-            <div class="header-right-button grid-30 tablet-grid-30 hide-on-mobile">
-                <stock-button as-link="true" class="button-outline-white-transparent" href="https://forms.stockport.gov.uk/add-an-event">Add your event</stock-button>
-            </div>
+                <partial name="Events/EventsFilterBar" model='Model'/>
+            </section>
         </div>
     </div>
-    
-    <partial name="Events/EventsFilterBar" model='Model'/>
+
 
     @if (Model.FromSearch)
     {
@@ -59,13 +47,13 @@ else
         <partial name="Events/EventHomepage" model='Model.Homepage'/>
     }
     
-    <div class="full-width-title hide-on-desktop hide-on-tablet add-button-container">
+    @* <div class="full-width-title hide-on-desktop hide-on-tablet add-button-container">
         <div class="grid-container grid-parent mobile-grid-100">
             <div class="header-right-button mobile-grid-100">
                 <stock-button as-link="true" class="button-outline-white-transparent" href="https://forms.stockport.gov.uk/add-an-event">Add your event</stock-button>
             </div>
         </div>
-    </div>
+    </div> *@
 </div>
 
 <script>
