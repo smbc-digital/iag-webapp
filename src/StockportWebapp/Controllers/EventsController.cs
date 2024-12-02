@@ -57,7 +57,7 @@ public class EventsController : Controller
 
         eventsCalendar.FromSearch = eventsCalendar.IsFromSearch();
 
-        List<Query> queries = EventsFilters(eventsCalendar);
+        List<Query> queries = GetEventsFilterQueries(eventsCalendar);
 
         HttpResponse httpResponse = await _repository.Get<EventResponse>(queries: queries);
 
@@ -231,7 +231,7 @@ public class EventsController : Controller
         return Ok();
     }
 
-    private static List<Query> EventsFilters(EventCalendar eventsCalendar)
+    private static List<Query> GetEventsFilterQueries(EventCalendar eventsCalendar)
     {
         List<Query> queries = new();
         string dateFormat = "yyyy-MM-dd";
