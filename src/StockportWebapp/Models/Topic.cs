@@ -48,13 +48,29 @@ public class Topic
     public List<GroupBranding> TopicBranding { get; init; }
     public string LogoAreaTitle { get; }
 
-    public Topic(string name, string slug, string summary, string teaser, string metaDescription, string icon,
-        string backgroundImage, string image, IEnumerable<SubItem> featuredTasks, IEnumerable<SubItem> subItems, IEnumerable<SubItem> secondaryItems,
-        IEnumerable<Crumb> breadcrumbs, IEnumerable<Alert> alerts, bool emailAlerts, string emailAlertsTopicId, EventCalendarBanner eventBanner,
-        string title, bool displayContactUs, CarouselContent campaignBanner, string eventCategory, List<GroupBranding> topicBranding, string logoAreaTitle)
+    public Topic(string name,
+                string slug,
+                string summary,
+                string teaser,
+                string metaDescription,
+                string icon,
+                string backgroundImage,
+                string image,
+                IEnumerable<SubItem> featuredTasks,
+                IEnumerable<SubItem> subItems,
+                IEnumerable<SubItem> secondaryItems,
+                IEnumerable<Crumb> breadcrumbs,
+                IEnumerable<Alert> alerts,
+                bool emailAlerts,
+                string emailAlertsTopicId,
+                EventCalendarBanner eventBanner,
+                bool displayContactUs,
+                CarouselContent campaignBanner,
+                string eventCategory,
+                List<GroupBranding> topicBranding,
+                string logoAreaTitle)
     {
         Name = name;
-        Title = title;
         Slug = slug;
         Summary = summary;
         Teaser = teaser;
@@ -82,9 +98,26 @@ public class Topic
 
 public class NullTopic : Topic
 {
-    public NullTopic() : base(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty,
-        string.Empty, string.Empty, new List<SubItem>(), new List<SubItem>(), new List<SubItem>(),
-        new List<Crumb>(), new List<Alert>(), false, string.Empty, null,
-        string.Empty, true, new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty), string.Empty, null, string.Empty)
+    public NullTopic() : base(string.Empty,
+                            string.Empty,
+                            string.Empty,
+                            string.Empty,
+                            string.Empty,
+                            string.Empty,
+                            string.Empty,
+                            string.Empty,
+                            new List<SubItem>(),
+                            new List<SubItem>(),
+                            new List<SubItem>(),
+                            new List<Crumb>(),
+                            new List<Alert>(),
+                            false,
+                            string.Empty,
+                            null,
+                            true,
+                            new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty),
+                            string.Empty,
+                            null,
+                            string.Empty)
     { }
 }
