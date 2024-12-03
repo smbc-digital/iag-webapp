@@ -12,9 +12,7 @@ public class EventCalendar
     [DataType(DataType.Date)]
     [EndDateLaterThanStartDateValidation("DateFrom", "End date should be on or after the start date")]
     public DateTime? DateTo { get; set; }
-
     public string Category { get; set; }
-
     public string DateRange { get; set; }
     public string DateSelection { get; set; }
     public List<Event> Events { get; private set; } = new();

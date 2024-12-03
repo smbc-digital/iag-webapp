@@ -2,13 +2,11 @@
     position: relative;
 
     &__background {
-        @media #{$tablet, $desktop} {
-            height: 525px;
-            width: 100%;
-            background-position: center;
-            background-size: cover;
-            position: absolute;
-        }
+        height: 525px;
+        width: 100%;
+        background-position: center;
+        background-size: cover;
+        position: absolute;
 
         @media #{$mobile} {
             height: 350px;

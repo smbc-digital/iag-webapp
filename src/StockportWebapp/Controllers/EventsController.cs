@@ -44,7 +44,7 @@ public class EventsController : Controller
     }
 
     [Route("/events")]
-    public async Task<IActionResult> Index(EventCalendar eventsCalendar, [FromQuery] int page, [FromQuery] int pageSize, [FromQuery] string dateSelection)
+    public async Task<IActionResult> Index(EventCalendar eventsCalendar, [FromQuery] int page, [FromQuery] int pageSize)
     {
         if (ModelState["DateTo"] is not null && ModelState["DateTo"].Errors.Count > 0)
             ModelState["DateTo"].Errors.Clear();
@@ -57,7 +57,7 @@ public class EventsController : Controller
 
         eventsCalendar.FromSearch = eventsCalendar.IsFromSearch();
 
-        List<Query> queries = EventsFilters(eventsCalendar, dateSelection);
+        List<Query> queries = GetEventsFilterQueries(eventsCalendar);
 
         HttpResponse httpResponse = await _repository.Get<EventResponse>(queries: queries);
 
@@ -231,7 +231,7 @@ public class EventsController : Controller
         return Ok();
     }
 
-    private static List<Query> EventsFilters(EventCalendar eventsCalendar, string dateSelection)
+    private static List<Query> GetEventsFilterQueries(EventCalendar eventsCalendar)
     {
         List<Query> queries = new();
         string dateFormat = "yyyy-MM-dd";
@@ -246,8 +246,8 @@ public class EventsController : Controller
         DateTime endOfNextMonth = new(startOfNextMonth.Year, startOfNextMonth.Month, DateTime.DaysInMonth(startOfNextMonth.Year, startOfNextMonth.Month));
         DateTime dateValue;
 
-        if (!string.IsNullOrEmpty(dateSelection))
-            switch (dateSelection)
+        if (!string.IsNullOrEmpty(eventsCalendar.DateSelection))
+            switch (eventsCalendar.DateSelection)
             {
                 case "today":
                     dateFrom = today;
@@ -266,7 +266,7 @@ public class EventsController : Controller
                     dateTo = endOfNextMonth;
                     break;
                 default:
-                    DateTime.TryParse(dateSelection, out dateValue);
+                    DateTime.TryParse(eventsCalendar.DateSelection, out dateValue);
                     dateFrom = dateValue;
                     dateTo = dateValue;
                     break;
@@ -274,15 +274,13 @@ public class EventsController : Controller
 
         if (eventsCalendar.DateFrom.HasValue)
             queries.Add(new Query("DateFrom", eventsCalendar.DateFrom.Value.ToString(dateFormat)));
-
-        if (dateFrom is not null)
+        else if (dateFrom is not null)
             queries.Add(new Query("DateFrom", dateFrom.Value.ToString(dateFormat)));
-
-        if (dateTo is not null)
-            queries.Add(new Query("DateTo", dateTo.Value.ToString(dateFormat)));
 
         if (eventsCalendar.DateTo.HasValue)
             queries.Add(new Query("DateTo", eventsCalendar.DateTo.Value.ToString(dateFormat)));
+        else if (dateTo is not null)
+            queries.Add(new Query("DateTo", dateTo.Value.ToString(dateFormat)));
 
         if (!string.IsNullOrWhiteSpace(eventsCalendar.Category))
             queries.Add(new Query("Category", eventsCalendar.Category));
