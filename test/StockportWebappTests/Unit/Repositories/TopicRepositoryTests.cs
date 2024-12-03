@@ -4,7 +4,6 @@ public class TopicRepositoryTests
 {
     private Mock<IHttpClient> _httpClient;
     private Mock<IApplicationConfiguration> _applicationConfiguration;
-    private Mock<IUrlGeneratorSimple> _urlGeneratorSimple;
     private readonly UrlGenerator _urlGenerator;
     private TopicFactory _topicFactory;
     private readonly Mock<ITagParserContainer> _tagParserContainer;
@@ -15,7 +14,6 @@ public class TopicRepositoryTests
     {
         _httpClient = new Mock<IHttpClient>();
         _applicationConfiguration = new Mock<IApplicationConfiguration>();
-        _urlGeneratorSimple = new Mock<IUrlGeneratorSimple>();
         _urlGenerator = new UrlGenerator(_applicationConfiguration.Object, new BusinessId(""));
         _tagParserContainer = new Mock<ITagParserContainer>();
         _markdownWrapper = new Mock<MarkdownWrapper>();
@@ -42,10 +40,29 @@ public class TopicRepositoryTests
     public async void Get_ShouldReturnHttpResponse_Successful()
     {
         // Arrange
-        ProcessedTopic processedTopic = new("Name", "slug", "<p>Summary</p>\n", "Teaser", "metaDescription", "Icon", "Image", "Image", new List<SubItem>(), new List<SubItem>(), null,
-            new List<Crumb>(), new List<Alert>(), true, "test-id", null, null,
-            string.Empty, true,
-            new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty), string.Empty, null, null, string.Empty)
+        ProcessedTopic processedTopic = new("Name",
+                                            "slug",
+                                            "<p>Summary</p>\n",
+                                            "Teaser",
+                                            "metaDescription",
+                                            "Icon",
+                                            "Image",
+                                            "Image",
+                                            new List<SubItem>(),
+                                            new List<SubItem>(),
+                                            null,
+                                            new List<Crumb>(),
+                                            new List<Alert>(),
+                                            true,
+                                            "test-id",
+                                            null,
+                                            null,
+                                            true,
+                                            new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty),
+                                            string.Empty,
+                                            null,
+                                            null,
+                                            string.Empty)
         {
             Video = new()
         };
