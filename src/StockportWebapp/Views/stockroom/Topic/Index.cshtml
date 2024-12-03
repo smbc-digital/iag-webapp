@@ -1,8 +1,8 @@
 ﻿@model TopicViewModel
 @{
-    ViewData["Title"] = Model.Topic.Title;
+    ViewData["Title"] = Model.Topic.Name;
     ViewData["Description"] = Model.Topic.MetaDescription;
-    ViewData["og:title"] = Model.Topic.Title;
+    ViewData["og:title"] = Model.Topic.Name;
     Layout = "../Shared/_Layout.cshtml";
 }
 

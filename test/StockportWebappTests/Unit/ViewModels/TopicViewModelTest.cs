@@ -7,32 +7,70 @@ public class TopicViewModelTest
     [Fact]
     public void ShouldSetEmailAlertsUrlWithTopicId()
     {
-        const bool emailAlerts = true;
-        const string emailAlertsTopicId = "topic-id";
+        // Arrange
+        ProcessedTopic topic = new("name",
+                                    "slug",
+                                    "metaDescription",
+                                    "summary",
+                                    "teaser",
+                                    "icon",
+                                    "backgroundimage",
+                                    "image",
+                                    new List<SubItem>(),
+                                    new List<SubItem>(),
+                                    new List<SubItem>(),
+                                    new List<Crumb>(),
+                                    new List<Alert>(),
+                                    true,
+                                    "topic-id",
+                                    null,
+                                    null,
+                                    true,
+                                    new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty),
+                                    string.Empty,
+                                    new CallToActionBanner(),
+                                    null,
+                                    string.Empty);
 
-        var topic = new ProcessedTopic("name", "slug", "metaDescription", "summary", "teaser", "icon", "backgroundimage", "image", new List<SubItem>(), new List<SubItem>(), new List<SubItem>(),
-            new List<Crumb>(), new List<Alert>(), emailAlerts, emailAlertsTopicId, null, null, string.Empty, true,
-             new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty), string.Empty, new CallToActionBanner(), null, string.Empty);
+        // Act
+        TopicViewModel topicViewModel = new(topic, EmailAlertsUrl);
 
-        var topicViewModel = new TopicViewModel(topic, EmailAlertsUrl);
-
-        topicViewModel.EmailAlertsUrl.Should().Be(string.Concat(EmailAlertsUrl, "?topic_id=", topic.EmailAlertsTopicId));
+        // Assert
+        Assert.Equal(string.Concat(EmailAlertsUrl, "?topic_id=", topic.EmailAlertsTopicId), topicViewModel.EmailAlertsUrl);
     }
 
     [Fact]
     public void ShouldSetEmailAlertsUrlWithoutTopicId()
     {
-        const bool emailAlerts = true;
-        const string emailAlertsTopicId = "";
+        // Arrange
+        ProcessedTopic topic = new("name",
+                                    "slug",
+                                    "metaDescription",
+                                    "summary",
+                                    "teaser",
+                                    "icon",
+                                    "backgroundimage",
+                                    "image",
+                                    new List<SubItem>(),
+                                    new List<SubItem>(),
+                                    new List<SubItem>(),
+                                    new List<Crumb>(),
+                                    new List<Alert>(),
+                                    true,
+                                    string.Empty,
+                                    null,
+                                    null,
+                                    true,
+                                    new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty),
+                                    string.Empty,
+                                    new CallToActionBanner(),
+                                    null,
+                                    string.Empty);
 
-        var topic = new ProcessedTopic("name", "slug", "metaDescription", "summary", "teaser", "icon", "backgroundimage", "image",
-            new List<SubItem>(), new List<SubItem>(), new List<SubItem>(),
-            new List<Crumb>(), new List<Alert>(), emailAlerts, emailAlertsTopicId, null, null,
-            string.Empty, true,
-            new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty), string.Empty, new CallToActionBanner(), null, string.Empty);
+        // Act
+        TopicViewModel topicViewModel = new(topic, EmailAlertsUrl);
 
-        var topicViewModel = new TopicViewModel(topic, EmailAlertsUrl);
-
-        topicViewModel.EmailAlertsUrl.Should().Be(EmailAlertsUrl);
+        // Assert
+        Assert.Equal(EmailAlertsUrl, topicViewModel.EmailAlertsUrl);
     }
 }

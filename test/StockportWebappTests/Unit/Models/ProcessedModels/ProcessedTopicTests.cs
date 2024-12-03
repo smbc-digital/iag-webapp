@@ -38,7 +38,6 @@ public class ProcessedTopicTests
                                                                 Icon = "icon",
                                                                 Colour = EColourScheme.Teal
                                                             },
-                                                            "title",
                                                             true,
                                                             null,
                                                             "event category",

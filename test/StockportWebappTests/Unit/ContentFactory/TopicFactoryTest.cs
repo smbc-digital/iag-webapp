@@ -6,7 +6,6 @@ public class TopicFactoryTest
     private readonly Mock<MarkdownWrapper> _markdownWrapper;
     private readonly TopicFactory _topicFactory;
     private readonly Topic _topic;
-    private const string Title = "title";
     private const string Slug = "slug";
     private const string Summary = "summary";
     private const string Teaser = "teaser";
@@ -37,16 +36,33 @@ public class TopicFactoryTest
         _subItems = new List<SubItem>();
         _secondaryItems = new List<SubItem>();
 
-        _topic = new Topic("name", Slug, Summary, Teaser, MetaDescription, Icon, BackgroundImage, Image, _featuredTasks, _subItems, _secondaryItems, _breadcrumbs,
-            new List<Alert>(), false, "emailAlertsTopic", _eventCalendarBanner,
-            Title, true, new CarouselContent("Title", "Teaser", "Image", "url"),
-            "event Category", null, string.Empty)
+        _topic = new Topic("name",
+                        Slug,
+                        Summary,
+                        Teaser,
+                        MetaDescription,
+                        Icon,
+                        BackgroundImage,
+                        Image,
+                        _featuredTasks,
+                        _subItems,
+                        _secondaryItems,
+                        _breadcrumbs,
+                        new List<Alert>(),
+                        false,
+                        "emailAlertsTopic",
+                        _eventCalendarBanner,
+                        true,
+                        new CarouselContent("Title", "Teaser", "Image", "url"),
+                        "event Category",
+                        null,
+                        string.Empty)
         {
             Video = new()
         };
 
         _markdownWrapper.Setup(_ => _.ConvertToHtml(Summary)).Returns(Summary);
-        _tagParserContainer.Setup(_ => _.ParseAll(Summary, Title, It.IsAny<bool>(), null, null, null, null, null, It.IsAny<bool>())).Returns(Summary);
+        _tagParserContainer.Setup(_ => _.ParseAll(Summary, "name", It.IsAny<bool>(), null, null, null, null, null, It.IsAny<bool>())).Returns(Summary);
     }
 
     [Fact]
@@ -56,7 +72,7 @@ public class TopicFactoryTest
         ProcessedTopic result = _topicFactory.Build(_topic);
 
         // Assert
-        Assert.Equal(Title, result.Title);
+        Assert.Equal("name", result.Name);
         Assert.Equal("/topic/" + Slug, result.NavigationLink);
         Assert.Equal(Summary, result.Summary);
         Assert.Equal(Teaser, result.Teaser);
@@ -86,6 +102,6 @@ public class TopicFactoryTest
         _topicFactory.Build(_topic);
 
         // Assert
-        _tagParserContainer.Verify(_ => _.ParseAll(Summary, Title, It.IsAny<bool>(), null, null, null, null, null, It.IsAny<bool>()), Times.Once);
+        _tagParserContainer.Verify(_ => _.ParseAll(Summary, "name", It.IsAny<bool>(), null, null, null, null, null, It.IsAny<bool>()), Times.Once);
     }
 }
