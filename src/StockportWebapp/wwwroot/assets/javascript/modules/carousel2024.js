@@ -3,84 +3,83 @@ define(function () {
         Init: function () {
             window.onload = function () {
                 const carouselItems = document.querySelectorAll(".carousel-item");
-                const indicators = document.querySelectorAll(".carousel-indicators button");
-                const status = document.getElementById("carousel-status");
+                const indicatorHero = document.querySelector(".carousel-indicators__hero");
                 let currentIndex = 0;
-                    
-                status.setAttribute("aria-live", "off");
+                const totalSlides = carouselItems.length;
 
-                function updateCarousel() {
-                    document.querySelector(".carousel-items").style.transform = `translateX(-${currentIndex * 100}%)`;
-                    
-                    carouselItems.forEach((slide, index) => {
-                        slide.setAttribute("aria-hidden", index !== currentIndex ? "true" : "false");
-                        document.getElementsByClassName("carousel-item__link")[index]?.setAttribute("tabindex", index !== currentIndex ? "-1" : "0")
-
-                        if(index === currentIndex)
-                            slide.focus()
-                    });
-
-                    if (indicators.length) {
-                        indicators.forEach((indicator, index) => {
-                            indicator.classList.toggle("current", index === currentIndex);
-                            if (index === currentIndex) {
-                                document.getElementById(index).innerHTML = "Current slide"
-                            }
-                            else {
-                                document.getElementById(index).innerHTML = ""
-                            }
-                        });
-                    }
-
-                    const currentSlide = carouselItems[currentIndex];
-                    const slideImage = currentSlide.querySelector("img");
-                    const slideTitle = currentSlide.querySelector(".carousel-item__title")?.textContent.trim() || "";
-                    const slideDate = currentSlide.querySelector("p")?.textContent.trim() || "";
-                    
-                    const slideDetails = slideImage
-                        ? `Image: ${slideImage.alt}`
-                        : `${slideTitle}. ${slideDate}.`.trim();
-                    
-                    if (status.getAttribute("aria-live") === "polite") {
-                        status.textContent = `Slide ${currentIndex + 1} of ${carouselItems.length}: ${slideDetails}`;
+                // Helper: Generate indicators
+                function generateIndicators() {
+                    indicatorHero.innerHTML = "";
+                
+                    for (let i = 0; i < totalSlides; i++) {
+                        let size = "hidden";
+                
+                        if (currentIndex <= 1 && i < 3) {
+                            size = "big";
+                        } else if (currentIndex === 2) {
+                            if ( i === 0 ) size = "small"
+                            if (i === 1 || i === 2 || i === 3) size = "big";
+                            if (i === 4) size = "small"; // Show index 4 as "small"
+                        } else if (currentIndex === 3) {
+                            if (i === 2 || i === 3 || i === 4) size = "big"; // Show 3 as "big"
+                            if (i === 1 || i === 5) size = "small"; // Show 1 and 4 as "small"
+                        } else if (currentIndex === 4) {
+                            if (i === 3 || i === 4) size = "big"; // Show 2, 3, 4 as "big"
+                            if (i === 2) size = "small"; // Show index 1 as "small"
+                        }
+                
+                        if (size !== "hidden") {
+                            const li = createIndicator(size, i);
+                            indicatorHero.appendChild(li);
+                        }
                     }
                 }
+                
+                // Helper: Create an indicator
+                function createIndicator(size, index) {
+                    const li = document.createElement("li");
+                    const span = document.createElement("span");
+                    span.classList.add("carousel-indicators__item");
+                    if (size === "small") {
+                        span.classList.add("small");
+                    }
 
-                setTimeout(() => {
-                    status.setAttribute("aria-live", "polite");
-                }, 500);
+                    // Add current class if this is the current index
+                    if (index === currentIndex) {
+                        span.classList.add("current");
+                    }
 
+                    li.appendChild(span);
+                    return li;
+                }
+
+                // Update carousel and indicators
+                function updateCarousel() {
+                    generateIndicators();
+
+                    // Transform slides for the carousel
+                    document.querySelector(".carousel-items").style.transform = `translateX(-${currentIndex * 100}%)`;
+
+                    // Aria attributes for accessibility
+                    carouselItems.forEach((slide, index) => {
+                        slide.setAttribute("aria-hidden", index !== currentIndex ? "true" : "false");
+                    });
+                }
+
+                // Event listeners
                 document.querySelector(".next").addEventListener("click", function () {
-                    currentIndex = (currentIndex + 1) % carouselItems.length;
+                    currentIndex = (currentIndex + 1) % totalSlides;
                     updateCarousel();
                 });
 
                 document.querySelector(".prev").addEventListener("click", function () {
-                    currentIndex = (currentIndex - 1 + carouselItems.length) % carouselItems.length;
+                    currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
                     updateCarousel();
                 });
 
-                if (document.querySelector(".mob-next") != null) {
-                    document.querySelector(".mob-next").addEventListener("click", function () {
-                        currentIndex = (currentIndex + 1) % carouselItems.length;
-                        updateCarousel();
-                    });
-
-                    document.querySelector(".mob-prev").addEventListener("click", function () {
-                        currentIndex = (currentIndex - 1 + carouselItems.length) % carouselItems.length;
-                        updateCarousel();
-                    });
-                }
-
-                indicators.forEach((indicator, index) => {
-                    indicator.addEventListener("click", function () {
-                        currentIndex = index;
-                        updateCarousel();
-                    });
-                });
-
+                // Initialize carousel
                 updateCarousel();
-            }
+            };
         }
-    }
-})
+    };
+});

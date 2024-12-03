@@ -37,18 +37,26 @@
         </div>
     </div>
 
-    <div class="grid-container">
+    <div class="grid-container" aria-hidden="true">
         <div class="grid-100 carousel-indicators-wrapper">
             <ul class="carousel-indicators carousel-indicators__hero hide-on-mobile">
-                @for (int i = 0; i < Model.Count; i++)
+                @* @for (int i = 0; i < Model.Count; i++)
                 {
-                    <li>
-                        <button class data-slide="@i" aria-label="Go to slide @(i + 1 )">
-                            <span class="visuallyhidden">Image</span> @(i + 1)
-                            <span id="@i" class="visuallyhidden"></span>
-                        </button>
-                    </li>
-                }
+                    if (i == 0)
+                    {
+                        <li>
+                            <span id="@i" class="carousel-indicators__item current active" data-slide="@i">
+                            </span>
+                        </li>
+                    }
+                    else
+                    {
+                        <li>
+                            <span id="@i" class="carousel-indicators__item" data-slide="@i">
+                            </span>
+                        </li>
+                    }
+                } *@
             </ul>
         </div>
     </div>

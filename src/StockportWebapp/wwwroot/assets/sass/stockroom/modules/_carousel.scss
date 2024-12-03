@@ -182,7 +182,7 @@
             border: black;
         }
 
-        li button {
+        li button, &__item {
             width: 50px;
             height: 50px;
             cursor: pointer;
@@ -193,6 +193,7 @@
             border-radius: 15px;
             padding: 0;
             font-family: inherit;
+            display: block;
 
             @media #{$mobile} {
                 font-size: 1.3rem;
@@ -217,12 +218,41 @@
             }
         }
 
+        &__item {
+            background-color: $skrm-grey;
+            border-radius: 50%;
+            cursor: default;
+            width: 30px;
+            height: 30px;
+            border: $skrm-grey;
+
+            &:hover {
+                background-color: $skrm-grey;
+                border-color: $skrm-grey;
+            }
+
+            &:focus {
+                outline: unset;
+            }
+
+            &.current {
+                background-color: $skrm-blue-darker;
+                border: 2px solid $skrm-blue-darker;
+            }
+
+            &.small {
+                width: 20px;
+                height: 20px;
+            }
+        }
+
         &__hero {
             position: absolute;
             bottom: 20px;
             right: 10px;
             padding-inline: 1em;
-            
+            align-items: center;
+
             @media #{$tablet} {
                 right: 0;
             }
@@ -239,4 +269,24 @@
             align-items: center;
         }
     }
+}
+
+
+.carousel-indicators__item {
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.carousel-indicators__item.big {
+    transform: scale(1.2);
+    opacity: 1;
+}
+
+.carousel-indicators__item.small {
+    transform: scale(0.8);
+    opacity: 0.6;
+}
+
+.carousel-indicators__item.hidden {
+    opacity: 0;
+    transform: scale(0.5);
 }
