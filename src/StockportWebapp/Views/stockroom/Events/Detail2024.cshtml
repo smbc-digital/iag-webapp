@@ -6,18 +6,18 @@
 }
 
 <div class="grid-container-full-width" style="background-color:white;" data-cy="article">
-    <div class="article-hero">
+    <div class="hero">
         @if (!string.IsNullOrEmpty(Model.ImageUrl))
         {
-            <div class="article-hero__background" style="background-image: url(@Model.ImageUrl?fm=webp)"></div>
+            <div class="hero__background" style="background-image: url(@Model.ImageUrl?fm=webp)"></div>
         }
        
-        <div class="grid-container article-hero__wrapper">
+        <div class="grid-container hero__wrapper">
             <div class="grid-100">
-                <div class="article-hero__image"></div>
+                <div class="hero__image"></div>
                 
-                <div class="article-hero__content event-hero__content event-hero__content--70">
-                    <h1 class="article-hero__title event-hero__title">@Model.Title</h1>
+                <div class="hero__content event-hero__content event-hero__content--70">
+                    <h1 class="hero__title event-hero__title">@Model.Title</h1>
                     
                     @if(Model.Free is not null && Model.Free is true)
                     {
@@ -30,21 +30,24 @@
                 </div>
 
                 <div class="event-hero-container">
-                    <div class="article-hero__content event-hero__content--70">
-                        <div class="article-hero__about event-hero__about--extra-padding">
+                    <div class="hero__content event-hero__content--70">
+                        <div class="hero__about event-hero__about--extra-padding">
                             <p>
                                 @Model.EventDate.ToString("dddd dd MMMM yyyy") -
                                 From @DateTime.Parse(Model.StartTime).ToString("h:mmtt").ToLower()
                             </p>
 
-                           <a href="@Model.BookingInformation" target="_blank" class="btn event-btn" aria-label="Book @Model.Title">Book now</a>
+                            @if (!string.IsNullOrEmpty(Model.BookingInformation))
+                            {
+                                <a href="@Model.BookingInformation" target="_blank" class="btn event-btn" aria-label="Book @Model.Title">Book now</a>
+                            }
 
                             @Html.Raw(Model.Description)
                         </div>
                     </div>
 
-                    <div class="article-hero__content event-hero__content--30">
-                        <div class="article-hero__about event-hero__about">
+                    <div class="hero__content event-hero__content--30">
+                        <div class="hero__about event-hero__about">
                             <h2>Event and booking details</h2>
                             <div class="event-hero__about--border"></div>
 

@@ -1,6 +1,4 @@
-﻿using StockportGovUK.NetStandard.Gateways.Models.RevsAndBens;
-
-namespace StockportWebappTests_Unit.Unit.ViewModels;
+﻿namespace StockportWebappTests_Unit.Unit.ViewModels;
 
 public class ArticleViewModelTest
 {
@@ -10,9 +8,27 @@ public class ArticleViewModelTest
     private readonly ProcessedArticle _article;
     private readonly ArticleViewModel _viewModel;
     private readonly List<SubItem> subItems = new(){ new("slug", "title", "teaser", "teaser image", "icon", "type", "image", null, EColourScheme.Teal) };
-    private readonly Topic parentTopic = new("Name", "slug", "Summary", "Teaser", "metaDescription", "Icon", "Image", "Image", null, new List<SubItem>(), new List<SubItem>(),
-            new List<Crumb>(), null, true, "test-id", null, string.Empty, true,
-            new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty), string.Empty, null, string.Empty);
+    private readonly Topic parentTopic = new("Name",
+                                            "slug",
+                                            "Summary",
+                                            "Teaser",
+                                            "metaDescription",
+                                            "Icon",
+                                            "Image",
+                                            "Image",
+                                            null,
+                                            new List<SubItem>(),
+                                            new List<SubItem>(),
+                                            new List<Crumb>(),
+                                            null,
+                                            true,
+                                            "test-id",
+                                            null,
+                                            true,
+                                            new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty),
+                                            string.Empty,
+                                            null,
+                                            string.Empty);
     private readonly Topic parentTopicWithSubItems;
     
     public ArticleViewModelTest()
@@ -21,12 +37,29 @@ public class ArticleViewModelTest
         _sectionTwo = BuildSection("test-slug-section-two");
         _sectionThree = BuildSection("test-slug-section-three");
         _article = BuildArticle(string.Empty, new List<ProcessedSection> { _sectionOne, _sectionTwo, _sectionThree }, parentTopic);
-        parentTopicWithSubItems = new("Name", "slug", "Summary", "Teaser", "metaDescription", "Icon", "Image", "Image", null, subItems, subItems,
-            new List<Crumb>(), null, true, "test-id", null, string.Empty, true,
-            new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty), string.Empty, null, string.Empty);
+        parentTopicWithSubItems = new("Name",
+                                    "slug",
+                                    "Summary",
+                                    "Teaser",
+                                    "metaDescription",
+                                    "Icon",
+                                    "Image",
+                                    "Image",
+                                    null,
+                                    subItems,
+                                    subItems,
+                                    new List<Crumb>(),
+                                    null,
+                                    true,
+                                    "test-id",
+                                    null,
+                                    true,
+                                    new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty),
+                                    string.Empty,
+                                    null,
+                                    string.Empty);
 
         _viewModel = new(_article, _sectionOne.Slug);
-
     }
 
     [Fact]
@@ -299,8 +332,27 @@ public class ArticleViewModelTest
         SubItem firstSecondaryitem = new(It.IsAny<string>(), "first-secondaryitem", It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(),It.IsAny<string>(), It.IsAny<string>(), new List<SubItem>(), EColourScheme.Teal);
         List<SubItem> secondaryItems = new() { firstSecondaryitem };
 
-        Topic topic = new(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), featuredItems, subItems, secondaryItems, new List<Crumb>(), new List<Alert>(), false, It.IsAny<string>(), null, string.Empty, true,
-            new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty), string.Empty, null, string.Empty);
+        Topic topic = new(It.IsAny<string>(),
+                        It.IsAny<string>(),
+                        It.IsAny<string>(),
+                        It.IsAny<string>(),
+                        It.IsAny<string>(),
+                        It.IsAny<string>(),
+                        It.IsAny<string>(),
+                        It.IsAny<string>(),
+                        featuredItems,
+                        subItems,
+                        secondaryItems,
+                        new List<Crumb>(),
+                        new List<Alert>(),
+                        false,
+                        It.IsAny<string>(),
+                        null,
+                        true,
+                        new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty),
+                        string.Empty,
+                        null,
+                        string.Empty);
       
         ProcessedArticle article = new(It.IsAny<string>(),
             It.IsAny<string>(),
@@ -373,7 +425,6 @@ public class ArticleViewModelTest
             false,
             It.IsAny<string>(),
             null,
-            string.Empty,
             true,
             new CarouselContent(string.Empty,
                 string.Empty,

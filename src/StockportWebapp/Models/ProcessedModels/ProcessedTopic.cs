@@ -2,7 +2,6 @@
 public class ProcessedTopic
 {
     public string Name { get; }
-    public string Title { get; }
     public string Slug { get; }
     public string NavigationLink { get; }
     private IEnumerable<SubItem> _topSubItems;
@@ -31,14 +30,31 @@ public class ProcessedTopic
     public List<GroupBranding> TopicBranding { get; init; }
     public string LogoAreaTitle { get; set; }
 
-    public ProcessedTopic(string name, string slug, string summary, string teaser, string metaDescription, string icon,
-        string backgroundImage, string image, IEnumerable<SubItem> featuredTasks, IEnumerable<SubItem> subItems, IEnumerable<SubItem> secondaryItems,
-        IEnumerable<Crumb> breadcrumbs, IEnumerable<Alert> alerts, bool emailAlerts, string emailAlertsTopicId, EventBanner eventBanner, EventCalendarBanner eventCalendarBanner,
-        string title, bool displayContactUs, CarouselContent campaignBanner,
-        string eventCategory, CallToActionBanner callToAction, List<GroupBranding> topicBranding, string logoAreaTitle)
+    public ProcessedTopic(string name,
+                        string slug,
+                        string summary,
+                        string teaser,
+                        string metaDescription,
+                        string icon,
+                        string backgroundImage,
+                        string image,
+                        IEnumerable<SubItem> featuredTasks,
+                        IEnumerable<SubItem> subItems,
+                        IEnumerable<SubItem> secondaryItems,
+                        IEnumerable<Crumb> breadcrumbs,
+                        IEnumerable<Alert> alerts,
+                        bool emailAlerts,
+                        string emailAlertsTopicId,
+                        EventBanner eventBanner,
+                        EventCalendarBanner eventCalendarBanner,
+                        bool displayContactUs,
+                        CarouselContent campaignBanner,
+                        string eventCategory,
+                        CallToActionBanner callToAction,
+                        List<GroupBranding> topicBranding,
+                        string logoAreaTitle)
     {
         Name = name;
-        Title = title;
         Slug = slug;
         Summary = summary;
         Teaser = teaser;
