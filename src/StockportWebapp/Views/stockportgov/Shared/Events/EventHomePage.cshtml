@@ -15,50 +15,42 @@
         </div>
     }
 
-    @foreach (var row in Model.Rows.Where(r => r.Events.Any()))
+    @foreach (EventHomepageRow row in Model.Rows.Where(r => r.Events.Any()))
     {
-        var i = 1;
-        <div class="home-page-row">
+        int i = 1;
+        <section class="content-block content-block--margin" data-cy="event-cards">
             <div class="grid-container">
-                <div class="event-header">
-                    <h2 class="inline-heading">@(row.IsLatest ? "Upcoming events" : row.Tag)</h2>
+                <div class="grid-100">
+                    <div class="event-homepage__cards-title">
+                        <div class="event-homepage__cards-heading">
+                            <h2 class="content-block__title">@(row.IsLatest ? "Upcoming events" : row.Tag)</h2>
+                        </div>
+                        
                     @if (row.IsLatest)
                     {
-                        <a class="view-more hide-on-mobile" title="View more upcoming events" href="/events?datefrom=@DateTime.Now.Date">View more</a>
+                        <a href="/events?datefrom=@DateTime.Now.Date" class="event-cards-view-more event-homepage__cards-heading hide-on-mobile hide-on-tablet" aria-label="View more events" data-cy="view-more-events-link">View more</a>
                     }
                     else
                     {
-                        <a class="view-more hide-on-mobile" title="View more @row.Tag events" href="@Url.Action("Index", "Events", new { Tag = row.Tag } )">View more</a>
-                    }
+                        <a href="@Url.Action("Index", "Events", new { Tag = row.Tag } )" class="event-cards-view-more event-homepage__cards-view-more hide-on-mobile hide-on-tablet" aria-label="View more events" data-cy="view-more-events-link">View more</a>
+                    } 
+                    </div>
                 </div>
-                <div class="grid-100 grid-parent event-container-row matchbox-parent">
-                    @foreach (var item in row.Events)
+                <div class="section__content">
+                    <ul class="navcard-wrapper navcard-wrapper--no-margin">
+                    @foreach (Event item in row.Events)
                     {
-                        var classname = string.Empty;
-                        switch (i)
+                        string classname = i switch
                         {
-                            case 1:
-                            case 2:
-                                {
-                                    classname = string.Empty;
-                                    break;
-                                }
-                            case 3:
-                                {
-                                    classname = "hide-on-tablet";
-                                    break;
-                                }
-                            default:
-                                {
-                                    classname = "hide-on-desktop hide-on-tablet hide-on-mobile";
-                                    break;
-                                }
-                        }
-                        <div class="@classname">
-                            <partial name="Events/EventCard" model='item'/>
-                        </div>
+                            1 or 2 => string.Empty,
+                            3 => "hide-on-tablet",
+                            _ => "hide-on-desktop hide-on-tablet hide-on-mobile"
+                        };
+
+                        <partial name="EventCard" model='item'/>
                         i++;
                     }
+                    </ul>
                 </div>
                 <div class="grid-100 hide-on-desktop hide-on-tablet event-button">
                     @if (row.IsLatest)
@@ -71,6 +63,6 @@
                     }
                 </div>
             </div>
-        </div>
+        </section>
     }
 </div>

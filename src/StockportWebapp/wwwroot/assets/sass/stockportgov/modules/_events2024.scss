@@ -90,6 +90,22 @@
             height: fit-content;
         }
     }
+
+    &__cards {
+
+        &-title {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+
+        &-heading {
+            text-align: left;
+            text-align: -webkit-left;
+            text-align: -moz-left;
+            margin: 0;
+        }
+    }
 }
   
 .event-detail {
