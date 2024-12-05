@@ -19,17 +19,13 @@
         <span class="fa-solid fa-chevron-right"></span>
     </button>
 
-    <ul class="carousel-indicators hide-on-mobile">
-        @for(int i=0; i < Model.Count; i++)
-        {
-            <li>
-                <button class data-slide="@i" aria-label="Go to slide @(i + 1 )">
-                    <span class="visuallyhidden">Image</span> @(i+1)
-                    <span id="@i" class="visuallyhidden"></span>
-                </button>
-            </li>
-        }
-    </ul>
+    <div class="grid-container" aria-hidden="true">
+        <div class="grid-100 carousel-indicators-wrapper">
+            <ul class="carousel-indicators">
+                
+            </ul>
+        </div>
+    </div>
 
     <div id="carousel-status" class="visuallyhidden" aria-live="polite"></div>
 </section>

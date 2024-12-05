@@ -7,7 +7,7 @@
 }
 
 <div class="grid-container-full-width topic" data-cy="topic">
-    <div class="hero">
+    <div class="hero topic__content">
         @if (Model.TopicHasImage)
         {
             <div class="hero__background" style="background-image: url(@Model.Topic.Image?fm=webp)"></div>
@@ -17,12 +17,11 @@
             <div class="grid-100">
                 <div class="hero__image"></div>
 
-                <div class="topic__content">
+                <div>
                     <h1 class="hero__title">@Model.Topic.Name</h1>
                 </div>
             </div>
         </div>
-
 
         <div class="grid-container">
             <div class="grid-100">
@@ -42,6 +41,5 @@
                 </div>
             </div>
         </div>
-
     </div>
 </div>
