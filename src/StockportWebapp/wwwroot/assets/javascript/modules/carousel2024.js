@@ -8,7 +8,7 @@ define(function () {
                 const totalSlides = carouselItems.length;
 
                 function generateIndicators() {
-                    indicatorHero.innerHTML = ""; // Clear existing indicators
+                    indicatorHero.innerHTML = "";
                 
                     for (let i = 0; i < totalSlides; i++) {
                         let size = "hidden";
@@ -40,18 +40,15 @@ define(function () {
                             if (i === 6 || i === 10) size = "small";
                         }
                 
-                        // Only create indicators for visible items
                         if (size !== "hidden") {
                             const li = document.createElement("li");
                             const span = document.createElement("span");
                 
-                            // Add classes based on size and state
                             span.className = `carousel-indicators__item ${size}`;
                             if (i === currentIndex) {
                                 span.classList.add("current", "active");
                             }
                 
-                            // Set data attribute for slide tracking
                             span.dataset.slide = i;
                 
                             li.appendChild(span);
@@ -60,37 +57,6 @@ define(function () {
                     }
                 }
                 
-                
-                function createIndicator(size, index) {
-                    const li = document.createElement("li");
-                    const span = document.createElement("span");
-                    span.classList.add("carousel-indicators__item");
-                    
-                    if (size === "small") {
-                        span.classList.add("small");
-                    } else if (size === "big") {
-                        span.classList.add("big");
-                    }
-                
-                    // Add the current class for the active indicator
-                    if (index === currentIndex) {
-                        span.classList.add("current");
-                    }
-                
-                    // Set initial style for animation (optional, based on your CSS)
-                    span.style.opacity = "0";
-                    span.style.transform = "scale(0.8)";
-                
-                    // Ensure animation runs after appending
-                    setTimeout(() => {
-                        span.style.opacity = ""; // Defaults back to CSS
-                        span.style.transform = ""; // Defaults back to CSS
-                    }, 0);
-                
-                    li.appendChild(span);
-                    return li;
-                }                
-
                 function updateCarousel() {
                     generateIndicators();
 
