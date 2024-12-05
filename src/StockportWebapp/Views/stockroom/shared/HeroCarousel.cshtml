@@ -30,13 +30,19 @@
         <span class="fa-solid fa-chevron-right"></span>
     </button>
 
-    <div class="grid-container" aria-hidden="true">
-        <div class="grid-100 carousel-indicators-wrapper">
-            <ul class="carousel-indicators">
-                
-            </ul>
+        <div class="grid-container" aria-hidden="true">
+            <div class="grid-100 carousel-indicators-wrapper">
+                <ul class="carousel-indicators">
+                    @for (int i = 0; i < Model.Count; i++)
+                    {
+                        <li>
+                            <span id="@i" class="carousel-indicators__item current active" data-slide="@i">
+                            </span>
+                        </li>
+                    }
+                </ul>
+            </div>
         </div>
-    </div>
 
     <div id="carousel-status" class="visuallyhidden" aria-live="polite"></div>
 </section>

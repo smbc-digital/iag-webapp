@@ -8,48 +8,58 @@ define(function () {
                 const totalSlides = carouselItems.length;
 
                 function generateIndicators() {
+                    indicatorHero.innerHTML = ""; // Clear existing indicators
+                
                     for (let i = 0; i < totalSlides; i++) {
                         let size = "hidden";
                 
+                        // Define size based on currentIndex and position
                         if (currentIndex <= 1 && i < 3) {
                             size = "big";
-                        } else {
-                            const bigStart = Math.max(0, currentIndex - 1);
-                            const bigEnd = Math.min(totalSlides - 1, currentIndex + 1);
-                            const smallStart = Math.max(0, bigStart - 1);
-                            const smallEnd = Math.min(totalSlides - 1, bigEnd + 1);
-                
-                            if (i >= bigStart && i <= bigEnd) {
-                                size = "big";
-                            } else if ((i === smallStart && i < bigStart) || (i === smallEnd && i > bigEnd)) {
-                                size = "small";
-                            }
+                        } else if (currentIndex === 2) {
+                            if (i === 0) size = "small";
+                            if (i === 1 || i === 2 || i === 3) size = "big";
+                            if (i === 4) size = "small";
+                        } else if (currentIndex === 3) {
+                            if (i === 2 || i === 3 || i === 4) size = "big";
+                            if (i === 1 || i === 5) size = "small";
+                        } else if (currentIndex === 4) {
+                            if (i === 3 || i === 4 || i === 5) size = "big";
+                            if (i === 2 || i === 6) size = "small";
+                        } else if (currentIndex === 5) {
+                            if (i === 4 || i === 5 || i === 6) size = "big";
+                            if (i === 3 || i === 7) size = "small";
+                        } else if (currentIndex === 6) {
+                            if (i === 5 || i === 6 || i === 7) size = "big";
+                            if (i === 4 || i === 8) size = "small";
+                        } else if (currentIndex === 7) {
+                            if (i === 6 || i === 7 || i === 8) size = "big";
+                            if (i === 5 || i === 9) size = "small";
+                        } else if (currentIndex === 5) {
+                            if (i === 7 || i === 8 || i === 9) size = "big";
+                            if (i === 6 || i === 10) size = "small";
                         }
                 
-                        const existingIndicator = document.querySelector(`.carousel-indicators li:nth-child(${i + 1})`);
+                        // Only create indicators for visible items
+                        if (size !== "hidden") {
+                            const li = document.createElement("li");
+                            const span = document.createElement("span");
                 
-                        if (size === "hidden" && existingIndicator) {
-                            // Fade-out animation before removal
-                            existingIndicator.firstChild.style.opacity = "0";
-                            existingIndicator.firstChild.style.transform = "scale(0)";
-                            setTimeout(() => existingIndicator.remove(), 1000); // Matches transition duration
-                        } else if (size !== "hidden") {
-                            if (existingIndicator) {
-                                // Update existing indicator class
-                                const span = existingIndicator.firstChild;
-                                span.className = `carousel-indicators__item ${size}`;
-
-                                if (i === currentIndex) {
-                                    span.classList.add("current");
-                                }
-                            } else {
-                                // Create and append new indicator
-                                const li = createIndicator(size, i);
-                                indicatorHero.appendChild(li);
+                            // Add classes based on size and state
+                            span.className = `carousel-indicators__item ${size}`;
+                            if (i === currentIndex) {
+                                span.classList.add("current", "active");
                             }
+                
+                            // Set data attribute for slide tracking
+                            span.dataset.slide = i;
+                
+                            li.appendChild(span);
+                            indicatorHero.appendChild(li);
                         }
                     }
                 }
+                
                 
                 function createIndicator(size, index) {
                     const li = document.createElement("li");
