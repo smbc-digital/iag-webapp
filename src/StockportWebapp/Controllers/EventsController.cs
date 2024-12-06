@@ -93,16 +93,6 @@ public class EventsController : Controller
         return View(eventsCalendar);
     }
 
-    [HttpPost]
-    [Route("events/reset")]
-    public IActionResult ResetFilters() =>
-        RedirectToAction(nameof(Index), new
-        {
-            DateFrom = (DateTime?)null,
-            DateTo = (DateTime?)null,
-            DateSelection = string.Empty,
-        });
-
     // This is the healthy stockport filtered events homepage
     [Route("/events/category/{category}")]
     public async Task<IActionResult> IndexWithCategory(string category, [FromQuery] int page, [FromQuery] int pageSize)
