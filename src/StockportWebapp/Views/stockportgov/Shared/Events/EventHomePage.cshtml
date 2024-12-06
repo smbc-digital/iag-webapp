@@ -1,68 +1,50 @@
 ﻿@model EventHomepage
+@if (Model is not null)
+{
+    <div id="event-listing-container" class="no-margin">
+        @if (Model.Categories is not null && Model.Categories.Any())
+        {
+            <partial name="GenericFeaturedItemList" model="Model.GenericItemList" view-data="@(new ViewDataDictionary(ViewData) {{"eventHomepageNavcard", "event-homepage__navcard-wrapper"}})" />
+        }
 
-<div id="event-listing-container" class="no-margin">
-
-    @if (Model.Categories is not null && Model.Categories.Any())
-    {
-        <div class="home-page-row">
-
-            <div class="grid-container">
-                <div class="event-header">
-                    <h2>Discover something new in Stockport</h2>
-                </div>
-                <partial name="GenericFeaturedItemList" model='Model.GenericItemList'/>
-            </div>
-        </div>
-    }
-
-    @foreach (EventHomepageRow row in Model.Rows.Where(r => r.Events.Any()))
-    {
-        int i = 1;
-        <section class="content-block content-block--margin" data-cy="event-cards">
-            <div class="grid-container">
-                <div class="grid-100">
-                    <div class="event-homepage__cards-title">
-                        <div class="event-homepage__cards-heading">
-                            <h2 class="content-block__title">@(row.IsLatest ? "Upcoming events" : row.Tag)</h2>
+        @foreach (EventHomepageRow row in Model.Rows.Where(r => r.Events.Any()))
+        {
+            <section class="content-block content-block--margin" data-cy="event-cards">
+                <div class="grid-container">
+                    <div class="grid-100">
+                        <div class="event-homepage__cards-title">
+                            <div class="event-homepage__cards-heading">
+                                <h2 class="content-block__title">@(row.IsLatest ? "Upcoming events" : row.Tag)</h2>
+                            </div>
+                            
+                        @if (row.IsLatest)
+                        {
+                            <a href="/events?datefrom=@DateTime.Now.Date" class="event-homepage__cards-view-more hide-on-mobile hide-on-tablet" aria-label="View more events" data-cy="view-more-events-link">View more upcoming events</a>
+                        }
+                        else
+                        {
+                            <a href="@Url.Action("Index", "Events", new { Tag = row.Tag } )" class="event-homepage__cards-view-more hide-on-mobile hide-on-tablet" aria-label="View more events" data-cy="view-more-events-link">View more @row.Tag events</a>
+                        } 
                         </div>
-                        
-                    @if (row.IsLatest)
-                    {
-                        <a href="/events?datefrom=@DateTime.Now.Date" class="event-cards-view-more event-homepage__cards-heading hide-on-mobile hide-on-tablet" aria-label="View more events" data-cy="view-more-events-link">View more</a>
-                    }
-                    else
-                    {
-                        <a href="@Url.Action("Index", "Events", new { Tag = row.Tag } )" class="event-cards-view-more event-homepage__cards-view-more hide-on-mobile hide-on-tablet" aria-label="View more events" data-cy="view-more-events-link">View more</a>
-                    } 
+                        <ul class="navcard-wrapper navcard-wrapper--no-margin">
+                        @foreach (Event item in row.Events)
+                        {
+                            <partial name="EventCard" model="item" view-data="@(new ViewDataDictionary(ViewData) {{"backgroundColourClass", "event-cards__link--white"}})"/>
+                        }
+                        </ul>
+                    <div class="event-button hide-on-desktop hide-on-tablet">
+                        @if (row.IsLatest)
+                        {
+                            <a class="btn btn--width-30 btn--chevron-forward btn--bold btn--chevron-bold hide-on-desktop event-cards-button" href="/events?datefrom=@DateTime.Now.Date">View more upcoming events</a>
+                        }
+                        else
+                        {
+                            <a class="btn btn--width-30 btn--chevron-forward btn--bold btn--chevron-bold hide-on-desktop event-cards-button" href="@Url.Action("Index", "Events", new { Tag = row.Tag } )">View more @row.Tag events</a>                            
+                        }
+                    </div>
                     </div>
                 </div>
-                <div class="section__content">
-                    <ul class="navcard-wrapper navcard-wrapper--no-margin">
-                    @foreach (Event item in row.Events)
-                    {
-                        string classname = i switch
-                        {
-                            1 or 2 => string.Empty,
-                            3 => "hide-on-tablet",
-                            _ => "hide-on-desktop hide-on-tablet hide-on-mobile"
-                        };
-
-                        <partial name="EventCard" model='item'/>
-                        i++;
-                    }
-                    </ul>
-                </div>
-                <div class="grid-100 hide-on-desktop hide-on-tablet event-button">
-                    @if (row.IsLatest)
-                    {
-                        <stock-button as-link="true" class="white" title="View more upcoming events" href="/events?datefrom=@DateTime.Now.Date">View more upcoming events</stock-button>
-                    }
-                    else
-                    {
-                        <stock-button as-link="true" class="white" title="View more @row.Tag events" href="@Url.Action("Index", "Events", new { Tag = row.Tag } )">View more @row.Tag events</stock-button>
-                    }
-                </div>
-            </div>
-        </section>
-    }
-</div>
+            </section>
+        }
+    </div>
+}

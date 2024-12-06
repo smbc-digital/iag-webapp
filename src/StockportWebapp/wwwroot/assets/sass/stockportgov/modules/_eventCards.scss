@@ -54,6 +54,10 @@
         border-bottom: 7px solid;
         border-color: $stockport-teal-darker;
         box-sizing: border-box;
+
+        &--white {
+            background-color: white;
+        }
     }
 
     &__image {

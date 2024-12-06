@@ -38,7 +38,7 @@
     @Html.Raw(end);
     @Html.Raw(start);
 
-    <partial name="Events/EventCard" model='eventItem'/>
+    <partial name="EventCard" model="eventItem" view-data="@(new ViewDataDictionary(ViewData) {{"backgroundColourClass", "event-cards__link--white"}})"/>
 
     previousEnteredDate = eventItem.EventDate.Date;
 }

@@ -15,7 +15,7 @@
 <form action="/events" method="get" id="events-filter-bar-container">
     <input type="hidden" asp-for="@Model.FromSearch" value="true" />
         <div class="grid-container grid-parent grid-100">
-            <div class="grid-100 tablet-grid-100 mobile-grid-100 @showOnMobile">
+            <div class="grid-100 @showOnMobile">
                 <label>@Html.Raw(nowShowing)</label>
             </div>
             <div class="grid-100 event-homepage__filters" id="events-search-filter-container">
@@ -37,9 +37,14 @@
                         <select asp-for="@Model.Category" asp-items="@Model.EventCategoryOptions()" placeholder="All categories" name="orderBy" id="order-by" autocomplete="off"></select>
                     </div>
                 </div>
-                <button data-cy="book-event-button" class="btn btn--inverse btn--width-25 btn--chevron-forward btn--bold btn--chevron-bold btn--outline event-homepage__filters-button">
-                        <span class="btn_text">Find what's on</span>
-                </button>
+                <div class="grid-25">
+                    <button data-cy="book-event-button" class="btn btn--inverse btn--width-25 btn--chevron-forward btn--bold btn--chevron-bold btn--outline event-homepage__filters-button">
+                            <span class="btn_text">Find what's on</span>
+                    </button>
+                </div>
+                <div class="grid-25 hide-on-desktop">
+                    <button as-link="true" class="btn btn--white-outline btn--width-25 btn--chevron-forward btn--bold btn--chevron-bold event-homepage__filters-button" href="https://forms.stockport.gov.uk/add-an-event">Add your event</button>
+                </div>
             </div>
             <div class="mobile-grid-100 @showOnMobile">
                 <div class="edit-search">

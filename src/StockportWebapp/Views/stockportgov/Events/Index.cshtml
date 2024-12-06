@@ -22,38 +22,40 @@
         <div class="grid-container">
             <section class="event-homepage__container" aria-label="content">
                 <div class="event-homepage__thing">
-                    <div class="grid-70 event-homepage__heading">
-                        <h1 class="event-homepage__title">What's on in Stockport</h1>
-                    </div>
-                    <div class="grid-30 event-homepage__button">
-                        <a href="https://forms.stockport.gov.uk/add-an-event" data-cy="book-event-button" class="btn btn--white-outline btn--width-30 btn--chevron-forward btn--bold btn--chevron-bold">
-                            <span class="btn_text">Add your event</span>
-                        </a>
+                    <div class="grid-100">
+                        <div class="grid-70 event-homepage__heading">
+                            <h1 class="event-homepage__title">What's on in Stockport</h1>
+                        </div>
+                        <div class="grid-25 event-homepage__button hide-on-tablet hide-on-mobile">
+                            <a href="https://forms.stockport.gov.uk/add-an-event" data-cy="book-event-button" class="btn btn--white-outline btn--width-25 btn--chevron-forward btn--bold btn--chevron-bold event-homepage__filters-button">
+                                <span class="btn_text">Add your event</span>
+                            </a>
+                        </div>
                     </div>
                 </div>
-
                 <partial name="Events/EventsFilterBar" model='Model'/>
             </section>
+
+            
         </div>
     </div>
 
 
-    @if (Model.FromSearch)
-    {
-        <partial name="Events/EventsResultsList" model='Model'/>
-    }
-    else
-    {
-        <partial name="Events/EventHomepage" model='Model.Homepage'/>
-    }
-    
-    @* <div class="full-width-title hide-on-desktop hide-on-tablet add-button-container">
-        <div class="grid-container grid-parent mobile-grid-100">
-            <div class="header-right-button mobile-grid-100">
-                <stock-button as-link="true" class="button-outline-white-transparent" href="https://forms.stockport.gov.uk/add-an-event">Add your event</stock-button>
+        @if (Model.FromSearch)
+        {
+            <partial name="Events/EventsResultsList" model='Model'/>
+        }
+        else
+        {
+            <partial name="Events/EventHomepage" model='Model.Homepage'/>
+        }
+        <div class="grid-container">
+            <div class="grid-100">
+                <section class="section section--no-margin">
+                    <partial name="DirectoryContentDisclaimer" />
+                </section>
             </div>
         </div>
-    </div> *@
 </div>
 
 <script>

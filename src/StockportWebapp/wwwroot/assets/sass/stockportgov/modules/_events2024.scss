@@ -19,10 +19,18 @@
         display: flex;
         align-items: center;
         margin-bottom: 2em;
+
+        @media #{$tablet} {
+            margin-bottom: 0;
+        }
     }
 
     &__title {
-        color: white;   
+        color: white;
+        
+        @media #{$tablet} {
+            width: 70%;
+        }
     }
 
     &__button {
@@ -33,7 +41,14 @@
     &__filters {
         display: flex;
         align-items: end;
-        padding-left: 0;
+        padding: 0;
+
+        @media #{$tablet} {
+            flex-direction: column;
+            align-items: stretch;
+            padding-left: 10px;
+            padding-right: 10px; 
+        }
 
         label {
             font-weight: 500;
@@ -79,7 +94,7 @@
                 }
             }
 
-            @media #{$mobile} {
+            @media #{$tablet} {
                 margin-inline-end: 0;
                 margin-block-end: 0.5em;
                 width: 100%;
@@ -88,11 +103,30 @@
 
         &-button {
             height: fit-content;
+            float: right;
+            width: 100%;
+            
+            @media #{$tablet} {
+                margin-top: 1em;
+            }
         }
     }
 
-    &__cards {
+    &__navcard-wrapper {
+        list-style: none;
+    }
 
+    &__icon {
+        padding-top: 0.2em;
+        padding-bottom: 0.2em;
+        font-size: 3em;
+        font-weight: 600; 
+        letter-spacing: -1px;
+        line-height: 1.0416666667;
+        color: $stockport-blue;
+    }
+
+    &__cards {
         &-title {
             display: flex;
             flex-direction: row;
@@ -104,6 +138,16 @@
             text-align: -webkit-left;
             text-align: -moz-left;
             margin: 0;
+        }
+
+        &-view-more {
+            width: 100%;
+            text-align: right;
+            margin-top: 0.6em;
+            height: 40%;
+            min-height: 44px;
+            width: fit-content;
+            font-weight: 700;
         }
     }
 }
