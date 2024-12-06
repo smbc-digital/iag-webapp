@@ -9,6 +9,7 @@
             width: auto;
             margin-block: 1.5rem;
             display: inline-block;
+            max-width: 250px;
 
             @media #{$tablet} {
                 max-width: 100%;
@@ -125,7 +126,7 @@
                     display: inline-block;
                     text-decoration: none;
                     color: black;
-                    padding: 1.15rem;
+                    padding: 1rem 0.75rem;
                     text-transform: uppercase;
                     letter-spacing: 0;
 

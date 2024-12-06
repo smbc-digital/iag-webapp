@@ -22,13 +22,15 @@
         }
     </ul>
     
-    <button class="carousel-control carousel-control__hero prev carousel-control-prev" aria-label="Previous Slide">
-        <span class="fa-solid fa-chevron-left"></span>
-    </button>
+    @if (Model.Count > 1)
+    {
+        <button class="carousel-control carousel-control__hero prev carousel-control-prev" aria-label="Previous Slide">
+            <span class="fa-solid fa-chevron-left"></span>
+        </button>
 
-    <button class="carousel-control carousel-control__hero next carousel-control-next" aria-label="Next Slide">
-        <span class="fa-solid fa-chevron-right"></span>
-    </button>
+        <button class="carousel-control carousel-control__hero next carousel-control-next" aria-label="Next Slide">
+            <span class="fa-solid fa-chevron-right"></span>
+        </button>
 
         <div class="grid-container" aria-hidden="true">
             <div class="grid-100 carousel-indicators-wrapper">
@@ -43,16 +45,20 @@
                 </ul>
             </div>
         </div>
+    }
 
     <div id="carousel-status" class="visuallyhidden" aria-live="polite"></div>
 </section>
 
-<script>
-    require(['/assets/javascript/config-64f5853b.min.js'], function () {
-        require(['carousel2024'],
-            function (carousel2024) {
-                carousel2024.Init();
-            }
-        );
-    });
-</script>
+@if (Model.Count > 1)
+{
+    <script>
+        require(['/assets/javascript/config-64f5853b.min.js'], function () {
+            require(['carousel2024'],
+                function (carousel2024) {
+                    carousel2024.Init();
+                }
+            );
+        });
+    </script>
+}

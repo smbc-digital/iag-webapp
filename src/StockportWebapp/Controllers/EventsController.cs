@@ -1,6 +1,4 @@
-﻿using StockportWebapp.Models;
-
-namespace StockportWebapp.Controllers;
+﻿namespace StockportWebapp.Controllers;
 
 [ResponseCache(Location = ResponseCacheLocation.Any, Duration = Cache.Medium)]
 public class EventsController : Controller
@@ -94,6 +92,16 @@ public class EventsController : Controller
 
         return View(eventsCalendar);
     }
+
+    [HttpPost]
+    [Route("events/reset")]
+    public IActionResult ResetFilters() =>
+        RedirectToAction(nameof(Index), new
+        {
+            DateFrom = (DateTime?)null,
+            DateTo = (DateTime?)null,
+            DateSelection = string.Empty,
+        });
 
     // This is the healthy stockport filtered events homepage
     [Route("/events/category/{category}")]
