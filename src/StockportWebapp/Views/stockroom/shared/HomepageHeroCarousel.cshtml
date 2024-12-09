@@ -13,7 +13,7 @@
                         <div class="grid-100 carousel-item__hero-wrapper">
                             <article aria-label="@item.Title" class="carousel-item__article">
                                 <h2 class="image-banner__title image-banner__title-hero carousel-item__title font--bold-extra-squeezed">@item.Title</h2>
-                                <a href="@Url.Action("Detail", "Events", new {slug = item.URL, date = item.Date.ToString("yyyy-MM-dd")})" class="btn carousel-item__link" aria-label="Read more about @item.Title" tabindex="-1">Read more</a>
+                                <a href="@item.URL" class="btn carousel-item__link" aria-label="Read more about @item.Title" tabindex="-1">Read more</a>
                             </article>
                         </div>
                     </div>
