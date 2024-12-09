@@ -113,4 +113,11 @@
     .events-filters__radio:checked + .events-filters__label:after {
         opacity: 1;
     }
+
+    .events-filters__radio:focus + .events-filters__label:before {
+        border-width: 4px;
+        outline: 3px solid transparent;
+        outline-offset: 1px;
+        box-shadow: 0 0 0 4px #ef8a16;
+    }
 }
