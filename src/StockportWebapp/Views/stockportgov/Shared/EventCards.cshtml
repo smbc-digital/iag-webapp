@@ -1,7 +1,7 @@
 ﻿@model ContentBlock
 @if (Model is not null & Model.Events?.Any() is true)
 {
-    string tagOrCategory = Model.Events.Any(eventArticle => eventArticle.Categories.Any(category => category.Equals(Model.AssociatedTagCategory)))
+    string tagOrCategory = Model.Events.Any(eventArticle => eventArticle.EventCategories.Any(category => category.Slug.Equals(Model.AssociatedTagCategory)))
         ? Url.Action("Index", "Events", new { category = Model.AssociatedTagCategory })
         : Url.Action("Index", "Events", new { tag = Model.AssociatedTagCategory });
     
