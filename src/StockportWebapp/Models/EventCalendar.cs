@@ -1,7 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-using Microsoft.AspNetCore.Mvc.TagHelpers;
-
-namespace StockportWebapp.Models;
+﻿namespace StockportWebapp.Models;
 
 public class EventCalendar
 {
@@ -27,7 +24,7 @@ public class EventCalendar
     public Pagination Pagination { get; set; }
 
     public EventHomepage Homepage { get; set; }
-    public List<CarouselContent> HeroCarouselItems { get; set; } = new();
+    public List<CarouselContent> CarouselContents { get; set; } = new();
 
     public EventCalendar() { }
 
@@ -56,10 +53,10 @@ public class EventCalendar
     public void AddEvents(List<Event> events) =>
         Events = events;
 
-    public void AddHeroCarouselItems(List<Event> events)
+    public void AddCarouselContents(List<Event> events)
     {
         if (events is not null)
-            HeroCarouselItems = events
+            CarouselContents = events
                 .Select(evnt => new CarouselContent(evnt.Title,
                                                     evnt.Teaser,
                                                     evnt.ImageUrl,

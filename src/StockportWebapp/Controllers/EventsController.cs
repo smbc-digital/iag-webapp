@@ -84,7 +84,7 @@ public class EventsController : Controller
         EventHomepage eventHomeResponse = httpHomeResponse.Content as EventHomepage;
 
         eventsCalendar.Homepage = eventHomeResponse ?? new EventHomepage(new List<Alert>());
-        eventsCalendar.AddHeroCarouselItems(eventHomeResponse?.Rows?.FirstOrDefault(row => !row.IsLatest)?.Events.Take(5).ToList());
+        eventsCalendar.AddCarouselContents(eventHomeResponse?.Rows?.FirstOrDefault(row => !row.IsLatest)?.Events.Take(5).ToList());
 
         if (!eventsCalendar.FromSearch)
             eventsCalendar.Homepage.NextEvents = eventHomeResponse?.Rows?.FirstOrDefault(row => row.IsLatest)?.Events
