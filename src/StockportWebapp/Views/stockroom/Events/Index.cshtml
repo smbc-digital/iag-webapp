@@ -35,7 +35,7 @@
 
 @if (Model.HeroCarouselItems is not null && Model.HeroCarouselItems.Any())
 {
-    <partial name="HeroCarousel" model="@Model.HeroCarouselItems" />
+    <partial name="HeroCarousel" model="@Model.HeroCarouselItems" view-data='@(new ViewDataDictionary(ViewData) { { "isOnHomepage", false } })' />
 }
 
 <nav aria-label="Event category navigation" class="event-homepage__category-wrapper">

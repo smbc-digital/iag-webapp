@@ -41,7 +41,7 @@ define(function () {
                         }
                 
                         if (size !== "hidden") {
-                            const li = document.createElement("li");
+                            const div = document.createElement("div");
                             const span = document.createElement("span");
                 
                             span.className = `carousel-indicators__item ${size}`;
@@ -51,8 +51,8 @@ define(function () {
                 
                             span.dataset.slide = i;
                 
-                            li.appendChild(span);
-                            indicatorHero.appendChild(li);
+                            div.appendChild(span);
+                            indicatorHero.appendChild(div);
                         }
                     }
                 }

@@ -8,7 +8,7 @@
 
 @if (Model.HomepageContent.CarouselContents is not null && Model.HomepageContent.CarouselContents.Any())
 {
-    <partial name="HeroCarousel" model="@Model.HomepageContent.CarouselContents.Take(5).ToList()" />
+    <partial name="HeroCarousel" model="@Model.HomepageContent.CarouselContents.Take(5).ToList()" view-data='@(new ViewDataDictionary(ViewData) { { "isOnHomepage", true } })' />
 }
 
 <section class="grid-container" style="margin-top:1.5em; margin-bottom:1em;">
