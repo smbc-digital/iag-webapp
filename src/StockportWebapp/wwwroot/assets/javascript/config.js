@@ -5,7 +5,7 @@
         "alerts": "alerts-37b64135.min",
         "alertsSetCookie": "alertsSetCookie-928361e1.min",
         "carousel": "carousel-4885f0f7.min",
-        "carousel2024": "carousel2024-0839fef1.min",
+        "carousel2024": "carousel2024-3495ad51.min",
         "cludo": "cludo-ae98e22c.min",
         "contactUs": "contactUs-e5b6f8a5.min",
         "directoriesMapInit": "directoriesMapInit-e9b7ff2c.min",

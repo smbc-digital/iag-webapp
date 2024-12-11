@@ -26,16 +26,16 @@
         eventsTitle = "Free events";
     }
 
-    string categoryMarginTop = Model.HeroCarouselItems is not null && Model.HeroCarouselItems.Any()
+    string categoryMarginTop = Model.CarouselContents is not null && Model.CarouselContents.Any()
         ? string.Empty
         : "event-homepage__categories--margin-top";
 }
 
 <h1 class="visuallyhidden">Stockroom events</h1>
 
-@if (Model.HeroCarouselItems is not null && Model.HeroCarouselItems.Any())
+@if (Model.CarouselContents is not null && Model.CarouselContents.Any())
 {
-    <partial name="HeroCarousel" model="@Model.HeroCarouselItems" />
+    <partial name="HeroCarousel" model="@Model.CarouselContents" view-data='@(new ViewDataDictionary(ViewData) { { "isOnHomepage", false } })' />
 }
 
 <nav aria-label="Event category navigation" class="event-homepage__category-wrapper">

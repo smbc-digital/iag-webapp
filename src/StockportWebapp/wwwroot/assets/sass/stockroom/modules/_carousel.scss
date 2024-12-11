@@ -11,6 +11,7 @@
         display: flex;
         list-style: none;
         transition: transform 1s ease-in-out;
+        margin-bottom: 0;
     }
 
     &-item {
@@ -135,7 +136,7 @@
         padding-inline: 1em;
         align-items: center;
 
-        li {
+        &__container {
             text-align: center;
             margin-inline-start: 0;
             border: black;

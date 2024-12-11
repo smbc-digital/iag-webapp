@@ -49,7 +49,7 @@ public class EventCalendarTests
     }
 
     [Fact]
-    public void AddHeroCarouselItems_ShouldAddItemsIfNotNull()
+    public void AddCarouselContents_ShouldAddItemsIfNotNull()
     {
         // Arrange
         EventCalendar eventCalendar = new();
@@ -63,36 +63,36 @@ public class EventCalendarTests
         };
 
         // Act
-        eventCalendar.AddHeroCarouselItems(new List<Event> { eventToAdd });
+        eventCalendar.AddCarouselContents(new List<Event> { eventToAdd });
 
         // Assert
-        Assert.Single(eventCalendar.HeroCarouselItems);
+        Assert.Single(eventCalendar.CarouselContents);
     }
 
     [Fact]
-    public void AddHeroCarouselItems_ShouldNotAddItemsIfNull()
+    public void AddCarouselContents_ShouldNotAddItemsIfNull()
     {
         // Arrange
         EventCalendar eventCalendar = new();
 
         // Act
-        eventCalendar.AddHeroCarouselItems(null);
+        eventCalendar.AddCarouselContents(null);
 
         // Assert
-        Assert.Empty(eventCalendar.HeroCarouselItems);
+        Assert.Empty(eventCalendar.CarouselContents);
     }
 
     [Fact]
-    public void AddHeroCarouselItems_ShouldNotAddItemsIfEventsEmpty()
+    public void AddCarouselContents_ShouldNotAddItemsIfEventsEmpty()
     {
         // Arrange
         EventCalendar eventCalendar = new();
 
         // Act
-        eventCalendar.AddHeroCarouselItems(new List<Event>());
+        eventCalendar.AddCarouselContents(new List<Event>());
         
         // Assert
-        Assert.Empty(eventCalendar.HeroCarouselItems);
+        Assert.Empty(eventCalendar.CarouselContents);
     }
 
     [Fact]

@@ -53,7 +53,7 @@ public class TopicFactoryTest
                         "emailAlertsTopic",
                         _eventCalendarBanner,
                         true,
-                        new CarouselContent("Title", "Teaser", "Image", "url"),
+                        new CarouselContent("Title", "Teaser", "Image", "url", new DateTime()),
                         "event Category",
                         null,
                         string.Empty)

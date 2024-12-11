@@ -44,7 +44,7 @@ public class HomepageFactoryTest
             freeText, null,
             string.Empty,
             string.Empty,
-            new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty),
+            new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty, new DateTime()),
             new CallToActionBanner(),
             new CallToActionBanner(),
             new List<SpotlightOnBanner>(),
