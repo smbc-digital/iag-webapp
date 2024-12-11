@@ -28,7 +28,7 @@
 
         @media #{$desktop} {
             li:nth-last-of-type(-n+2) {
-                margin-bottom: 0px;
+                margin-bottom: 0;
             }
         }
 
@@ -39,6 +39,12 @@
         &--profile {
             flex-direction: column;
             margin-top: 2.5em;
+
+            @media #{$desktop} {
+                li:nth-last-of-type(-n+2) {
+                    margin-bottom: 2em;
+                }
+            }
         }
 
         .trivia__container:nth-child(odd) {
