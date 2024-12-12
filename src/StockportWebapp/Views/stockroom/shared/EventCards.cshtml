@@ -1,0 +1,21 @@
+@model List<Event>;
+@{
+    List<Event> itemsToDisplay = (List<Event>)ViewData["itemsToDisplay"];
+}
+
+<div class="grid-container-full-width" style="background-color:#f2f2f2;" data-cy="article">
+    <div class="grid-container">
+        <div class="grid-100">
+            <section class="article">
+                <h2 class="card-title">What's on</h2>
+                
+                <ul class="card-wrapper">
+                    @foreach (Event relatedContent in itemsToDisplay)
+                    {
+                        <partial name="EventCard" model="@relatedContent" />
+                    }
+                </ul>
+            </section>
+        </div>
+    </div>
+</div>

@@ -11,7 +11,12 @@
     <partial name="HeroCarousel" model="@Model.HomepageContent.CarouselContents.Take(5).ToList()" view-data='@(new ViewDataDictionary(ViewData) { { "isOnHomepage", true } })' />
 }
 
-<section class="grid-container" style="margin-top:1.5em; margin-bottom:1em;">
+@if (Model.FeaturedEvents is not null && Model.FeaturedEvents.Any())
+{
+    <partial name="EventCards" model="@Model.FeaturedEvents" view-data='@(new ViewDataDictionary(ViewData) { { "isEventHomepage", false }, { "itemsToDisplay", Model.FeaturedEvents } })' />
+}
+
+@* <section class="grid-container" style="margin-top:1.5em; margin-bottom:1em;">
     <div class="grid-100">
         <h2 style="margin-bottom:1em;">What's On</h2>
     </div>
@@ -42,6 +47,6 @@
             <p><stong>01/03/2025</stong></p>
         </div>
     </div>
-</section>
+</section> *@
 
 <partial name="ImageBannerScreenWidth"/>
