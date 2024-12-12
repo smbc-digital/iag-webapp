@@ -62,7 +62,7 @@ public class EventsControllerTest
         Mock<ITimeProvider> mockTime = new();
         _datetimeCalculator = new DateCalculator(mockTime.Object);
 
-        EventResponse eventsCalendar = new(new List<Event> { _eventsItem }, _categories);
+        EventResponse eventsCalendar = new(new List<Event> { _eventsItem }, _categories, new List<Event>());
         ProcessedEvents eventItem = new("title",
                                         "slug",
                                         "teaser",
@@ -597,7 +597,7 @@ public class EventsControllerTest
     {
         List<Event> listOfEvents = BuildEventList(numItems);
         List<string> categories = new() { "Category 1", "Category 2" };
-        EventResponse eventsCalendar = new(listOfEvents, categories);
+        EventResponse eventsCalendar = new(listOfEvents, categories, new List<Event>());
         HttpResponse eventListResponse = new(200, eventsCalendar, string.Empty);
 
         _repository
