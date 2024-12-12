@@ -149,7 +149,7 @@ public class EventsController : Controller
                 response.GlobalAlerts.AddRange(eventHomeResponse.Alerts);
         }
 
-        return View(await _featureManager.IsEnabledAsync("Events") ? "Detail2024" : "Detail", response);
+        return View("Detail2024", response);
     }
     
     // This is used for Healthy Stockport only
