@@ -8,7 +8,7 @@
 <section id="carousel" aria-labelledby="carouselheading" class="carousel carousel-hero">
     <h2 id="carouselheading" class="visuallyhidden">Image carousel</h2>
     <ul class="carousel-items">
-        @foreach (var item in Model)
+        @foreach (CarouselContent item in Model)
         {
             <li class="carousel-item carousel-item__hero" aria-hidden="true" style="background-image: url('@item.Image?q=89&fm=webp');">
                 <div class="carousel-item__hero--overlay">
