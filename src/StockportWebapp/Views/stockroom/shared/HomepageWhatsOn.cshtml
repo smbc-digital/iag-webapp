@@ -1,17 +1,14 @@
-@model List<SubItem>;
-@{
-    List<SubItem> itemsToDisplay = (List<SubItem>)ViewData["itemsToDisplay"];
-}
-
+@model List<Event>;
 <div class="grid-container-full-width" style="background-color:#f2f2f2;" data-cy="article">
     <div class="grid-container">
         <div class="grid-100">
             <section class="article">
-                <h2 class="card-title">More like this</h2>
+                <h2 class="card-title">What's on</h2>
+                
                 <ul class="card-wrapper">
-                    @foreach (SubItem relatedContent in itemsToDisplay)
+                    @foreach (Event relatedContent in Model)
                     {
-                        <partial name="RelatedContentCard" model="@relatedContent" />
+                        <partial name="EventCard" model="@relatedContent" />
                     }
                 </ul>
             </section>
