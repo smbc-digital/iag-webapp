@@ -25,6 +25,10 @@
     {
         eventsTitle = "Free events";
     }
+
+    string categoryMarginTop = Model.HeroCarouselItems is not null && Model.HeroCarouselItems.Any()
+        ? string.Empty
+        : "event-homepage__categories--margin-top";
 }
 
 <h1 class="visuallyhidden">Stockroom events</h1>
@@ -37,7 +41,7 @@
 <nav aria-label="Event category navigation" class="event-homepage__category-wrapper">
     <div class="grid-container">
         <div class="grid-100">
-            <ul class="event-homepage__categories">
+            <ul class="event-homepage__categories @categoryMarginTop">
                 @foreach (var eventCategory in Model.Homepage.Categories)
                 {
                     <li class="event-homepage__categories-item">

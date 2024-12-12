@@ -9,6 +9,10 @@
         gap: 20px;
     }
 
+    @media #{$mobile} {
+        justify-content: left;
+    }
+
     &-bar-container {
         background-color: #f2f2f2;
         padding-bottom: 1.5em;
@@ -16,6 +20,14 @@
 
     &__button {
         text-align: center;
+
+        @media #{$mobile} {
+            text-align: left;
+        }
+
+        button {
+            margin-inline-end: 1em;
+        }
     }
 
     &__wrapper {
@@ -55,6 +67,10 @@
             flex-wrap: wrap;
             position: relative;
             align-items: center;
+
+            @media #{$mobile} {
+                min-width: 48%;
+            }
         }
     }
 
@@ -96,5 +112,12 @@
 
     .events-filters__radio:checked + .events-filters__label:after {
         opacity: 1;
+    }
+
+    .events-filters__radio:focus + .events-filters__label:before {
+        border-width: 4px;
+        outline: 3px solid transparent;
+        outline-offset: 1px;
+        box-shadow: 0 0 0 4px #ef8a16;
     }
 }

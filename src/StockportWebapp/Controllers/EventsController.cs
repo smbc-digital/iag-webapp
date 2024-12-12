@@ -1,6 +1,4 @@
-﻿using StockportWebapp.Models;
-
-namespace StockportWebapp.Controllers;
+﻿namespace StockportWebapp.Controllers;
 
 [ResponseCache(Location = ResponseCacheLocation.Any, Duration = Cache.Medium)]
 public class EventsController : Controller

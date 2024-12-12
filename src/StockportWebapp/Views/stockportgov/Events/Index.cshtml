@@ -21,16 +21,14 @@
     <div class="event-homepage">
         <div class="grid-container">
             <section class="event-homepage__container" aria-label="content">
-                <div class="event-homepage__thing">
-                    <div class="grid-100">
-                        <div class="grid-70 event-homepage__heading">
-                            <h1 class="event-homepage__title">What's on in Stockport</h1>
-                        </div>
-                        <div class="grid-25 event-homepage__button hide-on-tablet hide-on-mobile">
-                            <a href="https://forms.stockport.gov.uk/add-an-event" data-cy="book-event-button" class="btn btn--white-outline btn--width-25 btn--chevron-forward btn--bold btn--chevron-bold event-homepage__filters-button">
-                                <span class="btn_text">Add your event</span>
-                            </a>
-                        </div>
+                <div class="event-homepage__thing grid-100">
+                    <div class="grid-70 event-homepage__heading">
+                        <h1 class="event-homepage__title">What's on in Stockport</h1>
+                    </div>
+                    <div class="grid-25 event-homepage__button hide-on-tablet hide-on-mobile">
+                        <a href="https://forms.stockport.gov.uk/add-an-event" data-cy="book-event-button" class="btn btn--white-outline btn--width-25 btn--chevron-forward btn--bold btn--chevron-bold event-homepage__filters-button">
+                            <span class="btn_text">Add your event</span>
+                        </a>
                     </div>
                 </div>
                 <partial name="Events/EventsFilterBar" model='Model'/>
@@ -59,7 +57,7 @@
 </div>
 
 <script>
-    require(['/assets/javascript/config-64f5853b.min.js'], function() {
+    require(['/assets/javascript/config-47a85fac.min.js'], function() {
         require(['events'],
             function(events) {
                 events.Init();

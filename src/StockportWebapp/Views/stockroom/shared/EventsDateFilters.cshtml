@@ -1,7 +1,7 @@
 @using StockportWebapp.Models;
 @model EventCalendar
 
-<div class="grid-container-full-width event-homepage__category-wrapper event-homepage__category-wrapper--margin-bottom">
+<div class="grid-container-full-width event-homepage__category-wrapper event-homepage__category-wrapper--padding-bottom">
     <form action="/events" method="get">
         <input type="hidden" asp-for="@Model.FromSearch" value="true" />
         <div class="grid-container">
@@ -41,6 +41,7 @@
                     <noscript>
                         <div class="events-filters__button">
                             <button class="btn btn--on-yellow">Find what's on</button>
+                            <a href="@($"{Url.Action("Index", "Events")}?category={Model.Category}&free={Model.Free}")" class="btn btn--on-yellow">Clear filters</a>
                         </div>
                     </noscript>
                 </div>
@@ -50,7 +51,7 @@
 </div>
 
 <script>
-    require(['/assets/javascript/config-64f5853b.min.js'], function () {
+    require(['/assets/javascript/config-47a85fac.min.js'], function () {
         require(['eventFilters'],
             function (eventFilters) {
                 eventFilters.Init();

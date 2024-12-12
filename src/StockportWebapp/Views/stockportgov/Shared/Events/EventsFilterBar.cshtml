@@ -2,33 +2,33 @@
 @using StockportWebapp.Models;
 @model EventCalendar
 @{
-    var closeThis = (Model.FromSearch) ? "close-this-section" : string.Empty;
-    var hasSearched = (Model.FromSearch) || !string.IsNullOrWhiteSpace(Model.Tag);
-    var hideOnMobile = hasSearched ? "hide-on-mobile" : "mobile-grid-100";
-    var showOnMobile = hasSearched ? "hide-on-desktop hide-on-tablet" : "hide-on-mobile hide-on-desktop hide-on-tablet";
-    var nowShowing = string.Concat(string.IsNullOrWhiteSpace(Model.Category) ? "Showing <strong>All</strong> events " : $"Showing <strong>{HttpUtility.HtmlEncode(Model.Category)}</strong> events ",
+    string closeThis = (Model.FromSearch) ? "close-this-section" : string.Empty;
+    bool hasSearched = (Model.FromSearch) || !string.IsNullOrWhiteSpace(Model.Tag);
+    string hideOnMobile = hasSearched ? "hide-on-mobile" : "mobile-grid-100";
+    string showOnMobile = hasSearched ? "hide-on-desktop hide-on-tablet" : "hide-on-mobile hide-on-desktop hide-on-tablet";
+    string nowShowing = string.Concat(string.IsNullOrWhiteSpace(Model.Category) ? "Showing <strong>All</strong> events " : $"Showing <strong>{HttpUtility.HtmlEncode(Model.Category)}</strong> events ",
                         Model.DateFrom == null || Model.DateTo == null || Model.DateFrom != Model.DateTo ? string.Empty : $"for <strong>{((DateTime)Model.DateFrom).ToString("dd/MM/yy")}</strong> ",
                         Model.DateFrom == Model.DateTo || Model.DateFrom == null ? string.Empty : $"from <strong>{((DateTime)Model.DateFrom).ToString("dd/MM/yy")}</strong> ",
                         Model.DateFrom == Model.DateTo || Model.DateTo == null ? string.Empty : $"to <string>{((DateTime)Model.DateTo).ToString("dd/MM/yy")}</strong>",
                         Model.DateFrom == null && Model.DateTo == null ? "from <strong>All dates</strong>" : string.Empty);
 }
-<form action="/events" method="get" id="events-filter-bar-container">
+<form action="/events" method="get">
     <input type="hidden" asp-for="@Model.FromSearch" value="true" />
         <div class="grid-container grid-parent grid-100">
             <div class="grid-100 @showOnMobile">
                 <label>@Html.Raw(nowShowing)</label>
             </div>
-            <div class="grid-100 event-homepage__filters" id="events-search-filter-container">
+            <div class="grid-100 event-homepage__filters">
                 <div class="grid-25">
                     <label class="h-l" asp-for="@Model.DateFrom"></label>
                     <div class="event-homepage__filters-options">
-                        <input type="date" asp-for="@Model.DateFrom" placeholder="All dates" />
+                        <input type="date" class="event-homepage__filters-options-date" asp-for="@Model.DateFrom" placeholder="dd/mm/yyyy" />
                     </div>
                 </div>
                 <div class="grid-25">
                     <label class="h-l" asp-for="@Model.DateTo"></label>
                     <div class="event-homepage__filters-options">
-                        <input type="date" asp-for="@Model.DateTo" placeholder="All dates" />
+                        <input type="date" class="event-homepage__filters-options-date" asp-for="@Model.DateTo" placeholder="dd/mm/yyyy" />
                     </div>
                 </div>
                 <div class="grid-25">
@@ -39,7 +39,7 @@
                 </div>
                 <div class="grid-25">
                     <button data-cy="book-event-button" class="btn btn--inverse btn--width-25 btn--chevron-forward btn--bold btn--chevron-bold btn--outline event-homepage__filters-button">
-                            <span class="btn_text">Find what's on</span>
+                        <span class="btn_text">Find what's on</span>
                     </button>
                 </div>
                 <div class="grid-25 hide-on-desktop">
@@ -53,20 +53,3 @@
             </div>
         </div>
 </form>
-
-<script type="text/javascript">    
-
-    function toggleSearch() {
-        var container = $('.form-section', '#events-filter-bar');
-        var button = $('#edit-search-link');
-    
-        if ($(button).hasClass('open')) {
-            $(button).removeClass('open');
-            $(container).removeClass('closed');
-        } else {
-            $(button).addClass('open');
-            $(container).addClass('closed');
-        }
-    }
-
-</script>

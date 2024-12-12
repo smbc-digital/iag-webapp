@@ -3,84 +3,83 @@ define(function () {
         Init: function () {
             window.onload = function () {
                 const carouselItems = document.querySelectorAll(".carousel-item");
-                const indicators = document.querySelectorAll(".carousel-indicators button");
-                const status = document.getElementById("carousel-status");
+                const indicatorHero = document.querySelector(".carousel-indicators");
                 let currentIndex = 0;
-                    
-                status.setAttribute("aria-live", "off");
+                const totalSlides = carouselItems.length;
 
+                function generateIndicators() {
+                    indicatorHero.innerHTML = "";
+                
+                    for (let i = 0; i < totalSlides; i++) {
+                        let size = "hidden";
+                
+                        // Define size based on currentIndex and position
+                        if (currentIndex <= 1 && i < 3) {
+                            size = "big";
+                        } else if (currentIndex === 2) {
+                            if (i === 0) size = "small";
+                            if (i === 1 || i === 2 || i === 3) size = "big";
+                            if (i === 4) size = "small";
+                        } else if (currentIndex === 3) {
+                            if (i === 2 || i === 3 || i === 4) size = "big";
+                            if (i === 1 || i === 5) size = "small";
+                        } else if (currentIndex === 4) {
+                            if (i === 3 || i === 4 || i === 5) size = "big";
+                            if (i === 2 || i === 6) size = "small";
+                        } else if (currentIndex === 5) {
+                            if (i === 4 || i === 5 || i === 6) size = "big";
+                            if (i === 3 || i === 7) size = "small";
+                        } else if (currentIndex === 6) {
+                            if (i === 5 || i === 6 || i === 7) size = "big";
+                            if (i === 4 || i === 8) size = "small";
+                        } else if (currentIndex === 7) {
+                            if (i === 6 || i === 7 || i === 8) size = "big";
+                            if (i === 5 || i === 9) size = "small";
+                        } else if (currentIndex === 5) {
+                            if (i === 7 || i === 8 || i === 9) size = "big";
+                            if (i === 6 || i === 10) size = "small";
+                        }
+                
+                        if (size !== "hidden") {
+                            const li = document.createElement("li");
+                            const span = document.createElement("span");
+                
+                            span.className = `carousel-indicators__item ${size}`;
+                            if (i === currentIndex) {
+                                span.classList.add("current", "active");
+                            }
+                
+                            span.dataset.slide = i;
+                
+                            li.appendChild(span);
+                            indicatorHero.appendChild(li);
+                        }
+                    }
+                }
+                
                 function updateCarousel() {
+                    generateIndicators();
+
                     document.querySelector(".carousel-items").style.transform = `translateX(-${currentIndex * 100}%)`;
-                    
+
                     carouselItems.forEach((slide, index) => {
                         slide.setAttribute("aria-hidden", index !== currentIndex ? "true" : "false");
                         document.getElementsByClassName("carousel-item__link")[index]?.setAttribute("tabindex", index !== currentIndex ? "-1" : "0")
-
-                        if(index === currentIndex)
-                            slide.focus()
                     });
-
-                    if (indicators.length) {
-                        indicators.forEach((indicator, index) => {
-                            indicator.classList.toggle("current", index === currentIndex);
-                            if (index === currentIndex) {
-                                document.getElementById(index).innerHTML = "Current slide"
-                            }
-                            else {
-                                document.getElementById(index).innerHTML = ""
-                            }
-                        });
-                    }
-
-                    const currentSlide = carouselItems[currentIndex];
-                    const slideImage = currentSlide.querySelector("img");
-                    const slideTitle = currentSlide.querySelector(".carousel-item__title")?.textContent.trim() || "";
-                    const slideDate = currentSlide.querySelector("p")?.textContent.trim() || "";
-                    
-                    const slideDetails = slideImage
-                        ? `Image: ${slideImage.alt}`
-                        : `${slideTitle}. ${slideDate}.`.trim();
-                    
-                    if (status.getAttribute("aria-live") === "polite") {
-                        status.textContent = `Slide ${currentIndex + 1} of ${carouselItems.length}: ${slideDetails}`;
-                    }
                 }
 
-                setTimeout(() => {
-                    status.setAttribute("aria-live", "polite");
-                }, 500);
-
                 document.querySelector(".next").addEventListener("click", function () {
-                    currentIndex = (currentIndex + 1) % carouselItems.length;
+                    currentIndex = (currentIndex + 1) % totalSlides;
                     updateCarousel();
                 });
 
                 document.querySelector(".prev").addEventListener("click", function () {
-                    currentIndex = (currentIndex - 1 + carouselItems.length) % carouselItems.length;
+                    currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
                     updateCarousel();
                 });
 
-                if (document.querySelector(".mob-next") != null) {
-                    document.querySelector(".mob-next").addEventListener("click", function () {
-                        currentIndex = (currentIndex + 1) % carouselItems.length;
-                        updateCarousel();
-                    });
-
-                    document.querySelector(".mob-prev").addEventListener("click", function () {
-                        currentIndex = (currentIndex - 1 + carouselItems.length) % carouselItems.length;
-                        updateCarousel();
-                    });
-                }
-
-                indicators.forEach((indicator, index) => {
-                    indicator.addEventListener("click", function () {
-                        currentIndex = index;
-                        updateCarousel();
-                    });
-                });
-
                 updateCarousel();
-            }
+            };
         }
-    }
-})
+    };
+});

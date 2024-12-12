@@ -3,7 +3,7 @@
         &-wrapper {
             background-color: #f2f2f2;
 
-            &--margin-bottom {
+            &--padding-bottom {
                 padding-bottom: 2em;
             }
         }
@@ -39,6 +39,10 @@
                     margin-inline-start: 1rem;
                 }
             }
+        }
+
+        &--margin-top {
+            margin-top: 2rem;
         }
     }
 }
