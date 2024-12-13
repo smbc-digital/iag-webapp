@@ -1,18 +1,30 @@
-﻿@model GenericFeaturedItem
+﻿@model IEnumerable<GenericFeaturedItem>
 @{
-    string navcardPaddingClasses = (string)ViewData["NavcardPaddingClasses"];
-    string eventHomepageIcon = (string)ViewData["EventHomepageIcon"];
-}
-    
-<li class="grid-25 navcard--width-25 navcard--center event-homepage__category-item">
-        <a href="@Model.Url" class="navcard__link">
-            <div class="navcard__content">
-                <div class="event-homepage__icon">
-                    <span class="@Model.Icon" aria-hidden="true"></span>
-                </div>
+    var count = 0;
+    foreach (var item in Model)
+    {
+        count++;
+        <div class="grid-25 tablet-grid-20 mobile-grid-25 featured-topic matchbox-child @(count > 4 ? "hide-on-mobile" : string.Empty)">
+            <div class="featured-topic-content">
+                <a class="featured-topic-link" href="@item.Url" rel="nofollow">
+                    <div class="featured-topic-icon">
+                        <span class="@item.Icon si-default" aria-hidden="true"></span>
+                    </div>
+                    <h3 class="featured-topic-name">@item.Title</h3>
+                </a>
+                @if (item.SubItems != null && item.SubItems.Any())
+                {
+                    <div class="hide-on-mobile hide-on-tablet featured-topic-description">
+                        <p>Including</p>
+                        <ul>
+                            @foreach (var subItem in item.SubItems.Take(2))
+                            {
+                                <li><a href="@subItem.Url">@subItem.Title</a></li>
+                            }
+                        </ul>
+                    </div>
+                }
             </div>
-            <div class="navcard-content--padding navcard--no-padding-top">
-                <h3 class="navcard__title navcard__title--black">@Model.Title</h3>
         </div>
-    </a>
-</li>
+    }
+}
