@@ -11,11 +11,11 @@
         padding-left: 0;
     }
 
-    &__container {
+    &__section {
         padding: 1em 0 2em 0;
     }
 
-    &__thing {
+    &__container {
         margin-bottom: 2em;
 
         @media #{$tablet} {
@@ -64,22 +64,23 @@
 
             @media #{$tablet} {
                 margin-inline-end: 0;
-                margin-block-end: 0.5em;
+                margin-block-end: 1em;
                 width: 100%;
             }
 
             input {
-                padding: 1em;
+                padding: 0.9em;
                 font-size: 1em;
                 text-align: left;
                 width: -webkit-fill-available;
                 border: none;
                 border-radius: 3px;
+                font-family: inherit;
             }
 
             select {
                 width: 100%;
-                padding: 1em;
+                padding: 0.9em;
                 font-size: 1em;
                 text-align: left;
                 width: -webkit-fill-available;
@@ -93,30 +94,23 @@
                 background-size: 1em;
                 border: none;
                 border-radius: 3px;
+                font-family: inherit;
 
                 @media #{$small-mobile} {
                     background-image: none;
                 }
-            }
-
-            &-date {
-                font-size: 1.2em !important;
             }
         }
 
         &-button {
             height: fit-content;
             float: right;
-            width: 300px;
+            width: 100%;
+            max-width: 290px;
             
             @media #{$tablet} {
-                margin-top: 1em;
-                width: 100%;
+                margin-top: 1em;   
             }
-
-            @media #{$mobile} {
-                // width: 100%;
-            }   
         }
     }
 
@@ -177,6 +171,17 @@
             min-height: 44px;
             width: fit-content;
             font-weight: 700;
+        }
+    }
+
+    &__search {
+        margin-top: 2em;
+
+        &-date {
+            
+            h2 {
+                margin: 0 0 1em 0;
+            }
         }
     }
 }

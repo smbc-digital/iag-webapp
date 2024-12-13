@@ -7,10 +7,10 @@
     string hideOnMobile = hasSearched ? "hide-on-mobile" : "mobile-grid-100";
     string showOnMobile = hasSearched ? "hide-on-desktop hide-on-tablet" : "hide-on-mobile hide-on-desktop hide-on-tablet";
     string nowShowing = string.Concat(string.IsNullOrWhiteSpace(Model.Category) ? "Showing <strong>All</strong> events " : $"Showing <strong>{HttpUtility.HtmlEncode(Model.Category)}</strong> events ",
-                        Model.DateFrom == null || Model.DateTo == null || Model.DateFrom != Model.DateTo ? string.Empty : $"for <strong>{((DateTime)Model.DateFrom).ToString("dd/MM/yy")}</strong> ",
-                        Model.DateFrom == Model.DateTo || Model.DateFrom == null ? string.Empty : $"from <strong>{((DateTime)Model.DateFrom).ToString("dd/MM/yy")}</strong> ",
-                        Model.DateFrom == Model.DateTo || Model.DateTo == null ? string.Empty : $"to <string>{((DateTime)Model.DateTo).ToString("dd/MM/yy")}</strong>",
-                        Model.DateFrom == null && Model.DateTo == null ? "from <strong>All dates</strong>" : string.Empty);
+                        Model.DateFrom is null || Model.DateTo is null || Model.DateFrom != Model.DateTo ? string.Empty : $"for <strong>{((DateTime)Model.DateFrom).ToString("dd/MM/yy")}</strong> ",
+                        Model.DateFrom == Model.DateTo || Model.DateFrom is null ? string.Empty : $"from <strong>{((DateTime)Model.DateFrom).ToString("dd/MM/yy")}</strong> ",
+                        Model.DateFrom == Model.DateTo || Model.DateTo is null ? string.Empty : $"to <string>{((DateTime)Model.DateTo).ToString("dd/MM/yy")}</strong>",
+                        Model.DateFrom is null && Model.DateTo is null ? "from <strong>All dates</strong>" : string.Empty);
 }
 <form action="/events" method="get">
     <input type="hidden" asp-for="@Model.FromSearch" value="true" />
@@ -45,11 +45,6 @@
                 <div class="grid-25 hide-on-desktop">
                     <button as-link="true" class="btn btn--white-outline btn--width-25 btn--chevron-forward btn--bold btn--chevron-bold event-homepage__filters-button" href="https://forms.stockport.gov.uk/add-an-event">Add your event</button>
                 </div>
-            </div>
-            <div class="mobile-grid-100 @showOnMobile">
-                <div class="edit-search">
-                    <a href="javascript:toggleSearch();" id="edit-search-link">Edit search</a>
-                </div> 
             </div>
         </div>
 </form>

@@ -20,8 +20,8 @@
 
     <div class="event-homepage">
         <div class="grid-container">
-            <section class="event-homepage__container" aria-label="content">
-                <div class="event-homepage__thing grid-100">
+            <section class="event-homepage__section" aria-label="content">
+                <div class="event-homepage__container grid-100">
                     <div class="grid-70 event-homepage__heading">
                         <h1 class="event-homepage__title">What's on in Stockport</h1>
                     </div>
@@ -31,37 +31,30 @@
                         </a>
                     </div>
                 </div>
-                <partial name="Events/EventsFilterBar" model='Model'/>
-            </section>
-
-            
+                <partial name="HomepageFilters" model='Model'/>
+            </section>            
         </div>
     </div>
 
+    @if (Model.FromSearch)
+    {
+        <partial name="HomepageSearch" model='Model'/>
+    }
+    else
+    {
+        @if (Model.Homepage.Categories is not null && Model.Homepage.Categories.Any())
+        {
+            <partial name="HomepageCategories" model="Model.Homepage.GenericItemList" view-data="@(new ViewDataDictionary(ViewData) {{"eventHomepageNavcard", "event-homepage__navcard-wrapper"}})" />
+        }
 
-        @if (Model.FromSearch)
-        {
-            <partial name="Events/EventsResultsList" model='Model'/>
-        }
-        else
-        {
-            <partial name="Events/EventHomepage" model='Model.Homepage'/>
-        }
-        <div class="grid-container">
-            <div class="grid-100">
-                <section class="section section--no-margin">
-                    <partial name="DirectoryContentDisclaimer" />
-                </section>
-            </div>
+        <partial name="HomepageEventCards" model='Model.Homepage'/>
+    }
+
+    <div class="grid-container">
+        <div class="grid-100">
+            <section class="section section--no-margin">
+                <partial name="DirectoryContentDisclaimer" />
+            </section>
         </div>
+    </div>
 </div>
-
-<script>
-    require(['/assets/javascript/config-47a85fac.min.js'], function() {
-        require(['events'],
-            function(events) {
-                events.Init();
-            }
-        );
-    });
-</script>

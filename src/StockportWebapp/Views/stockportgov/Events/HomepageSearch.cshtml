@@ -6,7 +6,7 @@
 }
 
 <div class="grid-container" id="event-listing-container">
-    <div class="grid-100">
+    <div class="grid-100 event-homepage__search">
         @if (!hasEvents)
         {
             <div class="grid-container grid-100">
@@ -22,29 +22,31 @@
 
         @foreach (Event eventItem in Model.Events)
         {
-            var start = string.Empty;
-            var end = string.Empty;
-            if (previousEnteredDate != eventItem.EventDate)
-            {
+            string start = string.Empty;
+            string end = string.Empty;
+            string div = "<div class='event-homepage__search-date'>";
+
+            @if (!previousEnteredDate.Equals(eventItem.EventDate))
+            {   
                 if (previousEnteredDate != DateTime.MinValue)
-                {
-                    end = "</div>";
-                }
+                    end = "</ul></div>";
 
+                start = "<ul class='navcard-wrapper navcard-wrapper--no-margin'>";
+                @Html.Raw(end);
+                @Html.Raw(div);
                 <h2>@viewHelper.FormatEventDate(eventItem.EventDate)</h2>
-                start = "<div class=\"event-container-row matchbox-parent\">";
-            }
+            } 
 
+            @Html.Raw(start);
             <partial name="EventCard" model="eventItem" view-data="@(new ViewDataDictionary(ViewData) {{"backgroundColourClass", "event-cards__link--white"}})"/>
-
             previousEnteredDate = eventItem.EventDate.Date;
         }
 
         @if (hasEvents)
         {
             <div class="grid-100">
-                <partial name="Pagination" model='Model.Pagination'/>
+                <partial name="EventsPagination" model='Model.Pagination'/>
             </div>
         }
-    </div>
+        </div>
 </div>

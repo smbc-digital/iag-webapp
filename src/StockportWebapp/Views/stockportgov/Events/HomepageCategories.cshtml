@@ -1,0 +1,16 @@
+@model GenericFeaturedItemList
+
+<section class="section event-homepage__category">
+    <div class="grid-container">
+        <div class="grid-100">
+            <div class="section__content section__content--no-margin">
+                <ul class="navcard-wrapper navcard-wrapper--no-margin event-homepage__navcard-wrapper" data-cy="navcard">
+                    @foreach (var subItem in Model.Items)
+                    {
+                        <partial name="HomepageCategory" model='subItem' />
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
