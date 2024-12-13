@@ -109,7 +109,8 @@
             max-width: 290px;
             
             @media #{$tablet} {
-                margin-top: 1em;   
+                margin-top: 1em;
+                max-width: 100%; 
             }
         }
     }

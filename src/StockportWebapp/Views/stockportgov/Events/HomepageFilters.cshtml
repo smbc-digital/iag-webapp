@@ -1,23 +1,10 @@
 ﻿@using System.Web;
 @using StockportWebapp.Models;
 @model EventCalendar
-@{
-    string closeThis = (Model.FromSearch) ? "close-this-section" : string.Empty;
-    bool hasSearched = (Model.FromSearch) || !string.IsNullOrWhiteSpace(Model.Tag);
-    string hideOnMobile = hasSearched ? "hide-on-mobile" : "mobile-grid-100";
-    string showOnMobile = hasSearched ? "hide-on-desktop hide-on-tablet" : "hide-on-mobile hide-on-desktop hide-on-tablet";
-    string nowShowing = string.Concat(string.IsNullOrWhiteSpace(Model.Category) ? "Showing <strong>All</strong> events " : $"Showing <strong>{HttpUtility.HtmlEncode(Model.Category)}</strong> events ",
-                        Model.DateFrom is null || Model.DateTo is null || Model.DateFrom != Model.DateTo ? string.Empty : $"for <strong>{((DateTime)Model.DateFrom).ToString("dd/MM/yy")}</strong> ",
-                        Model.DateFrom == Model.DateTo || Model.DateFrom is null ? string.Empty : $"from <strong>{((DateTime)Model.DateFrom).ToString("dd/MM/yy")}</strong> ",
-                        Model.DateFrom == Model.DateTo || Model.DateTo is null ? string.Empty : $"to <string>{((DateTime)Model.DateTo).ToString("dd/MM/yy")}</strong>",
-                        Model.DateFrom is null && Model.DateTo is null ? "from <strong>All dates</strong>" : string.Empty);
-}
+
 <form action="/events" method="get">
     <input type="hidden" asp-for="@Model.FromSearch" value="true" />
-        <div class="grid-container grid-parent grid-100">
-            <div class="grid-100 @showOnMobile">
-                <label>@Html.Raw(nowShowing)</label>
-            </div>
+        <div class="grid-container grid-parent">
             <div class="grid-100 event-homepage__filters">
                 <div class="grid-25">
                     <label class="h-l" asp-for="@Model.DateFrom"></label>

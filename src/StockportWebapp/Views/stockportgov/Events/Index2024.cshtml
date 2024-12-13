@@ -15,8 +15,8 @@
 }
 
 <div class="grid-container-full-width" data-cy="event-homepage">
-    <partial name="GlobalAlerts" model='Model.Homepage.Alerts' />
-        <partial name="Breadcrumb2023" model='new List<Crumb>()' view-data='@(new ViewDataDictionary(ViewData) {{"landingBreadcrumb", "topic-breadcrumb-container"}})'/>
+    <partial name="GlobalAlerts" model="Model.Homepage.Alerts" />
+        <partial name="Breadcrumb2023" model="new List<Crumb>()" view-data="@(new ViewDataDictionary(ViewData) {{"landingBreadcrumb", "topic-breadcrumb-container"}})"/>
 
     <div class="event-homepage">
         <div class="grid-container">
@@ -31,23 +31,23 @@
                         </a>
                     </div>
                 </div>
-                <partial name="HomepageFilters" model='Model'/>
+                <partial name="HomepageFilters" model="Model" />
             </section>            
         </div>
     </div>
 
     @if (Model.FromSearch)
     {
-        <partial name="HomepageSearch" model='Model'/>
+        <partial name="HomepageSearch" model="Model" />
     }
     else
     {
         @if (Model.Homepage.Categories is not null && Model.Homepage.Categories.Any())
         {
-            <partial name="HomepageCategories" model="Model.Homepage.GenericItemList" view-data="@(new ViewDataDictionary(ViewData) {{"eventHomepageNavcard", "event-homepage__navcard-wrapper"}})" />
+            <partial name="HomepageCategories" model="Model.Homepage.GenericItemList" />
         }
 
-        <partial name="HomepageEventCards" model='Model.Homepage'/>
+        <partial name="HomepageEventCards" model="Model.Homepage" />
     }
 
     <div class="grid-container">
