@@ -1,6 +1,6 @@
 ﻿@model List<SubItem>
 <ul class="topic-secondary-item-list">
-    @foreach (var item in Model)
+    @foreach (SubItem item in Model)
     {
         <li class="topic-secondary-item-container">
             <a class="topic-secondary-item-link" href="@item.NavigationLink">

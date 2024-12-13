@@ -5,6 +5,7 @@ public interface IEventsService
     Task<List<Event>> GetEventsByLimit(int limit);
     Task<Event> GetLatestEventsItem();
     Task<Event> GetLatestFeaturedEventItem();
+    Task<List<Event>> GetLatestFeaturedEvents();
 }
 
 public class EventsService : IEventsService
@@ -32,5 +33,13 @@ public class EventsService : IEventsService
         HttpResponse response = await _eventsRepository.GetLatestOrderByFeatured<EventCalendar>(1);
         EventCalendar eventCalendar = response.Content as EventCalendar;
         return eventCalendar?.Events?.FirstOrDefault();
+    }
+
+    public async Task<List<Event>> GetLatestFeaturedEvents()
+    {
+        HttpResponse response = await _eventsRepository.GetLatestOrderByFeatured<EventCalendar>(6);
+        EventCalendar eventCalendar = response.Content as EventCalendar;
+
+        return eventCalendar?.FeaturedEvents;
     }
 }

@@ -25,7 +25,7 @@ public class ArticleViewModelTest
                                             "test-id",
                                             null,
                                             true,
-                                            new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty),
+                                            new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty, new DateTime()),
                                             string.Empty,
                                             null,
                                             string.Empty);
@@ -54,7 +54,7 @@ public class ArticleViewModelTest
                                     "test-id",
                                     null,
                                     true,
-                                    new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty),
+                                    new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty, new DateTime()),
                                     string.Empty,
                                     null,
                                     string.Empty);
@@ -349,7 +349,7 @@ public class ArticleViewModelTest
                         It.IsAny<string>(),
                         null,
                         true,
-                        new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty),
+                        new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty, new DateTime()),
                         string.Empty,
                         null,
                         string.Empty);
@@ -429,7 +429,8 @@ public class ArticleViewModelTest
             new CarouselContent(string.Empty,
                 string.Empty,
                 string.Empty,
-                string.Empty),
+                string.Empty,
+                new DateTime()),
             string.Empty,
             null,
             string.Empty);

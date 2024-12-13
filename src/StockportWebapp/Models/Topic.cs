@@ -115,7 +115,7 @@ public class NullTopic : Topic
                             string.Empty,
                             null,
                             true,
-                            new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty),
+                            new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty, new DateTime()),
                             string.Empty,
                             null,
                             string.Empty)

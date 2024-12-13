@@ -32,10 +32,10 @@ public class HomeControllerTest
 
     private readonly List<CarouselContent> _carouselContents = new()
     {
-        new CarouselContent("Carousel Title", "Carousel Teaser", "Carousel Image", "Carousel Url")
+        new CarouselContent("Carousel Title", "Carousel Teaser", "Carousel Image", "Carousel Url", new DateTime())
     };
 
-    private readonly CarouselContent _campaignBanner = new("Campaign Title", "Campaign Teaser", "Campaign Image", "Campaign Url");
+    private readonly CarouselContent _campaignBanner = new("Campaign Title", "Campaign Teaser", "Campaign Image", "Campaign Url", new DateTime());
     private readonly DateTime _sunrise = new(2015, 9, 10);
     private readonly DateTime _sunset = new(2015, 9, 20);
 

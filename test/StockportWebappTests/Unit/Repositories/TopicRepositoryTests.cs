@@ -58,7 +58,7 @@ public class TopicRepositoryTests
                                             null,
                                             null,
                                             true,
-                                            new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty),
+                                            new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty, new DateTime()),
                                             string.Empty,
                                             null,
                                             null,

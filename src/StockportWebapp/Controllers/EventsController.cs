@@ -84,13 +84,13 @@ public class EventsController : Controller
         EventHomepage eventHomeResponse = httpHomeResponse.Content as EventHomepage;
 
         eventsCalendar.Homepage = eventHomeResponse ?? new EventHomepage(new List<Alert>());
-        eventsCalendar.AddHeroCarouselItems(eventHomeResponse?.Rows?.FirstOrDefault(row => !row.IsLatest)?.Events.Take(5).ToList());
+        eventsCalendar.AddCarouselContents(eventHomeResponse?.Rows?.FirstOrDefault(row => !row.IsLatest)?.Events.Take(5).ToList());
 
         if (!eventsCalendar.FromSearch)
             eventsCalendar.Homepage.NextEvents = eventHomeResponse?.Rows?.FirstOrDefault(row => row.IsLatest)?.Events
                 .Select(_stockportApiEventsService.BuildProcessedEvent).ToList();
 
-        return View(eventsCalendar);
+        return View(await _featureManager.IsEnabledAsync("Events") ? "Index2024" : "Index", eventsCalendar);
     }
 
     // This is the healthy stockport filtered events homepage
@@ -149,7 +149,7 @@ public class EventsController : Controller
                 response.GlobalAlerts.AddRange(eventHomeResponse.Alerts);
         }
 
-        return View(await _featureManager.IsEnabledAsync("Events") ? "Detail2024" : "Detail", response);
+        return View("Detail2024", response);
     }
     
     // This is used for Healthy Stockport only

@@ -12,7 +12,7 @@
                 <tbody>
                     <tr>
                         <th>Cost:</th>
-                        <td>@(Model.Fee.Equals("0") ? "Free" : $"£{Model.Fee}")</td>
+                        <td>@Model.Fee</td>
                     </tr>
                     @if (!string.IsNullOrEmpty(Model.PhoneNumber))
                     {
