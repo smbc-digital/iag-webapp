@@ -1,19 +1,28 @@
-﻿/*--Need to arrange licensing for these fonts as web fonts--*/
-@font-face {
+﻿@font-face {
     font-family: 'OTNeueMontrealBoldExtraSqueezed';
-    src: url("/assets/fonts/OTNeueMontreal-BoldExtraSqueezed.otf") format('opentype');
+    src: url('/assets/fonts/OTNeueMontreal-BoldExtraSqueezed.woff2') format('woff2'),
+         url('/assets/fonts/OTNeueMontreal-BoldExtraSqueezed.woff') format('woff'),
+         url('/assets/fonts/OTNeueMontreal-BoldExtraSqueezed.otf') format('opentype');
+    font-weight: 700;
+    font-style: normal;
     font-display: swap;
 }
 
 @font-face {
     font-family: 'OTNeueMontrealMediumSqueezed';
-    src: url("/assets/fonts/OTNeueMontreal-MediumSqueezed.otf") format('opentype');
+    src: url('/assets/fonts/OTNeueMontreal-BoldSemiSqueezed.woff2') format('woff2'),
+         url('/assets/fonts/OTNeueMontreal-BoldSemiSqueezed.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
     font-display: swap;
 }
 
 @font-face {
     font-family: 'OTNeueMontrealRegularSemiSqueezed';
-    src: url("/assets/fonts/OTNeueMontreal-RegularSemiSqueezed.otf") format('opentype');
+    src: url('/assets/fonts/OTNeueMontreal-RegularSemiSqueezed.woff2') format('woff2'),
+         url('/assets/fonts/OTNeueMontreal-RegularSemiSqueezed.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
     font-display: swap;
 }
 
@@ -31,6 +40,7 @@ body {
 
 @mixin body--small {
     font: 1rem / 1.5 $fontStack;
+    font-weight: 400;
 }
 
 @mixin lead {
@@ -181,15 +191,18 @@ h2, h3, h4 {
 }
 
 .font--medium-squeezed {
-    font-family: OTNeueMontrealMediumSqueezed, 'Noto Sans', sans-serif;
+    font-family: OTNeueMontrealMediumSqueezed, sans-serif;
+    font-weight: 500;
 }
 
 .font--semi-squeezed {
-    font-family: OTNeueMontrealRegularSemiSqueezed, 'Noto Sans', sans-serif;
+    font-family: OTNeueMontrealRegularSemiSqueezed, sans-serif;
+    font-weight: 400;
 }
 
 .font--bold-extra-squeezed {
-    font-family: OTNeueMontrealBoldExtraSqueezed, 'Noto Sans', sans-serif;
+    font-family: OTNeueMontrealBoldExtraSqueezed, sans-serif;
+    font-weight: 700;
 }
 
 .grid-container-full-width .grid-container {
