@@ -1,6 +1,6 @@
 .card {
     &-title {
-        margin-top: 1.333em;
+        margin-top: 2rem;
     }
 
     &-wrapper {
@@ -54,11 +54,6 @@
         }
 
         &__content {
-            &-title {
-                font-weight: 900;
-                font-size: 1.75rem;
-            }
-
             &-teaser {
                 margin-bottom: 0;
                 display: -webkit-box;

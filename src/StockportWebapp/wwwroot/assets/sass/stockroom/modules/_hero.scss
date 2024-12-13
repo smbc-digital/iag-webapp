@@ -68,5 +68,13 @@
                 display: none !important;
             }
         }
+
+        &--bold {
+            font-weight: 900;
+        }
+
+        &--no-margin {
+            margin: 0;
+        }
     }
 }

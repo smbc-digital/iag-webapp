@@ -77,7 +77,7 @@ body {
 }
 
 @mixin h-l {
-    font-size: 2.25rem;
+    font-size: 2rem;
     line-height: 1.1111111111;
     font-weight: 600;
     letter-spacing: 0;
@@ -163,6 +163,10 @@ body {
 
 .h-l, h2 {
     @include h-l;
+}
+
+h2 {
+    font-size: 2.25rem;
 }
 
 .h-ml {
