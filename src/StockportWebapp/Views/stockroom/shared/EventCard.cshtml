@@ -3,25 +3,18 @@
 @model Event;
 
 <li class="card-item">
-    <img src="@Model.ThumbnailImageUrl?w=692&q=89"
-        srcset="@Model.ThumbnailImageUrl?w=692&q=89&fm=webp 692w,
-                @Model.ThumbnailImageUrl?w=287&q=89&fm=webp 287w,
-                @Model.ThumbnailImageUrl?w=364&q=89&fm=webp 364w"
-        sizes="(max-width: 767px) 692px,
-                ((min-width: 768px) and (max-width: 1023px)) 287px,
-                (min-width: 1024px) 364px"
-        class="card-item__image"
-        alt=""
-        width="692"
-        height="350"
-        loading="lazy">
-    
-    <div class="card-item__container">
-        <div class="card-item__content">
-            <h3 class="h-l">@Model.Title</h3>
-            <p class="card-item__content-teaser">@viewHelper.FormatEventDate(@Model.EventDate, @Model.StartTime)</p>
-        </div>
+    <a class="card-item__link" href="@Url.Action("Detail", "Events", new {slug = Model.Slug, date = Model.EventDate.ToString("yyyy-MM-dd")})" aria-label="Read more about @Model.Title">
+        <div class="card-item__content-wrapper">
+            <partial name="CardImage" model="Model.ThumbnailImageUrl" />
+            
+            <div class="card-item__container">
+                <div class="card-item__content">
+                    <h3 class="h-l">@Model.Title</h3>
+                    <p class="card-item__content-teaser">@viewHelper.FormatEventDate(@Model.EventDate, @Model.StartTime)</p>
+                </div>
 
-        <a href="@Url.Action("Detail", "Events", new {slug = Model.Slug, date = Model.EventDate.ToString("yyyy-MM-dd")})" class="btn card-item__container-btn" aria-label="Read more about @Model.Title">Read more</a>
-    </div>
+                <span class="btn card-item__container-btn">Read more</span>
+            </div>
+        </div>
+    </a>
 </li>

@@ -6,25 +6,18 @@
 }
 
 <li class="card-item">
-    <img src="@imageSrc?w=692&q=89"
-        srcset="@imageSrc?w=692&q=89&fm=webp 692w,
-                @imageSrc?w=287&q=89&fm=webp 287w,
-                @imageSrc?w=364&q=89&fm=webp 364w"
-        sizes="(max-width: 767px) 692px,
-                ((min-width: 768px) and (max-width: 1023px)) 287px,
-                (min-width: 1024px) 364px"
-        class="card-item__image"
-        alt=""
-        width="692"
-        height="350"
-        loading="lazy">
-    
-    <div class="card-item__container">
-        <div class="card-item__content">
-            <h3 class="h-l">@Model.Title</h3>
-            <p class="card-item__content-teaser">@Model.Teaser</p>
+    <a class="card-item__link" href="@Model.NavigationLink" aria-label="Read more about @Model.Title">
+        <div class="card-item__content-wrapper">
+            <partial name="CardImage" model="imageSrc" />
+            
+            <div class="card-item__container">
+                <div class="card-item__content">
+                    <h3 class="h-l">@Model.Title</h3>
+                    <p class="card-item__content-teaser">@Model.Teaser</p>
+                </div>
+                
+                <span class="btn card-item__container-btn">Read more</span>
+            </div>
         </div>
-        
-        <a href="@Model.NavigationLink" class="btn card-item__container-btn" aria-label="Read more about @Model.Title">Read more</a>
-    </div>
+    </a>
 </li>

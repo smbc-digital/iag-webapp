@@ -63,6 +63,14 @@
                 overflow: hidden;
                 text-overflow: ellipsis;
             }
+
+            &-wrapper {
+                display: flex;
+                flex-direction: column;
+                flex-basis: 0;
+                justify-content: space-between;
+                flex-grow: 1;
+            }
         }
 
         &__container {
@@ -82,6 +90,21 @@
                 color: black;
                 width: fit-content;
                 margin-top: 1em;
+                background-color: white;
+            }
+        }
+
+        &__link {
+            text-decoration: none;
+            display: flex;
+            flex-grow: 1;
+            flex-direction: column;
+
+            &:hover, &:focus {
+                .card-item__container-btn {
+                    background-color: $skrm-yellow;
+                    color: black;
+                }
             }
         }
     }
