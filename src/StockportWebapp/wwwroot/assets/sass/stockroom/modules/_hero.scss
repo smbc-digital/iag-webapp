@@ -1,6 +1,15 @@
 .hero {
     position: relative;
 
+    &__banner {
+        height: 750px;
+        display: flex;
+        place-items: center;
+        background-position: center;
+        background-size: cover;    
+        color:white;
+    }
+
     &__background {
         height: 525px;
         width: 100%;
