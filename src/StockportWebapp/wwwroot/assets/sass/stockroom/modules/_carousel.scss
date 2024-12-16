@@ -36,6 +36,9 @@
         }
 
         &__hero {
+            max-height: 820px;
+            height: 820px;
+            
             &--overlay {
                 height: 100%;
                 background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.8) 100%);
@@ -45,7 +48,7 @@
 
             @media #{$mobile} {
                 max-height: 500px;
-                min-height: 400px;
+                height: 500px;
             }
 
             &-wrapper {
@@ -78,6 +81,10 @@
                 }
             }
         }
+    }
+
+    &-icon {
+        fill: white;
     }
 
     &-control {
@@ -115,11 +122,14 @@
         &:hover {
             background-color: $skrm-orange;
             color: black;
-            border-color: black;
+            
+            .carousel-icon {
+                fill: black;
+            }
         }
 
         &__hero {
-            top: calc(50% - 50px);
+            top: 50%;
             background-color: transparent;
         }
     }
