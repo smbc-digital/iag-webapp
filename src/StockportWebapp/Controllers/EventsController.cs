@@ -90,7 +90,7 @@ public class EventsController : Controller
             eventsCalendar.Homepage.NextEvents = eventHomeResponse?.Rows?.FirstOrDefault(row => row.IsLatest)?.Events
                 .Select(_stockportApiEventsService.BuildProcessedEvent).ToList();
 
-        return View(eventsCalendar);
+        return View(await _featureManager.IsEnabledAsync("Events") ? "Index2024" : "Index", eventsCalendar);
     }
 
     // This is the healthy stockport filtered events homepage

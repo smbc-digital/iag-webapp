@@ -107,8 +107,8 @@ public class ArticleViewModel
         if (relatedItems is null || relatedItems.Count < 3)
             return relatedItems;
 
-        int countToDisplay = (relatedItems.Count / 3) * 3;
+        int numberItemsToDisplay = relatedItems.Count / 3 * 3;
 
-        return relatedItems.Take(countToDisplay).ToList();
+        return relatedItems.Take(numberItemsToDisplay).ToList();
     }
 }

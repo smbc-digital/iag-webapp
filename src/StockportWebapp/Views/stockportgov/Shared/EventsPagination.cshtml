@@ -1,0 +1,122 @@
+@model Pagination
+@{
+    bool showPagination = Model.TotalItems > Model.MaxItemsPerPage;
+    @*string urlWithParams = $"?{string.Join("&", Model.CurrentUrl.Select(q => $"{q.Name}={q.Value}"))}"; *@
+    string urlWithParams = $"{Model.CurrentUrl}";
+}
+
+@if (showPagination)
+{
+    <div class="directory-pagination__count">
+        <div class="grid-container">
+            <div class="grid-100">
+                <span>
+                    Showing 
+                    <span class="bold">@((Model.CurrentPageNumber - 1) * Model.MaxItemsPerPage + 1)</span>
+                    to
+                    <span class="bold">@(Math.Min(Model.CurrentPageNumber * Model.MaxItemsPerPage, Model.TotalItems))</span>
+                    of
+                    <span class="bold">@Model.TotalItems</span>
+                    results
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <div class="grid-container">
+        <div class="grid-100">
+            <nav class="directory-pagination" aria-label="Pagination">
+                <div class="directory-pagination__prev">
+                    @if (Model.CurrentPageNumber > 1)
+                    {
+                        <a href="@(urlWithParams)&page=@(Model.CurrentPageNumber - 1)" class="directory-pagination__links">
+                            <span class="directory-pagination__left"></span>
+                            <span class="directory-pagination__right--rtl"></span>
+                            Previous
+                            <span class="visuallyhidden">page</span>
+                        </a>
+                    }
+                </div>
+
+                <ul class="directory-pagination__list">
+                    <li class="directory-pagination__item">
+                        @{
+                            string ariaCurrent = Model.CurrentPageNumber == 1 ? "aria-current=page" : string.Empty;
+                        }
+                        <a href="@(urlWithParams)&page=1" class="@(Model.CurrentPageNumber == 1 ? "directory-pagination__current" : "directory-pagination__number")"
+                            aria-label="Page 1" @ariaCurrent>1</a>
+                    </li>
+
+                    @if (Model.CurrentPageNumber > 4 && Model.TotalPages > 7)
+                    {
+                        <li class="directory-pagination__item directory-pagination__ellipses">...</li>
+                    }
+
+                    @if (Model.TotalPages <= 7)
+                    {
+                        @for (int i = 2; i <= Math.Min(Model.TotalPages - 1, 7); i++)
+                        {
+                            string ariaCurrentAttr = Model.CurrentPageNumber == i ? "aria-current=page" : string.Empty;
+
+                            <li class="directory-pagination__item">
+                                <a href="@(urlWithParams)&page=@i" class="@(i == Model.CurrentPageNumber ? "directory-pagination__current" : "directory-pagination__number")"
+                                    @ariaCurrentAttr aria-label="Page @i">@i</a>
+                            </li>
+                        }
+                    }
+                    else
+                    {
+                        @if(Model.CurrentPageNumber == 4){
+                            @for (int i = Math.Max(2, Model.CurrentPageNumber - 2); i <= Math.Min(Model.TotalPages - 1, Model.CurrentPageNumber + 1); i++)
+                            {
+                                string ariaCurrentAttr = Model.CurrentPageNumber == i ? "aria-current=page" : string.Empty;
+
+                                <li class="directory-pagination__item">
+                                    <a href="@(urlWithParams)&page=@i" class="@(i == Model.CurrentPageNumber ? "directory-pagination__current" : "directory-pagination__number")"
+                                        @ariaCurrentAttr aria-label="Page @i">@i</a>
+                                </li>
+                            }
+                        }
+                        else
+                        {
+                            @for (int i = Math.Max(2, Model.CurrentPageNumber - 1); i <= Math.Min(Model.TotalPages - 1, Model.CurrentPageNumber + 1); i++)
+                            {
+                                string ariaCurrentAttr = Model.CurrentPageNumber == i ? "aria-current=page" : string.Empty;
+
+                                <li class="directory-pagination__item">
+                                    <a href="@(urlWithParams)&page=@i" class="@(i == Model.CurrentPageNumber ? "directory-pagination__current" : "directory-pagination__number")"
+                                        @ariaCurrentAttr aria-label="Page @i">@i</a>
+                                </li>
+                            }
+                        }
+
+                        @if (Model.TotalPages - Model.CurrentPageNumber > 2)
+                        {
+                            <li class="directory-pagination__item directory-pagination__ellipses">...</li>
+                        }
+                    }
+
+                    <li class="directory-pagination__item">
+                        @{
+                            string ariaCurrentAttribute = Model.CurrentPageNumber == Model.TotalPages ? "aria-current=page" : string.Empty;
+                        }
+                        <a href="@(urlWithParams)&page=@Model.TotalPages" class="@(Model.CurrentPageNumber == Model.TotalPages ? "directory-pagination__current" : "directory-pagination__number")"
+                            @ariaCurrentAttribute aria-label="Page @Model.TotalPages">@Model.TotalPages</a>
+                    </li>
+                </ul>
+
+                <div class="directory-pagination__next">
+                    @if (Model.CurrentPageNumber < Model.TotalPages)
+                    {
+                        <a href="@(urlWithParams)&page=@(Model.CurrentPageNumber + 1)" class="directory-pagination__links">
+                            Next
+                            <span class="visuallyhidden">page</span>
+                            <span class="directory-pagination__left--rtl"></span>
+                            <span class="directory-pagination__right"></span>
+                        </a>
+                    }
+                </div>
+            </nav>
+        </div>
+    </div>
+}

@@ -34,6 +34,7 @@ public class EventCalendar
     public string DateRange { get; set; }
     public string DateSelection { get; set; }
     public List<Event> Events { get; private set; } = new();
+    public List<Event> FeaturedEvents { get; private set; } = new();
     public List<string> Categories { get; private set; } = new();
     
     public string Tag { get; set; }
@@ -74,6 +75,9 @@ public class EventCalendar
     public void AddEvents(List<Event> events) =>
         Events = events;
 
+    public void AddFeaturedEvents(List<Event> featuredEvents) =>
+        FeaturedEvents = featuredEvents;
+        
     public void AddCarouselContents(List<Event> events)
     {
         if (events is not null)

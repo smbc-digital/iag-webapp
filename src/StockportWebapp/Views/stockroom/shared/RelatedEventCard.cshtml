@@ -20,7 +20,6 @@
         <div class="card-item__content">
             <h3 class="card-item__content-title">@Model.Title</h3>
             <p class="card-item__content-teaser">@viewHelper.FormatEventDate(@Model.EventDate, @Model.StartTime)</p>
-
         </div>
 
         <a href="@Url.Action("Detail", "Events", new {slug = Model.Slug, date = Model.EventDate.ToString("yyyy-MM-dd")})" class="btn card-item__container-btn" aria-label="Read more about @Model.Title">Read more</a>

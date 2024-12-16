@@ -23,12 +23,15 @@ public class HomeController : Controller
     [Route("/")]
     public async Task<IActionResult> Index()
     {
-        var homepage = await _homepageService.GetHomepage();
+        ProcessedHomepage homepage = await _homepageService.GetHomepage();
 
-        if (homepage == null) return new NotFoundResult();
+        if (homepage is null)
+            return new NotFoundResult();
 
-        var getEventsTask = _eventsService.GetLatestFeaturedEventItem();
-        var getNewsTask = _newsService.GetLatestNewsItem();
+        Task<List<Event>> getFeaturedEvents = _eventsService.GetLatestFeaturedEvents();
+
+        Task<Event> getEventsTask = _eventsService.GetLatestFeaturedEventItem();
+        Task<News> getNewsTask = _newsService.GetLatestNewsItem();
 
         List<Task> tasks = new()
         {
@@ -51,7 +54,8 @@ public class HomeController : Controller
             HomepageContent = homepage,
             FeaturedEvent = getEventsTask.Result,
             FeaturedNews = getNewsTask.Result,
-            EventsFromApi = eventsByCategoryTask != null ? eventsByCategoryTask.Result?.Take(3).ToList() : new List<Event>()
+            FeaturedEvents = getFeaturedEvents.Result,
+            EventsFromApi = eventsByCategoryTask is not null ? eventsByCategoryTask.Result?.Take(3).ToList() : new List<Event>()
         };
 
         return View(homepageViewModel);

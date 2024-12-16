@@ -1,0 +1,60 @@
+﻿@using System.Web
+@model EventCalendar
+@{
+    EventCategory category = Model.Homepage.Categories.Where(c => c.Slug.Equals(Model.Category)).FirstOrDefault();
+    
+    ViewData["og:title"] = string.IsNullOrWhiteSpace(Model.Category) 
+                            ? "What's on in Stockport" 
+                            : category is null 
+                                ? HttpUtility.HtmlEncode(Model.Category) 
+                                : HttpUtility.HtmlEncode(category.Name);
+
+    ViewData["Title"] = ViewData["og:title"];
+    ViewData["Description"] = Model.Homepage.MetaDescription;
+    Layout = "../Shared/_Layout2023.cshtml";
+}
+
+<div class="grid-container-full-width" data-cy="event-homepage">
+    <partial name="GlobalAlerts" model="Model.Homepage.Alerts" />
+        <partial name="Breadcrumb2023" model="new List<Crumb>()" view-data="@(new ViewDataDictionary(ViewData) {{"landingBreadcrumb", "topic-breadcrumb-container"}})"/>
+
+    <div class="event-homepage">
+        <div class="grid-container">
+            <section class="event-homepage__section" aria-label="content">
+                <div class="event-homepage__container grid-100">
+                    <div class="grid-70 event-homepage__heading">
+                        <h1 class="event-homepage__title">What's on in Stockport</h1>
+                    </div>
+                    <div class="grid-25 event-homepage__button hide-on-tablet hide-on-mobile">
+                        <a href="https://forms.stockport.gov.uk/add-an-event" data-cy="book-event-button" class="btn btn--white-outline btn--width-25 btn--chevron-forward btn--bold btn--chevron-bold event-homepage__filters-button">
+                            <span class="btn_text">Add your event</span>
+                        </a>
+                    </div>
+                </div>
+                <partial name="HomepageFilters" model="Model" />
+            </section>            
+        </div>
+    </div>
+
+    @if (Model.FromSearch)
+    {
+        <partial name="HomepageSearch" model="Model" />
+    }
+    else
+    {
+        @if (Model.Homepage.Categories is not null && Model.Homepage.Categories.Any())
+        {
+            <partial name="HomepageCategories" model="Model.Homepage.GenericItemList" />
+        }
+
+        <partial name="HomepageEventCards" model="Model.Homepage" />
+    }
+
+    <div class="grid-container">
+        <div class="grid-100">
+            <section class="section section--no-margin">
+                <partial name="DirectoryContentDisclaimer" />
+            </section>
+        </div>
+    </div>
+</div>

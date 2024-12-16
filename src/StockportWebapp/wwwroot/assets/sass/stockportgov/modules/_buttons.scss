@@ -108,6 +108,10 @@
         }
     }
 
+    &--white-outline {
+        border: 1px solid white;
+    }
+
     &--pink, &--pink-light {
         color: $stockport-pink;
         border: 1px solid $stockport-pink;
