@@ -2,7 +2,7 @@
     position: relative;
 
     &__background {
-        height: 525px;
+        height: 750px;
         width: 100%;
         background-position: center;
         background-size: cover;
@@ -18,7 +18,7 @@
     }
 
     &__image {
-        height: 427px;
+        height: 652px;
 
         @media #{$mobile} {
             height: 295.5px;
@@ -75,6 +75,10 @@
 
         &--no-margin {
             margin: 0;
+        }
+
+        &--margin {
+            margin-bottom: 1em;
         }
     }
 }

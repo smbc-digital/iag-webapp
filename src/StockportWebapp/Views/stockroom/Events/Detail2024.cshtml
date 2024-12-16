@@ -55,7 +55,9 @@
                             {
                                 <div class="event-hero__about--padding-top event-hero__about-fee">
                                     <p class="hero__about--bold">Cost:</p>
-                                    <p class="hero__about--no-margin">@Model.Fee</p>
+                                    <p class="@(string.IsNullOrEmpty(Model.Duration) && string.IsNullOrEmpty(Model.Languages) ? "hero__about--margin" : "hero__about--no-margin")">
+                                        @Model.Fee
+                                    </p>
                                 </div>
                             }
 
@@ -63,7 +65,10 @@
                             {
                                 <div class="event-hero__about--padding-top event-hero__about-duration">
                                     <p class="hero__about--bold">Duration:</p>
-                                    <p>@Model.Duration</p>
+                                    @* <p>@Model.Duration</p> *@
+                                    <p class="@(string.IsNullOrEmpty(Model.Languages) ? "hero__about--margin" : "hero__about--no-margin")">
+                                        @Model.Duration
+                                    </p>
                                 </div>
                             }
                             
@@ -71,7 +76,7 @@
                             {
                                 <div class="event-hero__about--padding-top">
                                     <p class="hero__about--bold">Languages:</p>
-                                    <p>@Model.Languages</p>
+                                    <p class="hero__about--margin">@Model.Languages</p>
                                 </div>
                             }
 
