@@ -38,6 +38,20 @@
         <distributed-cache name=headerStockroom expires-after=@TimeSpan.FromMinutes(ApplicationConfiguration.GetHeaderCache(BusinessId.ToString())) enabled=true>
             @await Component.InvokeAsync("Header")
         </distributed-cache>
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                const currentUrl = window.location.pathname;
+                const menuItems = document.querySelectorAll(".site-header_menu-item a");
+
+                menuItems.forEach(link => {
+                    const linkHref = link.getAttribute("href");
+                    if (currentUrl === linkHref || currentUrl.startsWith(linkHref + "/")) {
+                        link.parentElement.classList.add("active");
+                    }
+                });
+            });
+        </script>
 
         <main id="content" tabindex="-1">
             @RenderBody()
@@ -46,6 +60,5 @@
         <distributed-cache name=footerStockroom expires-after=@TimeSpan.FromMinutes(ApplicationConfiguration.GetFooterCache(BusinessId.ToString())) enabled=true>
             @await Component.InvokeAsync("Footer")
         </distributed-cache>
-        
     </body>
 </html>

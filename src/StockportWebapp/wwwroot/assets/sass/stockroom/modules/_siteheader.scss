@@ -168,5 +168,9 @@
                 border-top: 2px solid black;
             }
         }
+
+        &-item.active a {
+            background-color: $skrm-orange;
+        }
     }
 }

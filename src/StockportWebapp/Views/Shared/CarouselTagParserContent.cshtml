@@ -19,13 +19,19 @@
 
         <button class="carousel-control next carousel-control-next" aria-label="Next Slide">
             <span class="fa-solid fa-chevron-right"></span>
-        </button>    
+        </button>
 
         <div class="grid-container" aria-hidden="true">
             <div class="grid-100 carousel-indicators-wrapper">
-                <ul class="carousel-indicators">
-                    
-                </ul>
+                <div class="carousel-indicators">
+                    @for (int i = 0; i < Model.Count; i++)
+                    {
+                        <div class="carousel-indicators__container">
+                            <span id="@i" class="carousel-indicators__item current active" data-slide="@i">
+                            </span>
+                        </div>
+                    }
+                </div>
             </div>
         </div>
     }

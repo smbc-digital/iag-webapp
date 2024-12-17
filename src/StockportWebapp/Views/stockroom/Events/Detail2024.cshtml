@@ -32,7 +32,7 @@
                 <div class="event-hero-container">
                     <div class="hero__content event-hero__content--70">
                         <div class="hero__about event-hero__about--extra-padding">
-                            <p>
+                            <p class="hero__about--bold">
                                 @Model.EventDate.ToString("dddd dd MMMM yyyy") -
                                 From @DateTime.Parse(Model.StartTime).ToString("h:mmtt").ToLower()
                             </p>
@@ -48,30 +48,34 @@
 
                     <div class="hero__content event-hero__content--30">
                         <div class="hero__about event-hero__about">
-                            <h2>Event and booking details</h2>
+                            <h2 class="h-l">Event and booking details</h2>
                             <div class="event-hero__about--border"></div>
 
                             @if(!string.IsNullOrEmpty(Model.Fee))
                             {
                                 <div class="event-hero__about--padding-top event-hero__about-fee">
-                                    <p>Cost:</p>
-                                    <p>@Model.Fee</p>
+                                    <p class="hero__about--bold">Cost:</p>
+                                    <p class="@(string.IsNullOrEmpty(Model.Duration) && string.IsNullOrEmpty(Model.Languages) ? "hero__about--margin" : "hero__about--no-margin")">
+                                        @Model.Fee
+                                    </p>
                                 </div>
                             }
 
                             @if(!string.IsNullOrEmpty(Model.Duration))
                             {
                                 <div class="event-hero__about--padding-top event-hero__about-duration">
-                                    <p>Duration:</p>
-                                    <p>@Model.Duration</p>
+                                    <p class="hero__about--bold">Duration:</p>
+                                    <p class="@(string.IsNullOrEmpty(Model.Languages) ? "hero__about--margin" : "hero__about--no-margin")">
+                                        @Model.Duration
+                                    </p>
                                 </div>
                             }
                             
                             @if(!string.IsNullOrEmpty(Model.Languages))
                             {
                                 <div class="event-hero__about--padding-top">
-                                    <p class="">Languages:</p>
-                                    <p>@Model.Languages</p>
+                                    <p class="hero__about--bold">Languages:</p>
+                                    <p class="hero__about--margin">@Model.Languages</p>
                                 </div>
                             }
 
@@ -79,9 +83,6 @@
                             {
                                 <div class="event-hero__about--border"></div>
                             }
-
-                            <p style="padding-top: 20px; margin-bottom: 0;"><a href="#">Access information</a></p>
-                            <a href="#">Share</a>
                         </div>
                     </div>
                 </div>
