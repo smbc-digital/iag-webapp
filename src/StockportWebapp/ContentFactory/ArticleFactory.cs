@@ -46,7 +46,8 @@ public class ArticleFactory
                                     article.Author,
                                     article.Photographer,
                                     article.PublishedOn,
-                                    article.InlineQuotes);
+                                    article.InlineQuotes,
+                                    article.Events);
     }
 
     private async Task<IEnumerable<PrivacyNotice>> GetPrivacyNotices()
