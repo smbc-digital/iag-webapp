@@ -1,4 +1,4 @@
-﻿@using System.Web;
+@using System.Web;
 @using StockportWebapp.Models;
 @model EventCalendar
 @{
@@ -45,13 +45,12 @@
                     <a href="javascript:toggleSearch();" id="edit-search-link">Edit search</a>
                 </div> 
             </div>
-            
+
         </div>
     </div>
 </form>
 
 <script type="text/javascript">    
-
     function toggleSearch() {
         var container = $('.form-section', '#events-filter-bar');
         var button = $('#edit-search-link');
@@ -64,5 +63,4 @@
             $(container).addClass('closed');
         }
     }
-
 </script>

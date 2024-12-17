@@ -1,4 +1,4 @@
-﻿@inject ViewHelpers viewHelper
+@inject ViewHelpers viewHelper
 @model EventCalendar
 @{
     DateTime previousEnteredDate = DateTime.MinValue;
@@ -6,7 +6,7 @@
 }
 
 <div class="grid-container" id="event-listing-container">
-    
+
 @if (!hasEvents)
 {
     <div class="grid-container grid-100 no-results">

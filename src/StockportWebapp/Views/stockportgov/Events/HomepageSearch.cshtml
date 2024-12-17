@@ -1,0 +1,52 @@
+﻿@inject ViewHelpers viewHelper
+@model EventCalendar
+@{
+    DateTime previousEnteredDate = DateTime.MinValue;
+    bool hasEvents = Model.Events.Any();
+}
+
+<div class="grid-container" id="event-listing-container">
+    <div class="grid-100 event-homepage__search">
+        @if (!hasEvents)
+        {
+            <div class="grid-container grid-100">
+                <h1>There are currently no events matching your search.</h1>
+                @if (Model.DateFrom.HasValue && Model.DateTo.HasValue && Model.DateFrom > Model.DateTo)
+                {
+                    <p>This is because you searched for an invalid date range.</p>
+                }
+
+                <p>Please edit your search and try again.</p>
+            </div>
+        }
+
+        @foreach (Event eventItem in Model.Events)
+        {
+            string start = string.Empty;
+            string end = string.Empty;
+            string div = "<div class='event-homepage__search-date'>";
+
+            @if (!previousEnteredDate.Equals(eventItem.EventDate))
+            {   
+                if (previousEnteredDate != DateTime.MinValue)
+                    end = "</ul></div>";
+
+                start = "<ul class='navcard-wrapper navcard-wrapper--no-margin'>";
+                @Html.Raw(end);
+                @Html.Raw(div);
+                <h2>@viewHelper.FormatEventDate(eventItem.EventDate)</h2>
+            } 
+
+            @Html.Raw(start);
+            <partial name="EventCard" model="eventItem" view-data="@(new ViewDataDictionary(ViewData) {{"backgroundColourClass", "event-cards__link--white"}})"/>
+            previousEnteredDate = eventItem.EventDate.Date;
+        }
+
+        @if (hasEvents)
+        {
+            <div class="grid-100">
+                <partial name="EventsPagination" model='Model.Pagination'/>
+            </div>
+        }
+        </div>
+</div>
