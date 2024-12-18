@@ -1,8 +1,12 @@
-﻿@model NavCard
+﻿@inject ViewHelpers viewHelper
+
+@model NavCard
 @{
     string imageSrc = !string.IsNullOrEmpty(Model.TeaserImage)
         ? Model.TeaserImage
         : Model.Image;
+
+    string type = (string)ViewData["itemsType"];
 }
 
 <li class="card-item">
@@ -13,7 +17,14 @@
             <div class="card-item__container">
                 <div class="card-item__content">
                     <h3 class="h-l">@Model.Title</h3>
-                    <p class="card-item__content-teaser">@Model.Teaser</p>
+                    @if (type.Equals("events"))
+                    {
+                        <p class="card-item__content-teaser">@viewHelper.FormatEventDate(@Model.Date, @Model.Time)</p>
+                    }
+                    else
+                    {
+                        <p class="card-item__content-teaser">@Model.Teaser</p>
+                    }
                 </div>
 
                 <span class="btn card-item__container-btn">Read more</span>
