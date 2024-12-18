@@ -64,7 +64,9 @@ public class ContentFactoryTest
                             It.IsAny<string>(),
                             It.IsAny<string>(),
                             new DateTime(),
-                            new List<InlineQuote>());
+                            new List<InlineQuote>(),
+                            It.IsAny<string>(),
+                            new List<Event>());
 
         // Act
         IProcessedContentType processedArticle = _factory.Build(article);
