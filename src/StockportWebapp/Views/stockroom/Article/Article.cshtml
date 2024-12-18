@@ -67,7 +67,7 @@
     <partial name="RelatedContent" model="@Model.Article.RelatedContent" view-data='@(new ViewDataDictionary(ViewData) { { "itemsToDisplay", @itemsToDisplay } })' />
 }
 
-@if (Model.Article.Events.Any())
+@if (Model.Article.Events.Any() && Model.Article.Events.Count.Equals(3))
 {
-    <partial name="HomepageWhatsOn" model="Model.Article.Events" />
+    <partial name="HomepageWhatsOn" model="Model.Article.Events" view-data='@(new ViewDataDictionary(ViewData) { {"isOnHomepage", false} })' />
 }
