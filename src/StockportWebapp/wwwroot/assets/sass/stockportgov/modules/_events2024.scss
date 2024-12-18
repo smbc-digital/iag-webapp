@@ -18,7 +18,12 @@
     &__container {
         margin-bottom: 2em;
 
-        @media #{$tablet} {
+        @media #{$tablet-only} {
+            margin-bottom: 0.5em;
+            padding: 0 5px;
+        }
+
+        @media #{$mobile} {
             margin-bottom: 0;
         }
     }
@@ -27,7 +32,6 @@
         color: white;
         
         @media #{$tablet} {
-            width: 70%;
             padding-inline-start: 5px;
         }
     }
@@ -35,6 +39,12 @@
     &__button {
         padding-right: 0;
         float: right;
+    }
+
+    &--no-padding {
+        @media #{$tablet} {
+            padding: 0 !important;
+        }
     }
 
     &__filters {
@@ -173,6 +183,12 @@
             min-height: 44px;
             width: fit-content;
             font-weight: 700;
+        }
+
+        &--padding {
+            @media #{$mobile} {
+                padding: 0 15px;
+            }
         }
     }
 
