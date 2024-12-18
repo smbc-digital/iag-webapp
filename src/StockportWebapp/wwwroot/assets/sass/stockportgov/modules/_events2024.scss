@@ -42,7 +42,6 @@
     }
 
     &--no-padding {
-        
         @media #{$tablet} {
             padding: 0 !important;
         }
