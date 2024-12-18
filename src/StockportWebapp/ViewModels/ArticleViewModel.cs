@@ -1,7 +1,4 @@
-﻿using Org.BouncyCastle.Asn1.Cms;
-using StockportGovUK.NetStandard.Gateways.Models.RevsAndBens;
-
-namespace StockportWebapp.ViewModels;
+﻿namespace StockportWebapp.ViewModels;
 
 public class ArticleViewModel
 {
