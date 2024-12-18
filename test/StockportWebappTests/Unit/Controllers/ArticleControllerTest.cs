@@ -1,4 +1,5 @@
 ﻿using StockportGovUK.NetStandard.Gateways.Models.RevsAndBens;
+using StockportWebapp.Models;
 
 namespace StockportWebappTests_Unit.Unit.Controllers;
 
@@ -38,7 +39,8 @@ public class ArticleControllerTest
                                     string.Empty,
                                     string.Empty,
                                     DateTime.Now,
-                                    new List<InlineQuote>());
+                                    new List<InlineQuote>(),
+                                    new List<Event>());
 
         _processedRepository
             .Setup(_ => _.Get<Article>(It.IsAny<string>(), It.IsAny<List<Query>>()))
@@ -71,7 +73,8 @@ public class ArticleControllerTest
                                     string.Empty,
                                     string.Empty,
                                     new DateTime(),
-                                    new List<InlineQuote>());
+                                    new List<InlineQuote>(),
+                                    new List<Event>());
 
         _processedRepository
             .Setup(_ => _.Get<Article>(It.IsAny<string>(), It.IsAny<List<Query>>()))
@@ -155,7 +158,8 @@ public class ArticleControllerTest
                                     string.Empty,
                                     string.Empty,
                                     new DateTime(),
-                                    new List<InlineQuote>());
+                                    new List<InlineQuote>(),
+                                    new List<Event>());
 
         _processedRepository
             .Setup(_ => _.Get<Article>(It.IsAny<string>(), It.IsAny<List<Query>>()))
@@ -202,7 +206,8 @@ public class ArticleControllerTest
                                     string.Empty,
                                     string.Empty,
                                     new DateTime(),
-                                    new List<InlineQuote>());
+                                    new List<InlineQuote>(),
+                                    new List<Event>());
 
         _processedRepository
             .Setup(_ => _.Get<Article>(It.IsAny<string>(), It.IsAny<List<Query>>()))
@@ -251,7 +256,8 @@ public class ArticleControllerTest
                                     string.Empty,
                                     string.Empty,
                                     new DateTime(),
-                                    new List<InlineQuote>());
+                                    new List<InlineQuote>(),
+                                    new List<Event>());
 
         _processedRepository
             .Setup(_ => _.Get<Article>(It.IsAny<string>(), It.IsAny<List<Query>>()))
@@ -335,7 +341,8 @@ public class ArticleControllerTest
                                     string.Empty,
                                     string.Empty,
                                     new DateTime(),
-                                    new List<InlineQuote>());
+                                    new List<InlineQuote>(),
+                                    new List<Event>());
 
         _processedRepository
             .Setup(_ => _.Get<Article>(It.IsAny<string>(), It.IsAny<List<Query>>()))
@@ -395,7 +402,8 @@ public class ArticleControllerTest
                                     string.Empty,
                                     string.Empty,
                                     new DateTime(),
-                                    new List<InlineQuote>());
+                                    new List<InlineQuote>(),
+                                    new List<Event>());
 
         _processedRepository
             .Setup(_ => _.Get<Article>(It.IsAny<string>(), It.IsAny<List<Query>>()))
@@ -438,7 +446,8 @@ public class ArticleControllerTest
                                     string.Empty,
                                     string.Empty,
                                     new DateTime(),
-                                    new List<InlineQuote>());
+                                    new List<InlineQuote>(),
+                                    new List<Event>());
 
         _processedRepository
             .Setup(_ => _.Get<Article>(It.IsAny<string>(), It.IsAny<List<Query>>()))
@@ -507,7 +516,8 @@ public class ArticleControllerTest
             It.IsAny<string>(),
             It.IsAny<string>(),
             new DateTime(),
-            new List<InlineQuote>());
+            new List<InlineQuote>(),
+            new List<Event>());
 
     private static ProcessedSection DummySection() => 
         new(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), new List<Profile>(), new List<StockportWebapp.Models.Document>(), new List<Alert>(), new List<GroupBranding>(), "logoAreaTitle", new DateTime());

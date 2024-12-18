@@ -35,7 +35,7 @@
 
                     @if (Model.Topic.SecondaryItems.Any())
                     {
-                        <h2>More in @Model.Topic.Name</h2>
+                        <h2 class="h-xl">More in @Model.Topic.Name</h2>
                         <partial name="SecondaryItems" model="@Model.Topic.SecondaryItems" />
                     }
                 </div>

@@ -29,6 +29,7 @@ public class ProcessedArticle : IProcessedContentType, IContactUsMessageContaine
     public string Photographer;
     public DateTime PublishedOn;
     public readonly IEnumerable<InlineQuote> InlineQuotes;
+    public List<Event> Events;
     
     public ProcessedArticle(string title,
                             string slug,
@@ -52,7 +53,8 @@ public class ProcessedArticle : IProcessedContentType, IContactUsMessageContaine
                             string author,
                             string photographer,
                             DateTime publishedOn,
-                            IEnumerable<InlineQuote> inlineQuotes)
+                            IEnumerable<InlineQuote> inlineQuotes,
+                            List<Event> events)
     {
         Title = title;
         NavigationLink = TypeRoutes.GetUrlFor("article", slug);
@@ -77,6 +79,7 @@ public class ProcessedArticle : IProcessedContentType, IContactUsMessageContaine
         Photographer = photographer;
         PublishedOn = publishedOn;
         InlineQuotes = inlineQuotes;
+        Events = events;
     }
 
     public void AddContactUsMessage(string message, string slug = "")

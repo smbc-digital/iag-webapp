@@ -10,7 +10,7 @@
         Model.NewsArticle.UpdatedAt
     );
 
-    string associatedTagCategoryLower = Model.AssociatedTagCategory?.ToLower();
+    string associatedTagCategoryLower = Model.AssociatedTagCategory.Split(",").ToList().First()?.ToLower();
     string viewMoreUrl = Model.UseTag 
         ? Url.Action("Index", "News", new {tag = associatedTagCategoryLower}) 
         : Url.Action("Index", "News", new {category = associatedTagCategoryLower});

@@ -48,7 +48,9 @@ public class ArticleFactoryTest
                     "author",
                     "photographer",
                     new DateTime(),
-                    new List<InlineQuote>());
+                    new List<InlineQuote>(),
+                    "dance",
+                    new List<Event>());
 
         _sectionFactory
             .Setup(_ => _.Build(_sectionOne, _article.Title))

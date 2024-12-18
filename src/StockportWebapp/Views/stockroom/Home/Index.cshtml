@@ -6,6 +6,8 @@
     Layout = "../Shared/_Layout.cshtml";
 }
 
+<h1 class="visuallyhidden">Welcome to Stockroom</h1>
+
 @if (Model.HomepageContent.CarouselContents is not null && Model.HomepageContent.CarouselContents.Any())
 {
     <partial name="HeroCarousel" model="@Model.HomepageContent.CarouselContents.Take(5).ToList()" view-data='@(new ViewDataDictionary(ViewData) { { "isOnHomepage", true } })' />
@@ -13,7 +15,7 @@
 
 @if (Model.FeaturedEvents is not null && Model.FeaturedEvents.Any())
 {
-    <partial name="HomepageWhatsOn" model="@Model.GetFeaturedEventsToDisplay()" />
+    <partial name="HomepageWhatsOn" model="@Model.GetFeaturedEventsToDisplay()" view-data='@(new ViewDataDictionary(ViewData) { {"isOnHomepage", true} })' />
 }
 
 <partial name="ImageBannerScreenWidth"/>
