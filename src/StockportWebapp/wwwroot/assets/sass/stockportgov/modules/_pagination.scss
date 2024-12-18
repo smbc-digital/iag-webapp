@@ -1,4 +1,138 @@
-﻿.pagination-previous, .pagination-next {
+﻿.pagination {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 1.5em;
+  margin-bottom: 2em;
+
+  @media #{$tablet-only, $desktop} {
+      flex-direction: row;
+      place-content: center;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: 3em;
+  }
+  
+  @media #{$mobile}{
+      margin-left: 5px;
+      margin-right: 5px;
+      
+      &__prev {
+          margin-bottom: 1em;
+      }
+
+      &__next {
+          margin-top: 1em;
+      }
+  }
+
+  &__count {
+      text-align: center;
+
+      @media #{$mobile} {
+          margin-left: 5px;
+          margin-right: 5px;
+      }
+  }
+
+  &__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+  &__right {
+      &::after {
+          content: "\f054";
+          font: bold normal normal 19px/1 FontAwesome;
+      }
+  }
+
+  &__left {
+      &::after {
+          content: "\f053";
+          font: bold normal normal 19px/1 FontAwesome;
+      }
+  }
+
+  &__item {
+      box-sizing: border-box;
+      position: relative;
+      min-width: 45px;
+      min-height: 45px;
+      float: left;
+      margin: 0;
+      padding: 10px 0px;
+      list-style: none;
+      text-align: center;
+  }
+
+  &__links {
+      padding: 10px 15px;
+      font-weight: 700;
+  }
+
+  &__current {
+      text-align: center;
+      text-align: center;
+      background-color: $stockport-green;
+      color: white;
+      border-radius: 3px;
+      padding: 10px 17px;
+      font-weight: 700;
+
+      &::after {
+          content: "";
+          position: absolute;
+          top: 0;
+          right: 0;
+          bottom: 0;
+          left: 0;
+      }
+  }
+
+  &__number {
+      padding: 12px 19px;
+  }
+
+  &__ellipses {
+      font-weight: 700;
+  }
+}
+
+html[dir="rtl"] {
+  .pagination {
+      &__right {
+          display: none;
+
+          &--rtl{
+              &::before {
+                  content: "\f054";
+                  font: bold normal normal 19px/1 FontAwesome;
+              }
+          }
+      }
+  
+      &__left {
+          display: none;
+
+          &--rtl {
+              &::after {
+                  content: "\f053";
+                  font: bold normal normal 19px/1 FontAwesome;
+              }
+          }
+      }
+
+      &__item {
+          float: right;
+      }
+  }
+}
+
+.pagination-previous, .pagination-next {
 
   p:first-of-type {
     font-size: 1.375em;
