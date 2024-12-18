@@ -1,4 +1,5 @@
 ﻿namespace StockportWebapp.Models.ProcessedModels;
+
 public interface IContactUsMessageContainer
 {
     void AddContactUsMessage(string message, string slug = "");

@@ -1,4 +1,7 @@
-﻿namespace StockportWebapp.ViewModels;
+﻿using Org.BouncyCastle.Asn1.Cms;
+using StockportGovUK.NetStandard.Gateways.Models.RevsAndBens;
+
+namespace StockportWebapp.ViewModels;
 
 public class ArticleViewModel
 {
@@ -111,4 +114,22 @@ public class ArticleViewModel
 
         return relatedItems.Take(numberItemsToDisplay).ToList();
     }
+
+    public NavCardList PrimaryItems => new()
+    {
+        Items = Article.Events.Select(subItem => new NavCard(
+            subItem.Title, 
+            GenerateEventDetailUrl(subItem.Slug, subItem.EventDate),
+            subItem.Teaser, 
+            subItem.ThumbnailImageUrl, 
+            subItem.ImageUrl,
+            string.Empty,
+            EColourScheme.Teal,
+            subItem.EventDate,
+            subItem.StartTime
+        )).ToList()
+    };
+
+    private string GenerateEventDetailUrl(string slug, DateTime eventDate) =>
+        $"/events/{slug}?date={eventDate:yyyy-MM-dd}";
 }
