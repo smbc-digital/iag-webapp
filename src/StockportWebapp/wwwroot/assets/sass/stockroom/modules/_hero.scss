@@ -11,7 +11,7 @@
     }
 
     &__background {
-        height: 525px;
+        height: 750px;
         width: 100%;
         background-position: center;
         background-size: cover;
@@ -27,7 +27,7 @@
     }
 
     &__image {
-        height: 427px;
+        height: 652px;
 
         @media #{$mobile} {
             height: 295.5px;
@@ -76,6 +76,18 @@
             @media #{$mobile} {
                 display: none !important;
             }
+        }
+
+        &--bold {
+            font-weight: 900;
+        }
+
+        &--no-margin {
+            margin: 0;
+        }
+
+        &--margin {
+            margin-bottom: 1em;
         }
     }
 }

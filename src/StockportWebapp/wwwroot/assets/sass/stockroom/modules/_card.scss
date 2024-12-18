@@ -1,6 +1,10 @@
 .card {
     &-title {
-        margin-top: 1.333em;
+        margin-top: 1em;
+
+        &--no-margin-top {
+            margin-top: 0;
+        }
     }
 
     &-wrapper {
@@ -54,11 +58,6 @@
         }
 
         &__content {
-            &-title {
-                font-weight: 900;
-                font-size: 1.75rem;
-            }
-
             &-teaser {
                 margin-bottom: 0;
                 display: -webkit-box;
@@ -67,6 +66,14 @@
                 -webkit-box-orient: vertical;
                 overflow: hidden;
                 text-overflow: ellipsis;
+            }
+
+            &-wrapper {
+                display: flex;
+                flex-direction: column;
+                flex-basis: 0;
+                justify-content: space-between;
+                flex-grow: 1;
             }
         }
 
@@ -87,6 +94,21 @@
                 color: black;
                 width: fit-content;
                 margin-top: 1em;
+                background-color: white;
+            }
+        }
+
+        &__link {
+            text-decoration: none;
+            display: flex;
+            flex-grow: 1;
+            flex-direction: column;
+
+            &:hover, &:focus {
+                .card-item__container-btn {
+                    background-color: $skrm-yellow;
+                    color: black;
+                }
             }
         }
     }
