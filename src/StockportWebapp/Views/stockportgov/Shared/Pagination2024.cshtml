@@ -43,27 +43,27 @@
 
         @if (PaginationHelper.DisplayPagination(Model.TotalItems))
         {
-            <nav class="pagination" aria-label="Pagination">
-                <div class="pagination__prev">
+            <nav class="paginationsg" aria-label="Pagination">
+                <div class="paginationsg__prev">
                     @if (PaginationHelper.ShowPreviousLink(Model.CurrentPageNumber))
                     {
-                        <a href="@getPageUrl(Model.CurrentPageNumber - 1)" class="pagination__links">
-                            <span class="pagination__left"></span>
-                            <span class="pagination__right--rtl"></span>
+                        <a href="@getPageUrl(Model.CurrentPageNumber - 1)" class="paginationsg__links">
+                            <span class="paginationsg__left"></span>
+                            <span class="paginationsg__right--rtl"></span>
                             Previous
                             <span class="visuallyhidden">page</span>
                         </a>
                     }
                 </div>
 
-                <ul class="pagination__list">
+                <ul class="paginationsg__list">
                     @foreach (int? page in pageSequence)
                     {
                         if (page.HasValue)
                         {
                             int pageNumber = page.Value;
                             string ariaCurrent = pageNumber.Equals(Model.CurrentPageNumber) ? "aria-current=page" : string.Empty;
-                            string className = pageNumber.Equals(Model.CurrentPageNumber) ? "pagination__current" : "pagination__number";
+                            string className = pageNumber.Equals(Model.CurrentPageNumber) ? "paginationsg__current" : "paginationsg__number";
 
                             <li class="pagination__item">
                                 <a href="@getPageUrl(pageNumber)" 
@@ -74,19 +74,19 @@
                         }
                         else
                         {
-                            <li class="pagination__item pagination__ellipses">...</li>
+                            <li class="paginationsg__item paginationsg__ellipses">...</li>
                         }
                     }
                 </ul>
 
-                <div class="pagination__next">
+                <div class="paginationsg__next">
                     @if (Model.CurrentPageNumber < Model.TotalPages)
                     {
-                        <a href="@getPageUrl(Model.CurrentPageNumber + 1)" class="pagination__links">
+                        <a href="@getPageUrl(Model.CurrentPageNumber + 1)" class="paginationsg__links">
                             Next
                             <span class="visuallyhidden">page</span>
-                            <span class="pagination__left--rtl"></span>
-                            <span class="pagination__right"></span>
+                            <span class="paginationsg__left--rtl"></span>
+                            <span class="paginationsg__right"></span>
                         </a>
                     }
                 </div>
