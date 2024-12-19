@@ -8,13 +8,32 @@ public class HomepageViewModel
     public List<Event> FeaturedEvents { get; set; }
     public News FeaturedNews { get; set; }
 
-    public List<Event> GetFeaturedEventsToDisplay()
+    public NavCardList PrimaryItems()
     {
         if (FeaturedEvents is null || FeaturedEvents.Count < 3)
-            return FeaturedEvents;
+        {
+            List<NavCard> featuredEvents = FeaturedEvents.Select(subItem => new NavCard()).ToList();
+
+            return new NavCardList() { Items = featuredEvents };
+        }
 
         int numberItemsToDisplay = FeaturedEvents.Count / 3 * 3;
 
-        return FeaturedEvents.Take(numberItemsToDisplay).ToList();
+        List<NavCard> items = FeaturedEvents.Take(numberItemsToDisplay).ToList().Select(subItem => new NavCard(
+            subItem.Title, 
+            GenerateEventDetailUrl(subItem.Slug, subItem.EventDate),
+            subItem.Teaser, 
+            subItem.ThumbnailImageUrl,
+            subItem.ImageUrl,
+            string.Empty,
+            EColourScheme.Teal,
+            subItem.EventDate,
+            subItem.StartTime
+        )).ToList();
+
+        return new NavCardList() { Items = items };
     }
+
+    private string GenerateEventDetailUrl(string slug, DateTime eventDate) =>
+        $"/events/{slug}?date={eventDate:yyyy-MM-dd}";
 }
