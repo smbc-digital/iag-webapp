@@ -81,7 +81,7 @@ public class EventsController : Controller
         if (!httpHomeResponse.IsSuccessful())
             return httpHomeResponse;
 
-            EventHomepage eventHomeResponse = httpHomeResponse.Content as EventHomepage;
+        EventHomepage eventHomeResponse = httpHomeResponse.Content as EventHomepage;
 
         eventsCalendar.Homepage = eventHomeResponse ?? new EventHomepage(new List<Alert>());
         eventsCalendar.AddCarouselContents(eventHomeResponse?.Rows?.FirstOrDefault(row => !row.IsLatest)?.Events.Take(5).ToList());

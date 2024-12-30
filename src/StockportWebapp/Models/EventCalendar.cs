@@ -1,6 +1,4 @@
-﻿using SharpKml.Dom.Atom;
-
-namespace StockportWebapp.Models;
+﻿namespace StockportWebapp.Models;
 
 public class EventCalendar
 {
