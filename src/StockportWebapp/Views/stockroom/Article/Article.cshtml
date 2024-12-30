@@ -67,7 +67,17 @@
     <partial name="RelatedContent" model="@Model.Article.RelatedContent" view-data='@(new ViewDataDictionary(ViewData) { { "itemsToDisplay", @itemsToDisplay } })' />
 }
 
-@if (Model.Article.Events.Any() && Model.Article.Events.Count.Equals(3))
+@if (Model.Article.Events is not null && Model.Article.Events.Any() && Model.Article.Events.Count.Equals(3))
 {
-    <partial name="HomepageWhatsOn" model="Model.Article.Events" view-data='@(new ViewDataDictionary(ViewData) { {"isOnHomepage", false} })' />
+    <div class="grid-container-full-width" style="background-color: #f2f2f2;">
+        <div class="grid-container">
+            <div class="grid-100">
+                <div class="hero__about hero__about--no-padding-top">
+                    <h2 class="card-title card-title--no-margin-top h-xl">Related events</h2>
+
+                    <partial name="NavCards" model="Model.PrimaryItems" view-data='@(new ViewDataDictionary(ViewData) { { "itemsType", "events" } })' />
+                </div>
+            </div>
+        </div>
+    </div>
 }
