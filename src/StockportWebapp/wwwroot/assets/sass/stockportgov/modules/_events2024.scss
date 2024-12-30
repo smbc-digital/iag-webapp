@@ -65,6 +65,16 @@
             font-weight: 500;
         }
 
+        &-container {
+            display: flex;
+            flex-direction: row;
+            padding-bottom: 0.5em;
+
+            &--date {
+                width: 100%;
+            }
+        }
+
         &-options {
             margin-block-start: 1em; 
             background-color: white;
@@ -132,6 +142,10 @@
         padding: 3em 0;
         margin-block-end: 0 !important;
 
+        @media #{$tablet} {
+            padding: 2em 0;
+        }   
+
         &-item {
             @media #{$tablet} {
                 margin-inline-start: 0;
@@ -140,7 +154,13 @@
             @media #{$mobile} {
                 width: 50% !important;
             }   
-        }   
+        }
+
+        &--padding {
+            @media #{$tablet} {
+                padding: 0 0 1em 0 !important;
+            }
+        }
     }
 
     &__navcard-wrapper {
@@ -193,12 +213,17 @@
     }
 
     &__search {
-        margin-block-start: 2em;
+        @media #{$tablet} {
+            margin-block-start: 2em;
+        }   
 
-        &-date {
-            
-            h2 {
-                margin: 0 0 1em 0;
+        &-date {       
+            h2  {
+                margin: 1em 0;
+
+                @media #{$mobile} {
+                    margin: 0 0 1em 0;
+                }   
             }
         }
     }
