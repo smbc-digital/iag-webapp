@@ -33,9 +33,20 @@
 
 <h1 class="visuallyhidden">Stockroom events</h1>
 
-@if (Model.CarouselContents is not null && Model.CarouselContents.Any())
+@if (Model.CarouselContents is not null && Model.CarouselContents.Any() && !Model.CategoryIsSelected)
 {
     <partial name="HeroCarousel" model="@Model.CarouselContents" view-data='@(new ViewDataDictionary(ViewData) { { "isOnHomepage", false } })' />
+}
+
+@if(Model.CategoryIsSelected)
+{
+    <div class="hero hero__banner" style="background-image: url(@Model.SelectedCategory.Image?fm=webp);">
+        <div class="grid-container hero__wrapper">
+            <div class="grid-100">
+                <h1 class="image-banner__title-hero font--bold-extra-squeezed">@Model.SelectedCategory.Name Events</h1>
+            </div>
+        </div>
+    </div>
 }
 
 <nav aria-label="Event category navigation" class="event-homepage__category-wrapper">

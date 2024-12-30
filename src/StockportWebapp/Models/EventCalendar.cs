@@ -11,11 +11,30 @@ public class EventCalendar
     [EndDateLaterThanStartDateValidation("DateFrom", "End date should be on or after the start date")]
     public DateTime? DateTo { get; set; }
     public string Category { get; set; }
+    public bool CategoryIsSelected =>
+        string.IsNullOrEmpty(Category)
+        ? false
+        : true;
+    public EventCategory SelectedCategory
+    {
+       get
+        {
+            var result = CategoryIsSelected
+                ? Homepage?.Categories?.SingleOrDefault(category => category.Slug.Equals(Category))
+                : null;
+
+            return result;
+        }
+    }
+        
+        
+
     public string DateRange { get; set; }
     public string DateSelection { get; set; }
     public List<Event> Events { get; private set; } = new();
     public List<Event> FeaturedEvents { get; private set; } = new();
     public List<string> Categories { get; private set; } = new();
+    
     public string Tag { get; set; }
     public bool Free { get; set; }
     public string[] Price { get; set; }

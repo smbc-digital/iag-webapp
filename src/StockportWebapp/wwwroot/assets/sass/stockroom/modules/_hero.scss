@@ -1,6 +1,16 @@
 .hero {
     position: relative;
 
+    &__banner {
+        height: 750px;
+        display: flex;
+        place-items: center;
+        background-position: center;
+        background-size: cover;    
+        color:white;
+        background-color: $skrm-pink
+    }
+
     &__background {
         height: 750px;
         width: 100%;
