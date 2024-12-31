@@ -1,0 +1,43 @@
+﻿.cc-nb-main-container {
+    max-width: 1280px !important;
+    margin: auto !important;
+    padding: 1.5rem !important;
+    font: 1.1875rem / 1.5 Lexend, Noto Sans, sans-serif !important;
+}
+
+.freeprivacypolicy-com---nb {
+    background-color: $skrm-stone !important;
+    font-size: 1.1875rem !important;
+    min-height: 225px;
+
+    @media only screen and (max-width: 47.99375em) {
+        min-height: 280px;
+    }
+}
+
+.cc-nb-reject, .cc-nb-okagree {
+    background-color: $skrm-orange !important;
+    font-size: 1.1875rem !important;
+    font-weight: normal !important;
+}
+
+.cc-nb-reject:hover, .cc-nb-okagree:hover {
+    background-color: $skrm-orange !important;
+}
+
+.cc-nb-changep {
+    color: $skrm-orange-darker !important;
+    background-color: white !important;
+    font-size: 1.1875rem !important;
+    font-weight: normal !important;
+}
+
+.cc-nb-changep:hover {
+    color: darken($skrm-orange-darker, 5%) !important;
+    background-color: rgba($skrm-orange-darker, 0.1) !important;
+}
+
+.cc-nb-text {
+    color: black !important;
+    font-size: 1.1875rem !important;
+}
