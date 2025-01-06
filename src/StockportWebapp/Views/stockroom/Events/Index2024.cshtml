@@ -25,10 +25,6 @@
     {
         eventsTitle = "Free events";
     }
-
-    string categoryMarginTop = Model.CarouselContents is not null && Model.CarouselContents.Any()
-        ? string.Empty
-        : "event-homepage__categories--margin-top";
 }
 
 <h1 class="visuallyhidden">Stockroom events</h1>
@@ -50,27 +46,13 @@
 }
 else
 {
-    <nav aria-label="Event category navigation" class="event-homepage__category-wrapper">
-        <div class="grid-container">
-            <div class="grid-100">
-                <ul class="event-homepage__categories @categoryMarginTop">
-                    @foreach (var eventCategory in Model.Homepage.Categories)
-                    {
-                        <li class="event-homepage__categories-item">
-                            <a href="@($"{Url.Action("Index", "Events")}?category={eventCategory.Slug}&free={Model.Free}")">@eventCategory.Name</a>
-                        </li>
-                    }
-                </ul>
-            </div>
-        </div>
-    </nav>
+    <partial name="EventsCategories" />
+
 }
-
-
 
 @if (Model.FromSearch)
 {
-    <partial name="EventsDateFilters" model='Model'/>
+    <partial name="EventsDateFilters" />
 }
 
 @if (Model.Homepage.NextEvents.Any()) 

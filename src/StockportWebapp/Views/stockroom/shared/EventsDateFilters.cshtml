@@ -10,12 +10,6 @@
                     <h3 class="visuallyhidden">Filter</h3>
 
                     <div class="events-filters">
-
-@*                         <div class="events-filters__radio-item">
-                            <input type="radio" asp-for="@Model.DateSelection" value="today" id="radio-today" class="events-filters__radio"/>
-                            <label for="radio-today" class="events-filters__label">Today</label>
-                        </div> *@
-
                         <div class="events-filters__radio-item">
                             <label for="event-date" class="events-filters__date-label">Category</label>
                             <select type="" id="event-category" asp-for="@Model.Category" placeholder="Cateogory" class="events-filters__date">
@@ -36,9 +30,6 @@
                                 }
                             </select>
                         </div>
-
-
-
 
                         <div class="events-filters__radio-item">
                             <input type="radio" asp-for="@Model.DateSelection" value="thisWeek" id="radio-this-week" class="events-filters__radio"/>
