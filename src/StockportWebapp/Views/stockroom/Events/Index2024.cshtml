@@ -48,32 +48,28 @@
         </div>
     </div>
 }
-
-<nav aria-label="Event category navigation" class="event-homepage__category-wrapper">
-    <div class="grid-container">
-        <div class="grid-100">
-            <ul class="event-homepage__categories @categoryMarginTop">
-                @foreach (var eventCategory in Model.Homepage.Categories)
-                {
-                    <li class="event-homepage__categories-item">
-                        <a href="@($"{Url.Action("Index", "Events")}?category={eventCategory.Slug}&free={Model.Free}")">@eventCategory.Name</a>
-                    </li>
-                }
-            </ul> 
+else
+{
+    <nav aria-label="Event category navigation" class="event-homepage__category-wrapper">
+        <div class="grid-container">
+            <div class="grid-100">
+                <ul class="event-homepage__categories @categoryMarginTop">
+                    @foreach (var eventCategory in Model.Homepage.Categories)
+                    {
+                        <li class="event-homepage__categories-item">
+                            <a href="@($"{Url.Action("Index", "Events")}?category={eventCategory.Slug}&free={Model.Free}")">@eventCategory.Name</a>
+                        </li>
+                    }
+                </ul>
+            </div>
         </div>
-    </div>
-</nav>
+    </nav>
+}
+
+
 
 @if (Model.FromSearch)
 {
-    <div class="grid-container-full-width event-homepage__category-wrapper">
-        <div class="grid-container">
-            <div class="grid-100">
-                <h2 class="h-xl">@eventsTitle</h2>
-            </div>
-        </div>
-    </div>
-
     <partial name="EventsDateFilters" model='Model'/>
 }
 
