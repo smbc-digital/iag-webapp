@@ -38,7 +38,7 @@
         &__hero {
             max-height: 750px;
             height: 750px;
-            
+
             &--overlay {
                 height: 100%;
                 background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.8) 100%);
@@ -61,11 +61,15 @@
         &__article {
             width: 70%;
             text-align: center;
-            margin-bottom: 5rem;
+            margin-bottom: 10rem;
             justify-items: center;
 
             @media #{$tablet} {
-                margin-bottom: 5.5rem;
+                margin-bottom: 10rem;
+            }
+
+            @media #{$mobile} {
+                margin-bottom: 6.5rem;
             }
         }
 
@@ -101,7 +105,7 @@
         height: 50px;
         border-radius: 50%;
         top: 50%;
-        
+
         &-prev {
             left: 10px;
         }
@@ -117,7 +121,7 @@
         &:hover {
             background-color: $skrm-orange;
             color: black;
-            
+
             .carousel-icon {
                 fill: black;
             }
@@ -174,12 +178,12 @@
                 opacity: 1;
                 transform: scale(1);
             }
-        
+
             &.small {
                 opacity: 0.5;
                 transform: scale(0.8);
             }
-        
+
             &.hidden {
                 display: none;
             }
