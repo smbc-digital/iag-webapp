@@ -6,7 +6,7 @@
         ? Model.TeaserImage
         : Model.Image;
 
-    string type = (string)ViewData["itemsType"];
+    string type = (string)ViewData["itemsType"] ?? string.Empty;
 }
 
 <li class="card-item">
