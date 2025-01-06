@@ -1,3 +1,6 @@
+using Microsoft.AspNetCore.Components.RenderTree;
+using Microsoft.Extensions.Logging;
+
 namespace StockportWebapp.Controllers;
 
 public class ContactUsController : Controller
@@ -30,13 +33,14 @@ public class ContactUsController : Controller
     [ServiceFilter(typeof(ValidateReCaptchaAttribute))]
     public async Task<IActionResult> Contact(ContactUsDetails contactUsDetails)
     {
+        _logger.LogError($"ContactUsController:Contact:Request received {contactUsDetails.Title}, {contactUsDetails.ServiceEmailId}");
         var contactUsModel = await GetContactUsId(contactUsDetails.ServiceEmailId);
-
         contactUsDetails.ServiceEmail = contactUsModel.EmailAddress;
 
         string redirectUrl;
         if (!string.IsNullOrEmpty(contactUsModel.SuccessPageReturnUrl))
         {
+            _logger.LogError($"ContactUsController:Contact:Redirect to {contactUsModel.SuccessPageReturnUrl}");
             redirectUrl = contactUsModel.SuccessPageReturnUrl;
         }
         else
@@ -44,20 +48,25 @@ public class ContactUsController : Controller
             var referer = Request.Headers["referer"];
             if (string.IsNullOrEmpty(referer))
             {
+                _logger.LogError($"ContactUsController:Contact:No referer found");
                 return NotFound();
             }
+
+            _logger.LogError($"ContactUsController:Contact:Redirect to refeer {referer}");
             redirectUrl = new UriBuilder(referer).Path;
         }
-
-        var message = "We have been unable to process the request. Please try again later.";
         
         if (await _featureManager.IsEnabledAsync("SendContactUsEmails"))
         {
+            var message = "We have been unable to process the request. Please try again later.";
+
             if (ModelState.IsValid)
             {
                 var successCode = await SendEmailMessage(contactUsDetails);
                 if (IsSuccess(successCode))
                 {
+                    _logger.LogError($"ContactUsController:Contact:Redirect to action on success {redirectUrl}");
+
                     return RedirectToAction("ThankYouMessage", new ThankYouMessageViewModel
                     {
                         ReturnUrl = redirectUrl,
@@ -67,14 +76,19 @@ public class ContactUsController : Controller
             }
             else
             {
+                _logger.LogError($"ContactUsController:Contact: Model has errors");
                 message = GetErrorsFromModelState(ModelState);
             }
+
+            _logger.LogError($"ContactUsController:Contact:Redirect to action on failure {message} {redirectUrl}");
 
             var toUrl = $"{redirectUrl}?message={message}" + "#error-message-anchor";
             return await Task.FromResult(Redirect(toUrl));
         }
         else
         {
+            _logger.LogError($"ContactUsController:Contact:Redirect to Thank You {redirectUrl}");
+
             return RedirectToAction("ThankYouMessage", new ThankYouMessageViewModel
             {
                 ReturnUrl = redirectUrl,
