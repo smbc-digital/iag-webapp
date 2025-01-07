@@ -76,7 +76,7 @@
         <div class="grid-container">
             <div class="grid-100">
                 <div class="hero__about hero__about--no-padding-top">
-                    <h2 class="card-title card-title--no-margin-top h-xl">Related events</h2>
+                    <h2 class="card-title @(Model.Article.RelatedContent.Any() ? "card-title--no-margin-top" : string.Empty) h-xl">Related events</h2>
 
                     <partial name="NavCards" model="Model.PrimaryItems" view-data='@(new ViewDataDictionary(ViewData) { { "itemsType", "events" } })' />
                 </div>
