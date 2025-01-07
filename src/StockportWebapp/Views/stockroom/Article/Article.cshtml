@@ -40,7 +40,10 @@
                             }
                         </p>
 
-                        <p>Published: <strong><partial name="FormattedDate" model="@Model.Article.PublishedOn" /></strong></p>
+                        @if (Model.Article.HideLastUpdated is false)
+                        {
+                            <p>Published: <strong><partial name="FormattedDate" model="@Model.Article.PublishedOn" /></strong></p>
+                        }
                     </div>
                 </div>
             </div>
