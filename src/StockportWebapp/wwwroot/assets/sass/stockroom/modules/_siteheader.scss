@@ -1,11 +1,11 @@
 .site-header {
     color: black;
     background-color: $skrm-yellow;
-    min-height: 95px;
+    min-height: 100px;
 
     &_logo {
         &--image {
-            max-height: 54px;
+            max-height: 50px;
             width: auto;
             margin-block: 1.5rem;
             display: inline-block;
@@ -16,18 +16,6 @@
                 min-height: 35px;
                 object-fit: contain;
             }
-
-            @media #{$mobile} {
-                margin-block: 1.2rem;
-            }
-
-            @media #{$small-mobile} {
-                margin-block: 1.1rem;
-            }
-        }
-
-        @media #{$tablet} {
-            height: auto;
         }
     }
 
@@ -49,57 +37,14 @@
             }
         }
 
-        @media #{$tablet} {
-            label {
-                display: block;
-                padding: 1.5rem 1rem 1rem;
-                text-transform: uppercase;
-                cursor: pointer;
-            }
-
-            #menu:not(:checked) + ul {
-                visibility: hidden;
-                opacity: 0;
-                max-height: 0;
-                overflow: hidden;
-                transition: opacity 0.2s ease, max-height 0.2s ease;
-                padding-block: 0;
-
-            }
-
-            #menu:checked + ul {
-                visibility: visible;
-                opacity: 1;
-                max-height: 1000px;
-                overflow: visible;
-                transition: opacity 0.4s ease, max-height 0.4s ease;
-            }
-        }
-
-        @media #{$mobile} {
-            svg {
-                width: 40px;
-                height: 40px;
-            }
-        }
-
-        @media #{$small-mobile} {
-            svg {
-                width: 35px;
-                height: 35px;
-            }
-        }
-
         ul {
             list-style-type: none;
             margin: 0;
             padding: 0;
-            overflow: hidden;
             display: flex;
             justify-content: flex-end;
             flex-wrap: wrap;
-            overflow: hidden;
-            
+
             @media #{$tablet} {
                 display: block;
                 opacity: 0;
@@ -126,16 +71,18 @@
                     display: inline-block;
                     text-decoration: none;
                     color: black;
-                    padding: 1rem 0.75rem;
+                    padding: 0rem 0.75rem;
                     text-transform: uppercase;
                     letter-spacing: 0;
+                    font-size: 3.5rem;
+
+                    @media #{$desktop} {
+                        min-height: 100px;
+                        line-height: 100px;
+                    }
 
                     @media #{$tablet-only, $desktop} {
                         font-weight: normal;
-                    }
-
-                    @media #{$tablet} {
-                        padding: 0;;
                     }
 
                     &:hover, &:focus {
@@ -152,14 +99,6 @@
                         display: block;
                     }
                 }
-
-                &:first-child {
-                    margin-inline-end: 0rem;
-                }
-
-                &:last-child {
-                    margin-inline-start: 0rem;
-                }
             }
 
             @media #{$tablet} {
@@ -168,6 +107,35 @@
                 border-top: 2px solid black;
             }
         }
+
+        @media #{$tablet} {
+            label {
+                display: block;
+                padding: 1.5rem 0.75rem 1.5rem 0.75rem;
+                text-transform: uppercase;
+                cursor: pointer;
+            }
+
+            #menu:not(:checked) + ul {
+                visibility: hidden;
+                opacity: 0;
+                height: 0px;
+                overflow: hidden;
+                transition: opacity 0.2s ease, max-height 0.2s ease;
+                padding-block: 0;
+            }
+
+            #menu:checked + ul {
+                visibility: visible;
+                opacity: 1;
+                height: auto;
+                min-height: 100px;
+                max-height: 1000px;
+                overflow: visible;
+                transition: opacity 0.4s ease, max-height 0.4s ease;
+            }
+        }
+
 
         &-item.active a {
             background-color: $skrm-orange;

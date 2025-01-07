@@ -8,7 +8,7 @@
     </nav>
 
     <header role="banner" id="header" class="grid-container" data-cy="header-new">
-        <div class="grid-25 tablet-grid-66 mobile-grid-66">
+        <div class="grid-25 tablet-grid-80 mobile-grid-80">
             <a href="/" style="float:left" class="site-header_logo">
                 <img src="@Model.Logo?fm=webp" 
                         class="site-header_logo--image"
@@ -29,7 +29,7 @@
             <ul>    
                 @foreach(var item in Model.Items)
                 {
-                    <li class="site-header_menu-item h-xxl">
+                    <li class="site-header_menu-item">
                         <a href="@item.NavigationLink">
                             @item.Title
                         </a>

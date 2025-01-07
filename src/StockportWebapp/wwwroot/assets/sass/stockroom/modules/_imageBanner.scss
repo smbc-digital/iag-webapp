@@ -70,7 +70,7 @@
         align-items: center;
         width: 100%;
         height: 100%;
-        background: rgba(0, 0, 0, 0.5);
+        background: rgba(0, 0, 0, 0.2);
         word-break: break-word;
 
         @media #{$mobile} {
@@ -108,17 +108,17 @@
 
         &-hero {
             text-transform: uppercase;
-            font-size: 7rem;
+            font-size: 9rem;
             width: 100%;
             margin: 0;
 
             @media #{$tablet} {
-                font-size: 5rem;
+                font-size: 7rem;
             }
 
             @media #{$mobile} {
                 width: 95%;
-                font-size: 3rem;
+                font-size: 5rem;
             }
 
             p {
