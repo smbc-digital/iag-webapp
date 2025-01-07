@@ -6,7 +6,7 @@ a:focus {
    outline: 3px solid #ef8a16!important;
 }
 
-.visuallyhidden {
+@mixin visually-hidden {
     position: absolute;
     width: 1px;
     height: 1px;
@@ -15,6 +15,16 @@ a:focus {
     overflow: hidden;
     clip: rect(0,0,0,0);
     border: 0;
+}
+
+.visuallyhidden {
+    @include visually-hidden;
+}
+
+@media #{$desktop} {
+    .desktop-visuallyhidden {
+        @include visually-hidden;
+    }
 }
 
 .skip-to-main-content {
