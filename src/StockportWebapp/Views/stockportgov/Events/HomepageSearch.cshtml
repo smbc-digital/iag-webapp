@@ -2,12 +2,11 @@
 @model EventCalendar
 @{
     DateTime previousEnteredDate = DateTime.MinValue;
-    bool hasEvents = Model.Events.Any();
 }
 
 <div class="grid-container" id="event-listing-container">
     <div class="grid-100 event-homepage__search">
-        @if (!hasEvents)
+        @if (!Model.Events.Any())
         {
             <div class="grid-container grid-100">
                 <h1>There are currently no events matching your search.</h1>
@@ -15,38 +14,31 @@
                 {
                     <p>This is because you searched for an invalid date range.</p>
                 }
-
                 <p>Please edit your search and try again.</p>
             </div>
         }
-
-        @foreach (Event eventItem in Model.Events)
+        else
         {
-            string start = string.Empty;
-            string end = string.Empty;
-            string div = "<div class='event-homepage__search-date'>";
+            @foreach (Event eventItem in Model.Events)
+            {
+                if (!previousEnteredDate.Equals(eventItem.EventDate))
+                {
+                    if (!previousEnteredDate.Equals(DateTime.MinValue))
+                    {
+                        @Html.Raw("</ul></div>");
+                    }
 
-            @if (!previousEnteredDate.Equals(eventItem.EventDate))
-            {   
-                if (previousEnteredDate != DateTime.MinValue)
-                    end = "</ul></div>";
+                    @Html.Raw("<div class='event-homepage__search-date'>");
+                    <h2>@viewHelper.FormatEventDate(eventItem.EventDate)</h2>
+                    @Html.Raw("<ul class='navcard-wrapper navcard-wrapper--no-margin'>");
+                }
 
-                start = "<ul class='navcard-wrapper navcard-wrapper--no-margin'>";
-                @Html.Raw(end);
-                @Html.Raw(div);
-                <h2>@viewHelper.FormatEventDate(eventItem.EventDate)</h2>
-            } 
-
-            @Html.Raw(start);
-            <partial name="EventCard" model="eventItem" view-data="@(new ViewDataDictionary(ViewData) {{"backgroundColourClass", "event-cards__link--white"}})"/>
-            previousEnteredDate = eventItem.EventDate.Date;
-        }
-
-        @if (hasEvents)
-        {
+                <partial name="EventCard" model="eventItem" view-data="@(new ViewDataDictionary(ViewData) {{"backgroundColourClass", "event-cards__link--white"}})"/>
+                previousEnteredDate = eventItem.EventDate.Date;
+            }
+            </div>
             <div class="grid-100">
                 <partial name="Pagination2024" model='Model.Pagination'/>
             </div>
         }
-        </div>
 </div>
