@@ -14,8 +14,6 @@
 {
     <div class="pagination-section grid-parent pagination-margin-bottom">
         <div class="pagination__count">
-            <div class="grid-container">
-                <div class="grid-100">
                     <span class="pagination__count-span">
                         Showing 
                         <span class="bold">@indexOfFirstItemOnPage</span>
@@ -37,8 +35,6 @@
                                     : "per page")
                         </a>
                     }
-                </div>
-            </div>
         </div>
 
         @if (PaginationHelper.DisplayPagination(Model.TotalItems))
