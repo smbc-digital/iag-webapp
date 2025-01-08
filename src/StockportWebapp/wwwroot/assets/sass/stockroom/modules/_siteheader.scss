@@ -99,14 +99,6 @@
                         display: block;
                     }
                 }
-
-                &:first-child {
-                    margin-inline-end: 0rem;
-                }
-
-                &:last-child {
-                    margin-inline-start: 0rem;
-                }
             }
 
             @media #{$tablet} {

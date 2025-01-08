@@ -17,23 +17,24 @@
 
 .cc-nb-reject, .cc-nb-okagree {
     background-color: $skrm-orange !important;
+    color: black !important;
     font-size: 1.1875rem !important;
     font-weight: normal !important;
 }
 
 .cc-nb-reject:hover, .cc-nb-okagree:hover {
-    background-color: $skrm-orange !important;
+    background-color: $skrm-orange-lighter !important;
 }
 
 .cc-nb-changep {
-    color: $skrm-orange-darker !important;
+    color: black !important;
     background-color: white !important;
     font-size: 1.1875rem !important;
     font-weight: normal !important;
 }
 
 .cc-nb-changep:hover {
-    color: darken($skrm-orange-darker, 5%) !important;
+    color: black !important;
     background-color: rgba($skrm-orange-darker, 0.1) !important;
 }
 
