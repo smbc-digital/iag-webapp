@@ -1,6 +1,4 @@
 define(['jquery'], function ($) {
-    let hasInitialized = false;
-
     var disableEmptyInputs = function (form) {
         const inputs = form.querySelectorAll('input, select');
 
@@ -12,14 +10,10 @@ define(['jquery'], function ($) {
     };
 
     return {
-        Init: function () {
-            if (!hasInitialized) {
-                hasInitialized = true;
-                
-                $('#homepageFilters').on('submit', function (event) {
-                    disableEmptyInputs(this);
-                });
-            }
+        Init: function () {             
+            $('#homepageFilters').on('submit', function (event) {
+                disableEmptyInputs(this);
+            });
         }
     };
 });
