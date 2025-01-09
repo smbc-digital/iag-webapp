@@ -43,6 +43,5 @@ public class Showcase
     public IEnumerable<Event> Events { get; set; }
 
     public Showcase()
-    {
-    }
+    { }
 }

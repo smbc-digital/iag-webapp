@@ -15,8 +15,15 @@ public class ProcessedOrganisation : IProcessedContentType
 
     public ProcessedOrganisation() { }
 
-    public ProcessedOrganisation(string title, string slug, string imageUrl, string aboutUs, string phone,
-        string email, List<Group> groups, Volunteering volunteering, Donations donations)
+    public ProcessedOrganisation(string title,
+                                string slug,
+                                string imageUrl,
+                                string aboutUs,
+                                string phone,
+                                string email,
+                                List<Group> groups,
+                                Volunteering volunteering,
+                                Donations donations)
     {
         Title = title;
         Slug = slug;
@@ -29,8 +36,6 @@ public class ProcessedOrganisation : IProcessedContentType
         Donations = donations;
     }
 
-    internal void SetCurrentUrl(string host)
-    {
+    internal void SetCurrentUrl(string host) =>
         CurrentUrl = host;
-    }
 }

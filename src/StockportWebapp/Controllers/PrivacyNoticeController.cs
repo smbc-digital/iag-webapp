@@ -1,10 +1,8 @@
 ﻿namespace StockportWebapp.Controllers;
 
-public class PrivacyNoticeController : Controller
+public class PrivacyNoticeController(IProcessedContentRepository repository) : Controller
 {
-    private readonly IProcessedContentRepository _repository;
-
-    public PrivacyNoticeController(IProcessedContentRepository repository) => _repository = repository;
+    private readonly IProcessedContentRepository _repository = repository;
 
     [HttpGet]
     [Route("/privacy-notices/{slug}")]

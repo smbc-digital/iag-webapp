@@ -1,6 +1,5 @@
 ﻿namespace StockportWebapp.Models.Exceptions;
 
-public class GroupsServiceException : Exception
+public class GroupsServiceException(string message) : Exception(message)
 {
-    public GroupsServiceException(string message) : base(message) { }
 }

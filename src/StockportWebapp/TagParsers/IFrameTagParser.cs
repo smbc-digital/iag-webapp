@@ -10,13 +10,13 @@ public class IFrameTagParser : ISimpleTagParser
         tagData.Replace("{{IFRAME:", string.Empty);
         tagData.Replace("}}", string.Empty);
 
-        var ValidUrl = new Regex(@"^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$");
+        Regex ValidUrl = new(@"^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$");
 
-        var splitTagData = tagData.Split(";");
+        string[] splitTagData = tagData.Split(";");
         if (!ValidUrl.IsMatch(splitTagData[0]))
             return null;
 
-        var iFrameTitle = string.Empty;
+        string iFrameTitle = string.Empty;
 
         if (splitTagData.Length > 1)
             iFrameTitle = $"title=\"{splitTagData[1]}\"";
@@ -24,10 +24,9 @@ public class IFrameTagParser : ISimpleTagParser
         return $"<iframe {iFrameTitle} class='mapframe' allowfullscreen src='{splitTagData[0]}'></iframe>";
     }
 
-    public IFrameTagParser()
-    {
+    public IFrameTagParser() =>
         _tagReplacer = new TagReplacer(GenerateHtml, TagRegex);
-    }
 
-    public string Parse(string body, string title = null) => _tagReplacer.ReplaceAllTags(body);
+    public string Parse(string body, string title = null) =>
+        _tagReplacer.ReplaceAllTags(body);
 }

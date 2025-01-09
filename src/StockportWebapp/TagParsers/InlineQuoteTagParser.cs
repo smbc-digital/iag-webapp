@@ -1,28 +1,25 @@
 ﻿namespace StockportWebapp.TagParsers;
 
-public class InlineQuoteTagParser : IDynamicTagParser<InlineQuote>
+public class InlineQuoteTagParser(IViewRender viewRenderer) : IDynamicTagParser<InlineQuote>
 {
-    private readonly IViewRender _viewRenderer;
-
-    public InlineQuoteTagParser(IViewRender viewRenderer) => _viewRenderer = viewRenderer;
+    private readonly IViewRender _viewRenderer = viewRenderer;
 
     protected Regex TagRegex => new("{{QUOTE:(\\s*[/a-zA-Z0-9][^}]+)}}", RegexOptions.Compiled);
 
     public bool HasMatches(string content) => TagRegex.IsMatch(content);
 
-
     public string Parse(string body, IEnumerable<InlineQuote> dynamicContent, bool redesigned = false)
     {
-        var matches = TagRegex.Matches(body);
+        MatchCollection matches = TagRegex.Matches(body);
 
         foreach (Match match in matches)
         {
-            var tagSlug = match.Groups[1].Value;
-            var inlineQuote = dynamicContent?.FirstOrDefault(_ => _.Slug.Equals(tagSlug));
+            string tagSlug = match.Groups[1].Value;
+            InlineQuote inlineQuote = dynamicContent?.FirstOrDefault(_ => _.Slug.Equals(tagSlug));
 
-            if (inlineQuote != null)
+            if (inlineQuote is not null)
             {
-                var renderedInlineQuote = _viewRenderer.Render("InlineQuote", inlineQuote);
+                string renderedInlineQuote = _viewRenderer.Render("InlineQuote", inlineQuote);
                 body = TagRegex.Replace(body, renderedInlineQuote, 1);
             }
         }

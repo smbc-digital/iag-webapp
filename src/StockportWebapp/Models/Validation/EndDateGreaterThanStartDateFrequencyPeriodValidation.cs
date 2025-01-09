@@ -1,16 +1,12 @@
 ﻿namespace StockportWebapp.Models.Validation;
 
 [ExcludeFromCodeCoverage]
-public class EndDateGreaterThanStartDateFrequencyPeriodValidation : ValidationAttribute
+public class EndDateGreaterThanStartDateFrequencyPeriodValidation(string otherPropertyName,
+                                                                string frequencyPropertyName,
+                                                                string errorMessage) : ValidationAttribute(errorMessage)
 {
-    private readonly string _otherPropertyName;
-    private readonly string _frequencyPropertyName;
-
-    public EndDateGreaterThanStartDateFrequencyPeriodValidation(string otherPropertyName, string frequencyPropertyName, string errorMessage) : base(errorMessage)
-    {
-        _otherPropertyName = otherPropertyName;
-        _frequencyPropertyName = frequencyPropertyName;
-    }
+    private readonly string _otherPropertyName = otherPropertyName;
+    private readonly string _frequencyPropertyName = frequencyPropertyName;
 
     protected override ValidationResult IsValid(object value, ValidationContext validationContext)
     {
@@ -18,7 +14,6 @@ public class EndDateGreaterThanStartDateFrequencyPeriodValidation : ValidationAt
         PropertyInfo field = containerType.GetProperty(_otherPropertyName, BindingFlags.Public | BindingFlags.Instance);
         object extensionValue = field.GetValue(validationContext.ObjectInstance);
         DateTime? startDate = extensionValue as DateTime?;
-
 
         PropertyInfo frequencyField = containerType.GetProperty(_frequencyPropertyName, BindingFlags.Public | BindingFlags.Instance);
         object frequencyValue = frequencyField.GetValue(validationContext.ObjectInstance);
@@ -28,12 +23,13 @@ public class EndDateGreaterThanStartDateFrequencyPeriodValidation : ValidationAt
             return new ValidationResult("Should enter valid Start Date");
         // "Daily", "Weekly", "Fortnightly", "Monthly Date", "Monthly Day", "Yearly"
 
-        var endDate = value as DateTime?;
+        DateTime? endDate = value as DateTime?;
         if (!endDate.HasValue)
             return ValidationResult.Success;
 
         DateTime validationDate = startDate.Value;
-        string validationMessage = string.Empty;
+        string validationMessage;
+
         switch (frequency)
         {
             case "Daily":

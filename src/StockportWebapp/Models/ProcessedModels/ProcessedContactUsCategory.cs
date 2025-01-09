@@ -1,18 +1,12 @@
 ﻿namespace StockportWebapp.Models.ProcessedModels;
 [ExcludeFromCodeCoverage]
-public class ProcessedContactUsCategory : IProcessedContentType
+public class ProcessedContactUsCategory(string title,
+                                        string bodyTextLeft,
+                                        string bodyTextRight,
+                                        string icon) : IProcessedContentType
 {
-    public readonly string Title;
-    public string BodyTextLeft;
-    public string BodyTextRight;
-    public string Icon;
-
-
-    public ProcessedContactUsCategory(string title, string bodyTextLeft, string bodyTextRight, string icon)
-    {
-        Title = title;
-        BodyTextLeft = bodyTextLeft;
-        BodyTextRight = bodyTextRight;
-        Icon = icon;
-    }
+    public readonly string Title = title;
+    public string BodyTextLeft = bodyTextLeft;
+    public string BodyTextRight = bodyTextRight;
+    public string Icon = icon;
 }

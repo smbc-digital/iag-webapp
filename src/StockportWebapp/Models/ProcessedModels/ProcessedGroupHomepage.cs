@@ -3,7 +3,7 @@ public class ProcessedGroupHomepage : IProcessedContentType
 {
     public readonly string Title;
     public readonly string MetaDescription;
-    public readonly List<GroupCategory> Categories = new List<GroupCategory>();
+    public readonly List<GroupCategory> Categories = new();
     public readonly string BackgroundImage;
     public readonly string FeaturedGroupsHeading;
     public readonly List<Group> FeaturedGroups;
@@ -24,8 +24,19 @@ public class ProcessedGroupHomepage : IProcessedContentType
         ButtonText = "View more categories"
     };
 
-    public ProcessedGroupHomepage(string title, string metaDescription, string backgroundImage, string featuredGroupsHeading, List<Group> featuredGroups,
-        GroupCategory featuredGroupsCategory, GroupSubCategory featuredGroupsSubCategory, List<Alert> alerts, string bodyHeading, string body, string secondaryBodyHeading, string secondaryBody, EventBanner eventBanner)
+    public ProcessedGroupHomepage(string title,
+                                string metaDescription,
+                                string backgroundImage,
+                                string featuredGroupsHeading,
+                                List<Group> featuredGroups,
+                                GroupCategory featuredGroupsCategory,
+                                GroupSubCategory featuredGroupsSubCategory,
+                                List<Alert> alerts,
+                                string bodyHeading,
+                                string body,
+                                string secondaryBodyHeading,
+                                string secondaryBody,
+                                EventBanner eventBanner)
     {
         Title = title;
         MetaDescription = metaDescription;

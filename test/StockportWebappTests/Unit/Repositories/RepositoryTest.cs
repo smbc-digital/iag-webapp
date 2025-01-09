@@ -47,7 +47,7 @@ public class RepositoryTest
             .Setup(httpClient => httpClient.PostAsync(It.IsAny<string>(), It.IsAny<HttpContent>(), It.IsAny<Dictionary<string, string>>()))
             .ReturnsAsync(new HttpResponse(200, null, string.Empty));
 
-        _repository = new Repository(_urlGenerator, _httpClientMock.Object, appConfig.Object, _urlGeneratorSimple.Object, _mockLogger.Object);
+        _repository = new Repository(_urlGenerator, _httpClientMock.Object, appConfig.Object, _urlGeneratorSimple.Object);
     }
 
     [Fact]

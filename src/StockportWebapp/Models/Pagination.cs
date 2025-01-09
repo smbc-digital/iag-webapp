@@ -22,8 +22,7 @@ public class Pagination
     }
 
     public Pagination()
-    {
-    }
+    { }
 
     private int CalculateTotalPages(int totalNumItems)
     {
@@ -36,8 +35,6 @@ public class Pagination
         return pageCount;
     }
 
-    public static implicit operator Pagination(QueryUrl v)
-    {
+    public static implicit operator Pagination(QueryUrl v) =>
         throw new NotImplementedException();
-    }
 }

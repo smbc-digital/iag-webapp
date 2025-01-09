@@ -1,101 +1,68 @@
 ﻿namespace StockportWebapp.Models.ProcessedModels;
-public class ProcessedEvents : IProcessedContentType
+public class ProcessedEvents(string title,
+                            string slug,
+                            string teaser,
+                            string imageUrl,
+                            string thumbnailImageUrl,
+                            string description,
+                            string fee,
+                            bool? free,
+                            string location,
+                            string submittedBy,
+                            DateTime eventDate,
+                            string startTime,
+                            string endTime,
+                            List<Crumb> breadcrumbs,
+                            List<string> categories,
+                            MapDetails mapDetails,
+                            string bookingInformation,
+                            Group group,
+                            List<Alert> alerts,
+                            string accessibleTransportLink,
+                            List<GroupBranding> eventBranding,
+                            string phoneNumber,
+                            string email,
+                            string website,
+                            string facebook,
+                            string instagram,
+                            string linkedIn,
+                            string metaDescription,
+                            string duration,
+                            string languages,
+                            List<ProcessedEvents> relatedEvents) : IProcessedContentType
 {
-    public string Title { get; }
-    public string Slug { get; }
-    public string Teaser { get; }
-    public string ImageUrl { get; }
-    public string ThumbnailImageUrl { get; }
-    public string Description { get; set; }
-    public string Fee { get; }
-    public bool? Free { get; }
-    public string Location { get; }
-    public string SubmittedBy { get; }
-    public DateTime EventDate { get; }
-    public string StartTime { get; }
-    public string EndTime { get; }
-    public List<Crumb> Breadcrumbs { get; }
-    public List<string> Categories { get; }
-    public string BookingInformation { get; set; }
-    public readonly List<Alert> Alerts;
+    public string Title { get; } = title;
+    public string Slug { get; } = slug;
+    public string Teaser { get; } = teaser;
+    public string ImageUrl { get; } = imageUrl;
+    public string ThumbnailImageUrl { get; } = thumbnailImageUrl;
+    public string Description { get; set; } = description;
+    public string Fee { get; } = fee;
+    public bool? Free { get; } = free;
+    public string Location { get; } = location;
+    public string SubmittedBy { get; } = submittedBy;
+    public DateTime EventDate { get; } = eventDate;
+    public string StartTime { get; } = startTime;
+    public string EndTime { get; } = endTime;
+    public List<Crumb> Breadcrumbs { get; } = breadcrumbs;
+    public List<string> Categories { get; } = categories;
+    public string BookingInformation { get; set; } = bookingInformation;
+    public readonly List<Alert> Alerts = alerts;
+    public string AccessibleTransportLink = accessibleTransportLink;
     public readonly List<Alert> GlobalAlerts = new();
-    public MapDetails MapDetails { get; set; }
-    public List<GroupBranding> EventBranding { get; set; } = new();
-    public string PhoneNumber { get; }
-    public string Email { get; }
-    public string Website { get; }
-    public string Facebook { get; }
-    public string Instagram { get; }
-    public string LinkedIn { get; }
-    public string MetaDescription { get; set; }
-    public Group Group { get; set; }
-    public string Duration { get; }
-    public string Languages { get; }
-    public List<ProcessedEvents> RelatedEvents { get; set; }
-
-    public ProcessedEvents(string title,
-                        string slug,
-                        string teaser,
-                        string imageUrl,
-                        string thumbnailImageUrl,
-                        string description,
-                        string fee,
-                        bool? free,
-                        string location,
-                        string submittedBy,
-                        DateTime eventDate,
-                        string startTime,
-                        string endTime,
-                        List<Crumb> breadcrumbs,
-                        List<string> categories,
-                        MapDetails mapDetails,
-                        string bookingInformation,
-                        Group group,
-                        List<Alert> alerts,
-                        string accessibleTransportLink,
-                        List<GroupBranding> eventBranding,
-                        string phoneNumber,
-                        string email,
-                        string website,
-                        string facebook,
-                        string instagram,
-                        string linkedIn,
-                        string metaDescription,
-                        string duration,
-                        string languages,
-                        List<ProcessedEvents> relatedEvents)
-    {
-        Title = title;
-        Slug = slug;
-        Teaser = teaser;
-        ImageUrl = imageUrl;
-        Description = description;
-        ThumbnailImageUrl = thumbnailImageUrl;
-        Fee = fee;
-        Free = free;
-        Location = location;
-        SubmittedBy = submittedBy;
-        EventDate = eventDate;
-        StartTime = startTime;
-        EndTime = endTime;
-        Breadcrumbs = breadcrumbs;
-        Categories = categories;
-        BookingInformation = bookingInformation;
-        Group = group;
-        Alerts = alerts;
-        MapDetails = mapDetails;
-        EventBranding = eventBranding;
-        PhoneNumber = phoneNumber;
-        Email = email;
-        Website = website;
-        Facebook = facebook;
-        Instagram = instagram;
-        LinkedIn = linkedIn;
-        MetaDescription = metaDescription;
-        Duration = duration;
-        Languages = languages;
-        RelatedEvents = relatedEvents;
-    }
+    public MapDetails MapDetails { get; set; } = mapDetails;
+    public List<GroupBranding> EventBranding { get; set; } = eventBranding;
+    public string PhoneNumber { get; } = phoneNumber;
+    public string Email { get; } = email;
+    public string Website { get; } = website;
+    public string Facebook { get; } = facebook;
+    public string Instagram { get; } = instagram;
+    public string LinkedIn { get; } = linkedIn;
+    public string MetaDescription { get; set; } = metaDescription;
+    public Group Group { get; set; } = group;
+    public string Duration { get; } = duration;
+    public string Languages { get; } = languages;
+    public List<ProcessedEvents> RelatedEvents { get; set; } = relatedEvents;
 
     public bool IsAlertDisplayed(Alert alert)
         => alert.SunriseDate <= EventDate && alert.SunsetDate >= EventDate;

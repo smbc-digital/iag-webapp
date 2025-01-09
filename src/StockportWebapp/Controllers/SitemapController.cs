@@ -3,16 +3,11 @@ using Profile = StockportWebapp.Models.Profile;
 namespace StockportWebapp.Controllers;
 
 [ResponseCache(Location = ResponseCacheLocation.Any, Duration = Cache.Short)]
-public class SitemapController : Controller
+public class SitemapController(IRepository repository,
+                            ILogger<SitemapController> logger) : Controller
 {
-    private readonly IRepository _repository;
-    private readonly ILogger<SitemapController> _logger;
-
-    public SitemapController(IRepository repository, ILogger<SitemapController> logger)
-    {
-        _repository = repository;
-        _logger = logger;
-    }
+    private readonly IRepository _repository = repository;
+    private readonly ILogger<SitemapController> _logger = logger;
 
     [Route("/sitemap.xml")]
     public async Task<IActionResult> Sitemap(string type)
@@ -25,9 +20,11 @@ public class SitemapController : Controller
         switch (type)
         {
             case "news":
-                List<Query> queries = new();
-                queries.Add(new Query("DateFrom", DateTime.MinValue.ToString("yyyy-MM-dd")));
-                queries.Add(new Query("DateTo", now.ToString("yyyy-MM-dd")));
+                List<Query> queries = new()
+                {
+                    new Query("DateFrom", DateTime.MinValue.ToString("yyyy-MM-dd")),
+                    new Query("DateTo", now.ToString("yyyy-MM-dd"))
+                };
 
                 HttpResponse response = await _repository.Get<Newsroom>(queries: queries);
                 Newsroom news = response.Content as Newsroom;
@@ -54,9 +51,11 @@ public class SitemapController : Controller
                 break;
 
             case "events":
-                List<Query> queriesEvent = new List<Query>();
-                queriesEvent.Add(new Query("DateFrom", DateTime.MinValue.ToString("yyyy-MM-dd")));
-                queriesEvent.Add(new Query("DateTo", DateTime.MaxValue.ToString("yyyy-MM-dd")));
+                List<Query> queriesEvent = new()
+                {
+                    new Query("DateFrom", DateTime.MinValue.ToString("yyyy-MM-dd")),
+                    new Query("DateTo", DateTime.MaxValue.ToString("yyyy-MM-dd"))
+                };
 
                 HttpResponse responseEvent = await _repository.Get<EventCalendar>(queries: queriesEvent);
                 EventCalendar events = responseEvent.Content as EventCalendar;
@@ -108,8 +107,10 @@ public class SitemapController : Controller
                     priority = "0.5"
                 };
 
-                List<SitemapGoogle> list = new List<SitemapGoogle>();
-                list.Add(sitemapHomepage);
+                List<SitemapGoogle> list = new()
+                {
+                    sitemapHomepage
+                };
 
                 xml = SerializeObject(list);
                 break;
@@ -243,37 +244,41 @@ public class SitemapController : Controller
 
             default:
 
-                List<SitemapGoogleIndex> result = new List<SitemapGoogleIndex>();
-                result.Add(new SitemapGoogleIndex { lastmod = now.ToString("yyyy-MM-ddTHH:mm:sszzz"), loc = $"{baseURL}/google-sitemap.xml?type=news" });
-                result.Add(new SitemapGoogleIndex { lastmod = now.ToString("yyyy-MM-ddTHH:mm:sszzz"), loc = $"{baseURL}/google-sitemap.xml?type=events" });
-                result.Add(new SitemapGoogleIndex { lastmod = now.ToString("yyyy-MM-ddTHH:mm:sszzz"), loc = $"{baseURL}/google-sitemap.xml?type=article" });
-                result.Add(new SitemapGoogleIndex { lastmod = now.ToString("yyyy-MM-ddTHH:mm:sszzz"), loc = $"{baseURL}/google-sitemap.xml?type=homepage" });
-                result.Add(new SitemapGoogleIndex { lastmod = now.ToString("yyyy-MM-ddTHH:mm:sszzz"), loc = $"{baseURL}/google-sitemap.xml?type=groups" });
-                result.Add(new SitemapGoogleIndex { lastmod = now.ToString("yyyy-MM-ddTHH:mm:sszzz"), loc = $"{baseURL}/google-sitemap.xml?type=showcase" });
-                result.Add(new SitemapGoogleIndex { lastmod = now.ToString("yyyy-MM-ddTHH:mm:sszzz"), loc = $"{baseURL}/google-sitemap.xml?type=section" });
-                result.Add(new SitemapGoogleIndex { lastmod = now.ToString("yyyy-MM-ddTHH:mm:sszzz"), loc = $"{baseURL}/google-sitemap.xml?type=topic" });
-                result.Add(new SitemapGoogleIndex { lastmod = now.ToString("yyyy-MM-ddTHH:mm:sszzz"), loc = $"{baseURL}/google-sitemap.xml?type=profile" });
-                result.Add(new SitemapGoogleIndex { lastmod = now.ToString("yyyy-MM-ddTHH:mm:sszzz"), loc = $"{baseURL}/google-sitemap.xml?type=payment" });
-                result.Add(new SitemapGoogleIndex { lastmod = now.ToString("yyyy-MM-ddTHH:mm:sszzz"), loc = $"{baseURL}/google-sitemap.xml?type=start" });
+                List<SitemapGoogleIndex> result = new()
+                {
+                    new SitemapGoogleIndex { lastmod = now.ToString("yyyy-MM-ddTHH:mm:sszzz"), loc = $"{baseURL}/google-sitemap.xml?type=news" },
+                    new SitemapGoogleIndex { lastmod = now.ToString("yyyy-MM-ddTHH:mm:sszzz"), loc = $"{baseURL}/google-sitemap.xml?type=events" },
+                    new SitemapGoogleIndex { lastmod = now.ToString("yyyy-MM-ddTHH:mm:sszzz"), loc = $"{baseURL}/google-sitemap.xml?type=article" },
+                    new SitemapGoogleIndex { lastmod = now.ToString("yyyy-MM-ddTHH:mm:sszzz"), loc = $"{baseURL}/google-sitemap.xml?type=homepage" },
+                    new SitemapGoogleIndex { lastmod = now.ToString("yyyy-MM-ddTHH:mm:sszzz"), loc = $"{baseURL}/google-sitemap.xml?type=groups" },
+                    new SitemapGoogleIndex { lastmod = now.ToString("yyyy-MM-ddTHH:mm:sszzz"), loc = $"{baseURL}/google-sitemap.xml?type=showcase" },
+                    new SitemapGoogleIndex { lastmod = now.ToString("yyyy-MM-ddTHH:mm:sszzz"), loc = $"{baseURL}/google-sitemap.xml?type=section" },
+                    new SitemapGoogleIndex { lastmod = now.ToString("yyyy-MM-ddTHH:mm:sszzz"), loc = $"{baseURL}/google-sitemap.xml?type=topic" },
+                    new SitemapGoogleIndex { lastmod = now.ToString("yyyy-MM-ddTHH:mm:sszzz"), loc = $"{baseURL}/google-sitemap.xml?type=profile" },
+                    new SitemapGoogleIndex { lastmod = now.ToString("yyyy-MM-ddTHH:mm:sszzz"), loc = $"{baseURL}/google-sitemap.xml?type=payment" },
+                    new SitemapGoogleIndex { lastmod = now.ToString("yyyy-MM-ddTHH:mm:sszzz"), loc = $"{baseURL}/google-sitemap.xml?type=start" }
+                };
 
                 xml = SerializeObject(result, true);
                 break;
         }
 
-        return this.Content(xml, "text/xml");
+        return Content(xml, "text/xml");
     }
-
 
     private string SerializeObject<T>(T dataToSerialize, bool indexPage = false)
     {
         string xml = string.Empty;
-        string attribute = indexPage ? "sitemapindex" : "urlset";
-        XmlSerializerNamespaces xmlSerializerNamespace = new XmlSerializerNamespaces();
+        string attribute = indexPage
+            ? "sitemapindex"
+            : "urlset";
+        
+        XmlSerializerNamespaces xmlSerializerNamespace = new();
         string ns = "http://www.sitemaps.org/schemas/sitemap/0.9";
         xmlSerializerNamespace.Add(string.Empty, ns);
-        XmlSerializer xsSubmit = new XmlSerializer(typeof(T), null, null, new XmlRootAttribute(attribute), ns);
+        XmlSerializer xsSubmit = new(typeof(T), null, null, new XmlRootAttribute(attribute), ns);
 
-        using (Utf8StringWriter sww = new Utf8StringWriter())
+        using (Utf8StringWriter sww = new())
         {
             using (XmlWriter writer = XmlWriter.Create(sww))
             {
@@ -288,10 +293,7 @@ public class SitemapController : Controller
 
 public class Utf8StringWriter : StringWriter
 {
-    public override Encoding Encoding
-    {
-        get { return new UTF8Encoding(false); }
-    }
+    public override Encoding Encoding => new UTF8Encoding(false);
 }
 
 [XmlType("sitemap")]
@@ -301,8 +303,7 @@ public class SitemapGoogleIndex
     public string lastmod { get; set; }
 
     public SitemapGoogleIndex()
-    {
-    }
+    { }
 }
 
 [XmlType("url")]
@@ -312,6 +313,5 @@ public class SitemapGoogle : SitemapGoogleIndex
     public string changefreq { get; set; }
 
     public SitemapGoogle()
-    {
-    }
+    { }
 }

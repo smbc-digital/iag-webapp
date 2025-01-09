@@ -1,13 +1,8 @@
 ﻿namespace StockportWebapp.ContentFactory;
 
-public class HomepageFactory
+public class HomepageFactory(MarkdownWrapper markdownWrapper)
 {
-    private readonly MarkdownWrapper _markdownWrapper;
-
-    public HomepageFactory(MarkdownWrapper markdownWrapper)
-    {
-        _markdownWrapper = markdownWrapper;
-    }
+    private readonly MarkdownWrapper _markdownWrapper = markdownWrapper;
 
     public virtual ProcessedHomepage Build(Homepage homepage)
     {

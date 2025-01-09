@@ -7,25 +7,16 @@ public interface IProfileService
     Task<Profile> GetProfile(string slug);
 }
 
-public class ProfileService : IProfileService
+public class ProfileService(IRepository repository,
+                            ITagParserContainer parser,
+                            MarkdownWrapper markdownWrapper,
+                            ITriviaFactory triviaFactory
+                            ) : IProfileService
 {
-    private readonly IRepository _repository;
-    private readonly ITagParserContainer _parser;
-    private readonly MarkdownWrapper _markdownWrapper;
-    private readonly ITriviaFactory _triviaFactory;
-
-    public ProfileService(
-        IRepository repository,
-        ITagParserContainer parser,
-        MarkdownWrapper markdownWrapper,
-        ITriviaFactory triviaFactory
-    )
-    {
-        _repository = repository;
-        _parser = parser;
-        _markdownWrapper = markdownWrapper;
-        _triviaFactory = triviaFactory;
-    }
+    private readonly IRepository _repository = repository;
+    private readonly ITagParserContainer _parser = parser;
+    private readonly MarkdownWrapper _markdownWrapper = markdownWrapper;
+    private readonly ITriviaFactory _triviaFactory = triviaFactory;
 
     public async Task<Profile> GetProfile(string slug)
     {

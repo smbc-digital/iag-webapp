@@ -38,11 +38,11 @@ public static class ApplicationBuilderExtensions
             DefaultRequestCulture = new RequestCulture(ci),
             SupportedCultures = new List<CultureInfo>
             {
-                new CultureInfo("en-GB"),
+                new("en-GB"),
             },
             SupportedUICultures = new List<CultureInfo>
             {
-                new CultureInfo("en-GB"),
+                new("en-GB"),
             }
         });
 

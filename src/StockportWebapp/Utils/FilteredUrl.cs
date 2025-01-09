@@ -13,13 +13,10 @@ public interface IFilteredUrl
     RouteValueDictionary AddDateFilter(string DateFrom, string DateTo, string DateRange);
 }
 
-public class FilteredUrl : IFilteredUrl
+public class FilteredUrl(ITimeProvider timeProvider) : IFilteredUrl
 {
-    private readonly ITimeProvider _timeProvider;
+    private readonly ITimeProvider _timeProvider = timeProvider;
     private QueryUrl _queryUrl;
-
-    public FilteredUrl(ITimeProvider timeProvider) =>
-        _timeProvider = timeProvider;
 
     public void SetQueryUrl(QueryUrl queryUrl) =>
         _queryUrl = queryUrl;

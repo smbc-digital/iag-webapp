@@ -11,7 +11,7 @@ public class TopicRepository : ITopicRepository
     private readonly UrlGenerator _urlGenerator;
     private readonly IHttpClient _httpClient;
     private readonly IApplicationConfiguration _config;
-    private Dictionary<string, string> _authenticationHeaders;
+    private readonly Dictionary<string, string> _authenticationHeaders;
 
     public TopicRepository(TopicFactory topicFactory, UrlGenerator urlGenerator, IHttpClient httpClient, IApplicationConfiguration config)
     {
@@ -33,7 +33,6 @@ public class TopicRepository : ITopicRepository
         HttpResponse model = HttpResponse.Build<Topic>(httpResponse);
         Topic topic = (Topic)model.Content;
 
-        ProcessedTopic processedModel = _topicFactory.Build(topic);
-        return HttpResponse.Successful(200, processedModel);
+        return HttpResponse.Successful(200, _topicFactory.Build(topic));
     }
 }

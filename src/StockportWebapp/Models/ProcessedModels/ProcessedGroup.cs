@@ -42,8 +42,6 @@ public class ProcessedGroup : IProcessedContentType
 
     public ProcessedGroup() { }
 
-    public void SetCurrentUrl(string url)
-    {
+    public void SetCurrentUrl(string url) =>
         CurrentUrl = url;
-    }
 }

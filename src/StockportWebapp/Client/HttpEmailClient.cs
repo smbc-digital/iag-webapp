@@ -7,24 +7,15 @@ public interface IHttpEmailClient
 }
 
 [ExcludeFromCodeCoverage]
-public class HttpEmailClient : IHttpEmailClient
+public class HttpEmailClient(ILogger<HttpEmailClient> logger,
+                            IEmailBuilder emailBuilder,
+                            IAmazonSimpleEmailService amazonSimpleEmailService,
+                            bool sendAmazonEmails) : IHttpEmailClient
 {
-    private readonly IAmazonSimpleEmailService _amazonSimpleEmailService;
-    private readonly ILogger<HttpEmailClient> _logger;
-    private readonly IEmailBuilder _emailBuilder;
-    private readonly bool _sendAmazonEmails;
-
-    public HttpEmailClient(
-        ILogger<HttpEmailClient> logger,
-        IEmailBuilder emailBuilder,
-        IAmazonSimpleEmailService amazonSimpleEmailService,
-        bool sendAmazonEmails)
-    {
-        _logger = logger;
-        _emailBuilder = emailBuilder;
-        _amazonSimpleEmailService = amazonSimpleEmailService;
-        _sendAmazonEmails = sendAmazonEmails;
-    }
+    private readonly IAmazonSimpleEmailService _amazonSimpleEmailService = amazonSimpleEmailService;
+    private readonly ILogger<HttpEmailClient> _logger = logger;
+    private readonly IEmailBuilder _emailBuilder = emailBuilder;
+    private readonly bool _sendAmazonEmails = sendAmazonEmails;
 
     public async Task<HttpStatusCode> SendEmailToService(EmailMessage emailMessage)
     {
@@ -34,37 +25,36 @@ public class HttpEmailClient : IHttpEmailClient
             return HttpStatusCode.InternalServerError;
         }
 
-        var result = await SendEmail(emailMessage);
+        SendRawEmailResponse result = await SendEmail(emailMessage);
 
         return result.HttpStatusCode;
     }
 
     public string GenerateEmailBodyFromHtml<T>(T details, string templateName = null)
     {
-        var template = !string.IsNullOrEmpty(templateName) ? templateName : typeof(T).Name;
+        string template = !string.IsNullOrEmpty(templateName) ? templateName : typeof(T).Name;
+        string layout = GetEmailTemplateForLayout();
+        string body = GetEmailTemplateForBody(template);
 
-        var layout = GetEmailTemplateForLayout();
-        var body = GetEmailTemplateForBody(template);
-
-        foreach (var property in typeof(T).GetProperties())
+        foreach (PropertyInfo property in typeof(T).GetProperties())
         {
-            var tag = $"{{{{ {property.Name.ToLower()} }}}}";
+            string tag = $"{{{{ {property.Name.ToLower()} }}}}";
             tag = tag.Replace("\r\n", "<br />").Replace("\r", "<br />").Replace("\n", "<br />");
-            var value = property.GetValue(details, null) == null ? string.Empty : property.GetValue(details, null);
+            
+            object value = property.GetValue(details, null) is null
+                ? string.Empty
+                : property.GetValue(details, null);
 
-            if (property.PropertyType == typeof(List<string>))
-            {
-                if (value is List<string> items) value = string.Join(", ", items.ToArray()).Trim().TrimEnd(',');
-            }
+            if (property.PropertyType.Equals(typeof(List<string>)))
+                if (value is List<string> items)
+                    value = string.Join(", ", items.ToArray()).Trim().TrimEnd(',');
             else
-            {
                 value = value.ToString().Replace("\r\n", "<br />");
-            }
 
             body = body.Replace(tag, value.ToString());
         }
 
-        var result = layout.Replace("{{ MAIN_BODY }}", body);
+        string result = layout.Replace("{{ MAIN_BODY }}", body);
 
         return result;
     }
@@ -77,16 +67,17 @@ public class HttpEmailClient : IHttpEmailClient
 
     private async Task<SendRawEmailResponse> SendEmail(EmailMessage emailMessage)
     {
-        var sendRequest = new SendRawEmailRequest { RawMessage = new RawMessage(_emailBuilder.BuildMessageToStream(emailMessage)) };
+        SendRawEmailRequest sendRequest = new()
+        {
+            RawMessage = new RawMessage(_emailBuilder.BuildMessageToStream(emailMessage))
+        };
 
         try
         {
-            SendRawEmailResponse response = new SendRawEmailResponse { HttpStatusCode = HttpStatusCode.OK };
+            SendRawEmailResponse response = new() { HttpStatusCode = HttpStatusCode.OK };
 
             if (_sendAmazonEmails)
-            {
                 response = await _amazonSimpleEmailService.SendRawEmailAsync(sendRequest);
-            }
 
             LogResponse(response);
 
@@ -102,12 +93,8 @@ public class HttpEmailClient : IHttpEmailClient
     private void LogResponse(SendRawEmailResponse response)
     {
         if (response.HttpStatusCode == HttpStatusCode.OK)
-        {
             _logger.LogInformation($"An email was sent to Amazon SES with message id: {response.MessageId} and request id {response.ResponseMetadata?.RequestId}");
-        }
         else
-        {
             _logger.LogWarning($"There was a problem sending an email, message id: {response.MessageId} and request id: {response.ResponseMetadata?.RequestId} and status code {response.HttpStatusCode}");
-        }
     }
 }

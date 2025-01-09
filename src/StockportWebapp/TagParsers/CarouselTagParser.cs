@@ -8,8 +8,8 @@ public class CarouselTagParser : ISimpleTagParser
 
     protected string GenerateHtml(string tagData)
     {
-        tagData = tagData.Replace("{{CAROUSEL:", "");
-        tagData = tagData.Replace("}}", "");
+        tagData = tagData.Replace("{{CAROUSEL:", string.Empty);
+        tagData = tagData.Replace("}}", string.Empty);
 
         string[] tagArray = tagData.Split(',');
 
@@ -18,7 +18,7 @@ public class CarouselTagParser : ISimpleTagParser
 
         StringBuilder returnCarousel = new("<div class='carousel'>");
 
-        if (tagArray[0] != "")
+        if (!string.IsNullOrEmpty(tagArray[0]))
         {
             foreach (string item in tagArray)
             {
@@ -37,23 +37,22 @@ public class CarouselTagParser : ISimpleTagParser
                 {
                     System.Text.RegularExpressions.Group srcText = srcRegex.Match(item).Groups[1];
                     System.Text.RegularExpressions.Group altText = altRegex.Match(item).Groups[1];
+
                     if (!string.IsNullOrEmpty(srcText.Value))
                         returnCarousel.Append(
                             $"<div class=\"carousel-image stockport-carousel\" style=\"background-image:url({srcText});\" title=\"{altText}\"><div class=\"stockport-carousel-text article-carousel-text\"><p class=\"carousel-text\">{altText}</p></div></div>");
                 }
             }
         }
+
         string scriptTag = "<script>\r\nrequire(['/assets/javascript/config-91939d9a.min.js'],function(){\r\nrequire(['slick', 'carousel'],\r\nfunction(_, carousel){\r\ncarousel.Init();\r\n}\r\n);\r\n});\r\n</script>";
+        
         return returnCarousel.Append("</div>" + scriptTag).ToString();
     }
 
-    public CarouselTagParser()
-    {
+    public CarouselTagParser() =>
         _tagReplacer = new TagReplacer(GenerateHtml, TagRegex);
-    }
 
-    public string Parse(string body, string title = null)
-    {
-        return _tagReplacer.ReplaceAllTags(body);
-    }
+    public string Parse(string body, string title = null) =>
+        _tagReplacer.ReplaceAllTags(body);
 }

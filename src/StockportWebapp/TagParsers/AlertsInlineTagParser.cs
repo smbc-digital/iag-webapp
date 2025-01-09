@@ -1,11 +1,8 @@
 ﻿namespace StockportWebapp.TagParsers;
 
-public class AlertsInlineTagParser : IDynamicTagParser<Alert>
+public class AlertsInlineTagParser(IViewRender viewRenderer) : IDynamicTagParser<Alert>
 {
-    private readonly IViewRender _viewRenderer;
-
-    public AlertsInlineTagParser(IViewRender viewRenderer) => _viewRenderer = viewRenderer;
-
+    private readonly IViewRender _viewRenderer = viewRenderer;
 
     protected Regex TagRegex => new("{{Alerts-Inline:(\\s*[/a-zA-Z0-9][^}]+)}}", RegexOptions.Compiled);
 
@@ -13,7 +10,7 @@ public class AlertsInlineTagParser : IDynamicTagParser<Alert>
 
     public string Parse(string content, IEnumerable<Alert> alertsInline, bool redesigned = false)
     {
-        var matches = TagRegex.Matches(content);
+        MatchCollection matches = TagRegex.Matches(content);
 
         foreach (Match match in matches)
         {
@@ -22,16 +19,12 @@ public class AlertsInlineTagParser : IDynamicTagParser<Alert>
 
             if (AlertsInline != null)
             {
-                var alertsInlineHtml = string.Empty;
+                string alertsInlineHtml = string.Empty;
 
                 if (AlertsInline.Severity.Equals(Severity.Warning) || AlertsInline.Severity.Equals(Severity.Error))
-                {
                     alertsInlineHtml = _viewRenderer.Render("AlertsInlineWarning", AlertsInline);
-                }
                 else
-                {
                     alertsInlineHtml = _viewRenderer.Render("AlertsInline", AlertsInline);
-                }
 
                 content = TagRegex.Replace(content, alertsInlineHtml, 1);
             }

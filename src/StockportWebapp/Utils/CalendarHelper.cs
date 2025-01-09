@@ -4,10 +4,10 @@ public class CalendarHelper
 {
     public string GetIcsText(Event eventItem, string currentUrl)
     {
-        var startDateWithTime = GetCombinedDateAndTime(eventItem.EventDate, eventItem.StartTime);
-        var endDateWithTime = GetCombinedDateAndTime(eventItem.EventDate, eventItem.EndTime);
+        DateTime startDateWithTime = GetCombinedDateAndTime(eventItem.EventDate, eventItem.StartTime);
+        DateTime endDateWithTime = GetCombinedDateAndTime(eventItem.EventDate, eventItem.EndTime);
 
-        var e = new CalendarEvent()
+        CalendarEvent e = new()
         {
             Name = "VEVENT",
             Summary = eventItem.Title,
@@ -17,42 +17,36 @@ public class CalendarHelper
             Description = "For details, link here: " + currentUrl
         };
 
-        var calendar = new Calendar();
+        Calendar calendar = new();
         calendar.Events.Add(e);
 
-        var serializer = new CalendarSerializer(new SerializationContext());
+        CalendarSerializer serializer = new(new SerializationContext());
+
         return serializer.SerializeToString(calendar);
     }
 
     public string GetCalendarUrl(Event eventItem, string currentUrl, string calendarType)
     {
         string url = "";
-        var startDateWithTime = GetCombinedDateAndTime(eventItem.EventDate, eventItem.StartTime);
-        var endDateWithTime = GetCombinedDateAndTime(eventItem.EventDate, eventItem.EndTime);
+        DateTime startDateWithTime = GetCombinedDateAndTime(eventItem.EventDate, eventItem.StartTime);
+        DateTime endDateWithTime = GetCombinedDateAndTime(eventItem.EventDate, eventItem.EndTime);
 
-        var formattedStartDate = startDateWithTime.ToString("yyyyMMddTHHmmss");
-        var formattedEndDate = endDateWithTime.ToString("yyyyMMddTHHmmss");
+        string formattedStartDate = startDateWithTime.ToString("yyyyMMddTHHmmss");
+        string formattedEndDate = endDateWithTime.ToString("yyyyMMddTHHmmss");
 
-        if (calendarType == "google")
-        {
-            url = "https://www.google.com/calendar/render?action=TEMPLATE&text=" + eventItem.Title + "&dates=" +
-                      formattedStartDate + "/" + formattedEndDate +
-                      "&details=For+details,+link+here: " + currentUrl + " &location=" + eventItem.Location + "&sf=true&output=xml";
-        }
+        if (calendarType.Equals("google"))
+            url = $"https://www.google.com/calendar/render?action=TEMPLATE&text={eventItem.Title}&dates={formattedStartDate}/{formattedEndDate}&details=For+details,+link+here: {currentUrl} &location={eventItem.Location}&sf=true&output=xml";
 
-        if (calendarType == "yahoo")
-        {
+        if (calendarType.Equals("yahoo"))
             url = "https://calendar.yahoo.com/?v=60&view=d&type=20&title=" + eventItem.Title + "&st=" + formattedStartDate + "&et=" + formattedEndDate + "&desc=For+details,+link+here: " + currentUrl + "&in_loc=" + eventItem.Location;
-        }
 
         return url;
     }
 
     public DateTime GetCombinedDateAndTime(DateTime eventDate, string time)
     {
-        DateTime dateAndTime;
-        DateTime.TryParse(time, out dateAndTime);
-        var startDateTimeWithTime = eventDate.AddTicks(dateAndTime.TimeOfDay.Ticks);
-        return startDateTimeWithTime;
+        DateTime.TryParse(time, out DateTime dateAndTime);
+
+        return eventDate.AddTicks(dateAndTime.TimeOfDay.Ticks);
     }
 }

@@ -6,7 +6,7 @@ public class ShowcaseControllerTest
 
     private readonly Mock<IProcessedContentRepository> _mockContentRepository = new();
 
-    public ShowcaseControllerTest() => _controller = new ShowcaseController(_mockContentRepository.Object, new Mock<IApplicationConfiguration>().Object);
+    public ShowcaseControllerTest() => _controller = new ShowcaseController(_mockContentRepository.Object);
 
     [Fact]
     public async Task ItReturnsShowcaseWithProcessedBody()

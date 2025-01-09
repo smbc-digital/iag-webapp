@@ -9,9 +9,7 @@ public class ContentSecurityPolicyElement
         _stringBuilder = new StringBuilder(sourcetype);
 
         if (containsSelf)
-        {
             _stringBuilder.Append(" 'self'");
-        }
     }
 
     public ContentSecurityPolicyElement AddSource(string source, bool appendHttps = true, bool force = false)
@@ -25,25 +23,19 @@ public class ContentSecurityPolicyElement
     private void AddSourceForSafari9(string source, bool appendHttps, bool force)
     {
         if (IsSafari9Exception(source) || force)
-        {
             _stringBuilder.Append(source);
-        }
         else if (appendHttps)
-        {
             AddSourceWithBothHttpAndHttpsForSafari9(source);
-        }
     }
 
-    private bool IsSafari9Exception(string source)
-    {
-        return source == "'unsafe-inline'"
+    private bool IsSafari9Exception(string source) =>
+        source.Equals("'unsafe-inline'")
                || source == "'unsafe-eval'"
                || source == "https:"
                || source == "data:"
                || source == "wss:"
                || source == "http:"
                || source.StartsWith("*.");
-    }
 
     private void AddSourceWithBothHttpAndHttpsForSafari9(string source)
     {

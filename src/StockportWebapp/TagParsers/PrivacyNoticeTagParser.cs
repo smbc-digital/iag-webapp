@@ -1,10 +1,8 @@
 ﻿namespace StockportWebapp.TagParsers;
 
-public class PrivacyNoticeTagParser : IDynamicTagParser<PrivacyNotice>
+public class PrivacyNoticeTagParser(IViewRender viewRenderer) : IDynamicTagParser<PrivacyNotice>
 {
-    private readonly IViewRender _viewRenderer;
-
-    public PrivacyNoticeTagParser(IViewRender viewRenderer) => _viewRenderer = viewRenderer;
+    private readonly IViewRender _viewRenderer = viewRenderer;
 
     protected Regex TagRegex => new("{{PrivacyNotice:(.*?)}}", RegexOptions.Compiled);
 
@@ -30,5 +28,4 @@ public class PrivacyNoticeTagParser : IDynamicTagParser<PrivacyNotice>
 
     private string RemoveEmptyTags(string content) =>
         TagRegex.Replace(content, string.Empty);
-    
 }

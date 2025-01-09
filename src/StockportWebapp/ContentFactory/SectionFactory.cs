@@ -5,18 +5,13 @@ public interface ISectionFactory
     ProcessedSection Build(Section section, string articleTitle);
 }
 
-public class SectionFactory : ISectionFactory
+public class SectionFactory(ITagParserContainer tagParserContainer,
+                            MarkdownWrapper markdownWrapper,
+                            IRepository repository) : ISectionFactory
 {
-    private readonly MarkdownWrapper _markdownWrapper;
-    private readonly ITagParserContainer _tagParserContainer;
-    private readonly IRepository _repository;
-
-    public SectionFactory(ITagParserContainer tagParserContainer, MarkdownWrapper markdownWrapper, IRepository repository)
-    {
-        _tagParserContainer = tagParserContainer;
-        _markdownWrapper = markdownWrapper;
-        _repository = repository;
-    }
+    private readonly MarkdownWrapper _markdownWrapper = markdownWrapper;
+    private readonly ITagParserContainer _tagParserContainer = tagParserContainer;
+    private readonly IRepository _repository = repository;
 
     public ProcessedSection Build(Section section, string articleTitle = null)
     {
@@ -44,6 +39,7 @@ public class SectionFactory : ISectionFactory
     private async Task<IEnumerable<PrivacyNotice>> GetPrivacyNotices()
     {
         HttpResponse response = await _repository.Get<List<PrivacyNotice>>();
+        
         return response.Content as List<PrivacyNotice>;
     }
 }

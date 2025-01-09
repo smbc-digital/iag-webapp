@@ -8,10 +8,10 @@ public class ButtonTagParser : ISimpleTagParser
 
     public string GenerateHtml(string tagData)
     {
-        var commaSplitString = tagData.Split(new[] { ',' }, 2);
-        var thereIsLinkText = commaSplitString.Length.Equals(2);
-        var link = tagData;
-        var title = tagData;
+        string[] commaSplitString = tagData.Split([','], 2);
+        bool thereIsLinkText = commaSplitString.Length.Equals(2);
+        string link = tagData;
+        string title = tagData;
 
         if (thereIsLinkText)
         {

@@ -2,8 +2,7 @@ namespace StockportWebapp.Models.Mappers;
 
 public static class CssClassMapper
 {
-    public static string GetCssClass(EColourScheme colourScheme)
-        => colourScheme switch
+    public static string GetCssClass(EColourScheme colourScheme) => colourScheme switch
         {
             EColourScheme.None => "-none",
             EColourScheme.Blue => "-blue",
@@ -27,8 +26,7 @@ public static class CssClassMapper
             _ => "-teal"
         };
 
-    public static string GetBoldCssClass(EColourScheme colourScheme)
-        => colourScheme switch
+    public static string GetBoldCssClass(EColourScheme colourScheme) => colourScheme switch
         {
             EColourScheme.None => "-none",
             EColourScheme.Blue or EColourScheme.Blue_Light => "-blue",

@@ -1,20 +1,15 @@
 namespace StockportWebapp.Controllers;
 
 [ResponseCache(Location = ResponseCacheLocation.Any, Duration = Cache.Medium)]
-public class TopicController : Controller
+public class TopicController(ITopicRepository repository,
+                            IApplicationConfiguration config,
+                            BusinessId businessId,
+                            IStockportApiEventsService stockportApiService) : Controller
 {
-    private readonly IApplicationConfiguration _config;
-    private readonly BusinessId _businessId;
-    private readonly ITopicRepository _topicRepository;
-    private readonly IStockportApiEventsService _stockportApiEventsService;
-
-    public TopicController(ITopicRepository repository, IApplicationConfiguration config, BusinessId businessId, IStockportApiEventsService stockportApiService)
-    {
-        _config = config;
-        _businessId = businessId;
-        _topicRepository = repository;
-        _stockportApiEventsService = stockportApiService;
-    }
+    private readonly IApplicationConfiguration _config = config;
+    private readonly BusinessId _businessId = businessId;
+    private readonly ITopicRepository _topicRepository = repository;
+    private readonly IStockportApiEventsService _stockportApiEventsService = stockportApiService;
 
     [Route("/topic/{topicSlug}")]
     public async Task<IActionResult> Index(string topicSlug)

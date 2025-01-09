@@ -1,24 +1,21 @@
 ﻿namespace StockportWebapp.Client;
 
 [ExcludeFromCodeCoverage]
-public class LoggingHttpClient : IHttpClient
+public class LoggingHttpClient(IHttpClient inner,
+                            ILogger<LoggingHttpClient> logger) : IHttpClient
 {
-    readonly IHttpClient _inner;
-    private readonly Microsoft.Extensions.Logging.ILogger _logger;
-
-    public LoggingHttpClient(IHttpClient inner, ILogger<LoggingHttpClient> logger)
-    {
-        _inner = inner;
-        _logger = logger;
-    }
+    readonly IHttpClient _inner = inner;
+    private readonly Microsoft.Extensions.Logging.ILogger _logger = logger;
 
     public async Task<HttpResponse> Get(string url, Dictionary<string, string> headers)
     {
-        _logger.LogInformation("Querying: " + url);
+        _logger.LogInformation($"Querying: {url}");
+
         try
         {
             HttpResponse response = await _inner.Get(url, headers);
-            _logger.LogDebug("Response: " + response);
+            _logger.LogDebug($"Response: {response}");
+
             return await Task.FromResult(response);
         }
         catch (AggregateException ae)
@@ -28,20 +25,23 @@ public class LoggingHttpClient : IHttpClient
                 bool handle = ex is HttpRequestException;
                 if (handle)
                     _logger.LogError(0, ex, "Failed to get the requested resource: ");
+                
                 return handle;
             });
         }
+
         return await Task.FromResult(HttpResponse.Failure(503, "Failed to invoke the requested resource"));
     }
 
     public async Task<HttpResponseMessage> PostRecaptchaAsync(string requestURI, HttpContent content)
     {
-        _logger.LogInformation("Posting: " + requestURI);
+        _logger.LogInformation($"Posting: {requestURI}");
 
         try
         {
             HttpResponseMessage response = await _inner.PostRecaptchaAsync(requestURI, content);
-            _logger.LogDebug("Response: " + response);
+            _logger.LogDebug($"Response: {response}");
+
             return await Task.FromResult(response);
         }
         catch (AggregateException ae)
@@ -51,6 +51,7 @@ public class LoggingHttpClient : IHttpClient
                 bool handle = ex is HttpRequestException;
                 if (handle)
                     _logger.LogError(0, ex, "Failed to post the requested resource: ");
+                
                 return handle;
             });
         }
@@ -60,12 +61,13 @@ public class LoggingHttpClient : IHttpClient
 
     public async Task<HttpResponse> PutAsync(string requestURI, HttpContent content, Dictionary<string, string> headers)
     {
-        _logger.LogInformation("Putting: " + requestURI);
+        _logger.LogInformation($"Putting: {requestURI}");
 
         try
         {
             HttpResponse response = await _inner.PutAsync(requestURI, content, headers);
-            _logger.LogDebug("Response: " + response);
+            _logger.LogDebug($"Response: {response}");
+
             return await Task.FromResult(response);
         }
         catch (AggregateException ae)
@@ -75,6 +77,7 @@ public class LoggingHttpClient : IHttpClient
                 bool handle = ex is HttpRequestException;
                 if (handle)
                     _logger.LogError(0, ex, "Failed to post the requested resource: ");
+                
                 return handle;
             });
         }
@@ -89,7 +92,8 @@ public class LoggingHttpClient : IHttpClient
         try
         {
             HttpResponse response = await _inner.PostAsync(requestURI, content, headers);
-            _logger.LogDebug("Response: " + response);
+            _logger.LogDebug($"Response: {response}");
+
             return await Task.FromResult(response);
         }
         catch (AggregateException ae)
@@ -99,6 +103,7 @@ public class LoggingHttpClient : IHttpClient
                 bool handle = ex is HttpRequestException;
                 if (handle)
                     _logger.LogError(0, ex, "Failed to post the requested resource: ");
+                
                 return handle;
             });
         }
@@ -108,12 +113,13 @@ public class LoggingHttpClient : IHttpClient
 
     public async Task<HttpResponse> DeleteAsync(string requestURI, Dictionary<string, string> headers)
     {
-        _logger.LogInformation("Deleting: " + requestURI);
+        _logger.LogInformation($"Deleting: {requestURI}");
 
         try
         {
             HttpResponse response = await _inner.DeleteAsync(requestURI, headers);
-            _logger.LogDebug("Response: " + response);
+            _logger.LogDebug($"Response: {response}");
+
             return await Task.FromResult(response);
         }
         catch (AggregateException ae)
@@ -123,6 +129,7 @@ public class LoggingHttpClient : IHttpClient
                 bool handle = ex is HttpRequestException;
                 if (handle)
                     _logger.LogError(0, ex, "Failed to post the requested resource: ");
+                
                 return handle;
             });
         }
@@ -132,12 +139,13 @@ public class LoggingHttpClient : IHttpClient
 
     public async Task<HttpResponseMessage> PostAsyncMessage(string requestURI, HttpContent content, Dictionary<string, string> headers)
     {
-        _logger.LogInformation("Posting: " + requestURI);
+        _logger.LogInformation($"Posting: {requestURI}");
 
         try
         {
-            var response = await _inner.PostAsyncMessage(requestURI, content, headers);
-            _logger.LogDebug("Response: " + response);
+            HttpResponseMessage response = await _inner.PostAsyncMessage(requestURI, content, headers);
+            _logger.LogDebug($"Response: {response}");
+
             return response;
         }
         catch (AggregateException ae)
@@ -147,6 +155,7 @@ public class LoggingHttpClient : IHttpClient
                 bool handle = ex is HttpRequestException;
                 if (handle)
                     _logger.LogError(0, ex, "Failed to post the requested resource: ");
+                
                 return handle;
             });
         }
@@ -156,7 +165,8 @@ public class LoggingHttpClient : IHttpClient
 
     public Task PostMessage(string requestURI, HttpContent content, Dictionary<string, string> headers)
     {
-        _logger.LogInformation("Posting: " + requestURI);
+        _logger.LogInformation($"Posting: {requestURI}");
+
         return Task.FromResult(new HttpResponseMessage());
     }
 }

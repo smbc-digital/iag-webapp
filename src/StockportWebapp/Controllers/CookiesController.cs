@@ -1,14 +1,9 @@
 ﻿namespace StockportWebapp.Controllers;
 
 [Route("cookies")]
-public class CookiesController : Controller
+public class CookiesController(ICookiesHelper cookiesHelper) : Controller
 {
-    private readonly ICookiesHelper _cookiesHelper;
-
-    public CookiesController(ICookiesHelper cookiesHelper)
-    {
-        _cookiesHelper = cookiesHelper;
-    }
+    private readonly ICookiesHelper _cookiesHelper = cookiesHelper;
 
     [Route("add")]
     public IActionResult AddCookie(string slug, string cookieType)

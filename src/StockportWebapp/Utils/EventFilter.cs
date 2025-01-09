@@ -1,15 +1,8 @@
 ﻿namespace StockportWebapp.Utils;
 
-public class EventFilter
+public class EventFilter(string dateFrom, string dateTo, string dateRange)
 {
-    public string DateFrom { get; set; }
-    public string DateTo { get; set; }
-    public string DateRange { get; set; }
-
-    public EventFilter(string dateFrom, string dateTo, string dateRange)
-    {
-        DateFrom = dateFrom;
-        DateTo = dateTo;
-        DateRange = dateRange;
-    }
+    public string DateFrom { get; set; } = dateFrom;
+    public string DateTo { get; set; } = dateTo;
+    public string DateRange { get; set; } = dateRange;
 }

@@ -1,19 +1,14 @@
 ﻿namespace StockportWebapp.ContentFactory;
 
-public class ArticleFactory
+public class ArticleFactory(ITagParserContainer tagParserContainer,
+                            ISectionFactory sectionFactory,
+                            MarkdownWrapper markdownWrapper,
+                            IRepository repository)
 {
-    private readonly ITagParserContainer _tagParserContainer;
-    private readonly ISectionFactory _sectionFactory;
-    private readonly MarkdownWrapper _markdownWrapper;
-    private readonly IRepository _repository;
-
-    public ArticleFactory(ITagParserContainer tagParserContainer, ISectionFactory sectionFactory, MarkdownWrapper markdownWrapper, IRepository repository)
-    {
-        _tagParserContainer = tagParserContainer;
-        _sectionFactory = sectionFactory;
-        _markdownWrapper = markdownWrapper;
-        _repository = repository;
-    }
+    private readonly ITagParserContainer _tagParserContainer = tagParserContainer;
+    private readonly ISectionFactory _sectionFactory = sectionFactory;
+    private readonly MarkdownWrapper _markdownWrapper = markdownWrapper;
+    private readonly IRepository _repository = repository;
 
     public virtual ProcessedArticle Build(Article article)
     {
@@ -53,6 +48,7 @@ public class ArticleFactory
     private async Task<IEnumerable<PrivacyNotice>> GetPrivacyNotices()
     {
         HttpResponse response = await _repository.Get<List<PrivacyNotice>>();
+        
         return response.Content as List<PrivacyNotice>;
     }
 }

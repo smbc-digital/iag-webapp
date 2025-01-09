@@ -50,7 +50,7 @@ public static class DirectoryExtensions
         kml.Feature = mainFolder;
 
         KmlFile kmlStream = KmlFile.Create(kml, false);
-        using (MemoryStream stream = new MemoryStream())
+        using (MemoryStream stream = new())
         {
             kmlStream.Save(stream);
             stream.Seek(0, SeekOrigin.Begin);
@@ -66,8 +66,7 @@ public static class DirectoryExtensions
     // Checks a single theme to ensure if the entry satisfies filter conditions
     // Gets applied filters relevant to the current theme
     // Ensure that there is at least one matching applied filter
-    public static bool DirectoryEntrySatisfiesTheme(this KeyValuePair<string, List<string>> themes, 
-                                                    DirectoryEntry entry) =>
+    public static bool DirectoryEntrySatisfiesTheme(this KeyValuePair<string, List<string>> themes, DirectoryEntry entry) =>
         themes.Value  
             .Any(appliedFilter => entry.Themes.Any(theme => !string.IsNullOrEmpty(theme.Title) && theme.Title.Equals(themes.Key)
                                     && theme.Filters.Any(filter => filter.Slug.Equals(appliedFilter))));

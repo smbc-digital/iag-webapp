@@ -1,11 +1,9 @@
 ﻿namespace StockportWebapp.Controllers;
 
 [ResponseCache(Location = ResponseCacheLocation.Any, Duration = Cache.Short)]
-public class StartPageController : Controller
+public class StartPageController(IProcessedContentRepository processedContnentRepository) : Controller
 {
-    private readonly IProcessedContentRepository _processedContentRepository;
-
-    public StartPageController(IProcessedContentRepository processedContnentRepository) => _processedContentRepository = processedContnentRepository;
+    private readonly IProcessedContentRepository _processedContentRepository = processedContnentRepository;
 
     [HttpGet]
     [Route("/start/{slug}")]

@@ -5,34 +5,7 @@ public interface IContactUsMessageContainer
     void AddContactUsMessage(string message, string slug = "");
 }
 
-public class ProcessedArticle : IProcessedContentType, IContactUsMessageContainer
-{
-    public readonly string Title;
-    public string Body { get; private set; }
-    public readonly string Teaser;
-    public readonly string MetaDescription;
-    public readonly IEnumerable<ProcessedSection> Sections;
-    public readonly string Icon;
-    public readonly string BackgroundImage;
-    public readonly string Image;
-    public readonly string AltText;
-    public readonly IEnumerable<Crumb> Breadcrumbs;
-    public readonly IEnumerable<Alert> Alerts;
-    public readonly Topic ParentTopic;
-    public readonly string NavigationLink;
-    public readonly IEnumerable<Alert> AlertsInline;
-    public DateTime UpdatedAt;
-    public bool HideLastUpdated;
-    public List<GroupBranding> ArticleBranding;
-    public string LogoAreaTitle;
-    public IEnumerable<SubItem> RelatedContent;
-    public string Author;
-    public string Photographer;
-    public DateTime PublishedOn;
-    public readonly IEnumerable<InlineQuote> InlineQuotes;
-    public List<Event> Events;
-    
-    public ProcessedArticle(string title,
+public class ProcessedArticle(string title,
                             string slug,
                             string body,
                             string teaser,
@@ -55,33 +28,32 @@ public class ProcessedArticle : IProcessedContentType, IContactUsMessageContaine
                             string photographer,
                             DateTime publishedOn,
                             IEnumerable<InlineQuote> inlineQuotes,
-                            List<Event> events)
-    {
-        Title = title;
-        NavigationLink = TypeRoutes.GetUrlFor("article", slug);
-        Body = body;
-        Teaser = teaser;
-        MetaDescription = metaDescription;
-        Sections = sections;
-        Icon = icon;
-        BackgroundImage = backgroundImage;
-        Image = image;
-        AltText = altText;
-        Breadcrumbs = breadcrumbs;
-        Alerts = alerts;
-        ParentTopic = topic;
-        AlertsInline = alertsInline;
-        UpdatedAt = updatedAt;
-        HideLastUpdated = hideLastUpdated;
-        ArticleBranding = articleBranding;
-        LogoAreaTitle = logoAreaTitle;
-        RelatedContent = relatedContent;
-        Author = author;
-        Photographer = photographer;
-        PublishedOn = publishedOn;
-        InlineQuotes = inlineQuotes;
-        Events = events;
-    }
+                            List<Event> events) : IProcessedContentType, IContactUsMessageContainer
+{
+    public readonly string Title = title;
+    public string Body { get; private set; } = body;
+    public readonly string Teaser = teaser;
+    public readonly string MetaDescription = metaDescription;
+    public readonly IEnumerable<ProcessedSection> Sections = sections;
+    public readonly string Icon = icon;
+    public readonly string BackgroundImage = backgroundImage;
+    public readonly string Image = image;
+    public readonly string AltText = altText;
+    public readonly IEnumerable<Crumb> Breadcrumbs = breadcrumbs;
+    public readonly IEnumerable<Alert> Alerts = alerts;
+    public readonly Topic ParentTopic = topic;
+    public readonly string NavigationLink = TypeRoutes.GetUrlFor("article", slug);
+    public readonly IEnumerable<Alert> AlertsInline = alertsInline;
+    public DateTime UpdatedAt = updatedAt;
+    public bool HideLastUpdated = hideLastUpdated;
+    public List<GroupBranding> ArticleBranding = articleBranding;
+    public string LogoAreaTitle = logoAreaTitle;
+    public IEnumerable<SubItem> RelatedContent = relatedContent;
+    public string Author = author;
+    public string Photographer = photographer;
+    public DateTime PublishedOn = publishedOn;
+    public readonly IEnumerable<InlineQuote> InlineQuotes = inlineQuotes;
+    public List<Event> Events = events;
 
     public void AddContactUsMessage(string message, string slug = "")
     {
@@ -94,6 +66,7 @@ public class ProcessedArticle : IProcessedContentType, IContactUsMessageContaine
     private void AddMessageToArticleSectionWithMatchingSlug(string slug, string htmlMessage)
     {
         ProcessedSection section = Sections?.ToList().Find(_ => _.Slug.Equals(slug));
+
         if (section is not null)
             section.Body = ContactUsTagParser.ContactUsMessageTagRegex.Replace(section.Body, htmlMessage);
     }
@@ -101,10 +74,9 @@ public class ProcessedArticle : IProcessedContentType, IContactUsMessageContaine
     private void AddMessageToArticleBodyOrFirstSection(string htmlMessage)
     {
         MatchCollection matches = ContactUsTagParser.ContactUsMessageTagRegex.Matches(Body);
+        
         if (matches.Count > 0)
-        {
             Body = ContactUsTagParser.ContactUsMessageTagRegex.Replace(Body, htmlMessage);
-        }
         else if (Sections is not null && Sections.ToList().Count > 0)
         {
             ProcessedSection section = Sections.ToList().First();

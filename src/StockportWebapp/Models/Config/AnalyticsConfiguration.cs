@@ -1,23 +1,14 @@
 ﻿namespace StockportWebapp.Models.Config;
 
-public class AnalyticsConfiguration : IAnalyticsConfiguration
+public class AnalyticsConfiguration(IApplicationConfiguration configuration) : IAnalyticsConfiguration
 {
-    private readonly IApplicationConfiguration _configuration;
+    private readonly IApplicationConfiguration _configuration = configuration;
 
-    public AnalyticsConfiguration(IApplicationConfiguration configuration)
-    {
-        _configuration = configuration;
-    }
+    public string GetApiUrl() =>
+        _configuration.GetGoogleAnalyticsUri().ToString();
 
-    public string GetApiUrl()
-    {
-        return _configuration.GetGoogleAnalyticsUri().ToString();
-    }
-
-    public AnalyticsConfigurationModel GetTrackerCode()
-    {
-        return _configuration.GetAnalyticsConfig();
-    }
+    public AnalyticsConfigurationModel GetTrackerCode() =>
+        _configuration.GetAnalyticsConfig();
 }
 
 public class AnalyticsConfigurationModel

@@ -25,9 +25,12 @@ public class ContactUsTagParser : ISimpleTagParser
         if (string.IsNullOrEmpty(serviceEmailId))
         {
             _logger.LogError("The service email ID in this CONTACT-US tag is invalid and this contact form will not render.");
+           
             return UnableToRenderFormError;
         }
-        var renderResult = _viewRenderer.Render("ContactUs", new ContactUsDetails(serviceEmailId, _articleTitle));
+
+        string renderResult = _viewRenderer.Render("ContactUs", new ContactUsDetails(serviceEmailId, _articleTitle));
+        
         return string.Concat(ContactUsMessageTagRegex.ToString(), renderResult);
     }
 

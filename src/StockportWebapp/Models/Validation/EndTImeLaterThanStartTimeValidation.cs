@@ -1,28 +1,26 @@
 ﻿namespace StockportWebapp.Models.Validation;
 
 [ExcludeFromCodeCoverage]
-public class EndTimeLaterThanStartTimeValidation : ValidationAttribute
+public class EndTimeLaterThanStartTimeValidation(string otherPropertyName,
+                                                string errorMessage) : ValidationAttribute(errorMessage)
 {
-    private readonly string _otherPropertyName;
-
-    public EndTimeLaterThanStartTimeValidation(string otherPropertyName, string errorMessage) : base(errorMessage)
-    {
-        _otherPropertyName = otherPropertyName;
-    }
+    private readonly string _otherPropertyName = otherPropertyName;
 
     protected override ValidationResult IsValid(object value, ValidationContext validationContext)
     {
-        var containerType = validationContext.ObjectInstance.GetType();
-        var field = containerType.GetProperty(_otherPropertyName, BindingFlags.Public | BindingFlags.Instance);
+        Type containerType = validationContext.ObjectInstance.GetType();
+        PropertyInfo field = containerType.GetProperty(_otherPropertyName, BindingFlags.Public | BindingFlags.Instance);
 
-        var extensionValue = field.GetValue(validationContext.ObjectInstance);
-        var startTime = extensionValue as DateTime?;
+        object extensionValue = field.GetValue(validationContext.ObjectInstance);
+        DateTime? startTime = extensionValue as DateTime?;
 
         if (!startTime.HasValue)
             return new ValidationResult("Should enter valid Start Time");
 
-        if (value is null) return ValidationResult.Success;
-        var endTime = value as DateTime?;
+        if (value is null)
+            return ValidationResult.Success;
+
+        DateTime? endTime = value as DateTime?;
         if (!endTime.HasValue)
             return new ValidationResult("Should enter valid End Time");
 

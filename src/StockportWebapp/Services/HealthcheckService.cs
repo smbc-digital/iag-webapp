@@ -44,29 +44,27 @@ public class HealthcheckService : IHealthcheckService
     {
         if (_fileWrapper.Exists(filePath))
         {
-            var firstLine = _fileWrapper.ReadAllLines(filePath).FirstOrDefault();
+            string firstLine = _fileWrapper.ReadAllLines(filePath).FirstOrDefault();
             if (!string.IsNullOrEmpty(firstLine))
                 return firstLine.Trim();
         }
+
         return defaultValue.Trim();
     }
 
     public async Task<Healthcheck> Get()
     {
         Healthcheck healthcheck;
-        var httpResponse = await _httpMaker.Get(_urlGenerator.HealthcheckUrl(), new Dictionary<string, string> {
+        HttpResponse httpResponse = await _httpMaker.Get(_urlGenerator.HealthcheckUrl(), new Dictionary<string, string>
+        {
             { "Authorization",  authenticationKey},
             { "X-ClientId",  webAppClientId}
-            });
+        });
 
-        if (httpResponse != null)
-        {
+        if (httpResponse is not null)
             healthcheck = BuildDependencyHealthcheck(httpResponse);
-        }
         else
-        {
             healthcheck = new UnavailableHealthcheck();
-        }
 
         return new Healthcheck(
             _appVersion, 
@@ -79,8 +77,9 @@ public class HealthcheckService : IHealthcheckService
 
     private static Healthcheck BuildDependencyHealthcheck(HttpResponse httpResponse)
     {
-        if (httpResponse.StatusCode != (int)HttpStatusCode.OK) return new UnavailableHealthcheck();
-        var responseString = httpResponse.Content.ToString();
-        return JsonConvert.DeserializeObject<Healthcheck>(responseString);
+        if (httpResponse.StatusCode != (int)HttpStatusCode.OK)
+            return new UnavailableHealthcheck();
+
+        return JsonConvert.DeserializeObject<Healthcheck>(httpResponse.Content.ToString());
     }
 }

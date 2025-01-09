@@ -15,17 +15,17 @@ public class VideoTagParser : ISimpleTagParser
 
     protected string GenerateHtml(string tagData)
     {
-        var videoData = tagData.Split(';');
+        string[] videoData = tagData.Split(';');
         VideoViewModel videoViewModel = new(videoData[1], videoData[0])
         {
             Title = videoData.Length > 2
-                                ? videoData[2]
-                                : string.Empty
+                        ? videoData[2]
+                        : string.Empty
         };
 
-        var iframe = _viewRenderer.Render("VideoIFrame", videoViewModel);
-        return $"<div class=\"video-wrapper\">{iframe}</div>";
+        return $"<div class=\"video-wrapper\">{_viewRenderer.Render("VideoIFrame", videoViewModel)}</div>";
     }
 
-    public string Parse(string body, string title = null) => _tagReplacer.ReplaceAllTags(body);
+    public string Parse(string body, string title = null) =>
+        _tagReplacer.ReplaceAllTags(body);
 }

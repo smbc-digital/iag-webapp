@@ -1,15 +1,8 @@
 namespace StockportWebapp.Models;
 
-public class SectionSiteMap
+public class SectionSiteMap(string slug, DateTime sunriseDate, DateTime sunsetDate)
 {
-    public string Slug { get; set; }
-    public DateTime SunriseDate { get; }
-    public DateTime SunsetDate { get; }
-
-    public SectionSiteMap(string slug, DateTime sunriseDate, DateTime sunsetDate)
-    {
-        Slug = slug;
-        SunriseDate = sunriseDate;
-        SunsetDate = sunsetDate;
-    }
+    public string Slug { get; set; } = slug;
+    public DateTime SunriseDate { get; } = sunriseDate;
+    public DateTime SunsetDate { get; } = sunsetDate;
 }

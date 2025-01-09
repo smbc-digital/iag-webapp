@@ -2,13 +2,12 @@ namespace StockportWebapp.ContentFactory;
 
 public class ContentTypeFactory
 {
-    private readonly Dictionary<Type, dynamic> _factories = new Dictionary<Type, object>();
+    private readonly Dictionary<Type, dynamic> _factories = new();
 
-    public ContentTypeFactory(
-        ITagParserContainer tagParserContainer,
-        MarkdownWrapper markdownWrapper,
-        IHttpContextAccessor httpContextAccessor,
-        IRepository repository)
+    public ContentTypeFactory(ITagParserContainer tagParserContainer,
+                            MarkdownWrapper markdownWrapper,
+                            IHttpContextAccessor httpContextAccessor,
+                            IRepository repository)
     {
         SectionFactory sectionFactory = new(tagParserContainer, markdownWrapper, repository);
         ContactUsCategoryFactory contactUsCategoryFactory = new(tagParserContainer, markdownWrapper);

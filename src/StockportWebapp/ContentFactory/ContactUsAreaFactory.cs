@@ -1,31 +1,22 @@
-﻿namespace StockportWebapp.ContentFactory;
+﻿using System.Linq;
 
-public class ContactUsAreaFactory
+namespace StockportWebapp.ContentFactory;
+
+public class ContactUsAreaFactory(IContactUsCategoryFactory contactUsCategoryFactory)
 {
-    private readonly IContactUsCategoryFactory _contactUsCategoryFactory;
+    private readonly IContactUsCategoryFactory _contactUsCategoryFactory = contactUsCategoryFactory;
 
-    public ContactUsAreaFactory(IContactUsCategoryFactory contactUsCategoryFactory) =>
-        _contactUsCategoryFactory = contactUsCategoryFactory;
-
-    public virtual ProcessedContactUsArea Build(ContactUsArea contactUsArea)
-    {
-        List<ProcessedContactUsCategory> processedContactUsCategories = new();
-        foreach (var contactUsCategory in contactUsArea.ContactUsCategories)
-        {
-            processedContactUsCategories.Add(_contactUsCategoryFactory.Build(contactUsCategory));
-        }
-
-        return new ProcessedContactUsArea(
+    public virtual ProcessedContactUsArea Build(ContactUsArea contactUsArea) =>
+        new ProcessedContactUsArea(
             contactUsArea.Title,
             contactUsArea.Slug,
             contactUsArea.CategoriesTitle,
             contactUsArea.Breadcrumbs,
             contactUsArea.PrimaryItems,
             contactUsArea.Alerts,
-            processedContactUsCategories,
+            new List<ProcessedContactUsCategory>(contactUsArea.ContactUsCategories.Select(_contactUsCategoryFactory.Build)),
             contactUsArea.InsetTextTitle,
             contactUsArea.InsetTextBody,
             contactUsArea.MetaDescription
         );
-    }
 }

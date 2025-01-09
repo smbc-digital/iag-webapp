@@ -14,5 +14,4 @@ public class CookieConsentLevel
 
     [JsonProperty(PropertyName = "targeting")]
     public bool Targetting { get; set; }
-
 }

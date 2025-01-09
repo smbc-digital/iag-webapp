@@ -1,15 +1,10 @@
 ﻿namespace StockportWebapp.ContentFactory;
 
-public class TopicFactory
+public class TopicFactory(ITagParserContainer tagParserContainer,
+                        MarkdownWrapper markdownWrapper)
 {
-    private readonly ITagParserContainer _tagParserContainer;
-    private readonly MarkdownWrapper _markdownWrapper;
-
-    public TopicFactory(ITagParserContainer tagParserContainer, MarkdownWrapper markdownWrapper)
-    {
-        _tagParserContainer = tagParserContainer;
-        _markdownWrapper = markdownWrapper;
-    }
+    private readonly ITagParserContainer _tagParserContainer = tagParserContainer;
+    private readonly MarkdownWrapper _markdownWrapper = markdownWrapper;
 
     public virtual ProcessedTopic Build(Topic topic)
     {
@@ -46,8 +41,9 @@ public class TopicFactory
                                 topic.LogoAreaTitle)
         {
             TriviaSection = topic.TriviaSection,
-            Video = !string.IsNullOrEmpty(topic.Video.VideoEmbedCode) ?
-                new Video(topic.Video.Heading, topic.Video.Text, _tagParserContainer.ParseAll(topic.Video.VideoEmbedCode)) : null,
+            Video = !string.IsNullOrEmpty(topic.Video.VideoEmbedCode)
+                        ? new Video(topic.Video.Heading, topic.Video.Text, _tagParserContainer.ParseAll(topic.Video.VideoEmbedCode))
+                        : null,
             CallToAction = topic.CallToAction
         };
     }

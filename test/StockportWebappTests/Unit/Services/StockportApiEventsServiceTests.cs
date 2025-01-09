@@ -3,12 +3,11 @@
 public class StockportApiEventsServiceTests
 {
     private Mock<IStockportApiRepository> _stockportApiRepository = new();
-    private Mock<IUrlGeneratorSimple> _urlGeneratorSimple = new();
     private StockportApiEventsService _stockportApiEventsService;
     private Mock<IEventFactory> _eventFactory = new();
 
     public StockportApiEventsServiceTests() =>
-        _stockportApiEventsService = new(_stockportApiRepository.Object, _urlGeneratorSimple.Object, _eventFactory.Object);
+        _stockportApiEventsService = new(_stockportApiRepository.Object, _eventFactory.Object);
 
     [Fact]
     public async Task GetEventsByCategory_ShouldReturnListOfEventsWhenCategorySet()

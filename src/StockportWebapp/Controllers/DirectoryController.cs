@@ -3,14 +3,10 @@ using Directory = StockportWebapp.Models.Directory;
 namespace StockportWebapp.Controllers;
 
 [ResponseCache(Location = ResponseCacheLocation.Any, Duration = Cache.Medium)]
-public class DirectoryController : Controller
+public class DirectoryController(IDirectoryService directoryService) : Controller
 {
-    private readonly IDirectoryService _directoryService;
+    private readonly IDirectoryService _directoryService = directoryService;
     private readonly string _defaultUrlPrefix = "directories";
-    public DirectoryController(IDirectoryService directoryService)
-    {
-        _directoryService = directoryService;
-    }
 
     [Route("/directories/{**slug}")]
     public async Task<IActionResult> Directory([Required]string slug)
@@ -50,7 +46,8 @@ public class DirectoryController : Controller
         IEnumerable<DirectoryEntry> regularEntries;
 
         if (string.IsNullOrEmpty(orderBy))
-            regularEntries = entries.Where(entry => directory.RegularEntries.Any(regularEntry => regularEntry.Slug.Equals(entry.Slug))).OrderBy(directoryEntry => directoryEntry.Name);
+            regularEntries = entries.Where(entry => directory.RegularEntries.Any(regularEntry => regularEntry.Slug.Equals(entry.Slug)))
+                                    .OrderBy(directoryEntry => directoryEntry.Name);
         else
             regularEntries = entries.Where(entry => directory.RegularEntries.Any(regularEntry => regularEntry.Slug.Equals(entry.Slug)));
 
@@ -100,10 +97,16 @@ public class DirectoryController : Controller
             MapPosition = directoryEntry.MapPosition
         };
 
-        return View(new DirectoryEntryViewModel(slug, directoryEntry, GetBreadcrumbsForDirectories(parentDirectories.FirstOrDefault(), parentDirectories, true, false), mapDetails));
+        return View(new DirectoryEntryViewModel(slug,
+                                            directoryEntry,
+                                            GetBreadcrumbsForDirectories(parentDirectories.FirstOrDefault(), parentDirectories, true, false),
+                                            mapDetails));
     }
 
-    private List<Crumb> GetBreadcrumbsForDirectories(Directory currentDirectory, List<Directory> parentDirectories, bool viewLastBreadcrumbAsResults = false, bool addCurrentDirectoryBreadcrumb = false) 
+    private List<Crumb> GetBreadcrumbsForDirectories(Directory currentDirectory,
+                                                    List<Directory> parentDirectories,
+                                                    bool viewLastBreadcrumbAsResults = false,
+                                                    bool addCurrentDirectoryBreadcrumb = false) 
     {
         List<Crumb> breadcrumbs = new();
         parentDirectories.ForEach(directory => breadcrumbs.Add(GetBreadcrumbForDirectory(directory, parentDirectories, viewLastBreadcrumbAsResults)));
@@ -121,15 +124,11 @@ public class DirectoryController : Controller
                                             .Select(_ => _.Slug));
         string url = "";
         if(parentDirectories.Any())
-        {
             url = directory.Equals(parentDirectories[^1]) && viewLastBreadcrumbAsResults
                     ? $"{_defaultUrlPrefix}/results/{relativeUrl}"
                     : $"{_defaultUrlPrefix}/{relativeUrl}";
-        }
         else 
-        {
             url = $"{_defaultUrlPrefix}/{relativeUrl}";
-        }
 
         return new Crumb(directory.Title, url, "Directories");
     }
@@ -151,6 +150,7 @@ public class DirectoryController : Controller
             if (parent is not null)
                 parentDirectories.Add(parent);
         }
+        
         return parentDirectories;
     }
 }
