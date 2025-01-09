@@ -1,16 +1,12 @@
 .events-filters {
     display: flex;
     flex-direction: row;
-    justify-content: center;
-    gap: 50px;
+    justify-content: left;
+    gap: 10px;
     flex-wrap: wrap;
 
-    @media #{$tablet} {
-        gap: 20px;
-    }
-
-    @media #{$mobile} {
-        justify-content: left;
+    @media #{$desktop} {
+        justify-content: space-evenly;
     }
 
     &-bar-container {
@@ -31,9 +27,8 @@
     }
 
     &__wrapper {
-        background-color: $skrm-yellow;
-        padding: 1em;
-        border-radius: 3px;
+        padding: 1em 0;
+        border-bottom: 1px solid black
     }
 
     &__date {
@@ -48,7 +43,7 @@
         padding-inline: 0.5em;
 
         &-label {
-            margin-right: 1em;
+            margin-right: 0.5em;
         }
     }
 
@@ -68,17 +63,17 @@
             position: relative;
             align-items: center;
 
-            @media #{$mobile} {
-                min-width: 48%;
+            @media #{$mobile, $tablet} {
+                width: 100%;
             }
         }
     }
 
     &__label {
         align-self: center;
-        max-width: calc(100% - 74px);
+        max-width: calc(100% - 50px);
         margin-bottom: 0;
-        padding: 7px 15px;
+        padding: 7px 7px;
         cursor: pointer;
         touch-action: manipulation;
         color: black;
