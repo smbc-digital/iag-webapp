@@ -16,6 +16,7 @@
         "filters": "filters-6d52b18c.min",
         "groups": "groups-e4d2ff31.min",
         "healthystockport": "healthystockport-e14985cb.min",
+        "homepageFilters": "homepageFilters-6a1cf43b.min",
         "mapSetCookie": "mapSetCookie-75bedf74.min",
         "matchbox": "matchbox-1781b65a.min",
         "multiSelect": "multiSelect-6f2004f5.min",

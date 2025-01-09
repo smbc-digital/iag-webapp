@@ -1,6 +1,6 @@
 ﻿@model EventCalendar
 
-<form action="/events" method="get">
+<form id="homepageFilters" action="/events" method="get">
     <input type="hidden" asp-for="@Model.FromSearch" value="true" />
         <div class="grid-container grid-parent event-homepage--no-padding">
             <div class="grid-100 event-homepage__filters">
@@ -33,7 +33,7 @@
                 <div class="grid-25">
                     <label class="h-l" asp-for="@Model.Category"></label>
                     <div class="event-homepage__filters-options">
-                        <select asp-for="@Model.Category" asp-items="@Model.EventCategoryOptions()" placeholder="All categories" name="orderBy" id="order-by" autocomplete="off"></select>
+                        <select asp-for="@Model.Category" asp-items="@Model.EventCategoryOptions()" placeholder="All categories" name="category" id="category" autocomplete="off"></select>
                     </div>
                 </div>
                 <div class="grid-25">
@@ -47,3 +47,11 @@
             </div>
         </div>
 </form>
+
+<script>
+    require(['/assets/javascript/config-38bd5f43.min.js'], function () {
+        require(['homepageFilters'], function (homepageFilters) {
+            homepageFilters.Init();
+        });
+    });
+</script>

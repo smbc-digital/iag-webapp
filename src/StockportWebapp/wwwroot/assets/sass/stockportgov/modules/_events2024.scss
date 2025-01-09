@@ -28,6 +28,18 @@
         }
     }
 
+    &__no-events {
+        margin-block-start: 3em;
+
+        @media #{$tablet} {
+            margin-block-start: 0;
+        }
+
+        @media #{$tablet} {
+            margin-inline: 15px;
+        }
+    }
+
     &__title {
         color: white;
         
