@@ -31,6 +31,7 @@ public interface IApplicationConfiguration
     List<ArchiveEmailPeriod> GetArchiveEmailPeriods();
     StylesheetsConfiguration GetStylesheetConfig();
     AnalyticsConfigurationModel GetAnalyticsConfig();
+    AnalyticsConfigurationModel GetAnalyticsConfig(string businessId);
     string GetStaleGroupsSecret();
 }
 
@@ -141,6 +142,13 @@ public class ApplicationConfiguration : IApplicationConfiguration
     {
         var config = new AnalyticsConfigurationModel();
         _appsettings.GetSection("stockportgov:Analytics").Bind(config);
+        return config;
+    }
+
+    public AnalyticsConfigurationModel GetAnalyticsConfig(string businessId)
+    {
+        var config = new AnalyticsConfigurationModel();
+        _appsettings.GetSection($"{businessId}:Analytics").Bind(config);
         return config;
     }
 

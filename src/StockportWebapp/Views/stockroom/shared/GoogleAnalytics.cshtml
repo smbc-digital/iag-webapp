@@ -1,0 +1,14 @@
+﻿@inject IAnalyticsConfiguration Analytics
+@inject BusinessId BusinessId;
+@{
+    var tag = Analytics.GetTrackerCode(BusinessId.ToString()).TagManagerId;
+}
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=@tag" type="text/plain" data-cookie-consent="tracking"></script>
+<script type="text/plain" data-cookie-consent="tracking">
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', '@tag');
+</script>
