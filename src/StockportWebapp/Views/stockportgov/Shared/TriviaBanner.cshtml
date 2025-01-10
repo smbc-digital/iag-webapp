@@ -1,18 +1,18 @@
 ﻿@model ContentBlock
 @{
-    var overrideToDefault = false;
+    bool overrideToDefault = false;
     if (Model.ColourScheme == EColourScheme.None ||
         Model.ColourScheme == EColourScheme.Multi ||
         Model.ColourScheme == EColourScheme.Dark_Overlay ||
         Model.ColourScheme == EColourScheme.Light_Overlay)
         overrideToDefault = true;
 
-    var backgroundColourClass = overrideToDefault
+    string backgroundColourClass = overrideToDefault
                                 ? "bg-default-light"
                                 : Model.BackgroundColourClass;
 
     string borderColourClass = overrideToDefault
-                                ? ""
+                                ? string.Empty
                                 : Model.BorderColourClass;
 }
 
@@ -33,7 +33,7 @@
                         <ul class="navcard-wrapper navcard-wrapper--no-margin">
                             @foreach (ContentBlock contentBlock in Model.SubItems)
                             {
-                                    <partial name="TriviaCard" model="@contentBlock" view-data="@(new ViewDataDictionary(ViewData) { {"BackgroundColourClass", "trivia-banner--background"}, {"BorderClass", string.Empty}, {"TextColourClass", $"text-default {Model.TextColourClass}"}, {"CardType", "trivia-banner"} })" />
+                                <partial name="TriviaCard" model="@contentBlock" view-data="@(new ViewDataDictionary(ViewData) { {"BackgroundColourClass", "trivia-banner--background"}, {"BorderClass", string.Empty}, {"TextColourClass", $"text-default {Model.TextColourClass}"}, {"CardType", "trivia-banner"} })" />
                             }
                         </ul>
                     </div>

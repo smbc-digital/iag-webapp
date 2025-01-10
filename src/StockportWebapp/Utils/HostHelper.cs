@@ -1,28 +1,31 @@
 ﻿namespace StockportWebapp.Utils;
 
-public class HostHelper
+public class HostHelper(CurrentEnvironment currentEnvironment)
 {
-    readonly CurrentEnvironment _currentEnvironment;
-
-    public HostHelper(CurrentEnvironment currentEnvironment)
-    {
-        _currentEnvironment = currentEnvironment;
-    }
+    readonly CurrentEnvironment _currentEnvironment = currentEnvironment;
 
     public string GetHost(HttpRequest request)
     {
-        var scheme = _currentEnvironment.Name == "local" ? "http" : "https";
+        string scheme = _currentEnvironment.Name.Equals("local")
+            ? "http"
+            : "https";
+
         return string.Concat(scheme, "://", request?.Host);
     }
 
     public string GetHostAndQueryString(HttpRequest request)
     {
-        var scheme = _currentEnvironment.Name == "local" ? "http" : "https";
-        var builder = new StringBuilder();
+        string scheme = _currentEnvironment.Name.Equals("local")
+            ? "http"
+            : "https";
+        
+        StringBuilder builder = new();
+
         builder.Append(scheme);
         builder.Append("://");
         builder.Append(request?.Host);
         builder.Append(request.QueryString);
+
         return builder.ToString();
     }
 }

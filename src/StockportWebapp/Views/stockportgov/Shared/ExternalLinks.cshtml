@@ -5,8 +5,9 @@
     <section class="section grid-container external-link" data-cy="related-content">
         <nav class="grid-100" aria-label="related content navigation">
             <h2 class="section__title section__title--no-padding section__title--margin-bottom">Related content</h2>
+
             <ul class="external-link__list">
-                @foreach(var item in Model.RelatedContent)
+                @foreach(SubItem item in Model.RelatedContent)
                 {
                     <li class="external-link__container">
                         <a href="@item.NavigationLink" class="external-link__link" data-cy="related-content-link">
@@ -26,7 +27,7 @@
         <nav class="grid-100" aria-label="external links navigation">
             <h2 class="section__title section__title--no-padding section__title--margin-bottom">External links</h2>
             <ul class="external-link__list">
-                @foreach(var item in Model.ExternalLinks)
+                @foreach(ExternalLink item in Model.ExternalLinks)
                 {
                     <li class="external-link__container">
                         <a href="@item.URL" class="external-link__link" target="_blank" data-cy="external-link-link">

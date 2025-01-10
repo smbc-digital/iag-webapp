@@ -40,11 +40,13 @@ public class HtmlHelper
         string srcset = $"{baseUrl}?w={maxMobileWidth}&q=89&fm=webp {maxMobileWidth}w, " +
                     $"{baseUrl}?w={maxTabletWidth}&q=89&fm=webp {maxTabletWidth}w, " +
                     $"{baseUrl}?w={maxDesktopWidth}&q=89&fm=webp {maxDesktopWidth}w";
+        
         image.SetAttributeValue("srcset", srcset);
 
         string sizes = $"(max-width: 767px) {maxMobileWidth}px, " +
                     $"(min-width: 768px) and (max-width: 1023px) {maxTabletWidth}px, " +
                     $"(min-width: 1024px) {maxDesktopWidth}px";
+        
         image.SetAttributeValue("sizes", sizes);
     }
 }

@@ -10,7 +10,7 @@
                 <div class="directory-results__filters">
                     @if (Model.AllFilterThemes is not null && Model.AllFilterThemes.Any())
                     {
-                        @foreach (var entry in Model.AllFilterThemes)
+                        @foreach (FilterTheme entry in Model.AllFilterThemes)
                         {
                             <a href="javascript:void(0)" aria-expanded="true" class="directory-results__collapsible">
                                 <h3 id='directory-@entry.Title.ToLower().Replace(" ", "-")'>@entry.Title</h3>

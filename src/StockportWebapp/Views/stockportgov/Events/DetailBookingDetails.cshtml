@@ -14,6 +14,7 @@
                         <th>Cost:</th>
                         <td>@Model.Fee</td>
                     </tr>
+
                     @if (!string.IsNullOrEmpty(Model.PhoneNumber))
                     {
                         <tr>
@@ -21,6 +22,7 @@
                             <td><strong>@Model.PhoneNumber</strong></td>
                         </tr>
                     }
+
                     @if (!string.IsNullOrEmpty(Model.Email))
                     {
                         <tr>
@@ -28,6 +30,7 @@
                             <td><a href="mailto:@Model.Email">@Model.Email</a></td>
                         </tr>
                     }
+
                     @if (!string.IsNullOrEmpty(Model.Website))
                     {
                         <tr>
@@ -35,6 +38,7 @@
                             <td><a href="@Model.Website" target="_blank">@Model.Website</a></td>
                         </tr>
                     }
+
                     @if (!string.IsNullOrEmpty(Model.Facebook))
                     {
                         <tr>
@@ -42,6 +46,7 @@
                             <td><a href="@Model.Facebook" target="_blank">@Model.Facebook</a></td>
                         </tr>
                     }
+
                     @if (!string.IsNullOrEmpty(Model.Instagram))
                     {
                         <tr>
@@ -49,6 +54,7 @@
                             <td><a href="@Model.Instagram" target="_blank">@Model.Instagram</a></td>
                         </tr>
                     }
+
                     @if (!string.IsNullOrEmpty(Model.LinkedIn))
                     {
                         <tr>
@@ -58,6 +64,7 @@
                     }
                 </tbody>
             </table>
+            
             @if (!string.IsNullOrEmpty(Model.BookingInformation))
             {
                 <a href="@Model.BookingInformation" data-cy="book-event-button" target="_blank" class="btn event-detail__button btn--width-30 btn--chevron-forward btn--bold btn--chevron-bold">

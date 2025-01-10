@@ -25,6 +25,7 @@ public class SidebarViewModel
     {
         SidebarSubItems = articleViewModel.SidebarSubItems(out bool hasMoreButton)
                            .Where(subItem => !subItem.NavigationLink.Equals(articleViewModel.Article.NavigationLink));
+        
         ParentTopicName = articleViewModel.Article.ParentTopic?.Name;
         ParentTopicSlug = articleViewModel.Article.ParentTopic?.Slug;
         ParentTopicTeaser = articleViewModel.Article.ParentTopic?.Teaser;
@@ -37,6 +38,7 @@ public class SidebarViewModel
     {
         SidebarSubItems = privacyNoticeViewModel.SidebarSubItems(out bool hasMoreButton)
                            .Where(subItem => !subItem.NavigationLink.Equals(privacyNoticeViewModel.PrivacyNotice.NavigationLink));
+        
         ParentTopicName = privacyNoticeViewModel.PrivacyNotice.ParentTopic?.Name;
         ParentTopicSlug = privacyNoticeViewModel.PrivacyNotice.ParentTopic?.Slug;
         ParentTopicTeaser = privacyNoticeViewModel.PrivacyNotice.ParentTopic?.Teaser;

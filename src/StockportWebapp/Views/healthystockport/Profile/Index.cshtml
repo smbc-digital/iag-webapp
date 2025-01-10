@@ -2,8 +2,9 @@
 @{
     Layout = "../Shared/_Layout.cshtml";
 
-    var articleTitle = Model.Profile.Breadcrumbs.LastOrDefault() is not null ?
-        $"{Model.Profile.Breadcrumbs.LastOrDefault().Title} - " : string.Empty;
+    string articleTitle = Model.Profile.Breadcrumbs.LastOrDefault() is not null
+        ? $"{Model.Profile.Breadcrumbs.LastOrDefault().Title} - "
+        : string.Empty;
 
     ViewData["Title"] = Model.Profile.Title;
     ViewData["og:title"] = articleTitle + Model.Profile.Title;

@@ -3,8 +3,13 @@
 {
     ProfileViewModel profileViewModel = new(Model.Profile);
 
-    string pseudoBorderColour = Model.IsDefaultColourScheme ? "border-pseudo-colour-teal" : Model.PseudoBorderColourClass;
-    string borderColour = Model.IsDefaultColourScheme ? "border-colour-teal" : Model.BorderColourClass;
+    string pseudoBorderColour = Model.IsDefaultColourScheme
+        ? "border-pseudo-colour-teal"
+        : Model.PseudoBorderColourClass;
+
+    string borderColour = Model.IsDefaultColourScheme
+        ? "border-colour-teal"
+        : Model.BorderColourClass;
 
     <section class="content-block content-block--margin" data-cy="profile-banner">
         <div class="grid-container">

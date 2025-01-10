@@ -3,8 +3,7 @@
     string cssClasses = (string)ViewData["cssClasses"] ?? string.Empty;
 }
 
-
-@foreach (var link in Model)
+@foreach (SubItem link in Model)
 {
     <li class="@cssClasses mobile-grid-100">
         <div class="footer__info-container">

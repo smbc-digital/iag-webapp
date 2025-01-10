@@ -3,13 +3,13 @@
 <ul class="navcard-wrapper">
     @if (Model.PaginationInfo.CurrentPage.Equals(1))
     {
-        foreach (var entry in Model.PinnedEntries)
+        foreach (DirectoryEntryViewModel entry in Model.PinnedEntries)
         {
             <partial name="DirectorySearchResult" model=@entry />
         }
     }
 
-    @foreach (var entry in Model.PaginatedEntries)
+    @foreach (DirectoryEntryViewModel entry in Model.PaginatedEntries)
     {
         <partial name="DirectorySearchResult" model=@entry />
     }

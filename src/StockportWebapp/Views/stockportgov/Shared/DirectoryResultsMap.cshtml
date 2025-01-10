@@ -4,7 +4,9 @@
 @if(Model.DisplayMap)
 {
     List<string> mapCookie = CookiesHelper.GetCookies<string>("map");
-    string displayValue = mapCookie.Contains(Model.Slug) ? "block" : "none";
+    string displayValue = mapCookie.Contains(Model.Slug)
+        ? "block"
+        : "none";
 
     <script src="@("https://unpkg.com/@googlemaps/markerclusterer/dist/index.min.js")"></script>
 

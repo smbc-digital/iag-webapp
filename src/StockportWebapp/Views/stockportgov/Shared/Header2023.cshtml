@@ -8,6 +8,7 @@
             <a href="#content" class="skip-main">Skip to main content</a>
         </div>
     </nav>
+
     <header role="banner" id="header" class="grid-container" data-cy="header-new">
         <div class="grid-20 tablet-grid-100 mobile-grid-100">
             <a href="https://www.stockport.gov.uk">
@@ -17,6 +18,7 @@
                     width="245"
                     height="60">
             </a>
+
             @if(Model)
             {
                 <partial name="MobileSearchBar2023" />
@@ -27,6 +29,7 @@
             <div class="grid-60 site-header_menu-wrapper">
                 <partial name="HeaderMenu" />
             </div>
+
             @if(Model)
             {
                 <div class="grid-40 site-header_search-wrapper">
@@ -36,7 +39,6 @@
         </div>
     </header>
 </div>
-
 
 <partial name="BrowserCheck" />
 

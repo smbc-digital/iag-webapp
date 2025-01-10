@@ -20,7 +20,7 @@
         <div class="grid-100">
             <div class="section__content section__content--no-margin">
                 <ul class="navcard-wrapper navcard-wrapper--no-margin" data-cy="navcard">
-                    @foreach (var subitem in Model.PrimaryItems.Items)
+                    @foreach (NavCard subitem in Model.PrimaryItems.Items)
                     {
                         <partial name="DirectoryNavCard" model='subitem' view-data='@(new ViewDataDictionary(ViewData) { { "DisplayIcons", @Model.DisplayIcons  }, {"IsRootDirectory", Model.IsRootDirectory}, { "AlternativeColourScheme", CssClassMapper.GetCssClass(Model.InheritedColourScheme) }, {"NavcardPaddingClasses", navcardPaddingClasses} })' />
                     }

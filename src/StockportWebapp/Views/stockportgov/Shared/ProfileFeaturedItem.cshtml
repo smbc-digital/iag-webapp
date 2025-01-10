@@ -29,6 +29,7 @@
                 </div>
             </div>
         </div>
+
         <partial name="FeaturedItemImage" model="@Model.Profile.Image.Url" view-data='@(new ViewDataDictionary(ViewData) { {"imageAdditionalClasses", "profile-banner"}, {"altText", altText} })' />
     </a>
 }
@@ -51,6 +52,7 @@ else
                 </div>
             </div>
         </div>
+        
         <partial name="FeaturedItemImage" model="@Model.Profile.Image.Url" view-data='@(new ViewDataDictionary(ViewData) { {"imageAdditionalClasses", "profile-banner"}, {"altText", altText} })' />
     </div>
 }

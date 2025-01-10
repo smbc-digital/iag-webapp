@@ -6,7 +6,7 @@
     ViewData["WhiteBackground"] = true;
     ViewData["FullWidth"] = "full-width";
     Layout = "../Shared/_LayoutSemantic.cshtml";
-    var crumbsList = new List<Crumb>();
+    List<Crumb> crumbsList = new();
 }
 
 @section Breadcrumbs {
@@ -23,6 +23,7 @@
                 <h2>@Model.Homepage.CallToActionBanner.Title</h2>
                 <div class="button-tertiary">@Model.Homepage.CallToActionBanner.ButtonText</div>
             </div>
+
             <img src="@Model.Homepage.CallToActionBanner.Image" alt="@Model.Homepage.CallToActionBanner.AltText"/>
         </a>
     }
@@ -35,6 +36,7 @@
                     <span class="fa fa-clock-o fa-lg" aria-hidden="true"></span>
                     <partial name="FormattedDate" model='Model.LatestNews.UpdatedAt' />
                 </div>
+
                 <span class="status-news">@Model.LatestNews.Purpose</span>
             </div>
 
@@ -47,13 +49,18 @@
         </section>
 
         <h2>@Model.Homepage.InstagramFeedTitle</h2>
+
         <div class="iframe-container" aria-label ="Instagram Feed">
             <iframe title ="Instagram Feed" src="@Model.Homepage.InstagramLink/embed" class="instagram"></iframe>
         </div>
+
         <h2>@Model.Homepage.FacebookFeedTitle</h2>
+
         <div class="iframe-container" aria-label ="Facebook Feed">
             <div id="fb-root"></div>
+
             <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v4.0"></script>
+
             <div class="fb-page" title ="Facebook Feed" data-href="https://www.facebook.com/StockportMBC" data-tabs="timeline" data-width="500"
                  data-height="500" data-small-header="true" data-adapt-container-width="true"
                  data-hide-cover="false" data-show-facepile="true">
@@ -63,6 +70,7 @@
             </div>
         </div>
     </article>
+
     <aside class="article-aside">
         <partial name="../Shared/SignUpAlerts.cshtml" />
 
@@ -70,7 +78,7 @@
         {
             <h2 class="h3">Useful links</h2>
             <ul class="useful-links">
-                @foreach (var link in Model.Homepage.UsefulLinks)
+                @foreach (BasicLink link in Model.Homepage.UsefulLinks)
                 {
                     <li>
                         <a href="@link.Url" title="@link.Text">@link.Text</a>
@@ -81,7 +89,9 @@
         }
 
         <h2 class="h3">What's on in Stockport</h2>
+        
         <partial name="../Shared/Event.cshtml" model='@Model.Homepage.WhatsOnInStockportEvent' />
+        
         <a class="view-more-news" href="https://www.stockport.gov.uk/events">
             View more events
             <span aria-hidden="true" class="fa fa-arrow-right"></span>

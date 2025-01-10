@@ -1,7 +1,7 @@
 ﻿@model string
 
 @{
-    string additionalClasses = (string)ViewData["imageAdditionalClasses"];
+    string additionalClasses = (string)ViewData["imageAdditionalClasses"] ?? string.Empty;
     string altText = (string)ViewData["altText"] ?? string.Empty;
 }
 

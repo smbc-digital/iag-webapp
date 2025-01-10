@@ -14,9 +14,10 @@ public class MarkdownWrapper
         return ReplaceFigCaptionFloat(wrappedTableHtml);
     }
 
-    private static string WrapTables(string html) => html.Replace("<table>", "<div class=\"table\">\n<table>").Replace("</table>", "</table>\n</div>");
+    private static string WrapTables(string html) =>
+        html.Replace("<table>", "<div class=\"table\">\n<table>").Replace("</table>", "</table>\n</div>");
 
-    private static string ReplaceFigCaptionFloat(string html) => html
-        .Replace("<figure>\n<figcaption>#right</figcaption>", "<figure class='image-right'>")
-        .Replace("<figure>\n<figcaption>#left</figcaption>", "<figure class='image-left'>");
+    private static string ReplaceFigCaptionFloat(string html) =>
+        html.Replace("<figure>\n<figcaption>#right</figcaption>", "<figure class='image-right'>")
+            .Replace("<figure>\n<figcaption>#left</figcaption>", "<figure class='image-left'>");
 }

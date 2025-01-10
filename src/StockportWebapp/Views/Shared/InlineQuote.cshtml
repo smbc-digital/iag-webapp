@@ -36,18 +36,18 @@ else
         }
 
         <div class="profile-tag-parser @profileColour">
-                <img src="@Model.Image?w=360&q=89" srcset="@Model.Image?w=360&q=89&fm=webp" class="profile-tag-parser__image" loading="lazy" alt="@Model.ImageAltText" width="360" height="360">
+            <img src="@Model.Image?w=360&q=89" srcset="@Model.Image?w=360&q=89&fm=webp" class="profile-tag-parser__image" loading="lazy" alt="@Model.ImageAltText" width="360" height="360">
 
-                <div class="profile-tag-parser-content">
-                    @if (!string.IsNullOrEmpty(Model.Author) && businessId.Equals("stockroom"))
-                    {
-                        <h3 class="profile-tag-parser-content__title">@Model.Author</h3>
-                    }
-                    
-                    <span class="h-s fa fa-quote-left profile-quote__marks" aria-hidden="true"></span>
-                    <p class="profile-tag-parser-content__teaser">@Model.Quote</p>
-                    <span class="h-s fa fa-quote-right profile-quote__marks" aria-hidden="true"></span>
-                </div>
+            <div class="profile-tag-parser-content">
+                @if (!string.IsNullOrEmpty(Model.Author) && businessId.Equals("stockroom"))
+                {
+                    <h3 class="profile-tag-parser-content__title">@Model.Author</h3>
+                }
+                
+                <span class="h-s fa fa-quote-left profile-quote__marks" aria-hidden="true"></span>
+                <p class="profile-tag-parser-content__teaser">@Model.Quote</p>
+                <span class="h-s fa fa-quote-right profile-quote__marks" aria-hidden="true"></span>
+            </div>
         </div>
     </section>
 }

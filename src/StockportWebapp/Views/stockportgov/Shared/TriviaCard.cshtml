@@ -5,7 +5,10 @@
     string textColourClass = (string)ViewData["TextColourClass"] ?? string.Empty;
     string borderClass = (string)ViewData["BorderClass"] ?? string.Empty;
     string cardType = (string)ViewData["CardType"] ?? string.Empty;
-    string navcardPadding = !string.IsNullOrEmpty(cardType) && cardType.Equals("trivia-banner") ? "navcard-content--padding-trivia" : string.Empty;
+    
+    string navcardPadding = !string.IsNullOrEmpty(cardType) && cardType.Equals("trivia-banner")
+        ? "navcard-content--padding-trivia"
+        : string.Empty;
 
     <li class="navcard navcard--width-33 navcard--center @cardType @backgroundColourClass @borderClass">
         <div class="navcard__content">

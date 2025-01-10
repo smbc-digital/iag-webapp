@@ -12,8 +12,8 @@
     {
         headingClass = "section__title section__title--padded-bottom";
         bool articleWithSection = ViewData["articleWithSection"] is null 
-                                    ? true 
-                                    : (bool)ViewData["articleWithSection"];
+            ? true 
+            : (bool)ViewData["articleWithSection"];
 
         headingClass += (bool)ViewData["logoAreaArticle"] && (bool)ViewData["articleWithSection"]
             ? " section__title--padding-top"

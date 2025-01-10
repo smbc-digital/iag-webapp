@@ -18,7 +18,7 @@
     <div class="grid-70 mobile-grid-100 l-content-container">
         @if (Model.Alerts is not null)
         {
-            foreach (var alert in Model.Alerts)
+            foreach (Alert alert in Model.Alerts)
             {
                 <partial name="DisplayTemplates/Alert" model='alert'/>
             }

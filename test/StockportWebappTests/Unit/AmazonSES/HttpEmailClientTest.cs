@@ -7,8 +7,7 @@ public class HttpEmailClientTest
     private readonly Mock<IAmazonSimpleEmailService> _amazonEmailService = new Mock<IAmazonSimpleEmailService>();
 
     public HttpEmailClientTest()
-    {
-    }
+    { }
 
     [Fact]
     public async Task ItShouldReturnA500AndLogItIfTheServiceEmailIsNullOrEmpty()

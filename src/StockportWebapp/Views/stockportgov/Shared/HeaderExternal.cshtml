@@ -6,14 +6,16 @@
 
 <div class="l-header-container">
     <nav aria-label="Skip to main content">
-    <div class="skip-to-main-content">
-        <a href="#content" class="skip-main">Skip to main content</a>
-    </div>
+        <div class="skip-to-main-content">
+            <a href="#content" class="skip-main">Skip to main content</a>
+        </div>
     </nav>
+
     <header role="banner" id="header" class="grid-container grid-100">
         <div class="grid-50 mobile-grid-50 tablet-grid-50 logo-main">
             <a href="https://www.stockport.gov.uk"><img src="@StaticAssets.UrlFor("logo-stockport-full%402x.png")" data-mobile-image="@StaticAssets.UrlFor("logo-stockport-mobile%402x.png")" data-desktop-image="@StaticAssets.UrlFor("logo-stockport-full%402x.png")" alt="Stockport Council Logo Homepage Link" title="Welcome to Stockport Council" class="logo-main-image"></a>
         </div>
+
         <div class="grid-50 mobile-grid-50 tablet-grid-50 grid-parent">
             <div class="header-container grid-100 grid-parent">
                 <div class="grid-50 grid-parent header-myaccount">
@@ -27,6 +29,7 @@
                                     <a href="https://myaccount.stockport.gov.uk/">My Account</a>
                                     <span class="fa fa-angle-down" aria-hidden="true"></span>
                                 </div>
+
                                 <div class="menu-tooltip">
                                     <span class="fa fa-caret-up" aria-hidden="true"></span>
                                     <div class="menu-links">
@@ -36,6 +39,7 @@
                                     </div>
                                 </div>
                             </div>
+
                             <div class="menu-logged-in hide-on-desktop">
                                 <div class="modal">
                                     <input id="modal" type="checkbox" name="modal">
@@ -47,6 +51,7 @@
                                                 <label for="modal"><span class="fa fa-times" aria-hidden="true"></span>Close</label>
                                             </div>
                                         </div>
+
                                         <div class="modal-box">
                                             <nav class="mobile-menu">
                                                 <ul>
@@ -65,12 +70,14 @@
                             <div class="menu-logged-out pull-right">
                                 <a href="https://myaccount.stockport.gov.uk/" aria-label="Go to My Account"><span class="fa fa-user hide-on-mobile" aria-hidden="true"></span>My Account</a>
                             </div>
+
                             <div class="menu-logged-out pull-right">
                                 <a href="#" id="reciteMe"><span class="fa fa-headphones hide-on-mobile" aria-hidden="true"></span>Accessibility</a>
                             </div>
                         }
                     </div>
                 </div>
+
                 <div class="grid-50 grid-parent pull-right header-search-bar">
                     <partial name="HeaderSearchBar" />
                 </div>
@@ -78,5 +85,6 @@
         </div>
     </header>
 </div>
+
 <partial name="MobileSearchBar" />
 <partial name="BrowserCheck" />

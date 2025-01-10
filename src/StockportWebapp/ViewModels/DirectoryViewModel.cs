@@ -10,24 +10,34 @@ public class DirectoryViewModel
 
     public DirectoryViewModel(Directory directory) : this(directory.Slug, directory) { }
 
-    public DirectoryViewModel(string slug, Directory directory, IEnumerable<Crumb> breadcrumbs) 
-        : this(slug, directory) => Breadcrumbs = breadcrumbs;
+    public DirectoryViewModel(string slug, Directory directory,
+                            IEnumerable<Crumb> breadcrumbs)  : this(slug, directory) =>
+        Breadcrumbs = breadcrumbs;
 
-    public DirectoryViewModel(string slug, Directory directory, IEnumerable<Crumb> breadcrumbs, IEnumerable<DirectoryEntry> pinnedEntries, IEnumerable<DirectoryEntry> filteredEntries) 
-        : this(slug, directory)
+    public DirectoryViewModel(string slug,
+                            Directory directory,
+                            IEnumerable<Crumb> breadcrumbs,
+                            IEnumerable<DirectoryEntry> pinnedEntries,
+                            IEnumerable<DirectoryEntry> filteredEntries) : this(slug, directory)
     {
         Breadcrumbs = breadcrumbs;
         PinnedEntries = pinnedEntries.Select(entry => new DirectoryEntryViewModel($"{slug}/{entry.Slug}", entry, true));
         FilteredEntries = filteredEntries.Select(entry => new DirectoryEntryViewModel($"{slug}/{entry.Slug}", entry, false));
+
         AddMapPinIndexes();
     }
 
-    public DirectoryViewModel(string slug, Directory directory, IEnumerable<Crumb> breadcrumbs, IEnumerable<DirectoryEntry> pinnedEntries, IEnumerable<DirectoryEntry> filteredEntries, int pageNumber)
-        : this(slug, directory)
+    public DirectoryViewModel(string slug,
+                            Directory directory,
+                            IEnumerable<Crumb> breadcrumbs,
+                            IEnumerable<DirectoryEntry> pinnedEntries,
+                            IEnumerable<DirectoryEntry> filteredEntries,
+                            int pageNumber) : this(slug, directory)
     {
         Breadcrumbs = breadcrumbs;
         PinnedEntries = pinnedEntries.Select(entry => new DirectoryEntryViewModel($"{slug}/{entry.Slug}", entry, true));
         FilteredEntries = filteredEntries.Select(entry => new DirectoryEntryViewModel($"{slug}/{entry.Slug}", entry, false));
+
         Paginate(pageNumber);
         AddMapPinIndexes();
     }
@@ -45,9 +55,31 @@ public class DirectoryViewModel
         RelatedContent = directory.RelatedContent;
         ExternalLinks = directory.ExternalLinks;
         _searchBranding = directory.SearchBranding;
-        var directoryItems = directory.SubItems.Where(item => item.Type == "directory").Select(subItem => new NavCard(subItem.Title, subItem.GetNavigationLink(Slug), subItem.Teaser, subItem.TeaserImage, subItem.Image, subItem.Icon, subItem.ColourScheme));
-        var nonDirectoryItems = directory.SubItems.Where(item => item.Type != "directory").Select(subItem => new NavCard(subItem.Title, subItem.NavigationLink, subItem.Teaser, subItem.TeaserImage, subItem.Image, subItem.Icon, subItem.ColourScheme));
-        PrimaryItems = new NavCardList() { Items = directoryItems.Concat(nonDirectoryItems).ToList() };
+
+        IEnumerable<NavCard> directoryItems = directory.SubItems
+                                                .Where(item => item.Type.Equals("directory"))
+                                                .Select(subItem => new NavCard(subItem.Title,
+                                                                            subItem.GetNavigationLink(Slug),
+                                                                            subItem.Teaser,
+                                                                            subItem.TeaserImage,
+                                                                            subItem.Image,
+                                                                            subItem.Icon,
+                                                                            subItem.ColourScheme));
+
+        IEnumerable<NavCard> nonDirectoryItems = directory.SubItems
+                                                    .Where(item => !item.Type.Equals("directory"))
+                                                    .Select(subItem => new NavCard(subItem.Title,
+                                                                                subItem.NavigationLink,
+                                                                                subItem.Teaser,
+                                                                                subItem.TeaserImage,
+                                                                                subItem.Image,
+                                                                                subItem.Icon,
+                                                                                subItem.ColourScheme));
+        
+        PrimaryItems = new NavCardList()
+        {
+            Items = directoryItems.Concat(nonDirectoryItems).ToList()
+        };
     }
 
     // Default values
@@ -57,15 +89,23 @@ public class DirectoryViewModel
     // Core page details
     public string Slug { get; set; }
     public string Title { get; set; }
-    public string DisplayTitle => "Results for " + (string.IsNullOrEmpty(SearchTerm) ? Title : $"\"{SearchTerm}\"");
-    public string PageTitle => DisplayTitle + (ShowPagination? " (page " + PaginationInfo.CurrentPage + " of " + PaginationInfo.TotalPages + ")" : string.Empty);
+    public string DisplayTitle =>
+        $"Results for {(string.IsNullOrEmpty(SearchTerm)
+            ? Title
+            : $"\"{SearchTerm}\"")}";
+
+    public string PageTitle =>
+        $"{DisplayTitle}{(ShowPagination
+            ? " (page " + PaginationInfo.CurrentPage + " of " + PaginationInfo.TotalPages + ")"
+            : string.Empty)}";
+
     public string MetaDescription { get; set; }
     public string Body { get; set; }
     public CallToActionBanner CallToAction { get; set; }
     public IEnumerable<Alert> Alerts { get; set; }
     public EventCalendarBanner EventBanner { get; set; }
     public EColourScheme ColourScheme { get; set; }
-    public string SearchBranding => ParentDirectory != null
+    public string SearchBranding => ParentDirectory is not null
                                     && !string.IsNullOrEmpty(ParentDirectory.SearchBranding)
                                         ? ParentDirectory.SearchBranding
                                         : _searchBranding;
@@ -81,7 +121,9 @@ public class DirectoryViewModel
     public string SearchTerm { get; set; }
     public string Order { get; set; }
     public PaginationInfo PaginationInfo { get; set; }
-    public bool ShowPagination => PaginationInfo is not null && PaginationInfo.TotalEntries > PaginationInfo.PageSize;
+    public bool ShowPagination =>
+        PaginationInfo is not null && PaginationInfo.TotalEntries > PaginationInfo.PageSize;
+
     public List<string> OrderBy = new() { "Name A to Z", "Name Z to A" };
     public IEnumerable<Filter> AppliedFilters { get; set; }
     public IEnumerable<FilterTheme> AllFilterThemes { get; set; }
@@ -102,15 +144,20 @@ public class DirectoryViewModel
         }
     }
 
-    public bool DisplayMap => PinnedEntries.Any(entry => entry.DirectoryEntry.IsNotOnTheEqautor)
-                                || PaginatedEntries.Any(entry => entry.DirectoryEntry.IsNotOnTheEqautor);
+    public bool DisplayMap =>
+        PinnedEntries.Any(entry => entry.DirectoryEntry.IsNotOnTheEqautor)
+        || PaginatedEntries.Any(entry => entry.DirectoryEntry.IsNotOnTheEqautor);
 
 
     // Page layout properties
-    public bool DisplayIcons => PrimaryItems is not null
-                                    && PrimaryItems.Items.Any()
-                                    && PrimaryItems.Items.All(item => item is not null && !string.IsNullOrEmpty(item.Icon));
-    public bool IsRootDirectory => Title.Equals(ParentDirectory.Title);
+    public bool DisplayIcons =>
+        PrimaryItems is not null
+        && PrimaryItems.Items.Any()
+        && PrimaryItems.Items.All(item => item is not null && !string.IsNullOrEmpty(item.Icon));
+    
+    public bool IsRootDirectory =>
+        Title.Equals(ParentDirectory.Title);
+    
     public Dictionary<string, int> FilterCounts { get; set; }
     public IEnumerable<DirectoryEntryViewModel> FilteredEntries { get; set; }
     public IEnumerable<DirectoryEntryViewModel> PinnedEntries { get; set; }
@@ -122,7 +169,7 @@ public class DirectoryViewModel
 
     public void Paginate(int page)
     {
-        var allEntries = PinnedEntries is not null
+        IEnumerable<DirectoryEntryViewModel> allEntries = PinnedEntries is not null
                             ? PinnedEntries.Concat(FilteredEntries)
                                             .Distinct(new SlugComparer())
                                             .Select(entry => (DirectoryEntryViewModel)entry)
@@ -161,14 +208,14 @@ public class DirectoryViewModel
     public void AddMapPinIndexes()
     {
         int endIndex = 1;
-        if(PaginationInfo.CurrentPage.Equals(1))
+        if (PaginationInfo.CurrentPage.Equals(1))
             PinnedEntries = AddMapPinIndexes(PinnedEntries, endIndex, out endIndex);
         
         PaginatedEntries = AddMapPinIndexes(PaginatedEntries, endIndex, out endIndex);
     }
 
     /// <summary>
-    /// Todo - I'm not sure I like this - need to create a new list and then assign as can't mutatue the list values
+    /// Todo - I'm not sure I like this - need to create a new list and then assign as can't mutate the list values
     /// </summary>
     /// <param name="entries"></param>
     /// <param name="startIndex"></param>
@@ -176,17 +223,21 @@ public class DirectoryViewModel
     /// <returns></returns>
     private IEnumerable<DirectoryEntryViewModel> AddMapPinIndexes(IEnumerable<DirectoryEntryViewModel> entries, int startIndex, out int endIndex)
     {
-        var currentIndex = startIndex;
-        var mutatedEnties = new List<DirectoryEntryViewModel>();
-        foreach(DirectoryEntryViewModel entry in entries)
+        int currentIndex = startIndex;
+
+        var mutatedEntries = entries.Select(entry =>
         {
-            entry.MapPinIndex = entry.DirectoryEntry.IsNotOnTheEqautor ? currentIndex : 0;
-            mutatedEnties.Add(entry);
+            entry.MapPinIndex = entry.DirectoryEntry.IsNotOnTheEqautor
+                ? currentIndex
+                : 0;
+
             if (entry.DirectoryEntry.IsNotOnTheEqautor)
-                currentIndex += 1;
-        }
+                currentIndex++;
+            
+            return entry;
+        }).ToList();
 
         endIndex = currentIndex;
-        return mutatedEnties;
+        return mutatedEntries;
     }
 }

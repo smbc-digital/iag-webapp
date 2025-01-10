@@ -5,7 +5,7 @@
     <div class="alphabet">
         @foreach (var letter in "ABCDEFGHIJKLMNOPQRSTUVWXYZ")
         {
-            <div class="letter @(letter.ToString() == Model ? "active" : "")">
+            <div class="letter @(letter.ToString() == Model ? "active" : string.Empty)">
                 @if (letter.ToString() == "A")
                 {
                     <a class="letter-bordered" href="@Url.Action("Index", "AtoZ", new {letter = letter.ToString().ToLower()})" aria-label="Find services A to Z A service">@letter</a>

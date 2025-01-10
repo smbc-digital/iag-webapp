@@ -1,16 +1,14 @@
 ﻿@inject ViewHelpers ViewHelpers
 @model Event
 @{
-    string fee = Model.Fee;
-    if (Model.Fee == "0")
-    {
-        fee = "Free";
-
-    }
+    string fee = Model.Fee.Equals("0")
+        ? "Free"
+        : Model.Fee;
 }
 
 <a href="/events/@Model.Slug" class="event-item">
     <img alt="" role="presentation" src="@Model.ImageUrl" />
+    
     <h3>@Model.Title</h3>
     <div class="featured-event-item">
         <span class="fa fa-gbp"></span><p>@fee</p>

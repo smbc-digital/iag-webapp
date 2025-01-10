@@ -8,6 +8,7 @@
     {
         <partial name="AToZStockportGov" model='""' />
     }
+
     <div class="l-container-footer grid-container">
         <div class="grid-container grid-parent">
             <div class="grid-100 grid-parent">
@@ -17,9 +18,10 @@
                         <partial name="SocialMediaLinks" model='Model.SocialMediaLinks' />
                     }
                 </div>
+
                 <div class="grid-25 tablet-grid-25 mobile-grid-100">
                     <div class="footer-stockport-logo">
-                        @if (BusinessId.ToString() == "healthystockport")
+                        @if (BusinessId.ToString().Equals("healthystockport"))
                         {
                             <p>Funded By</p>
                             <a href="https://www.stockport.gov.uk"><img src="@StaticAssets.UrlFor("logo-stockport-footer.png")" alt="Stockport Council Logo Homepage Link" /></a>
@@ -30,18 +32,20 @@
                         }
                     </div>
                 </div>
+
                 <div class="footer-links tablet-grid-40 grid-45 grid-100-mobile">
                     <div class="grid-100 tablet-grid-100 mobile-grid-100">
                         <ul class="footer-nav">
-                            @if (Model.Links != null)
+                            @if (Model.Links is not null)
                             {
                                 <partial name="FooterLinks" model='Model.Links' view-data='@(new ViewDataDictionary(ViewData) {{"cssClasses", "grid-50 tablet-grid-50"}})' />
                             }
                         </ul>
                     </div>
                 </div>
+
                 <div class="grid-30 tablet-grid-35 footer-social-container hide-on-mobile">
-                    @if (Model.SocialMediaLinks != null)
+                    @if (Model.SocialMediaLinks is not null)
                     {
                         <partial name="SocialMediaLinks" model='Model.SocialMediaLinks' />
                     }
@@ -49,24 +53,26 @@
             </div>
         </div>
     </div>
-    @if (BusinessId.ToString() == "stockportgov")
-    {
-<div class="grid-parent grid-container footer-logo-links">
-    <a href="https://www.gov.uk/" target="_blank" class="grid-20">
-        <img src="https://s3-eu-west-1.amazonaws.com/live-iag-static-assets/gov-uk-logo.png" alt="GOV UK" />
-    </a>
-    <a href="https://www.greatermanchester-ca.gov.uk/" target="_blank" class="grid-20">
-        <img src="https://s3-eu-west-1.amazonaws.com/live-iag-static-assets/GMCA-logo.png" alt="Greater Manchester Combined Authority" />
-    </a>
-    <a href="https://www.digitalstockport.info/digital-transformation-award/" target="_blank" class="grid-20">
-        <img src="https://s3-eu-west-1.amazonaws.com/live-iag-static-assets/mj-logo.png" alt="The MJ Achievement Awards 2019" />
-    </a>
-    <a href="https://idea.org.uk/" target="_blank" class="grid-20">
-        <img src="https://s3-eu-west-1.amazonaws.com/live-iag-static-assets/Pioneer-logo.png" alt="Pioneer" />
-    </a>
 
-</div>
+    @if (BusinessId.ToString().Equals("stockportgov"))
+    {
+        <div class="grid-parent grid-container footer-logo-links">
+            <a href="https://www.gov.uk/" target="_blank" class="grid-20">
+                <img src="https://s3-eu-west-1.amazonaws.com/live-iag-static-assets/gov-uk-logo.png" alt="GOV UK" />
+            </a>
+            <a href="https://www.greatermanchester-ca.gov.uk/" target="_blank" class="grid-20">
+                <img src="https://s3-eu-west-1.amazonaws.com/live-iag-static-assets/GMCA-logo.png" alt="Greater Manchester Combined Authority" />
+            </a>
+            <a href="https://www.digitalstockport.info/digital-transformation-award/" target="_blank" class="grid-20">
+                <img src="https://s3-eu-west-1.amazonaws.com/live-iag-static-assets/mj-logo.png" alt="The MJ Achievement Awards 2019" />
+            </a>
+            <a href="https://idea.org.uk/" target="_blank" class="grid-20">
+                <img src="https://s3-eu-west-1.amazonaws.com/live-iag-static-assets/Pioneer-logo.png" alt="Pioneer" />
+            </a>
+
+        </div>
     }
+
     <div class="footer-bottom">
         <div class="grid-container ">
             <div class="grid-50 tablet-grid-50 copyright">
@@ -74,6 +80,7 @@
                     &#xA9; @DateTime.Now.Year Stockport Metropolitan Borough Council
                 </p>
             </div>
+            
             <div class="grid-50 tablet-grid-50 digital-link">
                 <p>
                     <a href="@appConfig.GetDigitalStockportLink()">Built by the Digital Team in Stockport</a>

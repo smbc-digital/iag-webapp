@@ -1,6 +1,6 @@
 ﻿@model NewsroomViewModel
 @{
-    var newsroom = Model.Newsroom;
+    Newsroom newsroom = Model.Newsroom;
 }
 
 <div class="grid-container news-grid-container-margins">
@@ -47,6 +47,7 @@
                     </ul>
                 </li>
             }
+
             @if (Model.Categories.Any())
             {
                 <li class="filter collapsible" id="category-filter">
@@ -58,10 +59,12 @@
                     { 
                         <h2 tabindex="0"  class="filter-title focusable">Category</h2>
                     }
+
                     <ul class="filters-list">
                         <li class=@(Model.FilteredUrl.HasNoCategoryFilter() ? "active" : "")>
                             <a href="@Url.RouteUrl(Model.FilteredUrl.WithoutCategory())">All categories</a>
                         </li>
+
                         @foreach (var category in Model.Categories)
                         {
                             <li class=@(Model.CurrentUrl.MatchesQueryParam("Category", category) ? "active" : "")>
@@ -71,6 +74,7 @@
                     </ul>
                 </li>
             }
+
             <li class="filter collapsible" id="news-archive">
                 @if (Model.HasActiveFilter())
                 {
@@ -80,19 +84,21 @@
                 {
                     <h2 tabindex="0" class="filter-title focusable">News archive</h2>
                 }
+
                 <ul class="filters-list filters-outer-list" id="uitest-news-archive">
                     <li class=@(Model.FilteredUrl.HasNoDateFilter() ? "active" : "")>
                         <a href="@Url.RouteUrl(Model.FilteredUrl.WithoutDateFilter())">All recent news</a>
                     </li>
 
-                    @foreach (var year in newsroom.Dates.Select(s => s.Year).Distinct().OrderByDescending(y => y))
+                    @foreach (int year in newsroom.Dates.Select(s => s.Year).Distinct().OrderByDescending(y => y))
                     {
                         <li class="collapsible">
                             <p tabindex="0" class="filter-inner-title focusable">@year.ToString()</p>
                             <ul class="filters-list filters-inner-list" id="@year.ToString()">
-                                @foreach (var date in newsroom.Dates.Where(d => d.Year == year).OrderBy(a => a).Reverse())
+                                
+                                @foreach (DateTime date in newsroom.Dates.Where(d => d.Year.Equals(year)).OrderBy(a => a).Reverse())
                                 {
-                                    <li class=@(Model.DateRange != "customdate" && Model.DateFrom == date ? "active" : "")>
+                                    <li class=@(Model.DateRange != "customdate" && Model.DateFrom.Equals(date) ? "active" : string.Empty)>
                                         <a href="@Url.RouteUrl(Model.FilteredUrl.AddMonthFilter(date))" rel="nofollow">@date.ToString("MMMM yyyy")</a>
                                     </li>
                                 }
@@ -100,8 +106,9 @@
                         </li>
                     }
 
-                    <li id="custom-filter-li" class="@(Model.DateRange == "customdate" ? "customdateactive" : "") filter collapsible">
+                    <li id="custom-filter-li" class="@(Model.DateRange.Equals("customdate") ? "customdateactive" : string.Empty) filter collapsible">
                         <a tabindex="0" class="filter-title custom-date-title" rel="nofollow">Custom date</a>
+
                         <ul class="filters-list custom-date">
                             <li class="@(Model.DateRange == "customdate" ? "active" : "")">
                                 <form action="@Url.Action("Index", "News")" method="get">
@@ -110,16 +117,19 @@
                                     {
                                         <input type="hidden" name="Category" value="@Model.Category" />
                                     }
+
                                     <div class="date-from">
                                         <label asp-for="@Model.DateFrom"></label>
                                         <input type="date" asp-for="@Model.DateFrom" />
                                         <span role="alert" aria-atomic="true" asp-validation-for="@Model.DateFrom" class="form-customdate-validation-error form-field-validation-error"></span>
                                     </div>
+
                                     <div class="date-to">
                                         <label asp-for="@Model.DateTo"></label>
                                         <input type="date" asp-for="@Model.DateTo" />
                                         <span id="inputvalidation" role="alert" aria-atomic="true" asp-validation-for="@Model.DateTo" class="form-customdate-validation-error form-field-validation-error"></span>
                                     </div>
+
                                     <div class="update-button">
                                         <stock-button class="button-customdate">Update</stock-button>
                                     </div>
@@ -130,13 +140,14 @@
                 </ul>
             </li>
         </ul>
-        <p class="mobile-filter-heading filter-title">Filter news</p>
 
+        <p class="mobile-filter-heading filter-title">Filter news</p>
     </div>
+
     <div id="content" class="grid-70 tablet-grid-100 mobile-grid-100 news-article-grid">
         @if (newsroom.Alerts is not null)
         {
-            foreach (var alert in newsroom.Alerts)
+            foreach (Alert alert in newsroom.Alerts)
             {
                 <partial name="DisplayTemplates/Alert" model='alert'/>
             }
@@ -151,7 +162,7 @@
         else
         {
             <ul  class="nav-card-news-list grid-100">
-                @foreach (var subItem in newsroom.News)
+                @foreach (News subItem in newsroom.News)
                 {
                     <li id="@subItem.Slug" class="grid-100 grid-parent nav-card-news nav-card-news-item">
                         <a href="@Url.Action("Detail", "News", new {slug = subItem.Slug})">
@@ -160,12 +171,15 @@
                                 {
                                     <div class="mobile-grid-35 tablet-grid-30 grid-30 grid-parent nav-card-news-thumbnail nav-card-news-thumbnail-background-image tablet-push-70 push-70" style="background-image: url(@subItem.ThumbnailImage);"></div>
                                 }
+
                                 <div  class="@(!string.IsNullOrEmpty(subItem.ThumbnailImage) ? "mobile-grid-65 tablet-grid-70 nav-card-news-detail pull-30 tablet-pull-30" : "") grid-70 grid-parent">
                                     <div class="news-date hide-on-mobile">
                                         <span class="fa fa-clock-o" aria-hidden="true"></span><partial name="FormattedDate" model='subItem.UpdatedAt'/>
                                     </div>
+
                                     <h2 class="nav-card-news-title" style="margin: 0">@subItem.Title</h2>
                                     <p class="nav-card-news-teaser hide-on-mobile">@subItem.Teaser</p>
+
                                     <div class="news-date hide-on-desktop hide-on-tablet">
                                         <span class="fa fa-clock-o" aria-hidden="true"></span><partial name="FormattedDate" model='subItem.UpdatedAt'/>
                                     </div>
@@ -175,6 +189,7 @@
                     </li>
                 }
             </ul>
+            
             <div class="news-pagination">
                 <partial name="Pagination" model='Model.Pagination'/>
             </div>

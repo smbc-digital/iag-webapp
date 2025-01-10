@@ -12,8 +12,6 @@ public class MapViewModel
         TagData = tagData;
     }
 
-    public MapViewModel(string tagData)
-    {
+    public MapViewModel(string tagData) =>
         TagData = tagData;
-    }
 }

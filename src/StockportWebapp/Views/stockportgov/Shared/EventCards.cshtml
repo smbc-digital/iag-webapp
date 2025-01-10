@@ -18,6 +18,7 @@
                         <h2 class="content-block__title">@Model.Title</h2>
                         <hr />
                     </div>
+
                     <a href="@tagOrCategory" class="event-cards-view-more hide-on-mobile hide-on-tablet" aria-label="View more @Model.AssociatedTagCategory.Split(",").ToList().First() events" data-cy="view-more-events-link">View more</a>
                 </div>
 
@@ -28,6 +29,7 @@
                             <partial name="EventCard" model="@upcomingEvent" view-data="@(new ViewDataDictionary(ViewData) {{"BorderColourClass", borderColour}})" />
                         }
                     </ul>
+                    
                     <a href="@tagOrCategory" class="btn btn--width-30 btn--chevron-forward btn--bold btn--chevron-bold hide-on-desktop event-cards-button @Model.OutlineButtonColour" aria-label="View more @Model.AssociatedTagCategory.Split(",").ToList().First() events" data-cy="view-more-events-button">
                             <span class="btn_text">View more</span>
                     </a>

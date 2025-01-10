@@ -5,7 +5,9 @@
     ViewData["Description"] = landingPage.MetaDescription;
     ViewData["og:title"] = landingPage.Title;
     Layout = "../Shared/_Layout2023.cshtml";
-    string backgroundColour = Model.LandingPage.HeaderType.Equals("Framed Image") ? $"directories-breadcrumb-container-{CssClassMapper.GetCssClass(landingPage.HeaderColourScheme)}" : "topic-breadcrumb-container";
+    string backgroundColour = Model.LandingPage.HeaderType.Equals("Framed Image")
+        ? $"directories-breadcrumb-container-{CssClassMapper.GetCssClass(landingPage.HeaderColourScheme)}"
+        : "topic-breadcrumb-container";
 }
 
 <div class="grid-container-full-width" style="background-color:white;" data-cy="landing-page">

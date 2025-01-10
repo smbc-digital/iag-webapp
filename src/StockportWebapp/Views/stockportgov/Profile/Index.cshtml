@@ -4,10 +4,15 @@
     Profile profile = Model.Profile;
     ViewData["Title"] = profile.Title;
     ViewData["Description"] = profile.Teaser;
-    string articleTitle = profile.Breadcrumbs.LastOrDefault() is not null ? $"{profile.Breadcrumbs.LastOrDefault().Title} - " : string.Empty;
-    ViewData["og:title"] = articleTitle + profile.Title;
+    string articleTitle = profile.Breadcrumbs.LastOrDefault() is not null
+        ? $"{profile.Breadcrumbs.LastOrDefault().Title} - "
+        : string.Empty;
+
+    ViewData["og:title"] = $"{articleTitle}{profile.Title}";
     Layout = "../Shared/_Layout2023.cshtml";
-    string profileTextMarginBottom = (!string.IsNullOrEmpty(Model.Profile.TriviaSubheading) || Model.Profile.TriviaSection.Any()) ? "profile__text--margin-bottom" : string.Empty;
+    string profileTextMarginBottom = (!string.IsNullOrEmpty(Model.Profile.TriviaSubheading) || Model.Profile.TriviaSection.Any())
+        ? "profile__text--margin-bottom"
+        : string.Empty;
 }
 
 <div class="grid-container-full-width" style="background-color:white;" data-cy="profile">

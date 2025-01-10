@@ -45,12 +45,14 @@
                         <li><a href="/atoz/y" aria-label="Y service">Y</a></li>
                         <li><a href="/atoz/z" aria-label="Z service">Z</a></li>
                     </ul>
+
                     @if (ViewBag.Error is not null)
                     {
                         <p>No results found</p>
                     }
+
                     <div class="atoz-listing">
-                        @foreach (var item in Model.Items)
+                        @foreach (AtoZ item in Model.Items)
                         {
                             <div class="atoz-listing-item">
                                 <h2><a href="@item.NavigationLink">@item.Title</a></h2>

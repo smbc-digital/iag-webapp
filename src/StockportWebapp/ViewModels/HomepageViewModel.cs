@@ -12,9 +12,10 @@ public class HomepageViewModel
     {
         if (FeaturedEvents is null || FeaturedEvents.Count < 3)
         {
-            List<NavCard> featuredEvents = FeaturedEvents.Select(subItem => new NavCard()).ToList();
-
-            return new NavCardList() { Items = featuredEvents };
+            return new NavCardList()
+            {
+                Items = FeaturedEvents.Select(subItem => new NavCard()).ToList()
+            };
         }
 
         int numberItemsToDisplay = FeaturedEvents.Count / 3 * 3;

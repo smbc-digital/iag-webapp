@@ -1,20 +1,13 @@
 ﻿@model MapDetails
-@{
-    var additionalWrapperCssClasses = ViewData["AdditionalWrapperCssClasses"];
-    var additionalCssClasses = ViewData["AdditionalCssClasses"];
-    var addressWithoutTags = ViewData["AddressWithoutTags"];
-    var entryName = ViewData["EntryNameString"];
-    bool displayMap = (bool)ViewData["DisplayMap"];
-}
 
-@if (displayMap)
+@if ((bool)ViewData["DisplayMap"])
 {
-    <div class="directory__map @additionalWrapperCssClasses">
-        <div class="directory__wrapper navcard--white @additionalCssClasses">
+    <div class="directory__map @((string)ViewData["AdditionalWrapperCssClasses"] ?? string.Empty)">
+        <div class="directory__wrapper navcard--white @((string)ViewData["AdditionalCssClasses"] ?? string.Empty)">
             <h2>How to find us</h2>
             
             <div class="directory__map-container directory__map-container--padding">
-                <partial name="DirectoryMap" model='Model' view-data='@(new ViewDataDictionary(ViewData) {{"directoryLocation", @addressWithoutTags}, {"entryName", @entryName}})'/>
+                <partial name="DirectoryMap" model='Model' view-data='@(new ViewDataDictionary(ViewData) {{"directoryLocation", (string)ViewData["AddressWithoutTags"] ?? string.Empty }, {"entryName", (string)ViewData["EntryNameString"] ?? string.Empty }})'/>
             </div>
 
             <a class="btn btn--width-30 btn--chevron-forward btn--bold btn--chevron-bold" target="_blank" href="https://www.google.com/maps/dir/?api=1&origin=current+location&destination=@Model.MapPosition.Lat,@Model.MapPosition.Lon&travelmode=driving" data-cy="getDirectionsBtn">Get directions</a>

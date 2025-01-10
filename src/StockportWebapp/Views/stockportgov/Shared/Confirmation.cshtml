@@ -3,7 +3,13 @@
     ViewData["Title"] = Model.Title;
     ViewData["og:title"] = Model.Title;
     Layout = "../Shared/_Layout.cshtml";
-    string dataCy = string.Empty;
+
+    string dataCy = Model.Title switch
+    {
+        "Report this page as inappropriate" => "report-a-group-confirmation",
+        "Changes to a group's information" => "change-groups-confirmation",
+        _ => string.Empty
+    };
 }
 
 @if (Model.Crumbs.Any())
@@ -11,13 +17,6 @@
     @section Breadcrumbs {
         <partial name="Breadcrumb" model='Model.Crumbs'/>
     }
-}
-
-@if(Model.Title == "Report this page as inappropriate"){
-    dataCy = "report-a-group-confirmation";
-}
-else if(Model.Title == "Changes to a group's information"){
-    dataCy = "change-groups-confirmation";
 }
 
 <div class="grid-container grid-100" data-cy=@dataCy>
@@ -28,11 +27,15 @@ else if(Model.Title == "Changes to a group's information"){
                 <div class="icon-bordered icon-bordered-fixed @Model.IconColour">
                     <span class="fa fa-5x fa-@Model.Icon" aria-hidden="true"></span>
                 </div>
+
                 <h2>@Model.SubTitle</h2>
                 <p class="centered"></p>
                 <p>@Html.Raw(Model.ConfirmationText)</p>
                 <p></p>
-            </div><div class="grid-100">
+
+            </div>
+            
+            <div class="grid-100">
                 <div class="grid-100 info-block">
                     <div class="grid-100 centered">
                         <div class="grid-100 info-block">

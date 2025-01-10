@@ -1,14 +1,12 @@
-﻿@model IEnumerable<StockportWebapp.Model.Filter>
-@{
-    var additionalWrapperCssClasses = ViewData["AdditionalWrapperCssClasses"];
-    var additionalCssClasses = ViewData["AdditionalCssClasses"];
-}
+﻿@using StockportWebapp.Model
+@model IEnumerable<StockportWebapp.Model.Filter>
+
 @if (Model is not null && Model.Any())
 {
-    <div class="directory__filters @additionalWrapperCssClasses">
-        <div class="directory__wrapper navcard--white @additionalCssClasses">
+    <div class="directory__filters @((string)ViewData["AdditionalWrapperCssClasses"] ?? string.Empty)">
+        <div class="directory__wrapper navcard--white @((string)ViewData["AdditionalCssClasses"] ?? string.Empty)">
             <ul class="directory__filters-facilities">
-                @foreach (var filter in Model)
+                @foreach (Filter filter in Model)
                 {
                     <li class="directory__filter"><span class="fa fa-check" aria-hidden="true"></span> @filter.DisplayName</li>
                 }

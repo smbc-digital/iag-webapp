@@ -4,7 +4,6 @@ public class TypeRoutes
 {
     public static string GetUrlFor(string type, string slug)
     {
-        
         switch (type)
         {
             case "article":

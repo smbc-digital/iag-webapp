@@ -1,13 +1,10 @@
 ﻿@model IEnumerable<GroupBranding>
-@{
-    var additionalWrapperCssClasses = ViewData["AdditionalWrapperCssClasses"];
-    var additionalCssClasses = ViewData["AdditionalCssClasses"];
-}
+
 @if (Model.Any())
-{   <div class="@additionalWrapperCssClasses directory--border-top">
-        <div class="directory__wrapper navcard--white @additionalCssClasses">
+{   <div class="@((string)ViewData["AdditionalWrapperCssClasses"] ?? string.Empty) directory--border-top">
+        <div class="directory__wrapper navcard--white @((string)ViewData["AdditionalCssClasses"] ?? string.Empty)">
             <div class="directory--border-top directory--no-margin">
-                <partial name="LogoArea" model='Model' view-data='new ViewDataDictionary(ViewData) {{"logoAreaTitleStylingBlank", true}, {"logoAreaArticle", false}, {"logoAreaTitle", "In partnership with"}, {"borderTopClass", $"{additionalCssClasses} directory--padding"}}' />
+                <partial name="LogoArea" model='Model' view-data='new ViewDataDictionary(ViewData) {{"logoAreaTitleStylingBlank", true}, {"logoAreaArticle", false}, {"logoAreaTitle", "In partnership with"}, {"borderTopClass", $"{(string)ViewData["AdditionalCssClasses"] ?? string.Empty} directory--padding"}}' />
             </div>
         </div>
     </div>

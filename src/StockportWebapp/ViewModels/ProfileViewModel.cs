@@ -32,6 +32,7 @@ public class ProfileViewModel
         }
 
         hasMoreButton = sidebarSubItems.Count > 6;
+        
         return sidebarSubItems.Take(6);
     }        
 }

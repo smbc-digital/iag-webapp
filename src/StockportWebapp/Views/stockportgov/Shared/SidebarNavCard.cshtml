@@ -1,7 +1,7 @@
 ﻿@model SubItem
 @{
     string url = (string)ViewData["url"] ?? Model.NavigationLink;
-    string navcardPadding = (string)ViewData["navcardPadding"];
+    string navcardPadding = (string)ViewData["navcardPadding"] ?? string.Empty;
     bool useNormalWeight = string.IsNullOrEmpty((string)ViewData["url"]);
 }
 

@@ -3,9 +3,9 @@
 <div class="pagination-section grid-parent pagination-margin-bottom">
     @{
         IUrlHelperWrapper urlHelper = new UrlHelperWrapper(Url);
-        var indexOfFirstItemOnPage = PaginationHelper.CalculateIndexOfFirstItemOnPage(Model.CurrentPageNumber, Model.MaxItemsPerPage);
-        var indexOfLastItemOnPage = PaginationHelper.CalculateIndexOfLastItemOnPage(Model.CurrentPageNumber, Model.TotalItemsOnPage, Model.MaxItemsPerPage);
-        var pageSize = PaginationHelper.GetOtherPageSizeByCurrentPageSize(Model.MaxItemsPerPage, Model.TotalItems, Model.DefaultPageSize);
+        int indexOfFirstItemOnPage = PaginationHelper.CalculateIndexOfFirstItemOnPage(Model.CurrentPageNumber, Model.MaxItemsPerPage);
+        int indexOfLastItemOnPage = PaginationHelper.CalculateIndexOfLastItemOnPage(Model.CurrentPageNumber, Model.TotalItemsOnPage, Model.MaxItemsPerPage);
+        int pageSize = PaginationHelper.GetOtherPageSizeByCurrentPageSize(Model.MaxItemsPerPage, Model.TotalItems, Model.DefaultPageSize);
     }
 
     @if (Model.TotalItems > Model.DefaultPageSize)
@@ -15,19 +15,23 @@
         </div>
     }   
 
-    <div class="grid-parent grid-@(Model.TotalItems > Model.DefaultPageSize ? "50" : "100") tablet-grid-@(Model.TotalItems > Model.DefaultPageSize ? "50" : "100") mobile-grid-100 pagination-display">Showing @indexOfFirstItemOnPage - @indexOfLastItemOnPage of @Model.TotalItems @Model.ItemDescription</div>
+    <div class="grid-parent grid-@(Model.TotalItems > Model.DefaultPageSize? "50" : "100")
+                tablet-grid-@(Model.TotalItems > Model.DefaultPageSize ? "50" : "100")
+                mobile-grid-100 pagination-display">
+        Showing @indexOfFirstItemOnPage - @indexOfLastItemOnPage of @Model.TotalItems @Model.ItemDescription
+    </div>
     
     <div class="grid-parent grid-100 tablet-grid-100 mobile-grid-100 pagination-page-numbers">
         @{
             if (PaginationHelper.ShowPreviousLink(Model.CurrentPageNumber))
             {
-                var url = PaginationHelper.BuildUrl(Model.CurrentPageNumber - 1, Model.CurrentUrl, urlHelper);
+                string url = PaginationHelper.BuildUrl(Model.CurrentPageNumber - 1, Model.CurrentUrl, urlHelper);
                 <a href="@url">Previous</a>
             }
 
-            var visiblePageNumbers = PaginationHelper.GenerateVisiblePageNumbers(Model.CurrentPageNumber, Model.TotalPages);
+            List<VisiblePageNumber> visiblePageNumbers = PaginationHelper.GenerateVisiblePageNumbers(Model.CurrentPageNumber, Model.TotalPages);
 
-            foreach (var visiblePageNumber in visiblePageNumbers)
+            foreach (VisiblePageNumber visiblePageNumber in visiblePageNumbers)
             {
                 if (visiblePageNumber.IsCurrentPage)
                 {
@@ -35,17 +39,16 @@
                 }
                 else
                 {
-                    var url = PaginationHelper.BuildUrl(visiblePageNumber.PageNumber, Model.CurrentUrl, urlHelper);
+                    string url = PaginationHelper.BuildUrl(visiblePageNumber.PageNumber, Model.CurrentUrl, urlHelper);
                     <a href="@url">@visiblePageNumber.PageNumber.ToString()</a>
                 }
             }
 
             if (PaginationHelper.ShowNextLink(Model.CurrentPageNumber, Model.TotalPages))
             {
-                var url = PaginationHelper.BuildUrl(Model.CurrentPageNumber + 1, Model.CurrentUrl, urlHelper);
+                string url = PaginationHelper.BuildUrl(Model.CurrentPageNumber + 1, Model.CurrentUrl, urlHelper);
                 <a href="@url">Next</a>
             }            
         }
     </div>
 </div>
-

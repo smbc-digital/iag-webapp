@@ -1,10 +1,11 @@
 ﻿@{
-    string colourScheme = (string)ViewData["ColourScheme"];
+    string colourScheme = (string)ViewData["ColourScheme"] ?? string.Empty;
     string navcardTheme = $"navcard--theme{colourScheme} navcard--theme{colourScheme}-all";
     bool displayIcons = (bool)ViewData["DisplayIcons"];
     bool isRootDirectory = (bool)ViewData["IsRootDirectory"];
-    string navcardPaddingClasses = (string)ViewData["NavcardPaddingClasses"];
+    string navcardPaddingClasses = (string)ViewData["NavcardPaddingClasses"] ?? string.Empty;
 }
+
 @if (!isRootDirectory)
 {
     <li class="navcard navcard--width-33 navcard--center navcard-all navcard--border-top-10 @navcardTheme">

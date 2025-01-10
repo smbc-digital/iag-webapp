@@ -5,7 +5,7 @@
 public class GroupSearch
 {
     public string Category { get; set; }
-    public List<string> SubCategories { get; set; } = new List<string>();
+    public List<string> SubCategories { get; set; } = new();
     public double Latitude { get; set; }
     public double Longitude { get; set; }
     public string Order { get; set; }

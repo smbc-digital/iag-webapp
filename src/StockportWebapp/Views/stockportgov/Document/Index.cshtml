@@ -5,9 +5,17 @@
     ViewData["og:title"] = Model.OgTitleMetaData;
     Layout = "../Shared/_Layout2023.cshtml";
 
-    string multipleDocuments = Model.DocumentPage.MultipleDocuments ? "About these documents" : "About the document";
-    string multipleDocumentsTitle = Model.DocumentPage.MultipleDocuments ? "Documents" : "Document";
-    string datePublishedClass = Model.DisplayLastUpdated ? string.Empty : "document-page-date";
+    string multipleDocuments = Model.DocumentPage.MultipleDocuments
+        ? "About these documents"
+        : "About the document";
+    
+    string multipleDocumentsTitle = Model.DocumentPage.MultipleDocuments
+        ? "Documents"
+        : "Document";
+
+    string datePublishedClass = Model.DisplayLastUpdated
+        ? string.Empty
+        : "document-page-date";
 }
 
 <div class="grid-container-full-width" style="background-color: white;" data-cy="document-page">
@@ -24,7 +32,7 @@
                     @Html.Raw(Model.DocumentPage.AboutTheDocument)
 
                     <h2>@multipleDocumentsTitle</h2>
-                    @foreach (var document in Model.DocumentPage.Documents)
+                    @foreach (Document document in Model.DocumentPage.Documents)
                     {
                         <partial name="../Shared/Document2024" model='document' />
                     }
@@ -50,7 +58,7 @@
                     {
                         <h2>Related documents</h2>
                         <ul>
-                            @foreach (var document in Model.DocumentPage.RelatedDocuments)
+                            @foreach (SubItem document in Model.DocumentPage.RelatedDocuments)
                             {
                                 <li><a href="@document.NavigationLink">@document.Title</a></li>
                             }

@@ -4,7 +4,7 @@ public class TriviaViewComponent : ViewComponent
 {
     public async Task<IViewComponentResult> InvokeAsync(List<Trivia> model, string heading, string additionalClasses)
     {
-        var viewModel = new TriviaViewModel
+        TriviaViewModel viewModel = new()
         {
             TriviaList = model,
             Heading = heading,

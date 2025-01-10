@@ -7,7 +7,7 @@
             @{
                 string title = ViewBag.Title != null ? ViewBag.Title.ToString() : "";
 
-                foreach (var crumb in Model)
+                foreach (Crumb crumb in Model)
                 {
                     <li class="chevron">&rsaquo;</li>
                     <li><a href="@crumb.NavigationLink">@crumb.Title</a></li>

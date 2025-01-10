@@ -19,19 +19,15 @@ public class GroupResults
 
     public GroupResults() { }
 
-    public void AddFilteredUrl(IFilteredUrl filteredUrl)
-    {
+    public void AddFilteredUrl(IFilteredUrl filteredUrl) =>
         FilteredUrl = filteredUrl;
-    }
 
-    public void AddQueryUrl(QueryUrl queryUrl)
-    {
+    public void AddQueryUrl(QueryUrl queryUrl) =>
         CurrentUrl = queryUrl;
-    }
 
     public RefineByBar RefineByBar()
     {
-        var bar = new RefineByBar
+        RefineByBar bar = new()
         {
             ShowLocation = false,
             KeepLocationQueryValues = true,
@@ -39,7 +35,7 @@ public class GroupResults
             Filters = new List<RefineByFilters>()
         };
 
-        var subCategories = new RefineByFilters
+        RefineByFilters subCategories = new()
         {
             Label = "Subcategories",
             Mandatory = false,
@@ -47,26 +43,38 @@ public class GroupResults
             Items = new List<RefineByFilterItems>()
         };
 
-        if (AvailableSubCategories != null && AvailableSubCategories.Any())
+        if (AvailableSubCategories is not null && AvailableSubCategories.Any())
         {
-            var distinctSubcategories = AvailableSubCategories.GroupBy(c => c.Slug).Select(c => c.First());
+            IEnumerable<GroupSubCategory> distinctSubcategories = AvailableSubCategories
+                                                                    .GroupBy(c => c.Slug)
+                                                                    .Select(c => c.First());
 
-            foreach (var cat in distinctSubcategories.OrderBy(c => c.Name))
+            foreach (GroupSubCategory cat in distinctSubcategories.OrderBy(c => c.Name))
             {
-                subCategories.Items.Add(new RefineByFilterItems { Label = cat.Name, Checked = SubCategories.Any(c => c.ToLower() == cat.Slug.ToLower()), Value = cat.Slug });
+                subCategories.Items.Add(new RefineByFilterItems
+                    {
+                        Label = cat.Name,
+                        Checked = SubCategories.Any(c => c.ToLower().Equals(cat.Slug.ToLower())),
+                        Value = cat.Slug
+                    });
             }
 
             bar.Filters.Add(subCategories);
         }
 
-        var getInvolved = new RefineByFilters
+        RefineByFilters getInvolved = new()
         {
             Label = "Get involved",
             Mandatory = false,
             Name = "getinvolved",
             Items = new List<RefineByFilterItems>
             {
-                new RefineByFilterItems { Label = "Volunteering opportunities", Checked = GetInvolved, Value = "yes" }
+                new()
+                    {
+                        Label = "Volunteering opportunities",
+                        Checked = GetInvolved,
+                        Value = "yes"
+                    }
             }
         };
 
@@ -74,14 +82,19 @@ public class GroupResults
 
         if (!string.IsNullOrEmpty(KeepTag) || !string.IsNullOrEmpty(Tag))
         {
-            var organisation = new RefineByFilters
+            RefineByFilters organisation = new()
             {
                 Label = "Organisation",
                 Mandatory = false,
                 Name = "tag",
                 Items = new List<RefineByFilterItems>
                 {
-                    new RefineByFilterItems { Label = OrganisationName, Checked = !string.IsNullOrEmpty(Tag), Value = KeepTag }
+                    new()
+                    {
+                        Label = OrganisationName,
+                        Checked = !string.IsNullOrEmpty(Tag),
+                        Value = KeepTag
+                    }
                 }
             };
 

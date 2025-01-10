@@ -3,7 +3,7 @@
 @{
     DateTime previousEnteredDate = DateTime.MinValue;
     bool hasEvents = Model.Events.Any();
-    string eventsTitle = (string)ViewData["eventsTitle"];
+    string eventsTitle = (string)ViewData["eventsTitle"] ?? string.Empty;
 }
 
 <div class="grid-container-full-width" style="background-color:#f2f2f2;" data-cy="article">

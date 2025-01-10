@@ -3,5 +3,7 @@
 
 @foreach (var privacyNotice in Model)
 {
-    <div><a href="/privacy-notices/@privacyNotice.Slug">@privacyNotice.Category </a></div>
+    <div>
+        <a href="/privacy-notices/@privacyNotice.Slug">@privacyNotice.Category</a>
+    </div>
 }

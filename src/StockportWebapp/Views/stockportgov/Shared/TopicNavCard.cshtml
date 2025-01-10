@@ -15,8 +15,8 @@
 }
 <a href="@Model.Url" class="navcard__link @borderCssDesktop @borderCssTablet @borderCssClasses" data-cy="nav-card-link">
     <div class="navcard__content">
-        @if(displayImage){
-            @if(!string.IsNullOrEmpty(Model.TeaserImage))
+        @if (displayImage){
+            @if (!string.IsNullOrEmpty(Model.TeaserImage))
             {
                 <partial name="NavCardImage" model="@Model.TeaserImage" />
             }
