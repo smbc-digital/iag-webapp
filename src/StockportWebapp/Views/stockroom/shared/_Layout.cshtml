@@ -33,33 +33,34 @@
         </noscript>
 
         <script type=text/javascript src=~/assets/javascript/vendor/require.min.js asp-append-version=true></script>
-    </head>
-    <body>
-        <partial name=CookieNotice />
-        <distributed-cache name=headerStockroom expires-after=@TimeSpan.FromMinutes(ApplicationConfiguration.GetHeaderCache(BusinessId.ToString())) enabled=true>
-            @await Component.InvokeAsync("Header")
-        </distributed-cache>
+</head>
+<body>
+    <partial name=CookieNotice />
+    <partial name=GoogleAnalytics />
+    <distributed-cache name=headerStockroom expires-after=@TimeSpan.FromMinutes(ApplicationConfiguration.GetHeaderCache(BusinessId.ToString())) enabled=true>
+        @await Component.InvokeAsync("Header")
+    </distributed-cache>
         
-        <script>
-            document.addEventListener("DOMContentLoaded", () => {
-                const currentUrl = window.location.pathname;
-                const menuItems = document.querySelectorAll(".site-header_menu-item a");
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const currentUrl = window.location.pathname;
+            const menuItems = document.querySelectorAll(".site-header_menu-item a");
 
-                menuItems.forEach(link => {
-                    const linkHref = link.getAttribute("href");
-                    if (currentUrl === linkHref || currentUrl.startsWith(linkHref + "/")) {
-                        link.parentElement.classList.add("active");
-                    }
-                });
+            menuItems.forEach(link => {
+                const linkHref = link.getAttribute("href");
+                if (currentUrl === linkHref || currentUrl.startsWith(linkHref + "/")) {
+                    link.parentElement.classList.add("active");
+                }
             });
-        </script>
+        });
+    </script>
 
-        <main id="content" tabindex="-1">
-            @RenderBody()
-        </main>
+    <main id="content" tabindex="-1">
+        @RenderBody()
+    </main>
         
-        <distributed-cache name=footerStockroom expires-after=@TimeSpan.FromMinutes(ApplicationConfiguration.GetFooterCache(BusinessId.ToString())) enabled=true>
-            @await Component.InvokeAsync("Footer")
-        </distributed-cache>
-    </body>
+    <distributed-cache name=footerStockroom expires-after=@TimeSpan.FromMinutes(ApplicationConfiguration.GetFooterCache(BusinessId.ToString())) enabled=true>
+        @await Component.InvokeAsync("Footer")
+    </distributed-cache>
+</body>
 </html>

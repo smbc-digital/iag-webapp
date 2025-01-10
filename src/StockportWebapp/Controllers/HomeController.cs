@@ -29,7 +29,6 @@ public class HomeController : Controller
             return new NotFoundResult();
 
         Task<List<Event>> getFeaturedEvents = _eventsService.GetLatestFeaturedEvents();
-
         Task<Event> getEventsTask = _eventsService.GetLatestFeaturedEventItem();
         Task<News> getNewsTask = _newsService.GetLatestNewsItem();
 
