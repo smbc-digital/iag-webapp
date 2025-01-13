@@ -7,8 +7,8 @@ public class DataProtectionBuilderExtension
     [Fact]
     public void PersistKeysToRedis_EmptyConnectionString()
     {
-        var builder = new Mock<IDataProtectionBuilder>();
-        Assert.Throws<ArgumentException>(() => DataProtectionBuilderExtensions.PersistKeysToRedis(builder.Object, ""));
+        Mock<IDataProtectionBuilder> builder = new();
+        Assert.Throws<ArgumentException>(() => DataProtectionBuilderExtensions.PersistKeysToRedis(builder.Object, string.Empty));
     }
 
     [Fact]

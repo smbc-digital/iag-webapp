@@ -4,18 +4,19 @@ public class HealthcheckControllerTest
 {
     private readonly Mock<IHealthcheckService> _healthCheckRepository;
 
-    public HealthcheckControllerTest()
-    {
+    public HealthcheckControllerTest() =>
         _healthCheckRepository = new Mock<IHealthcheckService>();
-    }
 
     [Fact]
     public async Task ShouldGetRepositoryToReturnHealth()
     {
-        var healthcheckController = new HealthcheckController(_healthCheckRepository.Object);
+        // Arrange
+        HealthcheckController healthcheckController = new(_healthCheckRepository.Object);
 
+        // Act
         await healthcheckController.Index();
-
-        _healthCheckRepository.Verify(x => x.Get(), Times.Once);
+        
+        // Assert
+        _healthCheckRepository.Verify(repo => repo.Get(), Times.Once);
     }
 }

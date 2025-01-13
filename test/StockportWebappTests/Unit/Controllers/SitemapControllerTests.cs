@@ -2,17 +2,16 @@
 
 public class SitemapControllerTests
 {
+    private readonly SitemapController _controller;
     private readonly Mock<IRepository> _mockRepository = new();
     private readonly Mock<ILogger<SitemapController>> _mockLogger = new();
 
-    private readonly SitemapController _controller;
-
     private readonly Newsroom _newsroom = new(new List<News>(),
-        new List<Alert>(),
-        false,
-        "",
-        new List<string>(),
-        new List<DateTime>());
+                                            new List<Alert>(),
+                                            false,
+                                            string.Empty,
+                                            new List<string>(),
+                                            new List<DateTime>());
 
     private readonly EventCalendar _eventCalendar = new(new List<Event>
     {
@@ -33,11 +32,12 @@ public class SitemapControllerTests
 
     public SitemapControllerTests()
     {
-        var request = new Mock<HttpRequest>();
-        var context = new Mock<HttpContext>();
-        var headerDictionary = new HeaderDictionary { { "referer", "" } };
+        Mock<HttpRequest> request = new();
+        Mock<HttpContext> context = new();
+        HeaderDictionary headerDictionary = new() { { "referer", string.Empty } };
+        
         request
-            .Setup(r => r.Headers)
+            .Setup(req => req.Headers)
             .Returns(headerDictionary);
 
         context
@@ -45,47 +45,47 @@ public class SitemapControllerTests
             .Returns(request.Object);
 
         _mockRepository
-            .Setup(repository => repository.Get<Newsroom>("", It.IsAny<List<Query>>()))
-            .ReturnsAsync(new HttpResponse(200, _newsroom, ""));
+            .Setup(repository => repository.Get<Newsroom>(string.Empty, It.IsAny<List<Query>>()))
+            .ReturnsAsync(new HttpResponse(200, _newsroom, string.Empty));
 
         _mockRepository
-            .Setup(repository => repository.Get<EventCalendar>("", It.IsAny<List<Query>>()))
-            .ReturnsAsync(new HttpResponse(200, _eventCalendar, ""));
+            .Setup(repository => repository.Get<EventCalendar>(string.Empty, It.IsAny<List<Query>>()))
+            .ReturnsAsync(new HttpResponse(200, _eventCalendar, string.Empty));
 
         _mockRepository
-            .Setup(repository => repository.Get<List<ArticleSiteMap>>("", It.IsAny<List<Query>>()))
-            .ReturnsAsync(new HttpResponse(200, _articlesSiteMap, ""));
+            .Setup(repository => repository.Get<List<ArticleSiteMap>>(string.Empty, It.IsAny<List<Query>>()))
+            .ReturnsAsync(new HttpResponse(200, _articlesSiteMap, string.Empty));
 
         _mockRepository
-            .Setup(repository => repository.Get<List<Group>>("", It.IsAny<List<Query>>()))
-            .ReturnsAsync(new HttpResponse(200, _groups, ""));
+            .Setup(repository => repository.Get<List<Group>>(string.Empty, It.IsAny<List<Query>>()))
+            .ReturnsAsync(new HttpResponse(200, _groups, string.Empty));
 
         _mockRepository
-            .Setup(repository => repository.Get<List<Showcase>>("", It.IsAny<List<Query>>()))
-            .ReturnsAsync(new HttpResponse(200, _showcases, ""));
+            .Setup(repository => repository.Get<List<Showcase>>(string.Empty, It.IsAny<List<Query>>()))
+            .ReturnsAsync(new HttpResponse(200, _showcases, string.Empty));
 
         _mockRepository
-            .Setup(repository => repository.Get<List<SectionSiteMap>>("", It.IsAny<List<Query>>()))
-            .ReturnsAsync(new HttpResponse(200, _sections, ""));
+            .Setup(repository => repository.Get<List<SectionSiteMap>>(string.Empty, It.IsAny<List<Query>>()))
+            .ReturnsAsync(new HttpResponse(200, _sections, string.Empty));
 
         _mockRepository
-            .Setup(repository => repository.Get<List<TopicSitemap>>("", It.IsAny<List<Query>>()))
-            .ReturnsAsync(new HttpResponse(200, _topics, ""));
+            .Setup(repository => repository.Get<List<TopicSitemap>>(string.Empty, It.IsAny<List<Query>>()))
+            .ReturnsAsync(new HttpResponse(200, _topics, string.Empty));
 
         _mockRepository
-            .Setup(repository => repository.Get<List<Profile>>("", It.IsAny<List<Query>>()))
-            .ReturnsAsync(new HttpResponse(200, _profiles, ""));
+            .Setup(repository => repository.Get<List<Profile>>(string.Empty, It.IsAny<List<Query>>()))
+            .ReturnsAsync(new HttpResponse(200, _profiles, string.Empty));
 
         _mockRepository
-            .Setup(repository => repository.Get<List<Payment>>("", It.IsAny<List<Query>>()))
-            .ReturnsAsync(new HttpResponse(200, _payments, ""));
+            .Setup(repository => repository.Get<List<Payment>>(string.Empty, It.IsAny<List<Query>>()))
+            .ReturnsAsync(new HttpResponse(200, _payments, string.Empty));
 
         _mockRepository
-            .Setup(repository => repository.Get<List<StartPage>>("", It.IsAny<List<Query>>()))
-            .ReturnsAsync(new HttpResponse(200, _startPages, ""));
+            .Setup(repository => repository.Get<List<StartPage>>(string.Empty, It.IsAny<List<Query>>()))
+            .ReturnsAsync(new HttpResponse(200, _startPages, string.Empty));
 
         _controller = new(_mockRepository.Object, _mockLogger.Object);
-        _controller.ControllerContext = new ControllerContext(new ActionContext(context.Object, new RouteData(), new ControllerActionDescriptor()));
+        _controller.ControllerContext = new(new ActionContext(context.Object, new RouteData(), new ControllerActionDescriptor()));
     }
 
     [Theory]
@@ -104,7 +104,7 @@ public class SitemapControllerTests
     public async Task Sitemap_ShouldProcess(string type)
     {
         // Act
-        var result = await _controller.Sitemap(type) as ContentResult;
+        ContentResult result = await _controller.Sitemap(type) as ContentResult;
 
         // Assert
         Assert.NotNull(result);

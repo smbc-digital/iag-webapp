@@ -3,7 +3,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers;
 public class TopicControllerTest
 {
     private readonly TopicController _controller;
-    private readonly Mock<ITopicRepository> _repository;
+    private readonly Mock<ITopicRepository> _repository = new();
     private const string BusinessId = "stockportgov";
     private readonly EventCalendarBanner _eventCalendarBanner;
     private readonly EventBanner _eventBanner;
@@ -14,10 +14,12 @@ public class TopicControllerTest
     {
         Mock<IApplicationConfiguration> config = new();
 
-        config.Setup(_ => _.GetEmailAlertsNewSubscriberUrl(BusinessId)).Returns(AppSetting.GetAppSetting("email-alerts-url"));
+        config
+            .Setup(conf => conf.GetEmailAlertsNewSubscriberUrl(BusinessId))
+            .Returns(AppSetting.GetAppSetting("email-alerts-url"));
 
-        _repository = new Mock<ITopicRepository>();
-        _controller = new TopicController(_repository.Object, config.Object, new BusinessId(BusinessId), _stockportApiService.Object);
+        _controller = new(_repository.Object, config.Object, new BusinessId(BusinessId), _stockportApiService.Object);
+
         _eventCalendarBanner = new EventCalendarBanner()
         {
             Title = "title",
@@ -26,7 +28,9 @@ public class TopicControllerTest
             Link = "link",
             Colour = EColourScheme.Teal
         };
+
         _eventBanner = new("title", "teaser", "icon", "link");
+
         _callToAction = new CallToActionBanner()
         {
             Title = "title",
@@ -39,7 +43,8 @@ public class TopicControllerTest
         };
     }
 
-    public SubItem CreateASubItem(int i) => new("sub-topic" + i, "Title" + i, "Teaser", "teaser image", "Icon", "topic", "image", new List<SubItem>(), EColourScheme.Teal);
+    public SubItem CreateASubItem(int i) =>
+        new($"sub-topic{i}", $"Title{i}", "Teaser", "teaser image", "Icon", "topic", "image", new List<SubItem>(), EColourScheme.Teal);
 
     [Fact]
     public async Task Index_ReturnsTopicWithExpectedProperties()
@@ -71,11 +76,12 @@ public class TopicControllerTest
                                 null,
                                 string.Empty);
 
-        const string slug = "healthy-living";
-        _repository.Setup(_ => _.Get<ProcessedTopic>(slug)).ReturnsAsync(new HttpResponse(200, topic, string.Empty));
+        _repository
+            .Setup(repo => repo.Get<ProcessedTopic>("healthy-living"))
+            .ReturnsAsync(new HttpResponse(200, topic, string.Empty));
 
         // Act
-        ViewResult indexPage = await _controller.Index(slug) as ViewResult;
+        ViewResult indexPage = await _controller.Index( "healthy-living") as ViewResult;
         TopicViewModel viewModel = indexPage.ViewData.Model as TopicViewModel;
         ProcessedTopic result = viewModel.Topic;
 
@@ -134,7 +140,9 @@ public class TopicControllerTest
                                 null,
                                 string.Empty);
 
-        _repository.Setup(_ => _.Get<ProcessedTopic>("healthy-living")).ReturnsAsync(new HttpResponse(200, topic, string.Empty));
+        _repository
+            .Setup(repo => repo.Get<ProcessedTopic>("healthy-living"))
+            .ReturnsAsync(new HttpResponse(200, topic, string.Empty));
 
         // Act
         ViewResult indexPage = await _controller.Index("healthy-living") as ViewResult;
@@ -155,11 +163,12 @@ public class TopicControllerTest
     public async Task Index_ReturnsNotFoundOnRequest_For_NonExistentTopic()
     {
         // Arrange
-        const string nonExistentTopic = "doesnt-exist";
-        _repository.Setup(_ => _.Get<ProcessedTopic>(nonExistentTopic)).ReturnsAsync(new HttpResponse(404, null, "No topic found for 'doesnt-exist'"));
+        _repository
+            .Setup(repo => repo.Get<ProcessedTopic>("doesnt-exist"))
+            .ReturnsAsync(new HttpResponse(404, null, "No topic found for 'doesnt-exist'"));
 
         // Act
-        StatusCodeResult result = await _controller.Index(nonExistentTopic) as StatusCodeResult;
+        StatusCodeResult result = await _controller.Index("doesnt-exist") as StatusCodeResult;
 
         // Assert
         Assert.Equal(404, result.StatusCode);
@@ -199,7 +208,9 @@ public class TopicControllerTest
                                 null,
                                 string.Empty);
 
-        _repository.Setup(_ => _.Get<ProcessedTopic>("healthy-living")).ReturnsAsync(new HttpResponse(200, topic, string.Empty));
+        _repository
+            .Setup(repo => repo.Get<ProcessedTopic>("healthy-living"))
+            .ReturnsAsync(new HttpResponse(200, topic, string.Empty));
 
         // Act
         ViewResult indexPage = await _controller.Index("healthy-living") as ViewResult;
@@ -246,13 +257,18 @@ public class TopicControllerTest
                                 null,
                                 string.Empty);
 
-        _repository.Setup(_ => _.Get<ProcessedTopic>("healthy-living")).ReturnsAsync(new HttpResponse(200, topic, string.Empty));
-        _stockportApiService.Setup(_ => _.GetEventsByCategory("eventCategory", true)).ReturnsAsync(new List<Event> { new EventBuilder().Build() });
+        _repository
+            .Setup(repo => repo.Get<ProcessedTopic>("healthy-living"))
+            .ReturnsAsync(new HttpResponse(200, topic, string.Empty));
+        
+        _stockportApiService
+            .Setup(service => service.GetEventsByCategory("eventCategory", true))
+            .ReturnsAsync(new List<Event> { new EventBuilder().Build() });
 
         // Act
         await _controller.Index("healthy-living");
 
         // Assert
-        _stockportApiService.Verify(_ => _.GetEventsByCategory(It.IsAny<string>(), It.IsAny<bool>()), Times.Once);
+        _stockportApiService.Verify(service => service.GetEventsByCategory(It.IsAny<string>(), It.IsAny<bool>()), Times.Once);
     }
 }
