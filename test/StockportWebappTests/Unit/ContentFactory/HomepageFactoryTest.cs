@@ -2,14 +2,11 @@
 
 public class HomepageFactoryTest
 {
-    private readonly Mock<MarkdownWrapper> _markdownWrapperMock = new Mock<MarkdownWrapper>();
-
+    private readonly Mock<MarkdownWrapper> _markdownWrapperMock = new();
     private readonly HomepageFactory _homepageFactory;
 
-    public HomepageFactoryTest()
-    {
+    public HomepageFactoryTest() =>
         _homepageFactory = new HomepageFactory(_markdownWrapperMock.Object);
-    }
 
     [Fact]
     public void Build_ItBuildsAHomepageWithProcessedBody()
@@ -51,12 +48,12 @@ public class HomepageFactoryTest
             imageOverlayText);
 
         // Act
-        var result = _homepageFactory.Build(homepage);
+        ProcessedHomepage result = _homepageFactory.Build(homepage);
 
         // Assert
-        result.FreeText.Should().Be(freeText);
-        result.BackgroundImage.Should().Be(backgroundImage);
-        _markdownWrapperMock.Verify(o => o.ConvertToHtml(freeText), Times.Once);
-        _markdownWrapperMock.Verify(o => o.ConvertToHtml(imageOverlayText), Times.Once);
+        Assert.Equal(freeText, result.FreeText);
+        Assert.Equal(backgroundImage, result.BackgroundImage);
+        _markdownWrapperMock.Verify(wrapper => wrapper.ConvertToHtml(freeText), Times.Once);
+        _markdownWrapperMock.Verify(wrapper => wrapper.ConvertToHtml(imageOverlayText), Times.Once);
     }
 }

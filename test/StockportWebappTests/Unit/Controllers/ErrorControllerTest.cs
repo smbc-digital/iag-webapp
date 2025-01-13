@@ -2,81 +2,94 @@
 
 public class ErrorControllerTest
 {
-    private readonly Mock<ILegacyRedirectsManager> _legacyRedirects;
-    private readonly Mock<ILogger<ErrorController>> _logger;
-
-    public ErrorControllerTest()
-    {
-        _logger = new Mock<ILogger<ErrorController>>();
-        _legacyRedirects = new Mock<ILegacyRedirectsManager>();
-    }
+    private readonly Mock<ILegacyRedirectsManager> _legacyRedirects = new();
+    private readonly Mock<ILogger<ErrorController>> _logger = new();
 
     [Fact]
     public async Task ShouldTellUsSomethingsMissingIfAPageWasNotFound()
     {
-        const string url = "/a-url";
+        // Arrange
+        DefaultHttpContext httpContext = new();
 
-        var httpContext = new DefaultHttpContext();
         httpContext.Request.Path = "/pathThatDoesntExist";
         httpContext.Response.StatusCode = 404;
-        var mockHttpContext = new ControllerContext
+
+        ControllerContext mockHttpContext = new()
         {
             HttpContext = httpContext
         };
-        var controller = new ErrorController(_legacyRedirects.Object, _logger.Object) { ControllerContext = mockHttpContext };
+
+        ErrorController controller = new(_legacyRedirects.Object, _logger.Object)
+        {
+            ControllerContext = mockHttpContext
+        };
+
         controller.HttpContext.Features.Set<IStatusCodeReExecuteFeature>(new StatusCodeReExecuteFeature()
         {
             OriginalPath = "/OriginalPath"
         });
 
-        _legacyRedirects.Setup(o => o.RedirectUrl(url)).ReturnsAsync(string.Empty);
-        var result = await controller.Error() as ViewResult;
-        result.ViewData[@"ErrorHeading"].Should().Be("Something's missing");
+        _legacyRedirects
+            .Setup(redirects => redirects.RedirectUrl("/a-url"))
+            .ReturnsAsync(string.Empty);
+
+        // Act
+        ViewResult result = await controller.Error() as ViewResult;
+
+        // Assert
+        Assert.Equal("Something's missing", result.ViewData[@"ErrorHeading"]);
     }
 
     [Fact]
     public async Task ShouldTellUsSomethingIsWrongIfADifferentErrorOccurred()
     {
-        var httpContext = new DefaultHttpContext();
+        // Arrange
+        DefaultHttpContext httpContext = new();
         httpContext.Request.Path = "/test";
         httpContext.Response.StatusCode = 500;
-        var mockHttpContext = new ControllerContext
+        
+        ControllerContext mockHttpContext = new()
         {
             HttpContext = httpContext
         };
-        var controller = new ErrorController(_legacyRedirects.Object, _logger.Object) { ControllerContext = mockHttpContext };
+
+        ErrorController controller = new(_legacyRedirects.Object, _logger.Object) { ControllerContext = mockHttpContext };
         controller.HttpContext.Features.Set<IStatusCodeReExecuteFeature>(new StatusCodeReExecuteFeature()
         {
             OriginalPath = "/OriginalPath"
         });
 
-        var result = await controller.Error() as ViewResult; ;
+        // Act
+        ViewResult result = await controller.Error() as ViewResult; ;
 
-        result.ViewData[@"ErrorHeading"].Should().Be("Something went wrong");
+        // Assert
+        Assert.Equal("Something went wrong", result.ViewData[@"ErrorHeading"]);
     }
 
     [Fact]
     public async Task ShouldRedirectIfPageNotFoundButMatchedALegacyRedirect()
     {
-        const string url = "/a-url";
-        var redirectedToLocation = @"/redirected-to-location-from-the-rule";
-        _legacyRedirects.Setup(o => o.RedirectUrl(url)).ReturnsAsync(redirectedToLocation);
+        _legacyRedirects
+            .Setup(redirects => redirects.RedirectUrl("/a-url"))
+            .ReturnsAsync(@"/redirected-to-location-from-the-rule");
 
-        var httpContext = new DefaultHttpContext();
+        DefaultHttpContext httpContext = new();
         httpContext.Request.Path = "/test";
         httpContext.Response.StatusCode = 404;
-        var mockHttpContext = new ControllerContext
+        ControllerContext mockHttpContext = new()
         {
             HttpContext = httpContext
         };
-        var controller = new ErrorController(_legacyRedirects.Object, _logger.Object) { ControllerContext = mockHttpContext };
+
+        ErrorController controller = new(_legacyRedirects.Object, _logger.Object) { ControllerContext = mockHttpContext };
+
         controller.HttpContext.Features.Set<IStatusCodeReExecuteFeature>(new StatusCodeReExecuteFeature()
         {
-            OriginalPath = url
+            OriginalPath = "/a-url"
         });
 
-        var result = await controller.Error() as RedirectResult;
-        result.Url.Should().Be(redirectedToLocation);
+        RedirectResult result = await controller.Error() as RedirectResult;
+        result.Url.Should().Be(@"/redirected-to-location-from-the-rule");
         result.Permanent.Should().BeTrue();
     }
 

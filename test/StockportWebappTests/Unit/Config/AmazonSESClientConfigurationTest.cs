@@ -5,26 +5,23 @@ public class AmazonSESClientConfigurationTest
     [Fact]
     public void ShouldCreateAnAmazonSESClientConfiguration()
     {
-        var host = "a-host.com";
-        var region = "region";
-        var accessKey = "accessKey";
-        var secretKey = "secretKey";
-        var emailFrom = "email@email.com";
-        var hostSetting = AppSetting.GetAppSetting(host);
-        var regionSetting = AppSetting.GetAppSetting(region);
-        var awsKeys = new AmazonSESKeys(accessKey, secretKey);
-        var emailFromSetting = AppSetting.GetAppSetting(emailFrom);
+        // Arrange
+        AmazonSESKeys awsKeys = new("accessKey", "secretKey");
 
-        var amazonSesClientConfig = new AmazonSesClientConfiguration(hostSetting, regionSetting, emailFromSetting, awsKeys);
+        // Act
+        AmazonSesClientConfiguration amazonSesClientConfig = new(AppSetting.GetAppSetting("a-host.com"),
+                                                                AppSetting.GetAppSetting("region"),
+                                                                AppSetting.GetAppSetting("email@email.com"),
+                                                                awsKeys);
 
-        amazonSesClientConfig.Host.Should().Be(host);
-        amazonSesClientConfig.Endpoint.Should().Be($"https://{host}");
-        amazonSesClientConfig.Region.Should().Be(region);
-        amazonSesClientConfig.EmailFrom.Should().Be(emailFrom);
-        amazonSesClientConfig.AwsAccessKeyId.Should().Be(accessKey);
-        amazonSesClientConfig.AwsSecretAccessKey.Should().Be(secretKey);
-
-        amazonSesClientConfig.IsValid().Should().BeTrue();
+        // Assert
+        Assert.Equal("a-host.com", amazonSesClientConfig.Host);
+        Assert.Equal("https://a-host.com", amazonSesClientConfig.Endpoint);
+        Assert.Equal("region", amazonSesClientConfig.Region);
+        Assert.Equal("email@email.com", amazonSesClientConfig.EmailFrom);
+        Assert.Equal("accessKey", amazonSesClientConfig.AwsAccessKeyId);
+        Assert.Equal("secretKey", amazonSesClientConfig.AwsSecretAccessKey);
+        Assert.True(amazonSesClientConfig.IsValid());
     }
 
     [Theory]
@@ -38,17 +35,18 @@ public class AmazonSESClientConfigurationTest
     [InlineData("host", "region", "accessKey", null, "emailFrom")]
     [InlineData("host", "region", "accessKey", "secretKey", "")]
     [InlineData("host", "region", "accessKey", "secretKey", null)]
-    public void ShouldReturnInvalidIfAPropertyIsNotValid(string host, string region, string accessKey, string secretKey, string emailFrom)
+    public void IsValid_ShouldReturnInvalidIfAPropertyIsNotValid(string host, string region, string accessKey, string secretKey, string emailFrom)
     {
-        var hostSetting = AppSetting.GetAppSetting(host);
-        var regionSetting = AppSetting.GetAppSetting(region);
-        var awsKeys = new AmazonSESKeys(accessKey, secretKey);
-        var emailFromSetting = AppSetting.GetAppSetting(emailFrom);
+        // Arrange
+        AmazonSESKeys awsKeys = new(accessKey, secretKey);
+        AmazonSesClientConfiguration amazonSesClientConfig = new(AppSetting.GetAppSetting(host),
+                                                                AppSetting.GetAppSetting(region),
+                                                                AppSetting.GetAppSetting(emailFrom),
+                                                                awsKeys);
+        // Act
+        bool isValid = amazonSesClientConfig.IsValid();
 
-        var amazonSesClientConfig = new AmazonSesClientConfiguration(hostSetting, regionSetting, emailFromSetting, awsKeys);
-
-        var isValid = amazonSesClientConfig.IsValid();
-
-        isValid.Should().BeFalse();
+        // Assert
+        Assert.False(isValid);
     }
 }

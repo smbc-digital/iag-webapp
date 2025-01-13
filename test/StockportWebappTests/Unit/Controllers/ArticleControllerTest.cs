@@ -1,7 +1,4 @@
-﻿using StockportGovUK.NetStandard.Gateways.Models.RevsAndBens;
-using StockportWebapp.Models;
-
-namespace StockportWebappTests_Unit.Unit.Controllers;
+﻿namespace StockportWebappTests_Unit.Unit.Controllers;
 
 public class ArticleControllerTest
 {
@@ -10,8 +7,26 @@ public class ArticleControllerTest
     private readonly Mock<IProcessedContentRepository> _processedRepository = new();
     private readonly Mock<IContactUsMessageTagParser> _contactUsMessageParser = new();
     private const string DefaultMessage = "A default message";
-    private readonly ProcessedSection sectionOne = new("Overview", "physical-activity-overview", string.Empty, "body", new List<Profile>(), new List<StockportWebapp.Models.Document>(), new List<Alert>(), new List<GroupBranding>(), "logoAreaTitle", new DateTime());
-    private readonly ProcessedSection sectionTwo = new("Types of Physical Activity", It.IsAny<string>(), It.IsAny<string>(), "body", new List<Profile>(), new List<StockportWebapp.Models.Document>(), new List<Alert>(), new List<GroupBranding>(), "logoAreaTitle", new DateTime());
+    private readonly ProcessedSection sectionOne = new("Overview",
+                                                    "physical-activity-overview",
+                                                    string.Empty,
+                                                    "body",
+                                                    new List<Profile>(),
+                                                    new List<Document>(),
+                                                    new List<Alert>(),
+                                                    new List<GroupBranding>(),
+                                                    "logoAreaTitle",
+                                                    new DateTime());
+    private readonly ProcessedSection sectionTwo = new("Types of Physical Activity",
+                                                    It.IsAny<string>(),
+                                                    It.IsAny<string>(),
+                                                    "body",
+                                                    new List<Profile>(),
+                                                    new List<Document>(),
+                                                    new List<Alert>(),
+                                                    new List<GroupBranding>(),
+                                                    "logoAreaTitle",
+                                                    new DateTime());
     private readonly ProcessedArticle article;
 
     public ArticleControllerTest()
@@ -81,7 +96,7 @@ public class ArticleControllerTest
             .ReturnsAsync(HttpResponse.Successful(200, article));
 
         // Act
-        ViewResult articlePage = await _controller.Article("physical-activity", DefaultMessage) as ViewResult; ;
+        ViewResult articlePage = await _controller.Article("physical-activity", DefaultMessage) as ViewResult;
         ArticleViewModel viewModel = articlePage.ViewData.Model as ArticleViewModel;
         
         // Assert
@@ -98,7 +113,7 @@ public class ArticleControllerTest
     public async Task Article_ShouldReturnFirstSection_If_MultipleSectionsArticleWithNoSectionSlug()
     {
         // Act
-        ViewResult view = await _controller.Article("physical-activity", DefaultMessage) as ViewResult; ;
+        ViewResult view = await _controller.Article("physical-activity", DefaultMessage) as ViewResult;
         ArticleViewModel displayedArticle = view.ViewData.Model as ArticleViewModel;
         
         // Assert
@@ -121,7 +136,7 @@ public class ArticleControllerTest
     public async Task Article_ShouldSetViewDataCanonicalUrl_If_MultipleSectionsArticleWithSectionSlug()
     {
         // Act
-        ViewResult view = await _controller.ArticleWithSection("physical-activity", "physical-activity-overview", DefaultMessage) as ViewResult; ;
+        ViewResult view = await _controller.ArticleWithSection("physical-activity", "physical-activity-overview", DefaultMessage) as ViewResult;
 
         // Assert
         string canonicalUrl = (string)view.ViewData["CanonicalUrl"];
@@ -134,8 +149,28 @@ public class ArticleControllerTest
     public async Task Article_ShouldReturnCorrespondingSection_If_MultipleSectionsArticleWithSectionSlug()
     {
         // Arrange
-        ProcessedSection sectionOne = new("Overview", "physical-activity-overview", string.Empty, "body", new List<Profile>(), new List<StockportWebapp.Models.Document>(), new List<Alert>(), new List<GroupBranding>(), "logoAreaTitle", new DateTime());
-        ProcessedSection sectionTwo = new("Types of Physical Activity", "types-of-physical-activity", It.IsAny<string>(), "body", new List<Profile>(), new List<StockportWebapp.Models.Document>(), new List<Alert>(), new List<GroupBranding>(), "logoAreaTitle", new DateTime());
+        ProcessedSection sectionOne = new("Overview",
+                                        "physical-activity-overview",
+                                        string.Empty,
+                                        "body",
+                                        new List<Profile>(),
+                                        new List<Document>(),
+                                        new List<Alert>(),
+                                        new List<GroupBranding>(),
+                                        "logoAreaTitle",
+                                        new DateTime());
+        
+        ProcessedSection sectionTwo = new("Types of Physical Activity",
+                                        "types-of-physical-activity",
+                                        It.IsAny<string>(),
+                                        "body",
+                                        new List<Profile>(),
+                                        new List<Document>(),
+                                        new List<Alert>(),
+                                        new List<GroupBranding>(),
+                                        "logoAreaTitle",
+                                        new DateTime());
+        
         ProcessedArticle article = new(string.Empty,
                                     string.Empty,
                                     string.Empty,
@@ -181,8 +216,15 @@ public class ArticleControllerTest
         // Arrange
         List<Alert> alertsInline = new()
         {
-            new("title", "subheading", "body", Severity.Warning, new DateTime(0001, 1, 1, 0, 0, 0, DateTimeKind.Utc),
-                new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc), string.Empty, false, string.Empty)
+            new("title",
+                "subheading",
+                "body",
+                Severity.Warning,
+                new DateTime(0001, 1, 1, 0, 0, 0, DateTimeKind.Utc),
+                new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc),
+                string.Empty,
+                false,
+                string.Empty)
         };
         ProcessedArticle article = new(string.Empty,
                                     string.Empty,
@@ -231,9 +273,17 @@ public class ArticleControllerTest
         // Arrange
         List<Alert> alerts = new()
         {
-            new("title", "subheading", "body", Severity.Warning, new DateTime(0001, 1, 1, 0, 0, 0, DateTimeKind.Utc),
-                new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc),string.Empty, false, string.Empty)
+            new("title",
+                "subheading",
+                "body",
+                Severity.Warning,
+                new DateTime(0001, 1, 1, 0, 0, 0, DateTimeKind.Utc),
+                new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc),
+                string.Empty,
+                false,
+                string.Empty)
         };
+
         ProcessedArticle article = new(string.Empty,
                                     string.Empty,
                                     string.Empty,
@@ -313,11 +363,27 @@ public class ArticleControllerTest
         // Arrange
         List<Alert> alertsInline = new()
         {
-            new("title", "subheading", "body", Severity.Warning, new DateTime(0001, 1, 1, 0, 0, 0, DateTimeKind.Utc),
-                new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc),String.Empty, false, string.Empty)
+            new("title",
+                "subheading",
+                "body",
+                Severity.Warning,
+                new DateTime(0001, 1, 1, 0, 0, 0, DateTimeKind.Utc),
+                new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc),
+                String.Empty,
+                false,
+                string.Empty)
         };
 
-        ProcessedSection processedSection = new("title", "slug", string.Empty, "body", new List<Profile>(), new List<StockportWebapp.Models.Document>(), alertsInline, new List<GroupBranding>(), "logoAreaTitle", new DateTime());
+        ProcessedSection processedSection = new("title",
+                                                "slug",
+                                                string.Empty,
+                                                "body",
+                                                new List<Profile>(),
+                                                new List<StockportWebapp.Models.Document>(),
+                                                alertsInline,
+                                                new List<GroupBranding>(),
+                                                "logoAreaTitle",
+                                                new DateTime());
 
         ProcessedArticle article = new(string.Empty,
                                     string.Empty,
@@ -379,7 +445,17 @@ public class ArticleControllerTest
     public async Task ArticleWithSection_ShouldReturnViewDataWithMetaDescription()
     {
         // Arrange
-        ProcessedSection section = new(string.Empty, "test-slug", "test meta description", string.Empty, null, null, null, null, string.Empty, new DateTime());
+        ProcessedSection section = new(string.Empty,
+                                    "test-slug",
+                                    "test meta description",
+                                    string.Empty,
+                                    null,
+                                    null,
+                                    null,
+                                    null,
+                                    string.Empty,
+                                    new DateTime());
+        
         ProcessedArticle article = new(string.Empty,
                                     string.Empty,
                                     string.Empty,
@@ -422,8 +498,28 @@ public class ArticleControllerTest
     public async Task ArticleWithSection_ShouldReturnViewDataWithMetaDescription_If_MulitpleArticlesWithSections()
     {
         // Arrange
-        ProcessedSection section1 = new(string.Empty, "test-slug", "test meta description", string.Empty, null, null, null, null, string.Empty, new DateTime());
-        ProcessedSection section2 = new(string.Empty, string.Empty, "other string", string.Empty, null, null, null, null, string.Empty, new DateTime());
+        ProcessedSection section1 = new(string.Empty,
+                                        "test-slug",
+                                        "test meta description",
+                                        string.Empty,
+                                        null,
+                                        null,
+                                        null,
+                                        null,
+                                        string.Empty,
+                                        new DateTime());
+        
+        ProcessedSection section2 = new(string.Empty,
+                                        string.Empty,
+                                        "other string",
+                                        string.Empty,
+                                        null,
+                                        null,
+                                        null,
+                                        null,
+                                        string.Empty,
+                                        new DateTime());
+        
         ProcessedArticle article = new(string.Empty,
                                     string.Empty,
                                     string.Empty,
@@ -520,5 +616,14 @@ public class ArticleControllerTest
             new List<Event>());
 
     private static ProcessedSection DummySection() => 
-        new(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), new List<Profile>(), new List<StockportWebapp.Models.Document>(), new List<Alert>(), new List<GroupBranding>(), "logoAreaTitle", new DateTime());
+        new(It.IsAny<string>(),
+            It.IsAny<string>(),
+            It.IsAny<string>(),
+            It.IsAny<string>(),
+            new List<Profile>(),
+            new List<Document>(),
+            new List<Alert>(),
+            new List<GroupBranding>(),
+            "logoAreaTitle",
+            new DateTime());
 }

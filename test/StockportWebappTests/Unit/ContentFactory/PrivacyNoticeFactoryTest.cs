@@ -3,13 +3,10 @@
 public class PrivacyNoticeFactoryTest
 {
     private readonly PrivacyNoticeFactory _factory;
-    private readonly Mock<MarkdownWrapper> _markdownWrapper;
+    private readonly Mock<MarkdownWrapper> _markdownWrapper = new();
 
-    public PrivacyNoticeFactoryTest()
-    {
-        _markdownWrapper = new Mock<MarkdownWrapper>();
+    public PrivacyNoticeFactoryTest() =>
         _factory = new PrivacyNoticeFactory(_markdownWrapper.Object);
-    }
 
     [Fact]
     public void Build_ShouldReturnAPrivacyNotice()

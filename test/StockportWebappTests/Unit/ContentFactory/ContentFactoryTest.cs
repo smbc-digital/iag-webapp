@@ -6,11 +6,19 @@ public class ContentFactoryTest
 
     public ContentFactoryTest()
     {
-        var repository = new Mock<IRepository>();
-        var tagParserContainer = new Mock<ITagParserContainer>();
-        var httpContextAccessor = new Mock<IHttpContextAccessor>();
+        Mock<IRepository> repository = new();
+        Mock<ITagParserContainer> tagParserContainer = new();
+        Mock<IHttpContextAccessor> httpContextAccessor = new();
         tagParserContainer
-            .Setup(parser => parser.ParseAll(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool>(), null, null, null, null, null, It.IsAny<bool>()))
+            .Setup(parser => parser.ParseAll(It.IsAny<string>(),
+                                            It.IsAny<string>(),
+                                            It.IsAny<bool>(),
+                                            null,
+                                            null,
+                                            null,
+                                            null,
+                                            null,
+                                            It.IsAny<bool>()))
             .Returns(string.Empty);
 
         _factory = new ContentTypeFactory(tagParserContainer.Object, new MarkdownWrapper(), httpContextAccessor.Object, repository.Object);
@@ -21,15 +29,15 @@ public class ContentFactoryTest
     {
         // Arrange
         Section section = new(TextHelper.AnyString,
-                                  TextHelper.AnyString,
-                                  TextHelper.AnyString,
-                                  TextHelper.AnyString,
-                                  new List<Profile>(),
-                                  new List<Document>(),
-                                  new List<Alert>(),
-                                  new List<GroupBranding>(),
-                                  "logoAreaTitle",
-                                  new DateTime());
+                            TextHelper.AnyString,
+                            TextHelper.AnyString,
+                            TextHelper.AnyString,
+                            new List<Profile>(),
+                            new List<Document>(),
+                            new List<Alert>(),
+                            new List<GroupBranding>(),
+                            "logoAreaTitle",
+                            new DateTime());
 
         // Act
         IProcessedContentType processedSection = _factory.Build(section);

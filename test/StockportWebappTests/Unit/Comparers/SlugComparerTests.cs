@@ -53,7 +53,7 @@ public class SlugComparerTests
     {
         // Arrange
         SlugComparer comparer = new();
-        var entry3 = new DirectoryEntry();
+        DirectoryEntry entry3 = new();
 
         // Act & Assert
         Assert.Equal(0, comparer.GetHashCode(entry3));

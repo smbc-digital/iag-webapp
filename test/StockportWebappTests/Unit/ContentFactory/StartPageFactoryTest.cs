@@ -10,24 +10,50 @@ public class StartPageFactoryTests
     public StartPageFactoryTests()
     {
         _factory = new StartPageFactory(_mockTagParser.Object, _mockMarkdownWrapper.Object);
-        _startPage = new StartPage("test-start-page", "Test start page", "This is a test start page", "Use this page to start test processes", "Test upper body content", "Test Link",
-            "https://www.stockport.gov.uk", "Test lower body content", new List<Crumb>(), string.Empty,
-            "fa-test", new List<Alert>(), new List<Alert>());
+        _startPage = new StartPage("test-start-page",
+                                "Test start page",
+                                "This is a test start page",
+                                "Use this page to start test processes",
+                                "Test upper body content",
+                                "Test Link",
+                                "https://www.stockport.gov.uk",
+                                "Test lower body content",
+                                new List<Crumb>(),
+                                string.Empty,
+                                "fa-test",
+                                new List<Alert>(),
+                                new List<Alert>());
 
         _mockTagParser
-            .Setup(_ => _.ParseAll(_startPage.UpperBody, It.IsAny<string>(), It.IsAny<bool>(), It.IsAny<IEnumerable<Alert>>(), null, null, null, null, It.IsAny<bool>()))
+            .Setup(parser => parser.ParseAll(_startPage.UpperBody,
+                                It.IsAny<string>(),
+                                It.IsAny<bool>(),
+                                It.IsAny<IEnumerable<Alert>>(),
+                                null,
+                                null,
+                                null,
+                                null,
+                                It.IsAny<bool>()))
             .Returns(_startPage.UpperBody);
 
         _mockTagParser
-            .Setup(_ => _.ParseAll(_startPage.LowerBody, It.IsAny<string>(), It.IsAny<bool>(), It.IsAny<IEnumerable<Alert>>(), null, null, null, null, It.IsAny<bool>()))
+            .Setup(parser => parser.ParseAll(_startPage.LowerBody,
+                                It.IsAny<string>(),
+                                It.IsAny<bool>(),
+                                It.IsAny<IEnumerable<Alert>>(),
+                                null,
+                                null,
+                                null,
+                                null,
+                                It.IsAny<bool>()))
             .Returns(_startPage.LowerBody);
 
         _mockMarkdownWrapper
-            .Setup(_ => _.ConvertToHtml(_startPage.UpperBody))
+            .Setup(wrapper => wrapper.ConvertToHtml(_startPage.UpperBody))
             .Returns(_startPage.UpperBody);
 
         _mockMarkdownWrapper
-            .Setup(_ => _.ConvertToHtml(_startPage.LowerBody))
+            .Setup(wrapper => wrapper.ConvertToHtml(_startPage.LowerBody))
             .Returns(_startPage.LowerBody);
     }
 
@@ -55,20 +81,24 @@ public class StartPageFactoryTests
     [Fact]
     public void ShouldCallMarkdownWrapper()
     {
-        // Act
+        // Act & Assert
         _factory.Build(_startPage);
-        
-        // Assert
-        _mockMarkdownWrapper.Verify(_ => _.ConvertToHtml(It.IsAny<string>()), Times.Exactly(2));
+        _mockMarkdownWrapper.Verify(parser => parser.ConvertToHtml(It.IsAny<string>()), Times.Exactly(2));
     }
 
     [Fact]
     public void ShouldCallTagParser()
     {
-        // Act
+        // Act & Assert
         _factory.Build(_startPage);
-        
-        // Assert
-        _mockTagParser.Verify(_ => _.ParseAll(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool>(), It.IsAny<IEnumerable<Alert>>(), null, null, null, null, It.IsAny<bool>()), Times.Exactly(2));
+        _mockTagParser.Verify(parser => parser.ParseAll(It.IsAny<string>(),
+                                                        It.IsAny<string>(),
+                                                        It.IsAny<bool>(),
+                                                        It.IsAny<IEnumerable<Alert>>(),
+                                                        null,
+                                                        null,
+                                                        null,
+                                                        null,
+                                                        It.IsAny<bool>()), Times.Exactly(2));
     }
 }

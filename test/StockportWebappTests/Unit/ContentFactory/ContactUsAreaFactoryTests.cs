@@ -3,7 +3,6 @@
 public class ContactUsAreaFactoryTests
 {
     private readonly Mock<IContactUsCategoryFactory> _mockContactUsCategoryFactory = new();
-
     private readonly ContactUsAreaFactory _factory;
 
     private readonly ContactUsArea _contactUsArea = new("title",
