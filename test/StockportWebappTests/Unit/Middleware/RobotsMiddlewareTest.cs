@@ -11,7 +11,10 @@ public class RobotsMiddlewareTest
         _robotsTxtMiddleware = new(requestDelegate.Object);
 
         Mock<IWebHostEnvironment> iWebHostingEnvironment = new();
-        iWebHostingEnvironment.Setup(env => env.EnvironmentName).Returns("prod");
+        iWebHostingEnvironment
+            .Setup(env => env.EnvironmentName)
+            .Returns("prod");
+        
         _iWebHostingEnvironment = iWebHostingEnvironment.Object;
     }
 
@@ -52,35 +55,47 @@ public class RobotsMiddlewareTest
     [Fact]
     public void ShouldSetRobotsTxtToBusinessIdSpecificIfPathIsRobots()
     {
+        // Arrange
         DefaultHttpContext context = new();
         context.Request.Path = "/robots.txt";
         context.Request.Host = new HostString("beta.domain.notwww");
         BusinessId businessId = new("businessid");
+        
+        // Act
         _robotsTxtMiddleware.Invoke(context, businessId, _iWebHostingEnvironment);
 
-        context.Request.Path.ToString().Should().Be($"/robots-{businessId}.txt");
+        // Assert
+        Assert.Equal($"/robots-{businessId}.txt", context.Request.Path.ToString());
     }
 
     [Fact]
     public void ShouldNotSetRobotsTxtToBusinessIdSpecificIfPathIsNotRobots()
     {
+        // Arrange
         DefaultHttpContext context = new();
         context.Request.Path = "/notrobots";
         BusinessId businessId = new("businessid");
+
+        // Act
         _robotsTxtMiddleware.Invoke(context, businessId, _iWebHostingEnvironment);
 
-        context.Request.Path.ToString().Should().Be("/notrobots");
+        // Assert
+        Assert.Equal("/notrobots", context.Request.Path.ToString());
     }
 
     [Fact]
     public void ShouldSetRobotsTxtToLive()
     {
+        // Arrange
         DefaultHttpContext context = new();
         context.Request.Host = new HostString("www.liveurl.haswww");
         context.Request.Path = "/robots.txt";
         BusinessId businessId = new("businessid");
+
+        // Act
         _robotsTxtMiddleware.Invoke(context, businessId, _iWebHostingEnvironment);
 
-        context.Request.Path.ToString().Should().Be($"/robots-{businessId}-live.txt");
+        // Assert
+        Assert.Equal($"/robots-{businessId}-live.txt", context.Request.Path.ToString());
     }
 }

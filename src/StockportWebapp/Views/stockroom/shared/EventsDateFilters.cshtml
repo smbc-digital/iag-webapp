@@ -15,7 +15,7 @@
                             <select type="" id="event-category" asp-for="@Model.Category" placeholder="Cateogory" class="events-filters__date">
                                 @foreach (var eventCategory in Model.Homepage.Categories)
                                 {
-                                    if(eventCategory.Slug.Equals(Model.SelectedCategory.Slug))
+                                    if(eventCategory.Slug.Equals(Model.SelectedCategory?.Slug))
                                     {
                                         <option value="@eventCategory.Slug" selected)>
                                             @eventCategory.Name

@@ -2,9 +2,9 @@
 
 public class StockportApiEventsServiceTests
 {
-    private Mock<IStockportApiRepository> _stockportApiRepository = new();
-    private StockportApiEventsService _stockportApiEventsService;
-    private Mock<IEventFactory> _eventFactory = new();
+    private readonly StockportApiEventsService _stockportApiEventsService;
+    private readonly Mock<IStockportApiRepository> _stockportApiRepository = new();
+    private readonly Mock<IEventFactory> _eventFactory = new();
 
     public StockportApiEventsServiceTests() =>
         _stockportApiEventsService = new(_stockportApiRepository.Object, _eventFactory.Object);
@@ -15,7 +15,7 @@ public class StockportApiEventsServiceTests
         // Arrange
         List<Event> builtEvents = new() { new EventBuilder().Build() };
         _stockportApiRepository
-            .Setup(x => x.GetResponse<List<Event>>("by-category", It.IsAny<List<Query>>()))
+            .Setup(repo => repo.GetResponse<List<Event>>("by-category", It.IsAny<List<Query>>()))
             .ReturnsAsync(builtEvents);
 
         // Act
@@ -32,7 +32,7 @@ public class StockportApiEventsServiceTests
         // Arrange
         List<Event> builtEvents = new() { new EventBuilder().Build() };
         _stockportApiRepository
-            .Setup(x => x.GetResponse<List<Event>>("by-category", It.IsAny<List<Query>>()))
+            .Setup(repo => repo.GetResponse<List<Event>>("by-category", It.IsAny<List<Query>>()))
             .ReturnsAsync((List<Event>)null);
 
         // Act
@@ -102,7 +102,9 @@ public class StockportApiEventsServiceTests
                                             new List<ProcessedEvents>());
 
         _stockportApiRepository
-            .Setup(repo => repo.GetResponse<Event>("event-slug", It.Is<List<Query>>(q => q.Exists(x => x.Name.Equals("date") && x.Value.Equals(new DateTime(2024, 11, 13).ToString("yyyy-MM-dd"))))))
+            .Setup(repo => repo.GetResponse<Event>("event-slug",
+                                                It.Is<List<Query>>(q => q.Exists(x => x.Name.Equals("date")
+                                                    && x.Value.Equals(new DateTime(2024, 11, 13).ToString("yyyy-MM-dd"))))))
             .ReturnsAsync(eventItem);
 
         _eventFactory

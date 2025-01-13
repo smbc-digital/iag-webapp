@@ -2,75 +2,81 @@
 
 public class PrivacyNoticeTagParserTest
 {
-    private readonly Mock<IViewRender> _viewRenderer;
+    private readonly Mock<IViewRender> _viewRenderer = new();
     private readonly PrivacyNoticeTagParser _privacyNoticeTagParser;
 
-    public PrivacyNoticeTagParserTest()
-    {
-        _viewRenderer = new Mock<IViewRender>();
-        _privacyNoticeTagParser = new PrivacyNoticeTagParser(_viewRenderer.Object);
-    }
+    public PrivacyNoticeTagParserTest() =>
+        _privacyNoticeTagParser = new(_viewRenderer.Object);
 
     [Fact]
     public void Parse_ShouldRenderIfPrivacyExists()
     {
-        //arrange
-        var content = "{{PrivacyNotice:title}}";
-        var privacyNotice = new List<PrivacyNotice>()
+        // Arrange
+        List<PrivacyNotice> privacyNotice = new()
         {
-            new PrivacyNotice()
+            new()
             {
                 Title = "title",
                 Slug = "slug"
             }
         };
-        var renderResult = "";
-        _viewRenderer.Setup(o => o.Render("PrivacyNotice", It.IsAny<IEnumerable<PrivacyNotice>>())).Returns(renderResult);
-        //act
-        _privacyNoticeTagParser.Parse(content, privacyNotice);
-        //assert
-        _viewRenderer.Verify(o => o.Render("PrivacyNotice", It.IsAny<IEnumerable<PrivacyNotice>>()), Times.Once);
+
+        _viewRenderer
+            .Setup(renderer => renderer.Render("PrivacyNotice", It.IsAny<IEnumerable<PrivacyNotice>>()))
+            .Returns(string.Empty);
+
+        // Act
+        _privacyNoticeTagParser.Parse("{{PrivacyNotice:title}}", privacyNotice);
+        
+        // Assert
+        _viewRenderer.Verify(renderer => renderer.Render("PrivacyNotice", It.IsAny<IEnumerable<PrivacyNotice>>()), Times.Once);
     }
 
     [Fact]
     public void Parse_ShouldNotRenderIfPrivacyNoticeDoesNotExist()
     {
-        //arrange
-        var content = "{{PrivacyNotice:category}}";
-        var privacyNotice = new List<PrivacyNotice>()
+        // Arrange
+        List<PrivacyNotice> privacyNotice = new()
         {
-            new PrivacyNotice()
+            new()
             {
                 Title = "title",
                 Slug = "slug"
             }
         };
-        var renderResult = "";
-        _viewRenderer.Setup(o => o.Render("PrivacyNotice", It.IsAny<IEnumerable<PrivacyNotice>>())).Returns(renderResult);
-        //act
-        _privacyNoticeTagParser.Parse(content, privacyNotice);
-        //assert
-        _viewRenderer.Verify(o => o.Render("PrivacyNotice", It.IsAny<IEnumerable<PrivacyNotice>>()), Times.Never);
+
+        _viewRenderer
+            .Setup(renderer => renderer.Render("PrivacyNotice", It.IsAny<IEnumerable<PrivacyNotice>>()))
+            .Returns(string.Empty);
+        
+        // Act
+        _privacyNoticeTagParser.Parse("{{PrivacyNotice:category}}", privacyNotice);
+        
+        // Assert
+        _viewRenderer.Verify(renderer => renderer.Render("PrivacyNotice", It.IsAny<IEnumerable<PrivacyNotice>>()), Times.Never);
     }
 
     [Fact]
     public void Parse_ShouldReplaceContentIfPrivacyNoticeExists()
     {
-        //arrange
-        var content = "{{PrivacyNotice:title}}";
-        var privacyNotice = new List<PrivacyNotice>()
+        // Arrange
+        List<PrivacyNotice> privacyNotice = new()
         {
-            new PrivacyNotice()
+            new()
             {
                 Title = "title",
                 Slug = "slug"
             }
         };
-        var renderResult = "<h1>title</h1>";
-        _viewRenderer.Setup(o => o.Render("PrivacyNotice", It.IsAny<IEnumerable<PrivacyNotice>>())).Returns(renderResult);
-        //act
-        var result = _privacyNoticeTagParser.Parse(content, privacyNotice);
-        //assert
-        result.Should().Be("<h1>title</h1>");
+
+        _viewRenderer
+            .Setup(renderer => renderer.Render("PrivacyNotice", It.IsAny<IEnumerable<PrivacyNotice>>()))
+            .Returns("<h1>title</h1>");
+
+        // Act
+        string result = _privacyNoticeTagParser.Parse("{{PrivacyNotice:title}}", privacyNotice);
+        
+        // Assert
+        Assert.Equal("<h1>title</h1>", result);
     }
 }

@@ -35,10 +35,11 @@ public class ProcessedContentRepositoryTest
 
         _mockHttpClient
             .Setup(client => client.Get(It.IsAny<string>(), It.IsAny<Dictionary<string, string>>()))
-            .ReturnsAsync(new HttpResponse(200, JsonConvert.SerializeObject(_privacyNoticeModel), ""));
+            .ReturnsAsync(new HttpResponse(200, JsonConvert.SerializeObject(_privacyNoticeModel), string.Empty));
 
-        _contentTypeFactory = new ContentTypeFactory(_mockTagParserContainer.Object, new MarkdownWrapper(), _mockHttpContextAccessor.Object, _mockRepository.Object);
-        _processedContentRepository = new ProcessedContentRepository(_mockUrlGenerator.Object, _mockHttpClient.Object, _contentTypeFactory, _appConfig.Object);
+        _contentTypeFactory = new(_mockTagParserContainer.Object, new MarkdownWrapper(), _mockHttpContextAccessor.Object, _mockRepository.Object);
+
+        _processedContentRepository = new(_mockUrlGenerator.Object, _mockHttpClient.Object, _contentTypeFactory, _appConfig.Object);
     }
     
     [Fact]
@@ -77,7 +78,7 @@ public class ProcessedContentRepositoryTest
         // Arrange
         _mockHttpClient
             .Setup(client => client.Get(It.IsAny<string>(), It.IsAny<Dictionary<string, string>>()))
-            .ReturnsAsync(new HttpResponse(400, null, ""));
+            .ReturnsAsync(new HttpResponse(400, null, string.Empty));
 
         // Act
         HttpResponse result = await _processedContentRepository.Get<PrivacyNotice>("slug", new List<Query>());
@@ -86,4 +87,3 @@ public class ProcessedContentRepositoryTest
         Assert.Equal(400, result.StatusCode);
     }
 }
-

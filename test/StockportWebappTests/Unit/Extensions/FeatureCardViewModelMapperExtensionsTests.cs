@@ -8,7 +8,8 @@ public class FeatureCardViewModelMapperExtensionsTests
     [Fact]
     public void ShouldMapEventToFeaturedItemCorrectly()
     {
-        var featuredEvent = new Event {
+        // Arrange
+        Event featuredEvent = new() {
                 Title = "TestEvent",
                 Teaser = "EventTeaser",
                 EventDate = DateTime.Today,
@@ -17,8 +18,10 @@ public class FeatureCardViewModelMapperExtensionsTests
                 Slug = "MyTestEvent"
         };
 
-        var result = featuredEvent.MapToFeatureCard();
+        // Act
+        FeatureCardViewModel result = featuredEvent.MapToFeatureCard();
         
+        // Assert
         Assert.IsType<FeatureCardViewModel>(result);
         Assert.Equal(featuredEvent.Title, result.Title);
         Assert.Equal(featuredEvent.Teaser, result.Teaser);
@@ -34,7 +37,8 @@ public class FeatureCardViewModelMapperExtensionsTests
         [Fact]
     public void ShouldMapNewsToFeaturedItemCorrectly()
     {
-        var featuredNews = new News(
+        // Arrange
+        News featuredNews = new(
             "TestNewsItem", 
             "TestNewItem", 
             "Test News Teaser", 
@@ -51,9 +55,10 @@ public class FeatureCardViewModelMapperExtensionsTests
             new List<StockportWebapp.Models.Document>(),
             new List<Profile>());
 
-
-        var result = featuredNews.MapToFeatureCard();
+        // Act
+        FeatureCardViewModel result = featuredNews.MapToFeatureCard();
         
+        // Assert
         Assert.IsType<FeatureCardViewModel>(result);
         Assert.Equal(featuredNews.Title, result.Title);
         Assert.Equal(featuredNews.Teaser, result.Teaser);

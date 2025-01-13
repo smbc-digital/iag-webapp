@@ -2,19 +2,16 @@ namespace StockportWebappTests_Unit.Unit.Repositories;
 
 public class DocumentPageRepositoryTests
 {
-    private readonly Mock<IHttpClient> _httpClient;
-    private readonly Mock<IApplicationConfiguration> _applicationConfiguration;
+    private readonly Mock<IHttpClient> _httpClient = new();
+    private readonly Mock<IApplicationConfiguration> _applicationConfiguration = new();
     private readonly UrlGenerator _urlGenerator;
     private readonly DocumentPageFactory _documentPageFactory;
-    private readonly Mock<MarkdownWrapper> _markdownWrapper;
+    private readonly Mock<MarkdownWrapper> _markdownWrapper = new();
     private readonly DocumentPageRepository _documentPageRepository;
 
     public DocumentPageRepositoryTests()
     {
-        _httpClient = new Mock<IHttpClient>();
-        _applicationConfiguration = new Mock<IApplicationConfiguration>();
-        _urlGenerator = new UrlGenerator(_applicationConfiguration.Object, new BusinessId(""));
-        _markdownWrapper = new Mock<MarkdownWrapper>();
+        _urlGenerator = new(_applicationConfiguration.Object, new BusinessId(string.Empty));
 
         _documentPageFactory = new(_markdownWrapper.Object);
         _documentPageRepository = new(_urlGenerator, _httpClient.Object, _documentPageFactory, _applicationConfiguration.Object);
@@ -24,8 +21,9 @@ public class DocumentPageRepositoryTests
     public async Task Get_ShouldReturnHttpResponse_IfNotSuccessful()
     {
         // Arrange
-        _httpClient.Setup(_ => _.Get(It.IsAny<string>(), It.IsAny<Dictionary<string, string>>()))
-                    .ReturnsAsync(new HttpResponse(404, It.IsAny<string>(), It.IsAny<string>()));
+        _httpClient
+            .Setup(client => client.Get(It.IsAny<string>(), It.IsAny<Dictionary<string, string>>()))
+            .ReturnsAsync(new HttpResponse(404, It.IsAny<string>(), It.IsAny<string>()));
 
         // Act
         HttpResponse result = await _documentPageRepository.Get();
@@ -45,8 +43,9 @@ public class DocumentPageRepositoryTests
             Title = "title"
         };
 
-        _httpClient.Setup(_ => _.Get(It.IsAny<string>(), It.IsAny<Dictionary<string, string>>()))
-                    .ReturnsAsync(new HttpResponse(200, JsonConvert.SerializeObject(documentPage), "OK"));
+        _httpClient
+            .Setup(client => client.Get(It.IsAny<string>(), It.IsAny<Dictionary<string, string>>()))
+            .ReturnsAsync(new HttpResponse(200, JsonConvert.SerializeObject(documentPage), "OK"));
 
         // Act
         HttpResponse result = await _documentPageRepository.Get("slug");

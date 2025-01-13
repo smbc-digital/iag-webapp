@@ -7,20 +7,27 @@ public class DataProtectionBuilderExtension
     [Fact]
     public void PersistKeysToRedis_EmptyConnectionString()
     {
+        // Arrange
         Mock<IDataProtectionBuilder> builder = new();
+
+        // Act & Assert
         Assert.Throws<ArgumentException>(() => DataProtectionBuilderExtensions.PersistKeysToRedis(builder.Object, string.Empty));
     }
 
     [Fact]
     public void PersistKeysToRedis_NullBuilder()
     {
+        // Act & Assert
         Assert.Throws<ArgumentNullException>(() => DataProtectionBuilderExtensions.PersistKeysToRedis(null, "connection"));
     }
 
     [Fact]
     public void PersistKeysToRedis_NullConnectionString()
     {
-        var builder = new Mock<IDataProtectionBuilder>();
+        // Arrange
+        Mock<IDataProtectionBuilder> builder = new();
+        
+        // Act & Assert
         Assert.Throws<ArgumentNullException>(() => DataProtectionBuilderExtensions.PersistKeysToRedis(builder.Object, null));
     }
 
@@ -30,8 +37,12 @@ public class DataProtectionBuilderExtension
         // Arrange
         IServiceCollection services = new ServiceCollection();
         services.Add(new ServiceDescriptor(typeof(IXmlRepository), "test"));
-        _mockDataProtectionBuilder.Setup(x => x.Services).Returns(services);
-        var builder = _mockDataProtectionBuilder.Object;
+
+        _mockDataProtectionBuilder
+            .Setup(builder => builder.Services)
+            .Returns(services);
+        
+        IDataProtectionBuilder builder = _mockDataProtectionBuilder.Object;
 
         // Act
         builder.PersistKeysToRedis("connection");
@@ -45,29 +56,42 @@ public class DataProtectionBuilderExtension
     [Fact]
     public void Use_NullBuilder()
     {
-        var descriptor = new ServiceDescriptor(typeof(string), "a");
+        // Arrange
+        ServiceDescriptor descriptor = new(typeof(string), "a");
+        
+        // Act & Assert
         Assert.Throws<ArgumentNullException>(() => DataProtectionBuilderExtensions.Use(null, descriptor));
     }
 
     [Fact]
     public void Use_NullDescriptor()
     {
-        var builder = new Mock<IDataProtectionBuilder>();
+        // Arrange
+        Mock<IDataProtectionBuilder> builder = new();
+        
+        // Act & Assert
         Assert.Throws<ArgumentNullException>(() => DataProtectionBuilderExtensions.Use(builder.Object, null));
     }
 
     [Fact]
     public void Use_ReplacesAllServicesMatchingType()
     {
-        var descriptor = new ServiceDescriptor(typeof(string), "c");
+        // Arrange
+        ServiceDescriptor descriptor = new(typeof(string), "c");
         IServiceCollection services = new ServiceCollection();
         services.Add(new ServiceDescriptor(typeof(string), "a"));
         services.Add(new ServiceDescriptor(typeof(string), "b"));
-        _mockDataProtectionBuilder.Setup(x => x.Services).Returns(services);
-        var builder = _mockDataProtectionBuilder.Object;
 
+        _mockDataProtectionBuilder
+            .Setup(builder => builder.Services)
+            .Returns(services);
+
+        // Act
+        IDataProtectionBuilder builder = _mockDataProtectionBuilder.Object;
+
+        // Assert
         builder.Use(descriptor);
-        Assert.Single(services.Where(s => s.ServiceType == typeof(string)));
+        Assert.Single(services, s => s.ServiceType.Equals(typeof(string)));
         Assert.Equal("c", services[0].ImplementationInstance);
     }
 }

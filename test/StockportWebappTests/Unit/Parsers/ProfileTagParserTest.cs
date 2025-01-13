@@ -2,21 +2,16 @@
 
 public class ProfileTagParserTest
 {
-    private readonly Mock<IViewRender> _viewRender;
     private readonly ProfileTagParser _parser;
-    private List<Profile> _profiles;
-
-    public ProfileTagParserTest()
+    private readonly Mock<IViewRender> _viewRender = new();
+    private readonly List<Profile> _profiles = new()
     {
-        _viewRender = new Mock<IViewRender>();
-        _profiles = new List<Profile>
-        {
-            new() { Slug = "john-doe", Body = "John's bio" },
-            new() { Slug = "jane-doe", Body = "Jane's bio" }
-        };
+        new() { Slug = "john-doe", Body = "John's bio" },
+        new() { Slug = "jane-doe", Body = "Jane's bio" }
+    };
 
+    public ProfileTagParserTest() =>
         _parser = new ProfileTagParser(_viewRender.Object);
-    }
 
     [Fact]
     public void HasMatches_WithValidTag_ReturnsTrue()
