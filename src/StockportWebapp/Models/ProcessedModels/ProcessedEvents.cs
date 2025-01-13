@@ -20,6 +20,7 @@ public class ProcessedEvents : IProcessedContentType
     public readonly List<Alert> Alerts;
     public readonly List<Alert> GlobalAlerts = new();
     public MapDetails MapDetails { get; set; }
+    public string LogoAreaTitle { get; }
     public List<GroupBranding> EventBranding { get; set; } = new();
     public string PhoneNumber { get; }
     public string Email { get; }
@@ -53,6 +54,7 @@ public class ProcessedEvents : IProcessedContentType
                         Group group,
                         List<Alert> alerts,
                         string accessibleTransportLink,
+                        string logoAreaTitle,
                         List<GroupBranding> eventBranding,
                         string phoneNumber,
                         string email,
@@ -84,6 +86,7 @@ public class ProcessedEvents : IProcessedContentType
         Group = group;
         Alerts = alerts;
         MapDetails = mapDetails;
+        LogoAreaTitle = logoAreaTitle;
         EventBranding = eventBranding;
         PhoneNumber = phoneNumber;
         Email = email;

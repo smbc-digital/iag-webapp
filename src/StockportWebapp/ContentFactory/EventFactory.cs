@@ -47,6 +47,7 @@ public class EventFactory : IEventFactory
                                 eventItem.Group,
                                 eventItem.Alerts,
                                 eventItem.AccessibleTransportLink,
+                                eventItem.LogoAreaTitle,
                                 eventItem.EventBranding,
                                 eventItem.PhoneNumber,
                                 eventItem.Email,

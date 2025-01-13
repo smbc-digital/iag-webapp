@@ -31,6 +31,7 @@ public class Event
     public int Occurences { get; set; }
     public List<EventCategory> EventCategories { get; set; }
     public string AccessibleTransportLink { get; set; }
+    public string LogoAreaTitle { get; set; }
     public List<GroupBranding> EventBranding { get; set; } = new();
     public string PhoneNumber { get; set; }
     public string Email { get; set; }
