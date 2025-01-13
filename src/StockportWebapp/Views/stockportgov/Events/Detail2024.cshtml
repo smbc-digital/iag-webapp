@@ -7,10 +7,6 @@
     ViewData["Description"] = Model.MetaDescription;
     ViewData["Location"] = Model.Location;
 
-    string submittedBy = !string.IsNullOrEmpty(Model.Group.Name)
-        ? $"<p><a href=\"{Url.Action("DirectoryEntry", "Directory", new { slug = Model.Group.Slug })}\">{Model.Group.Name}</a></p>"
-        : $"<p>{Model.SubmittedBy}</p>";
-
     string borderTeal = "navcard--border-top-10 navcard--theme-teal-lighter-top";
     
     string borderTop = $"directory--border-top {borderTeal}";
@@ -53,7 +49,7 @@
                         <h3 class="event-detail__details">Location</h3>
                         <p>@Model.Location</p>
                         <h3 class="event-detail__details">Submitted by</h3>
-                        @Html.Raw(submittedBy)
+                        <p>@Model.SubmittedBy</p>
                     </div>
                 </div>
 

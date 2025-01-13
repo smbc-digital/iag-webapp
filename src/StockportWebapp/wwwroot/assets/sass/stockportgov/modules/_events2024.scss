@@ -292,6 +292,7 @@
         box-sizing: border-box;
         display: flex;
         flex-direction: column;
+        border-radius: 3px;
 
         &-left {
             margin-inline-end: 2em;
