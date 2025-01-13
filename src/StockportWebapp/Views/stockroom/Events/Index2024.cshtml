@@ -29,7 +29,7 @@
 
 <h1 class="visuallyhidden">Stockroom events</h1>
 
-@if (Model.CarouselContents is not null && Model.CarouselContents.Any() && !Model.CategoryIsSelected)
+@if (Model.CarouselContents is not null && Model.CarouselContents.Any() && !Model.CategoryIsSelected && !Model.Free)
 {
     <partial name="HeroCarousel" model="@Model.CarouselContents" view-data='@(new ViewDataDictionary(ViewData) { { "isOnHomepage", false } })' />
 }
@@ -46,10 +46,21 @@
         </div>
     </div>
 }
-else
+else if(Model.Free)
+{
+    <div class="hero hero__banner" style="background-image: url(//images.ctfassets.net/6jh3uby2vw58/5Ey34ZpOE9pYKA8mqsAOaB/239fc6ecc9e47e482a6e5025ba298839/Stockroom_Socials_28-11-24_20.jpg?fm=webp);">
+        <div class="hero__banner--overlay ">
+            <div class="grid-container hero__wrapper">
+                <div class="grid-100">
+                    <h1 class="image-banner__title-hero font--bold-extra-squeezed">Free Events</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else if (!Model.DateFrom.HasValue)
 {
     <partial name="EventsCategories" />
-
 }
 
 @if (Model.FromSearch)
@@ -74,7 +85,7 @@ else
     </div>
 
     <div class="grid-container-full-width" style="background-color:#f2f2f2;">
-        <partial name="ImageBannerContentWidth" view-data='@(new ViewDataDictionary(ViewData) { { "bannerSlug", $"{Url.Action("Index", "Events")}?free=true" }, { "bannerTitle", "Free events" }, { "bannerTeaser", "Stockroom is free to visit, and there are lots of free events and activities too!" } })' />
+        <partial name="ImageBannerContentWidth" view-data='@(new ViewDataDictionary(ViewData) { { "bannerSlug", $"{Url.Action("Index", "Events")}?free=true" }, { "bannerTitle", "Free events" }, { "bannerTeaser", "Stockroom is free to visit, and there are lots of free events and activities too!"}, {"image", "//images.ctfassets.net/6jh3uby2vw58/5Ey34ZpOE9pYKA8mqsAOaB/239fc6ecc9e47e482a6e5025ba298839/Stockroom_Socials_28-11-24_20.jpg"} })' />
     </div>
 }
 else
