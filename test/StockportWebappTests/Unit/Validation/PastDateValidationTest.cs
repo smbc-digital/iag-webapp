@@ -2,26 +2,25 @@
 
 public class PastDateValidationTest
 {
-    private readonly PastDateValidation _pastDateValidation;
-
-    public PastDateValidationTest()
-    {
-        _pastDateValidation = new PastDateValidation();
-    }
+    private readonly PastDateValidation _pastDateValidation = new();
 
     [Fact]
     public void ShouldReturnValidForPastDate()
     {
-        var result = _pastDateValidation.IsValid(new DateTime(2016, 01, 01));
+        // Act
+        bool result = _pastDateValidation.IsValid(new DateTime(2016, 01, 01));
 
-        result.Should().BeTrue();
+        // Assert
+        Assert.True(result);
     }
 
     [Fact]
     public void ShouldReturnInvalidForFutureDate()
     {
-        var result = _pastDateValidation.IsValid(DateTime.MaxValue);
-
-        result.Should().BeFalse();
+        // Act
+        bool result = _pastDateValidation.IsValid(DateTime.MaxValue);
+        
+        // Assert
+        Assert.False(result);
     }
 }

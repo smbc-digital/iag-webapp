@@ -1,92 +1,139 @@
-﻿namespace StockportWebappTests_Unit.Unit.Utils;
+﻿using Org.BouncyCastle.Asn1.IsisMtt;
+
+namespace StockportWebappTests_Unit.Unit.Utils;
 
 public class QueryUrlTest
 {
     [Fact]
-    public void ShouldAddNewQueriesToQueryParamaters()
+    public void ShouldAddNewQueriesToQueryParameters()
     {
-        var startingRoutesDictionary = new RouteValueDictionary() { { "name", "value" }, { "a-key", "a-value" } };
-        var mockQueryCollection = new Mock<IQueryCollection>();
-        mockQueryCollection.Setup(o => o.Keys).Returns(new List<string>() { "queryName" });
-        mockQueryCollection.Setup(o => o["queryName"]).Returns("queryValue");
+        // Arrange
+        RouteValueDictionary startingRoutesDictionary = new() { { "name", "value" }, { "a-key", "a-value" } };
+        Mock<IQueryCollection> mockQueryCollection = new();
+        mockQueryCollection
+            .Setup(query => query.Keys)
+            .Returns(new List<string>() { "queryName" });
+        
+        mockQueryCollection
+            .Setup(query => query["queryName"])
+            .Returns("queryValue");
 
-        var routesDictionary = new QueryUrl(startingRoutesDictionary, mockQueryCollection.Object).AddQueriesToUrl(new Dictionary<string, string> { { "newQueryName", "newQueryValue" } });
+        // Act
+        RouteValueDictionary routesDictionary = new QueryUrl(startingRoutesDictionary, mockQueryCollection.Object)
+            .AddQueriesToUrl(new Dictionary<string, string> { { "newQueryName", "newQueryValue" } });
 
-        routesDictionary.Count.Should().Be(4);
-        routesDictionary["name"].Should().Be("value");
+        // Assert
+        Assert.Equal(4, routesDictionary.Count);
+        Assert.Equal("value", routesDictionary["name"]);
+        Assert.Equal("a-value", routesDictionary["a-key"]);
         routesDictionary["queryName"].Should().Be("queryValue");
         routesDictionary["newQueryName"].Should().Be("newQueryValue");
-        routesDictionary["a-key"].Should().Be("a-value");
     }
 
     [Fact]
     public void ShouldRemoveQueriesFromQueryParamaters()
     {
-        var startingRoutesDictionary = new RouteValueDictionary() { { "name", "value" } };
-        var mockQueryCollection = new Mock<IQueryCollection>();
-        mockQueryCollection.Setup(o => o.Keys).Returns(new List<string>() { "queryName", "anotherQueryName" });
+        // Arrange
+        RouteValueDictionary startingRoutesDictionary = new() { { "name", "value" } };
+        Mock<IQueryCollection> mockQueryCollection = new();
+        mockQueryCollection
+            .Setup(query => query.Keys)
+            .Returns(new List<string>() { "queryName", "anotherQueryName" });
 
-        var routesDictionary = new QueryUrl(startingRoutesDictionary, mockQueryCollection.Object).WithoutQueryParam(new List<string>() { "queryName", "anotherQueryName" });
+        // Act
+        RouteValueDictionary routesDictionary = new QueryUrl(startingRoutesDictionary, mockQueryCollection.Object)
+            .WithoutQueryParam(new List<string>() { "queryName", "anotherQueryName" });
 
-        routesDictionary.Count.Should().Be(1);
-        routesDictionary["name"].Should().Be("value");
+        // Assert
+        Assert.Single(routesDictionary);
+        Assert.Equal("value", routesDictionary["name"]);
     }
 
     [Fact]
     public void ShouldReturnFalseIfQueryIsInCurrentQueryParamaters()
     {
-        var startingRoutesDictionary = new RouteValueDictionary() { { "name", "value" } };
-        var mockQueryCollection = new Mock<IQueryCollection>();
-        mockQueryCollection.Setup(o => o.Keys).Returns(new List<string>() { "queryName" });
-        mockQueryCollection.Setup(o => o["queryName"]).Returns("queryValue");
+        // Arrange
+        RouteValueDictionary startingRoutesDictionary = new() { { "name", "value" } };
+        Mock<IQueryCollection> mockQueryCollection = new();
+        mockQueryCollection
+            .Setup(query => query.Keys)
+            .Returns(new List<string>() { "queryName" });
+        
+        mockQueryCollection
+            .Setup(query => query["queryName"])
+            .Returns("queryValue");
 
-        var isInQueryParameters = new QueryUrl(startingRoutesDictionary, mockQueryCollection.Object).MatchesQueryParam("currentQueryName", "currentQueryValue");
+        // Act
+        bool isInQueryParameters = new QueryUrl(startingRoutesDictionary, mockQueryCollection.Object)
+            .MatchesQueryParam("currentQueryName", "currentQueryValue");
 
-        isInQueryParameters.Should().BeFalse();
+        // Assert
+        Assert.False(isInQueryParameters);
     }
 
     [Fact]
     public void ShouldReturnTrueIfQueryIsInCurrentQueryParamaters()
     {
-        var startingRoutesDictionary = new RouteValueDictionary() { { "name", "value" } };
-        var mockQueryCollection = new Mock<IQueryCollection>();
-        const string existingQueryName = "queryName";
-        const string existingQueryValue = "queryValue";
-        mockQueryCollection.Setup(o => o.ContainsKey(existingQueryName)).Returns(true);
-        mockQueryCollection.Setup(o => o[existingQueryName]).Returns(existingQueryValue);
+        // Arrange
+        RouteValueDictionary startingRoutesDictionary = new() { { "name", "value" } };
+        Mock<IQueryCollection> mockQueryCollection = new();
+        mockQueryCollection
+            .Setup(query => query.ContainsKey("queryName"))
+            .Returns(true);
+        
+        mockQueryCollection
+            .Setup(query => query["queryName"])
+            .Returns("queryValue");
 
-        var isInQueryParameters = new QueryUrl(startingRoutesDictionary, mockQueryCollection.Object)
-            .MatchesQueryParam(existingQueryName, existingQueryValue);
+        // Act
+        bool isInQueryParameters = new QueryUrl(startingRoutesDictionary, mockQueryCollection.Object)
+            .MatchesQueryParam("queryName", "queryValue");
 
-        isInQueryParameters.Should().BeTrue();
+        // Assert
+        Assert.True(isInQueryParameters);
     }
 
     [Fact]
     public void ShouldReturnTrueIfQueryNameIsInCurrentQueryParamaters()
     {
-        var startingRoutesDictionary = new RouteValueDictionary() { { "name", "value" } };
-        var mockQueryCollection = new Mock<IQueryCollection>();
-        const string existingQueryName = "queryName";
-        const string existingQueryValue = "queryValue";
-        mockQueryCollection.Setup(o => o.ContainsKey(existingQueryName)).Returns(true);
-        mockQueryCollection.Setup(o => o[existingQueryName]).Returns(existingQueryValue);
+        // Arrange
+        RouteValueDictionary startingRoutesDictionary = new() { { "name", "value" } };
+        Mock<IQueryCollection> mockQueryCollection = new();
+        mockQueryCollection
+            .Setup(query => query.ContainsKey("queryName"))
+            .Returns(true);
+        
+        mockQueryCollection
+            .Setup(query => query["queryName"])
+            .Returns("queryValue");
 
-        var isInQueryParameters = new QueryUrl(startingRoutesDictionary, mockQueryCollection.Object).
-            HasQueryParam(existingQueryName);
+        // Act
+        bool isInQueryParameters = new QueryUrl(startingRoutesDictionary, mockQueryCollection.Object)
+            .HasQueryParam("queryName");
 
-        isInQueryParameters.Should().BeTrue();
+        // Assert
+        Assert.True(isInQueryParameters);
     }
 
     [Fact]
     public void ShouldReturnFalseIfQueryNameIsNotInCurrentQueryParamaters()
     {
-        var startingRoutesDictionary = new RouteValueDictionary() { { "name", "value" } };
-        var mockQueryCollection = new Mock<IQueryCollection>();
-        mockQueryCollection.Setup(o => o.ContainsKey("queryName")).Returns(true);
-        mockQueryCollection.Setup(o => o["queryName"]).Returns("queryValue");
+        // Arrange
+        RouteValueDictionary startingRoutesDictionary = new() { { "name", "value" } };
+        Mock<IQueryCollection> mockQueryCollection = new();
+        mockQueryCollection
+            .Setup(query => query.ContainsKey("queryName"))
+            .Returns(true);
+        
+        mockQueryCollection
+            .Setup(query => query["queryName"])
+            .Returns("queryValue");
 
-        var isInQueryParameters = new QueryUrl(startingRoutesDictionary, mockQueryCollection.Object).HasQueryParam("notInQueryString");
+        // Act
+        bool isInQueryParameters = new QueryUrl(startingRoutesDictionary, mockQueryCollection.Object)
+            .HasQueryParam("notInQueryString");
 
-        isInQueryParameters.Should().BeFalse();
+        // Assert
+        Assert.False(isInQueryParameters);
     }
 }

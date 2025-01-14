@@ -5,83 +5,97 @@ public class ContactUsDetailsTest
     [Fact]
     public void TestNameIsRequired()
     {
-        var model = new ContactUsDetails();
-        var context = new ValidationContext(model, null, null);
-        var result = new List<ValidationResult>();
-        var valid = Validator.TryValidateObject(model, context, result, true);
+        // Arrange
+        ContactUsDetails model = new();
+        ValidationContext context = new(model, null, null);
+        List<ValidationResult> result = new();
+        
+        // Act
+        bool valid = Validator.TryValidateObject(model, context, result, true);
 
+        // Assert
         Assert.False(valid);
-        var failure = Assert.Single(
-        result,
-        x => x.ErrorMessage == "Your name is required");
-        Assert.Single(failure.MemberNames, x => x == "Name");
+        ValidationResult failure = Assert.Single(result, x => x.ErrorMessage.Equals("Your name is required"));
+        Assert.Single(failure.MemberNames, x => x.Equals("Name"));
     }
 
     [Fact]
     public void TestSubjectIsRequired()
     {
-        var model = new ContactUsDetails();
-        var context = new ValidationContext(model, null, null);
-        var result = new List<ValidationResult>();
-        var valid = Validator.TryValidateObject(model, context, result, true);
+        // Arrange
+        ContactUsDetails model = new();
+        ValidationContext context = new(model, null, null);
+        List<ValidationResult> result = new();
+        
+        // Act
+        bool valid = Validator.TryValidateObject(model, context, result, true);
 
+        // Assert
         Assert.False(valid);
-        var failure = Assert.Single(
-        result,
-        x => x.ErrorMessage == "A subject is required");
-        Assert.Single(failure.MemberNames, x => x == "Subject");
+        ValidationResult failure = Assert.Single(result, x => x.ErrorMessage.Equals("A subject is required"));
+        Assert.Single(failure.MemberNames, x => x.Equals("Subject"));
     }
 
     [Fact]
     public void TestMessageIsRequired()
     {
-        var model = new ContactUsDetails();
-        var context = new ValidationContext(model, null, null);
-        var result = new List<ValidationResult>();
-        var valid = Validator.TryValidateObject(model, context, result, true);
+        // Arrange
+        ContactUsDetails model = new();
+        ValidationContext context = new(model, null, null);
+        List<ValidationResult> result = new();
+        
+        // Act
+        bool valid = Validator.TryValidateObject(model, context, result, true);
 
+        // Assert
         Assert.False(valid);
-        var failure = Assert.Single(
-        result,
-        x => x.ErrorMessage == "An enquiry message is required");
-        Assert.Single(failure.MemberNames, x => x == "Message");
+        ValidationResult failure = Assert.Single(result, x => x.ErrorMessage.Equals("An enquiry message is required"));
+        Assert.Single(failure.MemberNames, x => x.Equals("Message"));
     }
 
     [Fact]
     public void TestEmailValidationFailsIfEmailIsNotRightFormat()
     {
-        var model = new ContactUsDetails
+        // Arrange
+        ContactUsDetails model = new()
         {
             Name = "Name",
             Email = "email",
             Subject = "Subject",
             Message = "Message"
         };
-        var context = new ValidationContext(model, null, null);
-        var result = new List<ValidationResult>();
-        var valid = Validator.TryValidateObject(model, context, result, true);
 
+        ValidationContext context = new(model, null, null);
+        List<ValidationResult> result = new();
+        
+        // Act
+        bool valid = Validator.TryValidateObject(model, context, result, true);
+
+        // Assert
         Assert.False(valid);
-        var failure = Assert.Single(
-        result,
-        x => x.ErrorMessage == "This is not a valid email address");
-        Assert.Single(failure.MemberNames, x => x == "Email");
+        ValidationResult failure = Assert.Single(result, x => x.ErrorMessage.Equals("This is not a valid email address"));
+        Assert.Single(failure.MemberNames, x => x.Equals("Email"));
     }
 
     [Fact]
     public void TestEmailValidationPassesIfEmailIsRightFormat()
     {
-        var model = new ContactUsDetails
+        // Arrange
+        ContactUsDetails model = new()
         {
             Name = "Name",
             Email = "email@domain.com",
             Subject = "Subject",
             Message = "Message"
         };
-        var context = new ValidationContext(model, null, null);
-        var result = new List<ValidationResult>();
-        var valid = Validator.TryValidateObject(model, context, result, true);
 
+        ValidationContext context = new(model, null, null);
+        List<ValidationResult> result = new();
+        
+        // Act
+        bool valid = Validator.TryValidateObject(model, context, result, true);
+
+        // Assert
         Assert.True(valid);
     }
 }

@@ -2,63 +2,71 @@
 
 public class LoggedInHelperTests
 {
-    private readonly Mock<IJwtDecoder> _jwtDecoder = new Mock<IJwtDecoder>();
-    private readonly Mock<IHttpContextAccessor> _context = new Mock<IHttpContextAccessor>();
-    private readonly Mock<ILogger<LoggedInHelper>> _logger = new Mock<ILogger<LoggedInHelper>>();
+    private readonly Mock<IJwtDecoder> _jwtDecoder = new();
+    private readonly Mock<IHttpContextAccessor> _context = new();
+    private readonly Mock<ILogger<LoggedInHelper>> _logger = new();
     private readonly LoggedInHelper _loggedInHelper;
 
     public LoggedInHelperTests()
     {
-        _jwtDecoder.Setup(_ => _.Decode(It.IsAny<string>())).Returns(new LoggedInPerson { Email = "email", Name = "name" });
-        _loggedInHelper = new LoggedInHelper(_context.Object, new CurrentEnvironment("local"), _jwtDecoder.Object, _logger.Object);
+        _jwtDecoder
+            .Setup(decoder => decoder.Decode(It.IsAny<string>()))
+            .Returns(new LoggedInPerson { Email = "email", Name = "name" });
+
+        _loggedInHelper = new(_context.Object, new CurrentEnvironment("local"), _jwtDecoder.Object, _logger.Object);
     }
 
     [Fact]
     public void ShouldReturnLoggedInPersonIfCookieExists()
     {
         // Arrange
-        var httpContext = new DefaultHttpContext();
+        DefaultHttpContext httpContext = new();
         httpContext.Request.Cookies = MockRequestCookieCollection("jwtCookie", "test");
 
-        // Mocks
-        _context.Setup(_ => _.HttpContext).Returns(httpContext);
+        _context
+            .Setup(ctext => ctext.HttpContext)
+            .Returns(httpContext);
 
         // Act
-        var loggedInPerson = _loggedInHelper.GetLoggedInPerson();
+        LoggedInPerson loggedInPerson = _loggedInHelper.GetLoggedInPerson();
 
         // Assert
-        loggedInPerson.Name.Should().Be("name");
-        loggedInPerson.Email.Should().Be("email");
+        Assert.Equal("name", loggedInPerson.Name);
+        Assert.Equal("email", loggedInPerson.Email);
     }
 
     [Fact]
     public void ShouldReturnEmptyLoggedInPersonIfNoCookieExists()
     {
         // Arrange
-        var httpContext = new DefaultHttpContext();
+        DefaultHttpContext httpContext = new();
 
         // Mocks
-        _context.Setup(_ => _.HttpContext).Returns(httpContext);
+        _context
+            .Setup(ctext => ctext.HttpContext)
+            .Returns(httpContext);
 
         // Act
-        var loggedInPerson = _loggedInHelper.GetLoggedInPerson();
+        LoggedInPerson loggedInPerson = _loggedInHelper.GetLoggedInPerson();
 
         // Assert
-        loggedInPerson.Name.Should().BeNull();
-        loggedInPerson.Email.Should().BeNull();
+        Assert.Null(loggedInPerson.Name);
+        Assert.Null(loggedInPerson.Email);
     }
 
     private static IRequestCookieCollection MockRequestCookieCollection(string key, string value)
     {
-        var requestFeature = new HttpRequestFeature();
-        var featureCollection = new FeatureCollection();
+        HttpRequestFeature requestFeature = new();
+        FeatureCollection featureCollection = new();
 
-        requestFeature.Headers = new Microsoft.AspNetCore.Http.HeaderDictionary();
-        requestFeature.Headers.Add(HeaderNames.Cookie, new StringValues(key + "=" + value));
+        requestFeature.Headers = new HeaderDictionary
+        {
+            { HeaderNames.Cookie, new StringValues($"{key}={value}") }
+        };
 
         featureCollection.Set<IHttpRequestFeature>(requestFeature);
 
-        var cookiesFeature = new RequestCookiesFeature(featureCollection);
+        RequestCookiesFeature cookiesFeature = new(featureCollection);
 
         return cookiesFeature.Cookies;
     }

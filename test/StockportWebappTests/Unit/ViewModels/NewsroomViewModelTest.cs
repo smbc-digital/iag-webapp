@@ -2,111 +2,147 @@
 
 public class NewsroomViewModelTest
 {
-    private static readonly List<string> emptyList = new List<string>();
+    private static readonly List<string> emptyList = new();
     private const string EmailAlertsUrl = "url";
     private readonly Newsroom _newsroom;
 
-    public NewsroomViewModelTest()
-    {
-        _newsroom = new Newsroom(new List<News>(), new List<Alert>(), true, "tag-id", new List<string>(), new List<DateTime>());
-    }
+    public NewsroomViewModelTest() =>
+        _newsroom = new(new List<News>(), new List<Alert>(), true, "tag-id", new List<string>(), new List<DateTime>());
 
     [Fact]
     public void ShouldSetEmailAlertsUrlWithTopicId()
     {
-        var newsroomViewModel = new NewsroomViewModel(BuildNewsRoom(emailAlertsTopicId: "tag-id"), EmailAlertsUrl);
+        // Act
+        NewsroomViewModel newsroomViewModel = new(BuildNewsRoom(emailAlertsTopicId: "tag-id"), EmailAlertsUrl);
 
-        newsroomViewModel.EmailAlertsUrl.Should().Be(string.Concat(EmailAlertsUrl, "?topic_id=", _newsroom.EmailAlertsTopicId));
+        // Assert
+        Assert.Equal(string.Concat(EmailAlertsUrl, "?topic_id=", _newsroom.EmailAlertsTopicId), newsroomViewModel.EmailAlertsUrl);
     }
 
     [Fact]
     public void ShouldSetEmailAlertsUrlWithoutTopicId()
     {
-        var newsroomViewModel = new NewsroomViewModel(BuildNewsRoom(emailAlertsTopicId: string.Empty), EmailAlertsUrl);
+        // Act
+        NewsroomViewModel newsroomViewModel = new(BuildNewsRoom(emailAlertsTopicId: string.Empty), EmailAlertsUrl);
 
-        newsroomViewModel.EmailAlertsUrl.Should().Be(EmailAlertsUrl);
+        // Assert
+        Assert.Equal(EmailAlertsUrl, newsroomViewModel.EmailAlertsUrl);
     }
 
     [Fact]
     public void ShouldGiveCategoriesInAlphabeticalOrder()
     {
-        var newsroom = BuildNewsRoom(categories: new List<string> { "Zebras", "Asses", "Oxen" });
+        // Act
+        Newsroom newsroom = BuildNewsRoom(categories: new List<string> { "Zebras", "Asses", "Oxen" });
 
-        var newsroomViewModel = new NewsroomViewModel(newsroom, EmailAlertsUrl);
+        NewsroomViewModel newsroomViewModel = new(newsroom, EmailAlertsUrl);
 
-        var categories = newsroomViewModel.Categories;
-
-        categories.Should().ContainInOrder("Asses", "Oxen", "Zebras");
+        // Assert
+        List<string> expectedOrder = new() { "Asses", "Oxen", "Zebras" };
+        Assert.Equal(expectedOrder, newsroomViewModel.Categories);
     }
 
     [Fact]
     public void ShouldReturnToAndFromDatesIfDateRangeIsCustomDate()
     {
-        var newsroomViewModel = new NewsroomViewModel() { DateRange = "customdate", DateFrom = new DateTime(2016, 01, 01), DateTo = new DateTime(2016, 02, 01) };
+        // Arrange
+        NewsroomViewModel newsroomViewModel = new()
+        {
+            DateRange = "customdate",
+            DateFrom = new DateTime(2016, 01, 01),
+            DateTo = new DateTime(2016, 02, 01)
+        };
 
-        var result = newsroomViewModel.GetActiveDateFilter();
+        // Act
+        string result = newsroomViewModel.GetActiveDateFilter();
 
-        result.Should().Be("01/01/2016 to 01/02/2016");
+        // Assert
+        Assert.Equal("01/01/2016 to 01/02/2016", result);
     }
 
     [Fact]
     public void ShouldReturnMonthNameIfDateRangeIsMonth()
     {
-        var newsroomViewModel = new NewsroomViewModel() { DateFrom = new DateTime(2016, 01, 01), DateTo = new DateTime(2016, 01, 31) };
+        // Arrange
+        NewsroomViewModel newsroomViewModel = new()
+        {
+            DateFrom = new DateTime(2016, 01, 01),
+            DateTo = new DateTime(2016, 01, 31)
+        };
 
-        var result = newsroomViewModel.GetActiveDateFilter();
+        // Act
+        string result = newsroomViewModel.GetActiveDateFilter();
 
-        result.Should().Be("January 2016");
+        // Assert
+        Assert.Equal("January 2016", result);
     }
 
     [Fact]
     public void ShouldDisplaySingleDateIfToDateAndFromDateAreTheSame()
     {
-        var newsroomViewModel = new NewsroomViewModel { DateRange = "customdate", DateFrom = new DateTime(2016, 01, 01), DateTo = new DateTime(2016, 01, 01) };
+        // Arrange
+        NewsroomViewModel newsroomViewModel = new()
+        {
+            DateRange = "customdate",
+            DateFrom = new DateTime(2016, 01, 01),
+            DateTo = new DateTime(2016, 01, 01)
+        };
 
-        var result = newsroomViewModel.GetActiveDateFilter();
+        // Act
+        string result = newsroomViewModel.GetActiveDateFilter();
 
-        result.Should().Be("01/01/2016");
+        // Assert
+        Assert.Equal("01/01/2016", result);
     }
 
     [Fact]
     public void HasActiveFilterShouldReturnFalseWhenNoActiveFiltersExsist()
     {
-        var newsroom = BuildNewsRoom(categories: new List<string> { "Zebras", "Asses", "Oxen" });
-        var newsroomViewModel = new NewsroomViewModel(newsroom, EmailAlertsUrl);
-        var result = newsroomViewModel.HasActiveFilter();
+        // Arrange
+        Newsroom newsroom = BuildNewsRoom(categories: new List<string> { "Zebras", "Asses", "Oxen" });
+        NewsroomViewModel newsroomViewModel = new(newsroom, EmailAlertsUrl);
+        
+        // Act
+        bool result = newsroomViewModel.HasActiveFilter();
 
-        result.Should().BeFalse();
+        // Assert
+        Assert.False(result);
     }
 
     [Fact]
     public void HasActiveFilterShouldReturnTrueWhenActiveFiltersExist()
     {
-        var newsroom = BuildNewsRoom(categories: new List<string> { "Zebras", "Asses", "Oxen" });
-        var newsroomViewModel = new NewsroomViewModel(newsroom, EmailAlertsUrl);
+        // Arrange
+        Newsroom newsroom = BuildNewsRoom(categories: new List<string> { "Zebras", "Asses", "Oxen" });
+        NewsroomViewModel newsroomViewModel = new(newsroom, EmailAlertsUrl);
         newsroomViewModel.Category = "Zebras";
         newsroomViewModel.Tag = "Tag";
         newsroomViewModel.DateFrom = DateTime.Now.AddDays(-5);
         newsroomViewModel.DateTo = DateTime.Now;
 
-        var result = newsroomViewModel.HasActiveFilter();
-        result.Should().BeTrue();
+        // Act
+        bool result = newsroomViewModel.HasActiveFilter();
+
+        // Assert
+        Assert.True(result);
     }
 
     [Fact]
     public void HasActiveFilterShouldReturnFalseWhenDateFilterIsInvalid()
     {
-        var newsroom = BuildNewsRoom(categories: new List<string> { "Zebras", "Asses", "Oxen" });
-        var newsroomViewModel = new NewsroomViewModel(newsroom, EmailAlertsUrl);
+        // Arrange
+        Newsroom newsroom = BuildNewsRoom(categories: new List<string> { "Zebras", "Asses", "Oxen" });
+        NewsroomViewModel newsroomViewModel = new(newsroom, EmailAlertsUrl);
         newsroomViewModel.DateFrom = DateTime.Now;
         newsroomViewModel.DateTo = DateTime.Now.AddDays(-5);
 
-        var result = newsroomViewModel.HasActiveFilter();
-        result.Should().BeFalse();
+        // Act
+        bool result = newsroomViewModel.HasActiveFilter();
+
+        // Assert
+        Assert.False(result);
     }
 
-    private static Newsroom BuildNewsRoom(List<string> categories = null, string emailAlertsTopicId = "")
-    {
-        return new Newsroom(new List<News>(), new List<Alert>(), true, emailAlertsTopicId, categories ?? emptyList, new List<DateTime>());
-    }
+    private static Newsroom BuildNewsRoom(List<string> categories = null, string emailAlertsTopicId = "") =>
+        new(new List<News>(), new List<Alert>(), true, emailAlertsTopicId, categories ?? emptyList, new List<DateTime>());
 }

@@ -6,132 +6,159 @@ public class UrlGeneratorTest
 
     public UrlGeneratorTest()
     {
-        var contentConfig = new Uri("http://localhost.com:80/");
+        Uri contentConfig = new("http://localhost.com:80/");
 
-        var config = new Mock<IApplicationConfiguration>();
-        config.Setup(o => o.GetContentApiUri()).Returns(contentConfig);
+        Mock<IApplicationConfiguration> config = new();
+        config
+            .Setup(conf => conf.GetContentApiUri())
+            .Returns(contentConfig);
 
-        config.Setup(o => o.GetContentApiUrlRoot()).Returns(contentConfig);
+        config
+            .Setup(conf => conf.GetContentApiUrlRoot())
+            .Returns(contentConfig);
 
-        var businessId = new BusinessId("test-id");
+        BusinessId businessId = new("test-id");
 
-        _urlGenerator = new UrlGenerator(config.Object, businessId);
+        _urlGenerator = new(config.Object, businessId);
     }
 
     [Fact]
     public void ItReturnsUrlForTopicRequest()
     {
-        var topicSlug = "topic-slug";
-        var url = _urlGenerator.UrlFor<Topic>(topicSlug);
+        // Act
+        string url = _urlGenerator.UrlFor<Topic>("topic-slug");
 
-        url.Should().Be($"http://localhost.com/test-id/topics/{topicSlug}");
+        // Assert
+        Assert.Equal("http://localhost.com/test-id/topics/topic-slug", url);
     }
 
     [Fact]
     public void ItReturnsUrlForArticleRequest()
     {
-        const string articleSlug = "topic-slug";
-        var url = _urlGenerator.UrlFor<Article>(articleSlug);
+        // Act
+        string url = _urlGenerator.UrlFor<Article>("topic-slug");
 
-        url.Should().Be($"http://localhost.com/test-id/articles/{articleSlug}");
+        // Assert
+        Assert.Equal("http://localhost.com/test-id/articles/topic-slug", url);
     }
 
     [Fact]
     public void ItReturnsUrlForProfileRequest()
     {
-        const string profileSlug = "topic-slug";
-        var url = _urlGenerator.UrlFor<Profile>(profileSlug);
+        // Act
+        string url = _urlGenerator.UrlFor<Profile>("topic-slug");
 
-        url.Should().Be($"http://localhost.com/test-id/profiles/{profileSlug}");
+        // Assert
+        Assert.Equal("http://localhost.com/test-id/profiles/topic-slug", url);
     }
 
     [Fact]
     public void ItReturnsUrlForStartPageRequest()
     {
-        const string startPageSlug = "topic-slug";
-        var url = _urlGenerator.UrlFor<StartPage>(startPageSlug);
+        // Act
+        string url = _urlGenerator.UrlFor<StartPage>("start-page-slug");
 
-        url.Should().Be($"http://localhost.com/test-id/start-page/{startPageSlug}");
+        // Assert
+        Assert.Equal("http://localhost.com/test-id/start-page/start-page-slug", url);
     }
 
     [Fact]
     public void ItReturnsUrlForNewsRequest()
     {
-        const string slug = "news-slug";
-        var url = _urlGenerator.UrlFor<News>(slug);
+        // Act
+        string url = _urlGenerator.UrlFor<News>("news-slug");
 
-        url.Should().Be($"http://localhost.com/test-id/news/{slug}");
+        // Assert
+        Assert.Equal("http://localhost.com/test-id/news/news-slug", url);
     }
 
     [Fact]
     public void ItReturnsUrlForNewsListingRequest()
     {
-        var url = _urlGenerator.UrlFor<Newsroom>();
+        // Act
+        string url = _urlGenerator.UrlFor<Newsroom>();
 
-        url.Should().Be("http://localhost.com/test-id/news");
+        // Assert
+        Assert.Equal("http://localhost.com/test-id/news", url);
     }
 
     [Fact]
     public void ItReturnsUrlForNewsListingRequestWithTagQuery()
     {
-        var url = _urlGenerator.UrlFor<Newsroom>(queries: new List<Query>() { new Query("tag", "Events") });
+        // Act
+        string url = _urlGenerator.UrlFor<Newsroom>(queries: new List<Query>() { new("tag", "Events") });
 
-        url.Should().Be("http://localhost.com/test-id/news?tag=Events");
+        // Assert
+        Assert.Equal("http://localhost.com/test-id/news?tag=Events", url);
     }
 
     [Fact]
     public void ItReturnsUrlForNewsLatestRequest()
     {
-        var url = _urlGenerator.UrlForLimit<List<News>>(2);
+        // Act
+        string url = _urlGenerator.UrlForLimit<List<News>>(2);
 
-        url.Should().Be("http://localhost.com/test-id/news/latest/2");
+        // Assert
+        Assert.Equal("http://localhost.com/test-id/news/latest/2", url);
     }
 
     [Fact]
     public void ItReturnsUrlForFooter()
     {
-        var url = _urlGenerator.UrlFor<Footer>();
+        // Act
+        string url = _urlGenerator.UrlFor<Footer>();
 
-        url.Should().Be("http://localhost.com/test-id/footer");
+        // Assert
+        Assert.Equal("http://localhost.com/test-id/footer", url);
     }
 
     [Fact]
     public void ItReturnsUrlForEventCalendar()
     {
-        var url = _urlGenerator.UrlFor<EventCalendar>();
+        // Act
+        string url = _urlGenerator.UrlFor<EventCalendar>();
 
-        url.Should().Be("http://localhost.com/test-id/events");
+        // Assert
+        Assert.Equal("http://localhost.com/test-id/events", url);
     }
 
     [Fact]
     public void ItReturnsUrlForEvent()
     {
-        var url = _urlGenerator.UrlFor<Event>("slug");
-
-        url.Should().Be("http://localhost.com/test-id/events/slug");
+        // Act
+        string url = _urlGenerator.UrlFor<Event>("slug");
+        
+        // Assert
+        Assert.Equal("http://localhost.com/test-id/events/slug", url);
     }
 
     [Fact]
     public void ItReturnsUrlForLatestEventRequest()
     {
-        var url = _urlGenerator.UrlForLimit<EventCalendar>(2);
+        // Act
+        string url = _urlGenerator.UrlForLimit<EventCalendar>(2);
 
-        url.Should().Be("http://localhost.com/test-id/events/latest/2");
+        // Assert
+        Assert.Equal("http://localhost.com/test-id/events/latest/2", url);
     }
 
     [Fact]
     public void ItReturnsUrlShowcaseRequestWithSlug()
     {
-        var url = _urlGenerator.UrlFor<Showcase>("slug");
+        // Act
+        string url = _urlGenerator.UrlFor<Showcase>("slug");
 
-        url.Should().Be("http://localhost.com/test-id/showcases/slug");
+        // Assert
+        Assert.Equal("http://localhost.com/test-id/showcases/slug", url);
     }
 
     [Fact]
     public void ItReturnsUrlForHealthcheckRequest()
     {
-        var url = _urlGenerator.HealthcheckUrl();
+        // Act
+        string url = _urlGenerator.HealthcheckUrl();
 
-        url.Should().Be("http://localhost.com/_healthcheck");
+        // Assert
+        Assert.Equal("http://localhost.com/_healthcheck", url);
     }
 }

@@ -408,41 +408,29 @@ public class PaginationHelperTest
     [Fact]
     public void PreviousLinkIsShownWhenPageNumberIsGreaterThanOne()
     {
-        // Act
-        bool result = PaginationHelper.ShowPreviousLink(5);
-
-        // Assert
-        Assert.True(result);
+        // Act & Assert
+        Assert.True(PaginationHelper.ShowPreviousLink(5));
     }
 
     [Fact]
     public void PreviousLinkIsNotShownWhenPageNumberIsEqualToOne()
     {
-        // Act
-        bool result = PaginationHelper.ShowPreviousLink(1);
-
-        // Assert
-        Assert.False(result);
+        // Act & Assert
+        Assert.False(PaginationHelper.ShowPreviousLink(1));
     }
 
     [Fact]
     public void NextLinkIsNotShownWhenPageNumberIsEqualToTotalPages()
     {
-        // Act
-        bool result = PaginationHelper.ShowNextLink(10, 10);
-
-        // Assert
-        Assert.False(result);
+        // Act & Assert
+        Assert.False(PaginationHelper.ShowNextLink(10, 10));
     }
 
     [Fact]
     public void NextLinkIsShownWhenPageNumberIsLessThanTotalPages()
     {
-        // Act
-        bool result = PaginationHelper.ShowNextLink(9, 10);
-
-        // Assert
-        Assert.True(result);
+        // Act & Assert
+        Assert.True(PaginationHelper.ShowNextLink(9, 10));
     }
 
     private List<News> BuildListofNewsItems(int numberOfItems)
@@ -480,7 +468,7 @@ public class PaginationHelperTest
         QueryUrl queryUrl = new(new RouteValueDictionary(), new QueryCollection());
         Mock<IUrlHelperWrapper> urlHelper = new();
         urlHelper
-            .Setup(u => u.RouteUrl(It.Is<RouteValueDictionary>(x => x.ContainsKey("Page") && x.Values.Contains(5.ToString()))))
+            .Setup(helper => helper.RouteUrl(It.Is<RouteValueDictionary>(x => x.ContainsKey("Page") && x.Values.Contains(5.ToString()))))
             .Returns("this string is not relevant");
 
         // Act

@@ -23,7 +23,10 @@ public class TypeRouteTests
 
     public void GetUrlFor_Returns_CorrectRoutes(string type, string slug, string expected)
     {
-        var route = TypeRoutes.GetUrlFor(type, slug);
+        // Act
+        string route = TypeRoutes.GetUrlFor(type, slug);
+        
+        // Assert
         Assert.Equal(expected, route);
     }
 }

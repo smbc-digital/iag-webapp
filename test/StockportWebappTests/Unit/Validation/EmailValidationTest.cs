@@ -2,14 +2,27 @@
 
 public class EmailValidationTest
 {
-    private readonly ProcessedServicePayPayment _processedPayment = new ProcessedServicePayPayment("title", "slug", "teaser", "description", "paymentDetailsText",
-        "Reference Number", new List<Crumb>(), EPaymentReferenceValidation.None,
-        "metaDescription", "returnUrl", "1233455", "40000000", "paymentDescription", new List<Alert>(), "20.65");
+    private readonly ProcessedServicePayPayment _processedPayment = new("title",
+                                                                        "slug",
+                                                                        "teaser",
+                                                                        "description",
+                                                                        "paymentDetailsText",
+                                                                        "Reference Number",
+                                                                        new List<Crumb>(),
+                                                                        EPaymentReferenceValidation.None,
+                                                                        "metaDescription",
+                                                                        "returnUrl",
+                                                                        "1233455",
+                                                                        "40000000",
+                                                                        "paymentDescription",
+                                                                        new List<Alert>(),
+                                                                        "20.65");
 
     [Fact]
     public void IsValidShouldReturnValidationResultSuccess()
     {
-        var model = new ServicePayPaymentSubmissionViewModel
+        // Arrange
+        ServicePayPaymentSubmissionViewModel model = new()
         {
             Reference = "12346",
             Amount = "23.52",
@@ -18,18 +31,20 @@ public class EmailValidationTest
             Payment = _processedPayment
         };
 
-        var context = new ValidationContext(model);
-        var results = new List<ValidationResult>();
+        ValidationContext context = new(model);
 
-        var result = Validator.TryValidateObject(model, context, results, true);
+        // Act
+        bool result = Validator.TryValidateObject(model, context, new List<ValidationResult>(), true);
 
-        result.Should().Be(true);
+        // Assert
+        Assert.True(result);
     }
 
     [Fact]
     public void IsValidShouldReturnValidationResultErrorIfEmailAddressDoesNotMatchRegex()
     {
-        var model = new ServicePayPaymentSubmissionViewModel
+        // Arrange
+        ServicePayPaymentSubmissionViewModel model = new()
         {
             Reference = "12346",
             Amount = "23.52",
@@ -38,18 +53,20 @@ public class EmailValidationTest
             Payment = _processedPayment
         };
 
-        var context = new ValidationContext(model);
-        var results = new List<ValidationResult>();
+        ValidationContext context = new(model);
 
-        var result = Validator.TryValidateObject(model, context, results, true);
+        // Act
+        bool result = Validator.TryValidateObject(model, context, new List<ValidationResult>(), true);
 
-        result.Should().Be(false);
+        // Assert
+        Assert.False(result);
     }
 
     [Fact]
     public void IsValidShouldReturnValidationResultErrorIfEmailAddressEmpty()
     {
-        var model = new ServicePayPaymentSubmissionViewModel
+        // Arrange
+        ServicePayPaymentSubmissionViewModel model = new()
         {
             Reference = "12346",
             Amount = "23.52",
@@ -58,11 +75,12 @@ public class EmailValidationTest
             Payment = _processedPayment
         };
 
-        var context = new ValidationContext(model);
-        var results = new List<ValidationResult>();
+        ValidationContext context = new(model);
 
-        var result = Validator.TryValidateObject(model, context, results, true);
+        // Act
+        bool result = Validator.TryValidateObject(model, context, new List<ValidationResult>(), true);
 
-        result.Should().Be(false);
+        // Assert
+        Assert.False(result);
     }
 }

@@ -8,7 +8,7 @@ public class DirectoryViewModelTest
     public void QueryParameters_ReturnsCorrectQueries_WhenAllParametersAreSet()
     {
         // Arrange
-        var directoryViewModel = new DirectoryViewModel
+        DirectoryViewModel directoryViewModel = new()
         {
             SearchTerm = "test",
             Order = "Name A to Z",
@@ -20,7 +20,7 @@ public class DirectoryViewModelTest
         };
 
         // Act
-        var queryParameters = directoryViewModel.QueryParameters;
+        List<Query> queryParameters = directoryViewModel.QueryParameters;
 
         // Assert
         Assert.Collection(queryParameters,
@@ -51,13 +51,13 @@ public class DirectoryViewModelTest
     public void QueryParameters_ReturnsCorrectQueries_WhenSomeParametersAreEmpty()
     {
         // Arrange
-        var directoryViewModel = new DirectoryViewModel
+        DirectoryViewModel directoryViewModel = new()
         {
             Order = "Name A to Z"
         };
 
         // Act
-        var queryParameters = directoryViewModel.QueryParameters;
+        List<Query> queryParameters = directoryViewModel.QueryParameters;
 
         // Assert
         Assert.Collection(queryParameters,
@@ -73,10 +73,10 @@ public class DirectoryViewModelTest
     public void QueryParameters_ReturnsEmptyList_WhenNoParametersAreSet()
     {
         // Arrange
-        var directoryViewModel = new DirectoryViewModel();
+        DirectoryViewModel directoryViewModel = new();
 
         // Act
-        var queryParameters = directoryViewModel.QueryParameters;
+        List<Query> queryParameters = directoryViewModel.QueryParameters;
 
         // Assert
         Assert.Empty(queryParameters);

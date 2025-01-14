@@ -7,7 +7,19 @@ public class ArticleViewModelTest
     private readonly ProcessedSection _sectionThree;
     private readonly ProcessedArticle _article;
     private readonly ArticleViewModel _viewModel;
-    private readonly List<SubItem> subItems = new(){ new("slug", "title", "teaser", "teaser image", "icon", "type", "image", null, EColourScheme.Teal) };
+    private readonly List<SubItem> subItems = new()
+    {
+        new("slug",
+            "title",
+            "teaser",
+            "teaser image",
+            "icon",
+            "type",
+            "image",
+            null,
+            EColourScheme.Teal)
+    };
+    
     private readonly Topic parentTopic = new("Name",
                                             "slug",
                                             "Summary",
