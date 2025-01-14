@@ -21,7 +21,7 @@
     }
 }
 
-<h2 class="@headingClass @eventDetailHeading">@(logoAreaTitle ?? "Our partners")</h2>
+<h2 class="@headingClass @eventDetailHeading">@(!string.IsNullOrEmpty(logoAreaTitle) ? logoAreaTitle : "Our partners")</h2>
 <div class="section__content section__content--no-margin">
     <div class="logo-area">
         @foreach (var branding in Model)
