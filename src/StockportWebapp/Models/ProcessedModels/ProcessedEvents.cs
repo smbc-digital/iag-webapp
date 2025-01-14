@@ -19,6 +19,7 @@ public class ProcessedEvents(string title,
                             Group group,
                             List<Alert> alerts,
                             string accessibleTransportLink,
+                            string logoAreaTitle,
                             List<GroupBranding> eventBranding,
                             string phoneNumber,
                             string email,
@@ -48,9 +49,9 @@ public class ProcessedEvents(string title,
     public List<string> Categories { get; } = categories;
     public string BookingInformation { get; set; } = bookingInformation;
     public readonly List<Alert> Alerts = alerts;
-    public string AccessibleTransportLink = accessibleTransportLink;
     public readonly List<Alert> GlobalAlerts = new();
     public MapDetails MapDetails { get; set; } = mapDetails;
+    public string LogoAreaTitle { get; } = logoAreaTitle;
     public List<GroupBranding> EventBranding { get; set; } = eventBranding;
     public string PhoneNumber { get; } = phoneNumber;
     public string Email { get; } = email;

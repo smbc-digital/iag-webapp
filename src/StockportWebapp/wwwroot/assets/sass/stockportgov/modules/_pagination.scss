@@ -29,7 +29,7 @@
   &__count {
       display: flex;
       flex-direction: column;
-      text-align: center;
+      align-items: center;
 
       @media #{$mobile} {
           margin-left: 5px;
@@ -37,6 +37,7 @@
       }
 
       &-view-all {
+        width: fit-content;
         margin-block-start: 1em;
       }
   }

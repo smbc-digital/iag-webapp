@@ -22,6 +22,7 @@ public class ProcessedEventsTests
                                                         null,
                                                         null,
                                                         null,
+                                                        string.Empty,
                                                         new(),
                                                         string.Empty,
                                                         string.Empty,
@@ -47,7 +48,7 @@ public class ProcessedEventsTests
                                                                         string.Empty,
                                                                         false,
                                                                         string.Empty));
-        
+
         // Assert
         Assert.True(isAlertDisplayed);
     }
@@ -65,8 +66,8 @@ public class ProcessedEventsTests
                                                                         string.Empty,
                                                                         false,
                                                                         string.Empty));
-        
+
         // Assert
-        Assert.False(isAlertDisplayed);
+        Assert.False(isAlertDisplayed);                                                            
     }
 }

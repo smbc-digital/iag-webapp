@@ -9,6 +9,9 @@ public class AnalyticsConfiguration(IApplicationConfiguration configuration) : I
 
     public AnalyticsConfigurationModel GetTrackerCode() =>
         _configuration.GetAnalyticsConfig();
+
+    public AnalyticsConfigurationModel GetTrackerCode(string businessId) =>
+        _configuration.GetAnalyticsConfig(businessId);
 }
 
 public class AnalyticsConfigurationModel
