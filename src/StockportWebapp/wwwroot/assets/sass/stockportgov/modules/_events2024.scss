@@ -114,7 +114,6 @@
 
         &-options {
             margin-block-start: 1em; 
-            background-color: white;
             position: relative;
             display: flex;
             width: 90%;
@@ -136,6 +135,10 @@
                 border-radius: 3px;
                 font-family: inherit;
             }
+              
+            input::-webkit-calendar-picker-indicator {
+                cursor: pointer;
+            }
 
             select {
                 width: 100%;
@@ -154,6 +157,7 @@
                 border: none;
                 border-radius: 3px;
                 font-family: inherit;
+                cursor: pointer;
 
                 @media #{$small-mobile} {
                     background-image: none;
@@ -218,6 +222,10 @@
     }
 
     &__cards {
+        &:last-of-type {
+            margin-bottom: 2em;
+        }
+
         &-title {
             display: flex;
             flex-direction: row;
