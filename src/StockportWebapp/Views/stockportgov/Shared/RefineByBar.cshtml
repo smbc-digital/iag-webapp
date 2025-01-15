@@ -39,7 +39,7 @@
 
                                 @foreach (RefineByFilterItems item in filter.Items)
                                 {
-                                    <div class="@( i >= 10 ? "toggle hidden" : "")">
+                                    <div class="@( i >= 10 ? "toggle hidden" : string.Empty)">
                                         <input type="checkbox" name="@filter.Name" value="@item.Value" id="refine-@item.Value" @(item.Checked ? "checked" : string.Empty) /> <label for="refine-@item.Value">@item.Label</label>
                                     </div>
                                     <div></div>

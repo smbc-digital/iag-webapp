@@ -46,7 +46,7 @@ public class DirectoryEntryViewModel : ISlugComparable
     public bool ShowMapPin => DirectoryEntry.IsNotOnTheEqautor;
     public IEnumerable<Filter> HighlightedFilters =>
         DirectoryEntry.Themes?
-            .SelectMany(_ => _.Filters.Where(_ => _.Highlight.Equals(true)))
+            .SelectMany(filterTheme => filterTheme.Filters.Where(filter => filter.Highlight.Equals(true)))
             .ToList();
 
     public bool DisplaySocials => !string.IsNullOrEmpty(DirectoryEntry.Facebook)

@@ -108,7 +108,7 @@ public class ContactUsController(IRepository repository,
         StringBuilder message = new();
         foreach (var state in modelState.Where(state => state.Value.Errors.Count > 0))
         {
-            message.Append(state.Value.Errors.First().ErrorMessage + "<br />");
+            message.Append($"{state.Value.Errors.First().ErrorMessage}<br />");
         }
 
         return message.ToString();

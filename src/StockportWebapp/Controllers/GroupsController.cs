@@ -195,7 +195,7 @@ public class GroupsController : Controller
             ? groupSearch.Longitude
             : Groups.StockportLongitude;
 
-        model.GetInvolved = groupSearch.GetInvolved == "yes";
+        model.GetInvolved = groupSearch.GetInvolved.Equals("yes");
         model.SubCategories = groupSearch.SubCategories;
         model.Tag = groupSearch.Tag; // organisation filter
         model.KeepTag = groupSearch.KeepTag; // get first found organisation with Tag
@@ -204,7 +204,7 @@ public class GroupsController : Controller
         if (!string.IsNullOrEmpty(groupSearch.Tag) && model.Groups.Any(g => g.Organisation?.Slug == groupSearch.Tag))
         {
             Group firstGroup = model.Groups.First(g => g.Organisation?.Slug == groupSearch.Tag);
-            model.OrganisationName = firstGroup?.Organisation == null
+            model.OrganisationName = firstGroup?.Organisation is null
                 ? string.Empty
                 : firstGroup.Organisation.Title;
         }
@@ -259,7 +259,8 @@ public class GroupsController : Controller
         }
 
         HttpStatusCode successCode = await _emailBuilder.SendEmailAddNew(groupSubmission);
-        if (successCode == HttpStatusCode.OK) return RedirectToAction("ThankYouMessage");
+        if (successCode.Equals(HttpStatusCode.OK))
+            return RedirectToAction("ThankYouMessage");
 
         ViewBag.SubmissionError = "There was a problem submitting the group, please try again.";
 
@@ -334,7 +335,7 @@ public class GroupsController : Controller
         }
 
         HttpStatusCode successCode = _emailBuilder.SendEmailReportGroup(submission).Result;
-        if (successCode == HttpStatusCode.OK)
+        if (successCode.Equals(HttpStatusCode.OK))
             return RedirectToAction("ReportGroupInfoConfirmation", new { slug, groupName = submission.GroupName });
         
         ViewBag.SubmissionError = "There was a problem submitting the report, please try again.";
@@ -355,7 +356,7 @@ public class GroupsController : Controller
         {
             Title = "Report this page as inappropriate",
             SubTitle = $"You've successfully submitted a report for {groupName}",
-            ConfirmationText = $"We will take a look at the report you have submitted in line with our <a target='_blank' href = "
+            ConfirmationText = "We will take a look at the report you have submitted in line with our <a target='_blank' href = "
                 + Url.Content("https://www.stockport.gov.uk/terms-and-conditions") + ">Terms and Conditions</a> and reply to you within 10 working days",
             ButtonText = $"Go back to Stockport Local {groupName}",
             ButtonLink = "/groups/" + slug,
@@ -1139,7 +1140,7 @@ public class GroupsController : Controller
         List<string> favouritesList = _cookiesHelper.GetCookies<Group>("favourites");
         string favourites = "-NO-FAVOURITES-SET-";
 
-        if (favouritesList != null && favouritesList.Any())
+        if (favouritesList is not null && favouritesList.Any())
             favourites = string.Join(",", _cookiesHelper.GetCookies<Group>("favourites"));
 
         queries.Add(new Query("slugs", favourites));
@@ -1232,7 +1233,7 @@ public class GroupsController : Controller
         }
 
         model.Description = _markdownWrapper.ConvertToHtml(eventDetail.Description);
-        if (eventDetail.EventFrequency != EventFrequency.None)
+        if (!eventDetail.EventFrequency.Equals(EventFrequency.None))
             model.EndDate = _dateCalculator.GetEventEndDate(eventDetail);
 
         model.EndTime = DateTime.ParseExact(eventDetail.EndTime, "HH:mm", null);
@@ -1240,7 +1241,7 @@ public class GroupsController : Controller
         model.Fee = eventDetail.Fee;
         model.Frequency = eventDetail.EventFrequency.ToString();
         model.Location = eventDetail.Location;
-        model.IsRecurring = eventDetail.EventFrequency == EventFrequency.None;
+        model.IsRecurring = eventDetail.EventFrequency.Equals(EventFrequency.None);
         model.StartTime = DateTime.ParseExact(eventDetail.StartTime, "HH:mm", null);
         model.Title = eventDetail.Title;
         model.SubmittedBy = eventDetail.SubmittedBy;

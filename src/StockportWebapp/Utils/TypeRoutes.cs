@@ -18,7 +18,9 @@ public class TypeRoutes
             case "eventHomepage":
                 return "/events";
             case "groups":
-                slug = slug == "groups" ? string.Empty : slug;
+                slug = slug.Equals("groups")
+                    ? string.Empty
+                    : slug;
                 return $"/groups/{slug}";
             case "payment":
                 return $"/payment/{slug}";

@@ -135,7 +135,7 @@
                 {
                     Events = Model.Events,
                     Heading = Model.EventSubheading,
-                    Link = Model.EventsCategoryOrTag == "T" ? $"{Url.Action("Index", "Events")}?tag={Model.EventCategory}" : $"{Url.Action("Index", "Events")}?category={Model.EventCategory}",
+                    Link = Model.EventsCategoryOrTag.Equals("T") ? $"{Url.Action("Index", "Events")}?tag={Model.EventCategory}" : $"{Url.Action("Index", "Events")}?category={Model.EventCategory}",
                     LinkText = Model.EventsReadMoreText
                 };
 
@@ -187,7 +187,7 @@
             {
                 var socialMediaLinksViewModel = new SocialMediaLinksViewModel
                 {
-                    SocialMediaLinksSubheading = Model.SocialMediaLinksSubheading != String.Empty ? Model.SocialMediaLinksSubheading : "Get in touch",
+                    SocialMediaLinksSubheading = !string.IsNullOrEmpty(Model.SocialMediaLinksSubheading) ? Model.SocialMediaLinksSubheading : "Get in touch",
                     SocialMediaLinks = Model.SocialMediaLinks
                 };
 

@@ -5,11 +5,11 @@ public class OrganisationFactory(MarkdownWrapper markdownWrapper,
                                 IHttpContextAccessor httpContextAccessor)
 {
     private readonly MarkdownWrapper _markdownWrapper = markdownWrapper;
-    private readonly CookiesHelper _cookiesHelper = new CookiesHelper(httpContextAccessor);
+    private readonly CookiesHelper _cookiesHelper = new(httpContextAccessor);
 
     public virtual ProcessedOrganisation Build(Organisation organisation)
     {
-        string body = _markdownWrapper.ConvertToHtml(organisation.AboutUs ?? "");
+        string body = _markdownWrapper.ConvertToHtml(organisation.AboutUs ?? string.Empty);
 
         Volunteering volunteering = new()
         {

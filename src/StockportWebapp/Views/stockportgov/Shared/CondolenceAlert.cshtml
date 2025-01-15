@@ -2,7 +2,7 @@
 @model Alert
 @{
     List<string> alertCookies = CookiesHelper.GetCookies<Alert>("alerts");
-    bool isDismissed = alertCookies != null && alertCookies.Contains(Model.Slug) && !Model.IsStatic;
+    bool isDismissed = alertCookies is not null && alertCookies.Contains(Model.Slug) && !Model.IsStatic;
 }
 
 @if (!isDismissed)

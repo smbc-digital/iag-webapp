@@ -15,7 +15,7 @@ public class JwtDecoder(GroupAuthenticationKeys keys, ILogger<JwtDecoder> logger
         try
         {
             // valid tokens are split into three sections by .'s
-            if (token.Split('.').Length != 3)
+            if (!token.Split('.').Length.Equals(3))
             {
                 _logger.LogWarning($"InvalidJwtException was thrown from jwt decoder for token {token}");
 

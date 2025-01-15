@@ -7,7 +7,7 @@ public class SocialLinksExtension
         stringUrl = stringUrl.ToLower();
         string facebook = "facebook.com/";
         string twitter = "twitter.com/";
-        string result = "";
+        string result = string.Empty;
 
         int urlIndex;
         if (stringUrl.Contains(facebook))

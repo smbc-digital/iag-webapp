@@ -5,7 +5,7 @@
         <ul class="breadcrumb">
             <li>@Html.ActionLink("Home", "Index", "Home")</li>
             @{
-                string title = ViewBag.Title != null ? ViewBag.Title.ToString() : "";
+                string title = ViewBag.Title is not null ? ViewBag.Title.ToString() : string.Empty;
 
                 foreach (Crumb crumb in Model)
                 {

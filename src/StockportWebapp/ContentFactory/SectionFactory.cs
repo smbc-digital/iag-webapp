@@ -15,7 +15,7 @@ public class SectionFactory(ITagParserContainer tagParserContainer,
 
     public ProcessedSection Build(Section section, string articleTitle = null)
     {
-        string parsedBody = _markdownWrapper.ConvertToHtml(section.Body ?? "");
+        string parsedBody = _markdownWrapper.ConvertToHtml(section.Body ?? string.Empty);
 
         if (section.Body.Contains("PrivacyNotice:"))
             section.PrivacyNotices = GetPrivacyNotices().Result;

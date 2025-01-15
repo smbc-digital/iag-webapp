@@ -32,11 +32,11 @@ public class HttpResponse(int statusCode,
 public static class StatusCodeResultExtensions
 {
     internal static bool IsSuccessful(this StatusCodeResult result) =>
-        result.StatusCode == 200;
+        result.StatusCode.Equals(200);
 
     internal static bool IsNotFound(this StatusCodeResult result) =>
-        result.StatusCode == 404;
+        result.StatusCode.Equals(404);
 
     internal static bool IsNotAuthorised(this StatusCodeResult result) =>
-        result.StatusCode == 401;
+        result.StatusCode.Equals(401);
 }

@@ -4,7 +4,7 @@
 @model Footer
 
 <footer>
-    @if (BusinessId.ToString() == "stockportgov")
+    @if (BusinessId.ToString().Equals("stockportgov"))
     {
         <partial name="AToZStockportGov" model='""' />
     }

@@ -122,7 +122,8 @@ public class DirectoryController(IDirectoryService directoryService) : Controlle
         string relativeUrl = string.Join("/", parentDirectories
                                             .Take(parentDirectories.IndexOf(directory) + 1)
                                             .Select(_ => _.Slug));
-        string url = "";
+        string url = string.Empty;
+        
         if(parentDirectories.Any())
             url = directory.Equals(parentDirectories[^1]) && viewLastBreadcrumbAsResults
                     ? $"{_defaultUrlPrefix}/results/{relativeUrl}"

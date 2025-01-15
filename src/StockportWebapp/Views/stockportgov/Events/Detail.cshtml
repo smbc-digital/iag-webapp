@@ -116,7 +116,7 @@
                                         {
                                             <a href="/groups/@Model.Group.Slug">@Model.Group.Name</a>
                                         }
-                                        else if (Model.SubmittedBy != string.Empty)
+                                        else if (!string.IsNullOrEmpty(Model.SubmittedBy))
                                         {
                                             @Model.SubmittedBy
                                         }

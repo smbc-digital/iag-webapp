@@ -37,7 +37,7 @@ public class GroupEmailBuilder
         {
             Name = groupSubmission.Name,
             Location = groupSubmission.Address,
-            Image = groupSubmission.Image != null ? FileHelper.GetFileNameFromPath(groupSubmission.Image) : "-",
+            Image = groupSubmission.Image is not null ? FileHelper.GetFileNameFromPath(groupSubmission.Image) : "-",
             Description = groupSubmission.Description,
             Email = groupSubmission.Email,
             Phone = groupSubmission.PhoneNumber,

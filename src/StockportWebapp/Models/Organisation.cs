@@ -9,7 +9,7 @@ public class Organisation
     public string Phone { get; set; }
     public string Email { get; set; }
     public bool Volunteering { get; set; }
-    public string VolunteeringText { get; set; } = "";
+    public string VolunteeringText { get; set; } = string.Empty;
     public List<Group> Groups { get; set; } = new();
     public bool Donations { get; set; }
 

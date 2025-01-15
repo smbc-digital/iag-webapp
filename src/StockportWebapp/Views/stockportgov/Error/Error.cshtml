@@ -31,7 +31,7 @@
                         const cludoModule = document.querySelector('#cludo-404');
 
                         for (const mutation of mutationsList) {
-                            if (mutation.type === 'attributes' && cludoModule != null && cludoModule.classList.contains("loaded")) {
+                            if (mutation.type === 'attributes' && cludoModule is not null && cludoModule.classList.contains("loaded")) {
                                 observer.disconnect();
 
                                 if (cludoModule.classList.contains("hide-module"))

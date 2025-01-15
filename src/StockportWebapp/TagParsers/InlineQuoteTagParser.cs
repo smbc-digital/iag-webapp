@@ -15,7 +15,7 @@ public class InlineQuoteTagParser(IViewRender viewRenderer) : IDynamicTagParser<
         foreach (Match match in matches)
         {
             string tagSlug = match.Groups[1].Value;
-            InlineQuote inlineQuote = dynamicContent?.FirstOrDefault(_ => _.Slug.Equals(tagSlug));
+            InlineQuote inlineQuote = dynamicContent?.FirstOrDefault(quote => quote.Slug.Equals(tagSlug));
 
             if (inlineQuote is not null)
             {

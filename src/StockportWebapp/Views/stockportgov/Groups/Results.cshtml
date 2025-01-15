@@ -1,7 +1,7 @@
 ﻿@model GroupResults
 @{
-    ViewData["Title"] = ViewBag.Category != null ? ViewBag.Category.Name : "All groups";
-    ViewData["og:title"] = string.Concat(ViewBag.Category != null ? ViewBag.Category.Name : "All groups", " - Stockport Local");
+    ViewData["Title"] = ViewBag.Category is not null ? ViewBag.Category.Name : "All groups";
+    ViewData["og:title"] = string.Concat(ViewBag.Category is not null ? ViewBag.Category.Name : "All groups", " - Stockport Local");
     ViewData["Description"] = "Stockport Local results page";
     ViewData["Type"] = "Group";
     Layout = "../Shared/_Layout.cshtml";

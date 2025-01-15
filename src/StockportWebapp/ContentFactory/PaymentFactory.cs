@@ -9,7 +9,7 @@ public class PaymentFactory(ITagParserContainer simpleTagParserContainer,
     public virtual ProcessedPayment Build(Payment payment)
     {
         string description = _tagParserContainer.ParseAll(payment.Description, payment.Title);
-        description = _markdownWrapper.ConvertToHtml(description ?? "");
+        description = _markdownWrapper.ConvertToHtml(description ?? string.Empty);
 
         return new ProcessedPayment(
             payment.Title,

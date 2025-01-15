@@ -15,7 +15,7 @@
             <div class="grid-50 tablet-grid-55 mobile-grid-100">
                 <div class="grid-100 tablet-grid-100 mobile-grid-100">
                     <ul class="footer_links">
-                        @if (Model.Links != null)
+                        @if (Model.Links is not null)
                         {
                             @*TODO: There is nothing in here that requires overrides so safe to use the same component until redesign *@
                             <partial name="FooterLinks" model='Model.Links' view-data='@(new ViewDataDictionary(ViewData) {{"cssClasses", "grid-50 tablet-grid-50"}})' />
@@ -25,7 +25,7 @@
             </div>
 
             <div class="footer-socials grid-25 tablet-grid-20 mobile-grid-100">
-                @if (Model.SocialMediaLinks != null)
+                @if (Model.SocialMediaLinks is not null)
                 {
                     @*TODO: This partial has not been updated to match the BEM/SASS of the new site - this will hopefully be covered in future redesign*@
                     <partial name="SocialMediaLinks" model='Model.SocialMediaLinks' />

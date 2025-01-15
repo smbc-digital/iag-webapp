@@ -13,9 +13,9 @@
         <ul>
             @for (int i = 1; i <= actualCount; i++)
             {
-                <li class="@(sections[i - 1].Slug == Model.DisplayedSection.Slug ? "nav-active" : string.Empty) grid-100 tablet-grid-100 mobile-grid-100">
+                <li class="@(sections[i - 1].Slug.Equals(Model.DisplayedSection.Slug) ? "nav-active" : string.Empty) grid-100 tablet-grid-100 mobile-grid-100">
                     <div class="grid-10 tablet-grid-10 mobile-grid-10">@i.ToString().</div>
-                    @if (sections[i - 1].Slug == Model.DisplayedSection.Slug)
+                    @if (sections[i - 1].Slug.Equals(Model.DisplayedSection.Slug))
                     {
                         <span class="grid-90 tablet-grid-90 mobile-grid-90">@sections[i - 1].Title</span>
                     }

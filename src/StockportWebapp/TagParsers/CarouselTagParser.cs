@@ -25,7 +25,7 @@ public class CarouselTagParser : ISimpleTagParser
                 HtmlAgilityPack.HtmlDocument doc = new();
                 doc.LoadHtml(item);
 
-                if (doc.DocumentNode.SelectSingleNode("//img") != null)
+                if (doc.DocumentNode.SelectSingleNode("//img") is not null)
                 {
                     HtmlAgilityPack.HtmlAttribute srcTxt = doc.DocumentNode.SelectSingleNode("//img").Attributes["src"];
                     HtmlAgilityPack.HtmlAttribute altTxt = doc.DocumentNode.SelectSingleNode("//img").Attributes["alt"];

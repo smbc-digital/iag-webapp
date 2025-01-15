@@ -145,7 +145,7 @@ public class GroupsService(IContentApiRepository contentApiRepository,
         DateTime now = DateTime.Now;
 
         return hiddenFrom > now
-            || (hiddenTo < now && hiddenTo != DateTime.MinValue)
+            || (hiddenTo < now && !hiddenTo.Equals(DateTime.MinValue))
             || (hiddenFrom.Equals(DateTime.MinValue) && hiddenTo.Equals(DateTime.MinValue))
             || (hiddenFrom is null && hiddenTo is null);
     }

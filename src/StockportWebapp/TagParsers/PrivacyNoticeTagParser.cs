@@ -15,7 +15,7 @@ public class PrivacyNoticeTagParser(IViewRender viewRenderer) : IDynamicTagParse
         foreach (Match match in matches)
         {
             string privacyNoticeSlug = match.Groups[1].Value;
-            privacyNotices = privacyNotices?.Where(s => s.Title.Replace(" ", string.Empty) == privacyNoticeSlug).OrderBy(x => x.Category);
+            privacyNotices = privacyNotices?.Where(s => s.Title.Replace(" ", string.Empty).Equals(privacyNoticeSlug)).OrderBy(x => x.Category);
 
             if (privacyNotices.Any())
             {

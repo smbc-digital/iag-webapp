@@ -17,7 +17,7 @@ public class AlertsInlineTagParser(IViewRender viewRenderer) : IDynamicTagParser
             string AlertsInlineTitle = match.Groups[1].Value;
             Alert AlertsInline = GetMatchingInlineAlert(alertsInline, AlertsInlineTitle);
 
-            if (AlertsInline != null)
+            if (AlertsInline is not null)
             {
                 string alertsInlineHtml = string.Empty;
 
@@ -36,6 +36,6 @@ public class AlertsInlineTagParser(IViewRender viewRenderer) : IDynamicTagParser
     private string RemoveEmptyTags(string content) =>
         TagRegex.Replace(content, string.Empty);
 
-    private Alert GetMatchingInlineAlert(IEnumerable<Alert> alertsInline, string reference) =>
+    private static Alert GetMatchingInlineAlert(IEnumerable<Alert> alertsInline, string reference) =>
         alertsInline?.FirstOrDefault(s => s.Title.Equals(reference) || s.Slug.Equals(reference));
 }

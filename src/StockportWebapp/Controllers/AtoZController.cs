@@ -13,7 +13,7 @@ public class AtoZController(IRepository repository) : Controller
         HttpResponse httpResponse = await _repository.Get<List<AtoZ>>(letter);
 
         if (httpResponse.IsNotAuthorised())
-            return new HttpResponse(500, "", "Error");
+            return new HttpResponse(500, string.Empty, "Error");
 
         List<AtoZ> response = new();
         

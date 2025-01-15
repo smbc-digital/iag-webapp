@@ -27,7 +27,7 @@ public class CalendarHelper
 
     public string GetCalendarUrl(Event eventItem, string currentUrl, string calendarType)
     {
-        string url = "";
+        string url = string.Empty;
         DateTime startDateWithTime = GetCombinedDateAndTime(eventItem.EventDate, eventItem.StartTime);
         DateTime endDateWithTime = GetCombinedDateAndTime(eventItem.EventDate, eventItem.EndTime);
 

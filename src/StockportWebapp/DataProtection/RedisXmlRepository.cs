@@ -77,22 +77,18 @@ public class RedisXmlRepository : IXmlRepository, IDisposable
     /// </exception>
     public RedisXmlRepository(IConnectionMultiplexer connection, ILogger<RedisXmlRepository> logger)
     {
-        if (connection == null)
-        {
+        if (connection is null)
             throw new ArgumentNullException(nameof(connection));
-        }
 
-        if (logger == null)
-        {
+        if (logger is null)
             throw new ArgumentNullException(nameof(logger));
-        }
 
-        this._connection = connection;
-        this.Logger = logger;
+        _connection = connection;
+        Logger = logger;
 
         // Mask the password so it doesn't get logged.
-        var configuration = Regex.Replace(this._connection.Configuration, @"password\s*=\s*[^,]*", "password=****", RegexOptions.IgnoreCase);
-        this.Logger.LogDebug("Storing data protection keys in Redis: {RedisConfiguration}", configuration);
+        string configuration = Regex.Replace(_connection.Configuration, @"password\s*=\s*[^,]*", "password=****", RegexOptions.IgnoreCase);
+        Logger.LogDebug("Storing data protection keys in Redis: {RedisConfiguration}", configuration);
     }
 
     /// <summary>
@@ -107,10 +103,8 @@ public class RedisXmlRepository : IXmlRepository, IDisposable
     /// Performs application-defined tasks associated with freeing, releasing,
     /// or resetting unmanaged resources.
     /// </summary>
-    public void Dispose()
-    {
-        this.Dispose(true);
-    }
+    public void Dispose() =>
+        Dispose(true);
 
     /// <summary>
     /// Gets all top-level XML elements in the repository.
@@ -125,17 +119,15 @@ public class RedisXmlRepository : IXmlRepository, IDisposable
         var hash = database.HashGetAll(RedisHashKey);
         var elements = new List<XElement>();
 
-        if (hash == null || hash.Length == 0)
-        {
+        if (hash is null || hash.Length.Equals(0))
             return elements.AsReadOnly();
-        }
 
-        foreach (var item in hash.ToStringDictionary())
+        foreach (KeyValuePair<string, string> item in hash.ToStringDictionary())
         {
             elements.Add(XElement.Parse(item.Value));
         }
 
-        this.Logger.LogDebug("Read {XmlElementCount} XML elements from Redis.", elements.Count);
+        Logger.LogDebug("Read {XmlElementCount} XML elements from Redis.", elements.Count);
         return elements.AsReadOnly();
     }
 
@@ -158,10 +150,8 @@ public class RedisXmlRepository : IXmlRepository, IDisposable
     /// </exception>
     public void StoreElement(XElement element, string friendlyName)
     {
-        if (element == null)
-        {
+        if (element is null)
             throw new ArgumentNullException(nameof(element));
-        }
 
         if (string.IsNullOrEmpty(friendlyName))
         {
@@ -170,9 +160,9 @@ public class RedisXmlRepository : IXmlRepository, IDisposable
             friendlyName = Guid.NewGuid().ToString();
         }
 
-        this.Logger.LogDebug("Storing XML element with friendly name {XmlElementFriendlyName}.", friendlyName);
+        Logger.LogDebug("Storing XML element with friendly name {XmlElementFriendlyName}.", friendlyName);
 
-        this._connection.GetDatabase().HashSet(RedisHashKey, friendlyName, element.ToString());
+        _connection.GetDatabase().HashSet(RedisHashKey, friendlyName, element.ToString());
     }
 
     /// <summary>
@@ -184,19 +174,19 @@ public class RedisXmlRepository : IXmlRepository, IDisposable
     /// </param>
     protected virtual void Dispose(bool disposing)
     {
-        if (!this._disposed)
+        if (!_disposed)
         {
             if (disposing)
             {
-                if (this._connection != null)
+                if (_connection is not null)
                 {
-                    this._connection.Close();
-                    this._connection.Dispose();
+                    _connection.Close();
+                    _connection.Dispose();
                 }
             }
 
-            this._connection = null;
-            this._disposed = true;
+            _connection = null;
+            _disposed = true;
         }
     }
 }

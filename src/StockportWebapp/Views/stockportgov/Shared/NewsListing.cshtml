@@ -61,13 +61,13 @@
                     }
 
                     <ul class="filters-list">
-                        <li class=@(Model.FilteredUrl.HasNoCategoryFilter() ? "active" : "")>
+                        <li class=@(Model.FilteredUrl.HasNoCategoryFilter() ? "active" : string.Empty)>
                             <a href="@Url.RouteUrl(Model.FilteredUrl.WithoutCategory())">All categories</a>
                         </li>
 
                         @foreach (var category in Model.Categories)
                         {
-                            <li class=@(Model.CurrentUrl.MatchesQueryParam("Category", category) ? "active" : "")>
+                            <li class=@(Model.CurrentUrl.MatchesQueryParam("Category", category) ? "active" : string.Empty)>
                                 <a href="@Url.RouteUrl(Model.FilteredUrl.AddCategoryFilter(category))" rel="nofollow">@category</a>
                             </li>
                         }
@@ -86,7 +86,7 @@
                 }
 
                 <ul class="filters-list filters-outer-list" id="uitest-news-archive">
-                    <li class=@(Model.FilteredUrl.HasNoDateFilter() ? "active" : "")>
+                    <li class=@(Model.FilteredUrl.HasNoDateFilter() ? "active" : string.Empty)>
                         <a href="@Url.RouteUrl(Model.FilteredUrl.WithoutDateFilter())">All recent news</a>
                     </li>
 
@@ -98,7 +98,7 @@
                                 
                                 @foreach (DateTime date in newsroom.Dates.Where(d => d.Year.Equals(year)).OrderBy(a => a).Reverse())
                                 {
-                                    <li class=@(Model.DateRange != "customdate" && Model.DateFrom.Equals(date) ? "active" : string.Empty)>
+                                    <li class=@(Model.DateRange is not "customdate" && Model.DateFrom.Equals(date) ? "active" : string.Empty)>
                                         <a href="@Url.RouteUrl(Model.FilteredUrl.AddMonthFilter(date))" rel="nofollow">@date.ToString("MMMM yyyy")</a>
                                     </li>
                                 }
@@ -110,7 +110,7 @@
                         <a tabindex="0" class="filter-title custom-date-title" rel="nofollow">Custom date</a>
 
                         <ul class="filters-list custom-date">
-                            <li class="@(Model.DateRange == "customdate" ? "active" : "")">
+                            <li class="@(Model.DateRange.Equals("customdate") ? "active" : string.Empty)">
                                 <form action="@Url.Action("Index", "News")" method="get">
                                     <input type="hidden" name="DateRange" value="customdate" />
                                     @if (!string.IsNullOrEmpty(Model.Category))
@@ -172,7 +172,7 @@
                                     <div class="mobile-grid-35 tablet-grid-30 grid-30 grid-parent nav-card-news-thumbnail nav-card-news-thumbnail-background-image tablet-push-70 push-70" style="background-image: url(@subItem.ThumbnailImage);"></div>
                                 }
 
-                                <div  class="@(!string.IsNullOrEmpty(subItem.ThumbnailImage) ? "mobile-grid-65 tablet-grid-70 nav-card-news-detail pull-30 tablet-pull-30" : "") grid-70 grid-parent">
+                                <div  class="@(!string.IsNullOrEmpty(subItem.ThumbnailImage) ? "mobile-grid-65 tablet-grid-70 nav-card-news-detail pull-30 tablet-pull-30" : string.Empty) grid-70 grid-parent">
                                     <div class="news-date hide-on-mobile">
                                         <span class="fa fa-clock-o" aria-hidden="true"></span><partial name="FormattedDate" model='subItem.UpdatedAt'/>
                                     </div>

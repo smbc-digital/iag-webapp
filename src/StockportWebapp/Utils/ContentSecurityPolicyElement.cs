@@ -30,11 +30,11 @@ public class ContentSecurityPolicyElement
 
     private bool IsSafari9Exception(string source) =>
         source.Equals("'unsafe-inline'")
-               || source == "'unsafe-eval'"
-               || source == "https:"
-               || source == "data:"
-               || source == "wss:"
-               || source == "http:"
+               || source.Equals("'unsafe-eval'")
+               || source.Equals("https:")
+               || source.Equals("data:")
+               || source.Equals("wss:")
+               || source.Equals("http:")
                || source.StartsWith("*.");
 
     private void AddSourceWithBothHttpAndHttpsForSafari9(string source)

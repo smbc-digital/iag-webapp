@@ -25,14 +25,14 @@
             {
                 @foreach (Event eventItem in Model.Events)
                 {
-                    bool isSameDate = previousEnteredDate == eventItem.EventDate;
+                    bool isSameDate = previousEnteredDate.Equals(eventItem.EventDate);
 
                     string start = string.Empty;
                     string end = string.Empty;
                     
                     if (!isSameDate)
                     {
-                        if (previousEnteredDate != DateTime.MinValue)
+                        if (!previousEnteredDate.Equals(DateTime.MinValue))
                         {
                             end = "</ul>";
                         }

@@ -77,7 +77,7 @@ public class HealthcheckService : IHealthcheckService
 
     private static Healthcheck BuildDependencyHealthcheck(HttpResponse httpResponse)
     {
-        if (httpResponse.StatusCode != (int)HttpStatusCode.OK)
+        if (!httpResponse.StatusCode.Equals((int)HttpStatusCode.OK))
             return new UnavailableHealthcheck();
 
         return JsonConvert.DeserializeObject<Healthcheck>(httpResponse.Content.ToString());

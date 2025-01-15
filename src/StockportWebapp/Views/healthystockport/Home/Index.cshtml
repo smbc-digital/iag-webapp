@@ -97,7 +97,7 @@ else
                             foreach (Event item in Model.EventsFromApi)
                             {
                                 count++;
-                                <div @(count.Equals(3) ? "class=hide-on-tablet" : "")>
+                                <div @(count.Equals(3) ? "class=hide-on-tablet" : string.Empty)>
 
                                     <partial name="EventCard" model='item' />
                                 </div>

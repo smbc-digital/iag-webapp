@@ -2,10 +2,10 @@
 @if (Model is not null)
 {
     bool overrideToDefault = false;
-    if (Model.ColourScheme == EColourScheme.None ||
-        Model.ColourScheme == EColourScheme.Multi ||
-        Model.ColourScheme == EColourScheme.Dark_Overlay ||
-        Model.ColourScheme == EColourScheme.Light_Overlay)
+    if (Model.ColourScheme.Equals(EColourScheme.None) ||
+        Model.ColourScheme.Equals(EColourScheme.Multi) ||
+        Model.ColourScheme.Equals(EColourScheme.Dark_Overlay) ||
+        Model.ColourScheme.Equals(EColourScheme.Light_Overlay))
         overrideToDefault = true;
 
     string backgroundColourClass = overrideToDefault

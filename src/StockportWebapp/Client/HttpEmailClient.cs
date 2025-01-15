@@ -92,7 +92,7 @@ public class HttpEmailClient(ILogger<HttpEmailClient> logger,
 
     private void LogResponse(SendRawEmailResponse response)
     {
-        if (response.HttpStatusCode == HttpStatusCode.OK)
+        if (response.HttpStatusCode.Equals(HttpStatusCode.OK))
             _logger.LogInformation($"An email was sent to Amazon SES with message id: {response.MessageId} and request id {response.ResponseMetadata?.RequestId}");
         else
             _logger.LogWarning($"There was a problem sending an email, message id: {response.MessageId} and request id: {response.ResponseMetadata?.RequestId} and status code {response.HttpStatusCode}");

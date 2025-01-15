@@ -17,8 +17,8 @@ public class Startup
         Configuration = configuration;
         _contentRootPath = env.ContentRootPath;
         _appEnvironmentName = env.EnvironmentName;
-        _useRedisSession = Configuration["UseRedisSessions"] == "true";
-        _sendAmazonEmails = string.IsNullOrEmpty(Configuration["SendAmazonEmails"]) || Configuration["SendAmazonEmails"] == "true";
+        _useRedisSession = Configuration["UseRedisSessions"].Equals("true");
+        _sendAmazonEmails = string.IsNullOrEmpty(Configuration["SendAmazonEmails"]) || Configuration["SendAmazonEmails"].Equals("true");
         _logger = logger;
 
     }

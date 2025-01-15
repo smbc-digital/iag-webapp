@@ -38,12 +38,12 @@ public class EventSubmission
 
     public Dictionary<string, string> FrequencyList = new()
     {
-        { "Daily",""},
-        { "Weekly",""},
-        { "Fortnightly",""},
-        { "Monthly Date","For example, 15th of every month"},
-        { "Monthly Day","For example, on the first Friday of every month"},
-        { "Yearly",""}
+        { "Daily", string.Empty},
+        { "Weekly", string.Empty},
+        { "Fortnightly", string.Empty},
+        { "Monthly Date", "For example, 15th of every month"},
+        { "Monthly Day", "For example, on the first Friday of every month"},
+        { "Yearly", string.Empty}
     };
 
     [RequiredIf(otherPropertyName: "IsRecurring", errorMessage: "The event frequency is required")]

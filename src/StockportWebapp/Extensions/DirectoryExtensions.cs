@@ -43,7 +43,7 @@ public static class DirectoryExtensions
 
         directoryEntries
             .Where(entry => entry.DirectoryEntry.MapPosition is not null 
-                    && entry.DirectoryEntry.MapPosition.Lat != 0 && entry.DirectoryEntry.MapPosition.Lon != 0)
+                    && !entry.DirectoryEntry.MapPosition.Lat.Equals(0) && !entry.DirectoryEntry.MapPosition.Lon.Equals(0))
             .ToList()
             .ForEach(entry =>  mainFolder.AddFeature(entry.ToKmlPlacemark(entry.IsPinned ? "Pink" : "Default")));
 

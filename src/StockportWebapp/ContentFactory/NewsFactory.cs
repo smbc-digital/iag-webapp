@@ -8,7 +8,7 @@ public class NewsFactory(ITagParserContainer simpleTagParserContainer,
 
     public virtual ProcessedNews Build(News news)
     {
-        string body = _markdownWrapper.ConvertToHtml(news.Body ?? "");
+        string body = _markdownWrapper.ConvertToHtml(news.Body ?? string.Empty);
 
         body = _tagParserContainer.ParseAll(body, news.Title, true, null, news.Documents, null, null, news.Profiles);
 

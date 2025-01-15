@@ -96,7 +96,7 @@ public class DirectoryViewModel
 
     public string PageTitle =>
         $"{DisplayTitle}{(ShowPagination
-            ? " (page " + PaginationInfo.CurrentPage + " of " + PaginationInfo.TotalPages + ")"
+            ? $" (page {PaginationInfo.CurrentPage} of {PaginationInfo.TotalPages})"
             : string.Empty)}";
 
     public string MetaDescription { get; set; }
@@ -225,7 +225,7 @@ public class DirectoryViewModel
     {
         int currentIndex = startIndex;
 
-        var mutatedEntries = entries.Select(entry =>
+        List<DirectoryEntryViewModel> mutatedEntries = entries.Select(entry =>
         {
             entry.MapPinIndex = entry.DirectoryEntry.IsNotOnTheEqautor
                 ? currentIndex
