@@ -65,7 +65,7 @@
                             <a href="@Url.RouteUrl(Model.FilteredUrl.WithoutCategory())">All categories</a>
                         </li>
 
-                        @foreach (var category in Model.Categories)
+                        @foreach (string category in Model.Categories)
                         {
                             <li class=@(Model.CurrentUrl.MatchesQueryParam("Category", category) ? "active" : string.Empty)>
                                 <a href="@Url.RouteUrl(Model.FilteredUrl.AddCategoryFilter(category))" rel="nofollow">@category</a>

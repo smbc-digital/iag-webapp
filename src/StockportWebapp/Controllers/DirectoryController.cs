@@ -123,7 +123,7 @@ public class DirectoryController(IDirectoryService directoryService) : Controlle
                                             .Take(parentDirectories.IndexOf(directory) + 1)
                                             .Select(_ => _.Slug));
         string url = string.Empty;
-        
+
         if(parentDirectories.Any())
             url = directory.Equals(parentDirectories[^1]) && viewLastBreadcrumbAsResults
                     ? $"{_defaultUrlPrefix}/results/{relativeUrl}"
@@ -145,7 +145,7 @@ public class DirectoryController(IDirectoryService directoryService) : Controlle
     private async Task<List<Directory>> GetParentDirectories(IEnumerable<string> parentSlugs)
     {
         List<Directory> parentDirectories = new();
-        foreach (var directorySlug in parentSlugs)
+        foreach (string directorySlug in parentSlugs)
         {
             Directory parent = await _directoryService.Get<Directory>(directorySlug);
             if (parent is not null)

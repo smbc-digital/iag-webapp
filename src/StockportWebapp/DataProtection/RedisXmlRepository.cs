@@ -115,9 +115,9 @@ public class RedisXmlRepository : IXmlRepository, IDisposable
     /// </returns>
     public IReadOnlyCollection<XElement> GetAllElements()
     {
-        var database = this._connection.GetDatabase();
-        var hash = database.HashGetAll(RedisHashKey);
-        var elements = new List<XElement>();
+        IDatabase database = this._connection.GetDatabase();
+        HashEntry[] hash = database.HashGetAll(RedisHashKey);
+        List<XElement> elements = new List<XElement>();
 
         if (hash is null || hash.Length.Equals(0))
             return elements.AsReadOnly();

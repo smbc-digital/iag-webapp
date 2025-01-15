@@ -24,7 +24,7 @@
 <h2 class="@headingClass @eventDetailHeading">@(!string.IsNullOrEmpty(logoAreaTitle) ? logoAreaTitle : "Our partners")</h2>
 <div class="section__content section__content--no-margin">
     <div class="logo-area">
-        @foreach (var branding in Model)
+        @foreach (GroupBranding branding in Model)
         {
             <div class="logo-area__item">
                 <a href="@branding.Url">

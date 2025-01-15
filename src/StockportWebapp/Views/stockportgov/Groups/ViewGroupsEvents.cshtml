@@ -50,7 +50,7 @@
                                                 <span>Event date</span>
                                             </div>
                                         </div>
-                                        foreach (var eventItem in Model.Events)
+                                        foreach (Event eventItem in Model.Events)
                                         {
                                             <a id="@("event-item-" + eventItem.Slug)" href="@Url.Action("GroupEventsDetails", "Groups", new {groupSlug = Model.Slug, eventSlug = eventItem.Slug})">
                                                 <div class="grid-100 sk-table-row grid-parent">

@@ -9,7 +9,7 @@ public static class GroupImageUrlHelper
 
     private static string GetFirstCategoryThatHasAnImageUrl(List<GroupCategory> groupCategories)
     {
-        foreach (var category in groupCategories.Where(category => !string.IsNullOrEmpty(category.ImageUrl)))
+        foreach (GroupCategory category in groupCategories.Where(category => !string.IsNullOrEmpty(category.ImageUrl)))
             return category.ImageUrl;
 
         return string.Empty;

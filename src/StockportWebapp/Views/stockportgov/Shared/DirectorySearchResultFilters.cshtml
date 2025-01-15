@@ -1,4 +1,5 @@
-﻿@model StockportWebapp.ViewModels.DirectoryViewModel
+﻿@using StockportWebapp.Model
+@model StockportWebapp.ViewModels.DirectoryViewModel
 
 <section class="navcard-wrapper">
     <div class="navcard navcard--white navcard--width-100 navcard--border navcard--no-padding-right-rtl">
@@ -18,7 +19,7 @@
                             </a>
 
                             <div class="directory-filters__content" role="group" aria-labelledby='directory-@entry.Title.ToLower().Replace(" ", "-")'>
-                                @foreach (var filter in entry.Filters)
+                                @foreach (Filter filter in entry.Filters)
                                 {
                                     <div class="directory__checkbox-container">
                                         <input class="directory-filters__checkbox" type="checkbox" name="filters" value="@filter.Slug" id="@filter.Slug"

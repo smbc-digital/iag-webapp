@@ -19,7 +19,7 @@
         @if (Model.Links is not null && Model.Links.Any())
         {
             <ul class="footer-links">
-                @foreach (var link in Model.Links)
+                @foreach (SubItem link in Model.Links)
                 {
                     <li><a href="@link.NavigationLink">@link.Title</a></li>
                 }

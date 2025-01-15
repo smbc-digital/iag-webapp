@@ -321,7 +321,7 @@ public class EventsControllerTest
     public async Task Index_ClearsModelStateErrors_ForDateToAndDateFrom()
     {
         // Arrange
-        var eventCalendar = new EventCalendar();
+        EventCalendar eventCalendar = new();
         _controller.ModelState.AddModelError("DateTo", "DateTo is invalid");
         _controller.ModelState.AddModelError("DateFrom", "DateFrom is invalid");
 

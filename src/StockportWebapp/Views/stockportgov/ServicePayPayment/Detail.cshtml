@@ -21,7 +21,7 @@
                         @if (Model.Payment.Alerts is not null)
                         {
                             <div class="alert-container">
-                                @foreach (var alert in Model.Payment.Alerts)
+                                @foreach (Alert alert in Model.Payment.Alerts)
                                 {
                                     <partial name="DisplayTemplates/Alert" model='alert' />
                                 }

@@ -5,7 +5,10 @@
     ViewData["og:title"] = Model.Title;
     ViewData["Description"] = Model.MetaDescription;
     Layout = "../Shared/_Layout2023.cshtml";
-    var dataCy = Model.SearchBranding.Equals("Stockport Local") ? "stockport-local-search-results" : "search-results";
+    string dataCy = Model.SearchBranding.Equals("Stockport Local")
+        ? "stockport-local-search-results"
+        : "search-results";
+    
     @inject ICookiesHelper CookiesHelper
     
     List<string> mapCookie = CookiesHelper.GetCookies<string>("map");

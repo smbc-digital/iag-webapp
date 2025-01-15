@@ -94,7 +94,7 @@ else
             </div>
 
             <div id="event-listing-container" class="grid-100 event-container-row matchbox-parent" style="padding:0;">
-                @foreach (var item in Model.EventsFromApi)
+                @foreach (Event item in Model.EventsFromApi)
                 {
                     <div @(item.Equals(Model.EventsFromApi.Last()) ? "class=hide-on-tablet" : string.Empty)>
                         <partial name=EventCard model=item />

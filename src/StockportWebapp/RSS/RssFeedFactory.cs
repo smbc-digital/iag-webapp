@@ -17,7 +17,7 @@ public class RssFeedFactory : IRssFeedFactory
             Description = "Stockport Council News Feed"
         };
 
-        foreach (var rssItem in rssItemsList)
+        foreach (T rssItem in rssItemsList)
         {
             if (typeof(T).Equals(typeof(News)))
             {

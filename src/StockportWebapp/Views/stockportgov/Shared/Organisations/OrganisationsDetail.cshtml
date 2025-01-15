@@ -47,7 +47,7 @@
                         <a class="show-more-button hide-on-mobile" href="/groups/results?keeptag=@Model.Slug&tag=@Model.Slug&Order=Name+A-Z">View more</a>
 
                         <ul class="group-listing-container grid-container grid-parent matchbox-parent">
-                            @foreach (var group in Model.Groups.Take(3))
+                            @foreach (Group group in Model.Groups.Take(3))
                             {
                                 <partial name="Groups/GroupCard" model='group' />
                                 ;

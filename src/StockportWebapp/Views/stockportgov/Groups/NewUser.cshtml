@@ -64,7 +64,7 @@
                                     <option disabled selected hidden value="">
                                         Select role
                                     </option>
-                                    @foreach (var item in Model.SelectList)
+                                    @foreach (SelectListItem item in Model.SelectList)
                                     {
                                         <option value="@item.Value">@item.Text</option>
                                     }

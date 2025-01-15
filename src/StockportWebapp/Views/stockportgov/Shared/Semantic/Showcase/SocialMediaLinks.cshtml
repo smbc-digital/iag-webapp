@@ -3,7 +3,7 @@
 <section>
     <h2>@Model.SocialMediaLinksSubheading</h2>
     <div class="showcase-button-container">
-        @foreach (var link in Model.SocialMediaLinks)
+        @foreach (SocialMediaLink link in Model.SocialMediaLinks)
         {
             <a as-link="true" class="showcase-button" href="@link.Link" aria-label="@link.ScreenReader">
                 <span class="@link.Icon fa 2x"></span>

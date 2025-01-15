@@ -1,7 +1,7 @@
 ﻿@{
     int count = (int)ViewData["Count"];
     bool highlighted = (bool)ViewData["Highlighted"];
-    var pinCssClass = $"pin_graphic--" + (highlighted
+    string pinCssClass = $"pin_graphic--" + (highlighted
         ? "pink"
         : "teal");
     

@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<PrivacyNotice>
 @ViewBag.FileInfo
 
-@foreach (var privacyNotice in Model)
+@foreach (PrivacyNotice privacyNotice in Model)
 {
     <div>
         <a href="/privacy-notices/@privacyNotice.Slug">@privacyNotice.Category</a>

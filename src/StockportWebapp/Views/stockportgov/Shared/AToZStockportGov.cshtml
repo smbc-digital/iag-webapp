@@ -3,7 +3,7 @@
 <div class="atoz">
     <h2> Find services A-Z </h2>
     <div class="alphabet">
-        @foreach (var letter in "ABCDEFGHIJKLMNOPQRSTUVWXYZ")
+        @foreach (char letter in "ABCDEFGHIJKLMNOPQRSTUVWXYZ")
         {
             <div class="letter @(letter.ToString().Equals(Model) ? "active" : string.Empty)">
                 @if (letter.ToString().Equals("A"))

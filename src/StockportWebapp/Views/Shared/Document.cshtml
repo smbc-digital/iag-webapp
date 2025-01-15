@@ -9,8 +9,8 @@
         <a href="@Model.Url" target="_blank" class="document-detail-title" rel="nofollow"> @Model.Title</a>
 
         @{
-            var Megabytes = Model.Size / (1048576.0);
-            var Kilobytes = (Model.Size % 1048576) / 1024;
+            double  Megabytes = Model.Size / (1048576.0);
+            double Kilobytes = (Model.Size % 1048576) / 1024;
         }
 
         <p>

@@ -24,7 +24,7 @@ public class DateTimeFormatConverterModelBinder : IModelBinder
         bindingContext.ModelState.SetModelValue(bindingContext.ModelName, valueProviderResult);
         if (!valueProviderResult.Equals(ValueProviderResult.None))
         {
-            DateTime.TryParse(valueProviderResult.FirstValue, out var dateProvided);
+            DateTime.TryParse(valueProviderResult.FirstValue, out DateTime dateProvided);
 
             if (dateProvided > DateTime.MinValue)
                 return dateProvided;
@@ -42,7 +42,7 @@ public class DateTimeFormatConverterModelBinder : IModelBinder
 
         if (!valueProviderResult.Equals(ValueProviderResult.None))
         {
-            DateTime.TryParse(valueProviderResult.FirstValue, out var dateProvided);
+            DateTime.TryParse(valueProviderResult.FirstValue, out DateTime dateProvided);
 
             if (dateProvided > DateTime.MinValue)
             {

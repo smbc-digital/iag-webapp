@@ -9,7 +9,7 @@
     ViewData["Description"] = Model.MetaDescription;
     ViewData["Slug"] = Model.Slug;
     Layout = "../Shared/_LayoutSemantic.cshtml";
-    var emailBanner = new EmailBannerViewModel(Model.EmailAlertsText, Model.EmailAlertsTopicId);
+    EmailBannerViewModel emailBanner = new(Model.EmailAlertsText, Model.EmailAlertsTopicId);
 }
 @section Breadcrumbs {
     <partial name="SemanticBreadcrumb" model='Model.Breadcrumbs' />
@@ -17,11 +17,11 @@
 
 @if (Model.Alerts is not null)
 {
-    var alertCookies = CookiesHelper.GetCookies<Alert>("alerts");
+    List<string> alertCookies = CookiesHelper.GetCookies<Alert>("alerts");
     if (alertCookies is null || !alertCookies.Count().Equals(Model.Alerts.Count()))
     {
         <div class="alert-container">
-            @foreach (var alert in Model.Alerts)
+            @foreach (Alert alert in Model.Alerts)
             {
                 if (alertCookies is null || !alertCookies.Contains(alert.Slug))
                 {
@@ -33,7 +33,7 @@
 }
 
 <div data-cy="showcase-page">
-@foreach (var field in Model.FieldOrder.Items)
+@foreach (string field in Model.FieldOrder.Items)
 {
     switch (field)
     {
@@ -57,7 +57,7 @@
                             }
                         </div>
                         <div class="secondary-item-body">
-                            @foreach (var item in Model.SecondaryItems)
+                            @foreach (SubItem item in Model.SecondaryItems)
                             {
                                 <div class="grid-20 tablet-grid-25 mobile-grid-33 secondary-item">
                                     <div class="secondary-item-content">
@@ -72,7 +72,7 @@
                                             <div class="hide-on-mobile hide-on-tablet secondary-item-description">
                                                 <p>Including</p>
                                                 <ul>
-                                                    @foreach (var subItem in item.SubItems.Take(2))
+                                                    @foreach (SubItem subItem in item.SubItems.Take(2))
                                                     {
                                                         <li>
                                                             <a href="@subItem.NavigationLink">@subItem.Title</a>
@@ -99,7 +99,7 @@
                         <div class="featured-item-container">
                             <h2 class="featured-item-header">@Model.FeaturedItemsSubheading</h2>
                             <ul class="featured-item-body">
-                                @foreach (var item in Model.FeaturedItems)
+                                @foreach (SubItem item in Model.FeaturedItems)
                                 {
                                     <li>
                                         <a href="@item.NavigationLink" class="event-item">
@@ -131,7 +131,7 @@
         case "Events":
             if (Model.Events.AnyOrDefault())
             {
-                var eventsListViewModel = new EventsListViewModel
+                EventsListViewModel eventsListViewModel = new()
                 {
                     Events = Model.Events,
                     Heading = Model.EventSubheading,
@@ -185,7 +185,7 @@
         case "Social Media":
             if (Model.SocialMediaLinks.AnyOrDefault())
             {
-                var socialMediaLinksViewModel = new SocialMediaLinksViewModel
+                SocialMediaLinksViewModel socialMediaLinksViewModel = new()
                 {
                     SocialMediaLinksSubheading = !string.IsNullOrEmpty(Model.SocialMediaLinksSubheading) ? Model.SocialMediaLinksSubheading : "Get in touch",
                     SocialMediaLinks = Model.SocialMediaLinks
@@ -256,17 +256,21 @@
                             {
                                 <h2>@Model.Video.Heading</h2>
                             }
+                            
                             @if (!string.IsNullOrEmpty(Model.Video.Text))
                             {
                                 <p>@Model.Video.Text</p>
                             }
+
                             @if (!string.IsNullOrEmpty(Model.Video.Heading) || !string.IsNullOrEmpty(Model.Video.Text))
                             {
                                 <hr class="thin-divider" />
                             }
+
                             @{
-                                var videoCode = new Regex("(width=|height=)\"((?!\").)*\"").Replace(Model.Video.VideoEmbedCode, "");
+                                string videoCode = new Regex("(width=|height=)\"((?!\").)*\"").Replace(Model.Video.VideoEmbedCode, string.Empty);
                             }
+
                             @Html.Raw(videoCode)
                         </div>
                     </div>

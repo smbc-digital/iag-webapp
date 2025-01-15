@@ -19,13 +19,13 @@
             const locations = [
                 @if (Model.PaginationInfo.CurrentPage.Equals(1))
                 {
-                    @foreach (var entry in Model.PinnedEntries.Where(entry => entry.DirectoryEntry.IsNotOnTheEqautor))
+                    @foreach (DirectoryEntryViewModel entry in Model.PinnedEntries.Where(entry => entry.DirectoryEntry.IsNotOnTheEqautor))
                     {
                         @Html.Raw(@"{ " + entry.ToString(@Url.Action("DirectoryEntry", "Directory", new { slug=@entry.FullyResolvedSlug })) + "}, ")
                     }
                 }
 
-                @foreach (var entry in Model.PaginatedEntries.Where(entry => entry.DirectoryEntry.IsNotOnTheEqautor))
+                @foreach (DirectoryEntryViewModel entry in Model.PaginatedEntries.Where(entry => entry.DirectoryEntry.IsNotOnTheEqautor))
                 {
                     @Html.Raw(@"{ " + entry.ToString(@Url.Action("DirectoryEntry", "Directory", new { slug=@entry.FullyResolvedSlug })) + "}, ")
                 }

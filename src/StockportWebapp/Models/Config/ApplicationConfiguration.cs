@@ -113,7 +113,7 @@ public class ApplicationConfiguration(IConfiguration appsettings) : IApplication
 
     public AnalyticsConfigurationModel GetAnalyticsConfig(string businessId)
     {
-        var config = new AnalyticsConfigurationModel();
+        AnalyticsConfigurationModel config = new();
         _appsettings.GetSection($"{businessId}:Analytics").Bind(config);
         return config;
     }

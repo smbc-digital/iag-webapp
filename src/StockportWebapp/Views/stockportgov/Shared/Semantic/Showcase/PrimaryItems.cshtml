@@ -8,7 +8,7 @@
                 <div class="card-list-container">
                     <h1 class="card-list-header">@Model.Title</h1>
                     <ul class="card-list-body">
-                        @foreach (var item in Model.PrimaryItems)
+                        @foreach (SubItem item in Model.PrimaryItems)
                         {
                             <li class="thin-card">
                                 <a href="@item.NavigationLink" class="icon-card">

@@ -198,7 +198,7 @@ public static class ServiceCollectionExtensions
     {
         if (!string.IsNullOrEmpty(configuration["group:authenticationKey"]))
         {
-            var groupKeys = new GroupAuthenticationKeys { Key = configuration["group:authenticationKey"] };
+            GroupAuthenticationKeys groupKeys = new GroupAuthenticationKeys { Key = configuration["group:authenticationKey"] };
             services.AddSingleton(groupKeys);
 
             services.AddScoped(p => new GroupAuthorisation(p.GetService<IApplicationConfiguration>(), p.GetService<ILoggedInHelper>()));
@@ -216,7 +216,7 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddSesEmailConfiguration(this IServiceCollection services, IConfiguration configuration, ILogger logger)
     {
         services.Configure<SesConfiguration>(configuration.GetSection(SesConfiguration.ConfigValue));
-        var sesConfiguration = new SesConfiguration();
+        SesConfiguration sesConfiguration = new();
         configuration.GetSection(SesConfiguration.ConfigValue).Bind(sesConfiguration);
 
         if (sesConfiguration is not null 
@@ -226,7 +226,7 @@ public static class ServiceCollectionExtensions
             logger.Information("WEBAPP : ServiceCollectionsExtensions : AddSesEmailConfiguration : Using SES configuration from secrets.");
 
 
-            var amazonSesKeys = new AmazonSESKeys(sesConfiguration.AccessKey, sesConfiguration.SecretKey);
+            AmazonSESKeys amazonSesKeys = new(sesConfiguration.AccessKey, sesConfiguration.SecretKey);
             services.AddSingleton(amazonSesKeys);
             services.AddTransient<IAmazonSimpleEmailService>(
                 implementation => new AmazonSimpleEmailServiceClient(new BasicAWSCredentials(sesConfiguration.AccessKey, sesConfiguration.SecretKey), RegionEndpoint.EUWest1));
@@ -245,12 +245,12 @@ public static class ServiceCollectionExtensions
 
         if (useRedisSession)
         {
-            var redisUrl = configuration.GetValue<string>("TokenStoreUrl");
+            string redisUrl = configuration.GetValue<string>("TokenStoreUrl");
             logger.Information($"WEBAPP : ServiceCollectionsExtensions : AddRedis : Using Redis URL {redisUrl}");
 
             try
             {
-                var redisIp = GetHostEntryForUrl(redisUrl, logger);
+                string redisIp = GetHostEntryForUrl(redisUrl, logger);
                 logger.Information($"WEBAPP : ServiceCollectionExtensions : AddRedis : Using Redis for session management - url {redisUrl}, ip {redisIp}");
                 services.AddDataProtection().PersistKeysToRedis(redisIp);
             }
@@ -274,7 +274,7 @@ public static class ServiceCollectionExtensions
 
         logger.Information($"WEBAPP : ServiceCollectionExtensions : GetHostEntryForUrl: Attempting to resolve {host}");
 
-        var addresses = Dns.GetHostEntryAsync(host).Result.AddressList;
+        IPAddress[] addresses = Dns.GetHostEntryAsync(host).Result.AddressList;
 
         if (!addresses.Any())
             throw new Exception($"WEBAPP : ServiceCollectionExtensions : GetHostEntryForUrl: No redis instance could be found for host {host}");

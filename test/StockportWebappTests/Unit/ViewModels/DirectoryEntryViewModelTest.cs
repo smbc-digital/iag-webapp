@@ -134,7 +134,7 @@ public class DirectoryEntryViewModelTest
     public void DisplaySocials_ReturnsCorrectValue(string facebook, string twitter, string youtube, string instagram, string linkedIn, bool expected)
     {
         // Arrange
-        var viewModel = new DirectoryEntryViewModel
+        DirectoryEntryViewModel viewModel = new()
         {
             DirectoryEntry = new DirectoryEntry
             {

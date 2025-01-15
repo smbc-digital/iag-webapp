@@ -71,7 +71,7 @@
     {
         <h2 class="visuallyhidden">Displayed results</h2>
         <ul class="group-listing-container grid-container matchbox-parent">
-            @foreach (var group in Model.Groups)
+            @foreach (Group group in Model.Groups)
             {
                 <partial name="Groups/GroupCard" model='group'/>
             }
