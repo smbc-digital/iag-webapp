@@ -17,14 +17,18 @@
                 <div class="l-content-container grid-100 grid-parent group-margin" id="group-padding">
                     <div class="grid-100 centre">
                         <h1 class="group-article-title">@Model.Title</h1>
+
                         <div class="icon-bordered icon-bordered-fixed green tick">
                             <span class="fa fa-check fa-5x" aria-hidden="true"></span>
                         </div>
+
                         <h2>Your payment has been successful</h2>
                     </div>
+
                     <div class="grid-100 centre">
                         <p>Your reference is <strong>@Model.ReceiptNumber</strong>.</p>
                     </div>
+
                     <div class="grid-100 centre mixed-buttons">
                         <stock-button as-link="true" href="@Url.Action("Index", "Home")">Go back to the homepage</stock-button>
                     </div>

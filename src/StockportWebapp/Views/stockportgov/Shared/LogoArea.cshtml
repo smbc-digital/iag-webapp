@@ -3,8 +3,8 @@
     string borderTopClass = (string)ViewData["borderTopClass"];
     bool isLogoOnArticle = (bool)ViewData["logoAreaArticle"];
     bool displayInSection = ViewData["displayInSection"] is null 
-                                ? false 
-                                : (bool)ViewData["displayInSection"];
+        ? false 
+        : (bool)ViewData["displayInSection"];
 }
 
 @if (displayInSection && Model.Any() )

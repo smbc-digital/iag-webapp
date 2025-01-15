@@ -1,8 +1,4 @@
 ﻿@model IEnumerable<Topic>
-@{
-    var PrimaryFeaturedTopics = Model.Take(3);
-    var SecondaryFeaturedTopics = Model.Skip(3);
-}
 
 <section aria-label="Featured topics" class="grid-100 mobile-grid-100">
     <div class="featured-topics featured-topics-secondary">

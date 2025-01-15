@@ -1,11 +1,9 @@
 namespace StockportWebapp.Controllers;
 
 [ResponseCache(Location = ResponseCacheLocation.Any, Duration = Cache.Long)]
-public class ProfileController : Controller
+public class ProfileController(IProfileService profileService) : Controller
 {
-    private readonly IProfileService _profileService;
-
-    public ProfileController(IProfileService profileService) => _profileService = profileService;
+    private readonly IProfileService _profileService = profileService;
 
     [Route("/profile/{slug}")]
     public async Task<IActionResult> Index(string slug)

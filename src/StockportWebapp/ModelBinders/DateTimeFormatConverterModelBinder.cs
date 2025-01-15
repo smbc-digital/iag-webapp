@@ -5,7 +5,7 @@ public class DateTimeFormatConverterModelBinderProvider : IModelBinderProvider
 {
     public IModelBinder GetBinder(ModelBinderProviderContext context)
     {
-        if (context.Metadata.ModelType == typeof(DateTime) || context.Metadata.ModelType == typeof(DateTime?))
+        if (context.Metadata.ModelType.Equals(typeof(DateTime)) || context.Metadata.ModelType.Equals(typeof(DateTime?)))
             return new DateTimeFormatConverterModelBinder();
 
         return null;
@@ -20,11 +20,11 @@ public class DateTimeFormatConverterModelBinder : IModelBinder
         if (bindingContext is null)
             throw new ArgumentNullException(nameof(bindingContext));
 
-        var valueProviderResult = bindingContext.ValueProvider.GetValue(bindingContext.ModelName);
+        ValueProviderResult valueProviderResult = bindingContext.ValueProvider.GetValue(bindingContext.ModelName);
         bindingContext.ModelState.SetModelValue(bindingContext.ModelName, valueProviderResult);
-        if (valueProviderResult != ValueProviderResult.None)
+        if (!valueProviderResult.Equals(ValueProviderResult.None))
         {
-            DateTime.TryParse(valueProviderResult.FirstValue, out var dateProvided);
+            DateTime.TryParse(valueProviderResult.FirstValue, out DateTime dateProvided);
 
             if (dateProvided > DateTime.MinValue)
                 return dateProvided;
@@ -38,11 +38,11 @@ public class DateTimeFormatConverterModelBinder : IModelBinder
         if (bindingContext is null)
             throw new ArgumentNullException(nameof(bindingContext));
 
-        var valueProviderResult = bindingContext.ValueProvider.GetValue(bindingContext.ModelName);
+        ValueProviderResult valueProviderResult = bindingContext.ValueProvider.GetValue(bindingContext.ModelName);
 
-        if (valueProviderResult != ValueProviderResult.None)
+        if (!valueProviderResult.Equals(ValueProviderResult.None))
         {
-            DateTime.TryParse(valueProviderResult.FirstValue, out var dateProvided);
+            DateTime.TryParse(valueProviderResult.FirstValue, out DateTime dateProvided);
 
             if (dateProvided > DateTime.MinValue)
             {

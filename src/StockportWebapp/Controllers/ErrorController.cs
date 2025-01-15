@@ -1,22 +1,18 @@
 ﻿namespace StockportWebapp.Controllers;
 
 [ResponseCache(Location = ResponseCacheLocation.Any, Duration = Cache.Medium)]
-public class ErrorController : Controller
+public class ErrorController(ILegacyRedirectsManager legacyRedirectsManager,
+                            ILogger<ErrorController> logger) : Controller
 {
-    private readonly ILegacyRedirectsManager _legacyRedirectsManager;
-    private readonly ILogger<ErrorController> _logger;
-
-    public ErrorController(ILegacyRedirectsManager legacyRedirectsManager, ILogger<ErrorController> logger)
-    {
-        _legacyRedirectsManager = legacyRedirectsManager;
-        _logger = logger;
-    }
+    private readonly ILegacyRedirectsManager _legacyRedirectsManager = legacyRedirectsManager;
+    private readonly ILogger<ErrorController> _logger = logger;
 
     [Route("/error")]
     public async Task<IActionResult> Error()
     {
-        var statusCode = HttpContext.Response.StatusCode;
+        int statusCode = HttpContext.Response.StatusCode;
         SetupPageMessage(statusCode);
+
         return await RedirectIfLegacyUrl(statusCode);
     }
 
@@ -24,11 +20,13 @@ public class ErrorController : Controller
     {
         if (statusCode.Equals(404))
         {
-            var path = HttpContext.Features.Get<IStatusCodeReExecuteFeature>().OriginalPath;
-            var urlToRedirectLegacyRequestTo = await _legacyRedirectsManager.RedirectUrl(path);
+            string path = HttpContext.Features.Get<IStatusCodeReExecuteFeature>().OriginalPath;
+            string urlToRedirectLegacyRequestTo = await _legacyRedirectsManager.RedirectUrl(path);
+
             if (!string.IsNullOrEmpty(urlToRedirectLegacyRequestTo))
             {
                 _logger.LogInformation($"A legacy redirect was found - redirecting to {urlToRedirectLegacyRequestTo}");
+                
                 return RedirectPermanent(urlToRedirectLegacyRequestTo);
             }
 

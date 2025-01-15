@@ -1,5 +1,4 @@
-﻿
-namespace StockportWebapp.ViewModels;
+﻿namespace StockportWebapp.ViewModels;
 
 [ExcludeFromCodeCoverage]
 public class TriviaViewModel

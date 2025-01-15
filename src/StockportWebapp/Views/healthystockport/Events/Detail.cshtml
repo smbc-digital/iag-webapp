@@ -12,16 +12,16 @@
 @section Breadcrumbs {
     <partial name="Breadcrumb" model='new List<Crumb>()'/>
 }
+
 <div class="grid-container-full-width">
     <div class="grid-container grid-100">
-
         <div class="l-body-section-filled l-article-content mobile-grid-100 tablet-grid-100 grid-100">
             <section aria-label="@Model.Title content">
                 <div class="l-content-container grid-100 events-margin">
                     @{
-                        if (Model.Alerts != null)
+                        if (Model.Alerts is not null)
                         {
-                            foreach (var alert in Model.Alerts)
+                            foreach (Alert alert in Model.Alerts)
                             {
                                 if(Model.IsAlertDisplayed(alert))
                                 {
@@ -29,7 +29,8 @@
                                 }
                             }
                         }
-                    }                    
+                    }             
+
                     <h1 tabindex="-1" class="events-article-title">@Model.Title</h1>
                     <div tabindex="-1" id="content"></div>
                     <div class="grid-100 events-calender-container grid-100">
@@ -37,6 +38,7 @@
                         {
                             <div class="group-calender-container-image hide-on-desktop" style="background-size: cover; background-position: center; background-image: url(@Model.ImageUrl);"> </div>
                         }
+
                         <div class="grid-50 events-calender-container-description">
                             <ul class="events-ul">
                                 <li class="events-details">
@@ -134,7 +136,8 @@
                             @Html.Raw(Model.Description)
                         </article>
                     </div>
-                    @if (Model.MapDetails.MapPosition != null && Model.MapDetails.MapPosition.Lat != 0.0 && Model.MapDetails.MapPosition.Lon != 0.0)
+
+                    @if (Model.MapDetails.MapPosition is not null && !Model.MapDetails.MapPosition.Lat.Equals(0.0) && !Model.MapDetails.MapPosition.Lon.Equals(0.0))
                     {
                         <div class="event-map-container">     
                             <br />

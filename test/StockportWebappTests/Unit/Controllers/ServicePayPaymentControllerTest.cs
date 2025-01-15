@@ -1,75 +1,99 @@
 ﻿using Microsoft.Extensions.Options;
+using StockportGovUK.NetStandard.Gateways;
 using StockportWebapp.Configuration;
 
 namespace StockportWebappTests_Unit.Unit.Controllers;
 
 public class ServicePayPaymentControllerTest
 {
-    private readonly Mock<IProcessedContentRepository> _fakeRepository = new();
     private readonly ServicePayPaymentController _paymentController;
+    private readonly Mock<IProcessedContentRepository> _fakeRepository = new();
     private readonly Mock<ICivicaPayGateway> _civicaPayGateway = new();
     private readonly Mock<IOptions<CivicaPayConfiguration>> _configuration = new();
-    private readonly ProcessedServicePayPayment _processedPayment = new ProcessedServicePayPayment("title", "slug", "teaser", "description", "paymentDetailsText",
-        "Reference Number", new List<Crumb>(), EPaymentReferenceValidation.None,
-        "metaDescription", "returnUrl", "1233455", "40000000", "paymentDescription", new List<Alert>(), "20.65");
+    private readonly ProcessedServicePayPayment _processedPayment = new("title",
+                                                                        "slug",
+                                                                        "teaser",
+                                                                        "description",
+                                                                        "paymentDetailsText",
+                                                                        "Reference Number",
+                                                                        new List<Crumb>(),
+                                                                        EPaymentReferenceValidation.None,
+                                                                        "metaDescription",
+                                                                        "returnUrl",
+                                                                        "1233455",
+                                                                        "40000000",
+                                                                        "paymentDescription",
+                                                                        new List<Alert>(),
+                                                                        "20.65");
 
 
     public ServicePayPaymentControllerTest()
     {
-        _civicaPayGateway.Setup(_ => _.CreateImmediateBasketAsync(It.IsAny<CreateImmediateBasketRequest>()))
-            .ReturnsAsync(new HttpResponse<CreateImmediateBasketResponse> { StatusCode = HttpStatusCode.OK, ResponseContent = new CreateImmediateBasketResponse { BasketReference = "testRef", BasketToken = "testBasketToken", ResponseCode = "00000" } });
+        _civicaPayGateway
+            .Setup(gateway => gateway.CreateImmediateBasketAsync(It.IsAny<CreateImmediateBasketRequest>()))
+            .ReturnsAsync(new HttpResponse<CreateImmediateBasketResponse>
+            {
+                StatusCode = HttpStatusCode.OK,
+                ResponseContent = new CreateImmediateBasketResponse { BasketReference = "testRef", BasketToken = "testBasketToken", ResponseCode = "00000" }
+            });
 
         _civicaPayGateway
-            .Setup(_ => _.GetPaymentUrl(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
+            .Setup(gateway => gateway.GetPaymentUrl(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
             .Returns("redirectUrl");
 
         _fakeRepository
-            .Setup(_ => _.Get<ServicePayPayment>(It.IsAny<string>(), It.IsAny<List<Query>>()))
+            .Setup(repo => repo.Get<ServicePayPayment>(It.IsAny<string>(), It.IsAny<List<Query>>()))
             .ReturnsAsync(new HttpResponse((int)HttpStatusCode.OK, _processedPayment, string.Empty));
 
         _configuration
-            .Setup(_ => _.Value)
+            .Setup(conf => conf.Value)
             .Returns(new CivicaPayConfiguration{
                 ApiPassword="Password",
                 CustomerID = "CustomerId",
                 CallingAppIdentifier = "WebApp"
             });
 
-        _paymentController = new ServicePayPaymentController(_fakeRepository.Object, _civicaPayGateway.Object, _configuration.Object, new Mock<ILogger<ServicePayPaymentController>>().Object);
+        _paymentController = new(_fakeRepository.Object, _civicaPayGateway.Object, _configuration.Object, new Mock<ILogger<ServicePayPaymentController>>().Object);
 
-        var objectValidator = new Mock<IObjectModelValidator>();
-        objectValidator.Setup(_ => _.Validate(
-            It.IsAny<ActionContext>(),
-            It.IsAny<ValidationStateDictionary>(),
-            It.IsAny<string>(),
-            It.IsAny<object>()));
+        Mock<IObjectModelValidator> objectValidator = new();
+        objectValidator.Setup(validator => validator.Validate(It.IsAny<ActionContext>(),
+                                                            It.IsAny<ValidationStateDictionary>(),
+                                                            It.IsAny<string>(),
+                                                            It.IsAny<object>()));
+        
         _paymentController.ObjectValidator = objectValidator.Object;
     }
 
     [Fact]
     public async Task DetailShouldReturnAPaymentWithProcessedBody()
     {
-        var view = await _paymentController.Detail("slug", null, null) as ViewResult; ;
-        var model = view.ViewData.Model as ServicePayPaymentSubmissionViewModel;
+        // Act
+        ViewResult view = await _paymentController.Detail("slug", null, null) as ViewResult; ;
+        ServicePayPaymentSubmissionViewModel model = view.ViewData.Model as ServicePayPaymentSubmissionViewModel;
 
-        model.Payment.Should().Be(_processedPayment);
+        // Assert
+        Assert.Equal(_processedPayment, model.Payment);
     }
 
     [Fact]
     public async Task DetailShouldGetA404NotFoundPayment()
     {
+        // Arrange
         _fakeRepository
-            .Setup(_ => _.Get<ServicePayPayment>(It.IsAny<string>(), It.IsAny<List<Query>>()))
+            .Setup(repo => repo.Get<ServicePayPayment>(It.IsAny<string>(), It.IsAny<List<Query>>()))
             .ReturnsAsync(new HttpResponse((int)HttpStatusCode.NotFound, null, string.Empty));
 
-        var response = await _paymentController.Detail("not-found-slug", null, null) as HttpResponse;
+        // Act
+        HttpResponse response = await _paymentController.Detail("not-found-slug", null, null) as HttpResponse;
 
-        response.StatusCode.Should().Be((int)HttpStatusCode.NotFound);
+        // Assert
+        Assert.Equal(404, response.StatusCode);
     }
 
     [Fact]
     public async Task DetailPostShouldCallGatewayCreateImmediateBasket()
     {
+        // Act
         await _paymentController.Detail("slug", new ServicePayPaymentSubmissionViewModel
         {
             Reference = "12346",
@@ -79,50 +103,69 @@ public class ServicePayPaymentControllerTest
             Payment = _processedPayment
         });
 
-        _civicaPayGateway.Verify(_ => _.CreateImmediateBasketAsync(It.IsAny<CreateImmediateBasketRequest>()), Times.Once);
+        // Assert
+        _civicaPayGateway.Verify(gateway => gateway.CreateImmediateBasketAsync(It.IsAny<CreateImmediateBasketRequest>()), Times.Once);
     }
 
     [Fact]
     public async Task DetailPostShouldReturnDetailsViewIfModelStateInvalid()
     {
+        // Arrange
         _paymentController.ModelState.AddModelError("Reference", "error");
 
-        var result = await _paymentController.Detail("slug", new ServicePayPaymentSubmissionViewModel
+        // Act
+        ViewResult result = await _paymentController.Detail("slug", new ServicePayPaymentSubmissionViewModel
         {
             Payment = _processedPayment,
             Amount = "12.00",
             Reference = "123456"
         }) as ViewResult;
-
-        _civicaPayGateway.Verify(_ => _.CreateImmediateBasketAsync(It.IsAny<CreateImmediateBasketRequest>()), Times.Never);
-        result.Should().BeOfType<ViewResult>();
+        
+        // Assert
+        _civicaPayGateway.Verify(gateway => gateway.CreateImmediateBasketAsync(It.IsAny<CreateImmediateBasketRequest>()), Times.Never);
+        Assert.IsType<ViewResult>(result);
     }
 
     [Fact]
     public async Task DetailPostShouldReturnErrorViewIfBadRequest()
     {
-        _civicaPayGateway.Setup(_ => _.CreateImmediateBasketAsync(It.IsAny<CreateImmediateBasketRequest>()))
-            .ReturnsAsync(new HttpResponse<CreateImmediateBasketResponse> { StatusCode = HttpStatusCode.BadRequest, ResponseContent = new CreateImmediateBasketResponse { BasketReference = "testRef", BasketToken = "testBasketToken", ResponseCode = "00000" } });
+        // Arrange
+        _civicaPayGateway
+            .Setup(gateway => gateway.CreateImmediateBasketAsync(It.IsAny<CreateImmediateBasketRequest>()))
+            .ReturnsAsync(new HttpResponse<CreateImmediateBasketResponse>
+            {
+                StatusCode = HttpStatusCode.BadRequest,
+                ResponseContent = new CreateImmediateBasketResponse { BasketReference = "testRef", BasketToken = "testBasketToken", ResponseCode = "00000" }
+            });
 
-        var result = await _paymentController.Detail("slug", new ServicePayPaymentSubmissionViewModel
+        // Act
+        ViewResult result = await _paymentController.Detail("slug", new ServicePayPaymentSubmissionViewModel
         {
             Payment = _processedPayment,
             Amount = "12.00",
             Reference = "123456789"
         }) as ViewResult;
 
-        _civicaPayGateway.Verify(_ => _.CreateImmediateBasketAsync(It.IsAny<CreateImmediateBasketRequest>()), Times.Once);
-        result.Should().BeOfType<ViewResult>();
-        result.ViewName.Should().Be("Error");
+        // Assert
+        _civicaPayGateway.Verify(gateway => gateway.CreateImmediateBasketAsync(It.IsAny<CreateImmediateBasketRequest>()), Times.Once);
+        Assert.IsType<ViewResult>(result);
+        Assert.Equal("Error", result.ViewName);
     }
 
     [Fact]
     public async Task DetailPostShouldReturnViewIfResponseCodeIs00001()
     {
-        _civicaPayGateway.Setup(_ => _.CreateImmediateBasketAsync(It.IsAny<CreateImmediateBasketRequest>()))
-            .ReturnsAsync(new HttpResponse<CreateImmediateBasketResponse> { StatusCode = HttpStatusCode.BadRequest, ResponseContent = new CreateImmediateBasketResponse { BasketReference = "testRef", BasketToken = "testBasketToken", ResponseCode = "00001" } });
+        // Arrange
+        _civicaPayGateway
+            .Setup(gateway => gateway.CreateImmediateBasketAsync(It.IsAny<CreateImmediateBasketRequest>()))
+            .ReturnsAsync(new HttpResponse<CreateImmediateBasketResponse>
+            {
+                StatusCode = HttpStatusCode.BadRequest,
+                ResponseContent = new CreateImmediateBasketResponse { BasketReference = "testRef", BasketToken = "testBasketToken", ResponseCode = "00001" }
+            });
 
-        var result = await _paymentController.Detail("slug", new ServicePayPaymentSubmissionViewModel
+        // Act
+        ViewResult result = await _paymentController.Detail("slug", new ServicePayPaymentSubmissionViewModel
         {
             Payment = _processedPayment,
             Reference = "123456789",
@@ -130,13 +173,15 @@ public class ServicePayPaymentControllerTest
             EmailAddress = "test-email-address"
         }) as ViewResult;
 
+        // Assert
         _civicaPayGateway.Verify(_ => _.CreateImmediateBasketAsync(It.IsAny<CreateImmediateBasketRequest>()), Times.Once);
-        result.Should().BeOfType<ViewResult>();
+        Assert.IsType<ViewResult>(result);
     }
 
     [Fact]
     public async Task DetailPostShouldCallGatewayGetPaymentUrl()
     {
+        // Act
         await _paymentController.Detail("slug", new ServicePayPaymentSubmissionViewModel
         {
             Payment = _processedPayment,
@@ -144,6 +189,7 @@ public class ServicePayPaymentControllerTest
             Reference = "123456789"
         });
 
-        _civicaPayGateway.Verify(_ => _.GetPaymentUrl(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()), Times.Once);
+        // Assert
+        _civicaPayGateway.Verify(gateway => gateway.GetPaymentUrl(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()), Times.Once);
     }
 }

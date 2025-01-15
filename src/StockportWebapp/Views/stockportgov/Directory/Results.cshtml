@@ -5,12 +5,17 @@
     ViewData["og:title"] = Model.Title;
     ViewData["Description"] = Model.MetaDescription;
     Layout = "../Shared/_Layout2023.cshtml";
-    var dataCy = Model.SearchBranding.Equals("Stockport Local") ? "stockport-local-search-results" : "search-results";
+    string dataCy = Model.SearchBranding.Equals("Stockport Local")
+        ? "stockport-local-search-results"
+        : "search-results";
+    
     @inject ICookiesHelper CookiesHelper
     
-    var mapCookie = CookiesHelper.GetCookies<string>("map");
-    var displayMap = mapCookie.Contains(Model.Slug);
-    var displayMapValue = displayMap ? "block" : "none";
+    List<string> mapCookie = CookiesHelper.GetCookies<string>("map");
+    bool displayMap = mapCookie.Contains(Model.Slug);
+    string displayMapValue = displayMap
+        ? "block"
+        : "none";
 }
 
 <script>
@@ -61,7 +66,6 @@
             </div>
         </div>
 
-
         <div class="grid-container">
             <div class="grid-100">
                 <div class="directory @(Model.ShowPagination ? string.Empty : "directory--margin-bottom")">
@@ -85,7 +89,6 @@
                                     <button type="button" id="hideMap" class="btn btn--plain" data-slug="@Model.Slug" style="display:none"><span class="fa-solid fa-circle-xmark"></span> Hide map</button>
                                 </div>
                             }
-                            
                         </div>
                         
                         <script>

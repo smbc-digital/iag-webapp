@@ -1,25 +1,19 @@
 namespace StockportWebapp.Controllers;
 
-public class SearchController : Controller
+public class SearchController(IApplicationConfiguration config,
+                            BusinessId businessId) : Controller
 {
-    private readonly IApplicationConfiguration _config;
-    private readonly BusinessId _businessId;
-
-    public SearchController(IApplicationConfiguration config, BusinessId businessId)
-    {
-        _businessId = businessId;
-        _config = config;
-    }
+    private readonly IApplicationConfiguration _config = config;
+    private readonly BusinessId _businessId = businessId;
 
     [Route("/postcode")]
     public async Task<IActionResult> Postcode(string query)
     {
-        var urlSetting = _config.GetPostcodeSearchUrl(_businessId.ToString());
+        AppSetting urlSetting = _config.GetPostcodeSearchUrl(_businessId.ToString());
+
         if (urlSetting.IsValid())
-        {
-            var url = string.Concat(urlSetting, query);
-            return await Task.FromResult(Redirect(url));
-        }
+            return await Task.FromResult(Redirect(string.Concat(urlSetting, query)));
+
         return NotFound();
     }
 
@@ -27,6 +21,7 @@ public class SearchController : Controller
     public IActionResult SearchResults(string query)
     {
         ViewData["Title"] = "Search results";
+        
         return View();
     }
 }

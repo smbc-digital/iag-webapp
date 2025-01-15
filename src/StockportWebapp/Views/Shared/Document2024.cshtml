@@ -8,10 +8,12 @@
 
         <div class="grid-90 tablet-grid-90 mobile-grid-100 document-detail">
             <a href="@Model.Url" target="_blank" class="document-detail__title" rel="nofollow"> @Model.Title</a>
+            
             @{
-                var Megabytes = Model.Size / (1048576.0);
-                var Kilobytes = (Model.Size % 1048576) / 1024;
+                double Megabytes = Model.Size / (1048576.0);
+                double Kilobytes = (Model.Size % 1048576) / 1024;
             }
+
             <p>
                 @if (Megabytes >= 1.0)
                 {

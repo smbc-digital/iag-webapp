@@ -35,19 +35,17 @@ public class Directory
     {
         get
         {
-            var cummulativeEntries = SubDirectories is not null && SubDirectories.Any()
+            IEnumerable<DirectoryEntry> cummulativeEntries = SubDirectories is not null && SubDirectories.Any()
                                         ? Entries?
                                             .Concat(SubDirectories
                                                 .Where(sub => sub is not null)
                                                 .SelectMany(sub => sub.CummulativeEntries))
                                         : Entries;
 
-            _cummulativeEntries = cummulativeEntries
-                                    .Where(entry => entry is not null && !string.IsNullOrEmpty(entry.Slug))
-                                    .Distinct(new SlugComparer())
-                                    .Select(entry => (DirectoryEntry)entry);
-
-            return _cummulativeEntries;
+            return cummulativeEntries
+                    .Where(entry => entry is not null && !string.IsNullOrEmpty(entry.Slug))
+                    .Distinct(new SlugComparer())
+                    .Select(entry => (DirectoryEntry)entry);
         }         
     }
 

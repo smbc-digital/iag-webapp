@@ -4,54 +4,54 @@
 
 <!DOCTYPE html>
 <html lang=en-GB>
-<head>
-    <meta charset=utf-8 />
-    <meta name=viewport content="width=device-width, initial-scale=1" />
-    <title>@ViewData["Title"]</title>
-    <meta property=og:title content='@ViewData["Title"]' />
-    <meta name=description content='@ViewData["Description"]' />
+    <head>
+        <meta charset=utf-8 />
+        <meta name=viewport content="width=device-width, initial-scale=1" />
+        <title>@ViewData["Title"]</title>
+        <meta property=og:title content='@ViewData["Title"]' />
+        <meta name=description content='@ViewData["Description"]' />
 
-    <meta name="msvalidate.01" content="2F0A3A1ACB2F80E1404DB54392E2DB3F" />
+        <meta name="msvalidate.01" content="2F0A3A1ACB2F80E1404DB54392E2DB3F" />
 
-    <partial name=OwnershipVerificationCodes />
-    <partial name=Favicon />
-    <partial name=NoScriptStyles />
+        <partial name=OwnershipVerificationCodes />
+        <partial name=Favicon />
+        <partial name=NoScriptStyles />
 
-    @* PACKAGE / VENDOR STYLESHEETS *@
-    <link rel=preload as=style onload="this.onload=null;this.rel='stylesheet'" href=~/assets/stylesheets/vendor/unsemantic-grid-responsive-tablet.min.css asp-append-version=true />
+        @* PACKAGE / VENDOR STYLESHEETS *@
+        <link rel=preload as=style onload="this.onload=null;this.rel='stylesheet'" href=~/assets/stylesheets/vendor/unsemantic-grid-responsive-tablet.min.css asp-append-version=true />
 
-    @* MAIN STYLESHEET *@
-    <link rel=stylesheet href=~/assets/stylesheets/site-sg-overrides.min.css asp-append-version=true />
+        @* MAIN STYLESHEET *@
+        <link rel=stylesheet href=~/assets/stylesheets/site-sg-overrides.min.css asp-append-version=true />
 
-    @* FONT STYLESHEETS *@
-    <link rel=preload as=style onload="this.onload=null;this.rel='stylesheet'" href="https://fonts.googleapis.com/css?family=Noto+Sans:400,700&display=swap">
-    <link rel=preload as=style onload="this.onload=null;this.rel='stylesheet'" href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap">
-    
-    <link rel=alternate type=application/rss+xml href=/news/rss title="Stockport Council News Feed" />
-    <link rel=alternate type=application/rss+xml href=/events/rss title="Stockport Council Events Feed" />
-    <script src="https://kit.fontawesome.com/d14fbc06e0.js" crossorigin="anonymous"></script>
-    
-    <noscript>
-        <link rel=stylesheet href="https://kit.fontawesome.com/d14fbc06e0.css" crossorigin="anonymous">
-    </noscript>
-    
-    <script type=text/javascript src=~/assets/javascript/vendor/require.min.js asp-append-version=true defer></script>
-</head>
+        @* FONT STYLESHEETS *@
+        <link rel=preload as=style onload="this.onload=null;this.rel='stylesheet'" href="https://fonts.googleapis.com/css?family=Noto+Sans:400,700&display=swap">
+        <link rel=preload as=style onload="this.onload=null;this.rel='stylesheet'" href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap">
+        
+        <link rel=alternate type=application/rss+xml href=/news/rss title="Stockport Council News Feed" />
+        <link rel=alternate type=application/rss+xml href=/events/rss title="Stockport Council Events Feed" />
+        <script src="https://kit.fontawesome.com/d14fbc06e0.js" crossorigin="anonymous"></script>
+        
+        <noscript>
+            <link rel=stylesheet href="https://kit.fontawesome.com/d14fbc06e0.css" crossorigin="anonymous">
+        </noscript>
+        
+        <script type=text/javascript src=~/assets/javascript/vendor/require.min.js asp-append-version=true defer></script>
+    </head>
 
-<body class="container-layout-free no-header-search">
-    <partial name=CookieNotice />
-    <partial name=TagManager/TagManagerDataLayer />
-    <partial name=TagManager/TagManager />
-    <partial name=TagManager/TagManagerNoScript />
-    <partial name=Header2023 model=false/>
+    <body class="container-layout-free no-header-search">
+        <partial name=CookieNotice />
+        <partial name=TagManager/TagManagerDataLayer />
+        <partial name=TagManager/TagManager />
+        <partial name=TagManager/TagManagerNoScript />
+        <partial name=Header2023 model=false/>
 
-    <main id="content" tabindex="-1">
-        <div class="grid-container-full-width">
-            @RenderBody()
-        </div>
-        <distributed-cache name=footer2023 expires-after=@TimeSpan.FromMinutes(ApplicationConfiguration.GetFooterCache(BusinessId.ToString())) enabled=true>
-            @await Component.InvokeAsync("Footer2023")
-        </distributed-cache>
-    </main>
-</body>
+        <main id="content" tabindex="-1">
+            <div class="grid-container-full-width">
+                @RenderBody()
+            </div>
+            <distributed-cache name=footer2023 expires-after=@TimeSpan.FromMinutes(ApplicationConfiguration.GetFooterCache(BusinessId.ToString())) enabled=true>
+                @await Component.InvokeAsync("Footer2023")
+            </distributed-cache>
+        </main>
+    </body>
 </html>

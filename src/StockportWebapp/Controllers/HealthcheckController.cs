@@ -1,20 +1,15 @@
 ﻿namespace StockportWebapp.Controllers;
 
-public class HealthcheckController : Controller
+public class HealthcheckController(IHealthcheckService healthCheckService) : Controller
 {
-    private readonly IHealthcheckService _healthCheckService;
+    private readonly IHealthcheckService _healthCheckService = healthCheckService;
 
-    public HealthcheckController(IHealthcheckService healthCheckService)
-    {
-        _healthCheckService = healthCheckService;
-    }
-
-    [ResponseCacheAttribute(NoStore = true)]
+    [ResponseCache(NoStore = true)]
     [Route("/_healthcheck")]
     public async Task<IActionResult> Index()
     {
-        var healthcheck = await _healthCheckService.Get();
-        var contractResolver = new DefaultContractResolver
+        Healthcheck healthcheck = await _healthCheckService.Get();
+        DefaultContractResolver contractResolver = new()
         {
             NamingStrategy = new CamelCaseNamingStrategy()
         };

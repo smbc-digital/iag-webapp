@@ -21,7 +21,7 @@ else
 @section CarouselBackgroundImage {
     @{
         int counter = 1;
-        foreach (var carouselContent in Model.HomepageContent.CarouselContents)
+        foreach (CarouselContent carouselContent in Model.HomepageContent.CarouselContents)
         {
             <partial name="ScaleImageByDevice" model='new Image("webcast-" + counter, carouselContent.Image)' />
             counter++;
@@ -32,7 +32,7 @@ else
 <div>
     @if (Model.HomepageContent.Alerts is not null)
     {
-        foreach (var alert in Model.HomepageContent.Alerts)
+        foreach (Alert alert in Model.HomepageContent.Alerts)
         {
             <div>
                 <partial name="DisplayTemplates/Alert" model='alert'/>
@@ -61,7 +61,7 @@ else
             <hr />
             <div class="feature-tagline feature-tagline-heading">@Html.Raw(Model.HomepageContent.FeaturedTasksSummary)</div>
             <div class="topic-block-list matchbox-parent" id="topicBlockList">
-                @foreach (var subItem in Model.HomepageContent.FeaturedTasks)
+                @foreach (SubItem subItem in Model.HomepageContent.FeaturedTasks)
                 {
                     <div class="grid-30 tablet-grid-40 mobile-grid-100 topic-block-container">
                         <a href="@subItem.NavigationLink" class="topic-block matchbox-child">
@@ -71,6 +71,7 @@ else
                                 <div class="hide-on-tablet hide-on-desktop topic-block-icon-container">
                                     <span class="fa @subItem.Icon fa-2x default-icon article-chevron-i" aria-hidden="true"></span>
                                 </div>
+
                                 <h4>@subItem.Title</h4>
 
                                 <div class="topic-block-content-divider hide-on-mobile"></div>
@@ -93,16 +94,17 @@ else
                     <div class="grid-100 event-container-row matchbox-parent">
                         @{
                             int count = 0;
-                            foreach (var item in Model.EventsFromApi)
+                            foreach (Event item in Model.EventsFromApi)
                             {
                                 count++;
-                                <div @(count == 3 ? "class=hide-on-tablet" : "")>
+                                <div @(count.Equals(3) ? "class=hide-on-tablet" : string.Empty)>
 
                                     <partial name="EventCard" model='item' />
                                 </div>
                             }
                         }
                     </div>
+
                     <div class="grid-100 events-call-to-action">
                         <a class="button button-outline button-partialrounded button-call-to-action" href="/events/category/@Model.HomepageContent.EventCategory">More things to do</a>
                     </div>

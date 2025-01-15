@@ -5,12 +5,9 @@ public interface ITriviaFactory
     List<Trivia> Build(List<Trivia> triviaSection);
 }
 
-public class TriviaFactory : ITriviaFactory
+public class TriviaFactory(MarkdownWrapper markdownWrapper) : ITriviaFactory
 {
-    private readonly MarkdownWrapper _markdownWrapper;
-
-    public TriviaFactory(MarkdownWrapper markdownWrapper) =>
-        _markdownWrapper = markdownWrapper;
+    private readonly MarkdownWrapper _markdownWrapper = markdownWrapper;
 
     public List<Trivia> Build(List<Trivia> triviaSection) => 
         triviaSection?.Select(item => new Trivia (

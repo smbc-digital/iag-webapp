@@ -1,32 +1,27 @@
 ﻿namespace StockportWebapp.Utils;
 
-public class CookiesHelper : ICookiesHelper
+public class CookiesHelper(IHttpContextAccessor accessor) : ICookiesHelper
 {
-    private IHttpContextAccessor httpContextAccessor;
-
-    public CookiesHelper(IHttpContextAccessor accessor)
-    {
-        httpContextAccessor = accessor;
-    }
+    private readonly IHttpContextAccessor httpContextAccessor = accessor;
 
     public List<T> PopulateCookies<T>(List<T> items, string cookieType)
     {
-        var cookiesAsObject = GetCookiesAsObject(cookieType);
+        Dictionary<string, List<string>> cookiesAsObject = GetCookiesAsObject(cookieType);
 
-        if (!cookiesAsObject.Keys.Any()) return items;
+        if (!cookiesAsObject.Keys.Any())
+            return items;
 
-        var type = typeof(T).ToString().ToLower().Replace("Processed", "");
+        string type = typeof(T).ToString().ToLower().Replace("Processed", string.Empty);
+        List<string> cookies = cookiesAsObject[type];
 
-        var cookies = cookiesAsObject[type];
-
-        foreach (var item in items)
+        foreach (T item in items)
         {
             PropertyInfo cookieProp = item.GetType().GetProperty("Favourite");
             PropertyInfo slugProp = item.GetType().GetProperty("Slug");
 
             if (cookieProp is not null && slugProp is not null && cookieProp.CanWrite)
             {
-                var exists = cookies.Any(f => f == slugProp.GetValue(item).ToString());
+                bool exists = cookies.Any(f => f.Equals(slugProp.GetValue(item).ToString()));
                 cookieProp.SetValue(item, exists, null);
             }
             else
@@ -40,7 +35,7 @@ public class CookiesHelper : ICookiesHelper
 
     public void AddToCookies<T>(string slug, string cookieType)
     {
-        var cookiesAsObject = GetCookiesAsObject(cookieType);
+        Dictionary<string, List<string>> cookiesAsObject = GetCookiesAsObject(cookieType);
         string key = typeof(T).ToString().ToLower();
 
         if (!cookiesAsObject.ContainsKey(key))
@@ -54,7 +49,7 @@ public class CookiesHelper : ICookiesHelper
 
     public void RemoveFromCookies<T>(string slug, string cookieType)
     {
-        var cookiesAsObject = GetCookiesAsObject(cookieType);
+        Dictionary<string, List<string>> cookiesAsObject = GetCookiesAsObject(cookieType);
         string key = typeof(T).ToString().ToLower();
 
         if (!cookiesAsObject.ContainsKey(key))
@@ -68,7 +63,7 @@ public class CookiesHelper : ICookiesHelper
 
     public void RemoveAllFromCookies<T>(string cookieType)
     {
-        var cookiesAsObject = GetCookiesAsObject(cookieType);
+        Dictionary<string, List<string>> cookiesAsObject = GetCookiesAsObject(cookieType);
 
         if (cookiesAsObject.ContainsKey(typeof(T).ToString().ToLower()))
             cookiesAsObject.Remove(typeof(T).ToString().ToLower());
@@ -77,8 +72,8 @@ public class CookiesHelper : ICookiesHelper
     }
 
     public void RemoveCookie(string key)
-    {        
-        var cookie = httpContextAccessor.HttpContext.Request.Cookies[key];
+    {
+        string cookie = httpContextAccessor.HttpContext.Request.Cookies[key];
         if (string.IsNullOrEmpty(cookie))
             return;
 
@@ -87,7 +82,7 @@ public class CookiesHelper : ICookiesHelper
 
     public void RemoveCookiesStartingWith(string startKey)
     {
-        var cookies = httpContextAccessor.HttpContext.Request.Cookies.Where(cookie => cookie.Key.StartsWith(startKey));
+        IEnumerable<KeyValuePair<string, string>> cookies = httpContextAccessor.HttpContext.Request.Cookies.Where(cookie => cookie.Key.StartsWith(startKey));
         if (!cookies.Any())
             return;
 
@@ -99,10 +94,10 @@ public class CookiesHelper : ICookiesHelper
 
     public static Dictionary<string, List<string>> ExtractValuesFromJson(string cookies)
     {
-        Dictionary<string, List<string>> alertDictionary = new Dictionary<string, List<string>>();
+        Dictionary<string, List<string>> alertDictionary = new();
         JObject cookiesObject = JObject.Parse(cookies);
 
-        foreach (var property in cookiesObject.Properties())
+        foreach (JProperty property in cookiesObject.Properties())
         {
             string key = property.Name;
             List<string> values = property.Value.ToObject<List<string>>();
@@ -126,19 +121,20 @@ public class CookiesHelper : ICookiesHelper
 
     private void UpdateCookies(Dictionary<string, List<string>> cookies, string cookieType)
     {
-        var data = JsonConvert.SerializeObject(cookies);
+        string data = JsonConvert.SerializeObject(cookies);
         httpContextAccessor.HttpContext.Response.Cookies.Append(cookieType, data, new CookieOptions { Expires = DateTime.Now.AddMonths(1) });
     }
 
     public bool HasCookieConsentBeenCollected()
     {
-        var consentAcctepted = httpContextAccessor.HttpContext.Request.Cookies["cookie_consent_user_accepted"];
+        string consentAcctepted = httpContextAccessor.HttpContext.Request.Cookies["cookie_consent_user_accepted"];
+
         return !string.IsNullOrEmpty(consentAcctepted);
     }
 
     public CookieConsentLevel GetCurrentCookieConsentLevel()
     {
-        var consentAcceptedValue = httpContextAccessor.HttpContext.Request.Cookies["cookie_consent_user_accepted"];
+        string consentAcceptedValue = httpContextAccessor.HttpContext.Request.Cookies["cookie_consent_user_accepted"];
 
         if (string.IsNullOrEmpty(consentAcceptedValue))
             return new CookieConsentLevel();
@@ -146,7 +142,7 @@ public class CookiesHelper : ICookiesHelper
         if (!bool.Parse(consentAcceptedValue))
             return new CookieConsentLevel();
 
-        var consentLevel = httpContextAccessor.HttpContext.Request.Cookies["cookie_consent_level"];
+        string consentLevel = httpContextAccessor.HttpContext.Request.Cookies["cookie_consent_level"];
 
         return string.IsNullOrEmpty(consentLevel)
             ? new CookieConsentLevel()

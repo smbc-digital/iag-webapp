@@ -7,16 +7,10 @@
 /// </summary>
 /// 
 [ExcludeFromCodeCoverage]
-public class CookiesComplianceMiddleware
+public class CookiesComplianceMiddleware(RequestDelegate next, CookiesHelper cookiesHelper)
 {
-    private readonly RequestDelegate _next;
-    private readonly ICookiesHelper _cookiesHelper;
-
-    public CookiesComplianceMiddleware(RequestDelegate next, CookiesHelper cookiesHelper)
-    {
-        _next = next;
-        _cookiesHelper = cookiesHelper;
-    }
+    private readonly RequestDelegate _next = next;
+    private readonly ICookiesHelper _cookiesHelper = cookiesHelper;
 
     public Task Invoke(HttpContext httpContext)
     {
@@ -27,25 +21,20 @@ public class CookiesComplianceMiddleware
         {
             RemoveFunctionalCookies();
             RemoveTrackingCookies();
+
             return _next(httpContext);
         }
 
-        var consentLevels = _cookiesHelper.GetCurrentCookieConsentLevel();
+        CookieConsentLevel consentLevels = _cookiesHelper.GetCurrentCookieConsentLevel();
 
         if (!consentLevels.Functionality)
-        {
             RemoveFunctionalCookies();
-        }
 
         if (!consentLevels.Tracking)
-        {
             RemoveTrackingCookies();
-        }
 
         if (!consentLevels.Targetting)
-        {
             RemoveTargettingCookies();
-        }
 
         return _next(httpContext);
     }

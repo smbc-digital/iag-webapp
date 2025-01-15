@@ -12,29 +12,17 @@ public class EventCalendar
     public DateTime? DateTo { get; set; }
     public string Category { get; set; }
     public bool CategoryIsSelected =>
-        string.IsNullOrEmpty(Category)
-        ? false
-        : true;
-    public EventCategory SelectedCategory
-    {
-       get
-        {
-            var result = CategoryIsSelected
-                ? Homepage?.Categories?.SingleOrDefault(category => category.Slug.Equals(Category))
-                : null;
-
-            return result;
-        }
-    }
-        
-        
+        !string.IsNullOrEmpty(Category);
+    public EventCategory SelectedCategory =>
+        CategoryIsSelected
+            ? Homepage?.Categories?.SingleOrDefault(category => category.Slug.Equals(Category))
+            : null;
 
     public string DateRange { get; set; }
     public string DateSelection { get; set; }
     public List<Event> Events { get; private set; } = new();
     public List<Event> FeaturedEvents { get; private set; } = new();
     public List<string> Categories { get; private set; } = new();
-    
     public string Tag { get; set; }
     public bool Free { get; set; }
     public string[] Price { get; set; }
@@ -42,7 +30,6 @@ public class EventCalendar
     public IFilteredUrl FilteredUrl { get; private set; }
     public QueryUrl CurrentUrl { get; private set; }
     public Pagination Pagination { get; set; }
-
     public EventHomepage Homepage { get; set; }
     public List<CarouselContent> CarouselContents { get; set; } = new();
 
@@ -163,8 +150,18 @@ public class EventCalendar
             Name = "price",
             Items = new List<RefineByFilterItems>
             {
-                new() { Label = "Paid", Checked = Price is null || Price.Any(p => p.Equals("paid")), Value = "paid" },
-                new() { Label = "Free", Checked = Price is null || Price.Any(p => p.Equals("free")), Value = "free" }
+                new()
+                {
+                    Label = "Paid",
+                    Checked = Price is null || Price.Any(p => p.Equals("paid")),
+                    Value = "paid"
+                },
+                new()
+                {
+                    Label = "Free",
+                    Checked = Price is null || Price.Any(p => p.Equals("free")),
+                    Value = "free"
+                }
             }
         };
 

@@ -1,10 +1,13 @@
 ﻿@model SpotlightOnBanner
 
 @{
-    string additionalClasses = (string)ViewData["additionalClasses"];
-    string pseudoBorderColour = (string)ViewData["pseudoBorderColour"];
-    string borderColour = (string)ViewData["borderColour"];
-    string altText = !string.IsNullOrEmpty(Model.AltText) ? Model.AltText : string.Empty;
+    string additionalClasses = (string)ViewData["additionalClasses"] ?? string.Empty;
+    string pseudoBorderColour = (string)ViewData["pseudoBorderColour"] ?? string.Empty;
+    string borderColour = (string)ViewData["borderColour"] ?? string.Empty;
+    
+    string altText = !string.IsNullOrEmpty(Model.AltText)
+        ? Model.AltText
+        : string.Empty;
 }
 
 <div class="featured-item section__content" data-cy="featured-item">

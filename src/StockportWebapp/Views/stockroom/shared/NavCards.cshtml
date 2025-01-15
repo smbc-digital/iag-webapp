@@ -1,6 +1,6 @@
 ﻿@model NavCardList
 @{
-    string type = (string)ViewData["itemsType"];
+    string type = (string)ViewData["itemsType"] ?? string.Empty;
 }
 
 <ul class="card-wrapper">

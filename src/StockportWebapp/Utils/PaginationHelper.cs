@@ -29,6 +29,7 @@ public static class PaginationHelper
             int numVisiblePages = Math.Min(totalPages, maxVisiblePages);
             int firstVisiblePage = CalculateFirstVisiblePageNumber(currentPageNumber, totalPages);
             int lastVisiblePage = firstVisiblePage + numVisiblePages - 1;
+            
             for (int count = firstVisiblePage; count <= lastVisiblePage; count++)
             {
                 result.Add(new VisiblePageNumber { PageNumber = count });
@@ -47,9 +48,13 @@ public static class PaginationHelper
     public static bool ShowNextLink(int currentPageNumber, int totalPages) =>
         currentPageNumber < totalPages;
 
-    public static PaginatedItems<T> GetPaginatedItemsForSpecifiedPage<T>(List<T> items, int currentPageNumber, string itemDescription, int maxNumberOfItemsPerPage, int defaultPageSize)
+    public static PaginatedItems<T> GetPaginatedItemsForSpecifiedPage<T>(List<T> items,
+                                                                        int currentPageNumber,
+                                                                        string itemDescription,
+                                                                        int maxNumberOfItemsPerPage,
+                                                                        int defaultPageSize)
     {
-        Pagination pagination = new Pagination(
+        Pagination pagination = new(
             items.Count,
             currentPageNumber,
             itemDescription,
@@ -98,10 +103,12 @@ public static class PaginationHelper
             new Dictionary<string, string>
             {
                 {
-                    "pageSize" , pageSize.ToString()
+                    "pageSize",
+                    pageSize.ToString()
                 },
                 {
-                    "page" , 1.ToString()
+                    "page",
+                    1.ToString()
                 }
             });
 
@@ -179,13 +186,10 @@ public static class PaginationHelper
     private static bool CurrentPageIsPenultimateVisiblePage(int currentPageNumber, int totalPages) =>
         currentPageNumber.Equals(totalPages - 1);
 
-    public static int GetOtherPageSizeByCurrentPageSize(int maxItemsPerPage, int totalItems, int defaultPageSize)
-    {
-        if (maxItemsPerPage.Equals(defaultPageSize) && !totalItems.Equals(60))
-            return 60;
-        else
-            return defaultPageSize;
-    }
+    public static int GetOtherPageSizeByCurrentPageSize(int maxItemsPerPage, int totalItems, int defaultPageSize) =>
+        maxItemsPerPage.Equals(defaultPageSize) && !totalItems.Equals(60)
+            ? 60
+            : defaultPageSize;
 
     public static List<int?> GeneratePageSequence(int currentPage, int totalPages)
     {

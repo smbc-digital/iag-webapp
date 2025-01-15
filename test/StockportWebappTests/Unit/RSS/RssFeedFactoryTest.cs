@@ -4,126 +4,185 @@ public class RssFeedFactoryTest
 {
     private readonly RssFeedFactory _rssFeedFactory;
 
-    public RssFeedFactoryTest()
-    {
+    public RssFeedFactoryTest() =>
         _rssFeedFactory = new RssFeedFactory();
-    }
 
     [Fact]
     public void CreatesChannelOnRss()
     {
-        var rss = _rssFeedFactory.BuildRssFeed(new List<News>(), "http://localhost:5000/news", "email@test.email");
+        // Act
+        string rss = _rssFeedFactory.BuildRssFeed(new List<News>(), "http://localhost:5000/news", "email@test.email");
 
-        var xmlDoc = XDocument.Parse(rss);
+        XDocument xmlDoc = XDocument.Parse(rss);
+        XElement rootNode = xmlDoc.Root;
+        XElement channelNode = rootNode.Element("channel");
 
-        var rootNode = xmlDoc.Root;
-
-        var channelNode = rootNode.Element("channel");
-
-        channelNode.Element("title").Value.Should().Be("Stockport Council News Feed");
-        channelNode.Element("link").Value.Should().Be("http://localhost:5000/news");
-        channelNode.Element("description").Value.Should().Be("Stockport Council News Feed");
+        // Assert
+        Assert.Equal("Stockport Council News Feed", channelNode.Element("title").Value);
+        Assert.Equal("http://localhost:5000/news", channelNode.Element("link").Value);
+        Assert.Equal("Stockport Council News Feed", channelNode.Element("description").Value);
     }
 
     [Fact]
     public void CreateNewsItemsForRssFeed()
     {
-        var news = new List<News>();
-        news.Add(new News("news item  1", "item1-slug", "teser-item1", "purpose", "", "", "", new List<Crumb>(),
-            new DateTime(2016, 09, 01), new DateTime(2016, 09, 01), new DateTime(2016, 09, 01), new List<Alert>(), new List<string>(), new List<Document>(), new List<Profile>()));
-        news.Add(new News("news item  2", "item2-slug", "teser-item2", "purpose", "", "", "", new List<Crumb>(),
-            new DateTime(2016, 09, 01), new DateTime(2016, 09, 01), new DateTime(2016, 09, 01), new List<Alert>(), new List<string>(), new List<Document>(), new List<Profile>()));
-        news.Add(new News("news item  3", "item3-slug", "teser-item3", "purpose", "", "", "", new List<Crumb>(),
-            new DateTime(2016, 09, 01), new DateTime(2016, 09, 01), new DateTime(2016, 09, 01), new List<Alert>(), new List<string>(), new List<Document>(), new List<Profile>()));
-        news.Add(new News("news item  4", "item4-slug", "teser-item4", "purpose", "", "", "", new List<Crumb>(),
-            new DateTime(2016, 09, 01), new DateTime(2016, 09, 01), new DateTime(2016, 09, 01), new List<Alert>(), new List<string>(), new List<Document>(), new List<Profile>()));
+        // Arrange
+        List<News> news = new()
+        {
+            new("news item  1",
+                "item1-slug",
+                "teser-item1",
+                "purpose",
+                string.Empty,
+                string.Empty,
+                string.Empty,
+                new List<Crumb>(),
+                new DateTime(2016, 09, 01),
+                new DateTime(2016, 09, 01),
+                new DateTime(2016, 09, 01),
+                new List<Alert>(),
+                new List<string>(),
+                new List<Document>(),
+                new List<Profile>()
+            ),
+            new("news item  2",
+                "item2-slug",
+                "teser-item2",
+                "purpose",
+                string.Empty,
+                string.Empty,
+                string.Empty,
+                new List<Crumb>(),
+                new DateTime(2016, 09, 01),
+                new DateTime(2016, 09, 01),
+                new DateTime(2016, 09, 01),
+                new List<Alert>(),
+                new List<string>(),
+                new List<Document>(),
+                new List<Profile>()
+            ),
+            new("news item  3",
+                "item3-slug",
+                "teser-item3",
+                "purpose",
+                string.Empty,
+                string.Empty,
+                string.Empty,
+                new List<Crumb>(),
+                new DateTime(2016, 09, 01),
+                new DateTime(2016, 09, 01),
+                new DateTime(2016, 09, 01),
+                new List<Alert>(),
+                new List<string>(),
+                new List<Document>(),
+                new List<Profile>()
+            ),
+            new("news item  4",
+                "item4-slug",
+                "teser-item4",
+                "purpose",
+                string.Empty,
+                string.Empty,
+                string.Empty,
+                new List<Crumb>(),
+                new DateTime(2016, 09, 01),
+                new DateTime(2016, 09, 01),
+                new DateTime(2016, 09, 01),
+                new List<Alert>(),
+                new List<string>(),
+                new List<Document>(),
+                new List<Profile>()
+            )
+        };
 
-        var rss = _rssFeedFactory.BuildRssFeed(news, "http://localhost", "email@test.email");
+        // Act
+        string rss = _rssFeedFactory.BuildRssFeed(news, "http://localhost", "email@test.email");
 
-        var xmlDoc = XDocument.Parse(rss);
+        // Assert
+        XDocument xmlDoc = XDocument.Parse(rss);
+        XElement rootNode = xmlDoc.Root;
+        XElement channelNode = rootNode.Element("channel");
+        IEnumerable<XElement> itemNodes = channelNode.Elements("item");
 
-        var rootNode = xmlDoc.Root;
-        var channelNode = rootNode.Element("channel");
-        var itemNodes = channelNode.Elements("item");
-
-        itemNodes.ToList()[0].Element("title").Value.Should().Be("news item  4");
-        itemNodes.Count().Should().Be(4);
+        Assert.Equal("news item  4", itemNodes.ToList()[0].Element("title").Value);
+        Assert.Equal(4, itemNodes.Count());
     }
 
     [Fact]
     public void CreateEventItemsForRssFeed()
     {
-        var events = new List<Event>();
-        events.Add(new Event()
+        // Arrange
+        List<Event> events = new()
         {
-            Title = "Event Title 1",
-            Description = "Event Description 1",
-            Categories = new List<string>(),
-            Breadcrumbs = new List<Crumb>(),
-            EventDate = new DateTime(2017, 08, 01),
-            StartTime = "10:00",
-            EndTime = "17:00",
-            Fee = "Free",
-            Documents = new List<Document>(),
-            Location = "Stoppford House",
-            UpdatedAt = new DateTime(2017, 12, 25)
-        });
-        events.Add(new Event()
-        {
-            Title = "Event Title 2",
-            Description = "Event Description 3",
-            Categories = new List<string>(),
-            Breadcrumbs = new List<Crumb>(),
-            EventDate = new DateTime(2017, 08, 01),
-            StartTime = "10:00",
-            EndTime = "17:00",
-            Fee = "Free",
-            Documents = new List<Document>(),
-            Location = "Stoppford House",
-            UpdatedAt = new DateTime(2017, 12, 25)
-        });
+            new()
+            {
+                Title = "Event Title 1",
+                Description = "Event Description 1",
+                Categories = new List<string>(),
+                Breadcrumbs = new List<Crumb>(),
+                EventDate = new DateTime(2017, 08, 01),
+                StartTime = "10:00",
+                EndTime = "17:00",
+                Fee = "Free",
+                Documents = new List<Document>(),
+                Location = "Stoppford House",
+                UpdatedAt = new DateTime(2017, 12, 25)
+            },
+            new()
+            {
+                Title = "Event Title 2",
+                Description = "Event Description 3",
+                Categories = new List<string>(),
+                Breadcrumbs = new List<Crumb>(),
+                EventDate = new DateTime(2017, 08, 01),
+                StartTime = "10:00",
+                EndTime = "17:00",
+                Fee = "Free",
+                Documents = new List<Document>(),
+                Location = "Stoppford House",
+                UpdatedAt = new DateTime(2017, 12, 25)
+            },
+            new()
+            {
+                Title = "Event Title 3",
+                Description = "Event Description 3",
+                Categories = new List<string>(),
+                Breadcrumbs = new List<Crumb>(),
+                EventDate = new DateTime(2017, 08, 01),
+                StartTime = "10:00",
+                EndTime = "17:00",
+                Fee = "Free",
+                Documents = new List<Document>(),
+                Location = "Stoppford House",
+                UpdatedAt = new DateTime(2017, 12, 25)
+            },
+            new()
+            {
+                Title = "Event Title 4",
+                Description = "Event Description 4",
+                Categories = new List<string>(),
+                Breadcrumbs = new List<Crumb>(),
+                EventDate = new DateTime(2017, 08, 01),
+                StartTime = "10:00",
+                EndTime = "17:00",
+                Fee = "Free",
+                Documents = new List<Document>(),
+                Location = "Stoppford House",
+                UpdatedAt = new DateTime(2017, 12, 25)
+            }
+        };
 
-        events.Add(new Event()
-        {
-            Title = "Event Title 3",
-            Description = "Event Description 3",
-            Categories = new List<string>(),
-            Breadcrumbs = new List<Crumb>(),
-            EventDate = new DateTime(2017, 08, 01),
-            StartTime = "10:00",
-            EndTime = "17:00",
-            Fee = "Free",
-            Documents = new List<Document>(),
-            Location = "Stoppford House",
-            UpdatedAt = new DateTime(2017, 12, 25)
-        });
+        // Act
+        string rss = _rssFeedFactory.BuildRssFeed(events, "http://localhost", "email@test.email");
 
-        events.Add(new Event()
-        {
-            Title = "Event Title 4",
-            Description = "Event Description 4",
-            Categories = new List<string>(),
-            Breadcrumbs = new List<Crumb>(),
-            EventDate = new DateTime(2017, 08, 01),
-            StartTime = "10:00",
-            EndTime = "17:00",
-            Fee = "Free",
-            Documents = new List<Document>(),
-            Location = "Stoppford House",
-            UpdatedAt = new DateTime(2017, 12, 25)
-        });
+        XDocument xmlDoc = XDocument.Parse(rss);
+        XElement rootNode = xmlDoc.Root;
+        XElement channelNode = rootNode.Element("channel");
+        IEnumerable<XElement> itemNodes = channelNode.Elements("item");
 
-        var rss = _rssFeedFactory.BuildRssFeed(events, "http://localhost", "email@test.email");
-
-        var xmlDoc = XDocument.Parse(rss);
-
-        var rootNode = xmlDoc.Root;
-        var channelNode = rootNode.Element("channel");
-        var itemNodes = channelNode.Elements("item");
-
-        itemNodes.ToList()[0].Element("title").Value.Should().Be("Event Title 4");
-        itemNodes.ToList()[0].Element("pubDate").Value.Should().Contain("25 Dec 2017");
-        itemNodes.Count().Should().Be(4);
-
+        // Assert
+        Assert.Equal("Event Title 4", itemNodes.ToList()[0].Element("title").Value);
+        Assert.Contains("25 Dec 2017", itemNodes.ToList()[0].Element("pubDate").Value);
+        Assert.Equal(4, itemNodes.Count());
     }
 }

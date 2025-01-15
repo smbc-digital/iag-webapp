@@ -12,8 +12,8 @@
     {
         headingClass = "section__title section__title--padded-bottom";
         bool articleWithSection = ViewData["articleWithSection"] is null 
-                                    ? true 
-                                    : (bool)ViewData["articleWithSection"];
+            ? true 
+            : (bool)ViewData["articleWithSection"];
 
         headingClass += (bool)ViewData["logoAreaArticle"] && (bool)ViewData["articleWithSection"]
             ? " section__title--padding-top"
@@ -24,7 +24,7 @@
 <h2 class="@headingClass @eventDetailHeading">@(!string.IsNullOrEmpty(logoAreaTitle) ? logoAreaTitle : "Our partners")</h2>
 <div class="section__content section__content--no-margin">
     <div class="logo-area">
-        @foreach (var branding in Model)
+        @foreach (GroupBranding branding in Model)
         {
             <div class="logo-area__item">
                 <a href="@branding.Url">

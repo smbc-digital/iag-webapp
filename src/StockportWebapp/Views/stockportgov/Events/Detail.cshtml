@@ -5,7 +5,10 @@
     ViewData["Description"] = Model.MetaDescription;
     ViewData["Location"] = Model.Location;
     Layout = "../Shared/_Layout.cshtml";
-    var crumb = new List<Crumb> {new Crumb("What's on in Stockport", "events", "event")};
+     List<Crumb> crumb = new()
+    {
+        new Crumb("What's on in Stockport", "events", "event")
+    };
 }
 
 @section Breadcrumbs {
@@ -14,14 +17,13 @@
 
 <div class="grid-container-full-width">
     <div class="grid-container grid-100">
-
         <div class="l-body-section-filled l-article-content mobile-grid-100 tablet-grid-100 grid-100" data-cy="event-details">
             <section aria-label="@Model.Title content">
                 <div class="l-content-container grid-100 events-margin">
                     @{
                         if (Model.GlobalAlerts is not null)
                         {
-                            foreach (var alert in Model.GlobalAlerts)
+                            foreach (Alert alert in Model.GlobalAlerts)
                             {
                                 <div>
                                     <partial name="DisplayTemplates/Alert" model='alert' />
@@ -31,7 +33,7 @@
 
                         if (Model.Alerts is not null)
                         {
-                            foreach (var alert in Model.Alerts)
+                            foreach (Alert alert in Model.Alerts)
                             {
                                 if (Model.IsAlertDisplayed(alert))
                                 {
@@ -40,8 +42,10 @@
                             }
                         }
                     }
+
                     <h1 class="events-article-title">@Model.Title</h1>
                     <div tabindex="-1" id="content"></div>
+
                     <div class="grid-100 events-calender-container grid-100">
                         @if (!string.IsNullOrEmpty(Model.ImageUrl))
                         {
@@ -55,12 +59,15 @@
                                     <div class="grid-10 mobile-grid-15 tablet-grid-10 events-details-symbol-containter">
                                         <span class="fa fa-clock-o fa-2x events-details-symbol" aria-hidden="true"></span>
                                     </div>
+
                                     <div class="grid-90 mobile-grid-85 tablet-grid-90 events-details-content">
                                         <div class="events-details-heading">
                                             <h3>Date and time</h3>
                                         </div>
+
                                         @Model.EventDate.ToString("dddd dd MMMM yyyy") @DateTime.Parse(Model.StartTime).ToString("h:mmtt").ToLower() - @DateTime.Parse(Model.EndTime).ToString("h:mmtt").ToLower()
                                     </div>
+
                                     <div class="clearfix"></div>
                                 </li>
 
@@ -68,39 +75,48 @@
                                     <div class="grid-10 mobile-grid-15 tablet-grid-10 events-details-symbol-containter">
                                         <span class="fa fa-gbp fa-2x events-details-symbol" aria-hidden="true"></span>
                                     </div>
+
                                     <div class="grid-90 mobile-grid-85 tablet-grid-90 events-details-content">
                                         <div class="events-details-heading">
                                             <h3>Price</h3>
                                         </div>
                                         @Model.Fee
                                     </div>
+
                                     <div class="clearfix"></div>
                                 </li>
+
                                 <li class="events-details">
                                     <div class="grid-10 mobile-grid-15 tablet-grid-10 events-details-symbol-containter">
                                         <span class="fa fa-map-marker fa-2x events-details-symbol" aria-hidden="true"></span>
                                     </div>
+
                                     <div class="grid-90 mobile-grid-85 tablet-grid-90 events-details-content">
                                         <div class="events-details-heading">
                                             <h3>Location</h3>
                                         </div>
+
                                         @Html.Raw(Model.Location)
                                     </div>
+
                                     <div class="clearfix"></div>
                                 </li>
+
                                 <li class="events-details">
                                     <div class="grid-10 mobile-grid-15 tablet-grid-10 events-details-symbol-containter">
                                         <span class="fa fa-user fa-2x events-details-symbol" aria-hidden="true"></span>
                                     </div>
+
                                     <div class="grid-90 mobile-grid-85 tablet-grid-90 events-details-content">
                                         <div class="events-details-heading">
                                             <h3>Submitted by</h3>
                                         </div>
-                                        @if (Model.Group.Name != string.Empty)
+
+                                        @if (!string.IsNullOrEmpty(Model.Group.Name))
                                         {
                                             <a href="/groups/@Model.Group.Slug">@Model.Group.Name</a>
                                         }
-                                        else if (Model.SubmittedBy != string.Empty)
+                                        else if (!string.IsNullOrEmpty(Model.SubmittedBy))
                                         {
                                             @Model.SubmittedBy
                                         }
@@ -110,18 +126,22 @@
                                         }
 
                                     </div>
+
                                     <div class="clearfix"></div>
                                 </li>
+
                                 @if (!string.IsNullOrEmpty(Model.BookingInformation))
                                 {
                                     <li class="events-details">
                                         <div class="grid-10 mobile-grid-15 tablet-grid-10 events-details-symbol-containter">
                                             <span class="fa fa-ticket fa-2x events-details-symbol" aria-hidden="true"></span>
                                         </div>
+
                                         <div class="grid-90 mobile-grid-85 tablet-grid-90 events-details-content">
                                             <div class="events-details-heading">
                                                 Booking information
                                             </div>
+
                                             @{
                                                 if (Model.BookingInformation.Contains("http") || Model.BookingInformation.Contains("www"))
                                                 {
@@ -137,6 +157,7 @@
                                                 }
                                             }
                                         </div>
+
                                         <div class="clearfix"></div>
                                     </li>
                                 }
@@ -146,22 +167,24 @@
                         <div class="grid-50 events-calender-container-image hide-on-mobile hide-on-tablet" style="background-size: cover; background-position: center; background-image: url(@Model.ImageUrl);">
                         </div>
                     </div>
+
                     <div>
                         <h2 class="events-section-details-heading">Description</h2>
                         <article>
                             @Html.Raw(Model.Description)
                         </article>
                     </div>
+
                     <h2 class="visuallyhidden">Map</h2>
-                    @if (Model.MapDetails.MapPosition != null && Model.MapDetails.MapPosition.Lat != 0.0 && Model.MapDetails.MapPosition.Lon != 0.0)
+                    @if (Model.MapDetails.MapPosition is not null && !Model.MapDetails.MapPosition.Lat.Equals(0.0) && !Model.MapDetails.MapPosition.Lon.Equals(0.0))
                     {
                         <div class="event-map-container">
                             <br />
                             <partial name="MapPosition" model='Model.MapDetails' view-data='@(new ViewDataDictionary(ViewData) {{ "eventMap", false }})' />
                         </div>
                     }
-
                 </div>
+
                 <div class="l-content-container grid-100">
                     <div class="share border top-border">
                         <partial name="ShareViaCalendar" model='Model' />

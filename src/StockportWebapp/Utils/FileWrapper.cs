@@ -9,13 +9,9 @@ public interface IFileWrapper
 [ExcludeFromCodeCoverage]
 public class FileWrapper : IFileWrapper
 {
-    public bool Exists(string path)
-    {
-        return File.Exists(path);
-    }
+    public bool Exists(string path) =>
+        File.Exists(path);
 
-    public string[] ReadAllLines(string path)
-    {
-        return File.ReadAllLines(path);
-    }
+    public string[] ReadAllLines(string path) =>
+        File.ReadAllLines(path);
 }

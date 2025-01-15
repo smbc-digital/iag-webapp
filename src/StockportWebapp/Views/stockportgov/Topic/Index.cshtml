@@ -1,6 +1,6 @@
 @model TopicViewModel
 @{
-    var topic = Model.Topic;
+    ProcessedTopic topic = Model.Topic;
     ViewData["Title"] = topic.Name;
     ViewData["og:title"] = topic.Name;
     ViewData["Description"] = topic.MetaDescription;
@@ -48,7 +48,6 @@
         </div>
     }
     
-
     @if (topic.SecondaryItems.Any())
     {
         <partial name="TopicSecondaryItems" model='topic.SecondaryItems'/>
@@ -56,7 +55,7 @@
 
     @if(!string.IsNullOrEmpty(topic.EventCalendarBanner.Title) && topic.CallToAction is not null)
     { 
-         <partial name="EventBanner" model='topic.EventCalendarBanner'/>
+        <partial name="EventBanner" model='topic.EventCalendarBanner'/>
     }
 
     <partial name="LogoArea" model='topic.TopicBranding' view-data='@(new ViewDataDictionary(ViewData) {{"logoAreaTitle", @topic.LogoAreaTitle}, {"logoAreaArticle", false}, {"displayInSection", true}})' />

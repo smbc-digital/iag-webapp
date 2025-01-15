@@ -21,10 +21,21 @@ public class ProcessedServicePayPayment : IProcessedContentType
     public ProcessedServicePayPayment()
     { }
 
-    public ProcessedServicePayPayment(string title, string slug, string teaser, string description, string paymentDetailsText,
-        string referenceLabel, List<Crumb> breadcrumbs, EPaymentReferenceValidation referenceValidation,
-        string metaDescription, string returnUrl, string catalogueId, string accountReference,
-        string paymentDescription, IEnumerable<Alert> alerts, string paymentAmount)
+    public ProcessedServicePayPayment(string title,
+                                    string slug,
+                                    string teaser,
+                                    string description,
+                                    string paymentDetailsText,
+                                    string referenceLabel,
+                                    List<Crumb> breadcrumbs,
+                                    EPaymentReferenceValidation referenceValidation,
+                                    string metaDescription,
+                                    string returnUrl,
+                                    string catalogueId,
+                                    string accountReference,
+                                    string paymentDescription,
+                                    IEnumerable<Alert> alerts,
+                                    string paymentAmount)
     {
         Title = title;
         Slug = slug;

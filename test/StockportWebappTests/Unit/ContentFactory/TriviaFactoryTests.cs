@@ -6,10 +6,8 @@ public class TriviaFactoryTests
 
     private readonly TriviaFactory _factory;
 
-    public TriviaFactoryTests()
-    {
-        _factory = new TriviaFactory(_markdownWrapper);
-    }
+    public TriviaFactoryTests() =>
+        _factory = new(_markdownWrapper);
 
     [Fact]
     public void Build_ShouldReturnCorrectListOfTrivia()

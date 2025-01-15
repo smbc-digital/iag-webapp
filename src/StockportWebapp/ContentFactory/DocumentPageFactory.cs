@@ -1,13 +1,10 @@
 ﻿namespace StockportWebapp.ContentFactory;
 
-public class DocumentPageFactory
+public class DocumentPageFactory(MarkdownWrapper markdownWrapper)
 {
-    private readonly MarkdownWrapper _markdownWrapper;
+    private readonly MarkdownWrapper _markdownWrapper = markdownWrapper;
 
-    public DocumentPageFactory(MarkdownWrapper markdownWrapper) => _markdownWrapper = markdownWrapper;
-
-    public virtual DocumentPage Build(DocumentPage documentPage) 
-        => new()
+    public virtual DocumentPage Build(DocumentPage documentPage) => new()
         {
             Title = documentPage.Title,
             Slug = documentPage.Slug,

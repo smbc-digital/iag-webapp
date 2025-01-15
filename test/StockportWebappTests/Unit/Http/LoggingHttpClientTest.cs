@@ -2,29 +2,36 @@
 
 public class LoggingHttpClientTest
 {
-    readonly FakeHttpClient _fakeHttpClient = new FakeHttpClient();
+    readonly FakeHttpClient _fakeHttpClient = new();
 
     [Fact]
-    public async void HandlesNoResponseFromRemote()
+    public async Task HandlesNoResponseFromRemote()
     {
-        _fakeHttpClient.For("a url").Throw(
-            new AggregateException(new HttpRequestException()));
-        var logger = new Mock<ILogger<LoggingHttpClient>>().Object;
-        var httpClient = new LoggingHttpClient(_fakeHttpClient, logger);
+        // Arrange
+        _fakeHttpClient.For("a url").Throw(new AggregateException(new HttpRequestException()));
+        ILogger<LoggingHttpClient> logger = new Mock<ILogger<LoggingHttpClient>>().Object;
+        LoggingHttpClient httpClient = new(_fakeHttpClient, logger);
+        
+        // Act
         HttpResponse response = await httpClient.Get("a url", new Dictionary<string, string>());
 
+        // Assert
         Assert.Equal(503, response.StatusCode);
         Assert.Equal("Failed to invoke the requested resource", response.Error);
     }
 
     [Fact]
-    public async void ReturnsSuccessfulResponseFromRemote()
+    public async Task ReturnsSuccessfulResponseFromRemote()
     {
+        // Arrange
         _fakeHttpClient.For("a url").Return(HttpResponse.Successful(200, "some data"));
-        var logger = new Mock<ILogger<LoggingHttpClient>>().Object;
-        var httpClient = new LoggingHttpClient(_fakeHttpClient, logger);
+        ILogger<LoggingHttpClient> logger = new Mock<ILogger<LoggingHttpClient>>().Object;
+        LoggingHttpClient httpClient = new(_fakeHttpClient, logger);
+        
+        // Act
         HttpResponse response = await httpClient.Get("a url", new Dictionary<string, string>());
 
+        // Assert
         Assert.Equal(200, response.StatusCode);
     }
 }

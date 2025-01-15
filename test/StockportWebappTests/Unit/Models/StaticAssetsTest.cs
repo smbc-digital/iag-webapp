@@ -5,13 +5,18 @@ public class StaticAssetsTest
     [Fact]
     public void ShouldProvideFullUrlForAnAssetUsingConfiguredRoot()
     {
-        var config = new Mock<IApplicationConfiguration>();
-        var assets = new StaticAssets(config.Object);
+        // Arrange
+        Mock<IApplicationConfiguration> config = new();
+        StaticAssets assets = new(config.Object);
 
-        config.Setup(o => o.GetStaticAssetsRootUrl()).Returns("http://assets.example.com/");
+        config
+            .Setup(conf => conf.GetStaticAssetsRootUrl())
+            .Returns("http://assets.example.com/");
 
-        var asset = assets.UrlFor("logo.png");
+        // Act
+        string asset = assets.UrlFor("logo.png");
 
-        asset.Should().Be("http://assets.example.com/logo.png");
+        // Assert
+        Assert.Equal("http://assets.example.com/logo.png", asset);
     }
 }

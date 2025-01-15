@@ -6,17 +6,10 @@ public interface IUrlHelperWrapper
 }
 
 [ExcludeFromCodeCoverage]
-public class UrlHelperWrapper : IUrlHelperWrapper
+public class UrlHelperWrapper(IUrlHelper actualUrlHelper) : IUrlHelperWrapper
 {
-    private readonly IUrlHelper _actualUrlHelper;
+    private readonly IUrlHelper _actualUrlHelper = actualUrlHelper;
 
-    public UrlHelperWrapper(IUrlHelper actualUrlHelper)
-    {
-        _actualUrlHelper = actualUrlHelper;
-    }
-
-    public string RouteUrl(RouteValueDictionary routeValueDictionary)
-    {
-        return _actualUrlHelper.RouteUrl(routeValueDictionary);
-    }
+    public string RouteUrl(RouteValueDictionary routeValueDictionary) =>
+        _actualUrlHelper.RouteUrl(routeValueDictionary);
 }

@@ -1,11 +1,8 @@
 ﻿namespace StockportWebapp.ContentFactory;
 
-public class PrivacyNoticeFactory
+public class PrivacyNoticeFactory(MarkdownWrapper markdownWrapper)
 {
-    private readonly MarkdownWrapper _markdownWrapper;
-
-    public PrivacyNoticeFactory(MarkdownWrapper markdownWrapper) 
-        => _markdownWrapper = markdownWrapper;
+    private readonly MarkdownWrapper _markdownWrapper = markdownWrapper;
 
     public virtual ProcessedPrivacyNotice Build(PrivacyNotice privacyNotice)
     {
@@ -16,7 +13,19 @@ public class PrivacyNoticeFactory
         string retentionPeriodHtml = _markdownWrapper.ConvertToHtml(privacyNotice.RetentionPeriod);
         string legistationHtml = _markdownWrapper.ConvertToHtml(privacyNotice.Legislation);
 
-        ProcessedPrivacyNotice processedPrivacyNotice = new(privacyNotice.Slug, privacyNotice.Title, privacyNotice.Category, purposeHtml, typeOfDataHtml, legistationHtml, obtainedHtml, externallySharedHtml, retentionPeriodHtml, privacyNotice.OutsideEu, privacyNotice.AutomatedDecision, privacyNotice.Breadcrumbs, privacyNotice.ParentTopic);
+        ProcessedPrivacyNotice processedPrivacyNotice = new(privacyNotice.Slug,
+                                                            privacyNotice.Title,
+                                                            privacyNotice.Category,
+                                                            purposeHtml,
+                                                            typeOfDataHtml,
+                                                            legistationHtml,
+                                                            obtainedHtml,
+                                                            externallySharedHtml,
+                                                            retentionPeriodHtml,
+                                                            privacyNotice.OutsideEu,
+                                                            privacyNotice.AutomatedDecision,
+                                                            privacyNotice.Breadcrumbs,
+                                                            privacyNotice.ParentTopic);
 
         return processedPrivacyNotice;
     }

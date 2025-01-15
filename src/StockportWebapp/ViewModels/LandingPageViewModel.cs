@@ -1,13 +1,9 @@
 ﻿namespace StockportWebapp.ViewModels;
 
-public class LandingPageViewModel
+public class LandingPageViewModel(LandingPage landingPage)
 {
-    public readonly LandingPage LandingPage;
+    public readonly LandingPage LandingPage = landingPage;
 
-    public LandingPageViewModel(LandingPage landingPage)
-    {
-        LandingPage = landingPage;
-    }
-
-    public bool ScreenWidth => LandingPage.PageSections.Any(pageSection => pageSection is not null && pageSection.ContentType.Contains("ScreenWidth"));
+    public bool ScreenWidth =>
+        LandingPage.PageSections.Any(pageSection => pageSection is not null && pageSection.ContentType.Contains("ScreenWidth"));
 }

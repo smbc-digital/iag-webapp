@@ -2,7 +2,7 @@
 
 <div class="featured-topics featured-topics-primary">
     <div id="test-featured-topic-list" class="featured-topic-list primary-feature-box matchbox-parent">
-        @foreach (var topic in Model)
+        @foreach (Topic topic in Model)
         {
             <div class="grid-33 tablet-grid-33 mobile-grid-33 featured-topic primary-feature-match matchbox-child">
                 <div class="featured-topic-content">
@@ -13,9 +13,10 @@
 
                         <h4 class="featured-topic-name">@topic.Title</h4>
                     </a>
+
                     <p class="hide-on-mobile hide-on-tablet featured-topic-description">
                         Including
-                        @foreach (var subItem in topic.TopSubItems.Take(2))
+                        @foreach (SubItem subItem in topic.TopSubItems.Take(2))
                         {
                             <br /><a href="@subItem.NavigationLink">@subItem.Title</a>
                         }

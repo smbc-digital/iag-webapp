@@ -1,16 +1,11 @@
 ﻿namespace StockportWebapp.Controllers;
 [Obsolete("Groups is being replaced by directories/directory entries, favorites is no longer used")]
 [ExcludeFromCodeCoverage(Justification="Obsolete")]
-public class FavouritesController
+public class FavouritesController(CookiesHelper cookiesHelper,
+                                IHttpContextAccessor httpContextAccessor)
 {
-    private CookiesHelper _cookiesHelper;
-    private IHttpContextAccessor _httpContextAccessor;
-
-    public FavouritesController(CookiesHelper cookiesHelper, IHttpContextAccessor httpContextAccessor)
-    {
-        _cookiesHelper = cookiesHelper;
-        _httpContextAccessor = httpContextAccessor;
-    }
+    private CookiesHelper _cookiesHelper = cookiesHelper;
+    private IHttpContextAccessor _httpContextAccessor = httpContextAccessor;
 
     [Route("/favourites/add")]
     public IActionResult AddGroupsFavourite([FromQuery] string slug, [FromQuery] string type)
@@ -41,12 +36,10 @@ public class FavouritesController
                 break;
         }
 
-        var referer = _httpContextAccessor.HttpContext.Request.Headers["referer"];
+        StringValues referer = _httpContextAccessor.HttpContext.Request.Headers["referer"];
 
         if (string.IsNullOrEmpty(referer))
-        {
             return new RedirectToActionResult("FavouriteGroups", "Groups", null);
-        }
 
         return new RedirectResult(referer);
     }
@@ -80,12 +73,10 @@ public class FavouritesController
                 break;
         }
 
-        var referer = _httpContextAccessor.HttpContext.Request.Headers["referer"];
+        StringValues referer = _httpContextAccessor.HttpContext.Request.Headers["referer"];
 
         if (string.IsNullOrEmpty(referer))
-        {
             return new RedirectToActionResult("FavouriteGroups", "Groups", null);
-        }
 
         return new RedirectResult(referer);
     }

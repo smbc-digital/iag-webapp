@@ -1,17 +1,10 @@
 namespace StockportWebapp.Controllers;
 
-public class DocumentController : Controller
+public class DocumentController(IDocumentPageRepository documentPageRepository,
+                                IContactUsMessageTagParser contactUsMessageParser) : Controller
 {
-    private readonly IDocumentPageRepository _documentPageRepository;
-    private readonly IContactUsMessageTagParser _contactUsMessageParser;
-
-    public DocumentController(
-        IDocumentPageRepository documentPageRepository,
-        IContactUsMessageTagParser contactUsMessageParser)
-    {
-        _documentPageRepository = documentPageRepository;
-        _contactUsMessageParser = contactUsMessageParser;
-    }
+    private readonly IDocumentPageRepository _documentPageRepository = documentPageRepository;
+    private readonly IContactUsMessageTagParser _contactUsMessageParser = contactUsMessageParser;
 
     [Route("/documents/{documentPageSlug}")]
     public async Task<IActionResult> Index(string documentPageSlug)

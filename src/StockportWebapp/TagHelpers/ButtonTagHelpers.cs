@@ -11,12 +11,10 @@ public class DefaultButtonTagHelper : TagHelper
             output.Attributes.RemoveAll("as-link");
         }
         else
-        {
             output.TagName = "button";
-        }
+
         await HtmlAttributes.UpdateClassesToInclude(output, "button-default");
     }
-
 }
 
 [HtmlTargetElement("stock-button-loading", ParentTag = null)]

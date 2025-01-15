@@ -5,23 +5,18 @@ public interface IContactUsCategoryFactory
     ProcessedContactUsCategory Build(ContactUsCategory contactUsCategory);
 }
 
-public class ContactUsCategoryFactory : IContactUsCategoryFactory
+public class ContactUsCategoryFactory(ITagParserContainer tagParserContainer,
+                                    MarkdownWrapper markdownWrapper) : IContactUsCategoryFactory
 {
-    private readonly MarkdownWrapper _markdownWrapper;
-    private readonly ITagParserContainer _tagParserContainer;
-
-    public ContactUsCategoryFactory(ITagParserContainer tagParserContainer, MarkdownWrapper markdownWrapper)
-    {
-        _tagParserContainer = tagParserContainer;
-        _markdownWrapper = markdownWrapper;
-    }
+    private readonly MarkdownWrapper _markdownWrapper = markdownWrapper;
+    private readonly ITagParserContainer _tagParserContainer = tagParserContainer;
 
     public ProcessedContactUsCategory Build(ContactUsCategory contactUsCategory)
     {
-        var parsedBodyTextLeft = _markdownWrapper.ConvertToHtml(contactUsCategory.BodyTextLeft);
+        string parsedBodyTextLeft = _markdownWrapper.ConvertToHtml(contactUsCategory.BodyTextLeft);
         parsedBodyTextLeft = _tagParserContainer.ParseAll(parsedBodyTextLeft);
 
-        var parsedBodyTextRight = _markdownWrapper.ConvertToHtml(contactUsCategory.BodyTextRight);
+        string parsedBodyTextRight = _markdownWrapper.ConvertToHtml(contactUsCategory.BodyTextRight);
         parsedBodyTextRight = _tagParserContainer.ParseAll(parsedBodyTextRight);
 
         return new ProcessedContactUsCategory(

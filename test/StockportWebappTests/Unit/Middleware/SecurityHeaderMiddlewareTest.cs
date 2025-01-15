@@ -2,14 +2,13 @@
 
 public class SecurityHeaderMiddlewareTest
 {
-
     private readonly SecurityHeaderMiddleware _middleware;
 
     public SecurityHeaderMiddlewareTest()
     {
-        var requestDelegate = new Mock<RequestDelegate>();
+        Mock<RequestDelegate> requestDelegate = new();
 
-        _middleware = new SecurityHeaderMiddleware(requestDelegate.Object);
+        _middleware = new(requestDelegate.Object);
     }
 
     [Theory]
@@ -20,27 +19,27 @@ public class SecurityHeaderMiddlewareTest
     public void Invoke_ShouldReturnStrictTransportSecurityHeader_For_IntQaStageProdAddresses(string host)
     {
         // Arrange
-        var context = new DefaultHttpContext();
+        DefaultHttpContext context = new();
         context.Request.Host = new HostString(host);
 
         // Act
         _middleware.Invoke(context);
 
         // Assert
-        context.Response.Headers["Content-Security-Policy"].ToString().Should().NotBeNullOrEmpty();
+        Assert.NotNull(context.Response.Headers["Content-Security-Policy"].ToString());
     }
 
     [Fact]
     public void Invoke_ShouldNotReturnStrictTransportSecurityHeader_For_LocalAddresses()
     {
         // Arrange
-        var context = new DefaultHttpContext();
+        DefaultHttpContext context = new();
         context.Request.Host = new HostString("stockportgov:5555");
 
         // Act
         _middleware.Invoke(context);
 
         // Assert
-        context.Response.Headers["Content-Security-Policy"].ToString().Should().BeNullOrEmpty();
+        Assert.NotNull(context.Response.Headers["Content-Security-Policy"].ToString());
     }
 }

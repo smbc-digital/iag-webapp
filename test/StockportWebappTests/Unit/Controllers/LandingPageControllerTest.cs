@@ -23,7 +23,7 @@ public class LandingPageControllerTest
     public LandingPageControllerTest()
     {
         _repository
-            .Setup(_ => _.Get<LandingPage>(It.IsAny<string>(), It.IsAny<List<Query>>()))
+            .Setup(repo => repo.Get<LandingPage>(It.IsAny<string>(), It.IsAny<List<Query>>()))
             .ReturnsAsync(HttpResponse.Successful(200, landingPage));
 
         _landingPageController = new LandingPageController(_repository.Object);
@@ -34,7 +34,7 @@ public class LandingPageControllerTest
     {
         // Arrange
         _repository
-            .Setup(_ => _.Get<LandingPage>(It.IsAny<string>(), It.IsAny<List<Query>>()))
+            .Setup(repo => repo.Get<LandingPage>(It.IsAny<string>(), It.IsAny<List<Query>>()))
             .ReturnsAsync(HttpResponse.Failure(404, "Error"));
 
         // Act

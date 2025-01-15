@@ -14,18 +14,12 @@ public interface IDirectoryService
     Dictionary<string, int> GetAllFilterCounts(IEnumerable<DirectoryEntry> allEntries);
 }
 
-public class DirectoryService : IDirectoryService {
-    private readonly MarkdownWrapper _markdownWrapper;
-    private readonly IRepository _repository;
-    private readonly ITagParserContainer _tagParserContainer;
-
-    public DirectoryService(MarkdownWrapper markdownWrapper, IRepository repository,ITagParserContainer tagParserContainer)
-
-    {
-        _markdownWrapper = markdownWrapper;
-        _repository = repository;
-        _tagParserContainer = tagParserContainer;
-    }
+public class DirectoryService(MarkdownWrapper markdownWrapper,
+                            IRepository repository,
+                            ITagParserContainer tagParserContainer) : IDirectoryService {
+    private readonly MarkdownWrapper _markdownWrapper = markdownWrapper;
+    private readonly IRepository _repository = repository;
+    private readonly ITagParserContainer _tagParserContainer = tagParserContainer;
 
     public async Task<Directory> Get<T>(string slug = "")
     {

@@ -1,6 +1,5 @@
 ﻿namespace StockportWebapp.Models.Exceptions;
 
-public class InvalidJwtException : Exception
+public class InvalidJwtException(string message) : Exception(message)
 {
-    public InvalidJwtException(string message) : base(message) { }
 }

@@ -1,13 +1,7 @@
 ﻿namespace StockportWebapp.ViewModels;
 
-public class Image
+public class Image(string cssclass, string imageUrl)
 {
-    public string cssClass { get; }
-    public string url { get; }
-
-    public Image(string cssclass, string imageUrl)
-    {
-        cssClass = cssclass;
-        url = imageUrl;
-    }
+    public string CssClass { get; } = cssclass;
+    public string Url { get; } = imageUrl;
 }

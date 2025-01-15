@@ -1,7 +1,7 @@
 ﻿@inject IStaticAssets StaticAssets
 @inject StockportWebapp.Utils.ILoggedInHelper loggedInHelper
 @{ 
-    var user = loggedInHelper.GetLoggedInPerson();
+    LoggedInPerson user = loggedInHelper.GetLoggedInPerson();
 }
 
 <div class="l-header-container">
@@ -10,6 +10,7 @@
             <a href="#content" class="skip-main">Skip to main content</a>
         </div>
     </nav>
+
     <header role="banner" id="header" class="grid-container grid-100">
         <div class="grid-50 mobile-grid-50 tablet-grid-50 logo-main">
             <a href="https://www.stockport.gov.uk">
@@ -23,6 +24,7 @@
                     height="60">
             </a>
         </div>
+
         <div class="grid-50 mobile-grid-50 tablet-grid-50 grid-parent">
             <div class="header-container grid-100 grid-parent">
                 <div class="grid-50 grid-parent header-myaccount">
@@ -56,6 +58,7 @@
                                                 <label for="modal"><span class="fa fa-times" aria-hidden="true"></span>Close</label>
                                             </div>
                                         </div>
+
                                         <div class="modal-box">
                                             <nav class="mobile-menu">
                                                 <ul>
@@ -81,6 +84,7 @@
                         }
                     </div>
                 </div>
+
                 <div class="grid-50 grid-parent pull-right header-search-bar">
                     <partial name="HeaderSearchBar" />
                 </div>
@@ -88,6 +92,7 @@
         </div>
     </header>
 </div>
+
 <partial name="MobileSearchBar" />
 <partial name="BrowserCheck" />
 

@@ -2,32 +2,31 @@ namespace StockportWebappTests_Unit.Unit.Parsers;
 
 public class IFrameTagParserTests
 {
-    private readonly IFrameTagParser _parser;
-
-    public IFrameTagParserTests()
-    {
-        _parser = new IFrameTagParser();
-    }
+    private readonly IFrameTagParser _parser = new();
 
     [Fact]
     public void Parse_Should_Parse_IFrame()
     {
-        var tag = "https://www.stockport.gov.uk/";
-        var response = _parser.Parse("{{IFRAME:" + tag + "}}");
+        // Arrange
+        string outputHtml = $"<iframe  class='mapframe' allowfullscreen src='https://www.stockport.gov.uk/'></iframe>";
 
-        var outputHtml = $"<iframe  class='mapframe' allowfullscreen src='https://www.stockport.gov.uk/'></iframe>";
+        // Act
+        string response = _parser.Parse("{{IFRAME:https://www.stockport.gov.uk/}}");
 
-        response.Should().Be(outputHtml);
+        // Assert
+        Assert.Equal(outputHtml, response);
     }
 
     [Fact]
     public void Parse_Should_Parse_IFrame_WithOptional_Iframe_Title()
     {
-        var tag = "https://www.stockport.gov.uk/;iframe optional title";
-        var response = _parser.Parse("{{IFRAME:" + tag + "}}");
+        // Arrange
+        string outputHtml = $"<iframe title=\"iframe optional title\" class='mapframe' allowfullscreen src='https://www.stockport.gov.uk/'></iframe>";
 
-        var outputHtml = $"<iframe title=\"iframe optional title\" class='mapframe' allowfullscreen src='https://www.stockport.gov.uk/'></iframe>";
+        // Act
+        string response = _parser.Parse("{{IFRAME:https://www.stockport.gov.uk/;iframe optional title}}");
 
-        response.Should().Be(outputHtml);
+        // Assert
+        Assert.Equal(outputHtml, response);
     }
 }

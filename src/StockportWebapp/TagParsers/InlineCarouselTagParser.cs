@@ -22,6 +22,7 @@ public class InlineCarouselTagParser : ISimpleTagParser
         string[] tagArray = tagData.Split(',');
 
         List<(string Src, string Alt)> carouselItems = new();
+
         // Regex fallback for (src) and [alt] syntax
         Regex srcRegex = new(@"\(([^\)]*)\)");
         Regex altRegex = new(@"\[([^\]]*)\]");
@@ -36,9 +37,7 @@ public class InlineCarouselTagParser : ISimpleTagParser
             string alt = doc.DocumentNode.SelectSingleNode("//img")?.GetAttributeValue("alt", string.Empty) ?? string.Empty;
 
             if (!string.IsNullOrEmpty(src))
-            {
                 carouselItems.Add((src, alt));
-            }
             else
             {
                 string srcText = srcRegex.Match(item).Groups[1].Value;

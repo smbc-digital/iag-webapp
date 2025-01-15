@@ -1,14 +1,9 @@
 ﻿namespace StockportWebapp.Models;
 
-public class LegacyUrlRedirects
+public class LegacyUrlRedirects(BusinessIdRedirectDictionary businessIdRedirectDictionary)
 {
-    public BusinessIdRedirectDictionary Redirects;
+    public BusinessIdRedirectDictionary Redirects = businessIdRedirectDictionary;
     public DateTime LastUpdated;
-
-    public LegacyUrlRedirects(BusinessIdRedirectDictionary businessIdRedirectDictionary)
-    {
-        Redirects = businessIdRedirectDictionary;
-    }
 
     public bool HasExpired() => LastUpdated < DateTime.Now.Subtract(new TimeSpan(0, 30, 0));
 }

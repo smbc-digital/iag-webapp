@@ -1,39 +1,34 @@
 ﻿namespace StockportWebapp.Models;
 [ExcludeFromCodeCoverage]
-public class News
+public class News(string title,
+                string slug,
+                string teaser,
+                string purpose,
+                string image,
+                string thumbnailImage,
+                string body,
+                List<Crumb> breadcrumbs,
+                DateTime sunriseDate,
+                DateTime sunsetDate,
+                DateTime updatedAt,
+                List<Alert> alerts,
+                List<string> tags,
+                IEnumerable<Document> documents,
+                IEnumerable<Profile> profiles)
 {
-    public string Title { get; }
-    public string Slug { get; }
-    public string Teaser { get; }
-    public string Purpose { get; set; }
-    public string Image { get; }
-    public string ThumbnailImage { get; }
-    public string Body { get; }
-    public List<Crumb> Breadcrumbs { get; }
-    public DateTime SunriseDate { get; }
-    public DateTime SunsetDate { get; }
-    public DateTime UpdatedAt { get; }
-    public List<Alert> Alerts { get; }
-    public List<string> Tags { get; }
-    public IEnumerable<Document> Documents { get; set; }
-    public IEnumerable<Profile> Profiles { get; set; }
-
-    public News(string title, string slug, string teaser, string purpose, string image, string thumbnailImage, string body, List<Crumb> breadcrumbs, DateTime sunriseDate, DateTime sunsetDate, DateTime updatedAt, List<Alert> alerts, List<string> tags, IEnumerable<Document> documents, IEnumerable<Profile> profiles)
-    {
-        Title = title;
-        Slug = slug;
-        Teaser = teaser;
-        Purpose = purpose;
-        Image = image;
-        ThumbnailImage = thumbnailImage;
-        Body = body;
-        Breadcrumbs = breadcrumbs;
-        SunriseDate = sunriseDate;
-        SunsetDate = sunsetDate;
-        UpdatedAt = updatedAt;
-        Alerts = alerts;
-        Tags = tags;
-        Documents = documents;
-        Profiles = profiles;
-    }
+    public string Title { get; } = title;
+    public string Slug { get; } = slug;
+    public string Teaser { get; } = teaser;
+    public string Purpose { get; set; } = purpose;
+    public string Image { get; } = image;
+    public string ThumbnailImage { get; } = thumbnailImage;
+    public string Body { get; } = body;
+    public List<Crumb> Breadcrumbs { get; } = breadcrumbs;
+    public DateTime SunriseDate { get; } = sunriseDate;
+    public DateTime SunsetDate { get; } = sunsetDate;
+    public DateTime UpdatedAt { get; } = updatedAt;
+    public List<Alert> Alerts { get; } = alerts;
+    public List<string> Tags { get; } = tags;
+    public IEnumerable<Document> Documents { get; set; } = documents;
+    public IEnumerable<Profile> Profiles { get; set; } = profiles;
 }

@@ -1,17 +1,11 @@
 ﻿namespace StockportWebapp.ViewComponents;
 
-public class FooterViewComponent : ViewComponent
+public class FooterViewComponent(IRepository repository,
+                                ILogger<FooterViewComponent> logger, MarkdownWrapper markdownWrapper) : ViewComponent
 {
-    private readonly IRepository _repository;
-    private readonly ILogger<FooterViewComponent> _logger;
-    private readonly MarkdownWrapper _markdownWrapper;
-
-    public FooterViewComponent(IRepository repository, ILogger<FooterViewComponent> logger, MarkdownWrapper markdownWrapper)
-    {
-        _repository = repository;
-        _logger = logger;
-        _markdownWrapper = markdownWrapper;
-    }
+    private readonly IRepository _repository = repository;
+    private readonly ILogger<FooterViewComponent> _logger = logger;
+    private readonly MarkdownWrapper _markdownWrapper = markdownWrapper;
 
     public async Task<IViewComponentResult> InvokeAsync()
     {

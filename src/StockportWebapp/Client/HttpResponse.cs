@@ -1,22 +1,18 @@
 ﻿namespace StockportWebapp.Client;
 
 [ExcludeFromCodeCoverage]
-public class HttpResponse : StatusCodeResult
+public class HttpResponse(int statusCode,
+                        object content,
+                        string error) : StatusCodeResult(statusCode)
 {
-    public readonly object Content;
-    public readonly string Error;
-
-    public HttpResponse(int statusCode, object content, string error) : base(statusCode)
-    {
-        Content = content;
-        Error = error;
-    }
+    public readonly object Content = content;
+    public readonly string Error = error;
 
     public static HttpResponse Successful(int statusCode, object content) =>
-        new HttpResponse(statusCode, content, string.Empty);
+        new(statusCode, content, string.Empty);
 
     public static HttpResponse Failure(int statusCode, string error) =>
-        new HttpResponse(statusCode, string.Empty, error);
+        new(statusCode, string.Empty, error);
     
     public override string ToString() =>
         JsonConvert.SerializeObject(this);
@@ -26,7 +22,8 @@ public class HttpResponse : StatusCodeResult
         if (!httpResponse.IsSuccessful())
             return httpResponse;
 
-        var content = JsonConvert.DeserializeObject<T>(httpResponse.Content as string);
+        T content = JsonConvert.DeserializeObject<T>(httpResponse.Content as string);
+
         return Successful(httpResponse.StatusCode, content);
     }
 }
@@ -35,11 +32,11 @@ public class HttpResponse : StatusCodeResult
 public static class StatusCodeResultExtensions
 {
     internal static bool IsSuccessful(this StatusCodeResult result) =>
-        result.StatusCode == 200;
+        result.StatusCode.Equals(200);
 
     internal static bool IsNotFound(this StatusCodeResult result) =>
-        result.StatusCode == 404;
+        result.StatusCode.Equals(404);
 
     internal static bool IsNotAuthorised(this StatusCodeResult result) =>
-        result.StatusCode == 401;
+        result.StatusCode.Equals(401);
 }

@@ -1,24 +1,18 @@
 namespace StockportWebapp.Controllers;
 
 [ResponseCache(Location = ResponseCacheLocation.Any, Duration = Cache.Medium)]
-public class HomeController : Controller
+public class HomeController(BusinessId businessId,
+                            IApplicationConfiguration applicationConfiguration,
+                            INewsService newsService, IEventsService eventsService,
+                            IHomepageService homepageService,
+                            IStockportApiEventsService stockportApiService) : Controller
 {
-    private readonly BusinessId _businessId;
-    private readonly IApplicationConfiguration _config;
-    private readonly INewsService _newsService;
-    private readonly IEventsService _eventsService;
-    private readonly IHomepageService _homepageService;
-    private readonly IStockportApiEventsService _stockportApiEventsService;
-
-    public HomeController(BusinessId businessId, IApplicationConfiguration applicationConfiguration, INewsService newsService, IEventsService eventsService, IHomepageService homepageService, IStockportApiEventsService stockportApiService)
-    {
-        _config = applicationConfiguration;
-        _businessId = businessId;
-        _newsService = newsService;
-        _eventsService = eventsService;
-        _homepageService = homepageService;
-        _stockportApiEventsService = stockportApiService;
-    }
+    private readonly BusinessId _businessId = businessId;
+    private readonly IApplicationConfiguration _config = applicationConfiguration;
+    private readonly INewsService _newsService = newsService;
+    private readonly IEventsService _eventsService = eventsService;
+    private readonly IHomepageService _homepageService = homepageService;
+    private readonly IStockportApiEventsService _stockportApiEventsService = stockportApiService;
 
     [Route("/")]
     public async Task<IActionResult> Index()
@@ -48,16 +42,16 @@ public class HomeController : Controller
 
         Task.WaitAll(tasks.ToArray());
 
-        var homepageViewModel = new HomepageViewModel
-        {
-            HomepageContent = homepage,
-            FeaturedEvent = getEventsTask.Result,
-            FeaturedNews = getNewsTask.Result,
-            FeaturedEvents = getFeaturedEvents.Result,
-            EventsFromApi = eventsByCategoryTask is not null ? eventsByCategoryTask.Result?.Take(3).ToList() : new List<Event>()
-        };
-
-        return View(homepageViewModel);
+        return View(new HomepageViewModel
+            {
+                HomepageContent = homepage,
+                FeaturedEvent = getEventsTask.Result,
+                FeaturedNews = getNewsTask.Result,
+                FeaturedEvents = getFeaturedEvents.Result,
+                EventsFromApi = eventsByCategoryTask is not null
+                    ? eventsByCategoryTask.Result?.Take(3).ToList()
+                    : new List<Event>()
+            });
     }
 
     [Route("/subscribe")]

@@ -1,15 +1,8 @@
 ﻿namespace StockportWebapp.Models.Emails;
 [ExcludeFromCodeCoverage]
-public class GroupArchiveWarningEmailViewModel
+public class GroupArchiveWarningEmailViewModel(string administratorName, string groupName, string emailAddress)
 {
-    public string GroupName { get; set; }
-    public string AdministratorName { get; set; }
-    public string EmailAddress { get; set; }
-
-    public GroupArchiveWarningEmailViewModel(string administratorName, string groupName, string emailAddress)
-    {
-        AdministratorName = administratorName;
-        GroupName = groupName;
-        EmailAddress = emailAddress;
-    }
+    public string GroupName { get; set; } = groupName;
+    public string AdministratorName { get; set; } = administratorName;
+    public string EmailAddress { get; set; } = emailAddress;
 }

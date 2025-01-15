@@ -5,21 +5,20 @@ public class QueryTest
     [Fact]
     public void ShouldCreateFormattedQueryOnToString()
     {
-        const string name = "name";
-        const string value = "value";
-        var query = new Query(name, value);
+        // Act
+        Query query = new("name", "value");
 
-        query.ToString().Should().Be($"{name}={value}");
+        // Assert
+        Assert.Equal("name=value", query.ToString());
     }
 
     [Fact]
     public void ShouldUrlencodeQueryStringValues()
     {
-        const string name = "name";
-        const string value = "#value";
-        const string encodedValue = "%23value";
-        var query = new Query(name, value);
+        // Act
+        Query query = new("name", "#value");
 
-        query.Value.Should().Be(encodedValue);
+        // Assert
+        Assert.Equal("%23value", query.Value);
     }
 }

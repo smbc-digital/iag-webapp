@@ -1,78 +1,52 @@
 ﻿namespace StockportWebapp.Models.ProcessedModels;
-public class ProcessedHomepage : IProcessedContentType
+public class ProcessedHomepage(string title,
+                            IEnumerable<string> popularSearchTerms,
+                            string featuredTasksHeading,
+                            string featuredTasksSummary,
+                            IEnumerable<SubItem> featuredTasks,
+                            IEnumerable<SubItem> featuredTopics,
+                            IEnumerable<Alert> alerts,
+                            IEnumerable<CarouselContent> carouselContents,
+                            string backgroundImage,
+                            string foregroundImage,
+                            string foregroundImageLocation,
+                            string foregroundImageLink,
+                            string foregroundImageAlt,
+                            IEnumerable<News> lastNews,
+                            string freeText,
+                            Group featuredGroup,
+                            string eventCategory,
+                            string metaDescription,
+                            CarouselContent campaignBanner,
+                            CallToActionBanner callToAction,
+                            CallToActionBanner callToActionPrimary,
+                            IEnumerable<SpotlightOnBanner> spotlightOnBanner,
+                            string imageOverlayText) : IProcessedContentType
 {
-    public string Title;
-    public readonly IEnumerable<string> PopularSearchTerms;
-    public readonly string FeaturedTasksHeading;
-    public readonly string FeaturedTasksSummary;
-    public readonly IEnumerable<SubItem> FeaturedTasks;
-    public readonly IEnumerable<SubItem> FeaturedTopics;
-    public readonly IEnumerable<Alert> Alerts;
-    public readonly IEnumerable<Alert> CondolenceAlerts;
-    public readonly IEnumerable<CarouselContent> CarouselContents;
-    public readonly string BackgroundImage;
-    public readonly string ImageOverlayText;
-    public readonly string ForegroundImage;
-    public readonly string ForegroundImageLocation;
-    public readonly string ForegroundImageLink;
-    public readonly string ForegroundImageAlt;
-    public readonly string FreeText;
-    public readonly Group FeaturedGroupItem;
-    public readonly string EventCategory;
-    public readonly string MetaDescription;
-    public readonly CarouselContent CampaignBanner;
-    public readonly CallToActionBanner CallToAction;
-    public readonly CallToActionBanner CallToActionPrimary;
-    public readonly IEnumerable<SpotlightOnBanner> SpotlightOnBanner;
-
-    public ProcessedHomepage(string title,
-        IEnumerable<string> popularSearchTerms,
-        string featuredTasksHeading,
-        string featuredTasksSummary,
-        IEnumerable<SubItem> featuredTasks,
-        IEnumerable<SubItem> featuredTopics,
-        IEnumerable<Alert> alerts,
-        IEnumerable<CarouselContent> carouselContents,
-        string backgroundImage,
-        string foregroundImage,
-        string foregroundImageLocation,
-        string foregroundImageLink,
-        string foregroundImageAlt,
-        IEnumerable<News> lastNews,
-        string freeText,
-        Group featuredGroup,
-        string eventCategory,
-        string metaDescription,
-        CarouselContent campaignBanner,
-        CallToActionBanner callToAction,
-        CallToActionBanner callToActionPrimary,
-        IEnumerable<SpotlightOnBanner> spotlightOnBanner,
-        string imageOverlayText)
-    {
-        Title = title;
-        PopularSearchTerms = popularSearchTerms;
-        FeaturedTasksHeading = featuredTasksHeading;
-        FeaturedTasksSummary = featuredTasksSummary;
-        FeaturedTasks = featuredTasks;
-        FeaturedTopics = featuredTopics;
-        Alerts = alerts.Where(_ => !_.Severity.Equals(Severity.Condolence));
-        CondolenceAlerts = alerts.Where(_ => _.Severity.Equals(Severity.Condolence));
-        CarouselContents = carouselContents;
-        BackgroundImage = backgroundImage;
-        ForegroundImage = foregroundImage;
-        ForegroundImageLocation = foregroundImageLocation;
-        ForegroundImageLink = foregroundImageLink;
-        ForegroundImageAlt = foregroundImageAlt;
-        FreeText = freeText;
-        FeaturedGroupItem = featuredGroup;
-        EventCategory = eventCategory;
-        MetaDescription = metaDescription;
-        CampaignBanner = campaignBanner;
-        CallToAction = callToAction;
-        CallToActionPrimary = callToActionPrimary;
-        SpotlightOnBanner = spotlightOnBanner;
-        ImageOverlayText = imageOverlayText;
-    }
+    public string Title = title;
+    public readonly IEnumerable<string> PopularSearchTerms = popularSearchTerms;
+    public readonly string FeaturedTasksHeading = featuredTasksHeading;
+    public readonly string FeaturedTasksSummary = featuredTasksSummary;
+    public readonly IEnumerable<SubItem> FeaturedTasks = featuredTasks;
+    public readonly IEnumerable<SubItem> FeaturedTopics = featuredTopics;
+    public readonly IEnumerable<Alert> Alerts = alerts.Where(_ => !_.Severity.Equals(Severity.Condolence));
+    public readonly IEnumerable<Alert> CondolenceAlerts = alerts.Where(_ => _.Severity.Equals(Severity.Condolence));
+    public readonly IEnumerable<CarouselContent> CarouselContents = carouselContents;
+    public readonly string BackgroundImage = backgroundImage;
+    public readonly string ImageOverlayText = imageOverlayText;
+    public readonly string ForegroundImage = foregroundImage;
+    public readonly string ForegroundImageLocation = foregroundImageLocation;
+    public readonly string ForegroundImageLink = foregroundImageLink;
+    public readonly string ForegroundImageAlt = foregroundImageAlt;
+    public readonly IEnumerable<News> LastNews = lastNews;
+    public readonly string FreeText = freeText;
+    public readonly Group FeaturedGroupItem = featuredGroup;
+    public readonly string EventCategory = eventCategory;
+    public readonly string MetaDescription = metaDescription;
+    public readonly CarouselContent CampaignBanner = campaignBanner;
+    public readonly CallToActionBanner CallToAction = callToAction;
+    public readonly CallToActionBanner CallToActionPrimary = callToActionPrimary;
+    public readonly IEnumerable<SpotlightOnBanner> SpotlightOnBanner = spotlightOnBanner;
 
     public NavCardList Services => new()
     {

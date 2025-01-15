@@ -1,9 +1,8 @@
 @model string
+
 @if (!string.IsNullOrEmpty(Model))
 {
-	string additionalClasses = (string)ViewData["imageAdditionalClasses"] ?? string.Empty;
-
-	<img src="@Model?w=730&q=89" class="navcard__image @additionalClasses"
+	<img src="@Model?w=730&q=89" class="navcard__image @((string)ViewData["imageAdditionalClasses"] ?? string.Empty)"
 		 srcset="@Model?w=720&q=89&fm=webp 720w,
 				@Model?w=294&q=89&fm=webp 294w,
 				@Model?w=378&q=89&fm=webp 378w"

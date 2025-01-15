@@ -4,12 +4,9 @@ public class ContactUsCategoryFactoryTests
 {
     private readonly Mock<ITagParserContainer> _mockTagParser = new();
     private readonly MarkdownWrapper _markdownWrapper = new();
-
     private readonly ContactUsCategoryFactory _factory;
-
     private readonly string _bodyTextLeft = "<p>left</p>\n";
     private readonly string _bodyTextRight = "<p>right</p>\n";
-
     private readonly ContactUsCategory _contactUsCategory = new("title", "left", "right", "icon");
 
     public ContactUsCategoryFactoryTests()

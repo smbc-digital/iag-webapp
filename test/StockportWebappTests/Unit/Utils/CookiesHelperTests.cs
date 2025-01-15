@@ -2,7 +2,7 @@
 
 public class FakeCookie : IRequestCookieCollection, IResponseCookies
 {
-    private Dictionary<string, string> _dictionary = new Dictionary<string, string>();
+    private readonly Dictionary<string, string> _dictionary = new();
 
     public FakeCookie(bool addDefaults = false, bool isAlert = false)
     {
@@ -13,16 +13,10 @@ public class FakeCookie : IRequestCookieCollection, IResponseCookies
             _dictionary.Add("alerts", $"{{ \"{typeof(Alert).ToString().ToLower()}\":[\"foo\",\"bar\",\"test1\"] }}");
     }
 
-    public string this[string key]
-    {
-        get
-        {
-            if (_dictionary.ContainsKey(key))
-                return _dictionary[key];
-            else
-                return string.Empty;
-        }
-    }
+    public string this[string key] =>
+        _dictionary.ContainsKey(key)
+            ? _dictionary[key]
+            : string.Empty;
 
     public int Count { get; }
 
@@ -54,52 +48,58 @@ public class FakeCookie : IRequestCookieCollection, IResponseCookies
 public class CookiesHelperTests
 {
     private readonly CookiesHelper cookiesHelper;
-    private Mock<IHttpContextAccessor> httpContextAccessor;
+    private readonly Mock<IHttpContextAccessor> httpContextAccessor = new();
 
-    public CookiesHelperTests()
-    {
-        httpContextAccessor = new Mock<IHttpContextAccessor>();
-        cookiesHelper = new CookiesHelper(httpContextAccessor.Object);
-    }
+    public CookiesHelperTests() =>
+        cookiesHelper = new(httpContextAccessor.Object);
 
     [Fact]
     public void PopulateCookies_ShouldPopulateFavouritePropertyToCollection_WhenCallingPopulateFavourites()
     {
         // Arrange
-        var cookies = new FakeCookie(true, false);
+        FakeCookie cookies = new(true, false);
 
-        var groups = new List<Group>()
+        List<Group> groups = new()
         {
             new GroupBuilder().Slug("test1").Build(),
             new GroupBuilder().Build()
         };
 
-        httpContextAccessor.Setup(_ => _.HttpContext.Request.Cookies).Returns(cookies);
+        httpContextAccessor
+            .Setup(http => http.HttpContext.Request.Cookies)
+            .Returns(cookies);
 
         // Act
         groups = cookiesHelper.PopulateCookies(groups, "favourites");
 
         // Assert
-        groups[0].Favourite.Should().Be(true);
-        groups[1].Favourite.Should().Be(false);
+        Assert.True(groups[0].Favourite);
+        Assert.False(groups[1].Favourite);
     }
 
     [Fact]
     public void PopulateCookies_ShouldThrowException_WhenCookiePropOrSlugIsNull()
     {
         // Arrange
-        var cookies = new FakeCookie(false, true);
+        FakeCookie cookies = new(false, true);
 
-        var alerts = new List<Alert>()
+        List<Alert> alerts = new()
         {
-            new Alert("alert", "alertSubHeading", "body", string.Empty, new DateTime(), new DateTime(), "alert", true, string.Empty)
+            new("alert", "alertSubHeading", "body", string.Empty, new DateTime(), new DateTime(), "alert", true, string.Empty)
         };
 
-        httpContextAccessor.Setup(_ => _.HttpContext.Request.Cookies).Returns(cookies);
-        httpContextAccessor.Setup(_ => _.HttpContext.Response.Cookies).Returns(cookies);
+        httpContextAccessor
+            .Setup(http => http.HttpContext.Request.Cookies)
+            .Returns(cookies);
+        
+        httpContextAccessor
+            .Setup(http => http.HttpContext.Response.Cookies)
+            .Returns(cookies);
 
+        // Act
+        Exception result = Assert.Throws<Exception>(() => cookiesHelper.PopulateCookies(alerts, "alerts"));
+        
         // Assert
-        var result = Assert.Throws<Exception>(() => cookiesHelper.PopulateCookies(alerts, "alerts"));
         Assert.Equal("The object you are adding to favourites does not have either the property 'Favourite' or the property 'Slug'", result.Message);
     }
 
@@ -107,51 +107,66 @@ public class CookiesHelperTests
     public void AddToCookies_ShouldAddToFavouritesCollection()
     {
         // Arrange
-        var cookies = new FakeCookie();
+        FakeCookie cookies = new();
 
-        httpContextAccessor.Setup(_ => _.HttpContext.Request.Cookies).Returns(cookies);
-        httpContextAccessor.Setup(_ => _.HttpContext.Response.Cookies).Returns(cookies);
+        httpContextAccessor
+            .Setup(http => http.HttpContext.Request.Cookies)
+            .Returns(cookies);
+        
+        httpContextAccessor
+            .Setup(http => http.HttpContext.Response.Cookies)
+            .Returns(cookies);
 
         // Act
         cookiesHelper.AddToCookies<Group>("test1", "favourites");
         cookiesHelper.AddToCookies<Event>("test2", "favourites");
-        var result = JsonConvert.DeserializeObject<Dictionary<string, List<string>>>(cookies["favourites"]);
+        Dictionary<string, List<string>> result = JsonConvert.DeserializeObject<Dictionary<string, List<string>>>(cookies["favourites"]);
 
         // Assert
-        result[typeof(Group).ToString().ToLower()].Should().Equal(@"test1");
-        result[typeof(Event).ToString().ToLower()].Should().Equal(@"test2");
+        Assert.Contains("test1", result[typeof(Group).ToString().ToLower()]);
+        Assert.Contains("test2", result[typeof(Event).ToString().ToLower()]);
     }
 
     [Fact]
     public void RemoveFromCookies_ShouldRemoveFromFavouritesCollection()
     {
         // Arrange
-        var cookies = new FakeCookie(true, false);
+        FakeCookie cookies = new(true, false);
 
-        httpContextAccessor.Setup(_ => _.HttpContext.Request.Cookies).Returns(cookies);
-        httpContextAccessor.Setup(_ => _.HttpContext.Response.Cookies).Returns(cookies);
+        httpContextAccessor
+            .Setup(http => http.HttpContext.Request.Cookies)
+            .Returns(cookies);
+        
+        httpContextAccessor
+            .Setup(http => http.HttpContext.Response.Cookies)
+            .Returns(cookies);
 
         // Act
         cookiesHelper.RemoveFromCookies<Group>("foo", "favourites");
         cookiesHelper.RemoveFromCookies<Group>("bar", "favourites");
-        var result = JsonConvert.DeserializeObject<Dictionary<string, List<string>>>(cookies["favourites"]);
+        Dictionary<string, List<string>> result = JsonConvert.DeserializeObject<Dictionary<string, List<string>>>(cookies["favourites"]);
 
         // Assert
-        result[typeof(Group).ToString().ToLower()].Should().Equal(@"test1");
+        Assert.Contains("test1", result[typeof(Group).ToString().ToLower()]);
     }
 
     [Fact]
     public void RemoveFromCookies_ShouldAddNewKeyToDict()
     {
         // Arrange
-        var cookies = new FakeCookie(false, true);
+        FakeCookie cookies = new(false, true);
 
-        httpContextAccessor.Setup(_ => _.HttpContext.Request.Cookies).Returns(cookies);
-        httpContextAccessor.Setup(_ => _.HttpContext.Response.Cookies).Returns(cookies);
+        httpContextAccessor
+            .Setup(http => http.HttpContext.Request.Cookies)
+            .Returns(cookies);
+        
+        httpContextAccessor
+            .Setup(http => http.HttpContext.Response.Cookies)
+            .Returns(cookies);
 
         // Act
         cookiesHelper.RemoveFromCookies<Group>("newTest", "favourites");
-        var result = JsonConvert.DeserializeObject<Dictionary<string, List<string>>>(cookies["favourites"]);
+        Dictionary<string, List<string>> result = JsonConvert.DeserializeObject<Dictionary<string, List<string>>>(cookies["favourites"]);
 
         // Assert
         Assert.Equal(typeof(Group).ToString().ToLower(), result.Keys.First());
@@ -161,32 +176,42 @@ public class CookiesHelperTests
     public void RemoveAllFromCookies_ShouldRemoveAllFromFavouritesCollection()
     {
         // Arrange
-        var cookies = new FakeCookie(true, false);
+        FakeCookie cookies = new(true, false);
 
-        httpContextAccessor.Setup(_ => _.HttpContext.Request.Cookies).Returns(cookies);
-        httpContextAccessor.Setup(_ => _.HttpContext.Response.Cookies).Returns(cookies);
+        httpContextAccessor
+            .Setup(http => http.HttpContext.Request.Cookies)
+            .Returns(cookies);
+        
+        httpContextAccessor
+            .Setup(http => http.HttpContext.Response.Cookies)
+            .Returns(cookies);
 
         // Act
         cookiesHelper.RemoveAllFromCookies<Group>("favourites");
-        var result = JsonConvert.DeserializeObject<Dictionary<string, List<string>>>(cookies["favourites"]);
+        Dictionary<string, List<string>> result = JsonConvert.DeserializeObject<Dictionary<string, List<string>>>(cookies["favourites"]);
 
         // Assert
-        result.ContainsKey(typeof(Group).ToString().ToLower()).Should().Be(false);
+        Assert.False(result.ContainsKey(typeof(Group).ToString().ToLower()));
     }
 
     [Fact]
     public void GetCookies_ShouldGetAllFavouritesFromFavouritesCollection()
     {
         // Arrange
-        var cookies = new FakeCookie(true, false);
+        FakeCookie cookies = new(true, false);
 
-        httpContextAccessor.Setup(_ => _.HttpContext.Request.Cookies).Returns(cookies);
-        httpContextAccessor.Setup(_ => _.HttpContext.Response.Cookies).Returns(cookies);
+        httpContextAccessor
+            .Setup(http => http.HttpContext.Request.Cookies)
+            .Returns(cookies);
+        
+        httpContextAccessor
+            .Setup(http => http.HttpContext.Response.Cookies)
+            .Returns(cookies);
 
         // Act
-        var favourites = cookiesHelper.GetCookies<Group>("favourites");
+        List<string> favourites = cookiesHelper.GetCookies<Group>("favourites");
 
         // Assert
-        favourites.Should().HaveCount(3);
+        Assert.Equal(3, favourites.Count);
     }
 }

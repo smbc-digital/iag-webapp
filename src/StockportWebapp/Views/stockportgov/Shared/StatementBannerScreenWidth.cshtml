@@ -1,20 +1,20 @@
 ﻿@model ContentBlock
-@{
-    var overrideToDefault = false;
-    if (Model.ColourScheme == EColourScheme.None ||
-        Model.ColourScheme == EColourScheme.Multi ||
-        Model.ColourScheme == EColourScheme.Dark_Overlay ||
-        Model.ColourScheme == EColourScheme.Light_Overlay)
-        overrideToDefault = true;
-
-    var backgroundColourClass = overrideToDefault
-                                ? "bg-default-light"
-                                : Model.BackgroundColourClass;
-}
-
 @if (Model is not null)
 {
-    string contentTextClass = (Model.SubItems is not null && Model.SubItems.Any()) || !string.IsNullOrEmpty(Model.Link) ? string.Empty : "statement-banner-content__text-no-button";
+    bool overrideToDefault = false;
+    if (Model.ColourScheme.Equals(EColourScheme.None) ||
+        Model.ColourScheme.Equals(EColourScheme.Multi) ||
+        Model.ColourScheme.Equals(EColourScheme.Dark_Overlay) ||
+        Model.ColourScheme.Equals(EColourScheme.Light_Overlay))
+        overrideToDefault = true;
+
+    string backgroundColourClass = overrideToDefault
+        ? "bg-default-light"
+        : Model.BackgroundColourClass;
+
+    string contentTextClass = (Model.SubItems is not null && Model.SubItems.Any()) || !string.IsNullOrEmpty(Model.Link)
+        ? string.Empty
+        : "statement-banner-content__text-no-button";
 
     @if (!string.IsNullOrEmpty(Model.Title) && !string.IsNullOrEmpty(Model.Body))
     {

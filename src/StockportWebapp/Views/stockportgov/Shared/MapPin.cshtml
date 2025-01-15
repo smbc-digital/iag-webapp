@@ -1,11 +1,16 @@
 ﻿@{
     int count = (int)ViewData["Count"];
     bool highlighted = (bool)ViewData["Highlighted"];
-    var pinCssClass = $"pin_graphic--" + (highlighted ? "pink" : "teal");
+    string pinCssClass = $"pin_graphic--" + (highlighted
+        ? "pink"
+        : "teal");
+    
     bool showPinsOnLoad = (bool)ViewData["ShowPinsOnLoad"];
 }
-<span class="pin" style="@if(!showPinsOnLoad)
-@("display: none")
-">
-    <span class='pin_graphic @pinCssClass'></span><span class='pin_content'><span class="visuallyhidden">displayed on the map as pin number </span>@count</span>
+
+<span class="pin" style="@(showPinsOnLoad ? string.Empty : "display: none")">
+    <span class='pin_graphic @pinCssClass'></span>
+    <span class='pin_content'>
+        <span class="visuallyhidden">displayed on the map as pin number </span>@count
+    </span>
 </span>

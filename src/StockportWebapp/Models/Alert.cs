@@ -1,30 +1,25 @@
 ﻿namespace StockportWebapp.Models;
 
 [ExcludeFromCodeCoverage]
-public class Alert
+public class Alert(string title,
+                string subHeading,
+                string body,
+                string severity,
+                DateTime sunriseDate,
+                DateTime sunsetDate,
+                string slug,
+                bool isStatic,
+                string imageUrl)
 {
-    public string Title { get; }
-    public string SubHeading { get; }
-    public string Body { get; }
-    public string Severity { get; }
-    public DateTime SunriseDate { get; }
-    public DateTime SunsetDate { get; }
-    public string Slug { get; }
-    public bool IsStatic { get; }
-    public string ImageUrl { get; }
-
-    public Alert(string title, string subHeading, string body, string severity, DateTime sunriseDate, DateTime sunsetDate, string slug, bool isStatic, string imageUrl) 
-    {
-        Title = title;
-        SubHeading = subHeading;
-        Body = MarkdownWrapper.ToHtml(body);
-        Severity = severity;
-        SunriseDate = sunriseDate;
-        SunsetDate = sunsetDate;
-        Slug = slug;
-        IsStatic = isStatic;
-        ImageUrl = imageUrl;
-    }
+    public string Title { get; } = title;
+    public string SubHeading { get; } = subHeading;
+    public string Body { get; } = MarkdownWrapper.ToHtml(body);
+    public string Severity { get; } = severity;
+    public DateTime SunriseDate { get; } = sunriseDate;
+    public DateTime SunsetDate { get; } = sunsetDate;
+    public string Slug { get; } = slug;
+    public bool IsStatic { get; } = isStatic;
+    public string ImageUrl { get; } = imageUrl;
 }
 
 [ExcludeFromCodeCoverage]

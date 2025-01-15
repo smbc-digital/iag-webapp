@@ -1,7 +1,7 @@
 ﻿@inject IAnalyticsConfiguration Analytics
 @inject BusinessId BusinessId;
 @{
-    var tag = Analytics.GetTrackerCode(BusinessId.ToString()).TagManagerId;
+    string tag = Analytics.GetTrackerCode(BusinessId.ToString()).TagManagerId;
 }
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=@tag" type="text/plain" data-cookie-consent="tracking"></script>

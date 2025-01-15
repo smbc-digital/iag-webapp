@@ -1,6 +1,5 @@
 ﻿namespace StockportWebapp.Models.Exceptions;
 
-public class ContentfulUpdateException : Exception
+public class ContentfulUpdateException(string message) : Exception(message)
 {
-    public ContentfulUpdateException(string message) : base(message) { }
 }

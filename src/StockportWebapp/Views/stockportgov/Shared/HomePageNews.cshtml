@@ -2,7 +2,7 @@
 
 <h2>Latest News</h2>
 <div class="grid-parent grid-100 homepage-latest-items">
-    @foreach (var newsItem in Model)
+    @foreach (News newsItem in Model)
     {
         <a href="@Url.Action("Detail", "News", new {slug = newsItem.Slug})">
             <div class="@(Model.Count() > 1 ? "grid-50" : "grid-100") mobile-grid-100 homepage-latest-item">

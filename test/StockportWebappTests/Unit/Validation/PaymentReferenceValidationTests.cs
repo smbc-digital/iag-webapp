@@ -6,7 +6,7 @@ public class PaymentReferenceValidationTests
     public void Should_ReturnSuccess_WhenValidationIsNone()
     {
         // Arrange
-        var paymentSubmission = new PaymentSubmission
+        PaymentSubmission paymentSubmission = new()
         {
             Amount = 10.00m,
             Payment = new ProcessedPayment("paymentTitle",
@@ -27,21 +27,21 @@ public class PaymentReferenceValidationTests
                 new List<Alert>()),
             Reference = "12345"
         };
-        var context = new ValidationContext(paymentSubmission);
-        var results = new List<ValidationResult>();
+
+        ValidationContext context = new(paymentSubmission);
 
         // Act
-        var result = Validator.TryValidateObject(paymentSubmission, context, results, true);
+        bool result = Validator.TryValidateObject(paymentSubmission, context, new List<ValidationResult>(), true);
 
         // Assert
-        result.Should().BeTrue();
+        Assert.True(result);
     }
 
     [Fact]
     public void Should_ReturnSuccess_WhenValidationIsNone_ForServicePayPayment()
     {
         // Arrange
-        var paymentSubmission = new ServicePayPaymentSubmissionViewModel
+        ServicePayPaymentSubmissionViewModel paymentSubmission = new()
         {
             Amount = "10.00",
             Payment = new ProcessedServicePayPayment("paymentTitle",
@@ -63,14 +63,14 @@ public class PaymentReferenceValidationTests
             Name = "name",
             EmailAddress = "test@email.com"
         };
-        var context = new ValidationContext(paymentSubmission);
-        var results = new List<ValidationResult>();
+
+        ValidationContext context = new(paymentSubmission);
 
         // Act
-        var result = Validator.TryValidateObject(paymentSubmission, context, results, true);
+        bool result = Validator.TryValidateObject(paymentSubmission, context, new List<ValidationResult>(), true);
 
         // Assert
-        result.Should().BeTrue();
+        Assert.True(result);
     }
 
     [Theory]
@@ -103,7 +103,7 @@ public class PaymentReferenceValidationTests
     public void Should_ReturnSuccess_ForValidReference(EPaymentReferenceValidation referenceValidation, string reference)
     {
         // Arrange
-        var paymentSubmission = new PaymentSubmission
+        PaymentSubmission paymentSubmission = new()
         {
             Amount = 10.00m,
             Payment = new ProcessedPayment("paymentTitle",
@@ -124,16 +124,15 @@ public class PaymentReferenceValidationTests
                 new List<Alert>()),
             Reference = reference
         };
-        var context = new ValidationContext(paymentSubmission);
-        var results = new List<ValidationResult>();
+
+        ValidationContext context = new(paymentSubmission);
 
         // Act
-        var result = Validator.TryValidateObject(paymentSubmission, context, results, true);
+        bool result = Validator.TryValidateObject(paymentSubmission, context, new List<ValidationResult>(), true);
 
         // Assert
-        result.Should().BeTrue();
+        Assert.True(result);
     }
-
 
     [Theory]
     [InlineData(EPaymentReferenceValidation.FPN, "12345")]
@@ -165,7 +164,7 @@ public class PaymentReferenceValidationTests
     public void Should_ReturnSuccess_ForValidReference_ForServicePayPayment(EPaymentReferenceValidation referenceValidation, string reference)
     {
         // Arrange
-        var paymentSubmission = new ServicePayPaymentSubmissionViewModel
+        ServicePayPaymentSubmissionViewModel paymentSubmission = new()
         {
             Amount = "10.00",
             Payment = new ProcessedServicePayPayment("paymentTitle",
@@ -187,14 +186,14 @@ public class PaymentReferenceValidationTests
             Name = "name",
             EmailAddress = "test@email.com"
         };
-        var context = new ValidationContext(paymentSubmission);
-        var results = new List<ValidationResult>();
+
+        ValidationContext context = new(paymentSubmission);
 
         // Act
-        var result = Validator.TryValidateObject(paymentSubmission, context, results, true);
+        bool result = Validator.TryValidateObject(paymentSubmission, context, new List<ValidationResult>(), true);
 
         // Assert
-        result.Should().BeTrue();
+        Assert.True(result);
     }
 
     [Theory]
@@ -226,7 +225,7 @@ public class PaymentReferenceValidationTests
     public void Should_ReturnFalse_ForInvalidReference(EPaymentReferenceValidation referenceValidation, string reference)
     {
         // Arrange
-        var paymentSubmission = new PaymentSubmission
+        PaymentSubmission paymentSubmission = new()
         {
             Amount = 10.00m,
             Payment = new ProcessedPayment("paymentTitle",
@@ -247,14 +246,14 @@ public class PaymentReferenceValidationTests
                 new List<Alert>()),
             Reference = reference
         };
-        var context = new ValidationContext(paymentSubmission);
-        var results = new List<ValidationResult>();
+
+        ValidationContext context = new(paymentSubmission);
 
         // Act
-        var result = Validator.TryValidateObject(paymentSubmission, context, results, true);
+        bool result = Validator.TryValidateObject(paymentSubmission, context, new List<ValidationResult>(), true);
 
         // Assert
-        result.Should().BeFalse();
+        Assert.False(result);
     }
 
     [Theory]
@@ -287,7 +286,7 @@ public class PaymentReferenceValidationTests
     public void Should_ReturnFalse_ForInvalidReference_ForServicePayPayment(EPaymentReferenceValidation referenceValidation, string reference)
     {
         // Arrange
-        var paymentSubmission = new ServicePayPaymentSubmissionViewModel
+        ServicePayPaymentSubmissionViewModel paymentSubmission = new()
         {
             Amount = "10.00",
             Payment = new ProcessedServicePayPayment("paymentTitle",
@@ -309,13 +308,13 @@ public class PaymentReferenceValidationTests
             Name = "name",
             EmailAddress = "test@email.com"
         };
-        var context = new ValidationContext(paymentSubmission);
-        var results = new List<ValidationResult>();
+
+        ValidationContext context = new(paymentSubmission);
 
         // Act
-        var result = Validator.TryValidateObject(paymentSubmission, context, results, true);
+        bool result = Validator.TryValidateObject(paymentSubmission, context, new List<ValidationResult>(), true);
 
         // Assert
-        result.Should().BeFalse();
+        Assert.False(result);
     }
 }

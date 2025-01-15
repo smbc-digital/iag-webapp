@@ -8,16 +8,14 @@ public interface IEventsService
     Task<List<Event>> GetLatestFeaturedEvents();
 }
 
-public class EventsService : IEventsService
+public class EventsService(IRepository eventsRepository) : IEventsService
 {
-    private readonly IRepository _eventsRepository;
-
-    public EventsService(IRepository eventsRepository) =>
-        _eventsRepository = eventsRepository;
+    private readonly IRepository _eventsRepository = eventsRepository;
 
     public async Task<List<Event>> GetEventsByLimit(int limit)
     {
         HttpResponse response = await _eventsRepository.GetLatest<EventCalendar>(limit);
+
         return response.Content as List<Event>;
     }
 
@@ -25,6 +23,7 @@ public class EventsService : IEventsService
     {
         HttpResponse response = await _eventsRepository.GetLatest<EventCalendar>(1);
         EventCalendar eventCalendar = response.Content as EventCalendar;
+
         return eventCalendar?.Events?.First();
     }
 
@@ -32,6 +31,7 @@ public class EventsService : IEventsService
     {
         HttpResponse response = await _eventsRepository.GetLatestOrderByFeatured<EventCalendar>(1);
         EventCalendar eventCalendar = response.Content as EventCalendar;
+        
         return eventCalendar?.Events?.FirstOrDefault();
     }
 

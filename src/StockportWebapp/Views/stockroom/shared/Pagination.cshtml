@@ -60,14 +60,19 @@
                     if (page.HasValue)
                     {
                         int pageNumber = page.Value;
-                        string ariaCurrent = pageNumber.Equals(Model.CurrentPageNumber) ? "aria-current=page" : string.Empty;
-                        string className = pageNumber.Equals(Model.CurrentPageNumber) ? "pagination__current" : "pagination__number";
+                        string ariaCurrent = pageNumber.Equals(Model.CurrentPageNumber)
+                            ? "aria-current=page"
+                            : string.Empty;
+                        
+                        string className = pageNumber.Equals(Model.CurrentPageNumber)
+                            ? "pagination__current"
+                            : "pagination__number";
 
                         <li class="pagination__item">
                             <a href="@getPageUrl(pageNumber)" 
-                            class="@className"
-                            aria-label="Page @pageNumber"
-                            @ariaCurrent>@pageNumber</a>
+                                class="@className"
+                                aria-label="Page @pageNumber"
+                                @ariaCurrent>@pageNumber</a>
                         </li>
                     }
                     else

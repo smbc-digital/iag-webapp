@@ -3,10 +3,10 @@
 <div class="atoz">
     <h2> Find services A-Z </h2>
     <div class="alphabet">
-        @foreach (var letter in "ABCDEFGHIJKLMNOPQRSTUVWXYZ")
+        @foreach (char letter in "ABCDEFGHIJKLMNOPQRSTUVWXYZ")
         {
-            <div class="letter @(letter.ToString() == Model ? "active" : "")">
-                @if (letter.ToString() == "A")
+            <div class="letter @(letter.ToString().Equals(Model) ? "active" : string.Empty)">
+                @if (letter.ToString().Equals("A"))
                 {
                     <a class="letter-bordered" href="@Url.Action("Index", "AtoZ", new {letter = letter.ToString().ToLower()})" aria-label="Find services A to Z A service">@letter</a>
                 }

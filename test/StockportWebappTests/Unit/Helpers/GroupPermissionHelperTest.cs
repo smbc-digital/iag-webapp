@@ -2,10 +2,6 @@
 
 public class GroupPermissionHelperTest
 {
-    public GroupPermissionHelperTest()
-    {
-    }
-
     [Theory]
     [InlineData("A", "Administrator")]
     [InlineData("E", "Editor")]
@@ -16,12 +12,10 @@ public class GroupPermissionHelperTest
     [InlineData("", "")]
     public void ShouldReturnCorrectPermissionName(string input, string output)
     {
-        // Arrange
-
         // Act
-        var result = GroupPermissionHelper.GetPermisison(input);
+        string result = GroupPermissionHelper.GetPermisison(input);
 
         // Assert
-        result.Should().Be(output);
+        Assert.Equal(output, result);
     }
 }

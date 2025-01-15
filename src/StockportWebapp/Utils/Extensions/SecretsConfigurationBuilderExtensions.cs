@@ -33,12 +33,12 @@ public static class SecretsConfigurationBuilderExtensions
     {
         IConfiguration partialConfig = configurationBuilder.Build();
 
-        var secretConfig = new AWSSecretsManagerConfiguration();
+        AWSSecretsManagerConfiguration secretConfig = new();
         partialConfig
             .GetSection("AWSSecretsManagerConfiguration")
             .Bind(secretConfig);
 
-        var allowedPrefixes = GetSecretPrefixes(secretConfig, hostingContext.HostingEnvironment.EnvironmentName);
+        List<string> allowedPrefixes = GetSecretPrefixes(secretConfig, hostingContext.HostingEnvironment.EnvironmentName);
 
         configurationBuilder.AddSecretsManager(configurator: opts =>
         {
@@ -54,7 +54,7 @@ public static class SecretsConfigurationBuilderExtensions
     {
         // Gets a list of required prefixes for this env based on the value in the appsettings e.g. "int/iag/",
         // i.e. secrets that are specific to the env and group/application
-        var allowedPrefixes = secretConfig.SecretGroups
+        List<string> allowedPrefixes = secretConfig.SecretGroups
             .Select(grp => $"{env}/{grp}/").ToList();
 
         // The intention for this is to allow secrets to be shared between groups of environments
@@ -95,10 +95,10 @@ public static class SecretsConfigurationBuilderExtensions
     {
         // We know one of the prefixes matches, this assumes there's only one match,
         // So don't use '/' in your environment or secretgroup names!
-        var prefix = prefixes.First(secretValue.StartsWith);
-            
+        string prefix = prefixes.First(secretValue.StartsWith);
+
         // Strip the prefix, and replace "__" with ":"
-        var key = secretValue
+        string key = secretValue
             .Substring(prefix.Length)
             .Replace("__", ":");
 

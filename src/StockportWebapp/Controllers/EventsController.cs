@@ -1,45 +1,29 @@
 ﻿namespace StockportWebapp.Controllers;
 
 [ResponseCache(Location = ResponseCacheLocation.Any, Duration = Cache.Medium)]
-public class EventsController : Controller
+public class EventsController(IRepository repository,
+                            IProcessedContentRepository processedContentRepository,
+                            IRssFeedFactory rssFeedFactory,
+                            ILogger<EventsController> logger,
+                            IApplicationConfiguration config,
+                            BusinessId businessId,
+                            IFilteredUrl filteredUrl,
+                            CalendarHelper helper,
+                            IDateCalculator dateCalculator,
+                            IStockportApiEventsService stockportApiEventsService,
+                            IFeatureManager featureManager) : Controller
 {
-    private readonly IRepository _repository;
-    private readonly IProcessedContentRepository _processedContentRepository;
-    private readonly IRssFeedFactory _rssFeedFactory;
-    private readonly ILogger<EventsController> _logger;
-    private readonly IApplicationConfiguration _config;
-    private readonly BusinessId _businessId;
-    private readonly IFilteredUrl _filteredUrl;
-    private readonly CalendarHelper _helper;
-    private readonly IDateCalculator _dateCalculator;
-    private readonly IFeatureManager _featureManager;
-    private readonly IStockportApiEventsService _stockportApiEventsService;
-
-    public EventsController(
-        IRepository repository,
-        IProcessedContentRepository processedContentRepository,
-        IRssFeedFactory rssFeedFactory,
-        ILogger<EventsController> logger,
-        IApplicationConfiguration config,
-        BusinessId businessId,
-        IFilteredUrl filteredUrl,
-        CalendarHelper helper,
-        IDateCalculator dateCalculator,
-        IStockportApiEventsService stockportApiEventsService,
-        IFeatureManager featureManager)
-    {
-        _repository = repository;
-        _processedContentRepository = processedContentRepository;
-        _rssFeedFactory = rssFeedFactory;
-        _logger = logger;
-        _config = config;
-        _businessId = businessId;
-        _filteredUrl = filteredUrl;
-        _helper = helper;
-        _dateCalculator = dateCalculator;
-        _stockportApiEventsService = stockportApiEventsService;
-        _featureManager = featureManager;
-    }
+    private readonly IRepository _repository = repository;
+    private readonly IProcessedContentRepository _processedContentRepository = processedContentRepository;
+    private readonly IRssFeedFactory _rssFeedFactory = rssFeedFactory;
+    private readonly ILogger<EventsController> _logger = logger;
+    private readonly IApplicationConfiguration _config = config;
+    private readonly BusinessId _businessId = businessId;
+    private readonly IFilteredUrl _filteredUrl = filteredUrl;
+    private readonly CalendarHelper _helper = helper;
+    private readonly IDateCalculator _dateCalculator = dateCalculator;
+    private readonly IFeatureManager _featureManager = featureManager;
+    private readonly IStockportApiEventsService _stockportApiEventsService = stockportApiEventsService;
 
     [Route("/events")]
     public async Task<IActionResult> Index(EventCalendar eventsCalendar, [FromQuery] int page, [FromQuery] int pageSize)
@@ -56,7 +40,6 @@ public class EventsController : Controller
         eventsCalendar.FromSearch = eventsCalendar.IsFromSearch();
 
         List<Query> queries = GetEventsFilterQueries(eventsCalendar);
-
         HttpResponse httpResponse = await _repository.Get<EventResponse>(queries: queries);
 
         if (!httpResponse.IsSuccessful())
@@ -101,9 +84,7 @@ public class EventsController : Controller
     public async Task<IActionResult> IndexWithCategory(string category, [FromQuery] int page, [FromQuery] int pageSize)
     {
         List<EventCategory> categories = await _stockportApiEventsService.GetEventCategories();
-
         EventResultsViewModel viewModel = new() { Title = category };
-
         List<Event> events = await _stockportApiEventsService.GetEventsByCategory(category, false);
 
         if (events is null || !events.Any())
@@ -161,7 +142,8 @@ public class EventsController : Controller
     {
         ProcessedEvents eventItem = await _stockportApiEventsService.GetProcessedEvent(slug, date);
 
-        if (eventItem is null) return NotFound();
+        if (eventItem is null)
+            return NotFound();
 
         ViewBag.CurrentUrl = Request?.GetDisplayUrl();
 
@@ -185,6 +167,7 @@ public class EventsController : Controller
         if (!httpResponse.IsSuccessful())
         {
             _logger.LogDebug("Rss: Http Response not sucessful");
+
             return httpResponse;
         }
 
@@ -193,6 +176,7 @@ public class EventsController : Controller
         string email = emailFromAppSetting.IsValid() ? emailFromAppSetting.ToString() : string.Empty;
 
         _logger.LogDebug("Rss: Creating News Feed");
+        
         return await Task.FromResult(Content(_rssFeedFactory.BuildRssFeed(response.Events, host, email), "application/rss+xml"));
     }
 

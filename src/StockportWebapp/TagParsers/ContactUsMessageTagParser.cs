@@ -5,20 +5,15 @@ public interface IContactUsMessageTagParser
     void Parse(IContactUsMessageContainer model, string message, string slug);
 }
 
-public class ContactUsMessageTagParser : IContactUsMessageTagParser
+public class ContactUsMessageTagParser(IViewRender viewRenderer) : IContactUsMessageTagParser
 {
-    private readonly IViewRender _viewRenderer;
-
-    public ContactUsMessageTagParser(IViewRender viewRenderer)
-    {
-        _viewRenderer = viewRenderer;
-    }
+    private readonly IViewRender _viewRenderer = viewRenderer;
 
     public void Parse(IContactUsMessageContainer model, string message, string slug)
     {
-        if (string.IsNullOrEmpty(message)) return;
-        var htmlMessage = _viewRenderer.Render("ContactUsMessage", message);
+        if (string.IsNullOrEmpty(message))
+            return;
 
-        model.AddContactUsMessage(htmlMessage, slug);
+        model.AddContactUsMessage(_viewRenderer.Render("ContactUsMessage", message), slug);
     }
 }

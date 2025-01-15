@@ -4,8 +4,8 @@ public class EmailValidation : ValidationAttribute
 {
     protected override ValidationResult IsValid(object value, ValidationContext validationContext)
     {
-        var emailRegex = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,})+)$");
-        var paymentSubmission = validationContext.ObjectInstance as ServicePayPaymentSubmissionViewModel;
+        Regex emailRegex = new(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,})+)$");
+        ServicePayPaymentSubmissionViewModel paymentSubmission = validationContext.ObjectInstance as ServicePayPaymentSubmissionViewModel;
 
         if (string.IsNullOrEmpty(paymentSubmission?.EmailAddress))
             return new ValidationResult("The email address is required");

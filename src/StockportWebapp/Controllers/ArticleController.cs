@@ -1,18 +1,13 @@
 namespace StockportWebapp.Controllers;
 
 [ResponseCache(Location = ResponseCacheLocation.Any, Duration = Cache.Short)]
-public class ArticleController : Controller
+public class ArticleController(IRepository repository,
+                            IProcessedContentRepository processedRepository,
+                            IContactUsMessageTagParser contactUsMessageParser) : Controller
 {
-    private readonly IRepository _repository;
-    private readonly IProcessedContentRepository _processedRepository;
-    private readonly IContactUsMessageTagParser _contactUsMessageParser;
-
-    public ArticleController(IRepository repository, IProcessedContentRepository processedRepository, IContactUsMessageTagParser contactUsMessageParser)
-    {
-        _repository = repository;
-        _processedRepository = processedRepository;
-        _contactUsMessageParser = contactUsMessageParser;
-    }
+    private readonly IRepository _repository = repository;
+    private readonly IProcessedContentRepository _processedRepository = processedRepository;
+    private readonly IContactUsMessageTagParser _contactUsMessageParser = contactUsMessageParser;
 
     [Route("/{articleSlug}")]
     public async Task<IActionResult> Article(string articleSlug, [FromQuery] string message)

@@ -5,7 +5,7 @@
 {
     @Model.Humanize()
 }
-else if ((DateTime.Now - Model).Days == 1)
+else if ((DateTime.Now - Model).Days.Equals(1))
 {
     @("Yesterday")
 }

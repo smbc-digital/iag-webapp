@@ -37,27 +37,36 @@ public class ArticleViewModel
         Article = article;
         DisplayedSection = GetSectionOrThrowSectionNotFound(sectionSlug);
         ShouldShowArticleSummary = Article.Sections.First().Slug.Equals(DisplayedSection.Slug);
-        OgTitleMetaData = string.Concat(Article.Title, !string.IsNullOrEmpty(DisplayedSection.Title) ? " - " : "", DisplayedSection.Title);
+        OgTitleMetaData = string.Concat(Article.Title, !string.IsNullOrEmpty(DisplayedSection.Title)
+            ? " - "
+            : string.Empty, DisplayedSection.Title);
         HideLastUpdated = Article.HideLastUpdated;
         Sidebar = new SidebarViewModel(this);
     }
 
     private ProcessedSection GetSectionOrThrowSectionNotFound(string sectionSlug) => 
-        Article.Sections?.FirstOrDefault(_ => _.Slug.Equals(sectionSlug)) ?? throw new SectionDoesNotExistException($"Section with slug: {sectionSlug} does not exist");
+        Article.Sections?.FirstOrDefault(_ => _.Slug.Equals(sectionSlug))
+            ?? throw new SectionDoesNotExistException($"Section with slug: {sectionSlug} does not exist");
 
     private static ProcessedSection FirstOrNull(IEnumerable<ProcessedSection> sections) =>
-        sections is not null && sections.Any() ? sections.FirstOrDefault() : null;
+        sections is not null && sections.Any()
+            ? sections.FirstOrDefault()
+            : null;
 
     public ProcessedSection NextSection()
     {
         int nextSectionIndex = IndexForDisplayedSection() + 1;
-        return nextSectionIndex < Article.Sections.Count() ? Article.Sections.ElementAt(nextSectionIndex) : null;
+        return nextSectionIndex < Article.Sections.Count()
+            ? Article.Sections.ElementAt(nextSectionIndex)
+            : null;
     }
 
     public ProcessedSection PreviousSection()
     {
         int previousSectionIndex = IndexForDisplayedSection() - 1;
-        return previousSectionIndex >= 0 ? Article.Sections.ElementAt(previousSectionIndex) : null;
+        return previousSectionIndex >= 0
+            ? Article.Sections.ElementAt(previousSectionIndex)
+            : null;
     }
 
     public bool ShouldShowNextSectionButton() => 
@@ -99,6 +108,7 @@ public class ArticleViewModel
         }
 
         hasMoreButton = sidebarSubItems.Count > 6;
+        
         return sidebarSubItems.Take(6);
     }
 

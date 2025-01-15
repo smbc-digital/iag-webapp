@@ -2,5 +2,5 @@
 [ExcludeFromCodeCoverage]
 public class GroupAdministrators
 {
-    public List<GroupAdministratorItems> Items { get; set; } = new List<GroupAdministratorItems>();
+    public List<GroupAdministratorItems> Items { get; set; } = new();
 }

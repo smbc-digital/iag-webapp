@@ -1,11 +1,6 @@
 ﻿namespace StockportWebapp.Models.Exceptions;
 
-public class SectionDoesNotExistException : Exception
+public class SectionDoesNotExistException(string message) : Exception(message)
 {
-    public new readonly string Message;
-
-    public SectionDoesNotExistException(string message) : base(message)
-    {
-        Message = message;
-    }
+    public new readonly string Message = message;
 }

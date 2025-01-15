@@ -1,21 +1,16 @@
 ﻿namespace StockportWebapp.Models;
 [ExcludeFromCodeCoverage]
-public class SpotlightOnBanner
+public class SpotlightOnBanner(string title,
+                            string image,
+                            string altText,
+                            string teaser,
+                            string link,
+                            DateTime lastUpdated)
 {
-    public string Title { get; }
-    public string Image { get; }
-    public string AltText { get; }
-    public string Teaser { get; }
-    public string Link { get; }
-    public DateTime LastUpdated { get; }
-
-    public SpotlightOnBanner(string title, string image, string altText, string teaser, string link, DateTime lastUpdated)
-    {
-        Title = title;
-        Image = image;
-        AltText = altText;
-        Teaser = teaser;
-        Link = link;
-        LastUpdated = lastUpdated;
-    }
+    public string Title { get; } = title;
+    public string Image { get; } = image;
+    public string AltText { get; } = altText;
+    public string Teaser { get; } = teaser;
+    public string Link { get; } = link;
+    public DateTime LastUpdated { get; } = lastUpdated;
 }

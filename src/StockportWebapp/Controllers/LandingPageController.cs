@@ -1,11 +1,9 @@
 namespace StockportWebapp.Controllers;
 
 [ResponseCache(Location = ResponseCacheLocation.Any, Duration = Cache.Medium)]
-public class LandingPageController : Controller
+public class LandingPageController(IRepository repository) : Controller
 {
-    private readonly IRepository _repository;
-
-    public LandingPageController(IRepository repository) => _repository = repository;
+    private readonly IRepository _repository = repository;
 
     [Route("/landing/{slug}")]
     public async Task<IActionResult> Index(string slug)

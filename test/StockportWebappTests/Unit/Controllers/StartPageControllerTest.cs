@@ -3,40 +3,54 @@
 public class StartPageControllerTest
 {
     private readonly StartPageController _controller;
-    private readonly Mock<IProcessedContentRepository> _repository;
-    private readonly Mock<IFeatureManager> _featureManager;
-
+    private readonly Mock<IProcessedContentRepository> _repository = new();
 
     public StartPageControllerTest()
     {
-        _repository = new Mock<IProcessedContentRepository>();
-        _featureManager = new Mock<IFeatureManager>();
+        List<Alert> alerts = new(){ new("title",
+                                        "subHeading",
+                                        "body",
+                                        "severity",
+                                        new DateTime(0001, 1, 1, 0, 0, 0, DateTimeKind.Utc),
+                                        new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc),
+                                        string.Empty,
+                                        false,
+                                        string.Empty) };
+        
+        List<Alert> inlineAlerts = new(){ new("title",
+                                            "subHeading",
+                                            "body",
+                                            "severity",
+                                            new DateTime(0001, 1, 1, 0, 0, 0, DateTimeKind.Utc),
+                                            new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc),
+                                            string.Empty,
+                                            false,
+                                            string.Empty) };
 
-        List<Alert> alerts = new(){ new("title", "subHeading", "body", "severity", new DateTime(0001, 1, 1, 0, 0, 0, DateTimeKind.Utc),
-                                        new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc), string.Empty, false, string.Empty) };
-        List<Alert> inlineAlerts = new(){ new("title", "subHeading", "body", "severity", new DateTime(0001, 1, 1, 0, 0, 0, DateTimeKind.Utc),
-                                        new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc), string.Empty, false, string.Empty) };
+        ProcessedStartPage startPage = new("start-page",
+                                        "Start Page",
+                                        "this is a teaser",
+                                        "This is a summary",
+                                        "<p>An upper body</p>\n",
+                                        "Start now",
+                                        "http://start.com",
+                                        "<p>Lower body</p>\n",
+                                        new List<Crumb>
+                                        {
+                                            new("title", "slug", "type")
+                                        },
+                                        "image.jpg",
+                                        "icon",
+                                        alerts);
 
-        ProcessedStartPage startPage = new(
-            "start-page",
-            "Start Page",
-            "this is a teaser",
-            "This is a summary",
-            "<p>An upper body</p>\n",
-            "Start now",
-            "http://start.com",
-            "<p>Lower body</p>\n",
-            new List<Crumb>
-            {
-                new Crumb("title", "slug", "type")
-            },
-            "image.jpg",
-            "icon",
-            alerts
-        );
-
-        _repository.Setup(_ => _.Get<StartPage>("start-page", null)).ReturnsAsync(new HttpResponse(200, startPage, string.Empty));
-        _repository.Setup(_ => _.Get<StartPage>("doesnt-exist", null)).ReturnsAsync(new HttpResponse(404, null, "No start-page found for 'doesnt-exist'"));
+        _repository
+            .Setup(repo => repo.Get<StartPage>("start-page", null))
+            .ReturnsAsync(new HttpResponse(200, startPage, string.Empty));
+        
+        _repository
+            .Setup(repo => repo.Get<StartPage>("doesnt-exist", null))
+            .ReturnsAsync(new HttpResponse(404, null, "No start-page found for 'doesnt-exist'"));
+        
         _controller = new(_repository.Object);
     }
 

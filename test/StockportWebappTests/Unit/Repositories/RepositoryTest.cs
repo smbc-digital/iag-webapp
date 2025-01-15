@@ -17,12 +17,14 @@ public class RepositoryTest
 
     public RepositoryTest()
     {
-        var appConfig = new Mock<IApplicationConfiguration>();
+        Mock<IApplicationConfiguration> appConfig = new();
+
         appConfig
             .Setup(config => config.GetContentApiUri())
             .Returns(new Uri("http://localhost:5000/"));
 
-        _urlGenerator = new UrlGenerator(appConfig.Object, new BusinessId(""));
+        _urlGenerator = new(appConfig.Object, new BusinessId(string.Empty));
+
         _urlGeneratorSimple
             .Setup(generator => generator.BaseContentApiUrl<Event>())
             .Returns("url");
@@ -47,7 +49,7 @@ public class RepositoryTest
             .Setup(httpClient => httpClient.PostAsync(It.IsAny<string>(), It.IsAny<HttpContent>(), It.IsAny<Dictionary<string, string>>()))
             .ReturnsAsync(new HttpResponse(200, null, string.Empty));
 
-        _repository = new Repository(_urlGenerator, _httpClientMock.Object, appConfig.Object, _urlGeneratorSimple.Object, _mockLogger.Object);
+        _repository = new(_urlGenerator, _httpClientMock.Object, appConfig.Object, _urlGeneratorSimple.Object);
     }
 
     [Fact]

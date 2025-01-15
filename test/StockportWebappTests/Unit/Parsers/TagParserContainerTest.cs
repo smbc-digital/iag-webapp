@@ -5,101 +5,127 @@ namespace StockportWebappTests_Unit.Unit.Parsers;
 public class TagParserContainerTests
 {
     private readonly TagParserContainer _tagParserContainer;
-    private readonly Mock<ISimpleTagParser> _tagParser;
-    private readonly Mock<ISimpleTagParser> _anotherTagParser;
-    private readonly Mock<ISimpleTagParser> _anotherAnotherTagParser;
-    private readonly Mock<IViewRender> _viewRenderer;
-    private readonly Mock<IDynamicTagParser<Alert>> _alertsTagParser;
-    private readonly Mock<IDynamicTagParser<Document>> _documentTagParser;
-    private readonly Mock<IDynamicTagParser<InlineQuote>> _quoteTagParser;
-    private readonly Mock<IDynamicTagParser<PrivacyNotice>> _privacyNoticeTagParser;
-    private readonly Mock<IDynamicTagParser<Profile>> _profileTagParser;
+    private readonly Mock<ISimpleTagParser> _tagParser = new();
+    private readonly Mock<ISimpleTagParser> _anotherTagParser = new();
+    private readonly Mock<ISimpleTagParser> _anotherAnotherTagParser = new();
+    private readonly Mock<IViewRender> _viewRenderer = new();
+    private readonly Mock<IDynamicTagParser<Alert>> _alertsTagParser = new();
+    private readonly Mock<IDynamicTagParser<Document>> _documentTagParser = new();
+    private readonly Mock<IDynamicTagParser<InlineQuote>> _quoteTagParser = new();
+    private readonly Mock<IDynamicTagParser<PrivacyNotice>> _privacyNoticeTagParser = new();
+    private readonly Mock<IDynamicTagParser<Profile>> _profileTagParser = new();
 
     public TagParserContainerTests()
     {
-        _tagParser = new Mock<ISimpleTagParser>();
-        _anotherTagParser = new Mock<ISimpleTagParser>();
-        _anotherAnotherTagParser = new Mock<ISimpleTagParser>();
-        _alertsTagParser = new Mock<IDynamicTagParser<Alert>>();
-        _documentTagParser = new Mock<IDynamicTagParser<Document>>();
-        _quoteTagParser = new Mock<IDynamicTagParser<InlineQuote>>();
-        _privacyNoticeTagParser = new Mock<IDynamicTagParser<PrivacyNotice>>();
-        _profileTagParser = new Mock<IDynamicTagParser<Profile>>();
+        List<ISimpleTagParser> tagParserList = new() { _tagParser.Object, _anotherTagParser.Object, _anotherAnotherTagParser.Object };
 
-        _viewRenderer = new Mock<IViewRender>();
+        _tagParserContainer = new(tagParserList,
+                                _alertsTagParser.Object,
+                                _documentTagParser.Object,
+                                _quoteTagParser.Object,
+                                _privacyNoticeTagParser.Object,
+                                _profileTagParser.Object);
 
-        var tagParserList = new List<ISimpleTagParser> { _tagParser.Object, _anotherTagParser.Object, _anotherAnotherTagParser.Object };
-
-        _tagParserContainer = new TagParserContainer(tagParserList,
-                                    _alertsTagParser.Object,
-                                    _documentTagParser.Object,
-                                    _quoteTagParser.Object,
-                                    _privacyNoticeTagParser.Object,
-                                    _profileTagParser.Object);
+        _tagParser
+            .Setup(parser => parser.Parse(It.IsAny<string>(), It.IsAny<string>()))
+            .Returns("some body");
+        
+        _anotherTagParser
+            .Setup(parser => parser.Parse(It.IsAny<string>(), It.IsAny<string>()))
+            .Returns("some body");
+        
+        _anotherAnotherTagParser
+            .Setup(parser => parser.Parse(It.IsAny<string>(), It.IsAny<string>()))
+            .Returns("some body");
+        
+        _alertsTagParser
+            .Setup(parser => parser.Parse(It.IsAny<string>(), It.IsAny<IEnumerable<Alert>>(), It.IsAny<bool>()))
+            .Returns("some body");
+        
+        _documentTagParser
+            .Setup(parser => parser.Parse(It.IsAny<string>(), It.IsAny<IEnumerable<Document>>(), It.IsAny<bool>()))
+            .Returns("some body");
+        
+        _quoteTagParser
+            .Setup(parser => parser.Parse(It.IsAny<string>(), It.IsAny<IEnumerable<InlineQuote>>(), It.IsAny<bool>()))
+            .Returns("some body");
+        
+        _privacyNoticeTagParser
+            .Setup(parser => parser.Parse(It.IsAny<string>(), It.IsAny<IEnumerable<PrivacyNotice>>(), It.IsAny<bool>()))
+            .Returns("some body");
+        
+        _profileTagParser
+            .Setup(parser => parser.Parse(It.IsAny<string>(), It.IsAny<IEnumerable<Profile>>(), It.IsAny<bool>()))
+            .Returns("some body");
     }
 
     [Fact]
     public void ShouldUseAllParsersToParseContent()
     {
-        const string content = "some body";
+        // Act
+        _tagParserContainer.ParseAll("some body");
 
-        _tagParser.Setup(o => o.Parse(It.IsAny<string>(), It.IsAny<string>())).Returns(content);
-        _anotherTagParser.Setup(o => o.Parse(It.IsAny<string>(), It.IsAny<string>())).Returns(content);
-        _anotherAnotherTagParser.Setup(o => o.Parse(It.IsAny<string>(), It.IsAny<string>())).Returns(content);
-        _alertsTagParser.Setup(o => o.Parse(It.IsAny<string>(), It.IsAny<IEnumerable<Alert>>(), It.IsAny<bool>())).Returns(content);
-        _documentTagParser.Setup(o => o.Parse(It.IsAny<string>(), It.IsAny<IEnumerable<Document>>(), It.IsAny<bool>())).Returns(content);
-        _quoteTagParser.Setup(o => o.Parse(It.IsAny<string>(), It.IsAny<IEnumerable<InlineQuote>>(), It.IsAny<bool>())).Returns(content);
-        _privacyNoticeTagParser.Setup(o => o.Parse(It.IsAny<string>(), It.IsAny<IEnumerable<PrivacyNotice>>(), It.IsAny<bool>())).Returns(content);
-        _profileTagParser.Setup(o => o.Parse(It.IsAny<string>(), It.IsAny<IEnumerable<Profile>>(), It.IsAny<bool>())).Returns(content);
-
-        _tagParserContainer.ParseAll(content);
-
-        _tagParser.Verify(o => o.Parse(content, It.IsAny<string>()), Times.Once);
-        _anotherTagParser.Verify(o => o.Parse(content, It.IsAny<string>()), Times.Once);
-        _anotherAnotherTagParser.Verify(o => o.Parse(content, It.IsAny<string>()), Times.Once);
-        _alertsTagParser.Verify(o => o.Parse(content, It.IsAny<IEnumerable<Alert>>(), It.IsAny<bool>()), Times.Once);
-        _documentTagParser.Verify(o => o.Parse(content, It.IsAny<IEnumerable<Document>>(), It.IsAny<bool>()), Times.Once);
-        _quoteTagParser.Verify(o => o.Parse(content, It.IsAny<IEnumerable<InlineQuote>>(), It.IsAny<bool>()), Times.Once);
-        _privacyNoticeTagParser.Verify(o => o.Parse(content, It.IsAny<IEnumerable<PrivacyNotice>>(), It.IsAny<bool>()), Times.Once);
-        _profileTagParser.Verify(o => o.Parse(content, It.IsAny<IEnumerable<Profile>>(), It.IsAny<bool>()), Times.Once);
+        // Assert
+        _tagParser.Verify(parser => parser.Parse("some body", It.IsAny<string>()), Times.Once);
+        _anotherTagParser.Verify(parser => parser.Parse("some body", It.IsAny<string>()), Times.Once);
+        _anotherAnotherTagParser.Verify(parser => parser.Parse("some body", It.IsAny<string>()), Times.Once);
+        _alertsTagParser.Verify(parser => parser.Parse("some body", It.IsAny<IEnumerable<Alert>>(), It.IsAny<bool>()), Times.Once);
+        _documentTagParser.Verify(parser => parser.Parse("some body", It.IsAny<IEnumerable<Document>>(), It.IsAny<bool>()), Times.Once);
+        _quoteTagParser.Verify(parser => parser.Parse("some body", It.IsAny<IEnumerable<InlineQuote>>(), It.IsAny<bool>()), Times.Once);
+        _privacyNoticeTagParser.Verify(parser => parser.Parse("some body", It.IsAny<IEnumerable<PrivacyNotice>>(), It.IsAny<bool>()), Times.Once);
+        _profileTagParser.Verify(parser => parser.Parse("some body", It.IsAny<IEnumerable<Profile>>(), It.IsAny<bool>()), Times.Once);
     }
 
     [Fact]
     public void ShouldRemoveAllUnusedTags()
     {
-        const string content = "{{TAG: sgsdgsdfgd}}CONTENT{{TAGS:sgdfgdfg}}{{TAGS:sgdfgdf242g}}";
+        // Arrange
+        _tagParser
+            .Setup(parser => parser.Parse("{{TAG: sgsdgsdfgd}}CONTENT{{TAGS:sgdfgdfg}}{{TAGS:sgdfgdf242g}}", It.IsAny<string>()))
+            .Returns("{{TAG: sgsdgsdfgd}}CONTENT{{TAGS:sgdfgdfg}}{{TAGS:sgdfgdf242g}}");
+        
+        _anotherTagParser
+            .Setup(parser => parser.Parse("{{TAG: sgsdgsdfgd}}CONTENT{{TAGS:sgdfgdfg}}{{TAGS:sgdfgdf242g}}", It.IsAny<string>()))
+            .Returns("{{TAG: sgsdgsdfgd}}CONTENT{{TAGS:sgdfgdfg}}{{TAGS:sgdfgdf242g}}");
+        
+        _anotherAnotherTagParser
+            .Setup(parser => parser.Parse("{{TAG: sgsdgsdfgd}}CONTENT{{TAGS:sgdfgdfg}}{{TAGS:sgdfgdf242g}}", It.IsAny<string>()))
+            .Returns("{{TAG: sgsdgsdfgd}}CONTENT{{TAGS:sgdfgdfg}}{{TAGS:sgdfgdf242g}}");
+        
+        _alertsTagParser
+            .Setup(parser => parser.Parse(It.IsAny<string>(), It.IsAny<IEnumerable<Alert>>(), It.IsAny<bool>()))
+            .Returns("{{TAG: sgsdgsdfgd}}CONTENT{{TAGS:sgdfgdfg}}{{TAGS:sgdfgdf242g}}");
+        
+        _documentTagParser
+            .Setup(parser => parser.Parse(It.IsAny<string>(), It.IsAny<IEnumerable<Document>>(), It.IsAny<bool>()))
+            .Returns("{{TAG: sgsdgsdfgd}}CONTENT{{TAGS:sgdfgdfg}}{{TAGS:sgdfgdf242g}}");
+        
+        _quoteTagParser
+            .Setup(parser => parser.Parse(It.IsAny<string>(), It.IsAny<IEnumerable<InlineQuote>>(), It.IsAny<bool>()))
+            .Returns("{{TAG: sgsdgsdfgd}}CONTENT{{TAGS:sgdfgdfg}}{{TAGS:sgdfgdf242g}}");
+        
+        _privacyNoticeTagParser
+            .Setup(parser => parser.Parse(It.IsAny<string>(), It.IsAny<IEnumerable<PrivacyNotice>>(), It.IsAny<bool>()))
+            .Returns("{{TAG: sgsdgsdfgd}}CONTENT{{TAGS:sgdfgdfg}}{{TAGS:sgdfgdf242g}}");
+        
+        _profileTagParser
+            .Setup(parser => parser.Parse(It.IsAny<string>(), It.IsAny<IEnumerable<Profile>>(), It.IsAny<bool>()))
+            .Returns("{{TAG: sgsdgsdfgd}}CONTENT{{TAGS:sgdfgdfg}}{{TAGS:sgdfgdf242g}}");
 
-        _tagParser.Setup(o => o.Parse(content, It.IsAny<string>())).Returns(content);
-        _anotherTagParser.Setup(o => o.Parse(content, It.IsAny<string>())).Returns(content);
-        _anotherAnotherTagParser.Setup(o => o.Parse(content, It.IsAny<string>())).Returns(content);
-        _alertsTagParser.Setup(o => o.Parse(It.IsAny<string>(), It.IsAny<IEnumerable<Alert>>(), It.IsAny<bool>())).Returns(content);
-        _documentTagParser.Setup(o => o.Parse(It.IsAny<string>(), It.IsAny<IEnumerable<Document>>(), It.IsAny<bool>())).Returns(content);
-        _quoteTagParser.Setup(o => o.Parse(It.IsAny<string>(), It.IsAny<IEnumerable<InlineQuote>>(), It.IsAny<bool>())).Returns(content);
-        _privacyNoticeTagParser.Setup(o => o.Parse(It.IsAny<string>(), It.IsAny<IEnumerable<PrivacyNotice>>(), It.IsAny<bool>())).Returns(content);
-        _profileTagParser.Setup(o => o.Parse(It.IsAny<string>(), It.IsAny<IEnumerable<Profile>>(), It.IsAny<bool>())).Returns(content);
-
-        var parsedContent = _tagParserContainer.ParseAll(content);
-
-        parsedContent.Should().Be("CONTENT");
+        // Act
+        string parsedContent = _tagParserContainer.ParseAll("{{TAG: sgsdgsdfgd}}CONTENT{{TAGS:sgdfgdfg}}{{TAGS:sgdfgdf242g}}");
+        
+        // Assert
+        Assert.Equal("CONTENT", parsedContent);
     }
 
     [Fact]
     public void ShouldPassTitleToParsers()
     {
-        const string content = "Unimportant content";
-        const string title = "The title";
+        // Act
+        _tagParserContainer.ParseAll("Unimportant content", "The title");
 
-        _tagParser.Setup(o => o.Parse(content, title)).Returns(content);
-        _anotherTagParser.Setup(o => o.Parse(content, title)).Returns(content);
-        _anotherAnotherTagParser.Setup(o => o.Parse(content, title)).Returns(content);
-        _alertsTagParser.Setup(o => o.Parse(It.IsAny<string>(), It.IsAny<IEnumerable<Alert>>(), It.IsAny<bool>())).Returns(content);
-        _documentTagParser.Setup(o => o.Parse(It.IsAny<string>(), It.IsAny<IEnumerable<Document>>(), It.IsAny<bool>())).Returns(content);
-        _quoteTagParser.Setup(o => o.Parse(It.IsAny<string>(), It.IsAny<IEnumerable<InlineQuote>>(), It.IsAny<bool>())).Returns(content);
-        _privacyNoticeTagParser.Setup(o => o.Parse(It.IsAny<string>(), It.IsAny<IEnumerable<PrivacyNotice>>(), It.IsAny<bool>())).Returns(content);
-        _profileTagParser.Setup(o => o.Parse(It.IsAny<string>(), It.IsAny<IEnumerable<Profile>>(), It.IsAny<bool>())).Returns(content);
-
-        var parsedContent = _tagParserContainer.ParseAll(content, title);
-
+        // Assert
         _tagParser.Verify();
         _anotherTagParser.Verify();
         _anotherAnotherTagParser.Verify();

@@ -5,7 +5,8 @@ public class ProfileControllerTest
     private readonly Mock<IProfileService> _profileService = new();
     private readonly ProfileController _profileController;
 
-    public ProfileControllerTest() => _profileController = new ProfileController(_profileService.Object);
+    public ProfileControllerTest() =>
+        _profileController = new(_profileService.Object);
 
     [Fact]
     public async Task GetProfile_ReturnsAProfileWithProcessedBody()
@@ -16,8 +17,9 @@ public class ProfileControllerTest
             Title = "test"
         };
 
-        _profileService.Setup(_ => _.GetProfile(It.IsAny<string>()))
-                        .ReturnsAsync(profile);
+        _profileService
+            .Setup(service => service.GetProfile(It.IsAny<string>()))
+            .ReturnsAsync(profile);
 
         // Act
         ViewResult view = await _profileController.Index("slug") as ViewResult;
@@ -31,8 +33,9 @@ public class ProfileControllerTest
     public async Task GetProfile_ReturnsNotFound()
     {
         // Arrange
-        _profileService.Setup(_ => _.GetProfile(It.IsAny<string>()))
-                        .ReturnsAsync((Profile)null);
+        _profileService
+            .Setup(service => service.GetProfile(It.IsAny<string>()))
+            .ReturnsAsync((Profile)null);
 
         // Act
         StatusCodeResult result = await _profileController.Index("slug") as StatusCodeResult;

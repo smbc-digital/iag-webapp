@@ -28,14 +28,9 @@ public class AmazonSesClientConfiguration
         EmailFrom = emailFromSetting.ToString();
     }
 
-    public bool IsValid()
-    {
-        return _hostSetting.IsValid() && _regionSetting.IsValid() && _emailFromSetting.IsValid() && _awsKeys.IsValid();
-    }
+    public bool IsValid() =>
+        _hostSetting.IsValid() && _regionSetting.IsValid() && _emailFromSetting.IsValid() && _awsKeys.IsValid();
 
-    public string ValidityToString()
-    {
-        return $"Host: {_hostSetting.IsValid()}, Region: {_regionSetting.IsValid()}, " +
-               $"EmailFrom: {_emailFromSetting.IsValid()}, AwsKeys: {_awsKeys.IsValid()}";
-    }
+    public string ValidityToString() =>
+        $"Host: {_hostSetting.IsValid()}, Region: {_regionSetting.IsValid()}, EmailFrom: {_emailFromSetting.IsValid()}, AwsKeys: {_awsKeys.IsValid()}";
 }

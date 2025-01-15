@@ -5,20 +5,23 @@ public class RedirectsTest
     [Fact]
     public void ShouldCompareKeysWithCurrentCultureIgnoreCase()
     {
-        var fromJsonRedirects = new RedirectDictionary
+        // Arrange
+        RedirectDictionary fromJsonRedirects = new()
         {
             {"from", "to"},
             {"from_again", "to_again"}
         };
 
-        var businessIdRedirects = new BusinessIdRedirectDictionary
+        BusinessIdRedirectDictionary businessIdRedirects = new()
         {
             {"unittest", fromJsonRedirects}
         };
 
-        var redirects = new ShortUrlRedirects(businessIdRedirects);
+        // Act
+        ShortUrlRedirects redirects = new(businessIdRedirects);
 
-        redirects.Redirects.Count.Should().Be(1);
-        redirects.Redirects["unittest"].Comparer.Should().Be(StringComparer.CurrentCultureIgnoreCase);
+        // Assert
+        Assert.Single(redirects.Redirects);
+        Assert.Equal(StringComparer.CurrentCultureIgnoreCase, redirects.Redirects["unittest"].Comparer);
     }
 }

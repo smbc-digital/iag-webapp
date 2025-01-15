@@ -1,10 +1,8 @@
 ﻿namespace StockportWebapp.TagParsers;
 
-public class PrivacyNoticeTagParser : IDynamicTagParser<PrivacyNotice>
+public class PrivacyNoticeTagParser(IViewRender viewRenderer) : IDynamicTagParser<PrivacyNotice>
 {
-    private readonly IViewRender _viewRenderer;
-
-    public PrivacyNoticeTagParser(IViewRender viewRenderer) => _viewRenderer = viewRenderer;
+    private readonly IViewRender _viewRenderer = viewRenderer;
 
     protected Regex TagRegex => new("{{PrivacyNotice:(.*?)}}", RegexOptions.Compiled);
 
@@ -17,7 +15,7 @@ public class PrivacyNoticeTagParser : IDynamicTagParser<PrivacyNotice>
         foreach (Match match in matches)
         {
             string privacyNoticeSlug = match.Groups[1].Value;
-            privacyNotices = privacyNotices?.Where(s => s.Title.Replace(" ", string.Empty) == privacyNoticeSlug).OrderBy(x => x.Category);
+            privacyNotices = privacyNotices?.Where(s => s.Title.Replace(" ", string.Empty).Equals(privacyNoticeSlug)).OrderBy(x => x.Category);
 
             if (privacyNotices.Any())
             {
@@ -30,5 +28,4 @@ public class PrivacyNoticeTagParser : IDynamicTagParser<PrivacyNotice>
 
     private string RemoveEmptyTags(string content) =>
         TagRegex.Replace(content, string.Empty);
-    
 }

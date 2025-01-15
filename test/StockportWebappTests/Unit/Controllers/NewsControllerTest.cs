@@ -5,13 +5,13 @@ public class NewsControllerTest
     private NewsController _controller;
     private Mock<IRepository> _repository = new();
     private readonly Mock<IProcessedContentRepository> _processedContentRepository = new();
-    private readonly Mock<IRssFeedFactory> _mockRssFeedFactory;
-    private readonly Mock<ILogger<NewsController>> _logger;
-    private readonly Mock<IApplicationConfiguration> _config;
+    private readonly Mock<IRssFeedFactory> _mockRssFeedFactory = new();
+    private readonly Mock<ILogger<NewsController>> _logger = new();
+    private readonly Mock<IApplicationConfiguration> _config = new();
     private const string BusinessId = "businessId";
     private const string EmailAlertsTopicId = "test-id";
     private const bool EmailAlertsOn = true;
-    private readonly Mock<IFilteredUrl> _filteredUrl;
+    private readonly Mock<IFilteredUrl> _filteredUrl = new();
 
     private static readonly News NewsItemWithImages = new("Another news article",
         "another-news-article",
@@ -69,57 +69,64 @@ public class NewsControllerTest
     
     public NewsControllerTest()
     {
-        _newsRoom = new(_listOfNewsItems, new OrderedList<Alert>(), EmailAlertsOn, EmailAlertsTopicId,
-            new List<string>(), new List<DateTime>());
-        _emptyNewsRoom = new(new List<News>(), new OrderedList<Alert>(), EmailAlertsOn, EmailAlertsTopicId,
-          new List<string>(), new List<DateTime>());
+        _newsRoom = new(_listOfNewsItems,
+                        new OrderedList<Alert>(),
+                        EmailAlertsOn,
+                        EmailAlertsTopicId,
+                        new List<string>(),
+                        new List<DateTime>());
+        
+        _emptyNewsRoom = new(new List<News>(),
+                            new OrderedList<Alert>(),
+                            EmailAlertsOn,
+                            EmailAlertsTopicId,
+                            new List<string>(),
+                            new List<DateTime>());
 
-        // setup responses (with mock data)
-        HttpResponse responseListing = new(200, _newsRoom, "");
-        HttpResponse responseDetail = new(200, _processedNewsArticle, "");
-        HttpResponse emptyResponsListing = new(200, _emptyNewsRoom, "");
+        HttpResponse responseListing = new(200, _newsRoom, string.Empty);
+        HttpResponse responseDetail = new(200, _processedNewsArticle, string.Empty);
+        HttpResponse emptyResponsListing = new(200, _emptyNewsRoom, string.Empty);
 
-        // setup mocks
-        _repository.Setup(_ => _.Get<Newsroom>(It.IsAny<string>(), It.Is<List<Query>>(l => l.Count == 0)))
+        _repository
+            .Setup(repo => repo.Get<Newsroom>(It.IsAny<string>(), It.Is<List<Query>>(l => l.Count.Equals(0))))
             .ReturnsAsync(responseListing);
 
-        _repository.Setup(_ => _.GetLatest<List<News>>(7))
+        _repository
+            .Setup(repo => repo.GetLatest<List<News>>(7))
             .ReturnsAsync(HttpResponse.Successful(200, _listOfNewsItems));
 
-        _processedContentRepository.Setup(_ => _.Get<News>("another-news-article", null))
+        _processedContentRepository
+            .Setup(repo => repo.Get<News>("another-news-article", null))
             .ReturnsAsync(responseDetail);
 
-        _logger = new();
-
-        _mockRssFeedFactory = new();
-        _mockRssFeedFactory.Setup(_ => _.BuildRssFeed(It.IsAny<List<News>>(), It.IsAny<string>(), It.IsAny<string>()))
+        _mockRssFeedFactory
+            .Setup(factory => factory.BuildRssFeed(It.IsAny<List<News>>(), It.IsAny<string>(), It.IsAny<string>()))
             .Returns("rss fun");
 
-        _config = new();
-        _filteredUrl = new();
-
-        _config.Setup(_ => _.GetRssEmail(BusinessId)).Returns(AppSetting.GetAppSetting("rss-email"));
-        _config.Setup(_ => _.GetEmailAlertsNewSubscriberUrl(BusinessId))
+        _config
+            .Setup(conf => conf.GetRssEmail(BusinessId))
+            .Returns(AppSetting.GetAppSetting("rss-email"));
+        
+        _config
+            .Setup(conf => conf.GetEmailAlertsNewSubscriberUrl(BusinessId))
             .Returns(AppSetting.GetAppSetting("email-alerts-url"));
 
-        _controller = new(
-            _repository.Object,
-            _processedContentRepository.Object,
-            _mockRssFeedFactory.Object,
-            _logger.Object,
-            _config.Object,
-            new BusinessId(BusinessId),
-            _filteredUrl.Object
-        );
+        _controller = new(_repository.Object,
+                        _processedContentRepository.Object,
+                        _mockRssFeedFactory.Object,
+                        _logger.Object,
+                        _config.Object,
+                        new BusinessId(BusinessId),
+                        _filteredUrl.Object);
     }
 
     [Fact]
     public async Task Index_ItReturnsANewsListingPageWithTwoItems()
     {
         // Act
-        var actionResponse = await _controller.Index(new NewsroomViewModel(), 1, MaxNumberOfItemsPerPage) as ViewResult;
-        var viewModel = actionResponse.ViewData.Model as NewsroomViewModel;
-        var news = viewModel.Newsroom;
+        ViewResult actionResponse = await _controller.Index(new NewsroomViewModel(), 1, MaxNumberOfItemsPerPage) as ViewResult;
+        NewsroomViewModel viewModel = actionResponse.ViewData.Model as NewsroomViewModel;
+        Newsroom news = viewModel.Newsroom;
 
         // Assert
         Assert.Equal(2, news.News.Count);
@@ -133,8 +140,8 @@ public class NewsControllerTest
     public async Task Detail_ItReturnsANewsPageWithImageDocumentssAndLatestNews()
     {
         // Act
-        var actionResponse = await _controller.Detail("another-news-article") as ViewResult;
-        var news = actionResponse.ViewData.Model as NewsViewModel;
+        ViewResult actionResponse = await _controller.Detail("another-news-article") as ViewResult;
+        NewsViewModel news = actionResponse.ViewData.Model as NewsViewModel;
 
         // Assert
         Assert.Equal("Another news article", news.NewsItem.Title);
@@ -155,19 +162,20 @@ public class NewsControllerTest
     public async Task Detail_ShouldReturnANewsPageWithNoLatestNewsItems()
     {
         // Arrange
-        _repository.Setup(_ => _.GetLatest<List<News>>(7)).ReturnsAsync(new HttpResponse(404, null, "not found"));
-        var controller = new NewsController(
-            _repository.Object,
-            _processedContentRepository.Object,
-            _mockRssFeedFactory.Object,
-            _logger.Object, _config.Object,
-            new BusinessId(BusinessId),
-            _filteredUrl.Object
-        );
+        _repository
+            .Setup(repo => repo.GetLatest<List<News>>(7))
+            .ReturnsAsync(new HttpResponse(404, null, "not found"));
+        
+        NewsController controller = new(_repository.Object,
+                                        _processedContentRepository.Object,
+                                        _mockRssFeedFactory.Object,
+                                        _logger.Object, _config.Object,
+                                        new BusinessId(BusinessId),
+                                        _filteredUrl.Object);
 
         // Act
-        var response = await controller.Detail("another-news-article") as ViewResult;
-        var model = response.Model as NewsViewModel;
+        ViewResult response = await controller.Detail("another-news-article") as ViewResult;
+        NewsViewModel model = response.Model as NewsViewModel;
 
         // Arrange
         Assert.Equal("another-news-article", model.NewsItem.Slug);
@@ -177,14 +185,20 @@ public class NewsControllerTest
     public async Task Index_ShouldReturnAListOfNewsArticlesForATagAndACategory()
     {
         // Arrange
-        _repository.Setup(_ => _.Get<Newsroom>("", It.Is<List<Query>>( l => l.Contains(new Query("tag", "Events")) && l.Contains(new Query("Category", "A Category")))))
+        _repository
+            .Setup(repo=> repo.Get<Newsroom>(string.Empty, It.Is<List<Query>>(l => l.Contains(new Query("tag", "Events")) && l.Contains(new Query("Category", "A Category")))))
             .ReturnsAsync(HttpResponse.Successful((int)HttpStatusCode.OK, _newsRoom));
-        
-        // Act
-        var actionResponse = await _controller.Index(new NewsroomViewModel { Tag = "Events", Category = "A Category" }, 1, MaxNumberOfItemsPerPage) as ViewResult;
 
-        var viewModel = actionResponse.ViewData.Model as NewsroomViewModel;
-        var news = viewModel.Newsroom;
+        // Act
+        ViewResult actionResponse = await _controller.Index(new NewsroomViewModel
+            {
+                Tag = "Events",
+                Category = "A Category"
+            },
+            1, MaxNumberOfItemsPerPage) as ViewResult;
+
+        NewsroomViewModel viewModel = actionResponse.ViewData.Model as NewsroomViewModel;
+        Newsroom news = viewModel.Newsroom;
 
         // Assert
         Assert.Equal(2, news.News.Count);
@@ -198,14 +212,20 @@ public class NewsControllerTest
     public async Task Index_ShouldReturn404ForNoNewsItems()
     {
         // Arrange
-        _repository.Setup(_ => _.Get<Newsroom>(string.Empty, It.IsAny<List<Query>>()))
+        _repository
+            .Setup(repo => repo.Get<Newsroom>(string.Empty, It.IsAny<List<Query>>()))
             .ReturnsAsync(new HttpResponse(404, null, "not found"));
-        var controller = new NewsController(_repository.Object, _processedContentRepository.Object,
-            _mockRssFeedFactory.Object, _logger.Object, _config.Object, new BusinessId(BusinessId),
-            _filteredUrl.Object);
         
+        NewsController controller = new(_repository.Object,
+                                        _processedContentRepository.Object,
+                                        _mockRssFeedFactory.Object,
+                                        _logger.Object,
+                                        _config.Object,
+                                        new BusinessId(BusinessId),
+                                        _filteredUrl.Object);
+
         // Act
-        var response = await controller.Index(new NewsroomViewModel(), 1, MaxNumberOfItemsPerPage) as HttpResponse;
+        HttpResponse response = await controller.Index(new NewsroomViewModel(), 1, MaxNumberOfItemsPerPage) as HttpResponse;
 
         // Assert
         Assert.Equal(404, response.StatusCode);
@@ -215,12 +235,12 @@ public class NewsControllerTest
     public async Task Detail_ShouldReturn404NotFoundForNewsArticleThatdoesNotExist()
     {
         // Arrange
-        string nonexistentArticleTitle = "this-news-article-does-not-exist";
-        _processedContentRepository.Setup(_ => _.Get<News>(nonexistentArticleTitle, null))
+        _processedContentRepository
+            .Setup(repo => repo.Get<News>("this-news-article-does-not-exist", null))
             .ReturnsAsync(new HttpResponse(404, null, "not found"));
 
         // Act
-        var actionResponse = await _controller.Detail(nonexistentArticleTitle) as HttpResponse;
+        HttpResponse actionResponse = await _controller.Detail("this-news-article-does-not-exist") as HttpResponse;
 
         // Assert
         Assert.Equal(404, actionResponse.StatusCode);
@@ -230,23 +250,21 @@ public class NewsControllerTest
     public async Task Rss_ShouldCreateRssFeedFromFactory()
     {
         // Arrange
-        var repository = new Mock<IRepository>();
+        Mock<IRepository> repository = new();
+        repository
+            .Setup(repo => repo.Get<Newsroom>(It.IsAny<string>(), null))
+            .ReturnsAsync(HttpResponse.Successful((int)HttpStatusCode.OK, _newsRoom));
 
-        repository.Setup(_ => _.Get<Newsroom>(It.IsAny<string>(), null))
-          .ReturnsAsync(HttpResponse.Successful((int)HttpStatusCode.OK, _newsRoom));
-
-        _controller = new NewsController(
-           repository.Object,
-           _processedContentRepository.Object,
-           _mockRssFeedFactory.Object,
-           _logger.Object,
-           _config.Object,
-           new BusinessId(BusinessId),
-           _filteredUrl.Object
-       );
+        _controller = new NewsController(repository.Object,
+                                        _processedContentRepository.Object,
+                                        _mockRssFeedFactory.Object,
+                                        _logger.Object,
+                                        _config.Object,
+                                        new BusinessId(BusinessId),
+                                        _filteredUrl.Object);
 
         // Act
-        var response = await _controller.Rss() as ContentResult;
+        ContentResult response = await _controller.Rss() as ContentResult;
 
         // Assert
         Assert.Equal("application/rss+xml", response.ContentType);
@@ -258,19 +276,21 @@ public class NewsControllerTest
     public async Task Index_ShouldReturnNewsItemsForADateFilter()
     {
         // Arrange
-        _repository.Setup(_ => _.Get<Newsroom>("", It.Is<List<Query>>(l => l.Contains(new Query("DateFrom", "2016-10-01")) && l.Contains(new Query("DateTo", "2016-11-01")))))
+        _repository
+            .Setup(repo => repo.Get<Newsroom>(string.Empty,
+                                            It.Is<List<Query>>(l => l.Contains(new Query("DateFrom", "2016-10-01")) && l.Contains(new Query("DateTo", "2016-11-01")))))
             .ReturnsAsync(HttpResponse.Successful((int)HttpStatusCode.OK, _newsRoom));
 
         // Act
-        var actionResponse = await _controller.Index(
+        ViewResult actionResponse = await _controller.Index(
                     new NewsroomViewModel
                     {
                         DateFrom = new DateTime(2016, 10, 01),
                         DateTo = new DateTime(2016, 11, 01)
                     }, 1, MaxNumberOfItemsPerPage) as ViewResult;
 
-        var viewModel = actionResponse.ViewData.Model as NewsroomViewModel;
-        var news = viewModel.Newsroom;
+        NewsroomViewModel viewModel = actionResponse.ViewData.Model as NewsroomViewModel;
+        Newsroom news = viewModel.Newsroom;
 
         // Assert
         Assert.Equal(_newsRoom, news);
@@ -282,28 +302,27 @@ public class NewsControllerTest
         // Arrange
         Mock<IRepository> emptyRepository = new();
 
-        emptyRepository.Setup(_ => _.Get<Newsroom>(It.IsAny<string>(), It.IsAny<List<Query>>()))
+        emptyRepository
+            .Setup(_ => _.Get<Newsroom>(It.IsAny<string>(), It.IsAny<List<Query>>()))
             .ReturnsAsync(HttpResponse.Successful((int)HttpStatusCode.OK, _emptyNewsRoom));
 
-        NewsController controller = new(
-            emptyRepository.Object,
-            _processedContentRepository.Object,
-            _mockRssFeedFactory.Object,
-            _logger.Object,
-            _config.Object,
-            new BusinessId(BusinessId),
-            _filteredUrl.Object
-        );
+        NewsController controller = new(emptyRepository.Object,
+                                        _processedContentRepository.Object,
+                                        _mockRssFeedFactory.Object,
+                                        _logger.Object,
+                                        _config.Object,
+                                        new BusinessId(BusinessId),
+                                        _filteredUrl.Object);
 
         // Act
-        var actionResponse = await controller.Index(
+        ViewResult actionResponse = await controller.Index(
             new NewsroomViewModel
             {
                 DateFrom = null,
                 DateTo = null
             }, 1, MaxNumberOfItemsPerPage) as ViewResult;
 
-        var viewModel = actionResponse.ViewData.Model as NewsroomViewModel;
+        NewsroomViewModel viewModel = actionResponse.ViewData.Model as NewsroomViewModel;
 
         // Assert
         Assert.Empty(viewModel.Newsroom.News);
@@ -323,14 +342,14 @@ public class NewsControllerTest
         int expectedNumPages)
     {
         // Arrange
-        var controller = SetUpController(totalNumItems);
+        NewsController controller = SetUpController(totalNumItems);
         NewsroomViewModel model = new();
 
         // Act
-        var actionResponse = await controller.Index(model, requestedPageNumber, MaxNumberOfItemsPerPage) as ViewResult;
+        ViewResult actionResponse = await controller.Index(model, requestedPageNumber, MaxNumberOfItemsPerPage) as ViewResult;
 
         // Assert
-        var viewModel = actionResponse.ViewData.Model as NewsroomViewModel;
+        NewsroomViewModel viewModel = actionResponse.ViewData.Model as NewsroomViewModel;
 
         Assert.Equal(expectedNumItemsOnPage, viewModel.Newsroom.News.Count);
         Assert.Equal(expectedNumPages, model.Pagination.TotalPages);
@@ -345,8 +364,8 @@ public class NewsControllerTest
         int expectedPageNumber)
     {
         // Arrange
-        var controller = SetUpController(numItems);
-        var model = new NewsroomViewModel();
+        NewsController controller = SetUpController(numItems);
+        NewsroomViewModel model = new();
 
         // Act
         await controller.Index(model, specifiedPageNumber, MaxNumberOfItemsPerPage);
@@ -359,9 +378,8 @@ public class NewsControllerTest
     public async Task Index_ShouldReturnEmptyPaginationObjectIfNoNewsArticlesExist()
     {
         // Arrange
-        const int zeroItems = 0;
-        var controller = SetUpController(zeroItems);
-        var model = new NewsroomViewModel();
+        NewsController controller = SetUpController(0);
+        NewsroomViewModel model = new();
 
         // Act
         await controller.Index(model, 0, MaxNumberOfItemsPerPage);
@@ -374,9 +392,8 @@ public class NewsControllerTest
     public async Task Index_ShouldReturnCurrentURLForPagination()
     {
         // Arrange
-        int numItems = 10;
-        var controller = SetUpController(numItems);
-        var model = new NewsroomViewModel();
+        NewsController controller = SetUpController(10);
+        NewsroomViewModel model = new();
 
         // Act
         await controller.Index(model, 0, MaxNumberOfItemsPerPage);
@@ -389,29 +406,24 @@ public class NewsControllerTest
     {
         List<News> listofNewsItems = BuildNewsList(numNewsItems);
 
-        var bigNewsRoom = new Newsroom(
-            listofNewsItems,
-            new OrderedList<Alert>(),
-            EmailAlertsOn,
-            EmailAlertsTopicId,
-            new List<string>(),
-            new List<DateTime>()
-        );
+        Newsroom bigNewsRoom = new(listofNewsItems,
+                                new OrderedList<Alert>(),
+                                EmailAlertsOn,
+                                EmailAlertsTopicId,
+                                new List<string>(),
+                                new List<DateTime>());
 
-        _repository.Setup(_ => _.Get<Newsroom>(It.IsAny<string>(), It.IsAny<List<Query>>()))
+        _repository
+            .Setup(_ => _.Get<Newsroom>(It.IsAny<string>(), It.IsAny<List<Query>>()))
             .ReturnsAsync(HttpResponse.Successful((int)HttpStatusCode.OK, bigNewsRoom));
 
-        NewsController controller = new(
-            _repository.Object,
-            _processedContentRepository.Object,
-            _mockRssFeedFactory.Object,
-            _logger.Object,
-            _config.Object,
-            new BusinessId(BusinessId),
-            _filteredUrl.Object
-        );
-
-        return controller;
+        return new(_repository.Object,
+                                        _processedContentRepository.Object,
+                                        _mockRssFeedFactory.Object,
+                                        _logger.Object,
+                                        _config.Object,
+                                        new BusinessId(BusinessId),
+                                        _filteredUrl.Object);
     }
 
     private List<News> BuildNewsList(int numberOfItems)
@@ -421,20 +433,20 @@ public class NewsControllerTest
         for (int i = 0; i < numberOfItems; i++)
         {
             News NewsItem = new("News Article " + i.ToString(),
-                "another-news-article",
-                "This is another news article",
-                "type",
-                "image.jpg",
-                "thumbnail.jpg",
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam gravida eu mauris in consectetur. Nullam nulla urna, sagittis a ex sit amet, ultricies rhoncus mauris. Quisque vel placerat turpis, vitae consectetur mauris.",
-                new List<Crumb>(),
-                new DateTime(2015, 9, 10),
-                new DateTime(2015, 9, 20),
-                new DateTime(2015, 9, 15),
-                new List<Alert>(),
-                new List<string>(),
-                new List<Document>(),
-                new List<Profile>());
+                                "another-news-article",
+                                "This is another news article",
+                                "type",
+                                "image.jpg",
+                                "thumbnail.jpg",
+                                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam gravida eu mauris in consectetur. Nullam nulla urna, sagittis a ex sit amet, ultricies rhoncus mauris. Quisque vel placerat turpis, vitae consectetur mauris.",
+                                new List<Crumb>(),
+                                new DateTime(2015, 9, 10),
+                                new DateTime(2015, 9, 20),
+                                new DateTime(2015, 9, 15),
+                                new List<Alert>(),
+                                new List<string>(),
+                                new List<Document>(),
+                                new List<Profile>());
 
             listofNewsItems.Add(NewsItem);
         }

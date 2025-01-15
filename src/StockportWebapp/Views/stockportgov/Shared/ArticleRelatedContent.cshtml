@@ -14,7 +14,7 @@
             </div>
         </li>
 
-        @foreach (var item in Model.RelatedContent)
+        @foreach (SubItem item in Model.RelatedContent)
         {
             <li class="@liClasses">
                 <div class="@(item.Equals(Model.RelatedContent.Last()) 

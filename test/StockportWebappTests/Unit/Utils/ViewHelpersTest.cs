@@ -2,13 +2,12 @@
 
 public class ViewHelpersTest
 {
-    private readonly Mock<ITimeProvider> _timeProvider;
+    private readonly Mock<ITimeProvider> _timeProvider = new();
 
-    public ViewHelpersTest()
-    {
-        _timeProvider = new Mock<ITimeProvider>();
-        _timeProvider.Setup(o => o.Now()).Returns(new DateTime(2017, 02, 1));
-    }
+    public ViewHelpersTest() =>
+        _timeProvider
+            .Setup(provider => provider.Now())
+            .Returns(new DateTime(2017, 02, 1));
 
     [Theory]
     [InlineData(10, "09:30", "Saturday 11 February at 9:30am")]
@@ -19,14 +18,14 @@ public class ViewHelpersTest
     public void FormatEventDateShouldReturnCorrectDateString(int daysOffset, string time, string expected)
     {
         // Arrange
-        var date = _timeProvider.Object.Now().AddDays(daysOffset);
-        var viewHelper = new ViewHelpers(_timeProvider.Object);
+        DateTime date = _timeProvider.Object.Now().AddDays(daysOffset);
+        ViewHelpers viewHelper = new(_timeProvider.Object);
 
         // Act
-        var result = viewHelper.FormatEventDate(date, time);
+        string result = viewHelper.FormatEventDate(date, time);
 
         // Assert
-        result.Should().Be(expected);
+        Assert.Equal(expected, result);
     }
 
     [Theory]
@@ -39,12 +38,12 @@ public class ViewHelpersTest
     public void FormatWysiwygTextToOnlyAllowAllowedHtml(string html, string expected)
     {
         // Arrange
-        var viewHelper = new ViewHelpers(_timeProvider.Object);
+        ViewHelpers viewHelper = new(_timeProvider.Object);
 
         // Act
-        var result = viewHelper.StripUnwantedHtml(html);
+        string result = viewHelper.StripUnwantedHtml(html);
 
         // Assert
-        result.Should().Be(expected);
+        Assert.Equal(expected, result);
     }
 }

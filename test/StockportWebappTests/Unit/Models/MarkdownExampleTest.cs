@@ -5,15 +5,14 @@ public class MarkdownExampleTest
     [Fact]
     public void ConvertsTableMarkdownToHtmlTable()
     {
-        var body = "# Headings are fun\r\n" +
+        // Arrange
+        string body = "# Headings are fun\r\n" +
                    "| Tables are great | 1      | 2      | 3          | 4    |\r\n" +
                    "|------------------|--------|--------|------------|------|\r\n" +
                    "| White space is removed     | OneOne | Two    | Three      | Four |\r\n" +
                    "|    No matter where it is|    One | TwoTwo |      Three | Four |\r\n";
 
-        var convertedBody = MarkdownWrapper.ToHtml(body);
-
-        var expected = "<h1 id=\"headings-are-fun\">Headings are fun</h1>\n" +
+        string expected = "<h1 id=\"headings-are-fun\">Headings are fun</h1>\n" +
                        "<div class=\"table\">\n" +
                        "<table>\n" +
                        "<thead>\n" +
@@ -25,21 +24,25 @@ public class MarkdownExampleTest
                        "</tbody>\n" +
                        "</table>\n" +
                        "</div>\n";
+
+        // Act
+        string convertedBody = MarkdownWrapper.ToHtml(body);
+        
+        // Assert
         Assert.Equal(expected, convertedBody);
     }
 
     [Fact]
     public void ConvertsTableMarkdownToHtmlTableWithInstanceOfMarkdownWrapper()
     {
-        var body = "# Headings are fun\r\n" +
+        // Arrange
+        string body = "# Headings are fun\r\n" +
                    "| Tables are great | 1      | 2      | 3          | 4    |\r\n" +
                    "|------------------|--------|--------|------------|------|\r\n" +
                    "| White space is removed     | OneOne | Two    | Three      | Four |\r\n" +
                    "|    No matter where it is|    One | TwoTwo |      Three | Four |\r\n";
 
-        var convertedBody = new MarkdownWrapper().ConvertToHtml(body);
-
-        var expected = "<h1 id=\"headings-are-fun\">Headings are fun</h1>\n" +
+        string expected = "<h1 id=\"headings-are-fun\">Headings are fun</h1>\n" +
                        "<div class=\"table\">\n" +
                        "<table>\n" +
                        "<thead>\n" +
@@ -51,16 +54,25 @@ public class MarkdownExampleTest
                        "</tbody>\n" +
                        "</table>\n" +
                        "</div>\n";
+
+        // Act
+        string convertedBody = new MarkdownWrapper().ConvertToHtml(body);
+
+        // Assert
         Assert.Equal(expected, convertedBody);
     }
 
     [Fact]
     public void ShouldAddHardBreakForSoftLineBreaks()
     {
-        var body = "this is a body \n and so is this";
-        var convertedBody = new MarkdownWrapper().ConvertToHtml(body);
-        var expected = "<p>this is a body<br />\nand so is this</p>\n";
+        // Arrange
+        string body = "this is a body \n and so is this";
+        string expected = "<p>this is a body<br />\nand so is this</p>\n";
 
-        convertedBody.Should().Be(expected);
+        // Act
+        string convertedBody = new MarkdownWrapper().ConvertToHtml(body);
+
+        // Assert
+        Assert.Equal(expected, convertedBody);
     }
 }

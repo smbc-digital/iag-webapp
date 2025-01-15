@@ -27,7 +27,7 @@
         @if (Model.Article.Alerts is not null && Model.Article.Alerts.Any())
         {
             <div class="alert-wrapper">
-                @foreach (var alert in Model.Article.Alerts)
+                @foreach (Alert alert in Model.Article.Alerts)
                 {
                     <partial name="DisplayTemplates/Alert" model='alert' />
                 }
@@ -39,8 +39,10 @@
                 <span class="hs-article-icon-container hide-on-mobile fa fa-3x default-icon @Model.Article.Icon" aria-hidden="true"></span>
                 <h1 class="hs-article-title-container">@Model.Article.Title</h1>
             </div>
+
             <hr />
             <div class="clearfix"></div>
+
             @if (Model.ShouldShowArticleSummary)
             {
                 <div class="hs-article-summary">
@@ -49,7 +51,7 @@
             }
         </div>
 
-        @if (Model.DisplayedSection != null)
+        @if (Model.DisplayedSection is not null)
         {
             <partial name="../../Shared/Section-Nav" />
             <partial name="../Shared/Article-Single-Section" model='Model' />

@@ -3,30 +3,30 @@ namespace StockportWebappTests_Unit.Unit.Services;
 public class HealthcheckServiceTest
 {
     private readonly HealthcheckService _healthcheckService;
-    private readonly string _shaPath;
-    private readonly string _appVersionPath;
-    private readonly Mock<IFileWrapper> _fileWrapperMock;
-    private readonly Mock<IHttpClient> _mockHttpClient = new Mock<IHttpClient>();
-    private readonly Mock<IStubToUrlConverter> _mockUrlGenerator;
+    private readonly string _shaPath = "./Unit/sha.txt";
+    private readonly string _appVersionPath = "./Unit/version.txt";
+    private readonly Mock<IFileWrapper> _fileWrapperMock = new();
+    private readonly Mock<IHttpClient> _mockHttpClient = new();
+    private readonly Mock<IStubToUrlConverter> _mockUrlGenerator = new();
     private const string healthcheckUrl = "http://localhost:5000/_healthcheck";
-    private readonly Mock<IApplicationConfiguration> _configuration;
+    private readonly Mock<IApplicationConfiguration> _configuration = new();
     private readonly BusinessId _businessId;
 
     public HealthcheckServiceTest()
     {
-        _appVersionPath = "./Unit/version.txt";
-        _shaPath = "./Unit/sha.txt";
-        _fileWrapperMock = new Mock<IFileWrapper>();
         _businessId = new BusinessId("businessId");
-        _mockUrlGenerator = new Mock<IStubToUrlConverter>();
-        _mockUrlGenerator.Setup(o => o.HealthcheckUrl()).Returns(healthcheckUrl);
-        _configuration = new Mock<IApplicationConfiguration>();
-        _configuration.Setup(_ => _.GetContentApiAuthenticationKey()).Returns("AuthKey");
+        _mockUrlGenerator
+            .Setup(urlGenerator => urlGenerator.HealthcheckUrl())
+            .Returns(healthcheckUrl);
 
-        var httpResponseMessage = new HttpResponse(200, "{\"appVersion\":\"dev\",\"sha\":\"test-sha\",\"environment\":\"local\",\"redisValueData\":[]}", "");
+        _configuration
+            .Setup(conf => conf.GetContentApiAuthenticationKey())
+            .Returns("AuthKey");
+
+        HttpResponse httpResponseMessage = new(200, "{\"appVersion\":\"dev\",\"sha\":\"test-sha\",\"environment\":\"local\",\"redisValueData\":[]}", "");
 
         _mockHttpClient
-            .Setup(_ => _.Get(It.IsAny<string>(), It.IsAny<Dictionary<string, string>>()))
+            .Setup(client => client.Get(It.IsAny<string>(), It.IsAny<Dictionary<string, string>>()))
             .ReturnsAsync(httpResponseMessage);
 
         SetUpFakeFileSystem();
@@ -35,151 +35,206 @@ public class HealthcheckServiceTest
 
     private void SetUpFakeFileSystem()
     {
-        _fileWrapperMock.Setup(x => x.Exists(_appVersionPath)).Returns(true);
-        _fileWrapperMock.Setup(x => x.ReadAllLines(_appVersionPath)).Returns(new[] { "0.0.3" });
-        _fileWrapperMock.Setup(x => x.Exists(_shaPath)).Returns(true);
-        _fileWrapperMock.Setup(x => x.ReadAllLines(_shaPath))
-            .Returns(new[] { "d8213ee84c7d8c119c401b7ddd0adef923692188" });
+        _fileWrapperMock
+            .Setup(x => x.Exists(_appVersionPath))
+            .Returns(true);
+        
+        _fileWrapperMock
+            .Setup(x => x.ReadAllLines(_appVersionPath))
+            .Returns(["0.0.3"]);
+        
+        _fileWrapperMock
+            .Setup(x => x.Exists(_shaPath))
+            .Returns(true);
+        
+        _fileWrapperMock
+            .Setup(x => x.ReadAllLines(_shaPath))
+            .Returns(["d8213ee84c7d8c119c401b7ddd0adef923692188"]);
     }
 
-    private HealthcheckService CreateHealthcheckService(string appVersionPath, string shaPath)
-    {
-        return new HealthcheckService(appVersionPath, shaPath, _fileWrapperMock.Object, _mockHttpClient.Object, _mockUrlGenerator.Object, "local", _configuration.Object, _businessId);
-    }
+    private HealthcheckService CreateHealthcheckService(string appVersionPath, string shaPath) =>
+        new(appVersionPath, shaPath, _fileWrapperMock.Object, _mockHttpClient.Object, _mockUrlGenerator.Object, "local", _configuration.Object, _businessId);
 
-    private HealthcheckService CreateHealthcheckServiceWithDefaultFeatureToggles(string appVersionPath,
-        string shaPath)
-    {
-        return CreateHealthcheckService(appVersionPath, shaPath);
-    }
+    private HealthcheckService CreateHealthcheckServiceWithDefaultFeatureToggles(string appVersionPath, string shaPath) =>
+        CreateHealthcheckService(appVersionPath, shaPath);
 
     [Fact]
     public async Task ShouldContainTheAppVersionInTheResponse()
     {
-        var check = await _healthcheckService.Get();
+        // Act
+        Healthcheck check = await _healthcheckService.Get();
 
-        check.AppVersion.Should().Be("0.0.3");
+        // Assert
+        Assert.Equal("0.0.3", check.AppVersion);
     }
 
     [Fact]
     public async Task ShouldContainTheGitShaInTheResponse()
     {
-        var check = await _healthcheckService.Get();
+        // Act
+        Healthcheck check = await _healthcheckService.Get();
 
-        check.SHA.Should().Be("d8213ee84c7d8c119c401b7ddd0adef923692188");
+        // Assert
+        Assert.Equal("d8213ee84c7d8c119c401b7ddd0adef923692188", check.SHA);
     }
 
     [Fact]
     public async Task ShouldSetAppVersionToDevIfFileNotFound()
     {
-        var notFoundVersionPath = "notfound";
-        _fileWrapperMock.Setup(x => x.Exists(notFoundVersionPath)).Returns(false);
+        // Arrange
+        _fileWrapperMock
+            .Setup(x => x.Exists("notfound"))
+            .Returns(false);
 
-        var healthCheckServiceWithNotFoundVersion =
-            CreateHealthcheckServiceWithDefaultFeatureToggles(notFoundVersionPath, _shaPath);
-        var check = await healthCheckServiceWithNotFoundVersion.Get();
+        HealthcheckService healthCheckServiceWithNotFoundVersion = CreateHealthcheckServiceWithDefaultFeatureToggles("notfound", _shaPath);
 
-        check.AppVersion.Should().Be("dev");
+        // Act
+        Healthcheck check = await healthCheckServiceWithNotFoundVersion.Get();
+
+        // Assert
+        Assert.Equal("dev", check.AppVersion);
     }
 
     [Fact]
     public async Task ShouldSetAppVersionToDevIfFileEmpty()
     {
-        string newFile = "newFile";
-        _fileWrapperMock.Setup(x => x.Exists(newFile)).Returns(true);
-        _fileWrapperMock.Setup(x => x.ReadAllLines(newFile)).Returns(new string[] { });
+        // Arrange
+        _fileWrapperMock
+            .Setup(x => x.Exists("newFile"))
+            .Returns(true);
+        
+        _fileWrapperMock
+            .Setup(x => x.ReadAllLines("newFile"))
+            .Returns([]);
 
-        var healthCheckServiceWithNotFoundVersion = CreateHealthcheckServiceWithDefaultFeatureToggles(newFile,
-            _shaPath);
-        var check = await healthCheckServiceWithNotFoundVersion.Get();
+        HealthcheckService healthCheckServiceWithNotFoundVersion = CreateHealthcheckServiceWithDefaultFeatureToggles("newFile", _shaPath);
 
-        check.AppVersion.Should().Be("dev");
+        // Act
+        Healthcheck check = await healthCheckServiceWithNotFoundVersion.Get();
+
+        // Assert
+        Assert.Equal("dev", check.AppVersion);
     }
 
     [Fact]
     public async Task ShouldSetAppVersionToDevIfFileHasAnEmptyAString()
     {
-        string newFile = "newFile";
-        _fileWrapperMock.Setup(x => x.Exists(newFile)).Returns(true);
-        _fileWrapperMock.Setup(x => x.ReadAllLines(newFile)).Returns(new[] { "" });
+        // Arrange
+        _fileWrapperMock
+            .Setup(x => x.Exists("newFile"))
+            .Returns(true);
+        
+        _fileWrapperMock
+            .Setup(x => x.ReadAllLines("newFile"))
+            .Returns([string.Empty]);
 
-        var healthCheckServiceWithNotFoundVersion = CreateHealthcheckServiceWithDefaultFeatureToggles(newFile,
-            _shaPath);
-        var check = await healthCheckServiceWithNotFoundVersion.Get();
+        HealthcheckService healthCheckServiceWithNotFoundVersion = CreateHealthcheckServiceWithDefaultFeatureToggles("newFile", _shaPath);
+        
+        // Act
+        Healthcheck check = await healthCheckServiceWithNotFoundVersion.Get();
 
-        check.AppVersion.Should().Be("dev");
+        // Assert
+        Assert.Equal("dev", check.AppVersion);
     }
 
     [Fact]
     public async Task ShouldSetSHAToEmptyIfFileNotFound()
     {
-        var notFoundShaPath = "notfound";
-        _fileWrapperMock.Setup(x => x.Exists(notFoundShaPath)).Returns(false);
+        // Arrange
+        _fileWrapperMock
+            .Setup(x => x.Exists("notfound"))
+            .Returns(false);
 
-        var healthCheckServiceWithNotFoundVersion =
-            CreateHealthcheckServiceWithDefaultFeatureToggles(_appVersionPath, notFoundShaPath);
-        var check = await healthCheckServiceWithNotFoundVersion.Get();
+        HealthcheckService healthCheckServiceWithNotFoundVersion = CreateHealthcheckServiceWithDefaultFeatureToggles(_appVersionPath, "notfound");
 
-        check.SHA.Should().Be("");
+        // Act
+        Healthcheck check = await healthCheckServiceWithNotFoundVersion.Get();
+
+        // Assert
+        Assert.Empty(check.SHA);
     }
 
     [Fact]
     public async Task ShouldSetAppDependenciesGotFromTheContentApi()
     {
-        var check = await _healthcheckService.Get();
+        // Act
+        Healthcheck check = await _healthcheckService.Get();
 
-        check.Dependencies.Should().NotBeNull();
-        check.Dependencies.Should().ContainKey("contentApi");
-        var dependency = check.Dependencies["contentApi"];
-        dependency.AppVersion.Should().Be("dev");
-        dependency.SHA.Should().Be("test-sha");
+        // Assert
+        Healthcheck dependency = check.Dependencies["contentApi"];
+        Assert.NotNull(check.Dependencies);
+        Assert.Contains("contentApi", check.Dependencies.Keys);
+        Assert.Contains("dev", dependency.AppVersion);
+        Assert.Contains("test-sha", dependency.SHA);
     }
 
     [Fact]
     public async Task ShouldSetAppDependenciesToNullIfNoResponseGotFromContentApi()
     {
-        var httpResponseMessage = new HttpResponse((int)HttpStatusCode.BadRequest, new StringContent(""), null);
+        // Arrange
+        HttpResponse httpResponseMessage = new((int)HttpStatusCode.BadRequest, new StringContent(string.Empty), null);
 
         _mockHttpClient
-            .Setup(_ => _.Get(It.IsAny<string>(), It.IsAny<Dictionary<string, string>>()))
+            .Setup(client => client.Get(It.IsAny<string>(), It.IsAny<Dictionary<string, string>>()))
             .ReturnsAsync(httpResponseMessage);
 
-        var healthcheckService = new HealthcheckService(_appVersionPath, _shaPath, _fileWrapperMock.Object, _mockHttpClient.Object, _mockUrlGenerator.Object, "local", _configuration.Object, _businessId);
+        HealthcheckService healthcheckService = new(_appVersionPath,
+                                                    _shaPath,
+                                                    _fileWrapperMock.Object,
+                                                    _mockHttpClient.Object,
+                                                    _mockUrlGenerator.Object,
+                                                    "local",
+                                                    _configuration.Object,
+                                                    _businessId);
 
-        var check = await healthcheckService.Get();
+        // Act
+        Healthcheck check = await healthcheckService.Get();
 
-        check.Dependencies.Should().NotBeNull();
-        check.Dependencies.Should().ContainKey("contentApi");
-        var dependency = check.Dependencies["contentApi"];
-        dependency.AppVersion.Should().Be("Not available");
-        dependency.SHA.Should().Be("Not available");
-        dependency.Dependencies.Should().BeEmpty();
+        // Assert
+        Healthcheck dependency = check.Dependencies["contentApi"];
+        Assert.NotNull(check.Dependencies);
+        Assert.Contains("contentApi", check.Dependencies.Keys);
+        Assert.Contains("Not available", dependency.AppVersion);
+        Assert.Contains("Not available", dependency.SHA);
+        Assert.Empty(dependency.Dependencies);
     }
 
     [Fact]
     public async Task ShouldSetAppDependenciesToNullIfRequestToContentApi()
     {
+        // Arrange
         _mockHttpClient
-            .Setup(_ => _.Get(It.IsAny<string>(), It.IsAny<Dictionary<string, string>>()))
+            .Setup(client => client.Get(It.IsAny<string>(), It.IsAny<Dictionary<string, string>>()))
             .ReturnsAsync(default(HttpResponse));
 
-        var healthcheckService = new HealthcheckService(_appVersionPath, _shaPath, _fileWrapperMock.Object, _mockHttpClient.Object, _mockUrlGenerator.Object, "local", _configuration.Object, _businessId);
+        HealthcheckService healthcheckService = new(_appVersionPath,
+                                                    _shaPath,
+                                                    _fileWrapperMock.Object,
+                                                    _mockHttpClient.Object,
+                                                    _mockUrlGenerator.Object,
+                                                    "local",
+                                                    _configuration.Object,
+                                                    _businessId);
 
-        var check = await healthcheckService.Get();
+        // Act
+        Healthcheck check = await healthcheckService.Get();
 
-        check.Dependencies.Should().NotBeNull();
-        check.Dependencies.Should().ContainKey("contentApi");
-        var dependency = check.Dependencies["contentApi"];
-        dependency.AppVersion.Should().Be("Not available");
-        dependency.SHA.Should().Be("Not available");
-        dependency.Dependencies.Should().BeEmpty();
+        // Assert
+        Healthcheck dependency = check.Dependencies["contentApi"];
+        Assert.NotNull(check.Dependencies);
+        Assert.Contains("contentApi", check.Dependencies.Keys);
+        Assert.Equal("Not available", dependency.AppVersion);
+        Assert.Equal("Not available", dependency.SHA);
+        Assert.Empty(dependency.Dependencies);
     }
 
     [Fact]
     public async Task ShouldContainTheBusinessIdInTheResponse()
     {
-        var check = await _healthcheckService.Get();
+        // Act
+        Healthcheck check = await _healthcheckService.Get();
 
-        check.BusinessId.Should().Be("businessId");
+        // Assert
+        Assert.Equal("businessId", check.BusinessId);
     }
 }

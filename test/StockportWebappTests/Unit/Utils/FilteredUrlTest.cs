@@ -2,151 +2,152 @@
 
 public class FilteredUrlTest
 {
-    private readonly Mock<ITimeProvider> _timeProvider;
+    private readonly Mock<ITimeProvider> _timeProvider = new();
     private readonly FilteredUrl _filteredUrl;
 
     public FilteredUrlTest()
     {
-        _timeProvider = new Mock<ITimeProvider>();
-        _timeProvider.Setup(o => o.Now()).Returns(new DateTime(2017, 02, 21));
+        _timeProvider
+            .Setup(provider => provider.Now())
+            .Returns(new DateTime(2017, 02, 21));
 
-        _filteredUrl = new FilteredUrl(_timeProvider.Object);
+        _filteredUrl = new(_timeProvider.Object);
     }
 
     [Fact]
     public void WillRemoveCategoryQueryParamFromUrl()
     {
         // Arrange
-        var queryUrl = new QueryUrl(
+        QueryUrl queryUrl = new(
             new RouteValueDictionary(),
             new QueryCollection(
                 new Dictionary<string, StringValues>
                 {
                     {
                         "Category",
-                        new StringValues(new[] {"business"})
+                        new StringValues(["business"])
                     },
                     {
                         "tag",
-                        new StringValues(new[] {"healthy"})
+                        new StringValues(["healthy"])
                     }
                 }
-            )
-            );
+            ));
 
         _filteredUrl.SetQueryUrl(queryUrl);
 
         // Act
-        var newQueryUrl = _filteredUrl.WithoutCategory();
+        RouteValueDictionary newQueryUrl = _filteredUrl.WithoutCategory();
 
-        newQueryUrl.ContainsKey("Category").Should().BeFalse();
+        // Assert
+        Assert.False(newQueryUrl.ContainsKey("Category"));
     }
 
     [Fact]
     public void WillAddCategoryFilterToUrl()
     {
         // Arrange
-        var queryUrl = new QueryUrl(
+        QueryUrl queryUrl = new(
             new RouteValueDictionary(),
             new QueryCollection(
                 new Dictionary<string, StringValues>
                 {
                     {
                         "tag",
-                        new StringValues(new[] {"healthy"})
+                        new StringValues(["healthy"])
                     }
                 }
-            )
-            );
+            ));
 
         _filteredUrl.SetQueryUrl(queryUrl);
 
         // Act
-        var newQueryUrl = _filteredUrl.AddCategoryFilter("business");
+        RouteValueDictionary newQueryUrl = _filteredUrl.AddCategoryFilter("business");
 
-        newQueryUrl.ContainsKey("Category").Should().BeTrue();
+        // Assert
+        Assert.True(newQueryUrl.ContainsKey("Category"));
     }
 
     [Fact]
     public void WillIdentifyWhenCategoryFilterIsPresent()
     {
         // Arrange
-        var queryUrl = new QueryUrl(
+        QueryUrl queryUrl = new(
             new RouteValueDictionary(),
             new QueryCollection(
                 new Dictionary<string, StringValues>
                 {
                     {
                         "Category",
-                        new StringValues(new[] {"business"})
+                        new StringValues(["business"])
                     }
                 }
-            )
-            );
+            ));
 
         _filteredUrl.SetQueryUrl(queryUrl);
 
         // Act
-        var hasNoCategoryfilter = _filteredUrl.HasNoCategoryFilter();
+        bool hasNoCategoryfilter = _filteredUrl.HasNoCategoryFilter();
 
-        hasNoCategoryfilter.Should().BeFalse();
+        // Assert
+        Assert.False(hasNoCategoryfilter);
     }
 
     [Fact]
     public void WillIdentifyWhenCategoryFilterIsNotPresent()
     {
         // Arrange
-        var queryUrl = new QueryUrl(
+        QueryUrl queryUrl = new(
             new RouteValueDictionary(),
-            new QueryCollection(new Dictionary<string, StringValues>()
-            ));
+            new QueryCollection(new Dictionary<string, StringValues>()));
 
         _filteredUrl.SetQueryUrl(queryUrl);
 
         // Act
-        var hasNoCategoryfilter = _filteredUrl.HasNoCategoryFilter();
+        bool hasNoCategoryfilter = _filteredUrl.HasNoCategoryFilter();
 
-        hasNoCategoryfilter.Should().BeTrue();
+        // Assert
+        Assert.True(hasNoCategoryfilter);
     }
 
     [Fact]
     public void WillAddDateFromFilterToUrl()
     {
         // Arrange
-        var queryUrl = new QueryUrl(
+        QueryUrl queryUrl = new(
             new RouteValueDictionary(),
             new QueryCollection(
                 new Dictionary<string, StringValues>
                 {
                     {
                         "tag",
-                        new StringValues(new[] {"healthy"})
+                        new StringValues(["healthy"])
                     }
                 }
             )
             );
 
         _filteredUrl.SetQueryUrl(queryUrl);
-        var startDate = new DateTime(2017, 01, 01);
 
         // Act
-        var newQueryUrl = _filteredUrl.AddMonthFilter(startDate);
+        RouteValueDictionary newQueryUrl = _filteredUrl.AddMonthFilter(new DateTime(2017, 01, 01));
 
-        newQueryUrl.ContainsKey("dateFrom").Should().BeTrue();
+        // Assert
+        Assert.True(newQueryUrl.ContainsKey("dateFrom"));
     }
 
     [Fact]
     public void WillAddDateToFilterToUrl()
     {
         // Arrange
-        var queryUrl = new QueryUrl(
+        QueryUrl queryUrl = new(
             new RouteValueDictionary(),
             new QueryCollection(
                 new Dictionary<string, StringValues>
                 {
                     {
                         "tag",
-                        new StringValues(new[] {"healthy"})
+                        new StringValues(["healthy"])
                     }
                 }
             )
@@ -154,80 +155,80 @@ public class FilteredUrlTest
 
         _filteredUrl.SetQueryUrl(queryUrl);
 
-        var startDate = new DateTime(2017, 01, 01);
-
         // Act
-        var newQueryUrl = _filteredUrl.AddMonthFilter(startDate);
+        RouteValueDictionary newQueryUrl = _filteredUrl.AddMonthFilter(new DateTime(2017, 01, 01));
 
-        newQueryUrl.ContainsKey("dateTo").Should().BeTrue();
+        // Assert
+        Assert.True(newQueryUrl.ContainsKey("dateTo"));
     }
 
     [Fact]
     public void WillPopulateDateFromFilterInUrl()
     {
         // Arrange
-        var queryUrl = new QueryUrl(
+        QueryUrl queryUrl = new(
             new RouteValueDictionary(),
             new QueryCollection(
                 new Dictionary<string, StringValues>
                 {
                     {
                         "tag",
-                        new StringValues(new[] {"healthy"})
+                        new StringValues(["healthy"])
                     }
                 }
-            )
-            );
+            ));
 
         _filteredUrl.SetQueryUrl(queryUrl);
-        var startDate = new DateTime(2017, 01, 01);
+        DateTime startDate = new(2017, 01, 01);
 
         // Act
-        var newQueryUrl = _filteredUrl.AddMonthFilter(startDate);
+        RouteValueDictionary newQueryUrl = _filteredUrl.AddMonthFilter(startDate);
 
-        newQueryUrl["dateFrom"].Should().Be(startDate.ToString("yyyy-MM-dd"));
+        // Assert
+        Assert.Equal(startDate.ToString("yyyy-MM-dd"), newQueryUrl["dateFrom"]);
     }
 
     [Fact]
     public void WillPopulateDateToFilterInUrl()
     {
-        var queryUrl = new QueryUrl(
+        // Arrange
+        QueryUrl queryUrl = new(
             new RouteValueDictionary(),
             new QueryCollection(
                 new Dictionary<string, StringValues>
                 {
                     {
                         "tag",
-                        new StringValues(new[] {"healthy"})
+                        new StringValues(["healthy"])
                     }
                 }
-            )
-            );
+            ));
 
         _filteredUrl.SetQueryUrl(queryUrl);
 
-        var startDate = new DateTime(2017, 01, 01);
-        var newQueryUrl = _filteredUrl.AddMonthFilter(startDate);
+        // Act
+        RouteValueDictionary newQueryUrl = _filteredUrl.AddMonthFilter(new DateTime(2017, 01, 01));
 
-        newQueryUrl["dateTo"].Should().Be(new DateTime(2017, 01, 31).ToString("yyyy-MM-dd"));
+        // Assert
+        Assert.Equal(new DateTime(2017, 01, 31).ToString("yyyy-MM-dd"), newQueryUrl["dateTo"]);
     }
 
     [Fact]
     public void WillRemoveDateFilterQueryParamFromUrl()
     {
         // Arrange
-        var queryUrl = new QueryUrl(
+        QueryUrl queryUrl = new(
             new RouteValueDictionary(),
             new QueryCollection(
                 new Dictionary<string, StringValues>
                 {
                     {
                         "DateFrom",
-                        new StringValues(new[] {"irrelevant"})
+                        new StringValues(["irrelevant"])
                     },
                     {
                         "DateTo",
-                        new StringValues(new[] {"irrelevant"})
+                        new StringValues(["irrelevant"])
                     }
                 }
             )
@@ -235,88 +236,94 @@ public class FilteredUrlTest
         _filteredUrl.SetQueryUrl(queryUrl);
 
         // Act
-        var newQueryUrl = _filteredUrl.WithoutDateFilter();
+        RouteValueDictionary newQueryUrl = _filteredUrl.WithoutDateFilter();
 
         // Assert
-        newQueryUrl.ContainsKey("DateFrom").Should().BeFalse();
-        newQueryUrl.ContainsKey("DateTo").Should().BeFalse();
+        Assert.False(newQueryUrl.ContainsKey("DateFrom"));
+        Assert.False(newQueryUrl.ContainsKey("DateTo"));
     }
 
     [Fact]
     public void WillIdentifyWhenDateFilterIsPresent()
     {
         // Arrange
-        var queryUrl = new QueryUrl(
+        QueryUrl queryUrl = new(
             new RouteValueDictionary(),
             new QueryCollection(
                 new Dictionary<string, StringValues>
                 {
                     {
                         "DateFrom",
-                        new StringValues(new[] {"irrelevant"})
+                        new StringValues(["irrelevant"])
                     }
                 }
-            )
-            );
+            ));
+        
         _filteredUrl.SetQueryUrl(queryUrl);
 
         // Act
-        var hasNoDatefilter = _filteredUrl.HasNoDateFilter();
+        bool hasNoDatefilter = _filteredUrl.HasNoDateFilter();
 
-        hasNoDatefilter.Should().BeFalse();
+        // Assert
+        Assert.False(hasNoDatefilter);
     }
 
     [Fact]
     public void WillIdentifyWhenDateFilterIsNotPresent()
     {
         // Arrange
-        var queryUrl = new QueryUrl(
+        QueryUrl queryUrl = new(
             new RouteValueDictionary(),
-            new QueryCollection(new Dictionary<string, StringValues>()
-            ));
+            new QueryCollection(new Dictionary<string, StringValues>()));
+
         _filteredUrl.SetQueryUrl(queryUrl);
 
         // Act
-        var hasNoDatefilter = _filteredUrl.HasNoDateFilter();
+        bool hasNoDatefilter = _filteredUrl.HasNoDateFilter();
 
-        hasNoDatefilter.Should().BeTrue();
+        // Assert
+        Assert.True(hasNoDatefilter);
     }
 
     [Fact]
     public void WillRemoveTagQueryParamFromUrl()
     {
         // Arrange
-        var queryUrl = new QueryUrl(
+        QueryUrl queryUrl = new(
             new RouteValueDictionary(),
             new QueryCollection(
                 new Dictionary<string, StringValues>
                 {
                     {
                         "Category",
-                        new StringValues(new[] {"business"})
+                        new StringValues(["business"])
                     },
                     {
                         "tag",
-                        new StringValues(new[] {"healthy"})
+                        new StringValues(["healthy"])
                     }
                 }
             )
-            );
+        );
+        
         _filteredUrl.SetQueryUrl(queryUrl);
 
         // Act
-        var newQueryUrl = _filteredUrl.WithoutTagFilter();
+        RouteValueDictionary newQueryUrl = _filteredUrl.WithoutTagFilter();
 
-        newQueryUrl.ContainsKey("tag").Should().BeFalse();
+        // Assert
+        Assert.False(newQueryUrl.ContainsKey("tag"));
     }
 
     [Fact]
     public void ShouldReturnTodaysDateIfDateToIsWithinTheCurrentMonth()
     {
-        var queryUrl = new QueryUrl(new RouteValueDictionary(), new QueryCollection());
+        // Arrange
+        QueryUrl queryUrl = new(new RouteValueDictionary(), new QueryCollection());
         _filteredUrl.SetQueryUrl(queryUrl);
 
-        var url = _filteredUrl.AddMonthFilter(new DateTime(2017, 02, 01));
+        // Act
+        RouteValueDictionary url = _filteredUrl.AddMonthFilter(new DateTime(2017, 02, 01));
 
         url["DateTo"].Should().Be(new DateTime(2017, 02, 21).ToString("yyyy-MM-dd"));
     }
@@ -324,70 +331,91 @@ public class FilteredUrlTest
     [Fact]
     public void ShouldReturnEmptyIfHasNullQueryUrlForAddMonthFilter()
     {
-        var filteredUrl = new FilteredUrl(_timeProvider.Object);
+        // Arrange
+        FilteredUrl filteredUrl = new(_timeProvider.Object);
 
-        var result = filteredUrl.AddMonthFilter(new DateTime(2017, 01, 01));
+        // Act
+        RouteValueDictionary result = filteredUrl.AddMonthFilter(new DateTime(2017, 01, 01));
 
-        result.Should().BeEmpty();
+        // Assert
+        Assert.Empty(result);
     }
 
     [Fact]
     public void ShouldReturnEmptyIfHasNullQueryUrlForAddCategoryFilter()
     {
-        var filteredUrl = new FilteredUrl(_timeProvider.Object);
+        // Arrange
+        FilteredUrl filteredUrl = new(_timeProvider.Object);
 
-        var result = filteredUrl.AddCategoryFilter("test");
+        // Act
+        RouteValueDictionary result = filteredUrl.AddCategoryFilter("test");
 
-        result.Should().BeEmpty();
+        // Assert
+        Assert.Empty(result);
     }
 
     [Fact]
     public void ShouldReturnFalseIfHasNullQueryUrlForHasNoCategoryFilter()
     {
-        var filteredUrl = new FilteredUrl(_timeProvider.Object);
+        // Arrange
+        FilteredUrl filteredUrl = new(_timeProvider.Object);
 
-        var result = filteredUrl.HasNoCategoryFilter();
+        // Act
+        bool result = filteredUrl.HasNoCategoryFilter();
 
-        result.Should().BeFalse();
+        // Assert
+        Assert.False(result);
     }
 
     [Fact]
     public void ShouldReturnEmptyIfHasNullQueryUrlForHasNoDateFilter()
     {
-        var filteredUrl = new FilteredUrl(_timeProvider.Object);
+        // Arrange
+        FilteredUrl filteredUrl = new(_timeProvider.Object);
 
-        var result = filteredUrl.HasNoDateFilter();
+        // Act
+        bool result = filteredUrl.HasNoDateFilter();
 
-        result.Should().BeFalse();
+        // Assert
+        Assert.False(result);
     }
 
     [Fact]
     public void ShouldReturnEmptyIfHasNullQueryUrlForWithoutCategory()
     {
-        var filteredUrl = new FilteredUrl(_timeProvider.Object);
+        // Arrange
+        FilteredUrl filteredUrl = new(_timeProvider.Object);
 
-        var result = filteredUrl.WithoutCategory();
+        // Act
+        RouteValueDictionary result = filteredUrl.WithoutCategory();
 
-        result.Should().BeEmpty();
+        // Assert
+        Assert.Empty(result);
     }
 
     [Fact]
     public void ShouldReturnEmptyIfHasNullQueryUrlForWithoutDateFilter()
     {
-        var filteredUrl = new FilteredUrl(_timeProvider.Object);
+        // Arrange
+        FilteredUrl filteredUrl = new(_timeProvider.Object);
 
-        var result = filteredUrl.WithoutDateFilter();
+        // Act
+        RouteValueDictionary result = filteredUrl.WithoutDateFilter();
 
-        result.Should().BeEmpty();
+        // Assert
+        Assert.Empty(result);
     }
 
     [Fact]
     public void ShouldReturnEmptyIfHasNullQueryUrlForWithoutTagFilter()
     {
-        var filteredUrl = new FilteredUrl(_timeProvider.Object);
+        // Arrange
+        FilteredUrl filteredUrl = new(_timeProvider.Object);
 
-        var result = filteredUrl.WithoutTagFilter();
+        // Act
+        RouteValueDictionary result = filteredUrl.WithoutTagFilter();
 
-        result.Should().BeEmpty();
+        // Assert
+        Assert.Empty(result);
     }
 }

@@ -15,9 +15,10 @@ public class MapTagParser : ISimpleTagParser
     public string GenerateHtml(string tagData)
     {
         tagData = tagData.Replace("{{MAP:", string.Empty)
-                    .Replace("}}", string.Empty);
+                        .Replace("}}", string.Empty);
 
         MapViewModel mapViewModel = new(tagData);
+        
         return _viewRenderer.Render("MapContent", mapViewModel);
     }
 

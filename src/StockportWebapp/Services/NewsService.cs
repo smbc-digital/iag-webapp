@@ -6,25 +6,22 @@ public interface INewsService
     Task<News> GetLatestNewsItem();
 }
 
-public class NewsService : INewsService
+public class NewsService(IRepository newsRepository) : INewsService
 {
-    private readonly IRepository _newsRepository;
-
-    public NewsService(IRepository newsRepository)
-    {
-        _newsRepository = newsRepository;
-    }
+    private readonly IRepository _newsRepository = newsRepository;
 
     public async Task<List<News>> GetNewsByLimit(int limit)
     {
-        var response = await _newsRepository.GetLatest<List<News>>(limit);
+        HttpResponse response = await _newsRepository.GetLatest<List<News>>(limit);
+
         return response.Content as List<News>;
     }
 
     public async Task<News> GetLatestNewsItem()
     {
-        var response = await _newsRepository.GetLatest<List<News>>(1);
-        var newsItems = response.Content as List<News>;
+        HttpResponse response = await _newsRepository.GetLatest<List<News>>(1);
+        List<News> newsItems = response.Content as List<News>;
+
         return newsItems?.FirstOrDefault();
     }
 }

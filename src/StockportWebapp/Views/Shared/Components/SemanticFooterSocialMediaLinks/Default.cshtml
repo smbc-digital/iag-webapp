@@ -1,7 +1,7 @@
 ﻿@model Tuple<IEnumerable<StockportWebapp.Models.SocialMediaLink>, string>
 
 <ul class="@Model.Item2">
-    @foreach (var socLink in Model.Item1)
+    @foreach (SocialMediaLink socLink in Model.Item1)
     {
         <li>
             <a aria-label="@socLink.ScreenReader" href="@socLink.Link">

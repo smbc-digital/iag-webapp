@@ -1,7 +1,7 @@
 ﻿@using System.Web
 @model EventCalendar
 @{
-    var category = Model.Homepage.Categories.Where(c => c.Slug == Model.Category).FirstOrDefault();
+    EventCategory category = Model.Homepage.Categories.Where(c => c.Slug.Equals(Model.Category)).FirstOrDefault();
     ViewData["og:title"] = string.IsNullOrWhiteSpace(Model.Category) 
                             ? "What's on in Stockport" 
                             : category is null 
@@ -12,19 +12,9 @@
     ViewData["Description"] = Model.Homepage.MetaDescription;
     Layout = "../Shared/_Layout.cshtml";
 
-    string eventsTitle = "";
-    if (category is not null)
-    {
-        eventsTitle = category.Name;
-    }
-    else if (Model.DateFrom.HasValue)
-    {
-        eventsTitle = "All upcoming events";
-    }
-    else
-    {
-        eventsTitle = "Free events";
-    }
+    string eventsTitle = category?.Name ?? (Model.DateFrom.HasValue
+            ? "All upcoming events"
+            : "Free events");
 }
 
 <h1 class="visuallyhidden">Stockroom events</h1>

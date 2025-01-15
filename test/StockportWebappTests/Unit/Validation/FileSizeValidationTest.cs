@@ -5,26 +5,44 @@ public class FileSizeValidationTest
     [Fact]
     public void ItShouldValidateIfTheFileSizeIsUnder5Mb()
     {
-        var file = new Mock<IFormFile>();
-        file.Setup(o => o.OpenReadStream().Length).Returns(5242879);
-        file.Setup(o => o.FileName).Returns("filename");
+        // Arrange
+        Mock<IFormFile> mockFile = new();
+        mockFile
+            .Setup(file => file.OpenReadStream().Length)
+            .Returns(5242879);
+        
+        mockFile
+            .Setup(file => file.FileName)
+            .Returns("filename");
 
-        var fileSizeValidation = new FileSizeValidation();
-        var result = fileSizeValidation.IsValid(file);
+        FileSizeValidation fileSizeValidation = new();
 
-        result.Should().Be(true);
+        // Act
+        bool result = fileSizeValidation.IsValid(mockFile);
+
+        // Assert
+        Assert.True(result);
     }
 
     [Fact]
     public void ItShouldNotValidateIfTheFileSizeIsOver5Mb()
     {
-        var file = new Mock<IFormFile>();
-        file.Setup(o => o.OpenReadStream().Length).Returns(5242881);
-        file.Setup(o => o.FileName).Returns("filename");
+        // Arrange
+        Mock<IFormFile> mockFile = new();
+        mockFile
+            .Setup(file => file.OpenReadStream().Length)
+            .Returns(5242881);
+        
+        mockFile
+            .Setup(file => file.FileName)
+            .Returns("filename");
 
-        var fileSizeValidation = new FileSizeValidation();
-        var result = fileSizeValidation.IsValid(file.Object);
+        FileSizeValidation fileSizeValidation = new();
 
-        result.Should().Be(false);
+        // Act
+        bool result = fileSizeValidation.IsValid(mockFile.Object);
+
+        // Assert
+        Assert.False(result);
     }
 }

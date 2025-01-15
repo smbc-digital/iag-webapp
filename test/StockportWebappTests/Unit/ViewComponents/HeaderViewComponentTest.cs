@@ -1,16 +1,13 @@
-﻿using StockportWebapp.Models;
-using StockportWebapp.Utils;
-
-namespace StockportWebappTests_Unit.Unit.ViewComponents;
+﻿namespace StockportWebappTests_Unit.Unit.ViewComponents;
 
 public class HeaderViewComponentTest
 {
-    private readonly Mock<IRepository> _repository = new();
     private readonly HeaderViewComponent _headerViewComponent;
+    private readonly Mock<IRepository> _repository = new();
     private readonly Mock<ILogger<HeaderViewComponent>> _logger = new();
 
     public HeaderViewComponentTest() =>
-        _headerViewComponent = new HeaderViewComponent(_repository.Object, _logger.Object);
+        _headerViewComponent = new(_repository.Object, _logger.Object);
 
     [Fact]
     public async Task ShouldReturnHeaderAsModelInView()

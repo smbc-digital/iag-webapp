@@ -1,17 +1,10 @@
 ﻿namespace StockportWebapp.Models.Config;
 
-public class AmazonSESKeys
+public class AmazonSESKeys(string accessKey, string secretKey)
 {
-    public readonly string Accesskey;
-    public readonly string SecretKey;
-    public AmazonSESKeys(string accessKey, string secretKey)
-    {
-        SecretKey = secretKey;
-        Accesskey = accessKey;
-    }
+    public readonly string Accesskey = accessKey;
+    public readonly string SecretKey = secretKey;
 
-    public bool IsValid()
-    {
-        return !string.IsNullOrWhiteSpace(Accesskey) && !string.IsNullOrWhiteSpace(SecretKey);
-    }
+    public bool IsValid() =>
+        !string.IsNullOrWhiteSpace(Accesskey) && !string.IsNullOrWhiteSpace(SecretKey);
 }

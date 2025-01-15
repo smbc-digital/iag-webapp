@@ -2,7 +2,7 @@
 
 @if (Model is not null && Model.Any())
 {
-    foreach (var condolence in Model)
+    foreach (Alert condolence in Model)
     {
         <div data-test="global-alert">
             <partial name="CondolenceAlert" model='condolence' />

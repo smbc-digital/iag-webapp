@@ -1,14 +1,9 @@
 ﻿namespace StockportWebapp.Models.Validation;
 
-public class PaymentReferenceValidation : ValidationAttribute
+public class PaymentReferenceValidation(EPaymentSubmissionType paymentSubmissionType) : ValidationAttribute
 {
-    private readonly EPaymentSubmissionType _paymentSubmissionType;
-    public PaymentReferenceValidation(EPaymentSubmissionType paymentSubmissionType)
-    {
-        _paymentSubmissionType = paymentSubmissionType;
-    }
-
-    private static readonly Dictionary<EPaymentReferenceValidation, string> ValidatorsRegex = new Dictionary<EPaymentReferenceValidation, string>
+    private readonly EPaymentSubmissionType _paymentSubmissionType = paymentSubmissionType;
+    private static readonly Dictionary<EPaymentReferenceValidation, string> ValidatorsRegex = new()
     {
         { EPaymentReferenceValidation.FPN, @"^(\d{5})$" },
         { EPaymentReferenceValidation.FPN4or5, @"^(\d{4,5})$" },
@@ -22,18 +17,16 @@ public class PaymentReferenceValidation : ValidationAttribute
         { EPaymentReferenceValidation.PlanningApplication, @"^(?i)(dc\/\d{6}|enq\/\d{6}|ps\/[\w\s]{1,10})$" }
     };
 
-    protected override ValidationResult IsValid(object value, ValidationContext validationContext)
-    {
-        return _paymentSubmissionType.Equals(EPaymentSubmissionType.Payment)
+    protected override ValidationResult IsValid(object value, ValidationContext validationContext) =>
+        _paymentSubmissionType.Equals(EPaymentSubmissionType.Payment)
             ? ProcessPayment(value, validationContext)
             : ProcessServicePayPayment(value, validationContext);
-    }
 
     private ValidationResult ProcessPayment(object value, ValidationContext validationContext)
     {
-        var paymentSubmission = validationContext.ObjectInstance as PaymentSubmission; ;
+        PaymentSubmission paymentSubmission = validationContext.ObjectInstance as PaymentSubmission; ;
 
-        if (paymentSubmission?.Payment != null)
+        if (paymentSubmission?.Payment is not null)
             return ValidateReference(value, paymentSubmission.Payment.ReferenceValidation);
 
         return ValidationResult.Success;
@@ -41,9 +34,9 @@ public class PaymentReferenceValidation : ValidationAttribute
 
     private ValidationResult ProcessServicePayPayment(object value, ValidationContext validationContext)
     {
-        var paymentSubmission = validationContext.ObjectInstance as ServicePayPaymentSubmissionViewModel;
+        ServicePayPaymentSubmissionViewModel paymentSubmission = validationContext.ObjectInstance as ServicePayPaymentSubmissionViewModel;
 
-        if (paymentSubmission?.Payment != null)
+        if (paymentSubmission?.Payment is not null)
             return ValidateReference(value, paymentSubmission.Payment.ReferenceValidation);
 
         return ValidationResult.Success;
@@ -51,15 +44,15 @@ public class PaymentReferenceValidation : ValidationAttribute
 
     private ValidationResult ValidateReference(object value, EPaymentReferenceValidation referenceValidation)
     {
-        if (referenceValidation == EPaymentReferenceValidation.None)
+        if (referenceValidation.Equals(EPaymentReferenceValidation.None))
             return ValidationResult.Success;
 
-        var reference = value as string;
+        string reference = value as string;
 
-        if (reference == null)
+        if (reference is null)
             return new ValidationResult("The reference number is required");
 
-        var isValid = Regex.IsMatch(reference, ValidatorsRegex[referenceValidation]);
+        bool isValid = Regex.IsMatch(reference, ValidatorsRegex[referenceValidation]);
 
         return !isValid
             ? new ValidationResult("Check the reference number and try again")

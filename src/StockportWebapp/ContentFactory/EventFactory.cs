@@ -5,16 +5,11 @@ public interface IEventFactory
     ProcessedEvents Build(Event eventItem);
 }
 
-public class EventFactory : IEventFactory
+public class EventFactory(ITagParserContainer simpleTagParserContainer,
+                        MarkdownWrapper markdownWrapper) : IEventFactory
 {
-    private readonly ITagParserContainer _tagParserContainer;
-    private readonly MarkdownWrapper _markdownWrapper;
-
-    public EventFactory(ITagParserContainer simpleTagParserContainer, MarkdownWrapper markdownWrapper)
-    {
-        _tagParserContainer = simpleTagParserContainer;
-        _markdownWrapper = markdownWrapper;
-    }
+    private readonly ITagParserContainer _tagParserContainer = simpleTagParserContainer;
+    private readonly MarkdownWrapper _markdownWrapper = markdownWrapper;
 
     public virtual ProcessedEvents Build(Event eventItem)
     {

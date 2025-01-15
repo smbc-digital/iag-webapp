@@ -1,5 +1,5 @@
 ﻿@{
-    string title = (string)ViewData["bannerTitle"];
+    string title = (string)ViewData["bannerTitle"] ?? string.Empty;
     string slug = (string)ViewData["bannerSlug"];
     string teaser = (string)ViewData["bannerTeaser"];
     string image = (string)ViewData["image"];

@@ -1,48 +1,46 @@
 ﻿namespace StockportWebapp.Controllers;
 
 [ResponseCache(Location = ResponseCacheLocation.Any, Duration = Cache.Short)]
-public class NewsController : Controller
+public class NewsController(IRepository repository,
+                            IProcessedContentRepository processedContentRepository,
+                            IRssFeedFactory rssfeedFactory,
+                            ILogger<NewsController> logger,
+                            IApplicationConfiguration config,
+                            BusinessId businessId,
+                            IFilteredUrl filteredUrl) : Controller
 {
-    private readonly IRepository _repository;
-    private readonly IProcessedContentRepository _processedContentRepository;
-    private readonly IRssFeedFactory _rssFeedFactory;
-    private readonly ILogger<NewsController> _logger;
-    private readonly IApplicationConfiguration _config;
-    private readonly BusinessId _businessId;
-    private readonly IFilteredUrl _filteredUrl;
-
-    public NewsController(
-        IRepository repository,
-        IProcessedContentRepository processedContentRepository,
-        IRssFeedFactory rssfeedFactory,
-        ILogger<NewsController> logger,
-        IApplicationConfiguration config,
-        BusinessId businessId,
-        IFilteredUrl filteredUrl)
-    {
-        _repository = repository;
-        _processedContentRepository = processedContentRepository;
-        _rssFeedFactory = rssfeedFactory;
-        _logger = logger;
-        _config = config;
-        _businessId = businessId;
-        _filteredUrl = filteredUrl;
-    }
+    private readonly IRepository _repository = repository;
+    private readonly IProcessedContentRepository _processedContentRepository = processedContentRepository;
+    private readonly IRssFeedFactory _rssFeedFactory = rssfeedFactory;
+    private readonly ILogger<NewsController> _logger = logger;
+    private readonly IApplicationConfiguration _config = config;
+    private readonly BusinessId _businessId = businessId;
+    private readonly IFilteredUrl _filteredUrl = filteredUrl;
 
     [Route("/news")]
     public async Task<IActionResult> Index(NewsroomViewModel model, [FromQuery] int page, [FromQuery] int pageSize)
     {
         if (model.DateFrom is null && model.DateTo is null && string.IsNullOrEmpty(model.DateRange))
         {
-            if (ModelState["DateTo"] is not null && ModelState["DateTo"].Errors.Count > 0) ModelState["DateTo"].Errors.Clear();
-            if (ModelState["DateFrom"] is not null && ModelState["DateFrom"].Errors.Count > 0) ModelState["DateFrom"].Errors.Clear();
+            if (ModelState["DateTo"] is not null && ModelState["DateTo"].Errors.Count > 0)
+                ModelState["DateTo"].Errors.Clear();
+
+            if (ModelState["DateFrom"] is not null && ModelState["DateFrom"].Errors.Count > 0)
+                ModelState["DateFrom"].Errors.Clear();
         }
 
         List<Query> queries = new();
-        if (!string.IsNullOrEmpty(model.Tag)) queries.Add(new Query("tag", model.Tag));
-        if (!string.IsNullOrEmpty(model.Category)) queries.Add(new Query("Category", model.Category));
-        if (model.DateFrom.HasValue) queries.Add(new Query("DateFrom", model.DateFrom.Value.ToString("yyyy-MM-dd")));
-        if (model.DateTo.HasValue) queries.Add(new Query("DateTo", model.DateTo.Value.ToString("yyyy-MM-dd")));
+        if (!string.IsNullOrEmpty(model.Tag))
+            queries.Add(new Query("tag", model.Tag));
+        
+        if (!string.IsNullOrEmpty(model.Category))
+            queries.Add(new Query("Category", model.Category));
+        
+        if (model.DateFrom.HasValue)
+            queries.Add(new Query("DateFrom", model.DateFrom.Value.ToString("yyyy-MM-dd")));
+        
+        if (model.DateTo.HasValue)
+            queries.Add(new Query("DateTo", model.DateTo.Value.ToString("yyyy-MM-dd")));
 
         HttpResponse httpResponse = await _repository.Get<Newsroom>(queries: queries);
 
@@ -95,14 +93,19 @@ public class NewsController : Controller
         if (!httpResponse.IsSuccessful())
         {
             _logger.LogDebug("Rss: Http Response not sucessful");
+
             return httpResponse;
         }
 
         Newsroom response = httpResponse.Content as Newsroom;
         AppSetting emailFromAppSetting = _config.GetRssEmail(_businessId.ToString());
-        string email = emailFromAppSetting.IsValid() ? emailFromAppSetting.ToString() : string.Empty;
+        
+        string email = emailFromAppSetting.IsValid()
+            ? emailFromAppSetting.ToString()
+            : string.Empty;
 
         _logger.LogDebug("Rss: Creating News Feed");
+
         return await Task.FromResult(Content(_rssFeedFactory.BuildRssFeed(response.News, host, email), "application/rss+xml"));
     }
 
@@ -122,8 +125,6 @@ public class NewsController : Controller
             model.Pagination.CurrentUrl = model.CurrentUrl;
         }
         else
-        {
             model.Pagination = new Pagination();
-        }
     }
 }

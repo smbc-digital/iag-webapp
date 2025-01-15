@@ -3,15 +3,15 @@
 public class EventsControllerTest
 {
     private readonly EventsController _controller;
-    private readonly Mock<IRepository> _repository = new Mock<IRepository>();
+    private readonly Mock<IRepository> _repository = new();
     private readonly Mock<IProcessedContentRepository> _processedContentRepository = new();
     private readonly Event _eventsItem;
     private readonly List<string> _categories;
     private readonly HttpResponse responseListing;
     private readonly HttpResponse _responseDetail;
-    private readonly Mock<IApplicationConfiguration> _applicationConfiguration;
+    private readonly Mock<IApplicationConfiguration> _applicationConfiguration = new();
     private readonly Mock<IRssFeedFactory> _mockRssFeedFactory = new();
-    private readonly Mock<ILogger<EventsController>> _logger;
+    private readonly Mock<ILogger<EventsController>> _logger = new();
     private readonly Mock<IApplicationConfiguration> _config = new();
     private const string BusinessId = "businessId";
     private readonly Mock<IFilteredUrl> _filteredUrl = new();
@@ -22,17 +22,17 @@ public class EventsControllerTest
     private readonly Group _group = new GroupBuilder().Build();
 
     private readonly List<Alert> _alerts = new()
-        {
-            new Alert("title",
-                    "subHeading",
-                    "body",
-                    "severity",
-                    new DateTime(0001, 1, 1, 0, 0, 0, DateTimeKind.Utc),
-                    new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc),
-                    string.Empty,
-                    false,
-                    string.Empty)
-        };
+    {
+        new Alert("title",
+                "subHeading",
+                "body",
+                "severity",
+                new DateTime(0001, 1, 1, 0, 0, 0, DateTimeKind.Utc),
+                new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc),
+                string.Empty,
+                false,
+                string.Empty)
+    };
 
     public const int MaxNumberOfItemsPerPage = 15;
 
@@ -57,7 +57,11 @@ public class EventsControllerTest
             Alerts = _alerts
         };
 
-        _categories = new() { "Category 1", "Category 2" };
+        _categories = new()
+        {
+            "Category 1",
+            "Category 2"
+        };
 
         Mock<ITimeProvider> mockTime = new();
         _datetimeCalculator = new DateCalculator(mockTime.Object);
@@ -102,13 +106,11 @@ public class EventsControllerTest
             Rows = new()
         };
 
-        // setup responses (with mock data)
         responseListing = new HttpResponse(200, eventsCalendar, string.Empty);
         _responseDetail = new HttpResponse(200, eventItem, string.Empty);
         HttpResponse responseHomepage = new(200, eventHomepage, string.Empty);
         HttpResponse response404 = new(404, null, "not found");
 
-        // setup mocks
         _repository
             .Setup(repo => repo.Get<EventHomepage>(It.IsAny<string>(), It.IsAny<List<Query>>()))
             .ReturnsAsync(responseHomepage);
@@ -124,9 +126,6 @@ public class EventsControllerTest
         _processedContentRepository
             .Setup(processedContentRepo => processedContentRepo.Get<Event>("404-event", It.Is<List<Query>>(l => l.Count.Equals(0))))
             .ReturnsAsync(response404);
-
-        _applicationConfiguration = new Mock<IApplicationConfiguration>();
-        _logger = new Mock<ILogger<EventsController>>();
 
         _applicationConfiguration
             .Setup(appConfig => appConfig.GetEmailEmailFrom(It.IsAny<string>()))
@@ -155,8 +154,7 @@ public class EventsControllerTest
             _calendarhelper,
             _datetimeCalculator,
             _stockportApiEventsService.Object,
-            _featureManager.Object
-            );
+            _featureManager.Object);
     }
 
     [Fact]
@@ -238,14 +236,17 @@ public class EventsControllerTest
     {
         // Arrange
         _processedContentRepository
-            .Setup(processedContentRepo => processedContentRepo.Get<Event>("event-of-the-century", It.Is<List<Query>>(query => query.Contains(new Query("date", new DateTime().ToString("yyyy-MM-dd"))))))
+            .Setup(processedContentRepo => processedContentRepo.Get<Event>("event-of-the-century",
+                                                                        It.Is<List<Query>>(query => query.Contains(new Query("date", new DateTime().ToString("yyyy-MM-dd"))))))
             .ReturnsAsync(_responseDetail);
 
         // Act
         await _controller.Detail("event-of-the-century", new DateTime());
         
         // Assert
-        _processedContentRepository.Verify(processedContentRepo => processedContentRepo.Get<Event>("event-of-the-century", It.Is<List<Query>>(query => query.Contains(new Query("date", new DateTime().ToString("yyyy-MM-dd"))))));
+        _processedContentRepository
+            .Verify(processedContentRepo => processedContentRepo.Get<Event>("event-of-the-century",
+                                                                            It.Is<List<Query>>(query => query.Contains(new Query("date", new DateTime().ToString("yyyy-MM-dd"))))));
     }
 
     [Fact]
@@ -320,7 +321,7 @@ public class EventsControllerTest
     public async Task Index_ClearsModelStateErrors_ForDateToAndDateFrom()
     {
         // Arrange
-        var eventCalendar = new EventCalendar();
+        EventCalendar eventCalendar = new();
         _controller.ModelState.AddModelError("DateTo", "DateTo is invalid");
         _controller.ModelState.AddModelError("DateFrom", "DateFrom is invalid");
 
@@ -606,21 +607,17 @@ public class EventsControllerTest
             .Setup(repo => repo.Get<EventResponse>(It.IsAny<string>(), It.IsAny<List<Query>>()))
             .ReturnsAsync(eventListResponse);
 
-        EventsController controller = new(
-            _repository.Object,
-            _processedContentRepository.Object,
-            _mockRssFeedFactory.Object,
-            _logger.Object,
-            _config.Object,
-            new BusinessId(BusinessId),
-            _filteredUrl.Object,
-            null,
-            _datetimeCalculator,
-            null,
-            _featureManager.Object
-        );
-
-        return controller;
+        return new EventsController(_repository.Object,
+                                        _processedContentRepository.Object,
+                                        _mockRssFeedFactory.Object,
+                                        _logger.Object,
+                                        _config.Object,
+                                        new BusinessId(BusinessId),
+                                        _filteredUrl.Object,
+                                        null,
+                                        _datetimeCalculator,
+                                        null,
+                                        _featureManager.Object);
     }
 
     private List<Event> BuildEventList(int numberOfItems)

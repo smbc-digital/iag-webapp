@@ -1,28 +1,23 @@
 namespace StockportWebapp.ContentFactory;
 
-public class GroupFactory
+public class GroupFactory(ITagParserContainer parser,
+                        MarkdownWrapper markdownWrapper)
 {
-    private readonly ITagParserContainer _parser;
-    private readonly MarkdownWrapper _markdownWrapper;
-
-    public GroupFactory(ITagParserContainer parser, MarkdownWrapper markdownWrapper)
-    {
-        _parser = parser;
-        _markdownWrapper = markdownWrapper;
-    }
+    private readonly ITagParserContainer _parser = parser;
+    private readonly MarkdownWrapper _markdownWrapper = markdownWrapper;
 
     public virtual ProcessedGroup Build(Group group)
     {
-        var htmlBody = _markdownWrapper.ConvertToHtml(group.Description);
-        var processedBody = _parser.ParseAll(htmlBody, group.Name);
+        string htmlBody = _markdownWrapper.ConvertToHtml(group.Description);
+        string processedBody = _parser.ParseAll(htmlBody, group.Name);
 
-        var additionalInformation = _markdownWrapper.ConvertToHtml(group.AdditionalInformation);
-        var parsedAdditionalInformation = _parser.ParseAll(additionalInformation, group.Name);
+        string additionalInformation = _markdownWrapper.ConvertToHtml(group.AdditionalInformation);
+        string parsedAdditionalInformation = _parser.ParseAll(additionalInformation, group.Name);
 
         processedBody = Regex.Replace(processedBody, "<script", "<scri-pt", RegexOptions.IgnoreCase);
         processedBody = Regex.Replace(processedBody, "javascript", "javascri-pt", RegexOptions.IgnoreCase);
 
-        var volunteering = new Volunteering()
+        Volunteering volunteering = new()
         {
             Email = group.Email,
             VolunteeringText = group.VolunteeringText,
@@ -31,7 +26,7 @@ public class GroupFactory
             Type = "group"
         };
 
-        var donations = new Donations()
+        Donations donations = new()
         {
 
             GetDonations = group.Donations,
@@ -41,7 +36,8 @@ public class GroupFactory
             DonationsUrl = group.DonationsUrl
 
         };
-        var mapDetails = new MapDetails()
+
+        MapDetails mapDetails = new()
         {
             MapPosition = group.MapPosition,
             AccessibleTransportLink = group.AccessibleTransportLink

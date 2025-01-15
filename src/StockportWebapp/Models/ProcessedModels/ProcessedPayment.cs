@@ -19,13 +19,24 @@ public class ProcessedPayment : IProcessedContentType
     public readonly string PaymentDescription;
     public readonly IEnumerable<Alert> Alerts;
     public ProcessedPayment()
-    {
-    }
+    { }
 
-    public ProcessedPayment(string title, string slug, string teaser, string description, string paymentDetailsText,
-        string referenceLabel, string fund, string glCodeCostCentreNumber, List<Crumb> breadcrumbs,
-        EPaymentReferenceValidation referenceValidation, string metaDescription, string returnUrl, string catalogueId,
-        string accountReference, string paymentDescription, IEnumerable<Alert> alerts)
+    public ProcessedPayment(string title,
+                            string slug,
+                            string teaser,
+                            string description,
+                            string paymentDetailsText,
+                            string referenceLabel,
+                            string fund,
+                            string glCodeCostCentreNumber,
+                            List<Crumb> breadcrumbs,
+                            EPaymentReferenceValidation referenceValidation,
+                            string metaDescription,
+                            string returnUrl,
+                            string catalogueId,
+                            string accountReference,
+                            string paymentDescription,
+                            IEnumerable<Alert> alerts)
     {
         Title = title;
         Slug = slug;

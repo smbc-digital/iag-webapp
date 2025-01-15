@@ -25,18 +25,19 @@ public class GroupEmailBuilder
 
     public virtual Task<HttpStatusCode> SendEmailAddNew(GroupSubmission groupSubmission)
     {
-        var messageSubject = $"[Group] - {groupSubmission.Name}";
+        string messageSubject = $"[Group] - {groupSubmission.Name}";
 
         _logger.LogInformation("Sending group submission form email");
 
-        var attachments = new List<IFormFile>();
-        if (groupSubmission.Image != null) attachments.Add(groupSubmission.Image);
+        List<IFormFile> attachments = new();
+        if (groupSubmission.Image is not null)
+            attachments.Add(groupSubmission.Image);
 
-        var emailBody = new GroupAdd
+        GroupAdd emailBody = new()
         {
             Name = groupSubmission.Name,
             Location = groupSubmission.Address,
-            Image = groupSubmission.Image != null ? FileHelper.GetFileNameFromPath(groupSubmission.Image) : "-",
+            Image = groupSubmission.Image is not null ? FileHelper.GetFileNameFromPath(groupSubmission.Image) : "-",
             Description = groupSubmission.Description,
             Email = groupSubmission.Email,
             Phone = groupSubmission.PhoneNumber,
@@ -62,13 +63,13 @@ public class GroupEmailBuilder
 
     public virtual void SendEmailDelete(ProcessedGroup group)
     {
-        var messageSubject = $"Delete {group.Name}";
+        string messageSubject = $"Delete {group.Name}";
 
         _logger.LogInformation("Sending group delete email");
 
-        var emailBody = new GroupDelete { Name = group.Name };
+        GroupDelete emailBody = new() { Name = group.Name };
 
-        var emailsTosend = string.Join(",", group.GroupAdministrators.Items.Select(i => i.Email).ToList());
+        string emailsTosend = string.Join(",", group.GroupAdministrators.Items.Select(i => i.Email).ToList());
 
         if (!string.IsNullOrEmpty(emailsTosend))
         {
@@ -79,13 +80,13 @@ public class GroupEmailBuilder
 
     public virtual void SendEmailEventDelete(ProcessedEvents eventItem, ProcessedGroup group)
     {
-        var messageSubject = $"Delete {eventItem.Title}";
+        string messageSubject = $"Delete {eventItem.Title}";
 
         _logger.LogInformation("Sending event delete email");
 
-        var emailBody = new EventDelete { Title = eventItem.Title };
+        EventDelete emailBody = new() { Title = eventItem.Title };
 
-        var emailsTosend = string.Join(",", group.GroupAdministrators.Items.Select(i => i.Email).ToList());
+        string emailsTosend = string.Join(",", group.GroupAdministrators.Items.Select(i => i.Email).ToList());
         emailsTosend = emailsTosend + "," +
                        _configuration.GetGroupSubmissionEmail(_businessId.ToString());
 
@@ -98,13 +99,13 @@ public class GroupEmailBuilder
 
     public virtual void SendEmailArchive(Group group)
     {
-        var messageSubject = $"Archive {group.Name}";
+        string messageSubject = $"Archive {group.Name}";
 
         _logger.LogInformation("Sending group archive email");
 
-        var emailBody = new GroupArchive { Name = group.Name };
+        GroupArchive emailBody = new() { Name = group.Name };
 
-        var emailsTosend = string.Join(",", group.GroupAdministrators.Items.Select(i => i.Email).ToList());
+        string emailsTosend = string.Join(",", group.GroupAdministrators.Items.Select(i => i.Email).ToList());
 
         if (!string.IsNullOrEmpty(emailsTosend))
         {
@@ -115,13 +116,13 @@ public class GroupEmailBuilder
 
     public virtual void SendEmailPublish(Group group)
     {
-        var messageSubject = $"Publish {group.Name}";
+        string messageSubject = $"Publish {group.Name}";
 
         _logger.LogInformation("Sending group publish email");
 
-        var emailBody = new GroupPublish() { Name = group.Name, Slug = group.Slug };
+        GroupPublish emailBody = new() { Name = group.Name, Slug = group.Slug };
 
-        var emailsTosend = string.Join(",", group.GroupAdministrators.Items.Select(i => i.Email).ToList());
+        string emailsTosend = string.Join(",", group.GroupAdministrators.Items.Select(i => i.Email).ToList());
 
         if (!string.IsNullOrEmpty(emailsTosend))
         {
@@ -132,11 +133,11 @@ public class GroupEmailBuilder
 
     public virtual Task<HttpStatusCode> SendEmailChangeGroupInfo(ChangeGroupInfoViewModel changeGroupInfo)
     {
-        var messageSubject = $"Changes to a group's information - {changeGroupInfo.GroupName}";
+        string messageSubject = $"Changes to a group's information - {changeGroupInfo.GroupName}";
 
         _logger.LogInformation("Sending group submission form email");
 
-        var emailBody = new ChangeGroupInfoConfirmation
+        ChangeGroupInfoConfirmation emailBody = new()
         {
             Email = changeGroupInfo.Email,
             Name = changeGroupInfo.Name,
@@ -155,11 +156,11 @@ public class GroupEmailBuilder
 
     public virtual Task<HttpStatusCode> SendEmailReportGroup(ReportGroupViewModel reportGroupInfo)
     {
-        var messageSubject = $"Changes to a group's information - {reportGroupInfo.GroupName}";
+        string messageSubject = $"Changes to a group's information - {reportGroupInfo.GroupName}";
 
         _logger.LogInformation("Sending group submission form email");
 
-        var emailBody = new ReportGroupInfoConfirmation
+        ReportGroupInfoConfirmation emailBody = new()
         {
             Email = reportGroupInfo.Email,
             Name = reportGroupInfo.Name,
@@ -178,11 +179,11 @@ public class GroupEmailBuilder
 
     public virtual void SendEmailEditGroup(GroupSubmission group, string toEmail)
     {
-        var messageSubject = $"Edit group {group.Name}";
+        string messageSubject = $"Edit group {group.Name}";
 
         _logger.LogInformation("Sending edit group email");
 
-        var emailBody = new GroupEdit
+        GroupEdit emailBody = new()
         {
             Name = group.Name,
             Categories = group.CategoriesList,
@@ -200,24 +201,29 @@ public class GroupEmailBuilder
             AdditionalInformation = group.AdditionalInformation
         };
 
-        var message = new EmailMessage(messageSubject,
-                                        _emailClient.GenerateEmailBodyFromHtml(emailBody),
-                                       _fromEmail,
-                                       toEmail + "," + _configuration.GetGroupArchiveEmail(_businessId.ToString()),
-                                       new List<IFormFile>());
+        EmailMessage message = new (messageSubject,
+                                    _emailClient.GenerateEmailBodyFromHtml(emailBody),
+                                    _fromEmail,
+                                    toEmail + "," + _configuration.GetGroupArchiveEmail(_businessId.ToString()),
+                                    new List<IFormFile>());
 
         _emailClient.SendEmailToService(message);
     }
 
     public virtual Task<HttpStatusCode> SendEmailEditUser(AddEditUserViewModel model)
     {
-        var messageSubject = $"[Edit User] - {model.Name}";
+        string messageSubject = $"[Edit User] - {model.Name}";
 
         _logger.LogInformation("Sending Edit User email");
 
-        var attachments = new List<IFormFile>();
+        List<IFormFile> attachments = new();
 
-        var emailBody = new EditUser() { Name = model.Name, Role = GetRoleByInitial(model.GroupAdministratorItem.Permission), PreviousRole = GetRoleByInitial(model.Previousrole) };
+        EditUser emailBody = new()
+        {
+            Name = model.Name,
+            Role = GetRoleByInitial(model.GroupAdministratorItem.Permission),
+            PreviousRole = GetRoleByInitial(model.Previousrole)
+        };
 
         return _emailClient.SendEmailToService(new EmailMessage(messageSubject, _emailClient.GenerateEmailBodyFromHtml(emailBody),
             _fromEmail,
@@ -227,13 +233,17 @@ public class GroupEmailBuilder
 
     public virtual Task<HttpStatusCode> SendEmailNewUser(AddEditUserViewModel model)
     {
-        var messageSubject = $"[Add New User] - {model.Name}";
+        string messageSubject = $"[Add New User] - {model.Name}";
 
         _logger.LogInformation("Sending Add New User email");
 
-        var attachments = new List<IFormFile>();
+        List<IFormFile> attachments = new();
 
-        var emailBody = new AddUser() { GroupName = model.Name, Role = GetRoleByInitial(model.GroupAdministratorItem.Permission) };
+        AddUser emailBody = new()
+        {
+            GroupName = model.Name,
+            Role = GetRoleByInitial(model.GroupAdministratorItem.Permission)
+        };
 
         return _emailClient.SendEmailToService(new EmailMessage(messageSubject, _emailClient.GenerateEmailBodyFromHtml(emailBody),
             _fromEmail,
@@ -243,13 +253,13 @@ public class GroupEmailBuilder
 
     public virtual Task<HttpStatusCode> SendEmailDeleteUser(RemoveUserViewModel model)
     {
-        var messageSubject = $"[Delete User]";
+        string messageSubject = $"[Delete User]";
 
         _logger.LogInformation("Sending Delete User email");
 
-        var attachments = new List<IFormFile>();
+        List<IFormFile> attachments = new();
 
-        var emailBody = new DeleteUser() { GroupName = model.GroupName };
+        DeleteUser emailBody = new() { GroupName = model.GroupName };
 
         return _emailClient.SendEmailToService(new EmailMessage(messageSubject, _emailClient.GenerateEmailBodyFromHtml(emailBody),
             _fromEmail,
@@ -257,16 +267,11 @@ public class GroupEmailBuilder
             attachments));
     }
 
-    private string GetRoleByInitial(string initial)
-    {
-        switch (initial)
+    private string GetRoleByInitial(string initial) =>
+        initial switch
         {
-            case "A":
-                return "Administrator";
-            case "E":
-                return "Editor";
-            default:
-                return String.Empty;
-        }
-    }
+            "A" => "Administrator",
+            "E" => "Editor",
+            _ => string.Empty,
+        };
 }

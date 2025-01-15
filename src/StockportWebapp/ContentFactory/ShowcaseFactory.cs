@@ -1,33 +1,23 @@
 ﻿namespace StockportWebapp.ContentFactory;
 
-public class ShowcaseFactory
+public class ShowcaseFactory(ITagParserContainer tagParserContainer,
+                            MarkdownWrapper markdownWrapper,
+                            ITriviaFactory triviaFactory)
 {
-    private readonly ITagParserContainer _tagParserContainer;
-    private readonly MarkdownWrapper _markdownWrapper;
-    private readonly ITriviaFactory _triviaFactory;
-
-    public ShowcaseFactory(ITagParserContainer tagParserContainer,
-        MarkdownWrapper markdownWrapper,
-        ITriviaFactory triviaFactory)
-    {
-        _tagParserContainer = tagParserContainer;
-        _markdownWrapper = markdownWrapper;
-        _triviaFactory = triviaFactory;
-    }
+    private readonly ITagParserContainer _tagParserContainer = tagParserContainer;
+    private readonly MarkdownWrapper _markdownWrapper = markdownWrapper;
+    private readonly ITriviaFactory _triviaFactory = triviaFactory;
 
     public virtual ProcessedShowcase Build(Showcase showcase)
     {
-        var body = _tagParserContainer.ParseAll(showcase.Body);
+        string body = _tagParserContainer.ParseAll(showcase.Body);
         showcase.Body = _markdownWrapper.ConvertToHtml(body ?? string.Empty);
 
-        var video = showcase.Video;
-
-        if (video != null)
-        {
+        Video video = showcase.Video;
+        if (video is not null)
             video.VideoEmbedCode = _tagParserContainer.ParseAll(video.VideoEmbedCode);
-        }
 
-        var fields = showcase.FieldOrder;
+        FieldOrder fields = showcase.FieldOrder;
 
         if (!fields.Items.Any())
         {

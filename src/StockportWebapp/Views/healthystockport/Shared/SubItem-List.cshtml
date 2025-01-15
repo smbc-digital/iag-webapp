@@ -1,8 +1,8 @@
 ﻿@model Tuple<SubItem, bool>
 @{
-    var item = Model.Item1;
-    var displayImage = Model.Item2;
-    var imageUrl = item.Image;
+    SubItem item = Model.Item1;
+    bool displayImage = Model.Item2;
+    string imageUrl = item.Image;
 }
 
 <li class="article-list-item article-list-item-mobile grid-33 tablet-grid-50 mobile-grid-50 matchbox-item">

@@ -3,6 +3,6 @@
 public class ProfileInlineViewComponent : ViewComponent
 {
     [ExcludeFromCodeCoverage]
-    public async Task<IViewComponentResult> InvokeAsync(ProfileViewModel profile, bool withoutBody) =>
+    public async Task<IViewComponentResult> InvokeAsync(ProfileViewModel profile) =>
         await Task.Run(() => View(profile));
 }

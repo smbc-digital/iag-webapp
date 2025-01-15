@@ -1,15 +1,10 @@
 ﻿namespace StockportWebapp.ContentFactory;
 
-public class StartPageFactory
+public class StartPageFactory(ITagParserContainer tagParserContainer,
+                            MarkdownWrapper markdownWrapper)
 {
-    private readonly ITagParserContainer _tagParserContainer;
-    private readonly MarkdownWrapper _markdownWrapper;
-
-    public StartPageFactory(ITagParserContainer tagParserContainer, MarkdownWrapper markdownWrapper)
-    {
-        _tagParserContainer = tagParserContainer;
-        _markdownWrapper = markdownWrapper;
-    }
+    private readonly ITagParserContainer _tagParserContainer = tagParserContainer;
+    private readonly MarkdownWrapper _markdownWrapper = markdownWrapper;
 
     public virtual ProcessedStartPage Build(StartPage startPage)
     {

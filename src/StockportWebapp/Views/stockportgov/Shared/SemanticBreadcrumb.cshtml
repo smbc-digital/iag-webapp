@@ -1,18 +1,22 @@
 ﻿@model IEnumerable<Crumb>
 @{
-    string title = ViewData["Title"] is not null ? ViewData["Title"].ToString() : "";
+    string title = ViewData["Title"] is not null
+        ? ViewData["Title"].ToString()
+        : string.Empty;
 }
 
 <nav id="breadcrumb" class="breadcrumb" aria-label="Breadcrumb navigation">
     <ul class="center-wrapper">
         <li><a href="https://www.stockport.gov.uk/">Home</a></li>
+        
         @if (Model is not null && Model.Any())
         {
-            foreach (var crumb in Model)
+            foreach (Crumb crumb in Model)
             {
                 <li><a href="@crumb.NavigationLink">@crumb.Title</a></li>
             }
         }
+        
         <li class="current">
             <span>@title</span>
         </li>

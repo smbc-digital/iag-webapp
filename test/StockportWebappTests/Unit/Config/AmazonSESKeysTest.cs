@@ -7,18 +7,23 @@ public class AmazonSESKeysTest
     [InlineData(null, "secretKey")]
     [InlineData("accessKey", "")]
     [InlineData("accessKey", null)]
+    [InlineData("", "")]
     public void ShouldBeNotValidIfAnyParameterIsNullOrEmpty(string accessKey, string secretKey)
     {
-        var keys = new AmazonSESKeys(accessKey, secretKey);
+        // Arrange
+        AmazonSESKeys keys = new(accessKey, secretKey);
 
-        keys.IsValid().Should().BeFalse();
+        // Act & Assert
+        Assert.False(keys.IsValid());
     }
 
-    [Fact(Skip = "To be fixed")]
+    [Fact]
     public void ShouldBeValidIfParametersAreSet()
     {
-        var keys = new AmazonSESKeys("accessKey", "secretKey");
-
-        keys.IsValid().Should().BeFalse();
+        // Arrange
+        AmazonSESKeys keys = new("accessKey", "secretKey");
+        
+        // Act & Assert
+        Assert.True(keys.IsValid());
     }
 }

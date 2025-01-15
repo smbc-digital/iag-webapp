@@ -18,14 +18,16 @@
                         else
                         {
                             <a href="@Url.Action("Index", "Events", new { Tag = row.Tag } )" class="event-homepage__cards-view-more hide-on-mobile hide-on-tablet" aria-label="View more events" data-cy="view-more-events-link">View more @row.Tag events</a>
-                        } 
-                        </div>
-                        <ul class="navcard-wrapper navcard-wrapper--no-margin">
+                        }
+                    </div>
+
+                    <ul class="navcard-wrapper navcard-wrapper--no-margin">
                         @foreach (Event item in row.Events)
                         {
                             <partial name="EventCard" model="item" view-data="@(new ViewDataDictionary(ViewData) {{"backgroundColourClass", "event-cards__link--white"}})"/>
                         }
-                        </ul>
+                    </ul>
+                    
                     <div class="event-button hide-on-desktop">
                         @if (row.IsLatest)
                         {

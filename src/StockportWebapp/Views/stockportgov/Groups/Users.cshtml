@@ -3,7 +3,7 @@
     ViewData["Title"] = "Users";
     ViewData["og:title"] = "Users";
     Layout = "../Shared/_Layout.cshtml";
-    var heading = "Add or remove users";
+    string heading = "Add or remove users";
 }
 
 @section Breadcrumbs {
@@ -43,9 +43,9 @@
                                     </div>
                                 </div>
 
-                                @foreach (var user in Model.GroupAdministrators.Items.OrderBy(i => i.Email))
+                                @foreach (GroupAdministratorItems user in Model.GroupAdministrators.Items.OrderBy(i => i.Email))
                                 {
-                                    var name = string.IsNullOrWhiteSpace(user.Name) ? "-" : user.Name;
+                                    string name = string.IsNullOrWhiteSpace(user.Name) ? "-" : user.Name;
                                     <div class="grid-100 sk-table-row grid-parent">
                                         <div class="sk-table-cell grid-60 tablet-grid-60 mobile-grid-100 word-wrap">
                                             <span class="main mobile-bold">@name</span>

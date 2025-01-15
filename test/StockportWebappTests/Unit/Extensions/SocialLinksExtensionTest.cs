@@ -2,23 +2,25 @@
 
 public class SocialLinksExtensionTest
 {
-    SocialLinksExtension socialLinksExtension = new SocialLinksExtension();
+    readonly SocialLinksExtension socialLinksExtension = new();
 
     [Fact]
     public void ShouldReturnFacebookDisplayUrlFromFullUrl()
     {
-        var url = "http://www.facebook.com/zumba";
-        var result = socialLinksExtension.GetSubstring(url);
+        // Act
+        string result = socialLinksExtension.GetSubstring("http://www.facebook.com/zumba");
 
+        // Assert
         Assert.Equal("/zumba", result);
     }
 
     [Fact]
     public void ShouldReturnTwitterDisplayUrlFromFullUrl()
     {
-        var url = "http://www.twitter.com/zumba";
-        var result = socialLinksExtension.GetSubstring(url);
+        // Act
+        string result = socialLinksExtension.GetSubstring("http://www.twitter.com/zumba");
 
+        // Assert
         Assert.Equal("@zumba", result);
     }
 }

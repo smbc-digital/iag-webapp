@@ -7,10 +7,10 @@ public interface IUrlGeneratorSimple
 }
 
 [ExcludeFromCodeCoverage]
-public class UrlGeneratorSimple : IUrlGeneratorSimple
+public class UrlGeneratorSimple(IApplicationConfiguration config, BusinessId businessId) : IUrlGeneratorSimple
 {
-    private readonly IApplicationConfiguration _config;
-    private readonly BusinessId _businessId;
+    private readonly IApplicationConfiguration _config = config;
+    private readonly BusinessId _businessId = businessId;
 
     private readonly Dictionary<Type, string> _urls = new()
     {
@@ -52,19 +52,9 @@ public class UrlGeneratorSimple : IUrlGeneratorSimple
         {typeof(List<Event>), "events"}
     };
 
-    public UrlGeneratorSimple(IApplicationConfiguration config, BusinessId businessId)
-    {
-        _config = config;
-        _businessId = businessId;
-    }
+    public string BaseContentApiUrl<T>() =>
+        string.Concat(_config.GetContentApiUri(), _businessId, "/", _urls[typeof(T)], "/");
 
-    public string BaseContentApiUrl<T>()
-    {
-        return string.Concat(_config.GetContentApiUri(), _businessId, "/", _urls[typeof(T)], "/");
-    }
-
-    public string StockportApiUrl<T>()
-    {
-        return string.Concat(_config.GetStockportApiUri(), _urls[typeof(T)], "/");
-    }
+    public string StockportApiUrl<T>() =>
+        string.Concat(_config.GetStockportApiUri(), _urls[typeof(T)], "/");
 }

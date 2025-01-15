@@ -13,9 +13,8 @@
                         <div class="events-filters__radio-item">
                             <label for="event-date" class="events-filters__date-label">Category</label>
                             <select type="" id="event-category" asp-for="@Model.Category" placeholder="Cateogory" class="events-filters__date">
-                                @foreach (var eventCategory in Model.Homepage.Categories)
+                                @foreach (EventCategory eventCategory in Model.Homepage.Categories)
                                 {
-
                                     if (Model.SelectedCategory is not null && eventCategory.Slug.Equals(Model.SelectedCategory.Slug))
                                     {
                                         <option value="@eventCategory.Slug" selected)>

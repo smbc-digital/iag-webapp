@@ -1,28 +1,21 @@
 ﻿namespace StockportWebapp.Controllers;
 
 [ResponseCache(Location = ResponseCacheLocation.Any, Duration = Cache.Short)]
-public class CommsController : Controller
+public class CommsController(IRepository repository,
+                            ILogger<CommsController> logger) : Controller
 {
-    private readonly IRepository _repository;
-    private readonly ILogger<CommsController> _logger;
-
-    public CommsController(IRepository repository, ILogger<CommsController> logger)
-    {
-        _repository = repository;
-        _logger = logger;
-    }
+    private readonly IRepository _repository = repository;
+    private readonly ILogger<CommsController> _logger = logger;
 
     [Route("/news-room")]
     public async Task<IActionResult> Index()
     {
-        var response = await _repository.Get<CommsHomepage>(queries: new List<Query>());
+        HttpResponse response = await _repository.Get<CommsHomepage>(queries: new List<Query>());
+        CommsHomepage commsHomepage = response.Content as CommsHomepage;
+        HttpResponse latestNewsResponse = await _repository.GetLatest<List<News>>(1);
+        List<News> latestNews = latestNewsResponse.Content as List<News>;
 
-        var commsHomepage = response.Content as CommsHomepage;
-        var latestNewsResponse = await _repository.GetLatest<List<News>>(1);
-
-        var latestNews = latestNewsResponse.Content as List<News>;
-
-        var viewModel = new CommsHomepageViewModel
+        CommsHomepageViewModel viewModel = new()
         {
             Homepage = commsHomepage,
             LatestNews = latestNews?.FirstOrDefault()
@@ -34,7 +27,8 @@ public class CommsController : Controller
         }
         catch (Exception ex)
         {
-            _logger.LogError("News and media unable to load", ex.Message);
+            _logger.LogError($"News and media unable to load {ex.Message}");
+
             return RedirectToRoute("Error", "500");
         }
     }

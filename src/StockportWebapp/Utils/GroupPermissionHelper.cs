@@ -2,16 +2,11 @@
 
 public static class GroupPermissionHelper
 {
-    public static string GetPermisison(string letter)
-    {
-        switch (letter.ToUpper())
+    public static string GetPermisison(string letter) =>
+        letter.ToUpper() switch
         {
-            case "A":
-                return "Administrator";
-            case "E":
-                return "Editor";
-            default:
-                return string.Empty;
-        }
-    }
+            "A" => "Administrator",
+            "E" => "Editor",
+            _ => string.Empty,
+        };
 }

@@ -32,12 +32,10 @@ public class ContactUsDetails
     [StringLength(500, ErrorMessage = "Too much string")]
     public string Message { get; set; }
 
-
     public IEnumerable<Crumb> Breadcrumbs = new List<Crumb>();
 
     public ContactUsDetails()
-    {
-    }
+    { }
 
     public ContactUsDetails(string serviceEmailId, string title)
     {

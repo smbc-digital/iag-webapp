@@ -5,8 +5,9 @@
     <div>
         <a href="/profile/@Model.Profile.Slug" class="profile profile-success-story-new profile-link" alt="Read more about @Model.Profile.Title">
             @{
-                var width = "100";
+                string width = "100";
             }
+
             @if (!string.IsNullOrEmpty(Model.Profile.Image.Url))
             {
                 width = "75";
@@ -16,21 +17,27 @@
                     </div>
                 </div>
             }
+
             <div class="grid-@width tablet-grid-@width mobile-grid-100">
                 <div class="mobile-push-10 headings">
                     <h2>@Model.Profile.Title</h2>
                     <span class="summary">@Model.Profile.Subtitle</span>
                 </div>
+
                 <div class="grid-100 grid-parent body">
                     <div class="grid-10 tablet-grid-10 mobile-grid-10"><span class="green open fa fa-2x fa-quote-left" aria-hidden="true"></span></div>
+                    
                     <div class="grid-80 tablet-grid-80 mobile-grid-80 main-body">
                         <p>@Model.Profile.Teaser</p>
                     </div>
+                    
                     <div class="grid-10 tablet-grid-10 mobile-grid-10"></div>
                 </div>
+
                 <div class="grid-100 grid-parent closing-quote">
                     <div class="grid-10 tablet-grid-10 mobile-grid-10 tablet-push-90 mobile-push-90 push-90"><span class="green fa fa-2x fa-quote-right" aria-hidden="true"></span></div>
                 </div>
+
                 <p class="read-more">Read more</p>
             </div>
         </a>
@@ -39,7 +46,7 @@
 else {
     <div class="profile profile-success-story-new">
         @{ 
-            var width = "100";
+            string width = "100";
         }
         @if (!string.IsNullOrEmpty(Model.Profile.Image.Url))
         {
@@ -55,13 +62,17 @@ else {
                 <h2>@Model.Profile.Title</h2>
                 <span class="summary">@Model.Profile.Subtitle</span>
             </div>
+
             <div class="grid-100 grid-parent body">
                 <div class="grid-10 tablet-grid-10 mobile-grid-10"><span class="green open fa fa-2x fa-quote-left" aria-hidden="true"></span></div>
+                
                 <div class="grid-80 tablet-grid-80 mobile-grid-80 main-body">
                     <p>@Model.Profile.Teaser</p>
                 </div>
+
                 <div class="grid-10 tablet-grid-10 mobile-grid-10"></div>
             </div>
+
             <div class="grid-100 grid-parent closing-quote">
                 <div class="grid-10 tablet-grid-10 mobile-grid-10 tablet-push-90 mobile-push-90 push-90"><span class="green fa fa-2x fa-quote-right" aria-hidden="true"></span></div>
             </div>

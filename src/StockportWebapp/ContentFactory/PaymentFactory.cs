@@ -1,20 +1,15 @@
 ﻿namespace StockportWebapp.ContentFactory;
 
-public class PaymentFactory
+public class PaymentFactory(ITagParserContainer simpleTagParserContainer,
+                            MarkdownWrapper markdownWrapper)
 {
-    private readonly ITagParserContainer _tagParserContainer;
-    private readonly MarkdownWrapper _markdownWrapper;
-
-    public PaymentFactory(ITagParserContainer simpleTagParserContainer, MarkdownWrapper markdownWrapper)
-    {
-        _tagParserContainer = simpleTagParserContainer;
-        _markdownWrapper = markdownWrapper;
-    }
+    private readonly ITagParserContainer _tagParserContainer = simpleTagParserContainer;
+    private readonly MarkdownWrapper _markdownWrapper = markdownWrapper;
 
     public virtual ProcessedPayment Build(Payment payment)
     {
-        var description = _tagParserContainer.ParseAll(payment.Description, payment.Title);
-        description = _markdownWrapper.ConvertToHtml(description ?? "");
+        string description = _tagParserContainer.ParseAll(payment.Description, payment.Title);
+        description = _markdownWrapper.ConvertToHtml(description ?? string.Empty);
 
         return new ProcessedPayment(
             payment.Title,

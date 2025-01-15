@@ -11,6 +11,7 @@
 <h2 class='@(!string.IsNullOrEmpty(Model.DirectoryEntry.Image) ? "directory__profile-image" : "directory__profile")'>Our details</h2>
 <div class="directory__organisation">
     <h3 class="h-m">Organisation</h3>
+    
     @if (string.IsNullOrEmpty(Model.DirectoryEntry.Provider))
     {
         <p>@Model.DirectoryEntry.Name</p>

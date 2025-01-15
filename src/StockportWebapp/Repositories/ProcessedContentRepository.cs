@@ -19,14 +19,14 @@ public class ProcessedContentRepository : IProcessedContentRepository
 
     public async Task<HttpResponse> Get<T>(string slug = "", List<Query> queries = null)
     {
-        var url = _urlGenerator.UrlFor<T>(slug, queries);
-        var httpResponse = await _httpClient.Get(url, authenticationHeaders);
+        string url = _urlGenerator.UrlFor<T>(slug, queries);
+        HttpResponse httpResponse = await _httpClient.Get(url, authenticationHeaders);
 
         if (!httpResponse.IsSuccessful())
             return httpResponse;
 
-        var model = HttpResponse.Build<T>(httpResponse);
-        var processedModel = _contentTypeFactory.Build((T)model.Content);
+        HttpResponse model = HttpResponse.Build<T>(httpResponse);
+        IProcessedContentType processedModel = _contentTypeFactory.Build((T)model.Content);
 
         return HttpResponse.Successful(200, processedModel);
     }
