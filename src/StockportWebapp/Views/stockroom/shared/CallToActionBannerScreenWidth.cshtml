@@ -1,0 +1,12 @@
+@model CallToActionBanner
+
+@if (Model is not null)
+{
+    <section class="section image-banner" data-cy="call-to-action-screen-width">
+        <div class="image-banner__background" style="background-image: url(@Model.Image?fm=webp)"></div>
+        <div class="image-banner__content">
+            <h2 class="image-banner__title font--bold-extra-squeezed">@Model.Title</h2>
+            <a href="@Model.Link" target="_blank" class="btn">@Model.ButtonText</a>
+        </div>
+    </section>
+}

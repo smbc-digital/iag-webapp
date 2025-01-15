@@ -13,7 +13,7 @@
     <partial name="HeroCarousel" model="@Model.HomepageContent.CarouselContents.Take(5).ToList()" view-data='@(new ViewDataDictionary(ViewData) { { "isOnHomepage", true } })' />
 }
 
-@if (Model.PrimaryItems() is not null && Model.PrimaryItems().Items.Any() && Model.PrimaryItems().Items.Count >=3)
+@if (Model.PrimaryItems() is not null && Model.PrimaryItems().Items.Any() && Model.PrimaryItems().Items.Count >= 3)
 {
      <div class="grid-container-full-width" style="background-color: #f2f2f2;">
         <div class="grid-container">
@@ -28,4 +28,4 @@
     </div>
 }
 
-<partial name="ImageBannerScreenWidth"/>
+<partial name="CallToActionBannerScreenWidth" model="Model.HomepageContent.CallToActionPrimary" />
