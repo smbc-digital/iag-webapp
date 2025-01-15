@@ -24,9 +24,9 @@ public class BusinessIdMiddleware(RequestDelegate next, ILogger<BusinessIdMiddle
             }
             else
             {
-                // businessId.SetId(new StringValues("stockportgov"));
+                businessId.SetId(new StringValues("stockportgov"));
                 // businessId.SetId(new StringValues("healthystockport"));
-                businessId.SetId(new StringValues("stockroom"));
+                // businessId.SetId(new StringValues("stockroom"));
             }
 
             context.Request.Headers.Add("BUSINESS-ID", businessId.ToString());
