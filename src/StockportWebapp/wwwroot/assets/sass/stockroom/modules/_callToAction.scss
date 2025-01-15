@@ -1,0 +1,50 @@
+.call-to-action {
+    display: flex;
+    flex-direction: row;
+    margin-top: 2em;
+    
+    &__image {
+        background-color: transparent;
+        width: 40%;
+        object-fit: cover;
+        border-radius: 3px;
+        height: auto;
+
+        @media #{$tablet} {
+            display: none;
+        }
+    }
+
+    &-content {
+        background-color: #f2f2f2;
+        width: 60%;
+        padding: 1.5em;
+
+        @media #{$tablet} {
+            width: 100%;
+            border-radius: 50px 3px;
+        }
+
+        @media #{$mobile} {
+            border-radius: 30px 3px;
+        }
+
+        &__title {
+            @include h-xl;
+            margin-bottom: 0.75em;
+            color: black;
+            margin-top: 0;
+        }
+
+        &__teaser {
+            margin-bottom: 2em;
+            color: black;
+        }
+    }
+}
+
+html[dir="rtl"] {
+    .call-to-action__image {
+        border-radius: 0px 50px 3px 0px;
+    }
+}

@@ -13,6 +13,8 @@
     <partial name="HeroCarousel" model="@Model.HomepageContent.CarouselContents.Take(5).ToList()" view-data='@(new ViewDataDictionary(ViewData) { { "isOnHomepage", true } })' />
 }
 
+<partial name="CallToAction" model="Model.HomepageContent.CallToAction" />
+
 @if (Model.PrimaryItems() is not null && Model.PrimaryItems().Items.Any() && Model.PrimaryItems().Items.Count >= 3)
 {
      <div class="grid-container-full-width" style="background-color: #f2f2f2;">
