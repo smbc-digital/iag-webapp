@@ -3,7 +3,7 @@
 {
     @foreach (EventHomepageRow row in Model.Rows.Where(row => row.Events.Any()))
     {
-        <section class="content-block content-block--margin" data-cy="event-cards">
+        <section class="event-homepage__cards content-block content-block--margin" data-cy="event-cards">
             <div class="grid-container">
                 <div class="grid-100 event-homepage__cards--padding">
                     <div class="event-homepage__cards-title">
@@ -24,7 +24,7 @@
                     <ul class="navcard-wrapper navcard-wrapper--no-margin">
                         @foreach (Event item in row.Events)
                         {
-                            <partial name="EventCard" model="item" view-data="@(new ViewDataDictionary(ViewData) {{"backgroundColourClass", "event-cards__link--white"}})"/>
+                            <partial name="EventCard" model="item" view-data="@(new ViewDataDictionary(ViewData) {{"backgroundColourClass", "event-cards__link--white"}, {"eventHomepageImage", "event-cards__image-homepage"}})"/>
                         }
                     </ul>
                     
