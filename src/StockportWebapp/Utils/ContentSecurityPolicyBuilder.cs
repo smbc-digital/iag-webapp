@@ -295,6 +295,7 @@ public class ContentSecurityPolicyBuilder
             .AddSource("app.contentful.com")
             .AddSource("forms-eu1.hsforms.com")
             .AddSource("my.matterport.com")
+            .AddSource("int-formbuilder-origin.smbcdigital.net", true)
             .Finish());
 
     private void BuildObjectSource() =>
