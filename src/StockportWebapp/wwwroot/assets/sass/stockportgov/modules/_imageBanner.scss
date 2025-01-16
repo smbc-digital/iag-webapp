@@ -100,6 +100,10 @@
         @media #{$mobile} {
             margin-block-end: 0;
         }
+
+        &-no-link {
+            text-decoration: none;
+        }
     }
 
     &--height {
