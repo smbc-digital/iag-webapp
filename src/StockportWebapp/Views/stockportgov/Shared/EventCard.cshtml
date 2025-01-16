@@ -8,7 +8,7 @@
     <li class="navcard navcard--width-33 navcard event-cards">
         <a href="/events/@Model.Slug" class="navcard__link event-cards__link @backgroundColourClass @borderColourClass" data-cy="event-card-link">
             <div class="navcard__content">
-                <partial name="NavCardImage" model="@Model.ImageUrl" view-data='@(new ViewDataDictionary(ViewData) { {"imageAdditionalClasses", "event-cards__image"} })'/>
+                <partial name="NavCardImage" model="@Model.ImageUrl" view-data='@(new ViewDataDictionary(ViewData) { {"imageAdditionalClasses", "event-cards__image"}})'/>
 
                 <div class="event-cards--padding">
                     <h3 class="navcard__title">@Model.Title</h3>

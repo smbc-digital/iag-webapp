@@ -24,7 +24,7 @@
             <div class="grid-25">
                 <label class="h-l" asp-for="@Model.Category"></label>
                 <div class="event-homepage__filters-options">
-                    <select asp-for="@Model.Category" asp-items="@Model.EventCategoryOptions()" placeholder="All categories" name="category" id="category" autocomplete="off"></select>
+                    <select asp-for="@Model.Category" asp-items="@Model.EventCategoryOptions()" placeholder="All categories" name="category" id="category" aria-label="Select category" autocomplete="off"></select>
                 </div>
             </div>
 
