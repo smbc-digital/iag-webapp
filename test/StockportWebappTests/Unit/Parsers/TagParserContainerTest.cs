@@ -59,6 +59,10 @@ public class TagParserContainerTests
         _profileTagParser
             .Setup(parser => parser.Parse(It.IsAny<string>(), It.IsAny<IEnumerable<Profile>>(), It.IsAny<bool>()))
             .Returns("some body");
+
+        _callToActionTagParser
+            .Setup(parser => parser.Parse(It.IsAny<string>(), It.IsAny<IEnumerable<CallToActionBanner>>(), It.IsAny<bool>()))
+            .Returns("some body");
     }
 
     [Fact]
@@ -112,6 +116,10 @@ public class TagParserContainerTests
         
         _profileTagParser
             .Setup(parser => parser.Parse(It.IsAny<string>(), It.IsAny<IEnumerable<Profile>>(), It.IsAny<bool>()))
+            .Returns("{{TAG: sgsdgsdfgd}}CONTENT{{TAGS:sgdfgdfg}}{{TAGS:sgdfgdf242g}}");
+
+        _callToActionTagParser
+            .Setup(parser => parser.Parse(It.IsAny<string>(), It.IsAny<IEnumerable<CallToActionBanner>>(), It.IsAny<bool>()))
             .Returns("{{TAG: sgsdgsdfgd}}CONTENT{{TAGS:sgdfgdfg}}{{TAGS:sgdfgdf242g}}");
 
         // Act
