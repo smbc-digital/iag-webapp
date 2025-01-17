@@ -41,6 +41,7 @@ public class PaymentFactoryTest
                                             null,
                                             null,
                                             null,
+                                            null,
                                             It.IsAny<bool>()))
             .Returns(Description);
 
@@ -78,6 +79,7 @@ public class PaymentFactoryTest
         _tagParserContainer.Verify(parser => parser.ParseAll(Description,
                                                             _payment.Title,
                                                             It.IsAny<bool>(),
+                                                            null,
                                                             null,
                                                             null,
                                                             null,

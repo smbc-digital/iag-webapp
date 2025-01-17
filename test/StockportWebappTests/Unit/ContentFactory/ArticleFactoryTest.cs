@@ -15,6 +15,7 @@ public class ArticleFactoryTest
     private readonly Section _sectionTwo;
     private readonly ProcessedSection _processedSectionTwo;
     private readonly Article _article;
+    private readonly CallToActionBanner _callToAction;
 
     public ArticleFactoryTest()
     {
@@ -93,6 +94,7 @@ public class ArticleFactoryTest
                     new DateTime(),
                     new List<InlineQuote>(),
                     "dance",
+                    null,
                     new List<Event>());
 
         _sectionFactory
@@ -116,6 +118,7 @@ public class ArticleFactoryTest
                                 It.IsAny<IEnumerable<InlineQuote>>(),
                                 It.IsAny<IEnumerable<PrivacyNotice>>(),
                                 It.IsAny<IEnumerable<Profile>>(),
+                                null,
                                 It.IsAny<bool>()))
             .Returns(Body);
     }
@@ -182,6 +185,7 @@ public class ArticleFactoryTest
                                                 It.IsAny<IEnumerable<InlineQuote>>(),
                                                 It.IsAny<IEnumerable<PrivacyNotice>>(),
                                                 It.IsAny<IEnumerable<Profile>>(),
+                                                null,
                                                 It.IsAny<bool>()), Times.Once);
     }
 
@@ -200,6 +204,7 @@ public class ArticleFactoryTest
                                                 It.IsAny<IEnumerable<InlineQuote>>(),
                                                 It.IsAny<IEnumerable<PrivacyNotice>>(),
                                                 It.IsAny<IEnumerable<Profile>>(),
+                                                null,
                                                 It.IsAny<bool>()), Times.Once);
     }
 }

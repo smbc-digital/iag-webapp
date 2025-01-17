@@ -33,6 +33,7 @@ public class StartPageFactoryTests
                                 null,
                                 null,
                                 null,
+                                null,
                                 It.IsAny<bool>()))
             .Returns(_startPage.UpperBody);
 
@@ -41,6 +42,7 @@ public class StartPageFactoryTests
                                 It.IsAny<string>(),
                                 It.IsAny<bool>(),
                                 It.IsAny<IEnumerable<Alert>>(),
+                                null,
                                 null,
                                 null,
                                 null,
@@ -95,6 +97,7 @@ public class StartPageFactoryTests
                                                         It.IsAny<string>(),
                                                         It.IsAny<bool>(),
                                                         It.IsAny<IEnumerable<Alert>>(),
+                                                        null,
                                                         null,
                                                         null,
                                                         null,

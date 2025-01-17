@@ -33,7 +33,8 @@ public class ProcessedEventsTests
                                                         null,
                                                         string.Empty,
                                                         string.Empty,
-                                                        new());
+                                                        new(),
+                                                        new List<CallToActionBanner>());
 
     [Fact]
     public void ShouldBeTrueIsAlertSunsetDateIsNotPassed()

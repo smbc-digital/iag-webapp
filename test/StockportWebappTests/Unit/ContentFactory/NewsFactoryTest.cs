@@ -62,6 +62,7 @@ public class NewsFactoryTest
                                 null,
                                 null,
                                 It.IsAny<IEnumerable<Profile>>(),
+                                null,
                                 It.IsAny<bool>()))
             .Returns(Body);
         
@@ -103,6 +104,6 @@ public class NewsFactoryTest
     {
         // Act & Assert
         _factory.Build(_news);
-        _tagParserContainer.Verify(_ => _.ParseAll(Body, _news.Title, It.IsAny<bool>(), It.IsAny<IEnumerable<Alert>>(), _news.Documents, It.IsAny<IEnumerable<InlineQuote>>(), It.IsAny<IEnumerable<PrivacyNotice>>(), _news.Profiles, It.IsAny<bool>()), Times.Once);
+        _tagParserContainer.Verify(_ => _.ParseAll(Body, _news.Title, It.IsAny<bool>(), It.IsAny<IEnumerable<Alert>>(), _news.Documents, It.IsAny<IEnumerable<InlineQuote>>(), It.IsAny<IEnumerable<PrivacyNotice>>(), _news.Profiles, null, It.IsAny<bool>()), Times.Once);
     }
 }

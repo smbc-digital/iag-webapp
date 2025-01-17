@@ -30,7 +30,7 @@ public class ServicePayPaymentFactoryTests
         _factory = new ServicePayPaymentFactory(_mockTagParser.Object, _mockMarkdownWrapper.Object);
 
         _mockTagParser
-            .Setup(_ => _.ParseAll(_payment.Description, It.IsAny<string>(), It.IsAny<bool>(), null, null, null, null, null, It.IsAny<bool>()))
+            .Setup(_ => _.ParseAll(_payment.Description, It.IsAny<string>(), It.IsAny<bool>(), null, null, null, null, null, null, It.IsAny<bool>()))
             .Returns(_payment.Description);
 
         _mockMarkdownWrapper
@@ -77,6 +77,7 @@ public class ServicePayPaymentFactoryTests
         _mockTagParser.Verify(parser => parser.ParseAll(_payment.Description,
                                                         _payment.Title,
                                                         It.IsAny<bool>(),
+                                                        null,
                                                         null,
                                                         null,
                                                         null,

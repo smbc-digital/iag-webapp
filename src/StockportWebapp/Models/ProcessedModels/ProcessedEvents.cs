@@ -30,7 +30,8 @@ public class ProcessedEvents(string title,
                             string metaDescription,
                             string duration,
                             string languages,
-                            List<ProcessedEvents> relatedEvents) : IProcessedContentType
+                            List<ProcessedEvents> relatedEvents,
+                            IEnumerable<CallToActionBanner> callToActionBanners) : IProcessedContentType
 {
     public string Title { get; } = title;
     public string Slug { get; } = slug;
@@ -64,6 +65,7 @@ public class ProcessedEvents(string title,
     public string Duration { get; } = duration;
     public string Languages { get; } = languages;
     public List<ProcessedEvents> RelatedEvents { get; set; } = relatedEvents;
+    public IEnumerable<CallToActionBanner> CallToActionBanners{ get; set; } = callToActionBanners;
 
     public bool IsAlertDisplayed(Alert alert)
         => alert.SunriseDate <= EventDate && alert.SunsetDate >= EventDate;

@@ -56,7 +56,7 @@ public class TopicFactoryTest
 
         _markdownWrapper.Setup(_ => _.ConvertToHtml(Summary)).Returns(Summary);
         _tagParserContainer
-            .Setup(parser => parser.ParseAll(Summary, "name", It.IsAny<bool>(), null, null, null, null, null, It.IsAny<bool>()))
+            .Setup(parser => parser.ParseAll(Summary, "name", It.IsAny<bool>(), null, null, null, null, null, null, It.IsAny<bool>()))
             .Returns(Summary);
     }
 
@@ -100,6 +100,7 @@ public class TopicFactoryTest
         _tagParserContainer.Verify(parser => parser.ParseAll(Summary,
                                                             "name",
                                                             It.IsAny<bool>(),
+                                                            null,
                                                             null,
                                                             null,
                                                             null,

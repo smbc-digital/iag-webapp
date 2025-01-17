@@ -42,4 +42,6 @@ public class Event
     public string Duration { get; set; }
     public string Languages { get; set; }
     public List<ProcessedEvents> RelatedEvents { get; set; }
+    public IEnumerable<CallToActionBanner> CallToActionBanners { get; set; }
+
 }

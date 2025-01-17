@@ -25,7 +25,8 @@ public class Article(string title,
                     DateTime publishedOn,
                     IEnumerable<InlineQuote> inlineQuotes,
                     string associatedTagCategory,
-            List<Event> events)
+                    IEnumerable<CallToActionBanner> callToActionBanners,
+                    List<Event> events)
 {
     public string Title { get; set; } = title;
     public string Slug { get; set; } = slug;
@@ -53,6 +54,7 @@ public class Article(string title,
     public string Photographer { get; } = photographer;
     public DateTime PublishedOn { get; set; } = publishedOn;
     public IEnumerable<InlineQuote> InlineQuotes { get; set; } = inlineQuotes;
+    public IEnumerable<CallToActionBanner> CallToActionBanners { get; set; } = callToActionBanners;
     public string AssociatedTagCategory = associatedTagCategory;
     public List<Event> Events = events;
 }

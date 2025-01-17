@@ -100,7 +100,8 @@ public class StockportApiEventsServiceTests
                                             "meta description",
                                             "duration",
                                             "languages",
-                                            new List<ProcessedEvents>());
+                                            new List<ProcessedEvents>(),
+                                            new List<CallToActionBanner>());
 
         _stockportApiRepository
             .Setup(repo => repo.GetResponse<Event>("event-slug",

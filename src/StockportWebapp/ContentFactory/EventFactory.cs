@@ -19,8 +19,18 @@ public class EventFactory(ITagParserContainer simpleTagParserContainer,
             AccessibleTransportLink = eventItem.AccessibleTransportLink
         };
 
-        string description = _tagParserContainer.ParseAll(eventItem.Description, eventItem.Title, true, null, eventItem.Documents, null, null, null);
-        description = _markdownWrapper.ConvertToHtml(description ?? string.Empty);
+        string description = _markdownWrapper.ConvertToHtml(eventItem.Description ?? string.Empty);
+
+        description = _tagParserContainer.ParseAll(eventItem.Description,
+                                                        eventItem.Title,
+                                                        true,
+                                                        null,
+                                                        eventItem.Documents,
+                                                        null,
+                                                        null,
+                                                        null,
+                                                        eventItem.CallToActionBanners);
+
 
         return new ProcessedEvents(eventItem.Title,
                                 eventItem.Slug,
@@ -53,6 +63,7 @@ public class EventFactory(ITagParserContainer simpleTagParserContainer,
                                 eventItem.MetaDescription,
                                 eventItem.Duration,
                                 eventItem.Languages,
-                                eventItem.RelatedEvents);
+                                eventItem.RelatedEvents,
+                                eventItem.CallToActionBanners);
     }
 }

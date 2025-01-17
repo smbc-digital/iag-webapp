@@ -18,6 +18,7 @@ public class ContentFactoryTest
                                             null,
                                             null,
                                             null,
+                                            null,
                                             It.IsAny<bool>()))
             .Returns(string.Empty);
 
@@ -74,6 +75,7 @@ public class ContentFactoryTest
                             new DateTime(),
                             new List<InlineQuote>(),
                             It.IsAny<string>(),
+                            new List<CallToActionBanner>(),
                             new List<Event>());
 
         // Act

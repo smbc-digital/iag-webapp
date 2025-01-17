@@ -14,6 +14,7 @@ public class TagParserContainerTests
     private readonly Mock<IDynamicTagParser<InlineQuote>> _quoteTagParser = new();
     private readonly Mock<IDynamicTagParser<PrivacyNotice>> _privacyNoticeTagParser = new();
     private readonly Mock<IDynamicTagParser<Profile>> _profileTagParser = new();
+    private readonly Mock<IDynamicTagParser<CallToActionBanner>> _callToActionTagParser= new();
 
     public TagParserContainerTests()
     {
@@ -24,7 +25,8 @@ public class TagParserContainerTests
                                 _documentTagParser.Object,
                                 _quoteTagParser.Object,
                                 _privacyNoticeTagParser.Object,
-                                _profileTagParser.Object);
+                                _profileTagParser.Object,
+                                _callToActionTagParser.Object);
 
         _tagParser
             .Setup(parser => parser.Parse(It.IsAny<string>(), It.IsAny<string>()))
