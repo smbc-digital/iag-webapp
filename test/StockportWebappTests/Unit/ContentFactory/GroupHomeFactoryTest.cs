@@ -32,7 +32,7 @@ public class GroupHomepageFactoryTest
             .Returns(Body);
 
         _tagParserContainerMock
-            .Setup(parser => parser.ParseAll(Body, It.IsAny<string>(), It.IsAny<bool>(), null, null, null, null, null, It.IsAny<bool>()))
+            .Setup(parser => parser.ParseAll(Body, It.IsAny<string>(), It.IsAny<bool>(), null, null, null, null, null, null, It.IsAny<bool>()))
             .Returns(Body);
     }
 
@@ -58,6 +58,7 @@ public class GroupHomepageFactoryTest
         _tagParserContainerMock.Verify(parser => parser.ParseAll(Body,
                                                                 It.IsAny<string>(),
                                                                 It.IsAny<bool>(),
+                                                                null,
                                                                 null,
                                                                 null,
                                                                 null,

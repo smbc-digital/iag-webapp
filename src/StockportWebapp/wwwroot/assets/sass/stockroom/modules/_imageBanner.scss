@@ -1,6 +1,10 @@
 ﻿.image-banner {
     position: relative;
 
+    &--margin {
+        margin-block: 1em;
+    }
+
     &__background {
         height: 750px;
         width: 100%;
@@ -80,6 +84,13 @@
         &--border-radius {
             border-radius: 3px;
         }
+
+        &--tag-parser {
+            h2, a {
+                margin-inline: 10px;
+            }
+
+        }
     }
 
     &__title {
@@ -104,6 +115,16 @@
         @media #{$mobile} {
             width: 100%;
             font-size: 4rem;
+        }
+
+        &--tag-parser {
+            font-size: 6rem;
+            width: 65%;
+
+            @media #{$mobile} {
+                font-size: 4rem;
+                width: 99%;
+            }
         }
 
         &-hero {

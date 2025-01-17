@@ -20,7 +20,16 @@ public class SectionFactory(ITagParserContainer tagParserContainer,
         if (section.Body.Contains("PrivacyNotice:"))
             section.PrivacyNotices = GetPrivacyNotices().Result;
 
-        parsedBody = _tagParserContainer.ParseAll(parsedBody, articleTitle, true, section.AlertsInline, section.Documents, null, section.PrivacyNotices, section.Profiles, true);
+        parsedBody = _tagParserContainer.ParseAll(parsedBody,
+                                                articleTitle,
+                                                true,
+                                                section.AlertsInline,
+                                                section.Documents,
+                                                null,
+                                                section.PrivacyNotices,
+                                                section.Profiles,
+                                                null,
+                                                true);
 
         return new ProcessedSection(
             section.Title,

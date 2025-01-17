@@ -72,6 +72,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IDynamicTagParser<Document>, DocumentTagParser>();
         services.AddSingleton<IDynamicTagParser<Alert>, AlertsInlineTagParser>();
         services.AddSingleton<IDynamicTagParser<PrivacyNotice>, PrivacyNoticeTagParser>();
+        services.AddSingleton<IDynamicTagParser<CallToActionBanner>, CallToActionTagParser>();
 
         services.AddSingleton<ITagParserContainer, TagParserContainer>();
 

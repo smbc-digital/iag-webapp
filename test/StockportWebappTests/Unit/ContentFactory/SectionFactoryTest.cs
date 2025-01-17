@@ -44,6 +44,7 @@ public class SectionFactoryTest
                                             It.IsAny<IEnumerable<InlineQuote>>(),
                                             It.IsAny<IEnumerable<PrivacyNotice>>(),
                                             It.IsAny<IEnumerable<Profile>>(),
+                                            It.IsAny<IEnumerable<CallToActionBanner>>(),
                                             It.IsAny<bool>()))
             .Returns(Body);
         
@@ -87,6 +88,7 @@ public class SectionFactoryTest
                                                             It.IsAny<IEnumerable<InlineQuote>>(),
                                                             It.IsAny<IEnumerable<PrivacyNotice>>(),
                                                             _section.Profiles,
+                                                            null,
                                                             It.IsAny<bool>()), Times.Once);
     }
 
@@ -103,6 +105,7 @@ public class SectionFactoryTest
                                                             It.IsAny<IEnumerable<InlineQuote>>(),
                                                             It.IsAny<IEnumerable<PrivacyNotice>>(),
                                                             _section.Profiles,
+                                                            null,
                                                             It.IsAny<bool>()), Times.Once); 
     }
 
@@ -119,6 +122,7 @@ public class SectionFactoryTest
                                                 It.IsAny<IEnumerable<InlineQuote>>(),
                                                 It.IsAny<IEnumerable<PrivacyNotice>>(),
                                                 It.IsAny<IEnumerable<Profile>>(),
+                                                It.IsAny<IEnumerable<CallToActionBanner>>(),
                                                 It.IsAny<bool>()), Times.Once); 
     }
 }

@@ -17,7 +17,16 @@ public class ArticleFactory(ITagParserContainer tagParserContainer,
         if (body.Contains("PrivacyNotice:"))
             article.PrivacyNotices = GetPrivacyNotices().Result;
 
-        body = _tagParserContainer.ParseAll(body ?? string.Empty, article.Title, true, article.AlertsInline, article.Documents, article.InlineQuotes, article.PrivacyNotices, article.Profiles, true);
+        body = _tagParserContainer.ParseAll(body ?? string.Empty,
+                                            article.Title,
+                                            true,
+                                            article.AlertsInline,
+                                            article.Documents,
+                                            article.InlineQuotes,
+                                            article.PrivacyNotices,
+                                            article.Profiles,
+                                            article.CallToActionBanners,
+                                            true);
 
         return new ProcessedArticle(article.Title,
                                     article.Slug,

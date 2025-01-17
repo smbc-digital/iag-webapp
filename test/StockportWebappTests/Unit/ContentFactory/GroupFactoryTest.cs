@@ -21,6 +21,7 @@ public class GroupFactoryTest
                                             null,
                                             null,
                                             null,
+                                            null,
                                             It.IsAny<bool>()))
             .Returns(_group.Description);
         
@@ -28,6 +29,7 @@ public class GroupFactoryTest
             .Setup(parser => parser.ParseAll(_group.AdditionalInformation,
                                             It.IsAny<string>(),
                                             It.IsAny<bool>(),
+                                            null,
                                             null,
                                             null,
                                             null,
@@ -83,6 +85,7 @@ public class GroupFactoryTest
         _tagParserContainer.Verify(parser => parser.ParseAll(_group.Description,
                                                             _group.Name,
                                                             It.IsAny<bool>(),
+                                                            null,
                                                             null,
                                                             null,
                                                             null,

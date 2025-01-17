@@ -98,7 +98,8 @@ public class EventsControllerTest
                                         string.Empty,
                                         string.Empty,
                                         string.Empty,
-                                        new());
+                                        new(),
+                                        new List<CallToActionBanner>());
 
         EventHomepage eventHomepage = new(new List<Alert>())
         {
@@ -479,7 +480,8 @@ public class EventsControllerTest
                                         "metadescription",
                                         "duration",
                                         "languages",
-                                        new List<ProcessedEvents>());
+                                        new List<ProcessedEvents>(),
+                                        new List<CallToActionBanner>());
 
         _stockportApiEventsService
             .Setup(service => service.GetProcessedEvent("event-slug", null))

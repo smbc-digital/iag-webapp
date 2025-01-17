@@ -65,6 +65,7 @@ public class EventFactoryTest
                 null,
                 null,
                 null,
+                null,
                 It.IsAny<bool>()))
             .Returns(Description);
         
@@ -128,6 +129,7 @@ public class EventFactoryTest
                                                             null,
                                                             null,
                                                             null,
+                                                            null,
                                                             It.IsAny<bool>()), Times.Once);
     }
 
@@ -143,6 +145,7 @@ public class EventFactoryTest
                                                 It.IsAny<bool>(),
                                                 null,
                                                 _event.Documents,
+                                                null,
                                                 null,
                                                 null,
                                                 null,

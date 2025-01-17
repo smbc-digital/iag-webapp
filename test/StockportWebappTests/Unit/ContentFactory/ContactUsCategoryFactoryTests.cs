@@ -20,6 +20,7 @@ public class ContactUsCategoryFactoryTests
                 null,
                 null,
                 null,
+                null,
                 It.IsAny<bool>()))
             .Returns(_bodyTextLeft);
 
@@ -32,6 +33,7 @@ public class ContactUsCategoryFactoryTests
                 It.IsAny<IEnumerable<InlineQuote>>(),
                 It.IsAny<IEnumerable<PrivacyNotice>>(),
                 It.IsAny<IEnumerable<Profile>>(),
+                null,
                 It.IsAny<bool>()))
             .Returns(_bodyTextRight);
 
@@ -66,11 +68,13 @@ public class ContactUsCategoryFactoryTests
             null,
             null,
             null,
+            null,
             It.IsAny<bool>()), Times.Once);
 
         _mockTagParser.Verify(tagParser => tagParser.ParseAll(_bodyTextRight,
             null,
             It.IsAny<bool>(),
+            null,
             null,
             null,
             null,

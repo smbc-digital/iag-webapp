@@ -14,6 +14,7 @@ public class TagParserContainerTests
     private readonly Mock<IDynamicTagParser<InlineQuote>> _quoteTagParser = new();
     private readonly Mock<IDynamicTagParser<PrivacyNotice>> _privacyNoticeTagParser = new();
     private readonly Mock<IDynamicTagParser<Profile>> _profileTagParser = new();
+    private readonly Mock<IDynamicTagParser<CallToActionBanner>> _callToActionTagParser= new();
 
     public TagParserContainerTests()
     {
@@ -24,7 +25,8 @@ public class TagParserContainerTests
                                 _documentTagParser.Object,
                                 _quoteTagParser.Object,
                                 _privacyNoticeTagParser.Object,
-                                _profileTagParser.Object);
+                                _profileTagParser.Object,
+                                _callToActionTagParser.Object);
 
         _tagParser
             .Setup(parser => parser.Parse(It.IsAny<string>(), It.IsAny<string>()))
@@ -56,6 +58,10 @@ public class TagParserContainerTests
         
         _profileTagParser
             .Setup(parser => parser.Parse(It.IsAny<string>(), It.IsAny<IEnumerable<Profile>>(), It.IsAny<bool>()))
+            .Returns("some body");
+
+        _callToActionTagParser
+            .Setup(parser => parser.Parse(It.IsAny<string>(), It.IsAny<IEnumerable<CallToActionBanner>>(), It.IsAny<bool>()))
             .Returns("some body");
     }
 
@@ -110,6 +116,10 @@ public class TagParserContainerTests
         
         _profileTagParser
             .Setup(parser => parser.Parse(It.IsAny<string>(), It.IsAny<IEnumerable<Profile>>(), It.IsAny<bool>()))
+            .Returns("{{TAG: sgsdgsdfgd}}CONTENT{{TAGS:sgdfgdfg}}{{TAGS:sgdfgdf242g}}");
+
+        _callToActionTagParser
+            .Setup(parser => parser.Parse(It.IsAny<string>(), It.IsAny<IEnumerable<CallToActionBanner>>(), It.IsAny<bool>()))
             .Returns("{{TAG: sgsdgsdfgd}}CONTENT{{TAGS:sgdfgdfg}}{{TAGS:sgdfgdf242g}}");
 
         // Act
