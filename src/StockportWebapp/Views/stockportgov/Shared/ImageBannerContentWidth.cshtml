@@ -56,7 +56,7 @@
                     @if (!string.IsNullOrEmpty(Model.Body))
                     {
                         <div class="image-banner__content @overlayTheme">
-                            <h2 class="image-banner__title">@Model.Title</h2>
+                            <h2 class="image-banner__title image-banner__title-no-link">@Model.Title</h2>
                             @Html.Raw(Model.Body)
                         </div>
                     }
