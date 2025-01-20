@@ -11,8 +11,8 @@ define(function () {
                 carouselItems.forEach((item, index) => {
                     if (index !== 0) {
                         const bgImage = item.style.backgroundImage;
-                        item.dataset.bgImage = bgImage; // Store the background image in a data attribute
-                        item.style.backgroundImage = ""; // Remove the initial background image
+                        item.dataset.bgImage = bgImage;
+                        item.style.backgroundImage = "";
                     }
                 });
 
