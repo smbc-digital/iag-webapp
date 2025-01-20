@@ -41,19 +41,20 @@
         }
 
         &__image {
+            max-height: max-content;
             border-radius: 20px 20px 0 0 !important;
             height: 100%;
             width: 100%;
-            min-height: 350px;
+            aspect-ratio: 6 / 7;
             object-fit: cover;
             flex-basis: 0;
-
-            @media #{$tablet} {
-                min-height: 300px;
+            
+            @media #{$tablet-only} {
+                min-height: min-content;
             }
-    
-            @media #{$mobile} {
-                min-height: 250px;
+
+            @media #{$large-mobile} {
+                aspect-ratio: 2 / 1.75;
             }
         }
 
