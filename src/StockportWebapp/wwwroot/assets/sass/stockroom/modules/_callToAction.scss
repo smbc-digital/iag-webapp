@@ -14,14 +14,13 @@
 
     &__image {
         background-color: transparent;
-        width: 40%;
+        width: 33%;
         max-height: 350px;
         object-fit: cover;
         border-radius: 3px;
         height: auto;
 
         @media #{$tablet} {
-            width: 33%;
             object-fit: scale-down;
         }
 

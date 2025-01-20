@@ -6,6 +6,15 @@ define(function () {
                 const indicatorHero = document.querySelector(".carousel-indicators");
                 let currentIndex = 0;
                 const totalSlides = carouselItems.length;
+                
+                // Set lazy loading for background images
+                carouselItems.forEach((item, index) => {
+                    if (index !== 0) {
+                        const bgImage = item.style.backgroundImage;
+                        item.dataset.bgImage = bgImage;
+                        item.style.backgroundImage = "";
+                    }
+                });
 
                 function generateIndicators() {
                     indicatorHero.innerHTML = "";
@@ -60,6 +69,12 @@ define(function () {
                 function updateCarousel() {
                     generateIndicators();
 
+                    // Lazy-load the background image for the current item
+                    const currentItem = carouselItems[currentIndex];
+                    if (currentItem.style.backgroundImage === "" && currentItem.dataset.bgImage) {
+                        currentItem.style.backgroundImage = currentItem.dataset.bgImage;
+                    }
+                    
                     document.querySelector(".carousel-items").style.transform = `translateX(-${currentIndex * 100}%)`;
 
                     carouselItems.forEach((slide, index) => {
