@@ -3,6 +3,7 @@
     ViewData["Title"] = Model.DirectoryEntry.Name;
     ViewData["og:title"] = Model.DirectoryEntry.Name;
     ViewData["Description"] = Model.DirectoryEntry.MetaDescription;
+    ViewData["CanonicalUrl"] = $"/directories/entry/{Model.DirectoryEntry.Slug}";
     Layout = "../Shared/_Layout2023.cshtml";
     
     string borderTeal = " navcard--border-top-10 navcard--theme-teal-lighter-top ";
