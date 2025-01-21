@@ -27,7 +27,6 @@ public class HomepageFactory(MarkdownWrapper markdownWrapper)
             homepage.ForegroundImageAlt,
             homepage.LastNews,
             freeText,
-            homepage.FeaturedGroup,
             homepage.EventCategory,
             homepage.MetaDescription,
             homepage.CampaignBanner,

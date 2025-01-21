@@ -14,7 +14,6 @@ public class Homepage(string title,
                     string foregroundImageLink,
                     string foregroundImageAlt,
                     string freeText,
-                    Group featuredGroup,
                     string eventCategory,
                     string metaDescription,
                     CarouselContent campaignBanner,
@@ -39,7 +38,6 @@ public class Homepage(string title,
     public string ForegroundImageAlt { get; } = foregroundImageAlt;
     public IEnumerable<News> LastNews { get; set; }
     public string FreeText { get; } = freeText;
-    public Group FeaturedGroup { get; } = featuredGroup;
     public string EventCategory { get; } = eventCategory;
     public string MetaDescription { get; set; } = metaDescription;
     public CarouselContent CampaignBanner { get; set; } = campaignBanner;

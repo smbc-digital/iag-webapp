@@ -16,8 +16,6 @@ public class TypeRouteTests
     [InlineData("sia", "test", "/sia")]
     [InlineData("privacy-notices", "test", "/privacy-notices/test")]
     [InlineData("default", "test", "/test")]
-    [InlineData("groups", "test", "/groups/test")]
-    [InlineData("groups", "groups", "/groups/")]
     [InlineData("directory", "test", "/directories/test")]
     [InlineData("directory", "/directories/test", "/directories/test")]
 

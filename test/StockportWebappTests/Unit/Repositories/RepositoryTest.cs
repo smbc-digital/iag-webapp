@@ -6,7 +6,6 @@ public class RepositoryTest
     private readonly Mock<IHttpClient> _httpClientMock = new();
     private readonly UrlGenerator _urlGenerator;
     private readonly Mock<IUrlGeneratorSimple> _urlGeneratorSimple = new();
-    private readonly Mock<ILogger<Repository>> _mockLogger = new();
 
     private readonly PrivacyNotice _privacyNoticeModel = new()
     {
@@ -100,35 +99,5 @@ public class RepositoryTest
 
         // Assert
         _httpClientMock.Verify(httpClient => httpClient.Get(It.IsAny<string>(), It.IsAny<Dictionary<string, string>>()), Times.Once);
-    }
-
-    [Fact]
-    public async Task RemoveAdministrator()
-    {
-        // Act
-        await _repository.RemoveAdministrator("test_slug", "test@test.com");
-
-        // Assert
-        _httpClientMock.Verify(httpClient => httpClient.DeleteAsync(It.IsAny<string>(), It.IsAny<Dictionary<string, string>>()), Times.Once);
-    }
-
-    [Fact]
-    public async Task AddAdministrator()
-    {
-        // Act
-        await _repository.AddAdministrator(new StringContent("content", Encoding.UTF8, "application/json"), "test_slug", "test@test.com");
-
-        // Assert
-        _httpClientMock.Verify(httpClient => httpClient.PostAsync(It.IsAny<string>(), It.IsAny<HttpContent>(), It.IsAny<Dictionary<string, string>>()), Times.Once());
-    }
-
-    [Fact]
-    public async Task UpdateAdministrator()
-    {
-        // Act
-        await _repository.UpdateAdministrator(new StringContent("content", Encoding.UTF8, "application/json"), "test_slug", "test@test.com");
-
-        // Assert
-        _httpClientMock.Verify(httpClient => httpClient.PutAsync(It.IsAny<string>(), It.IsAny<HttpContent>(), It.IsAny<Dictionary<string, string>>()), Times.Once());
     }
 }

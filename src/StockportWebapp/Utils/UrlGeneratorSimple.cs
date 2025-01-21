@@ -31,8 +31,6 @@ public class UrlGeneratorSimple(IApplicationConfiguration config, BusinessId bus
         {typeof(EventCalendar), "events"},
         {typeof(EventHomepage), "eventhomepage"},
         {typeof(EventResponse), "events"},
-        {typeof(Group), "groups/"},
-        {typeof(List<Group>), "groups"},
         {typeof(Payment), "payments/"},
         {typeof(List<Payment>), "payments/"},
         {typeof(Section), "sections/"},
@@ -43,7 +41,6 @@ public class UrlGeneratorSimple(IApplicationConfiguration config, BusinessId bus
         {typeof(ContactUsId), "contact-us-id/"},
         {typeof(List<ArticleSiteMap>), "articleSiteMap"},
         {typeof(List<SectionSiteMap>), "sectionSiteMap"},
-        {typeof(Organisation), "organisations/"},
         {typeof(Document), "documents/"},
         {typeof(List<Event>), "events"}
     };

@@ -38,7 +38,7 @@ public class HomepageFactoryTest
             string.Empty,
             string.Empty,
             string.Empty,
-            freeText, null,
+            freeText,
             string.Empty,
             string.Empty,
             new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty, new DateTime()),
