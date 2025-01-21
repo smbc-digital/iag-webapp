@@ -32,7 +32,7 @@ public class Event
     public List<EventCategory> EventCategories { get; set; }
     public string AccessibleTransportLink { get; set; }
     public string LogoAreaTitle { get; set; }
-    public List<GroupBranding> EventBranding { get; set; } = new();
+    public List<TrustedLogos> EventBranding { get; set; } = new();
     public string PhoneNumber { get; set; }
     public string Email { get; set; }
     public string Website { get; set; }

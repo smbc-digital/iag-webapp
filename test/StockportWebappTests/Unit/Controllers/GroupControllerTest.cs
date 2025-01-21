@@ -233,7 +233,7 @@ public class GroupControllerTest
             "thumnail-url", new List<GroupCategory> { new GroupCategory { Name = "testCategory" } }, new List<GroupSubCategory>(), new List<Crumb>(),
             new MapPosition { Lat = 100, Lon = 200 }, false, new List<Event>(), new GroupAdministrators(), DateTime.MinValue,
             DateTime.MinValue, "status", new List<string>(), "£1", "ability", false, "volunteer text",
-            new Organisation(), new List<Group>(), false, "tenaport-link", new List<GroupBranding>(), "aditional-info",
+            new Organisation(), new List<Group>(), false, "tenaport-link", new List<TrustedLogos>(), "aditional-info",
             DateTime.MinValue, new List<string>(), new List<string>(), "donation-text", "donation-url",
             new List<Alert>(), new List<Alert>());
 

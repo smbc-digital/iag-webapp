@@ -1,6 +1,6 @@
 ﻿namespace StockportWebapp.Models.Groups;
 [ExcludeFromCodeCoverage]
-public class GroupBranding(string title, string text, MediaAsset file, string url)
+public class TrustedLogos(string title, string text, MediaAsset file, string url)
 {
     public string Title { get; set; } = title;
 

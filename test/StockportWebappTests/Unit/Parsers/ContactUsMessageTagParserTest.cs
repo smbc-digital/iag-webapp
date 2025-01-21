@@ -255,7 +255,7 @@ public class ContactUsMessageTagParserTest
                 new List<Profile>(),
                 null,
                 new List<Alert>(),
-                new List<GroupBranding>(),
+                new List<TrustedLogos>(),
                 "logoAreaTitle",
                 new DateTime());
 

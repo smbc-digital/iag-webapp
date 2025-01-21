@@ -90,7 +90,7 @@ public class StockportApiEventsServiceTests
                                             new List<Alert>(),
                                             "accessible transport link",
                                             "logo title",
-                                            new List<GroupBranding>(),
+                                            new List<TrustedLogos>(),
                                             "0123456789",
                                             "test@email.com",
                                             "website",

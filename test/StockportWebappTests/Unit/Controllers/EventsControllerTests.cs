@@ -470,7 +470,7 @@ public class EventsControllerTest
                                         new List<Alert>(),
                                         "accessible transport",
                                         "logo title",
-                                        new List<GroupBranding>(),
+                                        new List<TrustedLogos>(),
                                         "0123456789",
                                         "email",
                                         "website",

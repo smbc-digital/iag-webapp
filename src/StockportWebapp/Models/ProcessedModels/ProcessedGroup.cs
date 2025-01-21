@@ -35,7 +35,7 @@ public class ProcessedGroup : IProcessedContentType
     public string AdditionalInformation { get; set; }
     public string DonationsText { get; set; }
     public string DonationsUrl { get; set; }
-    public List<GroupBranding> GroupBranding { get; set; }
+    public List<TrustedLogos> GroupBranding { get; set; }
     public IEnumerable<Alert> Alerts { get; set; }
     public string ProcessedBody { get; set; }
     public string ParsedAdditionalInformation { get; set; }

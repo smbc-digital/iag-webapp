@@ -94,7 +94,7 @@
             @if (Model.Group.GroupBranding.Any())
             {
                 <div class="group-branding">
-                    @foreach (GroupBranding branding in Model.Group.GroupBranding)
+                    @foreach (TrustedLogos branding in Model.Group.GroupBranding)
                     {
                         <div class="group-branding-item">
                             <p><strong>@branding.Text</strong></p>

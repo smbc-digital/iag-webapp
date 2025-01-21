@@ -37,7 +37,7 @@ internal class ProcessedGroupBuilder
     private List<Group> _linkedGroups = new List<Group>();
     private Donations _donations = new Donations();
     private string _additionalInformation = "additional information";
-    private List<GroupBranding> _groupBranding = new List<GroupBranding>();
+    private List<TrustedLogos> _groupBranding = new();
     private readonly List<Alert> _alerts = new List<Alert>();
 
     public ProcessedGroup Build()

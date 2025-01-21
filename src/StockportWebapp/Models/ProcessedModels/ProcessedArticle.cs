@@ -21,7 +21,7 @@ public class ProcessedArticle(string title,
                             IEnumerable<Alert> alertsInline,
                             DateTime updatedAt,
                             bool hideLastUpdated,
-                            List<GroupBranding> articleBranding,
+                            List<TrustedLogos> articleBranding,
                             string logoAreaTitle,
                             IEnumerable<SubItem> relatedContent,
                             string author,
@@ -46,7 +46,7 @@ public class ProcessedArticle(string title,
     public readonly IEnumerable<Alert> AlertsInline = alertsInline;
     public DateTime UpdatedAt = updatedAt;
     public bool HideLastUpdated = hideLastUpdated;
-    public List<GroupBranding> ArticleBranding = articleBranding;
+    public List<TrustedLogos> ArticleBranding = articleBranding;
     public string LogoAreaTitle = logoAreaTitle;
     public IEnumerable<SubItem> RelatedContent = relatedContent;
     public string Author = author;

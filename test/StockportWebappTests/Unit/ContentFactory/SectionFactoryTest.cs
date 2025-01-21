@@ -14,7 +14,7 @@ public class SectionFactoryTest
     private readonly Section _section;
     private readonly string _articleTitle = "Article Title";
     private readonly List<Alert> _emptyAlertsInline = new();
-    private readonly List<GroupBranding> _sectionBranding = new();
+    private readonly List<TrustedLogos> _sectionBranding = new();
     private const string _logoAreaTitle = "logoAreaTitle";
     private readonly DateTime _updatedAt = DateTime.Now;
     private readonly Mock<IRepository> _repository = new();

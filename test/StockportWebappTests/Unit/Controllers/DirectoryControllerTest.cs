@@ -47,7 +47,7 @@ public class DirectoryControllerTest
         Themes = new List<FilterTheme>(),
         Directories = new List<MinimalDirectory>(),
         Alerts = new List<Alert>(),
-        Branding = new List<GroupBranding>(),
+        Branding = new List<TrustedLogos>(),
         MapPosition = new MapPosition(),
         PhoneNumber = "phone number",
         Email = "email",

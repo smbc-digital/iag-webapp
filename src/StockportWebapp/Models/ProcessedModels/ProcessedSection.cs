@@ -7,7 +7,7 @@ public class ProcessedSection(string title,
                             List<Profile> profiles,
                             List<Document> documents,
                             IEnumerable<Alert> alertsInline,
-                            List<GroupBranding> sectionBranding,
+                            List<TrustedLogos> sectionBranding,
                             string logoAreaTitle,
                             DateTime updatedAt) : IProcessedContentType
 {
@@ -18,7 +18,7 @@ public class ProcessedSection(string title,
     public readonly List<Profile> Profiles = profiles;
     public readonly List<Document> Documents = documents;
     public readonly IEnumerable<Alert> AlertsInline = alertsInline;
-    public List<GroupBranding> SectionBranding = sectionBranding;
+    public List<TrustedLogos> SectionBranding = sectionBranding;
     public string LogoAreaTitle = logoAreaTitle;
     public DateTime UpdatedAt = updatedAt;
 }

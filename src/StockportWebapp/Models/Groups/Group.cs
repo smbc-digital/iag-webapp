@@ -31,7 +31,7 @@ public class Group(string name,
                 List<Group> linkedGroups,
                 bool donations,
                 string accessibleTransportLink,
-                List<GroupBranding> groupBranding,
+                List<TrustedLogos> groupBranding,
                 string additionalInformation,
                 DateTime? dateLastModified,
                 List<string> suitableFor,
@@ -72,7 +72,7 @@ public class Group(string name,
     public List<Group> LinkedGroups { get; private set; } = linkedGroups;
     public bool Donations { get; set; } = donations;
     public string AccessibleTransportLink { get; set; } = accessibleTransportLink;
-    public List<GroupBranding> GroupBranding { get; set; } = groupBranding;
+    public List<TrustedLogos> GroupBranding { get; set; } = groupBranding;
     public string AdditionalInformation { get; set; } = additionalInformation;
     public DateTime? DateLastModified { get; set; } = dateLastModified;
     public List<string> SuitableFor { get; set; } = suitableFor;

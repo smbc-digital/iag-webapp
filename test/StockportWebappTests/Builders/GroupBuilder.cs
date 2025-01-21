@@ -42,7 +42,7 @@ internal class GroupBuilder
     private DateTime? _dateLastModified = null;
     private List<string> _suitableFor = new List<string>();
     private List<string> _ageRange = new List<string>();
-    private List<GroupBranding> _groupBranding = new List<GroupBranding>();
+    private List<TrustedLogos> _groupBranding = new();
     private readonly List<Alert> _alerts = new List<Alert>();
     private readonly List<Alert> _alertsInline = new List<Alert>();
 

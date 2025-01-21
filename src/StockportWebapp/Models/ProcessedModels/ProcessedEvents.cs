@@ -20,7 +20,7 @@ public class ProcessedEvents(string title,
                             List<Alert> alerts,
                             string accessibleTransportLink,
                             string logoAreaTitle,
-                            List<GroupBranding> eventBranding,
+                            List<TrustedLogos> eventBranding,
                             string phoneNumber,
                             string email,
                             string website,
@@ -53,7 +53,7 @@ public class ProcessedEvents(string title,
     public readonly List<Alert> GlobalAlerts = new();
     public MapDetails MapDetails { get; set; } = mapDetails;
     public string LogoAreaTitle { get; } = logoAreaTitle;
-    public List<GroupBranding> EventBranding { get; set; } = eventBranding;
+    public List<TrustedLogos> EventBranding { get; set; } = eventBranding;
     public string PhoneNumber { get; } = phoneNumber;
     public string Email { get; } = email;
     public string Website { get; } = website;
