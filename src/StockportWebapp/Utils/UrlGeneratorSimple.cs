@@ -30,7 +30,6 @@ public class UrlGeneratorSimple(IApplicationConfiguration config, BusinessId bus
         {typeof(Event), "events"},
         {typeof(EventCalendar), "events"},
         {typeof(EventHomepage), "eventhomepage"},
-        {typeof(GroupHomepage), "grouphomepage"},
         {typeof(EventResponse), "events"},
         {typeof(Group), "groups/"},
         {typeof(List<Group>), "groups"},
@@ -40,14 +39,11 @@ public class UrlGeneratorSimple(IApplicationConfiguration config, BusinessId bus
         {typeof(List<Section>), "sections/"},
         {typeof(Showcase), "showcases/"},
         {typeof(List<Showcase>), "showcases/"},
-        {typeof(List<GroupCategory>), "group-categories/"},
         {typeof(List<EventCategory>), "event-categories"},
-        {typeof(GroupResults), "group-results/"},
         {typeof(ContactUsId), "contact-us-id/"},
         {typeof(List<ArticleSiteMap>), "articleSiteMap"},
         {typeof(List<SectionSiteMap>), "sectionSiteMap"},
         {typeof(Organisation), "organisations/"},
-        {typeof(GroupAdvisor), "groups/advisors/"},
         {typeof(Document), "documents/"},
         {typeof(List<Event>), "events"}
     };

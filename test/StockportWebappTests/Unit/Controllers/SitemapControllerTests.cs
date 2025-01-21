@@ -22,7 +22,6 @@ public class SitemapControllerTests
     }, new List<string>());
 
     private readonly List<ArticleSiteMap> _articlesSiteMap = new();
-    private readonly List<Group> _groups = new();
     private readonly List<Showcase> _showcases = new();
     private readonly List<SectionSiteMap> _sections = new() { new SectionSiteMap("slug", DateTime.Now, DateTime.Now)};
     private readonly List<TopicSitemap> _topics = new();
@@ -55,10 +54,6 @@ public class SitemapControllerTests
         _mockRepository
             .Setup(repository => repository.Get<List<ArticleSiteMap>>(string.Empty, It.IsAny<List<Query>>()))
             .ReturnsAsync(new HttpResponse(200, _articlesSiteMap, string.Empty));
-
-        _mockRepository
-            .Setup(repository => repository.Get<List<Group>>(string.Empty, It.IsAny<List<Query>>()))
-            .ReturnsAsync(new HttpResponse(200, _groups, string.Empty));
 
         _mockRepository
             .Setup(repository => repository.Get<List<Showcase>>(string.Empty, It.IsAny<List<Query>>()))

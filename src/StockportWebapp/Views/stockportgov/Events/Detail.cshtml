@@ -112,11 +112,7 @@
                                             <h3>Submitted by</h3>
                                         </div>
 
-                                        @if (!string.IsNullOrEmpty(Model.Group.Name))
-                                        {
-                                            <a href="/groups/@Model.Group.Slug">@Model.Group.Name</a>
-                                        }
-                                        else if (!string.IsNullOrEmpty(Model.SubmittedBy))
+                                        @if (!string.IsNullOrEmpty(Model.SubmittedBy))
                                         {
                                             @Model.SubmittedBy
                                         }

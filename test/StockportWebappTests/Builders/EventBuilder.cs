@@ -22,7 +22,6 @@ internal class EventBuilder
     private const string BookingInformation = "info";
     private readonly DateTime _updatedAt = DateTime.MinValue;
     private readonly List<string> _tags = new List<string>();
-    private readonly Group _group = new GroupBuilder().Build();
     private readonly List<Alert> _alerts = new List<Alert>();
     private const EventFrequency EventFrequency = StockportWebapp.Models.EventFrequency.None;
     private const int Occurences = 0;
@@ -53,7 +52,6 @@ internal class EventBuilder
             BookingInformation = BookingInformation,
             UpdatedAt = _updatedAt,
             Tags = _tags,
-            Group = _group,
             Alerts = _alerts,
             EventFrequency = EventFrequency,
             Occurences = Occurences,

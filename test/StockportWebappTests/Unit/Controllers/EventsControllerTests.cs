@@ -19,7 +19,6 @@ public class EventsControllerTest
     private readonly Mock<IStockportApiEventsService> _stockportApiEventsService = new();
     private Mock<IFeatureManager> _featureManager = new();
     private readonly CalendarHelper _calendarhelper = new();
-    private readonly Group _group = new GroupBuilder().Build();
 
     private readonly List<Alert> _alerts = new()
     {
@@ -53,7 +52,6 @@ public class EventsControllerTest
             StartTime = "startTime",
             EndTime = "endTime",
             Breadcrumbs = new List<Crumb>(),
-            Group = _group,
             Alerts = _alerts
         };
 
@@ -84,7 +82,6 @@ public class EventsControllerTest
                                         _categories,
                                         new MapDetails(),
                                         "booking information",
-                                        _group,
                                         _alerts,
                                         string.Empty,
                                         string.Empty,
@@ -223,7 +220,6 @@ public class EventsControllerTest
         Assert.Equal("startTime", model.StartTime);
         Assert.Equal("endTime", model.EndTime);
         Assert.Equal("booking information", model.BookingInformation);
-        Assert.Equal(_group.Name, model.Group.Name);
         Assert.Equal(_alerts.First().Title, model.Alerts.First().Title);
         Assert.Equal(_alerts.First().Body, model.Alerts.First().Body);
         Assert.Equal(_alerts.First().Severity, model.Alerts.First().Severity);
@@ -466,7 +462,6 @@ public class EventsControllerTest
                                         new List<string>(),
                                         new MapDetails(),
                                         "booking information",
-                                        null,
                                         new List<Alert>(),
                                         "accessible transport",
                                         "logo title",
@@ -643,7 +638,6 @@ public class EventsControllerTest
                 StartTime = "startTime",
                 EndTime = "endTime",
                 Breadcrumbs = new List<Crumb>(),
-                Group = _group,
                 Alerts = _alerts
             };
 

@@ -16,7 +16,6 @@ public class ProcessedEvents(string title,
                             List<string> categories,
                             MapDetails mapDetails,
                             string bookingInformation,
-                            Group group,
                             List<Alert> alerts,
                             string accessibleTransportLink,
                             string logoAreaTitle,
@@ -61,7 +60,6 @@ public class ProcessedEvents(string title,
     public string Instagram { get; } = instagram;
     public string LinkedIn { get; } = linkedIn;
     public string MetaDescription { get; set; } = metaDescription;
-    public Group Group { get; set; } = group;
     public string Duration { get; } = duration;
     public string Languages { get; } = languages;
     public List<ProcessedEvents> RelatedEvents { get; set; } = relatedEvents;
