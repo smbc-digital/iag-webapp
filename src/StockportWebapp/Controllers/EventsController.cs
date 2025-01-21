@@ -73,10 +73,7 @@ public class EventsController(IRepository repository,
             eventsCalendar.Homepage.NextEvents = eventHomeResponse?.Rows?.FirstOrDefault(row => row.IsLatest)?.Events
                 .Select(_stockportApiEventsService.BuildProcessedEvent).ToList();
 
-        if (await _featureManager.IsEnabledAsync("Events") || _businessId.ToString().Equals("stockroom"))
-            return View("Index2024", eventsCalendar);
-
-        return View("Index", eventsCalendar);
+        return View("Index2024", eventsCalendar);
     }
 
     // This is the healthy stockport filtered events homepage
