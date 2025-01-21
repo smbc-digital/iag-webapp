@@ -8,7 +8,6 @@ public class ContentFactoryTest
     {
         Mock<IRepository> repository = new();
         Mock<ITagParserContainer> tagParserContainer = new();
-        Mock<IHttpContextAccessor> httpContextAccessor = new();
         tagParserContainer
             .Setup(parser => parser.ParseAll(It.IsAny<string>(),
                                             It.IsAny<string>(),
@@ -22,7 +21,7 @@ public class ContentFactoryTest
                                             It.IsAny<bool>()))
             .Returns(string.Empty);
 
-        _factory = new ContentTypeFactory(tagParserContainer.Object, new MarkdownWrapper(), httpContextAccessor.Object, repository.Object);
+        _factory = new ContentTypeFactory(tagParserContainer.Object, new MarkdownWrapper(), repository.Object);
     }
 
     [Fact]

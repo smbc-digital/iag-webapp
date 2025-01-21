@@ -1,8 +1,7 @@
 ﻿namespace StockportWebapp.Client;
 
 [ExcludeFromCodeCoverage]
-public class LoggingHttpClient(IHttpClient inner,
-                            ILogger<LoggingHttpClient> logger) : IHttpClient
+public class LoggingHttpClient(IHttpClient inner, ILogger<LoggingHttpClient> logger) : IHttpClient
 {
     readonly IHttpClient _inner = inner;
     private readonly Microsoft.Extensions.Logging.ILogger _logger = logger;

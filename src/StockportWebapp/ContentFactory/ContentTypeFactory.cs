@@ -6,7 +6,6 @@ public class ContentTypeFactory
 
     public ContentTypeFactory(ITagParserContainer tagParserContainer,
                             MarkdownWrapper markdownWrapper,
-                            IHttpContextAccessor httpContextAccessor,
                             IRepository repository)
     {
         SectionFactory sectionFactory = new(tagParserContainer, markdownWrapper, repository);

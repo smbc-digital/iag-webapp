@@ -59,11 +59,11 @@ public class HttpEmailClient(ILogger<HttpEmailClient> logger,
         return result;
     }
 
-    private static string GetEmailTemplateForLayout()
-        => new FileReader().GetStringResponseFromFile("StockportWebapp.EmailTemplates._Layout.html");
+    private static string GetEmailTemplateForLayout() =>
+        new FileReader().GetStringResponseFromFile("StockportWebapp.EmailTemplates._Layout.html");
 
-    private static string GetEmailTemplateForBody(string template)
-        => new FileReader().GetStringResponseFromFile($"StockportWebapp.EmailTemplates.{template}.html");
+    private static string GetEmailTemplateForBody(string template) =>
+        new FileReader().GetStringResponseFromFile($"StockportWebapp.EmailTemplates.{template}.html");
 
     private async Task<SendRawEmailResponse> SendEmail(EmailMessage emailMessage)
     {

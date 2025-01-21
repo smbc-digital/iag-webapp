@@ -7,9 +7,7 @@ public class ProcessedContentRepositoryTest
     private readonly Mock<IHttpClient> _mockHttpClient = new();
     private readonly Mock<IStubToUrlConverter> _mockUrlGenerator = new();
     private readonly Mock<IApplicationConfiguration> _appConfig = new();
-
     private readonly Mock<ITagParserContainer> _mockTagParserContainer = new();
-    private readonly Mock<IHttpContextAccessor> _mockHttpContextAccessor = new();
     private readonly Mock<IRepository> _mockRepository = new();
 
     private readonly PrivacyNotice _privacyNoticeModel = new()
@@ -37,7 +35,7 @@ public class ProcessedContentRepositoryTest
             .Setup(client => client.Get(It.IsAny<string>(), It.IsAny<Dictionary<string, string>>()))
             .ReturnsAsync(new HttpResponse(200, JsonConvert.SerializeObject(_privacyNoticeModel), string.Empty));
 
-        _contentTypeFactory = new(_mockTagParserContainer.Object, new MarkdownWrapper(), _mockHttpContextAccessor.Object, _mockRepository.Object);
+        _contentTypeFactory = new(_mockTagParserContainer.Object, new MarkdownWrapper(), _mockRepository.Object);
 
         _processedContentRepository = new(_mockUrlGenerator.Object, _mockHttpClient.Object, _contentTypeFactory, _appConfig.Object);
     }

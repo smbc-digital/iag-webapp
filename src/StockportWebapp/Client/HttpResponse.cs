@@ -1,9 +1,7 @@
 ﻿namespace StockportWebapp.Client;
 
 [ExcludeFromCodeCoverage]
-public class HttpResponse(int statusCode,
-                        object content,
-                        string error) : StatusCodeResult(statusCode)
+public class HttpResponse(int statusCode, object content, string error) : StatusCodeResult(statusCode)
 {
     public readonly object Content = content;
     public readonly string Error = error;

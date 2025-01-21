@@ -7,7 +7,7 @@ public class ContactUsAreaFactory(IContactUsCategoryFactory contactUsCategoryFac
     private readonly IContactUsCategoryFactory _contactUsCategoryFactory = contactUsCategoryFactory;
 
     public virtual ProcessedContactUsArea Build(ContactUsArea contactUsArea) =>
-        new ProcessedContactUsArea(
+        new(
             contactUsArea.Title,
             contactUsArea.Slug,
             contactUsArea.CategoriesTitle,

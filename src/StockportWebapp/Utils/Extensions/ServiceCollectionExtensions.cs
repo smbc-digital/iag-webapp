@@ -129,7 +129,6 @@ public static class ServiceCollectionExtensions
                     new ContentTypeFactory(
                         p.GetService<ITagParserContainer>(),
                         p.GetService<MarkdownWrapper>(),
-                        p.GetService<IHttpContextAccessor>(),
                         p.GetService<IRepository>()),
                     p.GetService<IApplicationConfiguration>()));
         services.AddTransient<IRepository>(p => new Repository(p.GetService<UrlGenerator>(), p.GetService<IHttpClient>(), p.GetService<IApplicationConfiguration>(), p.GetService<IUrlGeneratorSimple>()));
