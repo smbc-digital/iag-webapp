@@ -1,11 +1,11 @@
 ﻿/*------------------- Main Logo ---------------------*/
-.logo-main {
+.logo-main { // used for old header (stockportgov)
   > a {
     display: inline-block;
   }
 }
 
-.logo-main-image {
+.logo-main-image { // used for old header (stockportgov)
   margin: 0;
   padding-top: 10px;
   height: 50px;
@@ -17,7 +17,7 @@
   }
 }
 
-.footer-stockport-logo {
+.footer-stockport-logo { // used for old footer (stockportgov)
   margin-top: 0;
 
   img {
