@@ -1,4 +1,5 @@
-﻿@inject ICookiesHelper CookiesHelper
+﻿@* used for Events homepage - old view *@
+@inject ICookiesHelper CookiesHelper
 @model Alert
 @{
     List<string> alertCookies = CookiesHelper.GetCookies<Alert>("alerts");

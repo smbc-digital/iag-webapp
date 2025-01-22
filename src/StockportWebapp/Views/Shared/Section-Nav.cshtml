@@ -1,4 +1,5 @@
-﻿@model ArticleViewModel
+﻿@* used for healthystockport Article *@
+@model ArticleViewModel
 @{
     List<ProcessedSection> sections = Model.Article.Sections.ToList();
     int actualCount = sections.Count;

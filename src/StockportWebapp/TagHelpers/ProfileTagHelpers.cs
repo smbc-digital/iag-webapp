@@ -1,5 +1,6 @@
 ﻿namespace StockportWebapp.TagHelpers;
 
+// looks like this is not used. Double check! <profile>
 [HtmlTargetElement("profile", ParentTag = null)]
 public class ProfileTagHelpers : TagHelper
 {
