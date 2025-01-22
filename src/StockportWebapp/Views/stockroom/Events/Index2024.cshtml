@@ -77,9 +77,12 @@
             <a class="btn btn--on-grey btn--no-margin-top" title="View more upcoming events" href="/events?datefrom=@DateTime.Now.Date">View more</a>
         </div>
 
-        <div class="grid-container-full-width" style="background-color:#f2f2f2;">
-            <partial name="CallToActionBannerContentWidth" model="Model.Homepage.CallToAction" />
-        </div>
+        @if (Model.Homepage.CallToAction is not null)
+        {
+            <div class="grid-container-full-width" style="background-color:#f2f2f2;">
+                <partial name="CallToActionBannerContentWidth" model="Model.Homepage.CallToAction" />
+            </div>
+        }
     }
     else
     {
