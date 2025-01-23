@@ -270,6 +270,7 @@ public class ContentSecurityPolicyBuilder
             .AddSource("api-eu1.hubapi.com")
             .AddSource("hubspot-forms-static-embed-eu1.s3.amazonaws.com/")
             .AddSource("ka-p.fontawesome.com/")
+            .AddSource("lookinglocal.cdn.spotlightr.com/")
             .Finish());
 
     private void BuildMediaSource() =>
@@ -282,6 +283,7 @@ public class ContentSecurityPolicyBuilder
             .AddSource("app.meetami.ai/")
             .AddSource("*.meetami.ai/", false)
             .AddSource("https://api.reciteme.com/")
+            .AddSource("lookinglocal.cdn.spotlightr.com/")
             .Finish());
 
     private void BuildFrameSource() =>
@@ -296,6 +298,7 @@ public class ContentSecurityPolicyBuilder
             .AddSource("forms-eu1.hsforms.com")
             .AddSource("my.matterport.com")
             .AddSource("int-formbuilder-origin.smbcdigital.net", true)
+            .AddSource("lookinglocal.cdn.spotlightr.com/")
             .Finish());
 
     private void BuildObjectSource() =>
