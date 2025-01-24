@@ -148,10 +148,10 @@
     }
 
     #event-category{
-        -webkit-appearance: none; /* Removes default styles for WebKit browsers, including iOS */
-        appearance: none;        /* Removes default styles for other modern browsers */
-        border-radius: 0;        /* Removes rounded corners */
-        box-shadow: none;        /* Removes any focus shadows */
+        -webkit-appearance: none;
+        appearance: none;
+        border-radius: 0;
+        box-shadow: none;
         outline: none;
     }
 }
