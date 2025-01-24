@@ -53,7 +53,6 @@
 
             li {
                 margin: 0px;
-                margin-inline: 0.5rem;
 
                 &.primary {
                     background-color: $skrm-light-green;
@@ -71,7 +70,7 @@
                     display: inline-block;
                     text-decoration: none;
                     color: black;
-                    padding: 0rem 0.75rem;
+                    padding: 0 1.25rem;
                     text-transform: uppercase;
                     letter-spacing: 0;
                     font-size: 3.5rem;

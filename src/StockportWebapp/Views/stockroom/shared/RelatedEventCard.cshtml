@@ -7,12 +7,12 @@
             <partial name="CardImage" model="Model.ThumbnailImageUrl" />
     
             <div class="card-item__container">
-                <div class="card-item__content">
-                    <h3 class="h-l">@Model.Title</h3>
-                    <p class="card-item__content-teaser">@viewHelper.FormatEventDate(@Model.EventDate, @Model.StartTime)</p>
-                </div>
+                <h3 class="h-l">@Model.Title</h3>
 
-                <span class="btn card-item__container-btn">Read more</span>
+                <div>
+                    <p class="card-item__content-teaser">@viewHelper.FormatEventDate(@Model.EventDate, @Model.StartTime)</p>
+                    <span class="btn card-item__container-btn">Read more</span>
+                </div>
             </div>
         </div>
     </a>

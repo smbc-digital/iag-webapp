@@ -41,6 +41,11 @@
         height: 44px;
         font-family: inherit;
         padding-inline: 0.5em;
+        cursor: pointer;
+        
+        &:focus {
+            outline: 3px solid #ef8a16!important;
+        }
 
         &-label {
             margin-right: 0.5em;
@@ -114,5 +119,39 @@
         outline: 3px solid transparent;
         outline-offset: 1px;
         box-shadow: 0 0 0 4px #ef8a16;
+    }
+    
+    input::-webkit-calendar-picker-indicator {
+        cursor: pointer !important;
+
+        &:focus-visible {
+            .events-filters__date {
+                outline: 3px solid #ef8a16!important;
+            }
+        }
+    }
+
+    input:is([type="date"]) {
+        writing-mode: horizontal-tb;
+    }
+
+    input:is([type="date"], [type="time"], [type="datetime-local"],
+    [type="month"], [type="week"]) {
+        align-items: center;
+        display: inline-flex;
+        overflow-x: hidden;
+        overflow-y: hidden;
+        outline-style: none;
+        font-variant-numeric: inherit;
+        font-feature-settings: "ss03";
+        -webkit-text-fill-color: black;
+    }
+
+    #event-category{
+        -webkit-appearance: none;
+        appearance: none;
+        border-radius: 0;
+        box-shadow: none;
+        outline: none;
     }
 }
