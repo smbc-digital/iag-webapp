@@ -2,19 +2,17 @@
 
 @model Event;
 
-<li class="card-item">
-    <a class="card-item__link" href="@Url.Action("Detail", "Events", new {slug = Model.Slug, date = Model.EventDate.ToString("yyyy-MM-dd")})" aria-label="Read more about @Model.Title">
-        <div class="card-item__content-wrapper">
-            <partial name="CardImage" model="Model.ThumbnailImageUrl" />
-            
-            <div class="card-item__container">
-                <h3 class="h-l">@Model.Title</h3>
+<a class="card-item__link" href="@Url.Action("Detail", "Events", new {slug = Model.Slug, date = Model.EventDate.ToString("yyyy-MM-dd")})" aria-label="Read more about @Model.Title">
+    <div class="card-item__content-wrapper">
+        <partial name="CardImage" model="Model.ThumbnailImageUrl" />
+        
+        <div class="card-item__container">
+            <h3 class="h-l">@Model.Title</h3>
 
-                <div>
-                    <p class="card-item__content-teaser">@viewHelper.FormatEventDate(@Model.EventDate, @Model.StartTime)</p>
-                    <span class="btn card-item__container-btn">Read more</span>
-                </div>
+            <div>
+                <p class="card-item__content-teaser">@viewHelper.FormatEventDate(@Model.EventDate, @Model.StartTime)</p>
+                <span class="btn card-item__container-btn">Read more</span>
             </div>
         </div>
-    </a>
-</li>
+    </div>
+</a>
