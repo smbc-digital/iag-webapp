@@ -58,9 +58,10 @@
 
     @if (Model.FromSearch)
     {
+        <a name="events" id="events"></a>
         <partial name="EventsDateFilters" />
     }
-
+    
     @if (Model.Homepage.NextEvents.Any()) 
     {
         @if (Model.Homepage.NextEvents.Count() >= 3 && Model.Homepage.NextEvents.Count() < 6)
@@ -89,3 +90,10 @@
         <partial name="Events" model="@Model" view-data='@(new ViewDataDictionary(ViewData) {{ "eventsTitle", eventsTitle }})' />
     }
 </div>
+
+@if (Model.FromSearch)
+{
+    <script type="text/javascript">
+        document.getElementById('events').scrollIntoView(true);
+    </script>
+}
