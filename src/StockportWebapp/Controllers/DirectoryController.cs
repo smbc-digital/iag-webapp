@@ -32,7 +32,7 @@ public class DirectoryController(IDirectoryService directoryService) : Controlle
 
     [HttpGet]
     [Route("/directories/results/{**slug}")]
-    public async Task<IActionResult> DirectoryResults([Required][FromRoute]string slug, string[] filters, string orderBy, string searchTerm, [FromQuery] int page)
+    public async Task<IActionResult> DirectoryResults([Required][FromRoute]string slug, string[] filters, string orderBy, string searchTerm, [FromQuery] int page, [FromQuery] bool showAll)
     {
         PageLocation pageLocation = slug.ProcessAsWildcardSlug();
         Directory directory = await _directoryService.Get<Directory>(pageLocation.Slug);
@@ -53,7 +53,7 @@ public class DirectoryController(IDirectoryService directoryService) : Controlle
 
         IEnumerable<FilterTheme> allFilterThemes = _directoryService.GetFilterThemes(entries);
 
-        DirectoryViewModel viewModel = new(slug, directory, GetBreadcrumbsForDirectories(directory, parentDirectories, false, true), pinnedEntries, regularEntries, page)
+        DirectoryViewModel viewModel = new(slug, directory, GetBreadcrumbsForDirectories(directory, parentDirectories, false, true), pinnedEntries, regularEntries, page, showAll)
         {
             ParentDirectory = new DirectoryViewModel(parentDirectories.FirstOrDefault() ?? directory),
             FirstSubDirectory = new DirectoryViewModel(parentDirectories.ElementAtOrDefault(1) ?? directory),

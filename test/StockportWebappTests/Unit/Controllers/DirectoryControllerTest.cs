@@ -194,7 +194,7 @@ public class DirectoryControllerTest
             .ReturnsAsync(processedDirectoryWithSubdirectories);
 
         // Act
-        ViewResult result = await _directoryController.DirectoryResults("slug", filters, orderBy, searchTerm, 0) as ViewResult;
+        ViewResult result = await _directoryController.DirectoryResults("slug", filters, orderBy, searchTerm, 0, false) as ViewResult;
         DirectoryViewModel model = result.ViewData.Model as DirectoryViewModel;
 
         // Assert
@@ -219,7 +219,7 @@ public class DirectoryControllerTest
             .ReturnsAsync(processedDirectoryWithSubdirectories);
 
         // Act
-        ViewResult result = await _directoryController.DirectoryResults("slug", Array.Empty<string>(), string.Empty, string.Empty, 0) as ViewResult;
+        ViewResult result = await _directoryController.DirectoryResults("slug", Array.Empty<string>(), string.Empty, string.Empty, 0, false) as ViewResult;
         DirectoryViewModel model = result.ViewData.Model as DirectoryViewModel;
 
         // Assert
@@ -235,7 +235,7 @@ public class DirectoryControllerTest
             .ReturnsAsync((Directory)null);
 
         // Act
-        IActionResult result = await _directoryController.DirectoryResults("slug", Array.Empty<string>(), string.Empty, string.Empty, 0);
+        IActionResult result = await _directoryController.DirectoryResults("slug", Array.Empty<string>(), string.Empty, string.Empty, 0, false);
 
         // Assert
         Assert.IsType<NotFoundResult>(result);
@@ -248,7 +248,7 @@ public class DirectoryControllerTest
         _directoryService.Setup(_ => _.Get<Directory>(It.IsAny<string>())).ReturnsAsync(directory);
 
         // Act
-        ViewResult result = await _directoryController.DirectoryResults("slug", filters, string.Empty, string.Empty, 0) as ViewResult;
+        ViewResult result = await _directoryController.DirectoryResults("slug", filters, string.Empty, string.Empty, 0, false) as ViewResult;
         DirectoryViewModel model = result.ViewData.Model as DirectoryViewModel;
 
         // Assert
@@ -304,7 +304,7 @@ public class DirectoryControllerTest
             .ReturnsAsync(directory);
 
         // Act
-        IActionResult result = await _directoryController.DirectoryResults("slug", Array.Empty<string>(), string.Empty, "search me", 0);
+        IActionResult result = await _directoryController.DirectoryResults("slug", Array.Empty<string>(), string.Empty, "search me", 0, false);
 
         // Assert
         _directoryService.Verify(service => service.GetSearchedEntryForDirectories(It.IsAny<IEnumerable<DirectoryEntry>>(), It.IsAny<string>()), Times.Exactly(1));
