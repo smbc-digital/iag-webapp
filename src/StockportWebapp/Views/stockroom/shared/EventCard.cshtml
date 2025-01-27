@@ -1,16 +1,22 @@
 @inject ViewHelpers viewHelper
 
-@model Event;
+@{
+    string slug = (string)ViewData["slug"] ?? string.Empty;
+    DateTime date = (DateTime)ViewData["date"];
+    string title = (string)ViewData["eventTitle"] ?? string.Empty;
+    string thumbnailImage = (string)ViewData["thumbnailImage"] ?? string.Empty;
+    string startTime = (string)ViewData["startTime"] ?? string.Empty;
+}
 
-<a class="card-item__link" href="@Url.Action("Detail", "Events", new {slug = Model.Slug, date = Model.EventDate.ToString("yyyy-MM-dd")})" aria-label="Read more about @Model.Title">
+<a class="card-item__link" href="@Url.Action("Detail", "Events", new {slug = slug, date = date.ToString("yyyy-MM-dd")})" aria-label="Read more about @title">
     <div class="card-item__content-wrapper">
-        <partial name="CardImage" model="Model.ThumbnailImageUrl" />
+        <partial name="CardImage" model="@thumbnailImage" />
         
         <div class="card-item__container">
-            <h3 class="h-l">@Model.Title</h3>
+            <h3 class="h-l">@title</h3>
 
             <div>
-                <p class="card-item__content-teaser">@viewHelper.FormatEventDate(@Model.EventDate, @Model.StartTime)</p>
+                <p class="card-item__content-teaser">@viewHelper.FormatEventDate(@date, @startTime)</p>
                 <span class="btn card-item__container-btn">Read more</span>
             </div>
         </div>

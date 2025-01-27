@@ -36,7 +36,12 @@
                                     <span>@viewHelper.FormatEventDate(eventItem.EventDate)</span>
                                 </div>
 
-                                <partial name="EventCard" model='eventItem' />
+                                <partial name="EventCard" model="@eventItem"
+                                        view-data='@(new ViewDataDictionary(ViewData) { { "slug", eventItem.Slug },
+                                                                                        { "date", eventItem.EventDate },
+                                                                                        { "eventTitle", eventItem.Title },
+                                                                                        { "thumbnailImage", eventItem.ThumbnailImageUrl },
+                                                                                        { "startTime", eventItem.StartTime } })' />
                             </div>
 
                             previousEnteredDate = eventItem.EventDate.Date;

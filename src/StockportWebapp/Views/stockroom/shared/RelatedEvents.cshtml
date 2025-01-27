@@ -20,7 +20,14 @@
                 <ul class="card-wrapper">
                     @foreach (ProcessedEvents relatedContent in itemsToDisplay)
                     {
-                        <partial name="RelatedEventCard" model='@relatedContent' view-data='@(new ViewDataDictionary(ViewData) {{ "isCardI", true }})' />
+                        <li class="card-item">
+                            <partial name="EventCard" model="@relatedContent"
+                                    view-data='@(new ViewDataDictionary(ViewData) { { "slug", relatedContent.Slug },
+                                                                                    { "date", relatedContent.EventDate },
+                                                                                    { "eventTitle", relatedContent.Title },
+                                                                                    { "thumbnailImage", relatedContent.ThumbnailImageUrl },
+                                                                                    { "startTime", relatedContent.StartTime } })' />
+                        </li>
                     }
                 </ul>
             </section>
