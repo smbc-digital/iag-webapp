@@ -85,6 +85,7 @@
             flex-direction: column;
             flex-grow: 1;
             justify-content: space-between;
+            background-color: white;
 
             &-btn {
                 border-radius: 15px;
@@ -112,65 +113,57 @@
                 }
             }
         }
-    }
-}
 
-.card-item:nth-child(3n+1) {
-    margin-inline-start: 0;
+        &__event {
+            box-sizing: border-box;
+            position: relative;
+            background-color: transparent;
+        }
 
-    @media #{$mobile} {
-        margin: 0 0 2em 0;
-    }
-}
+        &__date {
+            position: relative;
+            padding-block: 1rem;
+            margin-left: -25px;
+            padding-left: 23px;
+            text-align: left;
+            border-left: 2px solid black;
+            
+            @media #{$tablet} {
+                margin-left: -15px;
+                padding-left: 13px;
+            }
 
-.card-item:nth-child(3n+3) {
-    margin-inline-end: 0;
-}
+            @media #{$mobile} {
+                border: none;
+            }
 
+            span {
+                display: inline-block;
+                vertical-align: middle;
+                position: relative;
+                z-index: 1
+            }
 
+            &--hidden {
+                border: none;
+                opacity: 0;
+            }
+        }
 
+        &:nth-child(3n+1) {
+            margin-inline-start: 0;
+        
+            @media #{$mobile} {
+                margin: 0 0 2em 0;
+            }
+        
+            .card-item__date {
+                border: none;
+            }
+        }
 
-
-
-
-
-
-
-
-
-.event-cards-wrapper {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem; /* Space between cards */
-}
-
-.event-card {
-    flex: 1 1 calc(33.333% - 1rem); /* 3 cards per row */
-    max-width: calc(33.333% - 1rem);
-    box-sizing: border-box;
-    padding: 1rem;
-    position: relative;
-    // background: #fff;
-    text-align: center;
-}
-
-.event-date {
-    font-size: 1rem;
-    font-weight: bold;
-    margin-bottom: 0.5rem;
-    text-align: left;
-    border-left: 2px solid black; /* Visual separation for new dates */
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .event-card {
-        flex: 1 1 calc(50% - 1rem); /* 2 cards per row on tablets */
-    }
-}
-
-@media (max-width: 480px) {
-    .event-card {
-        flex: 1 1 100%; /* 1 card per row on smaller screens */
+        &:nth-child(3n+3) {
+            margin-inline-end: 0;
+        }
     }
 }
