@@ -95,10 +95,9 @@
                         <li class="collapsible">
                             <p tabindex="0" class="filter-inner-title focusable">@year.ToString()</p>
                             <ul class="filters-list filters-inner-list" id="@year.ToString()">
-                                
-                                @foreach (DateTime date in newsroom.Dates.Where(d => d.Year.Equals(year)).OrderBy(a => a).Reverse())
+                                @foreach (DateTime date in newsroom.Dates.Where(d => d.Year == year).OrderBy(a => a).Reverse())
                                 {
-                                    <li class=@(Model.DateRange is not "customdate" && Model.DateFrom.Equals(date) ? "active" : string.Empty)>
+                                    <li class=@(Model.DateRange != "customdate" && Model.DateFrom == date ? "active" : string.Empty)>
                                         <a href="@Url.RouteUrl(Model.FilteredUrl.AddMonthFilter(date))" rel="nofollow">@date.ToString("MMMM yyyy")</a>
                                     </li>
                                 }
@@ -106,30 +105,26 @@
                         </li>
                     }
 
-                    <li id="custom-filter-li" class="@(Model.DateRange.Equals("customdate") ? "customdateactive" : string.Empty) filter collapsible">
+                    <li id="custom-filter-li" class="@(Model.DateRange == "customdate" ? "customdateactive" : string.Empty) filter collapsible">
                         <a tabindex="0" class="filter-title custom-date-title" rel="nofollow">Custom date</a>
-
                         <ul class="filters-list custom-date">
-                            <li class="@(Model.DateRange.Equals("customdate") ? "active" : string.Empty)">
+                            <li class="@(Model.DateRange == "customdate" ? "active" : string.Empty)">
                                 <form action="@Url.Action("Index", "News")" method="get">
                                     <input type="hidden" name="DateRange" value="customdate" />
                                     @if (!string.IsNullOrEmpty(Model.Category))
                                     {
                                         <input type="hidden" name="Category" value="@Model.Category" />
                                     }
-
                                     <div class="date-from">
                                         <label asp-for="@Model.DateFrom"></label>
                                         <input type="date" asp-for="@Model.DateFrom" />
                                         <span role="alert" aria-atomic="true" asp-validation-for="@Model.DateFrom" class="form-customdate-validation-error form-field-validation-error"></span>
                                     </div>
-
                                     <div class="date-to">
                                         <label asp-for="@Model.DateTo"></label>
                                         <input type="date" asp-for="@Model.DateTo" />
                                         <span id="inputvalidation" role="alert" aria-atomic="true" asp-validation-for="@Model.DateTo" class="form-customdate-validation-error form-field-validation-error"></span>
                                     </div>
-
                                     <div class="update-button">
                                         <stock-button class="button-customdate">Update</stock-button>
                                     </div>
@@ -142,12 +137,12 @@
         </ul>
 
         <p class="mobile-filter-heading filter-title">Filter news</p>
-    </div>
 
+    </div>
     <div id="content" class="grid-70 tablet-grid-100 mobile-grid-100 news-article-grid">
         @if (newsroom.Alerts is not null)
         {
-            foreach (Alert alert in newsroom.Alerts)
+            foreach (var alert in newsroom.Alerts)
             {
                 <partial name="DisplayTemplates/Alert" model='alert'/>
             }
@@ -162,7 +157,7 @@
         else
         {
             <ul  class="nav-card-news-list grid-100">
-                @foreach (News subItem in newsroom.News)
+                @foreach (var subItem in newsroom.News)
                 {
                     <li id="@subItem.Slug" class="grid-100 grid-parent nav-card-news nav-card-news-item">
                         <a href="@Url.Action("Detail", "News", new {slug = subItem.Slug})">
@@ -171,15 +166,12 @@
                                 {
                                     <div class="mobile-grid-35 tablet-grid-30 grid-30 grid-parent nav-card-news-thumbnail nav-card-news-thumbnail-background-image tablet-push-70 push-70" style="background-image: url(@subItem.ThumbnailImage);"></div>
                                 }
-
                                 <div  class="@(!string.IsNullOrEmpty(subItem.ThumbnailImage) ? "mobile-grid-65 tablet-grid-70 nav-card-news-detail pull-30 tablet-pull-30" : string.Empty) grid-70 grid-parent">
                                     <div class="news-date hide-on-mobile">
                                         <span class="fa fa-clock-o" aria-hidden="true"></span><partial name="FormattedDate" model='subItem.UpdatedAt'/>
                                     </div>
-
                                     <h2 class="nav-card-news-title" style="margin: 0">@subItem.Title</h2>
                                     <p class="nav-card-news-teaser hide-on-mobile">@subItem.Teaser</p>
-
                                     <div class="news-date hide-on-desktop hide-on-tablet">
                                         <span class="fa fa-clock-o" aria-hidden="true"></span><partial name="FormattedDate" model='subItem.UpdatedAt'/>
                                     </div>
@@ -189,7 +181,7 @@
                     </li>
                 }
             </ul>
-            
+
             <div class="news-pagination">
                 <partial name="Pagination" model='Model.Pagination'/>
             </div>
