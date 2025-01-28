@@ -7,7 +7,6 @@ public class ContactUsAreaFactoryTests
 
     private readonly ContactUsArea _contactUsArea = new("title",
         "slug",
-        "categories title",
         new List<Crumb>
         {
             new("title", "slug", "type")
@@ -47,7 +46,6 @@ public class ContactUsAreaFactoryTests
         // Assert
         Assert.Equal(_contactUsArea.Title, result.Title);
         Assert.Equal(_contactUsArea.Slug, result.Slug);
-        Assert.Equal(_contactUsArea.CategoriesTitle, result.CategoriesTitle);
         Assert.Single(result.Breadcrumbs);
         Assert.Single(result.PrimaryItems);
         Assert.Single(result.Alerts);

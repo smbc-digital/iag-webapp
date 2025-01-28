@@ -1,0 +1,79 @@
+.contact-us-area {  
+    &__heading {
+        background-color: $stockport-teal-darker;
+        color: white;
+
+        h1, h2, a {
+            color: white;
+        }
+    }
+
+    &__top-tasks {
+        width: 100%;
+        margin-block: 2em;
+    }
+
+    &__services {
+        margin: 1em 0 0 0;
+
+        @media #{$tablet} {
+            padding-inline: 10px;
+        }
+    }
+
+    &__navigation {
+        padding-block: 1.5em;
+        column-count: 2;
+
+        @media #{$tablet} {
+            padding-inline: 15px;
+        }
+
+        ul {
+          list-style-type: none;
+
+          li {
+            margin-inline-start: 0;
+            margin-block-end: 0.5em;
+          }
+        }
+    }
+
+    &__categories {
+        padding-block: 3em 2em;
+        background-color: $stockport-light-grey;
+
+        @media #{$tablet} {
+            padding-inline: 10px;
+            padding-block: 2em;
+        }
+
+        &-heading {
+            display: flex;
+            padding-block-end: 1.5em;
+            flex-direction: row;
+            align-items: center;
+
+            span {
+              margin-right: 0.5em;
+              font-size: 1.6em;
+            }
+
+            h2 {
+              margin: 0;
+            }
+        }
+
+        &-body {
+            padding: 0;
+
+            ul li {
+                margin-bottom: 0.5em;
+            }
+
+            &-text {
+                padding: 0;
+            }
+        }
+    }
+}

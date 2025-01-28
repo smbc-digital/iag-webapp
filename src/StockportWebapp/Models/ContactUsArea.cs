@@ -3,7 +3,6 @@ namespace StockportWebapp.Models;
 [ExcludeFromCodeCoverage]
 public class ContactUsArea(string title,
                         string slug,
-                        string categoriesTitle,
                         IEnumerable<Crumb> breadcrumbs,
                         IEnumerable<Alert> alerts,
                         IEnumerable<SubItem> primaryItems,
@@ -14,7 +13,6 @@ public class ContactUsArea(string title,
 {
     public string Title { get; set; } = title;
     public string Slug { get; set; } = slug;
-    public string CategoriesTitle { get; set; } = categoriesTitle;
     public IEnumerable<Crumb> Breadcrumbs { get; set; } = breadcrumbs;
     public IEnumerable<SubItem> PrimaryItems { get; set; } = primaryItems;
     public IEnumerable<Alert> Alerts { get; } = alerts;

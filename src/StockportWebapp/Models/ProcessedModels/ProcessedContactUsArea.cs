@@ -2,7 +2,6 @@
 [ExcludeFromCodeCoverage]
 public class ProcessedContactUsArea(string title,
                                     string slug,
-                                    string categoriesTitle,
                                     IEnumerable<Crumb> breadcrumbs,
                                     IEnumerable<SubItem> primaryItems,
                                     IEnumerable<Alert> alerts,
@@ -13,7 +12,6 @@ public class ProcessedContactUsArea(string title,
 {
     public readonly string Title = title;
     public readonly string Slug = slug;
-    public readonly string CategoriesTitle = categoriesTitle;
     public readonly IEnumerable<Crumb> Breadcrumbs = breadcrumbs;
     public readonly IEnumerable<SubItem> PrimaryItems = primaryItems;
     public readonly IEnumerable<Alert> Alerts = alerts;
