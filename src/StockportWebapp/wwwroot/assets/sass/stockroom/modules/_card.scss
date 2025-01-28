@@ -135,6 +135,7 @@
 
             @media #{$mobile} {
                 border: none;
+                padding-top: 0;
             }
 
             span {
@@ -147,6 +148,10 @@
             &--hidden {
                 border: none;
                 opacity: 0;
+
+                @media #{$mobile} {
+                    display: none;
+                }
             }
         }
 
