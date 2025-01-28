@@ -47,6 +47,7 @@
                     </ul>
                 </li>
             }
+
             @if (Model.Categories.Any())
             {
                 <li class="filter collapsible" id="category-filter">
@@ -73,6 +74,7 @@
                     </ul>
                 </li>
             }
+
             <li class="filter collapsible" id="news-archive">
                 @if (Model.HasActiveFilter())
                 {
@@ -133,6 +135,7 @@
                 </ul>
             </li>
         </ul>
+
         <p class="mobile-filter-heading filter-title">Filter news</p>
 
     </div>
@@ -178,6 +181,7 @@
                     </li>
                 }
             </ul>
+
             <div class="news-pagination">
                 <partial name="Pagination" model='Model.Pagination'/>
             </div>
