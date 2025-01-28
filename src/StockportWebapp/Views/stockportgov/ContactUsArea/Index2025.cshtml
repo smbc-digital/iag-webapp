@@ -1,0 +1,79 @@
+﻿@model ProcessedContactUsArea
+@{
+    ViewData["Title"] = Model.Title;
+    ViewData["og:title"] = Model.Title;
+    ViewData["Description"] = Model.MetaDescription;
+    Layout = "../Shared/_Layout2023.cshtml";
+    
+    string borderTeal = " navcard--border-top-10 navcard--theme-teal-lighter-top ";
+    string borderGrey = " navcard-all navcard--theme-grey-accent-all";
+    string noBorder = " navcard--border-top-0";
+    string borderRadius = " navcard--radius-bottom-left navcard--radius-bottom-right";
+    string greyBorderCssClasses = $"{borderGrey} {noBorder} {borderRadius}";
+    bool hasCategories = Model.ContactUsCategories.Any();
+}
+
+<partial name="GlobalAlerts" model="Model.Alerts" />
+<partial name="Breadcrumb2023" model="new List<Crumb>()" view-data="@(new ViewDataDictionary(ViewData) {{"landingBreadcrumb", "topic-breadcrumb-container"}})" />
+
+<div class="contact-us-area">
+    <div class="contact-us-area__heading">
+        <div class="grid-container">
+            <div class="grid-100">
+                <h1>@Model.Title</h1>
+                <p class="lead">@Model.InsetTextTitle</p>
+                @Html.Raw(Model.InsetTextBody)
+            </div>
+        </div>            
+    </div>
+
+    <section class="section">
+        <div class="grid-container grid-100">
+            <h2 class="contact-us-area__services">Popular Services</h2>
+        </div>
+        <partial name="TopicTopTasks" model='@Model.PrimaryItems' />
+
+        @if(hasCategories)
+        {
+            <div class="grid-container grid-100">
+                <h2 class="contact-us-area__services">Categories</h2>
+                <nav class="contact-us-area__navigation" aria-label="Contact us area categories" data-cy="contact-us-navigation">
+                    <ul>
+                        @foreach (ProcessedContactUsCategory category in Model.ContactUsCategories)
+                        {
+                            <li>
+                                <a href="@($"#{category.Title}")">
+                                    @category.Title
+                                </a>
+                            </li>
+                        }
+                    </ul>
+               </nav>    
+            </div>
+        }
+    </section>
+
+    @if (hasCategories)
+    {
+        <section class="contact-us-area__categories">
+            <div class="grid-container grid-100">
+
+            @foreach (ProcessedContactUsCategory category in Model.ContactUsCategories)
+            {                         
+                <div id="@category.Title" class="contact-us-area__categories-heading">
+                    <span class="@category.Icon" aria-hidden="true"></span>
+                    <h2>@category.Title</h2>
+                </div>      
+                <div class="directory--border-top @borderTeal">
+                    <div class="directory__wrapper navcard--white @greyBorderCssClasses">
+                        <div class="grid-100 contact-us-area__categories-body">
+                            <div class="grid-50 contact-us-area__categories-body-text">@Html.Raw(category.BodyTextLeft)</div>
+                            <div class="grid-50 contact-us-area__categories-body-text">@Html.Raw(category.BodyTextRight)</div>
+                        </div>
+                    </div>
+                </div>
+            }
+            </div>
+        </section>
+    }
+</div>
