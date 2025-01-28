@@ -77,7 +77,7 @@ public class ContactUsController(IRepository repository,
 
             string toUrl = $"{redirectUrl}?message={message}#error-message-anchor";
 
-            return await Task.FromResult(Redirect(toUrl));
+            return await Task.FromResult(Redirect($"{redirectUrl}?message={message}#error-message-anchor"));
         }
         else
         {

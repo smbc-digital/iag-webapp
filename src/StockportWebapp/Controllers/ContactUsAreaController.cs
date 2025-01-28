@@ -9,11 +9,10 @@ public class ContactUsAreaController(IProcessedContentRepository repository) : C
     public async Task<IActionResult> Index()
     {
         HttpResponse contactUsAreaHttpResponse = await _repository.Get<ContactUsArea>();
+
         if (!contactUsAreaHttpResponse.IsSuccessful())
             return contactUsAreaHttpResponse;
 
-        ProcessedContactUsArea contactUsArea = contactUsAreaHttpResponse.Content as ProcessedContactUsArea;
-
-        return View(contactUsArea);
+        return View(contactUsAreaHttpResponse.Content as ProcessedContactUsArea);
     }
 }

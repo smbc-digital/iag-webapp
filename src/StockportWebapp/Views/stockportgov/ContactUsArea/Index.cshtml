@@ -3,97 +3,79 @@
     ViewData["Title"] = Model.Title;
     ViewData["og:title"] = Model.Title;
     ViewData["Description"] = Model.MetaDescription;
-    Layout = "../Shared/_Layout.cshtml";
+    Layout = "../Shared/_Layout2023.cshtml";
+    string borderTeal = " navcard--border-top-10 navcard--theme-teal-lighter-top ";
+    string borderGrey = " navcard-all navcard--theme-grey-accent-all";
+    string noBorder = " navcard--border-top-0";
+    string borderRadius = " navcard--radius-bottom-left navcard--radius-bottom-right";
+    string greyBorderCssClasses = $"{borderGrey} {noBorder} {borderRadius}";
+
+    bool hasCategories = Model.ContactUsCategories.Any();
 }
 
-@section Breadcrumbs {
-    <partial name="Breadcrumb" model="Model.Breadcrumbs"/>
-}
+<partial name="GlobalAlerts" model="Model.Alerts" />
+<partial name="Breadcrumb2023" model="new List<Crumb>()" view-data="@(new ViewDataDictionary(ViewData) {{"landingBreadcrumb", "topic-breadcrumb-container"}})" />
 
-<div class="l-page-content white" id="topic-page-content">
-    <div class="full-width-title">
-        <div class="grid-container grid-parent grid-100">
-            <div class="grid-100 tablet-grid-100 mobile-grid-100">
-                <h1>@Model.Title</h1>
+<div class="contact-us-area">
+    <div class="contact-us-area__heading">
+        <div class="grid-container">
+                <div class="grid-100">
+                    <h1>@Model.Title</h1>
+                    <p class="lead">@Model.InsetTextTitle</p>
+                    @Html.Raw(Model.InsetTextBody)
+                </div>
+        </div>            
+    </div>
+
+    <section class="section">
+        <div class="grid-container grid-100">
+            <h2 class="contact-us-area__services">Popular Services</h2>
+        </div>
+        <partial name="TopicTopTasks" model='@Model.PrimaryItems' />
+
+        @if(hasCategories)
+        {
+            <div class="grid-container grid-100">
+                <h2 class="contact-us-area__services">Categories</h2>
+                <nav class="contact-us-area__navigation" aria-label="Contact us area categories" data-cy="contact-us-navigation">
+                    <ul>
+                        @foreach (ProcessedContactUsCategory category in Model.ContactUsCategories)
+                        {
+                            <li>
+                                <a href="@($"#{category.Title}")">
+                                    @category.Title
+                                </a>
+                            </li>
+                        }
+                    </ul>
+               </nav>    
             </div>
-        </div>
-    </div>
-
-    <div id="content" class="grid-container grid-parent">
-        @{
-            if (Model.Alerts is not null)
-            {
-                <div class="alert-container">
-                    @foreach (Alert alert in Model.Alerts)
-                    {
-                        <partial name="DisplayTemplates/Alert" model="alert"/>
-                    }
-                </div>
-            }
         }
+    </section>
 
-        @{
-            if (!string.IsNullOrEmpty(Model.InsetTextTitle) || !string.IsNullOrEmpty(Model.InsetTextBody))
-            {
-                <div class="alert-container contact-us-area-primary">
-                    <div class="alert alert-insetText">
-                        <div tabindex="0" class="focusable alert-insetText-overlap alert-content">
-                            
-                            @if (!string.IsNullOrEmpty(Model.InsetTextTitle))
-                            {
-                                <h2>@Model.InsetTextTitle</h2>
-                            }
+    @if (hasCategories)
+    {
+        <section class="contact-us-area__categories">
+            <div class="grid-container grid-100">
 
-                            @if (!string.IsNullOrEmpty(Model.InsetTextBody))
-                            {
-                                @Html.Raw(Model.InsetTextBody)
-                            }
-                        </div>
-                    </div>
+            @foreach (ProcessedContactUsCategory category in Model.ContactUsCategories)
+            {                         
+                <div id="@category.Title" class="contact-us-area__categories-heading">
+                    <span class="@category.Icon" aria-hidden="true"></span>
+                    <h2>@category.Title</h2>
                 </div>
-            }
-        }
-
-        <div class="dashboard-button-container contact-us-area-primary">
-            <h2 class="visuallyhidden">Popular Services</h2>
-
-            @foreach (SubItem primaryItem in Model.PrimaryItems)
-            {
-                string url = primaryItem.NavigationLink;
-
-                <a href="@url" class="section-link">
-                    <div class="icon-container">
-                        <span class="@primaryItem.Icon" aria-hidden="true"></span>
-                    </div>
-
-                    <div class="primaryItemText">@primaryItem.Title</div>
-                </a>
-            }
-        </div>
-
-        <div class="contact-us-category-container">
-            @if (Model.ContactUsCategories.Any())
-            {
-                <h2>Other online services</h2>
-            }
-
-            @foreach (ProcessedContactUsCategory categoryItem in Model.ContactUsCategories)
-            {
-                <div class="contact-us-category">
-                    <div class="category-header">
-                        <div class="icon-container">
-                            <span class="@categoryItem.Icon" aria-hidden="true"></span>
-                        </div>
-
-                        <div class="category-title"><h3>@categoryItem.Title</h3></div>
-                    </div>
+                
+                <div class="directory--border-top @borderTeal">
+                    <div class="directory__wrapper navcard--white @greyBorderCssClasses">
                     
-                    <div class="category-body">
-                        <div class="category-body-col category-body-left">@Html.Raw(categoryItem.BodyTextLeft)</div>
-                        <div class="category-body-col category-body-right">@Html.Raw(categoryItem.BodyTextRight)</div>
+                        <div class="grid-100 contact-us-area__categories-body">
+                            <div class="grid-50 contact-us-area__categories-body-text">@Html.Raw(category.BodyTextLeft)</div>
+                            <div class="grid-50 contact-us-area__categories-body-text">@Html.Raw(category.BodyTextRight)</div>
+                        </div>
                     </div>
                 </div>
             }
-        </div>
-    </div>
+            </div>
+        </section>
+    }
 </div>

@@ -10,7 +10,6 @@ public class ContactUsAreaFactory(IContactUsCategoryFactory contactUsCategoryFac
         new ProcessedContactUsArea(
             contactUsArea.Title,
             contactUsArea.Slug,
-            contactUsArea.CategoriesTitle,
             contactUsArea.Breadcrumbs,
             contactUsArea.PrimaryItems,
             contactUsArea.Alerts,
