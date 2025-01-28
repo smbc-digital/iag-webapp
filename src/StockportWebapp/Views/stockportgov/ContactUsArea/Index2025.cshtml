@@ -27,7 +27,7 @@
                 </div>
             </div>            
         </div>
-        
+
         <section class="section">
             <div class="grid-container grid-100">
                 <h2 class="contact-us-area__services">Popular Services</h2>
@@ -49,7 +49,7 @@
                                 </li>
                             }
                         </ul>
-                </nav>    
+                    </nav>    
                 </div>
             }
         </section>
@@ -58,22 +58,25 @@
         {
             <section class="contact-us-area__categories">
                 <div class="grid-container grid-100">
-
-                @foreach (ProcessedContactUsCategory category in Model.ContactUsCategories)
-                {                         
-                    <div id="@category.Title" class="contact-us-area__categories-heading">
-                        <span class="@category.Icon" aria-hidden="true"></span>
-                        <h2>@category.Title</h2>
-                    </div>      
-                    <div class="directory--border-top @borderTeal">
-                        <div class="directory__wrapper navcard--white @greyBorderCssClasses">
-                            <div class="grid-100 contact-us-area__categories-body">
-                                <div class="grid-50 contact-us-area__categories-body-text">@Html.Raw(category.BodyTextLeft)</div>
-                                <div class="grid-50 contact-us-area__categories-body-text">@Html.Raw(category.BodyTextRight)</div>
+                    @foreach (ProcessedContactUsCategory category in Model.ContactUsCategories)
+                    {                         
+                        <div id="@category.Title" class="contact-us-area__categories-heading">
+                            <span class="@category.Icon" aria-hidden="true"></span>
+                            <h2>@category.Title</h2>
+                        </div>      
+                        <div class="directory--border-top @borderTeal">
+                            <div class="directory__wrapper navcard--white @greyBorderCssClasses">
+                                <div class="grid-100 contact-us-area__categories-body">
+                                    <div class="grid-50 contact-us-area__categories-body-text">
+                                        @Html.Raw(category.BodyTextLeft)
+                                    </div>
+                                    <div class="grid-50 contact-us-area__categories-body-text">
+                                        @Html.Raw(category.BodyTextRight)
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                }
+                    }
                 </div>
             </section>
         }

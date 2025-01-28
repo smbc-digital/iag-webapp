@@ -147,7 +147,7 @@
     <div id="content" class="grid-70 tablet-grid-100 mobile-grid-100 news-article-grid">
         @if (newsroom.Alerts is not null)
         {
-            foreach (var alert in newsroom.Alerts)
+            foreach (Alert alert in newsroom.Alerts)
             {
                 <partial name="DisplayTemplates/Alert" model='alert'/>
             }
