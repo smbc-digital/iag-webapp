@@ -2,12 +2,16 @@
     max-width: 1280px !important;
     margin: auto !important;
     padding: 1.5rem !important;
-    font: 1.1875rem / 1.5 Lexend, Noto Sans, sans-serif !important;
+    @include body;
+}
+
+.cc-nb-title {
+    font-size: 2.25rem !important;
 }
 
 .freeprivacypolicy-com---nb {
-    background-color: $skrm-stone !important;
-    font-size: 1.1875rem !important;
+    background-color: $skrm-blue !important;
+    font-size: 1.5rem !important;
     min-height: 225px;
 
     @media only screen and (max-width: 47.99375em) {
@@ -18,27 +22,35 @@
 .cc-nb-reject, .cc-nb-okagree {
     background-color: $skrm-orange !important;
     color: black !important;
-    font-size: 1.1875rem !important;
+    font-size: 1.5rem !important;
     font-weight: normal !important;
 }
 
 .cc-nb-reject:hover, .cc-nb-okagree:hover {
-    background-color: $skrm-orange-lighter !important;
+    background-color: $skrm-orange-darker !important;
 }
 
 .cc-nb-changep {
     color: black !important;
     background-color: white !important;
-    font-size: 1.1875rem !important;
+    font-size: 1.5rem !important;
     font-weight: normal !important;
 }
 
 .cc-nb-changep:hover {
     color: black !important;
-    background-color: rgba($skrm-orange-darker, 0.1) !important;
+    background-color: darken(white, 5%) !important;
 }
 
 .cc-nb-text {
+    display: block;
+    color: transparent !important;
+    font-size: 0 !important;
+}
+
+.cc-nb-text:before {
+    content: "We use cookies and other tracking technologies to improve your browsing experience on our website, to show you personalised content and targeted ads, to analyse our website traffic and to understand where our visitors are coming from.";
+    display: block;
     color: black !important;
-    font-size: 1.1875rem !important;
+    font-size: 1.5rem !important;
 }

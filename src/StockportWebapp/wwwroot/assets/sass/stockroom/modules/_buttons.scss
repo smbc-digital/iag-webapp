@@ -46,6 +46,10 @@
     }
 
     &--no-margin-top {
-        margin-top: 0;
+        margin-top: 0 !important;
+    }
+
+    &_text {
+        line-height: 1;
     }
 }

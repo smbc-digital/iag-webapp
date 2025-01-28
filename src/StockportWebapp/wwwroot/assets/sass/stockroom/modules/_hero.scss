@@ -10,12 +10,13 @@
         color: white;
 
         &--overlay {
-            background: $skrm-black-gradient-overlay;
+            // background: $skrm-black-gradient-overlay;
             height: 100%;
             width: 100%;
             display: flex;
             place-items: center;
-/*            background-position: center;
+            text-align: center;
+/*          background-position: center;
             background-size: cover;*/
         }
     }

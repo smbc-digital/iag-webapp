@@ -32,11 +32,14 @@ public class DirectoryViewModel
                             IEnumerable<Crumb> breadcrumbs,
                             IEnumerable<DirectoryEntry> pinnedEntries,
                             IEnumerable<DirectoryEntry> filteredEntries,
-                            int pageNumber) : this(slug, directory)
+                            int pageNumber, bool showAll = false) : this(slug, directory)
     {
         Breadcrumbs = breadcrumbs;
         PinnedEntries = pinnedEntries.Select(entry => new DirectoryEntryViewModel($"{slug}/{entry.Slug}", entry, true));
         FilteredEntries = filteredEntries.Select(entry => new DirectoryEntryViewModel($"{slug}/{entry.Slug}", entry, false));
+        
+        if (showAll)
+            PageSize = Int32.MaxValue;
 
         Paginate(pageNumber);
         AddMapPinIndexes();
@@ -83,12 +86,19 @@ public class DirectoryViewModel
     }
 
     // Default values
-    private readonly int _defaultPageSize = 12;
+    private int _defaultPageSize = 12;
     private readonly string _searchBranding = "Default";
 
     // Core page details
     public string Slug { get; set; }
     public string Title { get; set; }
+
+    public int PageSize { 
+        set
+        {
+            _defaultPageSize = value;
+        } 
+    }
     public string DisplayTitle =>
         $"Results for {(string.IsNullOrEmpty(SearchTerm)
             ? Title

@@ -3,13 +3,15 @@
     flex-direction: row;
     margin-top: 2em;
     margin-bottom: 0.5em;
-    padding: 1em 1em 0;
+    padding: 0.5em 1em 0;
     justify-content: space-between;
 
     @media #{$mobile} {
         flex-direction: column-reverse;
-        padding: 1em .5em 0;
-        padding-bottom: 1em;
+        margin: 1em .5em;
+        padding: 1em 0 2em;
+        border-bottom: 1px solid black;
+        text-align: center;
     }
 
     &__image {

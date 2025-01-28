@@ -11,12 +11,12 @@
             <partial name="CardImage" model="imageSrc" />
             
             <div class="card-item__container">
-                <div class="card-item__content">
-                    <h3 class="h-l">@Model.Title</h3>
+                <h3 class="h-l">@Model.Title</h3>
+
+                <div>                
                     <p class="card-item__content-teaser">@Model.Teaser</p>
+                    <span class="btn card-item__container-btn">Read more</span>
                 </div>
-                
-                <span class="btn card-item__container-btn">Read more</span>
             </div>
         </div>
     </a>
