@@ -73,7 +73,7 @@ public class EventsController(IRepository repository,
             eventsCalendar.Homepage.NextEvents = eventHomeResponse?.Rows?.FirstOrDefault(row => row.IsLatest)?.Events
                 .Select(_stockportApiEventsService.BuildProcessedEvent).ToList();
 
-        return View("Index2024", eventsCalendar);
+        return View("Index", eventsCalendar);
     }
 
     // This is the healthy stockport filtered events homepage
@@ -130,7 +130,7 @@ public class EventsController(IRepository repository,
                 response.GlobalAlerts.AddRange(eventHomeResponse.Alerts);
         }
 
-        return View("Detail2024", response);
+        return View("Detail", response);
     }
     
     // This is used for Healthy Stockport only
