@@ -13,10 +13,10 @@
     bool hasCategories = Model.ContactUsCategories.Any();
 }
 
-<partial name="GlobalAlerts" model="Model.Alerts" />
-<partial name="Breadcrumb2023" model="new List<Crumb>()" view-data="@(new ViewDataDictionary(ViewData) {{"landingBreadcrumb", "topic-breadcrumb-container"}})" />
-
 <div class="grid-container-full-width" data-cy="contact-us-area">
+    <partial name="GlobalAlerts" model="Model.Alerts" />
+    <partial name="Breadcrumb2023" model="new List<Crumb>()" view-data="@(new ViewDataDictionary(ViewData) {{"landingBreadcrumb", "topic-breadcrumb-container"}})" />
+
     <div class="contact-us-area">
         <div class="contact-us-area__heading">
             <div class="grid-container">
@@ -30,7 +30,7 @@
 
         <section class="section">
             <div class="grid-container grid-100">
-                <h2 class="contact-us-area__services">Popular Services</h2>
+                <h2 class="contact-us-area__services contact-us-area--margin">Popular Services</h2>
             </div>
             <partial name="TopicTopTasks" model='@Model.PrimaryItems' />
 
