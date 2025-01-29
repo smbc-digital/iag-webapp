@@ -33,6 +33,11 @@
             padding-inline: 15px;
         }
 
+        @media #{$mobile} {
+            padding-block-end: 0;
+            column-count: 1;
+        }
+
         ul {
           list-style-type: none;
 
@@ -82,11 +87,25 @@
 
             &-text {
                 padding: 0;
+
+                p {
+                    word-wrap: break-word;
+                }
             }
         }
     }
 
     &--margin {
-        margin-block-start: 1.5em;
+        &-top {
+            margin-block-start: 1.5em;
+
+            @media #{$tablet} {
+                margin-block-start: 1em; 
+            }
+        }
+
+        &-bottom {
+            margin-block-end: 3em !important;
+        }
     }
 }
