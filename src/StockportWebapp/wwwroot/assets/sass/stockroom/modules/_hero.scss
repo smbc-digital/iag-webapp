@@ -1,0 +1,110 @@
+.hero {
+    position: relative;
+
+    &__banner {
+        height: 750px;
+        display: flex;
+        place-items: center;
+        background-position: center;
+        background-size: cover;
+        color: white;
+
+        &--overlay {
+            // background: $skrm-black-gradient-overlay;
+            height: 100%;
+            width: 100%;
+            display: flex;
+            place-items: center;
+            text-align: center;
+/*          background-position: center;
+            background-size: cover;*/
+        }
+    }
+
+    &__background {
+        height: 750px;
+        width: 100%;
+        background-position: center;
+        background-size: cover;
+        position: absolute;
+
+
+
+        @media #{$mobile} {
+            height: 350px;
+        }
+    }
+
+    &__wrapper {
+        position: relative;
+    }
+
+    &__image {
+        height: 652px;
+
+        @media #{$mobile} {
+            height: 295.5px;
+        }
+    }
+
+    &__title {
+        background: black;
+        color: white;
+        border-radius: 20px 20px 0 0;
+        padding: 0.5em;
+        margin: 0;
+        font-weight: 400;
+
+        @media #{$mobile} {
+            padding: 0.3em;
+            border-radius: 10px 10px 0 0;
+        }
+    }
+
+    &__content {
+        border-radius: 20px 20px 0 0;
+        background: white;
+    }
+
+    &__about {
+        padding: 1em 1em 0;
+
+        @media #{$mobile} {
+            padding: 1em 0.5em 0;
+
+            &-attribution {
+                span {
+                    display: block;
+                }
+
+                span:first-of-type {
+                    margin-bottom: 0;
+                }
+            }
+        }
+
+        &-break {
+            margin-inline: 0.5em;
+
+            @media #{$mobile} {
+                display: none !important;
+            }
+        }
+
+        &--bold {
+            font-weight: 900;
+        }
+
+        &--no-margin {
+            margin: 0;
+        }
+
+        &--margin {
+            margin-bottom: 1em;
+        }
+
+        &--no-padding-top {
+            padding-top: 0;
+        }
+    }
+}

@@ -1,5 +1,6 @@
 using StockportWebapp.Comparers;
 namespace StockportWebapp.Models;
+
 public class Directory
 {
     public string Title { get; set; } = string.Empty;
@@ -15,7 +16,7 @@ public class Directory
     public IEnumerable<DirectoryEntry> Entries { get; set; } = new List<DirectoryEntry>();
     public IEnumerable<Directory> SubDirectories { get; set; } = new List<Directory>();
     public IEnumerable<SubItem> SubItems { get; set; } = new List<SubItem>();
-    public string ColourScheme { get; set; } = string.Empty;
+    public EColourScheme ColourScheme { get; set; } = EColourScheme.Teal;
     public string SearchBranding { get; set; } = "Default";
     public string Icon { get; set; } = string.Empty;
     public EventCalendarBanner EventBanner { get; set; }
@@ -34,19 +35,17 @@ public class Directory
     {
         get
         {
-            var cummulativeEntries = SubDirectories is not null && SubDirectories.Any()
+            IEnumerable<DirectoryEntry> cummulativeEntries = SubDirectories is not null && SubDirectories.Any()
                                         ? Entries?
                                             .Concat(SubDirectories
                                                 .Where(sub => sub is not null)
                                                 .SelectMany(sub => sub.CummulativeEntries))
                                         : Entries;
 
-            _cummulativeEntries = cummulativeEntries
-                                    .Where(entry => entry is not null && !string.IsNullOrEmpty(entry.Slug))
-                                    .Distinct(new SlugComparer())
-                                    .Select(entry => (DirectoryEntry)entry);
-
-            return _cummulativeEntries;
+            return cummulativeEntries
+                    .Where(entry => entry is not null && !string.IsNullOrEmpty(entry.Slug))
+                    .Distinct(new SlugComparer())
+                    .Select(entry => (DirectoryEntry)entry);
         }         
     }
 
@@ -63,7 +62,4 @@ public class Directory
     [JsonIgnore]
     public IEnumerable<DirectoryEntry> AllEntries
         => RegularEntries.Concat(PinnedEntries);
-
-    //public string ToKml()
-    //    => CummulativeEntries.GetKmlForList();
 }

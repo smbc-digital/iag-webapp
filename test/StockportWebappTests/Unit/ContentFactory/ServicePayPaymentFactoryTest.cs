@@ -2,9 +2,9 @@
 
 public class ServicePayPaymentFactoryTests
 {
-    private readonly Mock<MarkdownWrapper> _mockMarkdownWrapper = new Mock<MarkdownWrapper>();
-    private readonly Mock<ITagParserContainer> _mockTagParser = new Mock<ITagParserContainer>();
-    private readonly ServicePayPayment _payment = new ServicePayPayment
+    private readonly Mock<MarkdownWrapper> _mockMarkdownWrapper = new();
+    private readonly Mock<ITagParserContainer> _mockTagParser = new();
+    private readonly ServicePayPayment _payment = new()
     {
         AccountReference = "123445",
         Alerts = null,
@@ -30,7 +30,7 @@ public class ServicePayPaymentFactoryTests
         _factory = new ServicePayPaymentFactory(_mockTagParser.Object, _mockMarkdownWrapper.Object);
 
         _mockTagParser
-            .Setup(_ => _.ParseAll(_payment.Description, It.IsAny<string>(), It.IsAny<bool>(), null, null, null, null, null, It.IsAny<bool>()))
+            .Setup(_ => _.ParseAll(_payment.Description, It.IsAny<string>(), It.IsAny<bool>(), null, null, null, null, null, null, It.IsAny<bool>()))
             .Returns(_payment.Description);
 
         _mockMarkdownWrapper
@@ -41,37 +41,48 @@ public class ServicePayPaymentFactoryTests
     [Fact]
     public void ShouldSetTheCorrespondingFieldsForAProcessedServicePayPayment()
     {
-        var result = _factory.Build(_payment);
+        // Act
+        ProcessedServicePayPayment result = _factory.Build(_payment);
 
-        result.Title.Should().Be(_payment.Title);
-        result.Teaser.Should().Be(_payment.Teaser);
-        result.ReturnUrl.Should().Be(_payment.ReturnUrl);
-        result.ReferenceValidation.Should().Be(_payment.ReferenceValidation);
-        result.ReferenceLabel.Should().Be(_payment.ReferenceLabel);
-        result.Slug.Should().Be(_payment.Slug);
-        result.PaymentDetailsText.Should().Be(_payment.PaymentDetailsText);
-        result.PaymentAmount.Should().Be(_payment.PaymentAmount);
-        result.PaymentDescription.Should().Be(_payment.PaymentDescription);
-        result.MetaDescription.Should().Be(_payment.MetaDescription);
-        result.Description.Should().Be(_payment.Description);
-        result.CatalogueId.Should().Be(_payment.CatalogueId);
-        result.Breadcrumbs.Should().BeEquivalentTo(_payment.BreadCrumbs);
-        result.Alerts.Should().BeEquivalentTo(_payment.Alerts);
-        result.AccountReference.Should().Be(_payment.AccountReference);
+        // Assert
+        Assert.Equal(_payment.Title, result.Title);
+        Assert.Equal(_payment.Teaser, result.Teaser);
+        Assert.Equal(_payment.ReferenceValidation, result.ReferenceValidation);
+        Assert.Equal(_payment.ReferenceLabel, result.ReferenceLabel);
+        Assert.Equal(_payment.Slug, result.Slug);
+        Assert.Equal(_payment.PaymentDetailsText, result.PaymentDetailsText);
+        Assert.Equal(_payment.PaymentAmount, result.PaymentAmount);
+        Assert.Equal(_payment.PaymentDescription, result.PaymentDescription);
+        Assert.Equal(_payment.MetaDescription, result.MetaDescription);
+        Assert.Equal(_payment.Description, result.Description);
+        Assert.Equal(_payment.CatalogueId, result.CatalogueId);
+        Assert.Equal(_payment.BreadCrumbs, result.Breadcrumbs);
+        Assert.Equal(_payment.Alerts, result.Alerts);
+        Assert.Equal(_payment.AccountReference, result.AccountReference);
     }
 
     [Fact]
     public void ShouldCallMarkdownWrapper()
     {
+        // Act & Assert
         _factory.Build(_payment);
-
-        _mockMarkdownWrapper.Verify(_ => _.ConvertToHtml(_payment.Description), Times.Once);
+        _mockMarkdownWrapper.Verify(wrapper => wrapper.ConvertToHtml(_payment.Description), Times.Once);
     }
 
     [Fact]
     public void ShouldCallTagParser()
     {
+        // Act & Assert
         _factory.Build(_payment);
-        _mockTagParser.Verify(_ => _.ParseAll(_payment.Description, _payment.Title, It.IsAny<bool>(), null, null, null, null, null, It.IsAny<bool>()), Times.Once);
+        _mockTagParser.Verify(parser => parser.ParseAll(_payment.Description,
+                                                        _payment.Title,
+                                                        It.IsAny<bool>(),
+                                                        null,
+                                                        null,
+                                                        null,
+                                                        null,
+                                                        null,
+                                                        null,
+                                                        It.IsAny<bool>()), Times.Once);
     }
 }

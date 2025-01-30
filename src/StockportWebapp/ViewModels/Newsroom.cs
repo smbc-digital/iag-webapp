@@ -1,21 +1,16 @@
 ﻿namespace StockportWebapp.ViewModels;
 
-public class Newsroom
+public class Newsroom(List<News> news,
+                    List<Alert> alerts,
+                    bool emailAlerts,
+                    string emailAlertsTopicId,
+                    List<string> categories,
+                    List<DateTime> dates)
 {
-    public List<News> News { get; set; }
-    public List<Alert> Alerts { get; }
-    public bool EmailAlerts { get; }
-    public string EmailAlertsTopicId { get; }
-    public List<string> Categories { get; }
-    public List<DateTime> Dates { get; }
-
-    public Newsroom(List<News> news, List<Alert> alerts, bool emailAlerts, string emailAlertsTopicId, List<string> categories, List<DateTime> dates)
-    {
-        News = news;
-        Alerts = alerts;
-        EmailAlerts = emailAlerts;
-        EmailAlertsTopicId = emailAlertsTopicId;
-        Categories = categories;
-        Dates = dates;
-    }
+    public List<News> News { get; set; } = news;
+    public List<Alert> Alerts { get; } = alerts;
+    public bool EmailAlerts { get; } = emailAlerts;
+    public string EmailAlertsTopicId { get; } = emailAlertsTopicId;
+    public List<string> Categories { get; } = categories;
+    public List<DateTime> Dates { get; } = dates;
 }

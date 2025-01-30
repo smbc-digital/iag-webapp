@@ -1,0 +1,20 @@
+﻿@model List<SubItem>
+    
+<ul class="topic-secondary-item-list">
+    @foreach (SubItem item in Model)
+    {
+        <li class="topic-secondary-item-container">
+            <a class="topic-secondary-item-link" href="@item.NavigationLink">
+                <div>
+                    <div class="topic-secondary-item-title">
+                        <span>@item.Title</span>
+                    </div>
+                    
+                    <div class="topic-secondary-item-teaser">
+                        <span>@item.Teaser</span>
+                    </div>
+                </div>
+            </a>
+        </li>
+    }
+</ul>

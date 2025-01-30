@@ -1,13 +1,21 @@
 ﻿@model IEnumerable<Crumb>
+@{
+    string backgroundColour = (string)ViewData["backgroundColour"];
+    string landingBreadcrumb = (string)ViewData["landingBreadcrumb"];
+}
 
-<nav class="directories-breadcrumb-container" aria-label="Breadcrumb" data-cy="breadcrumb-navigation">
+<nav class="directories-breadcrumb-container @landingBreadcrumb @backgroundColour" aria-label="Breadcrumb" data-cy="breadcrumb-navigation">
     <div class="grid-container">
         <div class="grid-100">
             <ul class="breadcrumb">
                 <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                @{string title = ViewBag.Title is not null ? ViewBag.Title.ToString() : String.Empty;}
+                @{
+                    string title = ViewBag.Title is not null
+                        ? ViewBag.Title.ToString()
+                        : string.Empty;
+                }
 
-                @foreach (var crumb in Model)
+                @foreach (Crumb crumb in Model)
                 {
                     <li><a href="@crumb.NavigationLink">@crumb.Title</a></li>
                 }

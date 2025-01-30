@@ -14,7 +14,7 @@
 
         @if (Model.Alerts is not null)
     {
-        foreach (var alert in Model.Alerts)
+        foreach (Alert alert in Model.Alerts)
         {
             <div>
                 <partial name="GlobalAlert" model='alert' />
@@ -59,7 +59,7 @@
                     <div class="grid-100 grid-parent">
                         <ul class="group-listing-container grid-container matchbox-parent">
 
-                            @foreach (var item in Model.FeaturedGroups)
+                            @foreach (Group item in Model.FeaturedGroups)
                             {
                                 <partial name="Groups/GroupCard" model='item' />
                             }

@@ -1,29 +1,32 @@
 ﻿@inject ICookiesHelper CookiesHelper
 @model Alert
 @{
-    var alertCookies = CookiesHelper.GetCookies<Alert>("alerts");
-    var isDismissed = alertCookies != null && alertCookies.Contains(Model.Slug) && !Model.IsStatic;
+    List<string> alertCookies = CookiesHelper.GetCookies<Alert>("alerts");
+    bool isDismissed = alertCookies is not null && alertCookies.Contains(Model.Slug) && !Model.IsStatic;
 }
 
 @if (!isDismissed)
 {
     <div class="grid-100 tablet-grid-100 mobile-grid-100">
         @{
-            var severity = Model.Severity.ToLowerInvariant();
-            var icon = "fa-info-circle";
-            if (severity == "error")
+            string severity = Model.Severity.ToLowerInvariant();
+            string icon = "fa-info-circle";
+            if (severity.Equals("error"))
             {
                 icon = "fa-exclamation-circle";
             }
-            if (severity == "warning")
+
+            if (severity.Equals("warning"))
             {
                 icon = "fa-exclamation-triangle";
             }
         }
+
         <div class="alert alert-@Model.Severity.ToLowerInvariant()">
             <div class="alert-icon">
                 <span class="fa @icon fa-3x" aria-hidden="true"></span>
             </div>
+
             <div tabindex="0" class=" focusable alert-content">
                 <h2>@Model.Title</h2>
                 @if (!string.IsNullOrEmpty(Model.SubHeading))
@@ -32,6 +35,7 @@
                 }
                 @Html.Raw(Model.Body)
             </div>
+            
             @if (!Model.IsStatic)
             {
                 <div class="alert-close">
@@ -43,4 +47,5 @@
             }
         </div>
     </div>
+    <partial name="AlertInit" />
 }

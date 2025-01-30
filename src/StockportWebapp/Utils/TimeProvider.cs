@@ -6,14 +6,12 @@ public interface ITimeProvider
     DateTime Today();
 }
 
+[ExcludeFromCodeCoverage]
 public class TimeProvider : ITimeProvider
 {
-    public DateTime Now()
-    {
-        return DateTime.UtcNow;
-    }
-    public DateTime Today()
-    {
-        return DateTime.Today;
-    }
+    public DateTime Now() =>
+        DateTime.UtcNow;
+
+    public DateTime Today() =>
+        DateTime.Today;
 }

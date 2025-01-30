@@ -1,0 +1,48 @@
+﻿@model ContentBlock
+@{
+    bool overrideToDefault = false;
+    if (Model.ColourScheme.Equals(EColourScheme.None) ||
+        Model.ColourScheme.Equals(EColourScheme.Multi) ||
+        Model.ColourScheme.Equals(EColourScheme.Dark_Overlay) ||
+        Model.ColourScheme.Equals(EColourScheme.Light_Overlay))
+        overrideToDefault = true;
+
+    string backgroundColourClass = overrideToDefault
+                                ? "bg-default-light"
+                                : Model.BackgroundColourClass;
+
+    string borderColourClass = overrideToDefault
+                                ? string.Empty
+                                : Model.BorderColourClass;
+}
+
+@if (Model is not null && Model.SubItems.Any() is true)
+{
+    @if (Model.SubItems.Count.Equals(3))
+    {
+        <section class="content-block content-block--padding content-block--screen @backgroundColourClass" data-cy="trivia-banner">
+            <div class="trivia-banner__section">
+                <div class="grid-container">
+                    <div class="grid-100">
+                        @if (!string.IsNullOrEmpty(Model.Title))
+                        {
+                            <h2 class="content-block__title">@Model.Title</h2>
+                            <hr class="border-colour-default @borderColourClass"/>   
+                        }
+
+                        <ul class="navcard-wrapper navcard-wrapper--no-margin">
+                            @foreach (ContentBlock contentBlock in Model.SubItems)
+                            {
+                                <partial name="TriviaCard" model="@contentBlock" view-data="@(new ViewDataDictionary(ViewData) { {"BackgroundColourClass", "trivia-banner--background"}, {"BorderClass", string.Empty}, {"TextColourClass", $"text-default {Model.TextColourClass}"}, {"CardType", "trivia-banner"} })" />
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    }
+    else if (Model.SubItems.Count > 3)
+    {
+        <partial name="TriviaList" model="@Model" />
+    }
+}

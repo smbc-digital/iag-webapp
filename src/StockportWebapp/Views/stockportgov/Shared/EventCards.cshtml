@@ -1,0 +1,40 @@
+﻿@model ContentBlock
+@if (Model is not null & Model.Events?.Any() is true)
+{
+    string associatedTagCategoryLower = Model.AssociatedTagCategory.Split(",").ToList().First()?.ToLower();
+    string tagOrCategory = Model.Events.Any(eventArticle => eventArticle.EventCategories.Any(category => category.Slug.Equals(associatedTagCategoryLower)))
+        ? Url.Action("Index", "Events", new {category = associatedTagCategoryLower})
+        : Url.Action("Index", "Events", new {tag = associatedTagCategoryLower});
+
+    string borderColour = Model.IsDefaultColourScheme
+        ? string.Empty
+        : Model.BorderColourClass;
+
+    <section class="content-block content-block--margin" data-cy="event-cards">
+        <div class="grid-container">
+            <div class="grid-100">
+                <div class="event-cards-title">
+                    <div class="event-cards-title-container">
+                        <h2 class="content-block__title">@Model.Title</h2>
+                        <hr />
+                    </div>
+
+                    <a href="@tagOrCategory" class="event-cards-view-more hide-on-mobile hide-on-tablet" aria-label="View more @Model.AssociatedTagCategory.Split(",").ToList().First() events" data-cy="view-more-events-link">View more</a>
+                </div>
+
+                <div class="section__content">
+                    <ul class="navcard-wrapper navcard-wrapper--no-margin">
+                        @foreach (Event upcomingEvent in Model.Events)
+                        {
+                            <partial name="EventCard" model="@upcomingEvent" view-data="@(new ViewDataDictionary(ViewData) {{"BorderColourClass", borderColour}})" />
+                        }
+                    </ul>
+                    
+                    <a href="@tagOrCategory" class="btn btn--width-30 btn--chevron-forward btn--bold btn--chevron-bold hide-on-desktop event-cards-button @Model.OutlineButtonColour" aria-label="View more @Model.AssociatedTagCategory.Split(",").ToList().First() events" data-cy="view-more-events-button">
+                            <span class="btn_text">View more</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+}

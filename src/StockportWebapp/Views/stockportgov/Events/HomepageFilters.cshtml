@@ -1,0 +1,42 @@
+﻿@model EventCalendar
+
+<form id="homepageFilters" action="/events" method="get">
+    <input type="hidden" asp-for="@Model.FromSearch" value="true" />
+
+    <div class="grid-container grid-parent event-homepage--no-padding">
+        <div class="grid-100 event-homepage__filters">
+            <div class="grid-50 event-homepage__filters-container">
+                <div class="event-homepage__filters-dates">
+                    <label class="h-l" asp-for="@Model.DateFrom"></label>
+                    <div class="event-homepage__filters-options">
+                        <input type="date" class="event-homepage__filters-options-date" asp-for="@Model.DateFrom" placeholder="dd/mm/yyyy" />
+                    </div>
+                </div>
+
+                <div class="event-homepage__filters-dates">
+                    <label class="h-l" asp-for="@Model.DateTo"></label>
+                    <div class="event-homepage__filters-options">
+                        <input type="date" class="event-homepage__filters-options-date" asp-for="@Model.DateTo" placeholder="dd/mm/yyyy" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid-25">
+                <label class="h-l" asp-for="@Model.Category"></label>
+                <div class="event-homepage__filters-options">
+                    <select asp-for="@Model.Category" asp-items="@Model.EventCategoryOptions()" placeholder="All categories" name="category" id="category" aria-label="Select category" autocomplete="off"></select>
+                </div>
+            </div>
+
+            <div class="grid-25">
+                <button data-cy="book-event-button" class="btn btn--inverse btn--bold btn--width-25 btn--chevron-forward event-homepage__filters-button">
+                    <span class="btn_text">Find what's on</span>
+                </button>
+            </div>
+
+            <div class="grid-25 hide-on-desktop">
+                <button as-link="true" class="btn btn--white-outline btn--width-25 btn--chevron-forward btn--bold btn--chevron-bold event-homepage__filters-button" href="https://forms.stockport.gov.uk/add-an-event">Add your event</button>
+            </div>
+        </div>
+    </div>
+</form>

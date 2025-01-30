@@ -5,47 +5,28 @@ using StockportWebapp.Models;
 namespace StockportWebapp.Controllers;
 
 [ResponseCache(Location = ResponseCacheLocation.None, Duration = 0, NoStore = true)]
-public class PaymentController : Controller
+public class PaymentController(IProcessedContentRepository repository,
+                            ICivicaPayGateway civicaPayGateway,
+                            IOptions<CivicaPayConfiguration> configuration) : Controller
 {
-    private readonly IProcessedContentRepository _repository;
-    private readonly ICivicaPayGateway _civicaPayGateway;
-    private readonly CivicaPayConfiguration _civicaPayConfiguration;
-    private readonly IFeatureManager _featureManager;
-    private readonly ILogger<PaymentController> _logger;
-
-    private const string PAYMENTS_TOGGLE = "PaymentPages";
-    private const string CIVICA_PAY_SUCCESS = "00000";
-    private const string CIVICA_PAY_INVALID_DETAILS = "00001";
-    private const string CIVICA_PAY_DECLINED = "00022";
-    private const string CIVICA_PAY_DECLINED_OTHER = "00023";
-
-    public PaymentController(
-        IProcessedContentRepository repository,
-        ICivicaPayGateway civicaPayGateway,
-        IOptions<CivicaPayConfiguration> configuration,
-        IFeatureManager featureManager,
-        ILogger<PaymentController> logger)
-    {
-        _repository = repository;
-        _civicaPayGateway = civicaPayGateway;
-        _civicaPayConfiguration = configuration.Value;
-        _featureManager = featureManager;
-        _logger = logger;
-}
+    private readonly IProcessedContentRepository _repository = repository;
+    private readonly ICivicaPayGateway _civicaPayGateway = civicaPayGateway;
+    private readonly CivicaPayConfiguration _civicaPayConfiguration = configuration.Value;
 
     [Route("/payment/{slug}")]
     public async Task<IActionResult> Detail(string slug, string error, string serviceprocessed)
     {
-        var response = await _repository.Get<Payment>(slug);
+        HttpResponse response = await _repository.Get<Payment>(slug);
+
         if (!response.IsSuccessful())
             return response;
 
-        PaymentSubmission paymentSubmission = new(response.Content as ProcessedPayment);
+        ProcessedPayment payment = response.Content as ProcessedPayment;
 
-        if (!string.IsNullOrEmpty(error) 
-                && !string.IsNullOrEmpty(serviceprocessed) 
-                && serviceprocessed.ToUpper().Equals("FALSE"))
-                ModelState.AddModelError(nameof(PaymentSubmission.Reference), error);
+        PaymentSubmission paymentSubmission = new()
+        {
+            Payment = payment
+        };
 
         if (_featureManager.IsEnabledAsync(PAYMENTS_TOGGLE).Result)
             return View("Details2024", paymentSubmission);
@@ -57,33 +38,63 @@ public class PaymentController : Controller
     [Route("/payment/{slug}")]
     public async Task<IActionResult> Detail(string slug, PaymentSubmission paymentSubmission)
     {
-        TryValidateModel(paymentSubmission);
+        HttpResponse response = await _repository.Get<Payment>(slug);
 
         var response = await _repository.Get<Payment>(slug);
         if (!response.IsSuccessful())
             return response;
 
-        paymentSubmission.Payment = response.Content as ProcessedPayment;
+        ProcessedPayment payment = response.Content as ProcessedPayment;
+
+        paymentSubmission.Payment = payment;
+
+        TryValidateModel(paymentSubmission);
 
         if (!ModelState.IsValid)
-        {
-            if (_featureManager.IsEnabledAsync(PAYMENTS_TOGGLE).Result)
-                return View("Details2024", paymentSubmission);
-
             return View(paymentSubmission);
-        }
 
-        var civicaPayRequest = GetCreateImmediateBasketRequest(slug, paymentSubmission, $"WEB {Guid.NewGuid()}");
-        var civicaPayResponse = await _civicaPayGateway.CreateImmediateBasketAsync(civicaPayRequest);
+        string transactionReference = Guid.NewGuid().ToString();
 
-        if (civicaPayResponse.IsSuccessStatusCode && civicaPayResponse.ResponseContent.ResponseCode == CIVICA_PAY_SUCCESS)
-            return Redirect(_civicaPayGateway.GetPaymentUrl(civicaPayResponse.ResponseContent.BasketReference, civicaPayResponse.ResponseContent.BasketToken, civicaPayRequest.CallingAppTranReference));
-
-        if (civicaPayResponse.StatusCode == HttpStatusCode.BadRequest 
-            && civicaPayResponse.ResponseContent.ResponseCode == CIVICA_PAY_INVALID_DETAILS)
+        CreateImmediateBasketRequest immediateBasketResponse = new()
         {
-                ModelState.AddModelError("Reference", $"Check {paymentSubmission.Payment.ReferenceLabel.ToLower()} and try again.");
-                return View(paymentSubmission);   
+            CallingAppIdentifier = _civicaPayConfiguration.CallingAppIdentifier,
+            CustomerID = _civicaPayConfiguration.CustomerID,
+            ApiPassword = _civicaPayConfiguration.ApiPassword,
+            ReturnURL = !string.IsNullOrEmpty(payment.ReturnUrl)
+                ? payment.ReturnUrl
+                : $"{Request.Scheme}://{Request.Host}/payment/{slug}/result",
+            NotifyURL = string.Empty,
+            CallingAppTranReference = transactionReference,
+            PaymentItems = new List<PaymentItem>
+            {
+                new() {
+                    PaymentDetails = new PaymentDetail
+                    {
+                        CatalogueID = payment.CatalogueId,
+                        AccountReference = !string.IsNullOrEmpty(payment.AccountReference)
+                            ? payment.AccountReference
+                            : paymentSubmission.Reference,
+                        PaymentAmount = paymentSubmission.Amount.ToString(),
+                        PaymentNarrative = $"{payment.PaymentDescription} - {paymentSubmission.Reference}",
+                        CallingAppTranReference = transactionReference,
+                        Quantity = "1"
+                    },
+                    AddressDetails = new AddressDetail()
+                }
+            }
+        };
+
+        StockportGovUK.NetStandard.Gateways.Response.HttpResponse<StockportGovUK.NetStandard.Gateways.Models.Civica.Pay.Response.CreateImmediateBasketResponse> civicaResponse = await _civicaPayGateway.CreateImmediateBasketAsync(immediateBasketResponse);
+        if (civicaResponse.StatusCode.Equals(HttpStatusCode.BadRequest))
+        {
+            if (civicaResponse.ResponseContent.ResponseCode.Equals("00001"))
+            {
+                ModelState.AddModelError("Reference", $"Check {payment.ReferenceLabel.ToLower()} and try again.");
+
+                return View(paymentSubmission);
+            }
+
+            return View("Error", response);
         }
 
         return View("Error", response);
@@ -93,49 +104,34 @@ public class PaymentController : Controller
     [Route("/service-pay-payment/{slug}/result")]
     public async Task<IActionResult> Success([FromRoute] string slug, [FromQuery] string callingAppTxnRef, [FromQuery] string responseCode)
     {
-        var isServicePay = Request.Path.Value.Contains("service-pay-payment");
-        var response = isServicePay 
-                        ? await _repository.Get<ServicePayPayment>(slug) 
-                        : await _repository.Get<Payment>(slug);
+        bool pathIsServicePay = Request.Path.Value.Contains("service-pay-payment");
+
+        HttpResponse response = pathIsServicePay
+            ? await _repository.Get<ServicePayPayment>(slug)
+            : await _repository.Get<Payment>(slug);
 
         if (!response.IsSuccessful())
             return response;
 
-        dynamic payment = isServicePay 
-                            ? response.Content as ProcessedServicePayPayment
-                            : response.Content as ProcessedPayment;
+        dynamic payment;
+        if (pathIsServicePay)
+            payment = response.Content as ProcessedServicePayPayment;
+        else
+            payment = response.Content as ProcessedPayment;
 
-        var paymentResult = new PaymentResult(slug, payment.Title, payment.Breadcrumbs, callingAppTxnRef);
+        if (!responseCode.Equals("00000"))
+            return responseCode.Equals("00022") || responseCode.Equals("00023")
+                ? pathIsServicePay ? View("../ServicePayPayment/Declined", slug) : View("Declined", slug)
+                : pathIsServicePay ? View("../ServicePayPayment/Failure", slug) : View("Failure", slug);
 
-        if (responseCode != "00000") { 
-            if (_featureManager.IsEnabledAsync(PAYMENTS_TOGGLE).Result)
-            {            
-                paymentResult.PaymentResultType = responseCode == CIVICA_PAY_DECLINED 
-                                            || responseCode == CIVICA_PAY_DECLINED_OTHER
-                                                ? PaymentResultType.Declined
-                                                : PaymentResultType.Failure;
-                return View("Result", paymentResult);
-            }
-                
-            if (isServicePay) {
-                return responseCode == CIVICA_PAY_DECLINED || responseCode == CIVICA_PAY_DECLINED_OTHER
-                        ? View("../ServicePayPayment/Declined", slug)
-                        : View("../ServicePayPayment/Failure", slug);
-            }
+        PaymentSuccess model = new()
+        {
+            Title = payment.Title,
+            ReceiptNumber = callingAppTxnRef,
+            MetaDescription = payment.MetaDescription
+        };
 
-            return responseCode == CIVICA_PAY_DECLINED || responseCode == CIVICA_PAY_DECLINED_OTHER
-                    ? View("Declined", slug)
-                    : View("Failure", slug);
-        }
-            
-        return _featureManager.IsEnabledAsync(PAYMENTS_TOGGLE).Result 
-            ? View("Result", paymentResult)
-            : View("Success", new PaymentSuccess
-                {
-                    Title = payment.Title,
-                    ReceiptNumber = callingAppTxnRef,
-                    MetaDescription = payment.MetaDescription
-                });
+        return View(model);
     }
 
     private CreateImmediateBasketRequest GetCreateImmediateBasketRequest(string slug, PaymentSubmission paymentSubmission, string transactionReference) =>

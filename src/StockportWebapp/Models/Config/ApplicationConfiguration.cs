@@ -18,6 +18,7 @@ public interface IApplicationConfiguration
     AppSetting GetGroupArchiveEmail(string businessId);
     AppSetting GetReCaptchaKey();
     int GetFooterCache(string businessId);
+    int GetHeaderCache(string businessId);
     string GetGroupManageContactUrl();
     string GetMyAccountUrl();
     string GetStaticAssetsRootUrl();
@@ -30,166 +31,140 @@ public interface IApplicationConfiguration
     List<ArchiveEmailPeriod> GetArchiveEmailPeriods();
     StylesheetsConfiguration GetStylesheetConfig();
     AnalyticsConfigurationModel GetAnalyticsConfig();
+    AnalyticsConfigurationModel GetAnalyticsConfig(string businessId);
     string GetStaleGroupsSecret();
 }
 
-public class ApplicationConfiguration : IApplicationConfiguration
+public class ApplicationConfiguration(IConfiguration appsettings) : IApplicationConfiguration
 {
-    private readonly IConfiguration _appsettings;
+    private readonly IConfiguration _appsettings = appsettings;
 
-    public ApplicationConfiguration(IConfiguration appsettings)
-    {
-        _appsettings = appsettings;
-    }
+    public AppSetting GetEmailAlertsUrl(string businessid) =>
+        AppSetting.GetAppSetting(_appsettings[$"{businessid}:EmailAlerts"]);
 
-    public AppSetting GetEmailAlertsUrl(string businessid)
-    {
-        return AppSetting.GetAppSetting(_appsettings[$"{businessid}:EmailAlerts"]);
-    }
+    public AppSetting GetEmailAlertsNewSubscriberUrl(string businessid) =>
+        AppSetting.GetAppSetting(_appsettings[$"{businessid}:EmailAlertsNewSubscriber"]);
 
-    public AppSetting GetEmailAlertsNewSubscriberUrl(string businessid)
-    {
-        return AppSetting.GetAppSetting(_appsettings[$"{businessid}:EmailAlertsNewSubscriber"]);
-    }
+    public string GetStaticAssetsRootUrl() =>
+        _appsettings["StaticAssetsRootUrl"];
 
-    public string GetStaticAssetsRootUrl()
-    {
-        return _appsettings["StaticAssetsRootUrl"];
-    }
+    public AppSetting GetPostcodeSearchUrl(string businessId) =>
+        AppSetting.GetAppSetting(_appsettings[$"{businessId}:Postcode"]);
 
-    public AppSetting GetPostcodeSearchUrl(string businessId)
-    {
-        return AppSetting.GetAppSetting(_appsettings[$"{businessId}:Postcode"]);
-    }
+    public AppSetting GetGoogleAnalyticsCode(string businessId) =>
+        AppSetting.GetAppSetting(_appsettings[$"{businessId}:GoogleAnalytics"]);
 
-    public AppSetting GetGoogleAnalyticsCode(string businessId)
-    {
-        return AppSetting.GetAppSetting(_appsettings[$"{businessId}:GoogleAnalytics"]);
-    }
+    public Uri GetGoogleAnalyticsUri() =>
+        new(_appsettings["stockportgov:GoogleAnalyticsApiUrl"]);
 
-    public Uri GetGoogleAnalyticsUri()
-    {
-        return new Uri(_appsettings["stockportgov:GoogleAnalyticsApiUrl"]);
-    }
+    public AppSetting GetRssEmail(string businessId) =>
+        AppSetting.GetAppSetting(_appsettings[$"{businessId}:RssEmail"]);
 
-    public AppSetting GetRssEmail(string businessId)
-    {
-        return AppSetting.GetAppSetting(_appsettings[$"{businessId}:RssEmail"]);
-    }
+    public Uri GetContentApiUri() =>
+        new(_appsettings["ContentApiUrl"]);
 
-    public Uri GetContentApiUri()
-    {
-        return new Uri(_appsettings["ContentApiUrl"]);
-    }
+    public Uri GetContentApiUrlRoot() =>
+        new(_appsettings["ContentApiUrlRoot"]);
 
-    public Uri GetContentApiUrlRoot()
-    {
-        return new Uri(_appsettings["ContentApiUrlRoot"]);
-    }
+    public Uri GetStockportApiUri() =>
+        new(_appsettings["StockportApiUrl"]);
 
-    public Uri GetStockportApiUri()
-    {
-        return new Uri(_appsettings["StockportApiUrl"]);
-    }
+    public AppSetting GetEmailHost(string businessId) =>
+        AppSetting.GetAppSetting(_appsettings[$"{businessId}:Email:Host"]);
 
-    public AppSetting GetEmailHost(string businessId)
-    {
-        return AppSetting.GetAppSetting(_appsettings[$"{businessId}:Email:Host"]);
-    }
+    public AppSetting GetEmailRegion(string businessId) =>
+        AppSetting.GetAppSetting(_appsettings[$"{businessId}:Email:Region"]);
 
-    public AppSetting GetEmailRegion(string businessId)
-    {
-        return AppSetting.GetAppSetting(_appsettings[$"{businessId}:Email:Region"]);
-    }
+    public AppSetting GetEmailEmailFrom(string businessId) =>
+        AppSetting.GetAppSetting(_appsettings[$"{businessId}:Email:EmailFrom"]);
 
-    public AppSetting GetEmailEmailFrom(string businessId)
-    {
-        return AppSetting.GetAppSetting(_appsettings[$"{businessId}:Email:EmailFrom"]);
-    }
+    public AppSetting GetGroupSubmissionEmail(string businessId) =>
+        AppSetting.GetAppSetting(_appsettings[$"{businessId}:GroupSubmissionEmail"]);
 
-    public AppSetting GetGroupSubmissionEmail(string businessId)
-    {
-        return AppSetting.GetAppSetting(_appsettings[$"{businessId}:GroupSubmissionEmail"]);
-    }
+    public AppSetting GetGroupArchiveEmail(string businessId) =>
+        AppSetting.GetAppSetting(_appsettings[$"{businessId}:GroupArchiveEmail"]);
 
-    public AppSetting GetGroupArchiveEmail(string businessId)
-    {
-        return AppSetting.GetAppSetting(_appsettings[$"{businessId}:GroupArchiveEmail"]);
-    }
-
-    public AppSetting GetReCaptchaKey()
-    {
-        return AppSetting.GetAppSetting(_appsettings[$"ReCaptcha:SiteKey"]);
-    }
+    public AppSetting GetReCaptchaKey() =>
+        AppSetting.GetAppSetting(_appsettings[$"ReCaptcha:SiteKey"]);
 
     public List<ArchiveEmailPeriod> GetArchiveEmailPeriods()
     {
-        var emailPeriods = new List<ArchiveEmailPeriod>();
+        List<ArchiveEmailPeriod> emailPeriods = new();
         _appsettings.GetSection("stockportgov:GroupArchiveEmailPeriods").Bind(emailPeriods);
+
         return emailPeriods;
     }
 
     public StylesheetsConfiguration GetStylesheetConfig()
     {
-        var stylesheetConfig = new StylesheetsConfiguration();
+        StylesheetsConfiguration stylesheetConfig = new();
         _appsettings.GetSection("stockportgov:StylesheetsConfiguration").Bind(stylesheetConfig);
+
         return stylesheetConfig;
     }
 
     public AnalyticsConfigurationModel GetAnalyticsConfig()
     {
-        var config = new AnalyticsConfigurationModel();
+        AnalyticsConfigurationModel config = new();
         _appsettings.GetSection("stockportgov:Analytics").Bind(config);
+
+        return config;
+    }
+
+    public AnalyticsConfigurationModel GetAnalyticsConfig(string businessId)
+    {
+        AnalyticsConfigurationModel config = new();
+        _appsettings.GetSection($"{businessId}:Analytics").Bind(config);
         return config;
     }
 
     public int GetFooterCache(string businessId)
     {
         int.TryParse(_appsettings[$"{businessId}:FooterCache"], out int output);
+
         return output;
     }
 
-    public string GetGroupManageContactUrl()
+    public int GetHeaderCache(string businessId)
     {
-        return _appsettings["GroupManageContactUrl"];
+        int.TryParse(_appsettings[$"{businessId}:HeaderCache"], out int output);
+
+        return output;
     }
 
-    public string GetMyAccountUrl()
-    {
-        return _appsettings["myAccountUrl"];
-    }
+    public string GetGroupManageContactUrl() =>
+        _appsettings["GroupManageContactUrl"];
 
-    public string GetStaleGroupsSecret()
-    {
-        return _appsettings["staleGroupsSecret"];
-    }
+    public string GetMyAccountUrl() =>
+        _appsettings["myAccountUrl"];
+
+    public string GetStaleGroupsSecret() =>
+        _appsettings["staleGroupsSecret"];
 
     public int GetNewsDefaultPageSize(string businessId)
     {
         int.TryParse(_appsettings[$"{businessId}:NewsDefaultPageSize"], out int result);
+
         return result;
     }
     public int GetEventsDefaultPageSize(string businessId)
     {
         int.TryParse(_appsettings[$"{businessId}:EventsDefaultPageSize"], out int result);
+
         return result;
     }
     public int GetGroupsDefaultPageSize(string businessId)
     {
         int.TryParse(_appsettings[$"{businessId}:GroupsDefaultPageSize"], out int result);
+
         return result;
     }
-    public string GetContentApiAuthenticationKey()
-    {
-        return _appsettings["ContentApiAuthenticationKey"];
-    }
-    public string GetWebAppClientId()
-    {
-        return _appsettings["WebAppClientId"];
-    }
+    public string GetContentApiAuthenticationKey() =>
+        _appsettings["ContentApiAuthenticationKey"];
+    
+    public string GetWebAppClientId() =>
+        _appsettings["WebAppClientId"];
 
-    public string GetDigitalStockportLink()
-    {
-        return _appsettings["stockportgov:DigitalStockportLink"];
-    }
+    public string GetDigitalStockportLink() =>
+        _appsettings["stockportgov:DigitalStockportLink"];
 }

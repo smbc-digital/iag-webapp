@@ -1,0 +1,143 @@
+.site-header {
+    color: black;
+    background-color: $skrm-yellow;
+    min-height: 100px;
+
+    &_logo {
+        &--image {
+            max-height: 50px;
+            width: auto;
+            margin-block: 1.5rem;
+            display: inline-block;
+            max-width: 250px;
+
+            @media #{$tablet} {
+                max-width: 100%;
+                min-height: 35px;
+                object-fit: contain;
+            }
+        }
+    }
+
+    &_menu {
+        margin: 0px;
+        text-align: right;
+
+        label {
+            display: none;
+        }
+
+        #menu {
+            opacity: 0;
+            position: absolute;
+            right: 0;
+
+            @media #{$desktop} {
+                display: none;
+            }
+        }
+
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: flex-end;
+            flex-wrap: wrap;
+
+            @media #{$tablet} {
+                display: block;
+                opacity: 0;
+                max-height: 0;
+            }
+
+            li {
+                margin: 0px;
+
+                &.primary {
+                    background-color: $skrm-light-green;
+                }
+
+                &.secondary {
+                    background-color: $skrm-blue;
+                }
+
+                &.tertiary {
+                    background-color: $skrm-yellow;
+                }
+
+                a {
+                    display: inline-block;
+                    text-decoration: none;
+                    color: black;
+                    padding: 0 1.25rem;
+                    text-transform: uppercase;
+                    letter-spacing: 0;
+                    font-size: 3.5rem;
+
+                    @media #{$desktop} {
+                        min-height: 100px;
+                        line-height: 100px;
+                    }
+
+                    @media #{$tablet-only, $desktop} {
+                        font-weight: normal;
+                    }
+
+                    &:hover, &:focus {
+                        outline: none !important;
+                        background-color: $skrm-orange;
+                    }
+                }
+
+                @media #{$tablet} {
+                    text-align: center;
+                    margin-inline: 0;
+
+                    a {
+                        display: block;
+                    }
+                }
+            }
+
+            @media #{$tablet} {
+                overflow: unset;
+                padding-block: 2em;
+                border-top: 2px solid black;
+            }
+        }
+
+        @media #{$tablet} {
+            label {
+                display: block;
+                padding: 1.5rem 0.75rem 1.5rem 0.75rem;
+                text-transform: uppercase;
+                cursor: pointer;
+            }
+
+            #menu:not(:checked) + ul {
+                visibility: hidden;
+                opacity: 0;
+                height: 0px;
+                overflow: hidden;
+                transition: opacity 0.2s ease, max-height 0.2s ease;
+                padding-block: 0;
+            }
+
+            #menu:checked + ul {
+                visibility: visible;
+                opacity: 1;
+                height: auto;
+                min-height: 100px;
+                max-height: 1000px;
+                overflow: visible;
+                transition: opacity 0.4s ease, max-height 0.4s ease;
+            }
+        }
+
+
+        &-item.active a {
+            background-color: $skrm-orange;
+        }
+    }
+}

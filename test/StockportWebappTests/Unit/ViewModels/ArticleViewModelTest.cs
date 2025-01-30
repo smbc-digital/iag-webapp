@@ -7,10 +7,40 @@ public class ArticleViewModelTest
     private readonly ProcessedSection _sectionThree;
     private readonly ProcessedArticle _article;
     private readonly ArticleViewModel _viewModel;
-    private readonly List<SubItem> subItems = new(){ new("slug", "title", "teaser", "icon", "type", "image", null, "colour") };
-    private readonly Topic parentTopic = new("Name", "slug", "Summary", "Teaser", "metaDescription", "Icon", "Image", "Image", null, new List<SubItem>(), new List<SubItem>(),
-            new List<Crumb>(), null, true, "test-id", null, string.Empty, true,
-            new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty), string.Empty, null, string.Empty);
+    private readonly List<SubItem> subItems = new()
+    {
+        new("slug",
+            "title",
+            "teaser",
+            "teaser image",
+            "icon",
+            "type",
+            "image",
+            null,
+            EColourScheme.Teal)
+    };
+    
+    private readonly Topic parentTopic = new("Name",
+                                            "slug",
+                                            "Summary",
+                                            "Teaser",
+                                            "metaDescription",
+                                            "Icon",
+                                            "Image",
+                                            "Image",
+                                            null,
+                                            new List<SubItem>(),
+                                            new List<SubItem>(),
+                                            new List<Crumb>(),
+                                            null,
+                                            true,
+                                            "test-id",
+                                            null,
+                                            true,
+                                            new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty, new DateTime()),
+                                            string.Empty,
+                                            null,
+                                            string.Empty);
     private readonly Topic parentTopicWithSubItems;
     
     public ArticleViewModelTest()
@@ -19,12 +49,29 @@ public class ArticleViewModelTest
         _sectionTwo = BuildSection("test-slug-section-two");
         _sectionThree = BuildSection("test-slug-section-three");
         _article = BuildArticle(string.Empty, new List<ProcessedSection> { _sectionOne, _sectionTwo, _sectionThree }, parentTopic);
-        parentTopicWithSubItems = new("Name", "slug", "Summary", "Teaser", "metaDescription", "Icon", "Image", "Image", null, subItems, subItems,
-            new List<Crumb>(), null, true, "test-id", null, string.Empty, true,
-            new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty), string.Empty, null, string.Empty);
+        parentTopicWithSubItems = new("Name",
+                                    "slug",
+                                    "Summary",
+                                    "Teaser",
+                                    "metaDescription",
+                                    "Icon",
+                                    "Image",
+                                    "Image",
+                                    null,
+                                    subItems,
+                                    subItems,
+                                    new List<Crumb>(),
+                                    null,
+                                    true,
+                                    "test-id",
+                                    null,
+                                    true,
+                                    new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty, new DateTime()),
+                                    string.Empty,
+                                    null,
+                                    string.Empty);
 
-        _viewModel = new ArticleViewModel(_article, _sectionOne.Slug);
-
+        _viewModel = new(_article, _sectionOne.Slug);
     }
 
     [Fact]
@@ -151,7 +198,7 @@ public class ArticleViewModelTest
     {
         // Arrange
         ProcessedArticle article = BuildArticle("Article title", new List<ProcessedSection> { _sectionOne }, parentTopicWithSubItems);
-        var viewModel = new ArticleViewModel(article);
+        ArticleViewModel viewModel = new(article);
 
         // Act & Assert
         Assert.True(viewModel.HasParentTopicWithSubItems());
@@ -169,7 +216,7 @@ public class ArticleViewModelTest
     {
         // Arrange
         ProcessedArticle article = BuildArticle("Article title", new List<ProcessedSection> { _sectionOne }, parentTopicWithSubItems, subItems);
-        var viewModel = new ArticleViewModel(article);
+        ArticleViewModel viewModel = new(article);
 
         // Act & Assert
         Assert.True(viewModel.HasRelatedContentWithSubItems());
@@ -187,7 +234,7 @@ public class ArticleViewModelTest
     {
         // Arrange
         ProcessedArticle article = BuildArticle("Article title", new List<ProcessedSection> { _sectionOne }, parentTopicWithSubItems, subItems);
-        var viewModel = new ArticleViewModel(article);
+        ArticleViewModel viewModel = new(article);
 
         // Act & Assert
         Assert.True(viewModel.HasSecondarySubItems());
@@ -198,7 +245,7 @@ public class ArticleViewModelTest
     {
         // Arrange
         ProcessedArticle article = BuildArticle("Article title", new List<ProcessedSection> { null }, parentTopicWithSubItems, subItems);
-        var viewModel = new ArticleViewModel(article);
+        ArticleViewModel viewModel = new(article);
 
         // Act & Assert
         Assert.False(viewModel.ArticleWithSection);
@@ -209,7 +256,7 @@ public class ArticleViewModelTest
     {
         // Arrange
         ProcessedArticle article = BuildArticle("Article title", null, parentTopicWithSubItems, subItems);
-        var viewModel = new ArticleViewModel(article);
+        ArticleViewModel viewModel = new(article);
 
         // Act & Assert
         Assert.False(viewModel.ArticleWithSection);
@@ -220,28 +267,28 @@ public class ArticleViewModelTest
     {
         // Arrange
         ProcessedArticle article = BuildArticle("Article title", new List<ProcessedSection> { _sectionOne, _sectionTwo, _sectionThree }, parentTopicWithSubItems, subItems);
-        var viewModel = new ArticleViewModel(article);
+        ArticleViewModel viewModel = new(article);
 
         // Act & Assert
         Assert.True(viewModel.ArticleWithSection);
     }
 
     [Fact]
-    public void ArticleWithImage_ReturnsTrue_If_ImageIsNull()
+    public void ArticleHasImage_ReturnsFalse_If_ImageIsNull()
     {
         // Act & Assert
-        Assert.True(_viewModel.ArticleWithImage);
+        Assert.False(_viewModel.ArticleHasImage);
     }
 
     [Fact]
-    public void ArticleWithImage_ReturnsFalse_If_ImageHasValue()
+    public void ArticleHasImage_ReturnsTrue_If_ImageHasValue()
     {
         // Arrange
         ProcessedArticle article = BuildArticle("Article title", new List<ProcessedSection> { _sectionOne, _sectionTwo, _sectionThree }, parentTopic, null, "image");
         ArticleViewModel viewModel = new(article, _sectionOne.Slug);
 
         // Act & Assert
-        Assert.False(viewModel.ArticleWithImage);
+        Assert.True(viewModel.ArticleHasImage);
     }
 
     [Fact]
@@ -290,18 +337,59 @@ public class ArticleViewModelTest
         // Arrange
         List<SubItem> featuredItems = new() 
         { 
-            new(It.IsAny<string>(), "first-featureditem", It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), new List<SubItem>(), "teal")
+            new(It.IsAny<string>(), "first-featureditem", It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(),new List<SubItem>(), EColourScheme.Teal)
         };
-        SubItem firstSubitem = new(It.IsAny<string>(), "first-subitem", It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), new List<SubItem>(), "teal");
+        SubItem firstSubitem = new(It.IsAny<string>(), "first-subitem", It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), new List<SubItem>(), EColourScheme.Teal);
         List<SubItem> subItems = new() { firstSubitem };
-        SubItem firstSecondaryitem = new(It.IsAny<string>(), "first-secondaryitem", It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), new List<SubItem>(), "teal");
+        SubItem firstSecondaryitem = new(It.IsAny<string>(), "first-secondaryitem", It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(),It.IsAny<string>(), It.IsAny<string>(), new List<SubItem>(), EColourScheme.Teal);
         List<SubItem> secondaryItems = new() { firstSecondaryitem };
 
-        Topic topic = new(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), featuredItems, subItems, secondaryItems, new List<Crumb>(), new List<Alert>(), false, It.IsAny<string>(), null, string.Empty, true,
-            new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty), string.Empty, null, string.Empty);
+        Topic topic = new(It.IsAny<string>(),
+                        It.IsAny<string>(),
+                        It.IsAny<string>(),
+                        It.IsAny<string>(),
+                        It.IsAny<string>(),
+                        It.IsAny<string>(),
+                        It.IsAny<string>(),
+                        It.IsAny<string>(),
+                        featuredItems,
+                        subItems,
+                        secondaryItems,
+                        new List<Crumb>(),
+                        new List<Alert>(),
+                        false,
+                        It.IsAny<string>(),
+                        null,
+                        true,
+                        new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty, new DateTime()),
+                        string.Empty,
+                        null,
+                        string.Empty);
       
-        ProcessedArticle article = new(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), new List<ProcessedSection>(),
-            It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), new List<Crumb>(), new List<Alert>(), topic, new List<Alert>(), new DateTime(), new bool(), new List<GroupBranding>(), It.IsAny<string>(), new List<SubItem>());
+        ProcessedArticle article = new(It.IsAny<string>(),
+            It.IsAny<string>(),
+            It.IsAny<string>(),
+            It.IsAny<string>(),
+            It.IsAny<string>(),
+            new List<ProcessedSection>(),
+            It.IsAny<string>(),
+            It.IsAny<string>(),
+            It.IsAny<string>(),
+            It.IsAny<string>(),
+            new List<Crumb>(),
+            new List<Alert>(),
+            topic,
+            new List<Alert>(),
+            new DateTime(),
+            new bool(),
+            new List<GroupBranding>(),
+            It.IsAny<string>(),
+            new List<SubItem>(),
+            It.IsAny<string>(),
+            It.IsAny<string>(),
+            new DateTime(),
+            new List<InlineQuote>(),
+            new List<Event>());
 
         ArticleViewModel articleViewModel = new(article);
 
@@ -319,26 +407,71 @@ public class ArticleViewModelTest
     public void SidebarSubItems_ShouldReturnSixTopicsSubItemsForSideBar()
     {
         // Arrange
-        SubItem firstSubItem = new(It.IsAny<string>(), "first-subitem", It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), new List<SubItem>(), "teal");
-        SubItem secondSubItem = new(It.IsAny<string>(), "second-subitem", It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), new List<SubItem>(), "teal");
-        SubItem thirdSubItem = new(It.IsAny<string>(), "third-subitem", It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), new List<SubItem>(), "teal");
-        SubItem fourthSubItem = new(It.IsAny<string>(), "fourth-subitem", It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), new List<SubItem>(), "teal");
-        SubItem fifthSubItem = new(It.IsAny<string>(), "fifth-subitem", It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), new List<SubItem>(), "teal");
-        SubItem sixthSubItem = new(It.IsAny<string>(), "sixth-subitem", It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), new List<SubItem>(), "teal");
-        SubItem seventhSubItem = new(It.IsAny<string>(), "seventh-subitem", It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), new List<SubItem>(), "teal");
-        SubItem eightSubItem = new(It.IsAny<string>(), "eigth-subitem", It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), new List<SubItem>(), "teal");
-        SubItem ninthSubItem = new(It.IsAny<string>(), "ninth-subitem", It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), new List<SubItem>(), "teal");
-        SubItem tenthSubItem = new(It.IsAny<string>(), "tenth-subitem", It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), new List<SubItem>(), "teal");
+        SubItem firstSubItem = new(It.IsAny<string>(), "first-subitem", It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), new List<SubItem>(), EColourScheme.Teal);
+        SubItem secondSubItem = new(It.IsAny<string>(), "second-subitem", It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), new List<SubItem>(), EColourScheme.Teal);
+        SubItem thirdSubItem = new(It.IsAny<string>(), "third-subitem", It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), new List<SubItem>(), EColourScheme.Teal);
+        SubItem fourthSubItem = new(It.IsAny<string>(), "fourth-subitem", It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), new List<SubItem>(), EColourScheme.Teal);
+        SubItem fifthSubItem = new(It.IsAny<string>(), "fifth-subitem", It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), new List<SubItem>(), EColourScheme.Teal);
+        SubItem sixthSubItem = new(It.IsAny<string>(), "sixth-subitem", It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), new List<SubItem>(), EColourScheme.Teal);
+        SubItem seventhSubItem = new(It.IsAny<string>(), "seventh-subitem", It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), new List<SubItem>(), EColourScheme.Teal);
+        SubItem eightSubItem = new(It.IsAny<string>(), "eigth-subitem", It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), new List<SubItem>(), EColourScheme.Teal);
+        SubItem ninthSubItem = new(It.IsAny<string>(), "ninth-subitem", It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), new List<SubItem>(), EColourScheme.Teal);
+        SubItem tenthSubItem = new(It.IsAny<string>(), "tenth-subitem", It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), new List<SubItem>(), EColourScheme.Teal);
 
         List<SubItem> subItems = new() { firstSubItem, secondSubItem, thirdSubItem, fourthSubItem };
         List<SubItem> secondaryItems = new() { fifthSubItem, sixthSubItem, seventhSubItem, eightSubItem };
         List<SubItem> featuredItems = new() { ninthSubItem, tenthSubItem };
 
-        Topic topic = new(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(),
-            featuredItems, subItems, secondaryItems, new List<Crumb>(), new List<Alert>(), false, It.IsAny<string>(), null, string.Empty, true,
-            new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty), string.Empty, null, string.Empty);
-        ProcessedArticle article = new(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), new List<ProcessedSection>(),
-            It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), new List<Crumb>(), new List<Alert>(), topic, new List<Alert>(), new DateTime(), new bool(), new List<GroupBranding>(), It.IsAny<string>(), new List<SubItem>());
+        Topic topic = new(It.IsAny<string>(),
+            It.IsAny<string>(),
+            It.IsAny<string>(),
+            It.IsAny<string>(),
+            It.IsAny<string>(),
+            It.IsAny<string>(),
+            It.IsAny<string>(),
+            It.IsAny<string>(),
+            featuredItems,
+            subItems,
+            secondaryItems,
+            new List<Crumb>(),
+            new List<Alert>(),
+            false,
+            It.IsAny<string>(),
+            null,
+            true,
+            new CarouselContent(string.Empty,
+                string.Empty,
+                string.Empty,
+                string.Empty,
+                new DateTime()),
+            string.Empty,
+            null,
+            string.Empty);
+
+        ProcessedArticle article = new(It.IsAny<string>(),
+            It.IsAny<string>(),
+            It.IsAny<string>(),
+            It.IsAny<string>(),
+            It.IsAny<string>(),
+            new List<ProcessedSection>(),
+            It.IsAny<string>(),
+            It.IsAny<string>(),
+            It.IsAny<string>(),
+            It.IsAny<string>(),
+            new List<Crumb>(),
+            new List<Alert>(),
+            topic,
+            new List<Alert>(),
+            new DateTime(),
+            new bool(),
+            new List<GroupBranding>(),
+            It.IsAny<string>(),
+            new List<SubItem>(),
+            It.IsAny<string>(),
+            It.IsAny<string>(),
+            new DateTime(),
+            new List<InlineQuote>(),
+            new List<Event>());
 
         ArticleViewModel articleViewModel = new(article);
 
@@ -365,8 +498,33 @@ public class ArticleViewModelTest
     {
         // Arrange
         ProcessedSection section = new(string.Empty, "test-slug", sectionMeta, string.Empty, null, null, null, null, string.Empty, new DateTime());
-        ProcessedArticle article = new(string.Empty, string.Empty, string.Empty, string.Empty, articleMeta, 
-            new List<ProcessedSection> { section }, string.Empty, It.IsAny<string>(), string.Empty, null, null, null, null, null, new DateTime(), new bool(), new List<GroupBranding>(), string.Empty, new List<SubItem>()
+        ProcessedArticle article = new(string.Empty,
+            string.Empty,
+            string.Empty,
+            string.Empty,
+            articleMeta,
+            new List<ProcessedSection>
+            {
+                section
+            },
+            string.Empty,
+            It.IsAny<string>(),
+            string.Empty,
+            null,
+            null,
+            null,
+            null,
+            null,
+            new DateTime(),
+            new bool(),
+            new List<GroupBranding>(),
+            string.Empty,
+            new List<SubItem>(),
+            string.Empty,
+            string.Empty,
+            new DateTime(),
+            new List<InlineQuote>(),
+            new List<Event>()
         );
 
         // Act
@@ -377,9 +535,40 @@ public class ArticleViewModelTest
     }
 
     private static ProcessedArticle BuildArticle(string slug, List<ProcessedSection> sections, Topic topic, List<SubItem> relatedContent=null, string image="") 
-        => new(It.IsAny<string>(), slug, It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), sections,
-            It.IsAny<string>(), It.IsAny<string>(), image, It.IsAny<string>(), new List<Crumb>(), new List<Alert>(), topic, new List<Alert>(), new DateTime(), new bool(), new List<GroupBranding>(), It.IsAny<string>(), relatedContent);
+        => new(It.IsAny<string>(),
+            slug,
+            It.IsAny<string>(),
+            It.IsAny<string>(),
+            It.IsAny<string>(),
+            sections,
+            It.IsAny<string>(),
+            It.IsAny<string>(),
+            image,
+            It.IsAny<string>(),
+            new List<Crumb>(),
+            new List<Alert>(),
+            topic,
+            new List<Alert>(),
+            new DateTime(),
+            new bool(),
+            new List<GroupBranding>(),
+            It.IsAny<string>(),
+            relatedContent,
+            It.IsAny<string>(),
+            It.IsAny<string>(),
+            new DateTime(),
+            new List<InlineQuote>(),
+            new List<Event>());
 
     private static ProcessedSection BuildSection(string slug) => 
-        new("title", slug, It.IsAny<string>(), It.IsAny<string>(), new List<Profile>(), new List<Document>(), new List<Alert>(), new List<GroupBranding>(), "logoAreaTitle", new DateTime());
+        new("title",
+            slug,
+            It.IsAny<string>(),
+            It.IsAny<string>(),
+            new List<Profile>(),
+            new List<StockportWebapp.Models.Document>(),
+            new List<Alert>(),
+            new List<GroupBranding>(),
+            "logoAreaTitle",
+            new DateTime());
 }

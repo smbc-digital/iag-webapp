@@ -10,6 +10,9 @@
 @import "modules/tableCommon";
 @import "modules/googleMap";
 @import "modules/inlineImages";
+@import "modules/events2024";
+@import "modules/pagination";
+@import "modules/contactUsArea2025";
 
 // homepage, topics and articles pages
 @import "modules/searchAutocomplete";
@@ -32,6 +35,8 @@
 @import "modules/startPage";
 @import "modules/articlePagination";
 @import "modules/profile";
+@import "modules/document2024";
+@import "modules/documentPages";
 
 // directories
 @import "modules/directories";
@@ -39,9 +44,25 @@
 @import "modules/directoryPagination";
 @import "modules/mapPin";
 
+// landing pages
+@import "modules/_contentBlock";
+@import "modules/themeUtilities";
+@import "modules/statementBanner";
+@import "modules/framedHeader";
+@import "modules/fullHeader";
+@import "modules/trivia";
+@import "modules/findOutMore";
+@import "modules/subscriptionBanner";
+@import "modules/imageBanner";
+@import "modules/video";
+@import "modules/eventCards";
+@import "modules/newsBanner";
+@import "modules/profileBanner";
+@import "modules/profileCards";
+@import "modules/socialMedia";
+
 //Tag Parsers
 @import "modules/alertInline";
-@import "modules/tagParserVideo";
 @import "modules/tagParserLeaflet";
 @import "modules/tagParserDocument"; 
 @import "modules/tagParserProfile";

@@ -28,22 +28,24 @@
                         <input type="hidden" id="KeepLocationQueryValues" value="1" />
                     }
 
-                    @foreach (var filter in Model.Filters)
+                    @foreach (RefineByFilters filter in Model.Filters)
                     {
                         <div class="refine">
                             <a class="link" href="javascript:void(0)">@filter.Label<div class="badge hide-on-mobile"><span></span></div></a>
                             <div class="refine-filters">
                                 @{
-                                    var i = 0; 
+                                    int i = 0; 
                                 }
-                                @foreach (var item in filter.Items)
+
+                                @foreach (RefineByFilterItems item in filter.Items)
                                 {
-                                    <div class="@( i >= 10 ? "toggle hidden" : "")">
+                                    <div class="@( i >= 10 ? "toggle hidden" : string.Empty)">
                                         <input type="checkbox" name="@filter.Name" value="@item.Value" id="refine-@item.Value" @(item.Checked ? "checked" : string.Empty) /> <label for="refine-@item.Value">@item.Label</label>
                                     </div>
                                     <div></div>
                                     i++;
                                 }
+
                                 @if (i > 10)
                                 {
                                     <div class="show-all">
@@ -52,13 +54,15 @@
                                         </div>
                                     </div>
                                 }
+
                                 @if (filter.Mandatory)
                                 {
-                                <div class="none-selected-error">
-                                    <div class="fa fa-info"></div>
-                                    <span>You must select at least one @filter.Label.ToLower() option before you can apply.</span>
-                                </div>
+                                    <div class="none-selected-error">
+                                        <div class="fa fa-info"></div>
+                                        <span>You must select at least one @filter.Label.ToLower() option before you can apply.</span>
+                                    </div>
                                 }
+
                                 <div class="hide-on-mobile">
                                     <a class="cancel" href="javascript:void(0)">Cancel</a>
                                     <a class="apply" href="javascript:void(0)">Apply</a>
@@ -71,6 +75,7 @@
                         <a href="javascript:void(0);" class="">Clear all filters</a>
                     </div>                    
                 </div>
+                
                 <div class="hide-on-desktop hide-on-tablet update-cancel-bar">
                     <stock-button class="white cancel">Cancel</stock-button>
                     <stock-button class="green apply update-button">Apply</stock-button>
@@ -81,7 +86,7 @@
 </div>
 
 <script>
-    require(['/assets/javascript/config-460fd0d2.min.js'], function() {
+    require(['/assets/javascript/config-91939d9a.min.js'], function() {
         require(['refineByBar', 'filters'],
             function(refineByBar, filters) {
                 refineByBar.Init();

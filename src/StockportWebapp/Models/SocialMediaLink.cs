@@ -1,22 +1,17 @@
 ﻿namespace StockportWebapp.Models;
 
 [ExcludeFromCodeCoverage]
-public class SocialMediaLink
+public class SocialMediaLink(string title,
+                            string slug,
+                            string link,
+                            string icon,
+                            string accountName,
+                            string screenReader)
 {
-    public string Title { get; }
-    public string Slug { get; }
-    public string Url { get; }
-    public string Icon { get; }
-    public string AccountName { get; }
-    public string ScreenReader { get; }
-
-    public SocialMediaLink(string title, string slug, string url, string icon, string accountName, string screenReader)
-    {
-        Title = title;
-        Slug = slug;
-        Url = url;
-        Icon = icon;
-        AccountName = accountName;
-        ScreenReader = screenReader;
-    }
+    public string Title { get; } = title;
+    public string Slug { get; } = slug;
+    public string Link { get; } = link;
+    public string Icon { get; } = icon;
+    public string AccountName { get; } = accountName;
+    public string ScreenReader { get; } = screenReader;
 }

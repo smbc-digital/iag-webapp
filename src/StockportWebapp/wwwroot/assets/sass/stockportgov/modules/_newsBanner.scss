@@ -1,0 +1,7 @@
+.news-banner {
+    @media #{$mobile} {
+        &-button {
+            margin-inline: 5px;
+        }
+    }
+}

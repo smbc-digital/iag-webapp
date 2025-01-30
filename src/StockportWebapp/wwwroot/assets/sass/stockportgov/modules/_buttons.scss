@@ -17,9 +17,9 @@
     border: none;
     cursor: pointer;
 
-    @media #{$mobile, $tablet} {
+    @media #{$tablet} {
         text-decoration: none;
-        color: $white;
+        color: white;
         width: 100%;
     }
 
@@ -93,14 +93,26 @@
         }
     }
 
-
     &--on-white {
         &:hover, &:focus {
             background-color: rgba($stockport-grey, 0.1);
         }
     }
 
-    &--pink {
+    &--outline {
+        background: white;
+
+        &:hover, &:focus {
+            background-color: $stockport-teal-darker;
+            color: white;
+        }
+    }
+
+    &--white-outline {
+        border: 1px solid white;
+    }
+
+    &--pink, &--pink-light {
         color: $stockport-pink;
         border: 1px solid $stockport-pink;
 
@@ -110,7 +122,7 @@
         }
 
         &-outline {
-            background-color: transparent;
+            background: white;
 
             &:hover, &:focus {
                 background-color: $stockport-pink;
@@ -119,7 +131,27 @@
         }
     }
 
-    &--purple {
+    &--orange, &--orange-light {
+        color: $stockport-orange;
+        border: 1px solid $stockport-orange;
+
+        &:hover, &:focus {
+            color: darken($stockport-orange, 5%);
+            background-color: rgba(white, 0.9);
+        }
+
+        &-outline {
+            background: white;
+
+            &:hover, &:focus {
+                background-color: $stockport-orange;
+                color: white;
+            }
+        }
+    }
+
+
+    &--purple, &--purple-light {
         color: $stockport-purple;
         border: 1px solid $stockport-purple;
 
@@ -127,15 +159,109 @@
             color: darken($stockport-purple, 5%);
             background-color: rgba(white, 0.9);
         }
+
+        &-outline {
+            background: white;
+
+            &:hover, &:focus {
+                background-color: $stockport-purple;
+                color: white;
+            }
+        }
     }
 
-    &--blue {
+    &--blue, &--blue-light {
         color: $stockport-blue;
         border: 1px solid $stockport-blue;
 
         &:hover, &:focus {
             color: darken($stockport-blue, 5%);
             background-color: rgba(white, 0.9);
+        }
+
+        &-outline {
+            background-color: white;
+
+            &:hover, &:focus {
+                background-color: $stockport-blue;
+                color: white;
+            }
+        }
+    }
+
+    &--grey {
+        color: $stockport-grey;
+        border: 1px solid $stockport-grey;
+
+        &:hover, &:focus {
+            color: darken($stockport-grey, 5%);
+            background-color: rgba(white, 0.9);
+        }
+
+        &-outline {
+            background: white;
+
+            &:hover, &:focus {
+                background-color: $stockport-grey;
+                color: white;
+            }
+        }
+    }
+
+    &--green {
+        color: $stockport-green;
+        border: 1px solid $stockport-green;
+
+        &:hover, &:focus {
+            color: darken($stockport-green, 5%);
+            background-color: rgba(white, 0.9);
+        }
+
+        &-outline {
+            background: white;
+
+            &:hover, &:focus {
+                background-color: $stockport-green;
+                color: white;
+            }
+        }
+    }
+
+    &--teal {
+        color: $stockport-teal-darker;
+        border: 1px solid $stockport-teal-darker;
+
+        &:hover, &:focus {
+            color: darken($stockport-teal-darker, 5%);
+            background-color: rgba(white, 0.9);
+        }
+
+        &-outline {
+            background: white;
+
+            &:hover, &:focus {
+                background-color: $stockport-teal-darker;
+                color: white;
+            }
+        }
+    }
+
+    &--one-stockport-purple, &--one-stockport-purple-light {
+        color: $one-stockport-purple;
+        border: 1px solid $one-stockport-purple;
+
+        &:hover, &:focus {
+            color: darken($one-stockport-purple, 5%);
+            background-color: rgba(white, 0.9);
+        }
+
+        &-outline {
+            background: white;
+
+            &:hover, &:focus {
+                background-color: $one-stockport-purple;
+                color: white;
+            }
         }
     }
 
@@ -224,16 +350,6 @@ html[dir="rtl"] {
     }
 }
 
-/*
-    Overrides for the specfic use case of vertically centering the button to email subscription area
-*/
-.email-subsciption {
-    .btn {
-        @media #{$desktop} {
-            margin-top: 27px;
-        }
-    }
-}
 /*
     The following are legacys tles theat will hopefully be migrated to the above.
 */

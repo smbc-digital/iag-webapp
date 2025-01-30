@@ -39,7 +39,7 @@ public class DirectoryEntryViewModelTest
         };
 
         // Act
-        var highlightedFilters = directoryViewModel.HighlightedFilters;
+        IEnumerable<Filter> highlightedFilters = directoryViewModel.HighlightedFilters;
 
         // Assert
         Assert.NotNull(highlightedFilters);
@@ -58,7 +58,7 @@ public class DirectoryEntryViewModelTest
         };
 
         // Act
-        var highlightedFilters = directoryViewModel.HighlightedFilters;
+        IEnumerable<Filter> highlightedFilters = directoryViewModel.HighlightedFilters;
 
         // Assert
         Assert.NotNull(highlightedFilters);
@@ -77,7 +77,7 @@ public class DirectoryEntryViewModelTest
         };
 
         // Act
-        var highlightedFilters = directoryViewModel.HighlightedFilters;
+        IEnumerable<Filter> highlightedFilters = directoryViewModel.HighlightedFilters;
 
         // Assert
         Assert.Null(highlightedFilters);
@@ -115,7 +115,7 @@ public class DirectoryEntryViewModelTest
         };
 
         // Act
-        var highlightedFilters = directoryViewModel.HighlightedFilters;
+        IEnumerable<Filter> highlightedFilters = directoryViewModel.HighlightedFilters;
 
         // Assert
         Assert.NotNull(highlightedFilters);
@@ -129,12 +129,12 @@ public class DirectoryEntryViewModelTest
     [InlineData(null, "twitter", null, null, null, true)]
     [InlineData(null, null, "youtube", null, null, true)]
     [InlineData(null, null, null, "instagram", null, true)]
-    [InlineData(null, null, null, null, "linkedin", true)]
-    [InlineData("facebook", "twitter", "youtube", "instagram", "linkedin", true)]
+    [InlineData(null, null, null, null, "linkedIn", true)]
+    [InlineData("facebook", "twitter", "youtube", "instagram", "linkedIn", true)]
     public void DisplaySocials_ReturnsCorrectValue(string facebook, string twitter, string youtube, string instagram, string linkedIn, bool expected)
     {
         // Arrange
-        var viewModel = new DirectoryEntryViewModel
+        DirectoryEntryViewModel viewModel = new()
         {
             DirectoryEntry = new DirectoryEntry
             {
@@ -147,7 +147,7 @@ public class DirectoryEntryViewModelTest
         };
 
         // Act
-        var displaySocials = viewModel.DisplaySocials;
+        bool displaySocials = viewModel.DisplaySocials;
 
         // Assert
         Assert.Equal(expected, displaySocials);
@@ -162,7 +162,7 @@ public class DirectoryEntryViewModelTest
     public void HasPrimaryContact_ReturnsCorrectValue(string phoneNumber, string email, bool expected)
     {
         // Arrange
-        var viewModel = new DirectoryEntryViewModel
+        DirectoryEntryViewModel viewModel = new()
         {
             DirectoryEntry = new DirectoryEntry
             {
@@ -172,7 +172,7 @@ public class DirectoryEntryViewModelTest
         };
 
         // Act
-        var hasPrimaryContact = viewModel.HasPrimaryContact;
+        bool hasPrimaryContact = viewModel.HasPrimaryContact;
 
         // Assert
         Assert.Equal(expected, hasPrimaryContact);
@@ -185,7 +185,7 @@ public class DirectoryEntryViewModelTest
     public void DisplayContactUs_ReturnsCorrectValue(string website, bool expected)
     {
         // Arrange
-        var viewModel = new DirectoryEntryViewModel
+        DirectoryEntryViewModel viewModel = new()
         {
             DirectoryEntry = new DirectoryEntry
             {
@@ -194,7 +194,7 @@ public class DirectoryEntryViewModelTest
         };
 
         // Act
-        var displayContactUs = viewModel.DisplayContactUs;
+        bool displayContactUs = viewModel.DisplayContactUs;
 
         // Assert
         Assert.Equal(expected, displayContactUs);
@@ -203,7 +203,10 @@ public class DirectoryEntryViewModelTest
     [Fact]
     public void IsPinned_CorrectlySet()
     {
-        var viewModel = new DirectoryEntryViewModel("test", new(), Enumerable.Empty<Crumb>(), new MapDetails(), true);
+        // Act
+        DirectoryEntryViewModel viewModel = new("test", new(), Enumerable.Empty<Crumb>(), new MapDetails(), true);
+        
+        // Assert
         Assert.True(viewModel.IsPinned);
     }
 
@@ -215,7 +218,7 @@ public class DirectoryEntryViewModelTest
     public void ShowMapPin_ReturnsCorrectValue(double lat, double lon, bool expected)
     {
         // Arrange
-        var viewModel = new DirectoryEntryViewModel
+        DirectoryEntryViewModel viewModel = new()
         {
             DirectoryEntry = new DirectoryEntry
             {
@@ -227,7 +230,7 @@ public class DirectoryEntryViewModelTest
         };
 
         // Act
-        var showMapPin = viewModel.ShowMapPin;
+        bool showMapPin = viewModel.ShowMapPin;
 
         // Assert
         Assert.Equal(expected, showMapPin);
@@ -246,7 +249,7 @@ public class DirectoryEntryViewModelTest
             Lon = lon
         };
 
-        var viewModel = new DirectoryEntryViewModel
+        DirectoryEntryViewModel viewModel = new()
         {
             DirectoryEntry = new DirectoryEntry
             {
@@ -261,7 +264,7 @@ public class DirectoryEntryViewModelTest
         };
 
         // Act
-        var displayMap = viewModel.DisplayMap;
+        bool displayMap = viewModel.DisplayMap;
 
         // Assert
         Assert.Equal(expected, displayMap);
@@ -275,7 +278,7 @@ public class DirectoryEntryViewModelTest
     public void AddressWithoutTags_RemovesHtmlTags(string address, string expected)
     {
         // Arrange
-        var viewModel = new DirectoryEntryViewModel
+        DirectoryEntryViewModel viewModel = new()
         {
             DirectoryEntry = new DirectoryEntry
             {
@@ -295,10 +298,17 @@ public class DirectoryEntryViewModelTest
     [InlineData(0, 0, "", "", false, 0, "", "position: { lat: 0, lng: 0 }, title: \"\", content: \"<div class='google-map--padding'><h3 class='h-m'></h3><p class='body'></p><hr/><a href='' class='btn btn_small btn--width-25 btn--chevron-forward btn--chevron-bold'><span class='btn_text'>View </span></a></div>\", isPinned: false, mapPinIndex: 0")]
     [InlineData(-1.5, 3.7, "Test Name", "Test Teaser", true, 2, "http://test.com", "position: { lat: -1.5, lng: 3.7 }, title: \"Test Name\", content: \"<div class='google-map--padding'><h3 class='h-m'>Test Name</h3><p class='body'>Test Teaser</p><hr/><a href='http://test.com' class='btn btn_small btn--width-25 btn--chevron-forward btn--chevron-bold'><span class='btn_text'>View Test Name</span></a></div>\", isPinned: true, mapPinIndex: 2")]
     [InlineData(10.123, -20.987, "Long Name", "Long Teaser", false, 5, "http://long.com", "position: { lat: 10.123, lng: -20.987 }, title: \"Long Name\", content: \"<div class='google-map--padding'><h3 class='h-m'>Long Name</h3><p class='body'>Long Teaser</p><hr/><a href='http://long.com' class='btn btn_small btn--width-25 btn--chevron-forward btn--chevron-bold'><span class='btn_text'>View Long Name</span></a></div>\", isPinned: false, mapPinIndex: 5")]
-    public void ToString_ReturnsCorrectString(double lat, double lon, string name, string teaser, bool isPinned, int mapPinIndex, string url, string expected)
+    public void ToString_ReturnsCorrectString(double lat,
+                                            double lon,
+                                            string name,
+                                            string teaser,
+                                            bool isPinned,
+                                            int mapPinIndex,
+                                            string url,
+                                            string expected)
     {
         // Arrange
-        var viewModel = new DirectoryEntryViewModel
+        DirectoryEntryViewModel viewModel = new()
         {
             DirectoryEntry = new DirectoryEntry
             {
@@ -324,7 +334,7 @@ public class DirectoryEntryViewModelTest
     public void ToKmlPlacemark_ConstructsPlacemarkCorrectly()
     {
         // Arrange
-        var viewModel = new DirectoryEntryViewModel
+        DirectoryEntryViewModel viewModel = new()
         {
             DirectoryEntry = new DirectoryEntry
             {
@@ -338,8 +348,8 @@ public class DirectoryEntryViewModelTest
         };
 
         // Act
-        var placemark = viewModel.ToKmlPlacemark("pinnedStyle");
-        var placemark2 = viewModel.ToKmlPlacemark();
+        Placemark placemark = viewModel.ToKmlPlacemark("pinnedStyle");
+        Placemark placemark2 = viewModel.ToKmlPlacemark();
 
         // Assert
         Assert.NotNull(placemark);

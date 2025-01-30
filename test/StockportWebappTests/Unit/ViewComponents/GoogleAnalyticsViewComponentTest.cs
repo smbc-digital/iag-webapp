@@ -5,18 +5,22 @@ public class GoogleAnalyticsViewComponentTest
     [Fact]
     public async Task ShouldReturnGoogleAnalyticsId()
     {
+        // Arrange
         const string businessId = "businessID";
-        var googleAnalyticsCode = AppSetting.GetAppSetting("a code");
+        AppSetting googleAnalyticsCode = AppSetting.GetAppSetting("a code");
+        Mock<IApplicationConfiguration> config = new();
+        config
+            .Setup(conf => conf.GetGoogleAnalyticsCode(businessId))
+            .Returns(googleAnalyticsCode);
 
-        var config = new Mock<IApplicationConfiguration>();
-        config.Setup(o => o.GetGoogleAnalyticsCode(businessId)).Returns(googleAnalyticsCode);
+        GoogleAnalyticsViewComponent googleAnalyticsViewComponent = new(config.Object, new BusinessId(businessId));
 
-        var googleAnalyticsViewComponent = new GoogleAnalyticsViewComponent(config.Object, new BusinessId(businessId));
+        // Act
+        ViewViewComponentResult view = await googleAnalyticsViewComponent.InvokeAsync() as ViewViewComponentResult;
 
-        var view = await googleAnalyticsViewComponent.InvokeAsync() as ViewViewComponentResult;
-
+        // Assert
         config.Verify(o => o.GetGoogleAnalyticsCode(businessId), Times.Once);
-        var model = view.ViewData.Model as AppSetting;
-        model.Should().Be(googleAnalyticsCode);
+        AppSetting model = view.ViewData.Model as AppSetting;
+        Assert.Equal(googleAnalyticsCode, model);
     }
 }

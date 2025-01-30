@@ -1,7 +1,7 @@
 ﻿@model ProcessedShowcase
 @{
-    var header = string.IsNullOrWhiteSpace(Model.NewsSubheading) ? "Latest News" : Model.NewsSubheading;
-    var querystring = Model.NewsCategoryOrTag == "C" ? "Category" : "tag";
+    string header = string.IsNullOrWhiteSpace(Model.NewsSubheading) ? "Latest News" : Model.NewsSubheading;
+    string querystring = Model.NewsCategoryOrTag.Equals("C") ? "Category" : "tag";
     querystring += "=" + Model.NewsCategoryTag;
 }
 

@@ -1,0 +1,38 @@
+﻿@model ContentBlock
+@if (Model is not null && Model.NewsArticle is not null && !string.IsNullOrEmpty(Model.NewsArticle.Image))
+{
+    SpotlightOnBanner newsBanner = new(
+        Model.NewsArticle.Title,
+        Model.NewsArticle.Image,
+        string.Empty,
+        Model.NewsArticle.Teaser,
+        Url.Action("Detail", "News", new {slug = Model.NewsArticle.Slug}),
+        Model.NewsArticle.UpdatedAt
+    );
+
+    string associatedTagCategoryLower = Model.AssociatedTagCategory.Split(",").ToList().First()?.ToLower();
+    string viewMoreUrl = Model.UseTag 
+        ? Url.Action("Index", "News", new {tag = associatedTagCategoryLower}) 
+        : Url.Action("Index", "News", new {category = associatedTagCategoryLower});
+
+    <section class="content-block content-block--margin news-banner" data-cy="news-banner">
+        <div class="grid-container">
+            <div class="grid-100">
+                <div class="content-block--margin-inline">
+                    <h2 class="content-block__title">@Model.Title</h2>
+                </div>
+                <hr />
+                    
+                <div class="featured-item-container">
+                    <partial name="FeaturedItem" model="@newsBanner" view-data='@(new ViewDataDictionary(ViewData){ {"additionalClasses", "news-banner"}, {"pseudoBorderColour", "border-pseudo-colour-none"}, {"borderColour", "border-colour-none"} })' />
+                </div>
+
+                <div class="news-banner-button">
+                    <a href="@viewMoreUrl" class="btn btn--center btn--width-30 btn--margin-25 btn--chevron-forward" data-cy="view-more-news">
+                        View more @associatedTagCategoryLower news
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+}

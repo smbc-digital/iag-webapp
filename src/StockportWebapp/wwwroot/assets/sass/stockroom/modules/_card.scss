@@ -1,0 +1,172 @@
+.card {
+    &-title {
+        margin-top: 1em;
+
+        &--no-margin-top {
+            margin-top: 0;
+        }
+    }
+
+    &-wrapper {
+        display: flex;
+        flex-direction: row;
+        list-style: none;
+        flex-wrap: wrap;
+        margin-bottom: 0;
+
+        li:nth-last-child(3n):first-child,
+        li:nth-last-child(3n):first-child ~ li {
+            flex-grow: 1;
+        }
+    }
+
+    &-item {
+        width: calc(33.33333% - 33.33333px);
+        margin: 0 25px 2em 25px;
+        border-radius: 20px 20px 0 0;
+        background-color: white;
+        display: flex;
+        flex-direction: column;
+        flex-grow: 0;
+        justify-content: space-between;
+
+        @media #{$tablet} {
+            width: calc(33.33333% - 20px);
+            margin: 0 15px 2em 15px;
+        }
+
+        @media #{$mobile} {
+            width: 100%;
+            margin: 0 0 2em 0;
+        }
+
+        &__image {
+            max-height: max-content;
+            border-radius: 20px 20px 0 0 !important;
+            width: 100%;
+            aspect-ratio: 1;
+            object-fit: cover;
+            
+            @media #{$tablet-only} {
+                min-height: min-content;
+            }
+
+            @media #{$large-mobile} {
+                aspect-ratio: 2 / 1.75;
+            }
+        }
+
+        &__content {
+            &-teaser {
+                margin-bottom: 0;
+                display: -webkit-box;
+                line-clamp: 3;
+                -webkit-line-clamp: 3;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            &-wrapper {
+                display: flex;
+                flex-direction: column;
+                flex-basis: 0;
+                justify-content: space-between;
+                flex-grow: 1;
+            }
+        }
+
+        &__container {
+            padding: 1em .75em .75em;
+            color: black;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            justify-content: space-between;
+            background-color: white;
+
+            &-btn {
+                border-radius: 15px;
+                padding: 0.8em;
+                line-height: 1rem;
+                font-size: 1.1875rem;
+                border: 2px solid black;
+                color: black;
+                width: fit-content;
+                margin-top: 1em;
+                background-color: white;
+            }
+        }
+
+        &__link {
+            text-decoration: none;
+            display: flex;
+            flex-grow: 1;
+            flex-direction: column;
+
+            &:hover, &:focus {
+                .card-item__container-btn {
+                    background-color: $skrm-yellow;
+                    color: black;
+                }
+            }
+        }
+
+        &__event {
+            box-sizing: border-box;
+            position: relative;
+            background-color: transparent;
+        }
+
+        &__date {
+            position: relative;
+            padding-block: 1rem;
+            margin-left: -25px;
+            padding-left: 23px;
+            text-align: left;
+            border-left: 2px solid black;
+            
+            @media #{$tablet} {
+                margin-left: -15px;
+                padding-left: 13px;
+            }
+
+            @media #{$mobile} {
+                border: none;
+                padding-top: 0;
+            }
+
+            span {
+                display: inline-block;
+                vertical-align: middle;
+                position: relative;
+                z-index: 1
+            }
+
+            &--hidden {
+                border: none;
+                opacity: 0;
+
+                @media #{$mobile} {
+                    display: none;
+                }
+            }
+        }
+
+        &:nth-child(3n+1) {
+            margin-inline-start: 0;
+        
+            @media #{$mobile} {
+                margin: 0 0 2em 0;
+            }
+        
+            .card-item__date {
+                border: none;
+            }
+        }
+
+        &:nth-child(3n+3) {
+            margin-inline-end: 0;
+        }
+    }
+}

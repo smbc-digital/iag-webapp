@@ -1,12 +1,10 @@
-﻿using StockportWebapp.Models;
-
-namespace StockportWebappTests_Unit.Unit.ContentFactory;
+﻿namespace StockportWebappTests_Unit.Unit.ContentFactory;
 
 public class NewsFactoryTest
 {
     private readonly NewsFactory _factory;
-    private readonly Mock<MarkdownWrapper> _markdownWrapper;
-    private readonly Mock<ITagParserContainer> _tagParserContainer;
+    private readonly Mock<MarkdownWrapper> _markdownWrapper = new();
+    private readonly Mock<ITagParserContainer> _tagParserContainer = new();
     private readonly News _news;
     private const string Title = "News 26th Aug";
     private const string Slug = "news-26th-aug";
@@ -19,27 +17,65 @@ public class NewsFactoryTest
     private readonly DateTime _sunrise = new(2015, 9, 19);
     private readonly DateTime _sunset = new(2015, 9, 25);
     private readonly DateTime _updatedAt = new(2015, 9, 20);
-    private readonly List<Alert> _alerts = new() { new Alert("Alert", "Sub heading", "The Body", "Error", new DateTime(0001, 1, 1, 0, 0, 0, DateTimeKind.Utc),
-                                                             new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc), string.Empty, false, string.Empty) };
+    private readonly List<Alert> _alerts = new() 
+        {
+            new Alert("Alert",
+                    "Sub heading",
+                    "The Body",
+                    "Error",
+                    new DateTime(0001, 1, 1, 0, 0, 0, DateTimeKind.Utc),
+                    new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc),
+                    string.Empty,
+                    false,
+                    string.Empty)
+        };
+    
     private readonly List<string> _tags = new() { "Events", "Bramall Hall" };
     private readonly List<Document> _documents = new();
     private readonly List<Profile> _profiles = new();
 
     public NewsFactoryTest()
     {
-        _markdownWrapper = new Mock<MarkdownWrapper>();
-        _tagParserContainer = new Mock<ITagParserContainer>();
         _factory = new NewsFactory(_tagParserContainer.Object, _markdownWrapper.Object);
-        _news = new News(Title, Slug, Teaser, Purpose, Image, ThumbnailImage, Body, _breadcrumbs, _sunrise, _sunset, _updatedAt, _alerts, _tags, _documents, _profiles);
-        _tagParserContainer.Setup(_ => _.ParseAll(Body, It.IsAny<string>(), It.IsAny<bool>(), null, It.IsAny<IEnumerable<Document>>(), null, null, It.IsAny<IEnumerable<Profile>>(), It.IsAny<bool>())).Returns(Body);
-        _markdownWrapper.Setup(_ => _.ConvertToHtml(Body)).Returns(Body);
+        _news = new News(Title,
+                        Slug,
+                        Teaser,
+                        Purpose,
+                        Image,
+                        ThumbnailImage,
+                        Body,
+                        _breadcrumbs,
+                        _sunrise,
+                        _sunset,
+                        _updatedAt,
+                        _alerts,
+                        _tags,
+                        _documents,
+                        _profiles);
+        
+        _tagParserContainer
+            .Setup(_ => _.ParseAll(Body,
+                                It.IsAny<string>(),
+                                It.IsAny<bool>(),
+                                null,
+                                It.IsAny<IEnumerable<Document>>(),
+                                null,
+                                null,
+                                It.IsAny<IEnumerable<Profile>>(),
+                                null,
+                                It.IsAny<bool>()))
+            .Returns(Body);
+        
+        _markdownWrapper
+            .Setup(_ => _.ConvertToHtml(Body))
+            .Returns(Body);
     }
 
     [Fact]
     public void Build_ShouldSetTheCorrespondingFieldsForProcessedNews()
     {
         // Act
-        var result = _factory.Build(_news);
+        ProcessedNews result = _factory.Build(_news);
 
         // Assert
         Assert.Equal(Title, result.Title);
@@ -68,6 +104,6 @@ public class NewsFactoryTest
     {
         // Act & Assert
         _factory.Build(_news);
-        _tagParserContainer.Verify(_ => _.ParseAll(Body, _news.Title, It.IsAny<bool>(), It.IsAny<IEnumerable<Alert>>(), _news.Documents, It.IsAny<IEnumerable<InlineQuote>>(), It.IsAny<IEnumerable<PrivacyNotice>>(), _news.Profiles, It.IsAny<bool>()), Times.Once);
+        _tagParserContainer.Verify(_ => _.ParseAll(Body, _news.Title, It.IsAny<bool>(), It.IsAny<IEnumerable<Alert>>(), _news.Documents, It.IsAny<IEnumerable<InlineQuote>>(), It.IsAny<IEnumerable<PrivacyNotice>>(), _news.Profiles, null, It.IsAny<bool>()), Times.Once);
     }
 }

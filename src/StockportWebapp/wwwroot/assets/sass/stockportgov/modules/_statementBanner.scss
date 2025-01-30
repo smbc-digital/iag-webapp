@@ -1,0 +1,69 @@
+.statement-banner {
+    border-radius: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    @media #{$mobile} {
+        border-radius: 30px;
+    }
+
+    &__padding {
+        padding: 2em;
+    }
+
+    &__icon {
+        font-size: 6rem;
+        font-weight: 600;
+        letter-spacing: -1px;
+        line-height: 1.0416666667;
+        padding-inline: 1rem;
+        text-align: center;
+        
+        @media #{$mobile} {
+            font-size: 5rem;
+        }
+    }
+
+    &-content {
+        padding-top: 1em;
+        color: $stockport-black;
+        text-align: center;
+        
+        &__title {
+            @include h-l;
+            margin-bottom: 0.75em;
+            margin-top: 0;
+            text-align: center;
+        }
+
+        &__text {
+            text-align: left;
+            
+            &__text-no-button
+            {
+                p:last-of-type {
+                    margin: 0;
+                }
+            }
+        }
+
+        &-screen-width {
+            padding-inline: 0;
+        }
+    }
+
+    &-screen-width {
+        border-radius: 0;
+    }
+}
+
+html[dir="rtl"] {
+    .statement-banner {
+        &-content {   
+            &__text {
+                text-align: right;
+            }
+        }
+    }
+}

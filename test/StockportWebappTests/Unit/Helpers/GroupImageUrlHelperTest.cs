@@ -6,7 +6,7 @@ public class GroupImageURLHelperTest
     public void ShouldReturnFirstCategoryImageUrlIfGroupImageUrlIsEmptyButFirstCategoryImageUrlIsNot()
     {
         // Arrange
-        var groupCategory = new GroupCategory()
+        GroupCategory groupCategory = new()
         {
             Icon = "icon",
             ImageUrl = "categoryImageUrl",
@@ -14,40 +14,41 @@ public class GroupImageURLHelperTest
             Slug = "slug"
         };
 
-        var group = new GroupBuilder().Image(string.Empty).Categories(new List<GroupCategory> { { groupCategory } }).Build();
+        Group group = new GroupBuilder().Image(string.Empty).Categories(new List<GroupCategory> { { groupCategory } }).Build();
 
         // Act
-        var outputImageUrl = GroupImageUrlHelper.GetImageUrl(group);
+        string outputImageUrl = GroupImageUrlHelper.GetImageUrl(group);
 
         // Assert
-        outputImageUrl.Should().Be("categoryImageUrl");
+        Assert.Equal("categoryImageUrl", outputImageUrl);
     }
 
     [Fact]
     public void ShouldReturnEmptyStringIfThereAreNoGroupCategories()
     {
         // Arrange
-        var group = new GroupBuilder().Image(string.Empty).Build();
+        Group group = new GroupBuilder().Image(string.Empty).Build();
 
         // Act
-        var outputImageUrl = GroupImageUrlHelper.GetImageUrl(group);
+        string outputImageUrl = GroupImageUrlHelper.GetImageUrl(group);
 
         // Assert
-        outputImageUrl.Should().Be("");
+        Assert.Empty(outputImageUrl);
     }
 
     [Fact]
     public void ShouldReturnSecondCategoryImageUrlIfFirstCategoryImageUrlIsEmptyButSecondCategoryImageUrlIsNot()
     {
         // Arrange
-        var groupCategoryWithOutImageUrl = new GroupCategory()
+        GroupCategory groupCategoryWithOutImageUrl = new()
         {
             Icon = "icon",
             ImageUrl = "",
             Name = "name",
             Slug = "slug"
         };
-        var groupCategoryWithImageUrl = new GroupCategory()
+
+        GroupCategory groupCategoryWithImageUrl = new()
         {
             Icon = "icon",
             ImageUrl = "categoryImageUrl",
@@ -55,13 +56,12 @@ public class GroupImageURLHelperTest
             Slug = "slug"
         };
 
-        var groupWithImage = new GroupBuilder().Image(string.Empty).Categories(new List<GroupCategory> { { groupCategoryWithOutImageUrl }, { groupCategoryWithImageUrl } }).Build();
+        Group groupWithImage = new GroupBuilder().Image(string.Empty).Categories(new List<GroupCategory> { { groupCategoryWithOutImageUrl }, { groupCategoryWithImageUrl } }).Build();
 
         // Act
-        var outputImageUrl = GroupImageUrlHelper.GetImageUrl(groupWithImage);
+        string outputImageUrl = GroupImageUrlHelper.GetImageUrl(groupWithImage);
 
         // Assert
-        outputImageUrl.Should().Be("categoryImageUrl");
+        Assert.Equal("categoryImageUrl", outputImageUrl);
     }
-
 }

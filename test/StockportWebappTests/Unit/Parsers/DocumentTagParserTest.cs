@@ -2,39 +2,39 @@
 
 public class DocumentTagParserTest
 {
-    private readonly Mock<IViewRender> _viewRenderer;
     private readonly DocumentTagParser _documentTagParser;
+    private readonly Mock<IViewRender> _viewRenderer = new();
 
-    public DocumentTagParserTest()
-    {
-        _viewRenderer = new Mock<IViewRender>();
-        _documentTagParser = new DocumentTagParser(_viewRenderer.Object);
-    }
+    public DocumentTagParserTest() =>
+        _documentTagParser = new(_viewRenderer.Object);
 
     [Fact]
     public void ShouldReplaceDocumentTagWithDocumentView()
     {
-        var content = "this is some test {{PDF:fileName1.jpg}}";
-        var document = new Document("title", 2434, DateTime.Now, "url", "fileName1.jpg", string.Empty, "media");
-        var documents = new List<Document>() { document };
-        var renderResult = "RENDERED DOCUMENT CONTENT";
+        // Arrange
+        Document document = new("title", 2434, DateTime.Now, "url", "fileName1.jpg", string.Empty, "media");
+        List<Document> documents = new() { document };
 
-        _viewRenderer.Setup(o => o.Render("Document", document)).Returns(renderResult);
+        _viewRenderer
+            .Setup(renderer => renderer.Render("Document", document))
+            .Returns("RENDERED DOCUMENT CONTENT");
 
-        var parsedHtml = _documentTagParser.Parse(content, documents);
+        // Act
+        string parsedHtml = _documentTagParser.Parse("this is some test {{PDF:fileName1.jpg}}", documents);
 
-        _viewRenderer.Verify(o => o.Render("Document", document), Times.Once);
-        parsedHtml.Should().Contain(renderResult);
+        // Assert
+        _viewRenderer.Verify(renderer => renderer.Render("Document", document), Times.Once);
+        Assert.Contains("RENDERED DOCUMENT CONTENT", parsedHtml);
     }
 
     [Fact]
     public void ShouldRemoveDocumentTagsThatDontExist()
     {
-        var content = "this is some test {{PDF:some-pdf.pdf}}";
+        // Act
+        string parsedHtml = _documentTagParser.Parse("this is some test {{PDF:some-pdf.pdf}}", new List<Document>());
 
-        var parsedHtml = _documentTagParser.Parse(content, new List<Document>());
-
-        _viewRenderer.Verify(o => o.Render("Document", It.IsAny<Document>()), Times.Never);
-        parsedHtml.Should().Be("this is some test ");
+        // Assert
+        _viewRenderer.Verify(renderer => renderer.Render("Document", It.IsAny<Document>()), Times.Never);
+        Assert.Equal("this is some test ", parsedHtml);
     }
 }

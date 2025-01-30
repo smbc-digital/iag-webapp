@@ -1,37 +1,30 @@
 ﻿namespace StockportWebapp.Models;
 [ExcludeFromCodeCoverage]
-public class StartPage
+public class StartPage(string slug,
+                    string title,
+                    string teaser,
+                    string summary,
+                    string upperBody,
+                    string formLinkLabel,
+                    string formLink,
+                    string lowerBody,
+                    IEnumerable<Crumb> breadcrumbs,
+                    string backgroundImage,
+                    string icon,
+                    List<Alert> alerts,
+                    IEnumerable<Alert> inlineAlerts)
 {
-    public string Slug { get; }
-    public string Title { get; }
-    public string Teaser { get; }
-    public string Summary { get; }
-    public string UpperBody { get; }
-    public string FormLinkLabel { get; }
-    public string FormLink { get; }
-    public string LowerBody { get; }
-    public IEnumerable<Crumb> Breadcrumbs { get; }
-    public string BackgroundImage { get; }
-    public string Icon { get; }
-    public List<Alert> Alerts { get; private set; }
-    public IEnumerable<Alert> AlertsInline { get; set; }
-
-    public StartPage(string slug, string title, string teaser, string summary, string upperBody, string formLinkLabel,
-        string formLink, string lowerBody, IEnumerable<Crumb> breadcrumbs, string backgroundImage,
-        string icon, List<Alert> alerts, IEnumerable<Alert> inlineAlerts)
-    {
-        Slug = slug;
-        Title = title;
-        Teaser = teaser;
-        Summary = summary;
-        UpperBody = MarkdownWrapper.ToHtml(upperBody);
-        FormLinkLabel = formLinkLabel;
-        FormLink = formLink;
-        LowerBody = MarkdownWrapper.ToHtml(lowerBody);
-        Breadcrumbs = breadcrumbs;
-        BackgroundImage = backgroundImage;
-        Icon = icon;
-        Alerts = alerts;
-        AlertsInline = inlineAlerts;
-    }
+    public string Slug { get; } = slug;
+    public string Title { get; } = title;
+    public string Teaser { get; } = teaser;
+    public string Summary { get; } = summary;
+    public string UpperBody { get; } = MarkdownWrapper.ToHtml(upperBody);
+    public string FormLinkLabel { get; } = formLinkLabel;
+    public string FormLink { get; } = formLink;
+    public string LowerBody { get; } = MarkdownWrapper.ToHtml(lowerBody);
+    public IEnumerable<Crumb> Breadcrumbs { get; } = breadcrumbs;
+    public string BackgroundImage { get; } = backgroundImage;
+    public string Icon { get; } = icon;
+    public List<Alert> Alerts { get; private set; } = alerts;
+    public IEnumerable<Alert> AlertsInline { get; set; } = inlineAlerts;
 }

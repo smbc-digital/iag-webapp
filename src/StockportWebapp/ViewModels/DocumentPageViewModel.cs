@@ -1,14 +1,12 @@
 ﻿namespace StockportWebapp.ViewModels;
 
-public class DocumentPageViewModel
+[ExcludeFromCodeCoverage]
+public class DocumentPageViewModel(DocumentPage documentPage)
 {
-    public readonly ProcessedDocumentPage DocumentPage;
-    public readonly string OgTitleMetaData;
+    public readonly DocumentPage DocumentPage = documentPage;
+    public readonly string OgTitleMetaData = documentPage.Title;
     public string MetaDescription => DocumentPage.MetaDescription;
 
-    public DocumentPageViewModel(ProcessedDocumentPage documentPage)
-    {
-        DocumentPage = documentPage;
-        OgTitleMetaData = documentPage.Title;
-    }
+    public bool DisplayLastUpdated =>
+        !DocumentPage.LastUpdated.Equals(DateTime.MaxValue);
 }

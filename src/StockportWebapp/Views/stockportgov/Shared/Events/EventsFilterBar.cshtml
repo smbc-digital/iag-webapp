@@ -1,16 +1,37 @@
-﻿@using System.Web;
+@using System.Web;
+@using StockportWebapp.Models;
 @model EventCalendar
 @{
-    var closeThis = (Model.FromSearch) ? "close-this-section" : string.Empty;
-    var hasSearched = (Model.FromSearch) || !string.IsNullOrWhiteSpace(Model.Tag);
-    var hideOnMobile = hasSearched ? "hide-on-mobile" : "mobile-grid-100";
-    var showOnMobile = hasSearched ? "hide-on-desktop hide-on-tablet" : "hide-on-mobile hide-on-desktop hide-on-tablet";
-    var nowShowing = string.Concat(string.IsNullOrWhiteSpace(Model.Category) ? "Showing <strong>All</strong> events " : $"Showing <strong>{HttpUtility.HtmlEncode(Model.Category)}</strong> events ",
-                        Model.DateFrom == null || Model.DateTo == null || Model.DateFrom != Model.DateTo ? string.Empty : $"for <strong>{((DateTime)Model.DateFrom).ToString("dd/MM/yy")}</strong> ",
-                        Model.DateFrom == Model.DateTo || Model.DateFrom == null ? string.Empty : $"from <strong>{((DateTime)Model.DateFrom).ToString("dd/MM/yy")}</strong> ",
-                        Model.DateFrom == Model.DateTo || Model.DateTo == null ? string.Empty : $"to <string>{((DateTime)Model.DateTo).ToString("dd/MM/yy")}</strong>",
-                        Model.DateFrom == null && Model.DateTo == null ? "from <strong>All dates</strong>" : string.Empty);
+    string closeThis = (Model.FromSearch)
+        ? "close-this-section"
+        : string.Empty;
+
+    bool hasSearched = (Model.FromSearch) || !string.IsNullOrWhiteSpace(Model.Tag);
+    string hideOnMobile = hasSearched
+        ? "hide-on-mobile"
+        : "mobile-grid-100";
+    
+    string showOnMobile = hasSearched
+        ? "hide-on-desktop hide-on-tablet"
+        : "hide-on-mobile hide-on-desktop hide-on-tablet";
+
+    string nowShowing = string.Concat(string.IsNullOrWhiteSpace(Model.Category)
+                            ? "Showing <strong>All</strong> events "
+                            : $"Showing <strong>{HttpUtility.HtmlEncode(Model.Category)}</strong> events ",
+                        Model.DateFrom is null || Model.DateTo is null || !Model.DateFrom.Equals(Model.DateTo)
+                                ? string.Empty
+                                : $"for <strong>{((DateTime)Model.DateFrom).ToString("dd/MM/yy")}</strong> ",
+                        Model.DateFrom.Equals(Model.DateTo) || Model.DateFrom is null
+                            ? string.Empty
+                            : $"from <strong>{((DateTime)Model.DateFrom).ToString("dd/MM/yy")}</strong> ",
+                        Model.DateFrom.Equals(Model.DateTo) || Model.DateTo is null
+                            ? string.Empty
+                            : $"to <string>{((DateTime)Model.DateTo).ToString("dd/MM/yy")}</strong>",
+                        Model.DateFrom is null && Model.DateTo is null
+                            ? "from <strong>All dates</strong>"
+                            : string.Empty);
 }
+
 <form action="/events" method="get" id="events-filter-bar-container">
     <input type="hidden" asp-for="@Model.FromSearch" value="true" />
     <div class="full-width-title" id="events-filter-bar">
@@ -18,39 +39,43 @@
             <div class="grid-100 tablet-grid-100 @hideOnMobile">
                 <h2>Find something to do in Stockport</h2>
             </div>
+
             <div class="grid-100 tablet-grid-100 mobile-grid-100 @showOnMobile">
                 <label>@Html.Raw(nowShowing)</label>
             </div>
+
             <div class="grid-100 tablet-grid-100 mobile-grid-100 grid-parent form-section @closeThis" id="events-search-filter-container">
                 <div class="grid-25 tablet-grid-33 mobile-grid-100">
                     <div><label asp-for="@Model.DateFrom"></label></div>
                     <div><input type="date" asp-for="@Model.DateFrom" placeholder="All dates" class="form-control" /></div>
                 </div>
+
                 <div class="grid-25 tablet-grid-33 mobile-grid-100">
                     <div><label asp-for="@Model.DateTo"></label></div>
                     <div><input type="date" asp-for="@Model.DateTo" placeholder="All dates" class="form-control" /></div>
                 </div>
+
                 <div class="grid-25 tablet-grid-33 mobile-grid-100">
                     <div><label asp-for="@Model.Category"></label></div>
                     <div><select asp-for="@Model.Category" asp-items="@Model.EventCategoryOptions()" placeholder="All categories" class="form-control"></select></div>
                 </div>
+
                 <div class="grid-25 tablet-grid-100 mobile-grid-100">
                     <div class="invisible hide-on-tablet hide-on-mobile"><label>Hide me</label></div>
                     <div class="button-container"><stock-button class="button-outline-white-transparent">Find what's on</stock-button></div>
                 </div>
             </div>
+
             <div class="mobile-grid-100 @showOnMobile">
                 <div class="edit-search">
                     <a href="javascript:toggleSearch();" id="edit-search-link">Edit search</a>
                 </div> 
             </div>
-            
         </div>
     </div>
 </form>
 
 <script type="text/javascript">    
-
     function toggleSearch() {
         var container = $('.form-section', '#events-filter-bar');
         var button = $('#edit-search-link');
@@ -63,5 +88,4 @@
             $(container).addClass('closed');
         }
     }
-
 </script>

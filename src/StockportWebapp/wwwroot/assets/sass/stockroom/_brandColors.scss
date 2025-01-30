@@ -1,0 +1,15 @@
+﻿$skrm-yellow: #f6cf60; // 255, 207, 70
+$skrm-blue: rgb(138, 165, 255); // 144, 166, 255
+$skrm-blue-lighter: rgba(138, 165, 255, 50%);
+$skrm-blue-darker: darken($skrm-blue, 50%);
+$skrm-orange: rgb(255, 82, 42); // 255, 82, 43 ??
+$skrm-orange-darker: darken($skrm-orange, 5%);
+$skrm-orange-lighter: rgba(255, 82, 42, 50%);
+$skrm-light-green: rgb(237,536, 206);
+$skrm-pink: rgb(255, 157, 171);
+$skrm-green: rgb(43, 109, 79);
+$skrm-grey: rgb(204, 204, 204);
+$skrm-purple: rgb(121, 102, 195);
+$skrm-stone: rgb(238, 238, 207);
+
+$skrm-black-gradient-overlay:linear-gradient(180deg, #0000, #000c);

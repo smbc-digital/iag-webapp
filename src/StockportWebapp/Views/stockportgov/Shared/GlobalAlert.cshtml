@@ -1,9 +1,12 @@
 ﻿@inject ICookiesHelper CookiesHelper
 @model Alert
 @{
-    var alertCookies = CookiesHelper.GetCookies<Alert>("alerts");
-    var isDismissed = alertCookies != null && alertCookies.Contains(Model.Slug) && !Model.IsStatic;
-    var alertType = ViewData["AlertType"] is not null ? $"{ViewData["AlertType"]}-alert-{Model.Severity.ToLowerInvariant()}" : string.Empty;
+    List<string> alertCookies = CookiesHelper.GetCookies<Alert>("alerts");
+    bool isDismissed = alertCookies is not null && alertCookies.Contains(Model.Slug) && !Model.IsStatic;
+
+    string alertType = ViewData["AlertType"] is not null
+        ? $"{ViewData["AlertType"]}-alert-{Model.Severity.ToLowerInvariant()}"
+        : string.Empty;
 }
 
 @if (!isDismissed)
@@ -20,6 +23,7 @@
                         @Html.Raw(Model.Body)
                     </div>
                 </div>
+                
                 @if (!Model.IsStatic)
                 {
                     <div class="global-alert-close-container">

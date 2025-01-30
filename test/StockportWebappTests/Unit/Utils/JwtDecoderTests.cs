@@ -2,68 +2,79 @@
 
 public class JwtDecoderTests
 {
-    private string _secretKeyValid = "secret";
-    private string _secretKeyInvalid = "notsecret";
-    private Mock<ILogger<JwtDecoder>> _logger = new Mock<ILogger<JwtDecoder>>();
+    private readonly string _secretKeyValid = "secret";
+    private readonly string _secretKeyInvalid = "notsecret";
+    private readonly Mock<ILogger<JwtDecoder>> _logger = new();
 
     [Fact]
     public void ShouldDecodePayloadWithValidKey()
     {
-        var token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoidGVzdGluZyBuYW1lIiwiZW1haWwiOiJ0ZXN0aW5nQGVtYWlsIn0.jLDZVRKDV94Nl2r-ya8XzZzzj-nx3gMh1C_A-J5XvKQ";
+        // Arrange
+        string token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoidGVzdGluZyBuYW1lIiwiZW1haWwiOiJ0ZXN0aW5nQGVtYWlsIn0.jLDZVRKDV94Nl2r-ya8XzZzzj-nx3gMh1C_A-J5XvKQ";
 
-        var encoding = new JwtDecoder(new GroupAuthenticationKeys() { Key = _secretKeyValid }, _logger.Object);
+        JwtDecoder encoding = new(new GroupAuthenticationKeys() { Key = _secretKeyValid }, _logger.Object);
 
-        var person = encoding.Decode(token);
+        // Act
+        LoggedInPerson person = encoding.Decode(token);
 
-        person.Email.Should().Be("testing@email");
-        person.Name.Should().Be("testing name");
+        // Assert
+        Assert.Equal("testing@email", person.Email);
+        Assert.Equal("testing name", person.Name);
     }
 
     [Fact]
     public void ShouldFailDecryptionWithInvalidKey()
     {
-        var token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoidGVzdGluZyBuYW1lIiwiZW1haWwiOiJ0ZXN0aW5nQGVtYWlsIn0.QmkqA7HE-nOPqxx5kSG5NqDyVeBXUiJ3_i-lwZAdVkw";
-        var encoding = new JwtDecoder(new GroupAuthenticationKeys() { Key = _secretKeyInvalid }, _logger.Object);
-
+        // Arrange
+        string token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoidGVzdGluZyBuYW1lIiwiZW1haWwiOiJ0ZXN0aW5nQGVtYWlsIn0.QmkqA7HE-nOPqxx5kSG5NqDyVeBXUiJ3_i-lwZAdVkw";
+        JwtDecoder encoding = new(new GroupAuthenticationKeys() { Key = _secretKeyInvalid }, _logger.Object);
+        
+        // Act
         Exception ex = Assert.Throws<Jose.IntegrityException>(() => encoding.Decode(token));
 
-        ex.Message.Should().Be("Invalid signature.");
-
+        // Assert
+        Assert.Equal("Invalid signature.", ex.Message);
         LogTesting.Assert(_logger, LogLevel.Warning, $"IntegrityException was thrown from jwt decoder for token {token}");
     }
 
     [Fact]
     public void IfJsonStructureChangesInPayloadShouldNotError()
     {
-        // json structure is { "somethingelse": "testing name", "invalid": "testing@email", "anoher prop": "test" }
-        var token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzb21ldGhpbmdlbHNlIjoidGVzdGluZyBuYW1lIiwiaW52YWxpZCI6InRlc3RpbmdAZW1haWwiLCJhbm9oZXIgcHJvcCI6InRlc3QifQ.Q-pSGiIo6HBbJ0fTMcstnXxuT42v-pEHOo9HoyspDWs";
-        var encoding = new JwtDecoder(new GroupAuthenticationKeys() { Key = _secretKeyValid }, _logger.Object);
+        // Arrange
+        string token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzb21ldGhpbmdlbHNlIjoidGVzdGluZyBuYW1lIiwiaW52YWxpZCI6InRlc3RpbmdAZW1haWwiLCJhbm9oZXIgcHJvcCI6InRlc3QifQ.Q-pSGiIo6HBbJ0fTMcstnXxuT42v-pEHOo9HoyspDWs";
+        JwtDecoder encoding = new(new GroupAuthenticationKeys() { Key = _secretKeyValid }, _logger.Object);
 
-        var person = encoding.Decode(token);
+        // Act
+        LoggedInPerson person = encoding.Decode(token);
 
-        person.Name.Should().BeNull();
-        person.Email.Should().BeNull();
+        // Assert
+        Assert.Null(person.Name);
+        Assert.Null(person.Email);
     }
 
     [Fact]
     public void ShouldThrowExceptionIfInvalidJwtToken()
     {
-        var token = "tokenhasbeentamperedwith";
-        var encoding = new JwtDecoder(new GroupAuthenticationKeys() { Key = _secretKeyValid }, _logger.Object);
+        // Arrange
+        string token = "tokenhasbeentamperedwith";
+        JwtDecoder encoding = new(new GroupAuthenticationKeys() { Key = _secretKeyValid }, _logger.Object);
 
+        // Act
         Exception ex = Assert.Throws<InvalidJwtException>(() => encoding.Decode(token));
 
-        ex.Message.Should().Be("Invalid JWT token");
+        // Assert
+        Assert.Equal("Invalid JWT token", ex.Message);
         LogTesting.Assert(_logger, LogLevel.Warning, $"InvalidJwtException was thrown from jwt decoder for token {token}");
     }
 
     [Fact]
     public void ShouldThrowJsonExceptionIfInvalidJwtButInCorrectFormatWithDots()
     {
-        var token = "tokenhasbeentamperedwith.test.test";
+        // Arrange
+        string token = "tokenhasbeentamperedwith.test.test";
+        JwtDecoder encoding = new(new GroupAuthenticationKeys() { Key = _secretKeyValid }, _logger.Object);
 
-        var encoding = new JwtDecoder(new GroupAuthenticationKeys() { Key = _secretKeyValid }, _logger.Object);
-
+        // Act & Assert
         Exception ex = Assert.Throws<System.Text.Json.JsonException>(() => encoding.Decode(token));
     }
 }

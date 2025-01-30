@@ -1,0 +1,45 @@
+﻿@model EventHomepage
+@if (Model is not null)
+{
+    @foreach (EventHomepageRow row in Model.Rows.Where(row => row.Events.Any()))
+    {
+        <section class="event-homepage__cards content-block content-block--margin" data-cy="event-cards">
+            <div class="grid-container">
+                <div class="grid-100 event-homepage__cards--padding">
+                    <div class="event-homepage__cards-title">
+                        <div class="event-homepage__cards-heading">
+                            <h2 class="content-block__title">@(row.IsLatest ? "Upcoming events" : row.Tag)</h2>
+                        </div>
+                            
+                        @if (row.IsLatest)
+                        {
+                            <a href="/events?datefrom=@DateTime.Now.Date" class="event-homepage__cards-view-more hide-on-mobile hide-on-tablet" aria-label="View more events" data-cy="view-more-events-link">View more upcoming events</a>
+                        }
+                        else
+                        {
+                            <a href="@Url.Action("Index", "Events", new { Tag = row.Tag } )" class="event-homepage__cards-view-more hide-on-mobile hide-on-tablet" aria-label="View more events" data-cy="view-more-events-link">View more @row.Tag events</a>
+                        }
+                    </div>
+
+                    <ul class="navcard-wrapper navcard-wrapper--no-margin">
+                        @foreach (Event item in row.Events)
+                        {
+                            <partial name="EventCard" model="item" view-data="@(new ViewDataDictionary(ViewData) {{"backgroundColourClass", "event-cards__link--white"}, {"eventHomepageImage", "event-cards__image-homepage"}})"/>
+                        }
+                    </ul>
+                    
+                    <div class="event-button hide-on-desktop">
+                        @if (row.IsLatest)
+                        {
+                            <a class="btn btn--width-30 btn--chevron-forward btn--bold btn--chevron-bold event-cards-button" href="/events?datefrom=@DateTime.Now.Date">View more upcoming events</a>
+                        }
+                        else
+                        {
+                            <a class="btn btn--width-30 btn--chevron-forward btn--bold btn--chevron-bold event-cards-button" href="@Url.Action("Index", "Events", new { Tag = row.Tag } )">View more @row.Tag events</a>                            
+                        }
+                    </div>
+                </div>
+            </div>
+        </section>
+    }
+}

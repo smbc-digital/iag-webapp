@@ -1,0 +1,26 @@
+﻿@model ContentBlock
+
+@if (Model is not null && !string.IsNullOrEmpty(Model.VideoToken) && !string.IsNullOrEmpty(Model.VideoPlaceholderPhotoId))
+{
+    VideoViewModel videoViewModel = new(string.IsNullOrEmpty(Model.VideoTitle) ? Model.Title : Model.VideoTitle, Model.VideoToken, Model.VideoPlaceholderPhotoId);
+
+    <section class="content-block content-block--margin js-only" data-cy="video">
+        <div class="grid-container">
+            <div class="grid-100">
+                @if (!string.IsNullOrEmpty(Model.Title))
+                {
+                    <h2 class="content-block__title">@Model.Title</h2>
+                    <div class="content-block__teaser">@Html.Raw(Model.Body)</div>
+                    <hr />
+                }
+
+                <div class="section__content">
+                    <div class="video-wrapper">
+                        <partial name="VideoIFrame" model="@videoViewModel" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+}

@@ -1,5 +1,6 @@
 ﻿namespace StockportWebapp.Utils.Extensions;
 
+[ExcludeFromCodeCoverage]
 public static class ApplicationBuilderExtensions
 {
     public static IApplicationBuilder UseCustomStaticFiles(this IApplicationBuilder app)
@@ -8,9 +9,9 @@ public static class ApplicationBuilderExtensions
         {
             OnPrepareResponse = context =>
             {
-                var isLive = context.Context.Request.Host.Value.StartsWith("www.");
-                var businessId = context.Context.Request.Headers["BUSINESS-ID"];
-                var url = string.Concat("robots-", businessId, isLive ? "-live" : "", ".txt");
+                bool isLive = context.Context.Request.Host.Value.StartsWith("www.");
+                StringValues businessId = context.Context.Request.Headers["BUSINESS-ID"];
+                string url = string.Concat("robots-", businessId, isLive ? "-live" : string.Empty, ".txt");
                 if (context.File.Name.Equals(url))
                 {
                     context.Context.Response.Headers
@@ -29,7 +30,7 @@ public static class ApplicationBuilderExtensions
 
     public static IApplicationBuilder UseCustomCulture(this IApplicationBuilder app)
     {
-        var ci = new CultureInfo("en-GB") { DateTimeFormat = { ShortDatePattern = "dd/MM/yyyy" } };
+        CultureInfo ci = new CultureInfo("en-GB") { DateTimeFormat = { ShortDatePattern = "dd/MM/yyyy" } };
 
         // Configure the Localization middleware .
         app.UseRequestLocalization(new RequestLocalizationOptions
@@ -37,11 +38,11 @@ public static class ApplicationBuilderExtensions
             DefaultRequestCulture = new RequestCulture(ci),
             SupportedCultures = new List<CultureInfo>
             {
-                new CultureInfo("en-GB"),
+                new("en-GB"),
             },
             SupportedUICultures = new List<CultureInfo>
             {
-                new CultureInfo("en-GB"),
+                new("en-GB"),
             }
         });
 

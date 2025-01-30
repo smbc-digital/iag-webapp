@@ -21,10 +21,11 @@
         width: 40%;
         height: auto;
         object-fit: cover;
-        border-radius: 50px 3px 50px 3px;
+        border-radius: 50px 3px;
 
         @media #{$mobile} {
             width: 100%;
+            border-radius: 30px 3px;
         }
     }
 
@@ -45,10 +46,11 @@
         }
 
         &__subTitle {
-            @include lead;
+            font-size: 1em !important;
         }
-
+    
         &__teaser {
+            @include lead;
             display: inline;
         }
 
@@ -57,6 +59,12 @@
             text-decoration: underline;
             display: block;
             margin-top: 2em;
+            margin-bottom: 1em;
+            font-weight: 700;
+            
+            &--no-margin {
+                margin-top: 0;
+            }
         }
 
         &--no-image {
@@ -66,14 +74,23 @@
                 margin-top: 0;
             }
         }
+
+        &-banner {
+            width: 100%;
+            margin-top: 0;
+        }
     }
 
     &-quote {
         color: $stockport-green;
-        font-size: 1em;
+        font-size: 1.2em;
 
         &--rtl {
             display: none !important;
+        }
+
+        &--black {
+            color: $stockport-black;
         }
     }
 
@@ -88,6 +105,10 @@
     &--teal {
         border-inline-start: 0.55em solid $stockport-teal;
     }
+
+    &--one-stockport-purple {
+        border-inline-start: 0.55em solid $one-stockport-purple;
+    }
 }
 
 html[dir="rtl"] {
@@ -101,10 +122,17 @@ html[dir="rtl"] {
                 font-size: 1em;
             }
         }
+
+        &__image {
+            border-radius: 3px 50px;
+    
+            @media #{$mobile} {
+                width: 100%;
+                border-radius: 3px 30px;
+            }
+        }
     }
 }
-
-
 
 .profile {
     overflow: hidden;

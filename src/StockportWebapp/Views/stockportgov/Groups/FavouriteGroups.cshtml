@@ -20,7 +20,7 @@
                 <div class="l-content-container grid-100 group-margin">
                     <h1 id="manage-group-title" class="group-article-title">Favourite groups</h1>
                     <div class="grid-container grid-parent">
-                        <div id="favourites-list" class="@(Model.Groups.Any() ? "" : "hidden")">
+                        <div id="favourites-list" class="@(Model.Groups.Any() ? string.Empty : "hidden")">
                             <partial name="Groups/GroupCardList" model='Model.Groups' />
                             <partial name="Groups/FavouriteGroupsPrint" model='Model.Groups' />
                             <div class="l-content-container grid-100 favourite-share-container">
@@ -39,7 +39,7 @@
                             </div>
                         </div>
 
-                        <div class="grid-container grid-100 center-block @(!Model.Groups.Any() ? "" : "hidden")" id="no-results">
+                        <div class="grid-container grid-100 center-block @(!Model.Groups.Any() ? string.Empty : "hidden")" id="no-results">
                             <div class="l-content-container grid-100 grid-parent group-margin">
                                 <div class="grid-100 centre word-wrap">
                                     <div class="icon-bordered icon-bordered-fixed green tick">

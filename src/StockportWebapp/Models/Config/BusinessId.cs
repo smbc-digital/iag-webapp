@@ -1,23 +1,14 @@
 ﻿namespace StockportWebapp.Models.Config;
 
-public class BusinessId
+public class BusinessId(string businessId = "NOT SET")
 {
-    private string value;
+    private string value = businessId;
 
-    public BusinessId(string businessId = "NOT SET")
-    {
-        value = businessId;
-    }
+    public override string ToString() =>
+        value;
 
-    public override string ToString()
-    {
-        return value;
-    }
-
-    public void SetId(string id)
-    {
+    public void SetId(string id) =>
         value = id;
-    }
 }
 
 public class BusinessIdFromRequest

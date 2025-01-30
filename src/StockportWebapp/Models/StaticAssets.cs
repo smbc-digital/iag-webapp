@@ -4,18 +4,12 @@ public interface IStaticAssets
 {
     string UrlFor(string assetName);
 }
+
 [ExcludeFromCodeCoverage]
-public class StaticAssets : IStaticAssets
+public class StaticAssets(IApplicationConfiguration configObject) : IStaticAssets
 {
-    private readonly IApplicationConfiguration _configObject;
+    private readonly IApplicationConfiguration _configObject = configObject;
 
-    public StaticAssets(IApplicationConfiguration configObject)
-    {
-        _configObject = configObject;
-    }
-
-    public string UrlFor(string assetName)
-    {
-        return string.Concat(_configObject.GetStaticAssetsRootUrl(), assetName);
-    }
+    public string UrlFor(string assetName) =>
+        string.Concat(_configObject.GetStaticAssetsRootUrl(), assetName);
 }

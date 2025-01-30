@@ -19,7 +19,7 @@
         @if (Model.Links is not null && Model.Links.Any())
         {
             <ul class="footer-links">
-                @foreach (var link in Model.Links)
+                @foreach (SubItem link in Model.Links)
                 {
                     <li><a href="@link.NavigationLink">@link.Title</a></li>
                 }
@@ -37,12 +37,15 @@
             <a href="https://www.gov.uk/" target="_blank">
                 <img src="https://s3-eu-west-1.amazonaws.com/live-iag-static-assets/gov-uk-logo.png" alt="GOV UK" />
             </a>
+
             <a href="https://www.greatermanchester-ca.gov.uk/" target="_blank">
                 <img src="https://s3-eu-west-1.amazonaws.com/live-iag-static-assets/GMCA-logo.png" alt="Greater Manchester Combined Authority" />
             </a>
+
             <a href="https://www.digitalstockport.info/digital-transformation-award/" target="_blank">
                 <img src="https://s3-eu-west-1.amazonaws.com/live-iag-static-assets/mj-logo.png" alt="The MJ Achievement Awards 2019" />
             </a>
+            
             <a href="https://idea.org.uk/" target="_blank">
                 <img src="https://s3-eu-west-1.amazonaws.com/live-iag-static-assets/Pioneer-logo.png" alt="Pioneer" />
             </a>

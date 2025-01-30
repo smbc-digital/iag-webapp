@@ -1,0 +1,129 @@
+.event {
+    &-hero {
+        &-container {
+            word-wrap: break-word;
+            display: flex;
+            flex-direction: row;
+
+            @media #{$tablet} {
+                display: block;
+            }        
+        }
+
+        &__content {
+            position: relative;
+            background-color: black;
+
+            &--70 {
+                margin-inline-end: 0.8em;
+                width: calc(70% - 0.8em);
+        
+                @media #{$tablet} {
+                    width: 100%;
+                    margin-inline-end: 0;
+                    padding: 0;
+                }
+            }
+        
+            &--30 {
+                margin-inline-start: 0.8em;
+                width: calc(30% - 0.8em);
+        
+                &--margin-top {
+                    margin-block-start: 1.5em;
+        
+                    @media #{$tablet} {
+                        margin-block-start: 1em;
+                    }
+                }
+        
+                @media #{$tablet} {
+                    width: 100%;
+                    margin-inline: 0;
+                    padding: 0;
+                }
+            }
+        }
+
+        &__about {
+            padding-inline: 0;
+
+            &--padding-top {
+                padding-top: 20px;
+                
+                p:first-of-type {
+                    margin-bottom: 0;
+                }
+            }
+
+            @media #{$tablet} {
+                padding: 0 1em;
+                padding-bottom: 1em;
+            }
+
+            @media #{$mobile} {
+                padding: 0 0.5em;
+                padding-bottom: 1em;
+
+                &--extra-padding {
+                    padding-top: 1.5em;
+                }
+            }
+
+            h3 {
+                font-size: 1.75rem;
+            }
+
+            &-duration {
+                p {
+                    margin-bottom: 0;
+                }
+            }
+
+            &--border {
+                border-top: 2px solid grey;
+            }
+        }
+
+        &-wrapper {
+            position: absolute;
+            right: 10px;
+
+            border-radius: 50%;
+            padding: 0.8em 0.5em;
+            background-color: $skrm-pink;
+            top: calc(100% - 37px)
+        }
+
+        &__fee {
+            width: 100%;
+            height: 100%;
+
+            &-text {
+                height: 100%;
+                display: block;
+                text-align: center;
+            }
+        }
+
+        &__title {
+            width: 85%;
+
+            @media #{$mobile} {
+                width: 70%;
+            }
+        }
+    }
+
+    &-btn {
+        border-radius: 15px;
+        padding: 0.8em;
+        line-height: 1rem;
+        font-size: 1.1875rem;
+        border: 2px solid black;
+        color: black;
+        width: fit-content;
+        margin-bottom: 1em;
+        display: block;
+    }
+}

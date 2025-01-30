@@ -3,76 +3,93 @@
 public class BusinessIdMiddlewareTest
 {
     private readonly BusinessIdMiddleware _businessIdMiddleware;
-    private readonly BusinessId _businessId;
-    private readonly Mock<ILogger<BusinessIdMiddleware>> _logger;
+    private readonly BusinessId _businessId = new();
+    private readonly Mock<ILogger<BusinessIdMiddleware>> _logger = new();
+    private readonly Mock<RequestDelegate> requestDelegate = new();
 
-    public BusinessIdMiddlewareTest()
-    {
-        var requestDelegate = new Mock<RequestDelegate>();
-        _logger = new Mock<ILogger<BusinessIdMiddleware>>();
-        _businessId = new BusinessId();
-
-        _businessIdMiddleware = new BusinessIdMiddleware(requestDelegate.Object, _logger.Object);
-    }
+    public BusinessIdMiddlewareTest() =>
+        _businessIdMiddleware = new(requestDelegate.Object, _logger.Object);
 
     [Fact]
     public void ShouldSetBusinessIdIfBusinessIdIsInHeader()
     {
-        var context = new DefaultHttpContext();
-        const string businessIdString = "business-id";
-        context.Request.Headers["BUSINESS-ID"] = businessIdString;
+        // Arrange
+        DefaultHttpContext context = new();
+        context.Request.Headers["BUSINESS-ID"] = "business-id";
+
+        // Act
         _businessIdMiddleware.Invoke(context, _businessId);
 
-        _businessId.ToString().Should().Be(businessIdString);
+        // Assert
+        Assert.Equal("business-id", _businessId.ToString());
     }
 
     [Fact]
     public void ShouldSetToDefaultBusinessIdIfBusinessIdIsNoInHeader()
     {
-        var context = new DefaultHttpContext();
+        // Arrange
+        DefaultHttpContext context = new();
+        
+        // Act
         _businessIdMiddleware.Invoke(context, _businessId);
 
-        _businessId.ToString().Should().Be("stockportgov");
+        // Assert
+        Assert.Equal("stockportgov", _businessId.ToString());
     }
 
     [Fact]
     public void ShouldLogWarningIfNoBusinessIdIsSet()
     {
-        var context = new DefaultHttpContext();
+        // Arrange
+        DefaultHttpContext context = new();
         context.Request.Path = "/";
+        
+        // Act
         _businessIdMiddleware.Invoke(context, _businessId);
 
+        // Assert
         LogTesting.Assert(_logger, LogLevel.Information, "BUSINESS-ID has not been set, setting to default");
     }
 
     [Fact]
     public void ShouldNotLogIfNoBusinessIdIsSetAndIsAsset()
     {
-        var context = new DefaultHttpContext();
+        // Arrange
+        DefaultHttpContext context = new();
         context.Request.Path = "/assets/test.js";
+        
+        // Act
         _businessIdMiddleware.Invoke(context, _businessId);
 
+        // Assert
         LogTesting.DoesNotContain(_logger, LogLevel.Information, "BUSINESS-ID has not been set, setting to default");
     }
 
     [Fact]
     public void ShouldNotLogIfNoBusinessIdIsSetAndIsHealthCheck()
     {
-        var context = new DefaultHttpContext();
+        // Arrange
+        DefaultHttpContext context = new();
         context.Request.Path = "/_healthcheck";
+
+        // Act
         _businessIdMiddleware.Invoke(context, _businessId);
 
+        // Assert
         LogTesting.DoesNotContain(_logger, LogLevel.Information, "BUSINESS-ID has not been set, setting to default");
     }
 
     [Fact]
     public void ShouldLogInformationIfBusniessIdIsSet()
     {
-        var context = new DefaultHttpContext();
-        const string businessIdString = "business-id";
-        context.Request.Headers["BUSINESS-ID"] = businessIdString;
+        // Arrange
+        DefaultHttpContext context = new();
+        context.Request.Headers["BUSINESS-ID"] = "business-id";
+
+        // Act
         _businessIdMiddleware.Invoke(context, _businessId);
 
+        // Assert
         LogTesting.Assert(_logger, LogLevel.Information, "BUSINESS-ID has been set to: business-id");
     }
 }

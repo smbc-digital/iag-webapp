@@ -2,13 +2,12 @@ namespace StockportWebapp.ContentFactory;
 
 public class ContentTypeFactory
 {
-    private readonly Dictionary<Type, dynamic> _factories = new Dictionary<Type, object>();
+    private readonly Dictionary<Type, dynamic> _factories = new();
 
-    public ContentTypeFactory(
-        ITagParserContainer tagParserContainer,
-        MarkdownWrapper markdownWrapper,
-        IHttpContextAccessor httpContextAccesor,
-        IRepository repository)
+    public ContentTypeFactory(ITagParserContainer tagParserContainer,
+                            MarkdownWrapper markdownWrapper,
+                            IHttpContextAccessor httpContextAccessor,
+                            IRepository repository)
     {
         SectionFactory sectionFactory = new(tagParserContainer, markdownWrapper, repository);
         ContactUsCategoryFactory contactUsCategoryFactory = new(tagParserContainer, markdownWrapper);
@@ -25,10 +24,10 @@ public class ContentTypeFactory
         _factories.Add(typeof(Payment), new PaymentFactory(tagParserContainer, markdownWrapper));
         _factories.Add(typeof(ServicePayPayment), new ServicePayPaymentFactory(tagParserContainer, markdownWrapper));
         _factories.Add(typeof(Showcase), new ShowcaseFactory(tagParserContainer, markdownWrapper, triviaFactory));
-        _factories.Add(typeof(Organisation), new OrganisationFactory(markdownWrapper, httpContextAccesor));
+        _factories.Add(typeof(Organisation), new OrganisationFactory(markdownWrapper, httpContextAccessor));
         _factories.Add(typeof(PrivacyNotice), new PrivacyNoticeFactory(markdownWrapper));
         _factories.Add(typeof(StartPage), new StartPageFactory(tagParserContainer, markdownWrapper));
-        _factories.Add(typeof(ContactUsArea), new ContactUsAreaFactory(tagParserContainer, markdownWrapper, contactUsCategoryFactory));
+        _factories.Add(typeof(ContactUsArea), new ContactUsAreaFactory(contactUsCategoryFactory));
         _factories.Add(typeof(List<Trivia>), triviaFactory);
     }
 

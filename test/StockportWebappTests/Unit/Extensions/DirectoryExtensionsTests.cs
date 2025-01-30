@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Routing;
 using StockportWebapp.Extensions;
 using Filter = StockportWebapp.Model.Filter;
 
@@ -6,23 +5,22 @@ namespace StockportWebappTests_Unit.Unit.Extensions;
 
 public class DirectoryExtensionsTests
 {
-
     [Fact]
     public void DirectoryEntrySatisfiesTheme_WhenThemesMatch_ReturnsTrue()
     {
         // Arrange
-        var themes = new KeyValuePair<string, List<string>>("ThemeA", new List<string> { "Filter1", "Filter2" });
-        var entry = new DirectoryEntry
+        KeyValuePair<string, List<string>> themes = new("ThemeA", new List<string> { "Filter1", "Filter2" });
+        DirectoryEntry entry = new()
         {
             Themes = new List<FilterTheme>
             {
-                new FilterTheme { Title = "ThemeA", Filters = new List<Filter> { new Filter { Slug = "Filter1" } } },
-                new FilterTheme { Title = "ThemeB", Filters = new List<Filter> { new Filter { Slug = "Filter3" } } }
+                new() { Title = "ThemeA", Filters = new List<Filter> { new() { Slug = "Filter1" } } },
+                new() { Title = "ThemeB", Filters = new List<Filter> { new() { Slug = "Filter3" } } }
             }
         };
 
         // Act
-        var result = themes.DirectoryEntrySatisfiesTheme(entry);
+        bool result = themes.DirectoryEntrySatisfiesTheme(entry);
 
         // Assert
         Assert.True(result);
@@ -32,18 +30,18 @@ public class DirectoryExtensionsTests
     public void DirectoryEntrySatisfiesTheme_WhenThemesDoNotMatch_ReturnsFalse()
     {
         // Arrange
-        var themes = new KeyValuePair<string, List<string>>("ThemeA", new List<string> { "Filter1", "Filter2" });
-        var entry = new DirectoryEntry
+        KeyValuePair<string, List<string>> themes = new("ThemeA", new List<string> { "Filter1", "Filter2" });
+        DirectoryEntry entry = new()
         {
             Themes = new List<FilterTheme>
             {
-                new FilterTheme { Title = "ThemeB", Filters = new List<Filter> { new Filter { Slug = "Filter1" } } },
-                new FilterTheme { Title = "ThemeC", Filters = new List<Filter> { new Filter { Slug = "Filter3" } } }
+                new() { Title = "ThemeB", Filters = new List<Filter> { new() { Slug = "Filter1" } } },
+                new() { Title = "ThemeC", Filters = new List<Filter> { new() { Slug = "Filter3" } } }
             }
         };
 
         // Act
-        var result = themes.DirectoryEntrySatisfiesTheme(entry);
+        bool result = themes.DirectoryEntrySatisfiesTheme(entry);
 
         // Assert
         Assert.False(result);
@@ -53,18 +51,18 @@ public class DirectoryExtensionsTests
     public void DirectoryEntrySatisfiesTheme_WhenNoMatchingFilters_ReturnsFalse()
     {
         // Arrange
-        var themes = new KeyValuePair<string, List<string>>("ThemeA", new List<string> { "Filter1", "Filter2" });
-        var entry = new DirectoryEntry
+        KeyValuePair<string, List<string>> themes = new("ThemeA", new List<string> { "Filter1", "Filter2" });
+        DirectoryEntry entry = new()
         {
             Themes = new List<FilterTheme>
             {
-                new FilterTheme { Title = "ThemeA", Filters = new List<Filter> { new Filter { Slug = "Filter3" } } },
-                new FilterTheme { Title = "ThemeB", Filters = new List<Filter> { new Filter { Slug = "Filter4" } } }
+                new() { Title = "ThemeA", Filters = new List<Filter> { new() { Slug = "Filter3" } } },
+                new() { Title = "ThemeB", Filters = new List<Filter> { new() { Slug = "Filter4" } } }
             }
         };
 
         // Act
-        var result = themes.DirectoryEntrySatisfiesTheme(entry);
+        bool result = themes.DirectoryEntrySatisfiesTheme(entry);
 
         // Assert
         Assert.False(result);
@@ -74,11 +72,11 @@ public class DirectoryExtensionsTests
     public void IsDirectoryEntryRelevant_WhenNoThemesOrFiltersSpecified_ReturnsTrue()
     {
         // Arrange
-        var emptyThemes = new Dictionary<string, List<string>>();
-        var entry = new DirectoryEntry();
+        Dictionary<string, List<string>> emptyThemes = new();
+        DirectoryEntry entry = new();
 
         // Act
-        var result = emptyThemes.IsDirectoryEntryRelevant(entry);
+        bool result = emptyThemes.IsDirectoryEntryRelevant(entry);
 
         // Assert
         Assert.True(result);
@@ -88,25 +86,23 @@ public class DirectoryExtensionsTests
     public void IsDirectoryEntryRelevant_WhenEntrySatisfiesAllThemes_ReturnsTrue()
     {
         // Arrange
-        var themes = new Dictionary<string, List<string>>
+        Dictionary<string, List<string>> themes = new()
         {
             { "Theme1", new List<string> { "filter1", "filter2" } },
             { "Theme2", new List<string> { "filter3", "filter4" } }
-            // Add more themes as needed
         };
 
-        var entry = new DirectoryEntry
+        DirectoryEntry entry = new()
         {
             Themes = new List<FilterTheme>
             {
-                new FilterTheme { Title = "Theme1", Filters = new List<Filter> { new Filter { Slug = "filter1" } } },
-                new FilterTheme { Title = "Theme2", Filters = new List<Filter> { new Filter { Slug = "filter4" } } }
+                new() { Title = "Theme1", Filters = new List<Filter> { new() { Slug = "filter1" } } },
+                new() { Title = "Theme2", Filters = new List<Filter> { new() { Slug = "filter4" } } }
             }
-            // Set other properties of the entry
         };
 
         // Act
-        var result = themes.IsDirectoryEntryRelevant(entry);
+        bool result = themes.IsDirectoryEntryRelevant(entry);
 
         // Assert
         Assert.True(result);
@@ -116,23 +112,21 @@ public class DirectoryExtensionsTests
     public void IsDirectoryEntryRelevant_WhenEntryDoesNotSatisfyAnyTheme_ReturnsFalse()
     {
         // Arrange
-        var themes = new Dictionary<string, List<string>>
+        Dictionary<string, List<string>> themes = new()
         {
             { "Theme1", new List<string> { "filter1", "filter2" } },
             { "Theme2", new List<string> { "filter3", "filter4" } }
-            // Add more themes as needed
         };
 
-        var entry = new DirectoryEntry
+        DirectoryEntry entry = new()
         {
             Themes = new List<FilterTheme> {
-                new FilterTheme { Title = "Theme1", Filters = new List<Filter> { new Filter { Slug = "filter5" }, new Filter { Slug = "filter6" } } }
+                new() { Title = "Theme1", Filters = new List<Filter> { new() { Slug = "filter5" }, new() { Slug = "filter6" } } }
             }
-            // Set other properties of the entry
         };
 
         // Act
-        var result = themes.IsDirectoryEntryRelevant(entry);
+        bool result = themes.IsDirectoryEntryRelevant(entry);
 
         // Assert
         Assert.False(result);
@@ -142,10 +136,10 @@ public class DirectoryExtensionsTests
     public void GetFilterThemesFromFilters_ReturnsEmptyDictionary_WhenNoFilters()
     {
         // Arrange
-        var emptyFilters = Enumerable.Empty<Filter>();
+        IEnumerable<Filter> emptyFilters = Enumerable.Empty<Filter>();
 
         // Act
-        var result = emptyFilters.GetFilterThemesFromFilters();
+        Dictionary<string, List<string>> result = emptyFilters.GetFilterThemesFromFilters();
 
         // Assert
         Assert.NotNull(result);
@@ -156,7 +150,7 @@ public class DirectoryExtensionsTests
     public void GetFilterThemesFromFilters_ReturnsCorrectThemesAndSlugs()
     {
         // Arrange
-        var filters = new List<Filter>
+        List<Filter> filters = new()
         {
             new Filter { Theme = "Colour", Slug = "red" },
             new Filter { Theme = "Colour", Slug = "blue" },
@@ -165,7 +159,7 @@ public class DirectoryExtensionsTests
         };
 
         // Act
-        var result = filters.GetFilterThemesFromFilters();
+        Dictionary<string, List<string>> result = filters.GetFilterThemesFromFilters();
 
         // Assert
         Assert.Equal(2, result.Count);
@@ -178,4 +172,3 @@ public class DirectoryExtensionsTests
 
     }
 }
-

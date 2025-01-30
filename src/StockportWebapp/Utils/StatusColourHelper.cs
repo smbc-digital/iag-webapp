@@ -2,16 +2,11 @@
 
 public static class StatusColourHelper
 {
-    public static string GetStatusColour(string status)
-    {
-        switch (status)
+    public static string GetStatusColour(string status) =>
+        status switch
         {
-            case "Published":
-                return "green";
-            case "Archived":
-                return "red";
-            default:
-                return "green";
-        }
-    }
+            "Published" => "green",
+            "Archived" => "red",
+            _ => "green",
+        };
 }

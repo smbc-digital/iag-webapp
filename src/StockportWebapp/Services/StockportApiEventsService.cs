@@ -5,41 +5,37 @@ public interface IStockportApiEventsService
     Task<List<EventCategory>> GetEventCategories();
     Task<List<Event>> GetEventsByCategory(string category, bool onlyNextOccurrence = true);
     Task<ProcessedEvents> GetProcessedEvent(string slug, DateTime? date);
+    ProcessedEvents BuildProcessedEvent(Event baseEvent);
 }
 
-public class StockportApiEventsService : IStockportApiEventsService
+public class StockportApiEventsService(IStockportApiRepository stockportApiRepository,
+                                    IEventFactory eventFactory) : IStockportApiEventsService
 {
-    readonly IStockportApiRepository _stockportApiRepository;
-    readonly IUrlGeneratorSimple _urlGeneratorSimple;
-    private readonly IEventFactory _eventFactory;
+    readonly IStockportApiRepository _stockportApiRepository = stockportApiRepository;
+    private readonly IEventFactory _eventFactory = eventFactory;
 
-    public StockportApiEventsService(IStockportApiRepository stockportApiRepository, IUrlGeneratorSimple urlGeneratorSimple, IEventFactory eventFactory)
-    {
-        _stockportApiRepository = stockportApiRepository;
-        _urlGeneratorSimple = urlGeneratorSimple;
-        _eventFactory = eventFactory;
-    }
+    public async Task<List<Event>> GetEventsByCategory(string category, bool onlyNextOccurrence = true) =>
+        await _stockportApiRepository
+            .GetResponse<List<Event>>("by-category", new List<Query> { new("category", category), new("onlyNextOccurrence", onlyNextOccurrence.ToString()) });
 
-    public async Task<List<Event>> GetEventsByCategory(string category, bool onlyNextOccurrence = true)
-    {
-        return await _stockportApiRepository.GetResponse<List<Event>>("by-category", new List<Query> { new Query("category", category), new Query("onlyNextOccurrence", onlyNextOccurrence.ToString()) });
-    }
-
-    public async Task<List<EventCategory>> GetEventCategories()
-    {
-        return await _stockportApiRepository.GetResponse<List<EventCategory>>();
-    }
+    public async Task<List<EventCategory>> GetEventCategories() =>
+        await _stockportApiRepository.GetResponse<List<EventCategory>>();
 
     public async Task<ProcessedEvents> GetProcessedEvent(string slug, DateTime? date)
     {
-        var queries = new List<Query>();
-        if (date.HasValue) queries.Add(new Query("date", date.Value.ToString("yyyy-MM-dd")));
+        List<Query> queries = new();
 
-        var eventItem = await _stockportApiRepository.GetResponse<Event>(slug, queries);
+        if (date.HasValue)
+            queries.Add(new Query("date", date.Value.ToString("yyyy-MM-dd")));
 
-        if (eventItem == null) return null;
+        Event eventItem = await _stockportApiRepository.GetResponse<Event>(slug, queries);
 
-        var processedEvent = _eventFactory.Build(eventItem);
-        return processedEvent;
+        if (eventItem is null)
+            return null;
+
+        return _eventFactory.Build(eventItem);
     }
+
+    public ProcessedEvents BuildProcessedEvent(Event baseEvent) =>
+        _eventFactory.Build(baseEvent);
 }

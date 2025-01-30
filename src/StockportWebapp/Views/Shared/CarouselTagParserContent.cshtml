@@ -1,0 +1,53 @@
+@model List<(string src, string alt)>
+
+<section id="carousel" aria-labelledby="carouselheading" class="carousel">
+    <h3 id="carouselheading" class="visuallyhidden">Image carousel</h3>
+    <ul class="carousel-items">
+        @foreach (var item in Model)
+        {
+            <li class="carousel-item">
+                <img src="@item.src?q=89&fm=webp" alt="@item.alt">
+            </li>
+        }
+    </ul>
+    
+    @if (Model.Count > 1)
+    {
+        <button class="carousel-control prev carousel-control-prev" aria-label="Previous Slide">
+            <span class="fa-solid fa-chevron-left"></span>
+        </button>
+
+        <button class="carousel-control next carousel-control-next" aria-label="Next Slide">
+            <span class="fa-solid fa-chevron-right"></span>
+        </button>
+
+        <div class="grid-container" aria-hidden="true">
+            <div class="grid-100 carousel-indicators-wrapper">
+                <div class="carousel-indicators">
+                    @for (int i = 0; i < Model.Count; i++)
+                    {
+                        <div class="carousel-indicators__container">
+                            <span id="@i" class="carousel-indicators__item current active" data-slide="@i">
+                            </span>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+
+    <div id="carousel-status" class="visuallyhidden" aria-live="polite"></div>
+</section>
+
+@if (Model.Count > 1)
+{
+    <script>
+        require(['/assets/javascript/config-91939d9a.min.js'], function () {
+            require(['carousel2024'],
+                function (carousel2024) {
+                    carousel2024.Init();
+                }
+            );
+        });
+    </script>
+}

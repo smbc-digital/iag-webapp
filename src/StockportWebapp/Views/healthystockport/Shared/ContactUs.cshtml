@@ -18,22 +18,29 @@
             <label tabindex="-1" id="content" asp-for="Name">Name *</label>
             <input class="input-field" asp-for="Name" placeholder="Enter your name" />
         </div>
+
         <div class="form-section">
             <label asp-for="Email">Email Address *</label>
             <input class="input-field" asp-for="Email" placeholder="Enter your email address" />
         </div>
+
         <div class="form-section">
             <label asp-for="Subject">Subject *</label>
             <input class="input-field" asp-for="Subject" placeholder="What are you contacting us about?" />
         </div>
+
         <div class="form-section">
             <textarea asp-for="Message" rows="6" placeholder="Enter a Message" title="Enter a Message"></textarea>
         </div>
+
         <input type="hidden" asp-for="ServiceEmailId" value="@Model.ServiceEmailId" />
+
         <div class="g-recaptcha reCaptcha" data-sitekey="6LfAeSIUAAAAAGsx6tYHz4MIvhP0pSx9Tq7Hf8Yx"></div>
+
         <div class="clearfix">
             <br />
         </div>
+        
         <div class="form-section">
             <button type="submit" class="button button-outline button-partialrounded button-fullwidth button-dark">Submit</button>
         </div>
@@ -41,7 +48,7 @@
 </form>
 
 <script>
-    require(['/assets/javascript/config-460fd0d2.min.js'], function () {
+    require(['/assets/javascript/config-91939d9a.min.js'], function () {
         require(['startup', 'contactUs', 'jquery.steps', 'recaptcha', 'utils', 'unobtrusive'],
             function (startup, contactus) {
                 startup.Init();

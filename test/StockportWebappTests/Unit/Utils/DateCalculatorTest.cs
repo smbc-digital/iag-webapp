@@ -2,228 +2,349 @@
 
 public class DateCalculatorTest
 {
-    private readonly Mock<ITimeProvider> _mockTimeProvider;
-
-    public DateCalculatorTest()
-    {
-        _mockTimeProvider = new Mock<ITimeProvider>();
-    }
+    private readonly Mock<ITimeProvider> _mockTimeProvider = new();
 
     [Fact]
     public void ShouldGetTodayDate()
     {
-        _mockTimeProvider.Setup(o => o.Today()).Returns(new DateTime(2016, 08, 02));
-        DateCalculator dateCalculator = new DateCalculator(_mockTimeProvider.Object);
-        dateCalculator.Today().Should().Be("2016-08-02");
+        // Arrange
+        _mockTimeProvider
+            .Setup(provider => provider.Today())
+            .Returns(new DateTime(2016, 08, 02));
+        
+        // Act
+        DateCalculator dateCalculator = new(_mockTimeProvider.Object);
+        
+        // Assert
+        Assert.Equal("2016-08-02", dateCalculator.Today());
     }
 
     [Fact]
     public void ShouldGetTomorrowDate()
     {
-        _mockTimeProvider.Setup(o => o.Today()).Returns(new DateTime(2016, 08, 02));
-        DateCalculator dateCalculator = new DateCalculator(_mockTimeProvider.Object);
-        dateCalculator.Tomorrow().Should().Be("2016-08-03");
+        // Arrange
+        _mockTimeProvider
+            .Setup(provider => provider.Today())
+            .Returns(new DateTime(2016, 08, 02));
+        
+        // Act
+        DateCalculator dateCalculator = new(_mockTimeProvider.Object);
+        
+        // Assert
+        Assert.Equal("2016-08-03", dateCalculator.Tomorrow());
     }
 
     [Fact]
     public void ShouldGetNearestFriday()
     {
+        // Arrange
         _mockTimeProvider.Setup(o => o.Today()).Returns(new DateTime(2016, 08, 02));
+        
+        // Act
         DateCalculator dateCalculator = new DateCalculator(_mockTimeProvider.Object);
+        
+        // Assert
         dateCalculator.NearestFriday().Should().Be("2016-08-05");
     }
 
     [Fact]
     public void ShouldGetTodayAsNearestFridayIfTodayIsFriday()
     {
-        _mockTimeProvider.Setup(o => o.Today()).Returns(new DateTime(2016, 08, 05));
-        DateCalculator dateCalculator = new DateCalculator(_mockTimeProvider.Object);
-        dateCalculator.NearestFriday().Should().Be("2016-08-05");
+        // Arrange
+        _mockTimeProvider
+            .Setup(provider => provider.Today())
+            .Returns(new DateTime(2016, 08, 05));
+        
+        // Act
+        DateCalculator dateCalculator = new(_mockTimeProvider.Object);
+
+        // Assert
+        Assert.Equal("2016-08-05", dateCalculator.NearestFriday());
     }
 
     [Fact]
     public void ShouldGetTodayAsNearestFridayIfTodayIsSaturday()
     {
-        _mockTimeProvider.Setup(o => o.Today()).Returns(new DateTime(2016, 08, 06));
-        DateCalculator dateCalculator = new DateCalculator(_mockTimeProvider.Object);
-        dateCalculator.NearestFriday().Should().Be("2016-08-06");
+        // Arrange
+        _mockTimeProvider
+            .Setup(provider => provider.Today())
+            .Returns(new DateTime(2016, 08, 06));
+        
+        // Act
+        DateCalculator dateCalculator = new(_mockTimeProvider.Object);
+
+        // Assert
+        Assert.Equal("2016-08-06", dateCalculator.NearestFriday());
     }
 
     [Fact]
     public void ShouldGetTodayAsNearestFridayIfTodayIsSunday()
     {
-        _mockTimeProvider.Setup(o => o.Today()).Returns(new DateTime(2016, 08, 07));
-        DateCalculator dateCalculator = new DateCalculator(_mockTimeProvider.Object);
-        dateCalculator.NearestFriday().Should().Be("2016-08-07");
+        // Arrange
+        _mockTimeProvider
+            .Setup(provider => provider.Today())
+            .Returns(new DateTime(2016, 08, 07));
+
+        // Act
+        DateCalculator dateCalculator = new(_mockTimeProvider.Object);
+
+        // Assert
+        Assert.Equal("2016-08-07", dateCalculator.NearestFriday());
     }
 
     [Fact]
     public void ShouldGetNearestSunday()
     {
-        _mockTimeProvider.Setup(o => o.Today()).Returns(new DateTime(2016, 08, 02));
-        DateCalculator dateCalculator = new DateCalculator(_mockTimeProvider.Object);
-        dateCalculator.NearestSunday().Should().Be("2016-08-07");
+        // Arrange
+        _mockTimeProvider
+            .Setup(provider => provider.Today())
+            .Returns(new DateTime(2016, 08, 02));
+
+        // Act
+        DateCalculator dateCalculator = new(_mockTimeProvider.Object);
+
+        // Assert
+        Assert.Equal("2016-08-07", dateCalculator.NearestSunday());
     }
 
     [Fact]
     public void ShouldGetTodayAsNearestSundayIfTodayIsSunday()
     {
-        _mockTimeProvider.Setup(o => o.Today()).Returns(new DateTime(2016, 08, 07));
-        DateCalculator dateCalculator = new DateCalculator(_mockTimeProvider.Object);
-        dateCalculator.NearestSunday().Should().Be("2016-08-07");
+        // Arrange
+        _mockTimeProvider
+            .Setup(provider => provider.Today())
+            .Returns(new DateTime(2016, 08, 07));
+        
+        // Act
+        DateCalculator dateCalculator = new(_mockTimeProvider.Object);
+
+        // Assert
+        Assert.Equal("2016-08-07", dateCalculator.NearestSunday());
     }
 
     [Fact]
     public void ShouldGetNearestMonday()
     {
-        _mockTimeProvider.Setup(o => o.Today()).Returns(new DateTime(2016, 08, 02));
-        DateCalculator dateCalculator = new DateCalculator(_mockTimeProvider.Object);
-        dateCalculator.NearestMonday().Should().Be("2016-08-08");
+        // Arrange
+        _mockTimeProvider
+            .Setup(provider => provider.Today())
+            .Returns(new DateTime(2016, 08, 02));
+
+        // Act
+        DateCalculator dateCalculator = new(_mockTimeProvider.Object);
+
+        // Assert
+        Assert.Equal("2016-08-08", dateCalculator.NearestMonday());
     }
 
     [Fact]
     public void ShouldGetNextMondayIfTodayIsMonday()
     {
-        _mockTimeProvider.Setup(o => o.Today()).Returns(new DateTime(2016, 08, 01));
-        DateCalculator dateCalculator = new DateCalculator(_mockTimeProvider.Object);
-        dateCalculator.NearestMonday().Should().Be("2016-08-08");
+        // Arrange
+        _mockTimeProvider
+            .Setup(provider => provider.Today())
+            .Returns(new DateTime(2016, 08, 01));
+        
+        // Act
+        DateCalculator dateCalculator = new(_mockTimeProvider.Object);
+
+        // Assert
+        Assert.Equal("2016-08-08", dateCalculator.NearestMonday());
     }
 
     [Fact]
     public void ShouldGetNextSunday()
     {
-        _mockTimeProvider.Setup(o => o.Today()).Returns(new DateTime(2016, 08, 02));
-        DateCalculator dateCalculator = new DateCalculator(_mockTimeProvider.Object);
-        dateCalculator.NextSunday().Should().Be("2016-08-14");
+        // Arrange
+        _mockTimeProvider
+            .Setup(provider => provider.Today())
+            .Returns(new DateTime(2016, 08, 02));
+
+        // Act
+        DateCalculator dateCalculator = new(_mockTimeProvider.Object);
+
+        // Assert
+        Assert.Equal("2016-08-14", dateCalculator.NextSunday());
     }
 
     [Fact]
     public void ShouldGetNextSundayIfTodayIsSunday()
     {
-        _mockTimeProvider.Setup(o => o.Today()).Returns(new DateTime(2016, 08, 07));
-        DateCalculator dateCalculator = new DateCalculator(_mockTimeProvider.Object);
-        dateCalculator.NextSunday().Should().Be("2016-08-14");
+        // Arrange
+        _mockTimeProvider
+            .Setup(provider => provider.Today())
+            .Returns(new DateTime(2016, 08, 07));
+        
+        // Act
+        DateCalculator dateCalculator = new(_mockTimeProvider.Object);
+
+        // Assert
+        Assert.Equal("2016-08-14", dateCalculator.NextSunday());
     }
 
     [Fact]
     public void ShouldGetValueForKeyForFilterIfKeyExists()
     {
-        _mockTimeProvider.Setup(o => o.Today()).Returns(new DateTime(2017, 12, 25));
+        // Arrange
+        _mockTimeProvider
+            .Setup(provider => provider.Today())
+            .Returns(new DateTime(2017, 12, 25));
 
-        var dateCalculator = new DateCalculator(_mockTimeProvider.Object);
+        DateCalculator dateCalculator = new(_mockTimeProvider.Object);
 
-        var value = dateCalculator.ReturnDisplayNameForFilter("today");
+        // Act
+        string value = dateCalculator.ReturnDisplayNameForFilter("today");
 
-        value.Should().Be("Today");
+        // Assert
+        Assert.Equal("Today", value);
     }
 
     [Fact]
     public void ShouldGetValueForKeyForFilterIfKeyExistsForAnotherKey()
     {
-        _mockTimeProvider.Setup(o => o.Today()).Returns(new DateTime(2017, 12, 25));
+        // Arrange
+        _mockTimeProvider
+            .Setup(provider => provider.Today())
+            .Returns(new DateTime(2017, 12, 25));
 
-        var dateCalculator = new DateCalculator(_mockTimeProvider.Object);
+        DateCalculator dateCalculator = new(_mockTimeProvider.Object);
 
-        var value = dateCalculator.ReturnDisplayNameForFilter("thisweekend");
+        // Act
+        string value = dateCalculator.ReturnDisplayNameForFilter("thisweekend");
 
-        value.Should().Be("This weekend");
+        // Assert
+        Assert.Equal("This weekend", value);
     }
 
     [Fact]
     public void ShouldNotGiveAValueForNoExistantKey()
     {
-        _mockTimeProvider.Setup(o => o.Today()).Returns(new DateTime(2017, 12, 25));
+        // Arrange
+        _mockTimeProvider
+            .Setup(provider => provider.Today())
+            .Returns(new DateTime(2017, 12, 25));
 
-        var dateCalculator = new DateCalculator(_mockTimeProvider.Object);
+        DateCalculator dateCalculator = new(_mockTimeProvider.Object);
 
-        var value = dateCalculator.ReturnDisplayNameForFilter("none");
+        // Act
+        string value = dateCalculator.ReturnDisplayNameForFilter("none");
 
-        value.Should().Be(string.Empty);
+        // Assert
+        Assert.Empty(value);
     }
 
     [Fact]
     public void ShouldReturnEmptyStringForNullKey()
     {
-        _mockTimeProvider.Setup(o => o.Today()).Returns(new DateTime(2017, 12, 25));
+        // Arrange
+        _mockTimeProvider
+            .Setup(provider => provider.Today())
+            .Returns(new DateTime(2017, 12, 25));
 
-        var dateCalculator = new DateCalculator(_mockTimeProvider.Object);
+        DateCalculator dateCalculator = new(_mockTimeProvider.Object);
 
-        var value = dateCalculator.ReturnDisplayNameForFilter(null);
+        // Act
+        string value = dateCalculator.ReturnDisplayNameForFilter(null);
 
-        value.Should().Be(string.Empty);
+        // Assert
+        Assert.Empty(value);
     }
 
     [Fact]
     public void ShouldReturnEmptyStringForEmptyKey()
     {
-        _mockTimeProvider.Setup(o => o.Today()).Returns(new DateTime(2017, 12, 25));
+        // Arrange
+        _mockTimeProvider
+            .Setup(provider => provider.Today())
+            .Returns(new DateTime(2017, 12, 25));
 
-        var dateCalculator = new DateCalculator(_mockTimeProvider.Object);
+        DateCalculator dateCalculator = new(_mockTimeProvider.Object);
 
-        var value = dateCalculator.ReturnDisplayNameForFilter(string.Empty);
+        // Act
+        string value = dateCalculator.ReturnDisplayNameForFilter(string.Empty);
 
-        value.Should().Be(string.Empty);
+        // Assert
+        Assert.Empty(value);
     }
 
     [Fact]
     public void ShouldReturnAEventFilterForAKey()
     {
-        _mockTimeProvider.Setup(o => o.Today()).Returns(new DateTime(2017, 12, 25));
+        // Arrange
+        _mockTimeProvider
+            .Setup(provider => provider.Today())
+            .Returns(new DateTime(2017, 12, 25));
 
-        var dateCalculator = new DateCalculator(_mockTimeProvider.Object);
+        DateCalculator dateCalculator = new(_mockTimeProvider.Object);
 
-        var filter = dateCalculator.ReturnFilterForKey("today");
+        // Act
+        EventFilter filter = dateCalculator.ReturnFilterForKey("today");
 
-        filter.Should().NotBeNull();
-        filter.DateFrom.Should().Be("2017-12-25");
-        filter.DateTo.Should().Be("2017-12-25");
-        filter.DateRange.Should().Be("Today");
+        // Assert
+        Assert.NotNull(filter);
+        Assert.Equal("2017-12-25", filter.DateFrom);
+        Assert.Equal("2017-12-25", filter.DateTo);
+        Assert.Equal("Today", filter.DateRange);
     }
 
     [Fact]
     public void ShouldReturnEmptyFilterForNotFoundKey()
     {
-        _mockTimeProvider.Setup(o => o.Today()).Returns(new DateTime(2017, 12, 25));
+        // Arrange
+        _mockTimeProvider
+            .Setup(provider => provider.Today())
+            .Returns(new DateTime(2017, 12, 25));
 
-        var dateCalculator = new DateCalculator(_mockTimeProvider.Object);
+        DateCalculator dateCalculator = new(_mockTimeProvider.Object);
 
-        var filter = dateCalculator.ReturnFilterForKey("notfoundkey");
+        // Act
+        EventFilter filter = dateCalculator.ReturnFilterForKey("notfoundkey");
 
-        filter.Should().NotBeNull();
-        filter.DateRange.Should().BeEmpty();
-        filter.DateTo.Should().BeEmpty();
-        filter.DateFrom.Should().BeEmpty();
+        // Assert
+        Assert.NotNull(filter);
+        Assert.Empty(filter.DateRange);
+        Assert.Empty(filter.DateTo);
+        Assert.Empty(filter.DateFrom);
     }
 
     [Fact]
     public void ShouldReturnEmptyFilterForNullKey()
     {
-        _mockTimeProvider.Setup(o => o.Today()).Returns(new DateTime(2017, 12, 25));
+        // Arrange
+        _mockTimeProvider
+            .Setup(provider => provider.Today())
+            .Returns(new DateTime(2017, 12, 25));
 
-        var dateCalculator = new DateCalculator(_mockTimeProvider.Object);
+        DateCalculator dateCalculator = new(_mockTimeProvider.Object);
 
-        var filter = dateCalculator.ReturnFilterForKey(null);
+        // Act
+        EventFilter filter = dateCalculator.ReturnFilterForKey(null);
 
-        filter.Should().NotBeNull();
-        filter.DateRange.Should().BeEmpty();
-        filter.DateTo.Should().BeEmpty();
-        filter.DateFrom.Should().BeEmpty();
+        // Assert
+        Assert.NotNull(filter);
+        Assert.Empty(filter.DateRange);
+        Assert.Empty(filter.DateTo);
+        Assert.Empty(filter.DateFrom);
     }
-
 
     [Fact]
     public void ShouldReturnEmptyFilterForStringEmptyKey()
     {
-        _mockTimeProvider.Setup(o => o.Today()).Returns(new DateTime(2017, 12, 25));
+        // Arrange
+        _mockTimeProvider
+            .Setup(provider => provider.Today())
+            .Returns(new DateTime(2017, 12, 25));
 
-        var dateCalculator = new DateCalculator(_mockTimeProvider.Object);
+        DateCalculator dateCalculator = new(_mockTimeProvider.Object);
 
-        var filter = dateCalculator.ReturnFilterForKey(string.Empty);
+        // Act
+        EventFilter filter = dateCalculator.ReturnFilterForKey(string.Empty);
 
-        filter.Should().NotBeNull();
-        filter.DateRange.Should().BeEmpty();
-        filter.DateTo.Should().BeEmpty();
-        filter.DateFrom.Should().BeEmpty();
+        // Assert
+        Assert.NotNull(filter);
+        Assert.Empty(filter.DateRange);
+        Assert.Empty(filter.DateTo);
+        Assert.Empty(filter.DateFrom);
     }
 
     [Theory]
@@ -237,19 +358,20 @@ public class DateCalculatorTest
     public void ShowReturnCorrectEndDateForReoccurringEvents(int daysHence, EventFrequency freq, int occurences)
     {
         // Arrange
-        var date = new DateTime(2017, 12, 25);
+        DateTime date = new(2017, 12, 25);
 
-        _mockTimeProvider.Setup(o => o.Today()).Returns(date);
+        _mockTimeProvider
+            .Setup(provider => provider.Today())
+            .Returns(date);
 
-        var dateCalculator = new DateCalculator(_mockTimeProvider.Object);
-
-        var testEvent = new Event { EventFrequency = freq, Occurences = occurences, EventDate = date };
+        DateCalculator dateCalculator = new(_mockTimeProvider.Object);
+        Event testEvent = new() { EventFrequency = freq, Occurences = occurences, EventDate = date };
 
         // Act
-        var enddate = dateCalculator.GetEventEndDate(testEvent);
+        DateTime enddate = dateCalculator.GetEventEndDate(testEvent);
 
         // Assert
-        enddate.Should().Be(testEvent.EventDate.AddDays(daysHence));
+        Assert.Equal(testEvent.EventDate.AddDays(daysHence), enddate);
     }
 
     [Theory]
@@ -271,18 +393,19 @@ public class DateCalculatorTest
     public void GetEventOccurences_ShowReturnCorrectCountOfEventOccurences(int daysHence, EventFrequency freq, int occurences)
     {
         // Arrange
-        var date = new DateTime(2017, 12, 25);
+        DateTime date = new(2017, 12, 25);
 
-        _mockTimeProvider.Setup(o => o.Today()).Returns(date);
+        _mockTimeProvider
+            .Setup(provider => provider.Today())
+            .Returns(date);
 
-        var dateCalculator = new DateCalculator(_mockTimeProvider.Object);
-
-        var testEvent = new Event { EventFrequency = freq, Occurences = occurences, EventDate = date };
+        DateCalculator dateCalculator = new(_mockTimeProvider.Object);
+        Event testEvent = new() { EventFrequency = freq, Occurences = occurences, EventDate = date };
 
         // Act
-        var result = dateCalculator.GetEventOccurences(testEvent.EventFrequency, testEvent.EventDate, testEvent.EventDate.AddDays(daysHence));
+        int result = dateCalculator.GetEventOccurences(testEvent.EventFrequency, testEvent.EventDate, testEvent.EventDate.AddDays(daysHence));
 
         // Assert
-        result.Should().Be(occurences);
+        Assert.Equal(occurences, result);
     }
 }

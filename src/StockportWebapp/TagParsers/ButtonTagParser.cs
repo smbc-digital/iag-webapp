@@ -4,14 +4,14 @@ public class ButtonTagParser : ISimpleTagParser
 {
     private readonly TagReplacer _tagReplacer;
     protected Regex TagRegex => new("{{BUTTON:(\\s*[/a-zA-Z0-9][^}]+)}}", RegexOptions.Compiled);
-    private const string buttonClassStyle = "btn button button-primary button-outline button-partialrounded btn--chevron-forward button-call-to-action";
+    private const string buttonClassStyle = "btn button button-hs button-primary button-outline button-partialrounded btn--chevron-forward";
 
     public string GenerateHtml(string tagData)
     {
-        var commaSplitString = tagData.Split(new[] { ',' }, 2);
-        var thereIsLinkText = commaSplitString.Length.Equals(2);
-        var link = tagData;
-        var title = tagData;
+        string[] commaSplitString = tagData.Split([','], 2);
+        bool thereIsLinkText = commaSplitString.Length.Equals(2);
+        string link = tagData;
+        string title = tagData;
 
         if (thereIsLinkText)
         {

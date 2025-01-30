@@ -5,28 +5,23 @@ public interface ILoggedInHelper
     LoggedInPerson GetLoggedInPerson();
 }
 
-public class LoggedInHelper : ILoggedInHelper
+public class LoggedInHelper(IHttpContextAccessor httpContextAccessor,
+                            CurrentEnvironment environment,
+                            IJwtDecoder decoder,
+                            ILogger<LoggedInHelper> logger) : ILoggedInHelper
 {
-    private readonly IHttpContextAccessor _httpContextAccessor;
-    private readonly CurrentEnvironment _environment;
-    private readonly IJwtDecoder _decoder;
-    private readonly ILogger<LoggedInHelper> _logger;
-
-    public LoggedInHelper(IHttpContextAccessor httpContextAccessor, CurrentEnvironment environment, IJwtDecoder decoder, ILogger<LoggedInHelper> logger)
-    {
-        _httpContextAccessor = httpContextAccessor;
-        _environment = environment;
-        _decoder = decoder;
-        _logger = logger;
-    }
+    private readonly IHttpContextAccessor _httpContextAccessor = httpContextAccessor;
+    private readonly CurrentEnvironment _environment = environment;
+    private readonly IJwtDecoder _decoder = decoder;
+    private readonly ILogger<LoggedInHelper> _logger = logger;
 
     public LoggedInPerson GetLoggedInPerson()
     {
-        var person = new LoggedInPerson();
+        LoggedInPerson person = new();
 
         try
         {
-            var token = _httpContextAccessor.HttpContext.Request.Cookies[CookieName()];
+            string token = _httpContextAccessor.HttpContext.Request.Cookies[CookieName()];
             if (!string.IsNullOrEmpty(token))
             {
                 person = _decoder.Decode(token);
@@ -41,18 +36,12 @@ public class LoggedInHelper : ILoggedInHelper
         return person;
     }
 
-    private string CookieName()
-    {
-        switch (_environment.Name.ToUpper())
+    private string CookieName() =>
+        _environment.Name.ToUpper() switch
         {
-            case "INT":
-                return "int_jwtCookie";
-            case "QA":
-                return "qa_jwtCookie";
-            case "STAGE":
-                return "staging_jwtCookie";
-            default:
-                return "jwtCookie";
-        }
-    }
+            "INT" => "int_jwtCookie",
+            "QA" => "qa_jwtCookie",
+            "STAGE" => "staging_jwtCookie",
+            _ => "jwtCookie",
+        };
 }

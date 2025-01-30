@@ -22,12 +22,12 @@ public class Pagination
     }
 
     public Pagination()
-    {
-    }
+    { }
 
     private int CalculateTotalPages(int totalNumItems)
     {
         bool numItemsIsDivisibleByPageSize = (totalNumItems % MaxItemsPerPage).Equals(0);
+        
         int pageCount = numItemsIsDivisibleByPageSize
             ? (totalNumItems / MaxItemsPerPage)
             : (totalNumItems / MaxItemsPerPage) + 1;
@@ -35,8 +35,6 @@ public class Pagination
         return pageCount;
     }
 
-    public static implicit operator Pagination(QueryUrl v)
-    {
+    public static implicit operator Pagination(QueryUrl v) =>
         throw new NotImplementedException();
-    }
 }

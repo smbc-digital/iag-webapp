@@ -1,33 +1,20 @@
 namespace StockportWebapp.Controllers;
 
-public class DocumentController : Controller
+public class DocumentController(IDocumentPageRepository documentPageRepository,
+                                IContactUsMessageTagParser contactUsMessageParser) : Controller
 {
-    private readonly IProcessedContentRepository _repository;
-    private readonly IDocumentPageRepository _documentPageRepository;
-    private readonly IContactUsMessageTagParser _contactUsMessageParser;
-
-    public DocumentController(
-        IProcessedContentRepository repository,
-        IContactUsMessageTagParser contactUsMessageParser,
-        IDocumentPageRepository documentPageRepository
-        )
-    {
-        _repository = repository;
-        _contactUsMessageParser = contactUsMessageParser;
-        _documentPageRepository = documentPageRepository;
-    }
+    private readonly IDocumentPageRepository _documentPageRepository = documentPageRepository;
+    private readonly IContactUsMessageTagParser _contactUsMessageParser = contactUsMessageParser;
 
     [Route("/documents/{documentPageSlug}")]
     public async Task<IActionResult> Index(string documentPageSlug)
     {
-        var documentPageHttpResponse = await _documentPageRepository.Get(documentPageSlug);
+        HttpResponse result = await _documentPageRepository.Get(documentPageSlug);
 
-        if (!documentPageHttpResponse.IsSuccessful())
-            return documentPageHttpResponse;
+        if (!result.IsSuccessful())
+            return result;
 
-        var documentPage = documentPageHttpResponse.Content as ProcessedDocumentPage;
-
-        var viewModel = new DocumentPageViewModel(documentPage);
+        DocumentPageViewModel viewModel = new(result.Content as DocumentPage);
 
         ViewBag.CurrentUrl = Request?.GetDisplayUrl();
 

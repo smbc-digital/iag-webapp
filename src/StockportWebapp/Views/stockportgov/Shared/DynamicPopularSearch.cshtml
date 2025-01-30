@@ -1,7 +1,9 @@
 ﻿@model IEnumerable<string>
+    
 <div class="search-bar-links">
     <strong>Popular searches: </strong>
-    @foreach (var term in Model)
+
+    @foreach (string term in Model)
     {
         <a href="/search?query=@term">@term</a>
     }

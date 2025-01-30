@@ -1,6 +1,6 @@
 ﻿@model NavCardList
 @{
-    bool displayImage = Model.Items.All(item => !string.IsNullOrEmpty(item.Image));
+    bool displayImage = Model.Items.All(item => !string.IsNullOrEmpty(item.TeaserImage) || !string.IsNullOrEmpty(item.Image));
     string borderTealDesktop = " navcard--border-top-10-desktop navcard--theme-teal-lighter-top-desktop";
     string borderTealTablet = " navcard--border-top-10-tablet navcard--theme-teal-lighter-top-tablet";
     string borderTealMobile = " navcard--border-left-10-mobile navcard--theme-teal-lighter-left-mobile";
@@ -14,7 +14,7 @@
 }
 
 <ul class="navcard-wrapper navcard-wrapper--no-margin">
-    @foreach (var navCard in Model.Items)
+    @foreach (NavCard navCard in Model.Items)
     {
         <li class="navcard navcard--grey navcard--width-33 navcard--no-padding-right-rtl @borderCssClasses">
             <partial name="TopicNavCard" model="navCard" view-data='@(new ViewDataDictionary(ViewData) {{"displayImage", @displayImage}})'/>

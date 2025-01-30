@@ -1,11 +1,15 @@
-﻿@model ArticleViewModel
+﻿@using StockportWebapp.Utils;
+
+@model ArticleViewModel
 @{
     ViewData["Title"] = Model.Article.Title;
     ViewData["Description"] = Model.MetaDescription;
     ViewData["og:title"] = Model.OgTitleMetaData;
     Layout = "../Shared/_Layout2023.cshtml";
     string dataCy = Model.DisplayedSection is null ? "flat-article" : "article-with-sections";
-    string articleMarginBottom = !Model.Article.ArticleBranding.Any() || Model.Article.ArticleBranding is null ? " section" : string.Empty;
+    string articleMarginBottom = !Model.Article.ArticleBranding.Any() || Model.Article.ArticleBranding is null
+        ? " section"
+        : string.Empty;
 }
 
 <div class="grid-container-full-width" style="background-color:white;" data-cy="@dataCy">
@@ -17,7 +21,7 @@
             <div class="article--70">
                 <h1 class="article__title">@Model.Article.Title</h1>
 
-                @if (Model.ArticleWithSection && Model.ArticleWithImage)
+                @if (Model.ArticleWithSection && !Model.ArticleHasImage)
                 {
                     <partial name="ArticleSections" />
                 }
@@ -25,7 +29,7 @@
 
             <section class="article">
                 <div class="article--70 @articleMarginBottom">
-                    @if (!Model.ArticleWithImage)
+                    @if (Model.ArticleHasImage)
                     {
                         <div class="article-hero">
                             <img src="@Model.Article.Image?q=89&fm=webp"
@@ -42,7 +46,7 @@
                         </div>
                     }
 
-                    @if (Model.ArticleWithSection && !Model.ArticleWithImage)
+                    @if (Model.ArticleWithSection && Model.ArticleHasImage)
                     {
                         <partial name="ArticleSections" />
                     }
@@ -58,7 +62,7 @@
                     @if (!string.IsNullOrEmpty(Model.Article.Body))
                     {
                         <article>
-                            @Html.Raw(Model.Article.Body)
+                            @Html.Raw(StockportWebapp.Utils.HtmlHelper.AddImageAttributes(Model.Article.Body, "720", "511", "720", "937", "852"))
                         </article>
                     }
 
@@ -93,7 +97,7 @@
                 <div class="article--30 section">
                     @if (Model.HasParentTopicWithSubItems())
                     {
-                        <partial name="ArticleNavCardList" />
+                        <partial name="SidebarNavCardList" model="@Model.Sidebar" />
                     }
 
                     @if (Model.HasRelatedContentWithSubItems())

@@ -1,0 +1,31 @@
+﻿@model ContentBlock
+@if (Model?.SubItems?.Count >= 3)
+{
+    <section class="content-block content-block--margin" data-cy="find-out-more-cards">
+        <div class="grid-container">
+            <div class="grid-100">
+                @if(!string.IsNullOrEmpty(Model.Title))
+                {
+                    <div class="content-block--margin-inline">
+                        <h2 class="content-block__title">@Model.Title</h2>
+                    </div>
+                    <hr />   
+                }
+                
+                <div class="section__content">
+                    <ul class="navcard-wrapper navcard-wrapper--no-margin">
+                        @foreach(ContentBlock contentBlock in Model.SubItems.Take(3))
+                        {
+                            <partial name="FindOutMoreCard" model="@contentBlock" view-data="@(new ViewDataDictionary(ViewData) { {"TextColourClass", Model.TextColourClass} })" />
+                        }
+                    </ul>
+                </div>
+                
+                @if (Model?.SubItems?.Count > 3)
+                {
+                    <partial name="ContentBlockViewMore" />
+                }
+            </div>
+        </div>
+    </section>
+}

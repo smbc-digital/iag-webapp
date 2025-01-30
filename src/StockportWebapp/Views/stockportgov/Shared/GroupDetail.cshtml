@@ -1,33 +1,28 @@
 ﻿@model GroupDetailsViewModel
 @{
 
-    var socialLinksExtension = new SocialLinksExtension();
-    string facebook = string.Empty;
-    string twitter = string.Empty;
-    var test = string.Empty;
+    SocialLinksExtension socialLinksExtension = new();
+    string facebook = !string.IsNullOrEmpty(Model.Group.Facebook) 
+        ? socialLinksExtension.GetSubstring(Model.Group.Facebook) 
+        : string.Empty;
 
-    if (!string.IsNullOrEmpty(Model.Group.Facebook))
-    {
-        facebook = socialLinksExtension.GetSubstring(Model.Group.Facebook);
-    }
-    if (!string.IsNullOrEmpty(Model.Group.Twitter))
-    {
-        twitter = socialLinksExtension.GetSubstring(Model.Group.Twitter);
-    }
+    string twitter = !string.IsNullOrEmpty(Model.Group.Twitter) 
+        ? socialLinksExtension.GetSubstring(Model.Group.Twitter) 
+        : string.Empty;
 }
 
 @section Breadcrumbs {
     <partial name="Breadcrumb" model='new List<Crumb> { new Crumb("Stockport Local", "groups", "groups") }' />
 }
 
-    @Html.HiddenFor(_ => _.ConfirmedUpToDate)
+@Html.HiddenFor(_ => _.ConfirmedUpToDate)
 
-    <article aria-label="@Model.Group.Name content" class="grid-container group-detail" data-cy="group-page">
-        <div class="grid-70 tablet-grid-100 mobile-grid-100 main-content">
+<article aria-label="@Model.Group.Name content" class="grid-container group-detail" data-cy="group-page">
+    <div class="grid-70 tablet-grid-100 mobile-grid-100 main-content">
         @if (Model.Group.Alerts is not null)
         {
             <div class="alert-container grid-container">
-                @foreach (var alert in Model.Group.Alerts)
+                @foreach (Alert alert in Model.Group.Alerts)
                 {
                     <partial name="DisplayTemplates/Alert" model='alert' />
                 }
@@ -48,6 +43,7 @@
         <section id="about-us">
             <hr class="hide-on-desktop">
             <h2>About us</h2>
+
             <ul class="group-information">
                 @if (!string.IsNullOrEmpty(Model.Group.Address))
                 {
@@ -67,6 +63,7 @@
 
                     </li>
                 }
+
                 @if (!string.IsNullOrEmpty(Model.Group.CostText))
                 {
                     <li>
@@ -83,7 +80,6 @@
             </ul>
         </section>
 
-
         <section id="what-we-do">
             <article class="what-we-do">
                 <h2 class="group-details-heading">What we do</h2>
@@ -98,10 +94,11 @@
             @if (Model.Group.GroupBranding.Any())
             {
                 <div class="group-branding">
-                    @foreach (var branding in Model.Group.GroupBranding)
+                    @foreach (GroupBranding branding in Model.Group.GroupBranding)
                     {
                         <div class="group-branding-item">
                             <p><strong>@branding.Text</strong></p>
+
                             <div class="group-branding-item-image">
                                 <a href="@branding.Url">
                                     <img src="@branding.File.Url" alt="@branding.File.Description" />
@@ -128,6 +125,7 @@
 
                     </li>
                 }
+
                 @if (!string.IsNullOrEmpty(Model.Group.Email))
                 {
                     <li>
@@ -139,6 +137,7 @@
 
                     </li>
                 }
+
                 @if (!string.IsNullOrEmpty(Model.Group.PhoneNumber))
                 {
                     <li>
@@ -150,6 +149,7 @@
 
                     </li>
                 }
+
                 @if (!string.IsNullOrEmpty(Model.Group.Facebook))
                 {
                     <li>
@@ -161,6 +161,7 @@
 
                     </li>
                 }
+
                 @if (!string.IsNullOrEmpty(Model.Group.Twitter))
                 {
                     <li>
@@ -181,7 +182,7 @@
         {
             <div class="group-map-container group-map-container-padding">
                 <h2 class="group-details-heading">How to find us</h2>
-                <partial name="MapPosition" model='Model.Group.MapDetails' />
+                <partial name="MapPosition" model='Model.Group.MapDetails' view-data='@(new ViewDataDictionary(ViewData) {{ "eventMap", false }})'/>
             </div>
         }
 
@@ -191,13 +192,15 @@
                 <partial name="Events/EventCards" model='Model.Group.Events.Take(3).ToList()' />
             </div>
         }
+
         <div class="share border top-border">
             <partial name="GroupLastUpdated" model='Model.Group' />
             <partial name="ShareViaPrint" model='Model.Group.Name' />
         </div>
-        <partial name="ContentDisclaimerCard" />
 
+        <partial name="ContentDisclaimerCard" />
     </div>
+
     <aside class="grid-30 hide-on-print">
         <h2>More about this group</h2>
         <hr class="hide-on-mobile" />
@@ -253,7 +256,6 @@
                           Make a change to this page
                     </stock-button>
                 }
-
                 else if (Model.ConfirmedUpToDate)
                 {
                     <p>

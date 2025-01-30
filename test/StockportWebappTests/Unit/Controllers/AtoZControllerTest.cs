@@ -2,56 +2,63 @@
 
 public class AtoZControllerTest
 {
-    private readonly Mock<IRepository> _repository;
+    private readonly Mock<IRepository> _repository = new();
     private readonly AtoZController _controller;
-    
-    public AtoZControllerTest()
-    {
-        _repository = new Mock<IRepository>();
+
+    public AtoZControllerTest() =>
         _controller = new AtoZController(_repository.Object);
-    }
 
     [Fact]
-    public async Task ItReturnsAnAtoZListing()
+    public async Task Index_ItReturnsAnAtoZListing()
     {
-        var atoz = new List<AtoZ> { new AtoZ("title", "slug", "teaser", "type") };
-        var response = new HttpResponse((int)HttpStatusCode.OK, atoz, string.Empty);
+        // Arrange
+        List<AtoZ> atoz = new() { new AtoZ("title", "slug", "teaser", "type") };
+        HttpResponse response = new((int)HttpStatusCode.OK, atoz, string.Empty);
 
-        _repository.Setup(o => o.Get<List<AtoZ>>(It.IsAny<string>(), null))
+        _repository
+            .Setup(repo => repo.Get<List<AtoZ>>(It.IsAny<string>(), null))
             .ReturnsAsync(response);
 
-        var view = await _controller.Index("v") as ViewResult;
-        var model = view.ViewData.Model as AtoZViewModel;
+        // Act
+        ViewResult view = await _controller.Index("v") as ViewResult;
+        AtoZViewModel model = view.ViewData.Model as AtoZViewModel;
 
-        model.CurrentLetter.Should().Be("V");
-        model.Items.Should().HaveCount(1);
-        model.Items[0].Title.Should().Be("title");
-        model.Items[0].NavigationLink.Should().Contain("slug");
-        model.Items[0].Teaser.Should().Be("teaser");
+        // Arrange
+        Assert.Equal("V", model.CurrentLetter);
+        Assert.Single(model.Items);
+        Assert.Equal("title", model.Items[0].Title);
+        Assert.Equal("/slug", model.Items[0].NavigationLink);
+        Assert.Equal("teaser", model.Items[0].Teaser);
     }
 
     [Fact]
-    public async Task RedirectsTo500ErrorIfUnauthorised()
+    public async Task Index_RedirectsTo500ErrorIfUnauthorised()
     {
+        // Arrange
         _repository
-            .Setup(o => o.Get<List<AtoZ>>(It.IsAny<string>(), null))
+            .Setup(repo => repo.Get<List<AtoZ>>(It.IsAny<string>(), null))
             .ReturnsAsync(new HttpResponse((int)HttpStatusCode.Unauthorized, string.Empty, string.Empty));
+        
+        // Act
+        HttpResponse result = await _controller.Index("v") as HttpResponse;
 
-        var result = await _controller.Index("v") as HttpResponse;
-
-        result.StatusCode.Should().Be(500);
+        // Assert
+        Assert.Equal(500, result.StatusCode);
     }
 
     [Fact]
-    public async Task GetsABlankAtoZWhenNotFoundAtoZListing()
+    public async Task Index_GetsABlankAtoZWhenNotFoundAtoZListing()
     {
+        // Arrange
         _repository
-            .Setup(o => o.Get<List<AtoZ>>("a", null))
+            .Setup(repo => repo.Get<List<AtoZ>>("a", null))
             .ReturnsAsync(new HttpResponse((int)HttpStatusCode.NotFound, "error", string.Empty));
 
-        var result = await _controller.Index("a") as ViewResult;
-
-        result.ViewData["Error"].Should().Be("error");
+        // Act
+        ViewResult result = await _controller.Index("a") as ViewResult;
+        
+        // Arrange
+        Assert.Equal("error", result.ViewData["Error"]);
     }
 
     [Theory]
@@ -61,11 +68,13 @@ public class AtoZControllerTest
     [InlineData("$")]
     [InlineData("not a letter")]
     [InlineData("$Not a letter")]
-    public async Task ShouldReturnANotFoundPageIfTheSearchTermIsNotInTheAlphabet(string searchTerm)
+    public async Task Index_ShouldReturnANotFoundPageIfTheSearchTermIsNotInTheAlphabet(string searchTerm)
     {
-        var response = await _controller.Index(searchTerm);
+        // Act
+        IActionResult response = await _controller.Index(searchTerm);
 
-        response.Should().BeOfType<NotFoundResult>();
-        _repository.Verify(o => o.Get<List<AtoZ>>(It.IsAny<string>(), null), Times.Never);
+        // Assert
+        Assert.IsType<NotFoundResult>(response);
+        _repository.Verify(repo => repo.Get<List<AtoZ>>(It.IsAny<string>(), null), Times.Never);
     }
 }

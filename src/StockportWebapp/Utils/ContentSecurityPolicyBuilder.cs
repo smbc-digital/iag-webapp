@@ -2,7 +2,7 @@
 
 public class ContentSecurityPolicyBuilder
 {
-    private StringBuilder _stringBuilder = new StringBuilder();
+    private StringBuilder _stringBuilder = new();
 
     public string BuildPolicy()
     {
@@ -21,22 +21,17 @@ public class ContentSecurityPolicyBuilder
         return _stringBuilder.ToString();
     }
 
-    private void BuildDefaultSource()
-    {
+    private void BuildDefaultSource() =>
         _stringBuilder.Append(
-            new ContentSecurityPolicyElement
-                ("default-src", containsSelf: false)
+            new ContentSecurityPolicyElement("default-src", containsSelf: false)
             .AddSource("https:")
             .AddSource("wss:", false)
             .AddSource("http:", false)
             .Finish());
-    }
 
-    private void BuildChildSourceAkaFrameSource()
-    {
+    private void BuildChildSourceAkaFrameSource() =>
         _stringBuilder.Append(
-            new ContentSecurityPolicyElement
-                ("child-src")
+            new ContentSecurityPolicyElement("child-src")
             .AddSource("https://www.youtube.com")
             .AddSource("https://www.google.com/")
             .AddSource("https://www.google.com/maps/")
@@ -59,13 +54,10 @@ public class ContentSecurityPolicyBuilder
             .AddSource("forms-eu1.hsforms.com")
             .AddSource("my.matterport.com")
             .Finish());
-    }
 
-    private void BuildFontSource()
-    {
+    private void BuildFontSource() =>
         _stringBuilder.Append(
-            new ContentSecurityPolicyElement
-                ("font-src")
+            new ContentSecurityPolicyElement("font-src")
             .AddSource("font.googleapis.com")
             .AddSource("maxcdn.bootstrapcdn.com/font-awesome/")
             .AddSource("cdnjs.cloudflare.com/ajax/libs/font-awesome/")
@@ -79,13 +71,10 @@ public class ContentSecurityPolicyBuilder
             .AddSource("s3-eu-west-1.amazonaws.com", true)
             .AddSource("api.reciteme.com/assets/")
             .Finish());
-    }
 
-    private void BuildImageSource()
-    {
+    private void BuildImageSource() =>
         _stringBuilder.Append(
-            new ContentSecurityPolicyElement
-                ("img-src")
+            new ContentSecurityPolicyElement("img-src")
             .AddSource("khms0.googleapis.com")
             .AddSource("khms1.googleapis.com")
             .AddSource("geo0.ggpht.com")
@@ -135,13 +124,10 @@ public class ContentSecurityPolicyBuilder
             .AddSource("forms-eu1.hsforms.com")
             .AddSource("lh3.ggpht.com")
             .Finish());
-    }
 
-    private void BuildStyleSource()
-    {
+    private void BuildStyleSource() =>
         _stringBuilder.Append(
-            new ContentSecurityPolicyElement
-                ("style-src")
+            new ContentSecurityPolicyElement("style-src")
             .AddSource("'unsafe-inline'")
             .AddSource("cludo.com/css/")
             .AddSource("customer.cludo.com/css/")
@@ -169,13 +155,10 @@ public class ContentSecurityPolicyBuilder
             .AddSource("api.mapbox.com/")
             .AddSource("api.reciteme.com/")
             .Finish());
-    }
 
-    private void BuildScriptSource()
-    {
+    private void BuildScriptSource() =>
         _stringBuilder.Append(
-            new ContentSecurityPolicyElement
-                ("script-src")
+            new ContentSecurityPolicyElement("script-src")
             .AddSource("'unsafe-inline'")
             .AddSource("'unsafe-eval'")
             .AddSource("https://ajax.googleapis.com/ajax/libs/jquery/")
@@ -238,14 +221,13 @@ public class ContentSecurityPolicyBuilder
             .AddSource("forms-eu1.hsforms.com")
             .AddSource("www.freeprivacypolicy.com")
             .AddSource("unpkg.com/@googlemaps/")
+            .AddSource("https://kit.fontawesome.com/")
+            .AddSource("ka-p.fontawesome.com/")
             .Finish());
-    }
 
-    private void BuildConnectSource()
-    {
+    private void BuildConnectSource() =>
         _stringBuilder.Append(
-            new ContentSecurityPolicyElement
-                ("connect-src")
+            new ContentSecurityPolicyElement("connect-src")
             .AddSource("https://api.cludo.com/")
             .AddSource("buto-ping-middleman.buto.tv/")
             .AddSource("http://kinesis-ping-middleman.buto.tv")
@@ -287,14 +269,13 @@ public class ContentSecurityPolicyBuilder
             .AddSource("forms-eu1.hscollectedforms.net")
             .AddSource("api-eu1.hubapi.com")
             .AddSource("hubspot-forms-static-embed-eu1.s3.amazonaws.com/")
+            .AddSource("ka-p.fontawesome.com/")
+            .AddSource("lookinglocal.cdn.spotlightr.com/")
             .Finish());
-    }
 
-    private void BuildMediaSource()
-    {
+    private void BuildMediaSource() =>
         _stringBuilder.Append(
-            new ContentSecurityPolicyElement
-                ("media-src")
+            new ContentSecurityPolicyElement("media-src")
             .AddSource("blob:", true, true)
             .AddSource("https://www.youtube.com/")
             .AddSource("*.cloudfront.net/butotv/live/", false, true)
@@ -302,41 +283,34 @@ public class ContentSecurityPolicyBuilder
             .AddSource("app.meetami.ai/")
             .AddSource("*.meetami.ai/", false)
             .AddSource("https://api.reciteme.com/")
+            .AddSource("lookinglocal.cdn.spotlightr.com/")
             .Finish());
-    }
 
-    private void BuildFrameSource()
-    {
+    private void BuildFrameSource() =>
         _stringBuilder.Append(
-            new ContentSecurityPolicyElement
-                ("frame-ancestors")
+            new ContentSecurityPolicyElement("frame-ancestors")
             .AddSource("*.stockport.gov.uk")
             .AddSource("*.smbcdigital.net")
             .AddSource("*.meetami.ai/")
-            .AddSource("*.chat.meetami.ai/") 
+            .AddSource("*.chat.meetami.ai/")
             .AddSource("forms.stockport.gov.uk", true)
             .AddSource("app.contentful.com")
             .AddSource("forms-eu1.hsforms.com")
             .AddSource("my.matterport.com")
+            .AddSource("int-formbuilder-origin.smbcdigital.net", true)
+            .AddSource("lookinglocal.cdn.spotlightr.com/")
             .Finish());
-    }
 
-    private void BuildObjectSource()
-    {
+    private void BuildObjectSource() =>
         _stringBuilder.Append(
-            new ContentSecurityPolicyElement
-                ("object-src")
+            new ContentSecurityPolicyElement("object-src")
             .AddSource("https://www.youtube.com")
             .AddSource("http://www.youtube.com")
             .Finish());
-    }
 
-    private void BuildManifestSource()
-    {
+    private void BuildManifestSource() =>
         _stringBuilder.Append(
-            new ContentSecurityPolicyElement
-                ("manifest-src")
+            new ContentSecurityPolicyElement("manifest-src")
             .AddSource("http://localhost:5000/assets/images/ui-images/sg/manifest.json")
             .Finish());
-    }
 }

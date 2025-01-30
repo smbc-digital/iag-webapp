@@ -1,6 +1,6 @@
 ﻿@model Alert
 @{
-    var icons = new Dictionary<string, string>()
+    Dictionary<string, string> icons = new()
     {
         {Severity.Error, "exclamation-circle"},
         {Severity.Information, "info-circle"},
@@ -14,10 +14,12 @@
         <div class="icon">
             <i class="fa fa-@icons[@Model.Severity]"></i>
         </div>
+        
         <div class="content">
             <p class="h2">@Model.Title</p>
             <p>@Html.Raw(Model.Body)</p>
         </div>
+
         <div class="dismiss">
             <a href="javascript:void(0)" aria-label="Close @Model.Title alert" data-parent="alert-@Model.Severity.ToLower()-fullwidth" data-slug="@Model.Slug">
                 <i class="fa fa-times"></i>
@@ -27,7 +29,7 @@
 </section>
 
 <script>
-    require(['/assets/javascript/config-460fd0d2.min.js'], function() {
+    require(['/assets/javascript/config-943313db.min.js'], function() {
         require(['alerts'],
             function(alerts) {
                 alerts.Init();

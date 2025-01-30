@@ -8,17 +8,17 @@
             <a href="#content" class="skip-main">Skip to main content</a>
         </div>
     </nav>
+
     <header role="banner" id="header" class="grid-container" data-cy="header-new">
         <div class="grid-20 tablet-grid-100 mobile-grid-100">
             <a href="https://www.stockport.gov.uk">
-                <img src='@StaticAssets.UrlFor("logo-stockport-full%402x.png")'
-                    data-mobile-image='@StaticAssets.UrlFor("logo-stockport-mobile%402x.png")'
-                    data-desktop-image='@StaticAssets.UrlFor("logo-stockport-full%402x.png")'
+                <img src='//images.ctfassets.net/6cfgzlmcakf7/3c956KNVIZpjtvKhNqoPiR/aa2a141540d0072eabc6e2504f01274d/logo-stockport-full_2x.png?fm=webp'
                     alt="Stockport Council Logo Homepage Link"
                     class="site-header_logo"
                     width="245"
                     height="60">
             </a>
+
             @if(Model)
             {
                 <partial name="MobileSearchBar2023" />
@@ -29,6 +29,7 @@
             <div class="grid-60 site-header_menu-wrapper">
                 <partial name="HeaderMenu" />
             </div>
+
             @if(Model)
             {
                 <div class="grid-40 site-header_search-wrapper">
@@ -39,11 +40,10 @@
     </header>
 </div>
 
-
 <partial name="BrowserCheck" />
 
 <script type="text/plain" data-cookie-consent="strictly-necessary">
-    require(['/assets/javascript/config-460fd0d2.min.js'], function() {
+    require(['/assets/javascript/config-91939d9a.min.js'], function() {
         require(['startup', 'cludo', 'Cludo'],
             function (startup, cludo, _) {
                 startup.Init();
@@ -54,7 +54,7 @@
 </script>
 
 <script type="text/plain" data-cookie-consent="functionality">
-    require(['/assets/javascript/config-460fd0d2.min.js'], function() {
+    require(['/assets/javascript/config-91939d9a.min.js'], function() {
         require(['utils', 'reciteMe'],
             function(utils, reciteMe, _) {
                 reciteMe.Init();

@@ -1,4 +1,4 @@
-﻿@model EventHomepage
+@model EventHomepage
 
 <div id="event-listing-container" class="no-margin">
 
@@ -10,14 +10,15 @@
                 <div class="event-header">
                     <h2>Discover something new in Stockport</h2>
                 </div>
+
                 <partial name="GenericFeaturedItemList" model='Model.GenericItemList'/>
             </div>
         </div>
     }
 
-    @foreach (var row in Model.Rows.Where(r => r.Events.Any()))
+    @foreach (EventHomepageRow row in Model.Rows.Where(r => r.Events.Any()))
     {
-        var i = 1;
+        int i = 1;
         <div class="home-page-row">
             <div class="grid-container">
                 <div class="event-header">
@@ -31,10 +32,11 @@
                         <a class="view-more hide-on-mobile" title="View more @row.Tag events" href="@Url.Action("Index", "Events", new { Tag = row.Tag } )">View more</a>
                     }
                 </div>
+
                 <div class="grid-100 grid-parent event-container-row matchbox-parent">
-                    @foreach (var item in row.Events)
+                    @foreach (Event item in row.Events)
                     {
-                        var classname = string.Empty;
+                        string classname = string.Empty;
                         switch (i)
                         {
                             case 1:
@@ -54,12 +56,15 @@
                                     break;
                                 }
                         }
+
                         <div class="@classname">
                             <partial name="Events/EventCard" model='item'/>
                         </div>
+
                         i++;
                     }
                 </div>
+                
                 <div class="grid-100 hide-on-desktop hide-on-tablet event-button">
                     @if (row.IsLatest)
                     {

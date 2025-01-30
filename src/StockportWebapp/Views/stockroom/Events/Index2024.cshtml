@@ -1,0 +1,99 @@
+﻿@using System.Web
+@model EventCalendar
+@{
+    EventCategory category = Model.Homepage.Categories.Where(c => c.Slug.Equals(Model.Category)).FirstOrDefault();
+    ViewData["og:title"] = string.IsNullOrWhiteSpace(Model.Category) 
+                            ? "What's on in Stockport" 
+                            : category is null 
+                                ? HttpUtility.HtmlEncode(Model.Category) 
+                                : HttpUtility.HtmlEncode(category.Name);
+
+    ViewData["Title"] = ViewData["og:title"];
+    ViewData["Description"] = Model.Homepage.MetaDescription;
+    Layout = "../Shared/_Layout.cshtml";
+
+    string eventsTitle = category?.Name ?? (Model.DateFrom.HasValue
+            ? "All upcoming events"
+            : "Free events");
+
+    string dataCy = Model.Free ? "events-homepage-free" : "events-homepage";
+}
+
+<div data-cy=@dataCy>
+    <h1 class="visuallyhidden">Stockroom events</h1>
+
+    @if (Model.CarouselContents is not null && Model.CarouselContents.Any() && !Model.CategoryIsSelected && !Model.Free)
+    {
+        <partial name="HeroCarousel" model="@Model.CarouselContents" view-data='@(new ViewDataDictionary(ViewData) { { "isOnHomepage", false } })' />
+    }
+
+    @if(Model.CategoryIsSelected)
+    {
+        <div class="hero hero__banner" style="background-image: url(@Model.SelectedCategory.Image?fm=webp);">
+            <div class="hero__banner--overlay "> 
+                <div class="grid-container hero__wrapper">
+                    <div class="grid-100">
+                        <h1 class="image-banner__title-hero font--bold-extra-squeezed">@Model.SelectedCategory.Name Events</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    else if(Model.Free)
+    {
+        <div class="hero hero__banner" style="background-image: url(//images.ctfassets.net/6jh3uby2vw58/5Ey34ZpOE9pYKA8mqsAOaB/239fc6ecc9e47e482a6e5025ba298839/Stockroom_Socials_28-11-24_20.jpg?fm=webp);">
+            <div class="hero__banner--overlay ">
+                <div class="grid-container hero__wrapper">
+                    <div class="grid-100">
+                        <h1 class="image-banner__title-hero font--bold-extra-squeezed">Free Events</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    else if (!Model.DateFrom.HasValue)
+    {
+        <partial name="EventsCategories" />
+    }
+
+    @if (Model.FromSearch)
+    {
+        <a name="events" id="events"></a>
+        <partial name="EventsDateFilters" />
+    }
+    
+    @if (Model.Homepage.NextEvents.Any()) 
+    {
+        @if (Model.Homepage.NextEvents.Count() >= 3 && Model.Homepage.NextEvents.Count() < 6)
+        {
+            <partial name="RelatedEvents" model="@Model.Homepage.NextEvents" view-data='@(new ViewDataDictionary(ViewData) { { "isEventHomepage", true }, { "itemsToDisplay", Model.Homepage.NextEvents.Take(3).ToList() } })' />
+        }
+
+        @if (Model.Homepage.NextEvents.Count() >= 6)
+        {
+            <partial name="RelatedEvents" model="@Model.Homepage.NextEvents" view-data='@(new ViewDataDictionary(ViewData) { { "isEventHomepage", true }, { "itemsToDisplay", Model.Homepage.NextEvents.Take(6).ToList() } })' />
+        }
+
+        <div class="btn-container">
+            <a class="btn btn--on-grey btn--no-margin-top card-item__container-btn " title="View more upcoming events" href="/events?datefrom=@DateTime.Now.Date">View more</a>
+        </div>
+
+        @if (Model.Homepage.CallToAction is not null)
+        {
+            <div class="grid-container-full-width" style="background-color:#f2f2f2;">
+                <partial name="CallToActionBannerContentWidth" model="Model.Homepage.CallToAction" />
+            </div>
+        }
+    }
+    else
+    {
+        <partial name="Events" model="@Model" view-data='@(new ViewDataDictionary(ViewData) {{ "eventsTitle", eventsTitle }})' />
+    }
+</div>
+
+@if (Model.FromSearch)
+{
+    <script type="text/javascript">
+        document.getElementById('events').scrollIntoView(true);
+    </script>
+}

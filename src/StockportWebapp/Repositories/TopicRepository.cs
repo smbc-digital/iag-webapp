@@ -9,35 +9,30 @@ public class TopicRepository : ITopicRepository
 {
     private readonly TopicFactory _topicFactory;
     private readonly UrlGenerator _urlGenerator;
-    private readonly IUrlGeneratorSimple _urlGeneratorSimple;
     private readonly IHttpClient _httpClient;
     private readonly IApplicationConfiguration _config;
-    private Dictionary<string, string> _authenticationHeaders;
+    private readonly Dictionary<string, string> _authenticationHeaders;
 
-    public TopicRepository(TopicFactory topicFactory, UrlGenerator urlGenerator, IHttpClient httpClient, IApplicationConfiguration config, IUrlGeneratorSimple urlGeneratorSimple)
+    public TopicRepository(TopicFactory topicFactory, UrlGenerator urlGenerator, IHttpClient httpClient, IApplicationConfiguration config)
     {
         _topicFactory = topicFactory;
         _urlGenerator = urlGenerator;
         _httpClient = httpClient;
         _config = config;
-        _urlGeneratorSimple = urlGeneratorSimple;
         _authenticationHeaders = new Dictionary<string, string> { { "Authorization", _config.GetContentApiAuthenticationKey() }, { "X-ClientId", _config.GetWebAppClientId() } };
     }
 
     public async Task<HttpResponse> Get<T>(string slug = "")
     {
-        var url = _urlGenerator.UrlFor<Topic>(slug);
-        var httpResponse = await _httpClient.Get(url, _authenticationHeaders);
+        string url = _urlGenerator.UrlFor<Topic>(slug);
+        HttpResponse httpResponse = await _httpClient.Get(url, _authenticationHeaders);
 
         if (!httpResponse.IsSuccessful())
-        {
             return httpResponse;
-        }
 
-        var model = HttpResponse.Build<Topic>(httpResponse);
-        var topic = (Topic)model.Content;
+        HttpResponse model = HttpResponse.Build<Topic>(httpResponse);
+        Topic topic = (Topic)model.Content;
 
-        var processedModel = _topicFactory.Build(topic);
-        return HttpResponse.Successful(200, processedModel);
+        return HttpResponse.Successful(200, _topicFactory.Build(topic));
     }
 }

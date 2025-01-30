@@ -1,3 +1,9 @@
 ﻿@{
     bool showPinsOnLoad = (bool)ViewData["ShowPinsOnLoad"];
-}<span class="pin" style="@if(!showPinsOnLoad) @("display: none")"><span class='pin_graphic pin_graphic--blank'></span><span class='pin_content'>X<span class="visuallyhidden"> result is not displayed on the map</span></span></span>
+}
+<span class="pin" style="@(showPinsOnLoad ? string.Empty : "display: none")">
+    <span class='pin_graphic pin_graphic--blank'></span>
+    <span class='pin_content'>
+        X<span class="visuallyhidden"> result is not displayed on the map</span>
+    </span>
+</span>

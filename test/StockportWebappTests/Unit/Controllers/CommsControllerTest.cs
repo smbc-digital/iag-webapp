@@ -2,42 +2,46 @@
 
 public class CommsControllerTest
 {
-    private readonly Mock<IRepository> _mockRepository = new Mock<IRepository>();
-    private readonly Mock<ILogger<CommsController>> _mockLogger = new Mock<ILogger<CommsController>>();
+    private readonly Mock<IRepository> _mockRepository = new();
+    private readonly Mock<ILogger<CommsController>> _mockLogger = new();
     private readonly CommsController _controller;
 
-    public CommsControllerTest()
-    {
+    public CommsControllerTest() =>
         _controller = new CommsController(_mockRepository.Object, _mockLogger.Object);
-    }
 
     [Fact]
     public async Task Index_ShouldGetLatestNews()
     {
-        var exampleNews = new News(
-            "News 2nd September",
-            "news-2nd-september",
-            "test",
-            "purpose",
-            "",
-            "",
-            "test",
-            new List<Crumb>(), new DateTime(2019, 9, 2), new DateTime(2019, 9, 2), new DateTime(2019, 9, 2), new List<Alert>(),
-            new List<string>(), new List<Document>(), new List<Profile>());
+        News exampleNews = new("News 2nd September",
+                            "news-2nd-september",
+                            "test",
+                            "purpose",
+                            string.Empty,
+                            string.Empty,
+                            "test",
+                            new List<Crumb>(),
+                            new DateTime(2019, 9, 2),
+                            new DateTime(2019, 9, 2),
+                            new DateTime(2019, 9, 2),
+                            new List<Alert>(),
+                            new List<string>(),
+                            new List<Document>(),
+                            new List<Profile>());
 
         // Arrange
         _mockRepository
             .Setup(_ => _.GetLatest<List<News>>(It.IsAny<int>()))
             .ReturnsAsync(HttpResponse.Successful(200, new List<News> { exampleNews }));
+        
         _mockRepository
             .Setup(_ => _.Get<CommsHomepage>(It.IsAny<string>(), It.IsAny<List<Query>>()))
             .ReturnsAsync(HttpResponse.Successful(200, new CommsHomepage()));
 
         // Act
-        var view = await _controller.Index() as ViewResult;
-        var model = view.Model as CommsHomepageViewModel;
+        ViewResult view = await _controller.Index() as ViewResult;
+        CommsHomepageViewModel model = view.Model as CommsHomepageViewModel;
 
         // Assert
-        model.LatestNews.Should().Be(exampleNews);
+        Assert.Equal(exampleNews, model.LatestNews);
     }
 }

@@ -1,0 +1,36 @@
+﻿@model HomepageViewModel
+@{
+    ViewData["Title"] = "Welcome to Stockroom";
+    ViewData["og:title"] = "Welcome to Stockroom";
+    ViewData["Description"] = @Model.HomepageContent.MetaDescription;
+    Layout = "../Shared/_Layout.cshtml";
+}
+
+<div data-cy="homepage">
+    <h1 class="visuallyhidden">Welcome to Stockroom</h1>
+
+    @if (Model.HomepageContent.CarouselContents is not null && Model.HomepageContent.CarouselContents.Any())
+    {
+        <partial name="HeroCarousel" model="@Model.HomepageContent.CarouselContents.Take(5).ToList()" view-data='@(new ViewDataDictionary(ViewData) { { "isOnHomepage", true } })' />
+    }
+
+    <div class="grid-container-full-width" style="background-color: #f2f2f2;">
+
+        <partial name="CallToAction" model="Model.HomepageContent.CallToAction" />
+
+        @if (Model.PrimaryItems() is not null && Model.PrimaryItems().Items.Any() && Model.PrimaryItems().Items.Count >= 3)
+        {
+                <div class="grid-container">
+                    <div class="grid-100">
+                        <div class="hero__about hero__about--no-padding-top">
+                            <h2 class="card-title h-xl">What's on</h2>
+
+                            <partial name="NavCards" model="Model.PrimaryItems()" view-data='@(new ViewDataDictionary(ViewData) { { "itemsType", "events" } })' />
+                        </div>
+                    </div>
+                </div>
+        }
+    </div>
+
+    <partial name="CallToActionBannerScreenWidth" model="Model.HomepageContent.CallToActionPrimary" />
+</div>

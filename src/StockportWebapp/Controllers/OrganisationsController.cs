@@ -3,25 +3,20 @@
 [ResponseCache(Location = ResponseCacheLocation.Any, Duration = Cache.Medium)]
 [Obsolete("Groups is being replaced by directories/directory entries")]
 [ExcludeFromCodeCoverage(Justification = "Obsolete")]
-public class OrganisationsController : Controller
+public class OrganisationsController(IProcessedContentRepository repository) : Controller
 {
-    private readonly IProcessedContentRepository _repository;
-
-    public OrganisationsController(IProcessedContentRepository repository)
-    {
-        _repository = repository;
-    }
+    private readonly IProcessedContentRepository _repository = repository;
 
     [ResponseCache(NoStore = true, Duration = 0)]
     [Route("/organisations/{slug}")]
     public async Task<IActionResult> Detail(string slug)
     {
-        var response = await _repository.Get<Organisation>(slug);
+        HttpResponse response = await _repository.Get<Organisation>(slug);
 
         if (!response.IsSuccessful())
             return response;
 
-        var organisation = response.Content as ProcessedOrganisation;
+        ProcessedOrganisation organisation = response.Content as ProcessedOrganisation;
 
         ViewBag.CurrentUrl = Request?.GetDisplayUrl();
 

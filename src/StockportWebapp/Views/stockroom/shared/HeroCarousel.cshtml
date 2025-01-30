@@ -1,0 +1,74 @@
+﻿@inject ViewHelpers viewHelper
+
+@model List<CarouselContent>
+@{
+    bool isOnHomepage = (bool)ViewData["isOnHomepage"];
+}
+
+<section id="carousel" aria-labelledby="carouselheading" class="carousel carousel-hero">
+    <h2 id="carouselheading" class="visuallyhidden">Image carousel</h2>
+    <ul class="carousel-items">
+        @foreach (CarouselContent item in Model)
+        {
+            <li class="carousel-item carousel-item__hero" aria-hidden="true" style="background-image: url('@item.Image?q=89&fm=webp');">
+                <div class="carousel-item__hero--overlay">
+                    <div class="grid-container">
+                        <div class="grid-100 carousel-item__hero-wrapper">
+                            <article aria-label="@item.Title" class="carousel-item__article">
+                                <h2 class="image-banner__title image-banner__title-hero carousel-item__title font--bold-extra-squeezed">@item.Title</h2>
+                                @if (!isOnHomepage)
+                                {
+                                    <a href="@Url.Action("Detail", "Events", new {slug = item.URL, date = item.Date.ToString("yyyy-MM-dd")})" class="btn carousel-item__link" aria-label="Read more about @item.Title" tabindex="-1">Read more</a>
+                                }
+                                else
+                                {
+                                    <a href="@item.URL" class="btn carousel-item__link" aria-label="Read more about @item.Title" tabindex="-1">Read more</a>
+                                }
+                            </article>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        }
+    </ul>
+    
+    @if (Model.Count > 1)
+    {
+        <button class="carousel-control carousel-control__hero prev carousel-control-prev" aria-label="Previous Slide">
+            <span class="fa-solid fa-chevron-left"></span>
+        </button>
+
+        <button class="carousel-control carousel-control__hero next carousel-control-next" aria-label="Next Slide">
+            <span class="fa-solid fa-chevron-right"></span>
+        </button>
+
+        <div class="grid-container" aria-hidden="true">
+            <div class="grid-100 carousel-indicators-wrapper">
+                <div class="carousel-indicators">
+                    @for (int i = 0; i < Model.Count; i++)
+                    {
+                        <div class="carousel-indicators__container">
+                            <span id="@i" class="carousel-indicators__item current active" data-slide="@i">
+                            </span>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+
+    <div id="carousel-status" class="visuallyhidden" aria-live="polite"></div>
+</section>
+
+@if (Model.Count > 1)
+{
+    <script>
+        require(['/assets/javascript/config-91939d9a.min.js'], function () {
+            require(['carousel2024'],
+                function (carousel2024) {
+                    carousel2024.Init();
+                }
+            );
+        });
+    </script>
+}

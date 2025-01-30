@@ -1,0 +1,18 @@
+.profile-banner {
+    margin-bottom: 0;
+
+    @media #{$mobile} {
+        &-button {
+            margin-inline: 5px;
+        }
+    }
+
+    &-container {
+        margin-top: 2em;
+        margin-bottom: 2em;
+    }
+}
+
+.border-pseudo-colour-orange::after, .border-colour-orange {
+    border-color: $stockport-orange !important;
+}

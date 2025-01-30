@@ -5,6 +5,23 @@ img {
 	border-radius: 3px;
 }
 
+img[src*='#left'], img[src*='#right'] {
+	display: block;
+	max-width: 40%;
+	margin-top: 1.1875rem;
+	margin-bottom: 1.1875rem;
+}
+
+img[src*='#right'] {
+	float: right;
+	margin-left: 1rem;
+}
+
+img[src*='#left'] {
+	float: left;
+	margin-right: 1.1875rem;
+}
+
 img.fullwidth {
 	max-width: 100%;
 	height: auto;

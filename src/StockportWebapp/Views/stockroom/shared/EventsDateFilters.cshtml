@@ -1,0 +1,79 @@
+@using StockportWebapp.Models;
+@model EventCalendar
+
+<div class="grid-container-full-width event-homepage__category-wrapper event-homepage__category-wrapper--padding-bottom">
+    <section class="article">
+        <form action="/events" method="get">
+            <input type="hidden" asp-for="@Model.FromSearch" value="true" />
+            <div class="grid-container">
+                <div class="grid-100">
+                    <div class="events-filters__wrapper">
+                        <h2 class="desktop-visuallyhidden h-xl">Filter</h2>
+
+                        <div class="events-filters">
+                            <div class="events-filters__radio-item">
+                                <input type="radio" asp-for="@Model.DateSelection" value="thisWeek" id="radio-this-week" class="events-filters__radio"/>
+                                <label for="radio-this-week" class="events-filters__label">This week</label>
+                            </div>
+
+                            <div class="events-filters__radio-item">
+                                <input type="radio" asp-for="@Model.DateSelection" value="thisMonth" id="radio-this-month" class="events-filters__radio"/>
+                                <label for="radio-this-month" class="events-filters__label">This month</label>
+                            </div> 
+
+                            <div class="events-filters__radio-item">
+                                <input type="radio" asp-for="@Model.DateSelection" value="nextMonth" id="radio-next-month" class="events-filters__radio"/>
+                                <label for="radio-next-month" class="events-filters__label">Next month</label>
+                            </div>
+
+                            <div class="events-filters__radio-item">
+                                <label for="event-date" class="events-filters__date-label">Date</label>
+                                <input type="date" id="event-date" asp-for="@Model.DateSelection" placeholder="Select date" class="events-filters__date" />
+                            </div>
+
+                            <div class="events-filters__radio-item">
+                                <label for="event-category" class="events-filters__date-label">Category</label>
+                                <select id="event-category" asp-for="@Model.Category" placeholder="Cateogory" class="events-filters__date">
+                                    @foreach (EventCategory eventCategory in Model.Homepage.Categories)
+                                    {
+                                        if (Model.SelectedCategory is not null && eventCategory.Slug.Equals(Model.SelectedCategory.Slug))
+                                        {
+                                            <option value="@eventCategory.Slug" selected)>
+                                                @eventCategory.Name
+                                            </option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@eventCategory.Slug" )>
+                                                @eventCategory.Name
+                                            </option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+                        </div>
+
+                        <input type="hidden" asp-for="@Model.Category"/>
+
+                        <noscript>
+                            <div class="events-filters__button">
+                                <button class="btn btn--on-yellow">Find what's on</button>
+                                <a href="@($"{Url.Action("Index", "Events")}?category={Model.Category}&free={Model.Free}")" class="btn btn--on-yellow">Clear filters</a>
+                            </div>
+                        </noscript>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </section>
+</div>
+
+<script>
+    require(['/assets/javascript/config-91939d9a.min.js'], function () {
+        require(['eventFilters'],
+            function (eventFilters) {
+                eventFilters.Init();
+            }
+        );
+    });
+</script>

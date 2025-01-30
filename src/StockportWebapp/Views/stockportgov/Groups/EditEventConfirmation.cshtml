@@ -2,7 +2,7 @@
     ViewData["Title"] = "Edit event";
     ViewData["og:title"] = "Edit event";
     Layout = "../Shared/_Layout.cshtml";
-    var crumbs = new List<Crumb>
+    List<Crumb> crumbs = new()
     {
         new Crumb("Stockport Local", "groups", "Group"),
         new Crumb("Manage your groups", "manage", "groups"),

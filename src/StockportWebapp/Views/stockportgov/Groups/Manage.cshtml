@@ -3,7 +3,7 @@
     ViewData["Title"] = "Manage your groups";
     ViewData["og:title"] = "Manage your groups";
     Layout = "../Shared/_Layout.cshtml";
-    var crumbs = new List<Crumb>() {new Crumb("Stockport Local", "groups", "Group") };
+    List<Crumb> crumbs = new() {new Crumb("Stockport Local", "groups", "Group") };
 }
 
 @section Breadcrumbs {
@@ -55,9 +55,9 @@
                                         <span>Status</span>
                                     </div>
                                 </div>
-                                foreach (var group in Model.Groups)
+                                foreach (Group group in Model.Groups)
                                 {
-                                    var permission = group.GroupAdministrators.Items.Any(a => a.Email.ToLower() == Model.Email.ToLower() && a.Permission == "A") ? "Administrator" : "Editor";
+                                    string permission = group.GroupAdministrators.Items.Any(a => a.Email.ToLower().Equals(Model.Email.ToLower()) && a.Permission.Equals("A")) ? "Administrator" : "Editor";
 
                                     <a id="@("group-item-" + group.Slug)" href="@Url.Action("ManageGroup", "Groups", new {slug = group.Slug})">
                                         <div class="grid-100 sk-table-row grid-parent">

@@ -1,7 +1,7 @@
 ﻿@model List<Group>
 
 <ul class="group-listing-container grid-container matchbox-parent">
-    @foreach (var group in Model)
+    @foreach (Group group in Model)
     {
         <partial name="Groups/GroupCard" model='group'/>
     }

@@ -1,0 +1,55 @@
+.btn {
+    font-family: $fontStack;
+    border-radius: 20px;
+    text-decoration: none;
+    color: white;
+    text-align: center;
+    padding: 0.8em;
+    display: inline-block;
+    box-sizing: border-box;
+    line-height: 1.3rem;
+    font-size: 2rem;
+    border: 3px solid white;
+    cursor: pointer;
+
+    @media #{$mobile} {
+        font-size: 1.5rem;
+        padding: 0.6em;
+    }
+
+    &:hover, &:focus {
+        background-color: $skrm-yellow;
+        color: black;
+    }
+
+    &-container {
+        background: #f2f2f2;
+        width: 100%;
+        text-align: center;
+        padding-bottom: 1.5em;
+    }
+
+    &--on-grey, &--on-yellow {
+        border-radius: 15px;
+        padding: 0.8em;
+        border: 2px solid black;
+        color: black;
+        width: fit-content;
+        margin-top: 1em;
+        background-color: white;
+    }
+
+    &--on-yellow {
+        &:hover {
+            background-color: $skrm-orange;
+        }
+    }
+
+    &--no-margin-top {
+        margin-top: 0 !important;
+    }
+
+    &_text {
+        line-height: 1;
+    }
+}

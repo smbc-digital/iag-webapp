@@ -15,17 +15,15 @@
 }
 <a href="@Model.Url" class="navcard__link @borderCssDesktop @borderCssTablet @borderCssClasses" data-cy="nav-card-link">
     <div class="navcard__content">
-        @if(displayImage){
-            <div>
-                <img src="@Model.Image?w=730&q=89" class="navcard__image"
-                     srcset="@Model.Image?w=720&q=89&fm=webp 720w,
-                            @Model.Image?w=294&q=89&fm=webp 294w,
-                            @Model.Image?w=378&q=89&fm=webp 378w"
-                     sizes="(max-width: 767px) 720px,
-                            ((min-width: 768px) and (max-width: 1023px)) 294px,
-                            (min-width: 1024px) 378px"
-                     loading="lazy" alt="" height="215" width="350">
-            </div>
+        @if (displayImage){
+            @if (!string.IsNullOrEmpty(Model.TeaserImage))
+            {
+                <partial name="NavCardImage" model="@Model.TeaserImage" />
+            }
+            else
+            {
+                <partial name="NavCardImage" model="@Model.Image" />
+            }
         }
         
         <div class="navcard-content--padding">

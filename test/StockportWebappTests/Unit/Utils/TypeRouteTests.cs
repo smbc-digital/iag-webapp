@@ -1,20 +1,14 @@
-﻿using StockportWebapp.Utils;
-
-namespace StockportWebappTests_Unit.Unit.Utils;
+﻿namespace StockportWebappTests_Unit.Unit.Utils;
 
 public class TypeRouteTests
 {  
-    public TypeRouteTests()
-    {
-
-    }
-
     [Theory]
     [InlineData("article", "test", "/test")]
     [InlineData("topic", "test", "/topic/test")]
     [InlineData("start-page", "test", "/start/test")]
     [InlineData("news", "test", "/news")]
     [InlineData("events", "test", "/events")]
+    [InlineData("eventHomepage", "test", "/events")]
     [InlineData("payment", "test", "/payment/test")]
     [InlineData("servicePayPayment", "test", "/service-pay-payment/test")]
     [InlineData("service-pay-payment", "test", "/service-pay-payment/test")]
@@ -29,7 +23,10 @@ public class TypeRouteTests
 
     public void GetUrlFor_Returns_CorrectRoutes(string type, string slug, string expected)
     {
-        var route = TypeRoutes.GetUrlFor(type, slug);
+        // Act
+        string route = TypeRoutes.GetUrlFor(type, slug);
+        
+        // Assert
         Assert.Equal(expected, route);
     }
 }

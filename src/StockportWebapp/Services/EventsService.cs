@@ -5,34 +5,41 @@ public interface IEventsService
     Task<List<Event>> GetEventsByLimit(int limit);
     Task<Event> GetLatestEventsItem();
     Task<Event> GetLatestFeaturedEventItem();
+    Task<List<Event>> GetLatestFeaturedEvents();
 }
 
-public class EventsService : IEventsService
+public class EventsService(IRepository eventsRepository) : IEventsService
 {
-    private readonly IRepository _eventsRepository;
-
-    public EventsService(IRepository eventsRepository)
-    {
-        _eventsRepository = eventsRepository;
-    }
+    private readonly IRepository _eventsRepository = eventsRepository;
 
     public async Task<List<Event>> GetEventsByLimit(int limit)
     {
-        var response = await _eventsRepository.GetLatest<EventCalendar>(limit);
+        HttpResponse response = await _eventsRepository.GetLatest<EventCalendar>(limit);
+
         return response.Content as List<Event>;
     }
 
     public async Task<Event> GetLatestEventsItem()
     {
-        var response = await _eventsRepository.GetLatest<EventCalendar>(1);
-        var eventCalendar = response.Content as EventCalendar;
+        HttpResponse response = await _eventsRepository.GetLatest<EventCalendar>(1);
+        EventCalendar eventCalendar = response.Content as EventCalendar;
+
         return eventCalendar?.Events?.First();
     }
 
     public async Task<Event> GetLatestFeaturedEventItem()
     {
-        var response = await _eventsRepository.GetLatestOrderByFeatured<EventCalendar>(1);
-        var eventCalendar = response.Content as EventCalendar;
+        HttpResponse response = await _eventsRepository.GetLatestOrderByFeatured<EventCalendar>(1);
+        EventCalendar eventCalendar = response.Content as EventCalendar;
+        
         return eventCalendar?.Events?.FirstOrDefault();
+    }
+
+    public async Task<List<Event>> GetLatestFeaturedEvents()
+    {
+        HttpResponse response = await _eventsRepository.GetLatestOrderByFeatured<EventCalendar>(6);
+        EventCalendar eventCalendar = response.Content as EventCalendar;
+
+        return eventCalendar?.FeaturedEvents;
     }
 }

@@ -1,0 +1,20 @@
+@model ContentBlock
+
+@if (Model is not null && !string.IsNullOrEmpty(Model.Link))
+{
+    MapViewModel mapViewModel = new(Model.Link);
+
+    <section class="content-block content-block--margin js-only" data-cy="map">
+        <div class="grid-container">
+            <div class="grid-100 content-block--margin-inline">
+                @if (!string.IsNullOrEmpty(Model.Title))
+                {
+                    <h2 class="content-block__title">@Model.Title</h2>
+                    <div class="content-block__teaser">@Html.Raw(Model.Body)</div>
+                    <hr />
+                }
+                <partial name="MapContent" model="@mapViewModel" />   
+            </div>
+        </div>
+    </section>
+}

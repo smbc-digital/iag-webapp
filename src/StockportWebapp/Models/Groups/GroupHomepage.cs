@@ -17,5 +17,4 @@ public class GroupHomepage
     public EventBanner EventBanner { get; set; }
 
     public GroupHomepage() { }
-
 }

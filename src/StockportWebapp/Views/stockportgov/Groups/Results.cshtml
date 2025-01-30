@@ -1,7 +1,7 @@
 ﻿@model GroupResults
 @{
-    ViewData["Title"] = ViewBag.Category != null ? ViewBag.Category.Name : "All groups";
-    ViewData["og:title"] = string.Concat(ViewBag.Category != null ? ViewBag.Category.Name : "All groups", " - Stockport Local");
+    ViewData["Title"] = ViewBag.Category is not null ? ViewBag.Category.Name : "All groups";
+    ViewData["og:title"] = string.Concat(ViewBag.Category is not null ? ViewBag.Category.Name : "All groups", " - Stockport Local");
     ViewData["Description"] = "Stockport Local results page";
     ViewData["Type"] = "Group";
     Layout = "../Shared/_Layout.cshtml";
@@ -71,7 +71,7 @@
     {
         <h2 class="visuallyhidden">Displayed results</h2>
         <ul class="group-listing-container grid-container matchbox-parent">
-            @foreach (var group in Model.Groups)
+            @foreach (Group group in Model.Groups)
             {
                 <partial name="Groups/GroupCard" model='group'/>
             }
@@ -108,7 +108,7 @@
 </div>
 
 <script>
-    require(['/assets/javascript/config-460fd0d2.min.js'], function() {
+    require(['/assets/javascript/config-91939d9a.min.js'], function() {
         require(['groups'],
             function(groups) {
                 groups.Init();

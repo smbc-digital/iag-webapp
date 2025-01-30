@@ -4,17 +4,16 @@
     <h2 class="featured-item-header">@Model.Heading</h2>
         <ul class="featured-item-body">
             @{
-                var index = 0;
+                int index = 0;
 
-                foreach (var item in Model.Events)
+                foreach (Event item in Model.Events)
                 {
-                    <li class="@(index > 0 ? "hide-on-mobile" : "") @(index > 1 ? "hide-on-tablet" : "")">
+                    <li class="@(index > 0 ? "hide-on-mobile" : string.Empty) @(index > 1 ? "hide-on-tablet" : string.Empty)">
                         <partial name="../../Event.cshtml" model="@item"/>
                     </li>
                     index++;
                 }
             }
-
 
         </ul>
         <a class="button-inverted hide-on-desktop hide-on-tablet" href="@Model.Link">@Model.LinkText</a>

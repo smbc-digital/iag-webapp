@@ -1,0 +1,138 @@
+.body {
+    img {
+        border-radius: 20px;
+        width: 150%;
+        height: auto;
+        position: relative;
+        left: -32px;
+        margin-top: 2rem;
+        margin-bottom: 2rem;
+    }
+}
+
+img {
+    border-radius: 3px;
+    width: 100%;
+    height: auto;
+    
+    @media #{$tablet} {
+        max-height: 450px;
+        object-fit: cover;
+    }
+
+    @media #{$mobile} {
+        max-height: 400px;
+        object-fit: cover;
+    }
+}
+
+img[src*='#left'], img[src*='#right'] {
+    display: block;
+    max-width: 49%;
+    margin-top: 0.5rem;
+    margin-bottom: 1.1875rem;
+    max-height: 450px;
+    object-fit: cover;
+
+    @media #{$tablet} {
+        max-height: 400px;
+    }
+
+    @media #{$mobile} {
+        max-width: 100%;
+        margin-top: 0;
+    }
+}
+
+img[src*='#right'] {
+	float: right;
+	margin-left: 1.1875rem;
+}
+
+img[src*='#left'] {
+	float: left;
+	margin-right: 1.1875rem;
+}
+
+figure {
+    p {
+        margin-bottom: 0 !important;
+    }
+
+    img {
+        height: auto;
+        width: auto;
+        max-width: 100%;
+        border-radius: 3px 3px 0 0 !important;
+    }
+}
+
+figcaption {
+	background-color: black;
+	color: white;
+	padding: 0.55em;
+    border-radius: 0 0 3px 3px !important;
+}
+
+.image-right, .image-left {
+    display: flex;
+    flex-direction: column;
+    max-width: 49%;
+
+    @media #{$mobile} {
+        max-width: 100%;
+        margin: 0 0 1.1875rem 0;
+    }
+
+    img {
+        border-radius: 3px 3px 0 0 !important;
+        height: auto;
+        width: 100%;
+        margin: 0;
+        max-width: 100%;
+        object-fit: cover;
+
+        @media #{$desktop} {
+            max-height: 450px;
+        }
+    
+        @media #{$tablet} {
+            max-height: 400px;
+        }
+    }
+
+    figcaption {
+        background-color: black;
+        border-radius: 0 0 3px 3px;
+        color: #fff;
+        padding: .55em;
+    }
+}
+
+.image-left {
+    float: left;
+    margin: 0.5rem 1.1875rem 1.1875rem 0;
+
+    @media #{$mobile} {
+        margin: 0 0 1.1875rem 0;
+        float: unset;
+    }
+
+    img, figcaption {
+        float: left;
+    }
+}
+
+.image-right {
+    float: right;
+    margin: 0.5rem 0 1.1875rem 1.1875rem;
+
+    @media #{$mobile} {
+        margin: 0 0 1.1875rem 0;
+        float: unset;
+    }
+
+    img, figcaption {
+        float: right;
+    }
+}

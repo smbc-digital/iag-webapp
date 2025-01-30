@@ -8,6 +8,11 @@
 .freeprivacypolicy-com---nb {
     background-color: $stockport-light-grey !important;
     font-size: 1.1875rem !important;
+    min-height: 225px;
+    
+    @media only screen and (max-width: 47.99375em) {
+        min-height: 280px;
+    }
 }
 
 .cc-nb-reject, .cc-nb-okagree {

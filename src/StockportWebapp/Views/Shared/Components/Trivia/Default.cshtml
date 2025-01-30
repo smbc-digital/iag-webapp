@@ -4,19 +4,20 @@
 <section class="information-list">
     <h2>@ViewData["TriviaTitle"]</h2>
     <ul>
-        @foreach (var informationItem in Model.TriviaList)
+        @foreach (Trivia informationItem in Model.TriviaList)
         {
             <li>
                 <div class="icon-column">
                     <span class="si @informationItem.Icon"></span>
                 </div>
+                
                 <div class="text-column">
                     @if (!string.IsNullOrEmpty(informationItem.Link))
                     {
                         <a class="information-item" href="@informationItem.Link" rel="@informationItem.Name">
                             @{
-                                var parsedItemText = new Regex("<a((?!>).)*>")
-                                    .Replace(informationItem.Text, "<span class='information-item-link'>")
+                                string parsedItemText = new Regex("<a((?!>).)*>")
+                                    .Replace(informationItem.Body, "<span class='information-item-link'>")
                                     .Replace("</a>", "</span>");
                             }
                             @Html.Raw(parsedItemText)
@@ -24,7 +25,7 @@
                     }
                     else
                     {
-                        @Html.Raw(informationItem.Text)
+                        @Html.Raw(informationItem.Body)
                     }
                 </div>
             </li>

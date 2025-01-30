@@ -1,11 +1,6 @@
 ﻿namespace StockportWebapp.Models;
 [ExcludeFromCodeCoverage]
-public class FeaturedTasks
+public class FeaturedTasks(List<SubItem> subItems)
 {
-    public readonly List<SubItem> SubItems;
-
-    public FeaturedTasks(List<SubItem> subItems)
-    {
-        SubItems = subItems;
-    }
+    public readonly List<SubItem> SubItems = subItems;
 }

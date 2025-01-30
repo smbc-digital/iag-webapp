@@ -1,0 +1,50 @@
+﻿@model ContentBlock
+@if (Model is not null)
+{
+    bool overrideToDefault = false;
+    if (Model.ColourScheme.Equals(EColourScheme.None) ||
+        Model.ColourScheme.Equals(EColourScheme.Multi) ||
+        Model.ColourScheme.Equals(EColourScheme.Dark_Overlay) ||
+        Model.ColourScheme.Equals(EColourScheme.Light_Overlay))
+        overrideToDefault = true;
+
+    string backgroundColourClass = overrideToDefault
+        ? "bg-default-light"
+        : Model.BackgroundColourClass;
+
+    string contentTextClass = (Model.SubItems is not null && Model.SubItems.Any()) || !string.IsNullOrEmpty(Model.Link)
+        ? string.Empty
+        : "statement-banner-content__text-no-button";
+
+    @if (!string.IsNullOrEmpty(Model.Title) && !string.IsNullOrEmpty(Model.Body))
+    {
+        <section class="content-block content-block--padding content-block--screen @backgroundColourClass" data-cy="statement-banner-screen-width">
+            <div class="grid-container">
+                <div class="grid-100">
+                    <div class="statement-banner statement-banner-screen-width section__content">
+                        @if(!string.IsNullOrEmpty(Model.Icon))
+                        {
+                            <span class="@Model.Icon statement-banner__icon text-default @Model.TextColourClass"></span>
+                        }
+                    
+                        <div class="statement-banner-content-screen-width statement-banner-content">
+                            <h2 class="statement-banner-content__title text-default @Model.TextColourClass">@Model.Title</h2>
+                            <div class="statement-banner-content__text @contentTextClass">@Html.Raw(Model.Body)</div>
+
+                            @if(Model.SubItems.Any() || !string.IsNullOrEmpty(Model.Link))
+                            {
+                                <a @Model.Href class="btn btn--inverse btn--width-30 btn--chevron-forward btn--bold btn--chevron-bold btn--outline @Model.OutlineButtonColour" data-cy="statement-banner-screen-width-link">
+                                    <span class="btn_text">@(!string.IsNullOrEmpty(Model.ButtonText) ? Model.ButtonText : "Find out more")</span>
+                                    @if(string.IsNullOrEmpty(Model.ButtonText))
+                                    {
+                                        <span class="visuallyhidden">about @Model.Title</span>
+                                    }
+                                </a>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    }
+}

@@ -5,60 +5,78 @@ public class ImageExtensionValidationTest
     [Fact]
     public void ItShouldValidateDocumentsOfTypeJpg()
     {
-        var validator = new ImageFileExtensionValidation();
+        // Arrange
+        ImageFileExtensionValidation validator = new();
 
-        var response = validator.IsValid(new FormFile(null, 0, 0, "test.jpg", "test.jpg"));
+        // Act
+        bool response = validator.IsValid(new FormFile(null, 0, 0, "test.jpg", "test.jpg"));
 
-        response.Should().BeTrue();
+        // Assert
+        Assert.True(response);
     }
 
     [Fact]
     public void ItShouldValidateDocumentsOfTypeJpeg()
     {
-        var validator = new ImageFileExtensionValidation();
+        // Arrange
+        ImageFileExtensionValidation validator = new();
 
-        var response = validator.IsValid(new FormFile(null, 0, 0, "test.jpeg", "test.jpeg"));
+        // Act
+        bool response = validator.IsValid(new FormFile(null, 0, 0, "test.jpeg", "test.jpeg"));
 
-        response.Should().BeTrue();
+        // Assert
+        Assert.True(response);
     }
 
     [Fact]
     public void ItShouldValidateDocumentsOfTypePng()
     {
-        var validator = new ImageFileExtensionValidation();
+        // Arrange
+        ImageFileExtensionValidation validator = new();
 
-        var response = validator.IsValid(new FormFile(null, 0, 0, "test.png", "test.png"));
+        // Act
+        bool response = validator.IsValid(new FormFile(null, 0, 0, "test.png", "test.png"));
 
-        response.Should().BeTrue();
+        // Assert
+        Assert.True(response);
     }
 
     [Fact]
     public void ItShouldValidateDocumentsOfTypeGif()
     {
-        var validator = new ImageFileExtensionValidation();
+        // Arrange
+        ImageFileExtensionValidation validator = new();
 
-        var response = validator.IsValid(new FormFile(null, 0, 0, "test.gif", "test.gif"));
+        // Act
+        bool response = validator.IsValid(new FormFile(null, 0, 0, "test.gif", "test.gif"));
 
-        response.Should().BeTrue();
+        // Assert
+        Assert.True(response);
     }
 
     [Fact]
     public void ItShouldNotValidateDocumentsOfTypeExe()
     {
-        var validator = new ImageFileExtensionValidation();
+        // Arrange
+        ImageFileExtensionValidation validator = new();
 
-        var response = validator.IsValid(new FormFile(null, 0, 0, "test.exe", "test.exe"));
+        // Act
+        bool response = validator.IsValid(new FormFile(null, 0, 0, "test.exe", "test.exe"));
 
-        response.Should().BeFalse();
+        // Assert
+        Assert.False(response);
     }
 
     [Fact]
     public void ItShouldNotValidateDocumentsOfTypeVbs()
     {
-        var validator = new ImageFileExtensionValidation();
+        // Arrange
+        ImageFileExtensionValidation validator = new();
 
-        var response = validator.IsValid(new FormFile(null, 0, 0, "test.vbs", "test.vbs"));
+        // Act
+        bool response = validator.IsValid(new FormFile(null, 0, 0, "test.vbs", "test.vbs"));
 
-        response.Should().BeFalse();
+        // Assert
+        Assert.False(response);
     }
 }

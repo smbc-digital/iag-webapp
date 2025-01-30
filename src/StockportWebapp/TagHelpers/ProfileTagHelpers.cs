@@ -24,13 +24,13 @@ public class ProfileTagHelpers : TagHelper
 
     public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
     {
-        var heading = context.AllAttributes["heading"].Value;
-        var image = context.AllAttributes["image"].Value;
-        var name = context.AllAttributes["name"].Value;
-        var subtitle = context.AllAttributes["subtitle"].Value;
-        var link = context.AllAttributes["link"].Value;
-        var content = await output.GetChildContentAsync();
-        var encodedeContent = content.GetContent();
+        object heading = context.AllAttributes["heading"].Value;
+        object image = context.AllAttributes["image"].Value;
+        object name = context.AllAttributes["name"].Value;
+        object subtitle = context.AllAttributes["subtitle"].Value;
+        object link = context.AllAttributes["link"].Value;
+        TagHelperContent content = await output.GetChildContentAsync();
+        string encodedeContent = content.GetContent();
 
         output.Attributes.RemoveAll("heading");
         output.Attributes.RemoveAll("image");
@@ -38,7 +38,7 @@ public class ProfileTagHelpers : TagHelper
         output.Attributes.RemoveAll("subtitle");
         output.Attributes.RemoveAll("link");
 
-        var outputHtml = string.Format(Template, heading, image, name, subtitle, encodedeContent, link);
+        string outputHtml = string.Format(Template, heading, image, name, subtitle, encodedeContent, link);
 
         output.Content.SetHtmlContent(new HtmlString(outputHtml));
 

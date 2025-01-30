@@ -3,70 +3,70 @@
 
 <!DOCTYPE html>
 <html lang=en-GB>
-<head>
-    <meta charset=utf-8 />
-    <meta name=viewport content="width=device-width, initial-scale=1, maximum-scale=12.0, minimum-scale=1" />
-    <link rel="shortcut icon" type=image/png href=~/assets/images/ui-images/Favicon.png />
-    <title>@ViewData["Title"] - Healthy Stockport</title>
-    <meta name=Description content="@ViewData["Description"]" />
-    <meta property=og:title content="@ViewData["og:title"]" />
+    <head>
+        <meta charset=utf-8 />
+        <meta name=viewport content="width=device-width, initial-scale=1, maximum-scale=12.0, minimum-scale=1" />
+        <link rel="shortcut icon" type=image/png href=~/assets/images/ui-images/Favicon.png />
+        <title>@ViewData["Title"] - Healthy Stockport</title>
+        <meta name=Description content="@ViewData["Description"]" />
+        <meta property=og:title content="@ViewData["og:title"]" />
 
-    @* PACKAGE / VENDOR STYLESHEETS *@
-    <link rel=stylesheet href=~/assets/stylesheets/cludo-search-default.min.css asp-append-version=true />
-    <link rel=stylesheet href=https://customer.cludo.com/css/templates/v2.1/essentials/cludo-search.min.css asp-append-version=true />
-    <link rel=stylesheet href=~/assets/stylesheets/vendor/slick.min.css asp-append-version=true />
-    <link rel=stylesheet href=~/assets/stylesheets/vendor/unsemantic-grid-responsive-tablet.min.css asp-append-version=true />
+        @* PACKAGE / VENDOR STYLESHEETS *@
+        <link rel=stylesheet href=~/assets/stylesheets/cludo-search-default.min.css asp-append-version=true />
+        <link rel=stylesheet href=https://customer.cludo.com/css/templates/v2.1/essentials/cludo-search.min.css asp-append-version=true />
+        <link rel=stylesheet href=~/assets/stylesheets/vendor/slick.min.css asp-append-version=true />
+        <link rel=stylesheet href=~/assets/stylesheets/vendor/unsemantic-grid-responsive-tablet.min.css asp-append-version=true />
 
-    @* MAIN STYLESHEET(S) *@
-    <link rel=stylesheet href=~/assets/stylesheets/site-hs.min.css asp-append-version=true />
+        @* MAIN STYLESHEET(S) *@
+        <link rel=stylesheet href=~/assets/stylesheets/site-hs.min.css asp-append-version=true />
 
-    @* OUTDATED *@
-    <link rel=stylesheet href=https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css />
+        @* OUTDATED *@
+        <link rel=stylesheet href=https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css />
 
-    <noscript>
-        @*To replace the html class="no-js" as this is just used for a map on Group or Event pages to display or not*@
-        <style>
-            .event-map-container { display: none; }
-            .search-bar, .search-bar-mobile-header-container, .search-bar-header-container, .show-search-button {
-                display:none;
-            }
-        </style>
-    </noscript>
+        <noscript>
+            @*To replace the html class="no-js" as this is just used for a map on Group or Event pages to display or not*@
+            <style>
+                .event-map-container { display: none; }
+                .search-bar, .search-bar-mobile-header-container, .search-bar-header-container, .show-search-button {
+                    display:none;
+                }
+            </style>
+        </noscript>
 
-    @if (IsSectionDefined("BackgroundImage"))
-    {
-	    @RenderSection("BackgroundImage")
-    }
+        @if (IsSectionDefined("BackgroundImage"))
+        {
+            @RenderSection("BackgroundImage")
+        }
 
-    <script type=text/javascript src=~/assets/javascript/vendor/require.min.js></Script>
+        <script type=text/javascript src=~/assets/javascript/vendor/require.min.js></Script>
 
-    <partial name="CookieNotice" />
-    @await Component.InvokeAsync("GoogleAnalytics")
-</head>
+        <partial name="CookieNotice" />
+        @await Component.InvokeAsync("GoogleAnalytics")
+    </head>
 
-<body class="container-layout-free container-layout-mobile @(string.Concat("type-", ViewContext.RouteData.Values["controller"].ToString().ToLower()))">
-    <partial name=Header />
+    <body class="container-layout-free container-layout-mobile @(string.Concat("type-", ViewContext.RouteData.Values["controller"].ToString().ToLower()))">
+        <partial name=Header />
 
-    @RenderSection("Breadcrumbs", false)
+        @RenderSection("Breadcrumbs", false)
 
-    <main class="grid-container i-grid-container-mobile">
-        <div class="l-container l-body-container l-body-container-pushed l-body-container-nondesktop-margin">
-            <div class="l-body-section-filled grid-100">
-                @RenderBody()
+        <main class="grid-container i-grid-container-mobile">
+            <div class="l-container l-body-container l-body-container-pushed l-body-container-nondesktop-margin">
+                <div class="l-body-section-filled grid-100">
+                    @RenderBody()
+                </div>
             </div>
-        </div>
-    </main>
-    <distributed-cache name=footer-hs expires-after=@TimeSpan.FromMinutes(ApplicationConfiguration.GetFooterCache(BusinessId.ToString())) enabled=true>
-        @await Component.InvokeAsync("Footer")
-    </distributed-cache>
+        </main>
+        <distributed-cache name=footer-hs expires-after=@TimeSpan.FromMinutes(ApplicationConfiguration.GetFooterCache(BusinessId.ToString())) enabled=true>
+            @await Component.InvokeAsync("Footer")
+        </distributed-cache>
 
-    <script>
-        require(['/assets/javascript/config-460fd0d2.min.js'], function() {
-            require(['matchbox', 'jquery'], 
-                function (matchbox) {
-                    matchbox.Init();
+        <script>
+            require(['/assets/javascript/config-91939d9a.min.js'], function() {
+                require(['matchbox', 'jquery'], 
+                    function (matchbox) {
+                        matchbox.Init();
+                });
             });
-        });
-    </script>
-</body>
+        </script>
+    </body>
 </html>

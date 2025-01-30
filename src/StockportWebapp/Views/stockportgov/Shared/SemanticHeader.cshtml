@@ -2,10 +2,12 @@
 <div class="skip-to-main-content" role="navigation">
     <a href="#content">Skip to main content</a>
 </div>
+
 <div class="center-wrapper" data-cy="semantic-header">
     <div id="header-logo">
         <a href="https://www.stockport.gov.uk">Stockport Metropolitan Borough Council Homepage</a>
     </div>
+
     <div id="header-my-account">
         <a href="#" id="reciteMe">
             <span class="fa fa-headphones hide-on-mobile" aria-hidden="true"></span>
@@ -21,6 +23,7 @@
             <span class="fa fa-search" style="display: inline-block !important; color: #83aeac;" aria-hidden="true"></span>
         </a>
     </div>
+
     <form method="get" role="search" id="cludo-search-form" class="cludo-search_autocomplete">
         <fieldset class="input-group"></fieldset>
         <label for="search" class="sr-only">Search Stockport council website</label>
@@ -28,10 +31,11 @@
         <button type="submit" title="Search Stockport Gov website"><span class="fa fa-search" aria-hidden="true"></span></button>
     </form>
 </div>
+
 <partial name="BrowserCheck" />
 
 <script>
-    require(['/assets/javascript/config-460fd0d2.min.js'], function() {
+    require(['/assets/javascript/config-91939d9a.min.js'], function() {
         require(['startup', 'utils', 'reciteMe', 'cludo', 'Cludo'],
             function(startup, utils, reciteMe, cludo) {
                 reciteMe.Init();

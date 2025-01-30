@@ -1,13 +1,7 @@
 ﻿namespace StockportWebapp.ViewModels;
 
-public class EmailBannerViewModel
+public class EmailBannerViewModel(string emailAlertsText, string emailAlertsTopicId)
 {
-    public string EmailAlertsText { get; set; }
-    public string EmailAlertsTopicId { get; set; }
-
-    public EmailBannerViewModel(string emailAlertsText, string emailAlertsTopicId)
-    {
-        EmailAlertsText = emailAlertsText;
-        EmailAlertsTopicId = emailAlertsTopicId;
-    }
+    public string EmailAlertsText { get; set; } = emailAlertsText;
+    public string EmailAlertsTopicId { get; set; } = emailAlertsTopicId;
 }

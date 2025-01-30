@@ -1,17 +1,17 @@
 ﻿@model ArticleViewModel
 @{
-    var sections = Model.Article.Sections.ToList();
+    List<ProcessedSection> sections = Model.Article.Sections.ToList();
 }
 
 <header class="article-navigation-header">
     <nav class="l-vertical-list-no-margin article-navigation">
         <ul>
             @{
-                var i = 1;
-                foreach (var sec in Model.Article.Sections)
+                int i = 1;
+                foreach (ProcessedSection sec in Model.Article.Sections)
                 {
-                    <li class="@(sec.Slug == Model.DisplayedSection.Slug ? "nav-active" : "")">
-                        @if (sections[i - 1].Slug == Model.DisplayedSection.Slug)
+                    <li class="@(sec.Slug.Equals(Model.DisplayedSection.Slug) ? "nav-active" : string.Empty)">
+                        @if (sections[i - 1].Slug.Equals(Model.DisplayedSection.Slug))
                         {
                             <span class="grid-90 tablet-grid-90 mobile-grid-90">@sections[i - 1].Title</span>
                         }

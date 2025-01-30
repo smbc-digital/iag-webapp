@@ -5,16 +5,11 @@ public interface IEventFactory
     ProcessedEvents Build(Event eventItem);
 }
 
-public class EventFactory : IEventFactory
+public class EventFactory(ITagParserContainer simpleTagParserContainer,
+                        MarkdownWrapper markdownWrapper) : IEventFactory
 {
-    private readonly ITagParserContainer _tagParserContainer;
-    private readonly MarkdownWrapper _markdownWrapper;
-
-    public EventFactory(ITagParserContainer simpleTagParserContainer, MarkdownWrapper markdownWrapper)
-    {
-        _tagParserContainer = simpleTagParserContainer;
-        _markdownWrapper = markdownWrapper;
-    }
+    private readonly ITagParserContainer _tagParserContainer = simpleTagParserContainer;
+    private readonly MarkdownWrapper _markdownWrapper = markdownWrapper;
 
     public virtual ProcessedEvents Build(Event eventItem)
     {
@@ -24,12 +19,51 @@ public class EventFactory : IEventFactory
             AccessibleTransportLink = eventItem.AccessibleTransportLink
         };
 
-        string description = _tagParserContainer.ParseAll(eventItem.Description, eventItem.Title, true, null, eventItem.Documents, null, null, null);
-        description = _markdownWrapper.ConvertToHtml(description ?? "");
+        string description = _markdownWrapper.ConvertToHtml(eventItem.Description ?? string.Empty);
 
-        return new ProcessedEvents(eventItem.Title, eventItem.Slug, eventItem.Teaser, eventItem.ImageUrl,
-                                   eventItem.ThumbnailImageUrl, description, eventItem.Fee, eventItem.Location, eventItem.SubmittedBy,
-                                   eventItem.EventDate, eventItem.StartTime, eventItem.EndTime, eventItem.Breadcrumbs, eventItem.Categories,
-                                   mapDetails, eventItem.BookingInformation, eventItem.Group, eventItem.Alerts, eventItem.AccessibleTransportLink, eventItem.MetaDescription);
+        description = _tagParserContainer.ParseAll(eventItem.Description,
+                                                        eventItem.Title,
+                                                        true,
+                                                        null,
+                                                        eventItem.Documents,
+                                                        null,
+                                                        null,
+                                                        null,
+                                                        eventItem.CallToActionBanners);
+
+
+        return new ProcessedEvents(eventItem.Title,
+                                eventItem.Slug,
+                                eventItem.Teaser,
+                                eventItem.ImageUrl,
+                                eventItem.ThumbnailImageUrl,
+                                description,
+                                eventItem.Fee,
+                                eventItem.Free,
+                                eventItem.Location,
+                                eventItem.SubmittedBy,
+                                eventItem.EventDate,
+                                eventItem.StartTime,
+                                eventItem.EndTime,
+                                eventItem.Breadcrumbs,
+                                eventItem.Categories,
+                                mapDetails,
+                                eventItem.BookingInformation,
+                                eventItem.Group,
+                                eventItem.Alerts,
+                                eventItem.AccessibleTransportLink,
+                                eventItem.LogoAreaTitle,
+                                eventItem.EventBranding,
+                                eventItem.PhoneNumber,
+                                eventItem.Email,
+                                eventItem.Website,
+                                eventItem.Facebook,
+                                eventItem.Instagram,
+                                eventItem.LinkedIn,
+                                eventItem.MetaDescription,
+                                eventItem.Duration,
+                                eventItem.Languages,
+                                eventItem.RelatedEvents,
+                                eventItem.CallToActionBanners);
     }
 }

@@ -2,8 +2,7 @@
 @inject IApplicationConfiguration appConfig
 @model MapDetails
 @{
-    string directoryLocation = (string)ViewData["directoryLocation"];
-    string entryName = (string)ViewData["entryName"];
+    string directoryLocation = (string)ViewData["directoryLocation"] ?? string.Empty;
 }
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCPMO2lE7np9cG_zG63JH_pNVmRfoajZjg&callback=initMap" async defer></script>
@@ -17,6 +16,7 @@
             center: directoryLocation,
             zoom: 18,
         });
+        
         var marker = new google.maps.Marker({
             map: map,
             position: directoryLocation,
@@ -27,7 +27,7 @@
             let mapDiv = document.querySelector("#map > div > div[aria-label='Map']");
             let mapArea = document.querySelector("#gmimap0 > area");
             if(mapDiv)
-                mapDiv.setAttribute("aria-label", "Showing position for @entryName");
+                mapDiv.setAttribute("aria-label", "Showing position for @((string)ViewData["entryName"] ?? string.Empty)");
             
             if(mapArea)
                 mapArea.setAttribute("alt", "Clickable area representing a point of interest on the map.");

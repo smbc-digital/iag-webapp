@@ -3,42 +3,43 @@
 public class SearchControllerTest
 {
     private readonly SearchController _searchController;
-    private readonly Mock<IApplicationConfiguration> _config;
-    private string _businessId = "businessId";
-    private const string SearchUrl = "search-url=";
+    private readonly Mock<IApplicationConfiguration> _config = new();
+    private readonly string _businessId = "businessId";
     private const string PostcodeUrl = "postcode_url";
 
-    public SearchControllerTest()
-    {
-        _config = new Mock<IApplicationConfiguration>();
-
-        _searchController = new SearchController(_config.Object, new BusinessId(_businessId));
-    }
+    public SearchControllerTest() =>
+        _searchController = new(_config.Object, new BusinessId(_businessId));
 
     [Fact]
     public async Task ItRedirectsToPostcodeSearchUrl()
     {
-        var postcodeSearchSetting = AppSetting.GetAppSetting(PostcodeUrl);
-        _config.Setup(o => o.GetPostcodeSearchUrl(_businessId)).Returns(postcodeSearchSetting);
+        // Arrange
+        _config
+            .Setup(conf => conf.GetPostcodeSearchUrl(_businessId))
+            .Returns(AppSetting.GetAppSetting(PostcodeUrl));
 
-        var postcode = "m45 3fz";
-        var result = await _searchController.Postcode(postcode);
+        // Act
+        IActionResult result = await _searchController.Postcode("m45 3fz");
 
-        result.Should().BeOfType<RedirectResult>();
-
-        _config.Verify(o => o.GetPostcodeSearchUrl(_businessId), Times.Once);
-        var redirect = result as RedirectResult;
-        redirect.Url.Should().Be(PostcodeUrl + postcode);
+        // Assert
+        _config.Verify(conf => conf.GetPostcodeSearchUrl(_businessId), Times.Once);
+        RedirectResult redirect = result as RedirectResult;
+        Assert.IsType<RedirectResult>(result);
+        Assert.Equal($"{PostcodeUrl}m45 3fz", redirect.Url);
     }
 
     [Fact]
     public async Task ShouldRedierctToApplicationErrorIfPostCodeUrlConfigurationIsMissing()
     {
-        var postCodeSearchSetting = AppSetting.GetAppSetting(null);
-        _config.Setup(o => o.GetPostcodeSearchUrl(_businessId)).Returns(postCodeSearchSetting);
+        // Arrange
+        _config
+            .Setup(conf => conf.GetPostcodeSearchUrl(_businessId))
+            .Returns(AppSetting.GetAppSetting(null));
 
-        var result = await _searchController.Postcode("a-postcode") as StatusCodeResult;
+        // Act
+        StatusCodeResult result = await _searchController.Postcode("a-postcode") as StatusCodeResult;
 
-        result.StatusCode.Should().Be((int)HttpStatusCode.NotFound);
+        // Assert
+        Assert.Equal(404, result.StatusCode);
     }
 }

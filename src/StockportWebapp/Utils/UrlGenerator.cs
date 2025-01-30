@@ -8,10 +8,10 @@ public interface IStubToUrlConverter
     string HealthcheckUrl();
 }
 
-public class UrlGenerator : IStubToUrlConverter
+public class UrlGenerator(IApplicationConfiguration config, BusinessId businessId) : IStubToUrlConverter
 {
-    private readonly IApplicationConfiguration _config;
-    private readonly BusinessId _businessId;
+    private readonly IApplicationConfiguration _config = config;
+    private readonly BusinessId _businessId = businessId;
 
     private readonly Dictionary<Type, string> _urls = new()
     {
@@ -27,6 +27,7 @@ public class UrlGenerator : IStubToUrlConverter
         {typeof(Newsroom), "news"},
         {typeof(List<News>), "news"},
         {typeof(List<AtoZ>), "atoz/"},
+        {typeof(SiteHeader), "header"},
         {typeof(Footer), "footer"},
         {typeof(Event), "events/"},
         {typeof(EventCalendar), "events"},
@@ -59,13 +60,8 @@ public class UrlGenerator : IStubToUrlConverter
         {typeof(DocumentPage), "document-page/"},
         {typeof(Directory), "directory/"},
         {typeof(DirectoryEntry), "directory-entry/"},
+        {typeof(LandingPage), "landing/"},
     };
-
-    public UrlGenerator(IApplicationConfiguration config, BusinessId businessId)
-    {
-        _config = config;
-        _businessId = businessId;
-    }
 
     public string UrlFor<T>(string slug = "", List<Query> queries = null)
     {
@@ -73,43 +69,32 @@ public class UrlGenerator : IStubToUrlConverter
             CreateQueryString(queries));
     }
 
-    public string UrlForLimit<T>(int limit)
-    {
-        return string.Concat(_config.GetContentApiUri(), _businessId, "/", _urls[typeof(T)], "/latest/",
+    public string UrlForLimit<T>(int limit) =>
+        string.Concat(_config.GetContentApiUri(), _businessId, "/", _urls[typeof(T)], "/latest/",
             limit.ToString());
-    }
 
-    public string UrlForLimitAndFeatured<T>(int limit, bool featured)
-    {
-        return string.Concat(_config.GetContentApiUri(), _businessId, "/", _urls[typeof(T)], "/latest/",
+    public string UrlForLimitAndFeatured<T>(int limit, bool featured) =>
+        string.Concat(_config.GetContentApiUri(), _businessId, "/", _urls[typeof(T)], "/latest/",
             limit.ToString(), $"?featured={featured.ToString().ToLower()}");
-    }
 
-    private static string CreateQueryString(List<Query> queries)
-    {
-        if (queries == null || queries.Count < 1) return "";
-        return "?" + string.Join("&", queries);
-    }
+    private static string CreateQueryString(List<Query> queries) =>
+        queries is null || queries.Count < 1
+            ? string.Empty
+            : "?" + string.Join("&", queries);
 
-    public string RedirectUrl()
-    {
-        return string.Concat(_config.GetContentApiUri(), "redirects");
-    }
+    public string RedirectUrl() =>
+        string.Concat(_config.GetContentApiUri(), "redirects");
 
-    public string AdministratorsGroups(string email)
-    {
-        return $"{_config.GetContentApiUri()}{_businessId}/groups/administrators/{email}";
-    }
+    public string AdministratorsGroups(string email) =>
+        $"{_config.GetContentApiUri()}{_businessId}/groups/administrators/{email}";
 
-    public string ArticlesForSiteMap(string slug = "", List<Query> queries = null)
-    {
-        //return $"{_config.GetContentApiUri()}{_businessId}/articleSiteMap";
-        return string.Concat(_config.GetContentApiUri(), _businessId, "/", "articleSiteMap", slug, CreateQueryString(queries));
-    }
+    public string ArticlesForSiteMap(string slug = "", List<Query> queries = null) =>
+        string.Concat(_config.GetContentApiUri(), _businessId, "/", "articleSiteMap", slug, CreateQueryString(queries));
 
     public string HealthcheckUrl()
     {
-        var baseUrl = _config.GetContentApiUrlRoot();
+        Uri baseUrl = _config.GetContentApiUrlRoot();
+        
         return new UriBuilder
         {
             Host = baseUrl.Host,

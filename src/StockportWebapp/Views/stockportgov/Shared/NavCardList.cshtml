@@ -9,7 +9,7 @@
 }
 
 <ul class="navcard-wrapper">
-    @foreach (var navCard in Model.Items.Take(12))
+    @foreach (NavCard navCard in Model.Items.Take(12))
     {
         <li class="navcard navcard--width-25 navcard--visible @borderCssClasses navcard--border-rtl-left-0-mobile">
             <partial name="NavCard" model="navCard" />

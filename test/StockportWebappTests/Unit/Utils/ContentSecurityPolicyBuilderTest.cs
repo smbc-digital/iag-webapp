@@ -6,10 +6,10 @@ public class ContentSecurityPolicyBuilderTest
     public void CSPWillContainDefaultSrcElement()
     {
         // Arrange
-        var cspBuilder = new ContentSecurityPolicyBuilder();
+        ContentSecurityPolicyBuilder cspBuilder = new();
 
         // Act
-        var contentSecurityPolicy = cspBuilder.BuildPolicy();
+        string contentSecurityPolicy = cspBuilder.BuildPolicy();
 
         // Assert
         Assert.Contains("child-src", contentSecurityPolicy);
@@ -19,10 +19,10 @@ public class ContentSecurityPolicyBuilderTest
     public void CSPWillContainChildSrcElement()
     {
         // Arrange
-        var cspBuilder = new ContentSecurityPolicyBuilder();
+        ContentSecurityPolicyBuilder cspBuilder = new();
 
         // Act
-        var contentSecurityPolicy = cspBuilder.BuildPolicy();
+        string contentSecurityPolicy = cspBuilder.BuildPolicy();
 
         // Assert
         Assert.Contains("child-src", contentSecurityPolicy);
@@ -32,10 +32,10 @@ public class ContentSecurityPolicyBuilderTest
     public void CSPWillContainFontSrcElement()
     {
         // Arrange
-        var cspBuilder = new ContentSecurityPolicyBuilder();
+        ContentSecurityPolicyBuilder cspBuilder = new();
 
         // Act
-        var contentSecurityPolicy = cspBuilder.BuildPolicy();
+        string contentSecurityPolicy = cspBuilder.BuildPolicy();
 
         // Assert
         Assert.Contains("font-src", contentSecurityPolicy);
@@ -45,10 +45,10 @@ public class ContentSecurityPolicyBuilderTest
     public void CSPWillContainImageSrcElement()
     {
         // Arrange
-        var cspBuilder = new ContentSecurityPolicyBuilder();
+        ContentSecurityPolicyBuilder cspBuilder = new();
 
         // Act
-        var contentSecurityPolicy = cspBuilder.BuildPolicy();
+        string contentSecurityPolicy = cspBuilder.BuildPolicy();
 
         // Assert
         Assert.Contains("img-src", contentSecurityPolicy);
@@ -58,10 +58,10 @@ public class ContentSecurityPolicyBuilderTest
     public void CSPWillContainStyleSrcElement()
     {
         // Arrange
-        var cspBuilder = new ContentSecurityPolicyBuilder();
+        ContentSecurityPolicyBuilder cspBuilder = new();
 
         // Act
-        var contentSecurityPolicy = cspBuilder.BuildPolicy();
+        string contentSecurityPolicy = cspBuilder.BuildPolicy();
 
         // Assert
         Assert.Contains("style-src", contentSecurityPolicy);
@@ -71,10 +71,10 @@ public class ContentSecurityPolicyBuilderTest
     public void CSPWillContainScriptSrcElement()
     {
         // Arrange
-        var cspBuilder = new ContentSecurityPolicyBuilder();
+        ContentSecurityPolicyBuilder cspBuilder = new();
 
         // Act
-        var contentSecurityPolicy = cspBuilder.BuildPolicy();
+        string contentSecurityPolicy = cspBuilder.BuildPolicy();
 
         // Assert
         Assert.Contains("script-src", contentSecurityPolicy);
@@ -84,10 +84,10 @@ public class ContentSecurityPolicyBuilderTest
     public void CSPWillContainConnectSrcElement()
     {
         // Arrange
-        var cspBuilder = new ContentSecurityPolicyBuilder();
+        ContentSecurityPolicyBuilder cspBuilder = new();
 
         // Act
-        var contentSecurityPolicy = cspBuilder.BuildPolicy();
+        string contentSecurityPolicy = cspBuilder.BuildPolicy();
 
         // Assert
         Assert.Contains("connect-src", contentSecurityPolicy);
@@ -97,10 +97,10 @@ public class ContentSecurityPolicyBuilderTest
     public void CSPWillContainMediaSrcElement()
     {
         // Arrange
-        var cspBuilder = new ContentSecurityPolicyBuilder();
+        ContentSecurityPolicyBuilder cspBuilder = new();
 
         // Act
-        var contentSecurityPolicy = cspBuilder.BuildPolicy();
+        string contentSecurityPolicy = cspBuilder.BuildPolicy();
 
         // Assert
         Assert.Contains("media-src", contentSecurityPolicy);
@@ -110,10 +110,10 @@ public class ContentSecurityPolicyBuilderTest
     public void CSPWillContainObjectSrcElement()
     {
         // Arrange
-        var cspBuilder = new ContentSecurityPolicyBuilder();
+        ContentSecurityPolicyBuilder cspBuilder = new();
 
         // Act
-        var contentSecurityPolicy = cspBuilder.BuildPolicy();
+        string contentSecurityPolicy = cspBuilder.BuildPolicy();
 
         // Assert
         Assert.Contains("object-src", contentSecurityPolicy);

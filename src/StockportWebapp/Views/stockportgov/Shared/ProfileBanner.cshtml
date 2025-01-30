@@ -1,0 +1,28 @@
+﻿@model ContentBlock
+@if (Model is not null && Model.Profile is not null && !string.IsNullOrEmpty(Model.Profile.Image.Url))
+{
+    ProfileViewModel profileViewModel = new(Model.Profile);
+
+    string pseudoBorderColour = Model.IsDefaultColourScheme
+        ? "border-pseudo-colour-teal"
+        : Model.PseudoBorderColourClass;
+
+    string borderColour = Model.IsDefaultColourScheme
+        ? "border-colour-teal"
+        : Model.BorderColourClass;
+
+    <section class="content-block content-block--margin" data-cy="profile-banner">
+        <div class="grid-container">
+            <div class="grid-100">
+                <h2 class="content-block__title">@Model.Title</h2>
+                <hr />
+
+                <div class="featured-item-container">                        
+                    <div class="featured-item section__content" data-cy="profile-featured-item">
+                        <partial name="ProfileFeaturedItem" model="@profileViewModel" view-data='@(new ViewDataDictionary(ViewData){ {"additionalClasses", "profile-banner"}, {"pseudoBorderColour", pseudoBorderColour}, {"borderColour", borderColour} })' />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+}

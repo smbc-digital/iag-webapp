@@ -1,12 +1,6 @@
 .call-to-action {
-    background-color: $stockport-teal-darker;
     display: flex;
     flex-direction: row;
-    border-radius: 50px 3px 50px 3px;
-
-    @media #{$mobile} {
-        border-radius: 30px 3px 30px 3px;
-    }
 
     &__image {
         width: 40%;
@@ -20,12 +14,19 @@
     }
 
     &-content {
+        background-color: $stockport-teal-darker;
+        border-radius: 0 3px 50px 0;
         width: 60%;
         padding: 1.5em;
         color: white;
 
         @media #{$tablet} {
             width: 100%;
+            border-radius: 50px 3px;
+        }
+
+        @media #{$mobile} {
+            border-radius: 30px 3px;
         }
 
         &__title {
@@ -41,23 +42,34 @@
         }
     }
 
-    &--pink {
+    &--grey, &--grey-light {
+        background-color: $stockport-grey;
+    }
+
+    &--pink, &--pink-light {
         background-color: $stockport-pink;
     }
-    
-    &--purple {
+
+    &--purple, &--purple-light {
         background-color: $stockport-purple;
     }
 
-    &--blue {
+    &--blue, &--blue-light {
         background-color: $stockport-blue;
+    }
+
+    &--one-stockport-purple, &--one-stockport-purple-light {
+        background-color: $one-stockport-purple;
+    }
+
+    &--orange {
+        background-color: $stockport-orange;
     }
 }
 
 html[dir="rtl"] {
     .call-to-action {
         border-radius: 3px 50px 3px 50px;
-
 
         &__image {
             border-radius: 0px 50px 3px 0px;

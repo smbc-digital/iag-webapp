@@ -10,8 +10,10 @@ public class AddEditUserViewModel
 
     public AddEditUserViewModel()
     {
-        SelectList = new List<SelectListItem>();
-        SelectList.Add(new SelectListItem() { Text = "Administrator", Value = "A" });
-        SelectList.Add(new SelectListItem() { Text = "Editor", Value = "E" });
+        SelectList = new List<SelectListItem>()
+        {
+            new() { Text = "Administrator", Value = "A" },
+            new() { Text = "Editor", Value = "E" }
+        };
     }
 }

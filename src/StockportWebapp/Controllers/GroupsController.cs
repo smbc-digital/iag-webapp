@@ -39,7 +39,7 @@ public class GroupsController : Controller
         _logger = logger;
         _configuration = configuration;
         _emailBuilder = emailBuilder;
-        _managementQuery = new List<Query> { new Query("onlyActive", "false") };
+        _managementQuery = new List<Query> { new("onlyActive", "false") };
         _markdownWrapper = markdownWrapper;
         _viewHelpers = viewHelpers;
         _dateCalculator = dateCalculator;
@@ -52,20 +52,20 @@ public class GroupsController : Controller
     [Route("/groups")]
     public async Task<IActionResult> Index()
     {
-        var listOfGroupCategories = await _groupsService.GetGroupCategories();
-        var homepage = await _groupsService.GetGroupHomepage();
+        List<GroupCategory> listOfGroupCategories = await _groupsService.GetGroupCategories();
+        ProcessedGroupHomepage homepage = await _groupsService.GetGroupHomepage();
 
-        var model = new GroupStartPage
+        GroupStartPage model = new()
         {
             PrimaryFilter = new PrimaryFilter
             {
-                Location = Constants.Groups.Location,
-                Latitude = Constants.Groups.StockportLatitude,
-                Longitude = Constants.Groups.StockportLongitude
+                Location = Groups.Location,
+                Latitude = Groups.StockportLatitude,
+                Longitude = Groups.StockportLongitude
             }
         };
 
-        if (listOfGroupCategories != null)
+        if (listOfGroupCategories is not null)
         {
             model.Categories = listOfGroupCategories;
             model.PrimaryFilter.Categories = listOfGroupCategories.OrderBy(c => c.Name).ToList();
@@ -91,29 +91,28 @@ public class GroupsController : Controller
     [Route("/groups/{slug}")]
     public async Task<IActionResult> Detail(string slug, bool confirmedUpToDate = false)
     {
-        var response = await _processedContentRepository.Get<Group>(slug);
+        HttpResponse response = await _processedContentRepository.Get<Group>(slug);
 
         if (!response.IsSuccessful())
             return response;
 
-        var group = response.Content as ProcessedGroup;
+        ProcessedGroup group = response.Content as ProcessedGroup;
 
-        var userIsAdministrator = false;
-        var isLoggedIn = false;
-        var loggedInPerson = _loggedInHelper.GetLoggedInPerson();
+        bool userIsAdministrator = false;
+        bool isLoggedIn = false;
+        LoggedInPerson loggedInPerson = _loggedInHelper.GetLoggedInPerson();
 
         if (!string.IsNullOrEmpty(loggedInPerson.Email))
         {
-            userIsAdministrator = group.GroupAdministrators.Items
-                .Any(admin => admin.Email.Equals(loggedInPerson.Email));
+            userIsAdministrator = group.GroupAdministrators.Items.Any(admin => admin.Email.Equals(loggedInPerson.Email));
             isLoggedIn = true;
         }
 
-        var daysTillStale = _configuration.GetArchiveEmailPeriods().First().NumOfDays;
+        int daysTillStale = _configuration.GetArchiveEmailPeriods().First().NumOfDays;
 
         ViewBag.CurrentUrl = Request?.GetDisplayUrl();
 
-        var viewModel = new GroupDetailsViewModel
+        GroupDetailsViewModel viewModel = new()
         {
             Group = group,
             MyAccountUrl = _configuration.GetMyAccountUrl() + "?returnUrl=" + Request?.GetDisplayUrl(),
@@ -130,46 +129,73 @@ public class GroupsController : Controller
     [Route("groups/results")]
     public async Task<IActionResult> Results([FromQuery] int page, [FromQuery] int pageSize, GroupSearch groupSearch)
     {
-        var model = new GroupResults();
-        var queries = new List<Query>();
+        GroupResults model = new();
+        List<Query> queries = new();
 
-        if (!string.IsNullOrEmpty(groupSearch.Tag)) { groupSearch.KeepTag = groupSearch.Tag; }
+        if (!string.IsNullOrEmpty(groupSearch.Tag))
+            groupSearch.KeepTag = groupSearch.Tag;
 
-        if (groupSearch.Latitude != 0) queries.Add(new Query("latitude", groupSearch.Latitude.ToString()));
-        if (groupSearch.Longitude != 0) queries.Add(new Query("longitude", groupSearch.Longitude.ToString()));
-        if (!string.IsNullOrEmpty(groupSearch.Category)) queries.Add(new Query("Category", groupSearch.Category == "all" ? "" : groupSearch.Category));
-        if (!string.IsNullOrEmpty(groupSearch.Order)) queries.Add(new Query("Order", groupSearch.Order));
-        if (!string.IsNullOrEmpty(groupSearch.Location)) queries.Add(new Query("location", groupSearch.Location));
-        if (!string.IsNullOrEmpty(groupSearch.GetInvolved)) queries.Add(new Query("getinvolved", groupSearch.GetInvolved));
-        if (!string.IsNullOrEmpty(groupSearch.Tag)) queries.Add(new Query("organisation", groupSearch.Tag));
-        if (groupSearch.SubCategories.Any()) queries.Add(new Query("subcategories", string.Join(",", groupSearch.SubCategories)));
-        if (!string.IsNullOrEmpty(groupSearch.Tags)) queries.Add(new Query("Tags", groupSearch.Tags));
+        if (!groupSearch.Latitude.Equals(0))
+            queries.Add(new Query("latitude", groupSearch.Latitude.ToString()));
+        
+        if (!groupSearch.Longitude.Equals(0))
+            queries.Add(new Query("longitude", groupSearch.Longitude.ToString()));
+        
+        if (!string.IsNullOrEmpty(groupSearch.Category))
+            queries.Add(new Query("Category", groupSearch.Category.Equals("all") ? string.Empty : groupSearch.Category));
 
-        var response = await _repository.Get<GroupResults>(queries: queries);
+        if (!string.IsNullOrEmpty(groupSearch.Order))
+            queries.Add(new Query("Order", groupSearch.Order));
+
+        if (!string.IsNullOrEmpty(groupSearch.Location))
+            queries.Add(new Query("location", groupSearch.Location));
+
+        if (!string.IsNullOrEmpty(groupSearch.GetInvolved))
+            queries.Add(new Query("getinvolved", groupSearch.GetInvolved));
+
+        if (!string.IsNullOrEmpty(groupSearch.Tag))
+            queries.Add(new Query("organisation", groupSearch.Tag));
+
+        if (groupSearch.SubCategories.Any())
+            queries.Add(new Query("subcategories", string.Join(",", groupSearch.SubCategories)));
+
+        if (!string.IsNullOrEmpty(groupSearch.Tags))
+            queries.Add(new Query("Tags", groupSearch.Tags));
+
+        HttpResponse response = await _repository.Get<GroupResults>(queries: queries);
 
         if (response.IsNotFound())
             return NotFound();
 
         model = response.Content as GroupResults;
 
-        ViewBag.SelectedCategory = string.IsNullOrEmpty(groupSearch.Category) ? "All" : (char.ToUpper(groupSearch.Category[0]) + groupSearch.Category.Substring(1)).Replace("-", " ");
+        ViewBag.SelectedCategory = string.IsNullOrEmpty(groupSearch.Category)
+            ? "All"
+            : (char.ToUpper(groupSearch.Category[0]) + groupSearch.Category.Substring(1)).Replace("-", " ");
+        
         model.AddQueryUrl(new QueryUrl(Url?.ActionContext.RouteData.Values, Request?.Query));
         _filteredUrl.SetQueryUrl(model.CurrentUrl);
         model.AddFilteredUrl(_filteredUrl);
 
         _groupsService.DoPagination(model, page, pageSize);
 
-        if ((model.Categories != null) && model.Categories.Any())
+        if ((model.Categories is not null) && model.Categories.Any())
         {
-            ViewBag.Category = model.Categories.FirstOrDefault(c => c.Slug == groupSearch.Category);
+            ViewBag.Category = model.Categories.FirstOrDefault(c => c.Slug.Equals(groupSearch.Category));
             model.PrimaryFilter.Categories = model.Categories.OrderBy(c => c.Name).ToList();
         }
 
         model.PrimaryFilter.Order = groupSearch.Order;
         model.PrimaryFilter.Location = groupSearch.Location;
-        model.PrimaryFilter.Latitude = groupSearch.Latitude != 0 ? groupSearch.Latitude : Constants.Groups.StockportLatitude;
-        model.PrimaryFilter.Longitude = groupSearch.Longitude != 0 ? groupSearch.Longitude : Constants.Groups.StockportLongitude;
-        model.GetInvolved = groupSearch.GetInvolved == "yes";
+        model.PrimaryFilter.Latitude = !groupSearch.Latitude.Equals(0)
+            ? groupSearch.Latitude
+            : Groups.StockportLatitude;
+
+        model.PrimaryFilter.Longitude = !groupSearch.Longitude.Equals(0)
+            ? groupSearch.Longitude
+            : Groups.StockportLongitude;
+
+        model.GetInvolved = groupSearch.GetInvolved.Equals("yes");
         model.SubCategories = groupSearch.SubCategories;
         model.Tag = groupSearch.Tag; // organisation filter
         model.KeepTag = groupSearch.KeepTag; // get first found organisation with Tag
@@ -177,18 +203,18 @@ public class GroupsController : Controller
 
         if (!string.IsNullOrEmpty(groupSearch.Tag) && model.Groups.Any(g => g.Organisation?.Slug == groupSearch.Tag))
         {
-            var firstGroup = model.Groups.First(g => g.Organisation?.Slug == groupSearch.Tag);
-            model.OrganisationName = firstGroup?.Organisation == null ? string.Empty : firstGroup.Organisation.Title;
+            Group firstGroup = model.Groups.First(g => g.Organisation?.Slug == groupSearch.Tag);
+            model.OrganisationName = firstGroup?.Organisation is null
+                ? string.Empty
+                : firstGroup.Organisation.Title;
         }
         else if (!string.IsNullOrEmpty(groupSearch.KeepTag))
         {
-            var organisationFilterResponse = await _repository.Get<Organisation>(groupSearch.KeepTag);
-            var organisationFilter = organisationFilterResponse.Content as Organisation;
+            HttpResponse organisationFilterResponse = await _repository.Get<Organisation>(groupSearch.KeepTag);
+            Organisation organisationFilter = organisationFilterResponse.Content as Organisation;
 
-            if (organisationFilter != null)
-            {
+            if (organisationFilter is not null)
                 model.OrganisationName = organisationFilter.Title;
-            }
         }
 
         try
@@ -210,7 +236,7 @@ public class GroupsController : Controller
     {
         return NotFound();
 
-        var groupSubmission = new GroupSubmission();
+        GroupSubmission groupSubmission = new();
 
         groupSubmission.AvailableCategories = await _groupsService.GetAvailableGroupCategories();
 
@@ -232,8 +258,9 @@ public class GroupsController : Controller
             return View(groupSubmission);
         }
 
-        var successCode = await _emailBuilder.SendEmailAddNew(groupSubmission);
-        if (successCode == HttpStatusCode.OK) return RedirectToAction("ThankYouMessage");
+        HttpStatusCode successCode = await _emailBuilder.SendEmailAddNew(groupSubmission);
+        if (successCode.Equals(HttpStatusCode.OK))
+            return RedirectToAction("ThankYouMessage");
 
         ViewBag.SubmissionError = "There was a problem submitting the group, please try again.";
 
@@ -243,12 +270,11 @@ public class GroupsController : Controller
     // TODO: Move into events service
     private async Task<List<string>> GetAvailableEventCategories()
     {
-        var response = await _repository.Get<List<EventCategory>>();
-        var listOfEventCategories = response.Content as List<EventCategory>;
-        if (listOfEventCategories != null)
-        {
+        HttpResponse response = await _repository.Get<List<EventCategory>>();
+        List<EventCategory> listOfEventCategories = response.Content as List<EventCategory>;
+
+        if (listOfEventCategories is not null)
             return listOfEventCategories.Select(logc => logc.Name).OrderBy(c => c).ToList();
-        }
 
         return null;
     }
@@ -256,16 +282,12 @@ public class GroupsController : Controller
     [HttpGet]
     [Route("/groups/{slug}/change-group-info")]
     [ResponseCache(Location = ResponseCacheLocation.None, Duration = 0, NoStore = true)]
-    public ActionResult ChangeGroupInfo(string slug, string groupname)
-    {
-        var model = new ChangeGroupInfoViewModel
+    public ActionResult ChangeGroupInfo(string slug, string groupname) =>
+        View(new ChangeGroupInfoViewModel()
         {
             GroupName = groupname,
             Slug = slug
-        };
-
-        return View(model);
-    }
+        });
 
     [HttpPost]
     [Route("/groups/{slug}/change-group-info")]
@@ -276,11 +298,12 @@ public class GroupsController : Controller
         if (!ModelState.IsValid)
         {
             ViewBag.SubmissionError = _groupsService.GetErrorsFromModelState(ModelState);
+
             return View(submission);
         }
 
-        var successCode = _emailBuilder.SendEmailChangeGroupInfo(submission).Result;
-        if (successCode == HttpStatusCode.OK)
+        HttpStatusCode successCode = _emailBuilder.SendEmailChangeGroupInfo(submission).Result;
+        if (successCode.Equals(HttpStatusCode.OK))
             return RedirectToAction("ChangeGroupInfoConfirmation", new { slug, groupName = submission.GroupName });
 
         ViewBag.SubmissionError = "There was a problem submitting the group, please try again.";
@@ -291,16 +314,12 @@ public class GroupsController : Controller
     [HttpGet]
     [Route("/groups/{slug}/report-group-info")]
     [ResponseCache(Location = ResponseCacheLocation.None, Duration = 0, NoStore = true)]
-    public ActionResult ReportGroupInfo(string slug, string groupname)
-    {
-        var model = new ReportGroupViewModel
+    public ActionResult ReportGroupInfo(string slug, string groupname) =>
+        View(new ReportGroupViewModel
         {
             GroupName = groupname,
             Slug = slug
-        };
-
-        return View(model);
-    }
+        });
 
     [HttpPost]
     [Route("/groups/{slug}/report-group-info")]
@@ -311,16 +330,17 @@ public class GroupsController : Controller
         if (!ModelState.IsValid)
         {
             ViewBag.SubmissionError = _groupsService.GetErrorsFromModelState(ModelState);
+
             return View(submission);
         }
 
-        var successCode = _emailBuilder.SendEmailReportGroup(submission).Result;
-        if (successCode == HttpStatusCode.OK)
+        HttpStatusCode successCode = _emailBuilder.SendEmailReportGroup(submission).Result;
+        if (successCode.Equals(HttpStatusCode.OK))
             return RedirectToAction("ReportGroupInfoConfirmation", new { slug, groupName = submission.GroupName });
         
         ViewBag.SubmissionError = "There was a problem submitting the report, please try again.";
-        return View(submission);
 
+        return View(submission);
     }
 
     [Route("/groups/{slug}/report-group-info-confirmation")]
@@ -332,18 +352,21 @@ public class GroupsController : Controller
         ViewBag.Slug = slug;
         ViewBag.GroupName = groupName;
 
-
-
-        var viewmodel = new ConfirmationViewModel()
+        ConfirmationViewModel viewmodel = new()
         {
             Title = "Report this page as inappropriate",
             SubTitle = $"You've successfully submitted a report for {groupName}",
-            ConfirmationText = $"We will take a look at the report you have submitted in line with our <a target='_blank' href = " + Url.Content("https://www.stockport.gov.uk/terms-and-conditions") + ">Terms and Conditions</a> and reply to you within 10 working days",
+            ConfirmationText = "We will take a look at the report you have submitted in line with our <a target='_blank' href = "
+                + Url.Content("https://www.stockport.gov.uk/terms-and-conditions") + ">Terms and Conditions</a> and reply to you within 10 working days",
             ButtonText = $"Go back to Stockport Local {groupName}",
             ButtonLink = "/groups/" + slug,
             Icon = "check",
             IconColour = "green",
-            Crumbs = new List<Crumb> { new Crumb("Stockport Local", "groups", "Group"), new Crumb(ViewBag.GroupName, ViewBag.Slug, "groups") }
+            Crumbs = new List<Crumb>
+                {
+                    new("Stockport Local", "groups", "Group"),
+                    new(ViewBag.GroupName, ViewBag.Slug, "groups")
+                }
         };
 
         return View("Confirmation", viewmodel);
@@ -358,8 +381,7 @@ public class GroupsController : Controller
         ViewBag.Slug = slug;
         ViewBag.GroupName = groupName;
 
-
-        var viewmodel = new ConfirmationViewModel()
+        ConfirmationViewModel viewmodel = new()
         {
             Title = "Changes to a group's information",
             SubTitle = $"You've successfully submitted a change for {groupName}",
@@ -368,7 +390,11 @@ public class GroupsController : Controller
             ButtonLink = "/groups/" + slug,
             Icon = "check",
             IconColour = "green",
-            Crumbs = new List<Crumb> { new Crumb("Stockport Local", "groups", "Group"), new Crumb(ViewBag.GroupName, ViewBag.Slug, "groups") }
+            Crumbs = new List<Crumb>
+                {
+                    new("Stockport Local", "groups", "Group"),
+                    new(ViewBag.GroupName, ViewBag.Slug, "groups")
+                }
         };
 
         return View("Confirmation", viewmodel);
@@ -378,16 +404,15 @@ public class GroupsController : Controller
     [ServiceFilter(typeof(GroupAuthorisation))]
     public async Task<IActionResult> Users(string slug, LoggedInPerson loggedInPerson)
     {
-        var response = await _processedContentRepository.Get<Group>(slug, _managementQuery);
+        HttpResponse response = await _processedContentRepository.Get<Group>(slug, _managementQuery);
 
-        if (!response.IsSuccessful()) return response;
+        if (!response.IsSuccessful())
+            return response;
 
-        var group = response.Content as ProcessedGroup;
+        ProcessedGroup group = response.Content as ProcessedGroup;
 
         if (!_groupsService.HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "A"))
-        {
             return NotFound();
-        }
 
         return View(group);
     }
@@ -397,18 +422,17 @@ public class GroupsController : Controller
     [ServiceFilter(typeof(GroupAuthorisation))]
     public async Task<IActionResult> NewUser(string slug, LoggedInPerson loggedInPerson)
     {
-        var response = await _processedContentRepository.Get<Group>(slug, _managementQuery);
+        HttpResponse response = await _processedContentRepository.Get<Group>(slug, _managementQuery);
 
-        if (!response.IsSuccessful()) return response;
+        if (!response.IsSuccessful())
+            return response;
 
-        var group = response.Content as ProcessedGroup;
+        ProcessedGroup group = response.Content as ProcessedGroup;
 
         if (!_groupsService.HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "A"))
-        {
             return NotFound();
-        }
 
-        var model = new AddEditUserViewModel
+        AddEditUserViewModel model = new()
         {
             Slug = slug,
             Name = @group.Name
@@ -422,34 +446,31 @@ public class GroupsController : Controller
     [ServiceFilter(typeof(GroupAuthorisation))]
     public async Task<IActionResult> NewUser(AddEditUserViewModel model, LoggedInPerson loggedInPerson)
     {
-        var response = await _processedContentRepository.Get<Group>(model.Slug, _managementQuery);
+        HttpResponse response = await _processedContentRepository.Get<Group>(model.Slug, _managementQuery);
 
-        if (!response.IsSuccessful()) return response;
+        if (!response.IsSuccessful())
+            return response;
 
-        var group = response.Content as ProcessedGroup;
+        ProcessedGroup group = response.Content as ProcessedGroup;
 
         if (!_groupsService.HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "A"))
-        {
             return NotFound();
-        }
         else if (!ModelState.IsValid)
-        {
             ViewBag.SubmissionError = _groupsService.GetErrorsFromModelState(ModelState);
-        }
-        else if (group.GroupAdministrators.Items.Any(u => u.Email.ToUpper() == model.GroupAdministratorItem.Email.ToUpper()))
-        {
+        else if (group.GroupAdministrators.Items.Any(u => u.Email.ToUpper().Equals(model.GroupAdministratorItem.Email.ToUpper())))
             ViewBag.SubmissionError = "Sorry, this email already exists for this group. You can only assign an email to a group once.";
-        }
         else
         {
-            var jsonContent = JsonConvert.SerializeObject(model.GroupAdministratorItem);
-            var httpContent = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+            string jsonContent = JsonConvert.SerializeObject(model.GroupAdministratorItem);
+            StringContent httpContent = new StringContent(jsonContent, Encoding.UTF8, "application/json");
 
             response = await _repository.AddAdministrator(httpContent, model.Slug, model.GroupAdministratorItem.Email);
-            if (!response.IsSuccessful()) return response;
+            if (!response.IsSuccessful())
+                return response;
+            
             await _emailBuilder.SendEmailNewUser(model);
 
-            var viewmodel = new ConfirmationViewModel()
+            ConfirmationViewModel viewmodel = new()
             {
                 Title = $"Add a new user",
                 SubTitle = $"You've successfully added {model.GroupAdministratorItem.Name} to {group.Name}",
@@ -459,7 +480,13 @@ public class GroupsController : Controller
                 ButtonLink = @Url.Action("Users", "Groups", new { slug = model.Slug }),
                 Icon = "check",
                 IconColour = "green",
-                Crumbs = new List<Crumb> { new Crumb("Stockport Local", "groups", "Group"), new Crumb("Manage your groups", "manage", "groups"), new Crumb(group.Name, "manage/" + model.Slug, "groups"), new Crumb("Users", "manage/" + model.Slug + "/users", "groups") }
+                Crumbs = new List<Crumb>
+                    {
+                        new("Stockport Local", "groups", "Group"),
+                        new("Manage your groups", "manage", "groups"),
+                        new(group.Name, "manage/" + model.Slug, "groups"),
+                        new("Users", "manage/" + model.Slug + "/users", "groups")
+                    }
             };
 
             return View("Confirmation", viewmodel);
@@ -473,25 +500,24 @@ public class GroupsController : Controller
     [ServiceFilter(typeof(GroupAuthorisation))]
     public async Task<IActionResult> EditUser(string slug, string email, LoggedInPerson loggedInPerson)
     {
-        var response = await _processedContentRepository.Get<Group>(slug, _managementQuery);
+        HttpResponse response = await _processedContentRepository.Get<Group>(slug, _managementQuery);
 
-        if (!response.IsSuccessful()) return response;
+        if (!response.IsSuccessful())
+            return response;
 
-        var group = response.Content as ProcessedGroup;
+        ProcessedGroup group = response.Content as ProcessedGroup;
 
         if (!_groupsService.HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "A"))
-        {
-            return NotFound();
-        }
-
-        var groupAdministrator = group.GroupAdministrators.Items.FirstOrDefault(i => i.Email == email);
-        if (groupAdministrator == null)
             return NotFound();
 
-        var model = new AddEditUserViewModel
+        GroupAdministratorItems groupAdministrator = group.GroupAdministrators.Items.FirstOrDefault(i => i.Email.Equals(email));
+        if (groupAdministrator is null)
+            return NotFound();
+
+        AddEditUserViewModel model = new()
         {
             Slug = slug,
-            Name = @group.Name,
+            Name = group.Name,
             GroupAdministratorItem = groupAdministrator,
             Previousrole = groupAdministrator.Permission
         };
@@ -504,29 +530,28 @@ public class GroupsController : Controller
     [ServiceFilter(typeof(GroupAuthorisation))]
     public async Task<IActionResult> EditUser(AddEditUserViewModel model, LoggedInPerson loggedInPerson)
     {
-        var response = await _processedContentRepository.Get<Group>(model.Slug, _managementQuery);
+        HttpResponse response = await _processedContentRepository.Get<Group>(model.Slug, _managementQuery);
 
-        if (!response.IsSuccessful()) return response;
+        if (!response.IsSuccessful())
+            return response;
 
-        var group = response.Content as ProcessedGroup;
+        ProcessedGroup group = response.Content as ProcessedGroup;
 
-        var administratorItem = group.GroupAdministrators.Items.Where(i => i.Email == model.GroupAdministratorItem.Email);
+        IEnumerable<GroupAdministratorItems> administratorItem = group.GroupAdministrators.Items.Where(i => i.Email.Equals(model.GroupAdministratorItem.Email));
 
         if (!administratorItem.Any() || !_groupsService.HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "A"))
-        {
             return NotFound();
-        }
         else if (!ModelState.IsValid)
-        {
             ViewBag.SubmissionError = _groupsService.GetErrorsFromModelState(ModelState);
-        }
         else
         {
-            var jsonContent = JsonConvert.SerializeObject(model.GroupAdministratorItem);
-            var httpContent = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+            string jsonContent = JsonConvert.SerializeObject(model.GroupAdministratorItem);
+            StringContent httpContent = new StringContent(jsonContent, Encoding.UTF8, "application/json");
 
             response = await _repository.UpdateAdministrator(httpContent, model.Slug, model.GroupAdministratorItem.Email);
-            if (!response.IsSuccessful()) return response;
+            if (!response.IsSuccessful())
+                return response;
+            
             await _emailBuilder.SendEmailEditUser(model);
             return RedirectToAction("EditUserConfirmation", new { slug = model.Slug, name = model.GroupAdministratorItem.Name, groupName = group.Name });
         }
@@ -538,9 +563,7 @@ public class GroupsController : Controller
     public IActionResult EditUserConfirmation(string slug, string name, string groupName)
     {
         if (string.IsNullOrWhiteSpace(groupName) || string.IsNullOrWhiteSpace(name))
-        {
             return NotFound();
-        }
 
         ViewBag.Slug = slug;
         ViewBag.Name = name;
@@ -554,24 +577,21 @@ public class GroupsController : Controller
     [ServiceFilter(typeof(GroupAuthorisation))]
     public async Task<IActionResult> Remove(string slug, string email, LoggedInPerson loggedInPerson)
     {
-        var response = await _processedContentRepository.Get<Group>(slug, _managementQuery);
+        HttpResponse response = await _processedContentRepository.Get<Group>(slug, _managementQuery);
 
-        if (!response.IsSuccessful()) return response;
+        if (!response.IsSuccessful())
+            return response;
 
-        var group = response.Content as ProcessedGroup;
+        ProcessedGroup group = response.Content as ProcessedGroup;
 
         if (!_groupsService.HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "A"))
-        {
             return NotFound();
-        }
 
-        var groupAdministrator = group.GroupAdministrators.Items.FirstOrDefault(i => i.Email == email);
-        if (groupAdministrator == null)
-        {
+        GroupAdministratorItems groupAdministrator = group.GroupAdministrators.Items.FirstOrDefault(i => i.Email.Equals(email));
+        if (groupAdministrator is null)
             return NotFound();
-        }
 
-        var model = new RemoveUserViewModel()
+        RemoveUserViewModel model = new()
         {
             Slug = slug,
             Email = email,
@@ -587,23 +607,24 @@ public class GroupsController : Controller
     [ServiceFilter(typeof(GroupAuthorisation))]
     public async Task<IActionResult> RemoveUser(RemoveUserViewModel model, LoggedInPerson loggedInPerson)
     {
-        var response = await _processedContentRepository.Get<Group>(model.Slug, _managementQuery);
+        HttpResponse response = await _processedContentRepository.Get<Group>(model.Slug, _managementQuery);
 
-        if (!response.IsSuccessful()) return response;
-        var group = response.Content as ProcessedGroup;
+        if (!response.IsSuccessful())
+            return response;
+
+        ProcessedGroup group = response.Content as ProcessedGroup;
 
         if (!_groupsService.HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "A"))
-        {
             return NotFound();
-        }
 
         response = await _repository.RemoveAdministrator(model.Slug, model.Email);
 
-        if (!response.IsSuccessful()) return response;
+        if (!response.IsSuccessful())
+            return response;
 
         await _emailBuilder.SendEmailDeleteUser(model);
 
-        var viewmodel = new ConfirmationViewModel()
+        ConfirmationViewModel viewmodel = new()
         {
             Title = "Remove user",
             SubTitle = $"You've successfully removed {model.Name} to {group.Name}",
@@ -614,30 +635,34 @@ public class GroupsController : Controller
             ButtonLink = Url.Action("NewUser", "Groups", new { slug = model.Slug }),
             Icon = "check",
             IconColour = "green",
-            Crumbs = new List<Crumb> { new Crumb("Stockport Local", "groups", "Group"), new Crumb("Manage your groups", "manage", "groups"), new Crumb(model.GroupName, "manage/" + model.Slug, "groups") }
+            Crumbs = new List<Crumb>
+                {
+                    new("Stockport Local", "groups", "Group"),
+                    new("Manage your groups", "manage", "groups"),
+                    new(model.GroupName, "manage/" + model.Slug, "groups")
+                }
         };
 
         return View("Confirmation", viewmodel);
     }
 
     [Route("/groups/thank-you-message")]
-    public IActionResult ThankYouMessage()
-    {
-        return View();
-    }
+    public IActionResult ThankYouMessage() =>
+        View();
 
     [Route("/groups/manage")]
     [ServiceFilter(typeof(GroupAuthorisation))]
     [ResponseCache(Location = ResponseCacheLocation.None, Duration = 0, NoStore = true)]
     public async Task<IActionResult> Manage(LoggedInPerson loggedInPerson)
     {
-        var response = await _repository.GetAdministratorsGroups(loggedInPerson.Email);
+        HttpResponse response = await _repository.GetAdministratorsGroups(loggedInPerson.Email);
 
-        if (!response.IsSuccessful()) return response;
+        if (!response.IsSuccessful())
+            return response;
 
-        var groups = response.Content as List<Group>;
+        List<Group> groups = response.Content as List<Group>;
 
-        var result = new GroupManagePage
+        GroupManagePage result = new()
         {
             Groups = groups,
             Email = loggedInPerson.Email,
@@ -651,18 +676,17 @@ public class GroupsController : Controller
     [ServiceFilter(typeof(GroupAuthorisation))]
     public async Task<IActionResult> ManageGroup(string slug, LoggedInPerson loggedInPerson)
     {
-        var response = await _processedContentRepository.Get<Group>(slug, _managementQuery);
+        HttpResponse response = await _processedContentRepository.Get<Group>(slug, _managementQuery);
 
-        if (!response.IsSuccessful()) return response;
+        if (!response.IsSuccessful())
+            return response;
 
-        var group = response.Content as ProcessedGroup;
+        ProcessedGroup group = response.Content as ProcessedGroup;
 
         if (!_groupsService.HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "E"))
-        {
             return NotFound();
-        }
 
-        var result = new ManageGroupViewModel
+        ManageGroupViewModel result = new()
         {
             Name = group.Name,
             Slug = slug,
@@ -677,16 +701,15 @@ public class GroupsController : Controller
     [ServiceFilter(typeof(GroupAuthorisation))]
     public async Task<IActionResult> Delete(string slug, LoggedInPerson loggedInPerson)
     {
-        var response = await _processedContentRepository.Get<Group>(slug, _managementQuery);
+        HttpResponse response = await _processedContentRepository.Get<Group>(slug, _managementQuery);
 
-        if (!response.IsSuccessful()) return response;
+        if (!response.IsSuccessful())
+            return response;
 
-        var group = response.Content as ProcessedGroup;
+        ProcessedGroup group = response.Content as ProcessedGroup;
 
         if (!_groupsService.HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "A"))
-        {
             return NotFound();
-        }
 
         ViewBag.CurrentUrl = Request?.GetDisplayUrl();
 
@@ -697,18 +720,17 @@ public class GroupsController : Controller
     [ServiceFilter(typeof(GroupAuthorisation))]
     public async Task<IActionResult> DeleteEvent(string groupSlug, string eventSlug, LoggedInPerson loggedInPerson)
     {
-        var eventResponse = await _processedContentRepository.Get<Event>(eventSlug, _managementQuery);
-        var groupResponse = await _processedContentRepository.Get<Group>(groupSlug, _managementQuery);
+        HttpResponse eventResponse = await _processedContentRepository.Get<Event>(eventSlug, _managementQuery);
+        HttpResponse groupResponse = await _processedContentRepository.Get<Group>(groupSlug, _managementQuery);
 
-        if (!eventResponse.IsSuccessful()) return eventResponse;
+        if (!eventResponse.IsSuccessful())
+            return eventResponse;
 
-        var eventItem = eventResponse.Content as ProcessedEvents;
-        var group = groupResponse.Content as ProcessedGroup;
+        ProcessedEvents eventItem = eventResponse.Content as ProcessedEvents;
+        ProcessedGroup group = groupResponse.Content as ProcessedGroup;
 
         if (!_groupsService.HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "A"))
-        {
             return NotFound();
-        }
 
         ViewBag.CurrentUrl = Request?.GetDisplayUrl();
         ViewBag.GroupName = group.Name;
@@ -722,26 +744,26 @@ public class GroupsController : Controller
     [ServiceFilter(typeof(GroupAuthorisation))]
     public async Task<IActionResult> DeleteAnEvent(string groupSlug, string eventSlug, LoggedInPerson loggedInPerson)
     {
-        var eventResponse = await _processedContentRepository.Get<Event>(eventSlug, _managementQuery);
-        var groupResponse = await _processedContentRepository.Get<Group>(groupSlug, _managementQuery);
+        HttpResponse eventResponse = await _processedContentRepository.Get<Event>(eventSlug, _managementQuery);
+        HttpResponse groupResponse = await _processedContentRepository.Get<Group>(groupSlug, _managementQuery);
 
-        if (!eventResponse.IsSuccessful()) return eventResponse;
+        if (!eventResponse.IsSuccessful())
+            return eventResponse;
 
-        var eventItem = eventResponse.Content as ProcessedEvents;
-        var group = groupResponse.Content as ProcessedGroup;
+        ProcessedEvents eventItem = eventResponse.Content as ProcessedEvents;
+        ProcessedGroup group = groupResponse.Content as ProcessedGroup;
 
         if (!_groupsService.HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "A"))
-        {
             return NotFound();
-        }
 
-        var deleteResponse = await _repository.Delete<Event>(eventSlug);
+        HttpResponse deleteResponse = await _repository.Delete<Event>(eventSlug);
 
-        if (!deleteResponse.IsSuccessful()) return deleteResponse;
+        if (!deleteResponse.IsSuccessful())
+            return deleteResponse;
 
         _emailBuilder.SendEmailEventDelete(eventItem, group);
 
-        var viewmodel = new ConfirmationViewModel()
+        ConfirmationViewModel viewmodel = new()
         {
             Title = $"Delete {eventItem.Title}",
             SubTitle = "Your event has been successfully deleted",
@@ -750,7 +772,14 @@ public class GroupsController : Controller
             ButtonLink = Url.Action("ViewGroupsEvents", "Groups", new { slug = ViewBag.GroupSlug }),
             Icon = "check",
             IconColour = "green",
-            Crumbs = new List<Crumb> { new Crumb("Stockport Local", "groups", "Group"), new Crumb("Manage your groups", "manage", "groups"), new Crumb(group.Name, "manage/" + group.Slug, "groups"), new Crumb("Manage your events", "manage/" + group.Slug + "/events/", "groups"), new Crumb(eventItem.Title, "manage/" + group.Slug + "/events/" + eventItem.Slug, "groups") }
+            Crumbs = new List<Crumb>
+                {
+                    new("Stockport Local", "groups", "Group"),
+                    new("Manage your groups", "manage", "groups"),
+                    new(group.Name, "manage/" + group.Slug, "groups"),
+                    new("Manage your events", "manage/" + group.Slug + "/events/", "groups"),
+                    new(eventItem.Title, "manage/" + group.Slug + "/events/" + eventItem.Slug, "groups")
+                }
         };
 
         return View("Confirmation", viewmodel);
@@ -761,23 +790,24 @@ public class GroupsController : Controller
     [ServiceFilter(typeof(GroupAuthorisation))]
     public async Task<IActionResult> DeleteGroup(string slug, LoggedInPerson loggedInPerson)
     {
-        var response = await _processedContentRepository.Get<Group>(slug, _managementQuery);
+        HttpResponse response = await _processedContentRepository.Get<Group>(slug, _managementQuery);
 
-        if (!response.IsSuccessful()) return response;
-        var group = response.Content as ProcessedGroup;
+        if (!response.IsSuccessful())
+            return response;
+
+        ProcessedGroup group = response.Content as ProcessedGroup;
 
         if (!_groupsService.HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "A"))
-        {
             return NotFound();
-        }
 
         response = await _repository.Delete<Group>(slug);
 
-        if (!response.IsSuccessful()) return response;
+        if (!response.IsSuccessful())
+            return response;
 
         _emailBuilder.SendEmailDelete(group);
 
-        var viewmodel = new ConfirmationViewModel()
+        ConfirmationViewModel viewmodel = new()
         {
             Title = $"Delete {group.Name}",
             SubTitle = "Your group has been successfully deleted",
@@ -786,7 +816,11 @@ public class GroupsController : Controller
             ButtonLink = Url.Action("Manage", "Groups"),
             Icon = "check",
             IconColour = "green",
-            Crumbs = new List<Crumb> { new Crumb("Stockport Local", "groups", "Group"), new Crumb("Manage your groups", "manage", "groups") }
+            Crumbs = new List<Crumb>
+                {
+                    new("Stockport Local", "groups", "Group"),
+                    new("Manage your groups", "manage", "groups")
+                }
         };
 
         return View("Confirmation", viewmodel);
@@ -796,16 +830,15 @@ public class GroupsController : Controller
     [ServiceFilter(typeof(GroupAuthorisation))]
     public async Task<IActionResult> Archive(string slug, LoggedInPerson loggedInPerson)
     {
-        var response = await _repository.Get<Group>(slug, _managementQuery);
+        HttpResponse response = await _repository.Get<Group>(slug, _managementQuery);
 
-        if (!response.IsSuccessful()) return response;
+        if (!response.IsSuccessful())
+            return response;
 
-        var group = response.Content as Group;
+        Group group = response.Content as Group;
 
         if (!_groupsService.HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "A"))
-        {
             return NotFound();
-        }
 
         ViewBag.CurrentUrl = Request?.GetDisplayUrl();
 
@@ -817,30 +850,29 @@ public class GroupsController : Controller
     [ServiceFilter(typeof(GroupAuthorisation))]
     public async Task<IActionResult> ArchiveGroup(string slug, LoggedInPerson loggedInPerson)
     {
-        var response = await _repository.Get<Group>(slug, _managementQuery);
+        HttpResponse response = await _repository.Get<Group>(slug, _managementQuery);
 
-        if (!response.IsSuccessful()) return response;
+        if (!response.IsSuccessful())
+            return response;
 
-        var group = response.Content as Group;
+        Group group = response.Content as Group;
 
         if (!_groupsService.HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "A"))
-        {
             return NotFound();
-        }
 
         group.DateHiddenFrom = DateTime.Now;
         group.DateHiddenTo = null;
 
-        var jsonContent = JsonConvert.SerializeObject(group);
-        var httpContent = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+        string jsonContent = JsonConvert.SerializeObject(group);
+        StringContent httpContent = new StringContent(jsonContent, Encoding.UTF8, "application/json");
 
-        var putResponse = await _repository.Archive<Group>(httpContent, slug);
+        HttpResponse putResponse = await _repository.Archive<Group>(httpContent, slug);
 
-        if (putResponse.StatusCode == (int)HttpStatusCode.OK)
+        if (putResponse.StatusCode.Equals((int)HttpStatusCode.OK))
         {
             _emailBuilder.SendEmailArchive(group);
 
-            var viewmodel = new ConfirmationViewModel()
+            ConfirmationViewModel viewmodel = new()
             {
                 Title = $"Archive {group.Name}",
                 SubTitle = "We've received your request to archive your group",
@@ -851,7 +883,12 @@ public class GroupsController : Controller
                 ButtonLink = @Url.Action("Manage", "Groups"),
                 Icon = "check",
                 IconColour = "green",
-                Crumbs = new List<Crumb> { new Crumb("Stockport Local", "groups", "Group"), new Crumb("Manage your groups", "manage", "groups"), new Crumb(group.Name, "manage/" + group.Slug, "groups") }
+                Crumbs = new List<Crumb>
+                    {
+                        new("Stockport Local", "groups", "Group"),
+                        new("Manage your groups", "manage", "groups"),
+                        new(group.Name, "manage/" + group.Slug, "groups")
+                    }
             };
 
             return View("Confirmation", viewmodel);
@@ -866,16 +903,15 @@ public class GroupsController : Controller
     [ServiceFilter(typeof(GroupAuthorisation))]
     public async Task<IActionResult> Publish(string slug, LoggedInPerson loggedInPerson)
     {
-        var response = await _repository.Get<Group>(slug, _managementQuery);
+        HttpResponse response = await _repository.Get<Group>(slug, _managementQuery);
 
-        if (!response.IsSuccessful()) return response;
+        if (!response.IsSuccessful())
+            return response;
 
-        var group = response.Content as Group;
+        Group group = response.Content as Group;
 
         if (!_groupsService.HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "A"))
-        {
             return NotFound();
-        }
 
         ViewBag.CurrentUrl = Request?.GetDisplayUrl();
 
@@ -887,27 +923,28 @@ public class GroupsController : Controller
     [ServiceFilter(typeof(GroupAuthorisation))]
     public async Task<IActionResult> PublishGroup(string slug, LoggedInPerson loggedInPerson)
     {
-        var response = await _repository.Get<Group>(slug, _managementQuery);
+        HttpResponse response = await _repository.Get<Group>(slug, _managementQuery);
 
-        if (!response.IsSuccessful()) return response;
-        var group = response.Content as Group;
+        if (!response.IsSuccessful())
+            return response;
+        
+        Group group = response.Content as Group;
 
         if (!_groupsService.HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "A"))
-        {
             return NotFound();
-        }
 
         group.DateHiddenFrom = DateTime.MaxValue;
         group.DateHiddenTo = DateTime.MaxValue; ;
 
-        var jsonContent = JsonConvert.SerializeObject(group);
-        var httpContent = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+        string jsonContent = JsonConvert.SerializeObject(group);
+        StringContent httpContent = new StringContent(jsonContent, Encoding.UTF8, "application/json");
 
-        var putResponse = await _repository.Publish<Group>(httpContent, slug);
+        HttpResponse putResponse = await _repository.Publish<Group>(httpContent, slug);
 
-        if (putResponse.StatusCode == (int)HttpStatusCode.OK)
+        if (putResponse.StatusCode.Equals((int)HttpStatusCode.OK))
         {
             _emailBuilder.SendEmailPublish(group);
+
             return RedirectToAction("PublishConfirmation", new { slug = group.Slug, name = group.Name });
         }
         else
@@ -923,7 +960,6 @@ public class GroupsController : Controller
             return NotFound();
 
         ViewBag.GroupName = name;
-
         ViewBag.Slug = slug;
 
         return View();
@@ -935,23 +971,20 @@ public class GroupsController : Controller
     [ResponseCache(Location = ResponseCacheLocation.None, Duration = 0, NoStore = true)]
     public async Task<IActionResult> EditGroup(string slug, LoggedInPerson loggedInPerson)
     {
-        var response = await _repository.Get<Group>(slug, _managementQuery);
+        HttpResponse response = await _repository.Get<Group>(slug, _managementQuery);
 
-        if (!response.IsSuccessful()) return response;
+        if (!response.IsSuccessful())
+            return response;
 
-        var group = response.Content as Group;
+        Group group = response.Content as Group;
 
         if (!_groupsService.HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "E"))
-        {
             return NotFound();
-        }
 
-        var model = new GroupSubmission();
+        GroupSubmission model = new();
 
-        if (group.Twitter != null && group.Twitter.StartsWith("http"))
-        {
+        if (group.Twitter is not null && group.Twitter.StartsWith("http"))
             model.Twitter = group.Twitter.Replace("https://www.twitter.com/", "@");
-        }
 
         model.Address = group.Address;
         model.Description = _markdownWrapper.ConvertToHtml(group.Description);
@@ -974,6 +1007,7 @@ public class GroupsController : Controller
         model.Donations = group.Donations;
         model.DonationsUrl = group.DonationsUrl;
         model.DonationsText = group.DonationsText;
+
         return View(model);
     }
 
@@ -982,30 +1016,33 @@ public class GroupsController : Controller
     [ServiceFilter(typeof(GroupAuthorisation))]
     public async Task<IActionResult> EditGroup(string slug, GroupSubmission model, LoggedInPerson loggedInPerson)
     {
-        var response = await _repository.Get<Group>(slug, _managementQuery);
-        var validationErrors = new StringBuilder();
+        HttpResponse response = await _repository.Get<Group>(slug, _managementQuery);
+        StringBuilder validationErrors = new();
         ViewBag.DisplayContentapiUpdateError = false;
-        if (!response.IsSuccessful()) return response;
 
-        var group = response.Content as Group;
+        if (!response.IsSuccessful())
+            return response;
+
+        Group group = response.Content as Group;
 
         model.AvailableCategories = await _groupsService.GetAvailableGroupCategories();
         model.Slug = group.Slug;
 
-        var categoryResponse = await _repository.Get<List<GroupCategory>>();
-        var listOfGroupCategories = categoryResponse.Content as List<GroupCategory>;
-        if (listOfGroupCategories != null)
-        {
-            model.Categories = listOfGroupCategories.Select(logc => logc.Name).ToList();
-        }
+        HttpResponse categoryResponse = await _repository.Get<List<GroupCategory>>();
+        List<GroupCategory> listOfGroupCategories = categoryResponse.Content as List<GroupCategory>;
 
-        var converter = new Converter();
-        var twitterUser = model.Twitter;
-        if (model.Twitter != null && model.Twitter.StartsWith("@"))
+        if (listOfGroupCategories is not null)
+            model.Categories = listOfGroupCategories.Select(logc => logc.Name).ToList();
+
+        Converter converter = new();
+        string twitterUser = model.Twitter;
+
+        if (model.Twitter is not null && model.Twitter.StartsWith("@"))
         {
             twitterUser = twitterUser.Replace("@", "/");
             group.Twitter = @"https://www.twitter.com" + twitterUser;
         }
+        
         group.Address = model.Address;
         group.Description = converter.Convert(_viewHelpers.StripUnwantedHtml(model.Description));
         group.Email = model.Email;
@@ -1022,44 +1059,34 @@ public class GroupsController : Controller
         group.VolunteeringText = _groupsService.GetVolunteeringText(model.VolunteeringText);
         group.AdditionalInformation = model.AdditionalInformation;
         group.DonationsUrl = model.DonationsUrl;
-
-        group.CategoriesReference = new List<GroupCategory>();
-        group.CategoriesReference.AddRange(listOfGroupCategories.Where(c => model.CategoriesList.Split('|').Contains(c.Name)));
-
+        group.CategoriesReference = new(listOfGroupCategories.Where(c => model.CategoriesList.Split('|').Contains(c.Name)));
         group.SuitableFor = model.Suitabilities.Where(_ => _.IsSelected).Select(_ => _.Name).ToList();
         group.AgeRange = model.AgeRanges.Where(_ => _.IsSelected).Select(_ => _.Name).ToList();
 
-
         if (!_groupsService.HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "E"))
-        {
             return NotFound();
-        }
         else if (!ModelState.IsValid)
-        {
             validationErrors.Append(_groupsService.GetErrorsFromModelState(ModelState));
-        }
         else
         {
-            var jsonContent = JsonConvert.SerializeObject(group);
-            var httpContent = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+            string jsonContent = JsonConvert.SerializeObject(group);
+            StringContent httpContent = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+            HttpResponse putResponse = await _repository.Put<Group>(httpContent, slug);
 
-            var putResponse = await _repository.Put<Group>(httpContent, slug);
-
-            if (putResponse.StatusCode == (int)HttpStatusCode.OK)
+            if (putResponse.StatusCode.Equals((int)HttpStatusCode.OK))
             {
                 _emailBuilder.SendEmailEditGroup(model, loggedInPerson.Email);
 
                 // if there is an image, send this in an email
-                if (model.Image != null && !string.IsNullOrEmpty(model.Image.FileName))
-                {
+                if (model.Image is not null && !string.IsNullOrEmpty(model.Image.FileName))
                     await _groupsService.SendImageViaEmail(model.Image, model.Name, model.Slug);
-                }
 
                 return RedirectToAction("EditGroupConfirmation", new { slug = slug, groupName = group.Name });
             }
             else
             {
                 _logger.LogError($"There was an error updating the group {group.Name}");
+
                 ViewBag.DisplayContentapiUpdateError = true;
             }
         }
@@ -1073,52 +1100,48 @@ public class GroupsController : Controller
     [Route("/groups/{slug}/up-to-date")]
     public async Task<IActionResult> GroupUpToDate(string slug)
     {
-        var response = await _repository.Get<Group>(slug);
-        if (!response.IsSuccessful()) return response;
+        HttpResponse response = await _repository.Get<Group>(slug);
+        if (!response.IsSuccessful())
+            return response;
 
-        var group = response.Content as Group;
+        Group group = response.Content as Group;
 
-        var jsonContent = JsonConvert.SerializeObject(group);
-        var httpContent = new StringContent(jsonContent, Encoding.UTF8, "application/json");
-        var putResponse = await _repository.Put<Group>(httpContent, slug);
+        string jsonContent = JsonConvert.SerializeObject(group);
+        StringContent httpContent = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+        HttpResponse putResponse = await _repository.Put<Group>(httpContent, slug);
 
         return Json(putResponse.StatusCode.ToString());
-
     }
 
     [HttpGet]
     [Route("/groups/favourites/clearall")]
-    public IActionResult FavouriteGroupsClearAll()
-    {
-        var model = new Favourites
-        {
-            Type = "groups",
-            Crumbs = new List<Crumb> { new Crumb("Stockport Local", "groups", "groups") },
-            FavouritesUrl = "/groups/favourites"
-        };
-
-        return View("~/views/stockportgov/favourites/confirmclearall.cshtml", model);
-    }
+    public IActionResult FavouriteGroupsClearAll() =>
+        View("~/views/stockportgov/favourites/confirmclearall.cshtml",
+            new Favourites()
+            {
+                Type = "groups",
+                Crumbs = new List<Crumb> { new("Stockport Local", "groups", "groups") },
+                FavouritesUrl = "/groups/favourites"
+            });
 
     [HttpPost]
     [Route("/groups/favourites/clearall")]
     public IActionResult FavouriteGroupsClearAll(Favourites model)
     {
         _cookiesHelper.RemoveAllFromCookies<Group>("favourites");
+        
         return RedirectToAction("FavouriteGroups");
     }
 
-    private async Task<Client.HttpResponse> GetFavouriteGroupResults()
+    private async Task<HttpResponse> GetFavouriteGroupResults()
     {
-        var model = new GroupResults();
-        var queries = new List<Query>();
+        GroupResults model = new();
+        List<Query> queries = new();
+        List<string> favouritesList = _cookiesHelper.GetCookies<Group>("favourites");
+        string favourites = "-NO-FAVOURITES-SET-";
 
-        var favouritesList = _cookiesHelper.GetCookies<Group>("favourites");
-        var favourites = "-NO-FAVOURITES-SET-";
-        if (favouritesList != null && favouritesList.Any())
-        {
+        if (favouritesList is not null && favouritesList.Any())
             favourites = string.Join(",", _cookiesHelper.GetCookies<Group>("favourites"));
-        }
 
         queries.Add(new Query("slugs", favourites));
 
@@ -1130,23 +1153,23 @@ public class GroupsController : Controller
     [ResponseCache(Location = ResponseCacheLocation.None, Duration = 0, NoStore = true)]
     public async Task<int> GetCount()
     {
-        var queries = new List<Query>();
+        List<Query> queries = new();
+        List<string> favouritesList = _cookiesHelper.GetCookies<Group>("favourites");
+        string favourites = "-NO-FAVOURITES-SET-";
 
-        var favouritesList = _cookiesHelper.GetCookies<Group>("favourites");
-        var favourites = "-NO-FAVOURITES-SET-";
-        if (favouritesList != null && favouritesList.Any())
-        {
+        if (favouritesList is not null && favouritesList.Any())
             favourites = string.Join(",", _cookiesHelper.GetCookies<Group>("favourites"));
-        }
 
         queries.Add(new Query("slugs", favourites));
-        var response = await _repository.Get<GroupResults>(queries: queries);
 
-        if (response.StatusCode != (int)HttpStatusCode.OK) return 0;
+        HttpResponse response = await _repository.Get<GroupResults>(queries: queries);
 
-        var groupResults = response.Content as GroupResults;
+        if (!response.StatusCode.Equals((int)HttpStatusCode.OK))
+            return 0;
 
-        return groupResults.Groups.ToList().Count(a => a.Status != "Archived");
+        GroupResults groupResults = response.Content as GroupResults;
+
+        return groupResults.Groups.ToList().Count(a => !a.Status.Equals("Archived"));
     }
 
     [HttpGet]
@@ -1154,27 +1177,21 @@ public class GroupsController : Controller
     [ResponseCache(Location = ResponseCacheLocation.None, Duration = 0, NoStore = true)]
     public async Task<IActionResult> FavouriteGroups([FromQuery] int page, [FromQuery] int pageSize)
     {
-        var response = await GetFavouriteGroupResults();
+        HttpResponse response = await GetFavouriteGroupResults();
 
         if (response.IsNotFound())
-        {
             return NotFound();
-        }
 
-        var model = response.Content as GroupResults;
+        GroupResults model = response.Content as GroupResults;
 
         model.AddQueryUrl(new QueryUrl(Url?.ActionContext.RouteData.Values, Request?.Query));
         _filteredUrl.SetQueryUrl(model.CurrentUrl);
         model.AddFilteredUrl(_filteredUrl);
 
-        if (pageSize == -1)
-        {
+        if (pageSize.Equals(-1))
             return View("FavouriteGroupsPrint", model.Groups);
-        }
         else
-        {
             return View(model);
-        }
     }
 
     // TODO: Move this and all links pointing towards it to events controller
@@ -1183,24 +1200,24 @@ public class GroupsController : Controller
     [ServiceFilter(typeof(GroupAuthorisation))]
     public async Task<IActionResult> EditEvent(string groupslug, string eventslug, LoggedInPerson loggedInPerson)
     {
-        var response = await _repository.Get<Group>(groupslug, _managementQuery);
+        HttpResponse response = await _repository.Get<Group>(groupslug, _managementQuery);
 
-        if (!response.IsSuccessful()) return response;
+        if (!response.IsSuccessful())
+            return response;
 
-        var group = response.Content as Group;
+        Group group = response.Content as Group;
 
         if (!_groupsService.HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "E"))
-        {
             return NotFound();
-        }
 
-        var eventResponse = await _repository.Get<Event>(eventslug, _managementQuery);
+        HttpResponse eventResponse = await _repository.Get<Event>(eventslug, _managementQuery);
 
-        if (!response.IsSuccessful()) return eventResponse;
+        if (!response.IsSuccessful())
+            return eventResponse;
 
-        var eventDetail = eventResponse.Content as Event;
+        Event eventDetail = eventResponse.Content as Event;
 
-        var model = new EventSubmission();
+        EventSubmission model = new();
 
         model.AvailableCategories = await GetAvailableEventCategories();
 
@@ -1209,28 +1226,22 @@ public class GroupsController : Controller
             model.CategoriesList = eventDetail.EventCategories[0].Name;
 
             if (eventDetail.EventCategories.Count() > 1)
-            {
                 model.CategoriesList += $",{eventDetail.EventCategories[1].Name}";
-            }
 
             if (eventDetail.EventCategories.Count() > 2)
-            {
                 model.CategoriesList += $",{eventDetail.EventCategories[2].Name}";
-            }
         }
 
         model.Description = _markdownWrapper.ConvertToHtml(eventDetail.Description);
-        if (eventDetail.EventFrequency != EventFrequency.None)
-        {
+        if (!eventDetail.EventFrequency.Equals(EventFrequency.None))
             model.EndDate = _dateCalculator.GetEventEndDate(eventDetail);
-        }
 
         model.EndTime = DateTime.ParseExact(eventDetail.EndTime, "HH:mm", null);
         model.EventDate = eventDetail.EventDate;
         model.Fee = eventDetail.Fee;
         model.Frequency = eventDetail.EventFrequency.ToString();
         model.Location = eventDetail.Location;
-        model.IsRecurring = eventDetail.EventFrequency == EventFrequency.None;
+        model.IsRecurring = eventDetail.EventFrequency.Equals(EventFrequency.None);
         model.StartTime = DateTime.ParseExact(eventDetail.StartTime, "HH:mm", null);
         model.Title = eventDetail.Title;
         model.SubmittedBy = eventDetail.SubmittedBy;
@@ -1249,30 +1260,30 @@ public class GroupsController : Controller
     [ServiceFilter(typeof(GroupAuthorisation))]
     public async Task<IActionResult> EditEvent(string slug, string eventslug, EventSubmission model, LoggedInPerson loggedInPerson)
     {
-        var response = await _repository.Get<Group>(slug, _managementQuery);
+        HttpResponse response = await _repository.Get<Group>(slug, _managementQuery);
 
-        if (!response.IsSuccessful()) return response;
+        if (!response.IsSuccessful())
+            return response;
 
-        var group = response.Content as Group;
+        Group group = response.Content as Group;
 
         if (!_groupsService.HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "E"))
-        {
             return NotFound();
-        }
 
-        var eventResponse = await _repository.Get<Event>(eventslug, _managementQuery);
-        var validationErrors = new StringBuilder();
+        HttpResponse eventResponse = await _repository.Get<Event>(eventslug, _managementQuery);
+        StringBuilder validationErrors = new();
         ViewBag.DisplayContentapiUpdateError = false;
 
-        if (!eventResponse.IsSuccessful()) return eventResponse;
+        if (!eventResponse.IsSuccessful())
+            return eventResponse;
 
-        var eventDetail = eventResponse.Content as Event;
+        Event eventDetail = eventResponse.Content as Event;
 
         model.Slug = eventDetail.Slug;
         model.GroupSlug = group.Slug;
         model.GroupName = group.Name;
 
-        var converter = new Converter();
+        Converter converter = new();
 
         eventDetail.Title = model.Title;
         eventDetail.Description = converter.Convert(_viewHelpers.StripUnwantedHtml(model.Description));
@@ -1325,38 +1336,30 @@ public class GroupsController : Controller
 
         model.Occurrences = eventDetail.Occurences;
 
-        var categoryResponse = await _repository.Get<List<EventCategory>>();
-        var listOfEventCategories = categoryResponse.Content as List<EventCategory>;
+        HttpResponse categoryResponse = await _repository.Get<List<EventCategory>>();
+        List<EventCategory> listOfEventCategories = categoryResponse.Content as List<EventCategory>;
 
         if (!string.IsNullOrEmpty(model.CategoriesList))
-        {
             eventDetail.EventCategories = listOfEventCategories.Where(c => model.CategoriesList.Split(',').Contains(c.Name)).ToList();
-        }
 
         model.AvailableCategories = await GetAvailableEventCategories();
 
         if (!_groupsService.HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "E"))
-        {
             return NotFound();
-        }
         else if (!ModelState.IsValid)
-        {
             validationErrors.Append(_groupsService.GetErrorsFromModelState(ModelState));
-        }
         else
         {
-            var jsonContent = JsonConvert.SerializeObject(eventDetail);
-            var httpContent = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+            string jsonContent = JsonConvert.SerializeObject(eventDetail);
+            StringContent httpContent = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+            HttpResponse putResponse = await _repository.Put<Event>(httpContent, eventslug);
 
-            var putResponse = await _repository.Put<Event>(httpContent, eventslug);
-
-            if (putResponse.StatusCode == (int)HttpStatusCode.OK)
-            {
+            if (putResponse.StatusCode.Equals((int)HttpStatusCode.OK))
                 return RedirectToAction("EditEventConfirmation", new { groupslug = group.Slug, groupName = group.Name, eventslug = eventDetail.Slug, eventname = eventDetail.Title });
-            }
             else
             {
                 _logger.LogError($"There was an error updating the event {eventDetail.Title}");
+
                 ViewBag.DisplayContentapiUpdateError = true;
             }
         }
@@ -1398,16 +1401,15 @@ public class GroupsController : Controller
     [ServiceFilter(typeof(GroupAuthorisation))]
     public async Task<IActionResult> ViewGroupsEvents(string slug, LoggedInPerson loggedInPerson)
     {
-        var response = await _repository.Get<Group>(slug, _managementQuery);
+        HttpResponse response = await _repository.Get<Group>(slug, _managementQuery);
 
-        if (!response.IsSuccessful()) return response;
+        if (!response.IsSuccessful())
+            return response;
 
-        var group = response.Content as Group;
+        Group group = response.Content as Group;
 
         if (!_groupsService.HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "E"))
-        {
             return NotFound();
-        }
 
         return View(group);
     }
@@ -1417,19 +1419,20 @@ public class GroupsController : Controller
     [ServiceFilter(typeof(GroupAuthorisation))]
     public async Task<IActionResult> GroupEventsDetails(string groupSlug, string eventSlug, LoggedInPerson loggedInPerson)
     {
-        var responseEvent = await _repository.Get<Event>(eventSlug, _managementQuery);
-        var responseGroup = await _repository.Get<Group>(groupSlug, _managementQuery);
+        HttpResponse responseEvent = await _repository.Get<Event>(eventSlug, _managementQuery);
+        HttpResponse responseGroup = await _repository.Get<Group>(groupSlug, _managementQuery);
 
-        if (!responseEvent.IsSuccessful()) return responseEvent;
-        if (!responseGroup.IsSuccessful()) return responseGroup;
+        if (!responseEvent.IsSuccessful())
+            return responseEvent;
+        
+        if (!responseGroup.IsSuccessful())
+            return responseGroup;
 
-        var eventItem = responseEvent.Content as Event;
-        var group = responseGroup.Content as Group;
+        Event eventItem = responseEvent.Content as Event;
+        Group group = responseGroup.Content as Group;
 
         if (!_groupsService.HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "E"))
-        {
             return NotFound();
-        }
 
         ViewBag.GroupName = group.Name;
         ViewBag.GroupSlug = group.Slug;
@@ -1441,11 +1444,13 @@ public class GroupsController : Controller
     [Route("/groups/stale")]
     public async Task<IActionResult> HandeStaleGroups([FromQuery] string password)
     {
-        if (password != _configuration.GetStaleGroupsSecret()) return new UnauthorizedResult();
+        if (!password.Equals(_configuration.GetStaleGroupsSecret()))
+            return new UnauthorizedResult();
 
         try
         {
             await _groupsService.HandleStaleGroups();
+
             return new OkObjectResult("Succesfully called HandleStaleGroups");
         }
         catch (Exception)

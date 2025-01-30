@@ -4,7 +4,7 @@
 [ExcludeFromCodeCoverage(Justification = "Obsolete")]
 public class GroupStartPage
 {
-    public List<GroupCategory> Categories = new List<GroupCategory>();
+    public List<GroupCategory> Categories = new();
     public PrimaryFilter PrimaryFilter { set; get; }
     public string BackgroundImage { set; get; }
     public string FeaturedGroupsHeading { get; set; }

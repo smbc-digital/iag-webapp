@@ -1,0 +1,56 @@
+@inject ViewHelpers viewHelper
+@model EventCalendar
+@{
+    DateTime previousEnteredDate = DateTime.MinValue;
+    bool hasEvents = Model.Events.Any();
+    string eventsTitle = (string)ViewData["eventsTitle"] ?? string.Empty;
+}
+
+<div class="grid-container-full-width" style="background-color:#f2f2f2;" data-cy="article">
+    <div class="grid-container">
+        <div class="grid-100">
+            <section class="article">
+                @if (!hasEvents)
+                {
+                    <div class="no-results">
+                        <h2>There are currently no events matching your search.</h2>
+                        @if (Model.DateFrom.HasValue && Model.DateTo.HasValue && Model.DateFrom > Model.DateTo)
+                        {
+                            <p>This is because you searched for an invalid date range.</p>
+                        }
+
+                        <p>Please edit your search and try again.</p>
+                    </div>
+                }
+                else
+                {
+                    <h2 class="visuallyhidden">@eventsTitle</h2>
+
+                    <div class="card-wrapper">
+                        @foreach (Event eventItem in Model.Events)
+                        {
+                            bool isSameDate = previousEnteredDate.Equals(eventItem.EventDate);
+
+                            <div class="card-item card-item__event @(!isSameDate ? "new-date" : string.Empty)">
+                                <div class="card-item__date @(isSameDate ? "card-item__date--hidden event-same-date" : string.Empty)">
+                                    <span>@viewHelper.FormatEventDate(eventItem.EventDate)</span>
+                                </div>
+
+                                <partial name="EventCard" model="@eventItem"
+                                        view-data='@(new ViewDataDictionary(ViewData) { { "slug", eventItem.Slug },
+                                                                                        { "date", eventItem.EventDate },
+                                                                                        { "eventTitle", eventItem.Title },
+                                                                                        { "thumbnailImage", eventItem.ThumbnailImageUrl },
+                                                                                        { "startTime", eventItem.StartTime } })' />
+                            </div>
+
+                            previousEnteredDate = eventItem.EventDate.Date;
+                        }
+                    </div>
+
+                    <partial name="Pagination" model='Model.Pagination' />
+                }
+            </div>
+        </div>
+    </div>
+</div>

@@ -94,24 +94,34 @@ public class DirectoryControllerTest
         processedDirectoryWithSubdirectories.Entries = new List<DirectoryEntry>() { directoryEntry };
         processedDirectoryWithSubdirectories.SubDirectories = new List<Directory>() { directory };
         processedDirectoryWithSubdirectories.SubItems = new List<SubItem>() {
-            new("slug", "title", "teaser", "icon", "type", "image", new List<SubItem>(), "teal")
+            new("slug", "title", "teaser", "teaser image", "icon", "type", "image", new List<SubItem>(), EColourScheme.Teal)
         };
         
         string[] filters = { "value1", "value2", "value3" };
 
-        _directoryService.Setup(_ => _.GetFilterThemes(new List<DirectoryEntry>())).Returns(filterThemes);
-        _directoryService.Setup(_ => _.GetFilters(filters, filterThemes)).Returns(filtersList);
-        _directoryService.Setup(_ => _.GetOrderedEntries(new List<DirectoryEntry> { directoryEntry }, "Name A to Z")).Returns(new List<DirectoryEntry> { directoryEntry, directoryEntry });
+        _directoryService
+            .Setup(_ => _.GetFilterThemes(new List<DirectoryEntry>()))
+            .Returns(filterThemes);
+        
+        _directoryService
+            .Setup(_ => _.GetFilters(filters, filterThemes))
+            .Returns(filtersList);
+
+        _directoryService
+            .Setup(_ => _.GetOrderedEntries(new List<DirectoryEntry> { directoryEntry }, "Name A to Z"))
+            .Returns(new List<DirectoryEntry> { directoryEntry, directoryEntry });
     }
 
     [Fact]
     public async Task Directory_ShouldReturnNotFoundStatusCode()
     {
         // Arrange
-        _ = _directoryService.Setup(_ => _.Get<Directory>("not-slug")).ReturnsAsync((Directory)null);
+        _directoryService
+            .Setup(_ => _.Get<Directory>("not-slug"))
+            .ReturnsAsync((Directory)null);
 
         // Act
-        var result = await _directoryController.Directory("slug");
+        IActionResult result = await _directoryController.Directory("slug");
 
         // Assert
         Assert.IsType<NotFoundResult>(result);
@@ -120,20 +130,17 @@ public class DirectoryControllerTest
     [Fact]
     public async Task Directory_ShouldReturnNotFoundIfSlugIsEmpty()
     {
-        // Act
-        var result = await _directoryController.Directory(string.Empty);
-
-        // Assert
-        Assert.IsType<NotFoundResult>(result);
+        // Act & Assert
+        Assert.IsType<NotFoundResult>(await _directoryController.Directory(string.Empty));
     }
 
     [Fact]
     public async Task Directory_ShouldRedirectToResults_If_NoSubdirectories(){
         // Arrange
-        _ = _directoryService.Setup(_ => _.Get<Directory>(It.IsAny<string>())).ReturnsAsync(directory);
+        _directoryService.Setup(_ => _.Get<Directory>(It.IsAny<string>())).ReturnsAsync(directory);
 
         // Act
-        var result = await _directoryController.Directory("slug");
+        IActionResult result = await _directoryController.Directory("slug");
 
         // Assert
         Assert.IsType<RedirectToActionResult>(result);
@@ -143,21 +150,24 @@ public class DirectoryControllerTest
     [Fact]
     public async Task Directory_ShouldReturnCorrectView_WithPrimaryItems(){
         // Arrange
-        _ = _directoryService.Setup(_ => _.Get<Directory>(It.IsAny<string>())).ReturnsAsync(processedDirectoryWithSubdirectories);
-        var expectedDirectoryViewModel = new DirectoryViewModel() {
+        _directoryService
+            .Setup(_ => _.Get<Directory>(It.IsAny<string>()))
+            .ReturnsAsync(processedDirectoryWithSubdirectories);
+        
+        DirectoryViewModel expectedDirectoryViewModel = new() {
             Breadcrumbs = new List<Crumb>(),
             Slug = "slug",
             PrimaryItems = new NavCardList()
             {
                 Items = new List<NavCard> { 
-                    new NavCard("title", "/slug", "teaser", "image", "icon", "teal")
+                    new("title", "/slug", "teaser", "teaser image", "image", "icon", EColourScheme.Teal)
                 }
             }
         };
 
         // Act
-        var result = await _directoryController.Directory("slug") as ViewResult;
-        var actualViewModel = result.Model as DirectoryViewModel;
+        ViewResult result = await _directoryController.Directory("slug") as ViewResult;
+        DirectoryViewModel actualViewModel = result.Model as DirectoryViewModel;
 
         // Assert
         Assert.Null(result.ViewName);
@@ -179,11 +189,13 @@ public class DirectoryControllerTest
     {
         // Arrange
         processedDirectoryWithSubdirectories.PinnedEntries = new List<DirectoryEntry>() { directoryEntry };
-        _ = _directoryService.Setup(_ => _.Get<Directory>(It.IsAny<string>())).ReturnsAsync(processedDirectoryWithSubdirectories);
+        _directoryService
+            .Setup(_ => _.Get<Directory>(It.IsAny<string>()))
+            .ReturnsAsync(processedDirectoryWithSubdirectories);
 
         // Act
-        var result = await _directoryController.DirectoryResults("slug", filters, orderBy, searchTerm, 0) as ViewResult;
-        var model = result.ViewData.Model as DirectoryViewModel;
+        ViewResult result = await _directoryController.DirectoryResults("slug", filters, orderBy, searchTerm, 0, false) as ViewResult;
+        DirectoryViewModel model = result.ViewData.Model as DirectoryViewModel;
 
         // Assert
         Assert.Equal("results", result.ViewName);
@@ -202,11 +214,13 @@ public class DirectoryControllerTest
     {
         // Arrange
         processedDirectoryWithSubdirectories.PinnedEntries = new List<DirectoryEntry>() { directoryEntry };
-        _ = _directoryService.Setup(_ => _.Get<Directory>(It.IsAny<string>())).ReturnsAsync(processedDirectoryWithSubdirectories);
+        _directoryService
+            .Setup(_ => _.Get<Directory>(It.IsAny<string>()))
+            .ReturnsAsync(processedDirectoryWithSubdirectories);
 
         // Act
-        var result = await _directoryController.DirectoryResults("slug", Array.Empty<string>(), string.Empty, string.Empty, 0) as ViewResult;
-        var model = result.ViewData.Model as DirectoryViewModel;
+        ViewResult result = await _directoryController.DirectoryResults("slug", Array.Empty<string>(), string.Empty, string.Empty, 0, false) as ViewResult;
+        DirectoryViewModel model = result.ViewData.Model as DirectoryViewModel;
 
         // Assert
         Assert.Equal("results", result.ViewName);
@@ -216,10 +230,12 @@ public class DirectoryControllerTest
     [Fact]
     public async Task DirectoryResults_ShouldReturnNotFoundStatusCode(){
         // Arrange
-        _directoryService.Setup(_ => _.Get<Directory>(It.IsAny<string>())).ReturnsAsync((Directory)null);
+        _directoryService
+            .Setup(_ => _.Get<Directory>(It.IsAny<string>()))
+            .ReturnsAsync((Directory)null);
 
         // Act
-        var result = await _directoryController.DirectoryResults("slug", Array.Empty<string>(), string.Empty, string.Empty, 0);
+        IActionResult result = await _directoryController.DirectoryResults("slug", Array.Empty<string>(), string.Empty, string.Empty, 0, false);
 
         // Assert
         Assert.IsType<NotFoundResult>(result);
@@ -232,8 +248,8 @@ public class DirectoryControllerTest
         _directoryService.Setup(_ => _.Get<Directory>(It.IsAny<string>())).ReturnsAsync(directory);
 
         // Act
-        var result = await _directoryController.DirectoryResults("slug", filters, string.Empty, string.Empty, 0) as ViewResult;
-        var model = result.ViewData.Model as DirectoryViewModel;
+        ViewResult result = await _directoryController.DirectoryResults("slug", filters, string.Empty, string.Empty, 0, false) as ViewResult;
+        DirectoryViewModel model = result.ViewData.Model as DirectoryViewModel;
 
         // Assert
         Assert.Equal("results", result.ViewName);
@@ -247,15 +263,17 @@ public class DirectoryControllerTest
     [Fact]
     public async Task DirectoryEntry_ShouldReturnViewModel(){
         // Arrange
-        _directoryService.Setup(_ => _.Get<Directory>(It.IsAny<string>()))
+        _directoryService
+            .Setup(_ => _.Get<Directory>(It.IsAny<string>()))
             .ReturnsAsync(directory);
 
-        _directoryService.Setup(_ => _.GetEntry<DirectoryEntry>(It.IsAny<string>()))
+        _directoryService
+            .Setup(_ => _.GetEntry<DirectoryEntry>(It.IsAny<string>()))
             .ReturnsAsync(directoryEntry);
 
         // Act
-        var result = await _directoryController.DirectoryEntry("slug/entry-slug") as ViewResult;
-        var model = result.ViewData.Model as DirectoryEntryViewModel;
+        ViewResult result = await _directoryController.DirectoryEntry("slug/entry-slug") as ViewResult;
+        DirectoryEntryViewModel model = result.ViewData.Model as DirectoryEntryViewModel;
         
         // Assert
         Assert.NotNull(result);
@@ -266,10 +284,12 @@ public class DirectoryControllerTest
     [Fact]
     public async Task DirectoryEntry_ShouldReturnNotFoundStatusCode()
     {
-        _directoryService.Setup(_ => _.GetEntry<DirectoryEntry>(It.IsAny<string>())).ReturnsAsync((DirectoryEntry)null);
+        _directoryService
+            .Setup(_ => _.GetEntry<DirectoryEntry>(It.IsAny<string>()))
+            .ReturnsAsync((DirectoryEntry)null);
 
         // Act
-        var result = await _directoryController.DirectoryEntry("slug/entry-slug");
+        IActionResult result = await _directoryController.DirectoryEntry("slug/entry-slug");
 
         // Assert
         Assert.IsType<NotFoundResult>(result);
@@ -279,11 +299,12 @@ public class DirectoryControllerTest
     public async Task Directory_ShouldCallDirectoryService_IfSearchTermSpecified()
     {
         // Arrange
-        _directoryService.Setup(_ => _.Get<Directory>(It.IsAny<string>()))
+        _directoryService
+            .Setup(_ => _.Get<Directory>(It.IsAny<string>()))
             .ReturnsAsync(directory);
 
         // Act
-        var result = await _directoryController.DirectoryResults("slug", Array.Empty<string>(), string.Empty, "search me", 0);
+        IActionResult result = await _directoryController.DirectoryResults("slug", Array.Empty<string>(), string.Empty, "search me", 0, false);
 
         // Assert
         _directoryService.Verify(service => service.GetSearchedEntryForDirectories(It.IsAny<IEnumerable<DirectoryEntry>>(), It.IsAny<string>()), Times.Exactly(1));

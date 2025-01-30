@@ -1,0 +1,45 @@
+﻿@model TopicViewModel
+@{
+    ViewData["Title"] = Model.Topic.Name;
+    ViewData["Description"] = Model.Topic.MetaDescription;
+    ViewData["og:title"] = Model.Topic.Name;
+    Layout = "../Shared/_Layout.cshtml";
+}
+
+<div class="grid-container-full-width topic" data-cy="topic">
+    <div class="hero topic__content">
+        @if (Model.TopicHasImage)
+        {
+            <div class="hero__background" style="background-image: url(@Model.Topic.Image?fm=webp)"></div>
+        }
+
+        <div class="grid-container hero__wrapper">
+            <div class="grid-100">
+                <div class="hero__image"></div>
+
+                <div>
+                    <h1 class="hero__title">@Model.Topic.Name</h1>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid-container">
+            <div class="grid-100">
+                <div class="hero__about">
+                    <p>@Model.Topic.Teaser</p>
+
+                    @if (Model.Topic.PrimaryItems.Items.Any())
+                    {
+                        <partial name="NavCards" model="@Model.Topic.PrimaryItems" />
+                    }
+
+                    @if (Model.Topic.SecondaryItems.Any())
+                    {
+                        <h2 class="h-xl">More in @Model.Topic.Name</h2>
+                        <partial name="SecondaryItems" model="@Model.Topic.SecondaryItems" />
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

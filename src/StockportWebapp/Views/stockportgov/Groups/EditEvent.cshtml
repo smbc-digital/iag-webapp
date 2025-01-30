@@ -22,7 +22,7 @@
                     <div class="grid-100">
                         <h1>Edit your event</h1>
 
-                        @if (ViewBag.SubmissionError != null)
+                        @if (ViewBag.SubmissionError is not null)
                         {
                             <div id="error-message-anchor"></div>
                             <div class="grid-100 tablet-grid-100 mobile-grid-100 alert alert-error contact-validation-error">
@@ -106,16 +106,16 @@
                                         <div class="schedule_multiple_events_inputs">
                                             <label asp-for="@Model.Frequency"></label>
                                             <ul class="radio-list">
-                                                @foreach (var item in Model.Frequencylist.Keys)
+                                                @foreach (var item in Model.FrequencyList.Keys)
                                                 {
                                                     <li>
                                                         <label><input type="radio" value="@item" asp-for="Frequency">@item</label>
 
                                                     </li>
-                                                    if (!string.IsNullOrWhiteSpace(@Model.Frequencylist[item]))
+                                                    if (!string.IsNullOrWhiteSpace(@Model.FrequencyList[item]))
                                                     {
                                                         <p>
-                                                            <i>@Model.Frequencylist[item]</i>
+                                                            <i>@Model.FrequencyList[item]</i>
                                                         </p>
                                                     }
                                                 }
@@ -150,7 +150,7 @@
 
 <link rel=stylesheet href=~/assets/javascript/vendor/trumbowyg/trumbowyg.min.css asp-append-version=true />
 <script>
-    require(['/assets/javascript/config-460fd0d2.min.js'], function() {
+    require(['/assets/javascript/config-91939d9a.min.js'], function() {
         require(['multistepForm', 'groups', 'trumbowyg', 'recaptcha', 'google.places'],
             function (multistepForm, groups, trumbowyg) {
                 multistepForm.Init();

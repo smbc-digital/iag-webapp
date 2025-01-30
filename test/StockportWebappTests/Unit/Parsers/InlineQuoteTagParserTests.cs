@@ -2,22 +2,19 @@
 
 public class InlineQuoteTagParserTests
 {
-    private readonly Mock<IViewRender> _viewRenderer = new Mock<IViewRender>();
+    private readonly Mock<IViewRender> _viewRenderer = new();
     private readonly InlineQuoteTagParser _parser;
 
-    public InlineQuoteTagParserTests()
-    {
-        _parser = new InlineQuoteTagParser(_viewRenderer.Object);
-    }
+    public InlineQuoteTagParserTests() =>
+        _parser = new(_viewRenderer.Object);
 
     [Fact]
     public void Parse_ShouldRenderInlineQuoteIfExistsInList()
     {
         // Arrange
-        var body = "this is body {{QUOTE:slug1}}";
-        var inlineQuotes = new List<InlineQuote>
+        List<InlineQuote> inlineQuotes = new()
         {
-            new InlineQuote
+            new()
             {
                 Author = "Test",
                 Image = "testUrl",
@@ -27,23 +24,24 @@ public class InlineQuoteTagParserTests
             }
         };
 
-        _viewRenderer.Setup(_ => _.Render(It.IsAny<string>(), It.IsAny<InlineQuote>())).Returns("test");
+        _viewRenderer
+            .Setup(renderer => renderer.Render(It.IsAny<string>(), It.IsAny<InlineQuote>()))
+            .Returns("test");
 
         // Act
-        _parser.Parse(body, inlineQuotes);
+        _parser.Parse("this is body {{QUOTE:slug1}}", inlineQuotes);
 
         // Assert
-        _viewRenderer.Verify(_ => _.Render(It.IsAny<string>(), It.IsAny<InlineQuote>()), Times.Once);
+        _viewRenderer.Verify(renderer => renderer.Render(It.IsAny<string>(), It.IsAny<InlineQuote>()), Times.Once);
     }
 
     [Fact]
     public void Parse_ShouldNotRenderInlineQuoteIfSlugDoesntExistsInList()
     {
         // Arrange
-        var body = "this is body {{QUOTE:slug2}}";
-        var inlineQuotes = new List<InlineQuote>
+        List<InlineQuote> inlineQuotes = new()
         {
-            new InlineQuote
+            new()
             {
                 Author = "Test",
                 Image = "testUrl",
@@ -53,23 +51,24 @@ public class InlineQuoteTagParserTests
             }
         };
 
-        _viewRenderer.Setup(_ => _.Render(It.IsAny<string>(), It.IsAny<InlineQuote>())).Returns("test");
+        _viewRenderer
+            .Setup(renderer => renderer.Render(It.IsAny<string>(), It.IsAny<InlineQuote>()))
+            .Returns("test");
 
         // Act
-        _parser.Parse(body, inlineQuotes);
+        _parser.Parse("this is body {{QUOTE:slug2}}", inlineQuotes);
 
         // Assert
-        _viewRenderer.Verify(_ => _.Render(It.IsAny<string>(), It.IsAny<InlineQuote>()), Times.Never);
+        _viewRenderer.Verify(renderer => renderer.Render(It.IsAny<string>(), It.IsAny<InlineQuote>()), Times.Never);
     }
 
     [Fact]
     public void Parse_ShouldRemoveUnusedTags()
     {
         // Arrange
-        var body = "this is body {{QUOTE:slug2}}";
-        var inlineQuotes = new List<InlineQuote>
+        List<InlineQuote> inlineQuotes = new()
             {
-                new InlineQuote
+                new()
                 {
                     Author = "Test",
                     Image = "testUrl",
@@ -79,12 +78,14 @@ public class InlineQuoteTagParserTests
                 }
             };
 
-        _viewRenderer.Setup(_ => _.Render(It.IsAny<string>(), It.IsAny<InlineQuote>())).Returns("test");
+        _viewRenderer
+            .Setup(renderer => renderer.Render(It.IsAny<string>(), It.IsAny<InlineQuote>()))
+            .Returns("test");
 
         // Act
-        var bodyResult = _parser.Parse(body, inlineQuotes);
+        string bodyResult = _parser.Parse("this is body {{QUOTE:slug2}}", inlineQuotes);
 
         // Assert
-        bodyResult.Should().Be("this is body ");
+        Assert.Equal("this is body ", bodyResult);
     }
 }

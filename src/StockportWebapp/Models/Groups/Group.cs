@@ -1,94 +1,84 @@
 ﻿namespace StockportWebapp.Models.Groups;
 [ExcludeFromCodeCoverage]
-public class Group
+public class Group(string name,
+                string slug,
+                string metaDescription,
+                string phoneNumber,
+                string email,
+                string website,
+                string twitter,
+                string facebook,
+                string address,
+                string description,
+                string imageUrl,
+                string thumbnailImageUrl,
+                List<GroupCategory> categoriesReference,
+                List<GroupSubCategory> subCategories,
+                List<Crumb> breadcrumbs,
+                MapPosition mapPosition,
+                bool volunteering,
+                List<Event> events,
+                GroupAdministrators groupAdministrators,
+                DateTime? dateHiddenFrom,
+                DateTime? dateHiddenTo,
+                string status,
+                List<string> cost,
+                string costText,
+                string abilityLevel,
+                bool favourite,
+                string volunteeringText,
+                Organisation organisation,
+                List<Group> linkedGroups,
+                bool donations,
+                string accessibleTransportLink,
+                List<GroupBranding> groupBranding,
+                string additionalInformation,
+                DateTime? dateLastModified,
+                List<string> suitableFor,
+                List<string> ageRange,
+                string donationsText,
+                string donationsUrl,
+                IEnumerable<Alert> alerts,
+                IEnumerable<Alert> alertsInline)
 {
-    public string Name { get; set; }
-    public string Slug { get; set; }
-    public string MetaDescription { get; set; }
-    public string PhoneNumber { get; set; }
-    public string Email { get; set; }
-    public string Website { get; set; }
-    public string Twitter { get; set; }
-    public string Facebook { get; set; }
-    public string Address { get; set; }
-    public string Description { get; set; }
-    public string ImageUrl { get; set; }
-    public string ThumbnailImageUrl { get; set; }
-    public List<GroupCategory> CategoriesReference { get; set; }
-    public List<GroupSubCategory> SubCategories { get; set; }
-    public List<Crumb> Breadcrumbs { get; set; }
-    public MapPosition MapPosition { get; set; }
-    public bool Volunteering { get; set; }
-    public List<Event> Events { get; set; }
-    public GroupAdministrators GroupAdministrators { get; set; }
-    public DateTime? DateHiddenFrom { get; set; }
-    public DateTime? DateHiddenTo { get; set; }
-    public string Status { get; set; }
-    public List<string> Cost { get; set; }
-    public string CostText { get; set; }
-    public string AbilityLevel { get; set; }
-    public bool Favourite { get; set; }
-    public string VolunteeringText { get; set; }
-    public Organisation Organisation { get; set; }
-    public List<Group> LinkedGroups { get; private set; }
-    public bool Donations { get; set; }
-    public string AccessibleTransportLink { get; set; }
-    public List<GroupBranding> GroupBranding { get; set; }
-    public string AdditionalInformation { get; set; }
-    public DateTime? DateLastModified { get; set; }
-    public List<string> SuitableFor { get; set; }
-    public List<string> AgeRange { get; set; }
-    public string DonationsText { get; set; }
-    public string DonationsUrl { get; set; }
-    public IEnumerable<Alert> Alerts { get; }
-    public IEnumerable<Alert> AlertsInline { get; }
-    public Group(string name, string slug, string metaDescription, string phoneNumber, string email, string website,
-        string twitter, string facebook, string address, string description, string imageUrl,
-        string thumbnailImageUrl, List<GroupCategory> categoriesReference, List<GroupSubCategory> subCategories, List<Crumb> breadcrumbs,
-        MapPosition mapPosition, bool volunteering, List<Event> events, GroupAdministrators groupAdministrators, DateTime? dateHiddenFrom,
-        DateTime? dateHiddenTo, string status, List<string> cost, string costText, string abilityLevel, bool favourite, string volunteeringText,
-        Organisation organisation, List<Group> linkedGroups, bool donations, string accessibleTransportLink, List<GroupBranding> groupBranding, string additionalInformation,
-        DateTime? dateLastModified, List<string> suitableFor, List<string> ageRange, string donationsText, string donationsUrl, IEnumerable<Alert> alerts, IEnumerable<Alert> alertsInline)
-    {
-        Name = name;
-        Slug = slug;
-        MetaDescription = metaDescription;
-        PhoneNumber = phoneNumber;
-        Email = email;
-        Website = website;
-        Twitter = twitter;
-        Facebook = facebook;
-        Address = address;
-        Description = description;
-        ImageUrl = imageUrl;
-        ThumbnailImageUrl = thumbnailImageUrl;
-        CategoriesReference = categoriesReference;
-        SubCategories = subCategories;
-        Breadcrumbs = breadcrumbs;
-        MapPosition = mapPosition;
-        Volunteering = volunteering;
-        Events = events;
-        GroupAdministrators = groupAdministrators;
-        DateHiddenFrom = dateHiddenFrom;
-        DateHiddenTo = dateHiddenTo;
-        Status = status;
-        Cost = cost;
-        CostText = costText;
-        AbilityLevel = abilityLevel;
-        Favourite = favourite;
-        VolunteeringText = volunteeringText;
-        Organisation = organisation;
-        LinkedGroups = linkedGroups;
-        Donations = donations;
-        AccessibleTransportLink = accessibleTransportLink;
-        GroupBranding = groupBranding;
-        AdditionalInformation = additionalInformation;
-        DateLastModified = dateLastModified;
-        SuitableFor = suitableFor;
-        AgeRange = ageRange;
-        DonationsText = donationsText;
-        DonationsUrl = donationsUrl;
-        Alerts = alerts;
-        AlertsInline = alertsInline;
-    }
+    public string Name { get; set; } = name;
+    public string Slug { get; set; } = slug;
+    public string MetaDescription { get; set; } = metaDescription;
+    public string PhoneNumber { get; set; } = phoneNumber;
+    public string Email { get; set; } = email;
+    public string Website { get; set; } = website;
+    public string Twitter { get; set; } = twitter;
+    public string Facebook { get; set; } = facebook;
+    public string Address { get; set; } = address;
+    public string Description { get; set; } = description;
+    public string ImageUrl { get; set; } = imageUrl;
+    public string ThumbnailImageUrl { get; set; } = thumbnailImageUrl;
+    public List<GroupCategory> CategoriesReference { get; set; } = categoriesReference;
+    public List<GroupSubCategory> SubCategories { get; set; } = subCategories;
+    public List<Crumb> Breadcrumbs { get; set; } = breadcrumbs;
+    public MapPosition MapPosition { get; set; } = mapPosition;
+    public bool Volunteering { get; set; } = volunteering;
+    public List<Event> Events { get; set; } = events;
+    public GroupAdministrators GroupAdministrators { get; set; } = groupAdministrators;
+    public DateTime? DateHiddenFrom { get; set; } = dateHiddenFrom;
+    public DateTime? DateHiddenTo { get; set; } = dateHiddenTo;
+    public string Status { get; set; } = status;
+    public List<string> Cost { get; set; } = cost;
+    public string CostText { get; set; } = costText;
+    public string AbilityLevel { get; set; } = abilityLevel;
+    public bool Favourite { get; set; } = favourite;
+    public string VolunteeringText { get; set; } = volunteeringText;
+    public Organisation Organisation { get; set; } = organisation;
+    public List<Group> LinkedGroups { get; private set; } = linkedGroups;
+    public bool Donations { get; set; } = donations;
+    public string AccessibleTransportLink { get; set; } = accessibleTransportLink;
+    public List<GroupBranding> GroupBranding { get; set; } = groupBranding;
+    public string AdditionalInformation { get; set; } = additionalInformation;
+    public DateTime? DateLastModified { get; set; } = dateLastModified;
+    public List<string> SuitableFor { get; set; } = suitableFor;
+    public List<string> AgeRange { get; set; } = ageRange;
+    public string DonationsText { get; set; } = donationsText;
+    public string DonationsUrl { get; set; } = donationsUrl;
+    public IEnumerable<Alert> Alerts { get; } = alerts;
+    public IEnumerable<Alert> AlertsInline { get; } = alertsInline;
 }

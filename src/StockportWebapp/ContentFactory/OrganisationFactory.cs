@@ -1,22 +1,17 @@
 ﻿namespace StockportWebapp.ContentFactory;
 
-public class OrganisationFactory
+[ExcludeFromCodeCoverage]
+public class OrganisationFactory(MarkdownWrapper markdownWrapper,
+                                IHttpContextAccessor httpContextAccessor)
 {
-    private readonly MarkdownWrapper _markdownWrapper;
-    private readonly CookiesHelper cookiesHelper;
-
-    public OrganisationFactory(MarkdownWrapper markdownWrapper, IHttpContextAccessor httpContextAccessor)
-    {
-        _markdownWrapper = markdownWrapper;
-        cookiesHelper = new CookiesHelper(httpContextAccessor);
-    }
+    private readonly MarkdownWrapper _markdownWrapper = markdownWrapper;
+    private readonly CookiesHelper _cookiesHelper = new(httpContextAccessor);
 
     public virtual ProcessedOrganisation Build(Organisation organisation)
     {
+        string body = _markdownWrapper.ConvertToHtml(organisation.AboutUs ?? string.Empty);
 
-        var body = _markdownWrapper.ConvertToHtml(organisation.AboutUs ?? "");
-
-        var volunteering = new Volunteering
+        Volunteering volunteering = new()
         {
             Email = organisation.Email,
             VolunteeringText = organisation.VolunteeringText,
@@ -25,16 +20,23 @@ public class OrganisationFactory
             Type = "organisation"
         };
 
-        var donations = new Donations()
+        Donations donations = new()
         {
             Email = organisation.Email,
             GetDonations = organisation.Donations,
             Url = $"groups/{organisation.Slug}"
         };
 
-        var groupsWithFavourites = cookiesHelper.PopulateCookies(organisation.Groups, "favourites");
+        List<Group> groupsWithFavourites = _cookiesHelper.PopulateCookies(organisation.Groups, "favourites");
 
-        return new ProcessedOrganisation(organisation.Title, organisation.Slug, organisation.ImageUrl, body, organisation.Phone,
-            organisation.Email, groupsWithFavourites, volunteering, donations);
+        return new ProcessedOrganisation(organisation.Title,
+            organisation.Slug,
+            organisation.ImageUrl,
+            body,
+            organisation.Phone,
+            organisation.Email,
+            groupsWithFavourites,
+            volunteering,
+            donations);
     }
 }

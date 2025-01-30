@@ -1,18 +1,11 @@
 ﻿namespace StockportWebapp.Models;
 
 [ExcludeFromCodeCoverage]
-public class CarouselContent
+public class CarouselContent(string title, string teaser, string image, string url, DateTime date)
 {
-    public string Title { get; }
-    public string Teaser { get; }
-    public string Image { get; }
-    public string URL { get; }
-
-    public CarouselContent(string title, string teaser, string image, string url)
-    {
-        Title = title;
-        Teaser = teaser;
-        Image = image;
-        URL = url;
-    }
+    public string Title { get; set; } = title;
+    public string Teaser { get; set; } = teaser;
+    public string Image { get; set; } = image;
+    public string URL { get; set; } = url;
+    public DateTime Date { get; set; } = date;
 }

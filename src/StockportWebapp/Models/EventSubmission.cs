@@ -1,5 +1,6 @@
 ﻿namespace StockportWebapp.Models;
 
+[ExcludeFromCodeCoverage]
 public class EventSubmission
 {
     [Required]
@@ -35,14 +36,14 @@ public class EventSubmission
     public bool IsRecurring { get; set; }
     public int Occurrences { get; set; }
 
-    public Dictionary<string, string> Frequencylist = new Dictionary<string, string>()
+    public Dictionary<string, string> FrequencyList = new()
     {
-        { "Daily",""},
-        { "Weekly",""},
-        { "Fortnightly",""},
-        { "Monthly Date","For example, 15th of every month"},
-        { "Monthly Day","For example, on the first Friday of every month"},
-        { "Yearly",""}
+        { "Daily", string.Empty},
+        { "Weekly", string.Empty},
+        { "Fortnightly", string.Empty},
+        { "Monthly Date", "For example, 15th of every month"},
+        { "Monthly Day", "For example, on the first Friday of every month"},
+        { "Yearly", string.Empty}
     };
 
     [RequiredIf(otherPropertyName: "IsRecurring", errorMessage: "The event frequency is required")]
@@ -87,16 +88,39 @@ public class EventSubmission
     public string SubmitterEmail { get; set; }
 
     public string GroupName { get; set; }
-
     public string GroupSlug { get; set; }
-
     public string Slug { get; set; }
 
     public List<string> BuildCategoryList()
     {
-        return new List<string> {
-            "Air Raid Shelters", "Arts and crafts", "Bramall Hall", "Business", "Community and charity", "Children and families", "Dancing", "Digital skills", "Education and learning", "Fairs",
-            "Food and drink", "Hat Works", "Health and wellbeing", "Libraries", "Markets", "Museums", "Music and concerts", "Open days and drop-ins", "Parks and outdoors", "Seasonal", "Sports and fitness",
-            "Staircase House", "Stockport War Memorial Art Gallery", "Talks and lectures", "Town Hall", "Theatre performance and comedy"};
+        return new List<string>
+        {
+            "Air Raid Shelters",
+            "Arts and crafts",
+            "Bramall Hall",
+            "Business",
+            "Community and charity",
+            "Children and families",
+            "Dancing",
+            "Digital skills",
+            "Education and learning",
+            "Fairs",
+            "Food and drink",
+            "Hat Works",
+            "Health and wellbeing",
+            "Libraries",
+            "Markets",
+            "Museums",
+            "Music and concerts",
+            "Open days and drop-ins",
+            "Parks and outdoors",
+            "Seasonal",
+            "Sports and fitness",
+            "Staircase House",
+            "Stockport War Memorial Art Gallery",
+            "Talks and lectures",
+            "Town Hall",
+            "Theatre performance and comedy"
+        };
     }
 }

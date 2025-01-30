@@ -1,0 +1,36 @@
+@model List<ProcessedEvents>;
+@{
+    List<ProcessedEvents> itemsToDisplay = (List<ProcessedEvents>)ViewData["itemsToDisplay"];
+    bool isEventHomepage = (bool)ViewData["isEventHomepage"];
+}
+
+<div class="grid-container-full-width" style="background-color:#f2f2f2;" data-cy="article">
+    <div class="grid-container">
+        <div class="grid-100">
+            <section class="article">
+                @if (isEventHomepage)
+                {
+                    <h2 class="visuallyhidden">Upcoming events</h2>
+                }
+                else
+                {
+                    <h2 class="h-xl card-title">More like this</h2>
+                }
+                
+                <ul class="card-wrapper">
+                    @foreach (ProcessedEvents relatedContent in itemsToDisplay)
+                    {
+                        <li class="card-item">
+                            <partial name="EventCard" model="@relatedContent"
+                                    view-data='@(new ViewDataDictionary(ViewData) { { "slug", relatedContent.Slug },
+                                                                                    { "date", relatedContent.EventDate },
+                                                                                    { "eventTitle", relatedContent.Title },
+                                                                                    { "thumbnailImage", relatedContent.ThumbnailImageUrl },
+                                                                                    { "startTime", relatedContent.StartTime } })' />
+                        </li>
+                    }
+                </ul>
+            </section>
+        </div>
+    </div>
+</div>

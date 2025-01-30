@@ -1,0 +1,47 @@
+﻿@model ContentBlock
+@if (Model is not null)
+{
+    string backgroundColourClass = (string)ViewData["BackgroundColourClass"] ?? string.Empty;
+    string textColourClass = (string)ViewData["TextColourClass"] ?? string.Empty;
+    string borderClass = (string)ViewData["BorderClass"] ?? string.Empty;
+    string cardType = (string)ViewData["CardType"] ?? string.Empty;
+    
+    string navcardPadding = !string.IsNullOrEmpty(cardType) && cardType.Equals("trivia-banner")
+        ? "navcard-content--padding-trivia"
+        : string.Empty;
+
+    <li class="navcard navcard--width-33 navcard--center @cardType @backgroundColourClass @borderClass">
+        <div class="navcard__content">
+            <div class="navcard__icon @(cardType)__icon @(cardType)__icon--padding @textColourClass">
+                @if (!string.IsNullOrEmpty(Model.Statistic))
+                {
+                    <span class="trivia__statistic"  aria-hidden="true">@Model.Statistic</span>
+                }
+                else
+                {
+                    <span class="@Model.Icon.ToLower()" aria-hidden="true"></span>
+                }
+            </div>
+
+            <div class="navcard-content--padding @navcardPadding">
+                @if (!string.IsNullOrEmpty(Model.StatisticSubheading) && !string.IsNullOrEmpty(Model.Statistic))
+                {
+                    <h3 class="visuallyhidden">@Model.Statistic @Model.StatisticSubheading</h3>
+                    <h3 class="navcard__title @(cardType)__subtitle @textColourClass" aria-hidden="true">@Model.StatisticSubheading</h3>
+                }
+                else if (string.IsNullOrEmpty(Model.StatisticSubheading) && !string.IsNullOrEmpty(Model.Statistic))
+                {
+                    <h3 class="visuallyhidden">@Model.Statistic</h3>
+                }
+                else if (string.IsNullOrEmpty(Model.Statistic))
+                {
+                    <h3 class="navcard__title @(cardType)__subtitle @textColourClass">@Model.Title</h3>
+                }
+
+                <div class="@(cardType)__body">
+                    @Html.Raw(Model.Body)
+                </div>
+            </div>
+        </div>
+    </li>
+}

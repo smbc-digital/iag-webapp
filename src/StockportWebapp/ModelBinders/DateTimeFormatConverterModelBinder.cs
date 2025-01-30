@@ -1,66 +1,56 @@
-using Microsoft.AspNetCore.Mvc.ModelBinding;
+namespace StockportWebapp.ModelBinders;
 
-namespace StockportWebapp.ModelBinders
+[ExcludeFromCodeCoverage]
+public class DateTimeFormatConverterModelBinderProvider : IModelBinderProvider
 {
-    public class DateTimeFormatConverterModelBinderProvider : IModelBinderProvider
+    public IModelBinder GetBinder(ModelBinderProviderContext context)
     {
-        public IModelBinder GetBinder(ModelBinderProviderContext context)
+        if (context.Metadata.ModelType.Equals(typeof(DateTime)) || context.Metadata.ModelType.Equals(typeof(DateTime?)))
+            return new DateTimeFormatConverterModelBinder();
+
+        return null;
+    }
+}
+
+[ExcludeFromCodeCoverage]
+public class DateTimeFormatConverterModelBinder : IModelBinder
+{
+    public object BindModel(ModelBindingContext bindingContext)
+    {
+        if (bindingContext is null)
+            throw new ArgumentNullException(nameof(bindingContext));
+
+        ValueProviderResult valueProviderResult = bindingContext.ValueProvider.GetValue(bindingContext.ModelName);
+        bindingContext.ModelState.SetModelValue(bindingContext.ModelName, valueProviderResult);
+        if (!valueProviderResult.Equals(ValueProviderResult.None))
         {
-            if (context.Metadata.ModelType == typeof(DateTime) || context.Metadata.ModelType == typeof(DateTime?))
-            {
+            DateTime.TryParse(valueProviderResult.FirstValue, out DateTime dateProvided);
 
-                return new DateTimeFormatConverterModelBinder();
-            }
-
-            return null;
+            if (dateProvided > DateTime.MinValue)
+                return dateProvided;
         }
+
+        return null;
     }
 
-    public class DateTimeFormatConverterModelBinder : IModelBinder
+    public Task BindModelAsync(ModelBindingContext bindingContext)
     {
+        if (bindingContext is null)
+            throw new ArgumentNullException(nameof(bindingContext));
 
-        public object BindModel(ModelBindingContext bindingContext)
+        ValueProviderResult valueProviderResult = bindingContext.ValueProvider.GetValue(bindingContext.ModelName);
+
+        if (!valueProviderResult.Equals(ValueProviderResult.None))
         {
+            DateTime.TryParse(valueProviderResult.FirstValue, out DateTime dateProvided);
 
-            if (bindingContext == null)
+            if (dateProvided > DateTime.MinValue)
             {
-                throw new ArgumentNullException(nameof(bindingContext));
+                bindingContext.Result = ModelBindingResult.Success(dateProvided);
+                return Task.CompletedTask;
             }
-
-            var valueProviderResult = bindingContext.ValueProvider.GetValue(bindingContext.ModelName);
-            bindingContext.ModelState.SetModelValue(bindingContext.ModelName, valueProviderResult);
-            if (valueProviderResult != ValueProviderResult.None)
-            {
-                DateTime.TryParse(valueProviderResult.FirstValue, out var DateProvided);
-
-                if (DateProvided > DateTime.MinValue)
-                    return DateProvided;
-            }
-
-            return null;
         }
 
-        public Task BindModelAsync(ModelBindingContext bindingContext)
-        {
-            if (bindingContext == null)
-            {
-                throw new ArgumentNullException(nameof(bindingContext));
-            }
-
-            var valueProviderResult = bindingContext.ValueProvider.GetValue(bindingContext.ModelName);
-
-            if (valueProviderResult != ValueProviderResult.None)
-            {
-                DateTime.TryParse(valueProviderResult.FirstValue, out var DateProvided);
-
-                if (DateProvided > DateTime.MinValue)
-                {
-                    bindingContext.Result = ModelBindingResult.Success(DateProvided);
-                    return Task.CompletedTask;
-                }
-            }
-
-            return Task.CompletedTask;
-        }
+        return Task.CompletedTask;
     }
 }

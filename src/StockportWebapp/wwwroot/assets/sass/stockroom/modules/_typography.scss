@@ -1,0 +1,209 @@
+﻿@font-face {
+    font-family: 'OTNeueMontrealBoldExtraSqueezed';
+    src: url('/assets/fonts/OTNeueMontreal-BoldExtraSqueezed.woff2') format('woff2'),
+         url('/assets/fonts/OTNeueMontreal-BoldExtraSqueezed.woff') format('woff'),
+         url('/assets/fonts/OTNeueMontreal-BoldExtraSqueezed.otf') format('opentype');
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'OTNeueMontrealMediumSqueezed';
+    src: url('/assets/fonts/OTNeueMontreal-BoldSemiSqueezed.woff2') format('woff2'),
+         url('/assets/fonts/OTNeueMontreal-BoldSemiSqueezed.woff') format('woff');
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'OTNeueMontrealRegularSemiSqueezed';
+    src: url('/assets/fonts/OTNeueMontreal-RegularSemiSqueezed.woff2') format('woff2'),
+         url('/assets/fonts/OTNeueMontreal-RegularSemiSqueezed.woff') format('woff');
+    font-style: normal;
+    font-display: swap;
+}
+
+/*------ Typography Styles ------*/
+$fontStack: 'OTNeueMontrealRegularSemiSqueezed', sans-serif;
+
+@mixin body {
+    font: 1.5rem / 1.5 $fontStack;
+}
+
+body {
+    @include body;
+    background-color: white;
+}
+
+@mixin body--small {
+    font: 1rem / 1.5 $fontStack;
+}
+
+@mixin lead {
+    font-size: 1.5rem;
+    line-height: 1.3;
+    font-weight: 400;
+
+    @media #{$mobile} {
+        font-size: 1.5rem;
+        line-height: 1.5;
+    }
+}
+
+@mixin h-xxl {
+    font-size: 4rem;
+    line-height: 1.02;
+    font-weight: 600;
+    letter-spacing: -1px;
+    margin-bottom: 2rem;
+
+    @media #{$mobile} {
+        font-size: 3rem;
+        line-height: 1.0416666667;
+    }
+}
+
+@mixin h-xl {
+    font-size: 3rem;
+    line-height: 1.0416666667;
+    font-weight: 600;
+    letter-spacing: 2px;
+    margin-bottom: 1em;
+
+    @media #{$mobile} {
+        font-size: 2rem;
+        line-height: 1.09375;
+    }
+}
+
+@mixin h-l {
+    font-size: 2rem;
+    line-height: 1.1111111111;
+    font-weight: 600;
+    letter-spacing: 0;
+
+    @media #{$mobile} {
+        font-size: 1.75rem;
+        line-height: 1.25;
+    }
+}
+
+@mixin h-ml {
+    font-size: 1.65rem;
+    line-height: 1.5;
+    font-weight: 800;
+
+    @media #{$mobile} {
+        font-size: 1.35rem;
+        line-height: 1.3;
+    }
+}
+
+@mixin h-m {
+    font-size: 1.5rem;
+    line-height: 1.25;
+    font-weight: 800;
+
+    @media #{$mobile} {
+        font-size: 1.1875rem;
+        line-height: 1.5;
+    }
+}
+
+@mixin h-s {
+    font-size: 1.3rem;
+    line-height: 1.45;
+    font-weight: 800;
+
+    @media #{$mobile} {
+        font-size: 1.1875rem;
+        line-height: 1.5;
+    }
+}
+
+@mixin h-xs {
+    font-size: 1.1875rem;
+    line-height: 1.5;
+    font-weight: 800;
+}
+
+.h {
+    &--no-top-margin {
+        margin-top: 0;
+    }
+
+    &--no-bottom-margin {
+        margin-bottom: 0;
+    }
+}
+
+.body {
+    @include body;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.body--small {
+    @include body--small;
+}
+
+.lead {
+    @include lead;
+}
+
+.h-xxl {
+    @include h-xxl;
+}
+
+.h-xl, h1 {
+    @include h-xl;
+}
+
+.h-l, h2 {
+    @include h-l;
+}
+
+h2 {
+    font-size: 2.25rem;
+}
+
+.h-ml {
+    @include h-ml;
+}
+
+.h-m, h3 {
+    @include h-m;
+}
+
+.h-s, h4, h5, h6 {
+    @include h-s;
+}
+
+.h-xs {
+    @include h-xs;
+}
+
+h2, h3, h4 {
+    margin-bottom: 1em;
+    font-weight: 400;
+}
+
+.font--medium-squeezed {
+    font-family: OTNeueMontrealMediumSqueezed, sans-serif;
+}
+
+.font--semi-squeezed {
+    font-family: OTNeueMontrealRegularSemiSqueezed, sans-serif;
+}
+
+.font--bold-extra-squeezed {
+    font-family: OTNeueMontrealBoldExtraSqueezed, sans-serif;
+}
+
+.grid-container-full-width .grid-container {
+    @media #{$tablet} {
+        padding: 0;
+    }
+}

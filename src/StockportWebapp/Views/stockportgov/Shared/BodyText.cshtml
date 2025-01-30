@@ -1,0 +1,19 @@
+@model ContentBlock
+@if (Model is not null)
+{
+    <section class="content-block content-block--margin" data-cy="body-text">
+        <div class="grid-container">
+            <div class="grid-100">
+                @if (!string.IsNullOrEmpty(Model.Title))
+                {
+                    <h2 class="content-block__title">@Model.Title</h2>
+                    <hr />   
+                }
+                
+                <div class="section__content body-text__content">
+                    @Html.Raw(StockportWebapp.Utils.HtmlHelper.AddImageAttributes(Model.Body, "720", "511", "720", "966", "1240")) 
+                </div>
+            </div>
+        </div>
+    </section>
+}

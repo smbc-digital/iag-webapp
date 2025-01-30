@@ -1,16 +1,19 @@
 ﻿@model IEnumerable<StockportWebapp.Models.SocialMediaLink>
 @inject BusinessId BusinessId
 @{ 
-        var nameOfSite = BusinessId.ToString() == "stockportgov" ? "stockport council" : string.Empty; 
-        if (BusinessId.ToString() == "healthystockport")
-            nameOfSite = "healthy stockport ";
+    string nameOfSite = BusinessId.ToString().Equals("stockportgov")
+        ? "stockport council"
+        : string.Empty;
+     
+    if (BusinessId.ToString().Equals("healthystockport"))
+        nameOfSite = "healthy stockport ";
 }
 
 <div class="footer-social-links">
-    @foreach (var socialMediaLink in Model)
+    @foreach (SocialMediaLink socialMediaLink in Model)
     {
         string socialMediaCSS = socialMediaLink.Icon.Replace("fa-", "icon-");
-        <a href="@socialMediaLink.Url" aria-label="@socialMediaLink.ScreenReader" target="_blank" data-cy="social-media-links">
+        <a href="@socialMediaLink.Link" aria-label="@socialMediaLink.ScreenReader" target="_blank" data-cy="social-media-links">
             <div class="icon-bordered icon-bordered-fixed icon-container icon-twitter @socialMediaCSS">
                 <span class="fa fab fa-2x @socialMediaLink.Icon"></span>
             </div>

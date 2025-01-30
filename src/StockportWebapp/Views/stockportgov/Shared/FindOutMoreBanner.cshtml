@@ -1,0 +1,51 @@
+﻿@model ContentBlock
+@if (Model?.SubItems?.Count >= 3 && Model.SubItems.Any(contentBlock => !string.IsNullOrEmpty(contentBlock.Image)))
+{
+    bool isDefaultColourScheme = Model.IsDefaultColourScheme 
+        || Model.ColourScheme.Equals(EColourScheme.None);
+
+    string borderColourClass = Model.ColourScheme.Equals(EColourScheme.None) 
+                                ? string.Empty 
+                                : Model.BorderColourClass;
+    
+    string buttonColour = !isDefaultColourScheme
+        ? $"btn-{@CssClassMapper.GetBoldCssClass(Model.ColourScheme)} btn-{@CssClassMapper.GetBoldCssClass(Model.ColourScheme)}-outline" 
+        : "find-out-more-banner__button";
+
+    <section class="content-block content-block--margin" data-cy="find-out-more-banner">
+        <div class="grid-container">
+            <div class="grid-100">
+                @foreach (ContentBlock contentBlock in Model.SubItems.Where(cb => !string.IsNullOrEmpty(cb.Image)).Take(3))
+                {
+                    <div class="find-out-more-banner">
+                        <div class="find-out-more-banner-content">
+                            <h2 class="section__title find-out-more-banner__title section__title--margin-bottom @borderColourClass">@contentBlock.Title</h2>
+                            <p class="find-out-more-banner__teaser">@contentBlock.Teaser</p>
+    
+                            <a href="@contentBlock.NavigationLink" class="btn btn--width-30 btn--chevron-forward btn--bold btn--chevron-bold @buttonColour" data-cy="find-out-more-link" aria-label="@contentBlock.Title">
+                                <span class="btn_text">Find out more</span>
+                            </a>
+                        </div>
+
+                        <img src="@contentBlock.Image?w=720&q=89"
+                             srcset="@contentBlock.Image?w=720&q=89&fm=webp 720w,
+                                     @contentBlock.Image?w=966&q=89&fm=webp 966w,
+                                     @contentBlock.Image?w=660&q=89&fm=webp 660w"
+                             sizes="(max-width: 767px) 720px,
+                                    ((min-width: 768px) and (max-width: 1023px)) 966px,
+                                    (min-width: 1024px) 660px"
+                             class="find-out-more-banner__image"
+                             loading="lazy"
+                             alt="@contentBlock.Title"
+                             width="720"
+                             height="300">
+                    </div>
+                }
+                @if (Model.SubItems?.Count > 3)
+                {
+                    <partial name="ContentBlockViewMore" />
+                }
+            </div>
+        </div>
+    </section>
+}

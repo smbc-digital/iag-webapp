@@ -22,5 +22,6 @@ public class ServicePayPaymentSubmissionViewModel
     [Display(Name = "email address")]
     public string EmailAddress { get; set; } = string.Empty;
 
-    public bool HasServiceSpecifiedPrice => !string.IsNullOrEmpty(Payment.PaymentAmount);
+    public bool HasServiceSpecifiedPrice =>
+        !string.IsNullOrEmpty(Payment.PaymentAmount);
 }

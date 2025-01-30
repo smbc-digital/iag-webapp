@@ -1,51 +1,49 @@
 ﻿namespace StockportWebapp.Models;
 [ExcludeFromCodeCoverage]
-public class Homepage
+public class Homepage(string title,
+                    IEnumerable<string> popularSearchTerms,
+                    string featuredTasksHeading,
+                    string featuredTasksSummary,
+                    IEnumerable<SubItem> featuredTasks,
+                    IEnumerable<SubItem> featuredTopics,
+                    IEnumerable<Alert> alerts,
+                    IEnumerable<CarouselContent> carouselContents,
+                    string backgroundImage,
+                    string foregroundImage,
+                    string foregroundImageLocation,
+                    string foregroundImageLink,
+                    string foregroundImageAlt,
+                    string freeText,
+                    Group featuredGroup,
+                    string eventCategory,
+                    string metaDescription,
+                    CarouselContent campaignBanner,
+                    CallToActionBanner callToAction,
+                    CallToActionBanner callToActionPrimary,
+                    IEnumerable<SpotlightOnBanner> spotlightOnBanner,
+                    string imageOverlayText)
 {
-    public IEnumerable<string> PopularSearchTerms { get; }
-    public string FeaturedTasksHeading { get; }
-    public string FeaturedTasksSummary { get; }
-    public IEnumerable<SubItem> FeaturedTasks;
-    public IEnumerable<SubItem> FeaturedTopics { get; }
-    public IEnumerable<Alert> Alerts { get; }
-    public IEnumerable<CarouselContent> CarouselContents { get; }
-    public string BackgroundImage { get; }
-    public string ForegroundImage { get; }
-    public string ForegroundImageLocation { get; }
-    public string ForegroundImageLink { get; }
-    public string ForegroundImageAlt { get; }
+    public string Title { get; } = title;
+    public IEnumerable<string> PopularSearchTerms { get; } = popularSearchTerms;
+    public string FeaturedTasksHeading { get; } = featuredTasksHeading;
+    public string FeaturedTasksSummary { get; } = featuredTasksSummary;
+    public IEnumerable<SubItem> FeaturedTasks = featuredTasks;
+    public IEnumerable<SubItem> FeaturedTopics { get; } = featuredTopics;
+    public IEnumerable<Alert> Alerts { get; } = alerts;
+    public IEnumerable<CarouselContent> CarouselContents { get; } = carouselContents;
+    public string BackgroundImage { get; } = backgroundImage;
+    public string ImageOverlayText { get; } = imageOverlayText;
+    public string ForegroundImage { get; } = foregroundImage;
+    public string ForegroundImageLocation { get; } = foregroundImageLocation;
+    public string ForegroundImageLink { get; } = foregroundImageLink;
+    public string ForegroundImageAlt { get; } = foregroundImageAlt;
     public IEnumerable<News> LastNews { get; set; }
-    public string FreeText { get; }
-    public Group FeaturedGroup { get; }
-    public string EventCategory { get; }
-    public string MetaDescription { get; set; }
-    public CarouselContent CampaignBanner { get; set; }
-    public CallToActionBanner CallToAction { get; set; }
-    public CallToActionBanner CallToActionPrimary { get; set; }
-
-    public IEnumerable<SpotlightOnBanner> SpotlightOnBanner { get; set; }
-
-    public Homepage(IEnumerable<string> popularSearchTerms, string featuredTasksHeading, string featuredTasksSummary, IEnumerable<SubItem> featuredTasks, IEnumerable<SubItem> featuredTopics, IEnumerable<Alert> alerts, IEnumerable<CarouselContent> carouselContents, string backgroundImage, string foregroundImage, string foregroundImageLocation, string foregroundImageLink, string foregroundImageAlt, string freeText, Group featuredGroup, string eventCategory, string metaDescription, CarouselContent campaignBanner, CallToActionBanner callToAction, CallToActionBanner callToActionPrimary, IEnumerable<SpotlightOnBanner> spotlightOnBanner)
-    {
-        PopularSearchTerms = popularSearchTerms;
-        FeaturedTasksHeading = featuredTasksHeading;
-        FeaturedTasksSummary = featuredTasksSummary;
-        FeaturedTasks = featuredTasks;
-        FeaturedTopics = featuredTopics;
-        Alerts = alerts;
-        CarouselContents = carouselContents;
-        BackgroundImage = backgroundImage;
-        ForegroundImage = foregroundImage;
-        ForegroundImageLocation = foregroundImageLocation;
-        ForegroundImageLink = foregroundImageLink;
-        ForegroundImageAlt = foregroundImageAlt;
-        FreeText = freeText;
-        FeaturedGroup = featuredGroup;
-        EventCategory = eventCategory;
-        MetaDescription = metaDescription;
-        CampaignBanner = campaignBanner;
-        CallToAction = callToAction;
-        CallToActionPrimary = callToActionPrimary;
-        SpotlightOnBanner = spotlightOnBanner;
-    }
+    public string FreeText { get; } = freeText;
+    public Group FeaturedGroup { get; } = featuredGroup;
+    public string EventCategory { get; } = eventCategory;
+    public string MetaDescription { get; set; } = metaDescription;
+    public CarouselContent CampaignBanner { get; set; } = campaignBanner;
+    public CallToActionBanner CallToAction { get; set; } = callToAction;
+    public CallToActionBanner CallToActionPrimary { get; set; } = callToActionPrimary;
+    public IEnumerable<SpotlightOnBanner> SpotlightOnBanner { get; set; } = spotlightOnBanner;
 }

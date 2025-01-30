@@ -5,20 +5,15 @@ public interface ITriviaFactory
     List<Trivia> Build(List<Trivia> triviaSection);
 }
 
-public class TriviaFactory : ITriviaFactory
+public class TriviaFactory(MarkdownWrapper markdownWrapper) : ITriviaFactory
 {
-    private readonly MarkdownWrapper _markdownWrapper;
+    private readonly MarkdownWrapper _markdownWrapper = markdownWrapper;
 
-    public TriviaFactory(MarkdownWrapper markdownWrapper)
-    {
-        _markdownWrapper = markdownWrapper;
-    }
-
-    public List<Trivia> Build(List<Trivia> triviaSection) 
-        => triviaSection?.Select(item => new Trivia (
+    public List<Trivia> Build(List<Trivia> triviaSection) => 
+        triviaSection?.Select(item => new Trivia (
             item.Name,
             item.Icon,
-            _markdownWrapper.ConvertToHtml(item.Text),
+            _markdownWrapper.ConvertToHtml(item.Body),
             item.Link
         )).ToList();
 }

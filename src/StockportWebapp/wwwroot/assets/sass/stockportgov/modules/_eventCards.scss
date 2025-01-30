@@ -1,0 +1,116 @@
+.event-cards {
+
+    @media #{$mobile} {
+        margin-bottom: 3em;
+    }
+
+    &-title {
+        display: flex;
+        flex-direction: row;
+
+        @media #{$tablet} {
+            display: block;
+        }
+
+        &-container {
+            text-align: center;
+            text-align: -webkit-center;
+            text-align: -moz-center;
+            width: 100%;
+
+            @media #{$desktop} {
+                margin-left: 7em;
+            }
+
+            @media #{$tablet} {
+                width: 100%;
+            }
+
+            hr {
+                width: 20%;
+                margin-top: 0;
+
+                @media #{$mobile} {
+                    width: 40%;
+                }
+
+                @media #{$tablet} {
+                    width: 30%;
+                }
+            }
+        }
+    }
+
+    &-view-more {
+        text-align: right;
+        margin-top: 0.6em;
+        height: 40%;
+        min-height: 44px;
+        width: 15%;
+        font-weight: 700;
+    }
+
+    &__link {
+        border-bottom: 7px solid;
+        border-color: $stockport-teal-darker;
+        box-sizing: border-box;
+
+        &--white {
+            background-color: white;
+        }
+    }
+
+    &__image {
+        border-radius: 3px;
+
+        &-homepage {
+            border-radius: 0;
+        }
+    }
+
+    &__location {
+        @media #{$mobile} {
+            margin-bottom: 0.5em;
+        }
+    }
+
+    &-button {
+        @media #{$tablet} {
+            margin-top: 2em;
+        }
+    }
+
+    &:nth-child(n+2) {
+        .event-cards__link {
+            border-color: $stockport-pink;
+        }
+    }
+
+    &:nth-child(n+3) {
+        .event-cards {
+            @media #{$mobile} {
+                margin-bottom: 2em;
+            }
+        }
+
+        .event-cards__link {
+            border-color: $stockport-purple;
+        }
+    }
+
+    p {
+        margin-top: 0.5em;
+    }
+
+    &--padding {
+        padding: 1em 0.75em 0.5em 0.75em;
+    }
+}
+
+html[dir="rtl"] {
+    .event-cards {
+        @media #{$mobile} {
+            padding: 0;
+        }
+    }
+}

@@ -1,0 +1,22 @@
+﻿@model CallToActionBanner
+
+@if (Model is not null)
+{
+    <section>
+        <div class="grid-container">
+            <div class="grid-100">
+                <div class="call-to-action section__content" data-cy="call-to-action">                    
+                    <div class="call-to-action-content">
+                        <h2 class="call-to-action-content__title">@Model.Title</h2>
+                        
+                        <a href="@Model.Link" class="btn btn--width-30 btn--on-grey" data-cy="call-to-action-link">
+                            <span class="btn_text">@Model.ButtonText</span>
+                        </a>
+                    </div>
+
+                    <img src="@Model.Image?w=400&q=89" srcset="@Model.Image?w=400&q=89&fm=webp" class="call-to-action__image" loading="lazy" alt="@Model.AltText" width="400" height="300">
+                </div>
+            </div>
+        </div>
+    </section>
+}

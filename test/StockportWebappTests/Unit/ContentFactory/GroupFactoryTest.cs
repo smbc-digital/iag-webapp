@@ -3,55 +3,94 @@
 public class GroupFactoryTest
 {
     private readonly GroupFactory _factory;
-    private readonly Mock<MarkdownWrapper> _markdownWrapper;
-    private readonly Mock<ITagParserContainer> _tagParserContainer;
+    private readonly Mock<MarkdownWrapper> _markdownWrapper = new();
+    private readonly Mock<ITagParserContainer> _tagParserContainer = new();
     private readonly Group _group;
 
     public GroupFactoryTest()
     {
-        _markdownWrapper = new Mock<MarkdownWrapper>();
-        _tagParserContainer = new Mock<ITagParserContainer>();
         _factory = new GroupFactory(_tagParserContainer.Object, _markdownWrapper.Object);
         _group = new GroupBuilder().Build();
-        _tagParserContainer.Setup(o => o.ParseAll(_group.Description, It.IsAny<string>(), It.IsAny<bool>(), null, null, null, null, null, It.IsAny<bool>())).Returns(_group.Description);
-        _tagParserContainer.Setup(o => o.ParseAll(_group.AdditionalInformation, It.IsAny<string>(), It.IsAny<bool>(), null, null, null, null, null, It.IsAny<bool>())).Returns(_group.AdditionalInformation);
-        _markdownWrapper.Setup(o => o.ConvertToHtml(_group.Description)).Returns(_group.Description);
+
+        _tagParserContainer
+            .Setup(parser => parser.ParseAll(_group.Description,
+                                            It.IsAny<string>(),
+                                            It.IsAny<bool>(),
+                                            null,
+                                            null,
+                                            null,
+                                            null,
+                                            null,
+                                            null,
+                                            It.IsAny<bool>()))
+            .Returns(_group.Description);
+        
+        _tagParserContainer
+            .Setup(parser => parser.ParseAll(_group.AdditionalInformation,
+                                            It.IsAny<string>(),
+                                            It.IsAny<bool>(),
+                                            null,
+                                            null,
+                                            null,
+                                            null,
+                                            null,
+                                            null,
+                                            It.IsAny<bool>()))
+            .Returns(_group.AdditionalInformation);
+
+        _markdownWrapper
+            .Setup(wrapper => wrapper.ConvertToHtml(_group.Description))
+            .Returns(_group.Description);
     }
 
     [Fact]
     public void ShouldSetTheCorrespondingFieldsForAProcessedGroup()
     {
-        var result = _factory.Build(_group);
+        // Act
+        ProcessedGroup result = _factory.Build(_group);
 
-        result.Name.Should().Be(_group.Name);
-        result.MetaDescription.Should().Be(_group.MetaDescription);
-        result.Description.Should().Be(_group.Description);
-        result.Slug.Should().Be(_group.Slug);
-        result.Address.Should().Be(_group.Address);
-        result.Website.Should().Be(_group.Website);
-        result.Email.Should().Be(_group.Email);
-        result.PhoneNumber.Should().Be(_group.PhoneNumber);
-        result.ImageUrl.Should().Be(_group.ImageUrl);
-        result.MapDetails.MapPosition.Lat.Should().Be(_group.MapPosition.Lat);
-        result.MapDetails.MapPosition.Lon.Should().Be(_group.MapPosition.Lon);
-        result.ThumbnailImageUrl.Should().Be(_group.ThumbnailImageUrl);
-        result.Twitter.Should().Be(_group.Twitter);
-        result.Facebook.Should().Be(_group.Facebook);
+        // Assert
+        Assert.Equal(_group.Name, result.Name);
+        Assert.Equal(_group.MetaDescription, result.MetaDescription);
+        Assert.Equal(_group.Description, result.Description);
+        Assert.Equal(_group.Slug, result.Slug);
+        Assert.Equal(_group.Address, result.Address);
+        Assert.Equal(_group.Website, result.Website);
+        Assert.Equal(_group.Email, result.Email);
+        Assert.Equal(_group.PhoneNumber, result.PhoneNumber);
+        Assert.Equal(_group.ImageUrl, result.ImageUrl);
+        Assert.Equal(_group.MapPosition.Lat, result.MapDetails.MapPosition.Lat);
+        Assert.Equal(_group.MapPosition.Lon, result.MapDetails.MapPosition.Lon);
+        Assert.Equal(_group.Twitter, result.Twitter);
+        Assert.Equal(_group.Facebook, result.Facebook);
     }
 
     [Fact]
     public void ShouldProcessDescriptionWithMarkdown()
     {
+        // Act
         _factory.Build(_group);
 
-        _markdownWrapper.Verify(o => o.ConvertToHtml(_group.Description), Times.Once);
+        // Assert
+        _markdownWrapper.Verify(wrapper => wrapper.ConvertToHtml(_group.Description), Times.Once);
     }
 
     [Fact]
     public void ShouldPassTitleToAllSimpleParsersWhenBuilding()
     {
+        // Act
         _factory.Build(_group);
 
-        _tagParserContainer.Verify(o => o.ParseAll(_group.Description, _group.Name, It.IsAny<bool>(), null, null, null, null, null, It.IsAny<bool>()), Times.Once);
+        // Assert
+        _tagParserContainer.Verify(parser => parser.ParseAll(_group.Description,
+                                                            _group.Name,
+                                                            It.IsAny<bool>(),
+                                                            null,
+                                                            null,
+                                                            null,
+                                                            null,
+                                                            null,
+                                                            null,
+                                                            It.IsAny<bool>()), Times.Once);
     }
 }

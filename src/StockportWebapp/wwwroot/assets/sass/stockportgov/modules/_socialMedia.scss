@@ -1,0 +1,125 @@
+.social-media {
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    &__container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: calc(33.3333% - 10px);
+        margin: 7.5px;
+        box-sizing: border-box;
+        background-color: $stockport-teal-darker;
+        color: white;
+        text-align: center;
+        border-radius: 3px;
+
+        &:first-child {
+            @media #{$mobile} {
+                margin-block-start: 0;
+            }
+        }
+
+        &:last-child {
+            @media #{$mobile} {
+                margin-block-end: 0;
+            }
+        }
+
+        @media #{$mobile} {
+            width: 100%;
+            margin-inline: 0;
+        }
+
+        a {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            color: white;
+            width: 100%;
+            padding: 1em;
+            word-break: break-word;
+            height: 100%;
+            box-sizing: border-box;
+        }
+
+        &:nth-child(3n+1) {
+            margin-inline-start: 0;
+        }
+
+        &:nth-child(3n) {
+            margin-inline-end: 0;
+        }
+
+        &:nth-child(6n + 1) {
+            background-color: $stockport-teal-darker;
+
+            &:hover, &:focus {
+                box-shadow: none;
+                background-color: darken($stockport-teal-darker, 5%);
+                text-decoration: none;
+            }
+        }
+
+        &:nth-child(6n + 2) {
+            background-color: $stockport-pink;
+
+            &:hover, &:focus {
+                box-shadow: none;
+                background-color: darken($stockport-pink, 5%);
+                text-decoration: none;
+            }
+        }
+
+        &:nth-child(6n + 3) {
+            background-color: $stockport-purple;
+
+            &:hover, &:focus {
+                box-shadow: none;
+                background-color: darken($stockport-purple, 5%);
+                text-decoration: none;
+            }
+        }
+
+        &:nth-child(6n + 4) {
+            background-color: $stockport-blue;
+
+            &:hover, &:focus {
+                box-shadow: none;
+                background-color: darken($stockport-blue, 5%);
+                text-decoration: none;
+            }
+        }
+
+        &:nth-child(6n + 5) {
+            background-color: $stockport-green;
+
+            &:hover, &:focus {
+                box-shadow: none;
+                background-color: darken($stockport-green, 5%);
+                text-decoration: none;
+            }
+        }
+
+        &:nth-child(6n + 6) {
+            background-color: $stockport-grey;
+
+            &:hover, &:focus {
+                box-shadow: none;
+                background-color: darken($stockport-grey, 5%);
+                text-decoration: none;
+            }
+        }
+    }
+
+    &__icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-inline-end: 0.5em;
+    }
+}

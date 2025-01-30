@@ -1,0 +1,152 @@
+.footer {
+	background-color: $skrm-blue;
+	padding: 2em 0 1em 0;
+	width: 100%;
+	position: relative;
+	z-index: 5;
+	color: black;
+
+	ul {
+		list-style: none;
+	}
+
+	@media #{$mobile} {
+		padding: 0 0 1em;
+
+        h2 {
+            margin-bottom: 0.5em;
+        }
+	}
+
+	a {
+		color: black;
+		text-underline-offset: 0.1em;
+
+		&:hover {
+			text-decoration-thickness: 3px;
+			text-decoration-skip-ink: none;
+		}
+	}
+
+	&_links {
+		margin-top: 2em;
+
+		li {
+			box-sizing: border-box;
+			margin: 0;
+			padding-bottom: 0.5em;
+
+			@media #{$mobile} {
+				padding-left: 0;
+			}
+		}
+
+		a {
+			text-decoration: underline;
+			color: black;
+
+			&:hover {
+				text-decoration-thickness: 3px;
+			}
+		}
+
+		&--bottom {
+			display: flex;
+			flex-wrap: wrap;
+			flex-direction: row;
+
+			li {
+				&:nth-child(4n+1) .footer__info-container {
+					padding-inline-start: 0;
+				}
+			}
+		}
+	}
+
+	&_logo {
+		margin-top: 0;
+
+		@media #{$mobile} {
+			padding-inline: 0.416em;
+		}
+
+		img {
+			height: auto;
+			width: 100%;
+			max-width: 275px;
+
+			@media #{$mobile} {
+				padding-top: 30px;
+			}
+		}
+
+		@media #{$mobile} {
+			margin-top: 25px;
+			padding-bottom: 0.833em;
+		}
+	}
+
+	&__info {
+		padding-block: 2em;
+
+		@media #{$mobile} {
+			padding-inline: 0.833em;
+			padding-block-end: 0;
+            padding-block-start: 1em;;
+		}
+
+		&-container {
+			padding-left: 1em;
+
+			@media #{$mobile} {
+				padding-left: 0;
+			}
+		}
+
+		&--border {
+			border-top: 1px solid black;
+			padding: 0;
+		}
+
+		&--padding {
+			padding-block-end: 1em;
+
+			@media #{$mobile} {
+				padding-left: 0;
+
+                &:last-of-type {
+                    padding-block-end: 2em;
+                } 
+			}
+
+            
+		}
+	}
+
+	&_copyright {
+		margin-top: 2em;
+		text-align: left;
+
+		@media #{$mobile} {
+			margin-top: 1em;
+			padding-left: 0;
+		}
+	}
+
+	&__social {
+		margin-top: 0;
+
+		li {
+            @media #{$tablet-only, $desktop} {
+				padding-bottom: 0;
+			}
+
+            @media #{$mobile} {
+                &:last-of-type {
+                    margin-bottom: 1em;
+					padding-bottom: 0;
+                }
+            }
+		}
+	}
+}

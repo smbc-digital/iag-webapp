@@ -1,11 +1,13 @@
 ﻿@model GenericFeaturedItemList
 @{
-    var loopCount = Model.HideButton ? Model.Items.Count() : 8;
+    int loopCount = Model.HideButton
+        ? Model.Items.Count()
+        : 8;
 }
 
 <div class="matchbox-parent">
     <div class="primary-topics">
-        @for (var count = 0; count < loopCount; count += 4)
+        @for (int count = 0; count < loopCount; count += 4)
         {
             <div class="featured-topic-list generic-Featured-Items-margin-top">
                 <partial name="GenericFeaturedItem" model='Model.Items.Skip(count).Take(4)' />
@@ -16,7 +18,7 @@
     @if (!string.IsNullOrEmpty(Model.ButtonText))
     {
         <div id="see-more-container" class="generic-list-see-more-container">
-            @for (var count = 8; count < Model.Items.Count(); count += 4)
+            @for (int count = 8; count < Model.Items.Count(); count += 4)
             {
                 <div class="featured-topic-list generic-Featured-Items-margin-top">
                     <partial name="GenericFeaturedItem" model='Model.Items.Skip(count).Take(4)' />
@@ -36,7 +38,7 @@
 </div>
 
 <script>
-    require(['/assets/javascript/config-460fd0d2.min.js'], function() {
+    require(['/assets/javascript/config-91939d9a.min.js'], function() {
         require(['viewmoreslider'],
             function(viewmoreslider) {
                 viewmoreslider.Init();

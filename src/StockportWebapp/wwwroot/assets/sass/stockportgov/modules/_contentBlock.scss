@@ -1,0 +1,94 @@
+.content-block {
+    &__title {
+        text-align: center;
+        text-align: -webkit-center;
+        text-align: -moz-center;
+        margin-block-start: 0px;
+    }
+
+    &__teaser {
+        text-align: center;
+        text-align: -webkit-center;
+        text-align: -moz-center;
+    }
+
+    &__view-more {
+        display: flex;
+        justify-content: center;
+        margin-top: 2em;
+
+        @media #{$mobile} {
+            margin-inline: 5px;
+            margin-top: 2em;
+        }
+    }
+
+    hr {
+        margin: auto;
+        width: 20%;
+        margin-top: 0;
+        margin-bottom: 2em;
+        color: $stockport-grey-accent;
+
+        @media #{$mobile} {
+            width: 40%;
+        }
+
+        @media #{$tablet} {
+            width: 30%;
+        }
+    }
+
+    &--margin {
+        margin: 4em 0;
+
+        @media #{$tablet} {
+            margin: 3em 0;
+        }
+
+        &-inline {
+            @media #{$mobile} {
+                margin-inline: 5px;
+            }
+        }
+    }
+
+    &--padding {
+        padding: 4em 0;
+
+        @media #{$mobile} {
+            padding: 2em 0;
+        }
+    }
+
+    &:last-child {
+        margin-bottom: 2em;
+    }
+
+    &--screen {
+        &:last-child {
+            margin-bottom: 0em;
+        }
+    }
+
+    .navcard {
+        padding-bottom: 0px;
+        margin-bottom: 0px;
+
+        @media #{$mobile} {
+            margin-bottom: 2em;
+
+            &:last-child {
+                margin-bottom: 0em;
+            }
+        }
+    }
+    /*overides for maps in content blocks*/
+    #root {
+        border: 1px solid $stockport-grey-accent;
+    }
+
+    .smbc-map__container {
+        margin-bottom: 0px;
+    }
+}

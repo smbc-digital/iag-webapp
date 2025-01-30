@@ -4,8 +4,30 @@ public class GroupSubmission
 {
     public GroupSubmission()
     {
-        Suitabilities = new List<CheckBoxItem> { new CheckBoxItem { Name = "Autism", IsSelected = false }, new CheckBoxItem { Name = "Deaf or hard of hearing", IsSelected = false }, new CheckBoxItem { Name = "Dementia", IsSelected = false }, new CheckBoxItem { Name = "Learning disabilities", IsSelected = false }, new CheckBoxItem { Name = "Mental health conditions", IsSelected = false }, new CheckBoxItem { Name = "Physical disabilities", IsSelected = false }, new CheckBoxItem { Name = "Visual impairments", IsSelected = false }, new CheckBoxItem { Name = "Wheelchair users", IsSelected = false } };
-        AgeRanges = new List<CheckBoxItem> { new CheckBoxItem { Name = "0-2 Babies", IsSelected = false }, new CheckBoxItem { Name = "3-5 Toddlers", IsSelected = false }, new CheckBoxItem { Name = "6-11 Young children", IsSelected = false }, new CheckBoxItem { Name = "12-18 Teenagers", IsSelected = false }, new CheckBoxItem { Name = "19-30 Young adults", IsSelected = false }, new CheckBoxItem { Name = "31-50 Adults", IsSelected = false }, new CheckBoxItem { Name = "51-65 Middle aged", IsSelected = false }, new CheckBoxItem { Name = "66-80 Retirees", IsSelected = false }, new CheckBoxItem { Name = "80+ Elderly", IsSelected = false } };
+        Suitabilities = new List<CheckBoxItem>
+        {
+            new() { Name = "Autism", IsSelected = false },
+            new() { Name = "Deaf or hard of hearing", IsSelected = false },
+            new() { Name = "Dementia", IsSelected = false },
+            new() { Name = "Learning disabilities", IsSelected = false },
+            new() { Name = "Mental health conditions", IsSelected = false },
+            new() { Name = "Physical disabilities", IsSelected = false },
+            new() { Name = "Visual impairments", IsSelected = false },
+            new() { Name = "Wheelchair users", IsSelected = false }
+        };
+
+        AgeRanges = new List<CheckBoxItem>
+        {
+            new() { Name = "0-2 Babies", IsSelected = false },
+            new() { Name = "3-5 Toddlers", IsSelected = false },
+            new() { Name = "6-11 Young children", IsSelected = false },
+            new() { Name = "12-18 Teenagers", IsSelected = false },
+            new() { Name = "19-30 Young adults", IsSelected = false },
+            new() { Name = "31-50 Adults", IsSelected = false },
+            new() { Name = "51-65 Middle aged", IsSelected = false },
+            new() { Name = "66-80 Retirees", IsSelected = false },
+            new() { Name = "80+ Elderly", IsSelected = false }
+        };
     }
 
     public string Slug { get; set; }

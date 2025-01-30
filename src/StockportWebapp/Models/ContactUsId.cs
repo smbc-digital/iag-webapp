@@ -1,20 +1,11 @@
 ﻿namespace StockportWebapp.Models;
 
 [ExcludeFromCodeCoverage]
-public class ContactUsId
+public class ContactUsId(string name, string slug, string emailAddress, string successPageButtonText, string successPageReturnUrl)
 {
-    public string Name { get; }
-    public string Slug { get; }
-    public string EmailAddress { get; }
-    public string SuccessPageButtonText { get; }
-    public string SuccessPageReturnUrl { get; }
-
-    public ContactUsId(string name, string slug, string emailAddress, string successPageButtonText, string successPageReturnUrl)
-    {
-        Name = name;
-        Slug = slug;
-        EmailAddress = emailAddress;
-        SuccessPageButtonText = successPageButtonText;
-        SuccessPageReturnUrl = successPageReturnUrl;
-    }
+    public string Name { get; } = name;
+    public string Slug { get; } = slug;
+    public string EmailAddress { get; } = emailAddress;
+    public string SuccessPageButtonText { get; } = successPageButtonText;
+    public string SuccessPageReturnUrl { get; } = successPageReturnUrl;
 }

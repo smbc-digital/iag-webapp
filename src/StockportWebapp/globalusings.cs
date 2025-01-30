@@ -1,7 +1,5 @@
 ﻿global using Amazon;
 global using Amazon.Runtime;
-global using Amazon.S3;
-global using Amazon.S3.Model;
 global using Amazon.SimpleEmail;
 global using Amazon.SimpleEmail.Model;
 global using Ical.Net.CalendarComponents;
@@ -52,6 +50,7 @@ global using StockportWebapp.Models.Emails;
 global using StockportWebapp.Models.Enums;
 global using StockportWebapp.Models.Exceptions;
 global using StockportWebapp.Models.Groups;
+global using StockportWebapp.Models.Mappers;
 global using StockportWebapp.Models.ProcessedModels;
 global using StockportWebapp.Models.Validation;
 global using StockportWebapp.Repositories;

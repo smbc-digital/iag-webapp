@@ -1,0 +1,58 @@
+﻿@model ContentBlock
+@if (Model is not null && !string.IsNullOrEmpty(Model.Image))
+{
+    string overlayTheme = !string.IsNullOrEmpty(Model.ImageBannerOverlayTheme) 
+        ? $"image-banner-{Model.ImageBannerOverlayTheme}" 
+        : "image-banner--light"; 
+
+    <section class="content-block content-block--screen image-banner" data-cy="image-banner-screen-width">
+        @if (!string.IsNullOrEmpty(Model.Href))
+        {
+            <a class="image-banner__link @overlayTheme" @Model.Href>
+                <div class="image-banner__background image-banner__background" style="background-image: url(@Model.Image?fm=webp)"></div>
+                @if (!string.IsNullOrEmpty(Model.Body))
+                {
+                    <div class="grid-container hide-on-mobile">
+                        <div class="grid-100">
+                            <div class="image-banner__content @overlayTheme">
+                                <h2 class="image-banner__title">@Model.Title</h2>
+                                @Html.Raw(Model.Body)
+                            </div>
+                        </div>
+                    </div>
+
+                    <figure class="image-banner__figure hide-on-desktop hide-on-tablet">
+                        <figcaption>
+                            @Html.Raw(Model.Title)
+                        </figcaption>
+                    </figure>
+                }
+                else
+                {
+                    <span class="visuallyhidden">@Model.Title</span>
+                }
+            </a>
+        }
+        else
+        {
+            <div class="image-banner__background image-banner__background" style="background-image: url(@Model.Image?fm=webp)"></div>
+            @if (!string.IsNullOrEmpty(Model.Body))
+            {
+                <div class="grid-container hide-on-mobile">
+                    <div class="grid-100">
+                        <div class="image-banner__content @overlayTheme">
+                            <h2 class="image-banner__title image-banner__title-no-link">@Model.Title</h2>
+                            @Html.Raw(Model.Body)
+                        </div>
+                    </div>
+                </div>
+                
+                <figure class="image-banner__figure hide-on-desktop hide-on-tablet">
+                    <figcaption>
+                        @Html.Raw(Model.Title)
+                    </figcaption>
+                </figure>
+            }
+        }
+    </section>
+}

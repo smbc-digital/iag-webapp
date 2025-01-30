@@ -1,25 +1,36 @@
-﻿namespace StockportWebappTests_Unit.Unit.Controllers;
+﻿using ReverseMarkdown.Converters;
+
+namespace StockportWebappTests_Unit.Unit.Controllers;
 
 public class ShowcaseControllerTest
 {
     private readonly ShowcaseController _controller;
 
-    private readonly Mock<IProcessedContentRepository> _mockContentRepository = new Mock<IProcessedContentRepository>();
+    private readonly Mock<IProcessedContentRepository> _mockContentRepository = new();
 
-    public ShowcaseControllerTest()
-    {
-        _controller = new ShowcaseController(_mockContentRepository.Object, new Mock<IApplicationConfiguration>().Object);
-    }
+    public ShowcaseControllerTest() =>
+        _controller = new(_mockContentRepository.Object);
 
     [Fact]
     public async Task ItReturnsShowcaseWithProcessedBody()
     {
-        const string showcaseSlug = "showcase-slug";
-        var alerts = new List<Alert> {new Alert("title", "subHeading", "body", Severity.Information, new DateTime(0001, 1, 1, 0, 0, 0, DateTimeKind.Utc),
-                                                             new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc), string.Empty, false, string.Empty)};
-        var showcase = new ProcessedShowcase(
+        // Arrange
+        List<Alert> alerts = new()
+        {
+            new("title",
+                "subHeading",
+                "body",
+                Severity.Information,
+                new DateTime(0001, 1, 1, 0, 0, 0, DateTimeKind.Utc),
+                new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc),
+                string.Empty,
+                false,
+                string.Empty)
+        };
+
+        ProcessedShowcase showcase = new(
             "Test showcase",
-            showcaseSlug,
+            "showcase-slug",
             "showcase teaser",
             "showcase metaDescription",
             "showcase subheading",
@@ -35,80 +46,90 @@ public class ShowcaseControllerTest
             "af981b9771822643da7a03a9ae95886f/picture.jpg",
             new List<SubItem>
             {
-                new SubItem("slug",
+                new("slug",
                     "title",
                     "teaser",
+                    "teaser image",
                     "icon",
                     "type",
                     "image.jpg",
-                    new List<SubItem>(), "teal")
+                    new List<SubItem>(),
+                    EColourScheme.Teal)
             },
             new List<Crumb>
             {
-                new Crumb("title", "slug", "type")
+                new("title", "slug", "type")
             },
-            "",
+            string.Empty,
             new List<SocialMediaLink>(),
             new List<Event>(),
             "email alerts topic id",
             "emailAlertsText",
             alerts,
             new List<SubItem>(),
-            "",
+            string.Empty,
             new List<SubItem>(),
             null,
             null,
             new CallToActionBanner(),
             new FieldOrder(),
             "fa-icon",
-            "",
+            string.Empty,
             null,
-            "",
-            "",
-            "",
+            string.Empty,
+            string.Empty,
+            string.Empty,
             new Video(),
-            new SpotlightBanner("test", "test", "test"));
+            new SpotlightOnBanner("test", "test", "test", "test", "test", new DateTime()));
 
         _mockContentRepository
-            .Setup(_ => _.Get<Showcase>(It.IsAny<string>(), It.IsAny<List<Query>>()))
+            .Setup(repo => repo.Get<Showcase>(It.IsAny<string>(), It.IsAny<List<Query>>()))
             .ReturnsAsync(new HttpResponse(200, showcase, string.Empty));
 
-        var showcasePage = await _controller.Showcase(showcaseSlug) as ViewResult; ;
-        var processedShowcase = showcasePage.Model as ProcessedShowcase;
+        // Act
+        ViewResult showcasePage = await _controller.Showcase("showcase-slug") as ViewResult; ;
+        ProcessedShowcase processedShowcase = showcasePage.Model as ProcessedShowcase;
 
-        processedShowcase.Title.Should().Be("Test showcase");
-        processedShowcase.Slug.Should().Be("showcase-slug");
-        processedShowcase.Teaser.Should().Be("showcase teaser");
-        processedShowcase.Subheading.Should().Be("showcase subheading");
-        processedShowcase.EventCategory.Should().Be("event category");
-        processedShowcase.EventSubheading.Should().Be("event subheading");
-        processedShowcase.Breadcrumbs.Count().Should().Be(1);
-        processedShowcase.SecondaryItems.Count().Should().Be(1);
-        processedShowcase.Alerts.Count().Should().Be(1);
-        processedShowcase.Icon.Should().Be("fa-icon");
+        // Assert
+        Assert.Equal("Test showcase", processedShowcase.Title);
+        Assert.Equal("showcase-slug", processedShowcase.Slug);
+        Assert.Equal("showcase teaser", processedShowcase.Teaser);
+        Assert.Equal("showcase subheading", processedShowcase.Subheading);
+        Assert.Equal("event category", processedShowcase.EventCategory);
+        Assert.Equal("event subheading", processedShowcase.EventSubheading);
+        Assert.Single(processedShowcase.Breadcrumbs);
+        Assert.Single(processedShowcase.SecondaryItems);
+        Assert.Single(processedShowcase.Alerts);
+        Assert.Equal("fa-icon", processedShowcase.Icon);
     }
 
     [Fact]
     public async Task Returns404WhenShowcaseNotFound()
     {
+        // Arrange
         _mockContentRepository
-            .Setup(_ => _.Get<Showcase>(It.IsAny<string>(), It.IsAny<List<Query>>()))
+            .Setup(repo => repo.Get<Showcase>(It.IsAny<string>(), It.IsAny<List<Query>>()))
             .ReturnsAsync(new HttpResponse((int)HttpStatusCode.NotFound, null, string.Empty));
 
-        var response = await _controller.Showcase("not-found-slug") as HttpResponse; ;
+        // Act
+        HttpResponse response = await _controller.Showcase("not-found-slug") as HttpResponse; ;
 
-        response.StatusCode.Should().Be((int)HttpStatusCode.NotFound);
+        // Assert
+        Assert.Equal(404, response.StatusCode);
     }
 
     [Fact]
     public async Task ReturnsEmptyListIfAllTopicsExpired()
     {
+        // Arrange
         _mockContentRepository
-            .Setup(_ => _.Get<Showcase>(It.IsAny<string>(), It.IsAny<List<Query>>()))
+            .Setup(repo => repo.Get<Showcase>(It.IsAny<string>(), It.IsAny<List<Query>>()))
             .ReturnsAsync(new HttpResponse((int)HttpStatusCode.NotFound, null, string.Empty));
 
-        var response = await _controller.Showcase("not-found-slug") as HttpResponse; ;
+        // Act
+        HttpResponse response = await _controller.Showcase("not-found-slug") as HttpResponse; ;
 
-        response.StatusCode.Should().Be((int)HttpStatusCode.NotFound);
+        // Assert
+        Assert.Equal(404, response.StatusCode);
     }
 }

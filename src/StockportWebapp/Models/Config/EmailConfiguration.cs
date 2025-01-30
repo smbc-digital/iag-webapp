@@ -5,24 +5,15 @@ public interface IEmailConfigurationBuilder
     AmazonSesClientConfiguration Build(string businessId);
 }
 
-public class EmailConfigurationBuilder : IEmailConfigurationBuilder
+public class EmailConfigurationBuilder(AmazonSESKeys amazonKeys,
+                                    IApplicationConfiguration config) : IEmailConfigurationBuilder
 {
-    private readonly AmazonSESKeys _amazonKeys;
-    private readonly IApplicationConfiguration _config;
+    private readonly AmazonSESKeys _amazonKeys = amazonKeys;
+    private readonly IApplicationConfiguration _config = config;
 
-    public EmailConfigurationBuilder(AmazonSESKeys amazonKeys, IApplicationConfiguration config)
-    {
-        _amazonKeys = amazonKeys;
-        _config = config;
-    }
-
-    public AmazonSesClientConfiguration Build(string businessId)
-    {
-        var host = _config.GetEmailHost(businessId);
-        var region = _config.GetEmailRegion(businessId);
-        var emailFrom = _config.GetEmailEmailFrom(businessId);
-
-        return new AmazonSesClientConfiguration(host, region,
-                                                emailFrom, _amazonKeys);
-    }
+    public AmazonSesClientConfiguration Build(string businessId) =>
+        new(_config.GetEmailHost(businessId),
+            _config.GetEmailRegion(businessId),
+            _config.GetEmailEmailFrom(businessId),
+            _amazonKeys);
 }

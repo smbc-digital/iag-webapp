@@ -9,7 +9,6 @@
     <partial name="Breadcrumb" model='Model.Crumbs'/>
 }
 
-
 <div class="grid-container-full-width">
     <div class="grid-container grid-100">
         <div tabindex="-1" id="content"></div>
@@ -19,6 +18,7 @@
                     <div class="grid-100">
                         <h1 class="group-article-title">Favourite @Model.Type</h1>
                     </div>
+
                     <div class="grid-100">
                         <p>If you choose to clear your favourites it will delete all of your saved @Model.Type.</p>
                         <p>If you came here by accident, you can <a href="@Model.FavouritesUrl">go back to view your favourite @Model.Type</a>.</p>
@@ -26,6 +26,7 @@
                             <strong>Are you sure you want to clear your @Model.Type?</strong>
                         </p>
                     </div>
+                    
                     <div class="grid-30 mixed-buttons">
                         <div>
                             @using (Html.BeginForm())

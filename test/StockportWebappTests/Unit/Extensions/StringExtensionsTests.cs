@@ -5,40 +5,50 @@ public class StringExtensionsTests
     [Fact]
     public void ShouldRemoveHttpFromStartOfString()
     {
-        var result = "http://testing.com".StripHttpAndHttps();
+        // Act
+        string result = "http://testing.com".StripHttpAndHttps();
 
-        result.Should().Be("testing.com");
+        // Assert
+        Assert.Equal("testing.com", result);
     }
 
     [Fact]
     public void ShouldRemoveHttpsFromStartOfString()
     {
-        var result = "https://testing.com".StripHttpAndHttps();
+        // Act
+        string result = "https://testing.com".StripHttpAndHttps();
 
-        result.Should().Be("testing.com");
+        // Assert
+        Assert.Equal("testing.com", result);
     }
 
     [Fact]
     public void ShouldRemoveMoreThanOneHttporHttpssFromStartOfString()
     {
-        var result = "https://https://http://testing.com".StripHttpAndHttps();
+        // Act
+        string result = "https://https://http://testing.com".StripHttpAndHttps();
 
-        result.Should().Be("testing.com");
+        // Assert
+        Assert.Equal("testing.com", result);
     }
 
     [Fact]
     public void ShouldRemoveEmojisFromString()
     {
-        var result = "😀🙏☀⛿test".StripEmojis();
+        // Act
+        string result = "😀🙏☀⛿test".StripEmojis();
 
-        result.Should().Be("test");
+        // Assert
+        Assert.Equal("test", result);
     }
 
     [Fact]
     public void ShouldRemoveEmojisInTheMiddleOfAString()
     {
-        var result = "😀🙏☀⛿te☀⛿s☀⛿t".StripEmojis();
+        // Act
+        string result = "😀🙏☀⛿te☀⛿s☀⛿t".StripEmojis();
 
-        result.Should().Be("test");
+        // Assert
+        Assert.Equal("test", result);
     }
 }

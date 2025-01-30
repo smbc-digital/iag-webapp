@@ -1,0 +1,117 @@
+.framed-header {
+    overflow: hidden;
+
+    &--teal {
+        background-color: $teal;
+    }
+
+    &--grey {
+        background-color: $stockport-dark-grey;
+    }
+
+    &--one-stockport-purple {
+        background-color: $one-stockport-purple;
+    }
+
+    &__content {
+        display: flex;
+        height: 100%;
+        color: white;
+        justify-content: center;        
+        background-color: $teal;
+        
+        &--teal {
+            background-color: $teal;
+        }
+    
+        &--grey {
+            background-color: $stockport-dark-grey;
+        }
+
+        &--one-stockport-purple {
+            background-color: $one-stockport-purple;
+        }
+        
+        @media #{$mobile} {
+            margin-top: 0;
+            display: block;
+        }
+    }
+
+    &__text {
+        flex: 1;
+
+        @media #{$mobile} {
+            margin-top: 0;
+            margin-inline: 5px;
+            width: 100%;
+        }
+    }
+
+    &__image-wrapper {
+        width: 35vw;
+        height: 35vw;
+        max-height: 800px;
+        overflow: hidden;
+        position: relative;
+
+        @media #{$tablet} {
+            width: 50vw;
+            height: 50vw;
+        }
+
+        @media #{$mobile} {
+            height: 100vw;
+            width: 100vw;
+            max-height: 500px;
+        }
+
+        img {
+            border-radius: 50%;
+            height: 100%;
+            left: 50%;
+            max-width: 800px;
+            max-height: 800px;
+            object-fit: cover;
+            position: absolute;
+            top: 50%;
+            transform: translate(-49.5%, -45%);
+            width: 99%;
+
+            @media #{$mobile} {
+                position: static;
+                border-radius: 0;
+                width: 100%;
+                transform: translate(0);
+                max-width: 768px;
+                max-height: 500px;
+            }
+        }
+    }
+
+    &__title {
+        @include h-xl;
+
+        @media #{$tablet} {
+            @include h-l;
+        }
+
+        @media #{$mobile} {
+            @include h-xl;
+
+            &--no-margin {
+                margin-top: 0;
+            }
+        }
+
+        color: white;
+    }
+
+    &__subtitle {
+        width: 90%;
+
+        @media #{$mobile} {
+            width: 100%;
+        }
+    }
+}

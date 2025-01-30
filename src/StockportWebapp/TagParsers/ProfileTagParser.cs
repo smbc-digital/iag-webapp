@@ -2,11 +2,9 @@
 
 namespace StockportWebapp.TagParsers;
 
-public class ProfileTagParser : IDynamicTagParser<Profile>
+public class ProfileTagParser(IViewRender viewRenderer) : IDynamicTagParser<Profile>
 {
-    private readonly IViewRender _viewRenderer;
-
-    public ProfileTagParser(IViewRender viewRenderer) => _viewRenderer = viewRenderer;
+    private readonly IViewRender _viewRenderer = viewRenderer;
 
     protected Regex TagRegex => new("{{PROFILE:(\\s*[/a-zA-Z0-9][^}]+)}}", RegexOptions.Compiled);
 

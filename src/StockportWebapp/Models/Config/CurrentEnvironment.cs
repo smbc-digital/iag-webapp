@@ -1,11 +1,6 @@
 ﻿namespace StockportWebapp.Models.Config;
 
-public class CurrentEnvironment
+public class CurrentEnvironment(string name)
 {
-    public string Name { get; }
-
-    public CurrentEnvironment(string name)
-    {
-        Name = name;
-    }
+    public string Name { get; } = name;
 }

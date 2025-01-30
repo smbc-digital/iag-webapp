@@ -1,39 +1,35 @@
 ﻿namespace StockportWebapp.Models.Validation;
 
-public class EndDateGreaterThanStartDateFrequencyPeriodValidation : ValidationAttribute
+[ExcludeFromCodeCoverage]
+public class EndDateGreaterThanStartDateFrequencyPeriodValidation(string otherPropertyName,
+                                                                string frequencyPropertyName,
+                                                                string errorMessage) : ValidationAttribute(errorMessage)
 {
-    private readonly string _otherPropertyName;
-    private readonly string _frequencyPropertyName;
-
-    public EndDateGreaterThanStartDateFrequencyPeriodValidation(string otherPropertyName, string frequencyPropertyName, string errorMessage) : base(errorMessage)
-    {
-        _otherPropertyName = otherPropertyName;
-        _frequencyPropertyName = frequencyPropertyName;
-
-    }
+    private readonly string _otherPropertyName = otherPropertyName;
+    private readonly string _frequencyPropertyName = frequencyPropertyName;
 
     protected override ValidationResult IsValid(object value, ValidationContext validationContext)
     {
-        var containerType = validationContext.ObjectInstance.GetType();
-        var field = containerType.GetProperty(_otherPropertyName, BindingFlags.Public | BindingFlags.Instance);
-        var extensionValue = field.GetValue(validationContext.ObjectInstance);
-        var startDate = extensionValue as DateTime?;
+        Type containerType = validationContext.ObjectInstance.GetType();
+        PropertyInfo field = containerType.GetProperty(_otherPropertyName, BindingFlags.Public | BindingFlags.Instance);
+        object extensionValue = field.GetValue(validationContext.ObjectInstance);
+        DateTime? startDate = extensionValue as DateTime?;
 
-
-        var frequencyField = containerType.GetProperty(_frequencyPropertyName, BindingFlags.Public | BindingFlags.Instance);
-        var frequencyValue = frequencyField.GetValue(validationContext.ObjectInstance);
-        var frequency = frequencyValue as string;
+        PropertyInfo frequencyField = containerType.GetProperty(_frequencyPropertyName, BindingFlags.Public | BindingFlags.Instance);
+        object frequencyValue = frequencyField.GetValue(validationContext.ObjectInstance);
+        string frequency = frequencyValue as string;
 
         if (!startDate.HasValue)
             return new ValidationResult("Should enter valid Start Date");
-        //"Daily", "Weekly", "Fortnightly", "Monthly Date","Monthly Day","Yearly"
+        // "Daily", "Weekly", "Fortnightly", "Monthly Date", "Monthly Day", "Yearly"
 
-        var endDate = value as DateTime?;
+        DateTime? endDate = value as DateTime?;
         if (!endDate.HasValue)
             return ValidationResult.Success;
 
-        var validationDate = startDate.Value;
-        string validationMessage = "End date should be after Start Date";
+        DateTime validationDate = startDate.Value;
+        string validationMessage;
+
         switch (frequency)
         {
             case "Daily":
@@ -63,8 +59,10 @@ public class EndDateGreaterThanStartDateFrequencyPeriodValidation : ValidationAt
             default:
                 return ValidationResult.Success;
         }
+
         if (endDate.Value.Date >= validationDate)
             return ValidationResult.Success;
+
         return new ValidationResult(validationMessage);
     }
 }

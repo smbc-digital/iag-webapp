@@ -2,19 +2,22 @@
 
 public class ReCaptchaValidationTests
 {
-    public Mock<IApplicationConfiguration> _config = new Mock<IApplicationConfiguration>();
-    private Mock<IHttpClient> _httpClient;
+    public Mock<IApplicationConfiguration> _config = new();
+    private readonly Mock<IHttpClient> _httpClient = new();
     private ValidateReCaptchaAttribute validationMethod;
     private ModelStateDictionary modelState;
     private ActionExecutingContext actionExcecutingContext;
-    private readonly Mock<IFeatureManager> _featureManager;
+    private readonly Mock<IFeatureManager> _featureManager = new();
 
     public ReCaptchaValidationTests()
     {
-        _httpClient = new Mock<IHttpClient>();
-        _featureManager = new Mock<IFeatureManager>();
-        _featureManager.Setup(_ => _.IsEnabledAsync("EnableReCaptchaValidation")).Returns(Task.FromResult(true));
-        _config.Setup(x => x.GetReCaptchaKey()).Returns(AppSetting.GetAppSetting("recaptchakey"));
+        _featureManager
+            .Setup(manager => manager.IsEnabledAsync("EnableReCaptchaValidation"))
+            .Returns(Task.FromResult(true));
+        
+        _config
+            .Setup(conf => conf.GetReCaptchaKey())
+            .Returns(AppSetting.GetAppSetting("recaptchakey"));
     }
 
     [Fact]
@@ -22,18 +25,20 @@ public class ReCaptchaValidationTests
     {
         // Arrange
         SetUpParameters();
-        var responseMessage = new HttpResponseMessage();
-        responseMessage.Content = new StringContent("{\"success\": true,\"challenge_ts\": \"2017-05-23T15:50:16Z\",\"hostname\": \"stockportgov.local\"}");
+        HttpResponseMessage responseMessage = new()
+        {
+            Content = new StringContent("{\"success\": true,\"challenge_ts\": \"2017-05-23T15:50:16Z\",\"hostname\": \"stockportgov.local\"}")
+        };
 
-        _httpClient.Setup(
-                x => x.PostRecaptchaAsync("https://www.google.com/recaptcha/api/siteverify", It.IsAny<FormUrlEncodedContent>()))
+        _httpClient
+            .Setup(client => client.PostRecaptchaAsync("https://www.google.com/recaptcha/api/siteverify", It.IsAny<FormUrlEncodedContent>()))
             .ReturnsAsync(responseMessage);
 
         // Act
-        var response = validationMethod.OnActionExecutionAsync(actionExcecutingContext, null);
+        Task response = validationMethod.OnActionExecutionAsync(actionExcecutingContext, null);
 
         // Assert
-        modelState.IsValid.Should().Be(true);
+        Assert.True(modelState.IsValid);
     }
 
     [Fact]
@@ -41,41 +46,44 @@ public class ReCaptchaValidationTests
     {
         // Arrange
         SetUpParameters();
-        var responseMessage = new HttpResponseMessage();
-        responseMessage.Content = new StringContent("{\"success\": false,\"challenge_ts\": \"2017-05-23T15:50:16Z\",\"hostname\": \"stockportgov.local\"}");
+        HttpResponseMessage responseMessage = new()
+        {
+            Content = new StringContent("{\"success\": false,\"challenge_ts\": \"2017-05-23T15:50:16Z\",\"hostname\": \"stockportgov.local\"}")
+        };
 
-        _httpClient.Setup(
-                x => x.PostRecaptchaAsync("https://www.google.com/recaptcha/api/siteverify", It.IsAny<FormUrlEncodedContent>()))
+        _httpClient
+            .Setup(client => client.PostRecaptchaAsync("https://www.google.com/recaptcha/api/siteverify", It.IsAny<FormUrlEncodedContent>()))
             .ReturnsAsync(responseMessage);
 
         // Act
-        var response = validationMethod.OnActionExecutionAsync(actionExcecutingContext, null);
+        Task response = validationMethod.OnActionExecutionAsync(actionExcecutingContext, null);
 
         // Assert
-        modelState.IsValid.Should().Be(false);
+        Assert.False(modelState.IsValid);
     }
 
     private void SetUpParameters()
     {
-        validationMethod = new ValidateReCaptchaAttribute(_config.Object, _httpClient.Object, _featureManager.Object);
-        modelState = new ModelStateDictionary();
-        var httpContenxt = new DefaultHttpContext();
+        validationMethod = new(_config.Object, _httpClient.Object, _featureManager.Object);
+        modelState = new();
+        DefaultHttpContext httpContenxt = new();
 
-        Dictionary<string, StringValues> formRecaptchaToken = new Dictionary<string, StringValues>();
-        formRecaptchaToken.Add("g-recaptcha-response", "testValue");
+        Dictionary<string, StringValues> formRecaptchaToken = new()
+        {
+            { "g-recaptcha-response", "testValue" }
+        };
 
         httpContenxt.Request.Form = new FormCollection(formRecaptchaToken);
 
-        var actionContext = new ActionContext(
+        ActionContext actionContext = new(
             httpContenxt,
             new Mock<RouteData>().Object,
             new Mock<ActionDescriptor>().Object,
             modelState);
 
-        actionExcecutingContext = new ActionExecutingContext(
-        actionContext,
-        new List<IFilterMetadata>(),
-        new Dictionary<string, object>(),
-        new Mock<Controller>());
+        actionExcecutingContext = new(actionContext,
+                                    new List<IFilterMetadata>(),
+                                    new Dictionary<string, object>(),
+                                    new Mock<Controller>());
     }
 }

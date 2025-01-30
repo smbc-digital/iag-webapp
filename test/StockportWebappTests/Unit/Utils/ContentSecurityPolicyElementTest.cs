@@ -6,24 +6,23 @@ public class ContentSecurityPolicyElementTest
     public void CspElementContainsSpecifiedSourceType()
     {
         // Arrange
-        string specifiedSourceType = "specified-source-type";
-        var cspElement = new ContentSecurityPolicyElement(specifiedSourceType);
+        ContentSecurityPolicyElement cspElement = new("specified-source-type");
 
         // Act
-        var elementString = cspElement.Finish();
+        string elementString = cspElement.Finish();
 
         // Assert
-        Assert.Contains(specifiedSourceType, elementString);
+        Assert.Contains("specified-source-type", elementString);
     }
 
     [Fact]
     public void CspElementContainsSelfByDefault()
     {
         // Arrange
-        var cspElement = new ContentSecurityPolicyElement("source");
+        ContentSecurityPolicyElement cspElement = new("source");
 
         // Act
-        var elementString = cspElement.Finish();
+        string elementString = cspElement.Finish();
 
         // Assert
         Assert.Contains(" 'self'", elementString);
@@ -33,10 +32,10 @@ public class ContentSecurityPolicyElementTest
     public void CspElementDoesNotContainSelfIfRequestedNotTo()
     {
         // Arrange
-        var cspElement = new ContentSecurityPolicyElement("source", containsSelf: false);
+        ContentSecurityPolicyElement cspElement = new("source", containsSelf: false);
 
         // Act
-        var elementString = cspElement.Finish();
+        string elementString = cspElement.Finish();
 
         // Assert
         Assert.DoesNotContain(" 'self'", elementString);
@@ -46,219 +45,189 @@ public class ContentSecurityPolicyElementTest
     public void CspElementContainsSpecifiedSource()
     {
         // Arrange
-        string specifiedSource = "specified-source";
-        var cspElement = new ContentSecurityPolicyElement("sourceType");
+        ContentSecurityPolicyElement cspElement = new("sourceType");
 
         // Act
-        var elementString = cspElement
-            .AddSource(specifiedSource)
+        string elementString = cspElement
+            .AddSource("specified-source")
             .Finish();
 
         // Assert
-        Assert.Contains(specifiedSource, elementString);
+        Assert.Contains("specified-source", elementString);
     }
 
     [Fact]
     public void CspElementAddsHttpAndHttpsToSource()
     {
         // Arrange
-        string specifiedSource = "specified-source";
-        string specifiedSourceWithHttp = "http://" + specifiedSource;
-        string specifiedSourceWithHttps = "https://" + specifiedSource;
-        var cspElement = new ContentSecurityPolicyElement("sourceType");
+        ContentSecurityPolicyElement cspElement = new("sourceType");
 
         // Act
-        var elementString = cspElement
-            .AddSource(specifiedSource)
+        string elementString = cspElement
+            .AddSource("specified-source")
             .Finish();
 
         // Assert
-        Assert.True(elementString.Contains(specifiedSourceWithHttp)
-            && elementString.Contains(specifiedSourceWithHttps));
+        Assert.True(elementString.Contains("http://specified-source") && elementString.Contains("https://specified-source"));
     }
 
     [Fact]
     public void CspElementDoesNotAddHttpAndHttpsToUnsafeInline()
     {
         // Arrange
-        string unsafeInline = "'unsafe-inline'";
-        string unsafeInlineWithHttp = "http://" + unsafeInline;
-        string unsafeInlineWithHttps = "https://" + unsafeInline;
-        var cspElement = new ContentSecurityPolicyElement("sourceType");
+        ContentSecurityPolicyElement cspElement = new("sourceType");
 
         // Act
-        var elementString = cspElement
-            .AddSource(unsafeInline)
+        string elementString = cspElement
+            .AddSource("'unsafe-inline'")
             .Finish();
 
         // Assert
-        Assert.True(elementString.Contains(unsafeInline)
-            && !elementString.Contains(unsafeInlineWithHttp)
-            && !elementString.Contains(unsafeInlineWithHttps));
+        Assert.True(elementString.Contains("'unsafe-inline'")
+            && !elementString.Contains("http://'unsafe-inline'")
+            && !elementString.Contains("https://'unsafe-inline'"));
     }
 
     [Fact]
     public void CspElementDoesNotAddHttpAndHttpsToUnsafeEval()
     {
         // Arrange
-        string unsafeEval = "'unsafe-eval'";
-        string unsafeEvalWithHttp = "http://" + unsafeEval;
-        string unsafeEvalWithHttps = "https://" + unsafeEval;
-        var cspElement = new ContentSecurityPolicyElement("sourceType");
+        ContentSecurityPolicyElement cspElement = new("sourceType");
 
         // Act
-        var elementString = cspElement
-            .AddSource(unsafeEval)
+        string elementString = cspElement
+            .AddSource("'unsafe-eval'")
             .Finish();
 
         // Assert
-        Assert.True(elementString.Contains(unsafeEval)
-            && !elementString.Contains(unsafeEvalWithHttp)
-            && !elementString.Contains(unsafeEvalWithHttps));
+        Assert.True(elementString.Contains("'unsafe-eval'")
+            && !elementString.Contains("http://'unsafe-eval'")
+            && !elementString.Contains("https://'unsafe-eval'"));
     }
 
     [Fact]
     public void CspElementDoesNotAddHttpAndHttpsToData()
     {
         // Arrange
-        string data = "data:";
-        string dataWithHttp = "http://" + data;
-        string dataWithHttps = "https://" + data;
-        var cspElement = new ContentSecurityPolicyElement("sourceType");
+        ContentSecurityPolicyElement cspElement = new("sourceType");
 
         // Act
-        var elementString = cspElement
-            .AddSource(data)
+        string elementString = cspElement
+            .AddSource("data:")
             .Finish();
 
         // Assert
-        Assert.True(elementString.Contains(data)
-            && !elementString.Contains(dataWithHttp)
-            && !elementString.Contains(dataWithHttps));
+        Assert.True(elementString.Contains("data:")
+            && !elementString.Contains("http://data:")
+            && !elementString.Contains("https://data:"));
     }
 
     [Fact]
     public void CspElementDoesNotAddHttpAndHttpsToSourceStartingWithWildcard()
     {
         // Arrange
-        string wildcardSource = "*.source.com";
-        string wildcardSourceWithHttp = "http://" + wildcardSource;
-        string wildcardSourceWithHttps = "https://" + wildcardSource;
-        var cspElement = new ContentSecurityPolicyElement("sourceType");
+        ContentSecurityPolicyElement cspElement = new("sourceType");
 
         // Act
-        var elementString = cspElement
-            .AddSource(wildcardSource)
+        string elementString = cspElement
+            .AddSource("*.source.com")
             .Finish();
 
         // Assert
-        Assert.True(elementString.Contains(wildcardSource)
-            && !elementString.Contains(wildcardSourceWithHttp)
-            && !elementString.Contains(wildcardSourceWithHttps));
+        Assert.True(elementString.Contains("*.source.com")
+            && !elementString.Contains("http://*.source.com")
+            && !elementString.Contains("https://*.source.com"));
     }
 
     [Fact]
     public void CspElementDoesNotAddHttpAndHttpsToHttps()
     {
         // Arrange
-        string https = "https:";
-        string httpsWithHttp = "http://" + https;
-        string httpsWithHttps = "https://" + https;
-        var cspElement = new ContentSecurityPolicyElement("sourceType");
+        ContentSecurityPolicyElement cspElement = new("sourceType");
 
         // Act
-        var elementString = cspElement
-            .AddSource(https)
+        string elementString = cspElement
+            .AddSource("https:")
             .Finish();
 
         // Assert
-        Assert.True(elementString.Contains(https)
-            && !elementString.Contains(httpsWithHttp)
-            && !elementString.Contains(httpsWithHttps));
+        Assert.True(elementString.Contains("https:")
+            && !elementString.Contains("http://https:")
+            && !elementString.Contains("https://https:"));
     }
 
     [Fact]
     public void CspElementDoesNotDuplicateHttpIfSourceAlreadyHasIt()
     {
         // Arrange
-        string specifiedSource = "http://specified-source";
-        string specifiedSourceWithExtraHttp = "http://" + specifiedSource;
-        var cspElement = new ContentSecurityPolicyElement("sourceType");
+        ContentSecurityPolicyElement cspElement = new("sourceType");
 
         // Act
-        var elementString = cspElement
-            .AddSource(specifiedSource)
+        string elementString = cspElement
+            .AddSource("http://specified-source")
             .Finish();
 
         // Assert
-        Assert.True(elementString.Contains(specifiedSource)
-            && !elementString.Contains(specifiedSourceWithExtraHttp));
+        Assert.True(elementString.Contains("http://specified-source")
+            && !elementString.Contains("http://http://specified-source"));
     }
 
     [Fact]
     public void CspElementDoesNotDuplicateHttpsIfSourceAlreadyHasIt()
     {
         // Arrange
-        string specifiedSource = "https://specified-source";
-        string specifiedSourceWithExtraHttps = "https://" + specifiedSource;
-        var cspElement = new ContentSecurityPolicyElement("sourceType");
+        ContentSecurityPolicyElement cspElement = new("sourceType");
 
         // Act
-        var elementString = cspElement
-            .AddSource(specifiedSource)
+        string elementString = cspElement
+            .AddSource("https://specified-source")
             .Finish();
 
         // Assert
-        Assert.True(elementString.Contains(specifiedSource)
-            && !elementString.Contains(specifiedSourceWithExtraHttps));
+        Assert.True(elementString.Contains("https://specified-source")
+            && !elementString.Contains("https://https://specified-source"));
     }
 
     [Fact]
     public void CspElementAddsHttpsIfSourceAlreadyHasHttp()
     {
         // Arrange
-        string rawSource = "raw-source";
-        string specifiedSource = "http://" + rawSource;
-        string specifiedSourceWithHttpsInsteadOfHttp = "https://" + rawSource;
-        var cspElement = new ContentSecurityPolicyElement("sourceType");
+        ContentSecurityPolicyElement cspElement = new("sourceType");
 
         // Act
-        var elementString = cspElement
-            .AddSource(specifiedSource)
+        string elementString = cspElement
+            .AddSource("http://raw-source")
             .Finish();
 
         // Assert
-        Assert.True(elementString.Contains(specifiedSource)
-            && elementString.Contains(specifiedSourceWithHttpsInsteadOfHttp));
+        Assert.True(elementString.Contains("http://raw-source")
+            && elementString.Contains("https://raw-source"));
     }
 
     [Fact]
     public void CspElementAddsHttpIfSourceAlreadyHasHttps()
     {
         // Arrange
-        string rawSource = "raw-source";
-        string specifiedSource = "https://" + rawSource;
-        string specifiedSourceWithHttpInsteadOfHttps = "http://" + rawSource;
-        var cspElement = new ContentSecurityPolicyElement("sourceType");
+        ContentSecurityPolicyElement cspElement = new("sourceType");
 
         // Act
-        var elementString = cspElement
-            .AddSource(specifiedSource)
+        string elementString = cspElement
+            .AddSource("https://raw-source")
             .Finish();
 
         // Assert
-        Assert.True(elementString.Contains(specifiedSource)
-            && elementString.Contains(specifiedSourceWithHttpInsteadOfHttps));
+        Assert.True(elementString.Contains("https://raw-source")
+            && elementString.Contains("http://raw-source"));
     }
 
     [Fact]
     public void CspElementEndsWithSemiColonAndSpace()
     {
         // Arrange
-        var cspElement = new ContentSecurityPolicyElement("source-type");
+        ContentSecurityPolicyElement cspElement = new("source-type");
 
         // Act
-        var elementString = cspElement.Finish();
+        string elementString = cspElement.Finish();
 
         // Assert
         Assert.EndsWith("; ", elementString);
@@ -268,29 +237,6 @@ public class ContentSecurityPolicyElementTest
     public void CspElementContainsAllPartsInCorrectOrder()
     {
         // Arrange
-        string sourceType = "source-type";
-        string sourcewithHttp = "http://source1.com";
-        string sourcewithHttps = "https://source2.com";
-        string plainSource = "source3.com";
-        string sourceWithwildcard = "*.source4.com";
-        string data = "data:";
-        string https = "https:";
-        string unsafeEval = "'unsafe-eval'";
-        string unsafeInline = "'unsafe-inline'";
-
-        // Act
-        var elementString = new ContentSecurityPolicyElement(sourceType)
-            .AddSource(sourcewithHttp)
-            .AddSource(sourcewithHttps)
-            .AddSource(plainSource)
-            .AddSource(sourceWithwildcard)
-            .AddSource(data)
-            .AddSource(https)
-            .AddSource(unsafeEval)
-            .AddSource(unsafeInline)
-            .Finish();
-
-        // Assert
         string expectedElement =
             "source-type 'self'" +
             " http://source1.com https://source1.com" +
@@ -302,6 +248,20 @@ public class ContentSecurityPolicyElementTest
             " 'unsafe-eval'" +
             " 'unsafe-inline'" +
             "; ";
+
+        // Act
+        string elementString = new ContentSecurityPolicyElement("source-type")
+            .AddSource("http://source1.com")
+            .AddSource("https://source2.com")
+            .AddSource("source3.com")
+            .AddSource("*.source4.com")
+            .AddSource("data:")
+            .AddSource("https:")
+            .AddSource("'unsafe-eval'")
+            .AddSource("'unsafe-inline'")
+            .Finish();
+
+        // Assert
         Assert.Equal(expectedElement, elementString);
     }
 }

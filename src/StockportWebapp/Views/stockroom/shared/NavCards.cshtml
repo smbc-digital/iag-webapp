@@ -1,0 +1,11 @@
+﻿@model NavCardList
+@{
+    string type = (string)ViewData["itemsType"] ?? string.Empty;
+}
+
+<ul class="card-wrapper">
+    @foreach (NavCard item in Model.Items)
+    {
+        <partial name="NavCard" model="@item" view-data='@(new ViewDataDictionary(ViewData) { { "type", type } })' />
+    }
+</ul>

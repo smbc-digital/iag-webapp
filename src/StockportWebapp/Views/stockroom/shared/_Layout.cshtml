@@ -1,0 +1,66 @@
+﻿@using StockportWebapp.Models.Config
+@inject IApplicationConfiguration ApplicationConfiguration
+@inject BusinessId BusinessId
+
+<!DOCTYPE html>
+<html lang=en-GB>
+    <head>
+        <meta charset=utf-8 />
+        <meta name=viewport content="width=device-width, initial-scale=1" />
+        <title>@ViewData["Title"] - Stockroom</title>
+        <meta name=description content='@ViewData["Description"]' />
+        <meta property=og:title content='@ViewData["og:title"]' />
+
+        <link rel=stylesheet href=~/assets/stylesheets/vendor/unsemantic-grid-responsive-tablet.min.css asp-append-version=true />
+        <link rel=stylesheet href=~/assets/stylesheets/site-stockroom.min.css asp-append-version=true />
+
+        <link rel="preload" href="/assets/fonts/OTNeueMontreal-BoldExtraSqueezed.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+        <link rel="preload" href="/assets/fonts/OTNeueMontreal-BoldSemiSqueezed.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+        <link rel="preload" href="/assets/fonts/OTNeueMontreal-RegularSemiSqueezed.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+
+        <script src="https://kit.fontawesome.com/d14fbc06e0.js" crossorigin="anonymous"></script>
+    
+        <noscript>
+            <link rel=stylesheet href="https://kit.fontawesome.com/d14fbc06e0.css" crossorigin="anonymous">
+        </noscript>
+        
+        <noscript>
+            <style>
+                iframe, .video-wrapper, .carousel-control {
+                    display: none;
+                }
+            </style>
+        </noscript>
+
+        <script type=text/javascript src=~/assets/javascript/vendor/require.min.js asp-append-version=true></script>
+</head>
+<body>
+    <partial name=CookieNotice />
+    <partial name=GoogleAnalytics />
+    <distributed-cache name=headerStockroom expires-after=@TimeSpan.FromMinutes(ApplicationConfiguration.GetHeaderCache(BusinessId.ToString())) enabled=true>
+        @await Component.InvokeAsync("Header")
+    </distributed-cache>
+        
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const currentUrl = window.location.pathname;
+            const menuItems = document.querySelectorAll(".site-header_menu-item a");
+
+            menuItems.forEach(link => {
+                const linkHref = link.getAttribute("href");
+                if (currentUrl === linkHref || currentUrl.startsWith(linkHref + "/")) {
+                    link.parentElement.classList.add("active");
+                }
+            });
+        });
+    </script>
+
+    <main id="content" tabindex="-1">
+        @RenderBody()
+    </main>
+        
+    <distributed-cache name=footerStockroom expires-after=@TimeSpan.FromMinutes(ApplicationConfiguration.GetFooterCache(BusinessId.ToString())) enabled=true>
+        @await Component.InvokeAsync("Footer")
+    </distributed-cache>
+</body>
+</html>

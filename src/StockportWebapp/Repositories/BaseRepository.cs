@@ -25,13 +25,15 @@ public class BaseRepository : IBaseRepository
     {
         try
         {
-            var response = await _httpClient.Get(url, _authenticationHeaders);
+            HttpResponse response = await _httpClient.Get(url, _authenticationHeaders);
+
             return JsonConvert.DeserializeObject<T>(response.Content as string);
         }
         catch (Exception ex)
         {
             _logger.LogError(new EventId(0), ex, $"Error getting response for url {url}");
-            return default(T);
+
+            return default;
         }
     }
 
@@ -39,18 +41,21 @@ public class BaseRepository : IBaseRepository
     {
         try
         {
-            var response = await _httpClient.PutAsync(url, httpContent, _authenticationHeaders);
+            HttpResponse response = await _httpClient.PutAsync(url, httpContent, _authenticationHeaders);
+
             return (HttpStatusCode)Enum.Parse(typeof(HttpStatusCode), response.StatusCode.ToString());
         }
         catch (Exception ex)
         {
             _logger.LogError(new EventId(0), ex, $"Error getting response for url {url}");
+
             throw;
         }
     }
 
     public void AddHeader(string key, string value)
     {
-        if (!_authenticationHeaders.ContainsKey(key)) _authenticationHeaders.Add(key, value);
+        if (!_authenticationHeaders.ContainsKey(key))
+            _authenticationHeaders.Add(key, value);
     }
 }

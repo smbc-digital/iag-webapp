@@ -1,20 +1,12 @@
 ﻿namespace StockportWebapp.Models.Groups;
 [ExcludeFromCodeCoverage]
-public class GroupBranding
+public class GroupBranding(string title, string text, MediaAsset file, string url)
 {
-    public string Title { get; set; }
+    public string Title { get; set; } = title;
 
-    public string Text { get; set; }
+    public string Text { get; set; } = text;
 
-    public MediaAsset File { get; set; } = new MediaAsset();
+    public MediaAsset File { get; set; } = file;
 
-    public string Url { get; set; }
-
-    public GroupBranding(string title, string text, MediaAsset file, string url)
-    {
-        Title = title;
-        Text = text;
-        File = file;
-        Url = url;
-    }
+    public string Url { get; set; } = url;
 }
