@@ -11,6 +11,8 @@ public class PaymentControllerTest
     private readonly Mock<ICivicaPayGateway> _civicaPayGateway = new();
     private readonly Mock<IOptions<CivicaPayConfiguration>> _configuration = new();
     private readonly Mock<IObjectModelValidator> _objectValidator = new();
+    private readonly Mock<IFeatureManager> _featureManager = new();
+
 
     private readonly ProcessedPayment _processedPayment = new("title",
                                                             "slug",
@@ -84,12 +86,12 @@ public class PaymentControllerTest
                 It.IsAny<string>(),
                 It.IsAny<object>()));
 
-        _paymentController = new(_fakeRepository.Object, _civicaPayGateway.Object, _configuration.Object)
+        _paymentController = new(_fakeRepository.Object, _civicaPayGateway.Object, _configuration.Object, _featureManager.Object)
         {
             ControllerContext = mockControllerContextPayment
         };
 
-        _paymentControllerWithServicePayPaymentPath = new(_fakeRepository.Object, _civicaPayGateway.Object, _configuration.Object)
+        _paymentControllerWithServicePayPaymentPath = new(_fakeRepository.Object, _civicaPayGateway.Object, _configuration.Object, _featureManager.Object)
         {
             ControllerContext = mockControllerContextServicePayPayment
         };
