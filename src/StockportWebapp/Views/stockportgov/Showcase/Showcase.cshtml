@@ -135,7 +135,7 @@
                 {
                     Events = Model.Events,
                     Heading = Model.EventSubheading,
-                    Link = Model.EventsCategoryOrTag.Equals("T") ? $"{Url.Action("Index", "Events")}?tag={Model.EventCategory}" : $"{Url.Action("Index", "Events")}?category={Model.EventCategory}",
+                                Link = Model.EventsCategoryOrTag is not null && Model.EventsCategoryOrTag.Equals("T") ? $"{Url.Action("Index", "Events")}?tag={Model.EventCategory}" : $"{Url.Action("Index", "Events")}?category={Model.EventCategory}",
                     LinkText = Model.EventsReadMoreText
                 };
 
