@@ -25,13 +25,43 @@
                                 <input type="radio" asp-for="@Model.DateSelection" value="nextMonth" id="radio-next-month" class="events-filters__radio"/>
                                 <label for="radio-next-month" class="events-filters__label">Next month</label>
                             </div>
+                            
+                            <div class="events-filters-wrapper hide-on-desktop">
+                                <div class="events-filters-wrapper__labels">
+                                    <label for="event-date" class="events-filters__date-label">Date</label>
+                                    <label for="event-category" class="events-filters__date-label">Category</label>
+                                    
+                                </div>
 
-                            <div class="events-filters__radio-item">
+                                <div class="events-filters__date-label--margins">
+                                    <input type="date" id="event-date" asp-for="@Model.DateSelection" placeholder="Select date" class="events-filters__date" />
+
+                                    <select id="event-category" asp-for="@Model.Category" placeholder="Cateogory" class="events-filters__date">
+                                        @foreach (EventCategory eventCategory in Model.Homepage.Categories)
+                                        {
+                                            if (Model.SelectedCategory is not null && eventCategory.Slug.Equals(Model.SelectedCategory.Slug))
+                                            {
+                                                <option value="@eventCategory.Slug" selected)>
+                                                    @eventCategory.Name
+                                                </option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@eventCategory.Slug" )>
+                                                    @eventCategory.Name
+                                                </option>
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="events-filters__radio-item hide-on-tablet hide-on-mobile">
                                 <label for="event-date" class="events-filters__date-label">Date</label>
                                 <input type="date" id="event-date" asp-for="@Model.DateSelection" placeholder="Select date" class="events-filters__date" />
                             </div>
 
-                            <div class="events-filters__radio-item">
+                            <div class="events-filters__radio-item hide-on-tablet hide-on-mobile">
                                 <label for="event-category" class="events-filters__date-label">Category</label>
                                 <select id="event-category" asp-for="@Model.Category" placeholder="Cateogory" class="events-filters__date">
                                     @foreach (EventCategory eventCategory in Model.Homepage.Categories)

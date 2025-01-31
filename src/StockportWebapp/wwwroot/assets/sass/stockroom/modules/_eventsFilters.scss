@@ -49,6 +49,7 @@
 
         &-label {
             margin-right: 0.5em;
+            height: 44px !important;
         }
     }
 
@@ -153,4 +154,31 @@
         box-shadow: none;
         outline: none;
     }
+}
+
+
+
+.events-filters-wrapper {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+
+    &__labels {
+        display: flex;
+        flex-direction: column;
+        row-gap: .5em;
+        margin-right: .5em;
+        place-content: center;
+
+        label {
+            height: 46px;
+            align-content: center;
+        }
+    }
+}
+
+.events-filters__date-label--margins {
+    display: flex;
+    flex-direction: column;
+    row-gap: .5em;
 }
