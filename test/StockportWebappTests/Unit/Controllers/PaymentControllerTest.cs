@@ -254,6 +254,7 @@ public class PaymentControllerTest
             .ReturnsAsync(new HttpResponse<CreateImmediateBasketResponse>
             {
                 StatusCode = HttpStatusCode.OK,
+                IsSuccessStatusCode = true,
                 ResponseContent = new CreateImmediateBasketResponse
                 {
                     BasketReference = "testRef",

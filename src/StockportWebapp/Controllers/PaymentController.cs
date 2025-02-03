@@ -1,4 +1,6 @@
 ﻿using Microsoft.Extensions.Options;
+using StockportGovUK.NetStandard.Gateways.Models.Civica.Pay.Response;
+using StockportGovUK.NetStandard.Gateways.Response;
 using StockportWebapp.Configuration;
 
 namespace StockportWebapp.Controllers;
@@ -48,7 +50,7 @@ public class PaymentController(IProcessedContentRepository repository,
     {
         TryValidateModel(paymentSubmission);
         HttpResponse response = await _repository.Get<Payment>(slug);
-        
+
         if (!response.IsSuccessful())
             return response;
 
@@ -63,13 +65,14 @@ public class PaymentController(IProcessedContentRepository repository,
         }
 
         CreateImmediateBasketRequest civicaPayRequest = GetCreateImmediateBasketRequest(slug, paymentSubmission, $"WEB {Guid.NewGuid()}");
-        StockportGovUK.NetStandard.Gateways.Response.HttpResponse<StockportGovUK.NetStandard.Gateways.Models.Civica.Pay.Response.CreateImmediateBasketResponse> civicaPayResponse = await _civicaPayGateway.CreateImmediateBasketAsync(civicaPayRequest);
 
-        if (civicaPayResponse.IsSuccessStatusCode && civicaPayResponse.ResponseContent.ResponseCode == CIVICA_PAY_SUCCESS)
+        HttpResponse<CreateImmediateBasketResponse> civicaPayResponse = await _civicaPayGateway.CreateImmediateBasketAsync(civicaPayRequest);
+
+        if (civicaPayResponse.IsSuccessStatusCode && civicaPayResponse.ResponseContent.ResponseCode.Equals(CIVICA_PAY_SUCCESS))
             return Redirect(_civicaPayGateway.GetPaymentUrl(civicaPayResponse.ResponseContent.BasketReference, civicaPayResponse.ResponseContent.BasketToken, civicaPayRequest.CallingAppTranReference));
 
         if (civicaPayResponse.StatusCode == HttpStatusCode.BadRequest
-            && civicaPayResponse.ResponseContent.ResponseCode == CIVICA_PAY_INVALID_DETAILS)
+            && civicaPayResponse.ResponseContent.ResponseCode.Equals(CIVICA_PAY_INVALID_DETAILS))
         {
             ModelState.AddModelError("Reference", $"Check {paymentSubmission.Payment.ReferenceLabel.ToLower()} and try again.");
             return View(paymentSubmission);
@@ -94,27 +97,28 @@ public class PaymentController(IProcessedContentRepository repository,
                             ? response.Content as ProcessedServicePayPayment
                             : response.Content as ProcessedPayment;
 
-        PaymentResult paymentResult = new PaymentResult(slug, payment.Title, payment.Breadcrumbs, callingAppTxnRef);
+        PaymentResult paymentResult = new(slug, payment.Title, payment.Breadcrumbs, callingAppTxnRef);
 
-        if (responseCode != "00000")
+        if (!responseCode.Equals(CIVICA_PAY_SUCCESS))
         {
             if (_featureManager.IsEnabledAsync(PAYMENTS_TOGGLE).Result)
             {
-                paymentResult.PaymentResultType = responseCode == CIVICA_PAY_DECLINED
-                                            || responseCode == CIVICA_PAY_DECLINED_OTHER
+                paymentResult.PaymentResultType = responseCode.Equals(CIVICA_PAY_DECLINED)
+                                            || responseCode.Equals(CIVICA_PAY_DECLINED_OTHER)
                                                 ? PaymentResultType.Declined
                                                 : PaymentResultType.Failure;
+
                 return View("Result", paymentResult);
             }
 
             if (isServicePay)
             {
-                return responseCode == CIVICA_PAY_DECLINED || responseCode == CIVICA_PAY_DECLINED_OTHER
+                return responseCode.Equals(CIVICA_PAY_DECLINED) || responseCode.Equals(CIVICA_PAY_DECLINED_OTHER)
                         ? View("../ServicePayPayment/Declined", slug)
                         : View("../ServicePayPayment/Failure", slug);
             }
 
-            return responseCode == CIVICA_PAY_DECLINED || responseCode == CIVICA_PAY_DECLINED_OTHER
+            return responseCode.Equals(CIVICA_PAY_DECLINED) || responseCode.Equals(CIVICA_PAY_DECLINED_OTHER)
                     ? View("Declined", slug)
                     : View("Failure", slug);
         }
@@ -135,24 +139,28 @@ public class PaymentController(IProcessedContentRepository repository,
         CallingAppIdentifier = _civicaPayConfiguration.CallingAppIdentifier,
         CustomerID = _civicaPayConfiguration.CustomerID,
         ApiPassword = _civicaPayConfiguration.ApiPassword,
-        ReturnURL = !string.IsNullOrEmpty(paymentSubmission.Payment.ReturnUrl) ? paymentSubmission.Payment.ReturnUrl : $"{Request.Scheme}://{Request.Host}/payment/{slug}/result",
+        ReturnURL = !string.IsNullOrEmpty(paymentSubmission.Payment.ReturnUrl)
+            ? paymentSubmission.Payment.ReturnUrl
+            : $"{Request.Scheme}://{Request.Host}/payment/{slug}/result",
         NotifyURL = string.Empty,
         CallingAppTranReference = transactionReference,
-        PaymentItems = new System.Collections.Generic.List<PaymentItem>
+        PaymentItems = new List<PaymentItem>
         {
-                new()
+            new()
+            {
+                PaymentDetails = new PaymentDetail
                 {
-                    PaymentDetails = new PaymentDetail
-                    {
-                        CatalogueID =  paymentSubmission.Payment.CatalogueId,
-                        AccountReference = !string.IsNullOrEmpty( paymentSubmission.Payment.AccountReference) ?  paymentSubmission.Payment.AccountReference : paymentSubmission.Reference,
-                        PaymentAmount = paymentSubmission.Amount.ToString(),
-                        PaymentNarrative = $"{ paymentSubmission.Payment.PaymentDescription} - {paymentSubmission.Reference}",
-                        CallingAppTranReference = transactionReference,
-                        Quantity = "1"
-                    },
-                    AddressDetails = new AddressDetail()
-                }
+                    CatalogueID =  paymentSubmission.Payment.CatalogueId,
+                    AccountReference = !string.IsNullOrEmpty(paymentSubmission.Payment.AccountReference)
+                        ? paymentSubmission.Payment.AccountReference
+                        : paymentSubmission.Reference,
+                    PaymentAmount = paymentSubmission.Amount.ToString(),
+                    PaymentNarrative = $"{paymentSubmission.Payment.PaymentDescription} - {paymentSubmission.Reference}",
+                    CallingAppTranReference = transactionReference,
+                    Quantity = "1"
+                },
+                AddressDetails = new AddressDetail()
+            }
         }
     };
 }
