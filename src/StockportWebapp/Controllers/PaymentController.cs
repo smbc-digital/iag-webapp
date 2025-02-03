@@ -36,7 +36,7 @@ public class PaymentController(IProcessedContentRepository repository,
                 && serviceprocessed.ToUpper().Equals("FALSE"))
             ModelState.AddModelError(nameof(PaymentSubmission.Reference), error);
 
-        if (_featureManager.IsEnabledAsync(PAYMENTS_TOGGLE).Result)
+        if (await _featureManager.IsEnabledAsync("PaymentPage"))
             return View("Details2024", paymentSubmission);
 
         return View(paymentSubmission);
@@ -47,8 +47,8 @@ public class PaymentController(IProcessedContentRepository repository,
     public async Task<IActionResult> Detail(string slug, PaymentSubmission paymentSubmission)
     {
         TryValidateModel(paymentSubmission);
-
         HttpResponse response = await _repository.Get<Payment>(slug);
+        
         if (!response.IsSuccessful())
             return response;
 
@@ -56,7 +56,7 @@ public class PaymentController(IProcessedContentRepository repository,
 
         if (!ModelState.IsValid)
         {
-            if (_featureManager.IsEnabledAsync(PAYMENTS_TOGGLE).Result)
+            if (await _featureManager.IsEnabledAsync("PaymentPage"))
                 return View("Details2024", paymentSubmission);
 
             return View(paymentSubmission);
@@ -119,7 +119,7 @@ public class PaymentController(IProcessedContentRepository repository,
                     : View("Failure", slug);
         }
 
-        return _featureManager.IsEnabledAsync(PAYMENTS_TOGGLE).Result
+        return await _featureManager.IsEnabledAsync("PaymentPage")
             ? View("Result", paymentResult)
             : View("Success", new PaymentSuccess
             {

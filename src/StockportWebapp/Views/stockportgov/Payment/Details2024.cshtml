@@ -20,20 +20,18 @@
             <section class="article">
                 <article class="article--70">
                     @Html.Raw(Model.Payment.Description)
-
                     <hr />
 
                     <h2 class="h-m">Payment details</h2>
-                        
                     @Html.Raw(Model.Payment.PaymentDetailsText)
-                        
+
                     <form asp-controller="Payment" class="form" asp-action="Detail" method="post" role="form" enctype="multipart/form-data" data-cy="payment-page">
                         @Html.AntiForgeryToken()
-                            
+
                         <div class="form-section">
                             <fieldset>
                                 <label asp-for="Reference">@Model.Payment.ReferenceLabel</label>
-                                <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="Reference" type="text"  />
+                                <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="Reference" type="text" />
                                 <span class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent" role="alert" aria-atomic="true" asp-validation-for="Reference"></span>
 
                                 <label asp-for="Amount">Payment amount</label>
