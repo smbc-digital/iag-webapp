@@ -40,6 +40,11 @@
             margin: 0 0 2em 0;
         }
 
+        @media #{$large-mobile} {
+            width: calc(50% - 15px);
+            margin: 0 15px 2em 15px;
+        }
+
         &__image {
             max-height: max-content;
             border-radius: 20px 20px 0 0 !important;
@@ -49,10 +54,6 @@
             
             @media #{$tablet-only} {
                 min-height: min-content;
-            }
-
-            @media #{$large-mobile} {
-                aspect-ratio: 2 / 1.75;
             }
         }
 
@@ -130,17 +131,26 @@
                 margin-left: -15px;
                 padding-left: 13px;
             }
-
+            
             @media #{$mobile} {
                 border: none;
                 padding-top: 0;
             }
 
+            @media #{$large-mobile} {
+                margin-left: -15px;
+                padding-left: 13px;
+                border-left: 2px solid black;
+                flex: none;
+            }
+
             span {
-                display: inline-block;
-                vertical-align: middle;
+                display: block;
                 position: relative;
-                z-index: 1
+                z-index: 1;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
             }
 
             &--hidden {
@@ -149,6 +159,10 @@
 
                 @media #{$mobile} {
                     display: none;
+                }
+
+                @media #{$large-mobile} {
+                    display: block;
                 }
             }
         }
@@ -167,6 +181,24 @@
 
         &:nth-child(3n+3) {
             margin-inline-end: 0;
+        }
+
+        @media #{$large-mobile} {
+            &:nth-child(odd) {
+                margin: 0 15px 2em 0;
+
+                .card-item__date {
+                    border: none;
+                }
+            }
+    
+            &:nth-child(even) {
+                margin: 0 0 2em 15px;
+
+                .card-item__date {
+                    border-left: 2px solid black;
+                }
+            }
         }
     }
 }

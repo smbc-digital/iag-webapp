@@ -49,6 +49,16 @@
 
         &-label {
             margin-right: 0.5em;
+
+            @media #{$tablet} {
+                height: 44px !important;
+                width: 100px;
+            }
+        }
+
+        @media #{$tablet} {
+            width: 224px;
+            display: inline !important;
         }
     }
 
@@ -148,9 +158,33 @@
     }
 
     #event-category{
-        -webkit-appearance: none;
         appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
         box-shadow: none;
         outline: none;
+        background-color: #fff;
+        background-image: url(/assets/images/ui-images/chevron-down-black.svg);
+        background-position: right 0.65em center;
+        background-repeat: no-repeat;
+        background-size: 1em;
+        width: 69%;
+        
+        @media #{$tablet} {
+            text-align: left;
+            width: 250px;
+        }
+
+        @media #{$small-mobile} {
+            background-image: none;
+        }
+    }
+
+    &--width {
+        width: 32%;
+
+        @media #{$tablet} {
+            width: 100%;
+        }
     }
 }
