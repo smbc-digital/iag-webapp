@@ -2,6 +2,12 @@
 
 public class PaymentSubmission
 {
+    public PaymentSubmission()
+    {
+    }
+
+    public PaymentSubmission(ProcessedPayment payment) => Payment = payment;
+
     public ProcessedPayment Payment { get; set; } = new ProcessedPayment();
 
     [Required]
