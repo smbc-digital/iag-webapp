@@ -33,7 +33,9 @@
 
                             <div class="events-filters__radio-item events-filters--width">
                                 <label for="event-category" class="events-filters__date-label">Category</label>
-                                <select id="event-category" asp-for="@Model.Category" placeholder="Cateogory" class="events-filters__date">
+                                <select id="event-category" asp-for="@Model.Category" class="events-filters__date">
+                                    <option value="" selected="@(Model.SelectedCategory == null ? "selected" : null)">All categories</option>
+
                                     @foreach (EventCategory eventCategory in Model.Homepage.Categories)
                                     {
                                         if (Model.SelectedCategory is not null && eventCategory.Slug.Equals(Model.SelectedCategory.Slug))
@@ -53,7 +55,8 @@
                             </div>
                         </div>
 
-                        <input type="hidden" asp-for="@Model.Category"/>
+                        <input type="hidden" asp-for="@Model.Category" />
+                        <input type="hidden" asp-for="@Model.ShouldScroll" value="true" />
 
                         <noscript>
                             <div class="events-filters__button">
@@ -69,7 +72,7 @@
 </div>
 
 <script>
-    require(['/assets/javascript/config-a25a4e24.min.js'], function () {
+    require(['/assets/javascript/config-3f953d7b.min.js'], function () {
         require(['eventFilters'],
             function (eventFilters) {
                 eventFilters.Init();

@@ -32,7 +32,7 @@ public class EventCalendar
     public Pagination Pagination { get; set; }
     public EventHomepage Homepage { get; set; }
     public List<CarouselContent> CarouselContents { get; set; } = new();
-
+    public bool ShouldScroll { get; set; } = false;
     public EventCalendar() { }
 
     public bool FromSearch { get; set; }
