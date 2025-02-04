@@ -13,28 +13,30 @@ define(["jquery"], function ($) {
             });
 
             function checkEventDates() {
-                $('.card-wrapper').each(function () {
-                    $(this).find('.card-item').each(function (index, card) {
-                        var $card = $(card);
-                        var $nextCard = $card.next('.card-item');
-
-                        if ($nextCard.length) {
-                            var $date1 = $card.find('.card-item__date.event-same-date');
-                            var $date2 = $nextCard.find('.card-item__date.event-same-date');
-
-                            if (
-                                $date1.css('visibility') === 'hidden' &&
-                                $date2.css('visibility') === 'hidden'
-                            ) {
-                                $date1.css('display', 'none');
-                                $date2.css('display', 'none');
+                if (window.matchMedia("(min-width: 446px) and (max-width: 767px)").matches) {
+                    $('.card-wrapper').each(function () {
+                        $(this).find('.card-item').each(function () {
+                            var $card = $(this);
+                            var $nextCard = $card.next('.card-item');
+            
+                            if ($nextCard.length) {
+                                var $date1 = $card.find('.card-item__date.event-same-date');
+                                var $date2 = $nextCard.find('.card-item__date.event-same-date');
+            
+                                if (
+                                    $date1.css('visibility') === 'hidden' &&
+                                    $date2.css('visibility') === 'hidden'
+                                ) {
+                                    $date1.css('display', 'none');
+                                    $date2.css('display', 'none');
+                                }
                             }
-                        }
+                        });
                     });
-                });
+                }
             }
-
-            checkEventDates();
+            
+            $(document).ready(checkEventDates);
             $(window).resize(checkEventDates);
         });
     };
