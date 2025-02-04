@@ -17,6 +17,10 @@
         li:nth-last-child(3n):first-child,
         li:nth-last-child(3n):first-child ~ li {
             flex-grow: 1;
+
+            @media #{$large-mobile} {
+                flex-grow: 0;
+            }
         }
     }
 
@@ -155,7 +159,7 @@
 
             &--hidden {
                 border: none;
-                opacity: 0;
+                visibility: hidden;
 
                 @media #{$mobile} {
                     display: none;
