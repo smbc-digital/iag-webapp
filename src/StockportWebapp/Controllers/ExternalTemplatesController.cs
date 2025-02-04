@@ -1,18 +1,22 @@
+using HtmlAgilityPack;
+
 namespace StockportWebapp.Controllers;
 
 [ExcludeFromCodeCoverage]
 [ResponseCache(Location = ResponseCacheLocation.Any, Duration = Cache.Short)]
-public class ExternalTemplatesController : Controller
+public class ExternalTemplatesController(IFeatureManager featureManager) : Controller
 {
-    [Route("/ExternalTemplates/Democracy")]
-    public IActionResult Democracy()
-    {
-        return View();
-    }
+    private readonly IFeatureManager _featureManager = featureManager;
 
+    [Route("/ExternalTemplates/Democracy")]
+    public async Task<IActionResult> Democracy() =>
+        await _featureManager.IsEnabledAsync("ExternalTemplates")
+            ? View("Democracy2025")
+            : View();
+    
     [Route("/ExternalTemplates/DemocracyExtranet")]
-    public IActionResult DemocracyExtranet()
-    {
-        return View();
-    }
+    public async Task<IActionResult> DemocracyExtranet() =>
+        await _featureManager.IsEnabledAsync("ExternalTemplates")
+            ? View("DemocracyExtranet2025")
+            : View();
 }
