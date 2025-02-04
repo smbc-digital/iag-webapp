@@ -19,9 +19,7 @@ public class EventFactory(ITagParserContainer simpleTagParserContainer,
             AccessibleTransportLink = eventItem.AccessibleTransportLink
         };
 
-        string description = _markdownWrapper.ConvertToHtml(eventItem.Description ?? string.Empty);
-
-        description = _tagParserContainer.ParseAll(eventItem.Description,
+        string description = _tagParserContainer.ParseAll(_markdownWrapper.ConvertToHtml(eventItem.Description ?? string.Empty),
                                                         eventItem.Title,
                                                         true,
                                                         null,

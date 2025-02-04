@@ -1,65 +1,98 @@
-#contactForm {
-    .form {
-        .form-section:last-of-type {
-            border-bottom: none;
-        }
 
-        .form-section {
-            border-bottom: 0;
-        }
+.form {
+    .form-section:last-of-type {
+        border-block-end: none;
+    }
 
-        .form-section {
-            border-bottom: 1px solid #bcbcbc;
-            width: 100%;
-            margin-bottom: 2em;
+    .form-section {
+        border-block-end: 0;
+    }
 
+    .form-section {
+        border-block-end: 1px solid #bcbcbc;
+        width: 100%;
+        margin-block-end: 2em;
 
-            fieldset {
-                label {
-                    font-weight: 600;
-                    display: block;
+        fieldset {
+            label {
+                font-weight: 600;
+                display: block;
+                width: 100%;
+                margin-block-start: 1em;
+                margin-block-end: 0.25em;
+            }
+
+            .form-control {
+                clear: both;
+                background-color: #fff;
+                border: 1px solid #b1b1b1cc;
+                border-radius: 3px;
+                display: block;
+                padding: 1em;
+                margin-bottom: 0.25em;
+                width: 50%;
+                float: none;
+                font-size: 1.1875rem;
+
+                @media #{$mobile} {
                     width: 100%;
-                    margin-top: 1em;
-                    margin-bottom: 0.25em;
+                }
+
+                &.input-validation-error {
+                    color: #c83725;
+                    border: 1px solid #c83725;
+                }
+            }
+
+            .submit {
+                margin-block-start: 1em;
+            }
+
+            .reCaptcha {
+                margin-block-start: 1em;
+            }
+
+            textarea {
+                background-color: #fff;
+                border: 1px solid #b1b1b1cc;
+                border-radius: 3px;
+                display: block;
+                margin-bottom: 10px;
+                min-height: 200px;
+                padding: 10px;
+                width: 100%;
+            }
+
+            .input-group {
+                position: relative;
+                width: 100%;
+
+                .input-addon {
+                    line-height: calc(1.1875em - 1px);
+                    background-color: #ebebeb;
+                    border-radius: 3px 0 0 3px;
+                    left: 1px;
+                    padding: 1em;
+                    position: absolute;
+                    text-align: center;
+                    top: 1px;
+                    z-index: 10;
                 }
 
                 .form-control {
-                    clear: both;
-                    background-color: #fff;
-                    border: 1px solid #b1b1b1cc;
-                    border-radius: 3px;
-                    display: block;
-                    padding: 1em;
-                    margin-bottom: 0.25em;
-                    width: 50%;
-                    float: none;
-                    font-size: 1.1875rem;
-
-                    @media #{$mobile} {
-                        width: 100%;
-                    }
-                }
-
-                textarea {
-                    background-color: #fff;
-                    border: 1px solid #b1b1b1cc;
-                    border-radius: 3px;
-                    display: block;
-                    margin-bottom: 10px;
-                    min-height: 200px;
-                    padding: 10px;
-                    width: 100%;
+                    padding-inline-start: 3.5em;
                 }
             }
         }
     }
 }
 
-
 .form-field-validation-error.field-validation-valid, .form-field-validation-error.field-validation-valid:before {
     display: none;
 }
+
 .form-field-validation-error {
     color: #c83725;
     margin-bottom: 1em;
 }
+
