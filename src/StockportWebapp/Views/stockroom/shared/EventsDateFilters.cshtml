@@ -28,34 +28,24 @@
 
                             <div class="events-filters__radio-item ">
                                 <label for="event-date" class="events-filters__date-label">Date</label>
-                                <input type="date" id="event-date" asp-for="@Model.DateSelection" placeholder="Select date" class="events-filters__date" />
+                                <input type="date" id="event-date" asp-for="@Model.DateSelection" placeholder="Select date" class="events-filters__date events-filters__date-item" />
                             </div>
 
                             <div class="events-filters__radio-item events-filters--width">
                                 <label for="event-category" class="events-filters__date-label">Category</label>
-                                <select id="event-category" asp-for="@Model.Category" class="events-filters__date">
-                                    <option value="" selected="@(Model.SelectedCategory == null ? "selected" : null)">All categories</option>
 
-                                    @foreach (EventCategory eventCategory in Model.Homepage.Categories)
-                                    {
-                                        if (Model.SelectedCategory is not null && eventCategory.Slug.Equals(Model.SelectedCategory.Slug))
-                                        {
-                                            <option value="@eventCategory.Slug" selected)>
-                                                @eventCategory.Name
-                                            </option>
-                                        }
-                                        else
-                                        {
-                                            <option value="@eventCategory.Slug" )>
-                                                @eventCategory.Name
-                                            </option>
-                                        }
-                                    }
+                                <select asp-for="@Model.Category"
+                                        asp-items="@Model.EventCategoryOptions()"
+                                        placeholder="All categories"
+                                        name="category"
+                                        class="events-filters__date"
+                                        id="event-category"
+                                        aria-label="Select category"
+                                        autocomplete="off">
                                 </select>
                             </div>
                         </div>
 
-                        <input type="hidden" asp-for="@Model.Category" />
                         <input type="hidden" asp-for="@Model.ShouldScroll" value="true" />
 
                         <noscript>
