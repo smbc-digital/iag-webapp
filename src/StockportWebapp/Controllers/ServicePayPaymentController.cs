@@ -69,16 +69,14 @@ public class ServicePayPaymentController(IProcessedContentRepository repository,
         if (!ModelState.IsValid)
             return View(featureToggle ? "Detail2025" : "Detail", paymentSubmission);
 
-        string returnUrl = !string.IsNullOrEmpty(payment.ReturnUrl)
-            ? payment.ReturnUrl
-            : $"{Request.Scheme}://{Request.Host}/service-pay-payment/{slug}/result";
-
         CreateImmediateBasketRequest immediateBasketResponse = new()
         {
             CallingAppIdentifier = _civicaPayConfiguration.CallingAppIdentifier,
             CustomerID = _civicaPayConfiguration.CustomerID,
             ApiPassword = _civicaPayConfiguration.ApiPassword,
-            ReturnURL = returnUrl,
+            ReturnURL = !string.IsNullOrEmpty(payment.ReturnUrl)
+                ? payment.ReturnUrl
+                : $"{Request.Scheme}://{Request.Host}/service-pay-payment/{slug}/result",
             NotifyURL = string.Empty,
             CallingAppTranReference = paymentSubmission.Reference,
             PaymentItems = new List<PaymentItem>
@@ -110,7 +108,7 @@ public class ServicePayPaymentController(IProcessedContentRepository repository,
 
         HttpResponse<CreateImmediateBasketResponse> civicaResponse = await _civicaPayGateway.CreateImmediateBasketAsync(immediateBasketResponse);
 
-        if (civicaResponse.StatusCode == HttpStatusCode.BadRequest)
+        if (civicaResponse.StatusCode.Equals(HttpStatusCode.BadRequest))
         {
             string responseCode = civicaResponse.ResponseContent.ResponseCode;
 

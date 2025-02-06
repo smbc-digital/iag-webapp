@@ -21,18 +21,18 @@
              </div>
             <section class="article">
                 <article class="article--70">
-                @if(Model.PaymentResultType == PaymentResultType.Failure)
+                @if(Model.PaymentResultType is PaymentResultType.Failure)
                 {                    
                     <h2 class="h-l">
                         <span class="fa-regular fa-circle-exclamation"></span>
-                        There was a prblem with the payment
+                        There was a problem with the payment
                     </h2>
 
                     <p>No money has been taken from your account, please try again.</p>
                     <p><a href="@Url.Action("Detail", @controller, new { slug = Model.Slug })" class="btn btn--chevron-forward btn--width-30">Try the payment again</a></p>
 
                 }
-                else if(Model.PaymentResultType == PaymentResultType.Declined)
+                else if(Model.PaymentResultType is PaymentResultType.Declined)
                 {
                     <h2 class="h-l">
                         <span class="fa-regular fa-circle-exclamation"></span>
