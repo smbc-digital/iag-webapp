@@ -7,12 +7,14 @@ namespace StockportWebapp.Controllers;
 public class ServicePayPaymentController(IProcessedContentRepository repository,
                                         ICivicaPayGateway civicaPayGateway,
                                         IOptions<CivicaPayConfiguration> configuration,
-                                        ILogger<ServicePayPaymentController> logger) : Controller
+                                        ILogger<ServicePayPaymentController> logger,
+                                        IFeatureManager featureManager) : Controller
 {
     private readonly IProcessedContentRepository _repository = repository;
     private readonly ICivicaPayGateway _civicaPayGateway = civicaPayGateway;
     private readonly CivicaPayConfiguration _civicaPayConfiguration = configuration.Value;
     private readonly ILogger<ServicePayPaymentController> _logger = logger;
+    private readonly IFeatureManager _featureManager = featureManager;
 
     [Route("/service-pay-payment/{slug}")]
     public async Task<IActionResult> Detail(string slug, string error, string serviceProcessed)
@@ -40,7 +42,10 @@ public class ServicePayPaymentController(IProcessedContentRepository repository,
             ModelState.AddModelError(nameof(ServicePayPaymentSubmissionViewModel.Amount), error);
         }
 
-        return View(paymentSubmission);
+        if (await _featureManager.IsEnabledAsync("ServicePaymentPage"))
+            return View("Detail2025", paymentSubmission);
+
+        return View("Detail2025", paymentSubmission);
     }
 
     [HttpPost]
