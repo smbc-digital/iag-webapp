@@ -61,7 +61,10 @@
                     @foreach (ProcessedContactUsCategory category in Model.ContactUsCategories)
                     {                         
                         <div id="@category.Title" class="contact-us-area__categories-heading">
-                            <span class="@category.Icon" aria-hidden="true"></span>
+                            @if (!string.IsNullOrEmpty(category.Icon))
+                            {
+                                <span class="@category.Icon" aria-hidden="true"></span>
+                            }
                             <h2>@category.Title</h2>
                         </div>      
                         <div class="directory--border-top @borderTeal contact-us-area--margin-bottom">
