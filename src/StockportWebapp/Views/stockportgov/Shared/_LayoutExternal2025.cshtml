@@ -17,13 +17,13 @@
         <link rel=preload as=style onload="this.onload=null;this.rel='stylesheet'" href=@democracyHomeLink/assets/stylesheets/vendor/unsemantic-grid-responsive-tablet.min.css asp-append-version=true />
 
         @* MAIN STYLESHEET(S) *@
-        <link rel=stylesheet href=@democracyHomeLink/assets/stylesheets/site-sg-overrides.min.css asp-append-version=true />
-        <link rel=stylesheet href=@democracyHomeLink/assets/stylesheets/site-sg.min.css />
+        @* <link rel=stylesheet href=@democracyHomeLink/assets/stylesheets/site-sg-overrides.min.css /> *@
+        <link rel=stylesheet href=~/assets/stylesheets/site-sg-overrides.min.css />
+        @* <link rel=stylesheet href=@democracyHomeLink/assets/stylesheets/site-sg.min.css /> *@
 
         @* fonts *@
         <link rel=preload as=style onload="this.onload=null;this.rel='stylesheet'" href="https://fonts.googleapis.com/css?family=Noto+Sans:400,700&display=swap">
         <link rel=preload as=style onload="this.onload=null;this.rel='stylesheet'" href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap">
-
 
         <link href="https://kit.fontawesome.com/d14fbc06e0.js" rel=preload as=script>
         <script src="https://kit.fontawesome.com/d14fbc06e0.js" crossorigin="anonymous"></script>
@@ -32,8 +32,9 @@
             <link rel=stylesheet href="https://kit.fontawesome.com/d14fbc06e0.css" crossorigin="anonymous">
         </noscript>
 
-        <link rel=stylesheet href=@democracyHomeLink/assets/stylesheets/cludo-search-default.min.css />
-        @* <link rel=stylesheet href=https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css integrity="sha256-AIodEDkC8V/bHBkfyxzolUMw57jeQ9CauwhVW6YJ9CA= sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1 sha512-4uGZHpbDliNxiAv/QzZNo/yb2FtAX+qiDb7ypBWiEdJQX8Pugp8M6il5SRkN8jQrDLWsh3rrPDSXRf3DwFYM6g==" crossorigin=anonymous> *@
+        @* <script type=text/javascript src=@democracyHomeLink/assets/javascript/vendor/require.min.js asp-append-version=true></script> *@
+        <script type=text/javascript src=~/assets/javascript/vendor/require.min.js asp-append-version=true></script>
+
     </head>
 
     <body class="container-layout-free">
@@ -41,7 +42,7 @@
         <partial name=TagManager/TagManagerDataLayer />
         <partial name=TagManager/TagManager />
         <partial name=TagManager/TagManagerNoScript />
-        <partial name=HeaderExternal />
+        <partial name=HeaderExternal2025 model=true />
 
         <main id="content">
             @RenderBody()

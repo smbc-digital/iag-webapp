@@ -1,0 +1,12 @@
+.external-templates {
+    @media #{$tablet} {
+        display: flex !important;
+        flex-direction: column-reverse !important;
+    }
+
+    &__list {
+        li {
+            margin-block: 1em;
+        }
+    }
+}
