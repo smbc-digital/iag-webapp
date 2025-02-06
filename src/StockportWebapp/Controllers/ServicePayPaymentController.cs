@@ -1,4 +1,6 @@
 ﻿using Microsoft.Extensions.Options;
+using StockportGovUK.NetStandard.Gateways.Models.Civica.Pay.Response;
+using StockportGovUK.NetStandard.Gateways.Response;
 using StockportWebapp.Configuration;
 
 namespace StockportWebapp.Controllers;
@@ -45,7 +47,7 @@ public class ServicePayPaymentController(IProcessedContentRepository repository,
         if (await _featureManager.IsEnabledAsync("ServicePaymentPage"))
             return View("Detail2025", paymentSubmission);
 
-        return View("Detail2025", paymentSubmission);
+        return View(paymentSubmission);
     }
 
     [HttpPost]
@@ -58,24 +60,30 @@ public class ServicePayPaymentController(IProcessedContentRepository repository,
             return response;
 
         ProcessedServicePayPayment payment = response.Content as ProcessedServicePayPayment;
-
         paymentSubmission.Payment = payment;
+
         TryValidateModel(paymentSubmission);
 
+        bool featureToggle = await _featureManager.IsEnabledAsync("PaymentPage");
+
         if (!ModelState.IsValid)
-            return View(paymentSubmission);
+            return View(featureToggle ? "Detail2025" : "Detail", paymentSubmission);
+
+        string returnUrl = !string.IsNullOrEmpty(payment.ReturnUrl)
+            ? payment.ReturnUrl
+            : $"{Request.Scheme}://{Request.Host}/service-pay-payment/{slug}/result";
 
         CreateImmediateBasketRequest immediateBasketResponse = new()
         {
             CallingAppIdentifier = _civicaPayConfiguration.CallingAppIdentifier,
             CustomerID = _civicaPayConfiguration.CustomerID,
             ApiPassword = _civicaPayConfiguration.ApiPassword,
-            ReturnURL = !string.IsNullOrEmpty(payment.ReturnUrl) ? payment.ReturnUrl : $"{Request.Scheme}://{Request.Host}/service-pay-payment/{slug}/result",
+            ReturnURL = returnUrl,
             NotifyURL = string.Empty,
             CallingAppTranReference = paymentSubmission.Reference,
             PaymentItems = new List<PaymentItem>
             {
-                new()
+                new PaymentItem
                 {
                     PaymentDetails = new PaymentDetail
                     {
@@ -100,22 +108,29 @@ public class ServicePayPaymentController(IProcessedContentRepository repository,
             }
         };
 
-        StockportGovUK.NetStandard.Gateways.Response.HttpResponse<StockportGovUK.NetStandard.Gateways.Models.Civica.Pay.Response.CreateImmediateBasketResponse> civicaResponse = await _civicaPayGateway.CreateImmediateBasketAsync(immediateBasketResponse);
-        
-        if (civicaResponse.StatusCode.Equals(HttpStatusCode.BadRequest))
+        HttpResponse<CreateImmediateBasketResponse> civicaResponse = await _civicaPayGateway.CreateImmediateBasketAsync(immediateBasketResponse);
+
+        if (civicaResponse.StatusCode == HttpStatusCode.BadRequest)
         {
-            if (civicaResponse.ResponseContent.ResponseCode.Equals("00001"))
+            string responseCode = civicaResponse.ResponseContent.ResponseCode;
+
+            if (responseCode.Equals("00001"))
             {
                 ModelState.AddModelError("Reference", $"Check {payment.ReferenceLabel.ToLower()} and try again.");
-
-                return View(paymentSubmission);
+                
+                return View(featureToggle ? "Detail2025" : "Detail", paymentSubmission);
             }
 
-            _logger.LogError($"ServicePayPaymentController:: Unable to create ImmediateBasket:: CivicaPay response code: {civicaResponse.ResponseContent.ResponseCode}, CivicaPay error message - {civicaResponse.ResponseContent.ErrorMessage}");
-            
+            _logger.LogError($"ServicePayPaymentController:: Unable to create ImmediateBasket:: " +
+                            $"CivicaPay response code: {responseCode}, " +
+                            $"CivicaPay error message - {civicaResponse.ResponseContent.ErrorMessage}");
+
             return View("Error", response);
         }
 
-        return Redirect(_civicaPayGateway.GetPaymentUrl(civicaResponse.ResponseContent.BasketReference, civicaResponse.ResponseContent.BasketToken, paymentSubmission.Reference));
+        return Redirect(_civicaPayGateway.GetPaymentUrl(
+            civicaResponse.ResponseContent.BasketReference, 
+            civicaResponse.ResponseContent.BasketToken, 
+            paymentSubmission.Reference));
     }
 }

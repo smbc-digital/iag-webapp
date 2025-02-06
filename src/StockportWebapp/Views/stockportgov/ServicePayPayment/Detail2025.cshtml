@@ -25,7 +25,7 @@
                     <h2 class="h-m">Payment details</h2>
                     @Html.Raw(Model.Payment.PaymentDetailsText)
 
-                    <form asp-controller="ServicePayPayment" asp-action="Detail" method="post" class="form" role="form" enctype="multipart/form-data" data-cy="service-pay-payment-page">
+                    <form asp-controller="Payment" asp-action="Detail" method="post" class="form" role="form" enctype="multipart/form-data" data-cy="service-pay-payment-page">
                         @Html.AntiForgeryToken()
 
                         <div class="form-section">

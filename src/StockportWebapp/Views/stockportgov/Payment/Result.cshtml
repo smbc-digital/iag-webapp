@@ -1,14 +1,17 @@
 ﻿@model PaymentResult
 @{
+    string controller = Model.IsServicePay 
+        ? "ServicePayPayment" 
+        : "Payment";
     string resultType = Model.PaymentResultType.ToString().ToLower();
     ViewData["Title"] = $"{Model.Title} payment {resultType}";
     ViewData["og:title"] = $"{Model.Title} payment {resultType}";
     ViewData["Description"] = $"{Model.Title} payment {resultType}";
-    ViewData["Type"] = "Payment";
+    ViewData["Type"] = "ServicePayPayment";
     Layout = "../Shared/_Layout2023.cshtml";
 }
 
-<div class="grid-container-full-width" style="background-color:white;" data-cy="payment-page">
+<div class="grid-container-full-width" style="background-color:white;" data-cy="service-pay-payment-page">
     <partial name="Breadcrumb2023" model="Model.Breadcrumbs" />
 
     <div class="grid-container">
@@ -22,11 +25,11 @@
                 {                    
                     <h2 class="h-l">
                         <span class="fa-regular fa-circle-exclamation"></span>
-                        There was a problem with the payment
+                        There was a prblem with the payment
                     </h2>
 
                     <p>No money has been taken from your account, please try again.</p>
-                    <p><a href="@Url.Action("Detail", "Payment", new { slug = Model.Slug })" class="btn btn--chevron-forward btn--width-30">Try the payment again</a></p>
+                    <p><a href="@Url.Action("Detail", @controller, new { slug = Model.Slug })" class="btn btn--chevron-forward btn--width-30">Try the payment again</a></p>
 
                 }
                 else if(Model.PaymentResultType == PaymentResultType.Declined)
@@ -37,7 +40,7 @@
                     </h2>
 
                     <p>No money has been taken from your account. Please contact your bank for more details.</p>
-                    <p><a href="@Url.Action("Detail", "Payment", new { slug = Model.Slug })" class="btn btn--chevron-forward btn--width-30">Try the payment again</a></p>
+                    <p><a href="@Url.Action("Detail", @controller, new { slug = Model.Slug })" class="btn btn--chevron-forward btn--width-30">Try the payment again</a></p>
                 }
                 else
                 {
@@ -49,7 +52,7 @@
                     <p>Your reference is <strong>@Model.ReceiptNumber</strong>.</p>
                 }        
                     <hr />
-                    <p><a href="@Url.Action("Index", "Home") class="button-secondary">Go to the homepage</a></p>
+                    <p><a href="@Url.Action("Index", "Home")" class="btn btn--inverse btn--width-30 btn--chevron-forward btn--bold btn--chevron-bold btn--outline">Go to the homepage</a></p>
                 </article>
             </section>
         </div>
