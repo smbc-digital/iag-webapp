@@ -38,7 +38,8 @@ public class EventsController(IRepository repository,
             eventsCalendar.KeepTag = eventsCalendar.Tag;
 
         eventsCalendar.FromSearch = eventsCalendar.IsFromSearch();
-
+        eventsCalendar.ShouldScroll = eventsCalendar.ShouldScroll;
+        
         List<Query> queries = GetEventsFilterQueries(eventsCalendar);
         HttpResponse httpResponse = await _repository.Get<EventResponse>(queries: queries);
 

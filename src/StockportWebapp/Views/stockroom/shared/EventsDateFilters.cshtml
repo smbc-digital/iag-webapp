@@ -25,35 +25,28 @@
                                 <input type="radio" asp-for="@Model.DateSelection" value="nextMonth" id="radio-next-month" class="events-filters__radio"/>
                                 <label for="radio-next-month" class="events-filters__label">Next month</label>
                             </div>
-                            
+
                             <div class="events-filters__radio-item ">
                                 <label for="event-date" class="events-filters__date-label">Date</label>
-                                <input type="date" id="event-date" asp-for="@Model.DateSelection" placeholder="Select date" class="events-filters__date" />
+                                <input type="date" id="event-date" asp-for="@Model.DateSelection" placeholder="Select date" class="events-filters__date events-filters__date-item" />
                             </div>
 
                             <div class="events-filters__radio-item events-filters--width">
                                 <label for="event-category" class="events-filters__date-label">Category</label>
-                                <select id="event-category" asp-for="@Model.Category" placeholder="Cateogory" class="events-filters__date">
-                                    @foreach (EventCategory eventCategory in Model.Homepage.Categories)
-                                    {
-                                        if (Model.SelectedCategory is not null && eventCategory.Slug.Equals(Model.SelectedCategory.Slug))
-                                        {
-                                            <option value="@eventCategory.Slug" selected)>
-                                                @eventCategory.Name
-                                            </option>
-                                        }
-                                        else
-                                        {
-                                            <option value="@eventCategory.Slug" )>
-                                                @eventCategory.Name
-                                            </option>
-                                        }
-                                    }
+
+                                <select asp-for="@Model.Category"
+                                        asp-items="@Model.EventCategoryOptions()"
+                                        placeholder="All categories"
+                                        name="category"
+                                        class="events-filters__date"
+                                        id="event-category"
+                                        aria-label="Select category"
+                                        autocomplete="off">
                                 </select>
                             </div>
                         </div>
 
-                        <input type="hidden" asp-for="@Model.Category"/>
+                        <input type="hidden" asp-for="@Model.ShouldScroll" value="true" />
 
                         <noscript>
                             <div class="events-filters__button">
@@ -69,7 +62,7 @@
 </div>
 
 <script>
-    require(['/assets/javascript/config-91939d9a.min.js'], function () {
+    require(['/assets/javascript/config-be906748.min.js'], function () {
         require(['eventFilters'],
             function (eventFilters) {
                 eventFilters.Init();
