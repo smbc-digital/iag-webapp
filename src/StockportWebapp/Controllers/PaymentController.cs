@@ -99,28 +99,11 @@ public class PaymentController(IProcessedContentRepository repository,
 
         PaymentResult paymentResult = new(slug, payment.Title, payment.Breadcrumbs, callingAppTxnRef);
 
-        if (!responseCode.Equals(CIVICA_PAY_SUCCESS))
+        if (isServicePay)
         {
-            if (_featureManager.IsEnabledAsync(PAYMENTS_TOGGLE).Result)
-            {
-                paymentResult.PaymentResultType = responseCode.Equals(CIVICA_PAY_DECLINED)
-                                            || responseCode.Equals(CIVICA_PAY_DECLINED_OTHER)
-                                                ? PaymentResultType.Declined
-                                                : PaymentResultType.Failure;
-
-                return View("Result", paymentResult);
-            }
-
-            if (isServicePay)
-            {
-                return responseCode.Equals(CIVICA_PAY_DECLINED) || responseCode.Equals(CIVICA_PAY_DECLINED_OTHER)
-                        ? View("../ServicePayPayment/Declined", slug)
-                        : View("../ServicePayPayment/Failure", slug);
-            }
-
             return responseCode.Equals(CIVICA_PAY_DECLINED) || responseCode.Equals(CIVICA_PAY_DECLINED_OTHER)
-                    ? View("Declined", slug)
-                    : View("Failure", slug);
+                    ? View("../ServicePayPayment/Declined", slug)
+                    : View("../ServicePayPayment/Failure", slug);
         }
 
         return await _featureManager.IsEnabledAsync("PaymentPage")
