@@ -68,7 +68,7 @@
             align-items: center;
 
             span {
-              margin-right: 0.5em;
+              margin-inline-end: 0.5em;
               font-size: 1.6em;
             }
 
@@ -89,6 +89,7 @@
                 padding: 0;
 
                 p {
+                    width: 85%;
                     word-wrap: break-word;
                 }
             }
@@ -107,5 +108,12 @@
         &-bottom {
             margin-block-end: 3em !important;
         }
+    }
+}
+
+html[dir="rtl"] {
+    .contact-us-area__categories-body {
+        display: flex;
+        flex-direction: row;
     }
 }
