@@ -1,5 +1,4 @@
 define(["jquery"], function ($) {
-
     var init = function () {
         $(document).ready(function () {
             $('.events-filters__radio').change(function () {
