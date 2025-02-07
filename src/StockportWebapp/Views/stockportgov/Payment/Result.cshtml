@@ -1,8 +1,9 @@
 ﻿@model PaymentResult
 @{
-    ViewData["Title"] = $"{Model.Title} payment unsuccessful";
-    ViewData["og:title"] = $"{Model.Title} payment unsuccessful";
-    ViewData["Description"] = $"{Model.Title} payment unsuccessful";
+    string resultType = Model.PaymentResultType.ToString().ToLower();
+    ViewData["Title"] = $"{Model.Title} payment {resultType}";
+    ViewData["og:title"] = $"{Model.Title} payment {resultType}";
+    ViewData["Description"] = $"{Model.Title} payment {resultType}";
     ViewData["Type"] = "Payment";
     Layout = "../Shared/_Layout2023.cshtml";
 }
@@ -53,9 +54,4 @@
             </section>
         </div>
     </div>
-</div>
-
-
-                
-                    
-                    
+</div>             

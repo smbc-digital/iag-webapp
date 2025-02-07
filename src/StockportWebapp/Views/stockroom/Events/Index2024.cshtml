@@ -13,10 +13,12 @@
     Layout = "../Shared/_Layout.cshtml";
 
     string eventsTitle = category?.Name ?? (Model.DateFrom.HasValue
-            ? "All upcoming events"
-            : "Free events");
+        ? "All upcoming events"
+        : "Free events");
 
-    string dataCy = Model.Free ? "events-homepage-free" : "events-homepage";
+    string dataCy = Model.Free
+        ? "events-homepage-free"
+        : "events-homepage";
 }
 
 <div data-cy=@dataCy>
@@ -42,7 +44,7 @@
     else if(Model.Free)
     {
         <div class="hero hero__banner" style="background-image: url(//images.ctfassets.net/6jh3uby2vw58/5Ey34ZpOE9pYKA8mqsAOaB/239fc6ecc9e47e482a6e5025ba298839/Stockroom_Socials_28-11-24_20.jpg?fm=webp);">
-            <div class="hero__banner--overlay ">
+            <div class="hero__banner--overlay">
                 <div class="grid-container hero__wrapper">
                     <div class="grid-100">
                         <h1 class="image-banner__title-hero font--bold-extra-squeezed">Free Events</h1>
@@ -51,7 +53,7 @@
             </div>
         </div>
     }
-    else if (!Model.DateFrom.HasValue)
+    else if (!Model.DateFrom.HasValue && !Model.FromSearch)
     {
         <partial name="EventsCategories" />
     }
@@ -59,6 +61,7 @@
     @if (Model.FromSearch)
     {
         <a name="events" id="events"></a>
+
         <partial name="EventsDateFilters" />
     }
     
@@ -91,9 +94,9 @@
     }
 </div>
 
-@if (Model.FromSearch)
+@if (Model.ShouldScroll)
 {
-    <script type="text/javascript">
+    <script>
         document.getElementById('events').scrollIntoView(true);
     </script>
 }
