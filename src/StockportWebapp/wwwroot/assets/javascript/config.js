@@ -11,6 +11,7 @@
         "directoriesMapInit": "directoriesMapInit-e9b7ff2c.min",
         "directoryFilters": "directoryFilters-cefe3db0.min",
         "events": "events-af550f37.min",
+        "eventCategories": "eventCategories-cd173eac.min",
         "eventFilters": "eventFilters-8d07faf0.min",
         "favourites": "favourites-9929284b.min",
         "filters": "filters-6d52b18c.min",

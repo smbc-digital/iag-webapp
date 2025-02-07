@@ -28,7 +28,12 @@
 
     &__wrapper {
         padding: 2em 0;
-        border-bottom: 1px solid black
+        border-bottom: 1px solid black;
+        
+        @media #{$tablet} {
+            text-align: left;
+            padding-top: 1em;
+        }
     }
 
     &__date {
