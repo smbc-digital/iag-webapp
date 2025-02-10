@@ -101,7 +101,7 @@ public class DirectoryViewModel
     }
     public string DisplayTitle =>
         $"Results for {(string.IsNullOrEmpty(SearchTerm)
-            ? Title
+            ? Title 
             : $"\"{SearchTerm}\"")}";
 
     public string PageTitle =>

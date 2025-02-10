@@ -30,5 +30,8 @@ Disallow: /news
 Disallow: /events
 Crawl-delay: 10
 
+User-agent: Slurp
+Crawl-delay: 10
+
 User-agent: SeekportBot
 Crawl-delay: 10
