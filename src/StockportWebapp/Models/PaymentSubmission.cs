@@ -14,7 +14,7 @@ public class PaymentSubmission
     [PaymentReferenceValidation(paymentSubmissionType: EPaymentSubmissionType.Payment)]
     public string Reference { get; set; } = string.Empty;
 
-    [Required(ErrorMessage = "Please enter an amount")]
-    [Range(0.01, int.MaxValue, ErrorMessage = "Please enter a valid amount (e.g. 25.00)")]
+    [Required(ErrorMessage = "Enter an amount")]
+    [Range(0.01, int.MaxValue, ErrorMessage = "Enter a valid amount (e.g. 25.00)")]
     public decimal? Amount { get; set; }
 }

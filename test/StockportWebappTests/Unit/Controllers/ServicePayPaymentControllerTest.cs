@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.Options;
-using StockportGovUK.NetStandard.Gateways;
 using StockportWebapp.Configuration;
 
 namespace StockportWebappTests_Unit.Unit.Controllers;
@@ -10,6 +9,7 @@ public class ServicePayPaymentControllerTest
     private readonly Mock<IProcessedContentRepository> _fakeRepository = new();
     private readonly Mock<ICivicaPayGateway> _civicaPayGateway = new();
     private readonly Mock<IOptions<CivicaPayConfiguration>> _configuration = new();
+    private readonly Mock<IFeatureManager> _featureManager = new();
     private readonly ProcessedServicePayPayment _processedPayment = new("title",
                                                                         "slug",
                                                                         "teaser",
@@ -53,7 +53,7 @@ public class ServicePayPaymentControllerTest
                 CallingAppIdentifier = "WebApp"
             });
 
-        _paymentController = new(_fakeRepository.Object, _civicaPayGateway.Object, _configuration.Object, new Mock<ILogger<ServicePayPaymentController>>().Object);
+        _paymentController = new(_fakeRepository.Object, _civicaPayGateway.Object, _configuration.Object, new Mock<ILogger<ServicePayPaymentController>>().Object, _featureManager.Object);
 
         Mock<IObjectModelValidator> objectValidator = new();
         objectValidator.Setup(validator => validator.Validate(It.IsAny<ActionContext>(),

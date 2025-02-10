@@ -71,10 +71,11 @@ public class PaymentController(IProcessedContentRepository repository,
         if (civicaPayResponse.IsSuccessStatusCode && civicaPayResponse.ResponseContent.ResponseCode.Equals(CIVICA_PAY_SUCCESS))
             return Redirect(_civicaPayGateway.GetPaymentUrl(civicaPayResponse.ResponseContent.BasketReference, civicaPayResponse.ResponseContent.BasketToken, civicaPayRequest.CallingAppTranReference));
 
-        if (civicaPayResponse.StatusCode == HttpStatusCode.BadRequest
+        if (civicaPayResponse.StatusCode.Equals(HttpStatusCode.BadRequest)
             && civicaPayResponse.ResponseContent.ResponseCode.Equals(CIVICA_PAY_INVALID_DETAILS))
         {
             ModelState.AddModelError("Reference", $"Check {paymentSubmission.Payment.ReferenceLabel.ToLower()} and try again.");
+            
             return View(paymentSubmission);
         }
 
@@ -86,27 +87,31 @@ public class PaymentController(IProcessedContentRepository repository,
     public async Task<IActionResult> Success([FromRoute] string slug, [FromQuery] string callingAppTxnRef, [FromQuery] string responseCode)
     {
         bool isServicePay = Request.Path.Value.Contains("service-pay-payment");
+
         HttpResponse response = isServicePay
-                        ? await _repository.Get<ServicePayPayment>(slug)
-                        : await _repository.Get<Payment>(slug);
+                ? await _repository.Get<ServicePayPayment>(slug)
+                : await _repository.Get<Payment>(slug);
 
         if (!response.IsSuccessful())
             return response;
 
-        dynamic payment = isServicePay
-                            ? response.Content as ProcessedServicePayPayment
-                            : response.Content as ProcessedPayment;
+        dynamic payment = response.Content;
+        PaymentResult paymentResult = new(slug, payment.Title, payment.Breadcrumbs, callingAppTxnRef, isServicePay);
+        bool featureToggle = await _featureManager.IsEnabledAsync("PaymentPage");
 
-        PaymentResult paymentResult = new(slug, payment.Title, payment.Breadcrumbs, callingAppTxnRef);
-
-        if (isServicePay)
+        if (!responseCode.Equals(CIVICA_PAY_SUCCESS))
         {
-            return responseCode.Equals(CIVICA_PAY_DECLINED) || responseCode.Equals(CIVICA_PAY_DECLINED_OTHER)
-                    ? View("../ServicePayPayment/Declined", slug)
-                    : View("../ServicePayPayment/Failure", slug);
+            paymentResult.PaymentResultType = responseCode.Equals(CIVICA_PAY_DECLINED)
+                || responseCode.Equals(CIVICA_PAY_DECLINED_OTHER)
+                ? PaymentResultType.Declined
+                : PaymentResultType.Failure;
+
+            return featureToggle
+                ? View("Result", paymentResult)
+                : View(isServicePay ? $"../ServicePayPayment/{paymentResult.PaymentResultType}" : paymentResult.PaymentResultType.ToString(), slug);
         }
 
-        return await _featureManager.IsEnabledAsync("PaymentPage")
+        return featureToggle
             ? View("Result", paymentResult)
             : View("Success", new PaymentSuccess
             {

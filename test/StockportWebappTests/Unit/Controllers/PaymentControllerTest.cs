@@ -13,7 +13,6 @@ public class PaymentControllerTest
     private readonly Mock<IObjectModelValidator> _objectValidator = new();
     private readonly Mock<IFeatureManager> _featureManager = new();
 
-
     private readonly ProcessedPayment _processedPayment = new("title",
                                                             "slug",
                                                             "teaser",
@@ -320,8 +319,8 @@ public class PaymentControllerTest
     [Theory]
     [InlineData(true, "00022", "../ServicePayPayment/Declined")]
     [InlineData(true, "99999", "../ServicePayPayment/Failure")]
-    [InlineData(false, "00023", "Success")]
-    [InlineData(false, "99999", "Success")]
+    [InlineData(false, "00023", "Declined")]
+    [InlineData(false, "99999", "Failure")]
     public async Task SuccessShouldReturnCorrectErrorView(bool isServicePayPaymentPath, string responseCode, string expectedView)
     {
         // Act
