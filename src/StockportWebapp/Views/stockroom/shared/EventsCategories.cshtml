@@ -9,7 +9,11 @@
 <nav aria-label="Event category navigation" class="event-homepage__category-wrapper">
     <div class="grid-container">
         <div class="grid-100">
-            <ul class="event-homepage__categories @categoryMarginTop">
+            <div class="btn-container btn-container--no-padding-bottom">
+                <button class="btn btn--on-grey card-item__container-btn event-homepage__filter-toggle">Show filters</button>
+            </div>
+
+            <ul class="event-homepage__categories @categoryMarginTop" id="eventFilters">
                 @foreach (EventCategory eventCategory in Model.Homepage.Categories)
                 {
                     <li class="event-homepage__categories-item">
@@ -20,3 +24,25 @@
         </div>
     </div>
 </nav>
+
+<noscript>
+    <style>
+        .event-homepage__filter-toggle {
+            display: none;
+        }
+
+        .event-homepage__categories {
+            display: block;
+        }
+    </style>
+</noscript>
+
+<script>
+    require(['/assets/javascript/config-70042ab6.min.js'], function () {
+        require(['eventCategories'],
+            function (eventCategories) {
+                eventCategories.Init();
+            }
+        );
+    });
+</script>

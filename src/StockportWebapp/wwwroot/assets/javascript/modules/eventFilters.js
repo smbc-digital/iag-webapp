@@ -1,5 +1,4 @@
 define(["jquery"], function ($) {
-
     var init = function () {
         $(document).ready(function () {
             $('.events-filters__radio').change(function () {
@@ -22,14 +21,16 @@ define(["jquery"], function ($) {
                     var $date1 = $card.find('.card-item__date.event-same-date');
                     var $date2 = $nextCard.length ? $nextCard.find('.card-item__date.event-same-date') : null;
             
+                    if (!$date1.length || ($date2 && !$date2.length)) return;
+            
                     if (isWithinRange) {
-                        if ($nextCard.length && $date1.css('visibility') === 'hidden' && $date2.css('visibility') === 'hidden') {
-                            $date1.css('display', 'none');
-                            $date2.css('display', 'none');
+                        if ($nextCard.length && !$date1.is(":visible") && (!$date2 || !$date2.is(":visible"))) {
+                            $date1.hide();
+                            if ($date2) $date2.hide();
                         }
                     } else {
-                        $date1.css('display', '');
-                        if ($date2) $date2.css('display', '');
+                        $date1.show();
+                        if ($date2) $date2.show();
                     }
                 });
             }

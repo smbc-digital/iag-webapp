@@ -1,9 +1,13 @@
 @using StockportWebapp.Models;
 @model EventCalendar
 
-<div class="grid-container-full-width event-homepage__category-wrapper event-homepage__category-wrapper--padding-bottom">
+<div class="grid-container-full-width event-homepage__category-wrapper event-homepage__category-wrapper--no-padding-bottom-non-desktop event-homepage__category-wrapper--padding-bottom">
     <section class="article">
-        <form action="/events" method="get">
+        <div class="btn-container btn-container--no-padding-bottom">
+            <button class="btn btn--on-grey card-item__container-btn event-homepage__filter-toggle event-homepage__filter-toggle-form">Show filters</button>
+        </div>
+        
+        <form action="/events" method="get" class="event-homepage__categories event-homepage__categories--no-margin event-homepage__categories-form" id="eventFilters">
             <input type="hidden" asp-for="@Model.FromSearch" value="true" />
             <div class="grid-container">
                 <div class="grid-100">
@@ -61,11 +65,24 @@
     </section>
 </div>
 
+<noscript>
+    <style>
+        .event-homepage__filter-toggle {
+            display: none;
+        }
+
+        .event-homepage__categories {
+            display: block;
+        }
+    </style>
+</noscript>
+
 <script>
-    require(['/assets/javascript/config-be906748.min.js'], function () {
-        require(['eventFilters'],
-            function (eventFilters) {
+    require(['/assets/javascript/config-70042ab6.min.js'], function () {
+        require(['eventFilters', 'eventCategories'],
+            function (eventFilters, eventCategories) {
                 eventFilters.Init();
+                eventCategories.Init();
             }
         );
     });

@@ -27,6 +27,10 @@
         width: 100%;
         text-align: center;
         padding-bottom: 1.5em;
+
+        &--no-padding-bottom {
+            padding-bottom: 0;
+        }
     }
 
     &--on-grey, &--on-yellow {
@@ -47,6 +51,11 @@
 
     &--no-margin-top {
         margin-top: 0 !important;
+    }
+
+    
+    &--no-margin-bottom {
+        margin-bottom: 0 !important;
     }
 
     &_text {
