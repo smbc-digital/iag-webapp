@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Options;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
+using Moq;
 using StockportWebapp.Configuration;
 
 namespace StockportWebappTests_Unit.Unit.Controllers;
@@ -153,6 +155,21 @@ public class ServicePayPaymentControllerTest
     }
 
     [Fact]
+    public async Task DetailPost_ShouldGet_404NotFoundPaymen()
+    {
+        // Arrange
+        _fakeRepository
+            .Setup(repo => repo.Get<ServicePayPayment>(It.IsAny<string>(), It.IsAny<List<Query>>()))
+            .ReturnsAsync(new HttpResponse((int)HttpStatusCode.NotFound, null, string.Empty));
+
+        // Act
+        HttpResponse response = await _paymentController.Detail("not-found-slug", new ServicePayPaymentSubmissionViewModel()) as HttpResponse;
+
+        // Assert
+        Assert.Equal(404, response.StatusCode);
+    }
+
+    [Fact]
     public async Task DetailPostShouldReturnViewIfResponseCodeIs00001()
     {
         // Arrange
@@ -191,5 +208,19 @@ public class ServicePayPaymentControllerTest
 
         // Assert
         _civicaPayGateway.Verify(gateway => gateway.GetPaymentUrl(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()), Times.Once);
+    }
+
+    [Fact]
+    public async Task Detail_ShouldReturnViewWithErrors_WhenErrorAndServiceProcessedFalse()
+    {
+        ViewResult result = await _paymentController.Detail("slug", "Test Error", "false") as ViewResult;
+        ServicePayPaymentSubmissionViewModel model = result.ViewData.Model as ServicePayPaymentSubmissionViewModel;
+
+        Assert.NotNull(result);
+        Assert.NotNull(model);
+        Assert.True(_paymentController.ModelState.ContainsKey(nameof(ServicePayPaymentSubmissionViewModel.Reference)));
+        Assert.True(_paymentController.ModelState.ContainsKey(nameof(ServicePayPaymentSubmissionViewModel.EmailAddress)));
+        Assert.True(_paymentController.ModelState.ContainsKey(nameof(ServicePayPaymentSubmissionViewModel.Name)));
+        Assert.True(_paymentController.ModelState.ContainsKey(nameof(ServicePayPaymentSubmissionViewModel.Amount)));
     }
 }
