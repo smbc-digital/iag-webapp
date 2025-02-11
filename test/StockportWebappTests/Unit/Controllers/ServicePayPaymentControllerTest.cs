@@ -93,6 +93,20 @@ public class ServicePayPaymentControllerTest
     }
 
     [Fact]
+    public async Task DetailShouldReturnViewWithErrorsIfErrors()
+    {
+        ViewResult result = await _paymentController.Detail("slug", "Test Error", "false") as ViewResult;
+        ServicePayPaymentSubmissionViewModel model = result.ViewData.Model as ServicePayPaymentSubmissionViewModel;
+
+        Assert.NotNull(result);
+        Assert.NotNull(model);
+        Assert.True(_paymentController.ModelState.ContainsKey(nameof(ServicePayPaymentSubmissionViewModel.Reference)));
+        Assert.True(_paymentController.ModelState.ContainsKey(nameof(ServicePayPaymentSubmissionViewModel.EmailAddress)));
+        Assert.True(_paymentController.ModelState.ContainsKey(nameof(ServicePayPaymentSubmissionViewModel.Name)));
+        Assert.True(_paymentController.ModelState.ContainsKey(nameof(ServicePayPaymentSubmissionViewModel.Amount)));
+    }
+
+    [Fact]
     public async Task DetailPostShouldCallGatewayCreateImmediateBasket()
     {
         // Act
@@ -155,7 +169,7 @@ public class ServicePayPaymentControllerTest
     }
 
     [Fact]
-    public async Task DetailPost_ShouldGet_404NotFoundPaymen()
+    public async Task DetailPostShouldReturn404IfNotFound()
     {
         // Arrange
         _fakeRepository
@@ -208,19 +222,5 @@ public class ServicePayPaymentControllerTest
 
         // Assert
         _civicaPayGateway.Verify(gateway => gateway.GetPaymentUrl(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()), Times.Once);
-    }
-
-    [Fact]
-    public async Task Detail_ShouldReturnViewWithErrors_WhenErrorAndServiceProcessedFalse()
-    {
-        ViewResult result = await _paymentController.Detail("slug", "Test Error", "false") as ViewResult;
-        ServicePayPaymentSubmissionViewModel model = result.ViewData.Model as ServicePayPaymentSubmissionViewModel;
-
-        Assert.NotNull(result);
-        Assert.NotNull(model);
-        Assert.True(_paymentController.ModelState.ContainsKey(nameof(ServicePayPaymentSubmissionViewModel.Reference)));
-        Assert.True(_paymentController.ModelState.ContainsKey(nameof(ServicePayPaymentSubmissionViewModel.EmailAddress)));
-        Assert.True(_paymentController.ModelState.ContainsKey(nameof(ServicePayPaymentSubmissionViewModel.Name)));
-        Assert.True(_paymentController.ModelState.ContainsKey(nameof(ServicePayPaymentSubmissionViewModel.Amount)));
     }
 }

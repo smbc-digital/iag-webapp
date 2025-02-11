@@ -110,7 +110,7 @@ public class PaymentControllerTest
     }
 
     [Fact]
-    public async Task Detail_ShouldReturnViewWithErrors_WhenErrorAndServiceProcessedFalse()
+    public async Task DetailShouldReturnViewWithErrorsIfErrors()
     {
         ViewResult result = await _paymentController.Detail("slug", "Test Error", "false") as ViewResult;
         PaymentSubmission model = result.ViewData.Model as PaymentSubmission;
@@ -136,7 +136,7 @@ public class PaymentControllerTest
     }
 
     [Fact]
-    public async Task DetailPost_ShouldGet_404NotFoundPaymen()
+    public async Task DetailPostShouldGetA404NotFoundPayment()
     {
         // Arrange
         _fakeRepository
