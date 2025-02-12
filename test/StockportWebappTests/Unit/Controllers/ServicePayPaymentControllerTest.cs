@@ -91,6 +91,21 @@ public class ServicePayPaymentControllerTest
     }
 
     [Fact]
+    public async Task DetailShouldReturnViewWithErrorsIfErrors()
+    {
+        // Act & Assert
+        ViewResult result = await _paymentController.Detail("slug", "Test Error", "false") as ViewResult;
+        ServicePayPaymentSubmissionViewModel model = result.ViewData.Model as ServicePayPaymentSubmissionViewModel;
+
+        Assert.NotNull(result);
+        Assert.NotNull(model);
+        Assert.True(_paymentController.ModelState.ContainsKey(nameof(ServicePayPaymentSubmissionViewModel.Reference)));
+        Assert.True(_paymentController.ModelState.ContainsKey(nameof(ServicePayPaymentSubmissionViewModel.EmailAddress)));
+        Assert.True(_paymentController.ModelState.ContainsKey(nameof(ServicePayPaymentSubmissionViewModel.Name)));
+        Assert.True(_paymentController.ModelState.ContainsKey(nameof(ServicePayPaymentSubmissionViewModel.Amount)));
+    }
+
+    [Fact]
     public async Task DetailPostShouldCallGatewayCreateImmediateBasket()
     {
         // Act
@@ -150,6 +165,21 @@ public class ServicePayPaymentControllerTest
         _civicaPayGateway.Verify(gateway => gateway.CreateImmediateBasketAsync(It.IsAny<CreateImmediateBasketRequest>()), Times.Once);
         Assert.IsType<ViewResult>(result);
         Assert.Equal("Error", result.ViewName);
+    }
+
+    [Fact]
+    public async Task DetailPostShouldReturn404IfNotFound()
+    {
+        // Arrange
+        _fakeRepository
+            .Setup(repo => repo.Get<ServicePayPayment>(It.IsAny<string>(), It.IsAny<List<Query>>()))
+            .ReturnsAsync(new HttpResponse((int)HttpStatusCode.NotFound, null, string.Empty));
+
+        // Act
+        HttpResponse response = await _paymentController.Detail("not-found-slug", new ServicePayPaymentSubmissionViewModel()) as HttpResponse;
+
+        // Assert
+        Assert.Equal(404, response.StatusCode);
     }
 
     [Fact]
