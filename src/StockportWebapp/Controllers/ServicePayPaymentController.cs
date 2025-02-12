@@ -1,4 +1,6 @@
 ﻿using Microsoft.Extensions.Options;
+using StockportGovUK.NetStandard.Gateways.Models.Civica.Pay.Response;
+using StockportGovUK.NetStandard.Gateways.Response;
 using StockportWebapp.Configuration;
 
 namespace StockportWebapp.Controllers;
@@ -7,12 +9,14 @@ namespace StockportWebapp.Controllers;
 public class ServicePayPaymentController(IProcessedContentRepository repository,
                                         ICivicaPayGateway civicaPayGateway,
                                         IOptions<CivicaPayConfiguration> configuration,
-                                        ILogger<ServicePayPaymentController> logger) : Controller
+                                        ILogger<ServicePayPaymentController> logger,
+                                        IFeatureManager featureManager) : Controller
 {
     private readonly IProcessedContentRepository _repository = repository;
     private readonly ICivicaPayGateway _civicaPayGateway = civicaPayGateway;
     private readonly CivicaPayConfiguration _civicaPayConfiguration = configuration.Value;
     private readonly ILogger<ServicePayPaymentController> _logger = logger;
+    private readonly IFeatureManager _featureManager = featureManager;
 
     [Route("/service-pay-payment/{slug}")]
     public async Task<IActionResult> Detail(string slug, string error, string serviceProcessed)
@@ -40,6 +44,9 @@ public class ServicePayPaymentController(IProcessedContentRepository repository,
             ModelState.AddModelError(nameof(ServicePayPaymentSubmissionViewModel.Amount), error);
         }
 
+        if (await _featureManager.IsEnabledAsync("ServicePaymentPage"))
+            return View("Detail2025", paymentSubmission);
+
         return View(paymentSubmission);
     }
 
@@ -53,24 +60,28 @@ public class ServicePayPaymentController(IProcessedContentRepository repository,
             return response;
 
         ProcessedServicePayPayment payment = response.Content as ProcessedServicePayPayment;
-
         paymentSubmission.Payment = payment;
+
         TryValidateModel(paymentSubmission);
 
+        bool featureToggle = await _featureManager.IsEnabledAsync("PaymentPage");
+
         if (!ModelState.IsValid)
-            return View(paymentSubmission);
+            return View(featureToggle ? "Detail2025" : "Detail", paymentSubmission);
 
         CreateImmediateBasketRequest immediateBasketResponse = new()
         {
             CallingAppIdentifier = _civicaPayConfiguration.CallingAppIdentifier,
             CustomerID = _civicaPayConfiguration.CustomerID,
             ApiPassword = _civicaPayConfiguration.ApiPassword,
-            ReturnURL = !string.IsNullOrEmpty(payment.ReturnUrl) ? payment.ReturnUrl : $"{Request.Scheme}://{Request.Host}/service-pay-payment/{slug}/result",
+            ReturnURL = !string.IsNullOrEmpty(payment.ReturnUrl)
+                ? payment.ReturnUrl
+                : $"{Request.Scheme}://{Request.Host}/service-pay-payment/{slug}/result",
             NotifyURL = string.Empty,
             CallingAppTranReference = paymentSubmission.Reference,
             PaymentItems = new List<PaymentItem>
             {
-                new()
+                new PaymentItem
                 {
                     PaymentDetails = new PaymentDetail
                     {
@@ -95,22 +106,29 @@ public class ServicePayPaymentController(IProcessedContentRepository repository,
             }
         };
 
-        StockportGovUK.NetStandard.Gateways.Response.HttpResponse<StockportGovUK.NetStandard.Gateways.Models.Civica.Pay.Response.CreateImmediateBasketResponse> civicaResponse = await _civicaPayGateway.CreateImmediateBasketAsync(immediateBasketResponse);
-        
+        HttpResponse<CreateImmediateBasketResponse> civicaResponse = await _civicaPayGateway.CreateImmediateBasketAsync(immediateBasketResponse);
+
         if (civicaResponse.StatusCode.Equals(HttpStatusCode.BadRequest))
         {
-            if (civicaResponse.ResponseContent.ResponseCode.Equals("00001"))
+            string responseCode = civicaResponse.ResponseContent.ResponseCode;
+
+            if (responseCode.Equals("00001"))
             {
                 ModelState.AddModelError("Reference", $"Check {payment.ReferenceLabel.ToLower()} and try again.");
-
-                return View(paymentSubmission);
+                
+                return View(featureToggle ? "Detail2025" : "Detail", paymentSubmission);
             }
 
-            _logger.LogError($"ServicePayPaymentController:: Unable to create ImmediateBasket:: CivicaPay response code: {civicaResponse.ResponseContent.ResponseCode}, CivicaPay error message - {civicaResponse.ResponseContent.ErrorMessage}");
-            
+            _logger.LogError($"ServicePayPaymentController:: Unable to create ImmediateBasket:: " +
+                            $"CivicaPay response code: {responseCode}, " +
+                            $"CivicaPay error message - {civicaResponse.ResponseContent.ErrorMessage}");
+
             return View("Error", response);
         }
 
-        return Redirect(_civicaPayGateway.GetPaymentUrl(civicaResponse.ResponseContent.BasketReference, civicaResponse.ResponseContent.BasketToken, paymentSubmission.Reference));
+        return Redirect(_civicaPayGateway.GetPaymentUrl(
+            civicaResponse.ResponseContent.BasketReference, 
+            civicaResponse.ResponseContent.BasketToken, 
+            paymentSubmission.Reference));
     }
 }
