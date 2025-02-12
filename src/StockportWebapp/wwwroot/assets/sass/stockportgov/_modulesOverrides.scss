@@ -9,11 +9,9 @@
 @import "modules/globalAlerts2024";
 @import "modules/googleMap";
 @import "modules/inlineImages";
-@import "modules/events2024";
 @import "modules/pagination";
-@import "modules/contactUsArea2025";
 
-// homepage, topics and articles pages
+// homepage, topics, articles, events, contactUs pages
 @import "modules/searchAutocomplete";
 @import "modules/section";
 @import "modules/navCard";
@@ -37,6 +35,8 @@
 @import "modules/document2024";
 @import "modules/documentPages";
 @import "modules/externalTemplates";
+@import "modules/events2024";
+@import "modules/contactUsArea2025";
 
 // directories
 @import "modules/directories";
