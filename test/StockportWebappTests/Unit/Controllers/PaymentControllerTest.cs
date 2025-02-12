@@ -112,6 +112,7 @@ public class PaymentControllerTest
     [Fact]
     public async Task DetailShouldReturnViewWithErrorsIfErrors()
     {
+        // Act & Assert
         ViewResult result = await _paymentController.Detail("slug", "Test Error", "false") as ViewResult;
         PaymentSubmission model = result.ViewData.Model as PaymentSubmission;
 
