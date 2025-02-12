@@ -205,7 +205,7 @@ hr {
     }
 }
 
-.directories-breadcrumb-container {
+.external-templates-breadcrumb-container {
     .breadcrumb {
         li {
             &:not(:first-child) {
@@ -221,44 +221,32 @@ hr {
     }
 }
 
-.directories-breadcrumb-container {
+.external-templates-breadcrumb-container {
     padding-top: 20px;
 
-        &--teal {
+    &--teal {
         background-color: $teal;
 
-            li {
-                color: white;
+        li {
+            color: white;
 
-                a {
+            a {
+            color: white;  
+            }
+        }
+    }
+
+    &--grey {
+        background-color: $stockport-dark-grey;
+
+        li {
+            color: white;
+
+            a {
                 color: white;  
-                }
             }
         }
-
-        &--grey {
-            background-color: $stockport-dark-grey;
-
-            li {
-                color: white;
-    
-                a {
-                  color: white;  
-                }
-            }
-        }
-
-        &--one-stockport-purple {
-            background-color: $one-stockport-purple;
-
-            li {
-                color: white;
-    
-                a {
-                  color: white;  
-                }
-            }
-        }
+    }
 }
 
 .visuallyhidden {
@@ -300,6 +288,24 @@ hr {
         color: $dark;
     }
 }
+
+img {
+	height: auto;
+	width: auto;
+	max-width: 100%;
+	border-radius: 3px;
+}
+
+a:focus, button:focus, input:focus, textarea:focus, select:focus {
+    outline: #ef8a16 solid 3px !important;
+}
+  
+  // trumbowyg-editor is the wysiwyg editor
+  .focusable, .trumbowyg-editor {
+    &:focus {
+        outline: #ef8a16 solid 3px !important;
+    }
+}
   
 html[dir="rtl"] {
     .breadcrumb {
@@ -311,9 +317,7 @@ html[dir="rtl"] {
             }
         }
     }
-}
 
-html[dir="rtl"] {
     #header {
         overflow-y: hidden;
     }
