@@ -225,6 +225,8 @@ html[dir="rtl"] {
             }
 
             &__topic {
+                padding-inline-end: 0.4em;
+
                 @media #{$tablet} {
                     margin: 0;
                     padding: 0.5em;
