@@ -10,14 +10,6 @@
   justify-content: center;
 }
 
-.primary-filter-container-start-page {
-  @media #{$tablet, $desktop} {
-    position: absolute;
-    min-height: 34%;
-    height: 34%;
-  }
-}
-
 .primary-filter-outer-container-results-page {
   flex-direction: row;
 
@@ -157,10 +149,6 @@
       margin-left: 0;
     }
   }
-}
-
-.refine-filters-label {
-  display: flex;
 }
 
 #getLocation {

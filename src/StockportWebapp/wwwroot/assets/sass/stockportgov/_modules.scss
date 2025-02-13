@@ -6,62 +6,46 @@
 
 @import "modules/contactUs"; // this should be removed once the new contact us is in place
 @import "modules/document";
-@import "modules/featuredTopics"; // is this still needed?
+@import "modules/featuredTopics";
 @import "modules/headers";
-@import "modules/home"; // is this still needed?
-@import "modules/personalisedServices"; // is this still needed?
-@import "modules/subitems"; // is this still needed?
-@import "modules/secondaryItems"; // is this still needed?
-@import "modules/share"; // is this still needed?
-@import "modules/sideBar"; // is this still needed?
+@import "modules/subitems";
+@import "modules/secondaryItems";
+@import "modules/share";
+@import "modules/sideBar";
 @import "modules/slick";
 @import "modules/news";
 @import "modules/search";
-@import "modules/events"; // check if this is still used
-@import "modules/filters"; // is this still needed?
+@import "modules/events";
+@import "modules/filters";
 @import "modules/group"; // this should be removed once the groups are decommisioned
-@import "modules/payment"; // this should be removed once the new payment is in place
+@import "modules/payment"; // this should be removed once the new payments are in place
 @import "modules/showcase"; // this should be removed once the showcases are decommisioned
 @import "modules/groupResults"; // this should be removed once the groups are decommisioned
-@import "modules/primaryFilter"; // is this still needed?
-@import "modules/eventCard"; // is this still needed?
-@import "modules/eventbanner"; // is this still needed?
+@import "modules/primaryFilter";
+@import "modules/eventbanner";
 @import "modules/table"; 
 @import "modules/map";
 @import "modules/groupCards"; // this should be removed once the groups are decommisioned
 @import "modules/favourites"; // this should be removed once the groups are decommissioned
-@import "modules/refineBar"; // is this still needed?
-@import "modules/organisations"; // check if this is still used
-@import "modules/pagination"; // is this still needed?
-@import "modules/multistepForm"; // is this still needed?
+@import "modules/refineBar";
+@import "modules/organisations"; // this should be removed once the groups are decommisioned
+@import "modules/pagination";
+@import "modules/multistepForm"; // this should be removed once the groups are decommisioned
 @import "modules/groupsSemantic"; // this should be removed once the groups are decommisioned
-@import "modules/_contentDisclaimerCard"; // is this still needed?
+@import "modules/_contentDisclaimerCard";
 @import "modules/_contactUsArea"; // this should be removed once the new contact us is in place
-@import "modules/_video"; // is this still needed?
-@import "modules/_leaflet"; // is this still needed?
-@import "modules/_documentPages"; // check if this is still used
+@import "modules/_video";
+@import "modules/_leaflet";
+@import "modules/_documentPages";
 @import "modules/_cookieNotice"; 
 
 @import "modules/_cludo";
 @import "modules/_searchAutocomplete";
 @import "modules/_siteheader";
 
-
-// are any of these needed in this file?
-@import "modules/_section"; // check if this is still used
-@import "modules/_navCard"; // is this needed here?
-@import "modules/_homepageHero"; // is this needed here?
-@import "modules/_topTasks";  // is this needed here?
-@import "modules/_condolenceAlert"; // is this needed here?
-@import "modules/_preFooter"; // is this needed here?
-@import "modules/_buttons"; // is this needed here?
-@import "modules/_inputs"; // is this needed here?
-@import "modules/_homeSearch"; // is this needed here?
-@import "modules/_footer"; // is this needed here?
-@import "modules/callToAction"; // is this needed here?
-@import "modules/featureCard"; // is this needed here?
-@import "modules/featuredItem"; // is this needed here?
-@import "modules/breadcrumbs"; // is this needed here?
-@import "modules/topic"; // is this needed here?
-@import "modules/logoArea"; // is this needed here?
-@import "modules/eventCalendarBanner"; // is this needed here?
+@import "modules/_navCard";
+@import "modules/_buttons";
+@import "modules/_inputs";
+@import "modules/_footer";
+@import "modules/callToAction";
+@import "modules/breadcrumbs";

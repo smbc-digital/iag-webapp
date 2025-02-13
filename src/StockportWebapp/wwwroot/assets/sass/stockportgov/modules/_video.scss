@@ -1,9 +1,9 @@
 .video-wrapper {
-  padding: 0;
-  position: relative;
-  height: 640px;
+    padding: 0;
+    position: relative;
+    height: 640px;
 
-  @media #{$mobile} {
-    height: 240px;
-  }
+    @media #{$mobile} {
+        height: 240px;
+    }
 }

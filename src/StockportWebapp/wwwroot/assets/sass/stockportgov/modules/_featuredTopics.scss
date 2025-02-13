@@ -20,11 +20,6 @@
   }
 }
 
-.featured-topics {
-  padding-top: 10px;
-  padding-bottom: 10px;
-}
-
 .featured-topic-list {
   margin: 0 auto;
   max-width: 1200px;
@@ -132,24 +127,6 @@
   }
 }
 
-.featured-topics-primary {
-  padding-bottom: 0;
-
-  .featured-topic {
-    margin-bottom: 10px;
-
-    a {
-      cursor: pointer;
-    }
-  }
-}
-
-.featured-topics-secondary {
-  .featured-topic-list {
-    margin-bottom: 10px;
-  }
-}
-
 .featured-topics.featured-topics-primary {
   background-color: $white;
 }
@@ -221,37 +198,6 @@
     .green {
       width: 100%;
     }
-  }
-}
-
-.featured-topic-arrow.arrow {
-  display: block;
-  position: relative;
-  height: 130px;
-
-  &:after {
-    content: "";
-    position: absolute;
-    border-width: 0 10px 10px;
-    border-style: solid;
-    border-color: $colorPrimary transparent;
-    display: block;
-    width: 0;
-    height: 0;
-    right: 50%;
-    margin-right: -10px;
-    height: inherit;
-    bottom: -10px;
-
-    @media #{$desktop} {
-      margin-bottom: -77px;
-    }
-
-    margin-bottom: -15px;
-  }
-
-  &.arrow-hidden:after {
-    display: none;
   }
 }
 
