@@ -52,7 +52,8 @@
                     <p>Your reference is <strong>@Model.ReceiptNumber</strong>.</p>
                 }        
                     <hr />
-                    <p><a href="@Url.Action("Index", "Home")" class="btn btn--inverse btn--width-30 btn--chevron-forward btn--bold btn--chevron-bold btn--outline">Go to the homepage</a></p>
+                    <a href="@Url.Action("Index", "Home")" class=
+                    '@(Model.PaymentResultType is PaymentResultType.Success ? "btn btn--chevron-forward btn--width-30" : "btn btn--inverse btn--width-30 btn--chevron-forward btn--bold btn--chevron-bold btn--outline") payment__button'>Go to the homepage</a>
                 </article>
             </section>
         </div>
