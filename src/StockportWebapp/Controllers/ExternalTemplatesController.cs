@@ -16,7 +16,7 @@ public class ExternalTemplatesController(IFeatureManager featureManager) : Contr
     
     [Route("/ExternalTemplates/DemocracyExtranet")]
     public async Task<IActionResult> DemocracyExtranet() =>
-        await _featureManager.IsEnabledAsync("ExternalTemplates")
+        await _featureManager.IsEnabledAsync("ExtranetExternalTemplates")
             ? View("DemocracyExtranet2025")
             : View();
 }
