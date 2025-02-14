@@ -193,22 +193,6 @@
     }
 }
 
-.top-tasks-wrapper {
-    @media #{$mobile} {
-        margin-bottom: 1em;
-    }
-
-    .--text-center {
-        text-align: center;
-    }
-
-    &__title {
-        padding-bottom: 1em;
-        margin-top: 1em;
-        margin-bottom: 0;
-    }
-}
-
 html[dir="rtl"] {
     .top-tasks {
         &-block {

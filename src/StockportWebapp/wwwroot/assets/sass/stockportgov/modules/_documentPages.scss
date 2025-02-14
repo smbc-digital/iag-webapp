@@ -1,12 +1,4 @@
-﻿.document-page-dates {
-	text-transform: none;
-	font-size: 1em;
-	margin: 0;
-	font-weight: 600;
-	letter-spacing: 0;
-}
-
-.document{
+﻿.document{
 	&-page {
 		@media #{$mobile}
 		{
@@ -25,30 +17,30 @@
 			margin-bottom: 20px;
 		}
 	}
-}
 
-.document-icon {
-	vertical-align: top;
-	float: left;
-	transition: opacity 0.3s;
-	padding-right: 0px;
-	width: 65px;
-
-	@media #{$mobile} {
-		width: 15%;
-	}
-
-	a {
-		text-decoration: none
-	}
-
-	span {
-		color: $stockport-green !important;
-		padding-left: 00px;
-		font-size: 3em;
-
+	&-icon {
+		vertical-align: top;
+		float: left;
+		transition: opacity 0.3s;
+		padding-right: 0px;
+		width: 65px;
+	
 		@media #{$mobile} {
-			font-size: 2.2em;
+			width: 15%;
+		}
+	
+		a {
+			text-decoration: none
+		}
+	
+		span {
+			color: $stockport-green !important;
+			padding-left: 00px;
+			font-size: 3em;
+	
+			@media #{$mobile} {
+				font-size: 2.2em;
+			}
 		}
 	}
 }

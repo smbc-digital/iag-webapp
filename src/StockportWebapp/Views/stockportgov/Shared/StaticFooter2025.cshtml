@@ -1,0 +1,108 @@
+﻿@inject IStaticAssets StaticAssets
+@inject IApplicationConfiguration appConfig
+@inject BusinessId BusinessId
+@model Footer
+@{
+    string democracyHomeLink = "https://www.stockport.gov.uk";
+}
+
+<footer class="footer grid-container-full-width" data-cy="footer">
+    <div class="grid-container">
+        <div class="footer_top">
+            <div class="grid-25 tablet-grid-25 mobile-grid-100">
+                <div class="footer_logo">
+                    <img src="/assets/images/content/AmbitiousStockport_REV_Left.png" alt="Ambitious Stockport logo" loading="lazy" width="275" height="111">
+                </div>
+            </div>
+
+            <div class="grid-50 tablet-grid-55 mobile-grid-100">
+                <div class="grid-100 tablet-grid-100 mobile-grid-100">
+                    <ul class="footer_links">
+                        <li class="grid-50 tablet-grid-50 mobile-grid-100">
+                            <div class="footer__info-container">
+                                <a href="@democracyHomeLink/topic/about-our-website">About our website</a>
+                            </div>
+                        </li>
+
+                        <li class="grid-50 tablet-grid-50 mobile-grid-100">
+                            <div class="footer__info-container">
+                                <a href="@democracyHomeLink/accessibility-statement">Accessibility statement</a>
+                            </div>
+                        </li>
+
+                        <li class="grid-50 tablet-grid-50 mobile-grid-100">
+                            <div class="footer__info-container">
+                                <a href="@democracyHomeLink/topic/contact-us">Contact us</a>
+                            </div>
+                        </li>
+
+                        <li class="grid-50 tablet-grid-50 mobile-grid-100">
+                            <div class="footer__info-container">
+                                <a href="@democracyHomeLink/how-to-find-us">How to find us</a>
+                            </div>
+                        </li>
+
+                        <li class="grid-50 tablet-grid-50 mobile-grid-100">
+                            <div class="footer__info-container">
+                                <a href="@democracyHomeLink/topic/data-protection">Data protection</a>
+                            </div>
+                        </li>
+
+                        <li class="grid-50 tablet-grid-50 mobile-grid-100">
+                            <div class="footer__info-container">
+                                <a href="@democracyHomeLink/terms-and-conditions">Terms and conditions</a>
+                            </div>
+                        </li>
+
+                        <li class="grid-50 tablet-grid-50 mobile-grid-100">
+                            <div class="footer__info-container">
+                                <a href="@democracyHomeLink/freedom-of-information">Freedom of Information</a>
+                            </div>
+                        </li>
+
+                        <li class="grid-50 tablet-grid-50 mobile-grid-100">
+                            <div class="footer__info-container">
+                                <a href="@democracyHomeLink/website-feedback">Website feedback</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-socials grid-25 tablet-grid-20 mobile-grid-100">
+                <div class="footer-social-links">
+                    <a href="https://twitter.com/StockportMBC" aria-label="StockportMBC X account" target="_blank" data-cy="social-media-links">
+                        <div class="icon-bordered icon-bordered-fixed icon-container icon-twitter">
+                            <span class="fa fab fa-2x fa-brands fa-x-twitter"></span>
+                        </div>
+                    </a>
+
+                    <a href="https://www.facebook.com/StockportMBC" aria-label="StockportMBC Facebook account" target="_blank" data-cy="social-media-links">
+                        <div class="icon-bordered icon-bordered-fixed icon-container icon-facebook">
+                            <span class="fa fab fa-2x fa-brands fa-facebook"></span>
+                        </div>
+                    </a>
+
+                    <a href="https://www.youtube.com/user/StockportCouncil" aria-label="StockportMBC YouTube account" target="_blank" data-cy="social-media-links">
+                        <div class="icon-bordered icon-bordered-fixed icon-container icon-youtube">
+                            <span class="fa fab fa-2x fa-brands fa-youtube"></span>
+                        </div>
+                    </a>
+
+                    <a href="https://www.instagram.com/stockportcouncil" aria-label="StockportMBC Instagram account" target="_blank" data-cy="social-media-links">
+                        <div class="icon-bordered icon-bordered-fixed icon-container icon-instagram">
+                            <span class="fa fab fa-2x fa-brands fa-instagram"></span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <span class="clear"></span>
+        </div>
+       
+        <div class="grid-50 tablet-grid-50 footer_copyright">
+            <p id="ami-trigger" >
+                &#xA9; @DateTime.Now.Year Stockport Metropolitan Borough Council
+            </p>
+        </div>
+    </div>
+</footer>

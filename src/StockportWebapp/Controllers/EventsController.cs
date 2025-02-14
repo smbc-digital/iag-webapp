@@ -10,8 +10,7 @@ public class EventsController(IRepository repository,
                             IFilteredUrl filteredUrl,
                             CalendarHelper helper,
                             IDateCalculator dateCalculator,
-                            IStockportApiEventsService stockportApiEventsService,
-                            IFeatureManager featureManager) : Controller
+                            IStockportApiEventsService stockportApiEventsService) : Controller
 {
     private readonly IRepository _repository = repository;
     private readonly IProcessedContentRepository _processedContentRepository = processedContentRepository;
@@ -22,7 +21,6 @@ public class EventsController(IRepository repository,
     private readonly IFilteredUrl _filteredUrl = filteredUrl;
     private readonly CalendarHelper _helper = helper;
     private readonly IDateCalculator _dateCalculator = dateCalculator;
-    private readonly IFeatureManager _featureManager = featureManager;
     private readonly IStockportApiEventsService _stockportApiEventsService = stockportApiEventsService;
 
     [Route("/events")]
@@ -74,7 +72,7 @@ public class EventsController(IRepository repository,
             eventsCalendar.Homepage.NextEvents = eventHomeResponse?.Rows?.FirstOrDefault(row => row.IsLatest)?.Events
                 .Select(_stockportApiEventsService.BuildProcessedEvent).ToList();
 
-        return View("Index2024", eventsCalendar);
+        return View("Index", eventsCalendar);
     }
 
     // This is the healthy stockport filtered events homepage
@@ -131,7 +129,7 @@ public class EventsController(IRepository repository,
                 response.GlobalAlerts.AddRange(eventHomeResponse.Alerts);
         }
 
-        return View("Detail2024", response);
+        return View("Detail", response);
     }
     
     // This is used for Healthy Stockport only

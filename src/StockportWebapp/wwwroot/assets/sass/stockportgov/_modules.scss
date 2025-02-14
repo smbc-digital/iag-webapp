@@ -4,12 +4,10 @@
 @import "modules/alerts";
 @import "modules/atoz";
 
-@import "modules/contactUs";
+@import "modules/contactUs"; // this should be removed once the new contact us is in place
 @import "modules/document";
 @import "modules/featuredTopics";
 @import "modules/headers";
-@import "modules/home";
-@import "modules/personalisedServices";
 @import "modules/subitems";
 @import "modules/secondaryItems";
 @import "modules/share";
@@ -19,46 +17,35 @@
 @import "modules/search";
 @import "modules/events";
 @import "modules/filters";
-@import "modules/group";
-@import "modules/payment";
-@import "modules/showcase";
-@import "modules/groupResults";
+@import "modules/group"; // this should be removed once the groups are decommisioned
+@import "modules/payment"; // this should be removed once the new payments are in place
+@import "modules/showcase"; // this should be removed once the showcases are decommisioned
+@import "modules/groupResults"; // this should be removed once the groups are decommisioned
 @import "modules/primaryFilter";
-@import "modules/eventCard";
 @import "modules/eventbanner";
-@import "modules/table";
+@import "modules/table"; 
 @import "modules/map";
-@import "modules/groupCards";
-@import "modules/favourites";
+@import "modules/groupCards"; // this should be removed once the groups are decommisioned
+@import "modules/favourites"; // this should be removed once the groups are decommissioned
 @import "modules/refineBar";
-@import "modules/organisations";
+@import "modules/organisations"; // this should be removed once the groups are decommisioned
 @import "modules/pagination";
-@import "modules/multistepForm";
-@import "modules/groupsSemantic";
+@import "modules/multistepForm"; // this should be removed once the groups are decommisioned
+@import "modules/groupsSemantic"; // this should be removed once the groups are decommisioned
 @import "modules/_contentDisclaimerCard";
-@import "modules/_contactUsArea";
+@import "modules/_contactUsArea"; // this should be removed once the new contact us is in place
 @import "modules/_video";
 @import "modules/_leaflet";
 @import "modules/_documentPages";
-@import "modules/_cookieNotice";
+@import "modules/_cookieNotice"; 
 
 @import "modules/_cludo";
 @import "modules/_searchAutocomplete";
 @import "modules/_siteheader";
-@import "modules/_section";
+
 @import "modules/_navCard";
-@import "modules/_homepageHero";
-@import "modules/_topTasks";
-@import "modules/_condolenceAlert";
-@import "modules/_preFooter";
 @import "modules/_buttons";
 @import "modules/_inputs";
-@import "modules/_homeSearch";
 @import "modules/_footer";
 @import "modules/callToAction";
-@import "modules/featureCard";
-@import "modules/featuredItem";
 @import "modules/breadcrumbs";
-@import "modules/topic";
-@import "modules/logoArea";
-@import "modules/eventCalendarBanner";
