@@ -18,6 +18,12 @@
     <None Include="node_modules\**\*" CopyToPublishDirectory="PreserveNewest" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Remove="NewFolder\**" />
+    <Content Remove="NewFolder\**" />
+    <EmbeddedResource Remove="NewFolder\**" />
+    <None Remove="NewFolder\**" />
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="AWSSDK.SecretsManager" Version="3.7.400.27" />
     <PackageReference Include="Kralizek.Extensions.Configuration.AWSSecretsManager" Version="1.7.0" />
     <PackageReference Include="Markdig" Version="0.37.0" />
@@ -53,8 +59,5 @@
     <Content Update="wwwroot\assets\stylesheets\styleguide-sg.min.css">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="NewFolder\" />
   </ItemGroup>  
 </Project>

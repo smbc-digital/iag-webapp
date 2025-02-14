@@ -1,10 +1,12 @@
 namespace StockportWebapp.Controllers;
 
 public class SearchController(IApplicationConfiguration config,
-                            BusinessId businessId) : Controller
+                            BusinessId businessId,
+                            IFeatureManager featureManager) : Controller
 {
     private readonly IApplicationConfiguration _config = config;
     private readonly BusinessId _businessId = businessId;
+    private readonly IFeatureManager _featureManager = featureManager;
 
     [Route("/postcode")]
     public async Task<IActionResult> Postcode(string query)
@@ -18,10 +20,12 @@ public class SearchController(IApplicationConfiguration config,
     }
 
     [Route("/searchResults")]
-    public IActionResult SearchResults(string query)
+    public async Task<IActionResult> SearchResults(string query)
     {
         ViewData["Title"] = "Search results";
-        
-        return View();
+
+        return await _featureManager.IsEnabledAsync("SearchPages") && _businessId.ToString().Equals("stockportgov")
+            ? View("SearchResults2025")
+            : View();
     }
 }
