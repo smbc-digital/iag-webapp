@@ -1,5 +1,3 @@
-using HtmlAgilityPack;
-
 namespace StockportWebapp.Controllers;
 
 [ExcludeFromCodeCoverage]
