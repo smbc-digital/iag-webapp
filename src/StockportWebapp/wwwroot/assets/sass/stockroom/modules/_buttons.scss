@@ -52,10 +52,13 @@
     &--no-margin-top {
         margin-top: 0 !important;
     }
-
     
     &--no-margin-bottom {
         margin-bottom: 0 !important;
+    }
+
+    &--margin-bottom {
+        margin-bottom: 1em !important;
     }
 
     &_text {
