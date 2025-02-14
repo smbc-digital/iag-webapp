@@ -12,7 +12,7 @@ define(["jquery"], function ($) {
                 if (window.innerWidth <= maxWidth) { 
                     filterList.classList.toggle("show");
                     filterList.classList.toggle("event-homepage__categories--no-margin-top");
-                    toggleButton.classList.toggle("btn--no-margin-bottom");
+                    toggleButton.classList.toggle("btn--margin-bottom");
 
                     if (filterList.classList.contains("show")) {
                         categoryWrapper.classList.remove("event-homepage__category-wrapper--no-padding-bottom--non-desktop");
@@ -47,7 +47,7 @@ define(["jquery"], function ($) {
                     toggleButton.textContent = "Show filters";
                 } else {
                     if (!filterList.classList.contains("show")) {
-                        toggleButton.classList.remove("btn--no-margin-bottom");
+                        toggleButton.classList.remove("btn--margin-bottom");
                         toggleButton.textContent = "Show filters";
                         categoryWrapper.classList.add("event-homepage__category-wrapper--no-padding-bottom--non-desktop");
                     }
