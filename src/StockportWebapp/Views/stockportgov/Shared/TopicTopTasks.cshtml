@@ -1,6 +1,6 @@
 @model IEnumerable<SubItem>
 
- <section class="section section--white section--no-margin section--margin-top">
+<section class="section section--white section--no-margin section--margin-top">
     <h2 class="visuallyhidden">Popular tasks</h2>
         @if (Model is not null) 
         {
@@ -8,20 +8,24 @@
                     <div class="grid-100" data-cy="topic-top-tasks">
                     <div class="section__content section__content--no-margin">
                         <div class="top-tasks__nav">
-                            @foreach (SubItem subItem in Model)
+                            @foreach (SubItem[] row in Model.Chunk(3))
                             {
-                                <div class="top-tasks-block top-tasks--width-33">
-                                    <a class="top-tasks-block__link" href="@subItem.NavigationLink" data-cy="topic-top-task-link">
-                                        <div class="top-tasks-block__content">
-                                            <div class="top-tasks-block__icon top-tasks-block__topic">
-                                                <span class="@subItem.Icon si-default top-tasks__icon" aria-hidden="true" data-cy="topic-top-task-icon"></span>
-                                            </div>
-                                            
-                                            <h3 class="top-tasks-block__title top-tasks-block__title--center" data-cy="topic-top-task-title">
-                                                @subItem.Title
-                                            </h3>
+                                <div class="top-tasks-row">
+                                    @foreach (SubItem subItem in row)
+                                    {
+                                        <div class="top-tasks-block top-tasks--width-33">
+                                            <a class="top-tasks-block__link" href="@subItem.NavigationLink" data-cy="topic-top-task-link">
+                                                <div class="top-tasks-block__content">
+                                                    <div class="top-tasks-block__icon top-tasks-block__topic">
+                                                        <span class="@subItem.Icon si-default top-tasks__icon" aria-hidden="true" data-cy="topic-top-task-icon"></span>
+                                                    </div>
+                                                    <h3 class="top-tasks-block__title top-tasks-block__title--center" data-cy="topic-top-task-title">
+                                                        @subItem.Title
+                                                    </h3>
+                                                </div>
+                                            </a>
                                         </div>
-                                    </a>
+                                    }
                                 </div>
                             }
                         </div>

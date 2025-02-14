@@ -14,6 +14,11 @@
         flex-direction: column;
     }
 
+    &-row {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
     &-block {
         text-align: center;
         margin: 0 8.5px;
@@ -130,10 +135,15 @@
         }
     }
 
-    &__nav { 
-        display: flex;
-        flex-wrap: wrap;
-        
+    &__nav {
+        .top-tasks-row:not(:first-of-type) {
+            margin-block-start: 1.5em;
+
+            @media #{$mobile} {
+                margin-block-start: 0.5em;
+            }
+        }
+
         :first-child {
             margin-left: 0;
         }
@@ -151,7 +161,6 @@
         width: calc(33.33333% - 33.33333px);
         padding: 0;
         display: flex;
-        float: left;
         margin: 0 25px 0;
         text-align: left;
     
@@ -200,6 +209,8 @@ html[dir="rtl"] {
             }
 
             &__topic {
+                padding-inline-end: 0.4em;
+
                 @media #{$tablet} {
                     margin: 0;
                     padding: 0.5em;

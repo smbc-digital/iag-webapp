@@ -110,6 +110,18 @@ public class PaymentControllerTest
     }
 
     [Fact]
+    public async Task DetailShouldReturnViewWithErrorsIfErrors()
+    {
+        // Act & Assert
+        ViewResult result = await _paymentController.Detail("slug", "Test Error", "false") as ViewResult;
+        PaymentSubmission model = result.ViewData.Model as PaymentSubmission;
+
+        Assert.NotNull(result);
+        Assert.NotNull(model);
+        Assert.True(_paymentController.ModelState.ContainsKey(nameof(PaymentSubmission.Reference)));
+    }
+
+    [Fact]
     public async Task DetailShouldGetA404NotFoundPayment()
     {
         // Arrange
@@ -119,6 +131,23 @@ public class PaymentControllerTest
 
         // Act
         HttpResponse response = await _paymentController.Detail("not-found-slug", null, null) as HttpResponse; ;
+
+        // Assert
+        Assert.Equal(404, response.StatusCode);
+    }
+
+    [Fact]
+    public async Task DetailPostShouldGetA404NotFoundPayment()
+    {
+        // Arrange
+        _fakeRepository
+            .Setup(repo => repo.Get<Payment>(It.IsAny<string>(), It.IsAny<List<Query>>()))
+            .ReturnsAsync(new HttpResponse((int)HttpStatusCode.NotFound, null, string.Empty));
+
+        // Act
+        _paymentController.ObjectValidator = _objectValidator.Object;
+
+        HttpResponse response = await _paymentController.Detail("not-found-slug", new PaymentSubmission()) as HttpResponse;
 
         // Assert
         Assert.Equal(404, response.StatusCode);
