@@ -14,7 +14,7 @@
 
     <div class="grid-container">
         <div class="grid-100">
-            <div class="article--70">
+            <div class="article--70 payment__heading">
                 <h1 class="h-xl">@Model.Payment.Title</h1>
             </div>
             <section class="article">
@@ -31,22 +31,23 @@
                         <div class="form-section">
                             <fieldset>
                                 <label asp-for="Reference">@Model.Payment.ReferenceLabel</label>
-                                <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="Reference" type="text" />
-                                <span class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent" role="alert" aria-atomic="true" asp-validation-for="Reference"></span>
+                                <input class="payment__input" asp-for="Reference" type="text" />
+                                <span class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 payment__validation--rtl grid-parent" role="alert" aria-atomic="true" asp-validation-for="Reference"></span>
 
                                 <label asp-for="Name">Name</label>
-                                <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="Name" type="text" />
-                                <span class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent" role="alert" aria-atomic="true" asp-validation-for="Name"></span>
+                                <input class="payment__input" asp-for="Name" type="text" />
+                                <span class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 payment__validation--rtl grid-parent" role="alert" aria-atomic="true" asp-validation-for="Name"></span>
 
                                 <label asp-for="EmailAddress">Email Address</label>
-                                <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="EmailAddress" type="text" />
-                                <span class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent" role="alert" aria-atomic="true" asp-validation-for="EmailAddress"></span>
+                                <input class="payment__input" asp-for="EmailAddress" type="text" />
+                                <span class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 payment__validation--rtl grid-parent" role="alert" aria-atomic="true" asp-validation-for="EmailAddress"></span>
 
                                 <label asp-for="Amount">Payment amount</label>
                                 <p class="visuallyhidden">Enter a sterling value</p>
                                 <div class="input-group">
-                                    <span class="input-addon">£</span><input asp-for="Amount" type="number" min="0.00" value="" class="grid-15 tablet-grid-25 suffix-85 tablet-suffix-75 mobile-grid-100 form-control">
-                                    <span role="alert" aria-atomic="true" asp-validation-for="Amount" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
+                                    <span class="payment__symbol">£</span>
+                                    <input asp-for="Amount" type="number" min="0.00" value="" class="payment__input payment__input--amount">
+                                    <span role="alert" aria-atomic="true" asp-validation-for="Amount" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 payment__validation--rtl grid-parent"></span>
                                 </div>
                                 <div>
                                     <button id="uitest-payment-form-submit" type="submit" class="btn btn--chevron-forward btn--width-30 submit">Start your payment</button>
