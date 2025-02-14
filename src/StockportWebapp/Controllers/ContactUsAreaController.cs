@@ -14,7 +14,7 @@ public class ContactUsAreaController(IProcessedContentRepository repository, IFe
         if (!contactUsAreaHttpResponse.IsSuccessful())
             return contactUsAreaHttpResponse;
 
-         if (await _featureManager.IsEnabledAsync("ContactUsArea"))
+        if (await _featureManager.IsEnabledAsync("ContactUsArea"))
             return View("Index2025", contactUsAreaHttpResponse.Content as ProcessedContactUsArea);
 
         return View("Index", contactUsAreaHttpResponse.Content as ProcessedContactUsArea);

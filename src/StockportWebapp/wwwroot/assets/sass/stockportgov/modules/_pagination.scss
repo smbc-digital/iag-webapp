@@ -1,155 +1,154 @@
 ﻿.pagination {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  flex-wrap: wrap;
-  margin: 1.5em 0 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 1.5em 0 0;
 
-  @media #{$tablet-only, $desktop} {
-      flex-direction: row;
-      place-content: center;
-      display: flex;
-      align-items: center;
-      flex-wrap: wrap;
-  }
-  
-  @media #{$mobile}{
-      margin-left: 5px;
-      margin-right: 5px;
-      
-      &__prev {
-          margin-bottom: 1em;
-      }
+    @media #{$tablet-only, $desktop} {
+        flex-direction: row;
+        place-content: center;
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+    
+    @media #{$mobile}{
+        margin-left: 5px;
+        margin-right: 5px;
+        
+        &__prev {
+            margin-bottom: 1em;
+        }
 
-      &__next {
-          margin-top: 1em;
-      }
-  }
+        &__next {
+            margin-top: 1em;
+        }
+    }
 
-  &__count {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+    &__count {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
 
-      @media #{$mobile} {
-          margin-left: 5px;
-          margin-right: 5px;
-      }
+        @media #{$mobile} {
+            margin-left: 5px;
+            margin-right: 5px;
+        }
 
-      &-view-all {
-        width: fit-content;
-        margin-block-start: 1em;
-      }
-  }
+        &-view-all {
+            width: fit-content;
+            margin-block-start: 1em;
+        }
+    }
 
-  &__list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
+    &__list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
 
-  &__right {
-      &::after {
-          content: "\f054";
-          font: bold normal normal 19px/1 FontAwesome;
-      }
-  }
+    &__right {
+        &::after {
+            content: "\f054";
+            font: bold normal normal 19px/1 FontAwesome;
+        }
+    }
 
-  &__left {
-      &::after {
-          content: "\f053";
-          font: bold normal normal 19px/1 FontAwesome;
-      }
-  }
+    &__left {
+        &::after {
+            content: "\f053";
+            font: bold normal normal 19px/1 FontAwesome;
+        }
+    }
 
-  &__item {
-      box-sizing: border-box;
-      position: relative;
-      min-width: 45px;
-      min-height: 45px;
-      float: left;
-      margin: 0;
-      padding: 10px 0;
-      list-style: none;
-      text-align: center;
-  }
+    &__item {
+        box-sizing: border-box;
+        position: relative;
+        min-width: 45px;
+        min-height: 45px;
+        float: left;
+        margin: 0;
+        padding: 10px 0;
+        list-style: none;
+        text-align: center;
+    }
 
-  &__links {
-      padding: 10px 15px;
-      font-weight: 700;
-  }
+    &__links {
+        padding: 10px 15px;
+        font-weight: 700;
+    }
 
-  &__current {
-      text-align: center;
-      text-align: center;
-      background-color: $stockport-green;
-      color: white;
-      border-radius: 3px;
-      padding: 10px 17px;
-      font-weight: 700;
+    &__current {
+        text-align: center;
+        text-align: center;
+        background-color: $stockport-green;
+        color: white;
+        border-radius: 3px;
+        padding: 10px 17px;
+        font-weight: 700;
 
-      &::after {
-          content: "";
-          position: absolute;
-          top: 0;
-          right: 0;
-          bottom: 0;
-          left: 0;
-      }
-  }
+        &::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+        }
+    }
 
-  &__number {
-      padding: 12px 19px;
-  }
+    &__number {
+        padding: 12px 19px;
+    }
 
-  &__ellipses {
-      font-weight: 700;
-  }
+    &__ellipses {
+        font-weight: 700;
+    }
 }
 
 html[dir="rtl"] {
-  .pagination {
-      &__right {
-          display: none;
+    .pagination {
+        &__right {
+            display: none;
 
-          &--rtl{
-              &::before {
-                  content: "\f054";
-                  font: bold normal normal 19px/1 FontAwesome;
-              }
-          }
-      }
+            &--rtl{
+                &::before {
+                    content: "\f054";
+                    font: bold normal normal 19px/1 FontAwesome;
+                }
+            }
+        }
   
-      &__left {
-          display: none;
+        &__left {
+            display: none;
 
-          &--rtl {
-              &::after {
-                  content: "\f053";
-                  font: bold normal normal 19px/1 FontAwesome;
-              }
-          }
-      }
+            &--rtl {
+                &::after {
+                    content: "\f053";
+                    font: bold normal normal 19px/1 FontAwesome;
+                }
+            }
+        }
 
-      &__item {
-          float: right;
-      }
-  }
+        &__item {
+            float: right;
+        }
+    }
 }
 
 .pagination-previous, .pagination-next {
-
-  p:first-of-type {
-    font-size: 1.375em;
-    margin-top: 10px;
-    margin-bottom: 0;
-    color: $tealDarker;
-    text-decoration: underline;
-  }
-
-  &:hover {
     p:first-of-type {
-      text-decoration-thickness: 3px;
+        font-size: 1.375em;
+        margin-top: 10px;
+        margin-bottom: 0;
+        color: $tealDarker;
+        text-decoration: underline;
     }
-  }
+
+    &:hover {
+        p:first-of-type {
+        text-decoration-thickness: 3px;
+        }
+    }
 }

@@ -17,7 +17,6 @@ public class EventsControllerTest
     private readonly Mock<IFilteredUrl> _filteredUrl = new();
     private readonly DateCalculator _datetimeCalculator;
     private readonly Mock<IStockportApiEventsService> _stockportApiEventsService = new();
-    private Mock<IFeatureManager> _featureManager = new();
     private readonly CalendarHelper _calendarhelper = new();
     private readonly Group _group = new GroupBuilder().Build();
 
@@ -140,10 +139,6 @@ public class EventsControllerTest
             .Setup(config => config.GetEmailAlertsNewSubscriberUrl(BusinessId))
             .Returns(AppSetting.GetAppSetting("email-alerts-url"));
 
-        _featureManager
-            .Setup(featureManager => featureManager.IsEnabledAsync(It.IsAny<string>()))
-            .ReturnsAsync(true);
-
         _controller = new EventsController(
             _repository.Object,
             _processedContentRepository.Object,
@@ -154,8 +149,7 @@ public class EventsControllerTest
             _filteredUrl.Object,
             _calendarhelper,
             _datetimeCalculator,
-            _stockportApiEventsService.Object,
-            _featureManager.Object);
+            _stockportApiEventsService.Object);
     }
 
     [Fact]
@@ -618,8 +612,7 @@ public class EventsControllerTest
                                         _filteredUrl.Object,
                                         null,
                                         _datetimeCalculator,
-                                        null,
-                                        _featureManager.Object);
+                                        null);
     }
 
     private List<Event> BuildEventList(int numberOfItems)

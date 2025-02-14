@@ -5,7 +5,6 @@
         "utils": "utils-e9b96aa5.min",
         "reciteMe": "reciteMe-70c3df4d.min",
         "cludo": "cludo-ae98e22c.min",
-
         "jquery": "../vendor/jquery-v3.6.0.min",
         "Cludo": "https://customer.cludo.com/scripts/bundles/search-script.min",
     },
