@@ -214,14 +214,6 @@ footer .l-dashed-list {
   padding-left: 0;
 }
 
-.l-no-padding-left {
-  padding-left: 0;
-}
-
-.l-no-padding-right {
-  padding-right: 0;
-}
-
 .l-right-align {
   text-align: right;
 }
@@ -230,35 +222,7 @@ footer .l-dashed-list {
   text-align: left;
 }
 
-.l-no-scroll {
-  overflow: hidden;
-  height: 100%;
-}
-
 /*------------ Desktop specific stylez ---------*/
-.l-centered-list {
-  @media #{$desktop} {
-    text-align: center;
-    display: block;
-
-    li {
-      display: inline-block;
-
-      a {
-        display: block;
-      }
-    }
-  }
-}
-
-.l-max-width-950 {
-  max-width: 950px;
-}
-
-.l-no-margin {
-  margin: 0;
-}
-
 .l-article-container {
   @media #{$desktop, $tablet} {
     padding-left: 30px;

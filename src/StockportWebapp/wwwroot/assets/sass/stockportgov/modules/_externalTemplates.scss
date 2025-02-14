@@ -2,13 +2,17 @@
     display: flex;
     flex-direction: row;
     word-wrap: break-word;
-    
+
     @media #{$mobile} {
         margin-inline: 5px;
     }
 
     @media #{$tablet} {
         display: block;
+    }
+
+    @media #{$desktop} {
+        margin-top: 1em;
     }
     
     &--70 {
@@ -19,6 +23,11 @@
             width: 100%;
             margin-inline-end: 0;
             padding: 0;
+
+            section {
+                margin-block: 1.5em;
+                padding-bottom: 5px;
+            }
         }
     }
 
