@@ -68,9 +68,9 @@ hr {
     border: 3px solid;
     border-radius: 100%;
     text-align: center;
-  }
+}
   
-  .icon-bordered-fixed {
+.icon-bordered-fixed {
     padding: 15px;
     text-align: center;
     display: inline-block;
@@ -300,13 +300,25 @@ a:focus, button:focus, input:focus, textarea:focus, select:focus {
     outline: #ef8a16 solid 3px !important;
 }
   
-  // trumbowyg-editor is the wysiwyg editor
-  .focusable, .trumbowyg-editor {
+// trumbowyg-editor is the wysiwyg editor
+.focusable, .trumbowyg-editor {
     &:focus {
         outline: #ef8a16 solid 3px !important;
     }
 }
-  
+
+select, input[type="text"] {
+    max-width: 100%;
+    height: 44px;
+    font-size: 1em;
+    border-radius: 3px;
+}
+
+#modgov label {
+    font-size: 1em !important;
+    width: 170px !important;
+}
+
 html[dir="rtl"] {
     .breadcrumb {
         li:not(:first-child) {
