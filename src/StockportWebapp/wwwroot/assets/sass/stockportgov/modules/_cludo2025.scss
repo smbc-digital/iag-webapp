@@ -175,3 +175,82 @@
     font-size: 20px;
   }
 }
+
+#cludo-search-results ul .search-results-item a>.path {
+  font-size: 1em;
+  color: $stockport-green;
+}
+
+#cludo-search-results .search-filters ul a:hover {
+    background-color: white;
+    background-image: none;
+	color: $stockport-green;
+}
+
+#cludo-search-results .search-filters ul a {
+	color: $stockport-green;
+	transition: none;
+}
+
+#cludo-search-results ul .search-results-item:hover {
+	background-color: white;
+}
+
+.search-result-count {
+	padding-left: 0 !important;
+}
+
+#cludo-search-results ul.search_page_list li, .cludo-search-results ul.search_page_list li {
+	box-sizing: border-box;
+    float: left;
+    list-style: none;
+    margin: 0;
+    min-height: 45px;
+    min-width: 45px;
+    padding: 10px 0;
+    position: relative;
+    text-align: center;
+	width: unset;
+
+	a {
+		padding: 12px 19px;
+	}
+}
+
+#cludo-search-results > div > div.article--70 > div.search-results > nav > ul > li.active {
+	background-color: #066;
+    border-radius: 3px;
+    color: #fff;
+    font-weight: 700;
+    padding: 10px 17px;
+    text-align: center;
+	width: auto;
+}
+
+
+#cludo-search-results .search-filters ul a:hover {
+	background-color: $stockport-green;
+	color: white;
+	transition: none;
+}
+
+#cludo-search-results > div > div.article--70 > div.search-results > nav {
+	margin-top: 1.5em;
+}
+
+@media #{$mobile} {
+	.search-filters {
+		display: none;
+	}
+}
+
+@media #{$tablet-only} {
+	.search-filters {
+		margin-top: 3em;
+	}
+}
+
+#cludo-search-results .search-filters a.active {
+	background-color: $stockport-green;
+	color: white;
+}

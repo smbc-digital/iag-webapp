@@ -70,6 +70,8 @@
             text-indent: 0;
             overflow: hidden;
             transition: none;
+            position: static;
+            height: auto;
 
             span:before {
                 font-family: FontAwesome;
