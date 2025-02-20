@@ -83,6 +83,10 @@ hr {
     }
 }
 
+table {
+    overflow-wrap: anywhere;
+}
+
 .footer-social-links .icon-container {
     margin: 0 5px 0 5px;
 
@@ -307,7 +311,7 @@ a:focus, button:focus, input:focus, textarea:focus, select:focus {
     }
 }
 
-select, input[type="text"] {
+select, input:not([type="checkbox"]):not([type="radio"]):not([type="date"]):not([type="datetime-local"]):not([type="month"]):not([type="week"]):not([type="file"]):not([type="image"]):not([type="button"]):not([type="submit"]):not([type="reset"]) {
     max-width: 100%;
     height: 44px;
     font-size: 1em;
