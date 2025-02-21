@@ -3,6 +3,7 @@
 @model bool
 @{
     LoggedInPerson user = loggedInHelper.GetLoggedInPerson();
+    string democracyHomeLink = "https://www.stockport.gov.uk";
 }
 
 <div class="site-header grid-container-full-width">
@@ -14,7 +15,7 @@
 
     <header role="banner" id="header" class="grid-container">
         <div class="grid-30 tablet-grid-100 mobile-grid-100">
-            <a href="https://www.stockport.gov.uk">
+            <a href="@democracyHomeLink">
                 <img src='//images.ctfassets.net/6cfgzlmcakf7/3c956KNVIZpjtvKhNqoPiR/aa2a141540d0072eabc6e2504f01274d/logo-stockport-full_2x.png?fm=webp'
                     alt="Stockport Council Logo Homepage Link"
                     class="site-header_logo"
@@ -46,7 +47,7 @@
 <partial name="BrowserCheck" />
 
 <script type="text/plain" data-cookie-consent="strictly-necessary">
-    require(['https://www.stockport.gov.uk/assets/javascript/config-fe4a6222.min.js'], function() {
+    require(['@democracyHomeLink/assets/javascript/config-external-f92ca697.min.js'], function() {
         require(['startup', 'cludo', 'Cludo'],
             function (startup, cludo, _) {
                 startup.Init();
@@ -57,7 +58,7 @@
 </script>
 
 <script type="text/plain" data-cookie-consent="functionality">
-    require(['https://www.stockport.gov.uk/assets/javascript/config-fe4a6222.min.js'], function() {
+    require(['@democracyHomeLink/assets/javascript/config-external-f92ca697.min.js'], function() {
         require(['utils', 'reciteMe'],
             function(utils, reciteMe, _) {
                 reciteMe.Init();
