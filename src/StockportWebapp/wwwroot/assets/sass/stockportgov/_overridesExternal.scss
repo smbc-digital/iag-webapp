@@ -37,7 +37,7 @@ ul {
 }
 
 li {
-    margin-left: 30px;
+    margin-inline-start: 30px;
 }
 
 address,dl,fieldset,figure,h1,h2,h4,h5,h6,hr,ol,p,pre,table,ul {
@@ -315,17 +315,43 @@ a:focus, button:focus, input:focus, textarea:focus, select:focus {
     width: revert-layer;
 }
 
-select, input:not([type="checkbox"]):not([type="radio"]):not([type="date"]):not([type="datetime-local"]):not([type="month"]):not([type="week"]):not([type="file"]):not([type="image"]):not([type="button"]):not([type="submit"]):not([type="reset"]) {
+select, input:not([type="checkbox"]):not([type="radio"]):not([type="date"]):not([type="datetime-local"]):not([type="month"]):not([type="week"]):not([type="file"]):not([type="image"]):not([type="button"]):not([type="submit"]):not([type="reset"]):not([type="search"]) {
     max-width: 100%;
     height: 44px;
     font-size: 1em;
     border-radius: 3px;
 }
 
+input[type="search"] {
+    max-width: 100%;
+    height: 44px;
+    font-size: 1em;
+
+    #search-clear {
+        display: none;
+    }
+}
+
+.mgItemNumberCell {
+    min-width: 4% !important;
+}
+
 #modgov label {
     font-size: 1em !important;
     width: 170px !important;
 }
+
+#modgov .mgSectionTitle {
+    font-size: 1em !important;
+}
+
+#modgov ul.mgLibraryIcons li a {
+    font-size: 16px;
+}
+
+.grid-container-full-width {
+    max-width: none;
+}  
 
 html[dir="rtl"] {
     .breadcrumb {
@@ -341,4 +367,5 @@ html[dir="rtl"] {
     #header {
         overflow-y: hidden;
     }
+
 }
