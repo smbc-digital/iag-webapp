@@ -76,6 +76,7 @@
 		.search_page_list {
 			display: flex;
 			justify-content: center;
+			flex-wrap: wrap;
 		}
   	}
 }
@@ -177,14 +178,18 @@
 }
 
 #cludo-search-results ul .search-results-item a>.path {
-  font-size: 1em;
-  color: $stockport-green;
+	font-size: 1em;
+	color: $stockport-green;
 }
 
 #cludo-search-results .search-filters ul a:hover {
     background-color: white;
     background-image: none;
 	color: $stockport-green;
+
+	li {
+		border: 2px solid #066;
+	}
 }
 
 #cludo-search-results .search-filters ul a {
@@ -238,19 +243,73 @@
 	margin-top: 1.5em;
 }
 
-@media #{$mobile} {
-	.search-filters {
-		display: none;
+#cludo-search-results .search-filters ul {
+	border: none;
+}
+
+.search-filters__title {
+	border-top: 0.55em solid $stockport-teal-lighter;
+	border-radius: 2px;
+	background-color: #f2f2f2;
+
+	h2 {
+		border-left: 1px solid #ccc;
+		border-right: 1px solid #ccc;
+		width: 100%;
+		padding: 28.5px 10px 16px;
 	}
 }
 
-@media #{$tablet-only} {
-	.search-filters {
-		margin-top: 3em;
+#cludo-search-results .search-filters ul a {
+	border: none;
+}
+
+#cludo-search-results .search-filters ul li:last-child {
+	border-bottom: 1px solid #ccc;
+	border-bottom-right-radius: 3px;
+    border-bottom-left-radius: 3px;
+	
+	a {
+		padding-bottom: 28.5px;
+	}
+}
+
+#cludo-search-results .search-filters ul li {
+	border: 1px solid #ccc;
+	border-top: unset;
+	border-bottom: unset;
+	background-color: #f2f2f2;
+
+	div {
+		padding-top: 28.5px;
+	}
+
+	div, a {
+		padding: 8px 10px;
+	}
+}
+
+#cludo-search-results .search-filters li.active {
+	border: 2px solid $stockport-green;
+}
+
+@media #{$mobile} {
+	#cludo-search-results .search-filters ul {
+		display: block;
+		overflow: unset;
+		position: static;
+		box-shadow: none;
 	}
 }
 
 #cludo-search-results .search-filters a.active {
 	background-color: $stockport-green;
 	color: white;
+}
+
+
+@media #{$tablet} {
+	#cludo-search-results .article--30 {
+		margin-top: 2em;
+	}
 }
