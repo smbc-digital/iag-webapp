@@ -8,7 +8,7 @@ public class SearchControllerTest
     private const string PostcodeUrl = "postcode_url";
 
     public SearchControllerTest() =>
-        _searchController = new(_config.Object, new BusinessId(_businessId));
+        _searchController = new(_config.Object, new BusinessId(_businessId), null);
 
     [Fact]
     public async Task ItRedirectsToPostcodeSearchUrl()

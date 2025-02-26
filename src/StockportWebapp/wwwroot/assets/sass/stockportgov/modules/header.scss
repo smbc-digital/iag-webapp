@@ -71,6 +71,8 @@
             text-indent: 0;
             overflow: hidden;
             transition: none;
+            position: static;
+            height: auto;
 
             span:before {
                 font-family: FontAwesome;
@@ -141,5 +143,11 @@
 
     .site-header_mobile-search-button, .site-header_search-wrapper {
         display: none;
+    }
+}
+
+html[dir="rtl"] {
+    .site-header_search-input {
+        border-radius: 0 3px 3px 0;
     }
 }
