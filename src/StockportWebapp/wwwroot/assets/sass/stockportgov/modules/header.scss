@@ -22,13 +22,14 @@
 
     &_search-input {
         color: $stockport-grey;
-        font-size: 1.2rem;
+        font-size: 1.2rem !important;
         padding: 15px 60px 15px 15px;
-        border-radius: 3px 0 0 3px;
+        border-radius: 3px 0 0 3px !important;
         border: 0px;
         width: 100%;
         max-width: 100%;
         box-sizing: border-box;
+        height: auto !important;
 
         &:focus {
             background-color: white;
@@ -147,6 +148,6 @@
 
 html[dir="rtl"] {
     .site-header_search-input {
-        border-radius: 0 3px 3px 0;
+        border-radius: 0 3px 3px 0 !important;
     }
 }
