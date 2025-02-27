@@ -48,13 +48,14 @@ public class PaymentController(IProcessedContentRepository repository,
     [Route("/payment/{slug}")]
     public async Task<IActionResult> Detail(string slug, PaymentSubmission paymentSubmission)
     {
-        TryValidateModel(paymentSubmission);
         HttpResponse response = await _repository.Get<Payment>(slug);
 
         if (!response.IsSuccessful())
             return response;
 
         paymentSubmission.Payment = response.Content as ProcessedPayment;
+
+        TryValidateModel(paymentSubmission);
 
         if (!ModelState.IsValid)
         {
