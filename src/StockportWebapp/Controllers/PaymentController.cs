@@ -122,33 +122,33 @@ public class PaymentController(IProcessedContentRepository repository,
     }
 
     private CreateImmediateBasketRequest GetCreateImmediateBasketRequest(string slug, PaymentSubmission paymentSubmission, string transactionReference) =>
-    new CreateImmediateBasketRequest
-    {
-        CallingAppIdentifier = _civicaPayConfiguration.CallingAppIdentifier,
-        CustomerID = _civicaPayConfiguration.CustomerID,
-        ApiPassword = _civicaPayConfiguration.ApiPassword,
-        ReturnURL = !string.IsNullOrEmpty(paymentSubmission.Payment.ReturnUrl)
-            ? paymentSubmission.Payment.ReturnUrl
-            : $"{Request.Scheme}://{Request.Host}/payment/{slug}/result",
-        NotifyURL = string.Empty,
-        CallingAppTranReference = transactionReference,
-        PaymentItems = new List<PaymentItem>
+        new()
         {
-            new()
+            CallingAppIdentifier = _civicaPayConfiguration.CallingAppIdentifier,
+            CustomerID = _civicaPayConfiguration.CustomerID,
+            ApiPassword = _civicaPayConfiguration.ApiPassword,
+            ReturnURL = !string.IsNullOrEmpty(paymentSubmission.Payment.ReturnUrl)
+                ? paymentSubmission.Payment.ReturnUrl
+                : $"{Request.Scheme}://{Request.Host}/payment/{slug}/result",
+            NotifyURL = string.Empty,
+            CallingAppTranReference = transactionReference,
+            PaymentItems = new List<PaymentItem>
             {
-                PaymentDetails = new PaymentDetail
+                new()
                 {
-                    CatalogueID =  paymentSubmission.Payment.CatalogueId,
-                    AccountReference = !string.IsNullOrEmpty(paymentSubmission.Payment.AccountReference)
-                        ? paymentSubmission.Payment.AccountReference
-                        : paymentSubmission.Reference,
-                    PaymentAmount = paymentSubmission.Amount.ToString(),
-                    PaymentNarrative = $"{paymentSubmission.Payment.PaymentDescription} - {paymentSubmission.Reference}",
-                    CallingAppTranReference = transactionReference,
-                    Quantity = "1"
-                },
-                AddressDetails = new AddressDetail()
+                    PaymentDetails = new PaymentDetail
+                    {
+                        CatalogueID =  paymentSubmission.Payment.CatalogueId,
+                        AccountReference = !string.IsNullOrEmpty(paymentSubmission.Payment.AccountReference)
+                            ? paymentSubmission.Payment.AccountReference
+                            : paymentSubmission.Reference,
+                        PaymentAmount = paymentSubmission.Amount.ToString(),
+                        PaymentNarrative = $"{paymentSubmission.Payment.PaymentDescription} - {paymentSubmission.Reference}",
+                        CallingAppTranReference = transactionReference,
+                        Quantity = "1"
+                    },
+                    AddressDetails = new AddressDetail()
+                }
             }
-        }
-    };
+        };
 }

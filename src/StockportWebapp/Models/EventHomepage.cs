@@ -6,6 +6,7 @@ public class EventHomepage(List<Alert> alerts)
     public List<EventCategory> Categories { get; set; }
     public string MetaDescription { get; set; }
     public List<Alert> Alerts { get; set; } = alerts;
+    public List<Alert> GlobalAlerts { get; set; } = new();
     public List<ProcessedEvents> NextEvents { get; set; } = new();
     public CallToActionBanner CallToAction { get; set; }
 

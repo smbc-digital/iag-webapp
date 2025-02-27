@@ -22,6 +22,7 @@ public class ProcessedEventsTests
                                                         null,
                                                         null,
                                                         null,
+                                                        null,
                                                         string.Empty,
                                                         new(),
                                                         string.Empty,
