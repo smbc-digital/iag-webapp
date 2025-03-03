@@ -1,10 +1,9 @@
 namespace StockportWebapp.Controllers;
 
 [ResponseCache(Location = ResponseCacheLocation.Any, Duration = Cache.Medium)]
-public class ContactUsAreaController(IProcessedContentRepository repository, IFeatureManager featureManager) : Controller
+public class ContactUsAreaController(IProcessedContentRepository repository) : Controller
 {
     private readonly IProcessedContentRepository _repository = repository;
-    private readonly IFeatureManager _featureManager = featureManager;
 
     [Route("/contact")]
     public async Task<IActionResult> Index()
@@ -13,9 +12,6 @@ public class ContactUsAreaController(IProcessedContentRepository repository, IFe
 
         if (!contactUsAreaHttpResponse.IsSuccessful())
             return contactUsAreaHttpResponse;
-
-        if (await _featureManager.IsEnabledAsync("ContactUsArea"))
-            return View("Index2025", contactUsAreaHttpResponse.Content as ProcessedContactUsArea);
 
         return View("Index", contactUsAreaHttpResponse.Content as ProcessedContactUsArea);
     }

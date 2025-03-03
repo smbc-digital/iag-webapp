@@ -6,7 +6,6 @@ public class ContactUsAreaControllerTests
 {
     private readonly ContactUsAreaController _controller;
     private readonly Mock<IProcessedContentRepository> _repository = new();
-    private readonly Mock<IFeatureManager> _featureManager = new();
     private readonly ContactUsArea contactUsArea = new("title",
         "contact-us-area",
         new List<Crumb>(),
@@ -18,7 +17,7 @@ public class ContactUsAreaControllerTests
         string.Empty);
 
     public ContactUsAreaControllerTests() =>
-        _controller = new ContactUsAreaController(_repository.Object, _featureManager.Object);
+        _controller = new ContactUsAreaController(_repository.Object);
 
     [Fact]
     public async Task Index_ShouldCallRepository_AndReturnView()
