@@ -29,27 +29,32 @@
         </div>
 
         <section class="section">
-            <div class="grid-container grid-100">
-                <h2 class="contact-us-area__services contact-us-area--margin-top">Popular services</h2>
+            <div class="grid-container">
+                <div class="grid-100">
+                    <h2 class="contact-us-area__services contact-us-area--margin-top">Popular services</h2>
+                </div>
             </div>
-            <partial name="TopicTopTasks" model='@Model.PrimaryItems' />
+
+            <partial name="TopTasks" model='@Model.PrimaryItems' />
 
             @if(hasCategories)
             {
-                <div class="grid-container grid-100">
-                    <h2 class="contact-us-area__services">Categories</h2>
-                    <nav class="contact-us-area__navigation" aria-label="Contact us area categories" data-cy="contact-us-navigation">
-                        <ul>
-                            @foreach (ProcessedContactUsCategory category in Model.ContactUsCategories)
-                            {
-                                <li>
-                                    <a href="@($"#{category.Title}")">
-                                        @category.Title
-                                    </a>
-                                </li>
-                            }
-                        </ul>
-                    </nav>    
+                <div class="grid-container">
+                    <div class="grid-100">
+                        <h2 class="contact-us-area__services">Categories</h2>
+                        <nav class="contact-us-area__navigation" aria-label="Contact us area categories" data-cy="contact-us-navigation">
+                            <ul>
+                                @foreach (ProcessedContactUsCategory category in Model.ContactUsCategories)
+                                {
+                                    <li>
+                                        <a href="@($"#{category.Title}")">
+                                            @category.Title
+                                        </a>
+                                    </li>
+                                }
+                            </ul>
+                        </nav>
+                    </div>
                 </div>
             }
         </section>
@@ -57,29 +62,34 @@
         @if (hasCategories)
         {
             <section class="contact-us-area__categories">
-                <div class="grid-container grid-100">
-                    @foreach (ProcessedContactUsCategory category in Model.ContactUsCategories)
-                    {                         
-                        <div id="@category.Title" class="contact-us-area__categories-heading">
-                            @if (!string.IsNullOrEmpty(category.Icon))
-                            {
-                                <span class="@category.Icon" aria-hidden="true"></span>
-                            }
-                            <h2>@category.Title</h2>
-                        </div>      
-                        <div class="directory--border-top @borderTeal contact-us-area--margin-bottom">
-                            <div class="directory__wrapper navcard--white @greyBorderCssClasses">
-                                <div class="grid-100 contact-us-area__categories-body">
-                                    <div class="grid-50 contact-us-area__categories-body-text">
-                                        @Html.Raw(category.BodyTextLeft)
-                                    </div>
-                                    <div class="grid-50 contact-us-area__categories-body-text">
-                                        @Html.Raw(category.BodyTextRight)
+                <div class="grid-container">
+                    <div class="grid-100">
+                        @foreach (ProcessedContactUsCategory category in Model.ContactUsCategories)
+                        {                         
+                            <div id="@category.Title" class="contact-us-area__categories-heading">
+                                @if (!string.IsNullOrEmpty(category.Icon))
+                                {
+                                    <span class="@category.Icon" aria-hidden="true"></span>
+                                }
+
+                                <h2>@category.Title</h2>
+                            </div>
+
+                            <div class="directory--border-top @borderTeal contact-us-area--margin-bottom">
+                                <div class="directory__wrapper navcard--white @greyBorderCssClasses">
+                                    <div class="grid-100 contact-us-area__categories-body">
+                                        <div class="grid-50 contact-us-area__categories-body-text">
+                                            @Html.Raw(category.BodyTextLeft)
+                                        </div>
+
+                                        <div class="grid-50 contact-us-area__categories-body-text">
+                                            @Html.Raw(category.BodyTextRight)
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    }
+                        }
+                    </div>
                 </div>
             </section>
         }
