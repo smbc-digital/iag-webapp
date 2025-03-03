@@ -66,7 +66,7 @@ public class EventsControllerTest
             EndTime = "endTime",
             Breadcrumbs = new List<Crumb>(),
             Group = _group,
-            Alerts = _alerts,
+            Alerts = _alerts
         };
 
         _categories = new()
