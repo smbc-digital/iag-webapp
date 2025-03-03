@@ -88,7 +88,6 @@ public class StockportApiEventsServiceTests
                                             "booking information",
                                             null,
                                             new List<Alert>(),
-                                            new List<Alert>(),
                                             "accessible transport link",
                                             "logo title",
                                             new List<GroupBranding>(),

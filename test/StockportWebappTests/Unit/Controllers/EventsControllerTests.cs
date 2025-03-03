@@ -67,7 +67,6 @@ public class EventsControllerTest
             Breadcrumbs = new List<Crumb>(),
             Group = _group,
             Alerts = _alerts,
-            // GlobalAlerts = _globalAlerts
         };
 
         _categories = new()
@@ -99,7 +98,6 @@ public class EventsControllerTest
                                         "booking information",
                                         _group,
                                         _alerts,
-                                        // _globalAlerts,
                                         string.Empty,
                                         string.Empty,
                                         new(),
@@ -477,7 +475,6 @@ public class EventsControllerTest
                                         "booking information",
                                         null,
                                         new List<Alert>(),
-                                        // new List<Alert>(),
                                         "accessible transport",
                                         "logo title",
                                         new List<GroupBranding>(),
