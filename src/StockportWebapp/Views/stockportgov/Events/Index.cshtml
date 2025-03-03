@@ -50,6 +50,11 @@
             <partial name="HomepageCategories" model="Model.Homepage.GenericItemList" />
         }
 
+        @if(Model.Homepage.CallToAction is not null)
+        {
+            <partial name="CallToAction" model='Model.Homepage.CallToAction' view-data='new ViewDataDictionary(ViewData) { { "AdditionalCssClass", "section--padded-bottom-extra" } }' />
+        }
+
         <partial name="HomepageEventCards" model="Model.Homepage" />
     }
 

@@ -36,6 +36,14 @@
         padding-bottom: 2em;
     }
 
+    &--padded-bottom-extra {
+        padding-bottom: 4.5em;
+
+        @media #{$tablet} {
+            padding-bottom: 3em;
+        }
+    }
+
     &--white {
         background-color: white;
     }
