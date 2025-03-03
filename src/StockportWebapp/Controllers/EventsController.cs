@@ -125,8 +125,8 @@ public class EventsController(IRepository repository,
         {
             EventHomepage eventHomeResponse = httpHomeResponse.Content as EventHomepage;
 
-            if (eventHomeResponse?.Alerts is not null)
-                response.GlobalAlerts.AddRange(eventHomeResponse.Alerts);
+            if (eventHomeResponse?.GlobalAlerts is not null)
+                response.GlobalAlerts.AddRange(eventHomeResponse.GlobalAlerts);
         }
 
         return View("Detail", response);

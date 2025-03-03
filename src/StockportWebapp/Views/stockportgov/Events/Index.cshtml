@@ -15,6 +15,7 @@
 }
 
 <div class="grid-container-full-width" data-cy="event-homepage">
+    <partial name="GlobalAlerts" model="Model.Homepage.GlobalAlerts" />
     <partial name="GlobalAlerts" model="Model.Homepage.Alerts" />
     <partial name="Breadcrumb2023" model="new List<Crumb>()" view-data="@(new ViewDataDictionary(ViewData) {{"landingBreadcrumb", "topic-breadcrumb-container"}})"/>
 
