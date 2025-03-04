@@ -20,6 +20,7 @@
         <div class="grid-container">
             <div class="grid-100">
                 <h1>@topic.Name</h1>
+                
                 @if (!string.IsNullOrEmpty(topic.Summary))
                 {
                     @Html.Raw(@topic.Summary)
@@ -33,7 +34,7 @@
     </section>
 
     <partial name="GlobalAlerts" model='topic.Alerts' />
-    <partial name="TopicTopTasks" model='topic.FeaturedTasks' />
+    <partial name="TopTasks" model='topic.FeaturedTasks' />
     <partial name="TopicPrimaryItems"/>
 
     @if (!(topic.CallToAction is null && string.IsNullOrEmpty(topic.EventCalendarBanner.Title))) 

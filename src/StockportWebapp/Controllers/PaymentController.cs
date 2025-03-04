@@ -16,7 +16,6 @@ public class PaymentController(IProcessedContentRepository repository,
     private readonly CivicaPayConfiguration _civicaPayConfiguration = configuration.Value;
     private readonly IFeatureManager _featureManager = featureManager;
 
-    private const string PAYMENTS_TOGGLE = "PaymentPages";
     private const string CIVICA_PAY_SUCCESS = "00000";
     private const string CIVICA_PAY_INVALID_DETAILS = "00001";
     private const string CIVICA_PAY_DECLINED = "00022";

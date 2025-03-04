@@ -1,6 +1,4 @@
-﻿using System.Linq;
-
-namespace StockportWebapp.ContentFactory;
+﻿namespace StockportWebapp.ContentFactory;
 
 public class ContactUsAreaFactory(IContactUsCategoryFactory contactUsCategoryFactory)
 {

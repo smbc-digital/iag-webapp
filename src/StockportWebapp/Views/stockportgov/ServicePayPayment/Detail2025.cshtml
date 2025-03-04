@@ -7,9 +7,9 @@
     Layout = "../Shared/_Layout2023.cshtml";
 }
 
-<partial name="GlobalAlerts" model='Model.Payment.Alerts' />
 
-<div class="grid-container-full-width" style="background-color:white;" data-cy="payment-page">
+<div class="grid-container-full-width" style="background-color:white;" data-cy="service-pay-payment-page">
+    <partial name="GlobalAlerts" model='Model.Payment.Alerts' />
     <partial name="Breadcrumb2023" model="Model.Payment.Breadcrumbs" />
 
     <div class="grid-container">
@@ -17,6 +17,7 @@
             <div class="article--70 payment__heading">
                 <h1 class="h-xl">@Model.Payment.Title</h1>
             </div>
+
             <section class="article">
                 <article class="article--70">
                     @Html.Raw(Model.Payment.Description)
@@ -25,7 +26,7 @@
                     <h2 class="h-m">Payment details</h2>
                     @Html.Raw(Model.Payment.PaymentDetailsText)
 
-                    <form asp-controller="Payment" asp-action="Detail" method="post" class="form" role="form" enctype="multipart/form-data" data-cy="service-pay-payment-page">
+                    <form asp-controller="Payment" asp-action="Detail" method="post" class="form" role="form" enctype="multipart/form-data" data-cy="service-pay-payment-form">
                         @Html.AntiForgeryToken()
 
                         <div class="form-section">
@@ -44,11 +45,13 @@
 
                                 <label asp-for="Amount">Payment amount</label>
                                 <p class="visuallyhidden">Enter a sterling value</p>
+                                
                                 <div class="input-group">
                                     <span class="payment__symbol">£</span>
                                     <input asp-for="Amount" type="number" min="0.00" value="" class="payment__input payment__input--amount">
                                     <span role="alert" aria-atomic="true" asp-validation-for="Amount" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 payment__validation--rtl grid-parent"></span>
                                 </div>
+
                                 <div>
                                     <button id="uitest-payment-form-submit" type="submit" class="btn btn--chevron-forward btn--width-30 submit">Start your payment</button>
                                 </div>
