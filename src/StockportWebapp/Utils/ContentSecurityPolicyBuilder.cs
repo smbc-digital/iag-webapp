@@ -123,6 +123,7 @@ public class ContentSecurityPolicyBuilder
             .AddSource("forms.hsforms.com")
             .AddSource("forms-eu1.hsforms.com")
             .AddSource("lh3.ggpht.com")
+            .AddSource("cdn.jsdelivr.net", true)
             .Finish());
 
     private void BuildStyleSource() =>
