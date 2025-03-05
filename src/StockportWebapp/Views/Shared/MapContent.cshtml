@@ -2,9 +2,21 @@
 
 @if (!string.IsNullOrEmpty(Model.TagData))
 {
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/gokertanrisever/leaflet-ruler@master/src/leaflet-ruler.css"/>
+    <script src="https://cdn.jsdelivr.net/gh/gokertanrisever/leaflet-ruler@master/src/leaflet-ruler.js"></script>
+
     string url = $"{Model.TagData}/main-latest.js";
     
     <div id='root' class='leaflet-map'></div>
     <script type='text/javascript' src='@url'></script>
     <link rel=stylesheet href='https://kit.fontawesome.com/d14fbc06e0.css' crossorigin='anonymous'>
+    
+    <style>
+        .custom-attribution {
+            color: red;
+            font-weight: bold;
+            font-style: italic;
+            display: none;
+        }
+    </style>
 }
