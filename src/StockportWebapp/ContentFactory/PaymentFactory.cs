@@ -16,6 +16,7 @@ public class PaymentFactory(ITagParserContainer simpleTagParserContainer,
             payment.Slug,
             payment.Teaser,
             description,
+            payment.PaymentType,
             payment.PaymentDetailsText,
             payment.ReferenceLabel,
             payment.Fund,
@@ -27,6 +28,7 @@ public class PaymentFactory(ITagParserContainer simpleTagParserContainer,
             payment.CatalogueId,
             payment.AccountReference,
             payment.PaymentDescription,
-            payment.Alerts);
+            payment.Alerts,
+            payment.PaymentAmount);
     }
 }

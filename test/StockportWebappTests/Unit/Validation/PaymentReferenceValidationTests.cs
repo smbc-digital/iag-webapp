@@ -13,6 +13,7 @@ public class PaymentReferenceValidationTests
                 "paymentSlug",
                 "paymentTeaser",
                 "paymentDescription",
+                "default",
                 "paymentDetailsText",
                 "paymentReference",
                 "fund",
@@ -24,7 +25,8 @@ public class PaymentReferenceValidationTests
                 "catalogueId",
                 "accountReference",
                 "paymentDescription",
-                new List<Alert>()),
+                new List<Alert>(),
+                "21.99"),
             Reference = "12345"
         };
 
@@ -110,6 +112,7 @@ public class PaymentReferenceValidationTests
                 "paymentSlug",
                 "paymentTeaser",
                 "paymentDescription",
+                "default",
                 "paymentDetailsText",
                 "paymentReference",
                 "fund",
@@ -121,7 +124,8 @@ public class PaymentReferenceValidationTests
                 "catalogueId",
                 "accountReference",
                 "paymentDescription",
-                new List<Alert>()),
+                new List<Alert>(),
+                "15.55"),
             Reference = reference
         };
 
@@ -232,6 +236,7 @@ public class PaymentReferenceValidationTests
                 "paymentSlug",
                 "paymentTeaser",
                 "paymentDescription",
+                "default",
                 "paymentDetailsText",
                 "paymentReference",
                 "fund",
@@ -243,7 +248,8 @@ public class PaymentReferenceValidationTests
                 "catalogueId",
                 "accountReference",
                 "paymentDescription",
-                new List<Alert>()),
+                new List<Alert>(),
+                "13.00"),
             Reference = reference
         };
 

@@ -7,6 +7,7 @@ public class Payment
     public string Slug { get; set; }
     public string Teaser { get; set; }
     public string Description { get; set; }
+    public string PaymentType { get; set; }
     public string PaymentDetailsText { get; set; }
     public string ReferenceLabel { get; set; }
     public string Fund { get; set; }
@@ -20,4 +21,5 @@ public class Payment
     public string AccountReference { get; set; }
     public string PaymentDescription { get; set; }
     public IEnumerable<Alert> Alerts { get; set; }
+    public string PaymentAmount { get; set; }
 }

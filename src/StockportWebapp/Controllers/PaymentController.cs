@@ -37,6 +37,9 @@ public class PaymentController(IProcessedContentRepository repository,
                 && serviceprocessed.ToUpper().Equals("FALSE"))
             ModelState.AddModelError(nameof(PaymentSubmission.Reference), error);
 
+        if (await _featureManager.IsEnabledAsync("MergedPaymentPages"))
+            return View("PaymentDetail", paymentSubmission);
+        
         if (await _featureManager.IsEnabledAsync("PaymentPage"))
             return View("Details2024", paymentSubmission);
 
@@ -58,18 +61,25 @@ public class PaymentController(IProcessedContentRepository repository,
 
         if (!ModelState.IsValid)
         {
+            if (await _featureManager.IsEnabledAsync("MergedPaymentPages"))
+                return View("PaymentDetail", paymentSubmission);
+
             if (await _featureManager.IsEnabledAsync("PaymentPage"))
                 return View("Details2024", paymentSubmission);
 
             return View(paymentSubmission);
         }
 
-        CreateImmediateBasketRequest civicaPayRequest = GetCreateImmediateBasketRequest(slug, paymentSubmission, $"WEB {Guid.NewGuid()}");
+        CreateImmediateBasketRequest civicaPayRequest = GetCreateImmediateBasketRequest(slug, paymentSubmission, paymentSubmission.Payment.PaymentType.Equals("ServicePayPayment") ? paymentSubmission.Reference : $"WEB {Guid.NewGuid()}");
 
         HttpResponse<CreateImmediateBasketResponse> civicaPayResponse = await _civicaPayGateway.CreateImmediateBasketAsync(civicaPayRequest);
 
+        string reference = paymentSubmission.Payment.PaymentType.Equals("ServicePayPayment")
+            ? paymentSubmission.Reference
+            : civicaPayRequest.CallingAppTranReference;
+        
         if (civicaPayResponse.IsSuccessStatusCode && civicaPayResponse.ResponseContent.ResponseCode.Equals(CIVICA_PAY_SUCCESS))
-            return Redirect(_civicaPayGateway.GetPaymentUrl(civicaPayResponse.ResponseContent.BasketReference, civicaPayResponse.ResponseContent.BasketToken, civicaPayRequest.CallingAppTranReference));
+            return Redirect(_civicaPayGateway.GetPaymentUrl(civicaPayResponse.ResponseContent.BasketReference, civicaPayResponse.ResponseContent.BasketToken, reference));
 
         if (civicaPayResponse.StatusCode.Equals(HttpStatusCode.BadRequest)
             && civicaPayResponse.ResponseContent.ResponseCode.Equals(CIVICA_PAY_INVALID_DETAILS))
@@ -145,9 +155,16 @@ public class PaymentController(IProcessedContentRepository repository,
                         PaymentAmount = paymentSubmission.Amount.ToString(),
                         PaymentNarrative = $"{paymentSubmission.Payment.PaymentDescription} - {paymentSubmission.Reference}",
                         CallingAppTranReference = transactionReference,
-                        Quantity = "1"
+                        Quantity = "1",
+                        ServicePayReference = paymentSubmission.Reference,
+                        ServicePayNarrative = $"{paymentSubmission.Payment.PaymentDescription} - Name: {paymentSubmission.Name} - Email: {paymentSubmission.EmailAddress}",
+                        EmailAddress = paymentSubmission.EmailAddress,
+                        TelephoneNumber = "0"
                     },
-                    AddressDetails = new AddressDetail()
+                    AddressDetails = new AddressDetail
+                    {
+                        Name = paymentSubmission.Name
+                    }
                 }
             }
         };
