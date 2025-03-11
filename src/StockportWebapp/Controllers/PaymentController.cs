@@ -139,6 +139,7 @@ public class PaymentController(IProcessedContentRepository repository,
                         AccountReference = !string.IsNullOrEmpty(paymentSubmission.Payment.AccountReference)
                             ? paymentSubmission.Payment.AccountReference
                             : paymentSubmission.Reference,
+                        PaymentAmount = paymentSubmission.Amount.ToString(),
                         PaymentNarrative = $"{paymentSubmission.Payment.PaymentDescription} - {paymentSubmission.Reference}",
                         CallingAppTranReference = transactionReference,
                         Quantity = "1"
