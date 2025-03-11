@@ -23,8 +23,7 @@ public class ServicePayPaymentControllerTest
                                                                         "1233455",
                                                                         "40000000",
                                                                         "paymentDescription",
-                                                                        new List<Alert>(),
-                                                                        "20.65");
+                                                                        new List<Alert>());
 
 
     public ServicePayPaymentControllerTest()

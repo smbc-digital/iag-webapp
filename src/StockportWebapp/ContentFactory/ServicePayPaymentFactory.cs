@@ -25,7 +25,6 @@ public class ServicePayPaymentFactory(ITagParserContainer simpleTagParserContain
             payment.CatalogueId,
             payment.AccountReference,
             payment.PaymentDescription,
-            payment.Alerts,
-            payment.PaymentAmount);
+            payment.Alerts);
     }
 }

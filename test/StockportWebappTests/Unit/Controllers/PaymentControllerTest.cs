@@ -43,8 +43,7 @@ public class PaymentControllerTest
                                                                                 "catId",
                                                                                 "accRef",
                                                                                 "payDesc",
-                                                                                null,
-                                                                                "payAmount");
+                                                                                null);
 
     public PaymentControllerTest()
     {
@@ -180,7 +179,7 @@ public class PaymentControllerTest
         await _paymentController.Detail("slug", new PaymentSubmission
         {
             Payment = _processedPayment,
-            Amount = 12.00m,
+            Amount = "12.00",
             Reference = "123456789"
         });
 
@@ -199,7 +198,7 @@ public class PaymentControllerTest
         ViewResult result = await _paymentController.Detail("slug", new PaymentSubmission
         {
             Payment = _processedPayment,
-            Amount = 12.00m,
+            Amount = "12.00",
             Reference = "123456"
         }) as ViewResult;
 
@@ -231,7 +230,7 @@ public class PaymentControllerTest
         ViewResult result = await _paymentController.Detail("slug", new PaymentSubmission
         {
             Payment = _processedPayment,
-            Amount = 12.00m,
+            Amount = "12.00",
             Reference = "123456789"
         }) as ViewResult;
         
@@ -264,7 +263,7 @@ public class PaymentControllerTest
         ViewResult result = await _paymentController.Detail("slug", new PaymentSubmission
         {
             Payment = _processedPayment,
-            Amount = 12.00m,
+            Amount = "12.00",
             Reference = "123456789"
         }) as ViewResult;
 
@@ -301,7 +300,7 @@ public class PaymentControllerTest
         await _paymentController.Detail("slug", new PaymentSubmission
         {
             Payment = _processedPayment,
-            Amount = 12.00m,
+            Amount = "12.00",
             Reference = "123456789"
         });
 

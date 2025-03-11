@@ -12,7 +12,6 @@ public class ServicePayPaymentFactoryTests
         CatalogueId = "45334534",
         Description = "description",
         MetaDescription = "metaDescription",
-        PaymentAmount = "20.36",
         PaymentDescription = "paymentDescription",
         PaymentDetailsText = "detailsText",
         Slug = "slug",
@@ -51,7 +50,6 @@ public class ServicePayPaymentFactoryTests
         Assert.Equal(_payment.ReferenceLabel, result.ReferenceLabel);
         Assert.Equal(_payment.Slug, result.Slug);
         Assert.Equal(_payment.PaymentDetailsText, result.PaymentDetailsText);
-        Assert.Equal(_payment.PaymentAmount, result.PaymentAmount);
         Assert.Equal(_payment.PaymentDescription, result.PaymentDescription);
         Assert.Equal(_payment.MetaDescription, result.MetaDescription);
         Assert.Equal(_payment.Description, result.Description);

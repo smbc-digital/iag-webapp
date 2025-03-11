@@ -15,8 +15,7 @@ public class EmailValidationTest
                                                                         "1233455",
                                                                         "40000000",
                                                                         "paymentDescription",
-                                                                        new List<Alert>(),
-                                                                        "20.65");
+                                                                        new List<Alert>());
 
     [Fact]
     public void IsValidShouldReturnValidationResultSuccess()
