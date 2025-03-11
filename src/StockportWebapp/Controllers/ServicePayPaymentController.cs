@@ -18,6 +18,11 @@ public class ServicePayPaymentController(IProcessedContentRepository repository,
     private readonly ILogger<ServicePayPaymentController> _logger = logger;
     private readonly IFeatureManager _featureManager = featureManager;
 
+    private const string CIVICA_PAY_SUCCESS = "00000";
+    private const string CIVICA_PAY_INVALID_DETAILS = "00001";
+    private const string CIVICA_PAY_DECLINED = "00022";
+    private const string CIVICA_PAY_DECLINED_OTHER = "00023";
+
     [Route("/service-pay-payment/{slug}")]
     public async Task<IActionResult> Detail(string slug, string error, string serviceProcessed)
     {
@@ -33,9 +38,6 @@ public class ServicePayPaymentController(IProcessedContentRepository repository,
             Payment = payment
         };
 
-        if (!string.IsNullOrEmpty(payment?.PaymentAmount))
-            paymentSubmission.Amount = payment.PaymentAmount;
-
         if (!string.IsNullOrEmpty(error) && !string.IsNullOrEmpty(serviceProcessed) && serviceProcessed.ToUpper().Equals("FALSE"))
         {
             ModelState.AddModelError(nameof(ServicePayPaymentSubmissionViewModel.Reference), error);
@@ -44,10 +46,9 @@ public class ServicePayPaymentController(IProcessedContentRepository repository,
             ModelState.AddModelError(nameof(ServicePayPaymentSubmissionViewModel.Amount), error);
         }
 
-        if (await _featureManager.IsEnabledAsync("ServicePaymentPage"))
-            return View("Detail2025", paymentSubmission);
-
-        return View(paymentSubmission);
+        return await _featureManager.IsEnabledAsync("ServicePaymentPage")
+            ? View("Detail2025", paymentSubmission)
+            : View(paymentSubmission);
     }
 
     [HttpPost]
@@ -64,59 +65,26 @@ public class ServicePayPaymentController(IProcessedContentRepository repository,
 
         TryValidateModel(paymentSubmission);
 
-        bool featureToggle = await _featureManager.IsEnabledAsync("PaymentPage");
-
         if (!ModelState.IsValid)
-            return View(featureToggle ? "Detail2025" : "Detail", paymentSubmission);
+            return await _featureManager.IsEnabledAsync("PaymentPage")
+                ? View("Detail2025", paymentSubmission)
+                : View(paymentSubmission);
 
-        CreateImmediateBasketRequest immediateBasketResponse = new()
-        {
-            CallingAppIdentifier = _civicaPayConfiguration.CallingAppIdentifier,
-            CustomerID = _civicaPayConfiguration.CustomerID,
-            ApiPassword = _civicaPayConfiguration.ApiPassword,
-            ReturnURL = !string.IsNullOrEmpty(payment.ReturnUrl)
-                ? payment.ReturnUrl
-                : $"{Request.Scheme}://{Request.Host}/service-pay-payment/{slug}/result",
-            NotifyURL = string.Empty,
-            CallingAppTranReference = paymentSubmission.Reference,
-            PaymentItems = new List<PaymentItem>
-            {
-                new PaymentItem
-                {
-                    PaymentDetails = new PaymentDetail
-                    {
-                        CatalogueID = payment.CatalogueId,
-                        AccountReference = !string.IsNullOrEmpty(payment.AccountReference)
-                            ? payment.AccountReference
-                            : paymentSubmission.Reference,
-                        PaymentAmount = paymentSubmission.Amount,
-                        PaymentNarrative = $"{payment.PaymentDescription} - {paymentSubmission.Reference}",
-                        CallingAppTranReference = paymentSubmission.Reference,
-                        Quantity = "1",
-                        ServicePayReference = paymentSubmission.Reference,
-                        ServicePayNarrative = $"{payment.PaymentDescription} - Name: {paymentSubmission.Name} - Email: {paymentSubmission.EmailAddress}",
-                        EmailAddress = paymentSubmission.EmailAddress,
-                        TelephoneNumber = "0"
-                    },
-                    AddressDetails = new AddressDetail
-                    {
-                        Name = paymentSubmission.Name
-                    }
-                }
-            }
-        };
+        CreateImmediateBasketRequest civicaPayRequest = GetCreateImmediateBasketRequest(slug, paymentSubmission);
 
-        HttpResponse<CreateImmediateBasketResponse> civicaResponse = await _civicaPayGateway.CreateImmediateBasketAsync(immediateBasketResponse);
+        HttpResponse<CreateImmediateBasketResponse> civicaResponse = await _civicaPayGateway.CreateImmediateBasketAsync(civicaPayRequest);
 
         if (civicaResponse.StatusCode.Equals(HttpStatusCode.BadRequest))
         {
             string responseCode = civicaResponse.ResponseContent.ResponseCode;
 
-            if (responseCode.Equals("00001"))
+            if (responseCode.Equals(CIVICA_PAY_INVALID_DETAILS))
             {
-                ModelState.AddModelError("Reference", $"Check {payment.ReferenceLabel.ToLower()} and try again.");
+                ModelState.AddModelError("Reference", $"Check {payment.ReferenceLabel.ToLower()} and try again");
                 
-                return View(featureToggle ? "Detail2025" : "Detail", paymentSubmission);
+                return await _featureManager.IsEnabledAsync("PaymentPage")
+                    ? View("Detail2025", paymentSubmission)
+                    : View(paymentSubmission);
             }
 
             _logger.LogError($"ServicePayPaymentController:: Unable to create ImmediateBasket:: " +
@@ -131,4 +99,41 @@ public class ServicePayPaymentController(IProcessedContentRepository repository,
             civicaResponse.ResponseContent.BasketToken, 
             paymentSubmission.Reference));
     }
+
+    private CreateImmediateBasketRequest GetCreateImmediateBasketRequest(string slug, ServicePayPaymentSubmissionViewModel paymentSubmission) =>
+        new()
+        {
+            CallingAppIdentifier = _civicaPayConfiguration.CallingAppIdentifier,
+            CustomerID = _civicaPayConfiguration.CustomerID,
+            ApiPassword = _civicaPayConfiguration.ApiPassword,
+            ReturnURL = !string.IsNullOrEmpty(paymentSubmission.Payment.ReturnUrl)
+                ? paymentSubmission.Payment.ReturnUrl
+                : $"{Request.Scheme}://{Request.Host}/service-pay-payment/{slug}/result",
+            NotifyURL = string.Empty,
+            CallingAppTranReference =paymentSubmission.Reference,
+            PaymentItems = new List<PaymentItem>
+            {
+                new()
+                {
+                    PaymentDetails = new PaymentDetail
+                    {
+                        CatalogueID =  paymentSubmission.Payment.CatalogueId,
+                        AccountReference = !string.IsNullOrEmpty(paymentSubmission.Payment.AccountReference)
+                            ? paymentSubmission.Payment.AccountReference
+                            : paymentSubmission.Reference,
+                        PaymentNarrative = $"{paymentSubmission.Payment.PaymentDescription} - {paymentSubmission.Reference}",
+                        CallingAppTranReference = paymentSubmission.Reference,
+                        Quantity = "1",
+                        ServicePayReference = paymentSubmission.Reference,
+                        ServicePayNarrative = $"{paymentSubmission.Payment.PaymentDescription} - Name: {paymentSubmission.Name} - Email: {paymentSubmission.EmailAddress}",
+                        EmailAddress = paymentSubmission.EmailAddress,
+                        TelephoneNumber = "0"
+                    },
+                    AddressDetails = new AddressDetail
+                    {
+                        Name = paymentSubmission.Name
+                    }
+                }
+            }
+        };
 }

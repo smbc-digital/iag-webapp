@@ -7,7 +7,7 @@ public class ProcessedServicePayPayment : IProcessedContentType
     public readonly string Teaser;
     public readonly string Description;
     public readonly string PaymentDetailsText;
-    public readonly string ReferenceLabel;
+    public string ReferenceLabel;
     public readonly List<Crumb> Breadcrumbs;
     public readonly EPaymentReferenceValidation ReferenceValidation;
     public readonly string MetaDescription;
@@ -16,7 +16,6 @@ public class ProcessedServicePayPayment : IProcessedContentType
     public readonly string AccountReference;
     public readonly string PaymentDescription;
     public readonly IEnumerable<Alert> Alerts;
-    public readonly string PaymentAmount;
 
     public ProcessedServicePayPayment()
     { }
@@ -34,8 +33,7 @@ public class ProcessedServicePayPayment : IProcessedContentType
                                     string catalogueId,
                                     string accountReference,
                                     string paymentDescription,
-                                    IEnumerable<Alert> alerts,
-                                    string paymentAmount)
+                                    IEnumerable<Alert> alerts)
     {
         Title = title;
         Slug = slug;
@@ -51,6 +49,5 @@ public class ProcessedServicePayPayment : IProcessedContentType
         AccountReference = accountReference;
         PaymentDescription = paymentDescription;
         Alerts = alerts;
-        PaymentAmount = paymentAmount;
     }
 }

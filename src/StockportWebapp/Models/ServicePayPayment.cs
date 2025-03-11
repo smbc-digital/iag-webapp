@@ -18,5 +18,4 @@ public class ServicePayPayment
     public string AccountReference { get; set; }
     public string PaymentDescription { get; set; }
     public IEnumerable<Alert> Alerts { get; set; }
-    public string PaymentAmount { get; set; }
 }
