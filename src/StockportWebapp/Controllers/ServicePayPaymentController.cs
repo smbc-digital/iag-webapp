@@ -18,10 +18,7 @@ public class ServicePayPaymentController(IProcessedContentRepository repository,
     private readonly ILogger<ServicePayPaymentController> _logger = logger;
     private readonly IFeatureManager _featureManager = featureManager;
 
-    private const string CIVICA_PAY_SUCCESS = "00000";
     private const string CIVICA_PAY_INVALID_DETAILS = "00001";
-    private const string CIVICA_PAY_DECLINED = "00022";
-    private const string CIVICA_PAY_DECLINED_OTHER = "00023";
 
     [Route("/service-pay-payment/{slug}")]
     public async Task<IActionResult> Detail(string slug, string error, string serviceProcessed)
@@ -110,7 +107,7 @@ public class ServicePayPaymentController(IProcessedContentRepository repository,
                 ? paymentSubmission.Payment.ReturnUrl
                 : $"{Request.Scheme}://{Request.Host}/service-pay-payment/{slug}/result",
             NotifyURL = string.Empty,
-            CallingAppTranReference =paymentSubmission.Reference,
+            CallingAppTranReference = paymentSubmission.Reference,
             PaymentItems = new List<PaymentItem>
             {
                 new()
