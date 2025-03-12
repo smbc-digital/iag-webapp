@@ -103,10 +103,6 @@
                 margin-inline: 0 !important;
             }
 
-            .text-orange {
-                color: $stockport-orange !important;
-            }
-
             &:nth-child(6n+1) .trivia__icon {
                 color: $stockport-green;
             }
@@ -124,7 +120,7 @@
             }
 
             &:nth-child(6n+5) .trivia__icon {
-                color: $stockport-orange;
+                color: $stockport-orange; // what colour should this be?
             }
 
             &:nth-child(6n) .trivia__icon {

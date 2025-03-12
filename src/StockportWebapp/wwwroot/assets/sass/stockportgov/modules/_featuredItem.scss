@@ -130,7 +130,7 @@
 
     &:nth-of-type(1) &-content {
         @media #{$tablet} {
-            border-bottom: 0.368em solid rgba($stockport-orange, 0.8);
+            border-bottom: 0.368em solid rgba($stockport-orange, 0.8); // what colour should this be?
         }
 
         @media #{$desktop} {
