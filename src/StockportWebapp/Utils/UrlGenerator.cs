@@ -65,8 +65,9 @@ public class UrlGenerator(IApplicationConfiguration config, BusinessId businessI
 
     public string UrlFor<T>(string slug = "", List<Query> queries = null)
     {
-        return string.Concat(_config.GetContentApiUri(), _businessId, "/", _urls[typeof(T)], slug,
+        var url = string.Concat(_config.GetContentApiUri(), _businessId, "/", _urls[typeof(T)], slug,
             CreateQueryString(queries));
+        return url;
     }
 
     public string UrlForLimit<T>(int limit) =>

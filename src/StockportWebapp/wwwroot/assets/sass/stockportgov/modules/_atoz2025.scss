@@ -1,0 +1,44 @@
+﻿.atoz {
+    &__menu {
+        list-style: none;
+        display: inline-block;
+        padding: 0px;
+        margin: 0px;
+        margin-block-end: 1em;
+
+        li {
+            list-style: none;
+            padding: 0px;
+            margin: 0px;
+            margin-block-end: 0.5em;
+            margin-inline-end: 0.5em;
+            display: inline-block;
+        }
+
+        a.btn {
+            display: inline-block;
+            padding: 1em;
+        }
+    }
+
+    &__back-to-top {
+        float: right;
+    }
+
+    &__section {
+        ul {
+            margin-bottom: 0;
+        }
+
+        li {
+            margin-bottom: .5em;
+            width: 85%;
+        }
+    }
+
+    &__heading {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+}
