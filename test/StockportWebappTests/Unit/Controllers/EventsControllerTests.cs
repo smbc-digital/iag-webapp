@@ -33,6 +33,19 @@ public class EventsControllerTest
                 string.Empty)
     };
 
+    private readonly List<Alert> _globalAlerts = new()
+    {
+        new Alert("global alert title",
+                "global alert subHeading",
+                "global alert body",
+                "severity",
+                new DateTime(0001, 1, 1, 0, 0, 0, DateTimeKind.Utc),
+                new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc),
+                string.Empty,
+                false,
+                string.Empty)
+    };
+
     public const int MaxNumberOfItemsPerPage = 15;
 
     public EventsControllerTest()

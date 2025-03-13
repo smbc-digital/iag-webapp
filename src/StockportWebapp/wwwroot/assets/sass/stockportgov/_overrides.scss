@@ -93,14 +93,6 @@ hr {
         }   
     }
 
-    &-bg-orange {
-        background-color: $stockport-orange;
-
-        h1, h2, p {
-            color: white !important; 
-        }   
-    }
-
     &-bg-pink {
         background-color: $stockport-pink;
 
@@ -305,6 +297,6 @@ hr {
 
 html[dir="rtl"] {
     #header {
-        overflow-y: hidden;
+        overflow: hidden;
     }
 }

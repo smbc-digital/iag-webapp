@@ -43,5 +43,4 @@ public class Event
     public string Languages { get; set; }
     public List<ProcessedEvents> RelatedEvents { get; set; }
     public IEnumerable<CallToActionBanner> CallToActionBanners { get; set; }
-
 }

@@ -206,10 +206,6 @@
         @include theme($theme: $stockport-blue);
     }
 
-    &--theme-orange {
-        @include theme($theme: $stockport-orange);
-    }
-
     &--theme-purple {
         @include theme($theme: $stockport-purple);
     }
