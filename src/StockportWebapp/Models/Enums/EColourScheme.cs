@@ -14,7 +14,6 @@ public enum EColourScheme
     Multi,
     One_Stockport_Purple,
     One_Stockport_Purple_Light,
-    Orange,
     Pink,
     Pink_Light,
     Purple,
