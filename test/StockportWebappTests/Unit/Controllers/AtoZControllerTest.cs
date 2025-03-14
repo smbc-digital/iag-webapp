@@ -4,9 +4,17 @@ public class AtoZControllerTest
 {
     private readonly Mock<IRepository> _repository = new();
     private readonly AtoZController _controller;
+    private readonly Mock<IFeatureManager> _featureManager = new();
 
-    public AtoZControllerTest() =>
-        _controller = new AtoZController(_repository.Object);
+
+    public AtoZControllerTest()
+    {
+        _featureManager
+            .Setup(featureManager => featureManager.IsEnabledAsync(It.IsAny<string>()))
+            .ReturnsAsync(true);
+
+        _controller = new AtoZController(_repository.Object, _featureManager.Object);
+    }
 
     [Fact]
     public async Task Index_ItReturnsAnAtoZListing()
