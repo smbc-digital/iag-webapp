@@ -17,12 +17,8 @@ public class Repository : IRepository
         _authenticationHeaders = new Dictionary<string, string> { { "Authorization", _config.GetContentApiAuthenticationKey() }, { "X-ClientId", _config.GetWebAppClientId() } };
     }
 
-    public async Task<HttpResponse> Get<T>(string slug = "", List<Query> queries = null)
-    {
-        HttpResponse httpResponse = await _httpClient.Get(_urlGenerator.UrlFor<T>(slug, queries), _authenticationHeaders);
-        
-        return HttpResponse.Build<T>(httpResponse);
-    }
+    public async Task<HttpResponse> Get<T>(string slug = "", List<Query> queries = null) =>
+        HttpResponse.Build<T>(await _httpClient.Get(_urlGenerator.UrlFor<T>(slug, queries), _authenticationHeaders));
 
     public async Task<HttpResponse> Put<T>(HttpContent content, string slug = "") =>
         await _httpClient.PutAsync(_urlGenerator.UrlFor<T>(slug), content, _authenticationHeaders);
@@ -36,12 +32,8 @@ public class Repository : IRepository
     public async Task<HttpResponse> Publish<T>(HttpContent content, string slug = "") =>
         await _httpClient.PutAsync(_urlGenerator.UrlFor<T>(slug), content, _authenticationHeaders);
 
-    public async Task<HttpResponse> GetLatest<T>(int limit)
-    {
-        HttpResponse httpResponse = await _httpClient.Get(_urlGenerator.UrlForLimit<T>(limit), _authenticationHeaders);
-        
-        return HttpResponse.Build<T>(httpResponse);
-    }
+    public async Task<HttpResponse> GetLatest<T>(int limit) =>
+        HttpResponse.Build<T>(await _httpClient.Get(_urlGenerator.UrlForLimit<T>(limit), _authenticationHeaders));
 
     public async Task<HttpResponse> RemoveAdministrator(string slug, string email) =>
         await _httpClient.DeleteAsync($"{_urlGenerator.UrlFor<Group>(slug)}/administrators/{email}", _authenticationHeaders);
@@ -54,23 +46,13 @@ public class Repository : IRepository
 
     public async Task<HttpResponse> GetLatestOrderByFeatured<T>(int limit)
     {
-        string url = _urlGeneratorSimple.BaseContentApiUrl<T>().AddExtraToUrl($"latest/{limit}").AddQueryStrings(new Query("featured", "true"));
-        HttpResponse httpResponse = await _httpClient.Get(url, _authenticationHeaders);
-        
-        return HttpResponse.Build<T>(httpResponse);
+        string url = _urlGeneratorSimple.BaseContentApiUrl<T>().AddExtraToUrl($"latest/{limit}").AddQueryStrings(new Query("featured", "true"));        
+        return HttpResponse.Build<T>(await _httpClient.Get(url, _authenticationHeaders));
     }
 
-    public async Task<HttpResponse> GetRedirects()
-    {
-        HttpResponse httpResponse = await _httpClient.Get(_urlGenerator.RedirectUrl(), _authenticationHeaders);
-        
-        return HttpResponse.Build<Redirects>(httpResponse);
-    }
+    public async Task<HttpResponse> GetRedirects() =>
+        HttpResponse.Build<Redirects>(await _httpClient.Get(_urlGenerator.RedirectUrl(), _authenticationHeaders));
 
-    public async Task<HttpResponse> GetAdministratorsGroups(string email)
-    {
-        HttpResponse httpResponse = await _httpClient.Get(_urlGenerator.AdministratorsGroups(email), _authenticationHeaders);
-        
-        return HttpResponse.Build<List<Group>>(httpResponse);
-    }
+    public async Task<HttpResponse> GetAdministratorsGroups(string email) =>
+        HttpResponse.Build<List<Group>>(await _httpClient.Get(_urlGenerator.AdministratorsGroups(email), _authenticationHeaders));
 }
