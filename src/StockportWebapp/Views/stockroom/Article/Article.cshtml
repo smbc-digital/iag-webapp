@@ -87,8 +87,9 @@
 
 <script>
     window.addEventListener("message", function(event) {
-        if (event.origin !== "https://int-formbuilder-origin.smbcdigital.net/") return;
-
+        @* if (event.origin !== "https://int-formbuilder-origin.smbcdigital.net/") return; *@
+        console.log("event origin ", event.origin)
+        
         if (event.data && event.data.iframeHeight) {
             const iframe = document.getElementsByTagName("iframe")[0];
             console.log(iframe)
