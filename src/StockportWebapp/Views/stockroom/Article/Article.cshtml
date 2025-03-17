@@ -84,3 +84,16 @@
         </div>
     </div>
 }
+
+<script>
+    window.addEventListener("message", function(event) {
+        if (event.origin !== "https://int-formbuilder-v2-origin.smbcdigital.net/") return;
+
+        if (event.data && event.data.iframeHeight) {
+            const iframe = document.getElementsByTagName("iframe")[0];
+            console.log(iframe)
+            iframe.style.height = event.data.iframeHeight + "px";
+        }
+    });
+</script>
+
