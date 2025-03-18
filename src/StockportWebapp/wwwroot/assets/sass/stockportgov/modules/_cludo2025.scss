@@ -80,6 +80,11 @@
 		display: flex;
 		flex-wrap: wrap;
 	}
+
+	.cludo-banner {
+		border-radius: 3px;
+		padding: 1.5em;
+	} 
 }
 
 #cludo-search-form .search_autocomplete li:hover,

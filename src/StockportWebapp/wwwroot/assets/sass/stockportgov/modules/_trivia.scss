@@ -103,31 +103,23 @@
                 margin-inline: 0 !important;
             }
 
-            .text-orange {
-                color: $stockport-orange !important;
-            }
-
-            &:nth-child(6n+1) .trivia__icon {
+            &:nth-child(5n+1) .trivia__icon {
                 color: $stockport-green;
             }
 
-            &:nth-child(6n+2) .trivia__icon {
+            &:nth-child(5n+2) .trivia__icon {
                 color: $stockport-purple;
             }
 
-            &:nth-child(6n+3) .trivia__icon {
+            &:nth-child(5n+3) .trivia__icon {
                 color: $stockport-pink;
             }
 
-            &:nth-child(6n+4) .trivia__icon {
+            &:nth-child(5n+4) .trivia__icon {
                 color: $stockport-teal-darker;
             }
 
-            &:nth-child(6n+5) .trivia__icon {
-                color: $stockport-orange;
-            }
-
-            &:nth-child(6n) .trivia__icon {
+            &:nth-child(5n) .trivia__icon {
                 color: $stockport-blue;
             }
         }

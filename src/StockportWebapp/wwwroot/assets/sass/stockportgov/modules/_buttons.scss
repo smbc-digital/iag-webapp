@@ -28,6 +28,10 @@
         padding: 0.5em;
     }
 
+    &_large {
+        font-size: 1.25rem;
+    }
+
     &_text {
         display: inline-block;
         width: 80%;
@@ -59,6 +63,10 @@
             width: 100%;
             min-width: unset;
         }
+    }
+
+    &--no-pointer {
+        cursor:default;
     }
 
     &--center {
@@ -130,26 +138,6 @@
             }
         }
     }
-
-    &--orange, &--orange-light {
-        color: $stockport-orange;
-        border: 1px solid $stockport-orange;
-
-        &:hover, &:focus {
-            color: darken($stockport-orange, 5%);
-            background-color: rgba(white, 0.9);
-        }
-
-        &-outline {
-            background: white;
-
-            &:hover, &:focus {
-                background-color: $stockport-orange;
-                color: white;
-            }
-        }
-    }
-
 
     &--purple, &--purple-light {
         color: $stockport-purple;
@@ -288,7 +276,7 @@
             right: 0.789em;
             top: 34.5%;
             display: inline-block;
-            
+
 
             @media #{$tablet} {
                 top: 33.5%;

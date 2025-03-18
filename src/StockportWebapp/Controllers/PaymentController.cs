@@ -36,14 +36,13 @@ public class PaymentController(IProcessedContentRepository repository,
                 && !string.IsNullOrEmpty(serviceprocessed)
                 && serviceprocessed.ToUpper().Equals("FALSE"))
             ModelState.AddModelError(nameof(PaymentSubmission.Reference), error);
-
+        
         if (await _featureManager.IsEnabledAsync("MergedPaymentPages"))
             return View("PaymentDetail", paymentSubmission);
         
-        if (await _featureManager.IsEnabledAsync("PaymentPage"))
-            return View("Details2024", paymentSubmission);
-
-        return View(paymentSubmission);
+        return await _featureManager.IsEnabledAsync("PaymentPage")
+            ? View("Details2024", paymentSubmission)
+            : View(paymentSubmission);
     }
 
     [HttpPost]
@@ -64,10 +63,9 @@ public class PaymentController(IProcessedContentRepository repository,
             if (await _featureManager.IsEnabledAsync("MergedPaymentPages"))
                 return View("PaymentDetail", paymentSubmission);
 
-            if (await _featureManager.IsEnabledAsync("PaymentPage"))
-                return View("Details2024", paymentSubmission);
-
-            return View(paymentSubmission);
+            return await _featureManager.IsEnabledAsync("PaymentPage")
+                ? View("Details2024", paymentSubmission)
+                : View(paymentSubmission);
         }
 
         CreateImmediateBasketRequest civicaPayRequest = GetCreateImmediateBasketRequest(slug, paymentSubmission, paymentSubmission.Payment.PaymentType.Equals("ServicePayPayment") ? paymentSubmission.Reference : $"WEB {Guid.NewGuid()}");
@@ -84,9 +82,11 @@ public class PaymentController(IProcessedContentRepository repository,
         if (civicaPayResponse.StatusCode.Equals(HttpStatusCode.BadRequest)
             && civicaPayResponse.ResponseContent.ResponseCode.Equals(CIVICA_PAY_INVALID_DETAILS))
         {
-            ModelState.AddModelError("Reference", $"Check {paymentSubmission.Payment.ReferenceLabel.ToLower()} and try again.");
-            
-            return View(paymentSubmission);
+            ModelState.AddModelError("Reference", $"Check {paymentSubmission.Payment.ReferenceLabel.ToLower()} and try again");
+
+            return await _featureManager.IsEnabledAsync("PaymentPage")
+                ? View("Details2024", paymentSubmission)
+                : View(paymentSubmission);
         }
 
         return View("Error", response);
@@ -107,7 +107,6 @@ public class PaymentController(IProcessedContentRepository repository,
 
         dynamic payment = response.Content;
         PaymentResult paymentResult = new(slug, payment.Title, payment.Breadcrumbs, callingAppTxnRef, isServicePay);
-        bool featureToggle = await _featureManager.IsEnabledAsync("PaymentPage");
 
         if (!responseCode.Equals(CIVICA_PAY_SUCCESS))
         {
@@ -116,12 +115,12 @@ public class PaymentController(IProcessedContentRepository repository,
                 ? PaymentResultType.Declined
                 : PaymentResultType.Failure;
 
-            return featureToggle
+            return await _featureManager.IsEnabledAsync("PaymentPage")
                 ? View("Result", paymentResult)
                 : View(isServicePay ? $"../ServicePayPayment/{paymentResult.PaymentResultType}" : paymentResult.PaymentResultType.ToString(), slug);
         }
 
-        return featureToggle
+        return await _featureManager.IsEnabledAsync("PaymentPage")
             ? View("Result", paymentResult)
             : View("Success", new PaymentSuccess
             {

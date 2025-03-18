@@ -8,7 +8,7 @@ public class PaymentReferenceValidationTests
         // Arrange
         PaymentSubmission paymentSubmission = new()
         {
-            Amount = 10.00m,
+            Amount = "10.00",
             Payment = new ProcessedPayment("paymentTitle",
                 "paymentSlug",
                 "paymentTeaser",
@@ -59,8 +59,7 @@ public class PaymentReferenceValidationTests
                 "catalogueId",
                 "accountReference",
                 "paymentDescription",
-                new List<Alert>(),
-                "12"),
+                new List<Alert>()),
             Reference = "12345",
             Name = "name",
             EmailAddress = "test@email.com"
@@ -107,7 +106,7 @@ public class PaymentReferenceValidationTests
         // Arrange
         PaymentSubmission paymentSubmission = new()
         {
-            Amount = 10.00m,
+            Amount = "10.00",
             Payment = new ProcessedPayment("paymentTitle",
                 "paymentSlug",
                 "paymentTeaser",
@@ -184,8 +183,7 @@ public class PaymentReferenceValidationTests
                "catalogueId",
                "accountReference",
                "paymentDescription",
-               new List<Alert>(),
-               "12"),
+               new List<Alert>()),
             Reference = reference,
             Name = "name",
             EmailAddress = "test@email.com"
@@ -231,7 +229,7 @@ public class PaymentReferenceValidationTests
         // Arrange
         PaymentSubmission paymentSubmission = new()
         {
-            Amount = 10.00m,
+            Amount = "10.00",
             Payment = new ProcessedPayment("paymentTitle",
                 "paymentSlug",
                 "paymentTeaser",
@@ -308,8 +306,7 @@ public class PaymentReferenceValidationTests
                 "catalogueId",
                 "accountReference",
                 "paymentDescription",
-                new List<Alert>(),
-                "12"),
+                new List<Alert>()),
             Reference = reference,
             Name = "name",
             EmailAddress = "test@email.com"

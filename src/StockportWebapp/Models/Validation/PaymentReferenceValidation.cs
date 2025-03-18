@@ -3,6 +3,7 @@
 public class PaymentReferenceValidation(EPaymentSubmissionType paymentSubmissionType) : ValidationAttribute
 {
     private readonly EPaymentSubmissionType _paymentSubmissionType = paymentSubmissionType;
+    
     private static readonly Dictionary<EPaymentReferenceValidation, string> ValidatorsRegex = new()
     {
         { EPaymentReferenceValidation.FPN, @"^(\d{5})$" },
@@ -26,36 +27,34 @@ public class PaymentReferenceValidation(EPaymentSubmissionType paymentSubmission
     {
         PaymentSubmission paymentSubmission = validationContext.ObjectInstance as PaymentSubmission;
 
-        if (paymentSubmission?.Payment is not null)
-            return ValidateReference(value, paymentSubmission.Payment.ReferenceValidation);
-
-        return ValidationResult.Success;
+        return paymentSubmission?.Payment is not null
+               ? ValidateReference(value, paymentSubmission.Payment.ReferenceValidation, paymentSubmission.Payment.ReferenceLabel)
+               : ValidationResult.Success;
     }
 
     private ValidationResult ProcessServicePayPayment(object value, ValidationContext validationContext)
     {
         ServicePayPaymentSubmissionViewModel paymentSubmission = validationContext.ObjectInstance as ServicePayPaymentSubmissionViewModel;
-
-        if (paymentSubmission?.Payment is not null)
-            return ValidateReference(value, paymentSubmission.Payment.ReferenceValidation);
-
-        return ValidationResult.Success;
+        
+        return paymentSubmission?.Payment is not null
+               ? ValidateReference(value, paymentSubmission.Payment.ReferenceValidation, paymentSubmission.Payment.ReferenceLabel)
+               : ValidationResult.Success;
     }
 
-    private ValidationResult ValidateReference(object value, EPaymentReferenceValidation referenceValidation)
+    private ValidationResult ValidateReference(object value, EPaymentReferenceValidation referenceValidation, string referenceLabel)
     {
         if (referenceValidation.Equals(EPaymentReferenceValidation.None))
             return ValidationResult.Success;
 
         string reference = value as string;
 
-        if (reference is null)
-            return new ValidationResult("The reference number is required");
+        if (string.IsNullOrEmpty(reference))
+            return new ValidationResult($"Enter the {referenceLabel.ToLower()}");
 
         bool isValid = Regex.IsMatch(reference, ValidatorsRegex[referenceValidation]);
 
         return !isValid
-            ? new ValidationResult("Check the reference number and try again")
+            ? new ValidationResult($"Check the {referenceLabel.ToLower()} and try again")
             : ValidationResult.Success;
     }
 }

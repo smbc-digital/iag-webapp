@@ -30,17 +30,17 @@
 
                         <div class="form-section">
                             <fieldset>
-                                <label asp-for="Reference">@Model.Payment.ReferenceLabel</label>
-                                <input class="payment__input" asp-for="Reference" type="text" />
-                                <span class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 payment__validation--rtl grid-parent" role="alert" aria-atomic="true" asp-validation-for="Reference"></span>
+                                <label asp-for="@Model.Reference">@Model.Payment.ReferenceLabel</label>
+                                <input class="payment__input" asp-for="@Model.Reference" type="text" data-val-required="Enter the @($"{Model.Payment.ReferenceLabel.ToLower()}")" />
+                                <span class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 payment__validation--rtl grid-parent" role="alert" aria-atomic="true" asp-validation-for="@Model.Reference"></span>
 
-                                <label asp-for="Amount">Payment amount</label>
+                                <label asp-for="@Model.Amount">Payment amount</label>
                                 <p class="visuallyhidden">Enter a sterling value</p>
 
                                 <div class="input-group">
                                     <span class="payment__symbol">£</span>
-                                    <input asp-for="Amount" type="number" min="0.00" value="" class="payment__input payment__input--amount">
-                                    <span role="alert" aria-atomic="true" asp-validation-for="Amount" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 payment__validation--rtl grid-parent"></span>
+                                    <input asp-for="@Model.Amount" type="number" min="0.00" class="payment__input payment__input--amount">
+                                    <span role="alert" aria-atomic="true" asp-validation-for="@Model.Amount" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 payment__validation--rtl grid-parent"></span>
                                 </div>
 
                                 <div>

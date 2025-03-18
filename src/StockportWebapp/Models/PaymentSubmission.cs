@@ -9,14 +9,13 @@ public class PaymentSubmission
 
     public ProcessedPayment Payment { get; set; } = new ProcessedPayment();
 
-    [Required]
     [PaymentReferenceValidation(paymentSubmissionType: EPaymentSubmissionType.Payment)]
     [Display(Name = "reference")]
     public string Reference { get; set; } = string.Empty;
 
-    [Required(ErrorMessage = "Enter the amount")]
+    [Required(ErrorMessage = "Enter a payment amount")]
     [Range(0.01, int.MaxValue, ErrorMessage = "Enter a valid amount (e.g. 25.00)")]
-    public decimal? Amount { get; set; }
+    public string? Amount { get; set; }
     
     [RequiredIf("Payment.PaymentType", "Enter a name", "ServicePayPayment")]
     [Display(Name = "name")]

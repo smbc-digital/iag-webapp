@@ -123,6 +123,7 @@ public class ContentSecurityPolicyBuilder
             .AddSource("forms.hsforms.com")
             .AddSource("forms-eu1.hsforms.com")
             .AddSource("lh3.ggpht.com")
+            .AddSource("cdn.jsdelivr.net", true)
             .Finish());
 
     private void BuildStyleSource() =>
@@ -154,6 +155,7 @@ public class ContentSecurityPolicyBuilder
             .AddSource("unpkg.com/")
             .AddSource("api.mapbox.com/")
             .AddSource("api.reciteme.com/")
+            .AddSource("cdn.jsdelivr.net", true)
             .Finish());
 
     private void BuildScriptSource() =>
@@ -223,6 +225,7 @@ public class ContentSecurityPolicyBuilder
             .AddSource("unpkg.com/@googlemaps/")
             .AddSource("https://kit.fontawesome.com/")
             .AddSource("ka-p.fontawesome.com/")
+            .AddSource("cdn.jsdelivr.net", true)
             .Finish());
 
     private void BuildConnectSource() =>
