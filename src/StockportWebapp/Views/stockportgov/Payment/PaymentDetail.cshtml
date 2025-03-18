@@ -45,26 +45,12 @@
                                     <span class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 payment__validation--rtl grid-parent" role="alert" aria-atomic="true" asp-validation-for="EmailAddress"></span>
                                 }
 
-                                @if (!Model.HasServiceSpecifiedPrice)
-                                {
-                                    <p class="visually-hidden">Enter a sterling value below</p>
-                                    <div class="input-group">
-                                        <span class="input-addon">£</span><input asp-for="Amount" type="text" class="currency grid-15 tablet-grid-25 suffix-85 tablet-suffix-75 mobile-grid-100 form-control">
-                                        <span role="alert" aria-atomic="true" asp-validation-for="Amount" class="form-field-validation-error grid-15 tablet-grid-25 suffix-85 tablet-suffix-75 mobile-grid-100"></span>
-                                    </div>
-                                }
-                                else
-                                {
-                                    <p>&pound;@Model.Amount</p>
-                                    @Html.HiddenFor(_ => _.Amount);
-                                }
-
                                 <label asp-for="Amount">Payment amount</label>
                                 <p class="visuallyhidden">Enter a sterling value</p>
 
                                 <div class="input-group">
                                     <span class="payment__symbol">£</span>
-                                    <input asp-for="Amount" type="number" min="0.00" value="" class="payment__input payment__input--amount">
+                                    <input asp-for="Amount" type="number" min="0.00" class="payment__input payment__input--amount">
                                     <span role="alert" aria-atomic="true" asp-validation-for="Amount" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 payment__validation--rtl grid-parent"></span>
                                 </div>
 
