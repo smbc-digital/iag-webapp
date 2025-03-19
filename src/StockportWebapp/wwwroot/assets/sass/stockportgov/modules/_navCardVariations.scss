@@ -237,6 +237,10 @@
     &--theme-one-stockport-purple {
         @include theme($theme: $one-stockport-purple);
     }
+
+    &--theme-orange {
+        @include theme($theme: $stockport-orange);
+    }
 }
 
 html[dir="rtl"] {
