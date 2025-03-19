@@ -3,6 +3,19 @@
         padding-inline: 5px;
     }
 
+    &__categories {
+        padding-block: 2em;
+        background-color: $stockport-light-grey;
+
+        @media #{$tablet} {
+            padding-block: 2em;
+        }
+
+        @media #{$mobile} {
+            padding-inline: 5px;
+        }
+    }
+
     &__menu {
         display: flex;
         gap: 0.5em;
@@ -11,7 +24,7 @@
         list-style: none;
         padding: 0px;
         margin: 0px;
-        margin-block-end: 1em;
+        margin-block-end: 2em;
 
         li {
             display: inline-block;
