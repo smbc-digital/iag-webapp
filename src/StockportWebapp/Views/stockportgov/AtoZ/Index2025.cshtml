@@ -16,53 +16,57 @@
     
     <div class="grid-container">
         <div class="grid-100">
-            <a id="top" name="top"></a>
-            <h1>A to Z</h1>
-            <ul class="atoz__menu">
-            @foreach(var letter in AlphabetProvider.GetAlphabet())
-            {
-                var atozEntries = Model.Items.Where(atozEntry => atozEntry.Title.StartsWith(letter)).ToList();
+            <div class="atoz">
+                <a id="top" name="top"></a>
+                <h1>A to Z</h1>
+                <ul class="atoz__menu">
+                @foreach(var letter in AlphabetProvider.GetAlphabet())
+                {
+                    var atozEntries = Model.Items.Where(atozEntry => atozEntry.Title.StartsWith(letter)).ToList();
                 
-                if (atozEntries.Count() > 0)
-                {
-                    <li><a class="btn btn_large" href="#@letter" aria-label="@letter service">@letter</a></li>
-                }
-                else
-                {
-                    <li><span class="btn btn_large btn--inverse btn--no-pointer">@letter</span></li>
-                }
-            }
-            </ul>
+                    if (atozEntries.Count() > 0)
+                    {
+                        <li><a class="btn btn_large" href="#@letter" aria-label="@letter service">@letter</a></li>
+                    }
+                    else
+                    {
+                        <li><span class="btn btn_large btn--inverse btn--no-pointer">@letter</span></li>
+                    }
+                }   
+                </ul>
+            </div>
         </div>
     </div>
 
     <div class="contact-us-area">
         <section class="contact-us-area__categories">
-            <div class="grid-container grid-100">
-            @foreach(var letter in AlphabetProvider.GetAlphabet())
-            {
-                var atozEntries = Model.Items.Where(atozEntry => atozEntry.Title.StartsWith(letter));
-                if (atozEntries.Count() > 0)
-                {
-                    <a id="@letter" name="@letter"></a>
-                    
-                    <div id="@letter" class="atoz__heading">
-                        <h2 tabindex="-1" id="content">@letter</h2>
-                        <a href="#top" class="atoz__back-to-top">Back to top</a>
-                    </div>
+            <div class="grid-container">
+                <div class="grid-100">
+                    @foreach (var letter in AlphabetProvider.GetAlphabet())
+                    {
+                        var atozEntries = Model.Items.Where(atozEntry => atozEntry.Title.StartsWith(letter));
+                        if (atozEntries.Count() > 0)
+                        {
+                            <a id="@letter" name="@letter"></a>
 
-                    <div class="directory--border-top @borderTeal atoz__section contact-us-area--margin-bottom">
-                        <div class="directory__wrapper navcard--white @greyBorderCssClasses">
-                            <ul>
-                                @foreach (var entry in atozEntries)
-                                {
-                                    <li><a href="@entry.NavigationLink">@entry.Title</a></li>
-                                }
-                            </ul>
-                        </div>
-                    </div>
-                }
-            }
+                            <div id="@letter" class="atoz__heading">
+                                <h2 tabindex="-1" id="content">@letter</h2>
+                                <a href="#top" class="atoz__back-to-top">Back to top</a>
+                            </div>
+
+                            <div class="directory--border-top @borderTeal atoz__section contact-us-area--margin-bottom">
+                                <div class="directory__wrapper navcard--white @greyBorderCssClasses">
+                                    <ul>
+                                        @foreach (var entry in atozEntries)
+                                        {
+                                            <li><a href="@entry.NavigationLink">@entry.Title</a></li>
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
             </div>
         </section>
     </div>
