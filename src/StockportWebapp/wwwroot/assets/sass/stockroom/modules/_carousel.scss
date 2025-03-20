@@ -3,6 +3,10 @@
     width: 100%;
     overflow: hidden;
 
+    &-inline {
+        padding-bottom: 2em;
+    }
+
     &-hero {
         background-color: #f2f2f2;
     }
