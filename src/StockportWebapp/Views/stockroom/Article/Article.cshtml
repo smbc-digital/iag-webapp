@@ -87,14 +87,17 @@
 
 <script>
     window.addEventListener("message", function(event) {
-        @* if (event.origin !== "https://int-formbuilder-origin.smbcdigital.net/") return; *@
-        console.log("this function is getting called");
+        const allowedOrigins = [
+            "https://int-formbuilder-origin.smbcdigital.net/",
+            "https://qa-formbuilder-origin.smbcdigital.net/",
+            "https://stage-formbuilder-origin.smbcdigital.net/",
+            "http://forms.stockport.gov.uk/"
+        ];
+        
+        if (!allowedOrigins.includes(event.origin)) return;
+
         if (event.data && event.data.iframeHeight) {
-            const iframe = document.getElementsByTagName("iframe")[0];
-
-            console.log("iframe ", iframe);
-
-            iframe.style.height = event.data.iframeHeight + "px";
+            document.getElementsByTagName("iframe")[0].style.height = event.data.iframeHeight + "px";
         }
     });
 </script>
