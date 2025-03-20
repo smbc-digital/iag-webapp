@@ -5,26 +5,24 @@
         <div class="directory-search directory-search--one-stockport">
             
             <div class="directory-search_image--start">
-                <img src="/assets/images/logos/Stockport_Live-Well_square corners_RGB.webp" alt="Stockport Local logo" width="270" height="150" />
+                <img src="/assets/images/logos/StockportLiveWellLogoTransparent.webp" alt="Stockport Local logo" width="270" height="150" />
             </div>
 
             <div class="directory-search_input--end">
-                <div>
-                    <h1 class="visuallyhidden">Welcome to @Model.Title</h1>
-                    <h2 class="visuallyhidden">Search the @Model.Title</h2>
-                    <form asp-controller="Directory" asp-action="DirectoryResults" method="get" id="stockport-local-search-for" asp-route-slug="@Model.Slug">
-                        <label class="visuallyhidden" for="searchTerm">
-                            search input box
-                        </label>
+                <h1 class="visuallyhidden">Welcome to @Model.Title</h1>
+                <h2 class="visuallyhidden">Search the @Model.Title</h2>
+                <form asp-controller="Directory" asp-action="DirectoryResults" method="get" id="stockport-local-search-for" asp-route-slug="@Model.Slug">
+                    <label class="visuallyhidden" for="searchTerm">
+                        search input box
+                    </label>
 
-                        <input class="grid-100 tablet-grid-100 mobile-grid-100 directory-search--input" id="searchTerm" name="searchTerm" data-cy="search-bar" type="text" placeholder="Search directory" autocomplete="off" value="@Model.SearchTerm">
+                    <input class="grid-100 tablet-grid-100 mobile-grid-100 directory-search--input" id="searchTerm" name="searchTerm" data-cy="search-bar" type="text" placeholder="Search directory" autocomplete="off" value="@Model.SearchTerm">
 
-                        <button value="Submit search" aria-label="Search" name="Search" class="directory-search--button btn btn--inverse btn--bold" data-cy="search-submit" type="submit">
-                            <span class="fa fa-search hide-on-mobile hide-on-tablet" aria-hidden="true"></span><span class="hide-on-desktop">Search</span>
-                        </button>
-                    </form>
-                </div>
-            </div>  
+                    <button value="Submit search" aria-label="Search" name="Search" class="directory-search--button btn btn--inverse btn--bold" data-cy="search-submit" type="submit">
+                        <span class="fa fa-search hide-on-mobile hide-on-tablet" aria-hidden="true"></span><span class="hide-on-desktop">Search</span>
+                    </button>
+                </form>
+            </div>
             
         </div>
     </div>
