@@ -5,6 +5,12 @@
     @media #{$mobile} {
         padding: 0 0.5em;
     }
+    
+    article{
+        *:last-child {
+            margin-block-end: 2em;
+        }
+    }
 
     iframe {
         padding: 0;
