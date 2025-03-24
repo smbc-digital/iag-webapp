@@ -336,6 +336,11 @@ input[type="search"] {
     min-width: 33px;
     max-width: 30%;
     word-break: break-word;
+    text-wrap-mode: nowrap;
+}
+
+#modgov td {
+    overflow-wrap: normal;
 }
 
 #modgov label {
