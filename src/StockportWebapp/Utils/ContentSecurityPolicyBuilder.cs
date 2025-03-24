@@ -54,6 +54,7 @@ public class ContentSecurityPolicyBuilder
             .AddSource("forms-eu1.hsforms.com")
             .AddSource("my.matterport.com")
             .AddSource("lookinglocal.cdn.spotlightr.com")
+            .AddSource("https://api-bridge.azurewebsites.net/")
             .Finish());
 
     private void BuildFontSource() =>
