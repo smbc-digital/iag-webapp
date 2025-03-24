@@ -1,6 +1,6 @@
 {
-  "name": "Stockroom - Stockport"
-  "short_name": "Stockroom"
+  "name": "Stockroom - Stockport",
+  "short_name": "Stockroom",
   "icons": [
     {
       "src": "/web-app-manifest-192x192.png",
