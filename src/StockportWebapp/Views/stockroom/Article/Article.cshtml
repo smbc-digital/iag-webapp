@@ -86,36 +86,46 @@
 }
 
 <script>
-    window.addEventListener("message", function(event) {
-        console.log("listening form message ", event)
-        const allowedOrigins = [
-            "https://int-formbuilder-origin.smbcdigital.net",
-            "https://qa-formbuilder-origin.smbcdigital.net",
-            "https://stage-formbuilder-origin.smbcdigital.net",
-            "http://forms.stockport.gov.uk"
-        ];
+    function setupMessageListener() {
+        console.log("Setting up message listener...");
 
-        if (!allowedOrigins.includes(event.origin)) {
-            console.warn("Message origin not allowed:", event.origin);
-            return;
-        }
+        window.addEventListener("message", function(event) {
+            console.log("Listening for message", event);
 
-        if (event.data && event.data.iframeHeight) {
-            console.log("Received iframe height:", event.data.iframeHeight);
+            const allowedOrigins = [
+                "https://int-formbuilder-origin.smbcdigital.net",
+                "https://qa-formbuilder-origin.smbcdigital.net",
+                "https://stage-formbuilder-origin.smbcdigital.net",
+                "http://forms.stockport.gov.uk"
+            ];
 
-            const iframe = document.getElementsByTagName("iframe")[0]
-            if (iframe) {
-                console.log("Updating iframe height to:", event.data.iframeHeight);
-                iframe.style.height = event.data.iframeHeight + "px";
-            } else {
-                console.warn("No iframe found on the page.");
+            if (!allowedOrigins.includes(event.origin)) {
+                console.warn("Message origin not allowed:", event.origin);
+                return;
             }
-        } else {
-            console.warn("No iframeHeight data received.");
-        }
-    }, false);
 
-    window.onmessage = (event) => {
-        console.log(`Received message: ${event.data.iframeHeight}`);
-    };
+            if (event.data && event.data.iframeHeight) {
+                console.log("Received iframe height:", event.data.iframeHeight);
+
+                const iframe = document.getElementsByTagName("iframe")[0];
+                if (iframe) {
+                    console.log("Updating iframe height to:", event.data.iframeHeight);
+                    iframe.style.height = event.data.iframeHeight + "px";
+                } else {
+                    console.warn("No iframe found on the page.");
+                }
+            } else {
+                console.warn("No iframeHeight data received.");
+            }
+        }, false);
+    }
+
+    setupMessageListener();
+
+    const observer = new MutationObserver(() => {
+        console.log("Iframe changed, reattaching message listener...");
+        setupMessageListener();
+    });
+
+    observer.observe(document.body, { childList: true, subtree: true });
 </script>
