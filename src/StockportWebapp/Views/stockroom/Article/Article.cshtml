@@ -86,23 +86,28 @@
 }
 
 <script>
-    function adjustIframeHeight() {
-        const iframe = document.getElementsByTagName("iframe")[0];
+    function handleIframeHeightMessage(event) {
+        const allowedOrigins = [
+            "https://int-webplatform-stockroom.smbcdigital.net/",
+            "https://qa-webplatform-stockroom.smbcdigital.net/",
+            "https://stage-webplatform-stockroom.smbcdigital.net/",
+            "https://www.stockrm.org/"
+        ];
 
-        setTimeout(() => {
-            const newHeight = iframe.scrollHeight + 100;
-            console.log("New Iframe Height:", newHeight);
-            iframe.style.height = newHeight + "px";
-        }, 500);
+        if (allowedOrigins.includes(event.origin)) {
+            const messageData = event.data;
+
+            if (messageData && messageData.iframeHeight !== undefined) {
+                const iframe = document.querySelector('iframe');
+                if (iframe) {
+                    iframe.style.height = messageData.iframeHeight + 'px';
+                    console.log("Updated iframe height:", messageData.iframeHeight);
+                }
+            }
+        } else {
+            console.warn("Received message from untrusted origin:", event.origin);
+        }
     }
 
-    window.addEventListener("load", adjustIframeHeight);
-    window.addEventListener("resize", adjustIframeHeight);
-
-    document.addEventListener("DOMContentLoaded", function () {
-        const iframe = document.getElementsByTagName("iframe")[0];
-        if (iframe) {
-            iframe.addEventListener("load", adjustIframeHeight);
-        }
-    });
+    window.addEventListener('message', handleIframeHeightMessage);
 </script>
