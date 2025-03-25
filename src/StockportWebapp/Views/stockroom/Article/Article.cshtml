@@ -86,46 +86,23 @@
 }
 
 <script>
-    function setupMessageListener() {
-        console.log("Setting up message listener...");
+    function adjustIframeHeight() {
+        const iframe = document.getElementsByTagName("iframe")[0];
 
-        window.addEventListener("message", function(event) {
-            console.log("Listening for message", event);
-
-            const allowedOrigins = [
-                "https://int-formbuilder-origin.smbcdigital.net",
-                "https://qa-formbuilder-origin.smbcdigital.net",
-                "https://stage-formbuilder-origin.smbcdigital.net",
-                "http://forms.stockport.gov.uk"
-            ];
-
-            if (!allowedOrigins.includes(event.origin)) {
-                console.warn("Message origin not allowed:", event.origin);
-                return;
-            }
-
-            if (event.data && event.data.iframeHeight) {
-                console.log("Received iframe height:", event.data.iframeHeight);
-
-                const iframe = document.getElementsByTagName("iframe")[0];
-                if (iframe) {
-                    console.log("Updating iframe height to:", event.data.iframeHeight);
-                    iframe.style.height = event.data.iframeHeight + "px";
-                } else {
-                    console.warn("No iframe found on the page.");
-                }
-            } else {
-                console.warn("No iframeHeight data received.");
-            }
-        }, false);
+        setTimeout(() => {
+            const newHeight = iframe.scrollHeight + 100;
+            console.log("New Iframe Height:", newHeight);
+            iframe.style.height = newHeight + "px";
+        }, 500);
     }
 
-    setupMessageListener();
+    window.addEventListener("load", adjustIframeHeight);
+    window.addEventListener("resize", adjustIframeHeight);
 
-    const observer = new MutationObserver(() => {
-        console.log("Iframe changed, reattaching message listener...");
-        setupMessageListener();
+    document.addEventListener("DOMContentLoaded", function () {
+        const iframe = document.getElementsByTagName("iframe")[0];
+        if (iframe) {
+            iframe.addEventListener("load", adjustIframeHeight);
+        }
     });
-
-    observer.observe(document.body, { childList: true, subtree: true });
 </script>

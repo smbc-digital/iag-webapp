@@ -30,6 +30,6 @@
     
     iframe[src*="-formbuilder-origin.smbcdigital.net"],
     iframe[src*="forms.stockport.gov.uk"] {
-        height: 100%;
+        height: revert-layer;
     }
 }
