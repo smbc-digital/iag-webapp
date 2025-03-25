@@ -87,8 +87,6 @@
 
 <script>
     window.addEventListener("message", function(event) {
-        alert(event.data.iframeHeight);
-
         console.log("listening form message ", event)
         const allowedOrigins = [
             "https://int-formbuilder-origin.smbcdigital.net",
@@ -116,4 +114,8 @@
             console.warn("No iframeHeight data received.");
         }
     }, false);
+
+    window.onmessage = (event) => {
+        console.log(`Received message: ${event.data.iframeHeight}`);
+    };
 </script>
