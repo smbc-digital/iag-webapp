@@ -105,4 +105,14 @@
             }
         }
     });
+
+    const iframe = document.getElementsByTagName("iframe")[0];
+    if (iframe) {
+        const resizeObserver = new ResizeObserver(() => {
+            const iframeHeight = iframe.offsetHeight;
+            console.log("Iframe resized. Current height:", iframeHeight);
+                iframe.style.height = iframeHeight + "px";
+        });
+        resizeObserver.observe(iframe);
+    }
 </script>
