@@ -87,6 +87,9 @@
 
 <script>
     window.addEventListener("message", function(event) {
+        alert(event.data.iframeHeight);
+
+        console.log("listening form message ", event)
         const allowedOrigins = [
             "https://int-formbuilder-origin.smbcdigital.net",
             "https://qa-formbuilder-origin.smbcdigital.net",
@@ -102,7 +105,7 @@
         if (event.data && event.data.iframeHeight) {
             console.log("Received iframe height:", event.data.iframeHeight);
 
-            const iframe = document.getElementsByTagName("iframe")[0]; // Update to the correct iframe if needed
+            const iframe = document.getElementsByTagName("iframe")[0]
             if (iframe) {
                 console.log("Updating iframe height to:", event.data.iframeHeight);
                 iframe.style.height = event.data.iframeHeight + "px";
