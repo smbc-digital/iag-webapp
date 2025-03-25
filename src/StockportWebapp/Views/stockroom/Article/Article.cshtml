@@ -94,14 +94,23 @@
             "http://forms.stockport.gov.uk"
         ];
 
-        if (!allowedOrigins.includes(event.origin)) return;
+        if (!allowedOrigins.includes(event.origin)) {
+            console.warn("Message origin not allowed:", event.origin);
+            return;
+        }
 
         if (event.data && event.data.iframeHeight) {
-            console.log("Updating iframe height to:", event.data.iframeHeight);
-            const iframe = document.getElementsByTagName("iframe")[0];
+            console.log("Received iframe height:", event.data.iframeHeight);
+
+            const iframe = document.getElementsByTagName("iframe")[0]; // Update to the correct iframe if needed
             if (iframe) {
+                console.log("Updating iframe height to:", event.data.iframeHeight);
                 iframe.style.height = event.data.iframeHeight + "px";
+            } else {
+                console.warn("No iframe found on the page.");
             }
+        } else {
+            console.warn("No iframeHeight data received.");
         }
     }, false);
 </script>
