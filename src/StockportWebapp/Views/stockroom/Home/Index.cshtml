@@ -20,15 +20,15 @@
 
         @if (Model.PrimaryItems() is not null && Model.PrimaryItems().Items.Any() && Model.PrimaryItems().Items.Count >= 3)
         {
-                <div class="grid-container">
-                    <div class="grid-100">
-                        <div class="hero__about hero__about--no-padding-top">
-                            <h2 class="card-title h-xl">What's on</h2>
+            <div class="grid-container">
+                <div class="grid-100">
+                    <div class="hero__about hero__about--no-padding-top">
+                        <h2 class="card-title h-xl">What's on</h2>
 
-                            <partial name="NavCards" model="Model.PrimaryItems()" view-data='@(new ViewDataDictionary(ViewData) { { "itemsType", "events" } })' />
-                        </div>
+                        <partial name="NavCards" model="Model.PrimaryItems()" view-data='@(new ViewDataDictionary(ViewData) { { "itemsType", "events" } })' />
                     </div>
                 </div>
+            </div>
         }
     </div>
 
