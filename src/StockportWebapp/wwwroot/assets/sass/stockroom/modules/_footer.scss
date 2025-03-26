@@ -89,6 +89,18 @@
 			margin-top: 25px;
 			padding-bottom: 0.833em;
 		}
+
+		&--float-right {
+			float: right;
+
+			@media #{$mobile} {
+				float: none;
+			}
+		}
+
+		&--no-padding {
+			padding: 0;
+		}
 	}
 
 	&__info {

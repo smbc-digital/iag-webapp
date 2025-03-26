@@ -88,10 +88,10 @@
 <script>
     function handleIframeHeightMessage(event) {
         const allowedOrigins = [
-            "https://int-webplatform-stockroom.smbcdigital.net/",
-            "https://qa-webplatform-stockroom.smbcdigital.net/",
-            "https://stage-webplatform-stockroom.smbcdigital.net/",
-            "https://www.stockrm.org/"
+            "https://int-formbuilder-origin.smbcdigital.net",
+            "https://qa-formbuilder-origin.smbcdigital.net",
+            "https://stage-formbuilder-origin.smbcdigital.net",
+            "http://forms.stockport.gov.uk"
         ];
 
         if (allowedOrigins.includes(event.origin)) {
@@ -104,8 +104,6 @@
                     console.log("Updated iframe height:", messageData.iframeHeight);
                 }
             }
-        } else {
-            console.warn("Received message from untrusted origin:", event.origin);
         }
     }
 
