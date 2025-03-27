@@ -94,16 +94,32 @@
             "http://forms.stockport.gov.uk"
         ];
 
-        if (allowedOrigins.includes(event.origin)) {
-            const messageData = event.data;
+        if (!allowedOrigins.includes(event.origin)) return;
 
-            if (messageData && messageData.iframeHeight !== undefined) {
-                const iframe = document.querySelector('iframe');
-                if (iframe) {
-                    iframe.style.height = messageData.iframeHeight + 'px';
-                    console.log("Updated iframe height:", messageData.iframeHeight);
-                }
+        const messageData = event.data;
+
+        if (messageData && typeof messageData.iframeHeight !== "undefined") {
+            const iframe = document.querySelector('iframe');
+            if (iframe) {
+                const newHeight = messageData.iframeHeight + 'px';
+
+                console.log("Applying iframe height:", newHeight);
+
+                requestAnimationFrame(() => {
+                    iframe.style.height = newHeight;
+                });
+
+                let attempts = 5;
+                const interval = setInterval(() => {
+                    if (iframe.style.height !== newHeight && attempts > 0) {
+                        console.log("Retrying iframe height update:", newHeight);
+                        iframe.style.height = newHeight;
+                        attempts--;
+                    } else {
+                        clearInterval(interval);
+                    }
+                }, 200);
             }
         }
-    }, { once: false });
+    }, false);
 </script>
