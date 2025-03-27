@@ -86,7 +86,7 @@
 }
 
 <script>
-    function handleIframeHeightMessage(event) {
+    window.addEventListener('message', function handleIframeHeightMessage(event) {
         const allowedOrigins = [
             "https://int-formbuilder-origin.smbcdigital.net",
             "https://qa-formbuilder-origin.smbcdigital.net",
@@ -105,7 +105,5 @@
                 }
             }
         }
-    }
-
-    window.addEventListener('message', handleIframeHeightMessage);
+    }, { once: false });
 </script>
