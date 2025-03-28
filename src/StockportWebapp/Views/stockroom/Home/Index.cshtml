@@ -8,6 +8,10 @@
 
 <div data-cy="homepage">
     <h1 class="visuallyhidden">Welcome to Stockroom</h1>
+    @if(!string.IsNullOrEmpty(Model.HomepageContent.BackgroundImage))
+    {
+        <img src=" @Model.HomepageContent.BackgroundImage" alt="Stockroom opening 24th May" />
+    }
 
     @if (Model.HomepageContent.CarouselContents is not null && Model.HomepageContent.CarouselContents.Any())
     {
@@ -24,7 +28,9 @@
                 <div class="grid-100">
                     <div class="hero__about hero__about--no-padding-top">
                         <h2 class="card-title h-xl">What's on</h2>
-
+                        
+                        
+                        
                         <partial name="NavCards" model="Model.PrimaryItems()" view-data='@(new ViewDataDictionary(ViewData) { { "itemsType", "events" } })' />
                     </div>
                 </div>
