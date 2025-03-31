@@ -17,6 +17,7 @@ public class ContentSecurityPolicyBuilder
         BuildObjectSource();
         BuildManifestSource();
         BuildFrameSource();
+        BuildFormActionSource();
 
         return _stringBuilder.ToString();
     }
@@ -306,6 +307,13 @@ public class ContentSecurityPolicyBuilder
             .AddSource("lookinglocal.cdn.spotlightr.com/")
             .Finish());
 
+     private void BuildFormActionSource() =>
+         _stringBuilder.Append(
+             new ContentSecurityPolicyElement("form-action")
+             .AddSource("*.smbcdigital.net")
+             .AddSource("forms.stockport.gov.uk", true)
+             .Finish());
+    
     private void BuildObjectSource() =>
         _stringBuilder.Append(
             new ContentSecurityPolicyElement("object-src")
