@@ -33,6 +33,13 @@
                         <partial name="NavCards" model="@Model.Topic.PrimaryItems" />
                     }
 
+                    @if (Model.Topic.CallToAction is not null)
+                    {
+                        <div class="grid-container-full-width" style="background-color:#f2f2f2;">
+                            <partial name="CallToActionTagParser" model="Model.Topic.CallToAction" view-data='@(new ViewDataDictionary(ViewData) { { "AdditionalCssClass", "image-banner-topics" } })' />
+                        </div>
+                    } 
+
                     @if (Model.Topic.SecondaryItems.Any())
                     {
                         <h2 class="h-xl">More in @Model.Topic.Name</h2>

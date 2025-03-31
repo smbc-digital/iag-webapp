@@ -5,6 +5,10 @@
     @media #{$mobile} {
         padding: 0 0.5em;
     }
+    
+    &--margin-bottom {
+        margin-block-end: 2em;
+    }
 
     iframe {
         padding: 0;
@@ -26,6 +30,6 @@
     
     iframe[src*="-formbuilder-origin.smbcdigital.net"],
     iframe[src*="forms.stockport.gov.uk"] {
-        height: 100%;
+        height: revert-layer;
     }
 }

@@ -52,7 +52,7 @@
 
     <div class="grid-container">
         <div class="grid-100">
-            <section class="article">
+            <section class="article article--margin-bottom">
                 @if (!string.IsNullOrEmpty(Model.Article.Body))
                 {
                     <article>
@@ -84,16 +84,3 @@
         </div>
     </div>
 }
-
-<script>
-    window.addEventListener("message", function(event) {
-        if (event.origin !== "https://int-formbuilder-origin.smbcdigital.net") return;
-        
-        if (event.data && event.data.iframeHeight) {
-            const iframe = document.getElementsByTagName("iframe")[0];
-            console.log(iframe)
-            iframe.style.height = event.data.iframeHeight + "px";
-        }
-    });
-</script>
-

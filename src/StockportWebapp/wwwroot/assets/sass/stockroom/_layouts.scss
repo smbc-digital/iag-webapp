@@ -21,6 +21,15 @@ a:focus {
     @include visually-hidden;
 }
 
+hr {
+    height: 1px;
+    color: $skrm-grey;
+    background: $skrm-grey;
+    font-size: 0;
+    border: 0;
+    margin: 32px 0 32px 0!important;
+}
+
 @media #{$desktop} {
     .desktop-visuallyhidden {
         @include visually-hidden;

@@ -4,7 +4,8 @@
             word-wrap: break-word;
             display: flex;
             flex-direction: row;
-
+            margin-bottom: 2em;
+            
             @media #{$tablet} {
                 display: block;
             }        

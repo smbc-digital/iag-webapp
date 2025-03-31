@@ -6,6 +6,11 @@
 	z-index: 5;
 	color: black;
 
+	h2, h3, h4 {
+		margin-bottom: 1em;
+		font-weight: 400;
+	}
+	
 	ul {
 		list-style: none;
 	}
@@ -83,6 +88,18 @@
 		@media #{$mobile} {
 			margin-top: 25px;
 			padding-bottom: 0.833em;
+		}
+
+		&--float-right {
+			float: right;
+
+			@media #{$mobile} {
+				float: none;
+			}
+		}
+
+		&--no-padding {
+			padding: 0;
 		}
 	}
 
