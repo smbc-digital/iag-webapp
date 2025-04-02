@@ -229,6 +229,7 @@ public class PaymentReferenceValidationTests
     [InlineData(EPaymentReferenceValidation.StockportEstatesInvoices, "T2345A")]
     [InlineData(EPaymentReferenceValidation.StockportEstatesInvoices, "T234")]
     [InlineData(EPaymentReferenceValidation.StockportEstatesInvoices, "T234446")]
+    [InlineData(EPaymentReferenceValidation.StockportEstatesInvoices, "12345")]
     public void Should_ReturnFalse_ForInvalidReference(EPaymentReferenceValidation referenceValidation, string reference)
     {
         // Arrange
@@ -294,6 +295,7 @@ public class PaymentReferenceValidationTests
     [InlineData(EPaymentReferenceValidation.StockportEstatesInvoices, "T012356")]
     [InlineData(EPaymentReferenceValidation.StockportEstatesInvoices, "T012")]
     [InlineData(EPaymentReferenceValidation.StockportEstatesInvoices, "T0005t")]
+    [InlineData(EPaymentReferenceValidation.StockportEstatesInvoices, "0012")]
     
     public void Should_ReturnFalse_ForInvalidReference_ForServicePayPayment(EPaymentReferenceValidation referenceValidation, string reference)
     {
