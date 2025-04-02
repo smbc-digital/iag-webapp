@@ -127,7 +127,7 @@ public class ContentSecurityPolicyBuilder
             .AddSource("forms-eu1.hsforms.com")
             .AddSource("lh3.ggpht.com")
             .AddSource("cdn.jsdelivr.net", true)
-            .AddSource("https://img.freepik.com/free-vector/circle-tick-check-mark-paint-brush-stroke_78370-645.jpg?w=740&t=st=1680064072~exp=1680064672~hmac=af63030e969abea72d57db304784d8676bec35635ccb8920e5beb66d293f62a1")
+            .AddSource("https://img.freepik.com/free-vector/")
             .Finish());
 
     private void BuildStyleSource() =>
@@ -279,6 +279,7 @@ public class ContentSecurityPolicyBuilder
             .AddSource("hubspot-forms-static-embed-eu1.s3.amazonaws.com/")
             .AddSource("ka-p.fontawesome.com/")
             .AddSource("lookinglocal.cdn.spotlightr.com/")
+            .AddSource("https://api.conesso.io/v2/signup-forms/contact")
             .Finish());
 
     private void BuildMediaSource() =>
