@@ -1,37 +1,41 @@
 namespace StockportWebapp.Models.Validation;
 
 [ExcludeFromCodeCoverage]
-public class RequiredIfEmailValidation(string otherPropertyName,
-                                    string errorMessage,
-                                    string expectedValue = "") : ValidationAttribute(errorMessage)
+public class RequiredIfEmailValidation(EPaymentSubmissionType paymentSubmissionType, string errorMessage, string expectedValue = "") : ValidationAttribute(errorMessage)
 {
-    private readonly string _otherPropertyName = otherPropertyName;
+    private readonly EPaymentSubmissionType _paymentSubmissionType = paymentSubmissionType;
     private readonly string _expectedValue = expectedValue;
 
     protected override ValidationResult IsValid(object value, ValidationContext validationContext)
     {
-        Type containerType = validationContext.ObjectInstance.GetType();
-        PropertyInfo field = containerType.GetProperty(_otherPropertyName, BindingFlags.Public | BindingFlags.Instance);
-        object otherPropertyValue = field?.GetValue(validationContext.ObjectInstance);
+        if (validationContext.ObjectInstance is not PaymentSubmission paymentSubmission)
+            return ValidationResult.Success;
 
-        if (string.IsNullOrEmpty(_expectedValue))
+        return ShouldValidate(paymentSubmission, value)
+            ? new ValidationResult(ErrorMessage)
+            : ValidationResult.Success;
+    }
+
+    private bool ShouldValidate(PaymentSubmission paymentSubmission, object value)
+    {
+        if (_paymentSubmissionType != EPaymentSubmissionType.ServicePayPayment)
+            return false;
+
+        var paymentProperty = paymentSubmission.GetType().GetProperty(nameof(paymentSubmission.Payment), BindingFlags.Public | BindingFlags.Instance);
+        var paymentInstance = paymentProperty?.GetValue(paymentSubmission);
+
+        var field = paymentInstance?.GetType().GetField(nameof(Payment.PaymentType), BindingFlags.Public | BindingFlags.Instance);
+        var propertyValue = field?.GetValue(paymentInstance)?.ToString();
+
+        if (!string.IsNullOrEmpty(_expectedValue) && propertyValue?.Equals(_expectedValue, StringComparison.OrdinalIgnoreCase) == true)
         {
-            if (otherPropertyValue is bool boolValue && boolValue && string.IsNullOrEmpty(value?.ToString()))
-                return new ValidationResult(ErrorMessage);
-        }
-        else
-        {
-            if (otherPropertyValue is not null && otherPropertyValue.ToString().Equals(_expectedValue, StringComparison.OrdinalIgnoreCase))
-            {
-                if (string.IsNullOrEmpty(value?.ToString()))
-                    return new ValidationResult(ErrorMessage);
+            if (string.IsNullOrEmpty(value?.ToString()))
+                return true;
 
-                EmailValidation emailValidation = new();
-                if (!emailValidation.IsValid(value))
-                    return new ValidationResult("Enter a valid email address");
-            }
+            EmailValidation emailValidation = new();
+            return !emailValidation.IsValid(value);
         }
 
-        return ValidationResult.Success;
+        return false;
     }
 }

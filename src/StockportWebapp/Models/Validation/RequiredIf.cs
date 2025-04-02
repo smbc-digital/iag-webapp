@@ -1,25 +1,39 @@
 ﻿namespace StockportWebapp.Models.Validation;
 
 [ExcludeFromCodeCoverage]
-public class RequiredIf(string otherPropertyName, string errorMessage, string expectedValue = "") : ValidationAttribute(errorMessage)
+public class RequiredIf(string otherPropertyName,
+                        string errorMessage,
+                        EPaymentSubmissionType paymentSubmissionType = EPaymentSubmissionType.Unknown,
+                        string expectedValue = "") : ValidationAttribute(errorMessage)
 {
     private readonly string _otherPropertyName = otherPropertyName;
+    private readonly EPaymentSubmissionType _paymentSubmissionType = paymentSubmissionType;
     private readonly string _expectedValue = expectedValue;
-    private readonly string _errorMessage = errorMessage;
 
     protected override ValidationResult IsValid(object value, ValidationContext validationContext)
     {
-        Type containerType = validationContext.ObjectInstance.GetType();
-        PropertyInfo field = containerType.GetProperty(_otherPropertyName, BindingFlags.Public | BindingFlags.Instance);
-        object otherPropertyValue = field?.GetValue(validationContext.ObjectInstance);
+        if (validationContext.ObjectInstance is not PaymentSubmission paymentSubmission)
+            return ValidationResult.Success;
 
-        if (string.IsNullOrEmpty(_expectedValue))
-            if (otherPropertyValue is bool boolValue && boolValue && string.IsNullOrEmpty(value?.ToString()))
-                return new ValidationResult(_errorMessage);
-        else
-            if (otherPropertyValue is not null && otherPropertyValue.ToString().Equals(_expectedValue, StringComparison.OrdinalIgnoreCase) && string.IsNullOrEmpty(value?.ToString()))
-                return new ValidationResult(_errorMessage);
+        bool shouldValidate = ShouldValidate(paymentSubmission) && string.IsNullOrEmpty(value?.ToString());
+        return shouldValidate
+            ? new ValidationResult(ErrorMessage)
+            : ValidationResult.Success;
+    }
 
-        return ValidationResult.Success;
+    private bool ShouldValidate(PaymentSubmission paymentSubmission)
+    {
+        if (_paymentSubmissionType != EPaymentSubmissionType.ServicePayPayment)
+            return false;
+
+        var paymentProperty = paymentSubmission.GetType().GetProperty(nameof(paymentSubmission.Payment), BindingFlags.Public | BindingFlags.Instance);
+        var paymentInstance = paymentProperty?.GetValue(paymentSubmission);
+
+        var field = paymentInstance?.GetType().GetField(nameof(Payment.PaymentType), BindingFlags.Public | BindingFlags.Instance);
+        var propertyValue = field?.GetValue(paymentInstance)?.ToString();
+
+        return !string.IsNullOrEmpty(_expectedValue)
+            ? propertyValue?.Equals(_expectedValue, StringComparison.OrdinalIgnoreCase) == true
+            : bool.TryParse(propertyValue, out var boolValue) && boolValue;
     }
 }

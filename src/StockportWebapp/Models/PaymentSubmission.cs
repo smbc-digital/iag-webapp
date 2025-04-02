@@ -17,11 +17,11 @@ public class PaymentSubmission
     [Range(0.01, int.MaxValue, ErrorMessage = "Enter a valid amount (e.g. 25.00)")]
     public string? Amount { get; set; }
     
-    [RequiredIf("Payment.PaymentType", "Enter your name", "ServicePayPayment")]
+    [RequiredIf("Enter your name", "ServicePayPayment", EPaymentSubmissionType.ServicePayPayment)]
     [Display(Name = "name")]
     public string Name { get; set; } = string.Empty;
 
-    [RequiredIfEmailValidation("Payment.PaymentType", "Enter your email address", "ServicePayPayment")]
+    [RequiredIfEmailValidation(EPaymentSubmissionType.ServicePayPayment, "Enter your email address", "ServicePayPayment")]
     [Display(Name = "email address")]
     public string EmailAddress { get; set; } = string.Empty;
 }
