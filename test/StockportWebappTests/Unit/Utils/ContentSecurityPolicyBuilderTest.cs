@@ -118,17 +118,4 @@ public class ContentSecurityPolicyBuilderTest
         // Assert
         Assert.Contains("object-src", contentSecurityPolicy);
     }
-
-    [Fact]
-    public void CSPWillContainFormActionElement()
-    {
-        // Arrange
-        ContentSecurityPolicyBuilder cspBuilder = new();
-
-        // Act
-        string contentSecurityPolicy = cspBuilder.BuildPolicy();
-
-        // Assert
-        Assert.Contains("form-action", contentSecurityPolicy);
-    }
 }

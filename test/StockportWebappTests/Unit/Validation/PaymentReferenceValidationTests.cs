@@ -99,6 +99,9 @@ public class PaymentReferenceValidationTests
     [InlineData(EPaymentReferenceValidation.PlanningApplication, "dc/456789")]
     [InlineData(EPaymentReferenceValidation.PlanningApplication, "ENQ/000456")]
     [InlineData(EPaymentReferenceValidation.PlanningApplication, "enq/112366")]
+    [InlineData(EPaymentReferenceValidation.Estates, "T12123")]
+    [InlineData(EPaymentReferenceValidation.Estates, "t1")]
+    [InlineData(EPaymentReferenceValidation.Estates, "T00")]
     public void Should_ReturnSuccess_ForValidReference(EPaymentReferenceValidation referenceValidation, string reference)
     {
         // Arrange
@@ -160,6 +163,9 @@ public class PaymentReferenceValidationTests
     [InlineData(EPaymentReferenceValidation.PlanningApplication, "dc/456789")]
     [InlineData(EPaymentReferenceValidation.PlanningApplication, "ENQ/000456")]
     [InlineData(EPaymentReferenceValidation.PlanningApplication, "enq/112366")]
+    [InlineData(EPaymentReferenceValidation.Estates, "T12123")]
+    [InlineData(EPaymentReferenceValidation.Estates, "t2345")]
+    [InlineData(EPaymentReferenceValidation.Estates, "T1")]
     public void Should_ReturnSuccess_ForValidReference_ForServicePayPayment(EPaymentReferenceValidation referenceValidation, string reference)
     {
         // Arrange
@@ -220,6 +226,9 @@ public class PaymentReferenceValidationTests
     [InlineData(EPaymentReferenceValidation.PlanningApplication, "dc/4567892")]
     [InlineData(EPaymentReferenceValidation.PlanningApplication, "ENQ/00045")]
     [InlineData(EPaymentReferenceValidation.PlanningApplication, "enq/1123664")]
+    [InlineData(EPaymentReferenceValidation.Estates, "T")]
+    [InlineData(EPaymentReferenceValidation.Estates, "tT123")]
+    [InlineData(EPaymentReferenceValidation.Estates, "T2345A")]
     public void Should_ReturnFalse_ForInvalidReference(EPaymentReferenceValidation referenceValidation, string reference)
     {
         // Arrange
@@ -280,6 +289,8 @@ public class PaymentReferenceValidationTests
     [InlineData(EPaymentReferenceValidation.PlanningApplication, "dc/4567892")]
     [InlineData(EPaymentReferenceValidation.PlanningApplication, "ENQ/00045")]
     [InlineData(EPaymentReferenceValidation.PlanningApplication, "enq/1123664")]
+    [InlineData(EPaymentReferenceValidation.Estates, "t")]
+    [InlineData(EPaymentReferenceValidation.Estates, "T0005t")]
     
     public void Should_ReturnFalse_ForInvalidReference_ForServicePayPayment(EPaymentReferenceValidation referenceValidation, string reference)
     {
