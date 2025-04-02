@@ -1,0 +1,67 @@
+﻿.container {
+	width: 100%;
+	max-width: 600px;
+  }
+
+.form-title {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+	font-size: 0.8em;
+}
+
+.form-check {
+    margin-bottom: 15px;
+}
+
+.form-check-input {
+    margin-right: 10px;
+}
+
+.text-danger {
+    color: red;
+    font-size: 0.875em;
+}
+
+.success-image {
+    width: 40%;
+}
+
+.success-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.display-none {
+    display: none;
+}
+
+.visibility-none {
+    visibility: hidden;
+}
+
+.wp-form-hp {
+	display: none;
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 0;
+    width: 0;
+    z-index: -1;
+}
+
+button:focus, input:focus {
+	outline: #ef8a16 solid 3px !important;
+}

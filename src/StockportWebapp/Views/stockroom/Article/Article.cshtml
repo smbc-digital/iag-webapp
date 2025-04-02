@@ -55,8 +55,11 @@
             <section class="article article--margin-bottom">
                 @if (!string.IsNullOrEmpty(Model.Article.Body))
                 {
+                    string cleanedBody = Regex.Replace(Model.Article.Body, @"</?(pre|code)[^>]*>", "", RegexOptions.IgnoreCase);
+                    string bodyWithImages = StockportWebapp.Utils.HtmlHelper.AddImageAttributes(cleanedBody, "691", "389", "691", "919", "1192");
+
                     <article>
-                        @Html.Raw(StockportWebapp.Utils.HtmlHelper.AddImageAttributes(Model.Article.Body, "691", "389", "691", "919", "1192"))
+                        @Html.Raw(WebUtility.HtmlDecode(bodyWithImages))
                     </article>
                 }
             </section>
