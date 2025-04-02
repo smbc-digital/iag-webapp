@@ -21,8 +21,8 @@
                     <h1 class="hero__title">@Model.Article.Title</h1>
 
                     <div class="hero__about">
-                        <p>@Model.Article.Teaser</p>
-                        
+                        <p class="hero__about-teaser">@Model.Article.Teaser</p>
+
                         <p class="hero__about-attribution">
                             @if (!string.IsNullOrEmpty(Model.Article.Author))
                             {

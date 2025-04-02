@@ -99,6 +99,8 @@ public class PaymentReferenceValidationTests
     [InlineData(EPaymentReferenceValidation.PlanningApplication, "dc/456789")]
     [InlineData(EPaymentReferenceValidation.PlanningApplication, "ENQ/000456")]
     [InlineData(EPaymentReferenceValidation.PlanningApplication, "enq/112366")]
+    [InlineData(EPaymentReferenceValidation.StockportEstatesInvoices, "T12123")]
+    [InlineData(EPaymentReferenceValidation.StockportEstatesInvoices, "T0011")]
     public void Should_ReturnSuccess_ForValidReference(EPaymentReferenceValidation referenceValidation, string reference)
     {
         // Arrange
@@ -160,6 +162,8 @@ public class PaymentReferenceValidationTests
     [InlineData(EPaymentReferenceValidation.PlanningApplication, "dc/456789")]
     [InlineData(EPaymentReferenceValidation.PlanningApplication, "ENQ/000456")]
     [InlineData(EPaymentReferenceValidation.PlanningApplication, "enq/112366")]
+    [InlineData(EPaymentReferenceValidation.StockportEstatesInvoices, "T12123")]
+    [InlineData(EPaymentReferenceValidation.StockportEstatesInvoices, "T1234")]
     public void Should_ReturnSuccess_ForValidReference_ForServicePayPayment(EPaymentReferenceValidation referenceValidation, string reference)
     {
         // Arrange
@@ -220,6 +224,12 @@ public class PaymentReferenceValidationTests
     [InlineData(EPaymentReferenceValidation.PlanningApplication, "dc/4567892")]
     [InlineData(EPaymentReferenceValidation.PlanningApplication, "ENQ/00045")]
     [InlineData(EPaymentReferenceValidation.PlanningApplication, "enq/1123664")]
+    [InlineData(EPaymentReferenceValidation.StockportEstatesInvoices, "T")]
+    [InlineData(EPaymentReferenceValidation.StockportEstatesInvoices, "tT123")]
+    [InlineData(EPaymentReferenceValidation.StockportEstatesInvoices, "T2345A")]
+    [InlineData(EPaymentReferenceValidation.StockportEstatesInvoices, "T234")]
+    [InlineData(EPaymentReferenceValidation.StockportEstatesInvoices, "T234446")]
+    [InlineData(EPaymentReferenceValidation.StockportEstatesInvoices, "12345")]
     public void Should_ReturnFalse_ForInvalidReference(EPaymentReferenceValidation referenceValidation, string reference)
     {
         // Arrange
@@ -280,6 +290,12 @@ public class PaymentReferenceValidationTests
     [InlineData(EPaymentReferenceValidation.PlanningApplication, "dc/4567892")]
     [InlineData(EPaymentReferenceValidation.PlanningApplication, "ENQ/00045")]
     [InlineData(EPaymentReferenceValidation.PlanningApplication, "enq/1123664")]
+    [InlineData(EPaymentReferenceValidation.StockportEstatesInvoices, "t12345")]
+    [InlineData(EPaymentReferenceValidation.StockportEstatesInvoices, "t1234")]
+    [InlineData(EPaymentReferenceValidation.StockportEstatesInvoices, "T012356")]
+    [InlineData(EPaymentReferenceValidation.StockportEstatesInvoices, "T012")]
+    [InlineData(EPaymentReferenceValidation.StockportEstatesInvoices, "T0005t")]
+    [InlineData(EPaymentReferenceValidation.StockportEstatesInvoices, "0012")]
     
     public void Should_ReturnFalse_ForInvalidReference_ForServicePayPayment(EPaymentReferenceValidation referenceValidation, string reference)
     {
