@@ -127,6 +127,7 @@ public class ContentSecurityPolicyBuilder
             .AddSource("forms-eu1.hsforms.com")
             .AddSource("lh3.ggpht.com")
             .AddSource("cdn.jsdelivr.net", true)
+            .AddSource("https://img.freepik.com/free-vector/circle-tick-check-mark-paint-brush-stroke_78370-645.jpg?w=740&t=st=1680064072~exp=1680064672~hmac=af63030e969abea72d57db304784d8676bec35635ccb8920e5beb66d293f62a1")
             .Finish());
 
     private void BuildStyleSource() =>
@@ -229,6 +230,7 @@ public class ContentSecurityPolicyBuilder
             .AddSource("https://kit.fontawesome.com/")
             .AddSource("ka-p.fontawesome.com/")
             .AddSource("cdn.jsdelivr.net", true)
+            .AddSource("https://static.qa.conesso.io/scripts/signup.js")
             .Finish());
 
     private void BuildConnectSource() =>
