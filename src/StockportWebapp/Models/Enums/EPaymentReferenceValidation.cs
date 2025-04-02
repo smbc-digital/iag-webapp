@@ -13,5 +13,5 @@ public enum EPaymentReferenceValidation
     FPN4or5,
     StockportBereavementInvoice,
     PlanningApplication,
-    Estates
+    StockportEstatesInvoices
 }

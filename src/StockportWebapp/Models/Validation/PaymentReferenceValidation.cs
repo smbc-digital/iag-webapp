@@ -16,7 +16,7 @@ public class PaymentReferenceValidation(EPaymentSubmissionType paymentSubmission
         { EPaymentReferenceValidation.ParkingPermit, @"^([A-Z]{2}[A-Z0-9]{1}\\[0-9]{5})$" },
         { EPaymentReferenceValidation.StockportBereavementInvoice, @"^(?i)sb\d{4,5}$" },
         { EPaymentReferenceValidation.PlanningApplication, @"^(?i)(dc\/\d{6}|enq\/\d{6}|ps\/[\w\s]{1,10})$" },
-        { EPaymentReferenceValidation.Estates, @"^(?i)t\d+$" }
+        { EPaymentReferenceValidation.StockportEstatesInvoices, @"^T\d{4,5}$" }
     };
 
     protected override ValidationResult IsValid(object value, ValidationContext validationContext) =>
