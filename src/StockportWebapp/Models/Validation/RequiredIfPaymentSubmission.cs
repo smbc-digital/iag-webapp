@@ -24,11 +24,11 @@ public class RequiredIfPaymentSubmission(EPaymentSubmissionType paymentSubmissio
         if (_paymentSubmissionType != EPaymentSubmissionType.ServicePayPayment)
             return false;
 
-        var paymentProperty = paymentSubmission.GetType().GetProperty(nameof(paymentSubmission.Payment), BindingFlags.Public | BindingFlags.Instance);
-        var paymentInstance = paymentProperty?.GetValue(paymentSubmission);
+        PropertyInfo paymentProperty = paymentSubmission.GetType().GetProperty(nameof(paymentSubmission.Payment), BindingFlags.Public | BindingFlags.Instance);
+        object paymentInstance = paymentProperty?.GetValue(paymentSubmission);
 
-        var field = paymentInstance?.GetType().GetField(nameof(Payment.PaymentType), BindingFlags.Public | BindingFlags.Instance);
-        var propertyValue = field?.GetValue(paymentInstance)?.ToString();
+        FieldInfo field = paymentInstance?.GetType().GetField(nameof(Payment.PaymentType), BindingFlags.Public | BindingFlags.Instance);
+        string propertyValue = field?.GetValue(paymentInstance)?.ToString();
 
         return !string.IsNullOrEmpty(_expectedValue)
             ? propertyValue?.Equals(_expectedValue, StringComparison.OrdinalIgnoreCase) == true
