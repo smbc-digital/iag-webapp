@@ -17,7 +17,7 @@ public class PaymentSubmission
     [Range(0.01, int.MaxValue, ErrorMessage = "Enter a valid amount (e.g. 25.00)")]
     public string? Amount { get; set; }
     
-    [RequiredIf("Enter your name", "ServicePayPayment", EPaymentSubmissionType.ServicePayPayment)]
+    [RequiredIfPaymentSubmission(EPaymentSubmissionType.ServicePayPayment, "Enter your name", "ServicePayPayment")]
     [Display(Name = "name")]
     public string Name { get; set; } = string.Empty;
 

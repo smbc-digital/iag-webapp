@@ -2,7 +2,6 @@
 using StockportGovUK.NetStandard.Gateways.Models.Civica.Pay.Response;
 using StockportGovUK.NetStandard.Gateways.Response;
 using StockportWebapp.Configuration;
-using StockportWebapp.Models;
 
 namespace StockportWebapp.Controllers;
 
@@ -21,7 +20,6 @@ public class PaymentController(IProcessedContentRepository repository,
     private const string CIVICA_PAY_INVALID_DETAILS = "00001";
     private const string CIVICA_PAY_DECLINED = "00022";
     private const string CIVICA_PAY_DECLINED_OTHER = "00023";
-
 
     [Route("/payment/{slug}")]
     public async Task<IActionResult> Detail(string slug, string error, string serviceprocessed)
@@ -118,9 +116,6 @@ public class PaymentController(IProcessedContentRepository repository,
                 || responseCode.Equals(CIVICA_PAY_DECLINED_OTHER)
                 ? PaymentResultType.Declined
                 : PaymentResultType.Failure;
-
-            if (await _featureManager.IsEnabledAsync("MergedPaymentPages"))
-                return View("PaymentDetail", paymentResult);
 
             return await _featureManager.IsEnabledAsync("PaymentPage")
                 ? View("Result", paymentResult)

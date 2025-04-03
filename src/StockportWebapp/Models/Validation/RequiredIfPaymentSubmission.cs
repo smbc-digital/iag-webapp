@@ -1,7 +1,9 @@
-namespace StockportWebapp.Models.Validation;
+﻿namespace StockportWebapp.Models.Validation;
 
 [ExcludeFromCodeCoverage]
-public class RequiredIfEmailValidation(EPaymentSubmissionType paymentSubmissionType, string errorMessage, string expectedValue = "") : ValidationAttribute(errorMessage)
+public class RequiredIfPaymentSubmission(EPaymentSubmissionType paymentSubmissionType,
+                        string errorMessage,
+                        string expectedValue = "") : ValidationAttribute(errorMessage)
 {
     private readonly EPaymentSubmissionType _paymentSubmissionType = paymentSubmissionType;
     private readonly string _expectedValue = expectedValue;
@@ -11,12 +13,13 @@ public class RequiredIfEmailValidation(EPaymentSubmissionType paymentSubmissionT
         if (validationContext.ObjectInstance is not PaymentSubmission paymentSubmission)
             return ValidationResult.Success;
 
-        return ShouldValidate(paymentSubmission, value)
+        bool shouldValidate = ShouldValidate(paymentSubmission) && string.IsNullOrEmpty(value?.ToString());
+        return shouldValidate
             ? new ValidationResult(ErrorMessage)
             : ValidationResult.Success;
     }
 
-    private bool ShouldValidate(PaymentSubmission paymentSubmission, object value)
+    private bool ShouldValidate(PaymentSubmission paymentSubmission)
     {
         if (_paymentSubmissionType != EPaymentSubmissionType.ServicePayPayment)
             return false;
@@ -27,15 +30,8 @@ public class RequiredIfEmailValidation(EPaymentSubmissionType paymentSubmissionT
         var field = paymentInstance?.GetType().GetField(nameof(Payment.PaymentType), BindingFlags.Public | BindingFlags.Instance);
         var propertyValue = field?.GetValue(paymentInstance)?.ToString();
 
-        if (!string.IsNullOrEmpty(_expectedValue) && propertyValue?.Equals(_expectedValue, StringComparison.OrdinalIgnoreCase) == true)
-        {
-            if (string.IsNullOrEmpty(value?.ToString()))
-                return true;
-
-            Regex emailRegex = new(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,})+)$", RegexOptions.Compiled);
-            return !emailRegex.IsMatch(value.ToString());
-        }
-
-        return false;
+        return !string.IsNullOrEmpty(_expectedValue)
+            ? propertyValue?.Equals(_expectedValue, StringComparison.OrdinalIgnoreCase) == true
+            : bool.TryParse(propertyValue, out var boolValue) && boolValue;
     }
 }
