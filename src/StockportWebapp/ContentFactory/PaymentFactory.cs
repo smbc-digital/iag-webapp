@@ -28,7 +28,6 @@ public class PaymentFactory(ITagParserContainer simpleTagParserContainer,
             payment.CatalogueId,
             payment.AccountReference,
             payment.PaymentDescription,
-            payment.Alerts,
-            payment.PaymentAmount);
+            payment.Alerts);
     }
 }

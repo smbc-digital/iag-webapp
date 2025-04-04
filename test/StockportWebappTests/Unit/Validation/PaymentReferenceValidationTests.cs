@@ -25,8 +25,7 @@ public class PaymentReferenceValidationTests
                 "catalogueId",
                 "accountReference",
                 "paymentDescription",
-                new List<Alert>(),
-                "21.99"),
+                new List<Alert>()),
             Reference = "12345"
         };
 
@@ -125,8 +124,7 @@ public class PaymentReferenceValidationTests
                 "catalogueId",
                 "accountReference",
                 "paymentDescription",
-                new List<Alert>(),
-                "15.55"),
+                new List<Alert>()),
             Reference = reference
         };
 
@@ -256,8 +254,7 @@ public class PaymentReferenceValidationTests
                 "catalogueId",
                 "accountReference",
                 "paymentDescription",
-                new List<Alert>(),
-                "13.00"),
+                new List<Alert>()),
             Reference = reference
         };
 

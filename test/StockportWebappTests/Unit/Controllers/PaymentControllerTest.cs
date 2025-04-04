@@ -29,8 +29,7 @@ public class PaymentControllerTest
                                                             "catId",
                                                             "accRef",
                                                             "payDesc",
-                                                            null,
-                                                            "15.00");
+                                                            null);
 
     private readonly ProcessedServicePayPayment _processedServicePayPayment = new("title",
                                                                                 "slug",

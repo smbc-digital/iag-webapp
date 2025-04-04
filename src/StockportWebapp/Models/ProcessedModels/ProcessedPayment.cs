@@ -19,7 +19,6 @@ public class ProcessedPayment : IProcessedContentType
     public readonly string AccountReference;
     public readonly string PaymentDescription;
     public readonly IEnumerable<Alert> Alerts;
-    public readonly string PaymentAmount;
     public ProcessedPayment()
     { }
 
@@ -39,8 +38,7 @@ public class ProcessedPayment : IProcessedContentType
                             string catalogueId,
                             string accountReference,
                             string paymentDescription,
-                            IEnumerable<Alert> alerts,
-                            string paymentAmount)
+                            IEnumerable<Alert> alerts)
     {
         Title = title;
         Slug = slug;
@@ -59,6 +57,5 @@ public class ProcessedPayment : IProcessedContentType
         AccountReference = accountReference;
         PaymentDescription = paymentDescription;
         Alerts = alerts;
-        PaymentAmount = paymentAmount;
     }
 }
