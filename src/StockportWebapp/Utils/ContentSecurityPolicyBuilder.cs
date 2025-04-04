@@ -126,6 +126,7 @@ public class ContentSecurityPolicyBuilder
             .AddSource("forms-eu1.hsforms.com")
             .AddSource("lh3.ggpht.com")
             .AddSource("cdn.jsdelivr.net", true)
+            .AddSource("https://img.freepik.com/free-vector/")
             .Finish());
 
     private void BuildStyleSource() =>
@@ -228,6 +229,7 @@ public class ContentSecurityPolicyBuilder
             .AddSource("https://kit.fontawesome.com/")
             .AddSource("ka-p.fontawesome.com/")
             .AddSource("cdn.jsdelivr.net", true)
+            .AddSource("https://static.qa.conesso.io/scripts/signup.js")
             .Finish());
 
     private void BuildConnectSource() =>
@@ -276,6 +278,7 @@ public class ContentSecurityPolicyBuilder
             .AddSource("hubspot-forms-static-embed-eu1.s3.amazonaws.com/")
             .AddSource("ka-p.fontawesome.com/")
             .AddSource("lookinglocal.cdn.spotlightr.com/")
+            .AddSource("https://api.conesso.io/v2/signup-forms/contact")
             .Finish());
 
     private void BuildMediaSource() =>

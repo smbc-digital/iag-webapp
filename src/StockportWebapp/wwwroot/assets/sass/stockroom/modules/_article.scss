@@ -22,14 +22,8 @@
             height: 240px;
         }
     }
+}
 
-    article:has(iframe[src*="-formbuilder-origin.smbcdigital.net"]),
-    article:has(iframe[src*="forms.stockport.gov.uk"]) {
-        overflow: hidden;
-    }
-    
-    iframe[src*="-formbuilder-origin.smbcdigital.net"],
-    iframe[src*="forms.stockport.gov.uk"] {
-        height: revert-layer;
-    }
+.script-loaded .hero__about-teaser {
+    display: none;
 }
