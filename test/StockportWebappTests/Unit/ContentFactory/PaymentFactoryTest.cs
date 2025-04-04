@@ -11,7 +11,6 @@ public class PaymentFactoryTest
     private readonly string Description = "Description";
     private readonly string PaymentDetailsText = "Payment Details Text";
     private readonly string GlCodeCostCentreNumber = "1234";
-    private readonly string ParisReference = "Paris reference";
     private readonly string Fund = "Fund";
     private readonly string ReferenceLabel = "Reference label";
     private readonly string MetaDescription = "Meta description";
