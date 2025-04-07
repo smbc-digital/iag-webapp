@@ -62,6 +62,9 @@ public class ServicePayPaymentController(IProcessedContentRepository repository,
 
         TryValidateModel(paymentSubmission);
 
+        if (string.IsNullOrEmpty(paymentSubmission.Reference))
+            ModelState.AddModelError("Reference", $"Enter the {paymentSubmission.Payment.ReferenceLabel.ToLower()}");
+        
         if (!ModelState.IsValid)
             return await _featureManager.IsEnabledAsync("PaymentPage")
                 ? View("Detail2025", paymentSubmission)
