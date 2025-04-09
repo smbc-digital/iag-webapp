@@ -53,9 +53,9 @@
                             <a href="#top" class="atoz__back-to-top" data-cy="atoz-back-to-top-@letter">Back to top</a>
                         </div>
 
-                        <div class="directory--border-top @borderTeal atoz__section contact-us-area--margin-bottom" data-cy="atoz-results-@letter">
+                        <div class="directory--border-top @borderTeal atoz__section contact-us-area--margin-bottom">
                             <div class="directory__wrapper navcard--white @greyBorderCssClasses">
-                                <ul>
+                                <ul data-cy="atoz-results-@letter">
                                     @foreach (var entry in atozEntries)
                                     {
                                         <li><a href="@entry.NavigationLink">@entry.Title</a></li>
