@@ -67,6 +67,10 @@
 
     &--no-pointer {
         cursor:default;
+
+        &:hover, &:focus {
+            color: $stockport-teal-darker !important;
+        }
     }
 
     &--center {
