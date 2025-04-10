@@ -9,11 +9,13 @@ namespace StockportWebapp.Controllers;
 public class PaymentController(IProcessedContentRepository repository,
                             ICivicaPayGateway civicaPayGateway,
                             IOptions<CivicaPayConfiguration> configuration,
+                            ILogger<PaymentController> logger,
                             IFeatureManager featureManager) : Controller
 {
     private readonly IProcessedContentRepository _repository = repository;
     private readonly ICivicaPayGateway _civicaPayGateway = civicaPayGateway;
     private readonly CivicaPayConfiguration _civicaPayConfiguration = configuration.Value;
+    private readonly ILogger<PaymentController> _logger = logger;
     private readonly IFeatureManager _featureManager = featureManager;
 
     private const string CIVICA_PAY_SUCCESS = "00000";
@@ -73,6 +75,10 @@ public class PaymentController(IProcessedContentRepository repository,
         if (civicaPayResponse.StatusCode.Equals(HttpStatusCode.BadRequest)
             && civicaPayResponse.ResponseContent.ResponseCode.Equals(CIVICA_PAY_INVALID_DETAILS))
         {
+            _logger.LogError($"{nameof(PaymentController)}::{nameof(Detail)}: " +
+                $"{nameof(ICivicaPayGateway)} {nameof(ICivicaPayGateway.CreateImmediateBasketAsync)} " +
+                $"An unexpected error occurred creating immediate basket: {civicaPayRequest.CallingAppTranReference} - {civicaPayResponse.ResponseContent.ResponseCode}");
+
             ModelState.AddModelError("Reference", $"Check {paymentSubmission.Payment.ReferenceLabel.ToLower()} and try again");
 
             return await _featureManager.IsEnabledAsync("PaymentPage")
