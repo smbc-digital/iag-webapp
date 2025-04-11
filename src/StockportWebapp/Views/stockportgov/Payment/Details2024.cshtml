@@ -39,7 +39,8 @@
 
                                 <div class="input-group">
                                     <span class="payment__symbol">£</span>
-                                    <input asp-for="@Model.Amount" type="number" min="0.00" class="payment__input payment__input--amount">
+
+                                    <input asp-for="@Model.Amount" step="0.01" type="number" min="0.00" class="payment__input payment__input--amount">
                                     <span role="alert" aria-atomic="true" asp-validation-for="@Model.Amount" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 payment__validation--rtl grid-parent"></span>
                                 </div>
 
