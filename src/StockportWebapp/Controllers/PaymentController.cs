@@ -77,7 +77,7 @@ public class PaymentController(IProcessedContentRepository repository,
         {
             _logger.LogError($"{nameof(PaymentController)}::{nameof(Detail)}: " +
                 $"{nameof(ICivicaPayGateway)} {nameof(ICivicaPayGateway.CreateImmediateBasketAsync)} " +
-                $"An unexpected error occurred creating immediate basket: {civicaPayRequest.CallingAppTranReference} - {civicaPayResponse.ResponseContent.ResponseCode}");
+                $"An unexpected error occurred creating immediate basket: {civicaPayResponse.ResponseContent.ResponseCode}");
 
             ModelState.AddModelError("Reference", $"Check {paymentSubmission.Payment.ReferenceLabel.ToLower()} and try again");
 
