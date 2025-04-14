@@ -6,10 +6,16 @@
         EventCategory category = Model.Categories?.FirstOrDefault(cat => cat?.Slug?.ToLower() == row.Tag?.ToLower());
         string categoryName = category?.Name ?? row.Tag;
 
+        if (!string.IsNullOrEmpty(categoryName) && char.IsLower(categoryName[0]))
+        {
+            char[] chars = categoryName.ToCharArray();
+            chars[0] = char.ToUpperInvariant(chars[0]);
+            categoryName = new string(chars);
+        }
+
         string tagOrCategory = row.MatchedByTag
             ? Url.Action("Index", "Events", new {tag = row.Tag})
             : Url.Action("Index", "Events", new {category = row.Tag});
-
 
         <section class="event-homepage__cards content-block content-block--margin" data-cy="event-cards">
             <div class="grid-container">
