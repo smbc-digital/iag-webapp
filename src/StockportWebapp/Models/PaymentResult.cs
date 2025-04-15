@@ -1,29 +1,19 @@
-﻿namespace StockportWebapp.Models
+﻿namespace StockportWebapp.Models;
+
+[ExcludeFromCodeCoverage]
+public class PaymentResult(string slug, string title, List<Crumb> breadcrumbs, string receiptNumber, bool isServicePay)
 {
-    public class PaymentResult
-    {
-        public string Slug { get; set; }
-        public string Title { get; set; }
-        public string ReceiptNumber { get; set; }
-        public bool IsServicePay { get; set; }
-        public List<Crumb> Breadcrumbs { get; set; } = new List<Crumb>();
-        public PaymentResultType PaymentResultType { get; set; }
+    public string Slug { get; set; } = slug;
+    public string Title { get; set; } = title;
+    public string ReceiptNumber { get; set; } = receiptNumber;
+    public bool IsServicePay { get; set; } = isServicePay;
+    public List<Crumb> Breadcrumbs { get; set; } = breadcrumbs;
+    public PaymentResultType PaymentResultType { get; set; }
+}
 
-        public PaymentResult() { }
-        public PaymentResult(string slug, string title, List<Crumb> breadcrumbs, string receiptNumber, bool isServicePay) 
-        { 
-            Slug = slug;
-            Title = title;
-            Breadcrumbs = breadcrumbs;
-            ReceiptNumber = receiptNumber;
-            IsServicePay = isServicePay;
-        }
-    }
-
-    public enum PaymentResultType
-    {
-        Success,
-        Failure,
-        Declined
-    }
+public enum PaymentResultType
+{
+    Success,
+    Failure,
+    Declined
 }
