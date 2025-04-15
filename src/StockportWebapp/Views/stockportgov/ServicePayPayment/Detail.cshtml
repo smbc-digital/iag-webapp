@@ -1,67 +1,65 @@
-﻿@model ServicePayPaymentSubmissionViewModel
+@model ServicePayPaymentSubmissionViewModel
 @{
     ViewData["Title"] = Model.Payment.Title;
     ViewData["og:title"] = Model.Payment.Title;
     ViewData["Description"] = Model.Payment.MetaDescription;
     ViewData["Type"] = "ServicePayPayment";
-    Layout = "../Shared/_Layout.cshtml";
-}
-@section Breadcrumbs {
-    <partial name="Breadcrumb" model='Model.Payment.Breadcrumbs' />
+    Layout = "../Shared/_Layout2023.cshtml";
 }
 
-<form asp-controller="ServicePayPayment" asp-action="Detail" method="post" role="form" enctype="multipart/form-data" data-cy="service-pay-payment-page">
-    <div class="grid-container-full-width">
-        <div class="grid-container grid-100">
-            <div class="l-body-section-filled grid-100">
-                <section aria-label="@Model.Payment.Title content" class="grid-100 mobile-grid-100">
-                    <div class="l-content-container l-article-container">
-                        <h1 tabindex="-1" id="content">@Model.Payment.Title</h1>
 
-                        @if (Model.Payment.Alerts is not null)
-                        {
-                            <div class="alert-container">
-                                @foreach (Alert alert in Model.Payment.Alerts)
-                                {
-                                    <partial name="DisplayTemplates/Alert" model='alert' />
-                                }
-                            </div>
-                        }
-                        
-                        @Html.Raw(Model.Payment.Description)
-                        <hr />
-                        <h2>Payment details</h2>
-                        @Html.Raw(Model.Payment.PaymentDetailsText)
+<div class="grid-container-full-width" style="background-color:white;" data-cy="service-pay-payment-page">
+    <partial name="GlobalAlerts" model='Model.Payment.Alerts' />
+    <partial name="Breadcrumb2023" model="Model.Payment.Breadcrumbs" />
 
-                        <div class="form">
-                            <div class="form-section">
-                                <fieldset>
-                                    <label asp-for="Reference">@Model.Payment.ReferenceLabel</label>
-                                    <input asp-for="Reference" type="text" class="grid-30 tablet-grid-50 suffix-70 tablet-suffix-50 mobile-grid-100 form-control" />
-                                    <span role="alert" aria-atomic="true" asp-validation-for="Reference" class="form-field-validation-error grid-30 tablet-grid-50 suffix-70 tablet-suffix-50 mobile-grid-100"></span>
-
-                                    <label asp-for="Name">Name</label>
-                                    <input asp-for="Name" type="text" class="grid-30 tablet-grid-50 suffix-70 tablet-suffix-50 mobile-grid-100 form-control" />
-                                    <span role="alert" aria-atomic="true" asp-validation-for="Name" class="form-field-validation-error grid-30 tablet-grid-50 suffix-70 tablet-suffix-50 mobile-grid-100"></span>
-
-                                    <label asp-for="EmailAddress">Email Address</label>
-                                    <input asp-for="EmailAddress" type="text" class="grid-30 tablet-grid-50 suffix-70 tablet-suffix-50 mobile-grid-100 form-control" />
-                                    <span role="alert" aria-atomic="true" asp-validation-for="EmailAddress" class="form-field-validation-error grid-30 tablet-grid-50 suffix-70 tablet-suffix-50 mobile-grid-100"></span>
-
-                                    <label asp-for="Amount">Payment amount</label>
-                                    <p class="visually-hidden">Enter a sterling value below</p>
-                                    <div class="input-group">
-                                        <span class="input-addon">£</span><input asp-for="Amount" type="text" class="currency grid-15 tablet-grid-25 suffix-85 tablet-suffix-75 mobile-grid-100 form-control">
-                                        <span role="alert" aria-atomic="true" asp-validation-for="Amount" class="form-field-validation-error grid-15 tablet-grid-25 suffix-85 tablet-suffix-75 mobile-grid-100"></span>
-                                    </div>
-
-                                    <stock-button id="uitest-payment-form-submit" class="button-submit-payment">Start your payment</stock-button>
-                                </fieldset>
-                            </div>
-                        </div>
-                    </div>
-                </section>
+    <div class="grid-container">
+        <div class="grid-100">
+            <div class="article--70 payment__heading">
+                <h1 class="h-xl">@Model.Payment.Title</h1>
             </div>
+
+            <section class="article">
+                <article class="article--70">
+                    @Html.Raw(Model.Payment.Description)
+                    <hr />
+
+                    <h2 class="h-m">Payment details</h2>
+                    @Html.Raw(Model.Payment.PaymentDetailsText)
+
+                    <form asp-controller="Payment" asp-action="Detail" method="post" class="form" role="form" enctype="multipart/form-data" data-cy="service-pay-payment-form">
+                        @Html.AntiForgeryToken()
+
+                        <div class="form-section">
+                            <fieldset>
+                                <label asp-for="@Model.Reference">@Model.Payment.ReferenceLabel</label>
+                                <input class="payment__input" asp-for="@Model.Reference" type="text" />
+                                <span class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 payment__validation--rtl grid-parent" role="alert" aria-atomic="true" asp-validation-for="Reference"></span>
+
+                                <label asp-for="@Model.Name">Name</label>
+                                <input class="payment__input" asp-for="@Model.Name" type="text" />
+                                <span class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 payment__validation--rtl grid-parent" role="alert" aria-atomic="true" asp-validation-for="@Model.Name"></span>
+
+                                <label asp-for="@Model.EmailAddress">Email address</label>
+                                <input class="payment__input" asp-for="@Model.EmailAddress" type="text" />
+                                <span class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 payment__validation--rtl grid-parent" role="alert" aria-atomic="true" asp-validation-for="@Model.EmailAddress"></span>
+
+                                <label asp-for="@Model.Amount">Payment amount</label>
+                                <p class="visuallyhidden">Enter a sterling value</p>
+                                
+                                <div class="input-group">
+                                    <span class="payment__symbol">£</span>
+                                    <input asp-for="@Model.Amount" type="number" step="0.01" min="0.00" class="payment__input payment__input--amount">
+                                    <span role="alert" aria-atomic="true" asp-validation-for="@Model.Amount" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 payment__validation--rtl grid-parent"></span>
+                                </div>
+
+                                <div>
+                                    <button id="uitest-payment-form-submit" type="submit" class="btn btn--chevron-forward btn--width-30 submit">Start your payment</button>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </form>
+                </article>
+            </section>
         </div>
     </div>
-</form>
+</div>
