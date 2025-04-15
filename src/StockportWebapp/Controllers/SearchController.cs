@@ -24,8 +24,6 @@ public class SearchController(IApplicationConfiguration config,
     {
         ViewData["Title"] = "Search results";
 
-        return await _featureManager.IsEnabledAsync("SearchPages") && _businessId.ToString().Equals("stockportgov")
-            ? View("SearchResults2025")
-            : View();
+        return View("SearchResults");
     }
 }
