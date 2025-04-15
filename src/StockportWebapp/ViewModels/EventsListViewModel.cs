@@ -1,5 +1,6 @@
 ﻿namespace StockportWebapp.ViewModels;
 
+[ExcludeFromCodeCoverage]
 public class EventsListViewModel
 {
     public IEnumerable<Event> Events { get; set; }
