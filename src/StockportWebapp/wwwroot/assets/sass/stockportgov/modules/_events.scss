@@ -331,6 +331,7 @@
     &__wrapper {
         padding: 1em;
         flex-grow: 1;
+        overflow-wrap: break-word;
 
         h3 {
             font-weight: 700;

@@ -66,7 +66,11 @@
 
                 @if (Model.EventBranding.Any())
                 {
-                    <partial name="DetailBranding" model='@Model' view-data='@(new ViewDataDictionary(ViewData) {{ "EventWrapperCssClasses", eventWrapperCssClasses }, {"BorderTop", borderTop}})' />
+                    <div class="event-detail--100 @borderTop">
+                        <div class="@eventWrapperCssClasses">
+                                <partial name="LogoArea" model='@Model.EventBranding' view-data='new ViewDataDictionary(ViewData) {{"logoAreaTitleStylingBlank", true}, {"logoAreaArticle", false}, { "logoAreaTitle", @Model.LogoAreaTitle }, {"borderTopClass", "directory--padding"}, {"eventDetailHeading", "event-detail__heading"}}' />
+                        </div>
+                    </div>
                 }
             </section>
         </div>
