@@ -13,7 +13,6 @@ public class ProcessedEvents(string title,
                             string startTime,
                             string endTime,
                             List<Crumb> breadcrumbs,
-                            List<string> categories,
                             MapDetails mapDetails,
                             string bookingInformation,
                             Group group,
@@ -47,7 +46,6 @@ public class ProcessedEvents(string title,
     public string StartTime { get; } = startTime;
     public string EndTime { get; } = endTime;
     public List<Crumb> Breadcrumbs { get; } = breadcrumbs;
-    public List<string> Categories { get; } = categories;
     public string BookingInformation { get; set; } = bookingInformation;
     public readonly List<Alert> Alerts = alerts;
     public readonly List<Alert> GlobalAlerts = new();

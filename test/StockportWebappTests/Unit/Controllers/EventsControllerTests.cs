@@ -6,7 +6,6 @@ public class EventsControllerTest
     private readonly Mock<IRepository> _repository = new();
     private readonly Mock<IProcessedContentRepository> _processedContentRepository = new();
     private readonly Event _eventsItem;
-    private readonly List<string> _categories;
     private readonly HttpResponse responseListing;
     private readonly HttpResponse _responseDetail;
     private readonly Mock<IApplicationConfiguration> _applicationConfiguration = new();
@@ -69,16 +68,10 @@ public class EventsControllerTest
             Alerts = _alerts
         };
 
-        _categories = new()
-        {
-            "Category 1",
-            "Category 2"
-        };
-
         Mock<ITimeProvider> mockTime = new();
         _datetimeCalculator = new DateCalculator(mockTime.Object);
 
-        EventResponse eventsCalendar = new(new List<Event> { _eventsItem }, _categories, new List<Event>());
+        EventResponse eventsCalendar = new(new List<Event> { _eventsItem }, new List<Event>());
         ProcessedEvents eventItem = new("title",
                                         "slug",
                                         "teaser",
@@ -93,7 +86,6 @@ public class EventsControllerTest
                                         "startTime",
                                         "endTime",
                                         new List<Crumb>(),
-                                        _categories,
                                         new MapDetails(),
                                         "booking information",
                                         _group,
@@ -470,7 +462,6 @@ public class EventsControllerTest
                                         "start time",
                                         "end time",
                                         new List<Crumb>(),
-                                        new List<string>(),
                                         new MapDetails(),
                                         "booking information",
                                         null,
@@ -608,8 +599,7 @@ public class EventsControllerTest
     private EventsController SetUpController(int numItems)
     {
         List<Event> listOfEvents = BuildEventList(numItems);
-        List<string> categories = new() { "Category 1", "Category 2" };
-        EventResponse eventsCalendar = new(listOfEvents, categories, new List<Event>());
+        EventResponse eventsCalendar = new(listOfEvents, new List<Event>());
         HttpResponse eventListResponse = new(200, eventsCalendar, string.Empty);
 
         _repository

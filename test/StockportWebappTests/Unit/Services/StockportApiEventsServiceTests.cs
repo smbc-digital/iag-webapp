@@ -83,7 +83,6 @@ public class StockportApiEventsServiceTests
                                             "10:00",
                                             "11:00",
                                             new List<Crumb>(),
-                                            new List<string>(),
                                             new MapDetails(),
                                             "booking information",
                                             null,

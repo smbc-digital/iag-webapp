@@ -47,7 +47,6 @@ internal class EventBuilder
             EndTime = EndTime,
             Breadcrumbs = _breadcrumbs,
             Documents = _documents,
-            Categories = _categories,
             MapPosition = _mapPosition,
             Featured = Featured,
             BookingInformation = BookingInformation,

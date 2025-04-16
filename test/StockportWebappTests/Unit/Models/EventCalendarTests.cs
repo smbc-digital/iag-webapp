@@ -4,26 +4,6 @@ namespace StockportWebappTests_Unit.Unit.Models;
 public class EventCalendarTests
 {
     [Fact]
-    public void DoesCategoryExist_ShouldReturnTrueForExistingCategory()
-    {
-        // Arrange
-        EventCalendar eventCalendar = new(new List<Event>(), new List<string> { "test", "test2" });
-
-        // Act & Assert
-        Assert.True(eventCalendar.DoesCategoryExist("test"));
-    }
-
-    [Fact]
-    public void DoesCategoryExist_ShouldReturnFalseForNonExistingCategory()
-    {
-        // Arrange
-        EventCalendar eventCalendar = new(new List<Event>(), new List<string> { "test1", "test2" });
-
-        // Act & Assert
-        Assert.False(eventCalendar.DoesCategoryExist("test"));
-    }
-
-    [Fact]
     public void AddCarouselContents_ShouldAddItemsIfNotNull()
     {
         // Arrange

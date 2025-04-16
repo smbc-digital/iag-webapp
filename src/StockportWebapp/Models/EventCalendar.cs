@@ -22,7 +22,6 @@ public class EventCalendar
     public string DateSelection { get; set; }
     public List<Event> Events { get; private set; } = new();
     public List<Event> FeaturedEvents { get; private set; } = new();
-    public List<string> Categories { get; private set; } = new();
     public string Tag { get; set; }
     public bool Free { get; set; }
     public string[] Price { get; set; }
@@ -41,10 +40,9 @@ public class EventCalendar
     public double Longitude { get; set; }
     public double Latitude { get; set; }
 
-    public EventCalendar(List<Event> events, List<string> categories)
+    public EventCalendar(List<Event> events)
     {
         Events = events;
-        Categories = categories;
     }
 
     public bool IsFromSearch() => FromSearch 
@@ -53,9 +51,6 @@ public class EventCalendar
         || !string.IsNullOrWhiteSpace(Tag)
         || DateFrom is not null
         || DateTo is not null;
-
-    public bool DoesCategoryExist(string categoryItem) =>
-        Categories.Contains(categoryItem);
 
     public void AddEvents(List<Event> events) =>
         Events = events;
