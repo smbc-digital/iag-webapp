@@ -75,21 +75,6 @@ public class EventCalendar
                 .ToList();
     }
 
-    public List<SelectListItem> CategoryOptions()
-    {
-        List<SelectListItem> result = new()
-        {
-            new SelectListItem { Text = "All categories", Value = string.Empty }
-        };
-
-        foreach (string cat in Categories)
-        {
-            result.Add(new SelectListItem { Text = cat, Value = cat });
-        }
-
-        return result;
-    }
-
     public List<SelectListItem> EventCategoryOptions()
     {
         List<SelectListItem> result = new()
@@ -105,68 +90,9 @@ public class EventCalendar
         return result;
     }
 
-    public void AddCategories(List<string> categories) =>
-        Categories = categories;
-
     public void AddFilteredUrl(IFilteredUrl filteredUrl) =>
         FilteredUrl = filteredUrl;
 
     public void AddQueryUrl(QueryUrl queryUrl) =>
         CurrentUrl = queryUrl;
-
-    public string GetCustomEventFilterName() =>
-        DateFrom.HasValue && DateTo.HasValue
-            ? $"{DateFrom.Value:dd/MM/yyyy} to {DateTo.Value:dd/MM/yyyy}"
-            : string.Empty;
-
-    public RefineByBar RefineByBar()
-    {
-        RefineByBar bar = new()
-        {
-            ShowLocation = true,
-            Filters = new List<RefineByFilters>()
-        };
-
-        if (!string.IsNullOrEmpty(KeepTag) || !string.IsNullOrEmpty(Tag))
-        {
-            RefineByFilters featured = new()
-            {
-                Label = "Featured events",
-                Mandatory = false,
-                Name = "tag",
-                Items = new List<RefineByFilterItems>
-                {
-                    new() { Label = KeepTag, Checked = !string.IsNullOrEmpty(Tag), Value = KeepTag }
-                }
-            };
-
-            bar.Filters.Add(featured);
-        }
-
-        RefineByFilters price = new()
-        {
-            Label = "Price",
-            Mandatory = true,
-            Name = "price",
-            Items = new List<RefineByFilterItems>
-            {
-                new()
-                {
-                    Label = "Paid",
-                    Checked = Price is null || Price.Any(p => p.Equals("paid")),
-                    Value = "paid"
-                },
-                new()
-                {
-                    Label = "Free",
-                    Checked = Price is null || Price.Any(p => p.Equals("free")),
-                    Value = "free"
-                }
-            }
-        };
-
-        bar.Filters.Add(price);
-
-        return bar;
-    }
 }

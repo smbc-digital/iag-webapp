@@ -55,7 +55,6 @@ public class EventsController(IRepository repository,
         if (eventResponse is not null)
         {
             eventsCalendar.AddEvents(eventResponse.Events);
-            eventsCalendar.AddCategories(eventResponse.Categories);
         }
 
         HttpResponse httpHomeResponse = await _repository.Get<EventHomepage>();
