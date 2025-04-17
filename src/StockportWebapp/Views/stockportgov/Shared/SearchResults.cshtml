@@ -1,37 +1,44 @@
 ﻿@{
-    Layout = "../Shared/_Layout.cshtml";
+    Layout = "../Shared/_Layout2023.cshtml";
 }
 
-<div class="grid-container-full-width">
-    <div class="grid-container grid-100 article-cols">
-        <div tabindex="-1" id="content">
-            <article id="uitest-page-has-loaded" class="article-col l-body-section-filled grid-parent mobile-grid-100 tablet-grid-100 grid-100">
-                <section aria-label="content" class="grid-100 mobile-grid-100 ">
-                    <div class="l-content-container">
-                        <div class="grid-100">
-                            <h1>Search results</h1>
+<div class="grid-container-full-width" data-cy="search-results">
+    <div class="grid-container">
+        <div class="grid-100">
+            <div class="article--70">
+                <h1 class="article__title">Search results</h1>
+            </div>
+
+            <section class="section">
+                <div id="cludo-search-results">
+                    <div class="article">
+                        <div class="article--70">
+                            <div class="search-result-count"></div>
+                            <div class="search-did-you-mean"></div>
+                            <div class="search-results"></div>
                         </div>
 
-                        <div class="title-spacer"></div>
+                        <div class="article--30">
+                            <div class="search-filters__title">
+                                <h2 class="h-ml h--no-top-margin h--no-bottom-margin">Categories</h2>
+                            </div>
 
-                        <div class="grid-100">
-                            <div id="cludo-search-results">
-                                <div class="cludo-r">
-                                    <div class="cludo-c-3">
-                                        <div class="search-filters" role="navigation"></div>
-                                    </div>
-                                    
-                                    <div class="cludo-c-9" role="main">
-                                        <div class="search-result-count"></div>
-                                        <div class="search-did-you-mean"></div>
-                                        <div class="search-results"></div>
-                                    </div>
-                                </div>
+                            <div class="search-filters">
                             </div>
                         </div>
                     </div>
-                </section>
-            </article>
+                </div>
+            </section>
         </div>
     </div>
 </div>
+
+<script type="text/plain" data-cookie-consent="functionality">
+    require(['/assets/javascript/config-33ce7fb5.min.js'], function() {
+        require(['searchResults'],
+            function(searchResults, _) {
+                searchResults.Init();
+            }
+        );
+    });
+</script>

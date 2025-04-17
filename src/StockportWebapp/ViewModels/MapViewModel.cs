@@ -1,5 +1,6 @@
 namespace StockportWebapp.ViewModels;
 
+[ExcludeFromCodeCoverage]
 public class MapViewModel
 {
     [Required]

@@ -11,7 +11,6 @@ public class PaymentFactoryTest
     private readonly string Description = "Description";
     private readonly string PaymentDetailsText = "Payment Details Text";
     private readonly string GlCodeCostCentreNumber = "1234";
-    private readonly string ParisReference = "Paris reference";
     private readonly string Fund = "Fund";
     private readonly string ReferenceLabel = "Reference label";
     private readonly string MetaDescription = "Meta description";
@@ -66,16 +65,20 @@ public class PaymentFactoryTest
     [Fact]
     public void ShouldProcessDescriptionWithMarkdown()
     {
-        // Act & Assert
+        // Act
         _factory.Build(_payment);
+        
+        // Assert
         _markdownWrapper.Verify(wrapper => wrapper.ConvertToHtml(Description), Times.Once);
     }
 
     [Fact]
     public void ShouldPassTitleToAllSimpleParsersWhenBuilding()
     {
-        // Act & Assert
+        // Act
         _factory.Build(_payment);
+
+        // Assert
         _tagParserContainer.Verify(parser => parser.ParseAll(Description,
                                                             _payment.Title,
                                                             It.IsAny<bool>(),

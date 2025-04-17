@@ -18,7 +18,7 @@ public class EmailValidationTest
                                                                         new List<Alert>());
 
     [Fact]
-    public void IsValidShouldReturnValidationResultSuccess()
+    public void IsValid_ShouldReturnValidationResultSuccess()
     {
         // Arrange
         ServicePayPaymentSubmissionViewModel model = new()
@@ -40,7 +40,7 @@ public class EmailValidationTest
     }
 
     [Fact]
-    public void IsValidShouldReturnValidationResultErrorIfEmailAddressDoesNotMatchRegex()
+    public void IsValid_ShouldReturnValidationResultError_If_EmailAddressDoesNotMatchRegex()
     {
         // Arrange
         ServicePayPaymentSubmissionViewModel model = new()
@@ -62,7 +62,7 @@ public class EmailValidationTest
     }
 
     [Fact]
-    public void IsValidShouldReturnValidationResultErrorIfEmailAddressEmpty()
+    public void IsValid_ShouldReturnValidationResultError_If_EmailAddressEmpty()
     {
         // Arrange
         ServicePayPaymentSubmissionViewModel model = new()

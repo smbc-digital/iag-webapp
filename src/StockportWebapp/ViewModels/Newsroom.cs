@@ -1,5 +1,6 @@
 ﻿namespace StockportWebapp.ViewModels;
 
+[ExcludeFromCodeCoverage]
 public class Newsroom(List<News> news,
                     List<Alert> alerts,
                     bool emailAlerts,

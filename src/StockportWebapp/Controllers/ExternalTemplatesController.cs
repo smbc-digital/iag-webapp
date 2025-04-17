@@ -8,13 +8,9 @@ public class ExternalTemplatesController(IFeatureManager featureManager) : Contr
 
     [Route("/ExternalTemplates/Democracy")]
     public async Task<IActionResult> Democracy() =>
-        await _featureManager.IsEnabledAsync("ExternalTemplates")
-            ? View("Democracy2025")
-            : View();
+        View("Democracy");
     
     [Route("/ExternalTemplates/DemocracyExtranet")]
     public async Task<IActionResult> DemocracyExtranet() =>
-        await _featureManager.IsEnabledAsync("ExtranetExternalTemplates")
-            ? View("DemocracyExtranet2025")
-            : View();
+        View("DemocracyExtranet");
 }

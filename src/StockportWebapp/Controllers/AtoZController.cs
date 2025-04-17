@@ -1,10 +1,9 @@
 ﻿namespace StockportWebapp.Controllers;
 
 [ResponseCache(Location = ResponseCacheLocation.Any, Duration = Cache.Long)]
-public class AtoZController(IRepository repository, IFeatureManager featureManager) : Controller
+public class AtoZController(IRepository repository) : Controller
 {
     private readonly IRepository _repository = repository;
-    private readonly IFeatureManager _featureManager = featureManager;
 
     [Route("/atoz/")]
     public async Task<IActionResult> Index()
@@ -14,9 +13,6 @@ public class AtoZController(IRepository repository, IFeatureManager featureManag
         if (httpResponse is null)
             return StatusCode(500, "Internal server error");
 
-        if (httpResponse.IsNotAuthorised())
-            return StatusCode(401, "Unauthorized");
-
         List<AtoZ> response = new();
 
         if (!httpResponse.IsSuccessful())
@@ -24,19 +20,10 @@ public class AtoZController(IRepository repository, IFeatureManager featureManag
         else
             response = httpResponse.Content as List<AtoZ>;
 
-        if (await _featureManager.IsEnabledAsync("AtoZPage"))
-        {
-            return View("Index2025", new AtoZViewModel()
-            {
-                Items = response,
-                CurrentLetter = "A to Z",
-                Breadcrumbs = new List<Crumb>()
-            });
-        }
-
         return View(new AtoZViewModel()
         {
             Items = response,
+            CurrentLetter = "A to Z",
             Breadcrumbs = new List<Crumb>()
         });
     }
@@ -48,8 +35,8 @@ public class AtoZController(IRepository repository, IFeatureManager featureManag
 
         HttpResponse httpResponse = await _repository.Get<List<AtoZ>>(letter);
         
-        if (httpResponse.IsNotAuthorised())
-            return new HttpResponse(500, string.Empty, "Error");
+        if (httpResponse is null)
+            return StatusCode(500, "Internal server error");
 
         List<AtoZ> response = new();
     
@@ -65,9 +52,6 @@ public class AtoZController(IRepository repository, IFeatureManager featureManag
             Breadcrumbs = new List<Crumb>()
         };
     
-        if (await _featureManager.IsEnabledAsync("AtoZPage"))
-            return View("Index2025", model);
-
         return View(model);
     }
 

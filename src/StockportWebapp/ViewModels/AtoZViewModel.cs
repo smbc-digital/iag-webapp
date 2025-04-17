@@ -1,5 +1,6 @@
 ﻿namespace StockportWebapp.ViewModels;
 
+[ExcludeFromCodeCoverage]
 public class AtoZViewModel
 {
     public List<AtoZ> Items { get; set; }

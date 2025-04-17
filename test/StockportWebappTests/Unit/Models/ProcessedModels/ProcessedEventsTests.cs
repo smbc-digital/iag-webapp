@@ -16,7 +16,6 @@ public class ProcessedEventsTests
                                                         "startTime",
                                                         "endTime",
                                                         new List<Crumb>(),
-                                                        null,
                                                         new MapDetails(),
                                                         "booking information",
                                                         null,

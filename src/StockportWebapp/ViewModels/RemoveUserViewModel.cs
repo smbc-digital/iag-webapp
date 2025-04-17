@@ -1,5 +1,6 @@
 ﻿namespace StockportWebapp.ViewModels;
 
+[ExcludeFromCodeCoverage]
 public class RemoveUserViewModel
 {
     public string Slug { get; set; }

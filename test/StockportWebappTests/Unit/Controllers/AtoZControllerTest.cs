@@ -4,17 +4,9 @@ public class AtoZControllerTest
 {
     private readonly Mock<IRepository> _repository = new();
     private readonly AtoZController _controller;
-    private readonly Mock<IFeatureManager> _featureManager = new();
 
-
-    public AtoZControllerTest()
-    {
-        _featureManager
-            .Setup(featureManager => featureManager.IsEnabledAsync(It.IsAny<string>()))
-            .ReturnsAsync(true);
-
-        _controller = new AtoZController(_repository.Object, _featureManager.Object);
-    }
+    public AtoZControllerTest() =>
+        _controller = new AtoZController(_repository.Object);
 
     [Fact]
     public async Task Index_ItReturnsAnAtoZListing()
@@ -37,21 +29,6 @@ public class AtoZControllerTest
         Assert.Equal("title", model.Items[0].Title);
         Assert.Equal("/slug", model.Items[0].NavigationLink);
         Assert.Equal("teaser", model.Items[0].Teaser);
-    }
-
-    [Fact]
-    public async Task Index_RedirectsTo500ErrorIfUnauthorised()
-    {
-        // Arrange
-        _repository
-            .Setup(repo => repo.Get<List<AtoZ>>(It.IsAny<string>(), null))
-            .ReturnsAsync(new HttpResponse((int)HttpStatusCode.Unauthorized, string.Empty, string.Empty));
-        
-        // Act
-        HttpResponse result = await _controller.Index("v") as HttpResponse;
-
-        // Assert
-        Assert.Equal(500, result.StatusCode);
     }
 
     [Fact]

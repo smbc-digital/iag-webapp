@@ -1,5 +1,6 @@
 ﻿namespace StockportWebapp.ViewModels;
 
+[ExcludeFromCodeCoverage]
 public class ProfileListViewModel
 {
     public List<Models.Profile> Profiles { get; set; }

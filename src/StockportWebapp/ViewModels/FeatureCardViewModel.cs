@@ -1,5 +1,6 @@
 namespace StockportWebapp.ViewModels;
 
+[ExcludeFromCodeCoverage]
 public class FeatureCardViewModel
 {
     public string Title { get; set; }

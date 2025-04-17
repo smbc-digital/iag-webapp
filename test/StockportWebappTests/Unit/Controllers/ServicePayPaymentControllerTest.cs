@@ -25,7 +25,6 @@ public class ServicePayPaymentControllerTest
                                                                         "paymentDescription",
                                                                         new List<Alert>());
 
-
     public ServicePayPaymentControllerTest()
     {
         _civicaPayGateway
@@ -52,7 +51,7 @@ public class ServicePayPaymentControllerTest
                 CallingAppIdentifier = "WebApp"
             });
 
-        _paymentController = new(_fakeRepository.Object, _civicaPayGateway.Object, _configuration.Object, new Mock<ILogger<ServicePayPaymentController>>().Object, _featureManager.Object);
+        _paymentController = new(_fakeRepository.Object, _civicaPayGateway.Object, _configuration.Object, new Mock<ILogger<ServicePayPaymentController>>().Object);
 
         Mock<IObjectModelValidator> objectValidator = new();
         objectValidator.Setup(validator => validator.Validate(It.IsAny<ActionContext>(),
@@ -64,7 +63,7 @@ public class ServicePayPaymentControllerTest
     }
 
     [Fact]
-    public async Task DetailShouldReturnAPaymentWithProcessedBody()
+    public async Task Detail_GET_ShouldReturnView_WhenResponseIsSuccessful()
     {
         // Act
         ViewResult view = await _paymentController.Detail("slug", null, null) as ViewResult; ;
@@ -75,7 +74,7 @@ public class ServicePayPaymentControllerTest
     }
 
     [Fact]
-    public async Task DetailShouldGetA404NotFoundPayment()
+    public async Task Detail_GET_ShouldReturnNotFoundPayment()
     {
         // Arrange
         _fakeRepository
@@ -90,12 +89,13 @@ public class ServicePayPaymentControllerTest
     }
 
     [Fact]
-    public async Task DetailShouldReturnViewWithErrorsIfErrors()
+    public async Task Detail_GET_ShouldReturnViewWithErrors_If_Errors()
     {
-        // Act & Assert
+        // Act
         ViewResult result = await _paymentController.Detail("slug", "Test Error", "false") as ViewResult;
         ServicePayPaymentSubmissionViewModel model = result.ViewData.Model as ServicePayPaymentSubmissionViewModel;
-
+        
+        // Assert
         Assert.NotNull(result);
         Assert.NotNull(model);
         Assert.True(_paymentController.ModelState.ContainsKey(nameof(ServicePayPaymentSubmissionViewModel.Reference)));
@@ -105,7 +105,7 @@ public class ServicePayPaymentControllerTest
     }
 
     [Fact]
-    public async Task DetailPostShouldCallGatewayCreateImmediateBasket()
+    public async Task Detail_POST_ShouldCallGatewayCreateImmediateBasket()
     {
         // Act
         await _paymentController.Detail("slug", new ServicePayPaymentSubmissionViewModel
@@ -122,26 +122,26 @@ public class ServicePayPaymentControllerTest
     }
 
     [Fact]
-    public async Task DetailPostShouldReturnDetailsViewIfModelStateInvalid()
+    public async Task Detail_POST_ShouldReturnDetailsView_If_ModelStateInvalid()
     {
-        // Arrange
-        _paymentController.ModelState.AddModelError("Reference", "error");
-
         // Act
         ViewResult result = await _paymentController.Detail("slug", new ServicePayPaymentSubmissionViewModel
         {
             Payment = _processedPayment,
             Amount = "12.00",
-            Reference = "123456"
+            Reference = ""
         }) as ViewResult;
         
         // Assert
         _civicaPayGateway.Verify(gateway => gateway.CreateImmediateBasketAsync(It.IsAny<CreateImmediateBasketRequest>()), Times.Never);
         Assert.IsType<ViewResult>(result);
+
+        ModelError error = _paymentController.ModelState["Reference"].Errors.First();
+        Assert.Equal("Enter the reference number", error.ErrorMessage);
     }
 
     [Fact]
-    public async Task DetailPostShouldReturnErrorViewIfBadRequest()
+    public async Task Detail_POST_ShouldReturnErrorView_If_BadRequest()
     {
         // Arrange
         _civicaPayGateway
@@ -149,7 +149,12 @@ public class ServicePayPaymentControllerTest
             .ReturnsAsync(new HttpResponse<CreateImmediateBasketResponse>
             {
                 StatusCode = HttpStatusCode.BadRequest,
-                ResponseContent = new CreateImmediateBasketResponse { BasketReference = "testRef", BasketToken = "testBasketToken", ResponseCode = "00000" }
+                ResponseContent = new CreateImmediateBasketResponse
+                {
+                    BasketReference = "testRef",
+                    BasketToken = "testBasketToken",
+                    ResponseCode = "00000"
+                }
             });
 
         // Act
@@ -167,7 +172,7 @@ public class ServicePayPaymentControllerTest
     }
 
     [Fact]
-    public async Task DetailPostShouldReturn404IfNotFound()
+    public async Task Detail_POST_ShouldReturn404_If_NotFound()
     {
         // Arrange
         _fakeRepository
@@ -182,7 +187,7 @@ public class ServicePayPaymentControllerTest
     }
 
     [Fact]
-    public async Task DetailPostShouldReturnViewIfResponseCodeIs00001()
+    public async Task Detail_POST_ShouldReturnView_If_ResponseCodeIs00001()
     {
         // Arrange
         _civicaPayGateway
@@ -190,7 +195,12 @@ public class ServicePayPaymentControllerTest
             .ReturnsAsync(new HttpResponse<CreateImmediateBasketResponse>
             {
                 StatusCode = HttpStatusCode.BadRequest,
-                ResponseContent = new CreateImmediateBasketResponse { BasketReference = "testRef", BasketToken = "testBasketToken", ResponseCode = "00001" }
+                ResponseContent = new CreateImmediateBasketResponse
+                {
+                    BasketReference = "testRef",
+                    BasketToken = "testBasketToken",
+                    ResponseCode = "00001"
+                }
             });
 
         // Act
@@ -203,12 +213,12 @@ public class ServicePayPaymentControllerTest
         }) as ViewResult;
 
         // Assert
-        _civicaPayGateway.Verify(_ => _.CreateImmediateBasketAsync(It.IsAny<CreateImmediateBasketRequest>()), Times.Once);
+        _civicaPayGateway.Verify(gateway => gateway.CreateImmediateBasketAsync(It.IsAny<CreateImmediateBasketRequest>()), Times.Once);
         Assert.IsType<ViewResult>(result);
     }
 
     [Fact]
-    public async Task DetailPostShouldCallGatewayGetPaymentUrl()
+    public async Task Detail_POST_ShouldCallGatewayGetPaymentUrl()
     {
         // Act
         await _paymentController.Detail("slug", new ServicePayPaymentSubmissionViewModel
