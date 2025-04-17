@@ -79,13 +79,19 @@
         }
     }
 
-    &:nth-child(n+2) {
+    &:nth-child(3n+1) {
+        .event-cards__link {
+            border-color: $stockport-teal-darker;
+        }
+    }
+
+    &:nth-child(3n+2) {
         .event-cards__link {
             border-color: $stockport-pink;
         }
     }
 
-    &:nth-child(n+3) {
+    &:nth-child(3n+3) {
         .event-cards {
             @media #{$mobile} {
                 margin-bottom: 2em;
