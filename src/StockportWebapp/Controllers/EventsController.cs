@@ -53,9 +53,7 @@ public class EventsController(IRepository repository,
         DoPagination(eventsCalendar, page, eventResponse, pageSize);
 
         if (eventResponse is not null)
-        {
             eventsCalendar.AddEvents(eventResponse.Events);
-        }
 
         HttpResponse httpHomeResponse = await _repository.Get<EventHomepage>();
 
