@@ -90,4 +90,17 @@ public class EventCalendar
 
     public void AddQueryUrl(QueryUrl queryUrl) =>
         CurrentUrl = queryUrl;
+
+    public bool ShowPagination =>
+        Pagination is not null && Pagination.TotalItems > Pagination.MaxItemsPerPage && CategoryIsSelected;
+
+    public string DisplayTitle =>
+        string.IsNullOrEmpty(Category)
+            ? "What's on in Stockport"
+            : "Results for " + SelectedCategory?.Name ?? string.Empty;
+
+    public string PageTitle =>
+        $"{DisplayTitle}{(ShowPagination
+            ? $" (page {Pagination.CurrentPageNumber} of {Pagination.TotalPages})"
+            : string.Empty)}";
 }
