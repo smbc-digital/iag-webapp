@@ -16,7 +16,7 @@
     
     <div class="grid-container">
         <div class="grid-100">
-            <nav class="atoz" aria-label="A to Z navigation">
+            <nav class="atoz" aria-label="A to Z">
                 <span id="top" name="top"></span>
                 <h1>A to Z</h1>
                 <ul class="atoz__menu" data-cy="a-to-z-menu">
@@ -30,8 +30,7 @@
                     }
                     else
                     {
-                        @* <li><span class="btn btn_large btn-@letter btn--inverse btn--no-pointer" aria-label="No services for @letter">@letter</span></li> *@
-                        <li><span class="btn btn_large btn-@letter btn--inverse btn--no-pointer">@letter</span></li>
+                        <li><span class="btn btn_large btn-@letter btn--inverse btn--no-pointer" aria-hidden="true">@letter</span></li>
                     }
                 }   
                 </ul>
