@@ -92,7 +92,7 @@ public class EventCalendar
         CurrentUrl = queryUrl;
 
     public bool ShowPagination =>
-        Pagination is not null && Pagination.TotalItems > Pagination.MaxItemsPerPage && CategoryIsSelected;
+        Pagination is not null && Pagination.TotalItems > Pagination.MaxItemsPerPage && IsFromSearch();
 
     public string DisplayTitle =>
         string.IsNullOrEmpty(Category)
