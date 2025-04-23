@@ -2,13 +2,9 @@
 @model EventCalendar
 @{
     EventCategory category = Model.Homepage.Categories.Where(c => c.Slug.Equals(Model.Category)).FirstOrDefault();
-    ViewData["og:title"] = string.IsNullOrWhiteSpace(Model.Category) 
-                            ? "What's on in Stockport" 
-                            : category is null 
-                                ? HttpUtility.HtmlEncode(Model.Category) 
-                                : HttpUtility.HtmlEncode(category.Name);
-
-    ViewData["Title"] = ViewData["og:title"];
+    
+    ViewData["Title"] = Model.PageTitle;
+    ViewData["og:title"] = Model.PageTitle;
     ViewData["Description"] = Model.Homepage.MetaDescription;
     Layout = "../Shared/_Layout.cshtml";
 
