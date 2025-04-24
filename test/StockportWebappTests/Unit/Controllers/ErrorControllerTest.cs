@@ -4,6 +4,7 @@ public class ErrorControllerTest
 {
     private readonly Mock<ILegacyRedirectsManager> _legacyRedirects = new();
     private readonly Mock<ILogger<ErrorController>> _logger = new();
+    private readonly Mock<IFeatureManager> _featureManager = new();
 
     [Fact]
     public async Task ShouldTellUsSomethingsMissingIfAPageWasNotFound()
@@ -14,7 +15,7 @@ public class ErrorControllerTest
         httpContext.Request.Path = "/pathThatDoesntExist";
         httpContext.Response.StatusCode = 404;
 
-        ErrorController controller = new(_legacyRedirects.Object, _logger.Object)
+        ErrorController controller = new(_legacyRedirects.Object, _logger.Object, _featureManager.Object)
         {
             ControllerContext = new()
             {
@@ -46,7 +47,7 @@ public class ErrorControllerTest
         httpContext.Request.Path = "/test";
         httpContext.Response.StatusCode = 500;
         
-        ErrorController controller = new(_legacyRedirects.Object, _logger.Object)
+        ErrorController controller = new(_legacyRedirects.Object, _logger.Object, _featureManager.Object)
         {
             ControllerContext = new()
             {
@@ -79,7 +80,7 @@ public class ErrorControllerTest
         httpContext.Response.StatusCode = 404;
 
         // Act
-        ErrorController controller = new(_legacyRedirects.Object, _logger.Object)
+        ErrorController controller = new(_legacyRedirects.Object, _logger.Object, _featureManager.Object)
         {
             ControllerContext = new()
             {
@@ -116,7 +117,7 @@ public class ErrorControllerTest
         };
 
         // Act
-        ErrorController controller = new(_legacyRedirects.Object, _logger.Object)
+        ErrorController controller = new(_legacyRedirects.Object, _logger.Object, _featureManager.Object)
         {
             ControllerContext = new()
             {
@@ -147,7 +148,7 @@ public class ErrorControllerTest
         httpContext.Response.StatusCode = 404;
 
         // Act
-        ErrorController controller = new(_legacyRedirects.Object, _logger.Object)
+        ErrorController controller = new(_legacyRedirects.Object, _logger.Object, _featureManager.Object)
         {
             ControllerContext = new()
             {
