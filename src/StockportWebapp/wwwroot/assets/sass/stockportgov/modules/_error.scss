@@ -1,0 +1,26 @@
+.error {
+    @media #{$mobile} {
+        &-page {
+            margin-inline: 5px !important;
+
+            &__title {
+                margin-inline: 0 !important;
+            }
+        }
+    }
+
+    &__icon-heading {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.5em;
+        
+        h2 {
+            margin-bottom: 0;
+        }
+
+        .fa-circle-exclamation {
+           font-size: 2.25rem;
+            margin-top: 0.4em;
+        }
+    }
+}
