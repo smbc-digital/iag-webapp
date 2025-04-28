@@ -43,7 +43,9 @@ public class RssFeedFactoryTest
                 new List<Alert>(),
                 new List<string>(),
                 new List<Document>(),
-                new List<Profile>()
+                new List<Profile>(),
+                new List<InlineQuote>(),
+                null
             ),
             new("news item  2",
                 "item2-slug",
@@ -59,7 +61,9 @@ public class RssFeedFactoryTest
                 new List<Alert>(),
                 new List<string>(),
                 new List<Document>(),
-                new List<Profile>()
+                new List<Profile>(),
+                new List<InlineQuote>(),
+                null
             ),
             new("news item  3",
                 "item3-slug",
@@ -75,7 +79,9 @@ public class RssFeedFactoryTest
                 new List<Alert>(),
                 new List<string>(),
                 new List<Document>(),
-                new List<Profile>()
+                new List<Profile>(),
+                new List<InlineQuote>(),
+                null
             ),
             new("news item  4",
                 "item4-slug",
@@ -91,7 +97,9 @@ public class RssFeedFactoryTest
                 new List<Alert>(),
                 new List<string>(),
                 new List<Document>(),
-                new List<Profile>()
+                new List<Profile>(),
+                new List<InlineQuote>(),
+                null
             )
         };
 

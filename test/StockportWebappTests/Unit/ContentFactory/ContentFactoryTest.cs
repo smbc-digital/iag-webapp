@@ -103,7 +103,9 @@ public class ContentFactoryTest
                         new List<Alert>(),
                         new List<string>(),
                         new List<Document>(),
-                        new List<Profile>());
+                        new List<Profile>(),
+                        new List<InlineQuote>(),
+                        null);
 
         // Act
         IProcessedContentType processedNews= _factory.Build(news);

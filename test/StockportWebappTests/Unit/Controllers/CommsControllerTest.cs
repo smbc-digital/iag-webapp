@@ -26,7 +26,9 @@ public class CommsControllerTest
                             new List<Alert>(),
                             new List<string>(),
                             new List<Document>(),
-                            new List<Profile>());
+                            new List<Profile>(),
+                            new List<InlineQuote>(),
+                            null);
 
         // Arrange
         _mockRepository

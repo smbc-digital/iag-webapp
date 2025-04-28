@@ -12,7 +12,9 @@ public class ProcessedNews(string title,
                         DateTime sunsetDate,
                         DateTime updatedAt,
                         List<Alert> alerts,
-                        List<string> tags) : IProcessedContentType
+                        List<string> tags,
+                        IEnumerable<InlineQuote> inlineQuotes,
+                        CallToActionBanner callToAction) : IProcessedContentType
 {
     public readonly string Title = title;
     public readonly string Slug = slug;
@@ -27,4 +29,6 @@ public class ProcessedNews(string title,
     public readonly DateTime UpdatedAt = updatedAt;
     public readonly List<Alert> Alerts = alerts;
     public readonly List<string> Tags = tags;
+    public readonly IEnumerable<InlineQuote> InlineQuotes = inlineQuotes;
+    public readonly CallToActionBanner CallToAction = callToAction;
 }

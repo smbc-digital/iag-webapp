@@ -84,7 +84,9 @@ public class HomeControllerTest
                                             new List<Alert>(),
                                             new List<string>(),
                                             new List<Document>(),
-                                            new List<Profile>());
+                                            new List<Profile>(),
+                                            new List<InlineQuote>(),
+                                            null);
 
     private readonly Event _eventsContent = new()
     {

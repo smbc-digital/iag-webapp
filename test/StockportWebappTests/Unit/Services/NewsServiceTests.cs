@@ -19,7 +19,9 @@ public class NewsServiceTests
                                     new List<Alert>(),
                                     new List<string>(),
                                     new List<Document>(),
-                                    new List<Profile>());
+                                    new List<Profile>(),
+                                    new List<InlineQuote>(),
+                                    null);
 
     public NewsServiceTests() =>
         _service = new(_repository.Object);

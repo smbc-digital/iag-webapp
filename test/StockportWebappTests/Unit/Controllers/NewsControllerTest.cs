@@ -27,7 +27,9 @@ public class NewsControllerTest
         new List<Alert>(),
         new List<string>(),
         new List<Document>(),
-        new List<Profile>()
+        new List<Profile>(),
+        new List<InlineQuote>(),
+        null
     );
 
     private static readonly News NewsItemWithoutImages = new("News 26th Aug",
@@ -44,7 +46,9 @@ public class NewsControllerTest
         new List<Alert>(),
         new List<string>(),
         new List<Document>(),
-        new List<Profile>()
+        new List<Profile>(),
+        new List<InlineQuote>(),
+        null
     );
 
     private readonly ProcessedNews _processedNewsArticle = new("Another news article",
@@ -59,7 +63,9 @@ public class NewsControllerTest
         new DateTime(2015, 9, 20),
         new DateTime(2015, 9, 15),
         new List<Alert>(),
-        new List<string> { "Events", "Bramall Hall" }
+        new List<string> { "Events", "Bramall Hall" },
+        new List<InlineQuote>(),
+        null
     );
 
     private readonly List<News> _listOfNewsItems = new() { NewsItemWithoutImages, NewsItemWithImages };
@@ -446,7 +452,9 @@ public class NewsControllerTest
                                 new List<Alert>(),
                                 new List<string>(),
                                 new List<Document>(),
-                                new List<Profile>());
+                                new List<Profile>(),
+                                new List<InlineQuote>(),
+                                null);
 
             listofNewsItems.Add(NewsItem);
         }

@@ -51,7 +51,9 @@ public class NewsFactoryTest
                         _alerts,
                         _tags,
                         _documents,
-                        _profiles);
+                        _profiles,
+                        new List<InlineQuote>(),
+                        null);
         
         _tagParserContainer
             .Setup(_ => _.ParseAll(Body,

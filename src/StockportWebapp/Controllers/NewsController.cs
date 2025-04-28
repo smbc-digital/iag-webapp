@@ -84,6 +84,27 @@ public class NewsController(IRepository repository,
         return finalResult;
     }
 
+    [Route("/news-article/{slug}")]
+    public async Task<IActionResult> NewsArticle(string slug)
+    {
+        HttpResponse initialResponse = await _processedContentRepository.Get<News>(slug);
+        IActionResult finalResult = initialResponse;
+
+        if (initialResponse.IsSuccessful())
+        {
+            ProcessedNews response = initialResponse.Content as ProcessedNews;
+            HttpResponse latestNewsResponse = await _repository.GetLatest<List<News>>(7);
+            List<News> latestNews = latestNewsResponse.Content as List<News>;
+            NewsViewModel newsViewModel = new(response, latestNews);
+
+            ViewBag.CurrentUrl = Request?.GetDisplayUrl();
+
+            finalResult = View(newsViewModel);
+        }
+
+        return finalResult;
+    }
+
     [Route("news/rss")]
     public async Task<IActionResult> Rss()
     {

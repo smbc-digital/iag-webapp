@@ -1,0 +1,109 @@
+﻿@model NewsViewModel
+@{
+    ViewData["Title"] = Model.NewsItem.Title;
+    ViewData["Description"] = Model.NewsItem.Teaser;
+    Layout = "../Shared/_Layout2023.cshtml";
+    List<News> latestNews = Model.GetLatestNews();
+    ViewData["og:title"] = Model.NewsItem.Title;
+}
+
+<div class="grid-container-full-width" data-cy="news-article-details">
+    <partial name="GlobalAlerts" model='Model.NewsItem.Alerts' />
+    <partial name="Breadcrumb2023" model="Model.NewsItem.Breadcrumbs" />
+
+    <div class="grid-container">
+        <div class="grid-100">
+            <div class="article--70">
+                <h1 class="article__title">@Model.NewsItem.Title</h1>
+            </div>
+
+            <section class="article">
+                <div class="article--70">
+                    @if (!string.IsNullOrEmpty(Model.NewsItem.Image))
+                    {
+                        <div class="article-hero">
+                            <img src="@Model.NewsItem.Image?q=89&fm=webp"
+                                 srcset="@Model.NewsItem.Image?w=967&q=89&fm=webp 967w,
+                                        @Model.NewsItem.Image?w=853&q=89&fm=webp 853w,
+                                        @Model.NewsItem.Image?w=712&q=89&fm=webp 712w"
+                                 sizes="(max-width: 767px) 712px,
+                                        ((min-width: 768px) and (max-width: 1023px)) 967px,
+                                        (min-width: 1024px) 853px"
+                                 class="article-hero__image"
+                                 width="712"
+                                 height="350"
+                                 alt="" />
+                        </div>
+                    }
+
+                    <h2 class="news-teaser">@Model.NewsItem.Teaser</h2>
+
+                    <article>
+                        @Html.Raw(Model.NewsItem.Body)
+                    </article>
+
+                    @if (Model.NewsItem.Tags.Any()) {
+                        <ul class="news-tags">
+                            @foreach (string newsTag in Model.NewsItem.Tags) {
+                                <li class="news-tag">
+                                    <a href="@Url.Action("Index", "News", new { tag = newsTag })">@newsTag</a>
+                                </li>
+                            }
+                        </ul>
+                    }
+                    
+                    @if(Model.NewsItem.CallToAction is not null)
+                    {
+                        <partial name="NewsCallToAction" model='Model.NewsItem.CallToAction'/>
+                    }
+
+                </div>
+
+                <div class="article--30 section">
+                    @if (latestNews.Any())
+                    {
+                        <nav aria-labelledby="navcard-title">
+                            <ul class="navcard navcard-wrapper--no-margin navcard--border-top-10 navcard--no-padding-right-rtl navcard--theme-teal-lighter-top navcard--width-100">
+                                <li class="navcard navcard--grey navcard--no-margin navcard--no-padding-right-rtl navcard--width-100">
+                                    <div class="navcard--border-left-1 navcard--border-right-1 navcard--theme-grey-accent-all">
+                                        <div class="navcard--padding navcard--padding-top navcard--grey">
+                                            <h2 class="h-ml h--no-top-margin h--no-bottom-margin" id="navcard-title">Latest news</h2>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                @foreach (News item in latestNews.Take(6))
+                                {
+                                    bool isLastItem = item.Equals(latestNews.Last());
+
+                                    <li class="navcard navcard--grey navcard--no-margin navcard--no-padding-right-rtl navcard--width-100">
+                                        <div class="navcard--border-left-1 navcard--border-right-1 navcard--theme-grey-accent-all @(isLastItem ? "navcard--border-bottom-1 navcard--radius-bottom-left navcard--radius-bottom-right" : null)">
+                                            <a class="navcard--padding navcard__link navcard--padding-bottom" href="@Url.Action("NewsArticle", "News", new {Slug = item.Slug})">
+                                                <h3 class="navcard__title navcard__title--no-margin navcard__title--normal-weight">
+                                                    @item.Title
+                                                </h3>
+                                            </a>
+                                        </div>
+                                    </li>
+                                }
+
+                                @if (latestNews.Count() > 6)
+                                {
+                                    <li class="navcard navcard--grey navcard--no-margin navcard--no-padding-right-rtl navcard--width-100">
+                                        <div class="navcard--border-left-1 navcard--border-right-1 navcard--theme-grey-accent-all navcard--border-bottom-1 navcard--radius-bottom-left navcard--radius-bottom-right">
+                                            <a class="navcard--padding navcard__link navcard--padding-bottom" href="@Url.Action("Index", "News")">
+                                                <h3 class="navcard__title navcard__title--no-margin">
+                                                    More news
+                                                </h3>
+                                            </a>
+                                        </div>
+                                    </li>
+                                }
+                            </ul>
+                        </nav>
+                    }
+                </div>
+            </section>
+        </div>
+    </div>
+</div>

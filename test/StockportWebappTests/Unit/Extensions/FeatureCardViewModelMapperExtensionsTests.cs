@@ -53,7 +53,9 @@ public class FeatureCardViewModelMapperExtensionsTests
             new List<Alert>(),
             new List<string>(),
             new List<StockportWebapp.Models.Document>(),
-            new List<Profile>());
+            new List<Profile>(),
+            new List<InlineQuote>(),
+            null);
 
         // Act
         FeatureCardViewModel result = featuredNews.MapToFeatureCard();

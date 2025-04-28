@@ -14,7 +14,9 @@ public class News(string title,
                 List<Alert> alerts,
                 List<string> tags,
                 IEnumerable<Document> documents,
-                IEnumerable<Profile> profiles)
+                IEnumerable<Profile> profiles,
+                IEnumerable<InlineQuote> inlineQuotes,
+                CallToActionBanner callToAction)
 {
     public string Title { get; } = title;
     public string Slug { get; } = slug;
@@ -31,4 +33,6 @@ public class News(string title,
     public List<string> Tags { get; } = tags;
     public IEnumerable<Document> Documents { get; set; } = documents;
     public IEnumerable<Profile> Profiles { get; set; } = profiles;
+    public IEnumerable<InlineQuote> InlineQuotes { get; set; } = inlineQuotes;
+    public CallToActionBanner CallToAction { get; set; } = callToAction;
 }
