@@ -7,7 +7,7 @@
 }
 
 <div class="grid-container-full-width topic" data-cy="topic">
-    <div class="hero topic__content">
+    <div class="hero">
         @if (Model.TopicHasImage)
         {
             <div class="hero__background" style="background-image: url(@Model.Topic.Image?fm=webp)"></div>
@@ -25,27 +25,45 @@
 
         <div class="grid-container">
             <div class="grid-100">
-                <div class="hero__about">
-                    <p>@Model.Topic.Teaser</p>
-
-                    @if (Model.Topic.PrimaryItems.Items.Any())
+                <div class="hero__about article--margin-bottom">
+                    @if (!string.IsNullOrEmpty(Model.Topic.Teaser))
                     {
-                        <partial name="NavCards" model="@Model.Topic.PrimaryItems" />
+                        <p>@Html.Raw(@Model.Topic.Teaser)</p>
                     }
 
-                    @if (Model.Topic.CallToAction is not null)
+                    @if (!string.IsNullOrEmpty(Model.Topic.Summary))
                     {
-                        <div class="grid-container-full-width" style="background-color:#f2f2f2;">
-                            <partial name="CallToActionTagParser" model="Model.Topic.CallToAction" view-data='@(new ViewDataDictionary(ViewData) { { "AdditionalCssClass", "image-banner-topics" } })' />
-                        </div>
-                    } 
-
-                    @if (Model.Topic.SecondaryItems.Any())
-                    {
-                        <h2 class="h-xl">More in @Model.Topic.Name</h2>
-                        <partial name="SecondaryItems" model="@Model.Topic.SecondaryItems" />
+                        @Html.Raw(@Model.Topic.Summary)
                     }
                 </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="topic__secondary-content">
+        <div class="grid-container">
+            <div class="grid-100">
+                @if(Model.Topic.PrimaryItems.Items.Any() || Model.Topic.SecondaryItems.Any())
+                {
+                    <h2 class="h-xl">More in @Model.Topic.Name</h2>
+                }
+
+                @if (Model.Topic.PrimaryItems.Items.Any())
+                {
+                    <partial name="NavCards" model="@Model.Topic.PrimaryItems" />
+                }
+
+                @if (Model.Topic.SecondaryItems.Any())
+                {
+                    <partial name="SecondaryItems" model="@Model.Topic.SecondaryItems" />
+                }
+
+                @if (Model.Topic.CallToAction is not null)
+                {
+                    <div class="grid-container-full-width" style="background-color:#f2f2f2;">
+                        <partial name="CallToActionTagParser" model="Model.Topic.CallToAction" view-data='@(new ViewDataDictionary(ViewData) { { "AdditionalCssClass", "image-banner-topics" } })' />
+                    </div>
+                }
             </div>
         </div>
     </div>
