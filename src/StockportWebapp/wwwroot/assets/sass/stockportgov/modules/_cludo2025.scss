@@ -156,10 +156,10 @@
 }
 
 #cludo-404-results {
-  	padding-top: 30px;
+	word-break: break-word;
 
 	ul > li {
-		margin-right: 30px;
+		margin-inline: 0;
 	}
 
 	.cludo-result-item,
@@ -167,15 +167,33 @@
 		text-align: left !important;
 	}
 
-	.cludo-result-item > a {
-		display: none;
+	.cludo-result-item-path {
+		display: block;
+	}
+
+	.cludo-result-item-title {
+		color: $stockport-black;
 	}
 
 	.cludo-results > .cludo-result-item-title {
+		font-size: 1.75rem;
+		font-weight: 600;
 		text-transform: none !important;
 		text-align: left;
-		margin-inline: 30px;
-		font-size: 1em;
+		margin-top: 0;
+	}
+
+	a.cludo-result-item-path {
+		text-decoration: none;
+	}
+	
+	.cludo-result-item-path span.cludo-result-item-path {
+		text-decoration: underline;
+	}
+	
+	a.cludo-result-item-path:hover span.cludo-result-item-path {
+		text-decoration: underline;
+		text-decoration-thickness: 3px;
 	}
 }
 
@@ -283,8 +301,20 @@ html[dir="rtl"] {
 		}
 	}
 
-	.powered-by-cludo {
+	.powered-by-cludo, #cludo-404 .powered-by {
 		right: unset !important;
 		left: 0;
 	}
+	
+	#cludo-404 {
+		.cludo-result-item-title,
+		.cludo-result-item,
+		#cludo-404-results .cludo-result-item a {
+			text-align: right !important;
+		}
+	}
+}
+
+#cludo-404.hide-module {
+    display: none;
 }
