@@ -1,4 +1,10 @@
 .error {
+    &-page {
+        &__title {
+            margin-top: 2rem !important;
+        }
+    }
+    
     @media #{$mobile} {
         &-page {
             margin-inline: 5px !important;
@@ -15,7 +21,7 @@
         gap: 0.5em;
         
         h2 {
-            margin-bottom: 0;
+            margin-block: 0;
         }
 
         .fa-circle-exclamation {
@@ -23,4 +29,8 @@
             margin-top: 0.4em;
         }
     }
+}
+
+.invisible {
+    display: none !important;
 }
