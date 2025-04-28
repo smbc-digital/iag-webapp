@@ -48,14 +48,14 @@
                     <h2 class="h-xl">More in @Model.Topic.Name</h2>
                 }
 
-                @if (Model.Topic.SecondaryItems.Any())
-                {
-                    <partial name="SecondaryItems" model="@Model.Topic.SecondaryItems" />
-                }
-
                 @if (Model.Topic.PrimaryItems.Items.Any())
                 {
                     <partial name="NavCards" model="@Model.Topic.PrimaryItems" />
+                }
+
+                @if (Model.Topic.SecondaryItems.Any())
+                {
+                    <partial name="SecondaryItems" model="@Model.Topic.SecondaryItems" />
                 }
 
                 @if (Model.Topic.CallToAction is not null)
