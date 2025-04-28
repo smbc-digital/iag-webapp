@@ -15,7 +15,7 @@ public class ErrorControllerTest
         httpContext.Request.Path = "/pathThatDoesntExist";
         httpContext.Response.StatusCode = 404;
 
-        ErrorController controller = new(_legacyRedirects.Object, _logger.Object, _featureManager.Object)
+        ErrorController controller = new(_legacyRedirects.Object, _logger.Object, _featureManager.Object, new BusinessId("stockportgov"))
         {
             ControllerContext = new()
             {
@@ -47,7 +47,7 @@ public class ErrorControllerTest
         httpContext.Request.Path = "/test";
         httpContext.Response.StatusCode = 500;
         
-        ErrorController controller = new(_legacyRedirects.Object, _logger.Object, _featureManager.Object)
+        ErrorController controller = new(_legacyRedirects.Object, _logger.Object, _featureManager.Object, new BusinessId("stockportgov"))
         {
             ControllerContext = new()
             {
@@ -80,7 +80,7 @@ public class ErrorControllerTest
         httpContext.Response.StatusCode = 404;
 
         // Act
-        ErrorController controller = new(_legacyRedirects.Object, _logger.Object, _featureManager.Object)
+        ErrorController controller = new(_legacyRedirects.Object, _logger.Object, _featureManager.Object, new BusinessId("stockportgov"))
         {
             ControllerContext = new()
             {
@@ -117,7 +117,7 @@ public class ErrorControllerTest
         };
 
         // Act
-        ErrorController controller = new(_legacyRedirects.Object, _logger.Object, _featureManager.Object)
+        ErrorController controller = new(_legacyRedirects.Object, _logger.Object, _featureManager.Object, new BusinessId("stockportgov"))
         {
             ControllerContext = new()
             {
@@ -148,7 +148,7 @@ public class ErrorControllerTest
         httpContext.Response.StatusCode = 404;
 
         // Act
-        ErrorController controller = new(_legacyRedirects.Object, _logger.Object, _featureManager.Object)
+        ErrorController controller = new(_legacyRedirects.Object, _logger.Object, _featureManager.Object, new BusinessId("stockportgov"))
         {
             ControllerContext = new()
             {
