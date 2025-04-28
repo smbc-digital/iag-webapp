@@ -14,29 +14,40 @@
     <div class="grid-container">
         <div class="grid-100">
             <div class="article--70">
-                <h1 class="article__title">@Model.NewsItem.Title</h1>
+                <h1 class="news-article__title">@Model.NewsItem.Title</h1>
+
+                <p class="lead news-article__lead @(string.IsNullOrEmpty(Model.NewsItem.HeroImage) ? "news-article__lead--no-image" : string.Empty)">
+                    <partial name="FormattedDate" model='Model.NewsItem.UpdatedAt'/>
+                </p>
             </div>
 
             <section class="article">
                 <div class="article--70">
-                    @if (!string.IsNullOrEmpty(Model.NewsItem.Image))
+                    @if (!string.IsNullOrEmpty(Model.NewsItem.HeroImage))
                     {
                         <div class="article-hero">
-                            <img src="@Model.NewsItem.Image?q=89&fm=webp"
-                                 srcset="@Model.NewsItem.Image?w=967&q=89&fm=webp 967w,
-                                        @Model.NewsItem.Image?w=853&q=89&fm=webp 853w,
-                                        @Model.NewsItem.Image?w=712&q=89&fm=webp 712w"
-                                 sizes="(max-width: 767px) 712px,
-                                        ((min-width: 768px) and (max-width: 1023px)) 967px,
-                                        (min-width: 1024px) 853px"
-                                 class="article-hero__image"
-                                 width="712"
-                                 height="350"
-                                 alt="" />
+                            <figure>
+                                <img src="@Model.NewsItem.HeroImage?q=89&fm=webp"
+                                    srcset="@Model.NewsItem.HeroImage?w=967&q=89&fm=webp 967w,
+                                            @Model.NewsItem.HeroImage?w=853&q=89&fm=webp 853w,
+                                            @Model.NewsItem.HeroImage?w=712&q=89&fm=webp 712w"
+                                    sizes="(max-width: 767px) 712px,
+                                            ((min-width: 768px) and (max-width: 1023px)) 967px,
+                                            (min-width: 1024px) 853px"
+                                    class="article-hero__image @(!string.IsNullOrEmpty(Model.NewsItem.HeroImageCaption) ? "news-article__image" : string.Empty)"
+                                    width="712"
+                                    height="350"
+                                    alt="" />
+
+                                @if (!string.IsNullOrEmpty(Model.NewsItem.HeroImageCaption))
+                                {
+                                    <figcaption>@Model.NewsItem.HeroImageCaption</figcaption>
+                                }
+                            </figure>
                         </div>
                     }
 
-                    <h2 class="news-teaser">@Model.NewsItem.Teaser</h2>
+                    <h2 class="h-ml news-article__teaser @(string.IsNullOrEmpty(Model.NewsItem.HeroImage) ? "news-article__teaser--no-image" : string.Empty)">@Model.NewsItem.Teaser</h2>
 
                     <article>
                         @Html.Raw(Model.NewsItem.Body)
@@ -56,7 +67,6 @@
                     {
                         <partial name="NewsCallToAction" model='Model.NewsItem.CallToAction'/>
                     }
-
                 </div>
 
                 <div class="article--30 section">
