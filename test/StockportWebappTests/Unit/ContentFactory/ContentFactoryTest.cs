@@ -89,13 +89,15 @@ public class ContentFactoryTest
     public void ItUsesNewsFactoryToBuildProcessedNewsFromNews()
     {
         // Arrange
-        News news = new(TextHelper.AnyString,
-                        TextHelper.AnyString,
-                        TextHelper.AnyString,
-                        TextHelper.AnyString,
-                        TextHelper.AnyString,
-                        TextHelper.AnyString,
-                        TextHelper.AnyString,
+        News news = new(It.IsAny<string>(),
+                        It.IsAny<string>(),
+                        It.IsAny<string>(),
+                        It.IsAny<string>(),
+                        It.IsAny<string>(),
+                        It.IsAny<string>(),
+                        It.IsAny<string>(),
+                        It.IsAny<string>(),
+                        It.IsAny<string>(),
                         new List<Crumb>(),
                         new DateTime(),
                         new DateTime(),
@@ -105,6 +107,11 @@ public class ContentFactoryTest
                         new List<Document>(),
                         new List<Profile>(),
                         new List<InlineQuote>(),
+                        null,
+                        It.IsAny<string>(),
+                        new List<GroupBranding>(),
+                        null,
+                        It.IsAny<string>(),
                         null);
 
         // Act

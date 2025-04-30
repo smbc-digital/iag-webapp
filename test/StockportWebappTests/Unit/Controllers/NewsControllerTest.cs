@@ -17,8 +17,10 @@ public class NewsControllerTest
         "another-news-article",
         "This is another news article",
         "type",
+        "hero-image.png",
         "image.jpg",
         "thumbnail.jpg",
+        "hero image caption",
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam gravida eu mauris in consectetur. Nullam nulla urna, sagittis a ex sit amet, ultricies rhoncus mauris. Quisque vel placerat turpis, vitae consectetur mauris.",
         new List<Crumb>(),
         new DateTime(2015, 9, 10),
@@ -29,15 +31,22 @@ public class NewsControllerTest
         new List<Document>(),
         new List<Profile>(),
         new List<InlineQuote>(),
-        null
+        null,
+        "in partnership with",
+        new List<GroupBranding>(),
+        null,
+        "dance",
+        new List<Event>()
     );
 
     private static readonly News NewsItemWithoutImages = new("News 26th Aug",
         "news-26th-aug",
         "test",
-        "",
-        "",
-        "",
+        string.Empty,
+        string.Empty,
+        string.Empty,
+        string.Empty,
+        string.Empty,
         "test",
         new List<Crumb>(),
         new DateTime(2015, 9, 10),
@@ -48,15 +57,22 @@ public class NewsControllerTest
         new List<Document>(),
         new List<Profile>(),
         new List<InlineQuote>(),
-        null
+        null,
+        string.Empty,
+        new List<GroupBranding>(),
+        null,
+        string.Empty,
+        new List<Event>()
     );
 
     private readonly ProcessedNews _processedNewsArticle = new("Another news article",
         "another-news-article",
         "This is another news article",
         "purpose",
+        "hero-image.png",
         "image.jpg",
         "thumbnail.jpg",
+        "hero image caption",
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam gravida eu mauris in consectetur. Nullam nulla urna, sagittis a ex sit amet, ultricies rhoncus mauris. Quisque vel placerat turpis, vitae consectetur mauris.",
         new List<Crumb>(),
         new DateTime(2015, 9, 10),
@@ -65,7 +81,12 @@ public class NewsControllerTest
         new List<Alert>(),
         new List<string> { "Events", "Bramall Hall" },
         new List<InlineQuote>(),
-        null
+        null,
+        "logo area title",
+        new List<GroupBranding>(),
+        null,
+        "dance-category",
+        new List<Event>()
     );
 
     private readonly List<News> _listOfNewsItems = new() { NewsItemWithoutImages, NewsItemWithImages };
@@ -442,8 +463,10 @@ public class NewsControllerTest
                                 "another-news-article",
                                 "This is another news article",
                                 "type",
+                                "hero-image.png",
                                 "image.jpg",
                                 "thumbnail.jpg",
+                                "hero image caption",
                                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam gravida eu mauris in consectetur. Nullam nulla urna, sagittis a ex sit amet, ultricies rhoncus mauris. Quisque vel placerat turpis, vitae consectetur mauris.",
                                 new List<Crumb>(),
                                 new DateTime(2015, 9, 10),
@@ -454,7 +477,12 @@ public class NewsControllerTest
                                 new List<Document>(),
                                 new List<Profile>(),
                                 new List<InlineQuote>(),
-                                null);
+                                null,
+                                "in partnership with",
+                                new List<GroupBranding>(),
+                                null,
+                                "dance",
+                                new List<Event>());
 
             listofNewsItems.Add(NewsItem);
         }

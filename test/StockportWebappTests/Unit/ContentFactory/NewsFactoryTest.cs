@@ -41,8 +41,10 @@ public class NewsFactoryTest
                         Slug,
                         Teaser,
                         Purpose,
+                        "hero image",
                         Image,
                         ThumbnailImage,
+                        "hero image caption",
                         Body,
                         _breadcrumbs,
                         _sunrise,
@@ -53,6 +55,11 @@ public class NewsFactoryTest
                         _documents,
                         _profiles,
                         new List<InlineQuote>(),
+                        null,
+                        "logoAreaTitle",
+                        new List<GroupBranding>(),
+                        null,
+                        string.Empty,
                         null);
         
         _tagParserContainer

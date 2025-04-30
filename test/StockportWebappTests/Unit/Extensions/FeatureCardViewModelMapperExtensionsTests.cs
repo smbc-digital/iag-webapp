@@ -43,8 +43,10 @@ public class FeatureCardViewModelMapperExtensionsTests
             "TestNewItem", 
             "Test News Teaser", 
             "Test",
+            "heroImage.png",
             "/News.jpg",
             "/NewsThumb.jpg",
+            "hero image caption",
             "Test News Body",
             new List<Crumb>(),
             DateTime.Today.AddDays(-2),
@@ -55,7 +57,13 @@ public class FeatureCardViewModelMapperExtensionsTests
             new List<StockportWebapp.Models.Document>(),
             new List<Profile>(),
             new List<InlineQuote>(),
-            null);
+            null,
+            "in partnership with",
+            new List<GroupBranding>(),
+            null,
+            "eventsByTagOrCategory",
+            new List<Event>()
+            );
 
         // Act
         FeatureCardViewModel result = featuredNews.MapToFeatureCard();

@@ -24,4 +24,33 @@
     &__image {
         border-radius: 3px 3px 0 0;
     }
+
+    &__featured-logo {
+        padding: 0.75em;
+    }
+
+    &__link {
+        margin-block: 2em;
+    }
+
+    &__subscription-banner {
+        border-radius: 3px;
+    }
+
+    &__useful-links {
+        margin-block: 2em;
+    }
+
+    &__tags {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 0.5em;
+        margin-bottom: 2em;
+    }
+
+    &__tag {
+        list-style: none;
+        margin-inline-start: 0;
+    }
 }

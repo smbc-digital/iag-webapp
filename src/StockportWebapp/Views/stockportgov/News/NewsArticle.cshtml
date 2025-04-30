@@ -52,66 +52,85 @@
                     <article>
                         @Html.Raw(Model.NewsItem.Body)
                     </article>
+                    
+                    @if (Model.NewsItem.CallToAction is not null)
+                    {
+                        <partial name="NewsCallToAction" model='Model.NewsItem.CallToAction'/>
+                    }
+
+                    @if (Model.NewsItem.NewsBranding is not null && Model.NewsItem.NewsBranding.Any())
+                    {
+                        <partial name="LogoArea" model='@Model.NewsItem.NewsBranding' view-data='@(new ViewDataDictionary(ViewData) { { "logoAreaTitle", @Model.NewsItem.LogoAreaTitle }, { "logoAreaArticle", false }, { "displayInSection", false } })' />
+                    }
 
                     @if (Model.NewsItem.Tags.Any()) {
-                        <ul class="news-tags">
+                        <ul class="news-article__tags">
                             @foreach (string newsTag in Model.NewsItem.Tags) {
-                                <li class="news-tag">
-                                    <a href="@Url.Action("Index", "News", new { tag = newsTag })">@newsTag</a>
+                                <li class="news-article__tag">
+                                    <a href="@Url.Action("Index", "News", new { tag = newsTag })" class="btn btn--inverse btn--pink btn--pink-outline">@newsTag</a>
+                                </li>
+                            }
+                        </ul>
+                    }
+
+                    @{
+                        string associatedTagCategoryLower = Model.NewsItem.EventsByTagOrCategory.Split(",").ToList().First()?.ToLower();
+
+                        string tagOrCategory = Model.NewsItem.Events.Any(eventArticle => eventArticle.EventCategories.Any(category => category.Slug.Equals(associatedTagCategoryLower) || category.Name.Equals(associatedTagCategoryLower)))
+                                ? Url.Action("Index", "Events", new {category = associatedTagCategoryLower})
+                                : Url.Action("Index", "Events", new {tag = associatedTagCategoryLower});
+
+                        EventCategory category = Model.NewsItem.Events.FirstOrDefault().EventCategories?.FirstOrDefault(cat => cat?.Slug?.ToLower() == Model.NewsItem.EventsByTagOrCategory?.ToLower());
+                        string categoryName = category?.Name ?? Model.NewsItem.EventsByTagOrCategory;
+
+                        if (!string.IsNullOrEmpty(categoryName) && char.IsLower(categoryName[0]))
+                        {
+                            char[] chars = categoryName.ToCharArray();
+                            chars[0] = char.ToUpperInvariant(chars[0]);
+                            categoryName = new string(chars);
+                        }
+                    }
+
+                    <partial name="NewsRelatedEvents" model="Model.NewsItem.Events" view-data='@(new ViewDataDictionary(ViewData) { { "EventsTitle", Model.NewsItem.EventsByTagOrCategory }, { "ViewMoreEventsLink", tagOrCategory }, { "CategoryName", categoryName } })' />
+                </div>
+                
+                <div class="article--30 section">
+                   @if (Model.NewsItem.FeaturedLogo is not null)
+                    {
+                        <div class="news-article__featured-logo">
+                            <a href="@Model.NewsItem.FeaturedLogo.Url">
+                                <img src="@Model.NewsItem.FeaturedLogo.File.Url?w=340&q=89&fm=webp"
+                                    class="directory__logo"
+                                    alt=""
+                                    loading="lazy"
+                                    width="200"
+                                    height="125" />
+                            </a>
+                        </div>
+                    }
+
+                    @if (Model.NewsItem.Tags.Any()) {
+                        <ul class="news-article__tags">
+                            @foreach (string newsTag in Model.NewsItem.Tags) {
+                                <li class="news-article__tag">
+                                    <a href="@Url.Action("Index", "News", new { tag = newsTag })" class="btn btn--inverse btn--pink btn--pink-outline">@newsTag</a>
                                 </li>
                             }
                         </ul>
                     }
                     
-                    @if(Model.NewsItem.CallToAction is not null)
-                    {
-                        <partial name="NewsCallToAction" model='Model.NewsItem.CallToAction'/>
-                    }
-                </div>
+                    <div class="news-article__link">
+                        <a href="@Url.Action("Index", "News")">
+                            View more news <span class="fa fa-arrow-right" aria-hidden="true"></span>
+                        </a>
+                    </div>
 
-                <div class="article--30 section">
-                    @if (latestNews.Any())
-                    {
-                        <nav aria-labelledby="navcard-title">
-                            <ul class="navcard navcard-wrapper--no-margin navcard--border-top-10 navcard--no-padding-right-rtl navcard--theme-teal-lighter-top navcard--width-100">
-                                <li class="navcard navcard--grey navcard--no-margin navcard--no-padding-right-rtl navcard--width-100">
-                                    <div class="navcard--border-left-1 navcard--border-right-1 navcard--theme-grey-accent-all">
-                                        <div class="navcard--padding navcard--padding-top navcard--grey">
-                                            <h2 class="h-ml h--no-top-margin h--no-bottom-margin" id="navcard-title">Latest news</h2>
-                                        </div>
-                                    </div>
-                                </li>
+                    <partial name="EmailSubscribe" view-data='@(new ViewDataDictionary(ViewData) { { "AdditionalCssClasses", "news-article__subscription-banner" }, { "isOnHomepage", false } })' />
 
-                                @foreach (News item in latestNews.Take(6))
-                                {
-                                    bool isLastItem = item.Equals(latestNews.Last());
-
-                                    <li class="navcard navcard--grey navcard--no-margin navcard--no-padding-right-rtl navcard--width-100">
-                                        <div class="navcard--border-left-1 navcard--border-right-1 navcard--theme-grey-accent-all @(isLastItem ? "navcard--border-bottom-1 navcard--radius-bottom-left navcard--radius-bottom-right" : null)">
-                                            <a class="navcard--padding navcard__link navcard--padding-bottom" href="@Url.Action("NewsArticle", "News", new {Slug = item.Slug})">
-                                                <h3 class="navcard__title navcard__title--no-margin navcard__title--normal-weight">
-                                                    @item.Title
-                                                </h3>
-                                            </a>
-                                        </div>
-                                    </li>
-                                }
-
-                                @if (latestNews.Count() > 6)
-                                {
-                                    <li class="navcard navcard--grey navcard--no-margin navcard--no-padding-right-rtl navcard--width-100">
-                                        <div class="navcard--border-left-1 navcard--border-right-1 navcard--theme-grey-accent-all navcard--border-bottom-1 navcard--radius-bottom-left navcard--radius-bottom-right">
-                                            <a class="navcard--padding navcard__link navcard--padding-bottom" href="@Url.Action("Index", "News")">
-                                                <h3 class="navcard__title navcard__title--no-margin">
-                                                    More news
-                                                </h3>
-                                            </a>
-                                        </div>
-                                    </li>
-                                }
-                            </ul>
-                        </nav>
-                    }
+                    <div class="news-article__useful-links">
+                        <h2>Useful links:</h2>
+                        <a href="https://www.stockport.gov.uk/start/send-a-media-enquiry" title="Send a media enquiry">Send a media enquiry</a>
+                    </div>
                 </div>
             </section>
         </div>

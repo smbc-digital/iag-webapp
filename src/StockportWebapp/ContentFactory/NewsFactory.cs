@@ -28,6 +28,11 @@ public class NewsFactory(ITagParserContainer simpleTagParserContainer,
                                 news.Alerts,
                                 news.Tags,
                                 news.InlineQuotes,
-                                news.CallToAction);
+                                news.CallToAction,
+                                news.LogoAreaTitle,
+                                news.NewsBranding,
+                                news.FeaturedLogo,
+                                news.EventsByTagOrCategory,
+                                news.Events);
     }
 }
