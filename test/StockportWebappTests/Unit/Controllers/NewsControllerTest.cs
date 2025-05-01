@@ -144,7 +144,8 @@ public class NewsControllerTest
                         _logger.Object,
                         _config.Object,
                         new BusinessId(BusinessId),
-                        _filteredUrl.Object);
+                        _filteredUrl.Object,
+                        null);
     }
 
     [Fact]
@@ -198,7 +199,8 @@ public class NewsControllerTest
                                         _mockRssFeedFactory.Object,
                                         _logger.Object, _config.Object,
                                         new BusinessId(BusinessId),
-                                        _filteredUrl.Object);
+                                        _filteredUrl.Object,
+                                        null);
 
         // Act
         ViewResult response = await controller.Detail("another-news-article") as ViewResult;
@@ -249,7 +251,8 @@ public class NewsControllerTest
                                         _logger.Object,
                                         _config.Object,
                                         new BusinessId(BusinessId),
-                                        _filteredUrl.Object);
+                                        _filteredUrl.Object,
+                                        null);
 
         // Act
         HttpResponse response = await controller.Index(new NewsroomViewModel(), 1, MaxNumberOfItemsPerPage) as HttpResponse;
@@ -288,7 +291,8 @@ public class NewsControllerTest
                                         _logger.Object,
                                         _config.Object,
                                         new BusinessId(BusinessId),
-                                        _filteredUrl.Object);
+                                        _filteredUrl.Object,
+                                        null);
 
         // Act
         ContentResult response = await _controller.Rss() as ContentResult;
@@ -339,7 +343,8 @@ public class NewsControllerTest
                                         _logger.Object,
                                         _config.Object,
                                         new BusinessId(BusinessId),
-                                        _filteredUrl.Object);
+                                        _filteredUrl.Object,
+                                        null);
 
         // Act
         ViewResult actionResponse = await controller.Index(
@@ -450,7 +455,8 @@ public class NewsControllerTest
                                         _logger.Object,
                                         _config.Object,
                                         new BusinessId(BusinessId),
-                                        _filteredUrl.Object);
+                                        _filteredUrl.Object,
+                                        null);
     }
 
     private List<News> BuildNewsList(int numberOfItems)

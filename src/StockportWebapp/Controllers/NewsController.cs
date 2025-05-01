@@ -7,7 +7,8 @@ public class NewsController(IRepository repository,
                             ILogger<NewsController> logger,
                             IApplicationConfiguration config,
                             BusinessId businessId,
-                            IFilteredUrl filteredUrl) : Controller
+                            IFilteredUrl filteredUrl,
+                            IFeatureManager featureManager) : Controller
 {
     private readonly IRepository _repository = repository;
     private readonly IProcessedContentRepository _processedContentRepository = processedContentRepository;
@@ -16,6 +17,8 @@ public class NewsController(IRepository repository,
     private readonly IApplicationConfiguration _config = config;
     private readonly BusinessId _businessId = businessId;
     private readonly IFilteredUrl _filteredUrl = filteredUrl;
+    private readonly IFeatureManager _featureManager = featureManager;
+
 
     [Route("/news")]
     public async Task<IActionResult> Index(NewsroomViewModel model, [FromQuery] int page, [FromQuery] int pageSize)
@@ -60,7 +63,9 @@ public class NewsController(IRepository repository,
         model.AddNews(newsRoom);
         model.AddUrlSetting(urlSetting, model.Newsroom.EmailAlertsTopicId);
 
-        return View(model);
+        return _featureManager is not null && await _featureManager.IsEnabledAsync("NewsRedesign")
+            ? View("Index2025", model)
+            : View(model);
     }
 
     [Route("/news/{slug}")]
@@ -87,6 +92,9 @@ public class NewsController(IRepository repository,
     [Route("/news-article/{slug}")]
     public async Task<IActionResult> NewsArticle(string slug)
     {
+        if(await _featureManager.IsEnabledAsync("NewsRedesign"))
+            return RedirectToAction("Detail", new { slug });
+        
         HttpResponse initialResponse = await _processedContentRepository.Get<News>(slug);
         IActionResult finalResult = initialResponse;
 
