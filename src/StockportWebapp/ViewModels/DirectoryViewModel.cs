@@ -102,7 +102,7 @@ public class DirectoryViewModel
     public string DisplayTitle =>
         string.IsNullOrEmpty(SearchTerm)
             ? $"Results in {Title}"
-            : $"Results for \"{SearchTerm}\" in {Title}";
+            : $"Results for \"{SearchTerm}\"";
 
     public string PageTitle =>
         $"{DisplayTitle}{(ShowPagination
