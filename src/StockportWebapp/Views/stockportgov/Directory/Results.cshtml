@@ -1,7 +1,7 @@
 @model DirectoryViewModel
 @{
     ViewData["Title"] = Model.PageTitle;
-    ViewData["BreadcrumbTitle"] = $"Results in { Model.Title }";
+    ViewData["BreadcrumbTitle"] = Model.PageTitle;
     ViewData["og:title"] = Model.Title;
     ViewData["Description"] = Model.MetaDescription;
     Layout = "../Shared/_Layout2023.cshtml";
