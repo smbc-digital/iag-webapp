@@ -13,7 +13,7 @@
         flex-wrap: wrap;
     }
     
-    @media #{$mobile}{
+    @media #{$mobile} {
         margin-left: 5px;
         margin-right: 5px;
         
@@ -24,6 +24,10 @@
         &__next {
             margin-top: 1em;
         }
+    }
+
+    &--margin-bottom {
+        margin-bottom: 2em;
     }
 
     &__count {

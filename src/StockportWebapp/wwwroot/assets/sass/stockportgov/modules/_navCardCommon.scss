@@ -110,6 +110,8 @@
     }
 
     &-content {
+        overflow-wrap: break-word;
+        
         &--padding {
             flex-grow: 1;
             padding: 1em 0.75em 1.5em 0.75em;

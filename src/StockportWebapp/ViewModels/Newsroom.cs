@@ -14,4 +14,17 @@ public class Newsroom(List<News> news,
     public string EmailAlertsTopicId { get; } = emailAlertsTopicId;
     public List<string> Categories { get; } = categories;
     public List<DateTime> Dates { get; } = dates;
+
+    public NavCardList LatestNews => new()
+    {
+        Items = News.Select(news => new NavCard(news.Title,
+                                                news.Slug,
+                                                news.Teaser,
+                                                news.ThumbnailImage,
+                                                news.Image,
+                                                string.Empty,
+                                                EColourScheme.Teal,
+                                                news.UpdatedAt,
+                                                string.Empty)).Take(3).ToList()
+    };
 }

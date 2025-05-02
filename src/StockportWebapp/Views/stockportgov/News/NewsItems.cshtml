@@ -1,0 +1,19 @@
+@model NewsroomViewModel
+@{
+    Newsroom newsroom = Model.Newsroom;
+}
+
+<div class="section__content section__content--no-margin">
+    @if (newsroom.News.Any())
+    {
+        <h2>Latest news</h2>
+        
+        <partial name="TopicNavCardList" model="newsroom.LatestNews" view-data='new ViewDataDictionary(ViewData) { { "ShowLastUpdated", true } }' />
+    }
+    else
+    {
+        <div class="grid-100 news-article-not-found">
+            <h2>No news articles found.</h2>
+        </div>
+    }
+</div>

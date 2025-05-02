@@ -1,0 +1,50 @@
+﻿@model NewsroomViewModel
+@{
+    ViewData["og:title"] = "News";
+    ViewData["Title"] = "News";
+    Layout = "../Shared/_Layout2023.cshtml";
+}
+
+<div class="grid-container-full-width" data-cy="news-page">
+    @section Breadcrumbs {
+        <div class="grid-container-full-width">
+            <partial name="TopicBreadcrumb" model='new List<Crumb> { new Crumb("News and media", "news-room", "Newsroom") }' />
+        </div>
+    }
+
+    <section class="topic-title" data-cy="title-and-summary">
+        <div class="grid-container">
+            <div class="grid-100">
+                <h1>News</h1>
+            </div>
+        </div>
+    </section>
+
+    <partial name="GlobalAlerts" model='Model.Newsroom.Alerts' />
+
+    @* <partial name="NewsCategories" model="Model" /> *@
+
+    <div class="grid-container">
+        <div class="grid-100">
+            <section class="directory">
+                <div class="directory--30 section">
+                    <div class="navcard-wrapper">
+                        <div class="navcard navcard--white navcard--width-100 navcard--border navcard--no-padding-right-rtl">
+                            <div class="navcard-content navcard-all navcard--theme-grey-accent-all navcard--radius-all">
+                                <div class="navcard-content--padding">
+                                    <h2 class="h-ml h--no-top-margin">Filter your results</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="directory--70">
+                    <partial name="NewsItems" model="Model" />
+                </div>
+            </section>
+        </div>
+    </div>
+
+    @* <partial name="Pagination2024" model='Model.Pagination' view-data='new ViewDataDictionary(ViewData) { { "PaginationMarginBottom", "pagination--margin-bottom" } }' /> *@
+</div>

@@ -1,0 +1,53 @@
+﻿@model NewsroomViewModel
+@{
+    ViewData["og:title"] = "News";
+    ViewData["Title"] = "News";
+    Layout = "../Shared/_Layout2023.cshtml";
+}
+
+<div class="grid-container-full-width" data-cy="news-page">
+    @section Breadcrumbs {
+        <div class="grid-container-full-width">
+            <partial name="TopicBreadcrumb" model='new List<Crumb> { new Crumb("News and media", "news-room", "Newsroom") }' />
+        </div>
+    }
+
+    <section class="topic-title" data-cy="title-and-summary">
+        <div class="grid-container">
+            <div class="grid-100">
+                <h1>News</h1>
+            </div>
+        </div>
+    </section>
+
+    <partial name="GlobalAlerts" model='Model.Newsroom.Alerts' />
+
+    @* <partial name="NewsCategories" model="Model" /> *@
+
+        
+    <section class="section section--white section--no-margin section--margin-top" data-cy="all-news">
+        <div class="grid-container">
+            <div class="grid-100" data-cy="navcard-list">
+                <div class="section__content section__content--no-margin">
+                    @if (Model.Newsroom.News.Any())
+                    {
+                        <h2>Latest news</h2>
+                        
+                        <partial name="TopicNavCardList" model="Model.Newsroom.LatestNews" view-data='new ViewDataDictionary(ViewData) { { "ShowLastUpdated", true } }' />
+                    }
+                    else
+                    {
+                        <div class="grid-100 news-article-not-found">
+                            <h2>No news articles found.</h2>
+                        </div>
+                    }
+                </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    @* <partial name="NewsItems" model="Model" /> *@
+
+    <partial name="Pagination2024" model='Model.Pagination' view-data='new ViewDataDictionary(ViewData) { { "PaginationMarginBottom", "pagination--margin-bottom" } }' />
+</div>
