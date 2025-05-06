@@ -18,7 +18,7 @@ public class Newsroom(List<News> news,
     public NavCardList LatestNews => new()
     {
         Items = News.Select(news => new NavCard(news.Title,
-                                                news.Slug,
+                                                $"news-article/{news.Slug}",
                                                 news.Teaser,
                                                 news.ThumbnailImage,
                                                 news.Image,
@@ -27,4 +27,51 @@ public class Newsroom(List<News> news,
                                                 news.UpdatedAt,
                                                 string.Empty)).Take(3).ToList()
     };
+
+    public NavCardList NewsItems => new()
+    {
+        Items = News.Select(news => new NavCard(news.Title,
+                                                $"news-article/{news.Slug}",
+                                                news.Teaser,
+                                                news.ThumbnailImage,
+                                                news.Image,
+                                                string.Empty,
+                                                EColourScheme.Teal,
+                                                news.UpdatedAt,
+                                                string.Empty)).Skip(3).ToList()
+    };
+
+    public NavCardList ArchivedItems => new()
+    {
+        Items = News
+            .Where(news => news.SunsetDate < DateTime.UtcNow)
+            .Select(news => new NavCard(
+                news.Title,
+                $"news-article/{news.Slug}",
+                news.Teaser,
+                news.ThumbnailImage,
+                news.Image,
+                string.Empty,
+                EColourScheme.Teal,
+                news.UpdatedAt,
+                string.Empty))
+            .ToList()
+    };
+
+
+    public List<SelectListItem> CategoryOptions()
+    {
+        List<SelectListItem> result = new()
+        {
+            new SelectListItem { Text = "All categories", Value = string.Empty }
+        };
+
+        foreach (string cat in Categories)
+        {
+            result.Add(new SelectListItem { Text = cat, Value = cat });
+        }
+
+        return result;
+    }
+
 }

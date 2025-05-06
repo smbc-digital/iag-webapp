@@ -76,12 +76,16 @@
                     @{
                         string associatedTagCategoryLower = Model.NewsItem.EventsByTagOrCategory.Split(",").ToList().First()?.ToLower();
 
-                        string tagOrCategory = Model.NewsItem.Events.Any(eventArticle => eventArticle.EventCategories.Any(category => category.Slug.Equals(associatedTagCategoryLower) || category.Name.Equals(associatedTagCategoryLower)))
+                        string tagOrCategory = Model.NewsItem.Events is not null && Model.NewsItem.Events.Any(eventArticle => eventArticle.EventCategories.Any(category => category.Slug.Equals(associatedTagCategoryLower) || category.Name.Equals(associatedTagCategoryLower)))
                                 ? Url.Action("Index", "Events", new {category = associatedTagCategoryLower})
                                 : Url.Action("Index", "Events", new {tag = associatedTagCategoryLower});
 
-                        EventCategory category = Model.NewsItem.Events.FirstOrDefault().EventCategories?.FirstOrDefault(cat => cat?.Slug?.ToLower() == Model.NewsItem.EventsByTagOrCategory?.ToLower());
-                        string categoryName = category?.Name ?? Model.NewsItem.EventsByTagOrCategory;
+                        string categoryName = "";
+                        if (Model.NewsItem.Events is not null && Model.NewsItem.Events.Any())
+                        {
+                            EventCategory category = Model.NewsItem?.Events.FirstOrDefault().EventCategories?.FirstOrDefault(cat => cat?.Slug?.ToLower() == Model.NewsItem.EventsByTagOrCategory?.ToLower());
+                            categoryName = category?.Name ?? Model.NewsItem.EventsByTagOrCategory;
+                        }
 
                         if (!string.IsNullOrEmpty(categoryName) && char.IsLower(categoryName[0]))
                         {

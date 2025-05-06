@@ -22,17 +22,16 @@
 
     <partial name="GlobalAlerts" model='Model.Newsroom.Alerts' />
 
-    @* <partial name="NewsCategories" model="Model" /> *@
-
     <div class="grid-container">
         <div class="grid-100">
-            <section class="directory">
+            <section class="directory section--margin-top">
                 <div class="directory--30 section">
                     <div class="navcard-wrapper">
                         <div class="navcard navcard--white navcard--width-100 navcard--border navcard--no-padding-right-rtl">
-                            <div class="navcard-content navcard-all navcard--theme-grey-accent-all navcard--radius-all">
+                            <div class="navcard-content navcard-all navcard--theme-grey-accent-all navcard--radius-all news-article__categories">
                                 <div class="navcard-content--padding">
                                     <h2 class="h-ml h--no-top-margin">Filter your results</h2>
+                                    <partial name="NewsCategories" model="Model" />
                                 </div>
                             </div>
                         </div>
@@ -40,11 +39,11 @@
                 </div>
 
                 <div class="directory--70">
-                    <partial name="NewsItems" model="Model" />
+                    <partial name="TopicNavCardList" model="Model.Newsroom.NewsItems" view-data='new ViewDataDictionary(ViewData) { { "ShowLastUpdated", true }, { "twoGrid", true } }' />
                 </div>
             </section>
         </div>
     </div>
 
-    @* <partial name="Pagination2024" model='Model.Pagination' view-data='new ViewDataDictionary(ViewData) { { "PaginationMarginBottom", "pagination--margin-bottom" } }' /> *@
+    <partial name="Pagination2024" model='Model.Pagination' view-data='new ViewDataDictionary(ViewData) { { "PaginationMarginBottom", "pagination--margin-bottom" } }' />
 </div>

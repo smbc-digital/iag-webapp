@@ -15,30 +15,61 @@
     <section class="topic-title" data-cy="title-and-summary">
         <div class="grid-container">
             <div class="grid-100">
-                <h1>News</h1>
+                <h1 class="event-homepage__title">News</h1>
             </div>
         </div>
+
+        <form action="/news-articles" method="get">
+            <div class="grid-container grid-parent event-homepage--no-padding">
+                <div class="grid-100 event-homepage__filters">
+                    <div class="grid-25">
+                        <label class="h-l">Category</label>
+                        <div class="event-homepage__filters-options">
+                            <select asp-items="@Model.Newsroom.CategoryOptions()" placeholder="All categories" name="category" id="category" aria-label="Select category" autocomplete="off"></select>
+                        </div>
+                    </div>
+
+                    <div class="grid-25">
+                        <button class="btn btn--inverse btn--bold btn--width-25 btn--chevron-forward event-homepage__filters-button" data-cy="find-whats-on">
+                            <span class="btn_text">Search news</span>
+                        </button>
+                    </div>
+
+                    <div class="grid-25 push-25 event-homepage__button hide-on-tablet hide-on-mobile">
+                        <a href="@Url.Action("NewsArchive", "News")"
+                            class="btn btn--white-outline btn--width-25 btn--chevron-forward btn--bold btn--chevron-bold event-homepage__filters-button"
+                            data-cy="add-your-event">
+                            <span class="btn_text">News archive</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </form>
     </section>
 
     <partial name="GlobalAlerts" model='Model.Newsroom.Alerts' />
-
-    @* <partial name="NewsCategories" model="Model" /> *@
-
-        
-    <section class="section section--white section--no-margin section--margin-top" data-cy="all-news">
+    
+    <section class="section section--white section--margin-top section--no-margin" data-cy="all-news">
         <div class="grid-container">
             <div class="grid-100" data-cy="navcard-list">
                 <div class="section__content section__content--no-margin">
-                    @if (Model.Newsroom.News.Any())
+                    @if (Model.Pagination?.CurrentPageNumber == 1 && Model.Newsroom.News.Any())
                     {
                         <h2>Latest news</h2>
+
+                        <partial name="TopicNavCardList" model="Model.Newsroom.LatestNews" view-data='new ViewDataDictionary(ViewData) { { "ShowLastUpdated", true }, { "twoGrid", false } }' />
+                    }
+
+                    @if (Model.Newsroom.NewsItems is not null && Model.Newsroom.NewsItems.Items.Any())
+                    {
+                        <h2>All news</h2>
                         
-                        <partial name="TopicNavCardList" model="Model.Newsroom.LatestNews" view-data='new ViewDataDictionary(ViewData) { { "ShowLastUpdated", true } }' />
+                        <partial name="TopicNavCardList" model="Model.Newsroom.NewsItems" view-data='new ViewDataDictionary(ViewData) { { "ShowLastUpdated", true }, { "twoGrid", false } }' />
                     }
                     else
                     {
                         <div class="grid-100 news-article-not-found">
-                            <h2>No news articles found.</h2>
+                            <h2>No news articles found</h2>
                         </div>
                     }
                 </div>
@@ -46,8 +77,6 @@
             </div>
         </div>
     </section>
-
-    @* <partial name="NewsItems" model="Model" /> *@
 
     <partial name="Pagination2024" model='Model.Pagination' view-data='new ViewDataDictionary(ViewData) { { "PaginationMarginBottom", "pagination--margin-bottom" } }' />
 </div>

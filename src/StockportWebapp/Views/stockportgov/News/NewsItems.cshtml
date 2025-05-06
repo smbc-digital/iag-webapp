@@ -8,12 +8,12 @@
     {
         <h2>Latest news</h2>
         
-        <partial name="TopicNavCardList" model="newsroom.LatestNews" view-data='new ViewDataDictionary(ViewData) { { "ShowLastUpdated", true } }' />
+        <partial name="TopicNavCardList" model="newsroom.LatestNews" view-data='new ViewDataDictionary(ViewData) { { "ShowLastUpdated", true }, { "twoGrid", false } }' />
     }
     else
     {
         <div class="grid-100 news-article-not-found">
-            <h2>No news articles found.</h2>
+            <h2>No news articles found</h2>
         </div>
     }
 </div>

@@ -53,4 +53,115 @@
         list-style: none;
         margin-inline-start: 0;
     }
+
+    &__categories {
+        background-color: #f2f2f2;
+    }
+}
+
+#category-filter, #news-archive, #displayRefineBy > li {
+    list-style: none;
+    margin-inline-start: 0;
+}
+
+.filters-list, .filters-active > ul > li {
+    list-style: none;
+}
+
+.is-collapsed {
+    .mobile-filter-heading:after {
+        content: "\f078";
+        font: bold normal normal 16px/1 FontAwesome;
+        font-size: 1em;
+    }
+
+    .filter-title {
+        @media #{$mobile, $tablet} {
+            border-top: none;
+        }
+    }
+
+    .filter-title, .filter-inner-title {
+        position: relative;
+
+        &:after {
+            content: "\f054";
+            font: bold normal normal 16px/1 FontAwesome;
+            font-size: 1em;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: -10px;
+            position: absolute;
+            right: 5px;
+            top: 50%;
+        }
+    }
+
+    .filter-inner-title {
+        border-bottom: none;
+    }
+
+    ul {
+        display: none;
+    }
+}
+
+.filter-title, .filter-inner-title {
+    position: relative;
+
+    &:after {
+        content: "\f078";
+        font: bold normal normal 16px/1 FontAwesome;
+        font-size: 1em;
+        text-decoration: none;
+        display: inline-block;
+        margin-top: -10px;
+        position: absolute;
+        right: 5px;
+        top: 50%;
+    }
+}
+
+.mobile-filter-heading {
+    border-top: 1px solid $greyLight;
+    border-bottom: none;
+    text-align: center;
+
+    @media #{$desktop} {
+        display: none;
+    }
+}
+
+.custom-date-title {
+    display: block;
+}
+
+.custom-date > li {
+    margin-inline-start: 0;
+}
+
+#DateFrom, #DateTo {
+    display: block;
+    font-size: 1em;
+    font-family: inherit;
+}
+
+.date-to {
+    margin-bottom: 2em;
+    margin-top: 1em;
+}
+
+.filter-title {
+    margin-bottom: 10px;
+}
+
+.filters-list {
+    li {
+        margin-inline-start: 0;
+        margin-bottom: 1em;
+
+        a {
+            padding-block: 0.4em;
+        }
+    }
 }

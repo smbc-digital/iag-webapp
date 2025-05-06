@@ -8,130 +8,65 @@
     <h2 class="filters-heading">Refine by</h2>
 }
 
-<ul class="filters-list" id="displayRefineBy">
-    @if (Model.HasActiveFilter())
-    {
-        <li class="filters-active">
-            <ul>
-                @if (!string.IsNullOrEmpty(Model.Category))
-                {
-                    <li class="filter collapsible">
-                        <a href="@Url.RouteUrl(Model.FilteredUrl.WithoutCategory())" rel="nofollow">
-                            <span class="fa fa-times" aria-hidden="true"></span>
-                            @Model.Category
-                        </a>
-                    </li>
-                }
-
-                @if (Model.DateFrom.HasValue && Model.DateTo.HasValue && (Model.DateFrom <= Model.DateTo))
-                {
-                    <li class="filter collapsible">
-                        <a href="@Url.RouteUrl(Model.FilteredUrl.WithoutDateFilter())" rel="nofollow">
-                            <span class="fa fa-times" aria-hidden="true"></span>
-                            @Model.GetActiveDateFilter()
-                        </a>
-                    </li>
-                }
-
-                @if (!string.IsNullOrEmpty(Model.Tag))
-                {
-                    <li class="filter collapsible">
-                        <a href="@Url.RouteUrl(Model.FilteredUrl.WithoutTagFilter())" rel="nofollow">
-                            <span class="fa fa-times" aria-hidden="true"></span>
-                            @Model.Tag
-                        </a>
-                    </li>
-                }
-            </ul>
-        </li>
-    }
-
-    @if (Model.Categories.Any())
-    {
-        <li class="filter collapsible" id="category-filter">
-            @if (Model.HasActiveFilter())
-            {
-                <h3 tabindex="0"  class="filter-title focusable">Category</h3>
-            }
-            else
-            { 
-                <h2 tabindex="0"  class="filter-title focusable">Category</h2>
-            }
-
-            <ul class="filters-list">
-                <li class=@(Model.FilteredUrl.HasNoCategoryFilter() ? "active" : string.Empty)>
-                    <a href="@Url.RouteUrl(Model.FilteredUrl.WithoutCategory())">All categories</a>
-                </li>
-
-                @foreach (string category in Model.Categories)
-                {
-                    <li class=@(Model.CurrentUrl.MatchesQueryParam("Category", category) ? "active" : string.Empty)>
-                        <a href="@Url.RouteUrl(Model.FilteredUrl.AddCategoryFilter(category))" rel="nofollow">@category</a>
-                    </li>
-                }
-            </ul>
-        </li>
-    }
-
-    <li class="filter collapsible" id="news-archive">
+<div class="l-filters">
+    <ul class="filters-list" id="displayRefineBy">
         @if (Model.HasActiveFilter())
         {
-            <h3 tabindex="0" class="filter-title focusable">News archive</h3>
-        }
-        else
-        {
-            <h2 tabindex="0" class="filter-title focusable">News archive</h2>
-        }
+            <li class="filters-active">
+                <ul>
+                    @if (!string.IsNullOrEmpty(Model.Category))
+                    {
+                        <li class="filter collapsible">
+                            <a href="@Url.RouteUrl(Model.FilteredUrl.WithoutCategory())" rel="nofollow">
+                                <span class="fa fa-times" aria-hidden="true"></span>
+                                @Model.Category
+                            </a>
+                        </li>
+                    }
 
-        <ul class="filters-list filters-outer-list" id="uitest-news-archive">
-            <li class=@(Model.FilteredUrl.HasNoDateFilter() ? "active" : string.Empty)>
-                <a href="@Url.RouteUrl(Model.FilteredUrl.WithoutDateFilter())">All recent news</a>
-            </li>
+                    @if (Model.DateFrom.HasValue && Model.DateTo.HasValue && (Model.DateFrom <= Model.DateTo))
+                    {
+                        <li class="filter collapsible">
+                            <a href="@Url.RouteUrl(Model.FilteredUrl.WithoutDateFilter())" rel="nofollow">
+                                <span class="fa fa-times" aria-hidden="true"></span>
+                                @Model.GetActiveDateFilter()
+                            </a>
+                        </li>
+                    }
 
-            @foreach (int year in newsroom.Dates.Select(s => s.Year).Distinct().OrderByDescending(y => y))
-            {
-                <li class="collapsible">
-                    <p tabindex="0" class="filter-inner-title focusable">@year.ToString()</p>
-                    <ul class="filters-list filters-inner-list" id="@year.ToString()">
-                        @foreach (DateTime date in newsroom.Dates.Where(d => d.Year == year).OrderBy(a => a).Reverse())
-                        {
-                            <li class=@(Model.DateRange != "customdate" && Model.DateFrom == date ? "active" : string.Empty)>
-                                <a href="@Url.RouteUrl(Model.FilteredUrl.AddMonthFilter(date))" rel="nofollow">@date.ToString("MMMM yyyy")</a>
-                            </li>
-                        }
-                    </ul>
-                </li>
-            }
-
-            <li id="custom-filter-li" class="@(Model.DateRange == "customdate" ? "customdateactive" : string.Empty) filter collapsible">
-                <a tabindex="0" class="filter-title custom-date-title" rel="nofollow">Custom date</a>
-                <ul class="filters-list custom-date">
-                    <li class="@(Model.DateRange == "customdate" ? "active" : string.Empty)">
-                        <form action="@Url.Action("Index", "News")" method="get">
-                            <input type="hidden" name="DateRange" value="customdate" />
-                            @if (!string.IsNullOrEmpty(Model.Category))
-                            {
-                                <input type="hidden" name="Category" value="@Model.Category" />
-                            }
-                            <div class="date-from">
-                                <label asp-for="@Model.DateFrom"></label>
-                                <input type="date" asp-for="@Model.DateFrom" />
-                                <span role="alert" aria-atomic="true" asp-validation-for="@Model.DateFrom" class="form-customdate-validation-error form-field-validation-error"></span>
-                            </div>
-                            <div class="date-to">
-                                <label asp-for="@Model.DateTo"></label>
-                                <input type="date" asp-for="@Model.DateTo" />
-                                <span id="inputvalidation" role="alert" aria-atomic="true" asp-validation-for="@Model.DateTo" class="form-customdate-validation-error form-field-validation-error"></span>
-                            </div>
-                            <div class="update-button">
-                                <stock-button class="button-customdate">Update</stock-button>
-                            </div>
-                        </form>
-                    </li>
+                    @if (!string.IsNullOrEmpty(Model.Tag))
+                    {
+                        <li class="filter collapsible">
+                            <a href="@Url.RouteUrl(Model.FilteredUrl.WithoutTagFilter())" rel="nofollow">
+                                <span class="fa fa-times" aria-hidden="true"></span>
+                                @Model.Tag
+                            </a>
+                        </li>
+                    }
                 </ul>
             </li>
-        </ul>
-    </li>
-</ul>
+        }
+
+        @if (Model.Categories.Any())
+        {
+            <li class="filter collapsible" id="category-filter">
+                <h3 tabindex="0"  class="filter-title focusable">Category</h3>
+
+                <ul class="filters-list">
+                    <li class=@(Model.FilteredUrl.HasNoCategoryFilter() ? "active" : string.Empty)>
+                        <a href="@Url.RouteUrl(Model.FilteredUrl.WithoutCategory())">All categories</a>
+                    </li>
+
+                    @foreach (string category in Model.Categories)
+                    {
+                        <li class=@(Model.CurrentUrl.MatchesQueryParam("Category", category) ? "active" : string.Empty)>
+                            <a href="@Url.RouteUrl(Model.FilteredUrl.AddCategoryFilter(category))" rel="nofollow">@category</a>
+                        </li>
+                    }
+                </ul>
+            </li>
+        }
+    </ul>
+</div>
 
 <p class="mobile-filter-heading filter-title">Filter news</p>

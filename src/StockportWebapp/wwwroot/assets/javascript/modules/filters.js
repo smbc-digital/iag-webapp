@@ -4,7 +4,7 @@
         $(document).ready(function () {
             $(".l-filters .filter-title, .l-filters .filter-inner-title, .expanding-Link-text").on("keypress click", function (e) {
                 e.preventDefault();
-
+                console.log("click or keypress event triggered");
                 if (e.type === "click" || (e.type === "keypress" && e.which === 32)) {
                     $(this).siblings("ul").slideToggle(100, function () {
                         $(this).parent("li").toggleClass("is-collapsed");
