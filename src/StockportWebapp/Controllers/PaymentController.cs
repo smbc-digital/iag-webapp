@@ -9,12 +9,14 @@ namespace StockportWebapp.Controllers;
 public class PaymentController(IProcessedContentRepository repository,
                             ICivicaPayGateway civicaPayGateway,
                             IOptions<CivicaPayConfiguration> configuration,
-                            ILogger<PaymentController> logger) : Controller
+                            ILogger<PaymentController> logger,
+                            IFeatureManager featureManager) : Controller
 {
     private readonly IProcessedContentRepository _repository = repository;
     private readonly ICivicaPayGateway _civicaPayGateway = civicaPayGateway;
     private readonly CivicaPayConfiguration _civicaPayConfiguration = configuration.Value;
     private readonly ILogger<PaymentController> _logger = logger;
+    private readonly IFeatureManager _featureManager = featureManager;
 
     private const string CIVICA_PAY_SUCCESS = "00000";
     private const string CIVICA_PAY_INVALID_DETAILS = "00001";
@@ -36,6 +38,9 @@ public class PaymentController(IProcessedContentRepository repository,
                 && serviceprocessed.ToUpper().Equals("FALSE"))
             ModelState.AddModelError(nameof(PaymentSubmission.Reference), error);
 
+        if (await _featureManager.IsEnabledAsync("MergedPaymentPages"))
+            return View("PaymentDetail", paymentSubmission);
+
         return View(paymentSubmission);
     }
 
@@ -56,19 +61,28 @@ public class PaymentController(IProcessedContentRepository repository,
             ModelState.AddModelError("Reference", $"Enter the {paymentSubmission.Payment.ReferenceLabel.ToLower()}");
 
         if (!ModelState.IsValid)
-            return View(paymentSubmission);
+        {
+            if (await _featureManager.IsEnabledAsync("MergedPaymentPages"))
+                return View("PaymentDetail", paymentSubmission);
 
-        CreateImmediateBasketRequest civicaPayRequest = GetCreateImmediateBasketRequest(slug, paymentSubmission, $"WEB {Guid.NewGuid()}");
+            return View(paymentSubmission);
+        }
+
+        CreateImmediateBasketRequest civicaPayRequest = GetCreateImmediateBasketRequest(slug, paymentSubmission, paymentSubmission.Payment.PaymentType.Equals("ServicePayPayment") ? paymentSubmission.Reference : $"WEB {Guid.NewGuid()}");
 
         HttpResponse<CreateImmediateBasketResponse> civicaPayResponse = await _civicaPayGateway.CreateImmediateBasketAsync(civicaPayRequest);
 
+        string reference = paymentSubmission.Payment.PaymentType.Equals("ServicePayPayment")
+            ? paymentSubmission.Reference
+            : civicaPayRequest.CallingAppTranReference;
+        
         if (civicaPayResponse.IsSuccessStatusCode && civicaPayResponse.ResponseContent.ResponseCode.Equals(CIVICA_PAY_SUCCESS))
         {
             _logger.LogError($"{nameof(PaymentController)}::{nameof(Detail)}: " +
                 $"{nameof(ICivicaPayGateway)} {nameof(ICivicaPayGateway.CreateImmediateBasketAsync)} " +
-                $"Payment request succeeded for {slug}. Redirecting to civica pay, basketReference: {civicaPayResponse.ResponseContent.BasketReference}");
+                $"Payment request succeeded for {slug}. Redirecting to civica pay, reference: {reference}");
 
-            return Redirect(_civicaPayGateway.GetPaymentUrl(civicaPayResponse.ResponseContent.BasketReference, civicaPayResponse.ResponseContent.BasketToken, civicaPayRequest.CallingAppTranReference));
+            return Redirect(_civicaPayGateway.GetPaymentUrl(civicaPayResponse.ResponseContent.BasketReference, civicaPayResponse.ResponseContent.BasketToken, reference));
         }
 
         if (civicaPayResponse.StatusCode.Equals(HttpStatusCode.BadRequest)
@@ -79,6 +93,9 @@ public class PaymentController(IProcessedContentRepository repository,
                 $"An unexpected error occurred creating immediate basket: {civicaPayResponse.ResponseContent.ResponseCode}");
 
             ModelState.AddModelError("Reference", $"Check {paymentSubmission.Payment.ReferenceLabel.ToLower()} and try again");
+
+            if (await _featureManager.IsEnabledAsync("MergedPaymentPages"))
+                return View("PaymentDetail", paymentSubmission);
 
             return View(paymentSubmission);
         }
@@ -147,9 +164,16 @@ public class PaymentController(IProcessedContentRepository repository,
                         PaymentAmount = paymentSubmission.Amount,
                         PaymentNarrative = $"{paymentSubmission.Payment.PaymentDescription} - {paymentSubmission.Reference}",
                         CallingAppTranReference = transactionReference,
-                        Quantity = "1"
+                        Quantity = "1",
+                        ServicePayReference = paymentSubmission.Reference,
+                        ServicePayNarrative = $"{paymentSubmission.Payment.PaymentDescription} - Name: {paymentSubmission.Name} - Email: {paymentSubmission.EmailAddress}",
+                        EmailAddress = paymentSubmission.EmailAddress,
+                        TelephoneNumber = "0"
                     },
-                    AddressDetails = new AddressDetail()
+                    AddressDetails = new AddressDetail
+                    {
+                        Name = paymentSubmission.Name
+                    }
                 }
             }
         };

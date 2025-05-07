@@ -18,6 +18,7 @@ public class PaymentControllerTest
                                                             "slug",
                                                             "teaser",
                                                             "description",
+                                                            "default",
                                                             "payDetailsText",
                                                             "account number",
                                                             "fund",
@@ -85,12 +86,12 @@ public class PaymentControllerTest
                 It.IsAny<string>(),
                 It.IsAny<object>()));
 
-        _paymentController = new(_fakeRepository.Object, _civicaPayGateway.Object, _configuration.Object, _logger.Object)
+        _paymentController = new(_fakeRepository.Object, _civicaPayGateway.Object, _configuration.Object, _logger.Object, _featureManager.Object)
         {
             ControllerContext = mockControllerContextPayment
         };
 
-        _paymentControllerWithServicePayPaymentPath = new(_fakeRepository.Object, _civicaPayGateway.Object, _configuration.Object, _logger.Object)
+        _paymentControllerWithServicePayPaymentPath = new(_fakeRepository.Object, _civicaPayGateway.Object, _configuration.Object, _logger.Object, _featureManager.Object)
         {
             ControllerContext = mockControllerContextServicePayPayment
         };
