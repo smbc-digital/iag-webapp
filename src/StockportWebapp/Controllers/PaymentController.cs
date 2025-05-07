@@ -63,7 +63,13 @@ public class PaymentController(IProcessedContentRepository repository,
         HttpResponse<CreateImmediateBasketResponse> civicaPayResponse = await _civicaPayGateway.CreateImmediateBasketAsync(civicaPayRequest);
 
         if (civicaPayResponse.IsSuccessStatusCode && civicaPayResponse.ResponseContent.ResponseCode.Equals(CIVICA_PAY_SUCCESS))
+        {
+            _logger.LogError($"{nameof(PaymentController)}::{nameof(Detail)}: " +
+                $"{nameof(ICivicaPayGateway)} {nameof(ICivicaPayGateway.CreateImmediateBasketAsync)} " +
+                $"Payment request succeeded for {slug}. Redirecting to civica pay, basketReference: {civicaPayResponse.ResponseContent.BasketReference}");
+
             return Redirect(_civicaPayGateway.GetPaymentUrl(civicaPayResponse.ResponseContent.BasketReference, civicaPayResponse.ResponseContent.BasketToken, civicaPayRequest.CallingAppTranReference));
+        }
 
         if (civicaPayResponse.StatusCode.Equals(HttpStatusCode.BadRequest)
             && civicaPayResponse.ResponseContent.ResponseCode.Equals(CIVICA_PAY_INVALID_DETAILS))
@@ -98,6 +104,10 @@ public class PaymentController(IProcessedContentRepository repository,
 
         if (!responseCode.Equals(CIVICA_PAY_SUCCESS))
         {
+            _logger.LogError($"{nameof(PaymentController)}::{nameof(Success)}: " +
+                $"{nameof(ICivicaPayGateway)} {nameof(ICivicaPayGateway.CreateImmediateBasketAsync)} " +
+                $"Payment request failed for {slug}. Response code {responseCode}");
+
             paymentResult.PaymentResultType = responseCode.Equals(CIVICA_PAY_DECLINED)
                 || responseCode.Equals(CIVICA_PAY_DECLINED_OTHER)
                 ? PaymentResultType.Declined
@@ -105,6 +115,10 @@ public class PaymentController(IProcessedContentRepository repository,
 
             return View("Result", paymentResult);
         }
+
+        _logger.LogError($"{nameof(PaymentController)}::{nameof(Success)}: " +
+                $"{nameof(ICivicaPayGateway)} {nameof(ICivicaPayGateway.CreateImmediateBasketAsync)} " +
+                $"Payment request successful for {slug}. Response code {responseCode}");
 
         return View("Result", paymentResult);
     }
