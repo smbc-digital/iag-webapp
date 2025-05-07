@@ -29,13 +29,17 @@
             </div>
 
             <div class="grid-25">
-                <button data-cy="book-event-button" class="btn btn--inverse btn--bold btn--width-25 btn--chevron-forward event-homepage__filters-button">
+                <button class="btn btn--inverse btn--bold btn--width-25 btn--chevron-forward event-homepage__filters-button" data-cy="find-whats-on">
                     <span class="btn_text">Find what's on</span>
                 </button>
             </div>
 
             <div class="grid-25 hide-on-desktop">
-                <button as-link="true" class="btn btn--white-outline btn--width-25 btn--chevron-forward btn--bold btn--chevron-bold event-homepage__filters-button" href="https://forms.stockport.gov.uk/add-an-event">Add your event</button>
+                <a href="https://forms.stockport.gov.uk/add-an-event"
+                    class="btn btn--white-outline btn--width-25 btn--chevron-forward btn--bold btn--chevron-bold event-homepage__filters-button"
+                    data-cy="add-your-event-mobile">
+                    <span class="btn_text">Add your event</span>
+                </a>
             </div>
         </div>
     </div>

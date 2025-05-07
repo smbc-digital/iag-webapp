@@ -1,5 +1,6 @@
 ﻿namespace StockportWebapp.ViewModels;
 
+[ExcludeFromCodeCoverage]
 public class RefineByFilterItems
 {
     public string Label { get; set; }
@@ -7,6 +8,7 @@ public class RefineByFilterItems
     public bool Checked { get; set; }
 }
 
+[ExcludeFromCodeCoverage]
 public class RefineByFilters
 {
     public string Label { get; set; }
@@ -15,6 +17,7 @@ public class RefineByFilters
     public List<RefineByFilterItems> Items { get; set; }
 }
 
+[ExcludeFromCodeCoverage]
 public class RefineByBar
 {
     public bool ShowLocation { get; set; }

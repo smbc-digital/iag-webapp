@@ -1,38 +1,76 @@
-﻿.atoz-listing {
-    .atoz-listing-item:not(:first-child) {
-        border-top: 1px solid $colorPrimaryLightest;
-        padding-top: 18px;
+﻿.atoz {
+    @media #{$mobile} {
+        padding-inline: 5px;
     }
 
-    .atoz-listing-item {
-        h2 {
-            font-size: 1em;
-            font-family: $fontStack;
-            letter-spacing: normal;
-            font-weight: normal;
+    &__categories {
+        padding-block: 2em;
+        background-color: $stockport-light-grey;
+
+        @media #{$tablet} {
+            padding-block: 2em;
+        }
+
+        @media #{$mobile} {
+            padding-inline: 5px;
         }
     }
-}
 
-.atoz-links {
-  display: flex;
-  justify-content: space-between;
-  list-style-type: none;
+    &__menu {
+        display: flex;
+        gap: 0.5em;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        list-style: none;
+        padding: 0px;
+        margin: 0px;
+        margin-block-end: 2em;
 
-  @media #{$tablet} {
-    flex-wrap: wrap;
+        li {
+            display: inline-block;
+            list-style: none;
+            padding: 0px;
+            margin: 0px;
+        }
 
-    &::after {
-      content:"";
-      flex-basis:100%;
+        .btn {
+            display: inline-block;
+            padding: 0px;
+            width: 86px;
+            line-height: 86px;
+            text-align: center;
+
+
+            @media #{$tablet} {
+                width: 76px;
+                line-height: 76px;
+            }
+
+            @media #{$mobile} {
+                width: 56px;
+                line-height: 56px;
+            }
+        }
     }
-    
-    li:nth-child(n + 14) {
-      order: 2
-    }
-  }
 
-  li {
-    margin: 0
-  }
+    &__back-to-top {
+        float: right;
+    }
+
+    &__section {
+        ul {
+            margin-bottom: 0;
+        }
+
+        li {
+            margin-bottom: .5em;
+            width: 85%;
+        }
+    }
+
+    &__heading {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
 }

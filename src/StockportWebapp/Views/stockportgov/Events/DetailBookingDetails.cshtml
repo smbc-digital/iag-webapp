@@ -7,63 +7,62 @@
 <div class="event-detail--100">
     <div class="@borderTop">
         <div class="@eventWrapperCssClasses">
-        <h2 class="event-detail__heading">Event and booking details</h2>
-            <table class="event-detail__table">
-                <tbody>
-                    <tr>
-                        <th>Cost:</th>
-                        <td>@Model.Fee</td>
-                    </tr>
+            <h2 class="event-detail__heading">Event and booking details</h2>
 
-                    @if (!string.IsNullOrEmpty(Model.PhoneNumber))
-                    {
-                        <tr>
-                            <th>Phone:</th>
-                            <td><strong>@Model.PhoneNumber</strong></td>
-                        </tr>
-                    }
+            <div class="event-detail__container" data-cy="event-and-booking-details">
+                <div class="event-detail__row">
+                    <p class="event-detail__label">Cost:</p>
+                    <p class="event-detail__value">@Model.Fee</p>
+                </div>
 
-                    @if (!string.IsNullOrEmpty(Model.Email))
-                    {
-                        <tr>
-                            <th>Email:</th>
-                            <td><a href="mailto:@Model.Email">@Model.Email</a></td>
-                        </tr>
-                    }
+                @if (!string.IsNullOrEmpty(Model.PhoneNumber))
+                {
+                    <div class="event-detail__row">
+                        <p class="event-detail__label">Phone:</p>
+                        <p class="event-detail__value"><strong>@Model.PhoneNumber</strong></p>
+                    </div>
+                }
 
-                    @if (!string.IsNullOrEmpty(Model.Website))
-                    {
-                        <tr>
-                            <th>Visit:</th>
-                            <td><a href="@Model.Website" target="_blank">@Model.Website</a></td>
-                        </tr>
-                    }
+                @if (!string.IsNullOrEmpty(Model.Email))
+                {
+                    <div class="event-detail__row">
+                        <p class="event-detail__label">Email:</p>
+                        <p class="event-detail__value"><a href="mailto:@Model.Email">@Model.Email</a></p>
+                    </div>
+                }
 
-                    @if (!string.IsNullOrEmpty(Model.Facebook))
-                    {
-                        <tr>
-                            <th>Facebook:</th>
-                            <td><a href="@Model.Facebook" target="_blank">@Model.Facebook</a></td>
-                        </tr>
-                    }
+                @if (!string.IsNullOrEmpty(Model.Website))
+                {
+                    <div class="event-detail__row">
+                        <p class="event-detail__label">Visit:</p>
+                        <p class="event-detail__value"><a href="@Model.Website" target="_blank">@Model.Website</a></p>
+                    </div>
+                }
 
-                    @if (!string.IsNullOrEmpty(Model.Instagram))
-                    {
-                        <tr>
-                            <th>Instagram:</th>
-                            <td><a href="@Model.Instagram" target="_blank">@Model.Instagram</a></td>
-                        </tr>
-                    }
+                @if (!string.IsNullOrEmpty(Model.Facebook))
+                {
+                    <div class="event-detail__row">
+                        <p class="event-detail__label">Facebook:</p>
+                        <p class="event-detail__value"><a href="@Model.Facebook" target="_blank">@Model.Facebook</a></p>
+                    </div>
+                }
 
-                    @if (!string.IsNullOrEmpty(Model.LinkedIn))
-                    {
-                        <tr>
-                            <th>LinkedIn:</th>
-                            <td><a href="@Model.LinkedIn" target="_blank">@Model.LinkedIn</a></td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
+                @if (!string.IsNullOrEmpty(Model.Instagram))
+                {
+                    <div class="event-detail__row">
+                        <p class="event-detail__label">Instagram:</p>
+                        <p class="event-detail__value"><a href="@Model.Instagram" target="_blank">@Model.Instagram</a></p>
+                    </div class="event-detail__row">
+                }
+
+                @if (!string.IsNullOrEmpty(Model.LinkedIn))
+                {
+                    <div class="event-detail__row">
+                        <p class="event-detail__label">LinkedIn:</p>
+                        <p class="event-detail__value"><a href="@Model.LinkedIn" target="_blank">@Model.LinkedIn</a></p>
+                    </div>
+                }
+            </div>
             
             @if (!string.IsNullOrEmpty(Model.BookingInformation))
             {

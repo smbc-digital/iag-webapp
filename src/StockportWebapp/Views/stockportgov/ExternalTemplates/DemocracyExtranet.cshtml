@@ -6,58 +6,236 @@
     string democracyHomeLink = "https://www.stockport.gov.uk";
 }
 
-<div class="breadcrumb-container">
-    <div class="grid-container grid-100">
-        <ul class="breadcrumb">
-            <li><a href="@democracyHomeLink/">Home</a></li>
-            <li class="chevron">&rsaquo;</li>
-            <li><a href="@democracyHomeLink/topic/about-your-council">About your council</a></li>
-            <li class="chevron">&rsaquo;</li>
-            <li><a href="@democracyHomeLink/councillors">Councillors</a></li>
-            <li class="chevron">&rsaquo;</li>
-            <li>{breadcrumb}</li>
-        </ul>
-    </div>
-</div>
-
 <div class="grid-container-full-width">
-    <div  tabindex="-1" id="content" class="grid-container grid-100">
-        <div id="uitest-page-has-loaded" class="l-body-section-filled mobile-grid-100 tablet-grid-100  push-30 grid-70">
-            <section class="grid-100 mobile-grid-100">
-                <div class="l-content-container">
-                    <div class="grid-100">                        
+    <nav class="external-templates-breadcrumb-container" aria-label="Breadcrumb" data-cy="breadcrumb-navigation">
+        <div class="grid-container">
+            <div class="grid-100">
+                <ul class="breadcrumb">
+                    <li><a href="@democracyHomeLink/">Home</a></li>
+                    <li><a href="@democracyHomeLink/topic/about-your-council">About your council</a></li>
+                    <li><a href="@democracyHomeLink/councillors">Councillors</a></li>
+                    <li>{breadcrumb}</li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="grid-container">
+        <div class="grid-100">
+            <section class="external-templates">
+                <div class="external-templates--70">
+                    <section>
                         {content}
-                    </div>
+                    </section>
+                </div>
+
+                <div class="external-templates--30">
+                    <nav aria-labelledby="navcard__title">
+                        <h2 class="visuallyhidden" id="navcard__title">Categories</h2>
+                        <ul class="navcard navcard-wrapper--no-margin navcard--border-top-10 navcard--no-padding-right-rtl navcard--theme-teal-lighter-top navcard--width-100">
+                            <li class="navcard navcard--grey navcard--no-margin navcard--no-padding-right-rtl navcard--width-100">
+                                <div class="navcard--border-left-1 navcard--border-right-1 navcard--theme-grey-accent-all">
+                                    <a class="navcard--padding navcard__link" href="mgCalendarMonthView.aspx?GL=1&amp;bcr=1" title="Calendar of meetings">
+                                        <h3 class="navcard__title navcard__title--no-margin navcard__title--normal-weight">
+                                            Calendar
+                                        </h3>
+                                    </a>
+                                </div>
+                            </li>
+
+                            <li class="navcard navcard--grey navcard--no-margin navcard--no-padding-right-rtl navcard--width-100">
+                                <div class="navcard--border-left-1 navcard--border-right-1 navcard--theme-grey-accent-all">
+                                    <a class="navcard--padding navcard__link" href="mgListCommittees.aspx?bcr=1" title="Committee structure">
+                                        <h3 class="navcard__title navcard__title--no-margin navcard__title--normal-weight">
+                                            Committees
+                                        </h3>
+                                    </a>
+                                </div>
+                            </li>
+
+                            <li class="navcard navcard--grey navcard--no-margin navcard--no-padding-right-rtl navcard--width-100">
+                                <div class="navcard--border-left-1 navcard--border-right-1 navcard--theme-grey-accent-all">
+                                    <a class="navcard--padding navcard__link" href="ieListMeetings.aspx?CId=587&amp;info=1&amp;md=constitution" title="Constitution">
+                                        <h3 class="navcard__title navcard__title--no-margin navcard__title--normal-weight">
+                                            Constitution
+                                        </h3>
+                                    </a>
+                                </div>
+                            </li>
+
+                            <li class="navcard navcard--grey navcard--no-margin navcard--no-padding-right-rtl navcard--width-100">
+                                <div class="navcard--border-left-1 navcard--border-right-1 navcard--theme-grey-accent-all">
+                                    <a class="navcard--padding navcard__link" href="mgMemberIndex.aspx?bcr=1" title="Your Councillors">
+                                        <h3 class="navcard__title navcard__title--no-margin navcard__title--normal-weight">
+                                            Councillors
+                                        </h3>
+                                    </a>
+                                </div>
+                            </li>
+
+                            <li class="navcard navcard--grey navcard--no-margin navcard--no-padding-right-rtl navcard--width-100">
+                                <div class="navcard--border-left-1 navcard--border-right-1 navcard--theme-grey-accent-all">
+                                    <a class="navcard--padding navcard__link" href="mgDelegatedDecisions.aspx?bcr=1" title="Register of decisions">
+                                        <h3 class="navcard__title navcard__title--no-margin navcard__title--normal-weight">
+                                            Decisions
+                                        </h3>
+                                    </a>
+                                </div>
+                            </li>
+                        
+                            <li class="navcard navcard--grey navcard--no-margin navcard--no-padding-right-rtl navcard--width-100">
+                                <div class="navcard--border-left-1 navcard--border-right-1 navcard--theme-grey-accent-all">
+                                    <a class="navcard--padding navcard__link" href="mgmanageelectionresults.aspx?bcr=1" title="Elections">
+                                        <h3 class="navcard__title navcard__title--no-margin navcard__title--normal-weight">
+                                            Elections
+                                        </h3>
+                                    </a>
+                                </div>
+                            </li>
+
+                            <li class="navcard navcard--grey navcard--no-margin navcard--no-padding-right-rtl navcard--width-100">
+                                <div class="navcard--border-left-1 navcard--border-right-1 navcard--theme-grey-accent-all">
+                                    <a class="navcard--padding navcard__link" href="mgPlansHome.aspx?bcr=1" title="Forward plans">
+                                        <h3 class="navcard__title navcard__title--no-margin navcard__title--normal-weight">
+                                            Forward plans
+                                        </h3>
+                                    </a>
+                                </div>
+                            </li>
+                        
+                            <li class="navcard navcard--grey navcard--no-margin navcard--no-padding-right-rtl navcard--width-100">
+                                <div class="navcard--border-left-1 navcard--border-right-1 navcard--theme-grey-accent-all">
+                                    <a class="navcard--padding navcard__link" href="ecCatDisplay.aspx?bcr=1&amp;sch=doc" title="Library of standard documents">
+                                        <h3 class="navcard__title navcard__title--no-margin navcard__title--normal-weight">
+                                            Library
+                                        </h3>
+                                    </a>
+                                </div>
+                            </li>
+
+                            <li class="navcard navcard--grey navcard--no-margin navcard--no-padding-right-rtl navcard--width-100">
+                                <div class="navcard--border-left-1 navcard--border-right-1 navcard--theme-grey-accent-all">
+                                    <a class="navcard--padding navcard__link" href="ieDocHome.aspx?bcr=1" title="Information about committee meetings">
+                                        <h3 class="navcard__title navcard__title--no-margin navcard__title--normal-weight">
+                                            Meetings
+                                        </h3>
+                                    </a>
+                                </div>
+                            </li>
+                        
+                            <li class="navcard navcard--grey navcard--no-margin navcard--no-padding-right-rtl navcard--width-100">
+                                <div class="navcard--border-left-1 navcard--border-right-1 navcard--theme-grey-accent-all">
+                                    <a class="navcard--padding navcard__link" href="mgMemberIndexMP.aspx?bcr=1" title="Your MPs">
+                                        <h3 class="navcard__title navcard__title--no-margin navcard__title--normal-weight">
+                                            MPs
+                                        </h3>
+                                    </a>
+                                </div>
+                            </li>
+
+                            <li class="navcard navcard--grey navcard--no-margin navcard--no-padding-right-rtl navcard--width-100">
+                                <div class="navcard--border-left-1 navcard--border-right-1 navcard--theme-grey-accent-all">
+                                    <a class="navcard--padding navcard__link" href="mgListOutsideBodies.aspx?bcr=1" title="Outside bodies">
+                                        <h3 class="navcard__title navcard__title--no-margin navcard__title--normal-weight">
+                                            Outside bodies
+                                        </h3>
+                                    </a>
+                                </div>
+                            </li>
+
+                            <li class="navcard navcard--grey navcard--no-margin navcard--no-padding-right-rtl navcard--width-100">
+                                <div class="navcard--border-left-1 navcard--border-right-1 navcard--theme-grey-accent-all">
+                                    <a class="navcard--padding navcard__link" href="mgepetitionlistdisplay.aspx?bcr=1" title="Petitions">
+                                        <h3 class="navcard__title navcard__title--no-margin navcard__title--normal-weight">
+                                            Petitions
+                                        </h3>
+                                    </a>
+                                </div>
+                            </li>
+                        
+                            <li class="navcard navcard--grey navcard--no-margin navcard--no-padding-right-rtl navcard--width-100">
+                                <div class="navcard--border-left-1 navcard--border-right-1 navcard--theme-grey-accent-all">
+                                    <a class="navcard--padding navcard__link" href="ieDocSearch.aspx?bcr=1" title="Free text search">
+                                        <h3 class="navcard__title navcard__title--no-margin navcard__title--normal-weight">
+                                            Search documents
+                                        </h3>
+                                    </a>
+                                </div>
+                            </li>
+
+                            <li class="navcard navcard--grey navcard--no-margin navcard--no-padding-right-rtl navcard--width-100">
+                                <div class="navcard--border-left-1 navcard--border-right-1 navcard--theme-grey-accent-all">
+                                    <a class="navcard--padding navcard__link" href="mgStatsReports.aspx?bcr=1" title="Statistics reports">
+                                        <h3 class="navcard__title navcard__title--no-margin navcard__title--normal-weight">
+                                            Statistics
+                                        </h3>
+                                    </a>
+                                </div>
+                            </li>
+
+                            <li class="navcard navcard--grey navcard--no-margin navcard--no-padding-right-rtl navcard--width-100">
+                                <div class="navcard--border-left-1 navcard--border-right-1 navcard--theme-grey-accent-all">
+                                    <a class="navcard--padding navcard__link" href="mgRegisterKeywordInterest.aspx?bcr=1" title="Subscribe to updates">
+                                        <h3 class="navcard__title navcard__title--no-margin navcard__title--normal-weight">
+                                            Subscribe to updates
+                                        </h3>
+                                    </a>
+                                </div>
+                            </li>
+                        
+                            <li class="navcard navcard--grey navcard--no-margin navcard--no-padding-right-rtl navcard--width-100">
+                                <div class="navcard--border-left-1 navcard--border-right-1 navcard--theme-grey-accent-all">
+                                    <a class="navcard--padding navcard__link" href="mgGeneric.aspx?MD=mgwardflexibilityfunding" title="Ward funding">
+                                        <h3 class="navcard__title navcard__title--no-margin navcard__title--normal-weight">
+                                            Ward Funding
+                                        </h3>
+                                    </a>
+                                </div>
+                            </li>
+
+                            <li class="navcard navcard--grey navcard--no-margin navcard--no-padding-right-rtl navcard--width-100">
+                                <div class="navcard--border-left-1 navcard--border-right-1 navcard--theme-grey-accent-all">
+                                    <a class="navcard--padding navcard__link" href="http://www.stockport.public-i.tv/core/portal/home" title="Webcasting">
+                                        <h3 class="navcard__title navcard__title--no-margin navcard__title--normal-weight">
+                                            Webcasting
+                                        </h3>
+                                    </a>
+                                </div>
+                            </li>
+
+                            <li class="navcard navcard--grey navcard--no-margin navcard--no-padding-right-rtl navcard--width-100">
+                                <div class="navcard--border-left-1 navcard--border-right-1 navcard--theme-grey-accent-all">
+                                    <a class="navcard--padding navcard__link" href="mgWhatsNew.aspx?bcr=1" title="What's new">
+                                        <h3 class="navcard__title navcard__title--no-margin navcard__title--normal-weight">
+                                            What's new
+                                        </h3>
+                                    </a>
+                                </div>
+                            </li>
+
+                            <li class="navcard navcard--grey navcard--no-margin navcard--no-padding-right-rtl navcard--width-100">
+                                <div class="navcard--border-left-1 navcard--border-right-1 navcard--theme-grey-accent-all">
+                                    <a class="navcard--padding navcard__link" href="mgWorkToDo.aspx?bcr=1" title="Your work to do">
+                                        <h3 class="navcard__title navcard__title--no-margin navcard__title--normal-weight">
+                                            Work to do
+                                        </h3>
+                                    </a>
+                                </div>
+                            </li>
+
+                            <li class="navcard navcard--grey navcard--no-margin navcard--no-padding-right-rtl navcard--width-100">
+                                <div class="navcard--border-left-1 navcard--border-right-1 navcard--theme-grey-accent-all navcard--border-bottom-1 navcard--radius-bottom-left navcard--radius-bottom-right">
+                                    <a class="navcard--padding navcard__link navcard--padding-bottom" href="ieLogon.aspx?bcr=1" title="Logon">
+                                        <h3 class="navcard__title navcard__title--no-margin navcard__title--normal-weight">
+                                            Logon
+                                        </h3>
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </nav>
                 </div>
             </section>
         </div>
-
-        <div class="pull-70 l-left-side-bar grid-30 tablet-grid-100 mobile-grid-100 grid-parent">
-            <div class="l-left-side-bar-section">
-                <ul>   
-	                <li><a href="mgCalendarMonthView.aspx?GL=1&amp;bcr=1" title="Link to calendar of meetings">Calendar</a></li>
-	                <li><a href="mgListCommittees.aspx?bcr=1" title="Link to committee structure">Committees</a></li>
-	                <li><a href="ieListMeetings.aspx?CId=587&amp;info=1&amp;md=constitution" title="Link to the Constitution">Constitution</a></li>
-	                <li><a href="mgMemberIndex.aspx?bcr=1" title="Link to your Councillors">Councillors</a></li>
-	                <li><a href="mgDelegatedDecisions.aspx?bcr=1" title="Link to register of decisions">Decisions</a></li>
-	                <li><a href="mgManageElectionResults.aspx?bcr=1" title="Elections">Elections</a></li>
-	                <li><a href="mgPlansHome.aspx?bcr=1" title="Link to Forward Plans">Forward plans</a></li>
-	                <li><a href="ecCatDisplay.aspx?bcr=1&amp;sch=doc" title="Link to library of standard documents">Library</a></li>
-	                <li><a href="ieDocHome.aspx?bcr=1" title="Link to information about committee meetings">Meetings</a></li>
-	                <li><a href="mgMemberIndexMP.aspx?bcr=1" title="Link to your MPs">MPs</a></li>
-	                <li><a href="mgListOutsideBodies.aspx?bcr=1" title="Link to Outside Bodies">Outside bodies</a></li>
-	                <li><a href="mgepetitionlistdisplay.aspx?bcr=1" title="Petitions">Petitions</a></li>
-	                <li><a href="ieDocSearch.aspx?bcr=1" title="Link to free text search">Search documents</a></li>
-	                <li><a href="mgStatsReports.aspx?bcr=1" title="Link to statistics reports">Statistics</a></li>
-	                <li><a href="mgRegisterKeywordInterest.aspx?bcr=1" title="Link to Subscribe to Updates">Subscribe to updates</a></li>
-	                <li><a href="mgGeneric.aspx?MD=mgwardflexibilityfunding" title="Link to Ward Funding">Ward Funding</a></li>
-	                <li><a href="http://www.stockport.public-i.tv/core/portal/home" title="Link to Webcasting">Webcasting</a></li>
-	                <li><a href="mgWhatsNew.aspx?bcr=1" title="Link to what's new">What's new</a></li>
-	                <li><a href="mgWorkToDo.aspx?bcr=1" title="Link to your Work to Do">Work to do</a></li>
-					<li><a href="ieLogon.aspx?bcr=1" title="Link to Logon">Logon</a></li>
-                </ul>
-            </div>
-        </div>  
     </div>
 </div>
-

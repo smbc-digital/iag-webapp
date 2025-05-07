@@ -19,7 +19,6 @@ public class Event
     public string EndTime { get; set; }
     public List<Crumb> Breadcrumbs { get; set; }
     public List<Document> Documents { get; set; }
-    public List<string> Categories { get; set; }
     public MapPosition MapPosition { get; set; }
     public bool Featured { get; set; }
     public string BookingInformation { get; set; }

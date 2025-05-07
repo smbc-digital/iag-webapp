@@ -19,7 +19,7 @@ public class SitemapControllerTests
         {
             Slug = "slug"
         }
-    }, new List<string>());
+    });
 
     private readonly List<ArticleSiteMap> _articlesSiteMap = new();
     private readonly List<Group> _groups = new();

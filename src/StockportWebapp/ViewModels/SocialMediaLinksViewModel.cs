@@ -1,5 +1,6 @@
 ﻿namespace StockportWebapp.ViewModels;
 
+[ExcludeFromCodeCoverage]
 public class SocialMediaLinksViewModel
 {
     public string SocialMediaLinksSubheading { get; set; }

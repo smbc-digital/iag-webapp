@@ -1,4 +1,5 @@
 ﻿namespace StockportWebapp.ViewModels;
+
 [ExcludeFromCodeCoverage]
 public class PrivacyNoticeViewModel
 {

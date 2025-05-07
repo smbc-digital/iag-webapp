@@ -1,5 +1,6 @@
 ﻿namespace StockportWebapp.ViewModels;
 
+[ExcludeFromCodeCoverage]
 public class ThankYouMessageViewModel
 {
     public string ReturnUrl { get; set; } = string.Empty;

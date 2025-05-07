@@ -1,5 +1,6 @@
 ﻿namespace StockportWebapp.ViewModels;
 
+[ExcludeFromCodeCoverage]
 public class NewsViewModel(ProcessedNews newsItem, List<News> latestNewsItems)
 {
     public ProcessedNews NewsItem { get; } = newsItem;

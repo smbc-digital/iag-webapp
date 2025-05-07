@@ -118,7 +118,6 @@ public class RssFeedFactoryTest
             {
                 Title = "Event Title 1",
                 Description = "Event Description 1",
-                Categories = new List<string>(),
                 Breadcrumbs = new List<Crumb>(),
                 EventDate = new DateTime(2017, 08, 01),
                 StartTime = "10:00",
@@ -132,7 +131,6 @@ public class RssFeedFactoryTest
             {
                 Title = "Event Title 2",
                 Description = "Event Description 3",
-                Categories = new List<string>(),
                 Breadcrumbs = new List<Crumb>(),
                 EventDate = new DateTime(2017, 08, 01),
                 StartTime = "10:00",
@@ -146,7 +144,6 @@ public class RssFeedFactoryTest
             {
                 Title = "Event Title 3",
                 Description = "Event Description 3",
-                Categories = new List<string>(),
                 Breadcrumbs = new List<Crumb>(),
                 EventDate = new DateTime(2017, 08, 01),
                 StartTime = "10:00",
@@ -160,7 +157,6 @@ public class RssFeedFactoryTest
             {
                 Title = "Event Title 4",
                 Description = "Event Description 4",
-                Categories = new List<string>(),
                 Breadcrumbs = new List<Crumb>(),
                 EventDate = new DateTime(2017, 08, 01),
                 StartTime = "10:00",

@@ -65,16 +65,20 @@ public class PaymentFactoryTest
     [Fact]
     public void ShouldProcessDescriptionWithMarkdown()
     {
-        // Act & Assert
+        // Act
         _factory.Build(_payment);
+        
+        // Assert
         _markdownWrapper.Verify(wrapper => wrapper.ConvertToHtml(Description), Times.Once);
     }
 
     [Fact]
     public void ShouldPassTitleToAllSimpleParsersWhenBuilding()
     {
-        // Act & Assert
+        // Act
         _factory.Build(_payment);
+
+        // Assert
         _tagParserContainer.Verify(parser => parser.ParseAll(Description,
                                                             _payment.Title,
                                                             It.IsAny<bool>(),
