@@ -8,7 +8,7 @@
 <div class="grid-container-full-width" data-cy="news-page">
     @section Breadcrumbs {
         <div class="grid-container-full-width">
-            <partial name="TopicBreadcrumb" model='new List<Crumb> { new Crumb("News and media", "news-room", "Newsroom") }' />
+            <partial name="TopicBreadcrumb" model='new List<Crumb> { new Crumb("News articles", "news-articles", "News") }' />
         </div>
     }
 
@@ -19,14 +19,17 @@
             </div>
         </div>
 
-        <form action="/news-archives" method="get">
+        <form action="/news-archive" method="get">
             <div class="grid-container grid-parent event-homepage--no-padding">
                 <div class="grid-100 event-homepage__filters">
                     <div class="grid-50 event-homepage__filters-container">
+                        <input type="hidden" name="DateRange" value="customdate" />
+
                         <div class="event-homepage__filters-dates">
                             <label class="h-l" asp-for="@Model.DateFrom"></label>
                             <div class="event-homepage__filters-options">
                                 <input type="date" class="event-homepage__filters-options-date" asp-for="@Model.DateFrom" placeholder="dd/mm/yyyy" />
+                                <span role="alert" aria-atomic="true" asp-validation-for="@Model.DateFrom" class="form-customdate-validation-error form-field-validation-error"></span>
                             </div>
                         </div>
 
@@ -34,6 +37,7 @@
                             <label class="h-l" asp-for="@Model.DateTo"></label>
                             <div class="event-homepage__filters-options">
                                 <input type="date" class="event-homepage__filters-options-date" asp-for="@Model.DateTo" placeholder="dd/mm/yyyy" />
+                                <span id="inputvalidation" role="alert" aria-atomic="true" asp-validation-for="@Model.DateTo" class="form-customdate-validation-error form-field-validation-error"></span>
                             </div>
                         </div>
                     </div>
@@ -73,9 +77,11 @@
                 </div>
 
                 <div class="directory--70">
-                    <partial name="TopicNavCardList" model="Model.Newsroom.ArchivedItems" view-data='new ViewDataDictionary(ViewData) { { "ShowLastUpdated", true }, { "twoGrid", true } }' />
-
-                    @if (Model.Newsroom.ArchivedItems is null || !Model.Newsroom.ArchivedItems.Items.Any())
+                    @if (Model.Newsroom.ArchivedItems is not null || Model.Newsroom.ArchivedItems.Items.Any())
+                    {
+                        <partial name="TopicNavCardList" model="Model.Newsroom.ArchivedItems" view-data='new ViewDataDictionary(ViewData) { { "ShowLastUpdated", true }, { "twoGrid", true } }' />
+                    }
+                    else
                     {
                         <div class="grid-100 news-article-not-found">
                             <h2>No news articles found</h2>

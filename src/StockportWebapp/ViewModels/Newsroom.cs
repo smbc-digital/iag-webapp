@@ -6,7 +6,8 @@ public class Newsroom(List<News> news,
                     bool emailAlerts,
                     string emailAlertsTopicId,
                     List<string> categories,
-                    List<DateTime> dates)
+                    List<DateTime> dates,
+                    int currentPageNumber = 1)
 {
     public List<News> News { get; set; } = news;
     public List<Alert> Alerts { get; } = alerts;
@@ -14,6 +15,7 @@ public class Newsroom(List<News> news,
     public string EmailAlertsTopicId { get; } = emailAlertsTopicId;
     public List<string> Categories { get; } = categories;
     public List<DateTime> Dates { get; } = dates;
+    public int CurrentPageNumber { get; } = currentPageNumber;
 
     public NavCardList LatestNews => new()
     {
@@ -30,21 +32,8 @@ public class Newsroom(List<News> news,
 
     public NavCardList NewsItems => new()
     {
-        Items = News.Select(news => new NavCard(news.Title,
-                                                $"news-article/{news.Slug}",
-                                                news.Teaser,
-                                                news.ThumbnailImage,
-                                                news.Image,
-                                                string.Empty,
-                                                EColourScheme.Teal,
-                                                news.UpdatedAt,
-                                                string.Empty)).Skip(3).ToList()
-    };
-
-    public NavCardList ArchivedItems => new()
-    {
         Items = News
-            .Where(news => news.SunsetDate < DateTime.UtcNow)
+            .Skip(CurrentPageNumber == 1 ? 3 : 0)
             .Select(news => new NavCard(
                 news.Title,
                 $"news-article/{news.Slug}",
@@ -58,6 +47,31 @@ public class Newsroom(List<News> news,
             .ToList()
     };
 
+    public NavCardList Article2NewsItems => new()
+    {
+        Items = News.Select(news => new NavCard(news.Title,
+                                                $"news-article/{news.Slug}",
+                                                news.Teaser,
+                                                news.ThumbnailImage,
+                                                news.Image,
+                                                string.Empty,
+                                                EColourScheme.Teal,
+                                                news.UpdatedAt,
+                                                string.Empty)).ToList()
+    };
+
+    public NavCardList ArchivedItems => new()
+    {
+        Items = News.Select(news => new NavCard(news.Title,
+                                                $"news-article/{news.Slug}",
+                                                news.Teaser,
+                                                news.ThumbnailImage,
+                                                news.Image,
+                                                string.Empty,
+                                                EColourScheme.Teal,
+                                                news.UpdatedAt,
+                                                string.Empty)).ToList()
+    };
 
     public List<SelectListItem> CategoryOptions()
     {

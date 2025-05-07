@@ -33,11 +33,11 @@
                     </li>
                 }
 
-                <li id="custom-filter-li" class="@(Model.DateRange == "customdate" ? "customdateactive" : string.Empty) filter collapsible">
+                @* <li id="custom-filter-li" class="@(Model.DateRange == "customdate" ? "customdateactive" : string.Empty) filter collapsible">
                     <a tabindex="0" class="filter-title custom-date-title" rel="nofollow">Custom date</a>
                     <ul class="filters-list custom-date">
                         <li class="@(Model.DateRange == "customdate" ? "active" : string.Empty)">
-                            <form action="@Url.Action("Index", "News")" method="get">
+                            <form action="@Url.Action("NewsArchive", "News")" method="get">
                                 <input type="hidden" name="DateRange" value="customdate" />
                                 @if (!string.IsNullOrEmpty(Model.Category))
                                 {
@@ -60,7 +60,7 @@
                             </form>
                         </li>
                     </ul>
-                </li>
+                </li> *@
             </ul>
         </li>
     </ul>
