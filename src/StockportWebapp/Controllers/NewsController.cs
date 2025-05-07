@@ -1,4 +1,6 @@
-﻿namespace StockportWebapp.Controllers;
+﻿using SharpKml.Dom;
+
+namespace StockportWebapp.Controllers;
 
 [ResponseCache(Location = ResponseCacheLocation.Any, Duration = Cache.Short)]
 public class NewsController(IRepository repository,
@@ -96,7 +98,7 @@ public class NewsController(IRepository repository,
             return httpResponse;
 
         Newsroom newsRoom = httpResponse.Content as Newsroom;
-
+        
         AppSetting urlSetting = _config.GetEmailAlertsNewSubscriberUrl(_businessId.ToString());
 
         model.AddQueryUrl(new QueryUrl(Url?.ActionContext.RouteData.Values, Request?.Query));
@@ -104,6 +106,10 @@ public class NewsController(IRepository repository,
         model.AddFilteredUrl(_filteredUrl);
 
         DoPagination(newsRoom, model, page, pageSize);
+        if (page == 0)
+            newsRoom.CurrentPageNumber = 1;
+        else
+            newsRoom.CurrentPageNumber = page;
 
         model.AddNews(newsRoom);
         model.AddUrlSetting(urlSetting, model.Newsroom.EmailAlertsTopicId);
