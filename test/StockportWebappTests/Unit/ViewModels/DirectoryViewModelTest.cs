@@ -303,7 +303,7 @@ public class DirectoryViewModelTest
         };
 
         // Act & Assert
-        Assert.Equal($"Results for {viewModel.Title}", viewModel.DisplayTitle);
+        Assert.Equal($"Results in {viewModel.Title}", viewModel.DisplayTitle);
     }
 
     [Fact]
@@ -321,7 +321,7 @@ public class DirectoryViewModelTest
         };
 
         // Act & Assert
-        Assert.Equal($"Results for {viewModel.Title}", viewModel.PageTitle);
+        Assert.Equal($"Results in {viewModel.Title}", viewModel.PageTitle);
     }
 
     [Fact]
@@ -341,7 +341,7 @@ public class DirectoryViewModelTest
         };
 
         // Act & Assert
-        Assert.Equal($"Results for {viewModel.Title} (page 1 of 2)", viewModel.PageTitle);
+        Assert.Equal($"Results in {viewModel.Title} (page 1 of 2)", viewModel.PageTitle);
     }
 
     [Fact]

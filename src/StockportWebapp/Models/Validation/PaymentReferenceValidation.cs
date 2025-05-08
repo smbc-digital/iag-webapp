@@ -27,7 +27,7 @@ public class PaymentReferenceValidation(EPaymentSubmissionType paymentSubmission
     private ValidationResult ProcessPayment(object value, ValidationContext validationContext)
     {
         PaymentSubmission paymentSubmission = validationContext.ObjectInstance as PaymentSubmission;
-        
+
         return paymentSubmission?.Payment is not null
                ? ValidateReference(value, paymentSubmission.Payment.ReferenceValidation, paymentSubmission.Payment.ReferenceLabel)
                : ValidationResult.Success;

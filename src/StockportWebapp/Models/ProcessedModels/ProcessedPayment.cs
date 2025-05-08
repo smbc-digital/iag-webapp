@@ -6,6 +6,7 @@ public class ProcessedPayment : IProcessedContentType
     public string Slug;
     public readonly string Teaser;
     public readonly string Description;
+    public readonly string PaymentType;
     public readonly string PaymentDetailsText;
     public readonly string ReferenceLabel;
     public readonly string Fund;
@@ -25,6 +26,7 @@ public class ProcessedPayment : IProcessedContentType
                             string slug,
                             string teaser,
                             string description,
+                            string paymentType,
                             string paymentDetailsText,
                             string referenceLabel,
                             string fund,
@@ -42,6 +44,7 @@ public class ProcessedPayment : IProcessedContentType
         Slug = slug;
         Teaser = teaser;
         Description = description;
+        PaymentType = paymentType;
         PaymentDetailsText = paymentDetailsText;
         ReferenceLabel = referenceLabel;
         Fund = fund;
