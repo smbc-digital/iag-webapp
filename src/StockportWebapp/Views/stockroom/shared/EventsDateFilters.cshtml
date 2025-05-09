@@ -77,33 +77,6 @@
     </style>
 </noscript>
 
-
-@* <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        var dateInput = document.getElementById('event-date');
-        var radioButtons = document.querySelectorAll('.events-filters__radio');
-
-        dateInput.addEventListener('change', function () {
-            radioButtons.forEach(function (radio) {
-                radio.checked = false;
-            });
-            var dateVal = dateInput.value;
-            var year = parseInt(dateVal.split('-')[0], 10);
-            var currentYear = new Date().getFullYear();
-            var readyToSubmit = false;
-            if (isNaN(year) || year < currentYear - 1 || year > currentYear + 5 ) {
-                readyToSubmit = false;
-            }
-            else {
-                readyToSubmit = true;
-            }
-            console.log("ready to submit ", readyToSubmit);
-            var form = dateInput.closest('form');
-            if (form && readyToSubmit) form.submit();
-        });
-    });
-</script> *@
-
 <script>
     require(['/assets/javascript/config-090a3248.min.js'], function () {
         require(['eventFilters', 'eventCategories'],
