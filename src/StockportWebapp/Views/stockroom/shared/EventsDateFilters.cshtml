@@ -32,7 +32,7 @@
 
                             <div class="events-filters__radio-item ">
                                 <label for="event-date" class="events-filters__date-label">Date</label>
-                                <input type="date" id="event-date" asp-for="@Model.DateSelection" placeholder="Select date" class="events-filters__date events-filters__date-item" />
+                                <input type="date" id="event-date" asp-for="@Model.DateSelection" placeholder="Select date" class="events-filters__datepicker events-filters__date-item" />
                             </div>
 
                             <div class="events-filters__radio-item events-filters--width">
@@ -78,7 +78,7 @@
 </noscript>
 
 <script>
-    require(['/assets/javascript/config-33ce7fb5.min.js'], function () {
+    require(['/assets/javascript/config-090a3248.min.js'], function () {
         require(['eventFilters', 'eventCategories'],
             function (eventFilters, eventCategories) {
                 eventFilters.Init();
