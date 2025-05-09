@@ -11,6 +11,26 @@ define(["jquery"], function ($) {
                 $(this).closest('form').submit();
             });
 
+            var dateInput = document.getElementById('event-date');
+
+            dateInput.addEventListener('change', function () {
+                $('.events-filters__radio').prop('checked', false);
+
+                var dateVal = dateInput.value;
+                var year = parseInt(dateVal.split('-')[0], 10);
+                var currentYear = new Date().getFullYear();
+                var readyToSubmit = false;
+                if (isNaN(year) || year < currentYear - 1 || year > currentYear + 5 ) {
+                    readyToSubmit = false;
+                }
+                else {
+                    readyToSubmit = true;
+                }
+                
+                var form = dateInput.closest('form');
+                if (form && readyToSubmit) form.submit();
+            });
+
             function checkEventDates() {
                 var isWithinRange = window.matchMedia("(min-width: 446px) and (max-width: 767px)").matches;
             

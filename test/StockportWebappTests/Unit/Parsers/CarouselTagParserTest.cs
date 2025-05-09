@@ -8,7 +8,7 @@ public class CarouselTagParserTest
     public void ShouldParseCarouselTagWithOneImage()
     {
         // Arrange
-        string scriptTag = "<script>\r\nrequire(['/assets/javascript/config-33ce7fb5.min.js'],function(){\r\nrequire(['slick', 'carousel'],\r\nfunction(_, carousel){\r\ncarousel.Init();\r\n}\r\n);\r\n});\r\n</script>";
+        string scriptTag = "<script>\r\nrequire(['/assets/javascript/config-090a3248.min.js'],function(){\r\nrequire(['slick', 'carousel'],\r\nfunction(_, carousel){\r\ncarousel.Init();\r\n}\r\n);\r\n});\r\n</script>";
 
         // Act
         string response = _parser.Parse("{{CAROUSEL:![Frosty Twigs](Frosty_twigs_2.jpg)}}");
@@ -22,7 +22,7 @@ public class CarouselTagParserTest
     {
         // Arrange
         string tag = "![UITEST:Image 1](//images.contentful.com/6cfgzlmcakf7/2FNKi2ZYcomigKGAqWiSyC/aec4f120903972fd6c842e84603c6a50/Flu_Jab.jpg), ![UITEST:Image 2](//images.contentful.com/6cfgzlmcakf7/3TsbpFmDewU4iuEAQU4IAo/afb6c155b46b9a0f196409ebb47cd4ff/Cllr_Foster_and_the_children_from_RECLAIM.jpg), ![UITEST:Image 3](//images.contentful.com/6cfgzlmcakf7/5NxhtngXYcEUUa6uOy6Ym6/a9263e313e538c45d04ce9a813880a2d/Art_gallery_image_2.jpg)";
-        string scriptTag = "<script>\r\nrequire(['/assets/javascript/config-33ce7fb5.min.js'],function(){\r\nrequire(['slick', 'carousel'],\r\nfunction(_, carousel){\r\ncarousel.Init();\r\n}\r\n);\r\n});\r\n</script>";
+        string scriptTag = "<script>\r\nrequire(['/assets/javascript/config-090a3248.min.js'],function(){\r\nrequire(['slick', 'carousel'],\r\nfunction(_, carousel){\r\ncarousel.Init();\r\n}\r\n);\r\n});\r\n</script>";
 
         // Act
         string response = _parser.Parse($"{{{{CAROUSEL:![Frosty Twigs](Frosty_twigs_2.jpg),![Autumn Leaves](autumn_leaves.jpg){tag}}}}}");
@@ -35,7 +35,7 @@ public class CarouselTagParserTest
     public void ShouldParseCarouselNoImages()
     {
         // Arrange
-        string scriptTag = "<script>\r\nrequire(['/assets/javascript/config-33ce7fb5.min.js'],function(){\r\nrequire(['slick', 'carousel'],\r\nfunction(_, carousel){\r\ncarousel.Init();\r\n}\r\n);\r\n});\r\n</script>";
+        string scriptTag = "<script>\r\nrequire(['/assets/javascript/config-090a3248.min.js'],function(){\r\nrequire(['slick', 'carousel'],\r\nfunction(_, carousel){\r\ncarousel.Init();\r\n}\r\n);\r\n});\r\n</script>";
 
         // Act
         string response = _parser.Parse("{{CAROUSEL: }}");
@@ -48,7 +48,7 @@ public class CarouselTagParserTest
     public void ShouldParseCarouselTagWithMoreThanImageButNoCommaBeforeLastImage()
     {
         // Arrange
-        string scriptTag = "<script>\r\nrequire(['/assets/javascript/config-33ce7fb5.min.js'],function(){\r\nrequire(['slick', 'carousel'],\r\nfunction(_, carousel){\r\ncarousel.Init();\r\n}\r\n);\r\n});\r\n</script>";
+        string scriptTag = "<script>\r\nrequire(['/assets/javascript/config-090a3248.min.js'],function(){\r\nrequire(['slick', 'carousel'],\r\nfunction(_, carousel){\r\ncarousel.Init();\r\n}\r\n);\r\n});\r\n</script>";
         
         // Act
         string response = _parser.Parse($"{{{{CAROUSEL:" + "![Frosty Twigs](Frosty_twigs_2.jpg),![Autumn Leaves](autumn_leaves.jpg)![Hello](hello.jpg)" + "}}");
