@@ -79,6 +79,7 @@
                 <div class="directory--70">
                     @if (Model.Newsroom.ArchivedItems is not null || Model.Newsroom.ArchivedItems.Items.Any())
                     {
+                        <h2 class="visuallyhidden">All news</h2>
                         <partial name="TopicNavCardList" model="Model.Newsroom.ArchivedItems" view-data='new ViewDataDictionary(ViewData) { { "ShowLastUpdated", true }, { "twoGrid", true } }' />
                     }
                     else

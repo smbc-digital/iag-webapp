@@ -69,11 +69,16 @@
                         <partial name="TopicNavCardList" model="Model.Newsroom.LatestNews" view-data='new ViewDataDictionary(ViewData) { { "ShowLastUpdated", true }, { "twoGrid", false } }' />
                     }
 
+                    @if (Model.Newsroom.CallToAction is not null)
+                    {
+                        <partial name="NewsCallToAction" model='Model.Newsroom.CallToAction' view-data='new ViewDataDictionary(ViewData) { { "AdditionalCssClass", "section--margin-top" } }' />
+                    }
+
                     @if (Model.Newsroom.NewsItems is not null && Model.Newsroom.NewsItems.Items.Any())
                     {
                         @if (Model.Pagination?.CurrentPageNumber == 1)
                         {
-                            <h2>All news</h2>
+                            <h2 class="news-article__title">All news</h2>
                         }
                         
                         <partial name="TopicNavCardList" model="Model.Newsroom.NewsItems" view-data='new ViewDataDictionary(ViewData) { { "ShowLastUpdated", true }, { "twoGrid", false } }' />

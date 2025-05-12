@@ -11,7 +11,8 @@ public class SitemapControllerTests
                                             false,
                                             string.Empty,
                                             new List<string>(),
-                                            new List<DateTime>());
+                                            new List<DateTime>(),
+                                            null);
 
     private readonly EventCalendar _eventCalendar = new(new List<Event>
     {

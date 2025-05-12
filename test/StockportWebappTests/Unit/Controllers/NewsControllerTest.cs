@@ -101,14 +101,16 @@ public class NewsControllerTest
                         EmailAlertsOn,
                         EmailAlertsTopicId,
                         new List<string>(),
-                        new List<DateTime>());
+                        new List<DateTime>(),
+                        null);
         
         _emptyNewsRoom = new(new List<News>(),
                             new OrderedList<Alert>(),
                             EmailAlertsOn,
                             EmailAlertsTopicId,
                             new List<string>(),
-                            new List<DateTime>());
+                            new List<DateTime>(),
+                            null);
 
         HttpResponse responseListing = new(200, _newsRoom, string.Empty);
         HttpResponse responseDetail = new(200, _processedNewsArticle, string.Empty);
@@ -443,7 +445,8 @@ public class NewsControllerTest
                                 EmailAlertsOn,
                                 EmailAlertsTopicId,
                                 new List<string>(),
-                                new List<DateTime>());
+                                new List<DateTime>(),
+                                null);
 
         _repository
             .Setup(_ => _.Get<Newsroom>(It.IsAny<string>(), It.IsAny<List<Query>>()))

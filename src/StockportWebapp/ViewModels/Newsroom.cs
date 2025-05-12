@@ -7,6 +7,7 @@ public class Newsroom(List<News> news,
                     string emailAlertsTopicId,
                     List<string> categories,
                     List<DateTime> dates,
+                    CallToActionBanner callToAction,
                     int currentPageNumber = 1)
 {
     public List<News> News { get; set; } = news;
@@ -16,6 +17,7 @@ public class Newsroom(List<News> news,
     public List<string> Categories { get; } = categories;
     public List<DateTime> Dates { get; } = dates;
     public int CurrentPageNumber { get; set; } = currentPageNumber;
+    public CallToActionBanner CallToAction { get; set; } = callToAction;
 
     public NavCardList LatestNews => new()
     {

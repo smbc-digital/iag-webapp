@@ -7,7 +7,7 @@ public class NewsroomViewModelTest
     private readonly Newsroom _newsroom;
 
     public NewsroomViewModelTest() =>
-        _newsroom = new(new List<News>(), new List<Alert>(), true, "tag-id", new List<string>(), new List<DateTime>());
+        _newsroom = new(new List<News>(), new List<Alert>(), true, "tag-id", new List<string>(), new List<DateTime>(), null);
 
     [Fact]
     public void ShouldSetEmailAlertsUrlWithTopicId()
@@ -144,5 +144,5 @@ public class NewsroomViewModelTest
     }
 
     private static Newsroom BuildNewsRoom(List<string> categories = null, string emailAlertsTopicId = "") =>
-        new(new List<News>(), new List<Alert>(), true, emailAlertsTopicId, categories ?? emptyList, new List<DateTime>());
+        new(new List<News>(), new List<Alert>(), true, emailAlertsTopicId, categories ?? emptyList, new List<DateTime>(), null);
 }

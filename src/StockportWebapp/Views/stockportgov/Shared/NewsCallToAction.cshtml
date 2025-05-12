@@ -8,7 +8,7 @@
                         ? string.Empty 
                         : (string)ViewData["AdditionalCssClass"];
     
-    <div class="section call-to-action" data-cy="call-to-action">
+    <div class="section call-to-action @additionalCSS" data-cy="call-to-action">
         <img src="@Model.Image?w=500&q=89" srcset="@Model.Image?w=500&q=89&fm=webp" class="call-to-action__image" loading="lazy" alt="@Model.AltText" width="452" height="342">
         
         <div class="call-to-action-content @containerColourClass">

@@ -5,13 +5,13 @@
 
 @if (Model.HasActiveFilter())
 {
-    <h2 class="filters-heading">Refine by</h2>
+    <h2 class="filters-heading">Filter</h2>
 }
 
 <div class="l-filters">
     <ul class="filters-list" id="displayRefineBy">
         <li class="filter collapsible" id="news-archive">
-            <h3 tabindex="0" class="filter-title focusable">News archive</h3>
+            <h3 tabindex="0" class="filter-title focusable">Dates</h3>
 
             <ul class="filters-list filters-outer-list" id="uitest-news-archive">
                 <li class=@(Model.FilteredUrl.HasNoDateFilter() ? "active" : string.Empty)>
@@ -32,37 +32,35 @@
                         </ul>
                     </li>
                 }
-
-                @* <li id="custom-filter-li" class="@(Model.DateRange == "customdate" ? "customdateactive" : string.Empty) filter collapsible">
-                    <a tabindex="0" class="filter-title custom-date-title" rel="nofollow">Custom date</a>
-                    <ul class="filters-list custom-date">
-                        <li class="@(Model.DateRange == "customdate" ? "active" : string.Empty)">
-                            <form action="@Url.Action("NewsArchive", "News")" method="get">
-                                <input type="hidden" name="DateRange" value="customdate" />
-                                @if (!string.IsNullOrEmpty(Model.Category))
-                                {
-                                    <input type="hidden" name="Category" value="@Model.Category" />
-                                }
-
-                                <div class="date-from">
-                                    <label asp-for="@Model.DateFrom"></label>
-                                    <input type="date" asp-for="@Model.DateFrom" />
-                                    <span role="alert" aria-atomic="true" asp-validation-for="@Model.DateFrom" class="form-customdate-validation-error form-field-validation-error"></span>
-                                </div>
-
-                                <div class="date-to">
-                                    <label asp-for="@Model.DateTo"></label>
-                                    <input type="date" asp-for="@Model.DateTo" />
-                                    <span id="inputvalidation" role="alert" aria-atomic="true" asp-validation-for="@Model.DateTo" class="form-customdate-validation-error form-field-validation-error"></span>
-                                </div>
-
-                                <button class="btn btn--full btn--bold">Update</button>
-                            </form>
-                        </li>
-                    </ul>
-                </li> *@
             </ul>
         </li>
+
+        @if (Model.Categories.Any())
+        {
+            <li class="filter collapsible" id="category-filter">
+                @if (Model.HasActiveFilter())
+                {
+                    <h3 tabindex="0"  class="filter-title focusable">Category</h3>
+                }
+                else
+                { 
+                    <h2 tabindex="0"  class="filter-title focusable">Category</h2>
+                }
+
+                <ul class="filters-list">
+                    <li class=@(Model.FilteredUrl.HasNoCategoryFilter() ? "active" : string.Empty)>
+                        <a href="@Url.RouteUrl(Model.FilteredUrl.WithoutCategory())">All categories</a>
+                    </li>
+
+                    @foreach (string category in Model.Categories)
+                    {
+                        <li class=@(Model.CurrentUrl.MatchesQueryParam("Category", category) ? "active" : string.Empty)>
+                            <a href="@Url.RouteUrl(Model.FilteredUrl.AddCategoryFilter(category))" rel="nofollow">@category</a>
+                        </li>
+                    }
+                </ul>
+            </li>
+        }
     </ul>
 </div>
 
