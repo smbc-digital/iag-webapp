@@ -64,7 +64,17 @@
                 <div class="section__content section__content--no-margin">
                     @if (Model.Pagination?.CurrentPageNumber == 1 && Model.Newsroom.News.Any())
                     {
-                        <partial name="NewsItemsForArticles3" model="Model.Newsroom" view-data='new ViewDataDictionary(ViewData) { { "ShowLastUpdated", true }, { "twoGrid", false } }' />
+                        <partial name="NewsArticles3NewsBanner" model="Model.Newsroom.LatestNews.Items.FirstOrDefault()" />
+                    }
+
+                    @if (Model.Newsroom.NewsItems is not null && Model.Newsroom.NewsItems.Items.Any())
+                    {
+                        @if (Model.Pagination?.CurrentPageNumber == 1)
+                        {
+                            <h2>All news</h2>
+                        }
+                        
+                        <partial name="TopicNavCardList" model="Model.Newsroom.NewsItems" view-data='new ViewDataDictionary(ViewData) { { "ShowLastUpdated", true }, { "twoGrid", false } }' />
                     }
                     
                     @if ((Model.Newsroom.NewsItems is null || !Model.Newsroom.NewsItems.Items.Any()) && (Model.Newsroom.LatestNews is null || Model.Newsroom.LatestNews.Items.Any()) )
