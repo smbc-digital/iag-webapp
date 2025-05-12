@@ -77,20 +77,17 @@ public class PaymentController(IProcessedContentRepository repository,
             : civicaPayRequest.CallingAppTranReference;
         
         if (civicaPayResponse.IsSuccessStatusCode && civicaPayResponse.ResponseContent.ResponseCode.Equals(CIVICA_PAY_SUCCESS))
-        {
-            _logger.LogError($"{nameof(PaymentController)}::{nameof(Detail)}: " +
-                $"{nameof(ICivicaPayGateway)} {nameof(ICivicaPayGateway.CreateImmediateBasketAsync)} " +
-                $"Payment request succeeded for {slug}. Redirecting to civica pay, reference: {reference}");
-
             return Redirect(_civicaPayGateway.GetPaymentUrl(civicaPayResponse.ResponseContent.BasketReference, civicaPayResponse.ResponseContent.BasketToken, reference));
-        }
 
         if (civicaPayResponse.StatusCode.Equals(HttpStatusCode.BadRequest)
             && civicaPayResponse.ResponseContent.ResponseCode.Equals(CIVICA_PAY_INVALID_DETAILS))
         {
             _logger.LogError($"{nameof(PaymentController)}::{nameof(Detail)}: " +
                 $"{nameof(ICivicaPayGateway)} {nameof(ICivicaPayGateway.CreateImmediateBasketAsync)} " +
-                $"An unexpected error occurred creating immediate basket: {civicaPayResponse.ResponseContent.ResponseCode}");
+                $"An unexpected error occurred creating immediate basket:: " +
+                $"CivicaPay response code: {civicaPayResponse.ResponseContent.ResponseCode} " +
+                $"CivicaPay error message : {civicaPayResponse.ResponseContent.ErrorMessage}");
+
 
             ModelState.AddModelError("Reference", $"Check {paymentSubmission.Payment.ReferenceLabel.ToLower()} and try again");
 
@@ -121,10 +118,6 @@ public class PaymentController(IProcessedContentRepository repository,
 
         if (!responseCode.Equals(CIVICA_PAY_SUCCESS))
         {
-            _logger.LogError($"{nameof(PaymentController)}::{nameof(Success)}: " +
-                $"{nameof(ICivicaPayGateway)} {nameof(ICivicaPayGateway.CreateImmediateBasketAsync)} " +
-                $"Payment request failed for {slug}. Response code {responseCode}");
-
             paymentResult.PaymentResultType = responseCode.Equals(CIVICA_PAY_DECLINED)
                 || responseCode.Equals(CIVICA_PAY_DECLINED_OTHER)
                 ? PaymentResultType.Declined
@@ -132,10 +125,6 @@ public class PaymentController(IProcessedContentRepository repository,
 
             return View("Result", paymentResult);
         }
-
-        _logger.LogError($"{nameof(PaymentController)}::{nameof(Success)}: " +
-                $"{nameof(ICivicaPayGateway)} {nameof(ICivicaPayGateway.CreateImmediateBasketAsync)} " +
-                $"Payment request successful for {slug}. Response code {responseCode}");
 
         return View("Result", paymentResult);
     }
