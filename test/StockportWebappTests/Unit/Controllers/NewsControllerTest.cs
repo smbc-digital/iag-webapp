@@ -3,7 +3,7 @@
 public class NewsControllerTest
 {
     private NewsController _controller;
-    private Mock<IRepository> _repository = new();
+    private readonly Mock<IRepository> _repository = new();
     private readonly Mock<IProcessedContentRepository> _processedContentRepository = new();
     private readonly Mock<IRssFeedFactory> _mockRssFeedFactory = new();
     private readonly Mock<ILogger<NewsController>> _logger = new();
@@ -13,7 +13,8 @@ public class NewsControllerTest
     private const bool EmailAlertsOn = true;
     private readonly Mock<IFilteredUrl> _filteredUrl = new();
 
-    private static readonly News NewsItemWithImages = new("Another news article",
+    private static readonly News NewsItemWithImages = new(
+        "Another news article",
         "another-news-article",
         "This is another news article",
         "type",
@@ -39,7 +40,8 @@ public class NewsControllerTest
         new List<Event>()
     );
 
-    private static readonly News NewsItemWithoutImages = new("News 26th Aug",
+    private static readonly News NewsItemWithoutImages = new(
+        "News 26th Aug",
         "news-26th-aug",
         "test",
         string.Empty,
@@ -65,7 +67,8 @@ public class NewsControllerTest
         new List<Event>()
     );
 
-    private readonly ProcessedNews _processedNewsArticle = new("Another news article",
+    private readonly ProcessedNews _processedNewsArticle = new(
+        "Another news article",
         "another-news-article",
         "This is another news article",
         "purpose",
@@ -89,7 +92,12 @@ public class NewsControllerTest
         new List<Event>()
     );
 
-    private readonly List<News> _listOfNewsItems = new() { NewsItemWithoutImages, NewsItemWithImages };
+    private readonly List<News> _listOfNewsItems = new() 
+    {
+        NewsItemWithoutImages,
+        NewsItemWithImages
+    };
+
     private readonly Newsroom _newsRoom;
     private readonly Newsroom _emptyNewsRoom;
     public const int MaxNumberOfItemsPerPage = 15;
@@ -302,7 +310,7 @@ public class NewsControllerTest
         // Assert
         Assert.Equal("application/rss+xml", response.ContentType);
         Assert.Equal("rss fun", response.Content);
-        _mockRssFeedFactory.Verify(_ => _.BuildRssFeed(It.IsAny<List<News>>(), It.IsAny<string>(), It.IsAny<string>()), Times.Once);
+        _mockRssFeedFactory.Verify(rssFeedFactory => rssFeedFactory.BuildRssFeed(It.IsAny<List<News>>(), It.IsAny<string>(), It.IsAny<string>()), Times.Once);
     }
 
     [Fact]
@@ -453,13 +461,13 @@ public class NewsControllerTest
             .ReturnsAsync(HttpResponse.Successful((int)HttpStatusCode.OK, bigNewsRoom));
 
         return new(_repository.Object,
-                                        _processedContentRepository.Object,
-                                        _mockRssFeedFactory.Object,
-                                        _logger.Object,
-                                        _config.Object,
-                                        new BusinessId(BusinessId),
-                                        _filteredUrl.Object,
-                                        null);
+                _processedContentRepository.Object,
+                _mockRssFeedFactory.Object,
+                _logger.Object,
+                _config.Object,
+                new BusinessId(BusinessId),
+                _filteredUrl.Object,
+                null);
     }
 
     private List<News> BuildNewsList(int numberOfItems)

@@ -1,6 +1,4 @@
-﻿using SharpKml.Dom;
-
-namespace StockportWebapp.Controllers;
+﻿namespace StockportWebapp.Controllers;
 
 [ResponseCache(Location = ResponseCacheLocation.Any, Duration = Cache.Short)]
 public class NewsController(IRepository repository,
@@ -67,6 +65,7 @@ public class NewsController(IRepository repository,
         return View(model);
     }
 
+    [ExcludeFromCodeCoverage]
     [Route("/news-articles")]
     public async Task<IActionResult> NewsArticles(NewsroomViewModel model, [FromQuery] int page, [FromQuery] int pageSize)
     {
@@ -120,6 +119,7 @@ public class NewsController(IRepository repository,
         return View(model);
     }
 
+    [ExcludeFromCodeCoverage]
     [Route("/news-articles2")]
     public async Task<IActionResult> NewsArticles2(NewsroomViewModel model, [FromQuery] int page, [FromQuery] int pageSize)
     {
@@ -169,6 +169,7 @@ public class NewsController(IRepository repository,
         return View(model);
     }
 
+    [ExcludeFromCodeCoverage]
     [Route("/news-articles3")]
     public async Task<IActionResult> NewsArticles3(NewsroomViewModel model, [FromQuery] int page, [FromQuery] int pageSize)
     {
@@ -222,6 +223,7 @@ public class NewsController(IRepository repository,
         return View(model);
     }
 
+    [ExcludeFromCodeCoverage]
     [Route("/news-archive")]
     public async Task<IActionResult> NewsArchive(NewsroomViewModel model, [FromQuery] int page, [FromQuery] int pageSize)
     {
@@ -292,6 +294,7 @@ public class NewsController(IRepository repository,
         return finalResult;
     }
 
+    [ExcludeFromCodeCoverage]
     [Route("/news-article/{slug}")]
     public async Task<IActionResult> NewsArticle(string slug)
     {

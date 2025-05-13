@@ -18,17 +18,17 @@ public class NewsFactoryTest
     private readonly DateTime _sunset = new(2015, 9, 25);
     private readonly DateTime _updatedAt = new(2015, 9, 20);
     private readonly List<Alert> _alerts = new() 
-        {
-            new Alert("Alert",
-                    "Sub heading",
-                    "The Body",
-                    "Error",
-                    new DateTime(0001, 1, 1, 0, 0, 0, DateTimeKind.Utc),
-                    new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc),
-                    string.Empty,
-                    false,
-                    string.Empty)
-        };
+    {
+        new Alert("Alert",
+                "Sub heading",
+                "The Body",
+                "Error",
+                new DateTime(0001, 1, 1, 0, 0, 0, DateTimeKind.Utc),
+                new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc),
+                string.Empty,
+                false,
+                string.Empty)
+    };
     
     private readonly List<string> _tags = new() { "Events", "Bramall Hall" };
     private readonly List<Document> _documents = new();
@@ -63,20 +63,20 @@ public class NewsFactoryTest
                         null);
         
         _tagParserContainer
-            .Setup(_ => _.ParseAll(Body,
-                                It.IsAny<string>(),
-                                It.IsAny<bool>(),
-                                null,
-                                It.IsAny<IEnumerable<Document>>(),
-                                null,
-                                null,
-                                It.IsAny<IEnumerable<Profile>>(),
-                                null,
-                                It.IsAny<bool>()))
+            .Setup(parser => parser.ParseAll(Body,
+                                            It.IsAny<string>(),
+                                            It.IsAny<bool>(),
+                                            null,
+                                            It.IsAny<IEnumerable<Document>>(),
+                                            null,
+                                            null,
+                                            It.IsAny<IEnumerable<Profile>>(),
+                                            null,
+                                            It.IsAny<bool>()))
             .Returns(Body);
         
         _markdownWrapper
-            .Setup(_ => _.ConvertToHtml(Body))
+            .Setup(markdown => markdown.ConvertToHtml(Body))
             .Returns(Body);
     }
 
@@ -105,7 +105,7 @@ public class NewsFactoryTest
     {
         // Act & Assert
         _factory.Build(_news);
-        _markdownWrapper.Verify(_ => _.ConvertToHtml(Body), Times.Once);
+        _markdownWrapper.Verify(markdown => markdown.ConvertToHtml(Body), Times.Once);
     }
 
     [Fact]
@@ -113,6 +113,15 @@ public class NewsFactoryTest
     {
         // Act & Assert
         _factory.Build(_news);
-        _tagParserContainer.Verify(_ => _.ParseAll(Body, _news.Title, It.IsAny<bool>(), It.IsAny<IEnumerable<Alert>>(), _news.Documents, It.IsAny<IEnumerable<InlineQuote>>(), It.IsAny<IEnumerable<PrivacyNotice>>(), _news.Profiles, null, It.IsAny<bool>()), Times.Once);
+        _tagParserContainer.Verify(parser => parser.ParseAll(Body,
+                                                            _news.Title,
+                                                            It.IsAny<bool>(),
+                                                            It.IsAny<IEnumerable<Alert>>(),
+                                                            _news.Documents,
+                                                            It.IsAny<IEnumerable<InlineQuote>>(),
+                                                            It.IsAny<IEnumerable<PrivacyNotice>>(),
+                                                            _news.Profiles,
+                                                            null,
+                                                            It.IsAny<bool>()),Times.Once);
     }
 }
