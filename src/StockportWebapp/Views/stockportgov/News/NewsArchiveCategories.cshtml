@@ -23,9 +23,9 @@
                     <li class="collapsible">
                         <p tabindex="0" class="filter-inner-title focusable">@year.ToString()</p>
                         <ul class="filters-list filters-inner-list" id="@year.ToString()">
-                            @foreach (DateTime date in newsroom.Dates.Where(d => d.Year == year).OrderBy(a => a).Reverse())
+                            @foreach (DateTime date in newsroom.Dates.Where(d => d.Year.Equals(year)).OrderBy(a => a).Reverse())
                             {
-                                <li class=@(Model.DateRange != "customdate" && Model.DateFrom == date ? "active" : string.Empty)>
+                                <li class=@(Model.DateRange != "customdate" && Model.DateFrom.Equals(date) ? "active" : string.Empty)>
                                     <a href="@Url.RouteUrl(Model.FilteredUrl.AddMonthFilter(date))" rel="nofollow">@date.ToString("MMMM yyyy")</a>
                                 </li>
                             }

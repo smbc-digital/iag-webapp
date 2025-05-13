@@ -58,7 +58,7 @@ public class Newsroom(List<News> news,
                 EColourScheme.Teal,
                 news.UpdatedAt,
                 string.Empty))
-            .Skip(CurrentPageNumber == 1 ? 3 : 0)
+            .Skip(CurrentPageNumber.Equals(1) ? 3 : 0)
             .ToList()
     };
 
@@ -88,7 +88,7 @@ public class Newsroom(List<News> news,
                 EColourScheme.Teal,
                 news.UpdatedAt,
                 string.Empty))
-            .Skip(CurrentPageNumber == 1 ? 1 : 0)
+            .Skip(CurrentPageNumber.Equals(1) ? 1 : 0)
             .ToList()
     };
 

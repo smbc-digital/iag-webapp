@@ -69,7 +69,7 @@ public class NewsController(IRepository repository,
     [Route("/news-articles")]
     public async Task<IActionResult> NewsArticles(NewsroomViewModel model, [FromQuery] int page, [FromQuery] int pageSize)
     {
-        if(await _featureManager.IsEnabledAsync("NewsRedesign"))
+        if (await _featureManager.IsEnabledAsync("NewsRedesign"))
             return RedirectToAction("Index");
         
         if (model.DateFrom is null && model.DateTo is null && string.IsNullOrEmpty(model.DateRange))
@@ -108,7 +108,7 @@ public class NewsController(IRepository repository,
         model.AddFilteredUrl(_filteredUrl);
 
         DoPagination(newsRoom, model, page, pageSize);
-        if (page == 0)
+        if (page.Equals(0))
             newsRoom.CurrentPageNumber = 1;
         else
             newsRoom.CurrentPageNumber = page;
@@ -123,7 +123,7 @@ public class NewsController(IRepository repository,
     [Route("/news-articles2")]
     public async Task<IActionResult> NewsArticles2(NewsroomViewModel model, [FromQuery] int page, [FromQuery] int pageSize)
     {
-        if(await _featureManager.IsEnabledAsync("NewsRedesign"))
+        if (await _featureManager.IsEnabledAsync("NewsRedesign"))
             return RedirectToAction("Index");
         
         if (model.DateFrom is null && model.DateTo is null && string.IsNullOrEmpty(model.DateRange))
@@ -173,7 +173,7 @@ public class NewsController(IRepository repository,
     [Route("/news-articles3")]
     public async Task<IActionResult> NewsArticles3(NewsroomViewModel model, [FromQuery] int page, [FromQuery] int pageSize)
     {
-        if(await _featureManager.IsEnabledAsync("NewsRedesign"))
+        if (await _featureManager.IsEnabledAsync("NewsRedesign"))
             return RedirectToAction("Index");
         
         if (model.DateFrom is null && model.DateTo is null && string.IsNullOrEmpty(model.DateRange))
@@ -212,7 +212,7 @@ public class NewsController(IRepository repository,
         model.AddFilteredUrl(_filteredUrl);
 
         DoPagination(newsRoom, model, page, pageSize);
-        if (page == 0)
+        if (page.Equals(0))
             newsRoom.CurrentPageNumber = 1;
         else
             newsRoom.CurrentPageNumber = page;
@@ -227,7 +227,7 @@ public class NewsController(IRepository repository,
     [Route("/news-archive")]
     public async Task<IActionResult> NewsArchive(NewsroomViewModel model, [FromQuery] int page, [FromQuery] int pageSize)
     {
-        if(await _featureManager.IsEnabledAsync("NewsRedesign"))
+        if (await _featureManager.IsEnabledAsync("NewsRedesign"))
             return RedirectToAction("Index");
         
         if (model.DateFrom is null && model.DateTo is null && string.IsNullOrEmpty(model.DateRange))
@@ -298,7 +298,7 @@ public class NewsController(IRepository repository,
     [Route("/news-article/{slug}")]
     public async Task<IActionResult> NewsArticle(string slug)
     {
-        if(await _featureManager.IsEnabledAsync("NewsRedesign"))
+        if (await _featureManager.IsEnabledAsync("NewsRedesign"))
             return RedirectToAction("Detail", new { slug });
         
         HttpResponse initialResponse = await _processedContentRepository.Get<News>(slug);
