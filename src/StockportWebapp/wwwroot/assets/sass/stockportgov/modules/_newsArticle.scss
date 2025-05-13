@@ -58,6 +58,14 @@
     &__categories {
         background-color: #f2f2f2;
     }
+
+    &__button {
+        float: right;
+
+        &--no-margin {
+            margin-inline: 0 !important;
+        }
+    }
 }
 
 #category-filter, #news-archive, #displayRefineBy > li {

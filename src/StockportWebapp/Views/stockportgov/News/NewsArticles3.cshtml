@@ -15,12 +15,12 @@
     <section class="topic-title" data-cy="title-and-summary">
         <div class="grid-container">
             <div class="grid-100">
-                <h1 class="event-homepage__title">News</h1>
+                <h1 class="news-article__title">News</h1>
             </div>
         </div>
 
         <form action="@Url.Action("NewsArticle", "News")" method="get">
-            <div class="grid-container grid-parent event-homepage--no-padding">
+            <div class="grid-container">
                 <div class="grid-100 event-homepage__filters">
                     <div class="grid-25">
                         <label class="h-l">Category</label>
@@ -44,9 +44,9 @@
                         var dateTo = lastDayOfMonth.ToString("yyyy-MM-dd");
                     }
 
-                    <div class="grid-25 push-25 event-homepage__button hide-on-tablet hide-on-mobile">
+                    <div class="grid-25 push-25 news-article__button">
                         <a href="@Url.Action("NewsArchive", "News", new { DateFrom = dateFrom, DateTo = dateTo })"
-                            class="btn btn--white-outline btn--width-25 btn--chevron-forward btn--bold btn--chevron-bold event-homepage__filters-button"
+                            class="btn btn--white-outline btn--width-25 btn--chevron-forward btn--bold btn--chevron-bold event-homepage__filters-button news-article__button--no-margin"
                             data-cy="add-your-event">
                             <span class="btn_text">News archive</span>
                         </a>

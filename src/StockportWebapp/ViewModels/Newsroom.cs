@@ -22,7 +22,7 @@ public class Newsroom(List<News> news,
     public NavCardList LatestNews => new()
     {
         Items = News.Select(news => new NavCard(news.Title,
-                                                $"news-article/{news.Slug}",
+                                                news.Slug,
                                                 news.Teaser,
                                                 news.ThumbnailImage,
                                                 news.Image,
