@@ -1,0 +1,23 @@
+@model NavCard
+
+@if (Model is not null && !string.IsNullOrEmpty(Model.Image))
+{
+    SpotlightOnBanner newsBanner = new(
+        Model.Title,
+        Model.Image,
+        string.Empty,
+        Model.Teaser,
+        Url.Action("Detail", "News", new {slug = Model.Url}),
+        Model.Date
+    );
+
+    <section class="content-block news-banner" data-cy="news-banner">
+        <div class="content-block--margin-inline">
+            <h2 class="content-block__title news-article__title">Latest news</h2>
+        </div>
+            
+        <div class="featured-item-container">
+            <partial name="FeaturedItem" model="@newsBanner" view-data='@(new ViewDataDictionary(ViewData){ {"additionalClasses", "news-banner"}, {"pseudoBorderColour", "border-pseudo-colour-none"}, {"borderColour", "border-colour-none"} })' />
+        </div>
+    </section>
+}

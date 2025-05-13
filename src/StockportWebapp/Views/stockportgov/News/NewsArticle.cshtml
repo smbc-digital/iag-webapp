@@ -1,0 +1,142 @@
+﻿@model NewsViewModel
+@{
+    ViewData["Title"] = Model.NewsItem.Title;
+    ViewData["Description"] = Model.NewsItem.Teaser;
+    Layout = "../Shared/_Layout2023.cshtml";
+    List<News> latestNews = Model.GetLatestNews();
+    ViewData["og:title"] = Model.NewsItem.Title;
+}
+
+<div class="grid-container-full-width" data-cy="news-article-details">
+    <partial name="GlobalAlerts" model='Model.NewsItem.Alerts' />
+    <partial name="Breadcrumb2023" model="Model.NewsItem.Breadcrumbs" />
+
+    <div class="grid-container">
+        <div class="grid-100">
+            <div class="article--70">
+                <h1 class="news-article__title">@Model.NewsItem.Title</h1>
+
+                <p class="lead news-article__lead @(string.IsNullOrEmpty(Model.NewsItem.HeroImage) ? "news-article__lead--no-image" : string.Empty)">
+                    <partial name="FormattedDate" model='Model.NewsItem.UpdatedAt'/>
+                </p>
+            </div>
+
+            <section class="article">
+                <div class="article--70">
+                    @if (!string.IsNullOrEmpty(Model.NewsItem.HeroImage))
+                    {
+                        <div class="article-hero">
+                            <figure>
+                                <img src="@Model.NewsItem.HeroImage?q=89&fm=webp"
+                                    srcset="@Model.NewsItem.HeroImage?w=967&q=89&fm=webp 967w,
+                                            @Model.NewsItem.HeroImage?w=853&q=89&fm=webp 853w,
+                                            @Model.NewsItem.HeroImage?w=712&q=89&fm=webp 712w"
+                                    sizes="(max-width: 767px) 712px,
+                                            ((min-width: 768px) and (max-width: 1023px)) 967px,
+                                            (min-width: 1024px) 853px"
+                                    class="article-hero__image @(!string.IsNullOrEmpty(Model.NewsItem.HeroImageCaption) ? "news-article__image" : string.Empty)"
+                                    width="712"
+                                    height="350"
+                                    alt="" />
+
+                                @if (!string.IsNullOrEmpty(Model.NewsItem.HeroImageCaption))
+                                {
+                                    <figcaption>@Model.NewsItem.HeroImageCaption</figcaption>
+                                }
+                            </figure>
+                        </div>
+                    }
+
+                    <h2 class="h-ml news-article__teaser @(string.IsNullOrEmpty(Model.NewsItem.HeroImage) ? "news-article__teaser--no-image" : string.Empty)">@Model.NewsItem.Teaser</h2>
+
+                    <article>
+                        @Html.Raw(Model.NewsItem.Body)
+                    </article>
+                    
+                    @if (Model.NewsItem.CallToAction is not null)
+                    {
+                        <partial name="NewsCallToAction" model='Model.NewsItem.CallToAction'/>
+                    }
+
+                    @if (Model.NewsItem.NewsBranding is not null && Model.NewsItem.NewsBranding.Any())
+                    {
+                        <partial name="LogoArea" model='@Model.NewsItem.NewsBranding' view-data='@(new ViewDataDictionary(ViewData) { { "logoAreaTitle", @Model.NewsItem.LogoAreaTitle }, { "logoAreaArticle", false }, { "displayInSection", false } })' />
+                    }
+
+                    @if (Model.NewsItem.Tags.Any()) {
+                        <ul class="news-article__tags">
+                            @foreach (string newsTag in Model.NewsItem.Tags) {
+                                <li class="news-article__tag">
+                                    <a href="@Url.Action("Index", "News", new { tag = newsTag })" class="btn btn--inverse btn--pink btn--pink-outline">@newsTag</a>
+                                </li>
+                            }
+                        </ul>
+                    }
+
+                    @{
+                        string associatedTagCategoryLower = Model.NewsItem.EventsByTagOrCategory.Split(",").ToList().First()?.ToLower();
+
+                        string tagOrCategory = Model.NewsItem.Events is not null && Model.NewsItem.Events.Any(eventArticle => eventArticle.EventCategories.Any(category => category.Slug.Equals(associatedTagCategoryLower) || category.Name.Equals(associatedTagCategoryLower)))
+                                ? Url.Action("Index", "Events", new {category = associatedTagCategoryLower})
+                                : Url.Action("Index", "Events", new {tag = associatedTagCategoryLower});
+
+                        string categoryName = "";
+                        if (Model.NewsItem.Events is not null && Model.NewsItem.Events.Any())
+                        {
+                            EventCategory category = Model.NewsItem?.Events.FirstOrDefault().EventCategories?.FirstOrDefault(cat => cat?.Slug?.ToLower() == Model.NewsItem.EventsByTagOrCategory?.ToLower());
+                            categoryName = category?.Name ?? Model.NewsItem.EventsByTagOrCategory;
+                        }
+
+                        if (!string.IsNullOrEmpty(categoryName) && char.IsLower(categoryName[0]))
+                        {
+                            char[] chars = categoryName.ToCharArray();
+                            chars[0] = char.ToUpperInvariant(chars[0]);
+                            categoryName = new string(chars);
+                        }
+                    }
+
+                    <partial name="NewsRelatedEvents" model="Model.NewsItem.Events" view-data='@(new ViewDataDictionary(ViewData) { { "EventsTitle", Model.NewsItem.EventsByTagOrCategory }, { "ViewMoreEventsLink", tagOrCategory }, { "CategoryName", categoryName } })' />
+                </div>
+                
+                <div class="article--30 section">
+                   @if (Model.NewsItem.FeaturedLogo is not null)
+                    {
+                        <div class="news-article__featured-logo">
+                            <a href="@Model.NewsItem.FeaturedLogo.Url">
+                                <img src="@Model.NewsItem.FeaturedLogo.File.Url?w=340&q=89&fm=webp"
+                                    class="directory__logo"
+                                    alt=""
+                                    loading="lazy"
+                                    width="200"
+                                    height="125" />
+                            </a>
+                        </div>
+                    }
+
+                    @if (Model.NewsItem.Tags.Any()) {
+                        <ul class="news-article__tags">
+                            @foreach (string newsTag in Model.NewsItem.Tags) {
+                                <li class="news-article__tag">
+                                    <a href="@Url.Action("Index", "News", new { tag = newsTag })" class="btn btn--inverse btn--pink btn--pink-outline">@newsTag</a>
+                                </li>
+                            }
+                        </ul>
+                    }
+                    
+                    <div class="news-article__link">
+                        <a href="@Url.Action("Index", "News")">
+                            View more news <span class="fa fa-arrow-right" aria-hidden="true"></span>
+                        </a>
+                    </div>
+
+                    <partial name="EmailSubscribe" view-data='@(new ViewDataDictionary(ViewData) { { "AdditionalCssClasses", "news-article__subscription-banner" }, { "isOnHomepage", false } })' />
+
+                    <div class="news-article__useful-links">
+                        <h2>Useful links:</h2>
+                        <a href="https://www.stockport.gov.uk/start/send-a-media-enquiry" title="Send a media enquiry">Send a media enquiry</a>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>

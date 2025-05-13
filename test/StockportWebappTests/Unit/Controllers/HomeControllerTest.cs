@@ -74,8 +74,10 @@ public class HomeControllerTest
                                             "slug",
                                             "teaser",
                                             "purpose",
+                                            "hero image",
                                             "image",
                                             "thumbnail",
+                                            "hero image caption",
                                             "body",
                                             new List<Crumb>(),
                                             new DateTime(2015, 9, 10),
@@ -84,7 +86,14 @@ public class HomeControllerTest
                                             new List<Alert>(),
                                             new List<string>(),
                                             new List<Document>(),
-                                            new List<Profile>());
+                                            new List<Profile>(),
+                                            new List<InlineQuote>(),
+                                            null,
+                                            string.Empty,
+                                            new List<GroupBranding>(),
+                                            null,
+                                            string.Empty,
+                                            new List<Event>());
 
     private readonly Event _eventsContent = new()
     {

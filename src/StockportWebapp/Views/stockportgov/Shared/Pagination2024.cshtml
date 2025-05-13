@@ -8,33 +8,35 @@
     List<int?> pageSequence = PaginationHelper.GeneratePageSequence(Model.CurrentPageNumber, Model.TotalPages);
 
     Func<int, string> getPageUrl = page => PaginationHelper.BuildUrl(page, Model.CurrentUrl, urlHelper);
+
+    string paginationMarginBottom = (string)ViewData["PaginationMarginBottom"] ?? string.Empty;
 }
 
 @if (PaginationHelper.DisplayPagination(Model.TotalItems))
 {
-    <div class="pagination-section grid-parent pagination-margin-bottom">
+    <div class="pagination-section grid-parent @paginationMarginBottom">
         <div class="pagination__count">
-                    <span class="pagination__count-span">
-                        Showing 
-                        <span class="bold">@indexOfFirstItemOnPage</span>
-                        to
-                        <span class="bold">@indexOfLastItemOnPage</span>
-                        of
-                        <span class="bold"> @Model.TotalItems</span>
-                        results
-                    </span>
+            <span class="pagination__count-span">
+                Showing 
+                <span class="bold">@indexOfFirstItemOnPage</span>
+                to
+                <span class="bold">@indexOfLastItemOnPage</span>
+                of
+                <span class="bold"> @Model.TotalItems</span>
+                results
+            </span>
 
-                    @if (Model.TotalItems > Model.DefaultPageSize)
-                    {
-                        <a class="pagination__count-view-all"
-                            href="@PaginationHelper.BuildPageSizeUrl(Model.DefaultPageSize, Model.MaxItemsPerPage, Model.TotalItems, Model.CurrentUrl, urlHelper)">
-                            View @(pageSize.Equals(60) && Model.TotalItems < 60
-                                ? "all"
-                                : pageSize.ToString()) @Model.ItemDescription @(pageSize.Equals(60) && Model.TotalItems < 60
-                                    ? string.Empty
-                                    : "per page")
-                        </a>
-                    }
+            @if (Model.TotalItems > Model.DefaultPageSize)
+            {
+                <a class="pagination__count-view-all"
+                    href="@PaginationHelper.BuildPageSizeUrl(Model.DefaultPageSize, Model.MaxItemsPerPage, Model.TotalItems, Model.CurrentUrl, urlHelper)">
+                    View @(pageSize.Equals(60) && Model.TotalItems < 60
+                        ? "all"
+                        : pageSize.ToString()) @Model.ItemDescription @(pageSize.Equals(60) && Model.TotalItems < 60
+                            ? string.Empty
+                            : "per page")
+                </a>
+            }
         </div>
 
         @if (PaginationHelper.DisplayPagination(Model.TotalItems))

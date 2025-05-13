@@ -11,6 +11,8 @@ public class NewsServiceTests
                                     "purpose",
                                     string.Empty,
                                     string.Empty,
+                                    string.Empty,
+                                    string.Empty,
                                     "test",
                                     new List<Crumb>(),
                                     new DateTime(2019, 9, 2),
@@ -19,7 +21,14 @@ public class NewsServiceTests
                                     new List<Alert>(),
                                     new List<string>(),
                                     new List<Document>(),
-                                    new List<Profile>());
+                                    new List<Profile>(),
+                                    new List<InlineQuote>(),
+                                    null,
+                                    string.Empty,
+                                    new List<GroupBranding>(),
+                                    null,
+                                    string.Empty,
+                                    null);
 
     public NewsServiceTests() =>
         _service = new(_repository.Object);

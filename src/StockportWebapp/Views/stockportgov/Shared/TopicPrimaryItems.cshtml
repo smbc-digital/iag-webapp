@@ -12,7 +12,7 @@
         <div class="grid-container">
             <div class="grid-100" data-cy="navcard-list">
                 <div class="section__content section__content--no-margin">
-                    <partial name="TopicNavCardList" model="Model.Topic.PrimaryItems"/>
+                    <partial name="TopicNavCardList" model="Model.Topic.PrimaryItems" view-data='new ViewDataDictionary(ViewData) { { "ShowLastUpdated", false }, { "twoGrid", false } }' />
                 </div>
             </div>
         </div>

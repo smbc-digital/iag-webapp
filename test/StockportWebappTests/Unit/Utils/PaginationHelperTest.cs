@@ -443,8 +443,10 @@ public class PaginationHelperTest
                                 "another-news-article",
                                 "This is another news article",
                                 "purpose",
+                                "hero-image.png",
                                 "image.jpg",
                                 "thumbnail.jpg",
+                                "hero image caption",
                                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam gravida eu mauris in consectetur. Nullam nulla urna, sagittis a ex sit amet, ultricies rhoncus mauris. Quisque vel placerat turpis, vitae consectetur mauris.",
                                 new List<Crumb>(),
                                 new DateTime(2015, 9, 10),
@@ -453,7 +455,14 @@ public class PaginationHelperTest
                                 new List<Alert>(),
                                 new List<string>(),
                                 new List<Document>(),
-                                new List<Profile>());
+                                new List<Profile>(),
+                                new List<InlineQuote>(),
+                                null,
+                                string.Empty,
+                                new List<GroupBranding>(),
+                                null,
+                                string.Empty,
+                                null);
 
             listofNewsItems.Add(NewsItem);
         }

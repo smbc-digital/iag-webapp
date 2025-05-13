@@ -18,6 +18,8 @@ public class CommsControllerTest
                             "purpose",
                             string.Empty,
                             string.Empty,
+                            string.Empty,
+                            string.Empty,
                             "test",
                             new List<Crumb>(),
                             new DateTime(2019, 9, 2),
@@ -26,7 +28,14 @@ public class CommsControllerTest
                             new List<Alert>(),
                             new List<string>(),
                             new List<Document>(),
-                            new List<Profile>());
+                            new List<Profile>(),
+                            new List<InlineQuote>(),
+                            null,
+                            string.Empty,
+                            new List<GroupBranding>(),
+                            null,
+                            string.Empty,
+                            null);
 
         // Arrange
         _mockRepository

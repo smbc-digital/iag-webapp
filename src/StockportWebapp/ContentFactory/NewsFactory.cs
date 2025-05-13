@@ -10,20 +10,29 @@ public class NewsFactory(ITagParserContainer simpleTagParserContainer,
     {
         string body = _markdownWrapper.ConvertToHtml(news.Body ?? string.Empty);
 
-        body = _tagParserContainer.ParseAll(body, news.Title, true, null, news.Documents, null, null, news.Profiles);
+        body = _tagParserContainer.ParseAll(body, news.Title, true, null, news.Documents, news.InlineQuotes, null, news.Profiles, null, true);
 
         return new ProcessedNews(news.Title,
                                 news.Slug,
                                 news.Teaser,
                                 news.Purpose,
+                                news.HeroImage,
                                 news.Image,
                                 news.ThumbnailImage,
+                                news.HeroImageCaption,
                                 body,
                                 news.Breadcrumbs,
                                 news.SunriseDate,
                                 news.SunsetDate,
                                 news.UpdatedAt,
                                 news.Alerts,
-                                news.Tags);
+                                news.Tags,
+                                news.InlineQuotes,
+                                news.CallToAction,
+                                news.LogoAreaTitle,
+                                news.NewsBranding,
+                                news.FeaturedLogo,
+                                news.EventsByTagOrCategory,
+                                news.Events);
     }
 }

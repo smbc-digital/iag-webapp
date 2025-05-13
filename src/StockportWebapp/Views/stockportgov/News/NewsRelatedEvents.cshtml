@@ -1,0 +1,30 @@
+@model List<Event>
+@if (Model is not null)
+{
+    string eventsTitle = (string)ViewData["EventsTitle"] ?? string.Empty;
+    string viewMoreEventsLink = (string)ViewData["ViewMoreEventsLink"] ?? string.Empty;
+    string categoryName = (string)ViewData["CategoryName"] ?? string.Empty;
+
+    <section class="event-homepage__cards content-block" data-cy="event-cards">
+        <div class="event-homepage__cards--padding">
+            <div class="event-homepage__cards-title">
+                <div class="event-homepage__cards-heading">
+                    <h2 class="content-block__title">Related events</h2>
+                </div>
+                    
+                <a href="@viewMoreEventsLink" class="event-homepage__cards-view-more hide-on-mobile hide-on-tablet" aria-label="View more @categoryName.ToLower() events" data-cy="view-more-matched-events-link">View more @categoryName.ToLower() events</a>
+            </div>
+
+            <ul class="navcard-wrapper navcard-wrapper--no-margin">
+                @foreach (Event item in Model)
+                {
+                    <partial name="EventCard" model="item" view-data="@(new ViewDataDictionary(ViewData) {{"BackgroundColourClass", "event-cards__link--white"}, {"eventHomepageImage", "event-cards__image-homepage"}})" />
+                }
+            </ul>
+            
+            <div class="event-button hide-on-desktop">
+                <a href="tagOrCategory" class="btn btn--width-30 btn--chevron-forward btn--bold btn--chevron-bold event-cards-button">View more @categoryName.ToLower() events</a>
+            </div>
+        </div>
+    </section>
+}

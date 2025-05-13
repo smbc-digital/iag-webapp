@@ -11,13 +11,16 @@
     string borderCssClasses = displayImage 
         ? $"navcard--border-bottom-10 navcard--theme-teal-lighter-bottom {borderGreyMobile}"
         : $"{borderTealDesktop} {borderTealTablet} {borderTealMobile} {borderGreyMobile} {rtlBorderCssClasses}";
+
+    bool displayLastUpdated = (bool)ViewData["ShowLastUpdated"];
+    bool twoGrid = (bool)ViewData["twoGrid"];
 }
 
 <ul class="navcard-wrapper navcard-wrapper--no-margin">
     @foreach (NavCard navCard in Model.Items)
     {
-        <li class="navcard navcard--grey navcard--width-33 navcard--no-padding-right-rtl @borderCssClasses">
-            <partial name="TopicNavCard" model="navCard" view-data='@(new ViewDataDictionary(ViewData) {{"displayImage", @displayImage}})'/>
+        <li class="navcard navcard--grey @(twoGrid ? "navcard--width-50" : "navcard--width-33") navcard--no-padding-right-rtl @borderCssClasses">
+            <partial name="TopicNavCard" model="navCard" view-data='@(new ViewDataDictionary(ViewData) { { "displayImage", @displayImage }, { "ShowLastUpdatedDate", displayLastUpdated } })'/>
         </li>
     }
 </ul>

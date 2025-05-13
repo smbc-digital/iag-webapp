@@ -3,7 +3,7 @@
 public class NewsControllerTest
 {
     private NewsController _controller;
-    private Mock<IRepository> _repository = new();
+    private readonly Mock<IRepository> _repository = new();
     private readonly Mock<IProcessedContentRepository> _processedContentRepository = new();
     private readonly Mock<IRssFeedFactory> _mockRssFeedFactory = new();
     private readonly Mock<ILogger<NewsController>> _logger = new();
@@ -13,12 +13,15 @@ public class NewsControllerTest
     private const bool EmailAlertsOn = true;
     private readonly Mock<IFilteredUrl> _filteredUrl = new();
 
-    private static readonly News NewsItemWithImages = new("Another news article",
+    private static readonly News NewsItemWithImages = new(
+        "Another news article",
         "another-news-article",
         "This is another news article",
         "type",
+        "hero-image.png",
         "image.jpg",
         "thumbnail.jpg",
+        "hero image caption",
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam gravida eu mauris in consectetur. Nullam nulla urna, sagittis a ex sit amet, ultricies rhoncus mauris. Quisque vel placerat turpis, vitae consectetur mauris.",
         new List<Crumb>(),
         new DateTime(2015, 9, 10),
@@ -27,15 +30,25 @@ public class NewsControllerTest
         new List<Alert>(),
         new List<string>(),
         new List<Document>(),
-        new List<Profile>()
+        new List<Profile>(),
+        new List<InlineQuote>(),
+        null,
+        "in partnership with",
+        new List<GroupBranding>(),
+        null,
+        "dance",
+        new List<Event>()
     );
 
-    private static readonly News NewsItemWithoutImages = new("News 26th Aug",
+    private static readonly News NewsItemWithoutImages = new(
+        "News 26th Aug",
         "news-26th-aug",
         "test",
-        "",
-        "",
-        "",
+        string.Empty,
+        string.Empty,
+        string.Empty,
+        string.Empty,
+        string.Empty,
         "test",
         new List<Crumb>(),
         new DateTime(2015, 9, 10),
@@ -44,25 +57,47 @@ public class NewsControllerTest
         new List<Alert>(),
         new List<string>(),
         new List<Document>(),
-        new List<Profile>()
+        new List<Profile>(),
+        new List<InlineQuote>(),
+        null,
+        string.Empty,
+        new List<GroupBranding>(),
+        null,
+        string.Empty,
+        new List<Event>()
     );
 
-    private readonly ProcessedNews _processedNewsArticle = new("Another news article",
+    private readonly ProcessedNews _processedNewsArticle = new(
+        "Another news article",
         "another-news-article",
         "This is another news article",
         "purpose",
+        "hero-image.png",
         "image.jpg",
         "thumbnail.jpg",
+        "hero image caption",
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam gravida eu mauris in consectetur. Nullam nulla urna, sagittis a ex sit amet, ultricies rhoncus mauris. Quisque vel placerat turpis, vitae consectetur mauris.",
         new List<Crumb>(),
         new DateTime(2015, 9, 10),
         new DateTime(2015, 9, 20),
         new DateTime(2015, 9, 15),
         new List<Alert>(),
-        new List<string> { "Events", "Bramall Hall" }
+        new List<string> { "Events", "Bramall Hall" },
+        new List<InlineQuote>(),
+        null,
+        "logo area title",
+        new List<GroupBranding>(),
+        null,
+        "dance-category",
+        new List<Event>()
     );
 
-    private readonly List<News> _listOfNewsItems = new() { NewsItemWithoutImages, NewsItemWithImages };
+    private readonly List<News> _listOfNewsItems = new() 
+    {
+        NewsItemWithoutImages,
+        NewsItemWithImages
+    };
+
     private readonly Newsroom _newsRoom;
     private readonly Newsroom _emptyNewsRoom;
     public const int MaxNumberOfItemsPerPage = 15;
@@ -74,14 +109,16 @@ public class NewsControllerTest
                         EmailAlertsOn,
                         EmailAlertsTopicId,
                         new List<string>(),
-                        new List<DateTime>());
+                        new List<DateTime>(),
+                        null);
         
         _emptyNewsRoom = new(new List<News>(),
                             new OrderedList<Alert>(),
                             EmailAlertsOn,
                             EmailAlertsTopicId,
                             new List<string>(),
-                            new List<DateTime>());
+                            new List<DateTime>(),
+                            null);
 
         HttpResponse responseListing = new(200, _newsRoom, string.Empty);
         HttpResponse responseDetail = new(200, _processedNewsArticle, string.Empty);
@@ -117,7 +154,8 @@ public class NewsControllerTest
                         _logger.Object,
                         _config.Object,
                         new BusinessId(BusinessId),
-                        _filteredUrl.Object);
+                        _filteredUrl.Object,
+                        null);
     }
 
     [Fact]
@@ -171,7 +209,8 @@ public class NewsControllerTest
                                         _mockRssFeedFactory.Object,
                                         _logger.Object, _config.Object,
                                         new BusinessId(BusinessId),
-                                        _filteredUrl.Object);
+                                        _filteredUrl.Object,
+                                        null);
 
         // Act
         ViewResult response = await controller.Detail("another-news-article") as ViewResult;
@@ -222,7 +261,8 @@ public class NewsControllerTest
                                         _logger.Object,
                                         _config.Object,
                                         new BusinessId(BusinessId),
-                                        _filteredUrl.Object);
+                                        _filteredUrl.Object,
+                                        null);
 
         // Act
         HttpResponse response = await controller.Index(new NewsroomViewModel(), 1, MaxNumberOfItemsPerPage) as HttpResponse;
@@ -261,7 +301,8 @@ public class NewsControllerTest
                                         _logger.Object,
                                         _config.Object,
                                         new BusinessId(BusinessId),
-                                        _filteredUrl.Object);
+                                        _filteredUrl.Object,
+                                        null);
 
         // Act
         ContentResult response = await _controller.Rss() as ContentResult;
@@ -269,7 +310,7 @@ public class NewsControllerTest
         // Assert
         Assert.Equal("application/rss+xml", response.ContentType);
         Assert.Equal("rss fun", response.Content);
-        _mockRssFeedFactory.Verify(_ => _.BuildRssFeed(It.IsAny<List<News>>(), It.IsAny<string>(), It.IsAny<string>()), Times.Once);
+        _mockRssFeedFactory.Verify(rssFeedFactory => rssFeedFactory.BuildRssFeed(It.IsAny<List<News>>(), It.IsAny<string>(), It.IsAny<string>()), Times.Once);
     }
 
     [Fact]
@@ -312,7 +353,8 @@ public class NewsControllerTest
                                         _logger.Object,
                                         _config.Object,
                                         new BusinessId(BusinessId),
-                                        _filteredUrl.Object);
+                                        _filteredUrl.Object,
+                                        null);
 
         // Act
         ViewResult actionResponse = await controller.Index(
@@ -411,19 +453,21 @@ public class NewsControllerTest
                                 EmailAlertsOn,
                                 EmailAlertsTopicId,
                                 new List<string>(),
-                                new List<DateTime>());
+                                new List<DateTime>(),
+                                null);
 
         _repository
             .Setup(_ => _.Get<Newsroom>(It.IsAny<string>(), It.IsAny<List<Query>>()))
             .ReturnsAsync(HttpResponse.Successful((int)HttpStatusCode.OK, bigNewsRoom));
 
         return new(_repository.Object,
-                                        _processedContentRepository.Object,
-                                        _mockRssFeedFactory.Object,
-                                        _logger.Object,
-                                        _config.Object,
-                                        new BusinessId(BusinessId),
-                                        _filteredUrl.Object);
+                _processedContentRepository.Object,
+                _mockRssFeedFactory.Object,
+                _logger.Object,
+                _config.Object,
+                new BusinessId(BusinessId),
+                _filteredUrl.Object,
+                null);
     }
 
     private List<News> BuildNewsList(int numberOfItems)
@@ -436,8 +480,10 @@ public class NewsControllerTest
                                 "another-news-article",
                                 "This is another news article",
                                 "type",
+                                "hero-image.png",
                                 "image.jpg",
                                 "thumbnail.jpg",
+                                "hero image caption",
                                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam gravida eu mauris in consectetur. Nullam nulla urna, sagittis a ex sit amet, ultricies rhoncus mauris. Quisque vel placerat turpis, vitae consectetur mauris.",
                                 new List<Crumb>(),
                                 new DateTime(2015, 9, 10),
@@ -446,7 +492,14 @@ public class NewsControllerTest
                                 new List<Alert>(),
                                 new List<string>(),
                                 new List<Document>(),
-                                new List<Profile>());
+                                new List<Profile>(),
+                                new List<InlineQuote>(),
+                                null,
+                                "in partnership with",
+                                new List<GroupBranding>(),
+                                null,
+                                "dance",
+                                new List<Event>());
 
             listofNewsItems.Add(NewsItem);
         }

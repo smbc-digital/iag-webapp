@@ -37,21 +37,80 @@ figure {
 		height: auto;
 		width: auto;
 		max-width: 100%;
-		border-top-left-radius: 3px;
-		border-top-right-radius: 3px;
-		border-bottom-left-radius: 0;
-		border-bottom-right-radius: 0;
+		border-radius: 3px 3px 0 0;
 	}
 }
 
 figcaption {
 	background-color: $stockport-black;
 	color: white;
-	border-bottom-left-radius: 3px;
-	border-bottom-right-radius: 3px;
+    border-radius: 0 0 3px 3px;
 	padding: 0.55em;
 }
 
 .image-container {
   	position: relative;
+}
+
+.image-right, .image-left {
+    display: flex;
+    flex-direction: column;
+    max-width: 49%;
+
+    @media #{$mobile} {
+        max-width: 100%;
+        margin: 0 0 1.1875rem 0;
+    }
+
+    img {
+        border-radius: 3px 3px 0 0 !important;
+        height: auto;
+        width: 100%;
+        margin: 0;
+        max-width: 100%;
+        object-fit: cover;
+
+        @media #{$desktop} {
+            max-height: 450px;
+        }
+    
+        @media #{$tablet} {
+            max-height: 400px;
+        }
+    }
+
+    figcaption {
+        background-color: $stockport-black;
+        border-radius: 0 0 3px 3px;
+        color: #fff;
+        padding: .55em;
+    }
+}
+
+.image-left {
+    float: left;
+    margin: 0.5rem 1.1875rem 1.1875rem 0;
+
+    @media #{$mobile} {
+        margin: 0 0 1.1875rem 0;
+        float: unset;
+    }
+
+    img, figcaption {
+        float: left;
+    }
+}
+
+.image-right {
+    float: right;
+    margin: 0.5rem 0 1.1875rem 1.1875rem;
+
+    @media #{$mobile} {
+        margin: 0 0 1.1875rem 0;
+        float: unset;
+    }
+
+    img, figcaption {
+        float: right;
+    }
 }

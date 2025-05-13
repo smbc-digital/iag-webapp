@@ -4,8 +4,10 @@ public class News(string title,
                 string slug,
                 string teaser,
                 string purpose,
+                string heroImage,
                 string image,
                 string thumbnailImage,
+                string heroImageCaption,
                 string body,
                 List<Crumb> breadcrumbs,
                 DateTime sunriseDate,
@@ -14,14 +16,23 @@ public class News(string title,
                 List<Alert> alerts,
                 List<string> tags,
                 IEnumerable<Document> documents,
-                IEnumerable<Profile> profiles)
+                IEnumerable<Profile> profiles,
+                IEnumerable<InlineQuote> inlineQuotes,
+                CallToActionBanner callToAction,
+                string logoAreaTitle,
+                IEnumerable<GroupBranding> newsBranding,
+                GroupBranding featuredLogo,
+                string eventsByTagOrCategory,
+                List<Event> events)
 {
     public string Title { get; } = title;
     public string Slug { get; } = slug;
     public string Teaser { get; } = teaser;
     public string Purpose { get; set; } = purpose;
+    public string HeroImage { get; } = heroImage;
     public string Image { get; } = image;
     public string ThumbnailImage { get; } = thumbnailImage;
+    public string HeroImageCaption { get; } = heroImageCaption;
     public string Body { get; } = body;
     public List<Crumb> Breadcrumbs { get; } = breadcrumbs;
     public DateTime SunriseDate { get; } = sunriseDate;
@@ -31,4 +42,11 @@ public class News(string title,
     public List<string> Tags { get; } = tags;
     public IEnumerable<Document> Documents { get; set; } = documents;
     public IEnumerable<Profile> Profiles { get; set; } = profiles;
+    public IEnumerable<InlineQuote> InlineQuotes { get; set; } = inlineQuotes;
+    public CallToActionBanner CallToAction { get; set; } = callToAction;
+    public string LogoAreaTitle { get; } = logoAreaTitle;
+    public IEnumerable<GroupBranding> NewsBranding { get; set; } = newsBranding;
+    public GroupBranding FeaturedLogo { get; set; } = featuredLogo;
+    public string EventsByTagOrCategory { get; set; } = eventsByTagOrCategory;
+    public List<Event> Events { get; set; } = events;
 }
