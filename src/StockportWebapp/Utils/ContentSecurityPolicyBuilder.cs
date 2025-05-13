@@ -17,6 +17,7 @@ public class ContentSecurityPolicyBuilder
         BuildObjectSource();
         BuildManifestSource();
         BuildFrameSource();
+        BuildFormAction();
 
         return _stringBuilder.ToString();
     }
@@ -320,5 +321,11 @@ public class ContentSecurityPolicyBuilder
         _stringBuilder.Append(
             new ContentSecurityPolicyElement("manifest-src")
             .AddSource("http://localhost:5000/assets/images/ui-images/sg/manifest.json")
+            .Finish());
+
+    private void BuildFormAction() =>
+        _stringBuilder.Append(
+            new ContentSecurityPolicyElement("form-action")
+            .AddSource("forms-eu1.hsforms.com", true)
             .Finish());
 }
