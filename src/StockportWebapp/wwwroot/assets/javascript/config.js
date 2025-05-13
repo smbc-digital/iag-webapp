@@ -12,7 +12,7 @@
         "directoryFilters": "directoryFilters-cefe3db0.min",
         "events": "events-af550f37.min",
         "eventCategories": "eventCategories-e45a6772.min",
-        "eventFilters": "eventFilters-848c19d5.min",
+        "eventFilters": "eventFilters-8c1e1969.min",
         "favourites": "favourites-9929284b.min",
         "filters": "filters-6d52b18c.min",
         "groups": "groups-e4d2ff31.min",
