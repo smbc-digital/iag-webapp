@@ -14,7 +14,7 @@
     <div class="grid-container">
         <div class="grid-100">
             <div class="article--70">
-                <h1 class="news-article__title">@Model.NewsItem.Title</h1>
+                <h1>@Model.NewsItem.Title</h1>
 
                 <p class="lead news-article__lead @(string.IsNullOrEmpty(Model.NewsItem.HeroImage) ? "news-article__lead--no-image" : string.Empty)">
                     <partial name="FormattedDate" model='Model.NewsItem.UpdatedAt'/>

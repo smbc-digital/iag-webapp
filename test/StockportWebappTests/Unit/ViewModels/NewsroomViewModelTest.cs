@@ -150,5 +150,6 @@ public class NewsroomViewModelTest
             emailAlertsTopicId,
             categories ?? emptyList,
             new List<DateTime>(),
+             new List<int>(),
             null);
 }

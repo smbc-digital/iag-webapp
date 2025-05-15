@@ -6,60 +6,53 @@
 }
 
 <div class="grid-container-full-width" data-cy="news-page">
-    @section Breadcrumbs {
-        <div class="grid-container-full-width">
-            <partial name="TopicBreadcrumb" model='new List<Crumb> { new Crumb("News articles", "news-articles", "News") }' />
-        </div>
-    }
+    <partial name="CondolenceAlerts" model='Model.Newsroom.CondolenceAlerts' />
+    <partial name="GlobalAlerts" model='Model.Newsroom.Alerts' />
+    <partial name="Breadcrumb2023" model='new List<Crumb> { new Crumb("News articles", "news-articles2", "News") }' view-data="@(new ViewDataDictionary(ViewData) {{"landingBreadcrumb", "topic-breadcrumb-container"}})"/>
 
-    <section class="topic-title" data-cy="title-and-summary">
+    <section class="news-article" data-cy="title-and-summary">
         <div class="grid-container">
-            <div class="grid-100">
-                <h1 class="event-homepage__title">News archive</h1>
-            </div>
-        </div>
-
-        <form action="/news-archive" method="get">
-            <div class="grid-container grid-parent event-homepage--no-padding">
-                <div class="grid-100 event-homepage__filters">
-                    <div class="grid-50 event-homepage__filters-container">
-                        <input type="hidden" name="DateRange" value="customdate" />
-
-                        <div class="event-homepage__filters-dates">
-                            <label class="h-l" asp-for="@Model.DateFrom"></label>
-                            <div class="event-homepage__filters-options">
-                                <input type="date" class="event-homepage__filters-options-date" asp-for="@Model.DateFrom" placeholder="dd/mm/yyyy" />
-                                <span role="alert" aria-atomic="true" asp-validation-for="@Model.DateFrom" class="form-customdate-validation-error form-field-validation-error"></span>
-                            </div>
-                        </div>
-
-                        <div class="event-homepage__filters-dates">
-                            <label class="h-l" asp-for="@Model.DateTo"></label>
-                            <div class="event-homepage__filters-options">
-                                <input type="date" class="event-homepage__filters-options-date" asp-for="@Model.DateTo" placeholder="dd/mm/yyyy" />
-                                <span id="inputvalidation" role="alert" aria-atomic="true" asp-validation-for="@Model.DateTo" class="form-customdate-validation-error form-field-validation-error"></span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="grid-25">
-                        <label class="h-l">Category</label>
-                        <div class="event-homepage__filters-options">
-                            <select asp-items="@Model.Newsroom.CategoryOptions()" placeholder="All categories" name="category" id="category" aria-label="Select category" autocomplete="off"></select>
-                        </div>
-                    </div>
-
-                    <div class="grid-25">
-                        <button class="btn btn--inverse btn--bold btn--width-25 btn--chevron-forward event-homepage__filters-button" data-cy="find-whats-on">
-                            <span class="btn_text">Search news</span>
-                        </button>
-                    </div>
+            <div class="news-article__container">
+                <div class="grid-100">
+                    <h1 class="news-article__title">News archive</h1>
                 </div>
             </div>
-        </form>
-    </section>
 
-    <partial name="GlobalAlerts" model='Model.Newsroom.Alerts' />
+            <div class="event-homepage--no-padding">
+                <form action="@Url.Action("NewsArticle", "News")" method="get">
+                    <div class="grid-100">
+                        <div class="news-article__filters">
+                            <div class="news-article__filters--50 event-homepage__filters-container">
+                                <input type="hidden" name="DateRange" value="customdate" />
+
+                                <div class="event-homepage__filters-dates">
+                                    <label class="h-l" asp-for="@Model.DateFrom"></label>
+                                    <div class="event-homepage__filters-options">
+                                        <input type="date" class="event-homepage__filters-options-date" asp-for="@Model.DateFrom" placeholder="dd/mm/yyyy" />
+                                        <span role="alert" aria-atomic="true" asp-validation-for="@Model.DateFrom" class="form-customdate-validation-error form-field-validation-error"></span>
+                                    </div>
+                                </div>
+
+                                <div class="event-homepage__filters-dates">
+                                    <label class="h-l" asp-for="@Model.DateTo"></label>
+                                    <div class="event-homepage__filters-options">
+                                        <input type="date" class="event-homepage__filters-options-date" asp-for="@Model.DateTo" placeholder="dd/mm/yyyy" />
+                                        <span id="inputvalidation" role="alert" aria-atomic="true" asp-validation-for="@Model.DateTo" class="form-customdate-validation-error form-field-validation-error"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="news-article__filters--25">
+                                <button class="btn btn--inverse btn--bold btn--width-25 btn--chevron-forward news-article__filters-button" data-cy="search-news">
+                                    <span class="btn_text">Search news</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
 
     <div class="grid-container">
         <div class="grid-100">
@@ -77,7 +70,7 @@
                 </div>
 
                 <div class="directory--70">
-                    @if (Model.Newsroom.ArchivedItems is not null || Model.Newsroom.ArchivedItems.Items.Any())
+                    @if (Model.Newsroom.ArchivedItems is not null && Model.Newsroom.ArchivedItems.Items.Any())
                     {
                         <h2 class="visuallyhidden">All news</h2>
                         <partial name="TopicNavCardList" model="Model.Newsroom.ArchivedItems" view-data='new ViewDataDictionary(ViewData) { { "ShowLastUpdated", true }, { "twoGrid", true } }' />

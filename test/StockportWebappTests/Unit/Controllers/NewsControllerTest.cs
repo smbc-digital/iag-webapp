@@ -110,6 +110,7 @@ public class NewsControllerTest
                         EmailAlertsTopicId,
                         new List<string>(),
                         new List<DateTime>(),
+                        new List<int>(),
                         null);
         
         _emptyNewsRoom = new(new List<News>(),
@@ -118,6 +119,7 @@ public class NewsControllerTest
                             EmailAlertsTopicId,
                             new List<string>(),
                             new List<DateTime>(),
+                            new List<int>(),
                             null);
 
         HttpResponse responseListing = new(200, _newsRoom, string.Empty);
@@ -454,6 +456,7 @@ public class NewsControllerTest
                                 EmailAlertsTopicId,
                                 new List<string>(),
                                 new List<DateTime>(),
+                                new List<int>(),
                                 null);
 
         _repository
