@@ -252,7 +252,7 @@ public class NewsController(IRepository repository,
         if (model.DateTo.HasValue)
             queries.Add(new Query("DateTo", model.DateTo.Value.ToString("yyyy-MM-dd")));
         
-        HttpResponse httpResponse = await _repository.Get<Newsroom>(queries: queries);
+        HttpResponse httpResponse = await _repository.Get<Newsroom>(slug: "/archive", queries: queries);
 
         if (!httpResponse.IsSuccessful())
             return httpResponse;
