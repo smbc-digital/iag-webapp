@@ -145,10 +145,14 @@ public class NewsroomViewModelTest
 
     private static Newsroom BuildNewsRoom(List<string> categories = null, string emailAlertsTopicId = "") =>
         new(new List<News>(),
+            null,
+            null,
+            null,
             new List<Alert>(),
             true,
             emailAlertsTopicId,
             categories ?? emptyList,
             new List<DateTime>(),
+             new List<int>(),
             null);
 }

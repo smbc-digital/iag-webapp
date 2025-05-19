@@ -7,6 +7,7 @@ public interface IFilteredUrl
     RouteValueDictionary AddCategoryFilter(string category);
     bool HasNoCategoryFilter();
     RouteValueDictionary AddMonthFilter(DateTime startDate);
+    RouteValueDictionary AddYearFilter(int year);
     RouteValueDictionary WithoutDateFilter();
     bool HasNoDateFilter();
     RouteValueDictionary WithoutTagFilter();
@@ -47,6 +48,22 @@ public class FilteredUrl(ITimeProvider timeProvider) : IFilteredUrl
                 {"DateFrom", startDate.ToString("yyyy-MM-dd")},
                 {"DateTo", dateto.ToString("yyyy-MM-dd")},
                 {"daterange", "month"},
+                {"Page", "1"}
+            });
+    }
+
+    public RouteValueDictionary AddYearFilter(int year)
+    {
+        DateTime startDate = new DateTime(year, 1, 1);
+        DateTime endDate = new DateTime(year, 12, 31);
+
+        return _queryUrl is null
+            ? new RouteValueDictionary()
+            : _queryUrl.AddQueriesToUrl(new Dictionary<string, string>
+            {
+                {"DateFrom", startDate.ToString("yyyy-MM-dd")},
+                {"DateTo", endDate.ToString("yyyy-MM-dd")},
+                {"daterange", "year"},
                 {"Page", "1"}
             });
     }

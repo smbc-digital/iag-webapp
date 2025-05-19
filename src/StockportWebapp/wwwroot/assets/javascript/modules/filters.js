@@ -16,7 +16,7 @@
                 $(".l-filters .collapsible:not(#custom-filter-li)").addClass("is-collapsed");
                 $(".filters-list li.active .field-validation-error").parents("li").removeClass("is-collapsed");
             } else {
-                $(".l-filters .filter:not(#custom-filter-li):not(#date-filter):not(#category-filter).collapsible").addClass("is-collapsed");
+                $(".l-filters .filter:not(#custom-filter-li):not(#date-filter):not(#category-filter):not(#news-archive).collapsible").addClass("is-collapsed");
                 $(".l-filters .filter:not(#custom-filter-li):not(#date-filter):not(#category-filter) .collapsible").addClass("is-collapsed");
             }
 

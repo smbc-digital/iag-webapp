@@ -7,11 +7,15 @@ public class SitemapControllerTests
     private readonly Mock<ILogger<SitemapController>> _mockLogger = new();
 
     private readonly Newsroom _newsroom = new(new List<News>(),
+                                            null,
+                                            null,
+                                            null,
                                             new List<Alert>(),
                                             false,
                                             string.Empty,
                                             new List<string>(),
                                             new List<DateTime>(),
+                                            new List<int>(),
                                             null);
 
     private readonly EventCalendar _eventCalendar = new(new List<Event>

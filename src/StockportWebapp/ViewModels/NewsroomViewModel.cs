@@ -64,6 +64,19 @@ public class NewsroomViewModel
         return DateFrom.Value.ToString("MMMM yyyy");
     }
 
+    public string GetActiveYearFilter()
+    {
+        if (!DateFrom.HasValue || !DateTo.HasValue) 
+            return string.Empty;
+
+        if (DateRange is "customdate")
+            return DateFrom.Value.Equals(DateTo.Value) 
+                ? DateFrom.Value.ToString("dd/MM/yyyy") 
+                : $"{DateFrom.Value:dd/MM/yyyy} to {DateTo.Value:dd/MM/yyyy}";
+
+        return DateFrom.Value.ToString("yyyy");
+    }
+
     public void AddFilteredUrl(IFilteredUrl filteredUrl) =>
         FilteredUrl = filteredUrl;
 

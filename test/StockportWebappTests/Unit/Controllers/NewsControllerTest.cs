@@ -105,19 +105,27 @@ public class NewsControllerTest
     public NewsControllerTest()
     {
         _newsRoom = new(_listOfNewsItems,
+                        null,
+                        null,
+                        null,
                         new OrderedList<Alert>(),
                         EmailAlertsOn,
                         EmailAlertsTopicId,
                         new List<string>(),
                         new List<DateTime>(),
+                        new List<int>(),
                         null);
         
         _emptyNewsRoom = new(new List<News>(),
+                            null,
+                            null,
+                            null,
                             new OrderedList<Alert>(),
                             EmailAlertsOn,
                             EmailAlertsTopicId,
                             new List<string>(),
                             new List<DateTime>(),
+                            new List<int>(),
                             null);
 
         HttpResponse responseListing = new(200, _newsRoom, string.Empty);
@@ -449,11 +457,15 @@ public class NewsControllerTest
         List<News> listofNewsItems = BuildNewsList(numNewsItems);
 
         Newsroom bigNewsRoom = new(listofNewsItems,
+                                null,
+                                null,
+                                null,
                                 new OrderedList<Alert>(),
                                 EmailAlertsOn,
                                 EmailAlertsTopicId,
                                 new List<string>(),
                                 new List<DateTime>(),
+                                new List<int>(),
                                 null);
 
         _repository

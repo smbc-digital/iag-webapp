@@ -14,11 +14,20 @@
     <div class="grid-container">
         <div class="grid-100">
             <div class="article--70">
-                <h1 class="news-article__title">@Model.NewsItem.Title</h1>
+                <h1>@Model.NewsItem.Title</h1>
 
-                <p class="lead news-article__lead @(string.IsNullOrEmpty(Model.NewsItem.HeroImage) ? "news-article__lead--no-image" : string.Empty)">
-                    <partial name="FormattedDate" model='Model.NewsItem.UpdatedAt'/>
+                <p class="lead @(Model.NewsItem.UpdatedAt.Date.Equals(Model.NewsItem.SunriseDate.Date) ? " news-article__lead news-article__lead--no-image" : string.Empty)">
+                    Publication date:
+                    <partial name="FormattedDate" model='Model.NewsItem.SunriseDate'/>
                 </p>
+
+                @if (!Model.NewsItem.UpdatedAt.Date.Equals(Model.NewsItem.SunriseDate.Date))
+                {
+                    <p class="lead news-article__lead @(string.IsNullOrEmpty(Model.NewsItem.HeroImage) ? "news-article__lead--no-image" : string.Empty)">
+                        Last updated:
+                        <partial name="FormattedDate" model='Model.NewsItem.UpdatedAt'/>
+                    </p>
+                }
             </div>
 
             <section class="article">
