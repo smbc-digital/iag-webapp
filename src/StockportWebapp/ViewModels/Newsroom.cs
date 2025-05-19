@@ -2,6 +2,9 @@
 
 [ExcludeFromCodeCoverage]
 public class Newsroom(List<News> news,
+                    NavCardList latestArticle,
+                    NavCardList latestNews,
+                    NavCardList newsItems,
                     List<Alert> alerts,
                     bool emailAlerts,
                     string emailAlertsTopicId,
@@ -12,6 +15,9 @@ public class Newsroom(List<News> news,
                     int currentPageNumber = 1)
 {
     public List<News> News { get; set; } = news;
+    public NavCardList LatestArticle { get; set; } = latestArticle;
+    public NavCardList LatestNews { get; set; } = latestNews;
+    public NavCardList NewsItems { get; set; } = newsItems;
     public List<Alert> Alerts = alerts.Where(alert => !alert.Severity.Equals(Severity.Condolence)).ToList();
     public List<Alert> CondolenceAlerts = alerts.Where(alert => alert.Severity.Equals(Severity.Condolence)).ToList();
     public bool EmailAlerts { get; } = emailAlerts;
@@ -21,50 +27,6 @@ public class Newsroom(List<News> news,
     public List<int> Years { get; } = years;
     public int CurrentPageNumber { get; set; } = currentPageNumber;
     public CallToActionBanner CallToAction { get; set; } = callToAction;
-
-    public NavCardList LatestNews => new()
-    {
-        Items = News.Select(news => new NavCard(news.Title,
-                                                news.Slug,
-                                                news.Teaser,
-                                                news.ThumbnailImage,
-                                                news.Image,
-                                                string.Empty,
-                                                EColourScheme.Teal,
-                                                news.UpdatedAt,
-                                                string.Empty)).Take(3).ToList()
-    };
-
-    // this should be replaced with a featured article
-    public NavCardList LatestArticle => new()
-    {
-        Items = News.Select(news => new NavCard(news.Title,
-                                                $"news-article/{news.Slug}",
-                                                news.Teaser,
-                                                news.ThumbnailImage,
-                                                news.Image,
-                                                string.Empty,
-                                                EColourScheme.Teal,
-                                                news.UpdatedAt,
-                                                string.Empty)).Take(1).ToList()
-    };
-
-    public NavCardList NewsItems => new()
-    {
-        Items = News
-            .Select(news => new NavCard(
-                news.Title,
-                $"news-article/{news.Slug}",
-                news.Teaser,
-                news.ThumbnailImage,
-                news.Image,
-                string.Empty,
-                EColourScheme.Teal,
-                news.UpdatedAt,
-                string.Empty))
-            .Skip(CurrentPageNumber.Equals(1) ? 3 : 0)
-            .ToList()
-    };
 
     public NavCardList Article3NewsItems => new()
     {
@@ -77,7 +39,7 @@ public class Newsroom(List<News> news,
                 news.Image,
                 string.Empty,
                 EColourScheme.Teal,
-                news.UpdatedAt,
+                news.SunriseDate,
                 string.Empty))
             .Skip(CurrentPageNumber.Equals(1) ? 1 : 0)
             .ToList()
@@ -93,7 +55,7 @@ public class Newsroom(List<News> news,
                                             news.Image,
                                             string.Empty,
                                             EColourScheme.Teal,
-                                            news.UpdatedAt,
+                                            news.SunriseDate,
                                             string.Empty)).ToList()
     };
 

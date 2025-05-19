@@ -105,6 +105,9 @@ public class NewsControllerTest
     public NewsControllerTest()
     {
         _newsRoom = new(_listOfNewsItems,
+                        null,
+                        null,
+                        null,
                         new OrderedList<Alert>(),
                         EmailAlertsOn,
                         EmailAlertsTopicId,
@@ -114,6 +117,9 @@ public class NewsControllerTest
                         null);
         
         _emptyNewsRoom = new(new List<News>(),
+                            null,
+                            null,
+                            null,
                             new OrderedList<Alert>(),
                             EmailAlertsOn,
                             EmailAlertsTopicId,
@@ -451,6 +457,9 @@ public class NewsControllerTest
         List<News> listofNewsItems = BuildNewsList(numNewsItems);
 
         Newsroom bigNewsRoom = new(listofNewsItems,
+                                null,
+                                null,
+                                null,
                                 new OrderedList<Alert>(),
                                 EmailAlertsOn,
                                 EmailAlertsTopicId,

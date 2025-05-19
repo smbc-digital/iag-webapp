@@ -7,6 +7,9 @@ public class SitemapControllerTests
     private readonly Mock<ILogger<SitemapController>> _mockLogger = new();
 
     private readonly Newsroom _newsroom = new(new List<News>(),
+                                            null,
+                                            null,
+                                            null,
                                             new List<Alert>(),
                                             false,
                                             string.Empty,

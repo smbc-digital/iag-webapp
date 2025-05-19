@@ -161,7 +161,17 @@ public class NewsController(IRepository repository,
         _filteredUrl.SetQueryUrl(model.CurrentUrl);
         model.AddFilteredUrl(_filteredUrl);
 
+        List<News> allNews = newsRoom.News?.OrderByDescending(n => n.SunriseDate).ToList() ?? new List<News>();
+        List<News> latestArticle = allNews.Take(1).ToList();
+        List<News> latestNews = allNews.Skip(1).Take(3).ToList();
+
+        newsRoom.News = allNews.Skip(4).ToList();
+
         DoPagination(newsRoom, model, page, pageSize);
+
+        newsRoom.LatestArticle = new NavCardList() { Items = latestArticle.Select(ToNavCard).ToList() };
+        newsRoom.LatestNews = new NavCardList() { Items = latestNews.Select(ToNavCard).ToList() };
+        newsRoom.NewsItems = new NavCardList() { Items = newsRoom.News.Select(ToNavCard).ToList() };
 
         model.AddNews(newsRoom);
         model.AddUrlSetting(urlSetting, model.Newsroom.EmailAlertsTopicId);
@@ -264,9 +274,9 @@ public class NewsController(IRepository repository,
         model.AddQueryUrl(new QueryUrl(Url?.ActionContext.RouteData.Values, Request?.Query));
         _filteredUrl.SetQueryUrl(model.CurrentUrl);
         model.AddFilteredUrl(_filteredUrl);
-
+        
         DoPagination(newsRoom, model, page, pageSize);
-
+    
         model.AddNews(newsRoom);
         model.AddUrlSetting(urlSetting, model.Newsroom.EmailAlertsTopicId);
 
@@ -362,4 +372,16 @@ public class NewsController(IRepository repository,
         else
             model.Pagination = new Pagination();
     }
+
+    private NavCard ToNavCard(News news) => new(
+        news.Title,
+        $"news-article/{news.Slug}",
+        news.Teaser,
+        news.ThumbnailImage,
+        news.Image,
+        string.Empty,
+        EColourScheme.Teal,
+        news.SunriseDate,
+        string.Empty
+    );
 }
