@@ -148,6 +148,7 @@ public class NewsroomViewModelTest
             null,
             null,
             null,
+            null,
             new List<Alert>(),
             true,
             emailAlertsTopicId,

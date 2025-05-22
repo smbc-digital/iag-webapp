@@ -66,62 +66,18 @@ public class NewsController(IRepository repository,
     }
 
     [ExcludeFromCodeCoverage]
-    [Route("/news-articles")]
-    public async Task<IActionResult> NewsArticles(NewsroomViewModel model, [FromQuery] int page, [FromQuery] int pageSize)
+    [Route("/news-articles2")]
+    public async Task<IActionResult> NewsArticles2(NewsroomViewModel model, [FromQuery] int page, [FromQuery] int pageSize)
     {
         if (await _featureManager.IsEnabledAsync("NewsRedesign"))
             return RedirectToAction("Index");
         
-        if (model.DateFrom is null && model.DateTo is null && string.IsNullOrEmpty(model.DateRange))
-        {
-            if (ModelState["DateTo"] is not null && ModelState["DateTo"].Errors.Count > 0)
-                ModelState["DateTo"].Errors.Clear();
-
-            if (ModelState["DateFrom"] is not null && ModelState["DateFrom"].Errors.Count > 0)
-                ModelState["DateFrom"].Errors.Clear();
-        }
-
-        List<Query> queries = new();
-        if (!string.IsNullOrEmpty(model.Tag))
-            queries.Add(new Query("tag", model.Tag));
-        
-        if (!string.IsNullOrEmpty(model.Category))
-            queries.Add(new Query("Category", model.Category));
-        
-        if (model.DateFrom.HasValue)
-            queries.Add(new Query("DateFrom", model.DateFrom.Value.ToString("yyyy-MM-dd")));
-        
-        if (model.DateTo.HasValue)
-            queries.Add(new Query("DateTo", model.DateTo.Value.ToString("yyyy-MM-dd")));
-
-        HttpResponse httpResponse = await _repository.Get<Newsroom>(queries: queries);
-
-        if (!httpResponse.IsSuccessful())
-            return httpResponse;
-
-        Newsroom newsRoom = httpResponse.Content as Newsroom;
-        
-        AppSetting urlSetting = _config.GetEmailAlertsNewSubscriberUrl(_businessId.ToString());
-
-        model.AddQueryUrl(new QueryUrl(Url?.ActionContext.RouteData.Values, Request?.Query));
-        _filteredUrl.SetQueryUrl(model.CurrentUrl);
-        model.AddFilteredUrl(_filteredUrl);
-
-        DoPagination(newsRoom, model, page, pageSize);
-        if (page.Equals(0))
-            newsRoom.CurrentPageNumber = 1;
-        else
-            newsRoom.CurrentPageNumber = page;
-
-        model.AddNews(newsRoom);
-        model.AddUrlSetting(urlSetting, model.Newsroom.EmailAlertsTopicId);
-
-        return View(model);
+        return RedirectToAction("NewsArticles");
     }
 
     [ExcludeFromCodeCoverage]
-    [Route("/news-articles2")]
-    public async Task<IActionResult> NewsArticles2(NewsroomViewModel model, [FromQuery] int page, [FromQuery] int pageSize)
+    [Route("/news-articles")]
+    public async Task<IActionResult> NewsArticles(NewsroomViewModel model, [FromQuery] int page, [FromQuery] int pageSize)
     {
         if (await _featureManager.IsEnabledAsync("NewsRedesign"))
             return RedirectToAction("Index");
@@ -162,70 +118,25 @@ public class NewsController(IRepository repository,
         model.AddFilteredUrl(_filteredUrl);
 
         List<News> allNews = newsRoom.News?.OrderByDescending(n => n.SunriseDate).ToList() ?? new List<News>();
-        List<News> latestArticle = allNews.Take(1).ToList();
+        List<News> latestArticle = null;
+
+        if (newsRoom.FeaturedNews is not null)
+            latestArticle = new() { newsRoom.FeaturedNews };
+
         List<News> latestNews = allNews.Skip(1).Take(3).ToList();
 
-        newsRoom.News = allNews.Skip(4).ToList();
+        newsRoom.News = allNews.Skip(3).ToList();
 
         DoPagination(newsRoom, model, page, pageSize);
 
-        newsRoom.LatestArticle = new NavCardList() { Items = latestArticle.Select(ToNavCard).ToList() };
-        newsRoom.LatestNews = new NavCardList() { Items = latestNews.Select(ToNavCard).ToList() };
-        newsRoom.NewsItems = new NavCardList() { Items = newsRoom.News.Select(ToNavCard).ToList() };
+        if (latestArticle is not null && latestArticle.Any())
+            newsRoom.LatestArticle = new NavCardList() { Items = latestArticle.Select(ToNavCard).ToList() };
 
-        model.AddNews(newsRoom);
-        model.AddUrlSetting(urlSetting, model.Newsroom.EmailAlertsTopicId);
+        if (latestNews is not null && latestNews.Any())
+            newsRoom.LatestNews = new NavCardList() { Items = latestNews.Select(ToNavCard).ToList() };
 
-        return View(model);
-    }
-
-    [ExcludeFromCodeCoverage]
-    [Route("/news-articles3")]
-    public async Task<IActionResult> NewsArticles3(NewsroomViewModel model, [FromQuery] int page, [FromQuery] int pageSize)
-    {
-        if (await _featureManager.IsEnabledAsync("NewsRedesign"))
-            return RedirectToAction("Index");
-        
-        if (model.DateFrom is null && model.DateTo is null && string.IsNullOrEmpty(model.DateRange))
-        {
-            if (ModelState["DateTo"] is not null && ModelState["DateTo"].Errors.Count > 0)
-                ModelState["DateTo"].Errors.Clear();
-
-            if (ModelState["DateFrom"] is not null && ModelState["DateFrom"].Errors.Count > 0)
-                ModelState["DateFrom"].Errors.Clear();
-        }
-
-        List<Query> queries = new();
-        if (!string.IsNullOrEmpty(model.Tag))
-            queries.Add(new Query("tag", model.Tag));
-        
-        if (!string.IsNullOrEmpty(model.Category))
-            queries.Add(new Query("Category", model.Category));
-        
-        if (model.DateFrom.HasValue)
-            queries.Add(new Query("DateFrom", model.DateFrom.Value.ToString("yyyy-MM-dd")));
-        
-        if (model.DateTo.HasValue)
-            queries.Add(new Query("DateTo", model.DateTo.Value.ToString("yyyy-MM-dd")));
-
-        HttpResponse httpResponse = await _repository.Get<Newsroom>(queries: queries);
-
-        if (!httpResponse.IsSuccessful())
-            return httpResponse;
-
-        Newsroom newsRoom = httpResponse.Content as Newsroom;
-        
-        AppSetting urlSetting = _config.GetEmailAlertsNewSubscriberUrl(_businessId.ToString());
-
-        model.AddQueryUrl(new QueryUrl(Url?.ActionContext.RouteData.Values, Request?.Query));
-        _filteredUrl.SetQueryUrl(model.CurrentUrl);
-        model.AddFilteredUrl(_filteredUrl);
-
-        DoPagination(newsRoom, model, page, pageSize);
-        if (page.Equals(0))
-            newsRoom.CurrentPageNumber = 1;
-        else
-            newsRoom.CurrentPageNumber = page;
+        if (newsRoom.News is not null && newsRoom.News.Any())
+            newsRoom.NewsItems = new NavCardList() { Items = newsRoom.News.Select(ToNavCard).ToList() };
 
         model.AddNews(newsRoom);
         model.AddUrlSetting(urlSetting, model.Newsroom.EmailAlertsTopicId);

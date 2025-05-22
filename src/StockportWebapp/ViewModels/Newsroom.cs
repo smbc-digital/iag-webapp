@@ -2,6 +2,7 @@
 
 [ExcludeFromCodeCoverage]
 public class Newsroom(List<News> news,
+                    News FeaturedNews,
                     NavCardList latestArticle,
                     NavCardList latestNews,
                     NavCardList newsItems,
@@ -15,6 +16,7 @@ public class Newsroom(List<News> news,
                     int currentPageNumber = 1)
 {
     public List<News> News { get; set; } = news;
+    public News FeaturedNews { get; set; } = FeaturedNews;
     public NavCardList LatestArticle { get; set; } = latestArticle;
     public NavCardList LatestNews { get; set; } = latestNews;
     public NavCardList NewsItems { get; set; } = newsItems;
@@ -27,23 +29,6 @@ public class Newsroom(List<News> news,
     public List<int> Years { get; } = years;
     public int CurrentPageNumber { get; set; } = currentPageNumber;
     public CallToActionBanner CallToAction { get; set; } = callToAction;
-
-    public NavCardList Article3NewsItems => new()
-    {
-        Items = News
-            .Select(news => new NavCard(
-                news.Title,
-                $"news-article/{news.Slug}",
-                news.Teaser,
-                news.ThumbnailImage,
-                news.Image,
-                string.Empty,
-                EColourScheme.Teal,
-                news.SunriseDate,
-                string.Empty))
-            .Skip(CurrentPageNumber.Equals(1) ? 1 : 0)
-            .ToList()
-    };
 
     public NavCardList ArchivedItems => new()
     {
@@ -73,5 +58,4 @@ public class Newsroom(List<News> news,
 
         return result;
     }
-
 }

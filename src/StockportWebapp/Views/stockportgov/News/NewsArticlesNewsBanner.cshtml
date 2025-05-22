@@ -1,10 +1,10 @@
 @model NavCard
 
-@if (Model is not null && !string.IsNullOrEmpty(Model.Image))
+@if (Model is not null && !string.IsNullOrEmpty(Model.TeaserImage))
 {
     SpotlightOnBanner newsBanner = new(
         Model.Title,
-        Model.Image,
+        Model.TeaserImage,
         string.Empty,
         Model.Teaser,
         Url.Action("NewsArticle", "News", new {slug = Model.Url}),
