@@ -30,23 +30,6 @@ public class Newsroom(List<News> news,
     public int CurrentPageNumber { get; set; } = currentPageNumber;
     public CallToActionBanner CallToAction { get; set; } = callToAction;
 
-    public NavCardList Article3NewsItems => new()
-    {
-        Items = News
-            .Select(news => new NavCard(
-                news.Title,
-                $"news-article/{news.Slug}",
-                news.Teaser,
-                news.ThumbnailImage,
-                news.Image,
-                string.Empty,
-                EColourScheme.Teal,
-                news.SunriseDate,
-                string.Empty))
-            .Skip(CurrentPageNumber.Equals(1) ? 1 : 0)
-            .ToList()
-    };
-
     public NavCardList ArchivedItems => new()
     {
         Items = News
@@ -75,5 +58,4 @@ public class Newsroom(List<News> news,
 
         return result;
     }
-
 }
