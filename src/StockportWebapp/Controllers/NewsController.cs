@@ -123,6 +123,9 @@ public class NewsController(IRepository repository,
         if (newsRoom.FeaturedNews is not null)
             latestArticle = new() { newsRoom.FeaturedNews };
 
+        if (newsRoom.FeaturedNews is not null)
+            allNews = allNews.Where(news => !news.Slug.Equals(newsRoom.FeaturedNews.Slug)).ToList();
+
         List<News> latestNews = allNews.Take(3).ToList();
 
         newsRoom.News = allNews.Skip(3).ToList();
