@@ -10,6 +10,7 @@ public class SitemapControllerTests
                                             null,
                                             null,
                                             null,
+                                            null,
                                             new List<Alert>(),
                                             false,
                                             string.Empty,

@@ -2,6 +2,7 @@
 
 [ExcludeFromCodeCoverage]
 public class Newsroom(List<News> news,
+                    News FeaturedNews,
                     NavCardList latestArticle,
                     NavCardList latestNews,
                     NavCardList newsItems,
@@ -15,6 +16,7 @@ public class Newsroom(List<News> news,
                     int currentPageNumber = 1)
 {
     public List<News> News { get; set; } = news;
+    public News FeaturedNews { get; set; } = FeaturedNews;
     public NavCardList LatestArticle { get; set; } = latestArticle;
     public NavCardList LatestNews { get; set; } = latestNews;
     public NavCardList NewsItems { get; set; } = newsItems;
