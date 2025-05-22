@@ -22,7 +22,6 @@ public class EventsControllerTest
     private readonly List<Alert> _alerts = new()
     {
         new Alert("title",
-                "subHeading",
                 "body",
                 "severity",
                 new DateTime(0001, 1, 1, 0, 0, 0, DateTimeKind.Utc),
@@ -35,7 +34,6 @@ public class EventsControllerTest
     private readonly List<Alert> _globalAlerts = new()
     {
         new Alert("global alert title",
-                "global alert subHeading",
                 "global alert body",
                 "severity",
                 new DateTime(0001, 1, 1, 0, 0, 0, DateTimeKind.Utc),
@@ -226,7 +224,6 @@ public class EventsControllerTest
         Assert.Equal(_alerts.First().Title, model.Alerts.First().Title);
         Assert.Equal(_alerts.First().Body, model.Alerts.First().Body);
         Assert.Equal(_alerts.First().Severity, model.Alerts.First().Severity);
-        Assert.Equal(_alerts.First().SubHeading, model.Alerts.First().SubHeading);
         Assert.Equal(_alerts.First().SunriseDate, model.Alerts.First().SunriseDate);
         Assert.Equal(_alerts.First().SunsetDate, model.Alerts.First().SunsetDate);
     }

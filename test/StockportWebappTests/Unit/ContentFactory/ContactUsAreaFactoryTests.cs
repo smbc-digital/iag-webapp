@@ -13,7 +13,7 @@ public class ContactUsAreaFactoryTests
         },
         new List<Alert>
         {
-            new("title", "subHeading", "body", "severity", DateTime.Now, DateTime.Now, "slug", true, "imageUrl")
+            new("title", "body", "severity", DateTime.Now, DateTime.Now, "slug", true, "imageUrl")
         },
         new List<SubItem>
         {

@@ -30,7 +30,6 @@ public class AlertsInlineTagParserTest
     {
         // Arrange
         Alert testAlert = new("Test Alert",
-                            "Test Heading",
                             "Test Alert Body",
                             Severity.Information,
                             DateTime.Today.AddDays(-7),
@@ -56,7 +55,6 @@ public class AlertsInlineTagParserTest
     {
         // Arrange
         Alert testAlert = new("Test Alert",
-                            "Test Heading",
                             "Test Alert Body",
                             Severity.Warning,
                             DateTime.Today.AddDays(-7),
@@ -82,7 +80,6 @@ public class AlertsInlineTagParserTest
     {
         // Arrange
         Alert testAlert = new("Not Test Alert",
-                            "Test Heading",
                             "Test Alert Body",
                             Severity.Warning,
                             DateTime.Today.AddDays(-7),

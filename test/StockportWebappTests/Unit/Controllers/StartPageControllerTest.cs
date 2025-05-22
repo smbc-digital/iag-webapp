@@ -8,7 +8,6 @@ public class StartPageControllerTest
     public StartPageControllerTest()
     {
         List<Alert> alerts = new(){ new("title",
-                                        "subHeading",
                                         "body",
                                         "severity",
                                         new DateTime(0001, 1, 1, 0, 0, 0, DateTimeKind.Utc),
@@ -18,7 +17,6 @@ public class StartPageControllerTest
                                         string.Empty) };
         
         List<Alert> inlineAlerts = new(){ new("title",
-                                            "subHeading",
                                             "body",
                                             "severity",
                                             new DateTime(0001, 1, 1, 0, 0, 0, DateTimeKind.Utc),
@@ -73,7 +71,6 @@ public class StartPageControllerTest
         Assert.Single(result.Breadcrumbs);
         Assert.Equal("title", result.Alerts.First().Title);
         Assert.Contains("body", result.Alerts.First().Body);
-        Assert.Equal("subHeading", result.Alerts.First().SubHeading);
         Assert.Equal("severity", result.Alerts.First().Severity);
     }
 

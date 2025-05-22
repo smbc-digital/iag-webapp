@@ -43,7 +43,6 @@ public class HomeControllerTest
     private readonly List<Alert> _alerts = new()
     {
         new Alert("title",
-                "subHeading",
                 "body",
                 Severity.Information,
                 new DateTime(0001, 1, 1, 0, 0, 0, DateTimeKind.Utc),
@@ -239,7 +238,6 @@ public class HomeControllerTest
 
         Assert.Single(page.HomepageContent.Alerts);
         Assert.Equal("title", alert.Title);
-        Assert.Equal("subHeading", alert.SubHeading);
         Assert.Contains("body", alert.Body);
         Assert.Equal(Severity.Information, alert.Severity);
     }

@@ -24,7 +24,6 @@ public class EventFactoryTest
     private readonly List<Alert> _alerts = new()
         {
             new Alert("title",
-                    "subHeading",
                     "body",
                     "severity",
                     new DateTime(0001, 1, 1, 0, 0, 0, DateTimeKind.Utc),
@@ -99,7 +98,6 @@ public class EventFactoryTest
         Assert.Equal(_alerts[0].Title, result.Alerts[0].Title);
         Assert.Equal(_alerts[0].Body, result.Alerts[0].Body);
         Assert.Equal(_alerts[0].Severity, result.Alerts[0].Severity);
-        Assert.Equal(_alerts[0].SubHeading, result.Alerts[0].SubHeading);
         Assert.Equal(_alerts[0].SunriseDate, result.Alerts[0].SunriseDate);
         Assert.Equal(_alerts[0].SunsetDate, result.Alerts[0].SunsetDate);
     }

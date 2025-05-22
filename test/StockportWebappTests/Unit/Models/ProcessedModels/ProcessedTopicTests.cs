@@ -48,7 +48,6 @@ public class ProcessedTopicTests
                                                         new List<Crumb>(),
                                                         new List<Alert> {
                                                             new("Test Alert",
-                                                                "Test",
                                                                 "Test Body",
                                                                 "Warning",
                                                                 new DateTime(2020, 1, 1),
@@ -57,7 +56,6 @@ public class ProcessedTopicTests
                                                                 false,
                                                                 string.Empty),
                                                             new("Test Alert",
-                                                                "Test",
                                                                 "Test Body",
                                                                 "Error",
                                                                 new DateTime(2020, 1, 1),
@@ -66,7 +64,6 @@ public class ProcessedTopicTests
                                                                 false,
                                                                 string.Empty),
                                                             new("Test Alert",
-                                                                "Test",
                                                                 "Test Body",
                                                                 "Condolence",
                                                                 new DateTime(2020, 1, 1),

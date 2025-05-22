@@ -85,7 +85,7 @@ public class CookiesHelperTests
 
         List<Alert> alerts = new()
         {
-            new("alert", "alertSubHeading", "body", string.Empty, new DateTime(), new DateTime(), "alert", true, string.Empty)
+            new("alert", "body", string.Empty, new DateTime(), new DateTime(), "alert", true, string.Empty)
         };
 
         httpContextAccessor

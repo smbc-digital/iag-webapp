@@ -18,7 +18,6 @@ public class ShowcaseControllerTest
         List<Alert> alerts = new()
         {
             new("title",
-                "subHeading",
                 "body",
                 Severity.Information,
                 new DateTime(0001, 1, 1, 0, 0, 0, DateTimeKind.Utc),

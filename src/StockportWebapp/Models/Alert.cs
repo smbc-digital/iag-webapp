@@ -2,7 +2,6 @@
 
 [ExcludeFromCodeCoverage]
 public class Alert(string title,
-                string subHeading,
                 string body,
                 string severity,
                 DateTime sunriseDate,
@@ -12,7 +11,6 @@ public class Alert(string title,
                 string imageUrl)
 {
     public string Title { get; } = title;
-    public string SubHeading { get; } = subHeading;
     public string Body { get; } = MarkdownWrapper.ToHtml(body);
     public string Severity { get; } = severity;
     public DateTime SunriseDate { get; } = sunriseDate;

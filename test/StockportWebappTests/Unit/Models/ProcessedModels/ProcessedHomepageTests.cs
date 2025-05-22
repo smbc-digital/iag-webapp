@@ -10,9 +10,9 @@ public class ProcessedHomepageTests
                                                                 new("test-slug", "Featured Item", "Teaser", "teaser image", "Icon.ico", "Article", string.Empty, new List<SubItem>(), EColourScheme.Teal)
                                                             },
                                                             new List<Alert> {
-                                                                new("Test Alert", "Test", "Test Body", "Warning", new DateTime(2020, 1, 1), new DateTime(2040, 1, 1), "test-warning-alert", false, string.Empty),
-                                                                new("Test Alert", "Test", "Test Body", "Error", new DateTime(2020, 1, 1), new DateTime(2040, 1, 1), "test-error-alert", false, string.Empty),
-                                                                new("Test Alert", "Test", "Test Body", "Condolence", new DateTime(2020, 1, 1), new DateTime(2040, 1, 1), "test-condolence-alert", false, string.Empty),
+                                                                new("Test Alert", "Test Body", "Warning", new DateTime(2020, 1, 1), new DateTime(2040, 1, 1), "test-warning-alert", false, string.Empty),
+                                                                new("Test Alert", "Test Body", "Error", new DateTime(2020, 1, 1), new DateTime(2040, 1, 1), "test-error-alert", false, string.Empty),
+                                                                new("Test Alert", "Test Body", "Condolence", new DateTime(2020, 1, 1), new DateTime(2040, 1, 1), "test-condolence-alert", false, string.Empty),
                                                             },
                                                             Enumerable.Empty<CarouselContent>(),
                                                             string.Empty,

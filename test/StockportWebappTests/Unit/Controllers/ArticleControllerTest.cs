@@ -217,7 +217,6 @@ public class ArticleControllerTest
         List<Alert> alertsInline = new()
         {
             new("title",
-                "subheading",
                 "body",
                 Severity.Warning,
                 new DateTime(0001, 1, 1, 0, 0, 0, DateTimeKind.Utc),
@@ -262,7 +261,6 @@ public class ArticleControllerTest
         // Assert
         Assert.Single(resultModel.Article.AlertsInline);
         Assert.Equal("title", resultModel.Article.AlertsInline.First().Title);
-        Assert.Equal("subheading", resultModel.Article.AlertsInline.First().SubHeading);
         Assert.Equal("<p>body</p>\n", resultModel.Article.AlertsInline.First().Body);
         Assert.Equal(Severity.Warning, resultModel.Article.AlertsInline.First().Severity);
     }
@@ -274,7 +272,6 @@ public class ArticleControllerTest
         List<Alert> alerts = new()
         {
             new("title",
-                "subheading",
                 "body",
                 Severity.Warning,
                 new DateTime(0001, 1, 1, 0, 0, 0, DateTimeKind.Utc),
@@ -320,7 +317,6 @@ public class ArticleControllerTest
         // Assert
         Assert.Single(resultModel.Article.Alerts);
         Assert.Equal("title", resultModel.Article.Alerts.First().Title);
-        Assert.Equal("subheading", resultModel.Article.Alerts.First().SubHeading);
         Assert.Equal("<p>body</p>\n", resultModel.Article.Alerts.First().Body);
         Assert.Equal(Severity.Warning, resultModel.Article.Alerts.First().Severity);
     }
@@ -364,7 +360,6 @@ public class ArticleControllerTest
         List<Alert> alertsInline = new()
         {
             new("title",
-                "subheading",
                 "body",
                 Severity.Warning,
                 new DateTime(0001, 1, 1, 0, 0, 0, DateTimeKind.Utc),
@@ -421,7 +416,6 @@ public class ArticleControllerTest
         // Assert
         Assert.Single(resultModel.Article.Sections.FirstOrDefault().AlertsInline);
         Assert.Equal("title", resultModel.Article.Sections.FirstOrDefault().AlertsInline.First().Title);
-        Assert.Equal("subheading", resultModel.Article.Sections.FirstOrDefault().AlertsInline.First().SubHeading);
         Assert.Equal("<p>body</p>\n", resultModel.Article.Sections.FirstOrDefault().AlertsInline.First().Body);
         Assert.Equal(Severity.Warning, resultModel.Article.Sections.FirstOrDefault().AlertsInline.First().Severity);
     }

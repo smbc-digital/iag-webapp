@@ -20,7 +20,6 @@ public class NewsFactoryTest
     private readonly List<Alert> _alerts = new() 
     {
         new Alert("Alert",
-                "Sub heading",
                 "The Body",
                 "Error",
                 new DateTime(0001, 1, 1, 0, 0, 0, DateTimeKind.Utc),

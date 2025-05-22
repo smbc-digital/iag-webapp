@@ -180,7 +180,7 @@ public class TopicControllerTest
         // Arrange
         List<Alert> alerts = new()
         {
-            new("title", "subheading", "body", Severity.Warning, new DateTime(0001, 1, 1, 0, 0, 0, DateTimeKind.Utc),
+            new("title", "body", Severity.Warning, new DateTime(0001, 1, 1, 0, 0, 0, DateTimeKind.Utc),
             new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc), string.Empty, false, string.Empty)
         };
 
@@ -220,7 +220,6 @@ public class TopicControllerTest
         // Assert
         Assert.Single(result.Alerts);
         Assert.Equal("title", result.Alerts.First().Title);
-        Assert.Equal("subheading", result.Alerts.First().SubHeading);
         Assert.Equal("<p>body</p>\n", result.Alerts.First().Body);
         Assert.Equal(Severity.Warning, result.Alerts.First().Severity);
         Assert.True(result.EmailAlerts);
