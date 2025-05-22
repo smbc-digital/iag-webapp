@@ -123,7 +123,7 @@ public class NewsController(IRepository repository,
         if (newsRoom.FeaturedNews is not null)
             latestArticle = new() { newsRoom.FeaturedNews };
 
-        List<News> latestNews = allNews.Skip(1).Take(3).ToList();
+        List<News> latestNews = allNews.Take(3).ToList();
 
         newsRoom.News = allNews.Skip(3).ToList();
 
