@@ -20,7 +20,6 @@ public class ProcessedEventsTests
                                                         "booking information",
                                                         null,
                                                         null,
-                                                        null,
                                                         string.Empty,
                                                         new(),
                                                         string.Empty,

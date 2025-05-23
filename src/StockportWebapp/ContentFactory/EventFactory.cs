@@ -15,8 +15,7 @@ public class EventFactory(ITagParserContainer simpleTagParserContainer,
     {
         MapDetails mapDetails = new()
         {
-            MapPosition = eventItem.MapPosition,
-            AccessibleTransportLink = eventItem.AccessibleTransportLink
+            MapPosition = eventItem.MapPosition
         };
 
         string description = _tagParserContainer.ParseAll(_markdownWrapper.ConvertToHtml(eventItem.Description ?? string.Empty),
@@ -48,7 +47,6 @@ public class EventFactory(ITagParserContainer simpleTagParserContainer,
                                 eventItem.BookingInformation,
                                 eventItem.Group,
                                 eventItem.Alerts,
-                                eventItem.AccessibleTransportLink,
                                 eventItem.LogoAreaTitle,
                                 eventItem.EventBranding,
                                 eventItem.PhoneNumber,

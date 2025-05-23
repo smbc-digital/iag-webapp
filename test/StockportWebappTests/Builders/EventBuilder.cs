@@ -27,7 +27,6 @@ internal class EventBuilder
     private const EventFrequency EventFrequency = StockportWebapp.Models.EventFrequency.None;
     private const int Occurences = 0;
     private readonly List<EventCategory> _eventCategories = new List<EventCategory>();
-    private const string AccessibleTransportLink = "link";
 
     public Event Build()
     {
@@ -57,7 +56,6 @@ internal class EventBuilder
             EventFrequency = EventFrequency,
             Occurences = Occurences,
             EventCategories = _eventCategories,
-            AccessibleTransportLink = AccessibleTransportLink
         };
     }
 }
