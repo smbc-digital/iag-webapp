@@ -19,12 +19,9 @@ public class ContentTypeFactory
         _factories.Add(typeof(News), new NewsFactory(tagParserContainer, markdownWrapper));
         _factories.Add(typeof(Event), new EventFactory(tagParserContainer, markdownWrapper));
         _factories.Add(typeof(Homepage), new HomepageFactory(markdownWrapper));
-        _factories.Add(typeof(GroupHomepage), new GroupHomepageFactory(tagParserContainer, markdownWrapper));
-        _factories.Add(typeof(Group), new GroupFactory(tagParserContainer, markdownWrapper));
         _factories.Add(typeof(Payment), new PaymentFactory(tagParserContainer, markdownWrapper));
         _factories.Add(typeof(ServicePayPayment), new ServicePayPaymentFactory(tagParserContainer, markdownWrapper));
         _factories.Add(typeof(Showcase), new ShowcaseFactory(tagParserContainer, markdownWrapper, triviaFactory));
-        _factories.Add(typeof(Organisation), new OrganisationFactory(markdownWrapper, httpContextAccessor));
         _factories.Add(typeof(PrivacyNotice), new PrivacyNoticeFactory(markdownWrapper));
         _factories.Add(typeof(StartPage), new StartPageFactory(tagParserContainer, markdownWrapper));
         _factories.Add(typeof(ContactUsArea), new ContactUsAreaFactory(contactUsCategoryFactory));

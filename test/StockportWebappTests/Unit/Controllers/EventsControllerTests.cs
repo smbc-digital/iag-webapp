@@ -17,7 +17,6 @@ public class EventsControllerTest
     private readonly DateCalculator _datetimeCalculator;
     private readonly Mock<IStockportApiEventsService> _stockportApiEventsService = new();
     private readonly CalendarHelper _calendarhelper = new();
-    private readonly Group _group = new GroupBuilder().Build();
 
     private readonly List<Alert> _alerts = new()
     {
@@ -62,7 +61,6 @@ public class EventsControllerTest
             StartTime = "startTime",
             EndTime = "endTime",
             Breadcrumbs = new List<Crumb>(),
-            Group = _group,
             Alerts = _alerts
         };
 
@@ -86,7 +84,6 @@ public class EventsControllerTest
                                         new List<Crumb>(),
                                         new MapDetails(),
                                         "booking information",
-                                        _group,
                                         _alerts,
                                         string.Empty,
                                         new(),
@@ -128,10 +125,6 @@ public class EventsControllerTest
         _processedContentRepository
             .Setup(processedContentRepo => processedContentRepo.Get<Event>("404-event", It.Is<List<Query>>(l => l.Count.Equals(0))))
             .ReturnsAsync(response404);
-
-        _applicationConfiguration
-            .Setup(appConfig => appConfig.GetEmailEmailFrom(It.IsAny<string>()))
-            .Returns(AppSetting.GetAppSetting("GroupSubmissionEmail"));
 
         _config
             .Setup(config => config.GetRssEmail(BusinessId))
@@ -219,7 +212,6 @@ public class EventsControllerTest
         Assert.Equal("startTime", model.StartTime);
         Assert.Equal("endTime", model.EndTime);
         Assert.Equal("booking information", model.BookingInformation);
-        Assert.Equal(_group.Name, model.Group.Name);
         Assert.Equal(_alerts.First().Title, model.Alerts.First().Title);
         Assert.Equal(_alerts.First().Body, model.Alerts.First().Body);
         Assert.Equal(_alerts.First().Severity, model.Alerts.First().Severity);
@@ -460,7 +452,6 @@ public class EventsControllerTest
                                         new List<Crumb>(),
                                         new MapDetails(),
                                         "booking information",
-                                        null,
                                         new List<Alert>(),
                                         "logo title",
                                         new List<GroupBranding>(),
@@ -634,7 +625,6 @@ public class EventsControllerTest
                 StartTime = "startTime",
                 EndTime = "endTime",
                 Breadcrumbs = new List<Crumb>(),
-                Group = _group,
                 Alerts = _alerts
             };
 

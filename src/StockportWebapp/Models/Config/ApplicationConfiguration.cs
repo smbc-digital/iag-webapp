@@ -14,25 +14,19 @@ public interface IApplicationConfiguration
     AppSetting GetEmailRegion(string businessId);
     AppSetting GetEmailEmailFrom(string businessId);
     AppSetting GetEmailAlertsNewSubscriberUrl(string businessId);
-    AppSetting GetGroupSubmissionEmail(string businessId);
-    AppSetting GetGroupArchiveEmail(string businessId);
     AppSetting GetReCaptchaKey();
     int GetFooterCache(string businessId);
     int GetHeaderCache(string businessId);
-    string GetGroupManageContactUrl();
     string GetMyAccountUrl();
     string GetStaticAssetsRootUrl();
     int GetNewsDefaultPageSize(string businessId);
     int GetEventsDefaultPageSize(string businessId);
-    int GetGroupsDefaultPageSize(string businessId);
     string GetContentApiAuthenticationKey();
     string GetWebAppClientId();
     string GetDigitalStockportLink();
-    List<ArchiveEmailPeriod> GetArchiveEmailPeriods();
     StylesheetsConfiguration GetStylesheetConfig();
     AnalyticsConfigurationModel GetAnalyticsConfig();
     AnalyticsConfigurationModel GetAnalyticsConfig(string businessId);
-    string GetStaleGroupsSecret();
 }
 
 public class ApplicationConfiguration(IConfiguration appsettings) : IApplicationConfiguration
@@ -78,22 +72,8 @@ public class ApplicationConfiguration(IConfiguration appsettings) : IApplication
     public AppSetting GetEmailEmailFrom(string businessId) =>
         AppSetting.GetAppSetting(_appsettings[$"{businessId}:Email:EmailFrom"]);
 
-    public AppSetting GetGroupSubmissionEmail(string businessId) =>
-        AppSetting.GetAppSetting(_appsettings[$"{businessId}:GroupSubmissionEmail"]);
-
-    public AppSetting GetGroupArchiveEmail(string businessId) =>
-        AppSetting.GetAppSetting(_appsettings[$"{businessId}:GroupArchiveEmail"]);
-
     public AppSetting GetReCaptchaKey() =>
         AppSetting.GetAppSetting(_appsettings[$"ReCaptcha:SiteKey"]);
-
-    public List<ArchiveEmailPeriod> GetArchiveEmailPeriods()
-    {
-        List<ArchiveEmailPeriod> emailPeriods = new();
-        _appsettings.GetSection("stockportgov:GroupArchiveEmailPeriods").Bind(emailPeriods);
-
-        return emailPeriods;
-    }
 
     public StylesheetsConfiguration GetStylesheetConfig()
     {
@@ -132,14 +112,8 @@ public class ApplicationConfiguration(IConfiguration appsettings) : IApplication
         return output;
     }
 
-    public string GetGroupManageContactUrl() =>
-        _appsettings["GroupManageContactUrl"];
-
     public string GetMyAccountUrl() =>
         _appsettings["myAccountUrl"];
-
-    public string GetStaleGroupsSecret() =>
-        _appsettings["staleGroupsSecret"];
 
     public int GetNewsDefaultPageSize(string businessId)
     {
@@ -153,12 +127,7 @@ public class ApplicationConfiguration(IConfiguration appsettings) : IApplication
 
         return result;
     }
-    public int GetGroupsDefaultPageSize(string businessId)
-    {
-        int.TryParse(_appsettings[$"{businessId}:GroupsDefaultPageSize"], out int result);
-
-        return result;
-    }
+ 
     public string GetContentApiAuthenticationKey() =>
         _appsettings["ContentApiAuthenticationKey"];
     

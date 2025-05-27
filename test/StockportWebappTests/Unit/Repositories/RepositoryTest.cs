@@ -66,7 +66,7 @@ public class RepositoryTest
     public async Task Put_ShouldCallPutAsyncWithHeaders()
     {
         // Act
-        await _repository.Put<Group>(new StringContent("url", Encoding.UTF8, "application/json"));
+        await _repository.Put<Article>(new StringContent("url", Encoding.UTF8, "application/json"));
 
         // Assert
         _httpClientMock.Verify(httpClient => httpClient.PutAsync(It.IsAny<string>(), It.IsAny<HttpContent>(), It.IsAny<Dictionary<string, string>>()), Times.Once());
@@ -86,7 +86,7 @@ public class RepositoryTest
     public async Task Archive_ShouldCallPutAsyncWithHeaders()
     {
         // Act
-        await _repository.Archive<Group>(new StringContent("url", Encoding.UTF8, "application/json"));
+        await _repository.Archive<Topic>(new StringContent("url", Encoding.UTF8, "application/json"));
 
         // Assert
         _httpClientMock.Verify(httpClient => httpClient.PutAsync(It.IsAny<string>(), It.IsAny<HttpContent>(), It.IsAny<Dictionary<string, string>>()), Times.Once());
@@ -96,7 +96,7 @@ public class RepositoryTest
     public async Task Publish_ShouldCallPutAsyncWithHeaders()
     {
         // Act
-        await _repository.Publish<Group>(new StringContent("url", Encoding.UTF8, "application/json"));
+        await _repository.Publish<Directory>(new StringContent("url", Encoding.UTF8, "application/json"));
 
         // Assert
         _httpClientMock.Verify(httpClient => httpClient.PutAsync(It.IsAny<string>(), It.IsAny<HttpContent>(), It.IsAny<Dictionary<string, string>>()), Times.Once());
@@ -130,52 +130,5 @@ public class RepositoryTest
 
         // Assert
         _httpClientMock.Verify(httpClient => httpClient.Get(It.IsAny<string>(), It.IsAny<Dictionary<string, string>>()), Times.Once);
-    }
-
-    [Fact]
-    public async Task GetAdministratorGroups_ShouldCall_HttpClient()
-    {
-        // Arrange
-        List<Group> listOfGroups = new();
-
-        _httpClientMock
-            .Setup(httpClient => httpClient.Get(It.IsAny<string>(), It.IsAny<Dictionary<string, string>>()))
-            .ReturnsAsync(new HttpResponse(200, JsonConvert.SerializeObject(listOfGroups), string.Empty));
-
-        // Act
-        await _repository.GetAdministratorsGroups("email");
-
-        // Assert
-        _httpClientMock.Verify(httpClient => httpClient.Get(It.IsAny<string>(), It.IsAny<Dictionary<string, string>>()), Times.Once);
-    }
-
-    [Fact]
-    public async Task RemoveAdministrator()
-    {
-        // Act
-        await _repository.RemoveAdministrator("test_slug", "test@test.com");
-
-        // Assert
-        _httpClientMock.Verify(httpClient => httpClient.DeleteAsync(It.IsAny<string>(), It.IsAny<Dictionary<string, string>>()), Times.Once);
-    }
-
-    [Fact]
-    public async Task AddAdministrator()
-    {
-        // Act
-        await _repository.AddAdministrator(new StringContent("content", Encoding.UTF8, "application/json"), "test_slug", "test@test.com");
-
-        // Assert
-        _httpClientMock.Verify(httpClient => httpClient.PostAsync(It.IsAny<string>(), It.IsAny<HttpContent>(), It.IsAny<Dictionary<string, string>>()), Times.Once());
-    }
-
-    [Fact]
-    public async Task UpdateAdministrator()
-    {
-        // Act
-        await _repository.UpdateAdministrator(new StringContent("content", Encoding.UTF8, "application/json"), "test_slug", "test@test.com");
-
-        // Assert
-        _httpClientMock.Verify(httpClient => httpClient.PutAsync(It.IsAny<string>(), It.IsAny<HttpContent>(), It.IsAny<Dictionary<string, string>>()), Times.Once());
     }
 }

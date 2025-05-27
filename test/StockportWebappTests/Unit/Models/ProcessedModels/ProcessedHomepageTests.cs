@@ -22,7 +22,6 @@ public class ProcessedHomepageTests
                                                             string.Empty,
                                                             Enumerable.Empty<News>(),
                                                             "Free text",
-                                                            null,
                                                             "Event category",
                                                             "meta description",
                                                             null,

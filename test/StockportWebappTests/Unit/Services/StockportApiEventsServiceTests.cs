@@ -85,7 +85,6 @@ public class StockportApiEventsServiceTests
                                             new List<Crumb>(),
                                             new MapDetails(),
                                             "booking information",
-                                            null,
                                             new List<Alert>(),
                                             "logo title",
                                             new List<GroupBranding>(),

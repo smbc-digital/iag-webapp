@@ -1,4 +1,4 @@
-﻿.favourites-bar {
+﻿.favourites-bar { // used in FavouritesBar
   width: 100%;
   background-color: $purple2444;
   color: $white;
@@ -57,31 +57,7 @@
   }
 }
 
-.favourites-container {
-  @media #{$mobile} {
-    padding: 10px;
-    background-color: transparent;
-  }
-}
-
-.filter-sort-bar {
-  .favourites-container {
-    @media #{$mobile} {
-      padding-top: 0;
-      padding-left: 10px;
-      padding-right: 5px;
-      background-color: transparent;
-    }
-  }
-}
-
-.group-home-filter {
-  .favourites-container {
-    padding-bottom: 20px;
-  }
-}
-
-.group-margin {
+.group-margin { // used in ConfirmClearAll, DeleteEvent, EditEventConfirmation
   .favourites-container {
     padding-left: 0;
     padding-right: 0;

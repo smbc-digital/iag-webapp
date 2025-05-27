@@ -14,19 +14,18 @@ internal class EventBuilder
     private readonly DateTime _eventDate = DateTime.MaxValue;
     private const string StartTime = "00:00";
     private const string EndTime = "12:00";
-    private readonly List<Crumb> _breadcrumbs = new List<Crumb>();
-    private readonly List<Document> _documents = new List<Document>();
-    private readonly List<string> _categories = new List<string>();
-    private readonly MapPosition _mapPosition = new MapPosition();
+    private readonly List<Crumb> _breadcrumbs = new();
+    private readonly List<Document> _documents = new();
+    private readonly List<string> _categories = new();
+    private readonly MapPosition _mapPosition = new();
     private const bool Featured = false;
     private const string BookingInformation = "info";
     private readonly DateTime _updatedAt = DateTime.MinValue;
-    private readonly List<string> _tags = new List<string>();
-    private readonly Group _group = new GroupBuilder().Build();
-    private readonly List<Alert> _alerts = new List<Alert>();
+    private readonly List<string> _tags = new();
+    private readonly List<Alert> _alerts = new();
     private const EventFrequency EventFrequency = StockportWebapp.Models.EventFrequency.None;
     private const int Occurences = 0;
-    private readonly List<EventCategory> _eventCategories = new List<EventCategory>();
+    private readonly List<EventCategory> _eventCategories = new();
 
     public Event Build()
     {
@@ -51,7 +50,6 @@ internal class EventBuilder
             BookingInformation = BookingInformation,
             UpdatedAt = _updatedAt,
             Tags = _tags,
-            Group = _group,
             Alerts = _alerts,
             EventFrequency = EventFrequency,
             Occurences = Occurences,

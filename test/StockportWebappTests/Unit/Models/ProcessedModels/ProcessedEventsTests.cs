@@ -19,7 +19,6 @@ public class ProcessedEventsTests
                                                         new MapDetails(),
                                                         "booking information",
                                                         null,
-                                                        null,
                                                         string.Empty,
                                                         new(),
                                                         string.Empty,

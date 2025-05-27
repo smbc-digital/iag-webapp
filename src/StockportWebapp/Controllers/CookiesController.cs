@@ -10,12 +10,6 @@ public class CookiesController(ICookiesHelper cookiesHelper) : Controller
     {
         switch (cookieType)
         {
-            case "group":
-                _cookiesHelper.AddToCookies<Group>(slug, "favourites");
-                break;
-            case "event":
-                _cookiesHelper.AddToCookies<Event>(slug, "favourites");
-                break;
             case "alert":
                 _cookiesHelper.AddToCookies<Alert>(slug, "alerts");
                 break;
@@ -32,12 +26,6 @@ public class CookiesController(ICookiesHelper cookiesHelper) : Controller
     {
         switch (cookieType)
         {
-            case "group":
-                _cookiesHelper.RemoveFromCookies<Group>(slug, "favourites");
-                break;
-            case "event":
-                _cookiesHelper.RemoveFromCookies<Event>(slug, "favourites");
-                break;
             case "alert":
                 _cookiesHelper.RemoveFromCookies<Alert>(slug, "alerts");    
                 break;

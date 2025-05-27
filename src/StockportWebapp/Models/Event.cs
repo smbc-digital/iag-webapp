@@ -24,7 +24,6 @@ public class Event
     public string BookingInformation { get; set; }
     public DateTime UpdatedAt { get; set; }
     public List<string> Tags { get; set; }
-    public Group Group { get; set; }
     public List<Alert> Alerts { get; set; }
     public EventFrequency EventFrequency { get; set; }
     public int Occurences { get; set; }

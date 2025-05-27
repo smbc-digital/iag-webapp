@@ -38,7 +38,6 @@ public class ContentApiRepository(IHttpClient httpClient,
     public async Task<HttpStatusCode> PutResponse<T>(HttpContent httpContent) =>
         await PutResponseAsync<T>(_urlGeneratorSimple.BaseContentApiUrl<T>(), httpContent);
 
-
     public async Task<HttpStatusCode> PutResponse<T>(HttpContent httpContent, string extra) =>
         await PutResponseAsync<T>(_urlGeneratorSimple.BaseContentApiUrl<T>().AddSlug(extra), httpContent);
 

@@ -39,11 +39,8 @@ public class CookiesComplianceMiddleware(RequestDelegate next, CookiesHelper coo
         return _next(httpContext);
     }
 
-    private void RemoveFunctionalCookies()
-    {
+    private void RemoveFunctionalCookies() =>
         _cookiesHelper.RemoveCookie("alerts");
-        _cookiesHelper.RemoveCookie("favourites");
-    }
 
     private void RemoveTrackingCookies()
     {

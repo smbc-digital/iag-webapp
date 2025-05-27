@@ -1,4 +1,4 @@
-﻿namespace StockportWebapp.Models.Groups;
+﻿namespace StockportWebapp.Models.Groups; // this needs to be renamed
 [ExcludeFromCodeCoverage]
 public class GroupBranding(string title, string text, MediaAsset file, string url)
 {

@@ -35,15 +35,6 @@ public class Repository : IRepository
     public async Task<HttpResponse> GetLatest<T>(int limit) =>
         HttpResponse.Build<T>(await _httpClient.Get(_urlGenerator.UrlForLimit<T>(limit), _authenticationHeaders));
 
-    public async Task<HttpResponse> RemoveAdministrator(string slug, string email) =>
-        await _httpClient.DeleteAsync($"{_urlGenerator.UrlFor<Group>(slug)}/administrators/{email}", _authenticationHeaders);
-
-    public async Task<HttpResponse> UpdateAdministrator(HttpContent user, string slug, string email) =>
-        await _httpClient.PutAsync($"{_urlGenerator.UrlFor<Group>(slug)}/administrators/{email}", user, _authenticationHeaders);
-
-    public async Task<HttpResponse> AddAdministrator(HttpContent user, string slug, string email) =>
-        await _httpClient.PostAsync($"{_urlGenerator.UrlFor<Group>(slug)}/administrators/{email}", user, _authenticationHeaders);
-
     public async Task<HttpResponse> GetLatestOrderByFeatured<T>(int limit)
     {
         string url = _urlGeneratorSimple.BaseContentApiUrl<T>().AddExtraToUrl($"latest/{limit}").AddQueryStrings(new Query("featured", "true"));        
@@ -52,7 +43,4 @@ public class Repository : IRepository
 
     public async Task<HttpResponse> GetRedirects() =>
         HttpResponse.Build<Redirects>(await _httpClient.Get(_urlGenerator.RedirectUrl(), _authenticationHeaders));
-
-    public async Task<HttpResponse> GetAdministratorsGroups(string email) =>
-        HttpResponse.Build<List<Group>>(await _httpClient.Get(_urlGenerator.AdministratorsGroups(email), _authenticationHeaders));
 }

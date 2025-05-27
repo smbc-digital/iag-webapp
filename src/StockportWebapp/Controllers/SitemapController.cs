@@ -115,31 +115,6 @@ public class SitemapController(IRepository repository,
                 xml = SerializeObject(list);
                 break;
 
-            case "groups":
-                HttpResponse responseGroups = await _repository.Get<List<Group>>();
-                List<Group> groups = responseGroups.Content as List<Group>;
-                List<SitemapGoogle> listOfGroupSitemaps =
-                    groups.Select(
-                        n =>
-                            new SitemapGoogle()
-                            {
-                                changefreq = "weekly",
-                                lastmod = now.ToString("yyyy-MM-ddTHH:mm:sszzz"),
-                                loc = $"{baseURL}/groups/{n.Slug}",
-                                priority = "0.5"
-                            }).ToList();
-
-                listOfGroupSitemaps.Insert(0, new SitemapGoogle()
-                {
-                    changefreq = "weekly",
-                    lastmod = now.ToString("yyyy-MM-ddTHH:mm:sszzz"),
-                    loc = $"{baseURL}/groups",
-                    priority = "0.5"
-                });
-
-                xml = SerializeObject(listOfGroupSitemaps);
-                break;
-
             case "showcase":
                 HttpResponse responseShowcases = await _repository.Get<List<Showcase>>();
                 List<Showcase> showcases = responseShowcases.Content as List<Showcase>;
@@ -250,7 +225,6 @@ public class SitemapController(IRepository repository,
                     new SitemapGoogleIndex { lastmod = now.ToString("yyyy-MM-ddTHH:mm:sszzz"), loc = $"{baseURL}/google-sitemap.xml?type=events" },
                     new SitemapGoogleIndex { lastmod = now.ToString("yyyy-MM-ddTHH:mm:sszzz"), loc = $"{baseURL}/google-sitemap.xml?type=article" },
                     new SitemapGoogleIndex { lastmod = now.ToString("yyyy-MM-ddTHH:mm:sszzz"), loc = $"{baseURL}/google-sitemap.xml?type=homepage" },
-                    new SitemapGoogleIndex { lastmod = now.ToString("yyyy-MM-ddTHH:mm:sszzz"), loc = $"{baseURL}/google-sitemap.xml?type=groups" },
                     new SitemapGoogleIndex { lastmod = now.ToString("yyyy-MM-ddTHH:mm:sszzz"), loc = $"{baseURL}/google-sitemap.xml?type=showcase" },
                     new SitemapGoogleIndex { lastmod = now.ToString("yyyy-MM-ddTHH:mm:sszzz"), loc = $"{baseURL}/google-sitemap.xml?type=section" },
                     new SitemapGoogleIndex { lastmod = now.ToString("yyyy-MM-ddTHH:mm:sszzz"), loc = $"{baseURL}/google-sitemap.xml?type=topic" },

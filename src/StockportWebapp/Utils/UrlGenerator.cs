@@ -33,10 +33,7 @@ public class UrlGenerator(IApplicationConfiguration config, BusinessId businessI
         {typeof(EventCalendar), "events"},
         {typeof(List<Event>), "events"},
         {typeof(EventHomepage), "eventhomepage"},
-        {typeof(GroupHomepage), "grouphomepage"},
         {typeof(EventResponse), "events"},
-        {typeof(Group), "groups/"},
-        {typeof(List<Group>), "groups/"},
         {typeof(Payment), "payments/"},
         {typeof(List<Payment>), "payments/"},
         {typeof(ServicePayPayment), "service-pay-payments/"},
@@ -44,14 +41,10 @@ public class UrlGenerator(IApplicationConfiguration config, BusinessId businessI
         {typeof(List<Section>), "sections/"},
         {typeof(Showcase), "showcases/"},
         {typeof(List<Showcase>), "showcases/"},
-        {typeof(List<GroupCategory>), "group-categories/"},
         {typeof(List<EventCategory>), "event-categories/"},
-        {typeof(GroupResults), "group-results/"},
         {typeof(ContactUsId), "contact-us-id/"},
         {typeof(List<ArticleSiteMap>), "articleSiteMap"},
         {typeof(List<SectionSiteMap>), "sectionSiteMap"},
-        {typeof(Organisation), "organisations/"},
-        {typeof(GroupAdvisor), "groups/advisors/"},
         {typeof(Document), "documents/"},
         {typeof(PrivacyNotice), "privacy-notices/"},
         {typeof(List<PrivacyNotice>), "privacy-notices/"},
@@ -85,9 +78,6 @@ public class UrlGenerator(IApplicationConfiguration config, BusinessId businessI
 
     public string RedirectUrl() =>
         string.Concat(_config.GetContentApiUri(), "redirects");
-
-    public string AdministratorsGroups(string email) =>
-        $"{_config.GetContentApiUri()}{_businessId}/groups/administrators/{email}";
 
     public string ArticlesForSiteMap(string slug = "", List<Query> queries = null) =>
         string.Concat(_config.GetContentApiUri(), _businessId, "/", "articleSiteMap", slug, CreateQueryString(queries));
