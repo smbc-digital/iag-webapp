@@ -12,8 +12,6 @@ public class ProcessedTopic(string name,
                             IEnumerable<SubItem> secondaryItems,
                             IEnumerable<Crumb> breadcrumbs,
                             IEnumerable<Alert> alerts,
-                            bool emailAlerts,
-                            string emailAlertsTopicId,
                             EventBanner eventBanner,
                             EventCalendarBanner eventCalendarBanner,
                             bool displayContactUs,
@@ -42,8 +40,6 @@ public class ProcessedTopic(string name,
     public IEnumerable<SubItem> TopSubItems { get; }
     public IEnumerable<Crumb> Breadcrumbs { get; } = breadcrumbs;
     public IEnumerable<Alert> Alerts { get; } = alerts;
-    public bool EmailAlerts { get; } = emailAlerts;
-    public string EmailAlertsTopicId { get; } = emailAlertsTopicId;
     public EventBanner EventBanner { get; } = eventBanner;
     public EventCalendarBanner EventCalendarBanner { get; } = eventCalendarBanner;
     public bool DisplayContactUs { get; set; } = displayContactUs;

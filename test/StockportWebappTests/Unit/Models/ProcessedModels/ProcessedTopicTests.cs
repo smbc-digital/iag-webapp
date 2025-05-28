@@ -72,8 +72,6 @@ public class ProcessedTopicTests
                                                                 false,
                                                                 string.Empty),
                                                         },
-                                                        true,
-                                                        "email-alerts",
                                                         new EventBanner("title", "teaser", "link", "icon"),
                                                         new EventCalendarBanner()
                                                         {

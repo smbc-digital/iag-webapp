@@ -13,8 +13,6 @@ public class Topic(string name,
                 IEnumerable<SubItem> secondaryItems,
                 IEnumerable<Crumb> breadcrumbs,
                 IEnumerable<Alert> alerts,
-                bool emailAlerts,
-                string emailAlertsTopicId,
                 EventCalendarBanner eventBanner,
                 bool displayContactUs,
                 CarouselContent campaignBanner,
@@ -61,8 +59,6 @@ public class Topic(string name,
 
     public IEnumerable<Crumb> Breadcrumbs { get; } = breadcrumbs;
     public IEnumerable<Alert> Alerts { get; } = alerts;
-    public bool EmailAlerts { get; } = emailAlerts;
-    public string EmailAlertsTopicId { get; } = emailAlertsTopicId;
     public EventCalendarBanner EventBanner { get; } = eventBanner;
     public bool DisplayContactUs { get; set; } = displayContactUs;
     public CarouselContent CampaignBanner { get; } = campaignBanner;
@@ -86,8 +82,6 @@ public class NullTopic : Topic
                             new List<SubItem>(),
                             new List<Crumb>(),
                             new List<Alert>(),
-                            false,
-                            string.Empty,
                             null,
                             true,
                             new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty, new DateTime()),

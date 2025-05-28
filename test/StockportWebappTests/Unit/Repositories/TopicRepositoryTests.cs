@@ -50,8 +50,6 @@ public class TopicRepositoryTests
                                             null,
                                             new List<Crumb>(),
                                             new List<Alert>(),
-                                            true,
-                                            "test-id",
                                             null,
                                             null,
                                             true,

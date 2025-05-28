@@ -42,8 +42,6 @@ public class TopicFactoryTest
                         _secondaryItems,
                         _breadcrumbs,
                         new List<Alert>(),
-                        false,
-                        "emailAlertsTopic",
                         _eventCalendarBanner,
                         true,
                         new CarouselContent("Title", "Teaser", "Image", "url", new DateTime()),

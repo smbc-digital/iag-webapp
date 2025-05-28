@@ -21,9 +21,7 @@ public class TopicController(ITopicRepository repository,
 
         ProcessedTopic processedTopic = topicHttpResponse.Content as ProcessedTopic;
 
-        AppSetting urlSetting = _config.GetEmailAlertsNewSubscriberUrl(_businessId.ToString());
-
-        TopicViewModel topicViewModel = new(processedTopic, urlSetting.ToString());
+        TopicViewModel topicViewModel = new(processedTopic);
 
         List<Event> eventsFromApi = !string.IsNullOrEmpty(processedTopic.EventCategory)
             ? await _stockportApiEventsService.GetEventsByCategory(processedTopic.EventCategory) 
