@@ -1,7 +1,6 @@
 ﻿namespace StockportWebapp.Models;
 [ExcludeFromCodeCoverage]
 public class Homepage(string title,
-                    IEnumerable<string> popularSearchTerms,
                     string featuredTasksHeading,
                     string featuredTasksSummary,
                     IEnumerable<SubItem> featuredTasks,
@@ -23,7 +22,6 @@ public class Homepage(string title,
                     string imageOverlayText)
 {
     public string Title { get; } = title;
-    public IEnumerable<string> PopularSearchTerms { get; } = popularSearchTerms;
     public string FeaturedTasksHeading { get; } = featuredTasksHeading;
     public string FeaturedTasksSummary { get; } = featuredTasksSummary;
     public IEnumerable<SubItem> FeaturedTasks = featuredTasks;

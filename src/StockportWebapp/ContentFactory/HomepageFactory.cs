@@ -13,7 +13,6 @@ public class HomepageFactory(MarkdownWrapper markdownWrapper)
         string imageOverlayText = _markdownWrapper.ConvertToHtml(homepage.ImageOverlayText ?? string.Empty);
 
         return new ProcessedHomepage(homepage.Title,
-            homepage.PopularSearchTerms,
             homepage.FeaturedTasksHeading,
             featuredTasksSummary,
             homepage.FeaturedTasks,

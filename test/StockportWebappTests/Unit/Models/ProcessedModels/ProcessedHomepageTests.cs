@@ -2,7 +2,7 @@
 
 public class ProcessedHomepageTests
 {
-    private readonly ProcessedHomepage processedHomepage = new("Title", Enumerable.Empty<string>(),
+    private readonly ProcessedHomepage processedHomepage = new("Title",
                                                             "Featured Tasks",
                                                             "Featured tasks summary",
                                                             Enumerable.Empty<SubItem>(),

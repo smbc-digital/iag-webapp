@@ -13,7 +13,6 @@ public class HomeControllerTest
 
     #region Models
 
-    private readonly List<string> _popularSearchTerms = new() { "popular", "search", "terms" };
     private readonly List<SubItem> _featuredTasks = new()
     {
         new SubItem("slug featuredTasks",
@@ -108,7 +107,6 @@ public class HomeControllerTest
     public HomeControllerTest()
     {
         ProcessedHomepage homePageContent = new("Title",
-                                                _popularSearchTerms,
                                                 "heading",
                                                 "summary",
                                                 _featuredTasks,
@@ -153,25 +151,6 @@ public class HomeControllerTest
                                         _eventsService.Object,
                                         _homepageService.Object,
                                         _stockportApiService.Object);
-    }
-
-    [Fact]
-    public async Task Index_Should_ReturnHomeView_WithPopularSearchTerms()
-    {
-        // Arrange
-        _eventsService
-            .Setup(service => service.GetLatestFeaturedEventItem())
-            .ReturnsAsync(_eventsContent);
-
-        // Act
-        ViewResult indexPage = await _controller.Index() as ViewResult;
-        HomepageViewModel page = indexPage.ViewData.Model as HomepageViewModel;
-
-        // Assert
-        Assert.NotNull(page.HomepageContent.PopularSearchTerms);
-        Assert.NotEmpty(page.HomepageContent.PopularSearchTerms);
-        Assert.Equal("popular", page.HomepageContent.PopularSearchTerms.First());
-        Assert.Equal("terms", page.HomepageContent.PopularSearchTerms.Last());
     }
 
     [Fact]
@@ -368,27 +347,26 @@ public class HomeControllerTest
     {
         // Arrange
         ProcessedHomepage homePageContent = new("Title",
-            new List<string>(),
-            "heading",
-            "summary",
-            new List<SubItem>(),
-            new List<SubItem>(),
-            new List<Alert>(),
-            new List<CarouselContent>(),
-            "image.jpg",
-            "foregroundImage.jpg",
-            string.Empty,
-            string.Empty,
-            string.Empty,
-            new List<News>(),
-            "homepage text",
-            "unittest",
-            "meta description",
-            _campaignBanner,
-            _callToActionBanner,
-            _callToActionBanner,
-            new List<SpotlightOnBanner>(),
-            "image overlay text");
+                                                "heading",
+                                                "summary",
+                                                new List<SubItem>(),
+                                                new List<SubItem>(),
+                                                new List<Alert>(),
+                                                new List<CarouselContent>(),
+                                                "image.jpg",
+                                                "foregroundImage.jpg",
+                                                string.Empty,
+                                                string.Empty,
+                                                string.Empty,
+                                                new List<News>(),
+                                                "homepage text",
+                                                "unittest",
+                                                "meta description",
+                                                _campaignBanner,
+                                                _callToActionBanner,
+                                                _callToActionBanner,
+                                                new List<SpotlightOnBanner>(),
+                                                "image overlay text");
 
         _homepageService
             .Setup(service => service.GetHomepage())
