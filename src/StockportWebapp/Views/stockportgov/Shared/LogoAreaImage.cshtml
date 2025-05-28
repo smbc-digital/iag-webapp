@@ -27,10 +27,10 @@
         @foreach (TrustedLogo trustedLogo in Model)
         {
             <div class="logo-area__item">
-                <a href="@trustedLogo.Url">
-                    <img src="@trustedLogo.File.Url?w=340&q=89&fm=webp"
+                <a href="@trustedLogo.Link">
+                    <img src="@trustedLogo.Image.Url?w=340&q=89&fm=webp"
                          class="logo-area__image"
-                         alt="@(trustedLogo.File.Description ?? string.Empty)"
+                         alt="@(trustedLogo.Image.Description ?? string.Empty)"
                          loading="lazy"
                          width="200"
                          height="125" />
