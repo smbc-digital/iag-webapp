@@ -34,7 +34,7 @@ public class NewsControllerTest
         new List<InlineQuote>(),
         null,
         "in partnership with",
-        new List<GroupBranding>(),
+        new List<TrustedLogo>(),
         null,
         "dance",
         new List<Event>()
@@ -61,7 +61,7 @@ public class NewsControllerTest
         new List<InlineQuote>(),
         null,
         string.Empty,
-        new List<GroupBranding>(),
+        new List<TrustedLogo>(),
         null,
         string.Empty,
         new List<Event>()
@@ -86,7 +86,7 @@ public class NewsControllerTest
         new List<InlineQuote>(),
         null,
         "logo area title",
-        new List<GroupBranding>(),
+        new List<TrustedLogo>(),
         null,
         "dance-category",
         new List<Event>()
@@ -511,7 +511,7 @@ public class NewsControllerTest
                                 new List<InlineQuote>(),
                                 null,
                                 "in partnership with",
-                                new List<GroupBranding>(),
+                                new List<TrustedLogo>(),
                                 null,
                                 "dance",
                                 new List<Event>());

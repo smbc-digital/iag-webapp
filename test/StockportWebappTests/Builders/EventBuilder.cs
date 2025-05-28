@@ -24,7 +24,7 @@ internal class EventBuilder
     private readonly List<string> _tags = new();
     private readonly List<Alert> _alerts = new();
     private const EventFrequency EventFrequency = StockportWebapp.Models.EventFrequency.None;
-    private const int Occurences = 0;
+    private const int Occurrences = 0;
     private readonly List<EventCategory> _eventCategories = new();
 
     public Event Build()
@@ -52,7 +52,7 @@ internal class EventBuilder
             Tags = _tags,
             Alerts = _alerts,
             EventFrequency = EventFrequency,
-            Occurences = Occurences,
+            Occurrences = Occurrences,
             EventCategories = _eventCategories,
         };
     }

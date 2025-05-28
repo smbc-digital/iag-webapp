@@ -31,7 +31,7 @@
                     <partial name="DirectoryEntryDescription" model='Model.DirectoryEntry.Description' view-data='@(new ViewDataDictionary(ViewData) { { "AdditionalCssClasses", @greyBorderCssClasses } })' />
                     <partial name="DirectoryEntryHighightedFilters" model='Model.HighlightedFilters' view-data='@(new ViewDataDictionary(ViewData) { { "AdditionalWrapperCssClasses", @borderTeal }, { "AdditionalCssClasses", @greyBorderCssClasses } })' />
                     <partial name="DirectoryEntryMap" model='Model.MapDetails' view-data='@(new ViewDataDictionary(ViewData) { { "AdditionalWrapperCssClasses", @borderTeal }, { "AdditionalCssClasses", @greyBorderCssClasses }, { "AddressWithoutTags", @Model.AddressWithoutTags }, { "DisplayMap", Model.DisplayMap }, { "EntryNameString", @Model.DirectoryEntry.Name } })' />
-                    <partial name="DirectoryEntryBranding" model='Model.DirectoryEntry.Branding' view-data='@(new ViewDataDictionary(ViewData) { { "AdditionalWrapperCssClasses", @borderTeal }, { "AdditionalCssClasses", @greyBorderCssClasses } })' />
+                    <partial name="DirectoryEntryBranding" model='Model.DirectoryEntry.TrustedLogos' view-data='@(new ViewDataDictionary(ViewData) { { "AdditionalWrapperCssClasses", @borderTeal }, { "AdditionalCssClasses", @greyBorderCssClasses } })' />
                 </div>
             </section>
         </div>

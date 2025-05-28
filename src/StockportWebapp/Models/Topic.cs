@@ -19,7 +19,7 @@ public class Topic(string name,
                 bool displayContactUs,
                 CarouselContent campaignBanner,
                 string eventCategory,
-                List<GroupBranding> topicBranding,
+                List<TrustedLogo> trustedLogos,
                 string logoAreaTitle)
 {
     public string Name { get; } = name;
@@ -67,7 +67,7 @@ public class Topic(string name,
     public bool DisplayContactUs { get; set; } = displayContactUs;
     public CarouselContent CampaignBanner { get; } = campaignBanner;
     public string EventCategory { get; set; } = eventCategory;
-    public List<GroupBranding> TopicBranding { get; init; } = topicBranding;
+    public List<TrustedLogo> TrustedLogos { get; init; } = trustedLogos;
     public string LogoAreaTitle { get; } = logoAreaTitle;
 }
 

@@ -67,9 +67,9 @@
                         <partial name="NewsCallToAction" model='Model.NewsItem.CallToAction'/>
                     }
 
-                    @if (Model.NewsItem.NewsBranding is not null && Model.NewsItem.NewsBranding.Any())
+                    @if (Model.NewsItem.TrustedLogos is not null && Model.NewsItem.TrustedLogos.Any())
                     {
-                        <partial name="LogoArea" model='@Model.NewsItem.NewsBranding' view-data='@(new ViewDataDictionary(ViewData) { { "logoAreaTitle", @Model.NewsItem.LogoAreaTitle }, { "logoAreaArticle", false }, { "displayInSection", false } })' />
+                        <partial name="LogoArea" model='@Model.NewsItem.TrustedLogos' view-data='@(new ViewDataDictionary(ViewData) { { "logoAreaTitle", @Model.NewsItem.LogoAreaTitle }, { "logoAreaArticle", false }, { "displayInSection", false } })' />
                     }
 
                     @if (Model.NewsItem.Tags.Any()) {

@@ -18,8 +18,8 @@ public class ProcessedNews(string title,
                         IEnumerable<InlineQuote> inlineQuotes,
                         CallToActionBanner callToAction,
                         string logoAreaTitle,
-                        IEnumerable<GroupBranding> newsBranding,
-                        GroupBranding featuredLogo,
+                        IEnumerable<TrustedLogo> trustedLogos,
+                        TrustedLogo featuredLogo,
                         string eventsByTagOrCategory,
                         List<Event> events) : IProcessedContentType
 {
@@ -41,8 +41,8 @@ public class ProcessedNews(string title,
     public readonly IEnumerable<InlineQuote> InlineQuotes = inlineQuotes;
     public readonly CallToActionBanner CallToAction = callToAction;
     public readonly string LogoAreaTitle = logoAreaTitle;
-    public readonly IEnumerable<GroupBranding> NewsBranding = newsBranding;
-    public readonly GroupBranding FeaturedLogo = featuredLogo;
+    public readonly IEnumerable<TrustedLogo> TrustedLogos = trustedLogos;
+    public readonly TrustedLogo FeaturedLogo = featuredLogo;
     public readonly string EventsByTagOrCategory = eventsByTagOrCategory;
     public readonly List<Event> Events = events;
 }

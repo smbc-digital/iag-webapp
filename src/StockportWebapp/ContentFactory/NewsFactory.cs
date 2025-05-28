@@ -30,7 +30,7 @@ public class NewsFactory(ITagParserContainer simpleTagParserContainer,
                                 news.InlineQuotes,
                                 news.CallToAction,
                                 news.LogoAreaTitle,
-                                news.NewsBranding,
+                                news.TrustedLogos,
                                 news.FeaturedLogo,
                                 news.EventsByTagOrCategory,
                                 news.Events);

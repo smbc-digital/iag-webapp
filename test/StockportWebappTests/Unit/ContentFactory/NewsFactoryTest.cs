@@ -56,7 +56,7 @@ public class NewsFactoryTest
                         new List<InlineQuote>(),
                         null,
                         "logoAreaTitle",
-                        new List<GroupBranding>(),
+                        new List<TrustedLogo>(),
                         null,
                         string.Empty,
                         null);

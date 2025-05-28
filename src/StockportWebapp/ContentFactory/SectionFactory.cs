@@ -39,7 +39,7 @@ public class SectionFactory(ITagParserContainer tagParserContainer,
             section.Profiles,
             section.Documents,
             section.AlertsInline,
-            section.SectionBranding,
+            section.TrustedLogos,
             section.LogoAreaTitle,
             section.UpdatedAt
         );

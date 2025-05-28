@@ -87,7 +87,7 @@ public class StockportApiEventsServiceTests
                                             "booking information",
                                             new List<Alert>(),
                                             "logo title",
-                                            new List<GroupBranding>(),
+                                            new List<TrustedLogo>(),
                                             "0123456789",
                                             "test@email.com",
                                             "website",

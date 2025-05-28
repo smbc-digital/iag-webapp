@@ -37,7 +37,7 @@ public class TopicFactory(ITagParserContainer tagParserContainer,
                                 topic.CampaignBanner,
                                 topic.EventCategory,
                                 topic.CallToAction,
-                                topic.TopicBranding,
+                                topic.TrustedLogos,
                                 topic.LogoAreaTitle)
         {
             TriviaSection = topic.TriviaSection,

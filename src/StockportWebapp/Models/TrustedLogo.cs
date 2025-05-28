@@ -1,6 +1,7 @@
-﻿namespace StockportWebapp.Models.Groups; // this needs to be renamed
+﻿namespace StockportWebapp.Models;
+
 [ExcludeFromCodeCoverage]
-public class GroupBranding(string title, string text, MediaAsset file, string url)
+public class TrustedLogo(string title, string text, MediaAsset file, string url)
 {
     public string Title { get; set; } = title;
 

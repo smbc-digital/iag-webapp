@@ -12,7 +12,7 @@ public interface IDateCalculator
     string NearestMonday();
     string NextSunday();
     DateTime GetEventEndDate(Event detail);
-    int GetEventOccurences(EventFrequency freq, DateTime startDate, DateTime endDate);
+    int GetEventOccurrences(EventFrequency freq, DateTime startDate, DateTime endDate);
 }
 
 public class DateCalculator : IDateCalculator
@@ -94,32 +94,32 @@ public class DateCalculator : IDateCalculator
         switch (detail.EventFrequency)
         {
             case EventFrequency.Daily:
-                result = detail.EventDate.AddDays(detail.Occurences);
+                result = detail.EventDate.AddDays(detail.Occurrences);
                 break;
                 
             case EventFrequency.Weekly:
-                result = detail.EventDate.AddDays(detail.Occurences * 7);
+                result = detail.EventDate.AddDays(detail.Occurrences * 7);
                 break;
 
             case EventFrequency.Fortnightly:
-                result = detail.EventDate.AddDays(detail.Occurences * 14);
+                result = detail.EventDate.AddDays(detail.Occurrences * 14);
                 break;
 
             case EventFrequency.Monthly:
             case EventFrequency.MonthlyDate:
             case EventFrequency.MonthlyDay:
-                result = detail.EventDate.AddMonths(detail.Occurences);
+                result = detail.EventDate.AddMonths(detail.Occurrences);
                 break;
 
             case EventFrequency.Yearly:
-                result = detail.EventDate.AddYears(detail.Occurences);
+                result = detail.EventDate.AddYears(detail.Occurrences);
                 break;
         }
 
         return result;
     }
 
-    public int GetEventOccurences(EventFrequency freq, DateTime startDate, DateTime endDate)
+    public int GetEventOccurrences(EventFrequency freq, DateTime startDate, DateTime endDate)
     {
         double diff = 0;
         switch (freq)

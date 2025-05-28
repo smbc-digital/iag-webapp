@@ -59,7 +59,7 @@ public class FeatureCardViewModelMapperExtensionsTests
             new List<InlineQuote>(),
             null,
             "in partnership with",
-            new List<GroupBranding>(),
+            new List<TrustedLogo>(),
             null,
             "eventsByTagOrCategory",
             new List<Event>()

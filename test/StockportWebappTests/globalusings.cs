@@ -30,7 +30,6 @@ global using StockportWebapp.Models;
 global using StockportWebapp.Models.Config;
 global using StockportWebapp.Models.Enums;
 global using StockportWebapp.Models.Exceptions;
-global using StockportWebapp.Models.Groups;
 global using StockportWebapp.Models.ProcessedModels;
 global using StockportWebapp.Models.Validation;
 global using StockportWebapp.Repositories;

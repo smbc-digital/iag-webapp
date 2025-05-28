@@ -49,7 +49,7 @@ public class RssFeedFactoryTest
                 new List<InlineQuote>(),
                 null,
                 string.Empty,
-                new List<GroupBranding>(),
+                new List<TrustedLogo>(),
                 null,
                 string.Empty,
                 null
@@ -74,7 +74,7 @@ public class RssFeedFactoryTest
                 new List<InlineQuote>(),
                 null,
                 string.Empty,
-                new List<GroupBranding>(),
+                new List<TrustedLogo>(),
                 null,
                 string.Empty,
                 null
@@ -99,7 +99,7 @@ public class RssFeedFactoryTest
                 new List<InlineQuote>(),
                 null,
                 string.Empty,
-                new List<GroupBranding>(),
+                new List<TrustedLogo>(),
                 null,
                 string.Empty,
                 null
@@ -124,7 +124,7 @@ public class RssFeedFactoryTest
                 new List<InlineQuote>(),
                 null,
                 string.Empty,
-                new List<GroupBranding>(),
+                new List<TrustedLogo>(),
                 null,
                 string.Empty,
                 null

@@ -20,7 +20,7 @@ public class ProcessedTopic(string name,
                             CarouselContent campaignBanner,
                             string eventCategory,
                             CallToActionBanner callToAction,
-                            List<GroupBranding> topicBranding,
+                            List<TrustedLogo> trustedLogos,
                             string logoAreaTitle)
 {
     public string Name { get; } = name;
@@ -49,7 +49,7 @@ public class ProcessedTopic(string name,
     public bool DisplayContactUs { get; set; } = displayContactUs;
     public CarouselContent CampaignBanner { get; } = campaignBanner;
     public string EventCategory { get; set; } = eventCategory;
-    public List<GroupBranding> TopicBranding { get; init; } = topicBranding;
+    public List<TrustedLogo> TrustedLogos { get; init; } = trustedLogos;
     public string LogoAreaTitle { get; set; } = logoAreaTitle;
 
     public NavCardList PrimaryItems => new()
