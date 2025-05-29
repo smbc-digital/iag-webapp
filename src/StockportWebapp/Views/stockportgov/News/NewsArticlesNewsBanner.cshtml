@@ -4,8 +4,8 @@
 {
     SpotlightOnBanner newsBanner = new(
         Model.Title,
+        null,
         Model.TeaserImage,
-        string.Empty,
         Model.Teaser,
         Url.Action("NewsArticle", "News", new {slug = Model.Url}),
         Model.Date

@@ -5,14 +5,14 @@
     string pseudoBorderColour = (string)ViewData["pseudoBorderColour"] ?? string.Empty;
     string borderColour = (string)ViewData["borderColour"] ?? string.Empty;
     
-    string altText = !string.IsNullOrEmpty(Model.AltText)
-        ? Model.AltText
+    string altText = !string.IsNullOrEmpty(Model.Image?.Description)
+        ? Model.Image.Description
         : string.Empty;
 }
 
 <div class="featured-item section__content" data-cy="featured-item">
     <a href="@Model.Link" class="featured-item__link featured-item__link-@additionalClasses" data-cy="featured-item-link">
-        <partial name="FeaturedItemImage" model="@Model.Image" view-data='@(new ViewDataDictionary(ViewData) { {"altText", altText}, {"imageAdditionalClasses", additionalClasses} })'/>
+        <partial name="FeaturedItemImage" model="@Model.Image.Url" view-data='@(new ViewDataDictionary(ViewData) { {"altText", altText}, {"imageAdditionalClasses", additionalClasses} })'/>
 
         <div class="featured-item-content featured-item-content-@additionalClasses @pseudoBorderColour @borderColour">
             <div class="featured-item-wrapper featured-item-wrapper-@additionalClasses">

@@ -7,7 +7,7 @@
         : (bool)ViewData["displayInSection"];
 }
 
-@if (displayInSection && Model.Any() )
+@if (displayInSection && Model.Any())
 {
     <section class="section section--white section--no-margin @borderTopClass" data-cy="logo-area">
         @if(isLogoOnArticle)
