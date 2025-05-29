@@ -30,7 +30,6 @@ public class StartPageControllerTest
                                         "this is a teaser",
                                         "This is a summary",
                                         "<p>An upper body</p>\n",
-                                        "Start now",
                                         "http://start.com",
                                         "<p>Lower body</p>\n",
                                         new List<Crumb>
@@ -65,7 +64,6 @@ public class StartPageControllerTest
         Assert.Equal("this is a teaser", result.Teaser);
         Assert.Equal("This is a summary", result.Summary);
         Assert.Equal(MarkdownWrapper.ToHtml("An upper body"), result.UpperBody);
-        Assert.Equal("Start now", result.FormLinkLabel);
         Assert.Equal("http://start.com", result.FormLink);
         Assert.Equal(MarkdownWrapper.ToHtml("Lower body"), result.LowerBody);
         Assert.Single(result.Breadcrumbs);
