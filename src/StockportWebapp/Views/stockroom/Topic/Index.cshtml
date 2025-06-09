@@ -4,6 +4,8 @@
     ViewData["Description"] = Model.Topic.MetaDescription;
     ViewData["og:title"] = Model.Topic.Name;
     Layout = "../Shared/_Layout.cshtml";
+    var displaySummaryBlock = !string.IsNullOrEmpty(Model.Topic.Teaser) && !string.IsNullOrEmpty(Model.Topic.Summary);
+    var displayMoreInHeader = displaySummaryBlock && (Model.Topic.PrimaryItems.Items.Any() || Model.Topic.SecondaryItems.Any());
 }
 
 <div class="grid-container-full-width topic" data-cy="topic">
@@ -23,27 +25,30 @@
             </div>
         </div>
 
-        <div class="grid-container">
-            <div class="grid-100">
-                <div class="hero__about article--margin-bottom">
-                    @if (!string.IsNullOrEmpty(Model.Topic.Teaser))
-                    {
-                        <p>@Html.Raw(@Model.Topic.Teaser)</p>
-                    }
+        @if(displaySummaryBlock)
+        {
+            <div class="grid-container">
+                <div class="grid-100">
+                    <div class="hero__about article--margin-bottom">
+                        @if (!string.IsNullOrEmpty(Model.Topic.Teaser))
+                        {
+                            <p>@Html.Raw(@Model.Topic.Teaser)</p>
+                        }
 
-                    @if (!string.IsNullOrEmpty(Model.Topic.Summary))
-                    {
-                        @Html.Raw(@Model.Topic.Summary)
-                    }
+                        @if (!string.IsNullOrEmpty(Model.Topic.Summary))
+                        {
+                            @Html.Raw(@Model.Topic.Summary)
+                        }
+                    </div>
                 </div>
             </div>
-        </div>
+        }
     </div>
     
     <div class="topic__secondary-content">
         <div class="grid-container">
             <div class="grid-100">
-                @if(Model.Topic.PrimaryItems.Items.Any() || Model.Topic.SecondaryItems.Any())
+                @if (displayMoreInHeader)
                 {
                     <h2 class="h-xl">More in @Model.Topic.Name</h2>
                 }
@@ -51,6 +56,11 @@
                 @if (Model.Topic.PrimaryItems.Items.Any())
                 {
                     <partial name="NavCards" model="@Model.Topic.PrimaryItems" />
+                }
+
+                @if (!displayMoreInHeader && Model.Topic.SecondaryItems.Any())
+                {
+                    <h3 class="h-l">More in @Model.Topic.Name</h3>
                 }
 
                 @if (Model.Topic.SecondaryItems.Any())
