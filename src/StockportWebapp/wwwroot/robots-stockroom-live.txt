@@ -29,6 +29,3 @@ User-agent: Bingbot
 Disallow: /news
 Disallow: /events
 Crawl-delay: 10
-
-User-agent: *
-Disallow: /
