@@ -17,7 +17,7 @@ public class ContentSecurityPolicyBuilder
         BuildObjectSource();
         BuildManifestSource();
         BuildFrameSource();
-        BuildFormAction();
+        //BuildFormAction();
 
         return _stringBuilder.ToString();
     }
