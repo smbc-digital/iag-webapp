@@ -4,7 +4,7 @@
     ViewData["Description"] = Model.Topic.MetaDescription;
     ViewData["og:title"] = Model.Topic.Name;
     Layout = "../Shared/_Layout.cshtml";
-    var displaySummaryBlock = !string.IsNullOrEmpty(Model.Topic.Teaser) && !string.IsNullOrEmpty(Model.Topic.Summary);
+    var displaySummaryBlock = !string.IsNullOrEmpty(Model.Topic.Summary);
     var displayMoreInHeader = displaySummaryBlock && (Model.Topic.PrimaryItems.Items.Any() || Model.Topic.SecondaryItems.Any());
 }
 
@@ -18,7 +18,6 @@
         <div class="grid-container hero__wrapper">
             <div class="grid-100">
                 <div class="hero__image"></div>
-
                 <div>
                     <h1 class="hero__title">@Model.Topic.Name</h1>
                 </div>
@@ -30,15 +29,7 @@
             <div class="grid-container">
                 <div class="grid-100">
                     <div class="hero__about article--margin-bottom">
-                        @if (!string.IsNullOrEmpty(Model.Topic.Teaser))
-                        {
-                            <p>@Html.Raw(@Model.Topic.Teaser)</p>
-                        }
-
-                        @if (!string.IsNullOrEmpty(Model.Topic.Summary))
-                        {
-                            @Html.Raw(@Model.Topic.Summary)
-                        }
+                        @Html.Raw(@Model.Topic.Summary)
                     </div>
                 </div>
             </div>

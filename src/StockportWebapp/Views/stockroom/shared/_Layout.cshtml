@@ -39,7 +39,7 @@
 </head>
 <body>
     <partial name=CookieNotice />
-    <partial name=GoogleAnalytics />
+    <partial name=Analytics />
     <distributed-cache name=headerStockroom expires-after=@TimeSpan.FromMinutes(ApplicationConfiguration.GetHeaderCache(BusinessId.ToString())) enabled=true>
         @await Component.InvokeAsync("Header")
     </distributed-cache>
