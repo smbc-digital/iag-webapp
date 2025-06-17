@@ -27,7 +27,7 @@ public class TriviaFactoryTests
         Trivia firstResult = result.First();
         Assert.Equal(triviaRequest.Title, firstResult.Title);
         Assert.Equal(triviaRequest.Icon, firstResult.Icon);
-        Assert.Equal("<p>body</p>\n", firstResult.BodyText);
+        Assert.Equal("<p>body</p>\n", firstResult.Body);
         Assert.Equal(triviaRequest.Link, firstResult.Link);
     }
 

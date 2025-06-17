@@ -13,7 +13,7 @@ public class TriviaFactory(MarkdownWrapper markdownWrapper) : ITriviaFactory
         triviaSection?.Select(item => new Trivia (
             item.Title,
             item.Icon,
-            _markdownWrapper.ConvertToHtml(item.BodyText),
+            _markdownWrapper.ConvertToHtml(item.Body),
             item.Link
         )).ToList();
 }

@@ -17,7 +17,7 @@
                         <a class="information-item" href="@informationItem.Link" rel="@informationItem.Title">
                             @{
                                 string parsedItemText = new Regex("<a((?!>).)*>")
-                                    .Replace(informationItem.BodyText, "<span class='information-item-link'>")
+                                    .Replace(informationItem.Body, "<span class='information-item-link'>")
                                     .Replace("</a>", "</span>");
                             }
                             @Html.Raw(parsedItemText)
@@ -25,7 +25,7 @@
                     }
                     else
                     {
-                        @Html.Raw(informationItem.BodyText)
+                        @Html.Raw(informationItem.Body)
                     }
                 </div>
             </li>
