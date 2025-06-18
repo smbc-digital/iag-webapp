@@ -12,7 +12,7 @@
 
 <div class="featured-item section__content" data-cy="featured-item">
     <a href="@Model.Link" class="featured-item__link featured-item__link-@additionalClasses" data-cy="featured-item-link">
-        @if (Model.Image is not null && !string.IsNullOrEmpty(Model.ImageUrl))
+        @if (Model.Image is not null || !string.IsNullOrEmpty(Model.ImageUrl))
         {
             <partial name="FeaturedItemImage" model="@(Model.Image is not null ? Model.Image.Url : Model.ImageUrl)" view-data='@(new ViewDataDictionary(ViewData) { {"altText", ""}, {"imageAdditionalClasses", additionalClasses} })'/>
         }
