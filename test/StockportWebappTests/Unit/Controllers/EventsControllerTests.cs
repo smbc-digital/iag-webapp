@@ -17,12 +17,10 @@ public class EventsControllerTest
     private readonly DateCalculator _datetimeCalculator;
     private readonly Mock<IStockportApiEventsService> _stockportApiEventsService = new();
     private readonly CalendarHelper _calendarhelper = new();
-    private readonly Group _group = new GroupBuilder().Build();
 
     private readonly List<Alert> _alerts = new()
     {
         new Alert("title",
-                "subHeading",
                 "body",
                 "severity",
                 new DateTime(0001, 1, 1, 0, 0, 0, DateTimeKind.Utc),
@@ -35,7 +33,6 @@ public class EventsControllerTest
     private readonly List<Alert> _globalAlerts = new()
     {
         new Alert("global alert title",
-                "global alert subHeading",
                 "global alert body",
                 "severity",
                 new DateTime(0001, 1, 1, 0, 0, 0, DateTimeKind.Utc),
@@ -64,7 +61,6 @@ public class EventsControllerTest
             StartTime = "startTime",
             EndTime = "endTime",
             Breadcrumbs = new List<Crumb>(),
-            Group = _group,
             Alerts = _alerts
         };
 
@@ -88,9 +84,7 @@ public class EventsControllerTest
                                         new List<Crumb>(),
                                         new MapDetails(),
                                         "booking information",
-                                        _group,
                                         _alerts,
-                                        string.Empty,
                                         string.Empty,
                                         new(),
                                         string.Empty,
@@ -131,10 +125,6 @@ public class EventsControllerTest
         _processedContentRepository
             .Setup(processedContentRepo => processedContentRepo.Get<Event>("404-event", It.Is<List<Query>>(l => l.Count.Equals(0))))
             .ReturnsAsync(response404);
-
-        _applicationConfiguration
-            .Setup(appConfig => appConfig.GetEmailEmailFrom(It.IsAny<string>()))
-            .Returns(AppSetting.GetAppSetting("GroupSubmissionEmail"));
 
         _config
             .Setup(config => config.GetRssEmail(BusinessId))
@@ -222,11 +212,9 @@ public class EventsControllerTest
         Assert.Equal("startTime", model.StartTime);
         Assert.Equal("endTime", model.EndTime);
         Assert.Equal("booking information", model.BookingInformation);
-        Assert.Equal(_group.Name, model.Group.Name);
         Assert.Equal(_alerts.First().Title, model.Alerts.First().Title);
         Assert.Equal(_alerts.First().Body, model.Alerts.First().Body);
         Assert.Equal(_alerts.First().Severity, model.Alerts.First().Severity);
-        Assert.Equal(_alerts.First().SubHeading, model.Alerts.First().SubHeading);
         Assert.Equal(_alerts.First().SunriseDate, model.Alerts.First().SunriseDate);
         Assert.Equal(_alerts.First().SunsetDate, model.Alerts.First().SunsetDate);
     }
@@ -464,11 +452,9 @@ public class EventsControllerTest
                                         new List<Crumb>(),
                                         new MapDetails(),
                                         "booking information",
-                                        null,
                                         new List<Alert>(),
-                                        "accessible transport",
                                         "logo title",
-                                        new List<GroupBranding>(),
+                                        new List<TrustedLogo>(),
                                         "0123456789",
                                         "email",
                                         "website",
@@ -639,7 +625,6 @@ public class EventsControllerTest
                 StartTime = "startTime",
                 EndTime = "endTime",
                 Breadcrumbs = new List<Crumb>(),
-                Group = _group,
                 Alerts = _alerts
             };
 

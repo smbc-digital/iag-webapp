@@ -150,7 +150,6 @@ public static class ServiceCollectionExtensions
         services.AddTransient<IEventsService>(p => new EventsService(p.GetService<IRepository>()));
         services.AddTransient<IHomepageService>(p => new HomepageService(p.GetService<IProcessedContentRepository>()));
         services.AddTransient<IStockportApiEventsService>(p => new StockportApiEventsService(p.GetService<IStockportApiRepository>(), p.GetService<IEventFactory>()));
-        services.AddTransient<IGroupsService>(p => new GroupsService(p.GetService<IContentApiRepository>(), p.GetService<IProcessedContentRepository>(), p.GetService<IHttpEmailClient>(), p.GetService<IApplicationConfiguration>(), p.GetService<ILogger<GroupsService>>(), p.GetService<IStockportApiRepository>(), p.GetService<BusinessId>()));
         services.AddTransient<IDirectoryService, DirectoryService>();
 
         services.AddTransient<IProfileService>(p => new
@@ -168,10 +167,6 @@ public static class ServiceCollectionExtensions
     {
         services.AddSingleton<IEmailConfigurationBuilder, EmailConfigurationBuilder>();
         services.AddTransient<IEmailBuilder, EmailBuilder>();
-        services.AddTransient(p => new GroupEmailBuilder(p.GetService<ILogger<GroupEmailBuilder>>(),
-            p.GetService<IHttpEmailClient>(),
-            p.GetService<IApplicationConfiguration>(),
-            p.GetService<BusinessId>()));
 
         return services;
     }
@@ -190,27 +185,7 @@ public static class ServiceCollectionExtensions
                 new DocumentPageRepository(p.GetService<UrlGenerator>(), p.GetService<IHttpClient>(),
                     p.GetService<DocumentPageFactory>(), p.GetService<IApplicationConfiguration>()));
         services.AddSingleton<IEventFactory>(p => new EventFactory(p.GetService<ITagParserContainer>(), p.GetService<MarkdownWrapper>()));
-        services.AddTransient<ILoggedInHelper>(p => new LoggedInHelper(p.GetService<IHttpContextAccessor>(), p.GetService<CurrentEnvironment>(), p.GetService<IJwtDecoder>(), p.GetService<ILogger<LoggedInHelper>>()));
             
-        return services;
-    }
-
-    public static IServiceCollection AddGroupConfiguration(this IServiceCollection services, IConfiguration configuration, ILogger logger)
-    {
-        if (!string.IsNullOrEmpty(configuration["group:authenticationKey"]))
-        {
-            GroupAuthenticationKeys groupKeys = new GroupAuthenticationKeys { Key = configuration["group:authenticationKey"] };
-            services.AddSingleton(groupKeys);
-
-            services.AddScoped(p => new GroupAuthorisation(p.GetService<IApplicationConfiguration>(), p.GetService<ILoggedInHelper>()));
-
-            services.AddSingleton<IJwtDecoder>(p => new JwtDecoder(p.GetService<GroupAuthenticationKeys>(), p.GetService<ILogger<JwtDecoder>>()));
-        }
-        else
-        {
-            logger.Information("Group authenticationKey not found.");
-        }
-
         return services;
     }
 

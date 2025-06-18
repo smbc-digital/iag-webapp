@@ -18,7 +18,6 @@ public class ShowcaseControllerTest
         List<Alert> alerts = new()
         {
             new("title",
-                "subHeading",
                 "body",
                 Severity.Information,
                 new DateTime(0001, 1, 1, 0, 0, 0, DateTimeKind.Utc),
@@ -80,7 +79,7 @@ public class ShowcaseControllerTest
             string.Empty,
             string.Empty,
             new Video(),
-            new SpotlightOnBanner("test", "test", "test", "test", "test", new DateTime()));
+            new SpotlightOnBanner("test", new MediaAsset(), "test", "test", "test", new DateTime()));
 
         _mockContentRepository
             .Setup(repo => repo.Get<Showcase>(It.IsAny<string>(), It.IsAny<List<Query>>()))

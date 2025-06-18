@@ -14,10 +14,6 @@ public class TopicControllerTest
     {
         Mock<IApplicationConfiguration> config = new();
 
-        config
-            .Setup(conf => conf.GetEmailAlertsNewSubscriberUrl(BusinessId))
-            .Returns(AppSetting.GetAppSetting("email-alerts-url"));
-
         _controller = new(_repository.Object, config.Object, new BusinessId(BusinessId), _stockportApiService.Object);
 
         _eventCalendarBanner = new EventCalendarBanner()
@@ -65,8 +61,6 @@ public class TopicControllerTest
                                 null,
                                 new List<Crumb>(),
                                 new List<Alert>(),
-                                true,
-                                "test-id",
                                 _eventBanner,
                                 _eventCalendarBanner,
                                 true,
@@ -94,8 +88,6 @@ public class TopicControllerTest
         Assert.Equal("Image", result.BackgroundImage);
         Assert.Equal("Image", result.Image);
         Assert.True(result.DisplayContactUs);
-        Assert.True(result.EmailAlerts);
-        Assert.Equal("test-id", result.EmailAlertsTopicId);
         Assert.Equal(_eventBanner.Title, result.EventBanner.Title);
         Assert.Equal(_eventBanner.Teaser, result.EventBanner.Teaser);
         Assert.Equal("metaDescription", result.MetaDescription);
@@ -129,8 +121,6 @@ public class TopicControllerTest
                                 null,
                                 new List<Crumb>(),
                                 new List<Alert>(),
-                                true,
-                                "test-id",
                                 _eventBanner,
                                 _eventCalendarBanner,
                                 true,
@@ -155,8 +145,6 @@ public class TopicControllerTest
         Assert.Equal("/topic/sub-topic0", subItem.NavigationLink);
         Assert.Equal("Teaser", subItem.Teaser);
         Assert.Equal("Icon", subItem.Icon);
-        Assert.True(result.EmailAlerts);
-        Assert.Equal("test-id", result.EmailAlertsTopicId);
     }
 
     [Fact]
@@ -180,7 +168,7 @@ public class TopicControllerTest
         // Arrange
         List<Alert> alerts = new()
         {
-            new("title", "subheading", "body", Severity.Warning, new DateTime(0001, 1, 1, 0, 0, 0, DateTimeKind.Utc),
+            new("title", "body", Severity.Warning, new DateTime(0001, 1, 1, 0, 0, 0, DateTimeKind.Utc),
             new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc), string.Empty, false, string.Empty)
         };
 
@@ -197,8 +185,6 @@ public class TopicControllerTest
                                 null,
                                 new List<Crumb>(),
                                 alerts,
-                                true,
-                                "test-id",
                                 _eventBanner,
                                 _eventCalendarBanner,
                                 true,
@@ -220,11 +206,8 @@ public class TopicControllerTest
         // Assert
         Assert.Single(result.Alerts);
         Assert.Equal("title", result.Alerts.First().Title);
-        Assert.Equal("subheading", result.Alerts.First().SubHeading);
         Assert.Equal("<p>body</p>\n", result.Alerts.First().Body);
         Assert.Equal(Severity.Warning, result.Alerts.First().Severity);
-        Assert.True(result.EmailAlerts);
-        Assert.Equal("test-id", result.EmailAlertsTopicId);
     }
 
     [Fact]
@@ -246,8 +229,6 @@ public class TopicControllerTest
                                 null,
                                 new List<Crumb>(),
                                 new List<Alert>(),
-                                true,
-                                "test-id",
                                 _eventBanner,
                                 _eventCalendarBanner,
                                 true,

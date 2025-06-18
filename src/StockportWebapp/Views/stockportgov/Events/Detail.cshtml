@@ -64,11 +64,11 @@
                     <partial name="DetailMap" model='@Model.MapDetails' view-data='@(new ViewDataDictionary(ViewData) {{ "EventWrapperCssClasses", eventWrapperCssClasses }, {"BorderTop", borderTop }, { "DisplayMap", true }, { "EntryNameString", @Model.Title } })' />
                 }
 
-                @if (Model.EventBranding.Any())
+                @if (Model.TrustedLogos.Any())
                 {
                     <div class="event-detail--100 @borderTop">
                         <div class="@eventWrapperCssClasses">
-                                <partial name="LogoArea" model='@Model.EventBranding' view-data='new ViewDataDictionary(ViewData) {{"logoAreaTitleStylingBlank", true}, {"logoAreaArticle", false}, { "logoAreaTitle", @Model.LogoAreaTitle }, {"borderTopClass", "directory--padding"}, {"eventDetailHeading", "event-detail__heading"}}' />
+                            <partial name="LogoArea" model='@Model.TrustedLogos' view-data='new ViewDataDictionary(ViewData) {{"logoAreaTitleStylingBlank", true}, {"logoAreaArticle", false}, { "logoAreaTitle", @Model.LogoAreaTitle }, {"borderTopClass", "directory--padding"}, {"eventDetailHeading", "event-detail__heading"}}' />
                         </div>
                     </div>
                 }

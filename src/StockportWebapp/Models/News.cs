@@ -20,8 +20,8 @@ public class News(string title,
                 IEnumerable<InlineQuote> inlineQuotes,
                 CallToActionBanner callToAction,
                 string logoAreaTitle,
-                IEnumerable<GroupBranding> newsBranding,
-                GroupBranding featuredLogo,
+                IEnumerable<TrustedLogo> trustedLogos,
+                TrustedLogo featuredLogo,
                 string eventsByTagOrCategory,
                 List<Event> events)
 {
@@ -45,8 +45,8 @@ public class News(string title,
     public IEnumerable<InlineQuote> InlineQuotes { get; set; } = inlineQuotes;
     public CallToActionBanner CallToAction { get; set; } = callToAction;
     public string LogoAreaTitle { get; } = logoAreaTitle;
-    public IEnumerable<GroupBranding> NewsBranding { get; set; } = newsBranding;
-    public GroupBranding FeaturedLogo { get; set; } = featuredLogo;
+    public IEnumerable<TrustedLogo> TrustedLogos { get; set; } = trustedLogos;
+    public TrustedLogo FeaturedLogo { get; set; } = featuredLogo;
     public string EventsByTagOrCategory { get; set; } = eventsByTagOrCategory;
     public List<Event> Events { get; set; } = events;
 }

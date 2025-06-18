@@ -7,7 +7,7 @@ public class Section(string title,
                     List<Profile> profiles,
                     List<Document> documents,
                     IEnumerable<Alert> alertsInline,
-                    List<GroupBranding> sectionBranding,
+                    List<TrustedLogo> trustedLogos,
                     string logoAreaTitle,
                     DateTime updatedAt)
 {
@@ -19,7 +19,7 @@ public class Section(string title,
     public List<Document> Documents { get; set; } = documents;
     public IEnumerable<Alert> AlertsInline { get; set; } = alertsInline;
     public IEnumerable<PrivacyNotice> PrivacyNotices { get; set; }
-    public List<GroupBranding> SectionBranding { get; init; } = sectionBranding;
+    public List<TrustedLogo> TrustedLogos { get; init; } = trustedLogos;
     public string LogoAreaTitle { get; set; } = logoAreaTitle;
     public DateTime UpdatedAt { get; set; } = updatedAt;
 }

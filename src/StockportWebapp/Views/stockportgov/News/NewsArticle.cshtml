@@ -67,9 +67,9 @@
                         <partial name="NewsCallToAction" model='Model.NewsItem.CallToAction'/>
                     }
 
-                    @if (Model.NewsItem.NewsBranding is not null && Model.NewsItem.NewsBranding.Any())
+                    @if (Model.NewsItem.TrustedLogos is not null && Model.NewsItem.TrustedLogos.Any())
                     {
-                        <partial name="LogoArea" model='@Model.NewsItem.NewsBranding' view-data='@(new ViewDataDictionary(ViewData) { { "logoAreaTitle", @Model.NewsItem.LogoAreaTitle }, { "logoAreaArticle", false }, { "displayInSection", false } })' />
+                        <partial name="LogoArea" model='@Model.NewsItem.TrustedLogos' view-data='@(new ViewDataDictionary(ViewData) { { "logoAreaTitle", @Model.NewsItem.LogoAreaTitle }, { "logoAreaArticle", false }, { "displayInSection", false } })' />
                     }
 
                     @if (Model.NewsItem.Tags.Any()) {
@@ -108,11 +108,11 @@
                 </div>
                 
                 <div class="article--30 section">
-                   @if (Model.NewsItem.FeaturedLogo is not null)
+                    @if (Model.NewsItem.FeaturedLogo is not null)
                     {
                         <div class="news-article__featured-logo">
-                            <a href="@Model.NewsItem.FeaturedLogo.Url">
-                                <img src="@Model.NewsItem.FeaturedLogo.File.Url?w=340&q=89&fm=webp"
+                            <a href="@Model.NewsItem.FeaturedLogo.Link">
+                                <img src="@Model.NewsItem.FeaturedLogo.Image.Url?w=340&q=89&fm=webp"
                                     class="directory__logo"
                                     alt=""
                                     loading="lazy"

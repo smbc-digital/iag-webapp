@@ -22,98 +22,12 @@
   display: none !important;
 }
 
-.group-calender-container {
-  overflow: hidden !important;
-
-  .group-calender-container-description {
-    width: 100% !important;
-    float: left !important;
-    height: inherit !important;
-
-    .group-ul li:last-child {
-      display: none !important;
-    }
-  }
-
-  .group-calender-container-image.hide-on-desktop {
-    display: block !important;
-    height: 350px !important;
-    background-repeat: no-repeat !important;
-    padding-bottom: 10px !important;
-  }
-}
-
-.hide-on-pdf {
-  display: none !important;
-}
-
 .display-on-pdf {
   display: block !important;
 }
 
-.group-listing-container {
-  .group-li {
-    width: 100% !important;
-
-    .group-card {
-      box-shadow: none;
-      padding-bottom: 0px;
-
-      &:hover {
-        box-shadow: none;
-      }
-
-      .group-card-main {
-        .group-image {
-          width: 45%;
-        }
-
-        .group-card-information {
-          width: 50%;
-          float: right;
-          height: auto !important;
-        }
-      }
-    }
-  }
-}
-
-.upcoming-events-container {
-  .event-listing-container {
-    .event-li {
-      width: 100% !important;
-      overflow-y: hidden;
-
-      .event-card {
-        height: inherit !important;
-        box-shadow: none;
-        padding-bottom: 0px;
-
-        .event-image {
-          width: 45% !important;
-          display: inline-block !important;
-        }
-
-        .event-card-information {
-          width: 50% !important;
-          float: right !important;
-        }
-      }
-    }
-  }
-}
-
-.remove-edges-for-pdf {
-  max-width: 100%;
-  padding: 0;
-}
-
 body {
   background-color: white;
-}
-
-.event-card-container {
-  page-break-inside: avoid !important;
 }
 
 .event-li,
@@ -155,10 +69,6 @@ body {
   height: 330px;
   clear: both;
   text-align: center;
-}
-
-.organisation-detail img {
-  width: 30%;
 }
 
 .link-inside-text {

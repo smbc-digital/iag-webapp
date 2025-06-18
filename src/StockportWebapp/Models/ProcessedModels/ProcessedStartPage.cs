@@ -5,7 +5,6 @@ public class ProcessedStartPage(string slug,
                                 string teaser,
                                 string summary,
                                 string upperBody,
-                                string formLinkLabel,
                                 string formLink,
                                 string lowerBody,
                                 IEnumerable<Crumb> breadcrumbs,
@@ -18,7 +17,6 @@ public class ProcessedStartPage(string slug,
     public string Teaser { get; } = teaser;
     public string Summary { get; } = summary;
     public string UpperBody { get; } = upperBody;
-    public string FormLinkLabel { get; } = formLinkLabel;
     public string FormLink { get; } = formLink;
     public string LowerBody { get; } = lowerBody;
     public IEnumerable<Crumb> Breadcrumbs { get; } = breadcrumbs;

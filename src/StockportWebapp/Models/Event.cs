@@ -24,14 +24,12 @@ public class Event
     public string BookingInformation { get; set; }
     public DateTime UpdatedAt { get; set; }
     public List<string> Tags { get; set; }
-    public Group Group { get; set; }
     public List<Alert> Alerts { get; set; }
     public EventFrequency EventFrequency { get; set; }
-    public int Occurences { get; set; }
+    public int Occurrences { get; set; }
     public List<EventCategory> EventCategories { get; set; }
-    public string AccessibleTransportLink { get; set; }
     public string LogoAreaTitle { get; set; }
-    public List<GroupBranding> EventBranding { get; set; } = new();
+    public List<TrustedLogo> TrustedLogos { get; set; } = new();
     public string PhoneNumber { get; set; }
     public string Email { get; set; }
     public string Website { get; set; }

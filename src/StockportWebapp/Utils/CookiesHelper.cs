@@ -4,35 +4,6 @@ public class CookiesHelper(IHttpContextAccessor accessor) : ICookiesHelper
 {
     private readonly IHttpContextAccessor httpContextAccessor = accessor;
 
-    public List<T> PopulateCookies<T>(List<T> items, string cookieType)
-    {
-        Dictionary<string, List<string>> cookiesAsObject = GetCookiesAsObject(cookieType);
-
-        if (!cookiesAsObject.Keys.Any())
-            return items;
-
-        string type = typeof(T).ToString().ToLower().Replace("Processed", string.Empty);
-        List<string> cookies = cookiesAsObject[type];
-
-        foreach (T item in items)
-        {
-            PropertyInfo cookieProp = item.GetType().GetProperty("Favourite");
-            PropertyInfo slugProp = item.GetType().GetProperty("Slug");
-
-            if (cookieProp is not null && slugProp is not null && cookieProp.CanWrite)
-            {
-                bool exists = cookies.Any(f => f.Equals(slugProp.GetValue(item).ToString()));
-                cookieProp.SetValue(item, exists, null);
-            }
-            else
-            {
-                throw new Exception("The object you are adding to favourites does not have either the property 'Favourite' or the property 'Slug'");
-            }
-        }
-
-        return items;
-    }
-
     public void AddToCookies<T>(string slug, string cookieType)
     {
         Dictionary<string, List<string>> cookiesAsObject = GetCookiesAsObject(cookieType);

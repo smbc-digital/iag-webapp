@@ -355,7 +355,7 @@ public class DateCalculatorTest
     [InlineData(31, EventFrequency.Monthly, 1)]
     [InlineData(31, EventFrequency.MonthlyDate, 1)]
     [InlineData(365, EventFrequency.Yearly, 1)]
-    public void ShowReturnCorrectEndDateForReoccurringEvents(int daysHence, EventFrequency freq, int occurences)
+    public void ShowReturnCorrectEndDateForReoccurringEvents(int daysHence, EventFrequency freq, int occurrences)
     {
         // Arrange
         DateTime date = new(2017, 12, 25);
@@ -365,7 +365,7 @@ public class DateCalculatorTest
             .Returns(date);
 
         DateCalculator dateCalculator = new(_mockTimeProvider.Object);
-        Event testEvent = new() { EventFrequency = freq, Occurences = occurences, EventDate = date };
+        Event testEvent = new() { EventFrequency = freq, Occurrences = occurrences, EventDate = date };
 
         // Act
         DateTime enddate = dateCalculator.GetEventEndDate(testEvent);
@@ -390,7 +390,7 @@ public class DateCalculatorTest
     [InlineData(360, EventFrequency.Yearly, 1)]
     [InlineData(365, EventFrequency.Yearly, 2)]
     [InlineData(370, EventFrequency.Yearly, 2)]
-    public void GetEventOccurences_ShowReturnCorrectCountOfEventOccurences(int daysHence, EventFrequency freq, int occurences)
+    public void GetEventOccurrences_ShowReturnCorrectCountOfEventOccurrences(int daysHence, EventFrequency freq, int occurrences)
     {
         // Arrange
         DateTime date = new(2017, 12, 25);
@@ -400,12 +400,12 @@ public class DateCalculatorTest
             .Returns(date);
 
         DateCalculator dateCalculator = new(_mockTimeProvider.Object);
-        Event testEvent = new() { EventFrequency = freq, Occurences = occurences, EventDate = date };
+        Event testEvent = new() { EventFrequency = freq, Occurrences = occurrences, EventDate = date };
 
         // Act
-        int result = dateCalculator.GetEventOccurences(testEvent.EventFrequency, testEvent.EventDate, testEvent.EventDate.AddDays(daysHence));
+        int result = dateCalculator.GetEventOccurrences(testEvent.EventFrequency, testEvent.EventDate, testEvent.EventDate.AddDays(daysHence));
 
         // Assert
-        Assert.Equal(occurences, result);
+        Assert.Equal(occurrences, result);
     }
 }

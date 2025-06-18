@@ -13,7 +13,7 @@ public class TriviaFactoryTests
     public void Build_ShouldReturnCorrectListOfTrivia()
     {
         // Arrange
-        Trivia triviaRequest = new("name", "icon", "body", "link");
+        Trivia triviaRequest = new("title", "icon", "body", "link");
         List<Trivia> request = new()
         {
             triviaRequest
@@ -25,7 +25,7 @@ public class TriviaFactoryTests
         // Assert
         Assert.NotEmpty(result);
         Trivia firstResult = result.First();
-        Assert.Equal(triviaRequest.Name, firstResult.Name);
+        Assert.Equal(triviaRequest.Title, firstResult.Title);
         Assert.Equal(triviaRequest.Icon, firstResult.Icon);
         Assert.Equal("<p>body</p>\n", firstResult.Body);
         Assert.Equal(triviaRequest.Link, firstResult.Link);

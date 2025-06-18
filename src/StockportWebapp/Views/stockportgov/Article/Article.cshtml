@@ -7,7 +7,7 @@
     ViewData["og:title"] = Model.OgTitleMetaData;
     Layout = "../Shared/_Layout2023.cshtml";
     string dataCy = Model.DisplayedSection is null ? "flat-article" : "article-with-sections";
-    string articleMarginBottom = !Model.Article.ArticleBranding.Any() || Model.Article.ArticleBranding is null
+    string articleMarginBottom = !Model.Article.TrustedLogos.Any() || Model.Article.TrustedLogos is null
         ? " section"
         : string.Empty;
 }
@@ -84,13 +84,13 @@
                         <partial name="ArticleSectionPagination" />
                     }
 
-                    @if (Model.ArticleWithSection && Model.DisplayedSection.SectionBranding.Any())
+                    @if (Model.ArticleWithSection && Model.DisplayedSection.TrustedLogos.Any())
                     {
-                        <partial name="LogoArea" model='@Model.DisplayedSection.SectionBranding' view-data='@(new ViewDataDictionary(ViewData) {{"logoAreaTitle", @Model.DisplayedSection.LogoAreaTitle}, {"articleWithSection", Model.ArticleWithSection}, {"logoAreaArticle", true}})' />
+                        <partial name="LogoArea" model='@Model.DisplayedSection.TrustedLogos' view-data='@(new ViewDataDictionary(ViewData) {{"logoAreaTitle", @Model.DisplayedSection.LogoAreaTitle}, {"articleWithSection", Model.ArticleWithSection}, {"logoAreaArticle", true}})' />
                     }
                     else
                     {
-                        <partial name="LogoArea" model='@Model.Article.ArticleBranding' view-data='@(new ViewDataDictionary(ViewData) {{"logoAreaTitle", @Model.Article.LogoAreaTitle}, {"articleWithSection", Model.ArticleWithSection}, {"logoAreaArticle", true}})' />
+                        <partial name="LogoArea" model='@Model.Article.TrustedLogos' view-data='@(new ViewDataDictionary(ViewData) {{"logoAreaTitle", @Model.Article.LogoAreaTitle}, {"articleWithSection", Model.ArticleWithSection}, {"logoAreaArticle", true}})' />
                     }
                 </div>
 

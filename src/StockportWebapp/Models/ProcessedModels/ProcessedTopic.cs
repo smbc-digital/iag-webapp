@@ -12,15 +12,13 @@ public class ProcessedTopic(string name,
                             IEnumerable<SubItem> secondaryItems,
                             IEnumerable<Crumb> breadcrumbs,
                             IEnumerable<Alert> alerts,
-                            bool emailAlerts,
-                            string emailAlertsTopicId,
                             EventBanner eventBanner,
                             EventCalendarBanner eventCalendarBanner,
                             bool displayContactUs,
                             CarouselContent campaignBanner,
                             string eventCategory,
                             CallToActionBanner callToAction,
-                            List<GroupBranding> topicBranding,
+                            List<TrustedLogo> trustedLogos,
                             string logoAreaTitle)
 {
     public string Name { get; } = name;
@@ -42,14 +40,12 @@ public class ProcessedTopic(string name,
     public IEnumerable<SubItem> TopSubItems { get; }
     public IEnumerable<Crumb> Breadcrumbs { get; } = breadcrumbs;
     public IEnumerable<Alert> Alerts { get; } = alerts;
-    public bool EmailAlerts { get; } = emailAlerts;
-    public string EmailAlertsTopicId { get; } = emailAlertsTopicId;
     public EventBanner EventBanner { get; } = eventBanner;
     public EventCalendarBanner EventCalendarBanner { get; } = eventCalendarBanner;
     public bool DisplayContactUs { get; set; } = displayContactUs;
     public CarouselContent CampaignBanner { get; } = campaignBanner;
     public string EventCategory { get; set; } = eventCategory;
-    public List<GroupBranding> TopicBranding { get; init; } = topicBranding;
+    public List<TrustedLogo> TrustedLogos { get; init; } = trustedLogos;
     public string LogoAreaTitle { get; set; } = logoAreaTitle;
 
     public NavCardList PrimaryItems => new()

@@ -11,7 +11,7 @@ public class TriviaFactory(MarkdownWrapper markdownWrapper) : ITriviaFactory
 
     public List<Trivia> Build(List<Trivia> triviaSection) => 
         triviaSection?.Select(item => new Trivia (
-            item.Name,
+            item.Title,
             item.Icon,
             _markdownWrapper.ConvertToHtml(item.Body),
             item.Link

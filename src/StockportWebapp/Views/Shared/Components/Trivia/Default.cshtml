@@ -14,7 +14,7 @@
                 <div class="text-column">
                     @if (!string.IsNullOrEmpty(informationItem.Link))
                     {
-                        <a class="information-item" href="@informationItem.Link" rel="@informationItem.Name">
+                        <a class="information-item" href="@informationItem.Link" rel="@informationItem.Title">
                             @{
                                 string parsedItemText = new Regex("<a((?!>).)*>")
                                     .Replace(informationItem.Body, "<span class='information-item-link'>")

@@ -15,11 +15,9 @@ public class ProcessedEvents(string title,
                             List<Crumb> breadcrumbs,
                             MapDetails mapDetails,
                             string bookingInformation,
-                            Group group,
                             List<Alert> alerts,
-                            string accessibleTransportLink,
                             string logoAreaTitle,
-                            List<GroupBranding> eventBranding,
+                            List<TrustedLogo> trustedLogos,
                             string phoneNumber,
                             string email,
                             string website,
@@ -51,7 +49,7 @@ public class ProcessedEvents(string title,
     public readonly List<Alert> GlobalAlerts = new();
     public MapDetails MapDetails { get; set; } = mapDetails;
     public string LogoAreaTitle { get; } = logoAreaTitle;
-    public List<GroupBranding> EventBranding { get; set; } = eventBranding;
+    public List<TrustedLogo> TrustedLogos { get; set; } = trustedLogos;
     public string PhoneNumber { get; } = phoneNumber;
     public string Email { get; } = email;
     public string Website { get; } = website;
@@ -59,7 +57,6 @@ public class ProcessedEvents(string title,
     public string Instagram { get; } = instagram;
     public string LinkedIn { get; } = linkedIn;
     public string MetaDescription { get; set; } = metaDescription;
-    public Group Group { get; set; } = group;
     public string Duration { get; } = duration;
     public string Languages { get; } = languages;
     public List<ProcessedEvents> RelatedEvents { get; set; } = relatedEvents;

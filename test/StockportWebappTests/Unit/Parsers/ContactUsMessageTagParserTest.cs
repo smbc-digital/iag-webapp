@@ -255,7 +255,7 @@ public class ContactUsMessageTagParserTest
                 new List<Profile>(),
                 null,
                 new List<Alert>(),
-                new List<GroupBranding>(),
+                new List<TrustedLogo>(),
                 "logoAreaTitle",
                 new DateTime());
 
@@ -273,8 +273,6 @@ public class ContactUsMessageTagParserTest
             new List<SubItem>(),
             new List<Crumb>(),
             new List<Alert>(),
-            true,
-            "test-id",
             null,
             true,
             new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty, new DateTime()),

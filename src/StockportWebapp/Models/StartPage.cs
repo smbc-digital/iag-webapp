@@ -5,7 +5,6 @@ public class StartPage(string slug,
                     string teaser,
                     string summary,
                     string upperBody,
-                    string formLinkLabel,
                     string formLink,
                     string lowerBody,
                     IEnumerable<Crumb> breadcrumbs,
@@ -19,7 +18,6 @@ public class StartPage(string slug,
     public string Teaser { get; } = teaser;
     public string Summary { get; } = summary;
     public string UpperBody { get; } = MarkdownWrapper.ToHtml(upperBody);
-    public string FormLinkLabel { get; } = formLinkLabel;
     public string FormLink { get; } = formLink;
     public string LowerBody { get; } = MarkdownWrapper.ToHtml(lowerBody);
     public IEnumerable<Crumb> Breadcrumbs { get; } = breadcrumbs;

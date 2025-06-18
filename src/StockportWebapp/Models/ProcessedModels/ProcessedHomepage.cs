@@ -1,6 +1,5 @@
 ﻿namespace StockportWebapp.Models.ProcessedModels;
 public class ProcessedHomepage(string title,
-                            IEnumerable<string> popularSearchTerms,
                             string featuredTasksHeading,
                             string featuredTasksSummary,
                             IEnumerable<SubItem> featuredTasks,
@@ -14,7 +13,6 @@ public class ProcessedHomepage(string title,
                             string foregroundImageAlt,
                             IEnumerable<News> lastNews,
                             string freeText,
-                            Group featuredGroup,
                             string eventCategory,
                             string metaDescription,
                             CarouselContent campaignBanner,
@@ -24,7 +22,6 @@ public class ProcessedHomepage(string title,
                             string imageOverlayText) : IProcessedContentType
 {
     public string Title = title;
-    public readonly IEnumerable<string> PopularSearchTerms = popularSearchTerms;
     public readonly string FeaturedTasksHeading = featuredTasksHeading;
     public readonly string FeaturedTasksSummary = featuredTasksSummary;
     public readonly IEnumerable<SubItem> FeaturedTasks = featuredTasks;
@@ -40,7 +37,6 @@ public class ProcessedHomepage(string title,
     public readonly string ForegroundImageAlt = foregroundImageAlt;
     public readonly IEnumerable<News> LastNews = lastNews;
     public readonly string FreeText = freeText;
-    public readonly Group FeaturedGroupItem = featuredGroup;
     public readonly string EventCategory = eventCategory;
     public readonly string MetaDescription = metaDescription;
     public readonly CarouselContent CampaignBanner = campaignBanner;

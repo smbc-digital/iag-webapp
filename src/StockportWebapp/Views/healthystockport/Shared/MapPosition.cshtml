@@ -39,10 +39,5 @@
         <stock-button class="directions-button" as-link="true" target="_blank" href="https://www.google.com/maps/dir/?api=1&origin=current+location&destination=@Model.MapPosition.Lat,@Model.MapPosition.Lon&travelmode=bicycling"><span class="fa fa-bicycle" aria-hidden="true"></span>Cycling<span class="hide-on-desktop"> directions</span></stock-button>
     </div>
 
-    @if (!string.IsNullOrEmpty(Model.AccessibleTransportLink))
-    {
-        <div class="grid-parent grid-100 accessibleLink ">
-            For accessible transport options visit our <a href="@Model.AccessibleTransportLink"> accessible transport page.</a>
-        </div>
-    }
+    For accessible transport options visit our <a href="https://www.stockport.gov.uk/accessibleTransport">accessible transport page</a>.
 </div>

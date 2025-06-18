@@ -3,7 +3,7 @@
 
 @import "modules/alerts";
 
-@import "modules/contactUs"; // this should be removed once the new contact us is in place
+@import "modules/contactUs"; // this should be removed once the new contact us is in place (tag parser!)
 @import "modules/document";
 @import "modules/featuredTopics";
 @import "modules/headers";
@@ -17,18 +17,12 @@
 @import "modules/filters";
 @import "modules/group"; // this should be removed once the groups are decommisioned
 @import "modules/showcase"; // this should be removed once the showcases are decommisioned
-@import "modules/groupResults"; // this should be removed once the groups are decommisioned
-@import "modules/primaryFilter";
 @import "modules/eventbanner";
 @import "modules/table"; 
 @import "modules/map";
-@import "modules/groupCards"; // this should be removed once the groups are decommisioned
-@import "modules/favourites"; // this should be removed once the groups are decommissioned
 @import "modules/refineBar";
-@import "modules/organisations"; // this should be removed once the groups are decommisioned
 @import "modules/pagination";
 @import "modules/multistepForm"; // this should be removed once the groups are decommisioned
-@import "modules/groupsSemantic"; // this should be removed once the groups are decommisioned
 @import "modules/_contentDisclaimerCard";
 @import "modules/_video";
 @import "modules/_leaflet";

@@ -87,8 +87,6 @@ public class EventSubmission
     [Display(Name = "Organiser email address")]
     public string SubmitterEmail { get; set; }
 
-    public string GroupName { get; set; }
-    public string GroupSlug { get; set; }
     public string Slug { get; set; }
 
     public List<string> BuildCategoryList()

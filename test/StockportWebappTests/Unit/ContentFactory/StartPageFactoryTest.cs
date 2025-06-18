@@ -15,7 +15,6 @@ public class StartPageFactoryTests
                                 "This is a test start page",
                                 "Use this page to start test processes",
                                 "Test upper body content",
-                                "Test Link",
                                 "https://www.stockport.gov.uk",
                                 "Test lower body content",
                                 new List<Crumb>(),
@@ -71,7 +70,6 @@ public class StartPageFactoryTests
         Assert.Equal(_startPage.Teaser, result.Teaser);
         Assert.Equal(_startPage.Summary, result.Summary);
         Assert.Equal(_startPage.UpperBody, result.UpperBody);
-        Assert.Equal(_startPage.FormLinkLabel, result.FormLinkLabel);
         Assert.Equal(_startPage.FormLink, result.FormLink);
         Assert.Equal(_startPage.LowerBody, result.LowerBody);
         Assert.Equal(_startPage.Breadcrumbs, result.Breadcrumbs);

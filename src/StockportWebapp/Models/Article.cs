@@ -17,7 +17,7 @@ public class Article(string title,
                     IEnumerable<Alert> alertsInline,
                     DateTime updatedAt,
                     bool hideLastUpdated,
-                    List<GroupBranding> articleBranding,
+                    List<TrustedLogo> trustedLogos,
                     string logoAreaTitle,
                     IEnumerable<SubItem> relatedContent,
                     string author,
@@ -47,7 +47,7 @@ public class Article(string title,
     public IEnumerable<PrivacyNotice> PrivacyNotices { get; set; }
     public DateTime UpdatedAt { get; set; } = updatedAt;
     public bool HideLastUpdated { get; set; } = hideLastUpdated;
-    public List<GroupBranding> ArticleBranding { get; init; } = articleBranding;
+    public List<TrustedLogo> TrustedLogos { get; init; } = trustedLogos;
     public string LogoAreaTitle { get; } = logoAreaTitle;
     public IEnumerable<SubItem> RelatedContent { get; set; } = relatedContent;
     public string Author { get; } = author;

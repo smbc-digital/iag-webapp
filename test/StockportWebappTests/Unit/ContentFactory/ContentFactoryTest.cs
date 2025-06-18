@@ -36,7 +36,7 @@ public class ContentFactoryTest
                             new List<Profile>(),
                             new List<Document>(),
                             new List<Alert>(),
-                            new List<GroupBranding>(),
+                            new List<TrustedLogo>(),
                             "logoAreaTitle",
                             new DateTime());
 
@@ -67,7 +67,7 @@ public class ContentFactoryTest
                             new List<Alert>(),
                             new DateTime(),
                             new bool(),
-                            new List<GroupBranding>(),
+                            new List<TrustedLogo>(),
                             TextHelper.AnyString,
                             null,
                             It.IsAny<string>(),
@@ -109,7 +109,7 @@ public class ContentFactoryTest
                         new List<InlineQuote>(),
                         null,
                         It.IsAny<string>(),
-                        new List<GroupBranding>(),
+                        new List<TrustedLogo>(),
                         null,
                         It.IsAny<string>(),
                         null);

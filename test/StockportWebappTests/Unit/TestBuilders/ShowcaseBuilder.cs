@@ -23,7 +23,7 @@ public class ShowcaseBuilder
     private IEnumerable<Crumb> _breadcrumbs = new List<Crumb>() { new("link", "title", "type") };
     private IEnumerable<SocialMediaLink> _socialMediaLinks = new List<SocialMediaLink>() { new("title", "slug", "url", "icon", "accountName", "screenreader") };
     private IEnumerable<Event> _events = new List<Event>();
-    private readonly IEnumerable<Alert> alerts = new List<Alert> {new("title", "subHeading", "body", Severity.Information, new DateTime(0001, 1, 1, 0, 0, 0, DateTimeKind.Utc),
+    private readonly IEnumerable<Alert> alerts = new List<Alert> {new("title", "body", Severity.Information, new DateTime(0001, 1, 1, 0, 0, 0, DateTimeKind.Utc),
                                                              new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc), string.Empty, false, string.Empty)};
     public string _profileHeading { get; set; }
     public string _profileLink { get; set; }

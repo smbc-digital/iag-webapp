@@ -27,7 +27,7 @@ public class ArticleFactoryTest
                         new List<Profile>(),
                         new List<Document>(),
                         new List<Alert>(),
-                        new List<GroupBranding>(),
+                        new List<TrustedLogo>(),
                         "logoAreaTitle",
                         new DateTime());
         
@@ -38,7 +38,7 @@ public class ArticleFactoryTest
                                 new List<Profile>(),
                                 new List<Document>(),
                                 new List<Alert>(),
-                                new List<GroupBranding>(),
+                                new List<TrustedLogo>(),
                                 "logoAreaTitle",
                                 new DateTime());
         
@@ -49,7 +49,7 @@ public class ArticleFactoryTest
                         new List<Profile>(),
                         new List<Document>(),
                         new List<Alert>(),
-                        new List<GroupBranding>(),
+                        new List<TrustedLogo>(),
                         "logoAreaTitle",
                         new DateTime());
         
@@ -60,7 +60,7 @@ public class ArticleFactoryTest
                                 new List<Profile>(),
                                 new List<Document>(),
                                 new List<Alert>(),
-                                new List<GroupBranding>(),
+                                new List<TrustedLogo>(),
                                 "logoAreaTitle",
                                 new DateTime());
 
@@ -86,7 +86,7 @@ public class ArticleFactoryTest
                     new List<Alert>(),
                     new DateTime(),
                     false,
-                    new List<GroupBranding>(),
+                    new List<TrustedLogo>(),
                     "logoAreaTitle",
                     new List<SubItem>(),
                     "author",

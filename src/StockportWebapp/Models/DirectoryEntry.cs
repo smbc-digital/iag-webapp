@@ -14,7 +14,7 @@ public class DirectoryEntry : ISlugComparable
     public IEnumerable<MinimalDirectory> Directories { get; set; }
     public IEnumerable<Alert> Alerts { get; set; }
     public IEnumerable<Alert> AlertsInline { get; set; }
-    public List<GroupBranding> Branding { get; set; } = new List<GroupBranding>();
+    public List<TrustedLogo> TrustedLogos { get; set; } = new();
     public MapPosition MapPosition { get; set; } = new MapPosition();
     public string PhoneNumber { get; set; } = string.Empty;
     public string Email { get; set; } = string.Empty;

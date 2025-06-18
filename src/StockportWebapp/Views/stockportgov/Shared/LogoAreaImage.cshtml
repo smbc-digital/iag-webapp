@@ -1,4 +1,4 @@
-@model List<GroupBranding>
+@model List<TrustedLogo>
 @{
     string eventDetailHeading = (string)ViewData["eventDetailHeading"] ?? string.Empty;
     string logoAreaTitle = (string)ViewData["logoAreaTitle"];
@@ -24,13 +24,13 @@
 <h2 class="@headingClass @eventDetailHeading">@(!string.IsNullOrEmpty(logoAreaTitle) ? logoAreaTitle : "Our partners")</h2>
 <div class="section__content section__content--no-margin">
     <div class="logo-area">
-        @foreach (GroupBranding branding in Model)
+        @foreach (TrustedLogo trustedLogo in Model)
         {
             <div class="logo-area__item">
-                <a href="@branding.Url">
-                    <img src="@branding.File.Url?w=340&q=89&fm=webp"
+                <a href="@trustedLogo.Link">
+                    <img src="@trustedLogo.Image.Url?w=340&q=89&fm=webp"
                          class="logo-area__image"
-                         alt="@(branding.File.Description ?? string.Empty)"
+                         alt="@(trustedLogo.Image.Description ?? string.Empty)"
                          loading="lazy"
                          width="200"
                          height="125" />

@@ -19,8 +19,6 @@ public class ProcessedEventsTests
                                                         new MapDetails(),
                                                         "booking information",
                                                         null,
-                                                        null,
-                                                        null,
                                                         string.Empty,
                                                         new(),
                                                         string.Empty,
@@ -40,7 +38,6 @@ public class ProcessedEventsTests
     {
         // Act
         bool isAlertDisplayed = processedEvent.IsAlertDisplayed(new Alert("title",
-                                                                        "subHeading",
                                                                         "body",
                                                                         "severity",
                                                                         DateTime.Now.AddDays(-5),
@@ -58,7 +55,6 @@ public class ProcessedEventsTests
     {
         // Act
         bool isAlertDisplayed = processedEvent.IsAlertDisplayed(new Alert("title",
-                                                                        "subHeading",
                                                                         "body",
                                                                         "severity",
                                                                         DateTime.Now.AddDays(-5),

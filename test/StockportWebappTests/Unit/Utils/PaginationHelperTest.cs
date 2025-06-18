@@ -459,7 +459,7 @@ public class PaginationHelperTest
                                 new List<InlineQuote>(),
                                 null,
                                 string.Empty,
-                                new List<GroupBranding>(),
+                                new List<TrustedLogo>(),
                                 null,
                                 string.Empty,
                                 null);
@@ -485,20 +485,6 @@ public class PaginationHelperTest
 
         // Assert 
         urlHelper.Verify();
-    }
-
-    [Theory]
-    [InlineData(12, 70, 60)]
-    [InlineData(12, 50, 60)]
-    [InlineData(60, 70, 12)]
-    [InlineData(60, 50, 12)]
-    public void ShouldReturnCorrectPageSizeBasedOnCurrentPageSizeForGroupsButton(int maxItemsPerPage, int totalItems, int expectedResult)
-    {
-        // Act
-        int result = PaginationHelper.GetOtherPageSizeByCurrentPageSize(maxItemsPerPage, totalItems, 12);
-
-        // Assert 
-        Assert.Equal(expectedResult, result);
     }
 
     [Fact]
