@@ -6,8 +6,12 @@ define(["jquery"], function ($) {
                 $(this).closest('form').submit();
             });
 
-            $('.events-filters__date').change(function () {
+            $('input[type="date"].events-filters__date').change(function () {
                 $('.events-filters__radio').prop('checked', false);
+                $(this).closest('form').submit();
+            });
+
+            $('#event-category').change(function () {
                 $(this).closest('form').submit();
             });
 

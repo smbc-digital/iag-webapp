@@ -1,12 +1,13 @@
 @inject ViewHelpers ViewHelpers
 @model Event
+
 @if (Model is not null)
 {
     string borderColourClass = (string)ViewData["BorderColourClass"] ?? string.Empty;
     string backgroundColourClass = (string)ViewData["BackgroundColourClass"] ?? string.Empty;
 
     <li class="navcard navcard--width-33 navcard event-cards">
-        <a href="/events/@Model.Slug" class="navcard__link event-cards__link @backgroundColourClass @borderColourClass" data-cy="event-card-link">
+        <a href="@(Url.Action("Detail", "Events", new {slug = Model.Slug, date = Model.EventDate.ToString("yyyy-MM-dd")}))" class="navcard__link event-cards__link @backgroundColourClass @borderColourClass" data-cy="event-card-link">
             <div class="navcard__content">
                 <partial name="NavCardImage" model="@Model.ImageUrl" view-data='@(new ViewDataDictionary(ViewData) { {"imageAdditionalClasses", "event-cards__image"}})'/>
 

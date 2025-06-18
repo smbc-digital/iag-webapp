@@ -12,7 +12,7 @@
         "directoryFilters": "directoryFilters-cefe3db0.min",
         "events": "events-af550f37.min",
         "eventCategories": "eventCategories-e45a6772.min",
-        "eventFilters": "eventFilters-8c1e1969.min",
+        "eventFilters": "eventFilters-0efc724b.min",
         "filters": "filters-9a822ad2.min",
         "healthystockport": "healthystockport-e14985cb.min",
         "mapSetCookie": "mapSetCookie-75bedf74.min",
