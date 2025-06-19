@@ -6,12 +6,12 @@ public class ContactUsDetails
     public string ServiceEmail { get; set; }
     private const string DefaultValue = "";
 
-    [Required(ErrorMessage = "Your name is required")]
+    [Required(ErrorMessage = "Enter your name")]
     [Display(Name = "Name")]
     [MaxLength(80, ErrorMessage = "Your name must be no more than 80 characters long")]
     public string Name { get; set; }
 
-    [Required(ErrorMessage = "An email address is required")]
+    [Required(ErrorMessage = "Enter an email address")]
     [EmailAddress(ErrorMessage = "This is not a valid email address")]
     [Display(Name = "Email address")]
     [DefaultValue(DefaultValue)]
@@ -21,14 +21,14 @@ public class ContactUsDetails
     [HiddenInput]
     public string Title { get; set; }
 
-    [Required(ErrorMessage = "A subject is required")]
+    [Required(ErrorMessage = "Enter the subject of your enquiry")]
     [Display(Name = "Subject")]
     [MaxLength(80, ErrorMessage = "The subject must be no more than 80 characters long")]
     public string Subject { get; set; }
 
-    [Required(ErrorMessage = "An enquiry message is required")]
+    [Required(ErrorMessage = "Tell us about your enquiry")]
     [Display(Name = "Enquiry")]
-    [MaxLength(500, ErrorMessage = "The enquiry message must be no more than 500 characters long")]
+    [MaxLength(500, ErrorMessage = "The enquiry must be no more than 500 characters long")]
     [StringLength(500, ErrorMessage = "Too much string")]
     public string Message { get; set; }
 

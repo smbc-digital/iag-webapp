@@ -1,6 +1,5 @@
 ﻿/*------ Typography Styles ------*/
-
-$fontStack: "Open Sans", Arial, sans-serif;
+$fontStack: 'Lexend', 'Noto Sans', sans-serif;
 
 @mixin body {
     font: 1.1875rem / 1.5 $fontStack;

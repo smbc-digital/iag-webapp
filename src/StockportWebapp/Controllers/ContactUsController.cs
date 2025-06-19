@@ -1,5 +1,3 @@
-using System.Linq;
-
 namespace StockportWebapp.Controllers;
 
 public class ContactUsController(IRepository repository,
@@ -27,26 +25,18 @@ public class ContactUsController(IRepository repository,
         contactUsDetails.ServiceEmail = contactUsModel.EmailAddress;
 
         string redirectUrl;
-        if (!string.IsNullOrEmpty(contactUsModel.SuccessPageReturnUrl))
+        
+        StringValues referer = Request.Headers["referer"];
+        if (string.IsNullOrEmpty(referer))
         {
-            _logger.LogError($"ContactUsController:Contact:Redirect to {contactUsModel.SuccessPageReturnUrl}");
+            _logger.LogError($"ContactUsController:Contact:No referer found");
 
-            redirectUrl = contactUsModel.SuccessPageReturnUrl;
+            return NotFound();
         }
-        else
-        {
-            StringValues referer = Request.Headers["referer"];
-            if (string.IsNullOrEmpty(referer))
-            {
-                _logger.LogError($"ContactUsController:Contact:No referer found");
 
-                return NotFound();
-            }
+        _logger.LogError($"ContactUsController:Contact:Redirect to refeer {referer}");
 
-            _logger.LogError($"ContactUsController:Contact:Redirect to refeer {referer}");
-
-            redirectUrl = new UriBuilder(referer).Path;
-        }
+        redirectUrl = new UriBuilder(referer).Path;
         
         if (await _featureManager.IsEnabledAsync("SendContactUsEmails"))
         {
@@ -137,7 +127,7 @@ public class ContactUsController(IRepository repository,
 
     private string CreateMessageBody(ContactUsDetails contactUsDetails) =>
         "Thank you for contacting us<br /><br />" +
-        "We have received your message and will get back to you." +
+        "We have received your message and will get back to you. " +
         "This confirms that we have received your enquiry and a copy of the information received is detailed below:<br /><br />" +
         $"SENDER : {contactUsDetails.Name}<br />" +
         $"EMAIL: {contactUsDetails.Email}<br />" +
@@ -147,6 +137,11 @@ public class ContactUsController(IRepository repository,
 
     [Route("/thank-you")]
     [HttpGet]
-    public async Task<IActionResult> ThankYouMessage(ThankYouMessageViewModel viewModel) =>
-        await Task.FromResult(View("ThankYouMessage", viewModel));
+    public async Task<IActionResult> ThankYouMessage(ThankYouMessageViewModel viewModel)
+    {
+        if (await _featureManager.IsEnabledAsync("ThankYouMessageRedesign") && _businessId.ToString().Equals("stockportgov"))
+            return await Task.FromResult(View("ThankYouMessage2025", viewModel));
+
+        return await Task.FromResult(View("ThankYouMessage", viewModel));
+    }
 }
