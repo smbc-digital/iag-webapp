@@ -139,7 +139,7 @@ public class ContactUsController(IRepository repository,
     [HttpGet]
     public async Task<IActionResult> ThankYouMessage(ThankYouMessageViewModel viewModel)
     {
-        if (await _featureManager.IsEnabledAsync("ThankYouMessageRedesign") && _businessId.Equals("stockportgov"))
+        if (await _featureManager.IsEnabledAsync("ThankYouMessageRedesign") && _businessId.ToString().Equals("stockportgov"))
             return await Task.FromResult(View("ThankYouMessage2025", viewModel));
 
         return await Task.FromResult(View("ThankYouMessage", viewModel));

@@ -17,6 +17,14 @@
         @media #{$mobile} {
             margin-inline: 5px;
         }
+
+        &--margin-top {
+            margin-top: 2rem;
+        }
+
+        &--no-margin-bottom {
+            margin-bottom: 0;
+        }
     }
 
     &__sub-title {
@@ -126,5 +134,9 @@
         &--no-margin {
             margin-top: 0;
         }
+    }
+
+    &-lead {
+        margin-block: 1.5em;
     }
 }
