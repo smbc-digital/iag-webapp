@@ -1,6 +1,6 @@
 ﻿@model List<Trivia>
 
-@if (Model is not null)
+@if (Model is not null && Model.Any())
 {
     <ul class="trivia__list trivia__list--profile">
         @foreach(Trivia trivia in Model)
