@@ -13,14 +13,7 @@
 
                 <div class="event-cards--padding">
                     <h3 class="navcard__title">@Model.Title</h3>
-                    <p class="navcard__teaser">start: <strong>@ViewHelpers.FormatEventDate(Model.EventDate, Model.StartTime)</strong></p>
-                    <p class="navcard__teaser">end: <strong>@ViewHelpers.FormatEventDate(Model.EventDate, Model.EndTime)</strong></p>
-                    @{
-                        var ukZone = TimeZoneInfo.FindSystemTimeZoneById("Europe/London");
-                        var now = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, ukZone);
-                    }
-
-                    <p class="navcard__teaser">current: <strong>@ViewHelpers.FormatEventDate(DateTime.Now.Date, now.ToString("HH:mm"))</strong></p>
+                    <p class="navcard__teaser"><strong>@ViewHelpers.FormatEventDate(Model.EventDate, Model.StartTime)</strong></p>
                     <p class="navcard__teaser">@Model.Teaser</p>
                     <p class="navcard__teaser"><strong>@Model.Location</strong></p>
                 </div>
