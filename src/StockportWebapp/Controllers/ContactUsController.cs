@@ -127,8 +127,7 @@ public class ContactUsController(IRepository repository,
 
     private string CreateMessageBody(ContactUsDetails contactUsDetails) =>
         "Thank you for contacting us<br /><br />" +
-        "We have received your message and will get back to you. " +
-        "This confirms that we have received your enquiry and a copy of the information received is detailed below:<br /><br />" +
+        "We have received your message and will get back to you. Find a copy of your enquiry below:<br /><br />" +
         $"SENDER : {contactUsDetails.Name}<br />" +
         $"EMAIL: {contactUsDetails.Email}<br />" +
         $"SUBJECT: {contactUsDetails.Subject}<br />" +

@@ -15,7 +15,7 @@ public class ContactUsDetailsTest
 
         // Assert
         Assert.False(valid);
-        ValidationResult failure = Assert.Single(result, x => x.ErrorMessage.Equals("Your name is required"));
+        ValidationResult failure = Assert.Single(result, x => x.ErrorMessage.Equals("Enter your name"));
         Assert.Single(failure.MemberNames, x => x.Equals("Name"));
     }
 
@@ -32,7 +32,7 @@ public class ContactUsDetailsTest
 
         // Assert
         Assert.False(valid);
-        ValidationResult failure = Assert.Single(result, x => x.ErrorMessage.Equals("A subject is required"));
+        ValidationResult failure = Assert.Single(result, x => x.ErrorMessage.Equals("Enter the subject of your enquiry"));
         Assert.Single(failure.MemberNames, x => x.Equals("Subject"));
     }
 
@@ -49,7 +49,7 @@ public class ContactUsDetailsTest
 
         // Assert
         Assert.False(valid);
-        ValidationResult failure = Assert.Single(result, x => x.ErrorMessage.Equals("An enquiry message is required"));
+        ValidationResult failure = Assert.Single(result, x => x.ErrorMessage.Equals("Tell us about your enquiry"));
         Assert.Single(failure.MemberNames, x => x.Equals("Message"));
     }
 

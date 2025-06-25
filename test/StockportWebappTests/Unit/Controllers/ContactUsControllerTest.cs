@@ -32,7 +32,7 @@ public class ContactUsControllerTest
         
         _businessId = new BusinessId("businessid");
 
-        _contactUsId = new ContactUsId("name", "slug", "email", "test button text", "test return url");
+        _contactUsId = new ContactUsId("name", "slug", "email", "test button text");
 
         _repository
             .Setup(repo => repo.Get<ContactUsId>(It.IsAny<string>(), It.IsAny<List<Query>>()))
@@ -68,14 +68,6 @@ public class ContactUsControllerTest
         // Act & Assert
         await _controller.Contact(_validContactDetails);
         _mockEmailClient.Verify(client => client.SendEmailToService(It.IsAny<EmailMessage>()));
-    }
-
-    [Fact]
-    public async Task DynamicContactUsPostShouldReturnARedirectActionIfFeatureToggleOn()
-    {
-        // Act & Assert
-        RedirectResult pageResult = await _controller.Contact(_validContactDetails) as RedirectResult;
-        pageResult.Url.Should().Contain("test return url");
     }
 
     [Fact]
@@ -124,7 +116,6 @@ public class ContactUsControllerTest
         RedirectToActionResult redirectResult = pageResult as RedirectToActionResult;
         Assert.IsType<RedirectToActionResult>(pageResult);
         Assert.Equal("ThankYouMessage", redirectResult.ActionName);
-        Assert.Equal("test return url", redirectResult.RouteValues["ReturnUrl"]);
     }
 
     [Fact]
