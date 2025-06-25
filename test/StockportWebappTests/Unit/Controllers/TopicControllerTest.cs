@@ -80,7 +80,7 @@ public class TopicControllerTest
         ProcessedTopic result = viewModel.Topic;
 
         // Assert
-        Assert.Equal("Name", result.Name);
+        Assert.Equal("Name", result.Title);
         Assert.Equal("slug", result.Slug);
         Assert.Equal("<p>Summary</p>\n", result.Summary);
         Assert.Equal("Teaser", result.Teaser);

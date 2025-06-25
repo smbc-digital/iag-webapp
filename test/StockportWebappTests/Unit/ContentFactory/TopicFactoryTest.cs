@@ -65,7 +65,7 @@ public class TopicFactoryTest
         ProcessedTopic result = _topicFactory.Build(_topic);
 
         // Assert
-        Assert.Equal("name", result.Name);
+        Assert.Equal("name", result.Title);
         Assert.Equal("/topic/" + Slug, result.NavigationLink);
         Assert.Equal(Summary, result.Summary);
         Assert.Equal(Teaser, result.Teaser);

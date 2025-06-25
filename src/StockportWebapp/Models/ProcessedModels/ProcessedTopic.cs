@@ -1,5 +1,5 @@
 ﻿namespace StockportWebapp.Models.ProcessedModels;
-public class ProcessedTopic(string name,
+public class ProcessedTopic(string title,
                             string slug,
                             string summary,
                             string teaser,
@@ -21,7 +21,7 @@ public class ProcessedTopic(string name,
                             List<TrustedLogo> trustedLogos,
                             string logoAreaTitle)
 {
-    public string Name { get; } = name;
+    public string Title { get; } = title;
     public string Slug { get; } = slug;
     public string NavigationLink { get; } = TypeRoutes.GetUrlFor("topic", slug);
     private IEnumerable<SubItem> _topSubItems = Enumerable.Empty<SubItem>();

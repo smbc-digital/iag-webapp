@@ -9,14 +9,14 @@ public class TopicFactory(ITagParserContainer tagParserContainer,
     public virtual ProcessedTopic Build(Topic topic)
     {
         string summary = _markdownWrapper.ConvertToHtml(topic.Summary ?? string.Empty);
-        summary = _tagParserContainer.ParseAll(summary, topic.Name);
+        summary = _tagParserContainer.ParseAll(summary, topic.Title);
 
         // 02/11 Hotfix to maintain backwards compatibility 
         EventBanner oldEventBanner = null;
         if (topic.EventBanner is not null)
             oldEventBanner = new (topic.EventBanner.Title, topic.EventBanner.Teaser, topic.EventBanner.Icon, topic.EventBanner.Link);
 
-        return new ProcessedTopic(topic.Name,
+        return new ProcessedTopic(topic.Title,
                                 topic.Slug,
                                 summary,
                                 topic.Teaser,

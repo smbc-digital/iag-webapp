@@ -13,7 +13,7 @@ public class SidebarViewModel
     public SidebarViewModel(ProfileViewModel profileViewModel)
     {
         SidebarSubItems = profileViewModel.SidebarSubItems(out bool hasMoreButton);
-        ParentTopicName = profileViewModel.Profile.ParentTopic?.Name;
+        ParentTopicName = profileViewModel.Profile.ParentTopic?.Title;
         ParentTopicSlug = profileViewModel.Profile.ParentTopic?.Slug;
         ParentTopicTeaser = profileViewModel.Profile.ParentTopic?.Teaser;
         ParentTopicIcon = profileViewModel.Profile.ParentTopic?.Icon;
@@ -26,7 +26,7 @@ public class SidebarViewModel
         SidebarSubItems = articleViewModel.SidebarSubItems(out bool hasMoreButton)
                            .Where(subItem => !subItem.NavigationLink.Equals(articleViewModel.Article.NavigationLink));
         
-        ParentTopicName = articleViewModel.Article.ParentTopic?.Name;
+        ParentTopicName = articleViewModel.Article.ParentTopic?.Title;
         ParentTopicSlug = articleViewModel.Article.ParentTopic?.Slug;
         ParentTopicTeaser = articleViewModel.Article.ParentTopic?.Teaser;
         ParentTopicIcon = articleViewModel.Article.ParentTopic?.Icon;
@@ -39,7 +39,7 @@ public class SidebarViewModel
         SidebarSubItems = privacyNoticeViewModel.SidebarSubItems(out bool hasMoreButton)
                            .Where(subItem => !subItem.NavigationLink.Equals(privacyNoticeViewModel.PrivacyNotice.NavigationLink));
         
-        ParentTopicName = privacyNoticeViewModel.PrivacyNotice.ParentTopic?.Name;
+        ParentTopicName = privacyNoticeViewModel.PrivacyNotice.ParentTopic?.Title;
         ParentTopicSlug = privacyNoticeViewModel.PrivacyNotice.ParentTopic?.Slug;
         ParentTopicTeaser = privacyNoticeViewModel.PrivacyNotice.ParentTopic?.Teaser;
         ParentTopicIcon = privacyNoticeViewModel.PrivacyNotice.ParentTopic?.Icon;

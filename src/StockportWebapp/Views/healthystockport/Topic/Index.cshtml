@@ -2,10 +2,10 @@
 @{
     ProcessedTopic topic = Model.Topic;
     CallToActionBanner callToAction = topic.CallToAction;
-    ViewData["Title"] = topic.Name;
+    ViewData["Title"] = topic.Title;
     Layout = "../Shared/_Layout.cshtml";
     ViewData["Description"] = topic.Teaser;
-    ViewData["og:title"] = topic.Name;
+    ViewData["og:title"] = topic.Title;
 }
 
 @if (!string.IsNullOrEmpty(Model.Topic.CampaignBanner.Image))
@@ -52,7 +52,7 @@ else
         }
 
         <div class="topic-container-holder-item">
-            <h1>@topic.Name</h1>
+            <h1>@topic.Title</h1>
             <hr>
             @Html.Raw(topic.Summary)
         </div>
