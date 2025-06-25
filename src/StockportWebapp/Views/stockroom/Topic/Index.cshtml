@@ -1,8 +1,8 @@
 ﻿@model TopicViewModel
 @{
-    ViewData["Title"] = Model.Topic.Name;
+    ViewData["Title"] = Model.Topic.Title;
     ViewData["Description"] = Model.Topic.MetaDescription;
-    ViewData["og:title"] = Model.Topic.Name;
+    ViewData["og:title"] = Model.Topic.Title;
     Layout = "../Shared/_Layout.cshtml";
     var displaySummaryBlock = !string.IsNullOrEmpty(Model.Topic.Summary);
     var displayMoreInHeader = displaySummaryBlock && (Model.Topic.PrimaryItems.Items.Any() || Model.Topic.SecondaryItems.Any());
@@ -19,7 +19,7 @@
             <div class="grid-100">
                 <div class="hero__image"></div>
                 <div>
-                    <h1 class="hero__title">@Model.Topic.Name</h1>
+                    <h1 class="hero__title">@Model.Topic.Title</h1>
                 </div>
             </div>
         </div>
@@ -41,7 +41,7 @@
             <div class="grid-100">
                 @if (displayMoreInHeader)
                 {
-                    <h2 class="h-xl">More in @Model.Topic.Name</h2>
+                    <h2 class="h-xl">More in @Model.Topic.Title</h2>
                 }
 
                 @if (Model.Topic.PrimaryItems.Items.Any())
@@ -51,7 +51,7 @@
 
                 @if (!displayMoreInHeader && Model.Topic.SecondaryItems.Any())
                 {
-                    <h3 class="h-l">More in @Model.Topic.Name</h3>
+                    <h3 class="h-l">More in @Model.Topic.Title</h3>
                 }
 
                 @if (Model.Topic.SecondaryItems.Any())

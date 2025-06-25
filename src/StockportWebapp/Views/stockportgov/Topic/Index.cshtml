@@ -1,8 +1,8 @@
 @model TopicViewModel
 @{
     ProcessedTopic topic = Model.Topic;
-    ViewData["Title"] = topic.Name;
-    ViewData["og:title"] = topic.Name;
+    ViewData["Title"] = topic.Title;
+    ViewData["og:title"] = topic.Title;
     ViewData["Description"] = topic.MetaDescription;
     ViewData["AlertType"] = "topic";
     ViewData["DisplayTitle"] = topic.CallToAction is null && string.IsNullOrEmpty(topic.EventCalendarBanner.Title);
@@ -19,7 +19,7 @@
     <section class="topic-title" data-cy="title-and-summary">
         <div class="grid-container">
             <div class="grid-100">
-                <h1>@topic.Name</h1>
+                <h1>@topic.Title</h1>
                 
                 @if (!string.IsNullOrEmpty(topic.Summary))
                 {
