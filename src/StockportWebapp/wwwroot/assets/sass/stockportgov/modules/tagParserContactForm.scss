@@ -67,11 +67,10 @@
                 border: 1px solid #b1b1b1cc;
                 border-radius: 3px;
                 display: block;
-                margin-bottom: 10px;
+                margin-block: 10px;
                 min-height: 200px;
                 padding: 10px;
                 width: 100%;
-                max-width: 50%;
                 min-width: 50%;
 
                 @media #{$mobile} {
@@ -83,15 +82,6 @@
             .error-text {
                 color: $stockport-red-validation;
                 margin-bottom: 1em;
-            }
-
-            .text-control-message {
-                width: 50%;
-                display: block;
-
-                @media #{$mobile} {
-                    width: 100%;
-                }
             }
 
             .input-group {
