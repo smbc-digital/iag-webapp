@@ -16,6 +16,10 @@
         fieldset {
             display: contents;
             
+            legend {
+                display: none;
+            }
+            
             label {
                 font-weight: 600;
                 display: block;

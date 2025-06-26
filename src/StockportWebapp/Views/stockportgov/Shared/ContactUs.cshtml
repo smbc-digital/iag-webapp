@@ -18,6 +18,8 @@
         
         <div class="form-section">
             <fieldset>
+                <legend>Send an enquiry</legend>
+
                 <input type="hidden" asp-for="Title" />
                 <label asp-for="@Model.Name" class="name-label"></label>
                 <input class="payment__input" asp-for="@Model.Name" type="text" />
@@ -37,7 +39,7 @@
                 </span>
 
                 <div class="enquiry-message">
-                    <textarea asp-for="@Model.Message" class="payment__input form-control-deep" title="Enter a Message"></textarea>
+                    <textarea asp-for="@Model.Message" class="payment__input form-control-deep"></textarea>
                     <span role="alert" aria-atomic="true" asp-validation-for="@Model.Message" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
                     <span class="text-control chars-remaining">
                         <small></small>
@@ -47,7 +49,6 @@
                 <input type="hidden" asp-for="@Model.ServiceEmailId" value="@Model.ServiceEmailId" />
                 <div class="g-recaptcha reCaptcha" data-sitekey="6LfAeSIUAAAAAGsx6tYHz4MIvhP0pSx9Tq7Hf8Yx"></div>
                 <div class="clearfix"></div>
-
 
                 <div>
                     <button type="submit" class="btn btn--chevron-forward btn--width-30 button-contact-us">Send your enquiry</button>
