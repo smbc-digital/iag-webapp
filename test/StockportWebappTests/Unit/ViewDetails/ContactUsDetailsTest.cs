@@ -73,7 +73,7 @@ public class ContactUsDetailsTest
 
         // Assert
         Assert.False(valid);
-        ValidationResult failure = Assert.Single(result, x => x.ErrorMessage.Equals("This is not a valid email address"));
+        ValidationResult failure = Assert.Single(result, x => x.ErrorMessage.Equals("Enter a valid email address"));
         Assert.Single(failure.MemberNames, x => x.Equals("Email"));
     }
 
