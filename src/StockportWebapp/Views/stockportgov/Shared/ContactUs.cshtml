@@ -13,43 +13,46 @@
         </div>
     </noscript>
 
-    <form method="post" role="form" action="/contact-us">
+    <form method="post" role="form" action="/contact-us" enctype="multipart/form-data" data-cy="contact-us-form" class="form">
         @Html.AntiForgeryToken()
-        <div class="form">
-            <div class="form-section">
-                <fieldset>
-                    <input type="hidden" asp-for="Title" />
-                    <label asp-for="Name" class="name-label"></label>
-                    <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="Name" />
-                    <span role="alert" aria-atomic="true" asp-validation-for="Name" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
-                    
-                    <label asp-for="Email"></label>
-                    <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="Email" />
-                    <span role="alert" aria-atomic="true" asp-validation-for="Email" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
-                    
-                    <label asp-for="Subject"></label>
-                    <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="Subject" />
-                    <span role="alert" aria-atomic="true" asp-validation-for="Subject" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
-                    
-                    <label asp-for="Message"></label>
-                    <span class="text-control">
-                        <small>The enquiry must be no more than 500 characters long.</small>
-                    </span>
+        
+        <div class="form-section">
+            <fieldset>
+                <input type="hidden" asp-for="Title" />
+                <label asp-for="@Model.Name" class="name-label"></label>
+                <input class="payment__input" asp-for="@Model.Name" type="text" />
+                <span role="alert" aria-atomic="true" asp-validation-for="@Model.Name" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
+                
+                <label asp-for="@Model.Email"></label>
+                <input class="payment__input" asp-for="@Model.Email" />
+                <span role="alert" aria-atomic="true" asp-validation-for="@Model.Email" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
+                
+                <label asp-for="@Model.Subject"></label>
+                <input class="payment__input" asp-for="@Model.Subject" />
+                <span role="alert" aria-atomic="true" asp-validation-for="@Model.Subject" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
+                
+                <label asp-for="@Model.Message"></label>
+                <span class="text-control text-control-message">
+                    <small>The enquiry must be no more than 500 characters long.</small>
+                </span>
 
-                    <div class="enquiry-message">
-                        <textarea asp-for="Message" class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control-deep" title="Enter a Message"></textarea>
-                        <span role="alert" aria-atomic="true" asp-validation-for="Message" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
-                        <span class="text-control chars-remaining">
-                            <small></small>
-                        </span><br />
-                    </div>
+                <div class="enquiry-message">
+                    <textarea asp-for="@Model.Message" class="payment__input form-control-deep" title="Enter a Message"></textarea>
+                    <span role="alert" aria-atomic="true" asp-validation-for="@Model.Message" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
+                    <span class="text-control chars-remaining">
+                        <small></small>
+                    </span><br />
+                </div>
 
-                    <input type="hidden" asp-for="ServiceEmailId" value="@Model.ServiceEmailId" />
-                    <div class="g-recaptcha reCaptcha" data-sitekey="6LfAeSIUAAAAAGsx6tYHz4MIvhP0pSx9Tq7Hf8Yx"></div>
-                    <div class="clearfix"></div>
-                    <stock-button id="uitest-contact-form-submit" class="button-contact-us btn btn--chevron-forward btn--width-30">Send your enquiry</stock-button>
-                </fieldset>
-            </div>
+                <input type="hidden" asp-for="@Model.ServiceEmailId" value="@Model.ServiceEmailId" />
+                <div class="g-recaptcha reCaptcha" data-sitekey="6LfAeSIUAAAAAGsx6tYHz4MIvhP0pSx9Tq7Hf8Yx"></div>
+                <div class="clearfix"></div>
+
+
+                <div>
+                    <button type="submit" class="btn btn--chevron-forward btn--width-30 button-contact-us">Send your enquiry</button>
+                </div>
+            </fieldset>
         </div>
     </form>
 </div>
