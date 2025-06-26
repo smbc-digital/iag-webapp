@@ -12,7 +12,7 @@ public class ContactUsDetails
     public string Name { get; set; }
 
     [Required(ErrorMessage = "Enter an email address")]
-    [EmailAddress(ErrorMessage = "This is not a valid email address")]
+    [EmailAddress(ErrorMessage = "Enter a valid email address")]
     [Display(Name = "Email address")]
     [DefaultValue(DefaultValue)]
     [MaxLength(254, ErrorMessage = "The email address must be no more than 254 characters long")]
@@ -28,8 +28,7 @@ public class ContactUsDetails
 
     [Required(ErrorMessage = "Tell us about your enquiry")]
     [Display(Name = "Enquiry")]
-    [MaxLength(500, ErrorMessage = "The enquiry must be no more than 500 characters long")]
-    [StringLength(500, ErrorMessage = "Too much string")]
+    [MaxLength(500), StringLength(500, ErrorMessage = "The enquiry must be no more than 500 characters long")]
     public string Message { get; set; }
 
     public IEnumerable<Crumb> Breadcrumbs = new List<Crumb>();

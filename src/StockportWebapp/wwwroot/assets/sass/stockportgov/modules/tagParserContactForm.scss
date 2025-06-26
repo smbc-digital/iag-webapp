@@ -14,12 +14,23 @@
         margin-block-end: 2em;
 
         fieldset {
+            display: contents;
+            
             label {
                 font-weight: 600;
                 display: block;
                 width: 100%;
                 margin-block-start: 1em;
                 margin-block-end: 0.25em;
+            }
+            
+            input, textarea {
+                font-family: $fontStack;
+                font-size: 1em;
+            }
+
+            .name-label {
+                margin-top: 0;
             }
 
             .form-control {
@@ -43,7 +54,7 @@
                 }
             }
 
-            .submit {
+            .button-contact-us {
                 margin-block-start: 1em;
             }
 
@@ -60,6 +71,27 @@
                 min-height: 200px;
                 padding: 10px;
                 width: 100%;
+                max-width: 50%;
+                min-width: 50%;
+
+                @media #{$mobile} {
+                    max-width: 100%;
+                    min-width: 100%;
+                }
+            }
+
+            .error-text {
+                color: $stockport-red-validation;
+                margin-bottom: 1em;
+            }
+
+            .text-control-message {
+                width: 50%;
+                display: block;
+
+                @media #{$mobile} {
+                    width: 100%;
+                }
             }
 
             .input-group {
@@ -91,7 +123,6 @@
 }
 
 .form-field-validation-error {
-    color: #c83725;
+    color: $stockport-red-validation;
     margin-bottom: 1em;
 }
-
