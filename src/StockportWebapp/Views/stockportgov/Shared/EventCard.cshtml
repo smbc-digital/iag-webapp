@@ -17,17 +17,11 @@
                         string datePart = ViewHelpers.FormatEventDate(Model.EventDate);
                         DateTime startTime = DateTime.Parse(Model.StartTime);
 
-                        string displayTime;
-                        if (startTime.Minute.Equals(0))
-                        {
-                            displayTime = startTime.ToString("htt").ToLower();
-                        }
-                        else
-                        {
-                            displayTime = startTime.ToString("h:mmtt").ToLower();
-                        }
+                        string displayTime = startTime.Minute.Equals(0)
+                            ? startTime.ToString("htt").ToLower()
+                            : startTime.ToString("h:mmtt").ToLower();
                     }
-                    
+
                     <p class="navcard__teaser"><strong>@datePart at @displayTime</strong></p>
                     <p class="navcard__teaser">@Model.Teaser</p>
                     <p class="navcard__teaser"><strong>@Model.Location</strong></p>
