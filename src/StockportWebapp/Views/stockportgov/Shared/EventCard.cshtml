@@ -13,7 +13,16 @@
 
                 <div class="event-cards--padding">
                     <h3 class="navcard__title">@Model.Title</h3>
-                    <p class="navcard__teaser"><strong>@ViewHelpers.FormatEventDate(Model.EventDate, Model.StartTime)</strong></p>
+                    @{
+                        string datePart = ViewHelpers.FormatEventDate(Model.EventDate);
+                        DateTime startTime = DateTime.Parse(Model.StartTime);
+
+                        string displayTime = startTime.Minute.Equals(0)
+                            ? startTime.ToString("htt").ToLower()
+                            : startTime.ToString("h:mmtt").ToLower();
+                    }
+
+                    <p class="navcard__teaser"><strong>@datePart at @displayTime</strong></p>
                     <p class="navcard__teaser">@Model.Teaser</p>
                     <p class="navcard__teaser"><strong>@Model.Location</strong></p>
                 </div>
