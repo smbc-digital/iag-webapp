@@ -34,10 +34,6 @@
                 <span role="alert" aria-atomic="true" asp-validation-for="@Model.Subject" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
                 
                 <label asp-for="@Model.Message"></label>
-                <span class="text-control">
-                    <small>The enquiry must be no more than 500 characters long.</small>
-                </span>
-
                 <div class="enquiry-message">
                     <textarea asp-for="@Model.Message" class="payment__input form-control-deep"></textarea>
                     <span role="alert" aria-atomic="true" asp-validation-for="@Model.Message" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
