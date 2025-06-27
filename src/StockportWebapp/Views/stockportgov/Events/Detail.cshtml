@@ -42,11 +42,20 @@
                     <div class="@eventWrapperCssClasses">
                         <h2 class="visuallyhidden">Event Information</h2>
                         <h3 class="event-detail__details">Date and time</h3>
-                        <p>
-                            @Model.EventDate.ToString("dddd dd MMMM yyyy")
-                            @DateTime.Parse(Model.StartTime).ToString("h:mmtt").ToLower() -
-                            @DateTime.Parse(Model.EndTime).ToString("h:mmtt").ToLower()
-                        </p>
+                        @{
+                            DateTime startTime = DateTime.Parse(Model.StartTime);
+                            DateTime endTime = DateTime.Parse(Model.EndTime);
+
+                            string formattedStartTime = startTime.Minute.Equals(0)
+                                ? startTime.ToString("htt").ToLower()
+                                : startTime.ToString("h:mmtt").ToLower();
+                            
+                            string formattedEndTime = endTime.Minute.Equals(0)
+                                ? endTime.ToString("htt").ToLower()
+                                : endTime.ToString("h:mmtt").ToLower();
+                        }
+
+                        <p>@Model.EventDate.ToString("dddd dd MMMM yyyy"), @formattedStartTime to @formattedEndTime</p>
 
                         <h3 class="event-detail__details">Location</h3>
                         <p>@Model.Location</p>
