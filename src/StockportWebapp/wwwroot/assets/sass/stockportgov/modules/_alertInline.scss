@@ -22,6 +22,10 @@
 	}
 }
 
+.alert-error {
+		margin-bottom: 1em;
+	}
+
 .alert-inline--warning {
 	border-inline-start-color: $stockport-orange;
 	background-color: lighten($stockport-orange, 50%);	

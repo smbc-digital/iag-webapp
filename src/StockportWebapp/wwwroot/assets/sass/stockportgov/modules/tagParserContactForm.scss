@@ -76,6 +76,7 @@
                 padding: 10px;
                 width: 100%;
                 min-width: 50%;
+                max-width: 100%;
 
                 @media #{$mobile} {
                     max-width: 100%;
