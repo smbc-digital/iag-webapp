@@ -1,0 +1,16 @@
+﻿@model NavCardList
+@if (Model is not null & Model?.Items.Any() is true)
+{
+    bool displayImage = Model.Items.All(item => !string.IsNullOrEmpty(item.TeaserImage) || !string.IsNullOrEmpty(item.Image));
+    
+    bool twoGrid = (bool)ViewData["twoGrid"];
+
+    <ul class="navcard-wrapper navcard-wrapper--no-margin">
+        @foreach (NavCard navCard in Model.Items)
+        {
+            <li class="navcard navcard--grey @(twoGrid ? "navcard--width-50" : "navcard--width-33") navcard--no-padding-right-rtl event-cards">
+                <partial name="NewsCard" model="navCard" view-data='@(new ViewDataDictionary(ViewData) { { "BorderColourClass", "border-colour-multi" } })'/>
+            </li>
+        }
+    </ul>
+}

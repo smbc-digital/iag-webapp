@@ -96,7 +96,7 @@
         }
 
         &:hover {
-            .featured-item__title, .featured-item-read-more {
+            .featured-item__title, .featured-item__news-banner-title, .featured-item-read-more {
                 text-decoration-thickness: 3px;
             }
 
@@ -112,8 +112,7 @@
         }
     }
 
-    &__title {
-        @include h-s;
+    &__title, &__news-banner-title {
         color: $stockport-green;
         text-decoration: underline;
         text-decoration-thickness: 1px;
@@ -126,6 +125,14 @@
         &-profile-banner {
             @include h-ml;
         }
+    }
+
+    &__title {
+        @include h-s;
+    }
+
+    &__news-banner-title {
+        font-weight: 800;
     }
 
     &:nth-of-type(1) &-content {
@@ -238,6 +245,10 @@
             &-news-banner {
                 margin-bottom: 2em;
             }
+
+            &--no-margin {
+                margin-bottom: 0;
+            }
         }
     }
 
@@ -260,6 +271,14 @@
     &--no-decoration {
         text-decoration: none;
         color: $stockport-black;
+    }
+
+    &__news-banner-date {
+        color: $stockport-black;
+
+        p {
+            margin-bottom: 0;
+        }
     }
 }
 

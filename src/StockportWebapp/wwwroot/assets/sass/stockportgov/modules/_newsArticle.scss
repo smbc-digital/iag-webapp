@@ -17,8 +17,6 @@
     }
 
     &__container {
-        margin-bottom: 2em;
-
         @media #{$tablet} {
             margin-bottom: 0;
         }
@@ -200,6 +198,10 @@
 
         &--no-image {
             margin-top: 2rem;
+        }
+
+        &--no-margin {
+            margin: 0;
         }
     }
 
