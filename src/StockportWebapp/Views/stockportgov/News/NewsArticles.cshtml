@@ -5,7 +5,7 @@
     Layout = "../Shared/_Layout2023.cshtml";
 }
 
-<div class="grid-container-full-width" data-cy="news-page">
+<div class="grid-container-full-width" data-cy="newsroom">
     <partial name="CondolenceAlerts" model='Model.Newsroom.CondolenceAlerts' />
     <partial name="GlobalAlerts" model='Model.Newsroom.Alerts' />
     <partial name="Breadcrumb2023" model='new List<Crumb> { new Crumb("News and media", "news-room", "Newsroom") }' view-data="@(new ViewDataDictionary(ViewData) {{"landingBreadcrumb", "topic-breadcrumb-container"}})"/>
@@ -21,23 +21,23 @@
         </div>
     </section>
     
-    <section class="section section--white section--margin-top section--no-margin" data-cy="all-news">
-        <div class="grid-container">
-            <div class="grid-100" data-cy="navcard-list">
-                <div class="section__content section__content--no-margin">
-                    @if (Model.Pagination?.CurrentPageNumber == 1 && Model.Newsroom.LatestArticle is not null)
-                    {
+    @if (Model.Pagination?.CurrentPageNumber == 1 && Model.Newsroom.LatestArticle is not null)
+    {
+        <section class="section section--white section--margin-top section--no-margin" data-cy="featured-news">
+            <div class="grid-container">
+                <div class="grid-100">
+                    <div class="section__content section__content--no-margin">
                         <partial name="NewsArticlesNewsBanner" model="Model.Newsroom.LatestArticle.Items.FirstOrDefault()" />
-                    }
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <section class="section section--grey section--margin-top section--no-margin" data-cy="all-news">
+        </section>
+    }
+    
+    <section class="section section--grey section--no-margin @(Model.Pagination?.CurrentPageNumber == 1 && Model.Newsroom.LatestArticle is not null ? "section--margin-top" : "section--padded")" data-cy="all-news">
         <div class="grid-container">
-            <div class="grid-100" data-cy="navcard-list">
-                <div class="section__content section__content--no-margin">
+            <div class="grid-100">
+                <div class="section__content">
                     @if (Model.Pagination?.CurrentPageNumber == 1 && Model.Newsroom.News.Any())
                     {
                         <h2 class='@(Model.Newsroom.LatestArticle is not null ? "news-article__title--margin-top" : string.Empty)'>Latest news</h2>
@@ -67,12 +67,12 @@
                         </div>
                     }
                 </div>
+
+                <partial name="Pagination2024" model='Model.Pagination' view-data='new ViewDataDictionary(ViewData) { { "PaginationMarginBottom", "pagination--margin-bottom" } }' />
             </div>
         </div>
     </section>
 
-    <partial name="Pagination2024" model='Model.Pagination' view-data='new ViewDataDictionary(ViewData) { { "PaginationMarginBottom", "pagination--margin-bottom" } }' />
-    
     <partial name="PreFooter" />
     <partial name="NewsArchiveBanner" />
 </div>

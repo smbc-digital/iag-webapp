@@ -256,6 +256,14 @@
             text-align: left;
         }
     }
+
+    &__card {
+        &:last-child {
+            @media #{$mobile} {
+                margin-bottom: 1em;
+            }
+        }
+    }
 }
 
 #category-filter, #news-archive, #displayRefineBy > li {

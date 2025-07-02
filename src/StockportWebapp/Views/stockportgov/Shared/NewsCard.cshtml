@@ -7,7 +7,7 @@
     string backgroundColourClass = (string)ViewData["BackgroundColourClass"] ?? string.Empty;
     string borderRadius = " navcard--radius-bottom-left navcard--radius-bottom-right";
 
-    <a href="@Model.Url" class="navcard__link event-cards__link @backgroundColourClass @borderColourClass event-cards__link--white @borderRadius" data-cy="event-card-link">
+    <a href="@Model.Url" class="navcard__link event-cards__link @backgroundColourClass @borderColourClass event-cards__link--white @borderRadius" data-cy="news-card-link">
         <div class="navcard__content">
             <partial name="NavCardImage" model="@Model.TeaserImage" view-data='@(new ViewDataDictionary(ViewData) { {"imageAdditionalClasses", "event-cards__image"}})'/>
 
