@@ -2,18 +2,19 @@
 
 <div id="contactForm">
     <noscript>
-        <div id="recaptchaJsError" class="grid-100 tablet-grid-100 mobile-grid-100 alert alert-error contact-validation-error">
-            <div class="alert-icon">
-                <span class="fa fa-exclamation fa-3x" aria-hidden="true"></span>
-            </div>
-            <div class="alert-content grid-80 tablet-grid-80 mobile-grid-80">
-                <h3>There has been a problem: </h3>
-                <p>For security reasons, you can’t use our contact forms with JavaScript turned off. Please enable JavaScript to use the form or alternatively send your enquiry to webcontent@stockport.gov.uk<br></p>
-            </div>
+        <div class="grid-100 alert-inline alert-inline--warning">
+            <h2><span class="fa-solid fa-circle-exclamation alert-inline-icon"></span>There has been a problem</h2>
+            <p>For security reasons, you can’t use our contact forms with JavaScript turned off. Please enable JavaScript to use the form or alternatively send your enquiry to webcontent@stockport.gov.uk</p>
         </div>
+
+        <style>
+            .contact-us-form {
+                display: none;
+            }
+        </style>
     </noscript>
 
-    <form method="post" role="form" action="/contact-us" enctype="multipart/form-data" data-cy="contact-us-form" class="form">
+    <form method="post" role="form" action="/contact-us" enctype="multipart/form-data" data-cy="contact-us-form" class="form contact-us-form">
         @Html.AntiForgeryToken()
         
         <div class="form-section">
@@ -26,7 +27,7 @@
                 <span role="alert" aria-atomic="true" asp-validation-for="@Model.Name" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
                 
                 <label asp-for="@Model.Email"></label>
-                <input class="payment__input" asp-for="@Model.Email" />
+                <input class="payment__input" asp-for="@Model.Email" autocomplete="email" />
                 <span role="alert" aria-atomic="true" asp-validation-for="@Model.Email" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
                 
                 <label asp-for="@Model.Subject"></label>
