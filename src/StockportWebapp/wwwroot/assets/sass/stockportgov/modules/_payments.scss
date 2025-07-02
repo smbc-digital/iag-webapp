@@ -47,6 +47,10 @@
     &__button {
         margin-block-start: 1em;
         margin-block-end: 2em;
+
+        &--no-margin-top {
+            margin-block-start: 0;
+        }
     }
 }
 
