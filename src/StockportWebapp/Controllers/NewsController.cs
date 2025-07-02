@@ -66,16 +66,6 @@ public class NewsController(IRepository repository,
     }
 
     [ExcludeFromCodeCoverage]
-    [Route("/news-articles2")]
-    public async Task<IActionResult> NewsArticles2(NewsroomViewModel model, [FromQuery] int page, [FromQuery] int pageSize)
-    {
-        if (await _featureManager.IsEnabledAsync("NewsRedesign"))
-            return RedirectToAction("Index");
-        
-        return RedirectToAction("NewsArticles");
-    }
-
-    [ExcludeFromCodeCoverage]
     [Route("/news-articles")]
     public async Task<IActionResult> NewsArticles(NewsroomViewModel model, [FromQuery] int page, [FromQuery] int pageSize)
     {

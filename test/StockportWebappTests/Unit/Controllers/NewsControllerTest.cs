@@ -169,7 +169,7 @@ public class NewsControllerTest
     }
 
     [Fact]
-    public async Task Index_ItReturnsANewsListingPageWithTwoItems()
+    public async Task Index_ShouldReturnANewsListingPageWithTwoItems()
     {
         // Act
         ViewResult actionResponse = await _controller.Index(new NewsroomViewModel(), 1, MaxNumberOfItemsPerPage) as ViewResult;
@@ -182,52 +182,6 @@ public class NewsControllerTest
         Assert.Equal(NewsItemWithImages, news.News[1]);
         Assert.Equal(EmailAlertsTopicId, news.EmailAlertsTopicId);
         Assert.Equal(EmailAlertsOn, news.EmailAlerts);
-    }
-
-    [Fact]
-    public async Task Detail_ItReturnsANewsPageWithImageDocumentssAndLatestNews()
-    {
-        // Act
-        ViewResult actionResponse = await _controller.Detail("another-news-article") as ViewResult;
-        NewsViewModel news = actionResponse.ViewData.Model as NewsViewModel;
-
-        // Assert
-        Assert.Equal("Another news article", news.NewsItem.Title);
-        Assert.Equal("another-news-article", news.NewsItem.Slug);
-        Assert.Equal("This is another news article", news.NewsItem.Teaser);
-        Assert.Equal("image.jpg", news.NewsItem.Image);
-        Assert.Equal("thumbnail.jpg", news.NewsItem.ThumbnailImage);
-        Assert.Equal("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam gravida eu mauris in consectetur. Nullam nulla urna, sagittis a ex sit amet, ultricies rhoncus mauris. Quisque vel placerat turpis, vitae consectetur mauris.", news.NewsItem.Body);
-        Assert.Equal(new DateTime(2015, 9, 10), news.NewsItem.SunriseDate);
-        Assert.Equal(new DateTime(2015, 9, 20), news.NewsItem.SunsetDate);
-        Assert.Equal(new DateTime(2015, 9, 15), news.NewsItem.UpdatedAt);
-        Assert.Equal(2, news.NewsItem.Tags.Count);
-        Assert.Equal("Events", news.NewsItem.Tags.First());
-        Assert.Equal(2, news.GetLatestNews().Count);
-    }
-
-    [Fact]
-    public async Task Detail_ShouldReturnANewsPageWithNoLatestNewsItems()
-    {
-        // Arrange
-        _repository
-            .Setup(repo => repo.GetLatest<List<News>>(7))
-            .ReturnsAsync(new HttpResponse(404, null, "not found"));
-        
-        NewsController controller = new(_repository.Object,
-                                        _processedContentRepository.Object,
-                                        _mockRssFeedFactory.Object,
-                                        _logger.Object, _config.Object,
-                                        new BusinessId(BusinessId),
-                                        _filteredUrl.Object,
-                                        null);
-
-        // Act
-        ViewResult response = await controller.Detail("another-news-article") as ViewResult;
-        NewsViewModel model = response.Model as NewsViewModel;
-
-        // Arrange
-        Assert.Equal("another-news-article", model.NewsItem.Slug);
     }
 
     [Fact]
@@ -282,48 +236,6 @@ public class NewsControllerTest
     }
 
     [Fact]
-    public async Task Detail_ShouldReturn404NotFoundForNewsArticleThatdoesNotExist()
-    {
-        // Arrange
-        _processedContentRepository
-            .Setup(repo => repo.Get<News>("this-news-article-does-not-exist", null))
-            .ReturnsAsync(new HttpResponse(404, null, "not found"));
-
-        // Act
-        HttpResponse actionResponse = await _controller.Detail("this-news-article-does-not-exist") as HttpResponse;
-
-        // Assert
-        Assert.Equal(404, actionResponse.StatusCode);
-    }
-
-    [Fact]
-    public async Task Rss_ShouldCreateRssFeedFromFactory()
-    {
-        // Arrange
-        Mock<IRepository> repository = new();
-        repository
-            .Setup(repo => repo.Get<Newsroom>(It.IsAny<string>(), null))
-            .ReturnsAsync(HttpResponse.Successful((int)HttpStatusCode.OK, _newsRoom));
-
-        _controller = new NewsController(repository.Object,
-                                        _processedContentRepository.Object,
-                                        _mockRssFeedFactory.Object,
-                                        _logger.Object,
-                                        _config.Object,
-                                        new BusinessId(BusinessId),
-                                        _filteredUrl.Object,
-                                        null);
-
-        // Act
-        ContentResult response = await _controller.Rss() as ContentResult;
-
-        // Assert
-        Assert.Equal("application/rss+xml", response.ContentType);
-        Assert.Equal("rss fun", response.Content);
-        _mockRssFeedFactory.Verify(rssFeedFactory => rssFeedFactory.BuildRssFeed(It.IsAny<List<News>>(), It.IsAny<string>(), It.IsAny<string>()), Times.Once);
-    }
-
-    [Fact]
     public async Task Index_ShouldReturnNewsItemsForADateFilter()
     {
         // Arrange
@@ -346,7 +258,7 @@ public class NewsControllerTest
         // Assert
         Assert.Equal(_newsRoom, news);
     }
-
+    
     [Fact]
     public async Task Index_ShouldReturnEmptyPaginationForNoNewsItems()
     {
@@ -354,7 +266,7 @@ public class NewsControllerTest
         Mock<IRepository> emptyRepository = new();
 
         emptyRepository
-            .Setup(_ => _.Get<Newsroom>(It.IsAny<string>(), It.IsAny<List<Query>>()))
+            .Setup(repo => repo.Get<Newsroom>(It.IsAny<string>(), It.IsAny<List<Query>>()))
             .ReturnsAsync(HttpResponse.Successful((int)HttpStatusCode.OK, _emptyNewsRoom));
 
         NewsController controller = new(emptyRepository.Object,
@@ -452,6 +364,94 @@ public class NewsControllerTest
 
         // Assert
         Assert.NotNull(model.Pagination.CurrentUrl);
+    }
+
+    [Fact]
+    public async Task Detail_ShouldReturnANewsPageWithImageDocumentsAndLatestNews()
+    {
+        // Act
+        ViewResult actionResponse = await _controller.Detail("another-news-article") as ViewResult;
+        NewsViewModel news = actionResponse.ViewData.Model as NewsViewModel;
+
+        // Assert
+        Assert.Equal("Another news article", news.NewsItem.Title);
+        Assert.Equal("another-news-article", news.NewsItem.Slug);
+        Assert.Equal("This is another news article", news.NewsItem.Teaser);
+        Assert.Equal("image.jpg", news.NewsItem.Image);
+        Assert.Equal("thumbnail.jpg", news.NewsItem.ThumbnailImage);
+        Assert.Equal("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam gravida eu mauris in consectetur. Nullam nulla urna, sagittis a ex sit amet, ultricies rhoncus mauris. Quisque vel placerat turpis, vitae consectetur mauris.", news.NewsItem.Body);
+        Assert.Equal(new DateTime(2015, 9, 10), news.NewsItem.SunriseDate);
+        Assert.Equal(new DateTime(2015, 9, 20), news.NewsItem.SunsetDate);
+        Assert.Equal(new DateTime(2015, 9, 15), news.NewsItem.UpdatedAt);
+        Assert.Equal(2, news.NewsItem.Tags.Count);
+        Assert.Equal("Events", news.NewsItem.Tags.First());
+        Assert.Equal(2, news.GetLatestNews().Count);
+    }
+
+    [Fact]
+    public async Task Detail_ShouldReturnANewsPageWithNoLatestNewsItems()
+    {
+        // Arrange
+        _repository
+            .Setup(repo => repo.GetLatest<List<News>>(7))
+            .ReturnsAsync(new HttpResponse(404, null, "not found"));
+        
+        NewsController controller = new(_repository.Object,
+                                        _processedContentRepository.Object,
+                                        _mockRssFeedFactory.Object,
+                                        _logger.Object, _config.Object,
+                                        new BusinessId(BusinessId),
+                                        _filteredUrl.Object,
+                                        null);
+
+        // Act
+        ViewResult response = await controller.Detail("another-news-article") as ViewResult;
+        NewsViewModel model = response.Model as NewsViewModel;
+
+        // Arrange
+        Assert.Equal("another-news-article", model.NewsItem.Slug);
+    }
+
+    [Fact]
+    public async Task Detail_ShouldReturn404NotFoundForNewsArticleThatDoesNotExist()
+    {
+        // Arrange
+        _processedContentRepository
+            .Setup(repo => repo.Get<News>("this-news-article-does-not-exist", null))
+            .ReturnsAsync(new HttpResponse(404, null, "not found"));
+
+        // Act
+        HttpResponse actionResponse = await _controller.Detail("this-news-article-does-not-exist") as HttpResponse;
+
+        // Assert
+        Assert.Equal(404, actionResponse.StatusCode);
+    }
+
+    [Fact]
+    public async Task Rss_ShouldCreateRssFeedFromFactory()
+    {
+        // Arrange
+        Mock<IRepository> repository = new();
+        repository
+            .Setup(repo => repo.Get<Newsroom>(It.IsAny<string>(), null))
+            .ReturnsAsync(HttpResponse.Successful((int)HttpStatusCode.OK, _newsRoom));
+
+        _controller = new NewsController(repository.Object,
+                                        _processedContentRepository.Object,
+                                        _mockRssFeedFactory.Object,
+                                        _logger.Object,
+                                        _config.Object,
+                                        new BusinessId(BusinessId),
+                                        _filteredUrl.Object,
+                                        null);
+
+        // Act
+        ContentResult response = await _controller.Rss() as ContentResult;
+
+        // Assert
+        Assert.Equal("application/rss+xml", response.ContentType);
+        Assert.Equal("rss fun", response.Content);
+        _mockRssFeedFactory.Verify(rssFeedFactory => rssFeedFactory.BuildRssFeed(It.IsAny<List<News>>(), It.IsAny<string>(), It.IsAny<string>()), Times.Once);
     }
 
     private NewsController SetUpController(int numNewsItems)

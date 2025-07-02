@@ -1,0 +1,23 @@
+@inject ViewHelpers ViewHelpers
+@model NavCard
+
+@if (Model is not null)
+{
+    string borderColourClass = (string)ViewData["BorderColourClass"] ?? string.Empty;
+    string backgroundColourClass = (string)ViewData["BackgroundColourClass"] ?? string.Empty;
+    string borderRadius = " navcard--radius-bottom-left navcard--radius-bottom-right";
+
+    <a href="@Model.Url" class="navcard__link event-cards__link @backgroundColourClass @borderColourClass event-cards__link--white @borderRadius" data-cy="news-card-link">
+        <div class="navcard__content">
+            <partial name="NavCardImage" model="@Model.TeaserImage" view-data='@(new ViewDataDictionary(ViewData) { {"imageAdditionalClasses", "event-cards__image"}})'/>
+
+            <div class="event-cards--padding">
+                <p class="lead"><partial name="FormattedDate" model='Model.Date'/></p>
+
+                <h3 class="navcard__title">@Model.Title</h3>
+                
+                <p class="navcard__teaser">@Model.Teaser</p>
+            </div>
+        </div>
+    </a>
+}

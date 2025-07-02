@@ -1,4 +1,6 @@
 .event-cards {
+    overflow-wrap: break-word;
+    
     @media #{$mobile} {
         margin-bottom: 3em;
     }

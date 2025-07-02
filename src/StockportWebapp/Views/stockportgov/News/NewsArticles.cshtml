@@ -5,7 +5,7 @@
     Layout = "../Shared/_Layout2023.cshtml";
 }
 
-<div class="grid-container-full-width" data-cy="news-page">
+<div class="grid-container-full-width" data-cy="newsroom">
     <partial name="CondolenceAlerts" model='Model.Newsroom.CondolenceAlerts' />
     <partial name="GlobalAlerts" model='Model.Newsroom.Alerts' />
     <partial name="Breadcrumb2023" model='new List<Crumb> { new Crumb("News and media", "news-room", "Newsroom") }' view-data="@(new ViewDataDictionary(ViewData) {{"landingBreadcrumb", "topic-breadcrumb-container"}})"/>
@@ -15,48 +15,36 @@
             <div class="news-article__container">
                 <div class="grid-100">
                     <h1 class="news-article__title">News</h1>
+                    <p class="lead news-article__teaser--no-margin">Keep up to date with the latest news in Stockport.</p>
                 </div>
-            </div>
-
-            <div class="event-homepage--no-padding">
-                <form action="@Url.Action("NewsArticle", "News")" method="get">
-                    <div class="grid-100">
-                        <div class="news-article__filters">
-                            <div class="news-article__filters--50 news-article__filters-select">
-                                <label class="h-l">Select a category</label>
-                                <div class="news-article__filters-options">
-                                    <select asp-items="@Model.Newsroom.CategoryOptions()" placeholder="All categories" name="category" id="category" aria-label="Select category" autocomplete="off"></select>
-                                </div>
-                            </div>
-
-                            <div class="news-article__filters--25 news-article__filters-button news-article__filters-button--margin-inline-start">
-                                <button class="btn btn--inverse btn--bold btn--width-25 btn--chevron-forward news-article__filters-button" data-cy="find-whats-on">
-                                    <span class="btn_text">Search news</span>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </form>
             </div>
         </div>
     </section>
     
-    <section class="section section--white section--margin-top section--no-margin" data-cy="all-news">
-        <div class="grid-container">
-            <div class="grid-100" data-cy="navcard-list">
-                <div class="section__content section__content--no-margin">
-                    @if (Model.Pagination?.CurrentPageNumber == 1 && Model.Newsroom.LatestArticle is not null)
-                    {
+    @if (Model.Pagination?.CurrentPageNumber == 1 && Model.Newsroom.LatestArticle is not null)
+    {
+        <section class="section section--white section--margin-top section--no-margin" data-cy="featured-news">
+            <div class="grid-container">
+                <div class="grid-100">
+                    <div class="section__content section__content--no-margin">
                         <partial name="NewsArticlesNewsBanner" model="Model.Newsroom.LatestArticle.Items.FirstOrDefault()" />
-                    }
-
+                    </div>
+                </div>
+            </div>
+        </section>
+    }
+    
+    <section class="section section--grey section--no-margin @(Model.Pagination?.CurrentPageNumber == 1 && Model.Newsroom.LatestArticle is not null ? "section--margin-top" : "section--padded")" data-cy="all-news">
+        <div class="grid-container">
+            <div class="grid-100">
+                <div class="section__content">
                     @if (Model.Pagination?.CurrentPageNumber == 1 && Model.Newsroom.News.Any())
                     {
                         <h2 class='@(Model.Newsroom.LatestArticle is not null ? "news-article__title--margin-top" : string.Empty)'>Latest news</h2>
 
-                        <partial name="TopicNavCardList" model="Model.Newsroom.LatestNews" view-data='new ViewDataDictionary(ViewData) { { "ShowLastUpdated", true }, { "twoGrid", false } }' />
+                        <partial name="NewsCards" model="Model.Newsroom.LatestNews" view-data='new ViewDataDictionary(ViewData) { { "twoGrid", false } }' />
                     }
-
+               
                     @if (Model.Pagination?.CurrentPageNumber == 1 && Model.Newsroom.CallToAction is not null)
                     {
                         <partial name="NewsCallToAction" model='Model.Newsroom.CallToAction' view-data='new ViewDataDictionary(ViewData) { { "AdditionalCssClass", "section--margin-top" } }' />
@@ -69,9 +57,9 @@
                             <h2 class="news-article__title--margin-top">All news</h2>
                         }
                         
-                        <partial name="TopicNavCardList" model="Model.Newsroom.NewsItems" view-data='new ViewDataDictionary(ViewData) { { "ShowLastUpdated", true }, { "twoGrid", false } }' />
+                        <partial name="NewsCards" model="Model.Newsroom.NewsItems" view-data='new ViewDataDictionary(ViewData) { { "twoGrid", false } }' />
                     }
-                    
+
                     @if ((Model.Newsroom.NewsItems is null || !Model.Newsroom.NewsItems.Items.Any()) && (Model.Newsroom.LatestNews is null || Model.Newsroom.LatestNews.Items.Any()) )
                     {
                         <div class="grid-100 news-article-not-found">
@@ -79,28 +67,12 @@
                         </div>
                     }
                 </div>
-                </div>
+
+                <partial name="Pagination2024" model='Model.Pagination' view-data='new ViewDataDictionary(ViewData) { { "PaginationMarginBottom", "pagination--margin-bottom" } }' />
             </div>
         </div>
     </section>
 
-    <partial name="Pagination2024" model='Model.Pagination' view-data='new ViewDataDictionary(ViewData) { { "PaginationMarginBottom", "pagination--margin-bottom" } }' />
-    
-    <section class="section section--grey section--padded section--no-margin">
-        <div class="grid-container">
-            <div class="grid-60 section__content">
-                <h2 class="section__title section__title--no-margin section__title--padded-bottom h-l">News archive</h2>
-                <p>View articles in our news archive.</p>
-            </div>
-
-            <div class="grid-40 section__content">
-                <div>
-                    <a href="@Url.Action("NewsArchive", "News")"
-                    class="section__content--action btn btn--bold btn--full btn--chevron-forward">
-                        View the archive
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-</div>  
+    <partial name="PreFooter" />
+    <partial name="NewsArchiveBanner" />
+</div>

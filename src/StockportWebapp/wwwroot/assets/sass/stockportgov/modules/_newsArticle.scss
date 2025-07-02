@@ -17,8 +17,6 @@
     }
 
     &__container {
-        margin-bottom: 2em;
-
         @media #{$tablet} {
             margin-bottom: 0;
         }
@@ -201,6 +199,10 @@
         &--no-image {
             margin-top: 2rem;
         }
+
+        &--no-margin {
+            margin: 0;
+        }
     }
 
     &__image {
@@ -252,6 +254,14 @@
     &-featured-item {
         &__title {
             text-align: left;
+        }
+    }
+
+    &__card {
+        &:last-child {
+            @media #{$mobile} {
+                margin-bottom: 1em;
+            }
         }
     }
 }

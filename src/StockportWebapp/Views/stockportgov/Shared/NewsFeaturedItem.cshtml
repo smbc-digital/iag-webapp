@@ -1,0 +1,27 @@
+﻿@model SpotlightOnBanner
+
+@{
+    string additionalClasses = (string)ViewData["additionalClasses"] ?? string.Empty;
+    string pseudoBorderColour = (string)ViewData["pseudoBorderColour"] ?? string.Empty;
+    string borderColour = (string)ViewData["borderColour"] ?? string.Empty;
+}
+
+<div class="featured-item section__content" data-cy="featured-item">
+    <a href="@Model.Link" class="featured-item__link featured-item__link-@additionalClasses" data-cy="featured-item-link">
+        @if (Model.Image is not null || !string.IsNullOrEmpty(Model.ImageUrl))
+        {
+            <partial name="FeaturedItemImage" model="@(Model.Image is not null ? Model.Image.Url : Model.ImageUrl)" view-data='@(new ViewDataDictionary(ViewData) { {"altText", string.Empty}, {"imageAdditionalClasses", additionalClasses} })'/>
+        }
+
+        <div class="featured-item-content featured-item-content-@additionalClasses @pseudoBorderColour @borderColour">
+            <div class="featured-item__news-banner-date">
+                <p class="lead"><partial name="FormattedDate" model='Model.LastUpdated' /></p>
+            </div>
+
+            <div class="featured-item-wrapper featured-item-wrapper-@additionalClasses">
+                <h3 class="h-l featured-item__news-banner-title featured-item__title--padded-bottom">@Model.Title</h3>
+                <p class="featured-item-content__teaser featured-item-content__teaser--no-margin">@Model.Teaser</p>
+            </div>
+        </div>
+    </a>
+</div>
