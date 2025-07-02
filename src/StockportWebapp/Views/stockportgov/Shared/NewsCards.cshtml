@@ -1,7 +1,6 @@
 ﻿@model NavCardList
 @if (Model is not null & Model?.Items.Any() is true)
 {
-    bool displayImage = Model.Items.All(item => !string.IsNullOrEmpty(item.TeaserImage) || !string.IsNullOrEmpty(item.Image));
     bool twoGrid = (bool)ViewData["twoGrid"];
 
     <ul class="navcard-wrapper navcard-wrapper--no-margin">
