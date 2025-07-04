@@ -4,58 +4,61 @@
     Layout = "../Shared/_Layout.cshtml";
     ViewData["Description"] = Model.Article.Teaser;
     ViewData["og:title"] = Model.OgTitleMetaData;
+    string dataCy = Model.DisplayedSection is null ? "flat-article" : "article-with-sections";
 }
 
-@section Breadcrumbs {
-    <partial name="Breadcrumb" model='Model.Article.Breadcrumbs' />
-}
-@section BackgroundImage
-    {
-    <partial name="ScaleImageByDevice" model='new Image("l-background-hs-image", Model.Article.BackgroundImage)' />
-}
-
-@if (!string.IsNullOrEmpty(Model.Article.BackgroundImage))
-{
-    <div class="grid-100 l-background-hs-image">
-    </div>
-}
-
-<section aria-label="article" class="grid-100 mobile-grid-100">
-    <a tabindex="-1" name="@Model.Article.Title content" class="anchor anchor-content"></a>
-    <div class="grid-100 tablet-grid-100 mobile-grid-100 article-container">
-
-        @if (Model.Article.Alerts is not null && Model.Article.Alerts.Any())
+<div data-cy=@dataCy>
+    @section Breadcrumbs {
+        <partial name="Breadcrumb" model='Model.Article.Breadcrumbs' />
+    }
+    @section BackgroundImage
         {
-            <div class="alert-wrapper">
-                @foreach (Alert alert in Model.Article.Alerts)
-                {
-                    <partial name="DisplayTemplates/Alert" model='alert' />
-                }
-            </div>
-        }
+        <partial name="ScaleImageByDevice" model='new Image("l-background-hs-image", Model.Article.BackgroundImage)' />
+    }
 
-        <div class="grid-parent hs-article-header">
-            <div class="hs-article-title grid-100 tablet-grid-100">
-                <span class="hs-article-icon-container hide-on-mobile fa fa-3x default-icon @Model.Article.Icon" aria-hidden="true"></span>
-                <h1 class="hs-article-title-container">@Model.Article.Title</h1>
-            </div>
+    @if (!string.IsNullOrEmpty(Model.Article.BackgroundImage))
+    {
+        <div class="grid-100 l-background-hs-image">
+        </div>
+    }
 
-            <hr />
-            <div class="clearfix"></div>
+    <section aria-label="article" class="grid-100 mobile-grid-100">
+        <a tabindex="-1" name="@Model.Article.Title content" class="anchor anchor-content"></a>
+        <div class="grid-100 tablet-grid-100 mobile-grid-100 article-container">
 
-            @if (Model.ShouldShowArticleSummary)
+            @if (Model.Article.Alerts is not null && Model.Article.Alerts.Any())
             {
-                <div class="hs-article-summary">
-                    @Html.Raw(Model.Article.Body)
+                <div class="alert-wrapper">
+                    @foreach (Alert alert in Model.Article.Alerts)
+                    {
+                        <partial name="DisplayTemplates/Alert" model='alert' />
+                    }
                 </div>
             }
-        </div>
 
-        @if (Model.DisplayedSection is not null)
-        {
-            <partial name="../../Shared/Section-Nav" />
-            <partial name="../Shared/Article-Single-Section" model='Model' />
-            <partial name="../Shared/Section-Pagination" />
-        }
-    </div>
-</section>
+            <div class="grid-parent hs-article-header">
+                <div class="hs-article-title grid-100 tablet-grid-100">
+                    <span class="hs-article-icon-container hide-on-mobile fa fa-3x default-icon @Model.Article.Icon" aria-hidden="true"></span>
+                    <h1 class="hs-article-title-container">@Model.Article.Title</h1>
+                </div>
+
+                <hr />
+                <div class="clearfix"></div>
+
+                @if (Model.ShouldShowArticleSummary)
+                {
+                    <div class="hs-article-summary">
+                        @Html.Raw(Model.Article.Body)
+                    </div>
+                }
+            </div>
+
+            @if (Model.DisplayedSection is not null)
+            {
+                <partial name="../../Shared/Section-Nav" />
+                <partial name="../Shared/Article-Single-Section" model='Model' />
+                <partial name="../Shared/Section-Pagination" />
+            }
+        </div>
+    </section>
+</div>
