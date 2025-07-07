@@ -21,6 +21,8 @@
     }
 
     &__container {
+        margin-bottom: 2em;
+
         @media #{$tablet} {
             margin-bottom: 0;
         }
@@ -41,7 +43,7 @@
         align-items: end;
         padding: 0;
 
-        @media #{$mobile} {
+        @media #{$tablet} {
             flex-direction: column;
             align-items: stretch; 
         }
@@ -158,12 +160,11 @@
             max-width: 290px;
             
             @media #{$tablet} {
-                margin-block-start: 2em;
+                margin-block-start: 1em;
                 max-width: 100%; 
             }
 
             @media #{$mobile} {
-                margin-block-start: 0;
                 margin-inline-start: 0;
             }
 
@@ -176,19 +177,8 @@
             width: 47%;
             
             @media #{$tablet} {
-                width: 75%;
-            }
-
-            @media #{$mobile} {
                 width: 100%;
-            }
-        }
-
-        &--25 {
-            width: 25%;
-            
-            @media #{$tablet} {
-                width: 46%;
+                padding-bottom: 0 !important;
             }
 
             @media #{$mobile} {
@@ -276,6 +266,12 @@
             margin: 0 !important;
         }
     }
+
+    @media #{$mobile} {
+        &__cta {
+            margin-inline: 5px;
+        }
+    }
 }
 
 #category-filter {
@@ -299,7 +295,7 @@
 
 .is-collapsed {
     .mobile-filter-heading:after {
-        content: "\f078";
+        content: "\f077";
         font: bold normal normal 16px/1 FontAwesome;
         font-size: 1em;
     }
@@ -314,7 +310,7 @@
         position: relative;
 
         &:after {
-            content: "\f054";
+            content: "\f078";
             font: bold normal normal 16px/1 FontAwesome;
             font-size: 1em;
             text-decoration: none;
@@ -339,7 +335,7 @@
     position: relative;
 
     &:after {
-        content: "\f078";
+        content: "\f077";
         font: bold normal normal 16px/1 FontAwesome;
         font-size: 1em;
         text-decoration: none;

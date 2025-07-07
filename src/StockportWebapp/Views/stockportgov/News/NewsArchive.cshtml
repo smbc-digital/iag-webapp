@@ -55,7 +55,7 @@
     <section class="section section--grey section--no-margin">
         <div class="grid-container">
             <div class="grid-100">
-                <section class="directory section--margin-top">
+                <section class="directory section--margin-top-3 section--padded-bottom-1">
                     <div class="directory--30 section">
                         <div class="navcard-wrapper">
                             <div class="navcard navcard--width-100 navcard--border navcard--no-padding-right-rtl">
@@ -87,7 +87,7 @@
                 
                 @if (Model.ArchiveCallToAction is not null)
                 {
-                    <partial name="NewsCallToAction" model='Model.ArchiveCallToAction' view-data='new ViewDataDictionary(ViewData) { { "AdditionalCssClass", "section--margin-top" } }' />
+                    <partial name="NewsCallToAction" model='Model.ArchiveCallToAction' view-data='new ViewDataDictionary(ViewData) { { "AdditionalCssClass", "section--margin-top news-article__cta" } }' />
                 }
             </div>
         </div>
