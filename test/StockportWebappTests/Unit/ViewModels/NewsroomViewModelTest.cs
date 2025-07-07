@@ -143,6 +143,186 @@ public class NewsroomViewModelTest
         Assert.False(result);
     }
 
+    [Fact]
+    public void GetActiveDateFilter_ReturnsEmptyString_WhenDateFromIsNull()
+    {
+        // Arrange
+        NewsroomViewModel newsroomViewModel = new()
+        {
+            DateFrom = null,
+            DateTo = DateTime.Today,
+            DateRange = "customdate"
+        };
+
+
+        // Act
+        string result = newsroomViewModel.GetActiveDateFilter();
+
+        // Assert
+        Assert.Empty(result);
+    }
+
+       [Fact]
+    public void GetActiveDateFilter_ReturnsEmptyString_WhenDateToIsNull()
+    {
+        // Arrange
+        NewsroomViewModel newsroomViewModel = new()
+        {
+            DateFrom = DateTime.Today,
+            DateTo = null,
+            DateRange = "customdate"
+        };
+
+        // Act
+        string result = newsroomViewModel.GetActiveDateFilter();
+
+        // Assert
+        Assert.Empty(result);
+    }
+
+    [Fact]
+    public void GetActiveDateFilter_ReturnsSingleDate_WhenDateRangeIsCustomdate_AndDatesAreEqual()
+    {
+        // Arrange
+        NewsroomViewModel newsroomViewModel = new()
+        {
+            DateFrom = new DateTime(2025, 7, 7),
+            DateTo = new DateTime(2025, 7, 7),
+            DateRange = "customdate"
+        };
+
+        // Act
+        string result = newsroomViewModel.GetActiveDateFilter();
+
+        // Assert
+        Assert.Equal("07/07/2025", result);
+    }
+
+      [Fact]
+    public void GetActiveDateFilter_ReturnsDateRange_WhenDateRangeIsCustomdate_AndDatesAreDifferent()
+    {
+        // Arrange
+        NewsroomViewModel newsroomViewModel = new()
+        {
+            DateFrom = new DateTime(2025, 7, 7),
+            DateTo = new DateTime(2025, 7, 10),
+            DateRange = "customdate"
+        };
+
+        // Act
+        string result = newsroomViewModel.GetActiveDateFilter();
+
+        // Assert
+        Assert.Equal("07/07/2025 to 10/07/2025", result);
+    }
+
+    [Fact]
+    public void GetActiveDateFilter_ReturnsMonthYear_WhenDateRangeIsNotCustomdate()
+    {
+        // Arrange
+        NewsroomViewModel newsroomViewModel = new()
+        {
+            DateFrom = new DateTime(2025, 7, 7),
+            DateTo = new DateTime(2025, 7, 20),
+            DateRange = "month"
+        };
+
+        // Act
+        string result = newsroomViewModel.GetActiveDateFilter();
+
+        // Assert
+        Assert.Equal("July 2025", result);
+    }
+
+     [Fact]
+    public void GetActiveYearFilter_ReturnsEmptyString_WhenDateFromIsNull()
+    {
+        NewsroomViewModel newsroomViewModel = new()
+        {
+            DateFrom = null,
+            DateTo = DateTime.Today,
+            DateRange = "customdate"
+        };
+
+        // Act
+        string result = newsroomViewModel.GetActiveYearFilter();
+
+        // Assert
+        Assert.Empty(result);
+    }
+
+    [Fact]
+    public void GetActiveYearFilter_ReturnsEmptyString_WhenDateToIsNull()
+    {
+        // Arrange
+        NewsroomViewModel newsroomViewModel = new()
+        {
+            DateFrom = DateTime.Today,
+            DateTo = null,
+            DateRange = "customdate"
+        };
+
+        // Act
+        string result = newsroomViewModel.GetActiveYearFilter();
+
+        // Assert
+        Assert.Empty(result);
+    }
+
+    [Fact]
+    public void GetActiveYearFilter_ReturnsSingleDate_WhenDateRangeIsCustomdate_AndDatesAreEqual()
+    {
+        // Arrange
+        NewsroomViewModel newsroomViewModel = new()
+        {
+            DateFrom = new DateTime(2025, 7, 7),
+            DateTo = new DateTime(2025, 7, 7),
+            DateRange = "customdate"
+        };
+
+        // Act
+        string result = newsroomViewModel.GetActiveYearFilter();
+
+        // Assert
+        Assert.Equal("07/07/2025", result);
+    }
+
+    [Fact]
+    public void GetActiveYearFilter_ReturnsDateRange_WhenDateRangeIsCustomdate_AndDatesAreDifferent()
+    {
+        // Arrange
+        NewsroomViewModel newsroomViewModel = new()
+        {
+            DateFrom = new DateTime(2025, 7, 7),
+            DateTo = new DateTime(2025, 7, 10),
+            DateRange = "customdate"
+        };
+
+        // Act
+        string result = newsroomViewModel.GetActiveYearFilter();
+
+        // Assert
+        Assert.Equal("07/07/2025 to 10/07/2025", result);
+    }
+
+    [Fact]
+    public void GetActiveYearFilter_ReturnsYear_WhenDateRangeIsNotCustomdate()
+    {
+        // Arrange
+        NewsroomViewModel newsroomViewModel = new()
+        {
+            DateFrom = new DateTime(2025, 7, 7),
+            DateTo = new DateTime(2025, 7, 20),
+            DateRange = "year"
+        };
+
+        // Act
+        string result = newsroomViewModel.GetActiveYearFilter();
+
+        // Assert
+        Assert.Equal("2025", result);
+    }
+
     private static Newsroom BuildNewsRoom(List<string> categories = null, string emailAlertsTopicId = "") =>
         new(new List<News>(),
             null,
