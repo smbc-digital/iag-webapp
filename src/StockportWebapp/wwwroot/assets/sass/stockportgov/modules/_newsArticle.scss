@@ -14,6 +14,10 @@
         &--margin-top {
             margin-top: 2em;
         }
+
+        &--margin-bottom {
+            margin-bottom: 0.75em;
+        }
     }
 
     &__container {
@@ -202,6 +206,10 @@
 
         &--no-margin {
             margin: 0;
+
+             @media #{$mobile} {
+                margin-inline: 5px;
+            }
         }
     }
 
@@ -258,6 +266,14 @@
             @media #{$mobile} {
                 margin-bottom: 1em;
             }
+        }
+    }
+    
+    &__banner {
+        border-radius: 3px 0 0 3px !important;
+
+        &--no-margin {
+            margin: 0 !important;
         }
     }
 }
@@ -384,6 +400,20 @@ html[dir="rtl"] {
     .news-article {
         &__title {
             text-align: right;
+        }
+
+        &-featured-item {
+            &__title {
+                text-align: right;
+            }
+        }
+
+        &__banner {
+            border-radius: 0 3px 3px 0 !important;
+        }
+
+        &__archive-banner {
+            float: right;
         }
     }
 

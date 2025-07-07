@@ -112,6 +112,12 @@
     &--padding {
         padding: 1em 0.75em 0.5em 0.75em;
     }
+
+    &--margin-bottom {
+        @media #{$mobile} {
+            margin-bottom: 2em;
+        }
+    }
 }
 
 html[dir="rtl"] {

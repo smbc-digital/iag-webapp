@@ -100,8 +100,10 @@ public class NewsController(IRepository repository,
 
         List<News> latestNews = allNews.Take(3).ToList();
 
-        newsRoom.News = allNews.Skip(3).ToList();
-
+        newsRoom.News = newsRoom.CallToAction is null
+            ? allNews
+            : allNews.Skip(3).ToList();
+        
         DoPagination(newsRoom, model, page, pageSize);
 
         newsRoom.LatestArticle = latestArticle?.Any() is true
