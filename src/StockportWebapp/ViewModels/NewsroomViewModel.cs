@@ -103,6 +103,6 @@ public class NewsroomViewModel
 
     public string PageTitle =>
         $"{(ShowPagination
-            ? $" - Page {Pagination.CurrentPageNumber} of {Pagination.TotalPages}"
+            ? $"- Page {Pagination.CurrentPageNumber} of {Pagination.TotalPages}"
             : string.Empty)}";
 }

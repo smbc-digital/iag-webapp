@@ -1,7 +1,7 @@
 ﻿@model NewsroomViewModel
 @{
-    ViewData["og:title"] = "News archive " + Model.PageTitle;
-    ViewData["Title"] = "News archive " + Model.PageTitle;
+    ViewData["og:title"] = $"News archive {Model.PageTitle}";
+    ViewData["Title"] = $"News archive {Model.PageTitle}";
     Layout = "../Shared/_Layout2023.cshtml";
 }
 
