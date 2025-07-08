@@ -5,7 +5,7 @@ public class NewsroomViewModel
     // data
     public string EmailAlertsUrl { get; private set; }
     public Newsroom Newsroom { get; private set; }
-    
+
     public List<string> Categories =>
         Newsroom?.Categories?.OrderBy(category => category).ToList();
 
@@ -63,12 +63,12 @@ public class NewsroomViewModel
 
     public string GetActiveDateFilter()
     {
-        if (!DateFrom.HasValue || !DateTo.HasValue) 
+        if (!DateFrom.HasValue || !DateTo.HasValue)
             return string.Empty;
 
         if (DateRange is "customdate")
-            return DateFrom.Value.Equals(DateTo.Value) 
-                ? DateFrom.Value.ToString("dd/MM/yyyy") 
+            return DateFrom.Value.Equals(DateTo.Value)
+                ? DateFrom.Value.ToString("dd/MM/yyyy")
                 : $"{DateFrom.Value:dd/MM/yyyy} to {DateTo.Value:dd/MM/yyyy}";
 
         return DateFrom.Value.ToString("MMMM yyyy");
@@ -76,12 +76,12 @@ public class NewsroomViewModel
 
     public string GetActiveYearFilter()
     {
-        if (!DateFrom.HasValue || !DateTo.HasValue) 
+        if (!DateFrom.HasValue || !DateTo.HasValue)
             return string.Empty;
 
         if (DateRange is "customdate")
-            return DateFrom.Value.Equals(DateTo.Value) 
-                ? DateFrom.Value.ToString("dd/MM/yyyy") 
+            return DateFrom.Value.Equals(DateTo.Value)
+                ? DateFrom.Value.ToString("dd/MM/yyyy")
                 : $"{DateFrom.Value:dd/MM/yyyy} to {DateTo.Value:dd/MM/yyyy}";
 
         return DateFrom.Value.ToString("yyyy");
@@ -97,4 +97,12 @@ public class NewsroomViewModel
         !string.IsNullOrEmpty(Category) ||
             !string.IsNullOrEmpty(Tag) ||
             DateFrom.HasValue && DateTo.HasValue && (DateFrom <= DateTo);
+
+    public bool ShowPagination =>
+        Pagination is not null && Pagination.TotalItems > Pagination.MaxItemsPerPage;
+
+    public string PageTitle =>
+        $"{(ShowPagination
+            ? $"- Page {Pagination.CurrentPageNumber} of {Pagination.TotalPages}"
+            : string.Empty)}";
 }
