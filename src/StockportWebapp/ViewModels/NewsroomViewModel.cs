@@ -5,6 +5,7 @@ public class NewsroomViewModel
     // data
     public string EmailAlertsUrl { get; private set; }
     public Newsroom Newsroom { get; private set; }
+    
     public List<string> Categories =>
         Newsroom?.Categories?.OrderBy(category => category).ToList();
 
@@ -25,12 +26,10 @@ public class NewsroomViewModel
     public string DateRange { get; set; }
 
     // form elements
-    [Required]
     [Display(Name = "Start date")]
     [DataType(DataType.Date)]
     public DateTime? DateFrom { get; set; }
 
-    [Required]
     [Display(Name = "End date")]
     [DataType(DataType.Date)]
     [EndDateLaterThanStartDateValidation("DateFrom", "End date should be on or after the start date")]

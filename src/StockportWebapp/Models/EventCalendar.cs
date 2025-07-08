@@ -10,9 +10,12 @@ public class EventCalendar
     [DataType(DataType.Date)]
     [EndDateLaterThanStartDateValidation("DateFrom", "End date should be on or after the start date")]
     public DateTime? DateTo { get; set; }
+    
     public string Category { get; set; }
+
     public bool CategoryIsSelected =>
         !string.IsNullOrEmpty(Category);
+    
     public EventCategory SelectedCategory =>
         CategoryIsSelected
             ? Homepage?.Categories?.SingleOrDefault(category => category.Slug.Equals(Category))
