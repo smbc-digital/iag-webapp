@@ -10,7 +10,7 @@
 
     <section class="news-article" data-cy="title-and-summary">
         <div class="grid-container">
-            <div class="news-article__container">
+            <div class="news-article__container news-article__container--margin-bottom">
                 <div class="grid-100">
                     <h1 class="news-article__title">News archive</h1>
                 </div>
@@ -27,7 +27,6 @@
                                     <label class="h-l" asp-for="@Model.DateFrom"></label>
                                     <div class="event-homepage__filters-options">
                                         <input type="date" class="event-homepage__filters-options-date" asp-for="@Model.DateFrom" placeholder="dd/mm/yyyy" />
-                                        <span role="alert" aria-atomic="true" asp-validation-for="@Model.DateFrom" class="form-customdate-validation-error form-field-validation-error"></span>
                                     </div>
                                 </div>
 
@@ -35,7 +34,6 @@
                                     <label class="h-l" asp-for="@Model.DateTo"></label>
                                     <div class="event-homepage__filters-options">
                                         <input type="date" class="event-homepage__filters-options-date" asp-for="@Model.DateTo" placeholder="dd/mm/yyyy" />
-                                        <span id="inputvalidation" role="alert" aria-atomic="true" asp-validation-for="@Model.DateTo" class="form-customdate-validation-error form-field-validation-error"></span>
                                     </div>
                                 </div>
                             </div>
@@ -56,7 +54,7 @@
         <div class="grid-container">
             <div class="grid-100">
                 <section class="directory section--margin-top-3 section--padded-bottom-1">
-                    <div class="directory--30 section">
+                    <div class="directory--30">
                         <div class="navcard-wrapper">
                             <div class="navcard navcard--width-100 navcard--border navcard--no-padding-right-rtl">
                                 <div class="navcard-content navcard--white navcard-all navcard--theme-grey-accent-all navcard--radius-all news-article__categories">
@@ -77,7 +75,16 @@
                         else
                         {
                             <div class="grid-100 news-article-not-found">
-                                <h2>No news articles found</h2>
+                                <h2>There are currently no news articles matching your search</h2>
+
+                                @if (Model.DateFrom.HasValue && Model.DateTo.HasValue && Model.DateFrom > Model.DateTo)
+                                {
+                                    <p class="lead">This is because you searched for an invalid date range. Edit your search and try again.</p>
+                                }
+                                else
+                                {
+                                    <p class="lead">Edit your search and try again.</p>
+                                }
                             </div>
                         }
                     </div>

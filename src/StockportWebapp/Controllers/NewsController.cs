@@ -113,8 +113,6 @@ public class NewsController(IRepository repository,
         if (await _featureManager.IsEnabledAsync("NewsRedesign"))
             return RedirectToAction("Index");
 
-        ClearDateErrorsIfNoDates(model);
-
         List<Query> queries = BuildQueries(model);
 
         HttpResponse httpResponse = await _repository.Get<Newsroom>(slug: "/archive", queries: queries);
