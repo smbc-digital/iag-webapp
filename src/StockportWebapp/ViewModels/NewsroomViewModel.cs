@@ -6,7 +6,7 @@ public class NewsroomViewModel
     public string EmailAlertsUrl { get; private set; }
     public Newsroom Newsroom { get; private set; }
     public List<string> Categories =>
-        Newsroom?.Categories?.OrderBy(c => c).ToList();
+        Newsroom?.Categories?.OrderBy(category => category).ToList();
 
     public CallToActionBanner ArchiveCallToAction { get; set; } = new CallToActionBanner
     {

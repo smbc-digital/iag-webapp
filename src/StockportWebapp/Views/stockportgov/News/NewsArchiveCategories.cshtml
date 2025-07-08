@@ -64,7 +64,7 @@
             <h3 tabindex="0" class="filter-title focusable">Years</h3>
 
             <ul class="filters-list">
-                @foreach (int year in newsroom.Years.OrderByDescending(y => y))
+                @foreach (int year in newsroom.Years.OrderByDescending(yr => yr))
                 {
                     <li class="@(Model.DateRange == "customdate" && Model.DateFrom.Equals(year) ? "active" : string.Empty)">
                         <a href="@Url.RouteUrl(Model.FilteredUrl.AddYearFilter(year))" rel="nofollow">@year</a>

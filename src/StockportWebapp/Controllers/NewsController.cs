@@ -254,7 +254,7 @@ public class NewsController(IRepository repository,
 
     private void ClearModelStateError(string fieldName)
     {
-        if (ModelState[fieldName] is { Errors.Count: > 0 } state)
+        if (ModelState.TryGetValue(fieldName, out ModelStateEntry state) && state.Errors.Count > 0)
             state.Errors.Clear();
     }
     
