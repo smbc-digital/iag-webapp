@@ -3,7 +3,7 @@
     Newsroom newsroom = Model.Newsroom;
 }
 
-<h2 class="filters-heading">Filter</h2>
+<h2 class="filters-heading h-ml">Filter your results</h2>
 
 <div class="l-filters">
     <ul class="filters-list" id="displayRefineBy">
@@ -44,19 +44,6 @@
             </li>
         }
 
-        <li class="filter collapsible" id="news-archive">
-            <h3 tabindex="0" class="filter-title focusable">Years</h3>
-
-            <ul class="filters-list">
-                @foreach (int year in newsroom.Years.OrderByDescending(y => y))
-                {
-                    <li class="@(Model.DateRange == "customdate" && Model.DateFrom.Equals(year) ? "active" : string.Empty)">
-                        <a href="@Url.RouteUrl(Model.FilteredUrl.AddYearFilter(year))" rel="nofollow">@year</a>
-                    </li>
-                }
-            </ul>
-        </li>
-
         @if (Model.Categories.Any())
         {
             <li class="filter collapsible" id="category-filter">
@@ -72,11 +59,24 @@
                 </ul>
             </li>
         }
+
+        <li class="filter collapsible" id="news-archive">
+            <h3 tabindex="0" class="filter-title focusable">Years</h3>
+
+            <ul class="filters-list">
+                @foreach (int year in newsroom.Years.OrderByDescending(yr => yr))
+                {
+                    <li class="@(Model.DateRange == "customdate" && Model.DateFrom.Equals(year) ? "active" : string.Empty)">
+                        <a href="@Url.RouteUrl(Model.FilteredUrl.AddYearFilter(year))" rel="nofollow">@year</a>
+                    </li>
+                }
+            </ul>
+        </li>
     </ul>
 </div>
 
 <script>
-    require(['/assets/javascript/config-45a752e9.min'], function() {
+    require(['/assets/javascript/config-abc6dd3d.min.js'], function() {
         require(['filters'],
             function(filters) {
                 filters.Init();

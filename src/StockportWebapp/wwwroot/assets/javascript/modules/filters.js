@@ -2,6 +2,8 @@
 
     var init = function () {
         $(document).ready(function () {
+            document.getElementById("news-archive").classList.add("is-collapsed");
+
             $(".l-filters .filter-title, .l-filters .filter-inner-title, .expanding-Link-text").on("keypress click", function (e) {
                 e.preventDefault();
                 console.log("click or keypress event triggered");

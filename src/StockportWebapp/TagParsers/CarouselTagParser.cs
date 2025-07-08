@@ -45,7 +45,7 @@ public class CarouselTagParser : ISimpleTagParser
             }
         }
 
-        string scriptTag = "<script>\r\nrequire(['/assets/javascript/config-45a752e9.min.js'],function(){\r\nrequire(['slick', 'carousel'],\r\nfunction(_, carousel){\r\ncarousel.Init();\r\n}\r\n);\r\n});\r\n</script>";
+        string scriptTag = "<script>\r\nrequire(['/assets/javascript/config-abc6dd3d.min.js'],function(){\r\nrequire(['slick', 'carousel'],\r\nfunction(_, carousel){\r\ncarousel.Init();\r\n}\r\n);\r\n});\r\n</script>";
         
         return returnCarousel.Append("</div>" + scriptTag).ToString();
     }

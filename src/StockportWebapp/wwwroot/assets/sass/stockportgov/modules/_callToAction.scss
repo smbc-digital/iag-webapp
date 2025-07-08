@@ -65,7 +65,9 @@
 
 html[dir="rtl"] {
     .call-to-action {
-        border-radius: 3px 50px 3px 50px;
+        &-content {
+            border-radius: 3px 0px 0px 50px;
+        }
 
         &__image {
             border-radius: 0px 50px 3px 0px;

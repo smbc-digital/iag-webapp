@@ -13,11 +13,11 @@
 
     <section class="news-banner" data-cy="news-banner">
         <div class="content-block--margin-inline">
-            <h2 class="content-block__title news-article-featured-item__title">Featured news</h2>
+            <h2 class="news-article-featured-item__title news-article__title--margin-bottom">Featured news</h2>
         </div>
             
         <div class="featured-item-container">
-            <partial name="NewsFeaturedItem" model="@newsBanner" view-data='@(new ViewDataDictionary(ViewData){ {"additionalClasses", "news-banner"}, {"pseudoBorderColour", "border-pseudo-colour-none"}, {"borderColour", "border-colour-none"} })' />
+            <partial name="NewsFeaturedItem" model="@newsBanner" view-data='@(new ViewDataDictionary(ViewData){ {"additionalClasses", "news-banner news-article__banner"}, {"pseudoBorderColour", "border-pseudo-colour-none"}, {"borderColour", "border-colour-none"} })' />
         </div>
     </section>
 }

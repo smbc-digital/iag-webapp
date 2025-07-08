@@ -22,27 +22,9 @@ public class NewsController(IRepository repository,
     [Route("/news")]
     public async Task<IActionResult> Index(NewsroomViewModel model, [FromQuery] int page, [FromQuery] int pageSize)
     {
-        if (model.DateFrom is null && model.DateTo is null && string.IsNullOrEmpty(model.DateRange))
-        {
-            if (ModelState["DateTo"] is not null && ModelState["DateTo"].Errors.Count > 0)
-                ModelState["DateTo"].Errors.Clear();
+        ClearDateErrorsIfNoDates(model);
 
-            if (ModelState["DateFrom"] is not null && ModelState["DateFrom"].Errors.Count > 0)
-                ModelState["DateFrom"].Errors.Clear();
-        }
-
-        List<Query> queries = new();
-        if (!string.IsNullOrEmpty(model.Tag))
-            queries.Add(new Query("tag", model.Tag));
-        
-        if (!string.IsNullOrEmpty(model.Category))
-            queries.Add(new Query("Category", model.Category));
-        
-        if (model.DateFrom.HasValue)
-            queries.Add(new Query("DateFrom", model.DateFrom.Value.ToString("yyyy-MM-dd")));
-        
-        if (model.DateTo.HasValue)
-            queries.Add(new Query("DateTo", model.DateTo.Value.ToString("yyyy-MM-dd")));
+        List<Query> queries = BuildQueries(model);
 
         HttpResponse httpResponse = await _repository.Get<Newsroom>(queries: queries);
 
@@ -71,28 +53,10 @@ public class NewsController(IRepository repository,
     {
         if (await _featureManager.IsEnabledAsync("NewsRedesign"))
             return RedirectToAction("Index");
-        
-        if (model.DateFrom is null && model.DateTo is null && string.IsNullOrEmpty(model.DateRange))
-        {
-            if (ModelState["DateTo"] is not null && ModelState["DateTo"].Errors.Count > 0)
-                ModelState["DateTo"].Errors.Clear();
 
-            if (ModelState["DateFrom"] is not null && ModelState["DateFrom"].Errors.Count > 0)
-                ModelState["DateFrom"].Errors.Clear();
-        }
+        ClearDateErrorsIfNoDates(model);
 
-        List<Query> queries = new();
-        if (!string.IsNullOrEmpty(model.Tag))
-            queries.Add(new Query("tag", model.Tag));
-        
-        if (!string.IsNullOrEmpty(model.Category))
-            queries.Add(new Query("Category", model.Category));
-        
-        if (model.DateFrom.HasValue)
-            queries.Add(new Query("DateFrom", model.DateFrom.Value.ToString("yyyy-MM-dd")));
-        
-        if (model.DateTo.HasValue)
-            queries.Add(new Query("DateTo", model.DateTo.Value.ToString("yyyy-MM-dd")));
+        List<Query> queries = BuildQueries(model);
 
         HttpResponse httpResponse = await _repository.Get<Newsroom>(queries: queries);
 
@@ -111,25 +75,30 @@ public class NewsController(IRepository repository,
         List<News> latestArticle = null;
 
         if (newsRoom.FeaturedNews is not null)
+        {
             latestArticle = new() { newsRoom.FeaturedNews };
-
-        if (newsRoom.FeaturedNews is not null)
             allNews = allNews.Where(news => !news.Slug.Equals(newsRoom.FeaturedNews.Slug)).ToList();
+        }
 
         List<News> latestNews = allNews.Take(3).ToList();
 
-        newsRoom.News = allNews.Skip(3).ToList();
-
+        newsRoom.News = newsRoom.CallToAction is null
+            ? allNews
+            : allNews.Skip(3).ToList();
+        
         DoPagination(newsRoom, model, page, pageSize);
 
-        if (latestArticle is not null && latestArticle.Any())
-            newsRoom.LatestArticle = new NavCardList() { Items = latestArticle.Select(ToNavCard).ToList() };
+        newsRoom.LatestArticle = latestArticle?.Any() is true
+            ? CreateNavCardList(latestArticle)
+            : null;
 
-        if (latestNews is not null && latestNews.Any())
-            newsRoom.LatestNews = new NavCardList() { Items = latestNews.Select(ToNavCard).ToList() };
+        newsRoom.LatestNews = latestNews?.Any() is true
+            ? CreateNavCardList(latestNews)
+            : null;
 
-        if (newsRoom.News is not null && newsRoom.News.Any())
-            newsRoom.NewsItems = new NavCardList() { Items = newsRoom.News.Select(ToNavCard).ToList() };
+        newsRoom.NewsItems = newsRoom.News?.Any() is true
+            ? CreateNavCardList(newsRoom.News)
+            : null;
 
         model.AddNews(newsRoom);
         model.AddUrlSetting(urlSetting, model.Newsroom.EmailAlertsTopicId);
@@ -143,29 +112,11 @@ public class NewsController(IRepository repository,
     {
         if (await _featureManager.IsEnabledAsync("NewsRedesign"))
             return RedirectToAction("Index");
-        
-        if (model.DateFrom is null && model.DateTo is null && string.IsNullOrEmpty(model.DateRange))
-        {
-            if (ModelState["DateTo"] is not null && ModelState["DateTo"].Errors.Count > 0)
-                ModelState["DateTo"].Errors.Clear();
 
-            if (ModelState["DateFrom"] is not null && ModelState["DateFrom"].Errors.Count > 0)
-                ModelState["DateFrom"].Errors.Clear();
-        }
+        ClearDateErrorsIfNoDates(model);
 
-        List<Query> queries = new();
-        if (!string.IsNullOrEmpty(model.Tag))
-            queries.Add(new Query("tag", model.Tag));
-        
-        if (!string.IsNullOrEmpty(model.Category))
-            queries.Add(new Query("Category", model.Category));
-        
-        if (model.DateFrom.HasValue)
-            queries.Add(new Query("DateFrom", model.DateFrom.Value.ToString("yyyy-MM-dd")));
-        
-        if (model.DateTo.HasValue)
-            queries.Add(new Query("DateTo", model.DateTo.Value.ToString("yyyy-MM-dd")));
-        
+        List<Query> queries = BuildQueries(model);
+
         HttpResponse httpResponse = await _repository.Get<Newsroom>(slug: "/archive", queries: queries);
 
         if (!httpResponse.IsSuccessful())
@@ -178,9 +129,9 @@ public class NewsController(IRepository repository,
         model.AddQueryUrl(new QueryUrl(Url?.ActionContext.RouteData.Values, Request?.Query));
         _filteredUrl.SetQueryUrl(model.CurrentUrl);
         model.AddFilteredUrl(_filteredUrl);
-        
+
         DoPagination(newsRoom, model, page, pageSize);
-    
+
         model.AddNews(newsRoom);
         model.AddUrlSetting(urlSetting, model.Newsroom.EmailAlertsTopicId);
 
@@ -214,7 +165,7 @@ public class NewsController(IRepository repository,
     {
         if (await _featureManager.IsEnabledAsync("NewsRedesign"))
             return RedirectToAction("Detail", new { slug });
-        
+
         HttpResponse initialResponse = await _processedContentRepository.Get<News>(slug);
         IActionResult finalResult = initialResponse;
 
@@ -248,7 +199,7 @@ public class NewsController(IRepository repository,
 
         Newsroom response = httpResponse.Content as Newsroom;
         AppSetting emailFromAppSetting = _config.GetRssEmail(_businessId.ToString());
-        
+
         string email = emailFromAppSetting.IsValid()
             ? emailFromAppSetting.ToString()
             : string.Empty;
@@ -288,4 +239,41 @@ public class NewsController(IRepository repository,
         news.SunriseDate,
         string.Empty
     );
+
+    private NavCardList CreateNavCardList(IEnumerable<News> newsItems) =>
+        new() { Items = newsItems.Select(ToNavCard).ToList() };
+
+    private void ClearDateErrorsIfNoDates(NewsroomViewModel model)
+    {
+        if (model.DateFrom is null && model.DateTo is null && string.IsNullOrEmpty(model.DateRange))
+        {
+            ClearModelStateError("DateFrom");
+            ClearModelStateError("DateTo");
+        }
+    }
+
+    private void ClearModelStateError(string fieldName)
+    {
+        if (ModelState.TryGetValue(fieldName, out ModelStateEntry state) && state.Errors.Count > 0)
+            state.Errors.Clear();
+    }
+    
+    private static List<Query> BuildQueries(NewsroomViewModel model)
+    {
+        List<Query> queries = new();
+        
+        if (!string.IsNullOrEmpty(model.Tag))
+            queries.Add(new Query("tag", model.Tag));
+        
+        if (!string.IsNullOrEmpty(model.Category))
+            queries.Add(new Query("Category", model.Category));
+        
+        if (model.DateFrom.HasValue)
+            queries.Add(new Query("DateFrom", model.DateFrom.Value.ToString("yyyy-MM-dd")));
+        
+        if (model.DateTo.HasValue)
+            queries.Add(new Query("DateTo", model.DateTo.Value.ToString("yyyy-MM-dd")));
+        
+        return queries;
+    }
 }

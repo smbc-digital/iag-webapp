@@ -6,7 +6,18 @@ public class NewsroomViewModel
     public string EmailAlertsUrl { get; private set; }
     public Newsroom Newsroom { get; private set; }
     public List<string> Categories =>
-        Newsroom?.Categories?.OrderBy(c => c).ToList();
+        Newsroom?.Categories?.OrderBy(category => category).ToList();
+
+    public CallToActionBanner ArchiveCallToAction { get; set; } = new CallToActionBanner
+    {
+        Title = "Send us a media enquiry",
+        Teaser = "You can contact us if you'd like to be added to our media distribution list for our news releases, you're a journalist with an enquiry or you have an enquiry about a press release or photo opportunity.",
+        ButtonText = "Send us a media enquiry",
+        Link = "https://www.stockport.gov.uk/start/send-a-media-enquiry",
+        Colour = EColourScheme.Pink,
+        Image = "//images.ctfassets.net/ii3xdrqc6nfw/7GxI1Llr4k2EuQ2WAS8CkQ/fe18c2ba9cf7faa7274e1b13481ac2fe/Working_on_a_laptop.jpg",
+        AltText = "Send us a media enquiry"
+    };
 
     // filters
     public string Tag { get; set; }

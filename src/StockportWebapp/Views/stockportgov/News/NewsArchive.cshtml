@@ -6,9 +6,7 @@
 }
 
 <div class="grid-container-full-width" data-cy="news-page">
-    <partial name="CondolenceAlerts" model='Model.Newsroom.CondolenceAlerts' />
-    <partial name="GlobalAlerts" model='Model.Newsroom.Alerts' />
-    <partial name="Breadcrumb2023" model='new List<Crumb> { new Crumb("News articles", "news-articles2", "News") }' view-data="@(new ViewDataDictionary(ViewData) {{"landingBreadcrumb", "topic-breadcrumb-container"}})"/>
+    <partial name="Breadcrumb2023" model='new List<Crumb> { new Crumb("News articles", "news-articles", "News") }' view-data="@(new ViewDataDictionary(ViewData) {{"landingBreadcrumb", "topic-breadcrumb-container"}})"/>
 
     <section class="news-article" data-cy="title-and-summary">
         <div class="grid-container">
@@ -54,37 +52,47 @@
         </div>
     </section>
 
-    <div class="grid-container">
-        <div class="grid-100">
-            <section class="directory section--margin-top">
-                <div class="directory--30 section">
-                    <div class="navcard-wrapper">
-                        <div class="navcard navcard--white navcard--width-100 navcard--border navcard--no-padding-right-rtl">
-                            <div class="navcard-content navcard-all navcard--theme-grey-accent-all navcard--radius-all news-article__categories">
-                                <div class="navcard-content--padding">
-                                    <partial name="NewsArchiveCategories" model="Model" />
+    <section class="section section--grey section--no-margin">
+        <div class="grid-container">
+            <div class="grid-100">
+                <section class="directory section--margin-top-3 section--padded-bottom-1">
+                    <div class="directory--30 section">
+                        <div class="navcard-wrapper">
+                            <div class="navcard navcard--width-100 navcard--border navcard--no-padding-right-rtl">
+                                <div class="navcard-content navcard--white navcard-all navcard--theme-grey-accent-all navcard--radius-all news-article__categories">
+                                    <div class="navcard-content--padding">
+                                        <partial name="NewsArchiveCategories" model="Model" />
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="directory--70">
-                    @if (Model.Newsroom.ArchivedItems is not null && Model.Newsroom.ArchivedItems.Items.Any())
-                    {
-                        <h2 class="visuallyhidden">All news</h2>
-                        <partial name="TopicNavCardList" model="Model.Newsroom.ArchivedItems" view-data='new ViewDataDictionary(ViewData) { { "ShowLastUpdated", true }, { "twoGrid", true } }' />
-                    }
-                    else
-                    {
-                        <div class="grid-100 news-article-not-found">
-                            <h2>No news articles found</h2>
-                        </div>
-                    }
-                </div>
-            </section>
+                    <div class="directory--70">
+                        @if (Model.Newsroom.ArchivedItems is not null && Model.Newsroom.ArchivedItems.Items.Any())
+                        {
+                            <h2 class="visuallyhidden">All news</h2>
+                            <partial name="NewsCards" model="Model.Newsroom.ArchivedItems" view-data='new ViewDataDictionary(ViewData) { { "twoGrid", true }, { "BorderCssClass", "border-colour-teal" } }' />
+                        }
+                        else
+                        {
+                            <div class="grid-100 news-article-not-found">
+                                <h2>No news articles found</h2>
+                            </div>
+                        }
+                    </div>
+                </section>
+
+                <partial name="Pagination2024" model='Model.Pagination' view-data='new ViewDataDictionary(ViewData) { { "PaginationMarginBottom", "pagination--margin-bottom-3" } }' />
+                
+                @if (Model.ArchiveCallToAction is not null)
+                {
+                    <partial name="NewsCallToAction" model='Model.ArchiveCallToAction' view-data='new ViewDataDictionary(ViewData) { { "AdditionalCssClass", "section--margin-top news-article__cta" } }' />
+                }
+            </div>
         </div>
-    </div>
+    </section>
 
-    <partial name="Pagination2024" model='Model.Pagination' view-data='new ViewDataDictionary(ViewData) { { "PaginationMarginBottom", "pagination--margin-bottom" } }' />
+    <partial name="PreFooter" />
+    <partial name="EmailSubscribe" view-data='@(new ViewDataDictionary(ViewData) { {"AdditionalCssClasses", "section--no-margin"}, { "isOnHomepage", true} })' />
 </div>
