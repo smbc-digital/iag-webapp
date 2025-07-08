@@ -8,118 +8,120 @@
     ViewData["og:title"] = topic.Title;
 }
 
-@if (!string.IsNullOrEmpty(Model.Topic.CampaignBanner.Image))
-{
-    @section BackgroundImage
+<div data-cy="topic">
+    @if (!string.IsNullOrEmpty(Model.Topic.CampaignBanner.Image))
     {
-        <partial name="ScaleImageByDevice" model='new Image("l-background-hs-image", Model.Topic.CampaignBanner.Image)' />
-    }
-}
-else
-{
-    @section BackgroundImage
-    {
-        <partial name="ScaleImageByDevice" model='new Image("l-background-hs-image", Model.Topic.BackgroundImage)' />
-    }
-}
-
-@section Breadcrumbs
-{
-    <partial name="Breadcrumb" model='Model.Topic.Breadcrumbs' />
-}
-
-    @if (!string.IsNullOrEmpty(topic.CampaignBanner.Image))
-    {
-        <div role="banner" class="l-background-hs-image">
-            <partial name="CampaignBanner" model='Model.Topic.CampaignBanner' />
-        </div>
-    }
-    else if (!string.IsNullOrEmpty(topic.BackgroundImage))
-    {
-        <div class="grid-100 l-background-hs-image"></div>
-    }
-
-<article id="content" class="grid-100 mobile-grid-100 topic-container">
-    <div class="grid-100 topic-container-holder">
-        @if (topic.Alerts is not null)
+        @section BackgroundImage
         {
-            <div class="topic-container-holder-alert">
-                @foreach (Alert alert in topic.Alerts)
-                {
-                    <partial name="DisplayTemplates/Alert" model='alert' />
-                }
+            <partial name="ScaleImageByDevice" model='new Image("l-background-hs-image", Model.Topic.CampaignBanner.Image)' />
+        }
+    }
+    else
+    {
+        @section BackgroundImage
+        {
+            <partial name="ScaleImageByDevice" model='new Image("l-background-hs-image", Model.Topic.BackgroundImage)' />
+        }
+    }
+
+    @section Breadcrumbs
+    {
+        <partial name="Breadcrumb" model='Model.Topic.Breadcrumbs' />
+    }
+
+        @if (!string.IsNullOrEmpty(topic.CampaignBanner.Image))
+        {
+            <div role="banner" class="l-background-hs-image">
+                <partial name="CampaignBanner" model='Model.Topic.CampaignBanner' />
             </div>
         }
-
-        <div class="topic-container-holder-item">
-            <h1>@topic.Title</h1>
-            <hr>
-            @Html.Raw(topic.Summary)
-        </div>
-
-        <partial name=@nameof(TriviaSection) model=topic.TriviaSection />
-
-        @if (topic.SubItems.Any())
+        else if (!string.IsNullOrEmpty(topic.BackgroundImage))
         {
-            <ul class="article-list article-list-container grid-100 matchbox-parent">
-                @{
-                    bool displayImages = topic.SubItems.All(item => !string.IsNullOrEmpty(item.Image));
-                    foreach (SubItem item in topic.SubItems)
+            <div class="grid-100 l-background-hs-image"></div>
+        }
+
+    <article id="content" class="grid-100 mobile-grid-100 topic-container">
+        <div class="grid-100 topic-container-holder">
+            @if (topic.Alerts is not null)
+            {
+                <div class="topic-container-holder-alert">
+                    @foreach (Alert alert in topic.Alerts)
                     {
-                        <partial name="SubItem-List" model="new Tuple<SubItem, bool>(item, displayImages)" />
+                        <partial name="DisplayTemplates/Alert" model='alert' />
                     }
-                }
-            </ul>
-        }
-
-        @if (topic.SecondaryItems.Any())
-        {
-            <ul class="article-list article-list-container grid-100 topic-secondary">
-                @{
-                    int itemLength = topic.SecondaryItems.Count();
-                    foreach (var item in topic.SecondaryItems.Select((value, index) => new { index, value }))
-                    {
-                        ViewData["IsLast"] = item.index.Equals(itemLength - 1);
-                        <partial name="SecondaryItem" model="item.value" />
-                    }
-                }
-            </ul>
-        }
-
-        @if (Model.EventsFromApi is not null && Model.EventsFromApi.Any())
-        {
-            <div class="topic-container-holder-item">
-                <h2>Things to do</h2>
-                <hr>
-            </div>
-
-            <div id="event-listing-container" class="grid-100 event-container-row matchbox-parent" style="padding:0;">
-                @foreach (Event item in Model.EventsFromApi)
-                {
-                    <div @(item.Equals(Model.EventsFromApi.Last()) ? "class=hide-on-tablet" : string.Empty)>
-                        <partial name=EventCard model=item />
-                    </div>
-                }
-            </div>
-
-            <div class="grid-100 events-call-to-action">
-                <a class="button button-outline button-partialrounded button-call-to-action" href="/events/category/@Model.Topic.EventCategory">
-                    Find more things to do
-                </a>
-            </div>
-        }
-
-        <partial name=@nameof(Video) model=Model.Topic.Video />
-
-        <partial name="../Shared/CallToAction" model=callToAction />
-
-        @if (topic.DisplayContactUs)
-        {
-            <div class="grid-100 topic-contactus">
-                <div class="topic-contactus-container">
-                    <partial name="../Shared/ContactUs-Nav" />
                 </div>
+            }
+
+            <div class="topic-container-holder-item">
+                <h1>@topic.Title</h1>
+                <hr>
+                @Html.Raw(topic.Summary)
             </div>
-        }
-    </div>
-</article>
+
+            <partial name=@nameof(TriviaSection) model=topic.TriviaSection />
+
+            @if (topic.SubItems.Any())
+            {
+                <ul class="article-list article-list-container grid-100 matchbox-parent">
+                    @{
+                        bool displayImages = topic.SubItems.All(item => !string.IsNullOrEmpty(item.Image));
+                        foreach (SubItem item in topic.SubItems)
+                        {
+                            <partial name="SubItem-List" model="new Tuple<SubItem, bool>(item, displayImages)" />
+                        }
+                    }
+                </ul>
+            }
+
+            @if (topic.SecondaryItems.Any())
+            {
+                <ul class="article-list article-list-container grid-100 topic-secondary">
+                    @{
+                        int itemLength = topic.SecondaryItems.Count();
+                        foreach (var item in topic.SecondaryItems.Select((value, index) => new { index, value }))
+                        {
+                            ViewData["IsLast"] = item.index.Equals(itemLength - 1);
+                            <partial name="SecondaryItem" model="item.value" />
+                        }
+                    }
+                </ul>
+            }
+
+            @if (Model.EventsFromApi is not null && Model.EventsFromApi.Any())
+            {
+                <div class="topic-container-holder-item">
+                    <h2>Things to do</h2>
+                    <hr>
+                </div>
+
+                <div id="event-listing-container" class="grid-100 event-container-row matchbox-parent" style="padding:0;">
+                    @foreach (Event item in Model.EventsFromApi)
+                    {
+                        <div @(item.Equals(Model.EventsFromApi.Last()) ? "class=hide-on-tablet" : string.Empty)>
+                            <partial name=EventCard model=item />
+                        </div>
+                    }
+                </div>
+
+                <div class="grid-100 events-call-to-action">
+                    <a class="button button-outline button-partialrounded button-call-to-action" href="/events/category/@Model.Topic.EventCategory">
+                        Find more things to do
+                    </a>
+                </div>
+            }
+
+            <partial name=@nameof(Video) model=Model.Topic.Video />
+
+            <partial name="../Shared/CallToAction" model=callToAction />
+
+            @if (topic.DisplayContactUs)
+            {
+                <div class="grid-100 topic-contactus">
+                    <div class="topic-contactus-container">
+                        <partial name="../Shared/ContactUs-Nav" />
+                    </div>
+                </div>
+            }
+        </div>
+    </article>
+</div>
