@@ -40,7 +40,7 @@
                 <div class="section__content section--padded-bottom-1">
                     @if (Model.Pagination?.CurrentPageNumber == 1 && Model.Newsroom.News.Any() && Model.Newsroom.CallToAction is not null)
                     {
-                        <h2 class='news-article__title--margin-top news-article__title--margin-bottom @(Model.Newsroom.LatestArticle is not null ? "news-article__title--margin-top" : string.Empty)'>Latest news</h2>
+                        <h2 class='news-article__title--margin-bottom @(Model.Newsroom.LatestArticle is not null && Model.Newsroom.LatestArticle.Items.Any() ? "news-article__title--margin-top" : string.Empty)'>Latest news</h2>
 
                         <partial name="NewsCards" model="Model.Newsroom.LatestNews" view-data='new ViewDataDictionary(ViewData) { { "twoGrid", false } }' />
                     }
