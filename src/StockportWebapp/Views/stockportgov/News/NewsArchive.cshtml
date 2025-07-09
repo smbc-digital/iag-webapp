@@ -70,7 +70,7 @@
                         @if (Model.Newsroom.ArchivedItems is not null && Model.Newsroom.ArchivedItems.Items.Any())
                         {
                             <h2 class="visuallyhidden">All news</h2>
-                            <partial name="NewsCards" model="Model.Newsroom.ArchivedItems" view-data='new ViewDataDictionary(ViewData) { { "twoGrid", true }, { "BorderCssClass", "border-colour-teal" } }' />
+                            <partial name="NewsPageNewsCards" model="Model.Newsroom.ArchivedItems" view-data='new ViewDataDictionary(ViewData) { { "twoGrid", true }, { "BorderCssClass", "border-colour-teal" } }' />
                         }
                         else
                         {

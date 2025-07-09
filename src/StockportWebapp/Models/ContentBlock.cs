@@ -22,6 +22,7 @@ public class ContentBlock(string slug,
                         string associatedTagCategory,
                         News newsArticle,
                         List<Event> events,
+                        List<News> news,
                         string screenReader,
                         string accountName)
 {
@@ -46,9 +47,11 @@ public class ContentBlock(string slug,
     public string VideoPlaceholderPhotoId = videoPlaceholderPhotoId;
     public string AssociatedTagCategory = associatedTagCategory;
     public bool UseTag;
+    public bool IsLatest = false;
     public News NewsArticle = newsArticle;
     public Profile Profile;
     public List<Event> Events = events;
+    public List<News> News = news;
     public string ScreenReader = screenReader;
     public string AccountName = accountName;
     public string GetNavigationLink(string additionalUrlContent) => TypeRoutes.GetUrlFor(Type, $"{additionalUrlContent}/{Slug}");

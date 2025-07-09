@@ -1,15 +1,44 @@
-﻿@model NavCardList
-@if (Model is not null & Model?.Items.Any() is true)
+﻿@model ContentBlock
+@if (Model is not null & Model.News?.Any() is true)
 {
-    bool twoGrid = (bool)ViewData["twoGrid"];
-    string borderCssClass = (string)ViewData["BorderCssClass"];
+    string associatedTagCategoryLower = Model.AssociatedTagCategory.Split(",").ToList().First()?.ToLower();
+    string borderColour = Model.IsDefaultColourScheme
+        ? string.Empty
+        : Model.BorderColourClass;
 
-    <ul class="navcard-wrapper navcard-wrapper--no-margin">
-        @foreach (NavCard navCard in Model.Items)
-        {
-            <li class="navcard navcard--grey @(twoGrid ? "navcard--width-50" : "navcard--width-33") navcard--no-padding-right-rtl event-cards event-cards--margin-bottom news-article__card">
-                <partial name="NewsCard" model="navCard" view-data='@(new ViewDataDictionary(ViewData) { { "BorderColourClass", borderCssClass } })'/>
-            </li>
-        }
-    </ul>
+    string viewMoreUrl = Model.UseTag && !Model.IsLatest 
+        ? Url.Action("NewsArticles", "News", new {tag = associatedTagCategoryLower}) 
+        : Url.Action("NewsArticles", "News", new {category = associatedTagCategoryLower});
+
+    viewMoreUrl = Model.IsLatest
+        ? Url.Action("NewsArticles", "News")
+        : viewMoreUrl;
+
+    <section class="content-block content-block--margin" data-cy="news-cards">
+        <div class="grid-container">
+            <div class="grid-100">
+                <div class="event-cards-title">
+                    <div class="event-cards-title-container">
+                        <h2 class="content-block__title">@Model.Title</h2>
+                        <hr />
+                    </div>
+
+                    <a href=@viewMoreUrl class="event-cards-view-more hide-on-mobile hide-on-tablet" aria-label="View more @Model?.AssociatedTagCategory.Split(",").ToList().First() news" data-cy="view-more-news-link">View more news</a>
+                </div>
+
+                <div class="section__content">
+                    <ul class="navcard-wrapper navcard-wrapper--no-margin">
+                        @foreach (News upcomingNews in Model.News)
+                        {
+                            <partial name="NewsCard" model="@upcomingNews" view-data="@(new ViewDataDictionary(ViewData) {{"BorderColourClass", borderColour}})" />
+                        }
+                    </ul>
+                    
+                    <a href=@viewMoreUrl class="btn btn--width-30 btn--chevron-forward btn--bold btn--chevron-bold hide-on-desktop event-cards-button @Model.OutlineButtonColour" aria-label="View more @Model.AssociatedTagCategory.Split(",").ToList().First() news" data-cy="view-more-news-button">
+                        <span class="btn_text">View more news</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
 }
