@@ -47,7 +47,7 @@ public class ContentBlock(string slug,
     public string VideoPlaceholderPhotoId = videoPlaceholderPhotoId;
     public string AssociatedTagCategory = associatedTagCategory;
     public bool UseTag;
-    public bool IsLatest = false;
+    public bool IsLatest;
     public News NewsArticle = newsArticle;
     public Profile Profile;
     public List<Event> Events = events;
