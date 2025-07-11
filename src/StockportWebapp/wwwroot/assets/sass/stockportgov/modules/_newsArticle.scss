@@ -336,7 +336,13 @@
 .filter-title, .filter-inner-title {
     position: relative;
     cursor: pointer;
-    
+    color: $stockport-black;
+    text-decoration: none;
+    width: 100%;
+    display: block;
+    padding: 0 !important;
+    margin-block: 10px;
+
     &:after {
         content: "\f077";
         font: bold normal normal 16px/1 FontAwesome;
@@ -348,6 +354,10 @@
         right: 5px;
         top: 50%;
         color: $stockport-teal-darker;
+    }
+
+    &:hover {
+        text-decoration: none;
     }
 }
 
