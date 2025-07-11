@@ -1,5 +1,5 @@
 @inject ViewHelpers ViewHelpers
-@model NavCard
+@model News
 
 @if (Model is not null)
 {
@@ -7,17 +7,19 @@
     string backgroundColourClass = (string)ViewData["BackgroundColourClass"] ?? string.Empty;
     string borderRadius = " navcard--radius-bottom-left navcard--radius-bottom-right";
 
-    <a href="@Model.Url" class="navcard__link event-cards__link @backgroundColourClass @borderColourClass event-cards__link--white @borderRadius" data-cy="news-card-link">
-        <div class="navcard__content">
-            <partial name="NavCardImage" model="@Model.TeaserImage" />
+    <li class="navcard navcard--width-33 navcard event-cards">
+        <a href="@(Url.Action("NewsArticle", "News", new {slug = Model.Slug}))" class="navcard__link event-cards__link @backgroundColourClass @borderColourClass @borderRadius" data-cy="news-card-link">
+            <div class="navcard__content">
+                <partial name="NavCardImage" model="@Model.ThumbnailImage" />
 
-            <div class="event-cards--padding">
-                <p class="lead"><partial name="FormattedDate" model='Model.Date'/></p>
+                <div class="event-cards--padding">
+                    <p class="lead"><partial name="FormattedDate" model='Model.SunriseDate'/></p>
+        
+                    <h3 class="navcard__title">@Model.Title</h3>
 
-                <h3 class="navcard__title">@Model.Title</h3>
-                
-                <p class="navcard__teaser">@Model.Teaser</p>
+                    <p class="navcard__teaser">@Model.Teaser</p>
+                </div>
             </div>
-        </div>
-    </a>
+        </a>
+    </li>
 }

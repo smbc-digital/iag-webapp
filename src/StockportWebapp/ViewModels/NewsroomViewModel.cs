@@ -98,11 +98,11 @@ public class NewsroomViewModel
             !string.IsNullOrEmpty(Tag) ||
             DateFrom.HasValue && DateTo.HasValue && (DateFrom <= DateTo);
 
-    public bool ShowPagination =>
-        Pagination is not null && Pagination.TotalItems > Pagination.MaxItemsPerPage;
-
     public string PageTitle =>
         $"{(ShowPagination
             ? $"- Page {Pagination.CurrentPageNumber} of {Pagination.TotalPages}"
             : string.Empty)}";
+            
+    private bool ShowPagination =>
+        Pagination is not null && Pagination.TotalItems > Pagination.MaxItemsPerPage;
 }

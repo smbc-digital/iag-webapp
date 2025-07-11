@@ -1,10 +1,10 @@
 ﻿@model ContentBlock
-@if (Model is not null && Model.NewsArticle is not null && !string.IsNullOrEmpty(Model.NewsArticle.Image))
+@if (Model is not null && Model.NewsArticle is not null && !string.IsNullOrEmpty(Model.NewsArticle.ThumbnailImage))
 {
     SpotlightOnBanner newsBanner = new(
         Model.NewsArticle.Title,
         null,
-        Model.NewsArticle.Image,
+        Model.NewsArticle.ThumbnailImage,
         Model.NewsArticle.Teaser,
         Url.Action("Detail", "News", new {slug = Model.NewsArticle.Slug}),
         Model.NewsArticle.UpdatedAt
