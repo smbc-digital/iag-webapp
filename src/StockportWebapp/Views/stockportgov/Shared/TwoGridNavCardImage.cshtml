@@ -1,0 +1,13 @@
+@model string
+
+@if (!string.IsNullOrEmpty(Model))
+{
+	<img src="@Model?w=722&q=89" class="navcard__image"
+		 srcset="@Model?w=722&q=89&fm=webp 722w,
+				@Model?w=460&q=89&fm=webp 460w,
+				@Model?w=402&q=89&fm=webp 402w"
+		 sizes="(max-width: 767px) 722px,
+				((min-width: 768px) and (max-width: 1023px)) 460px,
+				(min-width: 1024px) 402px"
+		 loading="lazy" alt="" height="215" width="350">
+}
