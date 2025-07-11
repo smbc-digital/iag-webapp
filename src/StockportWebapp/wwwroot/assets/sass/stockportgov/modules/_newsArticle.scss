@@ -335,7 +335,8 @@
 
 .filter-title, .filter-inner-title {
     position: relative;
-
+    cursor: pointer;
+    
     &:after {
         content: "\f077";
         font: bold normal normal 16px/1 FontAwesome;

@@ -47,7 +47,7 @@
         @if (Model.Categories.Any())
         {
             <li class="filter collapsible" id="category-filter">
-                <h3 tabindex="0" class="filter-title focusable">Category</h3>
+                <h3 tabindex="0" role="button" class="filter-title focusable">Category</h3>
 
                 <ul class="filters-list">
                     @foreach (string category in Model.Categories)
@@ -61,7 +61,7 @@
         }
 
         <li class="filter collapsible" id="news-archive">
-            <h3 tabindex="0" class="filter-title focusable">Years</h3>
+            <h3 tabindex="0" role="button" class="filter-title focusable">Years</h3>
 
             <ul class="filters-list">
                 @foreach (int year in newsroom.Years.OrderByDescending(yr => yr))
