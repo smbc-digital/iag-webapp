@@ -10,8 +10,7 @@
 <div class="grid-container-full-width" data-cy="newsroom">
     <partial name="CondolenceAlerts" model='Model.Newsroom.CondolenceAlerts' />
     <partial name="GlobalAlerts" model='Model.Newsroom.Alerts' />
-    @* update breadcrumbs to point here => landing/news-media *@
-    <partial name="Breadcrumb2023" model='new List<Crumb> { new Crumb("News and media", "news-room", "Newsroom") }' view-data="@(new ViewDataDictionary(ViewData) {{"landingBreadcrumb", "topic-breadcrumb-container"}})"/>
+    <partial name="Breadcrumb2023" model='new List<Crumb> { new Crumb("News and media", "landing/news-media", "LandingPage") }' view-data="@(new ViewDataDictionary(ViewData) {{"landingBreadcrumb", "topic-breadcrumb-container"}})"/>
 
     <section class="news-article" data-cy="title-and-summary">
         <div class="grid-container">
