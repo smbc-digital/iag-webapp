@@ -3,13 +3,12 @@
     ViewData["og:title"] = $"News {Model.PageTitle}";
     ViewData["Title"] = $"News {Model.PageTitle}";
     Layout = "../Shared/_Layout2023.cshtml";
-
-    bool isFirstPage = Model.Pagination?.CurrentPageNumber == 0 || Model.Pagination?.CurrentPageNumber == 1;
 }
 
 <div class="grid-container-full-width" data-cy="newsroom">
     <partial name="CondolenceAlerts" model='Model.Newsroom.CondolenceAlerts' />
     <partial name="GlobalAlerts" model='Model.Newsroom.Alerts' />
+    @* update breadcrumbs to point here => landing/news-media *@
     <partial name="Breadcrumb2023" model='new List<Crumb> { new Crumb("News and media", "news-room", "Newsroom") }' view-data="@(new ViewDataDictionary(ViewData) {{"landingBreadcrumb", "topic-breadcrumb-container"}})"/>
 
     <section class="news-article" data-cy="title-and-summary">
@@ -23,7 +22,7 @@
         </div>
     </section>
     
-    @if (isFirstPage && Model.Newsroom.LatestArticle is not null)
+    @if (Model.ShowFeaturedNews)
     {
         <section class="section section--white section--margin-top section--no-margin" data-cy="featured-news">
             <div class="grid-container">
@@ -35,42 +34,36 @@
             </div>
         </section>
     }
-    
-    <section class="section section--grey section--no-margin @(isFirstPage && Model.Newsroom.LatestArticle is not null ? "section--margin-top" : "section--padded")" data-cy="all-news">
+
+    <section class="section section--grey section--no-margin @(Model.ShowFeaturedNews ? "section--margin-top" : "section--padded")" data-cy="all-news">
         <div class="grid-container">
             <div class="grid-100">
                 <div class="section__content section--padded-bottom-1">
-                    @if (isFirstPage && Model.Newsroom.LatestNews.Items.Any() && Model.Newsroom.CallToAction is not null)
+                    @if (Model.ShowLatestNews && Model.HasCallToAction)
                     {
-                        <h2 class='news-article__title--margin-bottom @(Model.Newsroom.LatestArticle is not null && Model.Newsroom.LatestArticle.Items.Any() ? "news-article__title--margin-top" : string.Empty)'>Latest news</h2>
+                        <h2 class='news-article__title--margin-bottom @(Model.HasLatestArticle ? "news-article__title--margin-top" : string.Empty)'>Latest news</h2>
 
                         <partial name="NewsPageNewsCards" model="Model.Newsroom.LatestNews" view-data='new ViewDataDictionary(ViewData) { { "twoGrid", false } }' />
                     }
                
-                    @if (isFirstPage && Model.Newsroom.CallToAction is not null)
+                    @if (Model.IsFirstPage && Model.HasCallToAction)
                     {
-                        <partial name="NewsCallToAction" model='Model.Newsroom.CallToAction' view-data='new ViewDataDictionary(ViewData) { { "AdditionalCssClass", "section--margin-top" } }' />
+                        @if (Model.HasCallToAction)
+                        {
+                            <partial name="NewsCallToAction" model='Model.Newsroom.CallToAction' view-data='new ViewDataDictionary(ViewData) { { "AdditionalCssClass", "section--margin-top" } }' />
+                        }
+
+                        @if (Model.HasNewsItems)
+                        {
+                            <h2 class="news-article__title--margin-bottom @(Model.HasCallToAction || Model.HasLatestArticle ? "news-article__title--margin-top" : string.Empty)">
+                                @(Model.HasCallToAction ? "All news" : "Latest news")
+                            </h2>
+
+                            <partial name="NewsPageNewsCards" model="Model.Newsroom.NewsItems" view-data='new ViewDataDictionary(ViewData) { { "twoGrid", false } }' />
+                        }
                     }
 
-                    @if (Model.Newsroom.NewsItems is not null && Model.Newsroom.NewsItems.Items.Any())
-                    {
-                        @if (isFirstPage && Model.Newsroom.CallToAction is not null)
-                        {
-                            <h2 class="news-article__title--margin-top news-article__title--margin-bottom">All news</h2>
-                        }
-                        else if (isFirstPage && Model.Newsroom.CallToAction is null && Model.Newsroom.LatestArticle is not null)
-                        {
-                            <h2 class="news-article__title--margin-top news-article__title--margin-bottom">Latest news</h2>
-                        }
-                        else if (isFirstPage && Model.Newsroom.CallToAction is null && Model.Newsroom.LatestArticle is null)
-                        {
-                            <h2 class="news-article__title--margin-bottom">Latest news</h2>
-                        }
-                        
-                        <partial name="NewsPageNewsCards" model="Model.Newsroom.NewsItems" view-data='new ViewDataDictionary(ViewData) { { "twoGrid", false } }' />
-                    }
-
-                    @if ((Model.Newsroom.NewsItems is null || !Model.Newsroom.NewsItems.Items.Any()) && (Model.Newsroom.LatestNews is null || !Model.Newsroom.LatestNews.Items.Any()))
+                    @if (!Model.HasNewsItems && !Model.HasLatestNews)
                     {
                         <div class="grid-100 news-article-not-found">
                             <h2>No news articles found</h2>

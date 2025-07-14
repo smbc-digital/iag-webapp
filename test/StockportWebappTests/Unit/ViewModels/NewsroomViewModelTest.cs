@@ -24,6 +24,7 @@ public class NewsroomViewModelTest
     {
         // Act
         NewsroomViewModel newsroomViewModel = new(BuildNewsRoom(emailAlertsTopicId: string.Empty), EmailAlertsUrl);
+        Newsroom newsroom = BuildNewsRoom(categories: new List<string> { "Zebras", "Asses", "Oxen" });
 
         // Assert
         Assert.Equal(EmailAlertsUrl, newsroomViewModel.EmailAlertsUrl);
@@ -323,17 +324,293 @@ public class NewsroomViewModelTest
         Assert.Equal("2025", result);
     }
 
-    private static Newsroom BuildNewsRoom(List<string> categories = null, string emailAlertsTopicId = "") =>
+    [Fact]
+    public void IsFirstPage_ShouldReturnTrue_WhenCurrentPageNumberIsNull()
+    {
+        // Arrange
+        NewsroomViewModel newsroomViewModel = new()
+        {
+            Pagination = new Pagination()
+        };
+
+        // Act
+        bool result = newsroomViewModel.IsFirstPage;
+
+        // Assert
+        Assert.True(result);
+    }
+
+    [Theory]
+    [InlineData(0)]
+    [InlineData(1)]
+    public void IsFirstPage_ShouldReturnTrue_WhenCurrentPageNumberIsZero(int currentPageNumber)
+    {
+        // Arrange
+        NewsroomViewModel newsroomViewModel = new()
+        {
+            Pagination = new Pagination
+            {
+                CurrentPageNumber = currentPageNumber
+            }
+        };
+
+        // Act
+        bool result = newsroomViewModel.IsFirstPage;
+
+        // Assert
+        Assert.True(result);
+    }
+
+    [Fact]
+    public void IsFirstPage_ShouldReturnFalse_WhenCurrentPageNumberGreaterThan1()
+    {
+        // Arrange
+        NewsroomViewModel newsroomViewModel = new()
+        {
+            Pagination = new Pagination
+            {
+                CurrentPageNumber = 5
+            }
+        };
+
+        // Act
+        bool result = newsroomViewModel.IsFirstPage;
+
+        // Assert
+        Assert.False(result);
+    }
+
+    [Fact]
+    public void HasLatestArticle_ShouldReturnFalse_WhenLatestArticleHasNoItems()
+    {
+        // Arrange
+        NewsroomViewModel newsroomViewModel = new(BuildNewsRoom(emailAlertsTopicId: string.Empty), EmailAlertsUrl);
+
+        // Act
+        bool result = newsroomViewModel.HasLatestArticle;
+
+        // Assert
+        Assert.False(result);
+    }
+
+    [Fact]
+    public void HasLatestArticle_ShouldReturnTrue_WhenLatestArticleHasItems()
+    {
+        // Arrange
+        NavCardList latestArticle = new()
+        {
+            Items = new List<NavCard>
+            {
+                new("Title",
+                    "slug",
+                    "Teaser",
+                    "thumbnail.jpg",
+                    "image.jpg",
+                    string.Empty,
+                    EColourScheme.Teal,
+                    DateTime.Now,
+                    string.Empty)
+            }
+        };
+
+        NewsroomViewModel newsroomViewModel = new(BuildNewsRoom(null, emailAlertsTopicId: string.Empty, latestArticle), string.Empty);
+
+        // Act
+        bool result = newsroomViewModel.HasLatestArticle;
+
+        // Assert
+        Assert.True(result);
+    }
+
+    [Fact]
+    public void HasLatestNews_ShouldReturnTrue_WhenLatestNewsHasItems()
+    {
+        // Arrange
+        NavCardList latestNews = new()
+        {
+            Items = new List<NavCard>
+            {
+                new("Title",
+                    "slug",
+                    "Teaser",
+                    "thumbnail.jpg",
+                    "image.jpg",
+                    string.Empty,
+                    EColourScheme.Teal,
+                    DateTime.Now,
+                    string.Empty)
+            }
+        };
+
+        NewsroomViewModel newsroomViewModel = new(BuildNewsRoom(null, emailAlertsTopicId: string.Empty, null, latestNews), string.Empty);
+
+        // Act
+        bool result = newsroomViewModel.HasLatestNews;
+
+        // Assert
+        Assert.True(result);
+    }
+    
+    [Fact]
+    public void HasLatestNews_ShouldReturnFalse_WhenLatestNewsHasNoItems()
+    {
+        // Arrange
+        NewsroomViewModel newsroomViewModel = new(BuildNewsRoom(), string.Empty);
+
+        // Act
+        bool result = newsroomViewModel.HasLatestNews;
+
+        // Assert
+        Assert.False(result);
+    }
+
+    [Fact]
+    public void HasNewsItems_ShouldReturnTrue_WhenNewsItemsHasItems()
+    {
+        // Arrange
+        NavCardList newsItems = new()
+        {
+            Items = new List<NavCard>
+            {
+                new("Title",
+                    "slug",
+                    "Teaser",
+                    "thumbnail.jpg",
+                    "image.jpg",
+                    string.Empty,
+                    EColourScheme.Teal,
+                    DateTime.Now,
+                    string.Empty)
+            }
+        };
+
+        NewsroomViewModel newsroomViewModel = new(BuildNewsRoom(null, emailAlertsTopicId: string.Empty, null, null, newsItems), string.Empty);
+
+        // Act
+        bool result = newsroomViewModel.HasNewsItems;
+
+        // Assert
+        Assert.True(result);
+    }
+
+    [Fact]
+    public void HasNewsItems_ShouldReturnFalse_WhenNewsItemsHasNoItems()
+    {
+        // Arrange
+        NewsroomViewModel newsroomViewModel = new(BuildNewsRoom(), string.Empty);
+
+        // Act
+        bool result = newsroomViewModel.HasNewsItems;
+
+        // Assert
+        Assert.False(result);
+    }
+
+    [Fact]
+    public void HasCallToAction_ShouldReturnTrue_WhenCallToActionIsNotNull()
+    {
+        // Arrange
+        CallToActionBanner callToAction = new()
+        {
+            Title = "Title",
+            Teaser = "Teaser",
+            ButtonText = "Button Text",
+            Link = "Button Link",
+            Image = "Image"
+        };
+
+        NewsroomViewModel newsroomViewModel = new(BuildNewsRoom(callToAction: callToAction), string.Empty);
+
+        // Act
+        bool result = newsroomViewModel.HasCallToAction;
+
+        // Assert
+        Assert.True(result);
+    }
+
+    [Fact]
+    public void HasCallToAction_ShouldReturnFalse_WhenCallToActionIsNull()
+    {
+        // Arrange
+        NewsroomViewModel newsroomViewModel = new(BuildNewsRoom(), string.Empty);
+
+        // Act
+        bool result = newsroomViewModel.HasCallToAction;
+
+        // Assert
+        Assert.False(result);
+    }
+
+    [Fact]
+    public void ShowFeaturedNews_ShouldReturnTrue_WhenIsFirstPageAndHasLatestArticle()
+    {
+        // Arrange
+        NavCardList latestArticle = new()
+        {
+            Items = new List<NavCard>
+            {
+                new("Title",
+                    "slug",
+                    "Teaser",
+                    "thumbnail.jpg",
+                    "image.jpg",
+                    string.Empty,
+                    EColourScheme.Teal,
+                    DateTime.Now,
+                    string.Empty)
+            }
+        };
+
+        NewsroomViewModel newsroomViewModel = new(BuildNewsRoom(latestArticle: latestArticle), string.Empty)
+        {
+            Pagination = new Pagination
+            {
+                CurrentPageNumber = 1
+            }
+        };
+
+        // Act
+        bool result = newsroomViewModel.ShowFeaturedNews;
+
+        // Assert
+        Assert.True(result);
+    }
+
+    [Fact]
+    public void ShowFeaturedNews_ShouldReturnFalse_WhenNotFirstPageOrHasNoLatestArticle()
+    {
+        // Arrange
+        NewsroomViewModel newsroomViewModel = new(BuildNewsRoom(), string.Empty)
+        {
+            Pagination = new Pagination
+            {
+                CurrentPageNumber = 2
+            }
+        };
+
+        // Act
+        bool result = newsroomViewModel.ShowFeaturedNews;
+
+        // Assert
+        Assert.False(result);
+    }
+
+    private static Newsroom BuildNewsRoom(List<string> categories = null,
+                                        string emailAlertsTopicId = "",
+                                        NavCardList latestArticle = null,
+                                        NavCardList latestNews = null,
+                                        NavCardList newsItems = null,
+                                        CallToActionBanner callToAction = null) =>
         new(new List<News>(),
             null,
-            null,
-            null,
-            null,
+            latestArticle,
+            latestNews,
+            newsItems,
             new List<Alert>(),
             true,
             emailAlertsTopicId,
             categories ?? emptyList,
             new List<DateTime>(),
-             new List<int>(),
-            null);
+            new List<int>(),
+            callToAction);
 }
