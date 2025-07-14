@@ -13,6 +13,10 @@
 
         &--margin-top {
             margin-top: 2em;
+
+            @media #{$tablet-only} {
+                margin-top: 1.6em;
+            }
         }
 
         &--margin-bottom {
@@ -250,6 +254,10 @@
     &-featured-item {
         &__title {
             text-align: left;
+
+            @media #{$mobile} {
+                margin-top: 0;
+            }
         }
     }
 
@@ -262,7 +270,13 @@
     }
     
     &__banner {
-        border-radius: 3px 0 0 3px !important;
+        img {
+            border-radius: 3px 0 0 3px !important;
+
+            @media #{$tablet} {
+                border-radius: 3px 3px 0 0 !important;
+            }
+        }
 
         &--no-margin {
             margin: 0 !important;
@@ -418,7 +432,13 @@ html[dir="rtl"] {
         }
 
         &__banner {
+            img {
             border-radius: 0 3px 3px 0 !important;
+
+                @media #{$tablet} {
+                    border-radius: 3px 3px 0 0 !important;
+                }
+            }
         }
 
         &__archive-banner {

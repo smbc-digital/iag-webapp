@@ -58,9 +58,13 @@
                         {
                             <h2 class="news-article__title--margin-top news-article__title--margin-bottom">All news</h2>
                         }
-                        else if (isFirstPage && Model.Newsroom.CallToAction is null)
+                        else if (isFirstPage && Model.Newsroom.CallToAction is null && Model.Newsroom.LatestArticle is not null)
                         {
                             <h2 class="news-article__title--margin-top news-article__title--margin-bottom">Latest news</h2>
+                        }
+                        else if (isFirstPage && Model.Newsroom.CallToAction is null && Model.Newsroom.LatestArticle is null)
+                        {
+                            <h2 class="news-article__title--margin-bottom">Latest news</h2>
                         }
                         
                         <partial name="NewsPageNewsCards" model="Model.Newsroom.NewsItems" view-data='new ViewDataDictionary(ViewData) { { "twoGrid", false } }' />
