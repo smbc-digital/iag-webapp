@@ -283,6 +283,12 @@
         }
     }
 
+    &__section {
+        &--margin-top {
+            margin-top: 10px;
+        }
+    }
+
     @media #{$mobile} {
         &__cta {
             margin-inline: 5px;
