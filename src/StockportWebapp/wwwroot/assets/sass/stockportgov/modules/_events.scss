@@ -53,7 +53,7 @@
     }
 
     &__button {
-        padding-right: 0;
+        padding-inline-end: 0;
         float: right;
     }
 
@@ -85,7 +85,7 @@
             width: 50%;
             display: flex;
             flex-direction: row;
-            padding-right: 0;
+            padding-inline-end: 0;
 
             @media #{$tablet-only} {
                 padding-bottom: 0.5em;
@@ -93,7 +93,7 @@
             
             @media #{$tablet} {
                 width: 100%;
-                padding-right: 10px;
+                padding-inline-end: 10px;
             }
 
             @media #{$mobile} {
@@ -107,11 +107,11 @@
             @media #{$tablet-only} {
 
                 &:nth-of-type(1) {
-                    margin-right: 0.5em;
+                    margin-inline-end: 0.5em;
                 }
 
                 &:nth-of-type(2) {
-                    margin-left: 0.5em;
+                    margin-inline-start: 0.5em;
                 }
             }
         }

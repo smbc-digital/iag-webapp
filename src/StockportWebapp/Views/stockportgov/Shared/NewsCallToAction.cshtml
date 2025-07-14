@@ -15,11 +15,9 @@
             <h2 class="call-to-action-content__title ">@Model.Title</h2>
             <p class="call-to-action-content__teaser">@Model.Teaser</p>
             
-            <div class="call-to-action-content--width-60">
-                <a href="@Model.Link" class="btn btn--inverse btn--full btn--chevron-forward btn--bold btn--chevron-bold @buttonColourClass" data-cy="call-to-action-link">
-                    <span class="btn_text">@Model.ButtonText</span>
-                </a>
-            </div>
+            <a href="@Model.Link" class="btn btn--inverse btn--width-30 btn--chevron-forward btn--bold btn--chevron-bold @buttonColourClass" data-cy="call-to-action-link">
+                <span class="btn_text">@Model.ButtonText</span>
+            </a>
         </div> 
     </div>
 }

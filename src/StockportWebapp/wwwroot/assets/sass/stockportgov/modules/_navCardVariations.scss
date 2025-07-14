@@ -157,6 +157,10 @@
 
     &--width-50 {
         width: calc(50% - 25px);
+
+        @media #{$tablet} {
+            width: calc(50% - 15px);
+        }
     }
 
     @media #{$mobile} {
