@@ -2,9 +2,10 @@
 @if (Model is not null & Model?.Items.Any() is true)
 {
     bool twoGrid = (bool)ViewData["twoGrid"];
-    string borderCssClass = (string)ViewData["BorderCssClass"];
+    string borderCssClass = (string)ViewData["BorderCssClass"] ?? string.Empty;
+    string marginTopCssClass = (string)ViewData["MarginTopCssClass"] ?? string.Empty;
 
-    <ul class="navcard-wrapper navcard-wrapper--no-margin">
+    <ul class="navcard-wrapper navcard-wrapper--no-margin @marginTopCssClass">
         @foreach (NavCard navCard in Model.Items)
         {
             <li class="navcard navcard--grey @(twoGrid ? "navcard--width-50" : "navcard--width-33") navcard--no-padding-right-rtl event-cards event-cards--margin-bottom news-article__card">

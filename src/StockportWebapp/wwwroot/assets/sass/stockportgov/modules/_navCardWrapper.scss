@@ -78,8 +78,7 @@ html[dir="rtl"] {
         @media #{$tablet} {
             .navcard--width-20:nth-child(3n),
             .navcard--width-25:nth-child(3n),
-            .navcard--width-33:nth-child(3n),
-            .navcard--width-50:nth-child(2n) {
+            .navcard--width-33:nth-child(3n){
                 margin-left: 0;
                 margin-right: 15px;
             }
@@ -87,10 +86,19 @@ html[dir="rtl"] {
             .navcard--width-20:nth-child(3n + 1),
             .navcard--width-25:first-child,
             .navcard--width-25:nth-child(3n - 2),
-            .navcard--width-33:nth-child(3n + 1),
-            .navcard--width-50:nth-child(3n + 1) {
+            .navcard--width-33:nth-child(3n + 1) {
                 margin-right: 0;
                 margin-left: 15px;
+            }
+
+            .navcard--width-50:nth-child(odd) {
+                margin-right: 0;
+                margin-left: 15px;
+            }
+
+            .navcard--width-50:nth-child(even) {
+                margin-left: 0;
+                margin-right: 15px;
             }
         }
 

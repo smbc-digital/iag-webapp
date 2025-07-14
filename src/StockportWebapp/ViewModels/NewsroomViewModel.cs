@@ -13,7 +13,7 @@ public class NewsroomViewModel
     {
         Title = "Send us a media enquiry",
         Teaser = "You can contact us if you'd like to be added to our media distribution list for our news releases, you're a journalist with an enquiry or you have an enquiry about a press release or photo opportunity.",
-        ButtonText = "Send us a media enquiry",
+        ButtonText = "Send an enquiry",
         Link = "https://www.stockport.gov.uk/start/send-a-media-enquiry",
         Colour = EColourScheme.Pink,
         Image = "//images.ctfassets.net/ii3xdrqc6nfw/7GxI1Llr4k2EuQ2WAS8CkQ/fe18c2ba9cf7faa7274e1b13481ac2fe/Working_on_a_laptop.jpg",
@@ -99,10 +99,24 @@ public class NewsroomViewModel
             DateFrom.HasValue && DateTo.HasValue && (DateFrom <= DateTo);
 
     public string PageTitle =>
-        $"{(ShowPagination
+        ShowPagination
             ? $"- Page {Pagination.CurrentPageNumber} of {Pagination.TotalPages}"
-            : string.Empty)}";
-            
+            : string.Empty;
+
     private bool ShowPagination =>
         Pagination is not null && Pagination.TotalItems > Pagination.MaxItemsPerPage;
+    
+    public bool IsFirstPage => Pagination?.CurrentPageNumber <= 1;
+
+    public bool HasLatestArticle => Newsroom?.LatestArticle?.Items?.Any() is true;
+
+    public bool HasLatestNews => Newsroom?.LatestNews?.Items?.Any() is true;
+
+    public bool HasNewsItems => Newsroom?.NewsItems?.Items?.Any() is true;
+
+    public bool HasCallToAction => Newsroom?.CallToAction is not null;
+
+    public bool ShowFeaturedNews => IsFirstPage && HasLatestArticle;
+
+    public bool ShowLatestNews => IsFirstPage && HasLatestNews;
 }
