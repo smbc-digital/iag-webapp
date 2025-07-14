@@ -595,6 +595,142 @@ public class NewsroomViewModelTest
         Assert.False(result);
     }
 
+    [Fact]
+    public void ShowLatestNews_ShouldReturnTrue_WhenIsFirstPageAndHasLatestNews()
+    {
+        // Arrange
+        NavCardList latestNews = new()
+        {
+            Items = new List<NavCard>
+            {
+                new("Title",
+                    "slug",
+                    "Teaser",
+                    "thumbnail.jpg",
+                    "image.jpg",
+                    string.Empty,
+                    EColourScheme.Teal,
+                    DateTime.Now,
+                    string.Empty)
+            }
+        };
+
+        NewsroomViewModel newsroomViewModel = new(BuildNewsRoom(latestNews: latestNews), string.Empty)
+        {
+            Pagination = new Pagination
+            {
+                CurrentPageNumber = 1
+            }
+        };
+
+        // Act
+        bool result = newsroomViewModel.ShowLatestNews;
+
+        // Assert
+        Assert.True(result);
+    }
+
+    [Fact]
+    public void ShowLatestNews_ShouldReturnFalse_WhenNotFirstPageOrHasNoLatestNews()
+    {
+        // Arrange
+        NewsroomViewModel newsroomViewModel = new(BuildNewsRoom(), string.Empty)
+        {
+            Pagination = new Pagination
+            {
+                CurrentPageNumber = 2
+            }
+        };
+
+        // Act
+        bool result = newsroomViewModel.ShowLatestNews;
+
+        // Assert
+        Assert.False(result);
+    }
+
+    [Fact]
+    public void PageTitle_ShouldReturnCorrectTitle_WhenTotalItemsExceedMaxItemsPerPage()
+    {
+        // Arrange
+        NewsroomViewModel newsroomViewModel = new(BuildNewsRoom(), string.Empty)
+        {
+            Pagination = new Pagination
+            {
+                CurrentPageNumber = 2,
+                TotalPages = 7,
+                TotalItems = 85,
+                MaxItemsPerPage = 12
+            }
+        };
+
+        // Act
+        string result = newsroomViewModel.PageTitle;
+
+        // Assert
+        Assert.Equal("- Page 2 of 7", result);
+    }
+
+    [Fact]
+    public void PageTitle_ShouldReturnEmptyString_WhenPaginationIsNull()
+    {
+        // Arrange
+        NewsroomViewModel newsroomViewModel = new(BuildNewsRoom(), string.Empty)
+        {
+            Pagination = null
+        };
+
+        // Act
+        string result = newsroomViewModel.PageTitle;
+
+        // Assert
+        Assert.Empty(result);
+    }
+
+    [Fact]
+    public void PageTitle_ShouldReturnCorrectTitle_WhenOnPageOneWithPagination()
+    {
+        // Arrange
+        NewsroomViewModel newsroomViewModel = new(BuildNewsRoom(), string.Empty)
+        {
+            Pagination = new Pagination
+            {
+                CurrentPageNumber = 1,
+                TotalPages = 4,
+                TotalItems = 50,
+                MaxItemsPerPage = 10
+            }
+        };
+
+        // Act
+        string result = newsroomViewModel.PageTitle;
+
+        // Assert
+        Assert.Equal("- Page 1 of 4", result);
+    }
+
+    [Fact]
+    public void PageTitle_ShouldReturnEmtpyString_WhenPaginationHasNoTotalItems()
+    {
+        // Arrange
+        NewsroomViewModel newsroomViewModel = new(BuildNewsRoom(), string.Empty)
+        {
+            Pagination = new Pagination
+            {
+                CurrentPageNumber = 1,
+                TotalPages = 0,
+                TotalItems = 0,
+                MaxItemsPerPage = 10
+            }
+        };
+
+        // Act
+        string result = newsroomViewModel.PageTitle;
+
+        // Assert
+        Assert.Empty(result);
+    }
+
     private static Newsroom BuildNewsRoom(List<string> categories = null,
                                         string emailAlertsTopicId = "",
                                         NavCardList latestArticle = null,

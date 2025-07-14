@@ -99,9 +99,9 @@ public class NewsroomViewModel
             DateFrom.HasValue && DateTo.HasValue && (DateFrom <= DateTo);
 
     public string PageTitle =>
-        $"{(ShowPagination
+        ShowPagination
             ? $"- Page {Pagination.CurrentPageNumber} of {Pagination.TotalPages}"
-            : string.Empty)}";
+            : string.Empty;
 
     private bool ShowPagination =>
         Pagination is not null && Pagination.TotalItems > Pagination.MaxItemsPerPage;
