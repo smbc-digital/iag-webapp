@@ -451,6 +451,8 @@ public class PaginationHelperTest
                                 new List<Crumb>(),
                                 new DateTime(2015, 9, 10),
                                 new DateTime(2015, 9, 20),
+                                new DateTime(2015, 9, 20),
+                                new DateTime(2015, 9, 20),
                                 new DateTime(2015, 9, 15),
                                 new List<Alert>(),
                                 new List<string>(),

@@ -127,5 +127,9 @@ html[dir="rtl"] {
         &__item {
             float: right;
         }
+
+        &__current {
+            text-underline-offset: 0.5em;
+        }
     }
 }

@@ -102,6 +102,8 @@ public class ContentFactoryTest
                         new DateTime(),
                         new DateTime(),
                         new DateTime(),
+                        new DateTime(),
+                        new DateTime(),
                         new List<Alert>(),
                         new List<string>(),
                         new List<Document>(),
