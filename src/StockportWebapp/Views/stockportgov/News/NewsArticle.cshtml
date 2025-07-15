@@ -19,20 +19,8 @@
                 <p class="lead @(Model.NewsItem.UpdatedAt.Date.Equals(Model.NewsItem.SunriseDate.Date) ? " news-article__lead news-article__lead--no-image" : string.Empty)">
                     Publication date:
                     <partial name="FormattedDate" model='Model.NewsItem.SunriseDate' />
-                    <br/>
-                    yyyy-MM-dd date @Model.NewsItem.SunriseDate.ToString("yyyy-MM-dd")
-                    <br/>
-
-                    time = @Model.NewsItem.SunriseDate.ToString("HH:mm K")
-
-                    <hr>
-
-                    Publication date 2:
-                    <partial name="FormattedDate" model='Model.NewsItem.SunriseDate2' />
-                    <br />
-                    yyyy-MM-dd date @Model.NewsItem.SunriseDate2.ToString("yyyy-MM-dd")
-                    <br />
-                    time 2 = @Model.NewsItem.SunriseDate2.ToString("HH:mm K")
+                    <strong>at
+                    @Model.NewsItem.SunriseDate.ToString("HH:mm K")</strong> (this is temporary and will removed once we prove the dates/times are correct)
                 </p>
 
                 @if (!Model.NewsItem.UpdatedAt.Date.Equals(Model.NewsItem.SunriseDate.Date))
@@ -40,7 +28,6 @@
                     <p class="lead news-article__lead @(string.IsNullOrEmpty(Model.NewsItem.HeroImage) ? "news-article__lead--no-image" : string.Empty)">
                         Last updated:
                         <partial name="FormattedDate" model='Model.NewsItem.UpdatedAt'/>
-                        @Model.NewsItem.UpdatedAt.ToString("HH:mm")
                     </p>
                 }
             </div>

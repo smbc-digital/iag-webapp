@@ -51,8 +51,6 @@ public class FeatureCardViewModelMapperExtensionsTests
             new List<Crumb>(),
             DateTime.Today.AddDays(-2),
             DateTime.Today.AddDays(2),
-            DateTime.Today.AddDays(2),
-            DateTime.Today.AddDays(2),
             DateTime.Today.AddDays(-1),
             new List<Alert>(),
             new List<string>(),

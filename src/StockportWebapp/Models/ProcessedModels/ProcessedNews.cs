@@ -12,8 +12,6 @@ public class ProcessedNews(string title,
                         List<Crumb> breadcrumbs,
                         DateTime sunriseDate,
                         DateTime sunsetDate,
-                        DateTime sunriseDate2,
-                        DateTime sunsetDate2,
                         DateTime updatedAt,
                         List<Alert> alerts,
                         List<string> tags,
@@ -37,8 +35,6 @@ public class ProcessedNews(string title,
     public readonly List<Crumb> Breadcrumbs = breadcrumbs;
     public readonly DateTime SunriseDate = sunriseDate;
     public readonly DateTime SunsetDate = sunsetDate;
-    public readonly DateTime SunriseDate2 = sunriseDate2;
-    public readonly DateTime SunsetDate2 = sunsetDate2;
     public readonly DateTime UpdatedAt = updatedAt;
     public readonly List<Alert> Alerts = alerts;
     public readonly List<string> Tags = tags;
