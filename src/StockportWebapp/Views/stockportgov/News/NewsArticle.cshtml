@@ -20,13 +20,19 @@
                     Publication date:
                     <partial name="FormattedDate" model='Model.NewsItem.SunriseDate' />
                     <br/>
-                    sunrise date 2 = <partial name="FormattedDate" model='Model.NewsItem.SunriseDate2' />
-                    <br />
+                    yyyy-MM-dd date @Model.NewsItem.SunriseDate.ToString("yyyy-MM-dd")
+                    <br/>
 
-                    @Model.NewsItem.SunriseDate.ToString("HH:mm")
-                    <br />
+                    time = @Model.NewsItem.SunriseDate.ToString("HH:mm K")
 
-                    sunrise date 2 = @Model.NewsItem.SunriseDate2.ToString("HH:mm")
+                    <hr>
+
+                    Publication date 2:
+                    <partial name="FormattedDate" model='Model.NewsItem.SunriseDate2' />
+                    <br />
+                    yyyy-MM-dd date @Model.NewsItem.SunriseDate2.ToString("yyyy-MM-dd")
+                    <br />
+                    time 2 = @Model.NewsItem.SunriseDate2.ToString("HH:mm K")
                 </p>
 
                 @if (!Model.NewsItem.UpdatedAt.Date.Equals(Model.NewsItem.SunriseDate.Date))
