@@ -16,6 +16,7 @@ public class NewsServiceTests
                                     "test",
                                     new List<Crumb>(),
                                     new DateTime(2019, 9, 2),
+                                    string.Empty,
                                     new DateTime(2019, 9, 2),
                                     new DateTime(2019, 9, 2),
                                     new List<Alert>(),

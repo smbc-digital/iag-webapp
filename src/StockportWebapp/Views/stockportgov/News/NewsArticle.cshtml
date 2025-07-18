@@ -21,6 +21,15 @@
                     <partial name="FormattedDate" model='Model.NewsItem.SunriseDate' />
                     <strong>at
                     @Model.NewsItem.SunriseDate.ToString("HH:mm K")</strong> (this is temporary and will removed once we prove the dates/times are correct)
+
+
+                    </br>
+                    <strong>Publishing date:</strong>
+                    @{
+                        DateTime dateValue;
+                        DateTime.TryParse(Model.NewsItem.PublishingDate, out dateValue);
+                    }
+                    <partial name="FormattedDate" model='dateValue' />
                 </p>
 
                 @if (!Model.NewsItem.UpdatedAt.Date.Equals(Model.NewsItem.SunriseDate.Date))

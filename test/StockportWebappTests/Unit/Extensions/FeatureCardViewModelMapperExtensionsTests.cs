@@ -50,6 +50,7 @@ public class FeatureCardViewModelMapperExtensionsTests
             "Test News Body",
             new List<Crumb>(),
             DateTime.Today.AddDays(-2),
+            "test",
             DateTime.Today.AddDays(2),
             DateTime.Today.AddDays(-1),
             new List<Alert>(),

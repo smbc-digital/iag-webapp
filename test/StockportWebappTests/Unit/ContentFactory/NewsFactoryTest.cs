@@ -47,6 +47,7 @@ public class NewsFactoryTest
                         Body,
                         _breadcrumbs,
                         _sunrise,
+                        "test",
                         _sunset,
                         _updatedAt,
                         _alerts,

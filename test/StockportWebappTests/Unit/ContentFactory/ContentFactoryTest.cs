@@ -100,6 +100,7 @@ public class ContentFactoryTest
                         It.IsAny<string>(),
                         new List<Crumb>(),
                         new DateTime(),
+                        It.IsAny<string>(),
                         new DateTime(),
                         new DateTime(),
                         new List<Alert>(),
