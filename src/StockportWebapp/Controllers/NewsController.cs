@@ -226,17 +226,23 @@ public class NewsController(IRepository repository,
             model.Pagination = new Pagination();
     }
 
-    private NavCard ToNavCard(News news) => new(
-        news.Title,
-        $"news-article/{news.Slug}",
-        news.Teaser,
-        news.ThumbnailImage,
-        news.Image,
-        string.Empty,
-        EColourScheme.Teal,
-        news.SunriseDate,
-        string.Empty
-    );
+    private NavCard ToNavCard(News news)
+    {
+        DateTime.TryParse(news.PublishingDate, out DateTime sunriseDate);
+
+        return new(
+            news.Title,
+            $"news-article/{news.Slug}",
+            news.Teaser,
+            news.ThumbnailImage,
+            news.Image,
+            string.Empty,
+            EColourScheme.Teal,
+            string.IsNullOrEmpty(news.PublishingDate) || news.PublishingDate.Equals(DateTime.MinValue.ToString("yyyy-MM-dd"))
+                ? news.SunriseDate
+                : sunriseDate,
+            string.Empty);
+    }
 
     private NavCardList CreateNavCardList(IEnumerable<News> newsItems) =>
         new() { Items = newsItems.Select(ToNavCard).ToList() };

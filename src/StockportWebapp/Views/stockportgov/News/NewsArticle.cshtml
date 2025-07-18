@@ -18,11 +18,17 @@
 
                 <p class="lead @(Model.NewsItem.UpdatedAt.Date.Equals(Model.NewsItem.SunriseDate.Date) ? " news-article__lead news-article__lead--no-image" : string.Empty)">
                     Publication date:
-                    @{
+                    @if (string.IsNullOrEmpty(Model.NewsItem.PublishingDate) || Model.NewsItem.PublishingDate.Equals(DateTime.MinValue.ToString("yyyy-MM-dd")))
+                    {
+                        <partial name="FormattedDate" model='Model.NewsItem.SunriseDate' />
+                    }
+                    else
+                    {
                         DateTime dateValue;
                         DateTime.TryParse(Model.NewsItem.PublishingDate, out dateValue);
+
+                        <partial name="FormattedDate" model='dateValue' />
                     }
-                    <partial name="FormattedDate" model='dateValue' />
                 </p>
 
                 @if (!Model.NewsItem.UpdatedAt.Date.Equals(Model.NewsItem.SunriseDate.Date))
