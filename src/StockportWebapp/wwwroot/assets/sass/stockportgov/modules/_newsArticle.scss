@@ -22,6 +22,12 @@
         &--margin-bottom {
             margin-bottom: 0.75em;
         }
+
+        &--no-margin-top {
+            @media #{$mobile} {
+                margin-top: 0;
+            }
+        }
     }
 
     &__container {

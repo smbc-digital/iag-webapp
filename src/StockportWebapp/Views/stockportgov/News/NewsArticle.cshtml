@@ -86,7 +86,7 @@
                         <ul class="news-article__tags">
                             @foreach (string newsTag in Model.NewsItem.Tags) {
                                 <li class="news-article__tag">
-                                    <a href="@Url.Action("Index", "News", new { tag = newsTag })" class="btn btn--inverse btn--pink btn--pink-outline">@newsTag</a>
+                                    <a href="@Url.Action("NewsArticles", "News", new { tag = newsTag })" class="btn btn--inverse btn--pink btn--pink-outline">@newsTag</a>
                                 </li>
                             }
                         </ul>
@@ -136,7 +136,7 @@
                         <ul class="news-article__tags">
                             @foreach (string newsTag in Model.NewsItem.Tags) {
                                 <li class="news-article__tag">
-                                    <a href="@Url.Action("Index", "News", new { tag = newsTag })" class="btn btn--inverse btn--pink btn--pink-outline">@newsTag</a>
+                                    <a href="@Url.Action("NewsArticles", "News", new { tag = newsTag })" class="btn btn--inverse btn--pink btn--pink-outline">@newsTag</a>
                                 </li>
                             }
                         </ul>

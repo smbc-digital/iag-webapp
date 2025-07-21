@@ -731,6 +731,51 @@ public class NewsroomViewModelTest
         Assert.Empty(result);
     }
 
+    [Fact]
+    public void IsFromSearch_ShouldReturnFalse_WhenNoCategoryOrTagIsPresent()
+    {
+        // Arrange
+        NewsroomViewModel newsroomViewModel = new(BuildNewsRoom(), string.Empty);
+
+        // Act
+        bool result = newsroomViewModel.IsFromSearch();
+
+        // Assert
+        Assert.False(result);
+    }
+
+    [Fact]
+    public void IsFromSearch_ShouldReturnTrue_WhenCategoryIsPresent()
+    {
+        // Arrange
+        NewsroomViewModel newsroomViewModel = new(BuildNewsRoom(), string.Empty)
+        {
+            Category = "Zebras"
+        };
+
+        // Act
+        bool result = newsroomViewModel.IsFromSearch();
+
+        // Assert
+        Assert.True(result);
+    }
+
+    [Fact]
+    public void IsFromSearch_ShouldReturnTrue_WhenTagIsPresent()
+    {
+        // Arrange
+        NewsroomViewModel newsroomViewModel = new(BuildNewsRoom(), string.Empty)
+        {
+            Tag = "Tag"
+        };
+
+        // Act
+        bool result = newsroomViewModel.IsFromSearch();
+
+        // Assert
+        Assert.True(result);
+    }
+
     private static Newsroom BuildNewsRoom(List<string> categories = null,
                                         string emailAlertsTopicId = "",
                                         NavCardList latestArticle = null,
