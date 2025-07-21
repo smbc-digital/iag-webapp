@@ -40,22 +40,28 @@
                 <div class="section__content section--padded-bottom-1">
                     @if (Model.ShowLatestNews && Model.HasCallToAction)
                     {
-                        <h2 class='news-article__title--margin-bottom @(Model.HasLatestArticle ? "news-article__title--margin-top" : string.Empty)'>Latest news</h2>
+                        @if (!Model.IsFromSearch())
+                        {
+                            <h2 class='news-article__title--margin-bottom news-article__title--no-margin-top @(Model.HasLatestArticle ? "news-article__title--margin-top" : string.Empty)'>Latest news</h2>
+                        }
+                        else
+                        {
+                            <h2 class='news-article-featured-item__title news-article__title--margin-bottom'>Latest news about @(!string.IsNullOrEmpty(Model.Tag) ? Model.Tag : Model.Category)</h2>
+                        }
 
                         <partial name="NewsPageNewsCards" model="Model.Newsroom.LatestNews" view-data='new ViewDataDictionary(ViewData) { { "twoGrid", false }, { "MarginTopCssClass", marginTopCssClass } }' />
                     }
                
-                    @if (Model.IsFirstPage && Model.HasCallToAction)
+                    @if (Model.IsFirstPage && Model.HasCallToAction && !Model.IsFromSearch())
                     {
                         <partial name="NewsCallToAction" model='Model.Newsroom.CallToAction' view-data='new ViewDataDictionary(ViewData) { { "AdditionalCssClass", "section--margin-top" } }' />
-
                     }
                      
                     @if (Model.HasNewsItems)
                     {
-                        @if (Model.IsFirstPage)
+                        @if (Model.IsFirstPage && !Model.IsFromSearch())
                         {
-                            <h2 class="news-article__title--margin-bottom @(Model.HasCallToAction || Model.HasLatestArticle ? "news-article__title--margin-top" : string.Empty)">
+                            <h2 class="news-article-featured-item__title news-article__title--margin-bottom @(Model.HasCallToAction || Model.HasLatestArticle ? "news-article__title--margin-top" : string.Empty)">
                                 @(Model.HasCallToAction ? "All news" : "Latest news")
                             </h2>
                         }

@@ -105,7 +105,7 @@ public class NewsroomViewModel
 
     private bool ShowPagination =>
         Pagination is not null && Pagination.TotalItems > Pagination.MaxItemsPerPage;
-    
+
     public bool IsFirstPage => Pagination?.CurrentPageNumber <= 1;
 
     public bool HasLatestArticle => Newsroom?.LatestArticle?.Items?.Any() is true;
@@ -116,7 +116,11 @@ public class NewsroomViewModel
 
     public bool HasCallToAction => Newsroom?.CallToAction is not null;
 
-    public bool ShowFeaturedNews => IsFirstPage && HasLatestArticle;
+    public bool ShowFeaturedNews => IsFirstPage && HasLatestArticle && !IsFromSearch();
 
     public bool ShowLatestNews => IsFirstPage && HasLatestNews;
+
+    public bool IsFromSearch() =>
+        !string.IsNullOrWhiteSpace(Category)
+        || !string.IsNullOrWhiteSpace(Tag);
 }
