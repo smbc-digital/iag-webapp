@@ -6,7 +6,7 @@
 }
 
 <div class="grid-container-full-width" data-cy="news-page">
-    <partial name="Breadcrumb2023" model='new List<Crumb> { new Crumb("News articles", "news-articles", "News") }' view-data="@(new ViewDataDictionary(ViewData) {{"landingBreadcrumb", "topic-breadcrumb-container"}})"/>
+    <partial name="Breadcrumb2023" model='new List<Crumb> { new Crumb("News and media", "landing/news-media", "LandingPage"), new Crumb("News articles", "news-articles", "News") }' view-data="@(new ViewDataDictionary(ViewData) {{"landingBreadcrumb", "topic-breadcrumb-container"}})"/>
 
     <section class="news-article" data-cy="title-and-summary">
         <div class="grid-container">
@@ -75,11 +75,15 @@
                         else
                         {
                             <div class="grid-100 news-article-not-found">
-                                <h2>There are currently no news articles matching your search</h2>
+                                <h2>There are currently no news matching your search</h2>
 
                                 @if (Model.DateFrom.HasValue && Model.DateTo.HasValue && Model.DateFrom > Model.DateTo)
                                 {
                                     <p class="lead">This is because you searched for an invalid date range. Edit your search and try again.</p>
+                                }
+                                else if (Model.DateFrom.HasValue && Model.DateTo.HasValue && Model.DateFrom > DateTime.Now)
+                                {
+                                    <p class="lead">This may be because the date range includes future dates. Try selecting a past date instead.</p>
                                 }
                                 else
                                 {
