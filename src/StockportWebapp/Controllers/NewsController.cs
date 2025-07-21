@@ -214,7 +214,7 @@ public class NewsController(IRepository repository,
             PaginatedItems<News> paginatedNews = PaginationHelper.GetPaginatedItemsForSpecifiedPage(
                 newsRoom.News,
                 currentPageNumber,
-                "articles",
+                "news",
                 pageSize,
                 _config.GetNewsDefaultPageSize("stockportgov"));
 
