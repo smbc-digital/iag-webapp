@@ -11,11 +11,13 @@
                 <div class="directory-results__filters">
                     @if (Model.AllFilterThemes is not null && Model.AllFilterThemes.Any())
                     {
+                        FilterTheme firstTheme = Model.AllFilterThemes.First();
+
                         @foreach (FilterTheme entry in Model.AllFilterThemes)
                         {
                             <a href="javascript:void(0)" aria-expanded="true" class="directory-results__collapsible">
                                 <h3 id='directory-@entry.Title.ToLower().Replace(" ", "-")'>@entry.Title</h3>
-                                <span class="directory-results__toggle closed"></span>
+                                <span class="directory-results__toggle @(entry.Equals(firstTheme) ? string.Empty : "closed")"></span>
                             </a>
 
                             <div class="directory-filters__content" role="group" aria-labelledby='directory-@entry.Title.ToLower().Replace(" ", "-")'>

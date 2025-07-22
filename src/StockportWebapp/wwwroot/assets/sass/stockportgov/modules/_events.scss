@@ -274,7 +274,11 @@
     &__search {
         @media #{$tablet} {
             margin-block-start: 2em;
-        }   
+        }
+        
+        @media #{$mobile} {
+            margin-inline: 5px;
+        }
 
         &-date {       
             h2  {
@@ -285,9 +289,23 @@
                 }   
             }
         }
+
+        &--margin-bottom {
+            margin-bottom: 1em;
+        }
+
+        @media #{$mobile} {
+            &--no-margin-bottom-mobile {
+                margin-bottom: 0;
+            }
+        }
     }
 }
-  
+
+.event-homepage__search > div:last-child > ul {
+  margin-bottom: 0 !important;
+}
+
 .event-detail {
     display: flex;
     flex-wrap: wrap;
@@ -404,5 +422,13 @@
             padding-inline-start: 0;
             margin-bottom: 1em;
         }
+    }
+}
+
+
+
+html[dir="rtl"] {
+    .event-homepage__container {
+        display: flex;
     }
 }
