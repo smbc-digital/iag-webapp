@@ -31,7 +31,7 @@
                 {
                     if (!previousEnteredDate.Equals(DateTime.MinValue))
                         @Html.Raw("</ul></div>");
-                    
+
                     @Html.Raw($"<div class='event-homepage__search-date event-homepage__search--margin-bottom {(eventItem.EventDate.Date.Equals(lastDate) ? " event-homepage__search--no-margin-bottom-mobile" : string.Empty)}'>");
                     <h2>@viewHelper.FormatEventDate(eventItem.EventDate)</h2>
                     @Html.Raw("<ul class='navcard-wrapper navcard-wrapper--no-margin'>");
