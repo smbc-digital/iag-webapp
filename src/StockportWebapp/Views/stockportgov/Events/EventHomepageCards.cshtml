@@ -38,7 +38,7 @@
                     <ul class="navcard-wrapper navcard-wrapper--no-margin">
                         @foreach (Event item in row.Events)
                         {
-                            <partial name="EventCard" model="item" view-data="@(new ViewDataDictionary(ViewData) {{"BackgroundColourClass", "event-cards__link--white"}, {"eventHomepageImage", "event-cards__image-homepage"}})" />
+                            <partial name="EventCard" model="item" view-data="@(new ViewDataDictionary(ViewData) {{"BackgroundColourClass", "event-cards__link--white"}})" />
                         }
                     </ul>
                     

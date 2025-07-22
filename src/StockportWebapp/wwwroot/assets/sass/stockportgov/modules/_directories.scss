@@ -192,14 +192,14 @@
                 color: $stockport-teal-darker;
     
                 &::before {
-                    font: bold normal normal 16px/1 FontAwesome;
-                    font-size: 1em;
+                    font: 700 normal normal 16px/1 FontAwesome;
+                    font-size: 1.5rem;
                     content: '\f077';
                 }
     
                 &.closed::before {
-                    font: normal normal normal 16px/1 FontAwesome;
-                    font-size: 1em;
+                    font: 700 normal normal 16px/1 FontAwesome;
+                    font-size: 1.5rem;
                     content: '\f078';
                 }
             }

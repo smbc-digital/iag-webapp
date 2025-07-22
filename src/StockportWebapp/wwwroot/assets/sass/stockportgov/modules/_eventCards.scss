@@ -61,14 +61,6 @@
         }
     }
 
-    &__image {
-        border-radius: 3px;
-
-        &-homepage {
-            border-radius: 0;
-        }
-    }
-
     &__location {
         @media #{$mobile} {
             margin-bottom: 0.5em;
