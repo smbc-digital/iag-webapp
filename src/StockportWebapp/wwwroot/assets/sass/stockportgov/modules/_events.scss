@@ -429,4 +429,9 @@ html[dir="rtl"] {
     .event-homepage__container {
         display: flex;
     }
+
+    .event-homepage__filters-options input,
+    .event-homepage__filters-options select {
+        text-align: right;
+    }
 }
