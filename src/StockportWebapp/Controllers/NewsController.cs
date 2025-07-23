@@ -82,7 +82,7 @@ public class NewsController(IRepository repository,
 
         List<News> latestNews = allNews.Take(3).ToList();
 
-        newsRoom.News = newsRoom.CallToAction is null
+        newsRoom.News = newsRoom.CallToAction is null || model.IsFromSearch()
             ? allNews
             : allNews.Skip(3).ToList();
         
@@ -214,7 +214,7 @@ public class NewsController(IRepository repository,
             PaginatedItems<News> paginatedNews = PaginationHelper.GetPaginatedItemsForSpecifiedPage(
                 newsRoom.News,
                 currentPageNumber,
-                "news",
+                "news articles",
                 pageSize,
                 _config.GetNewsDefaultPageSize("stockportgov"));
 
