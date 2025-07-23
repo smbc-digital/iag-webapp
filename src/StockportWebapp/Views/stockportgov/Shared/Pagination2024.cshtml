@@ -39,7 +39,7 @@
             }
         </div>
 
-        @if (PaginationHelper.DisplayPagination(Model.TotalItems))
+        @if (PaginationHelper.DisplayPagination(Model.TotalItems) && Model.TotalPages > 1)
         {
             <nav class="pagination" aria-label="Pagination">
                 <div class="pagination__prev">
