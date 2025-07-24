@@ -82,7 +82,8 @@ public class NewsController(IRepository repository,
 
         List<News> latestNews = allNews.Take(3).ToList();
 
-        newsRoom.News = newsRoom.CallToAction is null || model.IsFromSearch()
+        bool isFromSearch = !string.IsNullOrWhiteSpace(model.Category) || !string.IsNullOrWhiteSpace(model.Tag);
+        newsRoom.News = newsRoom.CallToAction is null || isFromSearch
             ? allNews
             : allNews.Skip(3).ToList();
         
@@ -92,7 +93,7 @@ public class NewsController(IRepository repository,
             ? CreateNavCardList(latestArticle)
             : null;
 
-        newsRoom.LatestNews = latestNews?.Any() is true
+        newsRoom.LatestNews = latestNews?.Any() is true && !isFromSearch
             ? CreateNavCardList(latestNews)
             : null;
 
