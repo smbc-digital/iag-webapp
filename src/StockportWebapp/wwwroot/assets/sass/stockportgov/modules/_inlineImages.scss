@@ -29,8 +29,11 @@ img.fullwidth {
 }
 
 figure {
+    display: table;
+    
 	p {
 		margin-bottom: 0 !important;
+        display: table-row;
 	}
 
 	img {
@@ -46,6 +49,8 @@ figcaption {
 	color: white;
     border-radius: 0 0 3px 3px;
 	padding: 0.55em;
+    display: table-caption;
+    caption-side: bottom;
 }
 
 .image-container {

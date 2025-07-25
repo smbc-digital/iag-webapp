@@ -50,7 +50,7 @@
         &--no-image {
             border-bottom: .17em solid #2aa294b3;
             margin-bottom: -3px;
-            padding-bottom: 2rem;
+            padding-bottom: 2em;
         }
     }
 
@@ -210,16 +210,22 @@
     &__teaser {
         font-weight: 400;
 
-        &--no-image {
-            margin-top: 2rem;
-        }
-
         &--no-margin {
             margin: 0;
 
              @media #{$mobile} {
                 margin-inline: 5px;
             }
+        }
+    }
+
+    &__wrapper {
+        margin-top: 2em;
+    }
+
+    &__body {
+        .profile-tag-parser__image {
+            height: 360px;
         }
     }
 
