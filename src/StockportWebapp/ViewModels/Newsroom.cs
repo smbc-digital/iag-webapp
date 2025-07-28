@@ -34,9 +34,7 @@ public class Newsroom(List<News> news,
     {
         Items = News
             .Select(news =>
-            {
-                DateTime publishingDate = GetPublishingDateOrFallback(news);
-                return new NavCard(
+                new NavCard(
                     news.Title,
                     $"news-article/{news.Slug}",
                     news.Teaser,
@@ -44,10 +42,8 @@ public class Newsroom(List<News> news,
                     news.Image,
                     string.Empty,
                     EColourScheme.Teal,
-                    publishingDate,
-                    string.Empty);
-            })
-            .ToList()
+                    GetPublishingDateOrFallback(news),
+                    string.Empty)).ToList()
     };
 
     private static DateTime GetPublishingDateOrFallback(News news)
