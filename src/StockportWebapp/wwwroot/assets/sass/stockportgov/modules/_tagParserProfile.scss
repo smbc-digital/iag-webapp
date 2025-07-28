@@ -19,9 +19,9 @@
 
     &__image {
         width: 40%;
-        height: auto;
         object-fit: cover;
         border-radius: 50px 3px;
+        height: 360px;
 
         @media #{$mobile} {
             width: 100%;
