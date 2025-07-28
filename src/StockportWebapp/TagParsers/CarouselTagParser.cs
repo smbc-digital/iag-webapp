@@ -35,8 +35,8 @@ public class CarouselTagParser : ISimpleTagParser
                 }
                 else
                 {
-                    System.Text.RegularExpressions.Group srcText = srcRegex.Match(item).Groups[1];
-                    System.Text.RegularExpressions.Group altText = altRegex.Match(item).Groups[1];
+                    Group srcText = srcRegex.Match(item).Groups[1];
+                    Group altText = altRegex.Match(item).Groups[1];
 
                     if (!string.IsNullOrEmpty(srcText.Value))
                         returnCarousel.Append(

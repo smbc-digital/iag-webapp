@@ -33,16 +33,28 @@ public class Newsroom(List<News> news,
     public NavCardList ArchivedItems => new()
     {
         Items = News
-                .Select(news => new NavCard(news.Title,
-                                            $"news-article/{news.Slug}",
-                                            news.Teaser,
-                                            news.ThumbnailImage,
-                                            news.Image,
-                                            string.Empty,
-                                            EColourScheme.Teal,
-                                            news.SunriseDate,
-                                            string.Empty)).ToList()
+            .Select(news =>
+                new NavCard(
+                    news.Title,
+                    $"news-article/{news.Slug}",
+                    news.Teaser,
+                    news.ThumbnailImage,
+                    news.Image,
+                    string.Empty,
+                    EColourScheme.Teal,
+                    GetPublishingDateOrFallback(news),
+                    string.Empty)).ToList()
     };
+
+    private static DateTime GetPublishingDateOrFallback(News news)
+    {
+        DateTime.TryParse(news.PublishingDate, out DateTime parsedDate);
+
+        if (string.IsNullOrEmpty(news.PublishingDate) || news.PublishingDate.Equals(DateTime.MinValue.ToString("yyyy-MM-dd")))
+            return news.SunriseDate;
+
+        return parsedDate;
+    }
 
     public List<SelectListItem> CategoryOptions()
     {
