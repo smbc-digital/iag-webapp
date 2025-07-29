@@ -51,7 +51,7 @@ public class NewsController(IRepository repository,
     [Route("/news-articles")]
     public async Task<IActionResult> NewsArticles(NewsroomViewModel model, [FromQuery] int page, [FromQuery] int pageSize)
     {
-        if (await _featureManager.IsEnabledAsync("NewsRedesign"))
+        if (!await _featureManager.IsEnabledAsync("NewsRedesign"))
             return RedirectToAction("Index");
 
         ClearDateErrorsIfNoDates(model);
@@ -107,11 +107,10 @@ public class NewsController(IRepository repository,
         return View(model);
     }
 
-    [ExcludeFromCodeCoverage]
     [Route("/news-archive")]
     public async Task<IActionResult> NewsArchive(NewsroomViewModel model, [FromQuery] int page, [FromQuery] int pageSize)
     {
-        if (await _featureManager.IsEnabledAsync("NewsRedesign"))
+        if (!await _featureManager.IsEnabledAsync("NewsRedesign"))
             return RedirectToAction("Index");
 
         List<Query> queries = BuildQueries(model);
@@ -158,11 +157,10 @@ public class NewsController(IRepository repository,
         return finalResult;
     }
 
-    [ExcludeFromCodeCoverage]
     [Route("/news-article/{slug}")]
     public async Task<IActionResult> NewsArticle(string slug)
     {
-        if (await _featureManager.IsEnabledAsync("NewsRedesign"))
+        if (!await _featureManager.IsEnabledAsync("NewsRedesign"))
             return RedirectToAction("Detail", new { slug });
 
         HttpResponse initialResponse = await _processedContentRepository.Get<News>(slug);

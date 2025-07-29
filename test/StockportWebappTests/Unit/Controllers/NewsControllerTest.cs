@@ -12,6 +12,7 @@ public class NewsControllerTest
     private const string EmailAlertsTopicId = "test-id";
     private const bool EmailAlertsOn = true;
     private readonly Mock<IFilteredUrl> _filteredUrl = new();
+    private readonly Mock<IFeatureManager> _featureManager = new();
 
     private static readonly News NewsItemWithImages = new(
         "Another news article",
@@ -161,6 +162,10 @@ public class NewsControllerTest
             .Setup(conf => conf.GetEmailAlertsNewSubscriberUrl(BusinessId))
             .Returns(AppSetting.GetAppSetting("email-alerts-url"));
 
+        _featureManager
+            .Setup(feature => feature.IsEnabledAsync("NewsRedesign"))
+            .ReturnsAsync(true);
+        
         _controller = new(_repository.Object,
                         _processedContentRepository.Object,
                         _mockRssFeedFactory.Object,
@@ -168,7 +173,7 @@ public class NewsControllerTest
                         _config.Object,
                         new BusinessId(BusinessId),
                         _filteredUrl.Object,
-                        null);
+                        _featureManager.Object);
     }
 
     [Fact]
@@ -457,11 +462,143 @@ public class NewsControllerTest
         _mockRssFeedFactory.Verify(rssFeedFactory => rssFeedFactory.BuildRssFeed(It.IsAny<List<News>>(), It.IsAny<string>(), It.IsAny<string>()), Times.Once);
     }
 
+    [Fact]
+    public async Task NewsArchive_ShouldReturn404ForNoNewsItems()
+    {
+        // Arrange
+        _repository
+            .Setup(repo => repo.Get<Newsroom>("/archive", It.IsAny<List<Query>>()))
+            .ReturnsAsync(new HttpResponse(404, null, "not found"));
+
+        // Act
+        HttpResponse response = await _controller.NewsArchive(new NewsroomViewModel(), 1, MaxNumberOfItemsPerPage) as HttpResponse;
+
+        // Assert
+        Assert.Equal(404, response.StatusCode);
+    }
+
+    [Fact]
+    public async Task NewsArchive_ShouldReturnViewResult_WithCorrectModel_WhenSuccessful()
+    {
+        // Arrange
+        _repository
+            .Setup(repo => repo.Get<Newsroom>("/archive", It.IsAny<List<Query>>()))
+            .ReturnsAsync(HttpResponse.Successful((int)HttpStatusCode.OK, _newsRoom));
+
+        NewsroomViewModel model = new();
+
+        // Act
+        ViewResult result = await _controller.NewsArchive(model, 1, 10) as ViewResult;
+        NewsroomViewModel viewModel = result.ViewData.Model as NewsroomViewModel;
+        Newsroom news = viewModel.Newsroom;
+
+        // Assert
+        ViewResult viewResult = Assert.IsType<ViewResult>(result);
+        NewsroomViewModel returnedModel = Assert.IsType<NewsroomViewModel>(viewResult.Model);
+
+        Assert.Equal(_newsRoom, returnedModel.Newsroom);
+    }
+
+    [Fact]
+    public async Task NewsArticle_ShouldReturn404_WhenInitialResponseFails()
+    {
+        // Arrange
+        _processedContentRepository
+            .Setup(repo => repo.Get<News>("this-news-article-does-not-exist", null))
+            .ReturnsAsync(new HttpResponse(404, null, "not found"));
+
+        // Act
+        HttpResponse result = await _controller.NewsArticle("this-news-article-does-not-exist") as HttpResponse;
+
+        // Assert
+        Assert.Equal(404, result.StatusCode);
+    }
+
+     [Fact]
+    public async Task NewsArticle_ShouldReturnView_WithNewsViewModel_WhenSuccessful()
+    {
+        // Act
+        ViewResult actionResponse = await _controller.NewsArticle("another-news-article") as ViewResult;
+        NewsViewModel news = actionResponse.ViewData.Model as NewsViewModel;
+
+        // Assert
+        Assert.Equal("Another news article", news.NewsItem.Title);
+        Assert.Equal("another-news-article", news.NewsItem.Slug);
+        Assert.Equal("This is another news article", news.NewsItem.Teaser);
+        Assert.Equal("image.jpg", news.NewsItem.Image);
+        Assert.Equal("thumbnail.jpg", news.NewsItem.ThumbnailImage);
+        Assert.Equal("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam gravida eu mauris in consectetur. Nullam nulla urna, sagittis a ex sit amet, ultricies rhoncus mauris. Quisque vel placerat turpis, vitae consectetur mauris.", news.NewsItem.Body);
+        Assert.Equal(new DateTime(2015, 9, 10), news.NewsItem.SunriseDate);
+        Assert.Equal(new DateTime(2015, 9, 20), news.NewsItem.SunsetDate);
+        Assert.Equal(new DateTime(2015, 9, 15), news.NewsItem.UpdatedAt);
+        Assert.Equal(2, news.NewsItem.Tags.Count);
+        Assert.Equal("Events", news.NewsItem.Tags.First());
+        Assert.Equal(2, news.GetLatestNews().Count);
+    }
+
+    [Fact]
+    public async Task NewsArticles_ShouldReturn404_WhenNoNewsArticlesExist()
+    {
+        // Arrange
+        _repository
+            .Setup(repo => repo.Get<Newsroom>(string.Empty, It.IsAny<List<Query>>()))
+            .ReturnsAsync(new HttpResponse(404, null, "not found"));
+
+        // Act
+        HttpResponse response = await _controller.NewsArticles(new NewsroomViewModel(), 1, MaxNumberOfItemsPerPage) as HttpResponse;
+
+        // Assert
+        Assert.Equal(404, response.StatusCode);
+    }
+    
+    [Fact]
+    public async Task NewsArticles_ShouldReturnView_WithCorrectModel_WhenSuccessful()
+    {
+        // Act
+        IActionResult result = await _controller.NewsArticles(new NewsroomViewModel(), 1, MaxNumberOfItemsPerPage);
+
+        // Assert
+        ViewResult viewResult = Assert.IsType<ViewResult>(result);
+        NewsroomViewModel returnedModel = Assert.IsType<NewsroomViewModel>(viewResult.Model);
+
+        Newsroom addedNews = returnedModel.Newsroom;
+
+        Assert.NotNull(addedNews);
+        Assert.Null(addedNews.LatestArticle);
+        Assert.NotNull(addedNews.LatestNews);
+        Assert.True(addedNews.LatestNews.Items.Count <= 3);
+        Assert.NotNull(addedNews.NewsItems);
+    }
+
+    [Fact]
+    public async Task NewsArticles_ShouldReturnNewsItemsForADateFilter()
+    {
+        // Arrange
+        _repository
+            .Setup(repo => repo.Get<Newsroom>(string.Empty,
+                                            It.Is<List<Query>>(l => l.Contains(new Query("DateFrom", "2016-10-01")) && l.Contains(new Query("DateTo", "2016-11-01")))))
+            .ReturnsAsync(HttpResponse.Successful((int)HttpStatusCode.OK, _newsRoom));
+
+        // Act
+        ViewResult actionResponse = await _controller.NewsArticles(
+                    new NewsroomViewModel
+                    {
+                        DateFrom = new DateTime(2016, 10, 01),
+                        DateTo = new DateTime(2016, 11, 01)
+                    }, 1, MaxNumberOfItemsPerPage) as ViewResult;
+
+        NewsroomViewModel viewModel = actionResponse.ViewData.Model as NewsroomViewModel;
+        Newsroom news = viewModel.Newsroom;
+
+        // Assert
+        Assert.Equal(_newsRoom, news);
+    }
+    
     private NewsController SetUpController(int numNewsItems)
     {
-        List<News> listofNewsItems = BuildNewsList(numNewsItems);
+        List<News> listOfNewsItems = BuildNewsList(numNewsItems);
 
-        Newsroom bigNewsRoom = new(listofNewsItems,
+        Newsroom bigNewsRoom = new(listOfNewsItems,
                                 null,
                                 null,
                                 null,
@@ -475,7 +612,7 @@ public class NewsControllerTest
                                 null);
 
         _repository
-            .Setup(_ => _.Get<Newsroom>(It.IsAny<string>(), It.IsAny<List<Query>>()))
+            .Setup(repo => repo.Get<Newsroom>(It.IsAny<string>(), It.IsAny<List<Query>>()))
             .ReturnsAsync(HttpResponse.Successful((int)HttpStatusCode.OK, bigNewsRoom));
 
         return new(_repository.Object,
@@ -488,7 +625,7 @@ public class NewsControllerTest
                 null);
     }
 
-    private List<News> BuildNewsList(int numberOfItems)
+    private static List<News> BuildNewsList(int numberOfItems)
     {
         List<News> listofNewsItems = new();
 
