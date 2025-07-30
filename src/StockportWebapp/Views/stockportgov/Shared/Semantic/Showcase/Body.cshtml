@@ -1,9 +1,0 @@
-﻿@model ProcessedShowcase
-
-<article>
-    @if (!string.IsNullOrWhiteSpace(Model.BodySubheading))
-    {
-        <h2>@Model.BodySubheading</h2>
-    }
-    <section>@Html.Raw(Model.Body)</section>
-</article>
