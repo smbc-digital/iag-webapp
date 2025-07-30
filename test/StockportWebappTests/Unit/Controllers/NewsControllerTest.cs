@@ -1,4 +1,6 @@
-﻿namespace StockportWebappTests_Unit.Unit.Controllers;
+﻿using Document = StockportWebapp.Models.Document;
+
+namespace StockportWebappTests_Unit.Unit.Controllers;
 
 public class NewsControllerTest
 {
@@ -118,7 +120,7 @@ public class NewsControllerTest
                         EmailAlertsTopicId,
                         new List<string>(),
                         new List<DateTime>(),
-                        new List<int>(),
+                        new List<int>() { 2025, 2024, 2023, 2022, 2021, 2020, 2019, 2018, 2017, 2016 },
                         null);
         
         _emptyNewsRoom = new(new List<News>(),
@@ -497,6 +499,48 @@ public class NewsControllerTest
         NewsroomViewModel returnedModel = Assert.IsType<NewsroomViewModel>(viewResult.Model);
 
         Assert.Equal(_newsRoom, returnedModel.Newsroom);
+    }
+
+    [Fact]
+    public async Task NewsArchive_ShouldSetDateTo_ToToday_WhenOnlyDateFromIsProvided()
+    {
+        // Arrange
+        _repository
+            .Setup(repo => repo.Get<Newsroom>("/archive", It.IsAny<List<Query>>()))
+            .ReturnsAsync(HttpResponse.Successful((int)HttpStatusCode.OK, _newsRoom));
+
+        NewsroomViewModel model = new()
+        {
+            DateFrom = new DateTime(2015, 9, 10)
+        };
+
+        // Act
+        ViewResult result = await _controller.NewsArchive(model, 1, 10) as ViewResult;
+        NewsroomViewModel viewModel = result.ViewData.Model as NewsroomViewModel;
+
+        // Assert
+        Assert.Equal(DateTime.Now.Date, viewModel.DateTo);
+    }
+
+     [Fact]
+    public async Task NewsArchive_ShouldSetDateFrom_ToEarliestYear_WhenOnlyDateToIsProvided()
+    {
+        // Arrange
+        _repository
+            .Setup(repo => repo.Get<Newsroom>("/archive", It.IsAny<List<Query>>()))
+            .ReturnsAsync(HttpResponse.Successful((int)HttpStatusCode.OK, _newsRoom));
+
+        NewsroomViewModel model = new()
+        {
+            DateTo = new DateTime(2025, 7, 10)
+        };
+
+        // Act
+        ViewResult result = await _controller.NewsArchive(model, 1, 10) as ViewResult;
+        NewsroomViewModel viewModel = result.ViewData.Model as NewsroomViewModel;
+
+        // Assert
+        Assert.Equal(new DateTime(2016, 01, 01), viewModel.DateFrom);
     }
 
     [Fact]
