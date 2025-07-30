@@ -22,8 +22,6 @@ public class TypeRoutes
             case "servicePayPayment":
             case "service-pay-payment":
                 return $"/service-pay-payment/{slug}";
-            case "showcase":
-                return $"/showcase/{slug}";
             case "sia":
                 return "/sia";
             case "privacy-notices":
