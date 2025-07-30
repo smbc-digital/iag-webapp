@@ -12,7 +12,6 @@ public class TypeRouteTests
     [InlineData("payment", "test", "/payment/test")]
     [InlineData("servicePayPayment", "test", "/service-pay-payment/test")]
     [InlineData("service-pay-payment", "test", "/service-pay-payment/test")]
-    [InlineData("showcase", "test", "/showcase/test")]
     [InlineData("sia", "test", "/sia")]
     [InlineData("privacy-notices", "test", "/privacy-notices/test")]
     [InlineData("default", "test", "/test")]

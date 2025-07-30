@@ -21,7 +21,6 @@ public class ContentTypeFactory
         _factories.Add(typeof(Homepage), new HomepageFactory(markdownWrapper));
         _factories.Add(typeof(Payment), new PaymentFactory(tagParserContainer, markdownWrapper));
         _factories.Add(typeof(ServicePayPayment), new ServicePayPaymentFactory(tagParserContainer, markdownWrapper));
-        _factories.Add(typeof(Showcase), new ShowcaseFactory(tagParserContainer, markdownWrapper, triviaFactory));
         _factories.Add(typeof(PrivacyNotice), new PrivacyNoticeFactory(markdownWrapper));
         _factories.Add(typeof(StartPage), new StartPageFactory(tagParserContainer, markdownWrapper));
         _factories.Add(typeof(ContactUsArea), new ContactUsAreaFactory(contactUsCategoryFactory));

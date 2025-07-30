@@ -28,7 +28,6 @@ public class SitemapControllerTests
     });
 
     private readonly List<ArticleSiteMap> _articlesSiteMap = new();
-    private readonly List<Showcase> _showcases = new();
     private readonly List<SectionSiteMap> _sections = new() { new SectionSiteMap("slug", DateTime.Now, DateTime.Now)};
     private readonly List<TopicSitemap> _topics = new();
     private readonly List<Profile> _profiles = new();
@@ -62,10 +61,6 @@ public class SitemapControllerTests
             .ReturnsAsync(new HttpResponse(200, _articlesSiteMap, string.Empty));
 
         _mockRepository
-            .Setup(repository => repository.Get<List<Showcase>>(string.Empty, It.IsAny<List<Query>>()))
-            .ReturnsAsync(new HttpResponse(200, _showcases, string.Empty));
-
-        _mockRepository
             .Setup(repository => repository.Get<List<SectionSiteMap>>(string.Empty, It.IsAny<List<Query>>()))
             .ReturnsAsync(new HttpResponse(200, _sections, string.Empty));
 
@@ -95,7 +90,6 @@ public class SitemapControllerTests
     [InlineData("article")]
     [InlineData("homepage")]
     [InlineData("groups")]
-    [InlineData("showcase")]
     [InlineData("section")]
     [InlineData("topic")]
     [InlineData("profile")]

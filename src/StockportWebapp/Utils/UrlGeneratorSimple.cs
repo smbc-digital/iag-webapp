@@ -35,8 +35,6 @@ public class UrlGeneratorSimple(IApplicationConfiguration config, BusinessId bus
         {typeof(List<Payment>), "payments/"},
         {typeof(Section), "sections/"},
         {typeof(List<Section>), "sections/"},
-        {typeof(Showcase), "showcases/"},
-        {typeof(List<Showcase>), "showcases/"},
         {typeof(List<EventCategory>), "event-categories"},
         {typeof(ContactUsId), "contact-us-id/"},
         {typeof(List<ArticleSiteMap>), "articleSiteMap"},

@@ -143,16 +143,6 @@ public class UrlGeneratorTest
     }
 
     [Fact]
-    public void ItReturnsUrlShowcaseRequestWithSlug()
-    {
-        // Act
-        string url = _urlGenerator.UrlFor<Showcase>("slug");
-
-        // Assert
-        Assert.Equal("http://localhost.com/test-id/showcases/slug", url);
-    }
-
-    [Fact]
     public void ItReturnsUrlForHealthcheckRequest()
     {
         // Act
