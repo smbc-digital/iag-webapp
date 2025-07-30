@@ -113,6 +113,28 @@ public class NewsController(IRepository repository,
         if (!await _featureManager.IsEnabledAsync("NewsRedesign"))
             return RedirectToAction("Index");
 
+        ClearDateErrorsIfNoDates(model);
+
+        if (model.DateFrom.HasValue && !model.DateTo.HasValue)
+        {
+            model.DateTo = DateTime.Today;
+        }
+        else if (model.DateTo.HasValue && !model.DateFrom.HasValue)
+        {
+            HttpResponse allNewsResponse = await _repository.Get<Newsroom>(slug: "/archive");
+            if (allNewsResponse.IsSuccessful())
+            {
+                var allNewsroom = allNewsResponse.Content as Newsroom;
+                var years = allNewsroom?.Years;
+
+                if (years?.Any() is true)
+                {
+                    int earliestYear = years.Min();
+                    model.DateFrom = new DateTime(earliestYear, 1, 1);
+                }
+            }
+        }
+
         List<Query> queries = BuildQueries(model);
 
         HttpResponse httpResponse = await _repository.Get<Newsroom>(slug: "/archive", queries: queries);
