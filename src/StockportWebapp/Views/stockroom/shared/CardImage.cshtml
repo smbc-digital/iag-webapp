@@ -1,14 +1,14 @@
 @model string
 
 <img src="@Model?q=89&fm=webp"
-        srcset="@Model?w=730&q=89&fm=webp 730w,
+     srcset="@Model?w=730&q=89&fm=webp 730w,
             @Model?w=310&q=89&fm=webp 310w,
-            @Model?w=380&q=89&fm=webp 380w"
-        sizes="(max-width: 767px) 730px,
+            @Model?h=370&q=89&fm=webp 370h"
+     sizes="(max-width: 767px) 730px,
             ((min-width: 768px) and (max-width: 1023px)) 310px,
-            (min-width: 1024px) 380px"
-        class="card-item__image"
-        alt=""
-        width="692"
-        height="350"
-        loading="lazy">
+            (min-width: 1024px) 370px"
+     class="card-item__image"
+     alt=""
+     width="692"
+     height="350"
+     loading="lazy">
