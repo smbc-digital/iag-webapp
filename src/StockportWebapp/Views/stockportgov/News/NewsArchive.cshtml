@@ -27,14 +27,14 @@
                                 <div class="event-homepage__filters-dates">
                                     <label class="h-l" asp-for="@Model.DateFrom"></label>
                                     <div class="event-homepage__filters-options">
-                                        <input type="date" class="event-homepage__filters-options-date" asp-for="@Model.DateFrom" placeholder="dd/mm/yyyy" />
+                                        <input type="date" class="event-homepage__filters-options-date" asp-for="@Model.DateFrom" placeholder="dd/mm/yyyy" min="2018-01-01" />
                                     </div>
                                 </div>
 
                                 <div class="event-homepage__filters-dates">
                                     <label class="h-l" asp-for="@Model.DateTo"></label>
                                     <div class="event-homepage__filters-options">
-                                        <input type="date" class="event-homepage__filters-options-date" asp-for="@Model.DateTo" placeholder="dd/mm/yyyy" />
+                                        <input type="date" class="event-homepage__filters-options-date" asp-for="@Model.DateTo" placeholder="dd/mm/yyyy" max="@(DateTime.Today.ToString("yyyy-MM-dd"))"/>
                                     </div>
                                 </div>
                             </div>
