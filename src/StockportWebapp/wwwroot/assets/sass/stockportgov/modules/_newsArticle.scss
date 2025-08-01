@@ -50,7 +50,11 @@
         &--no-image {
             border-bottom: 3px solid #2aa294b3;
             margin-bottom: -3px;
-            padding-bottom: 2em;
+            padding-bottom: 1.6em;
+
+            @media #{$mobile} {
+                padding-bottom: 2em;
+            }
         }
     }
 
@@ -209,6 +213,7 @@
 
     &__teaser {
         font-weight: 400;
+        margin-top: 0;
 
         &--no-margin {
             margin: 0;
