@@ -13,31 +13,8 @@
 
     <div class="grid-container">
         <div class="grid-100">
-            <div class="article--70">
+            <div class="article--70 article--70-margin">
                 <h1>@Model.NewsItem.Title</h1>
-
-                <p class="lead @(Model.NewsItem.UpdatedAt.Date.Equals(Model.NewsItem.SunriseDate.Date) ? " news-article__lead news-article__lead--no-image" : string.Empty)">
-                    Publication date:
-                    @if (string.IsNullOrEmpty(Model.NewsItem.PublishingDate) || Model.NewsItem.PublishingDate.Equals(DateTime.MinValue.ToString("yyyy-MM-dd")))
-                    {
-                        <partial name="FormattedDate" model='Model.NewsItem.SunriseDate' />
-                    }
-                    else
-                    {
-                        DateTime dateValue;
-                        DateTime.TryParse(Model.NewsItem.PublishingDate, out dateValue);
-
-                        <partial name="FormattedDate" model='dateValue' />
-                    }
-                </p>
-
-                @if (!Model.NewsItem.UpdatedAt.Date.Equals(Model.NewsItem.SunriseDate.Date))
-                {
-                    <p class="lead news-article__lead @(string.IsNullOrEmpty(Model.NewsItem.HeroImage) ? "news-article__lead--no-image" : string.Empty)">
-                        Last updated:
-                        <partial name="FormattedDate" model='Model.NewsItem.UpdatedAt'/>
-                    </p>
-                }
             </div>
 
             <section class="article">
@@ -66,7 +43,30 @@
                         </div>
                     }
 
-                    <h2 class="h-ml news-article__teaser">@Model.NewsItem.Teaser</h2>
+                    <p class="news-article__published @(Model.NewsItem.UpdatedAt.Date.Equals(Model.NewsItem.SunriseDate.Date) ? " news-article__published--margin" : string.Empty)">
+                        Published:
+                        @if (string.IsNullOrEmpty(Model.NewsItem.PublishingDate) || Model.NewsItem.PublishingDate.Equals(DateTime.MinValue.ToString("yyyy-MM-dd")))
+                        {
+                            <partial name="FormattedDate" model='Model.NewsItem.SunriseDate' />
+                        }
+                        else
+                        {
+                            DateTime dateValue;
+                            DateTime.TryParse(Model.NewsItem.PublishingDate, out dateValue);
+
+                            <partial name="FormattedDate" model='dateValue' />
+                        }
+                    </p>
+
+                    @if (!Model.NewsItem.UpdatedAt.Date.Equals(Model.NewsItem.SunriseDate.Date))
+                    {
+                        <p class="news-article__last-updated">
+                            Last updated:
+                            <partial name="FormattedDate" model='Model.NewsItem.UpdatedAt'/>
+                        </p>
+                    }
+
+                    <p class="h-ml news-article__teaser">@Model.NewsItem.Teaser</p>
 
                     <article class="news-article__body">
                         @Html.Raw(Model.NewsItem.Body)
@@ -123,7 +123,7 @@
                     }
 
                     @if (Model.NewsItem.Tags.Any()) {
-                        <h2 class="hide-on-desktop">Related news</h2>
+                        <h2 class="hide-on-desktop news-article__tags-title">Related news</h2>
                         <ul class="news-article__tags">
                             @foreach (string newsTag in Model.NewsItem.Tags) {
                                 <li class="news-article__tag">

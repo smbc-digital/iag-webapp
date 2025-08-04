@@ -2,14 +2,10 @@
 
 [ResponseCache(Location = ResponseCacheLocation.Any, Duration = Cache.Medium)]
 public class ErrorController(ILegacyRedirectsManager legacyRedirectsManager,
-                            ILogger<ErrorController> logger,
-                            IFeatureManager featureManager,
-                            BusinessId businessId) : Controller
+                            ILogger<ErrorController> logger) : Controller
 {
     private readonly ILegacyRedirectsManager _legacyRedirectsManager = legacyRedirectsManager;
     private readonly ILogger<ErrorController> _logger = logger;
-    private readonly IFeatureManager _featureManager = featureManager;
-    private readonly BusinessId _businessId = businessId;
 
     [Route("/error")]
     public async Task<IActionResult> Error()
@@ -37,9 +33,7 @@ public class ErrorController(ILegacyRedirectsManager legacyRedirectsManager,
             _logger.LogInformation($"No legacy url matching current url ({path}) found");
         }
 
-        return await _featureManager.IsEnabledAsync("ErrorRedesign") && _businessId.ToString().Equals("stockportgov")
-            ? View("Error2025")
-            : View();
+        return View();
     }
 
     private void SetupPageMessage(int statusCode)

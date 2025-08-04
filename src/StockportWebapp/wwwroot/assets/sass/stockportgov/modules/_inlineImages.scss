@@ -14,12 +14,12 @@ img[src*='#left'], img[src*='#right'] {
 
 img[src*='#right'] {
 	float: right;
-	margin-left: 1rem;
+	margin-inline-start: 1rem;
 }
 
 img[src*='#left'] {
 	float: left;
-	margin-right: 1.1875rem;
+	margin-inline-end: 1.1875rem;
 }
 
 img.fullwidth {
@@ -94,7 +94,9 @@ figcaption {
 
 .image-left {
     float: left;
-    margin: 0.5rem 1.1875rem 1.1875rem 0;
+    margin-block: 0.5rem 1.1875rem;
+    margin-inline-end: 1.1875rem;
+    margin-inline-start: 0;
 
     @media #{$mobile} {
         margin: 0 0 1.1875rem 0;
@@ -108,7 +110,9 @@ figcaption {
 
 .image-right {
     float: right;
-    margin: 0.5rem 0 1.1875rem 1.1875rem;
+    margin-block: 0.5rem 1.1875rem;
+    margin-inline-end: 0;
+    margin-inline-start: 1.1875rem;
 
     @media #{$mobile} {
         margin: 0 0 1.1875rem 0;
@@ -116,6 +120,16 @@ figcaption {
     }
 
     img, figcaption {
+        float: right;
+    }
+}
+
+html[dir="rtl"] {
+    img[src*='#right'], .image-right {
+        float: left;
+    }
+
+    img[src*='#left'], .image-left {
         float: right;
     }
 }

@@ -43,6 +43,14 @@
             margin-inline-end: 0;
             padding: 0;
         }
+
+        &-margin {
+            margin-bottom: 2em;
+            
+            @media #{$mobile} {
+                margin-inline: 5px;
+            }
+        }
     }
 
     &--30 {
