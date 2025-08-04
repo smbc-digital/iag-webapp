@@ -2,25 +2,23 @@
 @{
     ViewData["Title"] = "Thank you";
     ViewData["og:title"] = "Thank you";
-    Layout = "../Shared/_Layout.cshtml";
+    Layout = "../Shared/_Layout2023.cshtml";
 }
 
-<div class="grid-container-full-width">
-    <div class="grid-container grid-100">
-        <div class="l-body-section-filled mobile-grid-100 tablet-grid-100 grid-100">
-            <section aria-label="Thank you message" class="grid-100 mobile-grid-100">
-                <div class="l-content-container thank-you">
-                    <div class="grid-100">
-                        <h1>Thank you for contacting us</h1>
-                        <div class="icon-bordered icon-bordered-fixed">
-                            <span class="fa fa-check fa-5x" aria-hidden="true"></span>
-                        </div>
+<div class="grid-container-full-width" data-cy="contact-us-success">
+    <div class="grid-container">
+        <div class="grid-100">
+            <div class="article--70 article--margin-bottom">
+                <h1 class="article__title article__title--no-margin-bottom article__title--margin-top">Thank you for contacting us</h1>
 
-                        <p>We’ll respond to your enquiry as soon as possible.</p>
-                        <a class="button-default" href="@Model.ReturnUrl">@Model.ButtonText</a>
+                <section class="article">
+                    <div class="article--70">
+                        <p class="lead article-lead">We’ll respond to your enquiry as soon as possible.</p>
+                    
+                        <a href="@Url.Action("Index", "Home")" class="btn btn--chevron-forward btn--width-30">Go to the homepage</a>
                     </div>
-                </div>
-            </section>
+                </section>
+            </div>
         </div>
     </div>
 </div>
