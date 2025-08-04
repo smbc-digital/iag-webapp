@@ -7,11 +7,11 @@
         : Model.BorderColourClass;
 
     string viewMoreUrl = Model.UseTag && !Model.IsLatest 
-        ? Url.Action("NewsArticles", "News", new {tag = associatedTagCategoryLower}) 
-        : Url.Action("NewsArticles", "News", new {category = associatedTagCategoryLower});
+        ? Url.Action("Index", "News", new {tag = associatedTagCategoryLower}) 
+        : Url.Action("Index", "News", new {category = associatedTagCategoryLower});
 
     viewMoreUrl = Model.IsLatest
-        ? Url.Action("NewsArticles", "News")
+        ? Url.Action("Index", "News")
         : viewMoreUrl;
 
     <section class="content-block content-block--margin" data-cy="news-cards">

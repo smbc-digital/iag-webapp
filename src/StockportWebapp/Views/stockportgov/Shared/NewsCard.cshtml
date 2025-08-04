@@ -8,7 +8,7 @@
     string borderRadius = " navcard--radius-bottom-left navcard--radius-bottom-right";
 
     <li class="navcard navcard--width-33 navcard event-cards">
-        <a href="@(Url.Action("NewsArticle", "News", new {slug = Model.Slug}))" class="navcard__link event-cards__link @backgroundColourClass @borderColourClass @borderRadius" data-cy="news-card-link">
+        <a href="@(Url.Action("Detail", "News", new {slug = Model.Slug}))" class="navcard__link event-cards__link @backgroundColourClass @borderColourClass @borderRadius" data-cy="news-card-link">
             <div class="navcard__content">
                 <partial name="NavCardImage" model="@Model.ThumbnailImage" />
 
