@@ -12,6 +12,7 @@
         list-style: none;
         transition: transform 1s ease-in-out;
         margin-bottom: 0;
+        direction: ltr;
     }
 
     &-item {
@@ -32,7 +33,7 @@
             object-fit: cover;
 
             @media #{$mobile} {
-                max-height: 300px;
+                max-height: 360px;
                 min-height: 250px;
             }
         }

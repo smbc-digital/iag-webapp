@@ -44,20 +44,6 @@
         }
     }
 
-    &__lead {
-        margin-block-end: 2rem;
-
-        &--no-image {
-            border-bottom: 3px solid #2aa294b3;
-            margin-bottom: -3px;
-            padding-bottom: 1.6em;
-
-            @media #{$mobile} {
-                padding-bottom: 2em;
-            }
-        }
-    }
-
     &__filters {
         display: flex;
         align-items: end;
@@ -225,7 +211,8 @@
     }
 
     &__wrapper {
-        margin-top: 2em;
+        padding-top: 2em;
+        border-top: 0.17em solid #2aa294b3;
     }
 
     &__image {
@@ -233,7 +220,7 @@
     }
 
     &__featured-logo {
-        padding: 0 0.75em 2em;
+        padding: 0 0 2em;
         display: none;
 
         @media #{$desktop} {
@@ -258,13 +245,33 @@
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
-        gap: 0.5em;
+        gap: 1em;
         margin-bottom: 2em;
+
+        @media #{$tablet} {
+            margin-bottom: 2.5em;
+        }
+
+        &-title {
+            margin-top: 0;
+        }
     }
 
     &__tag {
         list-style: none;
         margin-inline-start: 0;
+    }
+
+    &__published {
+        margin-bottom: 10px;
+
+        &--margin {
+            margin-bottom: 2em;
+        }
+    }
+
+    &__last-updated {
+        margin-bottom: 2em;
     }
 
     &__button {
