@@ -20,7 +20,6 @@ public class Startup
         _useRedisSession = Configuration["UseRedisSessions"].Equals("true");
         _sendAmazonEmails = string.IsNullOrEmpty(Configuration["SendAmazonEmails"]) || Configuration["SendAmazonEmails"].Equals("true");
         _logger = logger;
-
     }
 
     public virtual void ConfigureServices(IServiceCollection services)
@@ -71,8 +70,8 @@ public class Startup
         services.AddConfigurationOptions(Configuration);
         _logger.Information($"WEBAPP: STARTUP : ConfigureServices : Adding Cache");
         services.AddRedis(Configuration, _useRedisSession, Log.Logger);
-
         services.AddFeatureManagement();
+        services.AddHttpClient<ShedApiClient>();
     }
 
     public static void HandleFaviconRequests(IApplicationBuilder app)
