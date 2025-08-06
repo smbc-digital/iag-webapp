@@ -15,8 +15,23 @@ public class ShedApiClient
 
     public async Task<string> GetSHEDData(string ward, string listingType)
     {
-        HttpResponseMessage response = await _httpClient.GetAsync($"GetSHEDData?ward={Uri.EscapeDataString(ward)}&listingType={Uri.EscapeDataString(listingType)}");
+        if (string.IsNullOrWhiteSpace(ward) && string.IsNullOrWhiteSpace(listingType))
+            throw new ArgumentException("At least one of 'ward' or 'listingType' must be provided.");
+
+        List<string> queryParams = new();
+
+        if (!string.IsNullOrWhiteSpace(ward))
+            queryParams.Add($"ward={Uri.EscapeDataString(ward)}");
+
+        if (!string.IsNullOrWhiteSpace(listingType))
+            queryParams.Add($"listingType={Uri.EscapeDataString(listingType)}");
+
+        string queryString = string.Join("&", queryParams);
+        string url = $"GetSHEDData?{queryString}";
+
+        HttpResponseMessage response = await _httpClient.GetAsync(url);
         response.EnsureSuccessStatusCode();
+
         return await response.Content.ReadAsStringAsync();
     }
 

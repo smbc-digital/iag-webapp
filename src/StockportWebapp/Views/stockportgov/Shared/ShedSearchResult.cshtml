@@ -1,0 +1,32 @@
+﻿@model ShedEntryViewModel
+
+<li class="navcard navcard--white navcard--width-100 navcard--border-top-10 navcard--theme-teal-lighter-top navcard--no-padding-right-rtl">
+    <div class="navcard__content">
+        <a href=@Url.Action("Shed", "Index", new { slug=@Model.Slug }) data-cy="nav-card-link"
+           class="navcard__link navcard__link--border navcard--radius-bottom-left navcard--radius-bottom-right navcard--border-top-0 navcard-all navcard--theme-grey-accent-all">
+
+            <div class="directory-result">
+                <div class="directory-result__content">
+                    <p>Name: @Model.ShedItem.Name</p>
+                    <p>Location: @Model.ShedItem.Location</p>
+                    <p>ListEntry: @Model.ShedItem.ListEntry</p>
+                    <p>Grade: @Model.ShedItem.Grade</p>
+                    <p>Ward name: @Model.ShedItem.WardName</p>
+                    <p>ListEntry Url: @Model.ShedItem.ListEntryUrl</p>
+                    <p>HeRef: @Model.ShedItem.HeRef</p>
+                    <p>Images count: @Model.ShedItem.Images.Count()</p>
+                    <p>First image url: @Model.ShedItem.Images.FirstOrDefault()</p>
+                    <p>Date listed: @Model.ShedItem.DateListed</p>
+                    <p style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;">Description: @Model.ShedItem.Description</p>
+                    <p>Status: @Model.ShedItem.Status</p>
+                    <p>Uniform ref: @Model.ShedItem.UniformRef</p>
+                    <p>Ward code: @Model.ShedItem.WardCode</p>
+                    <p>Easting: @Model.ShedItem.Easting</p>
+                    <p>Northing: @Model.ShedItem.Northing</p>
+                    <p>OgcFid: @Model.ShedItem.OgcFid</p>
+                    <p>AltRef: @Model.ShedItem.AltRef</p>
+                </div>
+            </div>
+        </a>
+    </div>
+</li>

@@ -1,0 +1,33 @@
+@model ShedViewModel;
+@{
+    Layout = "../Shared/_Layout2023.cshtml";
+    ViewData["Title"] = "Stockport Historic Environment Database";
+    ViewData["og:title"] = "Stockport Historic Environment Database";
+    ViewData["Description"] = "Stockport Historic Environment Database";
+}
+
+<div class="grid-container-full-width background-grey">
+    <partial name="Breadcrumb2023" model='new List<Crumb> { }' />
+    <partial name="ShedSearch" model="new ShedSearchViewModel(){ SearchTerm = Model.SearchTerm }" />
+
+    <form asp-controller="Shed" method="get">
+        <input type="hidden" asp-for="SearchTerm" id="persistedSearchTerm"/>
+
+        <div class="grid-container">
+            <div class="grid-100">
+                <h1 class="list-title">Results in Stockport Historic Environment Database</h1>
+                <p>Showing x results</p>
+
+                <div class="directory">
+                    <div class="directory--30">
+                        <partial name="ShedSearchResultFilters" />
+                    </div>
+
+                    <div class="directory--70">
+                        <partial name="ShedSearchResults" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

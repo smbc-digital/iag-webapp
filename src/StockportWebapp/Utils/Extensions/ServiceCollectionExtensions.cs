@@ -152,6 +152,7 @@ public static class ServiceCollectionExtensions
         services.AddTransient<IHomepageService>(p => new HomepageService(p.GetService<IProcessedContentRepository>()));
         services.AddTransient<IStockportApiEventsService>(p => new StockportApiEventsService(p.GetService<IStockportApiRepository>(), p.GetService<IEventFactory>()));
         services.AddTransient<IDirectoryService, DirectoryService>();
+        services.AddTransient<ShedService>();
 
         services.AddTransient<IProfileService>(p => new
             ProfileService(

@@ -1,0 +1,81 @@
+﻿@using StockportWebapp.Model
+@model StockportWebapp.ViewModels.ShedViewModel
+
+<section class="navcard-wrapper">
+    <div class="navcard navcard--white navcard--width-100 navcard--border navcard--no-padding-right-rtl">
+        <div class="navcard-content navcard-all navcard--theme-grey-accent-all navcard--radius-all">
+            <div class="navcard-content--padding">
+                <h2 class="h-ml h--no-top-margin">Filter your results</h2>
+                <p>Choose one or more options to filter your results.</p>
+
+                <div class="directory-results__filters">
+                    <a href="javascript:void(0)" aria-expanded="true" class="directory-results__collapsible">
+                        <h3 id='directory-ward'>Grade</h3>
+                        <span class="directory-results__toggle"></span>
+                    </a>
+
+                    <div class="directory-filters__content" role="group" aria-labelledby='directory-ward'>
+                        <div class="directory__checkbox-container">
+                            <input class="directory-filters__checkbox" type="checkbox" name="filters" value="I" id="I">
+
+                            <label for="I" class="directory-filters__label">I</label>
+                            <br>
+                        </div>
+
+                        <div class="directory__checkbox-container">
+                            <input class="directory-filters__checkbox" type="checkbox" name="filters" value="II" id="II">
+
+                            <label for="II" class="directory-filters__label">II</label>
+                            <br>
+                        </div>
+
+                        <div class="directory__checkbox-container">
+                            <input class="directory-filters__checkbox" type="checkbox" name="filters" value="II star" id="IIstar">
+
+                            <label for="IIstar" class="directory-filters__label">II*</label>
+                            <br>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <a href="javascript:void(0)" aria-expanded="true" class="directory-results__collapsible">
+                        <h3 id='directory-ward'>Ward</h3>
+                        <span class="directory-results__toggle"></span>
+                    </a>
+
+                    <div class="directory-filters__content" role="group" aria-labelledby='directory-ward'>
+                        <div class="directory__checkbox-container">
+                            <input class="directory-filters__checkbox" type="checkbox" name="filters" value="All wards" id="all-wards">
+
+                            <label for="all-wards" class="directory-filters__label">All wards</label>
+                            <br>
+                        </div>
+
+                        <div class="directory__checkbox-container">
+                            <input class="directory-filters__checkbox" type="checkbox" name="filters" value="Brinnington and Central" id="brinnington-and-central">
+
+                            <label for="brinnington-and-central" class="directory-filters__label">Brinnington and Central</label>
+                            <br>
+                        </div>
+
+                        <div class="directory__checkbox-container">
+                            <input class="directory-filters__checkbox" type="checkbox" name="filters" value="Heatons North" id="heatons-north">
+
+                            <label for="heatons-north" class="directory-filters__label">Heatons North</label>
+                            <br>
+                        </div>
+                    </div>
+
+                    <hr>
+                    
+                    <noscript>
+                        <button value="Apply filters" data-cy="apply-filters" class="btn btn--bold btn--full btn--margin-bottom" type="submit">Apply filters</button>
+                    </noscript>
+
+                    <a href="@Url.Action("Shed", "Index", new { slug = Model.Slug })" data-cy="clear-filters" class="btn btn--inverse btn--full btn--bold btn--black-text btn--border-grey" id="directory-clear-filters">Clear filters</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

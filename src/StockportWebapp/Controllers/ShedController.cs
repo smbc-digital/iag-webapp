@@ -1,28 +1,30 @@
 namespace StockportWebapp.Controllers;
 
 [Route("[controller]")]
-public class ShedController(ShedApiClient client) : Controller
+public class ShedController(ShedService shedService) : Controller
 {
-    private readonly ShedApiClient _client = client;
+    private readonly ShedService _shedService = shedService;
 
-    [HttpGet("data")]
-    public async Task<IActionResult> GetData(string ward, string listingType)
+    public async Task<IActionResult> Index(string ward, string listingType)
     {
-        var result = await _client.GetSHEDData(ward, listingType);
-        return Ok(result);
+        List<ShedItem> result = await _shedService.GetShedData(ward, listingType);
+        
+        ShedViewModel viewModel = new(result);
+
+        return View(viewModel);
     }
 
     [HttpGet("by-id")]
     public async Task<IActionResult> GetShedDataById([FromQuery] string id)
     {
-        var result = await _client.GetSHEDDataByID(id);
-        return Ok(result);
+        List<ShedItem> result = await _shedService.GetShedDataById(id);
+        return View(result);
     }
 
     [HttpGet("by-name")]
-    public async Task<IActionResult> GetShedDataByName([FromQuery] string id)
+    public async Task<IActionResult> GetShedDataByName([FromQuery] string name)
     {
-        var result = await _client.GetSHEDDataByName(id);
-        return Ok(result);
+        List<ShedItem> result = await _shedService.GetShedDataByName(name);
+        return View(result);
     }
 }
