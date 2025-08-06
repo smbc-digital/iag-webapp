@@ -13,17 +13,11 @@ public class ShedItem
     [JsonPropertyName("address")]
     public string Location { get; set; }
 
-    [JsonPropertyName("list_entry")]
-    public string ListEntry { get; set; }
-
     [JsonPropertyName("grade")]
     public string Grade { get; set; }
 
     [JsonPropertyName("ward_name")]
     public string WardName { get; set; }
-
-    [JsonPropertyName("list_entry_url")]
-    public string ListEntryUrl { get; set; }
 
     [JsonPropertyName("he_ref")]
     public string HeRef { get; set; }
