@@ -13,6 +13,8 @@ public class ShedViewModel : ISlugComparable
         Paginate(1);
     }
 
+    public Pagination Pagination { get; set; }
+
     // Core page details
     public string Slug { get; set; }
     public string Title { get; set; }
