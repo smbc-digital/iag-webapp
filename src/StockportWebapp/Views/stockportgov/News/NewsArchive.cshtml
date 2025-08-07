@@ -5,7 +5,7 @@
     Layout = "../Shared/_Layout2023.cshtml";
 }
 
-<div class="grid-container-full-width" data-cy="news-page">
+<div class="grid-container-full-width" data-cy="news-archive">
     <partial name="Breadcrumb2023" model='new List<Crumb> { new Crumb("News and media", "landing/news-media", "LandingPage"), new Crumb("News articles", "news-articles", "News") }' view-data="@(new ViewDataDictionary(ViewData) {{"landingBreadcrumb", "topic-breadcrumb-container"}})"/>
 
     <section class="news-article" data-cy="title-and-summary">
