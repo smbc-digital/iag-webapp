@@ -126,6 +126,10 @@
   }
 }
 
+.hidden {
+    display: none;
+}
+
 .alert-warning {
   background-color: $carrotOrange;
   color: $black !important;
