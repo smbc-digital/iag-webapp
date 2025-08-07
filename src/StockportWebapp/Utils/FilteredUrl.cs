@@ -54,19 +54,22 @@ public class FilteredUrl(ITimeProvider timeProvider) : IFilteredUrl
 
     public RouteValueDictionary AddYearFilter(int year)
     {
-        DateTime startDate = new DateTime(year, 1, 1);
-        DateTime endDate = new DateTime(year, 12, 31);
+        DateTime startDate = new(year, 1, 1);
+        DateTime endDate = year.Equals(DateTime.Today.Year) 
+            ? DateTime.Today 
+            : new DateTime(year, 12, 31);
 
         return _queryUrl is null
             ? new RouteValueDictionary()
             : _queryUrl.AddQueriesToUrl(new Dictionary<string, string>
             {
-                {"DateFrom", startDate.ToString("yyyy-MM-dd")},
-                {"DateTo", endDate.ToString("yyyy-MM-dd")},
-                {"daterange", "year"},
-                {"Page", "1"}
+                { "DateFrom", startDate.ToString("yyyy-MM-dd") },
+                { "DateTo", endDate.ToString("yyyy-MM-dd") },
+                { "daterange", "year" },
+                { "Page", "1" }
             });
     }
+
 
     public RouteValueDictionary WithoutDateFilter() =>
         _queryUrl is null
