@@ -42,9 +42,9 @@ public class ShedApiClient
         return await response.Content.ReadAsStringAsync();
     }
 
-    public async Task<string> GetSHEDDataByName(string id)
+    public async Task<string> GetSHEDDataByName(string name)
     {
-        HttpResponseMessage response = await _httpClient.GetAsync($"GetSHEDDataByName?id={Uri.EscapeDataString(id)}");
+        HttpResponseMessage response = await _httpClient.GetAsync($"GetSHEDDataByName?id={Uri.EscapeDataString(name)}");
         response.EnsureSuccessStatusCode();
         return await response.Content.ReadAsStringAsync();
     }

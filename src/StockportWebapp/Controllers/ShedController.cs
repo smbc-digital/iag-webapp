@@ -1,30 +1,43 @@
 namespace StockportWebapp.Controllers;
 
-[Route("[controller]")]
 public class ShedController(ShedService shedService) : Controller
 {
     private readonly ShedService _shedService = shedService;
 
-    public async Task<IActionResult> Index(string ward, string listingType)
+    [HttpGet("shed")]
+    public async Task<IActionResult> Index(string ward, string listingType, string id, string searchTerm)
     {
-        List<ShedItem> result = await _shedService.GetShedData(ward, listingType);
+        List<ShedItem> result = new();
+        if (!string.IsNullOrEmpty(ward) || !string.IsNullOrEmpty(listingType))
+            result = await _shedService.GetShedData(ward, listingType);
+        else if (!string.IsNullOrEmpty(id))
+            result = await _shedService.GetShedDataById(id);
+        else if (!string.IsNullOrEmpty(searchTerm))
+            result = await _shedService.GetShedDataByName(searchTerm);
         
         ShedViewModel viewModel = new(result);
+        viewModel.AppliedFilters = new List<string>()
+        {
+            !string.IsNullOrEmpty(ward) ? ward : string.Empty,
+            !string.IsNullOrEmpty(listingType) ? listingType : string.Empty
+        };
 
         return View(viewModel);
     }
 
-    [HttpGet("by-id")]
-    public async Task<IActionResult> GetShedDataById([FromQuery] string id)
+    [HttpGet("shed/{slug}")]
+    public async Task<IActionResult> Detail(string slug)
     {
-        List<ShedItem> result = await _shedService.GetShedDataById(id);
-        return View(result);
-    }
+        string name = slug.Replace("-", " ").ToLower();
 
-    [HttpGet("by-name")]
-    public async Task<IActionResult> GetShedDataByName([FromQuery] string name)
-    {
-        List<ShedItem> result = await _shedService.GetShedDataByName(name);
-        return View(result);
+        List<ShedItem> allSheds = await _shedService.GetShedDataByName(name);
+
+        ShedItem shed = allSheds.FirstOrDefault(s =>
+            s.Name?.ToLower() == name);
+
+        if (shed is null)
+            return NotFound();
+
+        return View(shed);
     }
 }

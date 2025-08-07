@@ -3,14 +3,9 @@ namespace StockportWebapp.Services;
 using System.Text.Json;
 using StockportWebapp.Client;
 
-public class ShedService
+public class ShedService(ShedApiClient shedApiClient)
 {
-    private readonly ShedApiClient _shedApiClient;
-
-    public ShedService(ShedApiClient shedApiClient)
-    {
-        _shedApiClient = shedApiClient;
-    }
+    private readonly ShedApiClient _shedApiClient = shedApiClient;
 
     public async Task<List<ShedItem>> GetShedData(string ward, string listingType)
     {

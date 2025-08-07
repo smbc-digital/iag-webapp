@@ -9,11 +9,42 @@ public class ShedViewModel : ISlugComparable
     public ShedViewModel(IEnumerable<ShedItem> filteredEntries)
     {
         FilteredEntries = filteredEntries.Select(entry => new ShedEntryViewModel(entry));
-
-        Paginate(1);
     }
 
-    public Pagination Pagination { get; set; }
+    public List<string> Wards = new()
+    {
+        "Bramhall North",
+        "Bramhall South & Woodford",
+        "Bredbury & Woodley",
+        "Bredbury Green & Romiley",
+        "Brinnington & Stockport Central",
+        "Cheadle East & Cheadle Hulme North",
+        "Cheadle Hulme South",
+        "Cheadle West & Gatley",
+        "Davenport & Cale Green",
+        "Edgeley",
+        "Hazel Grove",
+        "Heald Green",
+        "Heatons North",
+        "Heatons South",
+        "Manor",
+        "Marple North",
+        "Marple South & High Lane",
+        "Norbury & Woodsmoor",
+        "Offerton",
+        "Reddish North",
+        "Reddish South"
+    };
+
+    public List<string> Grades = new()
+    {
+        "I",
+        "II",
+        "II*",
+        "Local"
+    };
+
+    public List<string> AppliedFilters { get; set; } = new();
 
     // Core page details
     public string Slug { get; set; }
@@ -29,46 +60,18 @@ public class ShedViewModel : ISlugComparable
             ? $" (page {PaginationInfo.CurrentPage} of {PaginationInfo.TotalPages})"
             : string.Empty)}";
 
-    public string MetaDescription { get; set; }
-    public string Body { get; set; }
-    public CallToActionBanner CallToAction { get; set; }
-    public IEnumerable<Alert> Alerts { get; set; }
-    public EventCalendarBanner EventBanner { get; set; }
-    public IEnumerable<Crumb> Breadcrumbs { get; set; }
-
     // Search sorting and filtering options
     public string SearchTerm { get; set; }
-    public string Order { get; set; }
-    public PaginationInfo PaginationInfo { get; set; }
+    public string Order { get; set; } // not implemented in the UI yet, but can be used for sorting
+    public PaginationInfo PaginationInfo { get; set; } // not implemented in the UI yet, but can be used for pagination
     public bool ShowPagination =>
         PaginationInfo is not null && PaginationInfo.TotalEntries > PaginationInfo.PageSize;
 
     public List<string> OrderBy = new() { "Name A to Z", "Name Z to A" };
-    public IEnumerable<FilterTheme> AllFilterThemes { get; set; }
-    public List<Query> QueryParameters
-    {
-        get
-        {
-            List<Query> queryParameters = new();
-            if (!string.IsNullOrEmpty(SearchTerm))
-                queryParameters.Add(new Query("searchTerm", SearchTerm));
-
-            if (!string.IsNullOrEmpty(Order))
-                queryParameters.Add(new Query("orderBy", Order.Replace(" ", "-")));
-
-            return queryParameters;
-        }
-    }
 
     // Page layout properties
-    public Dictionary<string, int> FilterCounts { get; set; }
     public IEnumerable<ShedEntryViewModel> FilteredEntries { get; set; }
-    public IEnumerable<ShedEntryViewModel> PinnedEntries { get; set; }
     public IEnumerable<ShedEntryViewModel> PaginatedEntries { get; set; }
-
-    // Base data
-    public DirectoryViewModel ParentDirectory { get; set; }
-    public DirectoryViewModel FirstSubDirectory { get; set; }
 
     public void Paginate(int page)
     {

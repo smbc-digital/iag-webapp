@@ -1,8 +1,8 @@
 ﻿@model ShedViewModel
 
 <ul class="navcard-wrapper">
-    @foreach (ShedEntryViewModel entry in Model.PaginatedEntries)
+    @foreach (ShedEntryViewModel entry in Model.FilteredEntries)
     {
-        <partial name="ShedSearchResult" model=@entry />
+        <partial name="ShedSearchResult" model=@entry.ShedItem />
     }
 </ul>

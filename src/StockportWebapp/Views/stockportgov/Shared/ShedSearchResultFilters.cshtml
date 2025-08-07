@@ -15,65 +15,46 @@
                     </a>
 
                     <div class="directory-filters__content" role="group" aria-labelledby='directory-ward'>
-                        <div class="directory__checkbox-container">
-                            <input class="directory-filters__checkbox" type="checkbox" name="filters" value="I" id="I">
+                        @foreach (string grade in Model.Grades)
+                        {
+                            string value = grade.Equals("II*") ? "IISTAR" : grade;
+                            string id = grade.Replace(" ", "-").ToLower();
+                            <div class="directory__checkbox-container">
+                                <input class="directory-filters__checkbox" type="checkbox" name="listingType" value="@value" id="@id"
+                                    @(Model.AppliedFilters.Any(appliedFilter => appliedFilter.Equals(value)) ? "checked" : string.Empty)>
 
-                            <label for="I" class="directory-filters__label">I</label>
-                            <br>
-                        </div>
-
-                        <div class="directory__checkbox-container">
-                            <input class="directory-filters__checkbox" type="checkbox" name="filters" value="II" id="II">
-
-                            <label for="II" class="directory-filters__label">II</label>
-                            <br>
-                        </div>
-
-                        <div class="directory__checkbox-container">
-                            <input class="directory-filters__checkbox" type="checkbox" name="filters" value="II star" id="IIstar">
-
-                            <label for="IIstar" class="directory-filters__label">II*</label>
-                            <br>
-                        </div>
+                                <label for="@id" class="directory-filters__label">@grade</label>
+                            </div>
+                        }
                     </div>
 
                     <hr>
 
                     <a href="javascript:void(0)" aria-expanded="true" class="directory-results__collapsible">
-                        <h3 id='directory-ward'>Ward</h3>
+                        <h3 id='shed-ward'>Ward</h3>
                         <span class="directory-results__toggle"></span>
                     </a>
 
-                    <div class="directory-filters__content" role="group" aria-labelledby='directory-ward'>
-                        <div class="directory__checkbox-container">
-                            <input class="directory-filters__checkbox" type="checkbox" name="filters" value="All wards" id="all-wards">
+                    <div class="directory-filters__content" role="group" aria-labelledby='shed-ward'>
+                        @foreach (string ward in Model.Wards)
+                        {
+                            string id = ward.Replace(" ", "-").ToLower();
+                            <div class="directory__checkbox-container">
+                                <input class="directory-filters__checkbox" type="checkbox" name="ward" value="@ward" id="@id"
+                                    @(Model.AppliedFilters.Any(appliedFilter => appliedFilter.Equals(ward)) ? "checked" : string.Empty)>
 
-                            <label for="all-wards" class="directory-filters__label">All wards</label>
-                            <br>
-                        </div>
-
-                        <div class="directory__checkbox-container">
-                            <input class="directory-filters__checkbox" type="checkbox" name="filters" value="Brinnington and Central" id="brinnington-and-central">
-
-                            <label for="brinnington-and-central" class="directory-filters__label">Brinnington and Central</label>
-                            <br>
-                        </div>
-
-                        <div class="directory__checkbox-container">
-                            <input class="directory-filters__checkbox" type="checkbox" name="filters" value="Heatons North" id="heatons-north">
-
-                            <label for="heatons-north" class="directory-filters__label">Heatons North</label>
-                            <br>
-                        </div>
+                                <label for="@id" class="directory-filters__label">@ward</label>
+                            </div>
+                        }
                     </div>
 
                     <hr>
                     
-                    <noscript>
+                    @* <noscript> *@
                         <button value="Apply filters" data-cy="apply-filters" class="btn btn--bold btn--full btn--margin-bottom" type="submit">Apply filters</button>
-                    </noscript>
+                    @* </noscript> *@
 
-                    <a href="@Url.Action("Shed", "Index", new { slug = Model.Slug })" data-cy="clear-filters" class="btn btn--inverse btn--full btn--bold btn--black-text btn--border-grey" id="directory-clear-filters">Clear filters</a>
+                    <a href="@Url.Action("Index", "Shed")" data-cy="clear-filters" class="btn btn--inverse btn--full btn--bold btn--black-text btn--border-grey" id="directory-clear-filters">Clear filters</a>
                 </div>
             </div>
         </div>

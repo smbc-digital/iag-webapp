@@ -1,0 +1,45 @@
+﻿@model ShedItem
+
+@if (!string.IsNullOrEmpty(Model.Images.FirstOrDefault()))
+{
+    <img src="@Model.Images.FirstOrDefault()?w=350&q=89&fm=webp"
+         class="directory__logo"
+         alt=""
+         width="350"
+         height="150">
+}
+
+<h2 class='@(!string.IsNullOrEmpty(Model.Images.FirstOrDefault()) ? "directory__profile-image" : "directory__profile")'>@Model.Name</h2>
+
+<div class="directory__address">
+    @if (!string.IsNullOrEmpty(Model.WardName))
+    {
+        <h3 class="h-m">Ward</h3>
+        <div>@Html.Raw(Model.WardName)</div>
+    }
+</div>
+
+<div class="directory__address">
+    @if (!string.IsNullOrEmpty(Model.Grade))
+    {
+        <h3 class="h-m">Type</h3>
+        <div>@Html.Raw(Model.Grade)</div>
+    }
+</div>
+
+<div class="directory__address">
+    @if (!string.IsNullOrEmpty(Model.Location))
+    {
+        <h3 class="h-m">Address</h3>
+        <div>@Html.Raw(Model.Location)</div>
+    }
+</div>
+
+
+<div class="directory__address">
+    @if (!string.IsNullOrEmpty(Model.HeRef))
+    {
+        <h3 class="h-m">Reference</h3>
+        <div>@Html.Raw(Model.HeRef)</div>
+    }
+</div>

@@ -1,0 +1,36 @@
+@model ShedItem;
+@{
+    Layout = "../Shared/_Layout2023.cshtml";
+    ViewData["Title"] = Model.Name;
+    ViewData["og:title"] = Model.Name;
+    ViewData["Description"] = "Stockport Historic Environment Database";
+
+    string borderTeal = " navcard--border-top-10 navcard--theme-teal-lighter-top ";
+    string borderGrey = " navcard-all navcard--theme-grey-accent-all";
+    string noBorder = " navcard--border-top-0";
+    string borderRadius = " navcard--radius-bottom-left navcard--radius-bottom-right";
+    string greyBorderCssClasses = $"{borderGrey} {noBorder} {borderRadius}";
+}
+
+<div class="grid-container-full-width background-grey">
+    <partial name="Breadcrumb2023" model='new List<Crumb> { new Crumb("SHED", "shed?ward=offerton", "Shed") }' />
+
+    <div class="grid-container">
+        <div class="grid-100">
+            <h1 class="directory__title">@Model.Name</h1>
+            <section class="directory">
+                <div class="directory--30 directory--border-top @borderTeal">
+                    <div class="directory__wrapper navcard--white @greyBorderCssClasses">
+                        <partial name="ShedEntryCore" />
+                    </div>
+                </div>
+
+                <div class="directory--70 directory--border-top @borderTeal">
+                    <partial name="ShedEntryDescription" model='Model.Description' view-data='@(new ViewDataDictionary(ViewData) { { "AdditionalCssClasses", @greyBorderCssClasses } })' />
+                    <partial name="ShedEntryImages" model='Model.Images' view-data='@(new ViewDataDictionary(ViewData) { { "AdditionalWrapperCssClasses", @borderTeal }, { "AdditionalCssClasses", @greyBorderCssClasses } })' />
+                    <partial name="MapContent" model=@(new MapViewModel("title", "https://maps.stockport.gov.uk/historic-environment") ) />
+                </div>
+            </section>
+        </div>
+    </div>
+</div>

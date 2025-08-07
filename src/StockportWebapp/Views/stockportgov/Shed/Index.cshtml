@@ -10,13 +10,13 @@
     <partial name="Breadcrumb2023" model='new List<Crumb> { }' />
     <partial name="ShedSearch" model="new ShedSearchViewModel(){ SearchTerm = Model.SearchTerm }" />
 
-    <form asp-controller="Shed" method="get">
+    <form asp-controller="Shed" asp-action="Index" method="get">
         <input type="hidden" asp-for="SearchTerm" id="persistedSearchTerm"/>
 
         <div class="grid-container">
             <div class="grid-100">
                 <h1 class="list-title">Results in Stockport Historic Environment Database</h1>
-                <p>Showing x results</p>
+                <p>Showing @Model.FilteredEntries.Count() results</p>
 
                 <div class="directory">
                     <div class="directory--30">
