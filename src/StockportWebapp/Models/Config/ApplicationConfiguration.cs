@@ -27,6 +27,7 @@ public interface IApplicationConfiguration
     StylesheetsConfiguration GetStylesheetConfig();
     AnalyticsConfigurationModel GetAnalyticsConfig();
     AnalyticsConfigurationModel GetAnalyticsConfig(string businessId);
+    string GetContentfulUsePreview();
 }
 
 public class ApplicationConfiguration(IConfiguration appsettings) : IApplicationConfiguration
@@ -127,13 +128,16 @@ public class ApplicationConfiguration(IConfiguration appsettings) : IApplication
 
         return result;
     }
- 
+
     public string GetContentApiAuthenticationKey() =>
         _appsettings["ContentApiAuthenticationKey"];
-    
+
     public string GetWebAppClientId() =>
         _appsettings["WebAppClientId"];
 
     public string GetDigitalStockportLink() =>
         _appsettings["stockportgov:DigitalStockportLink"];
+
+    public string GetContentfulUsePreview() =>
+        _appsettings["Contentful:UsePreviewAPI"];
 }

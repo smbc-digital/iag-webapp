@@ -26,7 +26,8 @@ public class Article(string title,
                     IEnumerable<InlineQuote> inlineQuotes,
                     string associatedTagCategory,
                     IEnumerable<CallToActionBanner> callToActionBanners,
-                    List<Event> events)
+                    List<Event> events,
+                    string contentfulId)
 {
     public string Title { get; set; } = title;
     public string Slug { get; set; } = slug;
@@ -57,4 +58,5 @@ public class Article(string title,
     public IEnumerable<CallToActionBanner> CallToActionBanners { get; set; } = callToActionBanners;
     public string AssociatedTagCategory = associatedTagCategory;
     public List<Event> Events = events;
+    public string ContentfulId = contentfulId;
 }
