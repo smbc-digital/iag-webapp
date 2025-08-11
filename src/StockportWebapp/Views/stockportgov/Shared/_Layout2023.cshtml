@@ -7,6 +7,7 @@
 @inject BusinessId BusinessId
 @{
     StylesheetsConfiguration stylesheet = ApplicationConfiguration.GetStylesheetConfig();
+    bool usePreview = bool.TryParse(ApplicationConfiguration.GetContentfulUsePreview(), out var preview) && preview;
 }
 
 <!DOCTYPE html>
@@ -78,7 +79,23 @@
         <main id="content">
             @RenderBody()
         </main>
-        
+
+        @if (usePreview)
+        {
+            @Html.Raw(@"
+                <script type=""module"">
+                    import { ContentfulLivePreview } from 'https://cdn.jsdelivr.net/npm/@contentful/live-preview@4.6.39/dist/index.js';
+
+                    ContentfulLivePreview.init({
+                        locale: 'en-GB',
+                        debugMode: true,
+                        enableInspectorMode: true,
+                        enableLiveUpdates: true
+                    });
+                </script>
+            ")
+        }
+
         <distributed-cache name=footer2023 expires-after=@TimeSpan.FromMinutes(ApplicationConfiguration.GetFooterCache(BusinessId.ToString())) enabled=true>
             @await Component.InvokeAsync("Footer2023")
         </distributed-cache>

@@ -12,7 +12,7 @@
         : string.Empty;
 }
 
-<div class="grid-container-full-width" style="background-color:white;" data-cy="@dataCy">
+<div class="grid-container-full-width" style="background-color:white;" data-cy="@dataCy" data-contentful-entry-id="@Model.Article.ContentfulId">
     <partial name="GlobalAlerts" model='Model.Article.Alerts' />
     <partial name="Breadcrumb2023" model="Model.Article.Breadcrumbs" />
 
