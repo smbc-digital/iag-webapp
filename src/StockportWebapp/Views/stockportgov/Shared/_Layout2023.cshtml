@@ -95,19 +95,21 @@
                     });
 
                     function updateDomFromEntry(entry, locale = 'en-GB') {
-                        const entryId = entry.sys.id;
+                        const entryId = entry?.sys?.id;
                         const container = document.querySelector(`[data-contentful-entry-id='${entryId}']`);
-                        if (!container) return;
+                        if (!container || !entry.fields) return;
 
-                        Object.keys(entry.fields).forEach(fieldName => {
-                            const fieldValue = entry.fields[fieldName][locale];
+                        Object.entries(entry.fields).forEach(([fieldName, fieldValueByLocale]) => {
+                            const fieldValue = fieldValueByLocale?.[locale] ?? fieldValueByLocale?.['en-US'] ?? null;
+                            if (fieldValue === null) return;
+
                             const target = container.querySelector(`[data-contentful-field='${fieldName}']`);
-
-                            if (!target || fieldValue === undefined) return;
+                            if (!target) return;
 
                             if (target.tagName === 'IMG') {
-                                // Assuming fieldValue is an asset object with a URL
-                                target.src = fieldValue?.fields?.file?.url || '';
+                                // Handle image asset
+                                const imageUrl = fieldValue?.fields?.file?.url;
+                                if (imageUrl) target.src = imageUrl;
                             } else {
                                 target.textContent = fieldValue;
                             }
@@ -116,6 +118,7 @@
 
                     ContentfulLivePreview.subscribe((updatedEntry) => {
                         console.log('Live update received:', updatedEntry);
+                        console.log('Full entry structure:', JSON.stringify(updatedEntry, null, 2));
                         updateDomFromEntry(updatedEntry, 'en-GB');
                     });
                 </script>
