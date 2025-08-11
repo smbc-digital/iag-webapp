@@ -90,7 +90,33 @@
                         locale: 'en-GB',
                         debugMode: true,
                         enableInspectorMode: true,
-                        enableLiveUpdates: true
+                        enableLiveUpdates: true,
+                        targetOrigin: 'https://app.contentful.com'
+                    });
+
+                    function updateDomFromEntry(entry, locale = 'en-GB') {
+                        const entryId = entry.sys.id;
+                        const container = document.querySelector(`[data-contentful-entry-id='${entryId}']`);
+                        if (!container) return;
+
+                        Object.keys(entry.fields).forEach(fieldName => {
+                            const fieldValue = entry.fields[fieldName][locale];
+                            const target = container.querySelector(`[data-contentful-field='${fieldName}']`);
+
+                            if (!target || fieldValue === undefined) return;
+
+                            if (target.tagName === 'IMG') {
+                                // Assuming fieldValue is an asset object with a URL
+                                target.src = fieldValue?.fields?.file?.url || '';
+                            } else {
+                                target.textContent = fieldValue;
+                            }
+                        });
+                    }
+
+                    ContentfulLivePreview.subscribe((updatedEntry) => {
+                        console.log('Live update received:', updatedEntry);
+                        updateDomFromEntry(updatedEntry, 'en-GB');
                     });
                 </script>
             ")

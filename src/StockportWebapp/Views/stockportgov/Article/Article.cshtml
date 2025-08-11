@@ -19,7 +19,7 @@
     <div class="grid-container">
         <div class="grid-100">
             <div class="article--70">
-                <h1 class="article__title">@Model.Article.Title</h1>
+                <h1 class="article__title" data-contentful-field="title">@Model.Article.Title</h1>
 
                 @if (Model.ArticleWithSection && !Model.ArticleHasImage)
                 {
@@ -42,7 +42,8 @@
                                  class="article-hero__image"
                                  width="712"
                                  height="350"
-                                 alt="@Model.Article.AltText" />
+                                 alt="@Model.Article.AltText"
+                                 data-contentful-field="image" />
                         </div>
                     }
 
@@ -61,7 +62,7 @@
 
                     @if (!string.IsNullOrEmpty(Model.Article.Body))
                     {
-                        <article>
+                        <article data-contentful-field="body">
                             @Html.Raw(StockportWebapp.Utils.HtmlHelper.AddImageAttributes(Model.Article.Body, "720", "511", "720", "937", "852"))
                         </article>
                     }
