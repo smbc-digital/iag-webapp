@@ -55,7 +55,8 @@ public class ArticleControllerTest
                                     string.Empty,
                                     DateTime.Now,
                                     new List<InlineQuote>(),
-                                    new List<Event>());
+                                    new List<Event>(),
+                                    string.Empty);
 
         _processedRepository
             .Setup(_ => _.Get<Article>(It.IsAny<string>(), It.IsAny<List<Query>>()))
@@ -89,7 +90,8 @@ public class ArticleControllerTest
                                     string.Empty,
                                     new DateTime(),
                                     new List<InlineQuote>(),
-                                    new List<Event>());
+                                    new List<Event>(),
+                                    string.Empty);
 
         _processedRepository
             .Setup(_ => _.Get<Article>(It.IsAny<string>(), It.IsAny<List<Query>>()))
@@ -194,7 +196,8 @@ public class ArticleControllerTest
                                     string.Empty,
                                     new DateTime(),
                                     new List<InlineQuote>(),
-                                    new List<Event>());
+                                    new List<Event>(),
+                                    string.Empty);
 
         _processedRepository
             .Setup(_ => _.Get<Article>(It.IsAny<string>(), It.IsAny<List<Query>>()))
@@ -248,7 +251,8 @@ public class ArticleControllerTest
                                     string.Empty,
                                     new DateTime(),
                                     new List<InlineQuote>(),
-                                    new List<Event>());
+                                    new List<Event>(),
+                                    string.Empty);
 
         _processedRepository
             .Setup(_ => _.Get<Article>(It.IsAny<string>(), It.IsAny<List<Query>>()))
@@ -304,7 +308,8 @@ public class ArticleControllerTest
                                     string.Empty,
                                     new DateTime(),
                                     new List<InlineQuote>(),
-                                    new List<Event>());
+                                    new List<Event>(),
+                                    string.Empty);
 
         _processedRepository
             .Setup(_ => _.Get<Article>(It.IsAny<string>(), It.IsAny<List<Query>>()))
@@ -403,7 +408,8 @@ public class ArticleControllerTest
                                     string.Empty,
                                     new DateTime(),
                                     new List<InlineQuote>(),
-                                    new List<Event>());
+                                    new List<Event>(),
+                                    string.Empty);
 
         _processedRepository
             .Setup(_ => _.Get<Article>(It.IsAny<string>(), It.IsAny<List<Query>>()))
@@ -473,7 +479,8 @@ public class ArticleControllerTest
                                     string.Empty,
                                     new DateTime(),
                                     new List<InlineQuote>(),
-                                    new List<Event>());
+                                    new List<Event>(),
+                                    string.Empty);
 
         _processedRepository
             .Setup(_ => _.Get<Article>(It.IsAny<string>(), It.IsAny<List<Query>>()))
@@ -537,7 +544,8 @@ public class ArticleControllerTest
                                     string.Empty,
                                     new DateTime(),
                                     new List<InlineQuote>(),
-                                    new List<Event>());
+                                    new List<Event>(),
+                                    string.Empty);
 
         _processedRepository
             .Setup(_ => _.Get<Article>(It.IsAny<string>(), It.IsAny<List<Query>>()))
@@ -607,7 +615,8 @@ public class ArticleControllerTest
             It.IsAny<string>(),
             new DateTime(),
             new List<InlineQuote>(),
-            new List<Event>());
+            new List<Event>(),
+            string.Empty);
 
     private static ProcessedSection DummySection() => 
         new(It.IsAny<string>(),

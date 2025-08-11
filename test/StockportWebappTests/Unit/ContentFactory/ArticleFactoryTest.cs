@@ -95,7 +95,8 @@ public class ArticleFactoryTest
                     new List<InlineQuote>(),
                     "dance",
                     null,
-                    new List<Event>());
+                    new List<Event>(),
+                    string.Empty);
 
         _sectionFactory
             .Setup(_ => _.Build(_sectionOne, _article.Title))

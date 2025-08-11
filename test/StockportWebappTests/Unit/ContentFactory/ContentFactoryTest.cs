@@ -76,7 +76,8 @@ public class ContentFactoryTest
                             new List<InlineQuote>(),
                             It.IsAny<string>(),
                             new List<CallToActionBanner>(),
-                            new List<Event>());
+                            new List<Event>(),
+                            It.IsAny<string>());
 
         // Act
         IProcessedContentType processedArticle = _factory.Build(article);
