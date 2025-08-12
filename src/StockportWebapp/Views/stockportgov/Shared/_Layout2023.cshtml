@@ -116,10 +116,13 @@
                         });
                     }
 
-                    ContentfulLivePreview.subscribe((updatedEntry) => {
-                        console.log('Live update received:', updatedEntry);
-                        console.log('Full entry structure:', JSON.stringify(updatedEntry, null, 2));
-                        updateDomFromEntry(updatedEntry, 'en-GB');
+                    ContentfulLivePreview.subscribe({
+                        locale: 'en-GB',
+                        callback: (updatedEntry) => {
+                            console.log('Live update received:', updatedEntry);
+                            console.log('Full entry structure:', JSON.stringify(updatedEntry, null, 2));
+                            updateDomFromEntry(updatedEntry, 'en-GB');
+                        }
                     });
                 </script>
             ")
