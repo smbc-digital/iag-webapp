@@ -120,8 +120,34 @@
 @if (usePreview)
 {
     <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const entryId = "@Model.Article.ContentfulId";
+            const locale = "en-GB";
+
+            // Add missing locale attribute
+            document.querySelectorAll(`[data-entry-id="${entryId}"]`).forEach(el => {
+                if (!el.hasAttribute('data-contentful-locale')) {
+                    el.setAttribute('data-contentful-locale', locale);
+                }
+            });
+
+            // Debug: log tagged elements
+            const tagged = document.querySelectorAll(`[data-entry-id][data-contentful-field]`);
+            console.log("Found tagged elements:", tagged.length);
+            tagged.forEach(el => {
+                console.log("Tag match →", {
+                    tagName: el.tagName,
+                    entryId: el.getAttribute('data-entry-id'),
+                    field: el.getAttribute('data-contentful-field'),
+                    locale: el.getAttribute('data-contentful-locale')
+                });
+            });
+        });
+    </script>
+
+    <script>
         let rawData = @Html.Raw(rawContentfulJson);
-        console.log(rawData);
+        console.log("raw data == ", rawData);
 
         function renderInitialContent() {
             Object.entries(rawData.fields ?? {}).forEach(([fieldName, fieldValue]) => {
