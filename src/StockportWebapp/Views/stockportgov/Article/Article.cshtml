@@ -121,9 +121,10 @@
 {
     <script>
         let rawData = @Html.Raw(rawContentfulJson);
+        console.log(rawData);
 
         function renderInitialContent() {
-            Object.entries(rawData?.['en-GB'] ?? {}).forEach(([fieldName, fieldValue]) => {
+            Object.entries(rawData.fields ?? {}).forEach(([fieldName, fieldValue]) => {
                 const container = document.querySelector(`[data-contentful-field='${fieldName}']`);
                 if (!container) return;
 
@@ -131,7 +132,7 @@
                     const imageUrl = fieldValue?.fields?.file?.url;
                     if (imageUrl) container.src = imageUrl;
                 } else {
-                    container.textContent = JSON.stringify(fieldValue, null, 2);
+                    container.textContent = fieldValue;
                 }
             });
         }
