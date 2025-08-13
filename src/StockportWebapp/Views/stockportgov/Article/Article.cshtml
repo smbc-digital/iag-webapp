@@ -18,14 +18,14 @@
     var rawContentfulJson = JsonConvert.SerializeObject(rawContentful);
 }
 
-<div class="grid-container-full-width" style="background-color:white;" data-cy="@dataCy" data-contentful-entry-id="@Model.Article.ContentfulId">
+<div class="grid-container-full-width" style="background-color:white;" data-cy="@dataCy" data-contentful-entry-id="@Model.Article.ContentfulId" data-content-type-id="article">
     <partial name="GlobalAlerts" model='Model.Article.Alerts' />
     <partial name="Breadcrumb2023" model="Model.Article.Breadcrumbs" />
 
     <div class="grid-container">
         <div class="grid-100">
             <div class="article--70">
-                <h1 class="article__title" data-contentful-field="title">@Model.Article.Title</h1>
+                <h1 class="article__title" data-entry-id="@Model.Article.ContentfulId" data-contentful-field="title">@Model.Article.Title</h1>
 
                 @if (Model.ArticleWithSection && !Model.ArticleHasImage)
                 {
@@ -116,71 +116,6 @@
         </div>
     </div>
 </div>
-@* 
-@if (usePreview)
-{
-    <script>
-        let rawData = @Html.Raw(rawContentfulJson);
-    </script>
-
-    @Html.Raw(@"
-        <script type=""module"">
-            import { ContentfulLivePreview } from 'https://cdn.jsdelivr.net/npm/@contentful/live-preview@4.6.39/dist/index.js';
-
-            ContentfulLivePreview.init({
-                locale: 'en-GB',
-                debugMode: true,
-                enableInspectorMode: true,
-                enableLiveUpdates: true,
-                targetOrigin: 'https://app.contentful.com'
-            });
-
-            function updateDomFromEntry(entry, locale = 'en-GB') {
-                const entryId = entry?.sys?.id;
-                const container = document.querySelector(`[data-contentful-entry-id='${entryId}']`);
-                if (!container || !entry.fields) return;
-
-                const rawField = rawData?.[locale] ?? rawData?.['en-GB'] ?? null;
-                if (rawField) {
-                    // Pass it directly to a container for rendering JSON
-                    const rawContainer = container.querySelector(`[data-contentful-field='rawData']`);
-                    if (rawContainer) {
-                        // Either render as JSON string:
-                        rawContainer.textContent = JSON.stringify(rawField, null, 2);
-
-                        // Or render dynamically in your template:
-                        // renderRawContent(rawContainer, rawField);
-                    }
-                }
-
-                Object.entries(entry.fields).forEach(([fieldName, fieldValueByLocale]) => {
-                    const fieldValue = fieldValueByLocale?.[locale] ?? fieldValueByLocale?.['en-US'] ?? null;
-                    if (fieldValue === null) return;
-
-                    const target = container.querySelector(`[data-contentful-field='${fieldName}']`);
-                    if (!target) return;
-
-                    if (target.tagName === 'IMG') {
-                        // Handle image asset
-                        const imageUrl = fieldValue?.fields?.file?.url;
-                        if (imageUrl) target.src = imageUrl;
-                    } else {
-                        target.textContent = fieldValue;
-                    }
-                });
-            }
-
-            ContentfulLivePreview.subscribe({
-                locale: 'en-GB',
-                callback: (updatedEntry) => {
-                    console.log('Live update received:', updatedEntry);
-                    console.log('Full entry structure:', JSON.stringify(updatedEntry, null, 2));
-                    updateDomFromEntry(updatedEntry, 'en-GB');
-                }
-            });
-        </script>
-    ")
-} *@
 
 @if (usePreview)
 {
