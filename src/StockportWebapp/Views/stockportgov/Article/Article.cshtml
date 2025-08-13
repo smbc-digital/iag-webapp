@@ -184,9 +184,27 @@
 
 @if (usePreview)
 {
-    <script type="module">
+    <script>
         let rawData = @Html.Raw(rawContentfulJson);
 
+        function renderInitialContent() {
+            Object.entries(rawData?.['en-GB'] ?? {}).forEach(([fieldName, fieldValue]) => {
+                const container = document.querySelector(`[data-contentful-field='${fieldName}']`);
+                if (!container) return;
+
+                if (container.tagName === 'IMG') {
+                    const imageUrl = fieldValue?.fields?.file?.url;
+                    if (imageUrl) container.src = imageUrl;
+                } else {
+                    container.textContent = JSON.stringify(fieldValue, null, 2);
+                }
+            });
+        }
+
+        renderInitialContent();
+    </script>
+    
+    <script type="module">
         import { ContentfulLivePreview } from 'https://cdn.jsdelivr.net/npm/@@contentful/live-preview@4.6.39/dist/index.js';
         ContentfulLivePreview.init({
             locale: 'en-GB',
@@ -201,14 +219,8 @@
             const container = document.querySelector(`[data-contentful-entry-id='${entryId}']`);
             if (!container || !entry.fields) return;
 
-            const rawField = rawData?.[locale] ?? rawData?.['en-GB'] ?? null;
-            if (rawField) {
-                const rawContainer = container.querySelector(`[data-contentful-field='rawData']`);
-                if (rawContainer) rawContainer.textContent = JSON.stringify(rawField, null, 2);
-            }
-
             Object.entries(entry.fields).forEach(([fieldName, fieldValueByLocale]) => {
-                const fieldValue = fieldValueByLocale?.[locale] ?? fieldValueByLocale?.['en-US'] ?? null;
+                const fieldValue = fieldValueByLocale?.[locale] ?? fieldValueByLocale?.['en-GB'] ?? null;
                 if (fieldValue === null) return;
 
                 const target = container.querySelector(`[data-contentful-field='${fieldName}']`);
