@@ -1,4 +1,6 @@
-﻿namespace StockportWebappTests_Unit.Unit.Controllers;
+﻿using Newtonsoft.Json.Linq;
+
+namespace StockportWebappTests_Unit.Unit.Controllers;
 
 public class ArticleControllerTest
 {
@@ -56,7 +58,8 @@ public class ArticleControllerTest
                                     DateTime.Now,
                                     new List<InlineQuote>(),
                                     new List<Event>(),
-                                    string.Empty);
+                                    string.Empty,
+                                    new JObject());
 
         _processedRepository
             .Setup(_ => _.Get<Article>(It.IsAny<string>(), It.IsAny<List<Query>>()))
@@ -91,7 +94,8 @@ public class ArticleControllerTest
                                     new DateTime(),
                                     new List<InlineQuote>(),
                                     new List<Event>(),
-                                    string.Empty);
+                                    string.Empty,
+                                    new JObject());
 
         _processedRepository
             .Setup(_ => _.Get<Article>(It.IsAny<string>(), It.IsAny<List<Query>>()))
@@ -197,7 +201,8 @@ public class ArticleControllerTest
                                     new DateTime(),
                                     new List<InlineQuote>(),
                                     new List<Event>(),
-                                    string.Empty);
+                                    string.Empty,
+                                    new JObject());
 
         _processedRepository
             .Setup(_ => _.Get<Article>(It.IsAny<string>(), It.IsAny<List<Query>>()))
@@ -252,7 +257,8 @@ public class ArticleControllerTest
                                     new DateTime(),
                                     new List<InlineQuote>(),
                                     new List<Event>(),
-                                    string.Empty);
+                                    string.Empty,
+                                    new JObject());
 
         _processedRepository
             .Setup(_ => _.Get<Article>(It.IsAny<string>(), It.IsAny<List<Query>>()))
@@ -309,7 +315,8 @@ public class ArticleControllerTest
                                     new DateTime(),
                                     new List<InlineQuote>(),
                                     new List<Event>(),
-                                    string.Empty);
+                                    string.Empty,
+                                    new JObject());
 
         _processedRepository
             .Setup(_ => _.Get<Article>(It.IsAny<string>(), It.IsAny<List<Query>>()))
@@ -409,7 +416,8 @@ public class ArticleControllerTest
                                     new DateTime(),
                                     new List<InlineQuote>(),
                                     new List<Event>(),
-                                    string.Empty);
+                                    string.Empty,
+                                    new JObject());
 
         _processedRepository
             .Setup(_ => _.Get<Article>(It.IsAny<string>(), It.IsAny<List<Query>>()))
@@ -480,7 +488,8 @@ public class ArticleControllerTest
                                     new DateTime(),
                                     new List<InlineQuote>(),
                                     new List<Event>(),
-                                    string.Empty);
+                                    string.Empty,
+                                    new JObject());
 
         _processedRepository
             .Setup(_ => _.Get<Article>(It.IsAny<string>(), It.IsAny<List<Query>>()))
@@ -545,7 +554,8 @@ public class ArticleControllerTest
                                     new DateTime(),
                                     new List<InlineQuote>(),
                                     new List<Event>(),
-                                    string.Empty);
+                                    string.Empty,
+                                    new JObject());
 
         _processedRepository
             .Setup(_ => _.Get<Article>(It.IsAny<string>(), It.IsAny<List<Query>>()))
@@ -616,7 +626,8 @@ public class ArticleControllerTest
             new DateTime(),
             new List<InlineQuote>(),
             new List<Event>(),
-            string.Empty);
+            string.Empty,
+            new JObject());
 
     private static ProcessedSection DummySection() => 
         new(It.IsAny<string>(),

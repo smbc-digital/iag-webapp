@@ -1,4 +1,6 @@
-﻿namespace StockportWebappTests_Unit.Unit.ViewModels;
+﻿using Newtonsoft.Json.Linq;
+
+namespace StockportWebappTests_Unit.Unit.ViewModels;
 
 public class ArticleViewModelTest
 {
@@ -384,7 +386,8 @@ public class ArticleViewModelTest
             new DateTime(),
             new List<InlineQuote>(),
             new List<Event>(),
-            string.Empty);
+            string.Empty,
+            new JObject());
 
         ArticleViewModel articleViewModel = new(article);
 
@@ -465,7 +468,8 @@ public class ArticleViewModelTest
             new DateTime(),
             new List<InlineQuote>(),
             new List<Event>(),
-            string.Empty);
+            string.Empty,
+            new JObject());
 
         ArticleViewModel articleViewModel = new(article);
 
@@ -519,7 +523,8 @@ public class ArticleViewModelTest
             new DateTime(),
             new List<InlineQuote>(),
             new List<Event>(),
-            string.Empty
+            string.Empty,
+            new JObject()
         );
 
         // Act
@@ -554,7 +559,8 @@ public class ArticleViewModelTest
             new DateTime(),
             new List<InlineQuote>(),
             new List<Event>(),
-            string.Empty);
+            string.Empty,
+            new JObject());
 
     private static ProcessedSection BuildSection(string slug) => 
         new("title",

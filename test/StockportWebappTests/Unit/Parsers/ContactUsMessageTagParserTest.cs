@@ -1,4 +1,6 @@
-﻿namespace StockportWebappTests_Unit.Unit.Parsers;
+﻿using Newtonsoft.Json.Linq;
+
+namespace StockportWebappTests_Unit.Unit.Parsers;
 
 public class ContactUsMessageTagParserTest
 {
@@ -50,7 +52,8 @@ public class ContactUsMessageTagParserTest
                                                 new DateTime(),
                                                 new List<InlineQuote>(),
                                                 new List<Event>(),
-                                                string.Empty);
+                                                string.Empty,
+                                                new JObject());
 
         // Act
         _tagParser.Parse(processedArticle, message, "this-is-a-slug");
@@ -90,7 +93,8 @@ public class ContactUsMessageTagParserTest
                                                 new DateTime(),
                                                 new List<InlineQuote>(),
                                                 new List<Event>(),
-                                                string.Empty);
+                                                string.Empty,
+                                                new JObject());
 
         // Act
         _tagParser.Parse(processedArticle, _message, string.Empty);
@@ -128,7 +132,8 @@ public class ContactUsMessageTagParserTest
                                                 new DateTime(),
                                                 new List<InlineQuote>(),
                                                 new List<Event>(),
-                                                string.Empty);
+                                                string.Empty,
+                                                new JObject());
 
         // Act
         _tagParser.Parse(processedArticle, _message, string.Empty);
@@ -168,7 +173,8 @@ public class ContactUsMessageTagParserTest
                                                 new DateTime(),
                                                 new List<InlineQuote>(),
                                                 new List<Event>(),
-                                                string.Empty);
+                                                string.Empty,
+                                                new JObject());
 
         // Act
         _tagParser.Parse(processedArticle, _message, "this-is-a-slug");
@@ -207,7 +213,8 @@ public class ContactUsMessageTagParserTest
                                                 new DateTime(),
                                                 new List<InlineQuote>(),
                                                 new List<Event>(),
-                                                string.Empty);
+                                                string.Empty,
+                                                new JObject());
 
         // Act
         _tagParser.Parse(processedArticle, _message,  "this-is-a-slug");
@@ -244,7 +251,8 @@ public class ContactUsMessageTagParserTest
                                                 new DateTime(),
                                                 new List<InlineQuote>(),
                                                 new List<Event>(),
-                                                string.Empty);
+                                                string.Empty,
+                                                new JObject());
 
         // Act
         _tagParser.Parse(processedArticle, _message, "this-is-a-slug");

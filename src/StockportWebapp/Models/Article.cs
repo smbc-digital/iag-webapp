@@ -27,7 +27,8 @@ public class Article(string title,
                     string associatedTagCategory,
                     IEnumerable<CallToActionBanner> callToActionBanners,
                     List<Event> events,
-                    string contentfulId)
+                    string contentfulId,
+                    JObject rawContentful)
 {
     public string Title { get; set; } = title;
     public string Slug { get; set; } = slug;
@@ -59,4 +60,5 @@ public class Article(string title,
     public string AssociatedTagCategory = associatedTagCategory;
     public List<Event> Events = events;
     public string ContentfulId = contentfulId;
+    public JObject RawContentful = rawContentful;
 }

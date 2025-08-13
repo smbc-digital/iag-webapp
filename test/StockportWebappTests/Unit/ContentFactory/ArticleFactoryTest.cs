@@ -96,7 +96,8 @@ public class ArticleFactoryTest
                     "dance",
                     null,
                     new List<Event>(),
-                    string.Empty);
+                    string.Empty,
+                    null);
 
         _sectionFactory
             .Setup(_ => _.Build(_sectionOne, _article.Title))

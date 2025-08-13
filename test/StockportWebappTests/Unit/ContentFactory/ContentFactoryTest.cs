@@ -1,4 +1,6 @@
-﻿namespace StockportWebappTests_Unit.Unit.ContentFactory;
+﻿using Newtonsoft.Json.Linq;
+
+namespace StockportWebappTests_Unit.Unit.ContentFactory;
 
 public class ContentFactoryTest
 {
@@ -77,7 +79,8 @@ public class ContentFactoryTest
                             It.IsAny<string>(),
                             new List<CallToActionBanner>(),
                             new List<Event>(),
-                            It.IsAny<string>());
+                            It.IsAny<string>(),
+                            new JObject());
 
         // Act
         IProcessedContentType processedArticle = _factory.Build(article);

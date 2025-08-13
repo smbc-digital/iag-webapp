@@ -29,7 +29,8 @@ public class ProcessedArticle(string title,
                             DateTime publishedOn,
                             IEnumerable<InlineQuote> inlineQuotes,
                             List<Event> events,
-                            string contentfulId) : IProcessedContentType, IContactUsMessageContainer
+                            string contentfulId,
+                            JObject rawContentful) : IProcessedContentType, IContactUsMessageContainer
 {
     public readonly string Title = title;
     public string Body { get; private set; } = body;
@@ -56,6 +57,7 @@ public class ProcessedArticle(string title,
     public readonly IEnumerable<InlineQuote> InlineQuotes = inlineQuotes;
     public List<Event> Events = events;
     public string ContentfulId = contentfulId;
+    public JObject RawContentful = rawContentful;
 
     public void AddContactUsMessage(string message, string slug = "")
     {

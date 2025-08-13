@@ -7,7 +7,6 @@
 @inject BusinessId BusinessId
 @{
     StylesheetsConfiguration stylesheet = ApplicationConfiguration.GetStylesheetConfig();
-    bool usePreview = bool.TryParse(ApplicationConfiguration.GetContentfulUsePreview(), out var preview) && preview;
 }
 
 <!DOCTYPE html>
@@ -79,54 +78,6 @@
         <main id="content">
             @RenderBody()
         </main>
-
-        @if (usePreview)
-        {
-            @Html.Raw(@"
-                <script type=""module"">
-                    import { ContentfulLivePreview } from 'https://cdn.jsdelivr.net/npm/@contentful/live-preview@4.6.39/dist/index.js';
-
-                    ContentfulLivePreview.init({
-                        locale: 'en-GB',
-                        debugMode: true,
-                        enableInspectorMode: true,
-                        enableLiveUpdates: true,
-                        targetOrigin: 'https://app.contentful.com'
-                    });
-
-                    function updateDomFromEntry(entry, locale = 'en-GB') {
-                        const entryId = entry?.sys?.id;
-                        const container = document.querySelector(`[data-contentful-entry-id='${entryId}']`);
-                        if (!container || !entry.fields) return;
-
-                        Object.entries(entry.fields).forEach(([fieldName, fieldValueByLocale]) => {
-                            const fieldValue = fieldValueByLocale?.[locale] ?? fieldValueByLocale?.['en-US'] ?? null;
-                            if (fieldValue === null) return;
-
-                            const target = container.querySelector(`[data-contentful-field='${fieldName}']`);
-                            if (!target) return;
-
-                            if (target.tagName === 'IMG') {
-                                // Handle image asset
-                                const imageUrl = fieldValue?.fields?.file?.url;
-                                if (imageUrl) target.src = imageUrl;
-                            } else {
-                                target.textContent = fieldValue;
-                            }
-                        });
-                    }
-
-                    ContentfulLivePreview.subscribe({
-                        locale: 'en-GB',
-                        callback: (updatedEntry) => {
-                            console.log('Live update received:', updatedEntry);
-                            console.log('Full entry structure:', JSON.stringify(updatedEntry, null, 2));
-                            updateDomFromEntry(updatedEntry, 'en-GB');
-                        }
-                    });
-                </script>
-            ")
-        }
 
         <distributed-cache name=footer2023 expires-after=@TimeSpan.FromMinutes(ApplicationConfiguration.GetFooterCache(BusinessId.ToString())) enabled=true>
             @await Component.InvokeAsync("Footer2023")
