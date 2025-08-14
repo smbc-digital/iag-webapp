@@ -126,9 +126,9 @@
             document.addEventListener('DOMContentLoaded', () => {{
                 const entryId = '{Model.Article.ContentfulId}';
                 const locale = 'en-GB';
-                const rawData = {rawContentfulJson};
+                const data = {rawContentfulJson};
 
-                console.log('raw data == ', rawData);
+                console.log('raw data == ', data);
 
                 function waitForTaggedElements() {{
                     return new Promise((resolve) => {{
@@ -153,9 +153,11 @@
                 }}
 
                 function renderInitialContent() {{
-                    Object.entries(rawData.fields ?? {{}}).forEach(([fieldName, fieldValue]) => {{
+                    Object.entries(data ?? {{}}).forEach(([fieldName, fieldValue]) => {{
                         const container = document.querySelector(`[data-contentful-field-id='${{fieldName}}']`);
                         if (!container) return;
+
+                        if (fieldName === 'sys') return;
 
                         if (container.tagName === 'IMG') {{
                             const imageUrl = fieldValue?.fields?.file?.url;
@@ -176,7 +178,7 @@
                     }});
 
                     ContentfulLivePreview.subscribe({{
-                        rawData,
+                        data,
                         locale,
                         callback: (updatedEntry) => {{
                             console.log('Live update received:', updatedEntry);
