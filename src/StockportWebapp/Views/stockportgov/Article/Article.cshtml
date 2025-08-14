@@ -116,3 +116,106 @@
         </div>
     </div>
 </div>
+
+@if (usePreview)
+{
+    @Html.Raw($@"
+        <script type='module'>
+            import {{ ContentfulLivePreview }} from 'https://cdn.jsdelivr.net/npm/@contentful/live-preview@4.6.39/dist/index.js';
+
+            document.addEventListener('DOMContentLoaded', () => {{
+                const entryId = '{Model.Article.ContentfulId}';
+                const locale = 'en-GB';
+                const data = {rawContentfulJson};
+
+                console.log('raw data == ', data);
+
+                function waitForTaggedElements() {{
+                    return new Promise((resolve) => {{
+                        const check = () => {{
+                            const tagged = document.querySelectorAll('[data-contentful-entry-id][data-contentful-field-id]');
+                            if (tagged.length > 0) {{
+                                resolve(tagged);
+                            }} else {{
+                                requestAnimationFrame(check);
+                            }}
+                        }};
+                        check();
+                    }});
+                }}
+
+                function addLocaleAttributes(tagged) {{
+                    tagged.forEach(el => {{
+                        if (!el.hasAttribute('data-contentful-locale')) {{
+                            el.setAttribute('data-contentful-locale', locale);
+                        }}
+                    }});
+                }}
+
+                function renderInitialContent() {{
+                    Object.entries(data ?? {{}}).forEach(([fieldName, fieldValue]) => {{
+                        const container = document.querySelector(`[data-contentful-field-id='${{fieldName}}']`);
+                        if (!container) return;
+
+                        if (fieldName === 'sys') return;
+
+                        if (container.tagName === 'IMG') {{
+                            const imageUrl = fieldValue?.fields?.file?.url;
+                            if (imageUrl) container.src = imageUrl;
+                        }} else {{
+                            container.textContent = fieldValue;
+                        }}
+                    }});
+                }}
+
+                function initLivePreview() {{
+                    ContentfulLivePreview.init({{
+                        locale,
+                        debugMode: true,
+                        enableInspectorMode: true,
+                        enableLiveUpdates: true,
+                        targetOrigin: 'https://app.contentful.com'
+                    }});
+
+                    ContentfulLivePreview.subscribe({{
+                        data,
+                        locale,
+                        callback: (updatedEntry) => {{
+                            console.log('Live update received:', updatedEntry);
+                            updateDomFromEntry(updatedEntry, locale);
+                        }},
+                    }});
+                }}
+
+                function updateDomFromEntry(entry, locale) {{
+                    const entryId = entry?.sys?.id;
+                    const container = document.querySelector(`[data-contentful-entry-id='${{entryId}}']`);
+                    if (!container || !entry.fields) return;
+
+                    Object.entries(entry.fields).forEach(([fieldName, fieldValueByLocale]) => {{
+                        const fieldValue = fieldValueByLocale?.[locale] ?? fieldValueByLocale?.['en-GB'] ?? null;
+                        if (fieldValue === null) return;
+
+                        const target = container.querySelector(`[data-contentful-field-id='${{fieldName}}']`);
+                        if (!target) return;
+
+                        if (target.tagName === 'IMG') {{
+                            const imageUrl = fieldValue?.fields?.file?.url;
+                            if (imageUrl) target.src = imageUrl;
+                        }} else {{
+                            target.textContent = fieldValue;
+                        }}
+                    }});
+                }}
+
+                waitForTaggedElements()
+                    .then(tagged => {{
+                        console.log('Found tagged elements:', tagged.length);
+                        addLocaleAttributes(tagged);
+                        renderInitialContent();
+                        initLivePreview();
+                    }});
+            }});
+        </script>
+    ")
+}
