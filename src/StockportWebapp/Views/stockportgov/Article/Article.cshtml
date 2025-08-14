@@ -176,11 +176,12 @@
                     }});
 
                     ContentfulLivePreview.subscribe({{
+                        rawData,
                         locale,
                         callback: (updatedEntry) => {{
                             console.log('Live update received:', updatedEntry);
                             updateDomFromEntry(updatedEntry, locale);
-                        }}
+                        }},
                     }});
                 }}
 
