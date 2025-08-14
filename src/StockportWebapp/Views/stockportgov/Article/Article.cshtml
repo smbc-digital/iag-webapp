@@ -119,90 +119,104 @@
 
 @if (usePreview)
 {
-    <script>
+    <script type="module">
+        import { ContentfulLivePreview } from 'https://cdn.jsdelivr.net/npm/@@contentful/live-preview@4.6.39/dist/index.js';
+
         document.addEventListener('DOMContentLoaded', () => {
             const entryId = "@Model.Article.ContentfulId";
             const locale = "en-GB";
+            const rawData = @Html.Raw(rawContentfulJson);
+
+            console.log("raw data == ", rawData);
+
+            // Wait until tagged elements exist in the DOM
+            function waitForTaggedElements() {
+                return new Promise((resolve) => {
+                    const check = () => {
+                        const tagged = document.querySelectorAll("[data-entry-id][data-contentful-field]");
+                        if (tagged.length > 0) {
+                            resolve(tagged);
+                        } else {
+                            requestAnimationFrame(check);
+                        }
+                    };
+                    check();
+                });
+            }
 
             // Add missing locale attribute
-            document.querySelectorAll(`[data-entry-id="${entryId}"]`).forEach(el => {
-                if (!el.hasAttribute('data-contentful-locale')) {
-                    el.setAttribute('data-contentful-locale', locale);
-                }
-            });
-
-            // Debug: log tagged elements
-            const tagged = document.querySelectorAll(`[data-entry-id][data-contentful-field]`);
-            console.log("Found tagged elements:", tagged.length);
-            tagged.forEach(el => {
-                console.log("Tag match →", {
-                    tagName: el.tagName,
-                    entryId: el.getAttribute('data-entry-id'),
-                    field: el.getAttribute('data-contentful-field'),
-                    locale: el.getAttribute('data-contentful-locale')
+            function addLocaleAttributes(tagged) {
+                tagged.forEach(el => {
+                    if (!el.hasAttribute('data-contentful-locale')) {
+                        el.setAttribute('data-contentful-locale', locale);
+                    }
                 });
-            });
-        });
-    </script>
-
-    <script>
-        let rawData = @Html.Raw(rawContentfulJson);
-        console.log("raw data == ", rawData);
-
-        function renderInitialContent() {
-            Object.entries(rawData.fields ?? {}).forEach(([fieldName, fieldValue]) => {
-                const container = document.querySelector(`[data-contentful-field='${fieldName}']`);
-                if (!container) return;
-
-                if (container.tagName === 'IMG') {
-                    const imageUrl = fieldValue?.fields?.file?.url;
-                    if (imageUrl) container.src = imageUrl;
-                } else {
-                    container.textContent = fieldValue;
-                }
-            });
-        }
-
-        renderInitialContent();
-    </script>
-    
-    <script type="module">
-        import { ContentfulLivePreview } from 'https://cdn.jsdelivr.net/npm/@@contentful/live-preview@4.6.39/dist/index.js';
-        ContentfulLivePreview.init({
-            locale: 'en-GB',
-            debugMode: true,
-            enableInspectorMode: true,
-            enableLiveUpdates: true,
-            targetOrigin: 'https://app.contentful.com'
-        });
-
-        function updateDomFromEntry(entry, locale = 'en-GB') {
-            const entryId = entry?.sys?.id;
-            const container = document.querySelector(`[data-contentful-entry-id='${entryId}']`);
-            if (!container || !entry.fields) return;
-
-            Object.entries(entry.fields).forEach(([fieldName, fieldValueByLocale]) => {
-                const fieldValue = fieldValueByLocale?.[locale] ?? fieldValueByLocale?.['en-GB'] ?? null;
-                if (fieldValue === null) return;
-
-                const target = container.querySelector(`[data-contentful-field='${fieldName}']`);
-                if (!target) return;
-
-                if (target.tagName === 'IMG') {
-                    const imageUrl = fieldValue?.fields?.file?.url;
-                    if (imageUrl) target.src = imageUrl;
-                } else {
-                    target.textContent = fieldValue;
-                }
-            });
-        }
-
-        ContentfulLivePreview.subscribe({
-            locale: 'en-GB',
-            callback: (updatedEntry) => {
-                console.log('Live update received:', updatedEntry);
-                updateDomFromEntry(updatedEntry, 'en-GB');
             }
+
+            // Render initial content
+            function renderInitialContent() {
+                Object.entries(rawData.fields ?? {}).forEach(([fieldName, fieldValue]) => {
+                    const container = document.querySelector(`[data-contentful-field='${fieldName}']`);
+                    if (!container) return;
+
+                    if (container.tagName === 'IMG') {
+                        const imageUrl = fieldValue?.fields?.file?.url;
+                        if (imageUrl) container.src = imageUrl;
+                    } else {
+                        container.textContent = fieldValue;
+                    }
+                });
+            }
+
+            // Init Contentful Live Preview
+            function initLivePreview() {
+                ContentfulLivePreview.init({
+                    locale,
+                    debugMode: true,
+                    enableInspectorMode: true,
+                    enableLiveUpdates: true,
+                    targetOrigin: 'https://app.contentful.com'
+                });
+
+                ContentfulLivePreview.subscribe({
+                    locale,
+                    callback: (updatedEntry) => {
+                        console.log('Live update received:', updatedEntry);
+                        updateDomFromEntry(updatedEntry, locale);
+                    }
+                });
+            }
+
+            // Helper for updates
+            function updateDomFromEntry(entry, locale) {
+                const entryId = entry?.sys?.id;
+                const container = document.querySelector(`[data-contentful-entry-id='${entryId}']`);
+                if (!container || !entry.fields) return;
+
+                Object.entries(entry.fields).forEach(([fieldName, fieldValueByLocale]) => {
+                    const fieldValue = fieldValueByLocale?.[locale] ?? fieldValueByLocale?.['en-GB'] ?? null;
+                    if (fieldValue === null) return;
+
+                    const target = container.querySelector(`[data-contentful-field='${fieldName}']`);
+                    if (!target) return;
+
+                    if (target.tagName === 'IMG') {
+                        const imageUrl = fieldValue?.fields?.file?.url;
+                        if (imageUrl) target.src = imageUrl;
+                    } else {
+                        target.textContent = fieldValue;
+                    }
+                });
+            }
+
+            // Sequence everything
+            waitForTaggedElements()
+                .then(tagged => {
+                    console.log("Found tagged elements:", tagged.length);
+                    addLocaleAttributes(tagged);
+                    renderInitialContent();
+                    initLivePreview();
+                });
         });
     </script>
 }
