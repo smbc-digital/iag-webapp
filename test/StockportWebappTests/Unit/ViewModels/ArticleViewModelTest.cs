@@ -495,7 +495,7 @@ public class ArticleViewModelTest
     public void ArticleViewModel_ShouldSetMetaDescription(string sectionMeta, string articleMeta, string expectedMeta)
     {
         // Arrange
-        ProcessedSection section = new(string.Empty, "test-slug", sectionMeta, string.Empty, null, null, null, null, string.Empty, new DateTime());
+        ProcessedSection section = new(string.Empty, "test-slug", sectionMeta, string.Empty, null, null, null, null, string.Empty, new DateTime(), null);
         ProcessedArticle article = new(string.Empty,
             string.Empty,
             string.Empty,
@@ -568,9 +568,10 @@ public class ArticleViewModelTest
             It.IsAny<string>(),
             It.IsAny<string>(),
             new List<Profile>(),
-            new List<StockportWebapp.Models.Document>(),
+            new List<Document>(),
             new List<Alert>(),
             new List<TrustedLogo>(),
             "logoAreaTitle",
-            new DateTime());
+            new DateTime(),
+            new List<InlineQuote>());
 }

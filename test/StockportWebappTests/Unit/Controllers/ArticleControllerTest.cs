@@ -18,7 +18,8 @@ public class ArticleControllerTest
                                                     new List<Alert>(),
                                                     new List<TrustedLogo>(),
                                                     "logoAreaTitle",
-                                                    new DateTime());
+                                                    new DateTime(),
+                                                    new List<InlineQuote>());
     private readonly ProcessedSection sectionTwo = new("Types of Physical Activity",
                                                     It.IsAny<string>(),
                                                     It.IsAny<string>(),
@@ -28,7 +29,8 @@ public class ArticleControllerTest
                                                     new List<Alert>(),
                                                     new List<TrustedLogo>(),
                                                     "logoAreaTitle",
-                                                    new DateTime());
+                                                    new DateTime(),
+                                                    new List<InlineQuote>());
     private readonly ProcessedArticle article;
 
     public ArticleControllerTest()
@@ -164,8 +166,9 @@ public class ArticleControllerTest
                                         new List<Alert>(),
                                         new List<TrustedLogo>(),
                                         "logoAreaTitle",
-                                        new DateTime());
-        
+                                        new DateTime(),
+                                        new List<InlineQuote>());
+
         ProcessedSection sectionTwo = new("Types of Physical Activity",
                                         "types-of-physical-activity",
                                         It.IsAny<string>(),
@@ -175,8 +178,9 @@ public class ArticleControllerTest
                                         new List<Alert>(),
                                         new List<TrustedLogo>(),
                                         "logoAreaTitle",
-                                        new DateTime());
-        
+                                        new DateTime(),
+                                        new List<InlineQuote>());
+
         ProcessedArticle article = new(string.Empty,
                                     string.Empty,
                                     string.Empty,
@@ -390,7 +394,8 @@ public class ArticleControllerTest
                                                 alertsInline,
                                                 new List<TrustedLogo>(),
                                                 "logoAreaTitle",
-                                                new DateTime());
+                                                new DateTime(),
+                                                new List<InlineQuote>());
 
         ProcessedArticle article = new(string.Empty,
                                     string.Empty,
@@ -462,8 +467,9 @@ public class ArticleControllerTest
                                     null,
                                     null,
                                     string.Empty,
-                                    new DateTime());
-        
+                                    new DateTime(),
+                                    new List<InlineQuote>());
+
         ProcessedArticle article = new(string.Empty,
                                     string.Empty,
                                     string.Empty,
@@ -517,8 +523,9 @@ public class ArticleControllerTest
                                         null,
                                         null,
                                         string.Empty,
-                                        new DateTime());
-        
+                                        new DateTime(),
+                                        new List<InlineQuote>());
+
         ProcessedSection section2 = new(string.Empty,
                                         string.Empty,
                                         "other string",
@@ -528,8 +535,9 @@ public class ArticleControllerTest
                                         null,
                                         null,
                                         string.Empty,
-                                        new DateTime());
-        
+                                        new DateTime(),
+                                        new List<InlineQuote>());
+
         ProcessedArticle article = new(string.Empty,
                                     string.Empty,
                                     string.Empty,
@@ -639,5 +647,6 @@ public class ArticleControllerTest
             new List<Alert>(),
             new List<TrustedLogo>(),
             "logoAreaTitle",
-            new DateTime());
+            new DateTime(),
+            new List<InlineQuote>());
 }

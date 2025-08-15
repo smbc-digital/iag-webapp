@@ -1,4 +1,5 @@
 namespace StockportWebapp.Models;
+
 [ExcludeFromCodeCoverage]
 public class Section(string title,
                     string slug,
@@ -9,7 +10,8 @@ public class Section(string title,
                     IEnumerable<Alert> alertsInline,
                     List<TrustedLogo> trustedLogos,
                     string logoAreaTitle,
-                    DateTime updatedAt)
+                    DateTime updatedAt,
+                    List<InlineQuote> inlineQuotes)
 {
     public string Title { get; set; } = title;
     public string Slug { get; set; } = slug;
@@ -22,4 +24,5 @@ public class Section(string title,
     public List<TrustedLogo> TrustedLogos { get; init; } = trustedLogos;
     public string LogoAreaTitle { get; set; } = logoAreaTitle;
     public DateTime UpdatedAt { get; set; } = updatedAt;
+    public List<InlineQuote> InlineQuotes { get; set; } = inlineQuotes;
 }

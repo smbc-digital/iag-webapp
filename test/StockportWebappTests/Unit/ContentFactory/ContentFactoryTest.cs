@@ -40,7 +40,8 @@ public class ContentFactoryTest
                             new List<Alert>(),
                             new List<TrustedLogo>(),
                             "logoAreaTitle",
-                            new DateTime());
+                            new DateTime(),
+                            new List<InlineQuote>());
 
         // Act
         IProcessedContentType processedSection = _factory.Build(section);

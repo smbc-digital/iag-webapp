@@ -29,8 +29,9 @@ public class ArticleFactoryTest
                         new List<Alert>(),
                         new List<TrustedLogo>(),
                         "logoAreaTitle",
-                        new DateTime());
-        
+                        new DateTime(),
+                        new List<InlineQuote>());
+
         _processedSectionOne = new(It.IsAny<string>(),
                                 It.IsAny<string>(),
                                 "id-1",
@@ -40,8 +41,9 @@ public class ArticleFactoryTest
                                 new List<Alert>(),
                                 new List<TrustedLogo>(),
                                 "logoAreaTitle",
-                                new DateTime());
-        
+                                new DateTime(),
+                                new List<InlineQuote>());
+
         _sectionTwo = new(It.IsAny<string>(),
                         "id-1",
                         It.IsAny<string>(),
@@ -51,8 +53,9 @@ public class ArticleFactoryTest
                         new List<Alert>(),
                         new List<TrustedLogo>(),
                         "logoAreaTitle",
-                        new DateTime());
-        
+                        new DateTime(),
+                        new List<InlineQuote>());
+
         _processedSectionTwo = new(It.IsAny<string>(),
                                 "id-1",
                                 It.IsAny<string>(),
@@ -62,7 +65,8 @@ public class ArticleFactoryTest
                                 new List<Alert>(),
                                 new List<TrustedLogo>(),
                                 "logoAreaTitle",
-                                new DateTime());
+                                new DateTime(),
+                                new List<InlineQuote>());
 
         List<Section> sections = new()
         {
