@@ -17,6 +17,7 @@ public class SectionFactoryTest
     private readonly List<TrustedLogo> _trustedLogos = new();
     private const string _logoAreaTitle = "logoAreaTitle";
     private readonly DateTime _updatedAt = DateTime.Now;
+    private readonly List<InlineQuote> _inlineQuotes = new();
     private readonly Mock<IRepository> _repository = new();
 
     public SectionFactoryTest()
@@ -31,7 +32,8 @@ public class SectionFactoryTest
                             _emptyAlertsInline,
                             _trustedLogos,
                             _logoAreaTitle,
-                            _updatedAt);
+                            _updatedAt,
+                            _inlineQuotes);
 
         _markdownWrapper.Setup(wrapper => wrapper.ConvertToHtml(Body)).Returns(Body);
 

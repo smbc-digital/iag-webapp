@@ -23,6 +23,10 @@
         border-radius: 50px 3px;
         height: auto;
 
+        @media #{$non-mobile} {
+            height: 360px;
+        }
+
         @media #{$mobile} {
             width: 100%;
             border-radius: 30px 3px;
