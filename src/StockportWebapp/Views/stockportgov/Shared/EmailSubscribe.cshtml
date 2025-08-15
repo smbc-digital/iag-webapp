@@ -1,9 +1,10 @@
 ﻿@{
     string additionalCssClasses = (string)ViewData["AdditionalCssClasses"] ?? string.Empty;
+    string buttonAdditionalCssClasses = (string)ViewData["ButtonAdditionalCssClasses"] ?? string.Empty;
     bool isOnHomepage = (bool)ViewData["isOnHomepage"];
 }
 
-<section class="section section--teal @additionalCssClasses section--padded" data-cy="personalised-services">
+<section class="section @additionalCssClasses section--padded" data-cy="personalised-services">
     <div class="grid-container">
         <div class="grid-100 grid-parent email-subsciption" data-cy="subscription">
             <div class="@(isOnHomepage ? "grid-70" : string.Empty) news-article__archive-banner">
@@ -15,7 +16,7 @@
             
             <div class="@(isOnHomepage ? "grid-30" : string.Empty)">
                 <div class="section__content">
-                    <a data-cy="subscribe-button" href="https://forms.stockport.gov.uk/newsletter-signup/signup" class="btn btn--inverse btn--bold btn--full btn--chevron-forward section__content--action">
+                    <a data-cy="subscribe-button" href="https://forms.stockport.gov.uk/newsletter-signup/signup" class="btn btn--inverse @buttonAdditionalCssClasses btn--bold btn--full btn--chevron-forward section__content--action">
                         <span class="btn_text">Subscribe now</span>
                     </a>
                 </div>
