@@ -69,7 +69,15 @@
                     <p class="h-ml news-article__teaser">@Model.NewsItem.Teaser</p>
 
                     <article class="news-article__body">
-                        @Html.Raw(Model.NewsItem.Body)
+                        @if (!string.IsNullOrEmpty(Model.NewsItem.Body))
+                        {
+                            string cleanedBody = Regex.Replace(Model.NewsItem.Body, @"</?(pre|code)[^>]*>", "", RegexOptions.IgnoreCase);
+                            string bodyWithImages = StockportWebapp.Utils.HtmlHelper.AddImageAttributes(cleanedBody, "691", "389", "691", "919", "1192");
+
+                            <article>
+                                @Html.Raw(WebUtility.HtmlDecode(bodyWithImages))
+                            </article>
+                        }
                     </article>
                     
                     @if (Model.NewsItem.CallToAction is not null)
