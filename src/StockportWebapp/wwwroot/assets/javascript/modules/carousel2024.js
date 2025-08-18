@@ -7,6 +7,26 @@ define(function () {
                 let currentIndex = 0;
                 const totalSlides = carouselItems.length;
                 
+                function setUniformCarouselHeight() {
+                    const items = document.querySelectorAll(".carousel-item img");
+                    let maxHeight = 0;
+
+                    items.forEach(item => {
+                        item.style.height = "auto";
+                    });
+
+                    items.forEach(item => {
+                        const itemHeight = item.offsetHeight;
+                        if (itemHeight > maxHeight) {
+                            maxHeight = itemHeight;
+                        }
+                    });
+
+                    items.forEach(item => {
+                        item.style.height = maxHeight + "px";
+                    });
+                }
+
                 // Set lazy loading for background images
                 carouselItems.forEach((item, index) => {
                     if (index !== 0) {
@@ -81,6 +101,8 @@ define(function () {
                         slide.setAttribute("aria-hidden", index !== currentIndex ? "true" : "false");
                         document.getElementsByClassName("carousel-item__link")[index]?.setAttribute("tabindex", index !== currentIndex ? "-1" : "0")
                     });
+
+                    setUniformCarouselHeight();
                 }
 
                 document.querySelector(".next").addEventListener("click", function () {
@@ -94,6 +116,8 @@ define(function () {
                 });
 
                 updateCarousel();
+
+                window.addEventListener("resize", setUniformCarouselHeight);
             };
         }
     };
