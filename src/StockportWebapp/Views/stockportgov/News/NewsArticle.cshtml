@@ -114,7 +114,7 @@
                             <a href="@Model.NewsItem.FeaturedLogo.Link">
                                 <img src="@Model.NewsItem.FeaturedLogo.Image.Url?w=340&q=89&fm=webp"
                                     class="directory__logo"
-                                    alt=""
+                                    alt="@(Model.NewsItem.FeaturedLogo.Image.Description ?? string.Empty)"
                                     loading="lazy"
                                     width="200"
                                     height="125" />
