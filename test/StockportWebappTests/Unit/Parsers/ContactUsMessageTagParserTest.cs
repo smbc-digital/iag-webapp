@@ -271,7 +271,8 @@ public class ContactUsMessageTagParserTest
                 new List<Alert>(),
                 new List<TrustedLogo>(),
                 "logoAreaTitle",
-                new DateTime());
+                new DateTime(),
+                null);
 
     private static Topic DefaultTopic() =>
         new("name",

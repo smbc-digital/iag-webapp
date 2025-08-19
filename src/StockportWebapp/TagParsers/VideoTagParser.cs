@@ -23,7 +23,7 @@ public class VideoTagParser : ISimpleTagParser
                         : string.Empty
         };
 
-        return $"<div class=\"video-wrapper\">{_viewRenderer.Render("VideoIFrame", videoViewModel)}</div>";
+        return $"<div class=\"video-wrapper js-only\">{_viewRenderer.Render("VideoIFrame", videoViewModel)}</div>";
     }
 
     public string Parse(string body, string title = null) =>

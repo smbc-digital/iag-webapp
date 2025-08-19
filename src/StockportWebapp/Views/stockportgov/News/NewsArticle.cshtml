@@ -69,7 +69,15 @@
                     <p class="h-ml news-article__teaser">@Model.NewsItem.Teaser</p>
 
                     <article class="news-article__body">
-                        @Html.Raw(Model.NewsItem.Body)
+                        @if (!string.IsNullOrEmpty(Model.NewsItem.Body))
+                        {
+                            string cleanedBody = Regex.Replace(Model.NewsItem.Body, @"</?(pre|code)[^>]*>", "", RegexOptions.IgnoreCase);
+                            string bodyWithImages = StockportWebapp.Utils.HtmlHelper.AddImageAttributes(cleanedBody, "691", "389", "691", "919", "1192");
+
+                            <article>
+                                @Html.Raw(WebUtility.HtmlDecode(bodyWithImages))
+                            </article>
+                        }
                     </article>
                     
                     @if (Model.NewsItem.CallToAction is not null)
@@ -114,7 +122,7 @@
                             <a href="@Model.NewsItem.FeaturedLogo.Link">
                                 <img src="@Model.NewsItem.FeaturedLogo.Image.Url?w=340&q=89&fm=webp"
                                     class="directory__logo"
-                                    alt=""
+                                    alt="@(Model.NewsItem.FeaturedLogo.Image.Description ?? string.Empty)"
                                     loading="lazy"
                                     width="200"
                                     height="125" />
@@ -133,8 +141,7 @@
                         </ul>
                     }
                     
-                    <partial name="EmailSubscribe" view-data='@(new ViewDataDictionary(ViewData) { { "AdditionalCssClasses", "news-article__subscription-banner" }, { "isOnHomepage", false } })' />
-                    <partial name="MediaEnquiry" />
+                    <partial name="EmailSubscribe" view-data='@(new ViewDataDictionary(ViewData) { { "AdditionalCssClasses", "section--pink news-article__subscription-banner" }, { "ButtonAdditionalCssClasses", "btn--pink" }, { "isOnHomepage", false } })' />
                 </div>
             </section>
         </div>

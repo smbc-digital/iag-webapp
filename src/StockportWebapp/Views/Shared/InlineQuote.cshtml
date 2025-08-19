@@ -10,13 +10,13 @@
     <div class="profile-quote">
         @if (!string.IsNullOrEmpty(Model.Author) && !businessId.Equals("stockroom"))
         {
-            <h3>@Model.Author</h3>
+            <h2 class="h-m">@Model.Author</h2>
         }
 
         <div class="profile-quote__border @themeTag">
             @if (!string.IsNullOrEmpty(Model.Author) && businessId.Equals("stockroom"))
             {
-                <h3>@Model.Author</h3>
+                <h2 class="h-m">@Model.Author</h2>
             }
 
             <p class="profile-quote__text lead">
@@ -32,7 +32,7 @@ else
     <section class="section section--white">
         @if (!string.IsNullOrEmpty(Model.Author) && !businessId.Equals("stockroom"))
         {
-            <h3>@Model.Author</h3>
+            <h2 class="h-m">@Model.Author</h2>
         }
 
         <div class="profile-tag-parser @profileColour">
