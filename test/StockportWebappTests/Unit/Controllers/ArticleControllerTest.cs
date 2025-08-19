@@ -8,6 +8,7 @@ public class ArticleControllerTest
     private readonly Mock<IRepository> _repository = new();
     private readonly Mock<IProcessedContentRepository> _processedRepository = new();
     private readonly Mock<IContactUsMessageTagParser> _contactUsMessageParser = new();
+    private readonly Mock<IFeatureManager> _featureManager = new();
     private const string DefaultMessage = "A default message";
     private readonly ProcessedSection sectionOne = new("Overview",
                                                     "physical-activity-overview",
@@ -35,7 +36,7 @@ public class ArticleControllerTest
 
     public ArticleControllerTest()
     {
-        _controller = new(_repository.Object, _processedRepository.Object, _contactUsMessageParser.Object);
+        _controller = new(_repository.Object, _processedRepository.Object, _contactUsMessageParser.Object, _featureManager.Object);
         article = new ProcessedArticle(string.Empty,
                                     string.Empty,
                                     string.Empty,
