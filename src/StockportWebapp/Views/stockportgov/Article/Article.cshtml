@@ -192,22 +192,28 @@
                     const entryId = entry?.sys?.id;
                     const container = document.querySelector(`[data-contentful-entry-id='${{entryId}}']`);
                     if (!container || !entry.fields) return;
+                    
+                    Object.entries(entry.fields).forEach(([fieldName, fieldValue]) => {{
+                        let value = fieldValue;
 
-                    Object.entries(entry.fields).forEach(([fieldName, fieldValueByLocale]) => {{
-                        const fieldValue = fieldValueByLocale?.[locale] ?? fieldValueByLocale?.['en-GB'] ?? null;
-                        if (fieldValue === null) return;
+                        // handle localized shape if it exists
+                        if (typeof fieldValue === 'object' && (fieldValue[locale] || fieldValue['en-GB'])) {{
+                            value = fieldValue[locale] ?? fieldValue['en-GB'];
+                        }}
+
+                        if (value == null) return;
 
                         const target = container.querySelector(`[data-contentful-field-id='${{fieldName}}']`);
                         if (!target) return;
 
                         if (target.tagName === 'IMG') {{
-                            const imageUrl = fieldValue?.fields?.file?.url;
+                            const imageUrl = value?.fields?.file?.url ?? value?.file?.url;
                             if (imageUrl) target.src = imageUrl;
                         }} else {{
-                            target.textContent = fieldValue;
+                            target.textContent = value;
                         }}
                     }});
-                }}
+                 }}
 
                 waitForTaggedElements()
                     .then(tagged => {{

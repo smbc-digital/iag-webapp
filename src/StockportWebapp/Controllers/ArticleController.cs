@@ -1,6 +1,7 @@
 namespace StockportWebapp.Controllers;
 
-[ResponseCache(Location = ResponseCacheLocation.Any, Duration = Cache.Short)]
+// [ResponseCache(Location = ResponseCacheLocation.Any, Duration = Cache.Short)]
+[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
 public class ArticleController(IRepository repository,
                             IProcessedContentRepository processedRepository,
                             IContactUsMessageTagParser contactUsMessageParser) : Controller
