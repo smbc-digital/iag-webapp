@@ -49,7 +49,8 @@
                                  width="712"
                                  height="350"
                                  alt="@Model.Article.AltText"
-                                 data-contentful-field="image" />
+                                 data-contentful-entry-id="@Model.Article.ContentfulId"
+                                 data-contentful-field-id="image" />
                         </div>
                     }
 
@@ -68,7 +69,7 @@
 
                     @if (!string.IsNullOrEmpty(Model.Article.Body))
                     {
-                        <article data-contentful-field-id="body">
+                        <article data-contentful-entry-id="@Model.Article.ContentfulId" data-contentful-field-id="body">
                             @Html.Raw(StockportWebapp.Utils.HtmlHelper.AddImageAttributes(Model.Article.Body, "720", "511", "720", "937", "852"))
                         </article>
                     }
