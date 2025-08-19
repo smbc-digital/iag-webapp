@@ -5,9 +5,10 @@
     Layout = "../Shared/_Layout2023.cshtml";
     List<News> latestNews = Model.GetLatestNews();
     ViewData["og:title"] = Model.NewsItem.Title;
+    string dataCy = string.IsNullOrEmpty(Model.NewsItem.HeroImage) ? "news-article-details" : "news-article-hero";
 }
 
-<div class="grid-container-full-width" data-cy="news-article-details">
+<div class="grid-container-full-width" data-cy="@dataCy">
     <partial name="GlobalAlerts" model='Model.NewsItem.Alerts' />
     <partial name="Breadcrumb2023" model="Model.NewsItem.Breadcrumbs" />
 
