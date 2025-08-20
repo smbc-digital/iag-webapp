@@ -29,18 +29,19 @@
 
 <div class="section__content section__content--no-margin">
     <div class="logo-area">
-        @foreach (TrustedLogo trustedLogo in Model)
+        @for (int i = 0; i < Model.Count; i++)
         {
-            <div class="logo-area__item" data-contentful-entry-id="@dataContentfulEntryId" data-contentful-field-id="trustedLogos">
-                <a href="@trustedLogo.Link" data-contentful-entry-id="@dataContentfulEntryId" data-contentful-field-id="link">
+            TrustedLogo trustedLogo = Model[i];
+
+            <div class="logo-area__item" data-contentful-entry-id="@dataContentfulEntryId" data-contentful-field-id="trustedLogos[@i]">
+                <a href="@trustedLogo.Link" data-contentful-field-id="link">
                     <img src="@trustedLogo.Image.Url?w=340&q=89&fm=webp"
-                         class="logo-area__image"
-                         alt="@(trustedLogo.Image.Description ?? string.Empty)"
-                         loading="lazy"
-                         width="200"
-                         height="125"
-                         data-contentful-entry-id="@dataContentfulEntryId"
-                         data-contentful-field-id="image" />
+                        class="logo-area__image"
+                        alt="@(trustedLogo.Image.Description ?? string.Empty)"
+                        loading="lazy"
+                        width="200"
+                        height="125"
+                        data-contentful-field-id="image" />
                 </a>
             </div>
         }
