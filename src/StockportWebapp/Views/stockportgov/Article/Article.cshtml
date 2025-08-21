@@ -25,7 +25,7 @@
     <div class="grid-container">
         <div class="grid-100">
             <div class="article--70">
-                <h1 class="article__title" data-contentful-field-id="title">@Model.Article.Title</h1>
+                <h1 class="article__title" data-contentful-entry-id="@Model.Article.ContentfulId" data-contentful-field-id="title">@Model.Article.Title</h1>
 
                 @if (Model.ArticleWithSection && !Model.ArticleHasImage)
                 {
@@ -49,6 +49,7 @@
                                  width="712"
                                  height="350"
                                  alt="@Model.Article.AltText"
+                                 data-contentful-entry-id="@Model.Article.ContentfulId"
                                  data-contentful-field-id="image" />
                         </div>
                     }
@@ -60,7 +61,7 @@
 
                     @if (Model.ArticleWithSection)
                     {
-                        <article class="article-body" data-contentful-field-id="sections">
+                        <article class="article-body" data-contentful-entry-id="@Model.Article.ContentfulId" data-contentful-field-id="sections">
                             <h2 id="@Model.DisplayedSection.Slug">@Model.DisplayedSection.Title</h2>
                             @Html.Raw(Model.DisplayedSection.Body)
                         </article>
@@ -68,7 +69,7 @@
 
                     @if (!string.IsNullOrEmpty(Model.Article.Body))
                     {
-                        <article data-contentful-field-id="body">
+                        <article data-contentful-entry-id="@Model.Article.ContentfulId" data-contentful-field-id="body">
                             @Html.Raw(StockportWebapp.Utils.HtmlHelper.AddImageAttributes(Model.Article.Body, "720", "511", "720", "937", "852"))
                         </article>
                     }
@@ -96,14 +97,16 @@
                         <partial name="LogoArea" model='@Model.DisplayedSection.TrustedLogos'
                                 view-data='@(new ViewDataDictionary(ViewData) { { "logoAreaTitle", @Model.DisplayedSection.LogoAreaTitle },
                                                                                 { "articleWithSection", Model.ArticleWithSection },
-                                                                                { "logoAreaArticle", true } })' />
+                                                                                { "logoAreaArticle", true },
+                                                                                { "dataContentfulEntryId", @Model.Article.ContentfulId } })' />
                     }
                     else
                     {
                         <partial name="LogoArea" model='@Model.Article.TrustedLogos'
                                 view-data='@(new ViewDataDictionary(ViewData) { { "logoAreaTitle", @Model.Article.LogoAreaTitle },
                                                                                 { "articleWithSection", Model.ArticleWithSection },
-                                                                                { "logoAreaArticle", true } })' />
+                                                                                { "logoAreaArticle", true },
+                                                                                { "dataContentfulEntryId", @Model.Article.ContentfulId } })' />
                     }
                 </div>
 

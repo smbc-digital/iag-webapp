@@ -23,12 +23,12 @@
     }
 }
 
-<h2 class="@headingClass @eventDetailHeading" data-contentful-field-id="logoAreaTitle">
+<h2 class="@headingClass @eventDetailHeading" data-contentful-entry-id="@dataContentfulEntryId" data-contentful-field-id="logoAreaTitle">
     @(!string.IsNullOrEmpty(logoAreaTitle) ? logoAreaTitle : "Our partners")
 </h2>
 
 <div class="section__content section__content--no-margin">
-    <div class="logo-area" data-contentful-field-id="trustedLogos">
+    <div class="logo-area" data-contentful-entry-id="@dataContentfulEntryId" data-contentful-field-id="trustedLogos">
         @foreach (TrustedLogo trustedLogo in Model)
         {
             <div class="logo-area__item">
