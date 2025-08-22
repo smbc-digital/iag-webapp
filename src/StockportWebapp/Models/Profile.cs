@@ -15,8 +15,6 @@ public class Profile
     public List<Alert> Alerts { get; set; }
     public string TriviaSubheading { get; set; }
     public List<Trivia> TriviaSection { get; set; }
-    public string Author { get; set; } = string.Empty;
-    public string Subject { get; set; } = string.Empty;
     public EventBanner EventsBanner { get; set; }
     public EColourScheme Colour { get; set; } = EColourScheme.Teal;
     public Topic ParentTopic { get; set; }
