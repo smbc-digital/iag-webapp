@@ -45,7 +45,7 @@ public class SitemapControllerTests
             .Returns(headerDictionary);
 
         context
-            .Setup(c => c.Request)
+            .Setup(ctext => ctext.Request)
             .Returns(request.Object);
 
         _mockRepository
