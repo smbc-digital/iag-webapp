@@ -13,6 +13,13 @@
                     <p>Ward name: @Model.WardName</p>
                     <p>First image url: @Model.Images.FirstOrDefault()</p>
                 </div>
+                <div class="directory-result__brand">
+                    <img src="https://live-iag-static-assets.s3.eu-west-1.amazonaws.com/heritage/Photos/@Model.Images.FirstOrDefault()?w=340&q=89&fm=webp"
+                            alt=""
+                            width="300"
+                            height="150"
+                            loading="lazy">
+                </div>
             </div>
         </a>
     </div>
