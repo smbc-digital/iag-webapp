@@ -63,6 +63,7 @@ public class PaymentController(IProcessedContentRepository repository,
 
         HttpResponse<CreateImmediateBasketResponse> civicaPayResponse = await _civicaPayGateway.CreateImmediateBasketAsync(civicaPayRequest);
 
+
         string reference = paymentSubmission.Payment.PaymentType.Equals("ServicePayPayment")
             ? paymentSubmission.Reference
             : civicaPayRequest.CallingAppTranReference;
@@ -73,12 +74,10 @@ public class PaymentController(IProcessedContentRepository repository,
         if (civicaPayResponse.StatusCode.Equals(HttpStatusCode.BadRequest)
             && civicaPayResponse.ResponseContent.ResponseCode.Equals(CIVICA_PAY_INVALID_DETAILS))
         {
-            _logger.LogError($"{nameof(PaymentController)}::{nameof(Detail)}: " +
-                $"{nameof(ICivicaPayGateway)} {nameof(ICivicaPayGateway.CreateImmediateBasketAsync)} " +
-                $"An unexpected error occurred creating immediate basket:: " +
-                $"CivicaPay response code: {civicaPayResponse.ResponseContent.ResponseCode} " +
-                $"CivicaPay error message : {civicaPayResponse.ResponseContent.ErrorMessage}");
-
+            _logger.LogInformation($"{nameof(PaymentController)}::{nameof(Detail)}: " +
+                $"CivicaPay returned invalid details when creating immediate basket. " +
+                $"Response code: {civicaPayResponse.ResponseContent.ResponseCode} " +
+                $"Error : {civicaPayResponse.ResponseContent.ErrorMessage}");
 
             ModelState.AddModelError("Reference", $"Check {paymentSubmission.Payment.ReferenceLabel.ToLower()} and try again");
 
