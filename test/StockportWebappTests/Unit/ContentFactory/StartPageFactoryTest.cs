@@ -25,28 +25,28 @@ public class StartPageFactoryTests
 
         _mockTagParser
             .Setup(parser => parser.ParseAll(_startPage.UpperBody,
-                                It.IsAny<string>(),
-                                It.IsAny<bool>(),
-                                It.IsAny<IEnumerable<Alert>>(),
-                                null,
-                                null,
-                                null,
-                                null,
-                                null,
-                                It.IsAny<bool>()))
+                                            It.IsAny<string>(),
+                                            It.IsAny<bool>(),
+                                            It.IsAny<IEnumerable<Alert>>(),
+                                            null,
+                                            null,
+                                            null,
+                                            null,
+                                            null,
+                                            It.IsAny<bool>()))
             .Returns(_startPage.UpperBody);
 
         _mockTagParser
             .Setup(parser => parser.ParseAll(_startPage.LowerBody,
-                                It.IsAny<string>(),
-                                It.IsAny<bool>(),
-                                It.IsAny<IEnumerable<Alert>>(),
-                                null,
-                                null,
-                                null,
-                                null,
-                                null,
-                                It.IsAny<bool>()))
+                                            It.IsAny<string>(),
+                                            It.IsAny<bool>(),
+                                            It.IsAny<IEnumerable<Alert>>(),
+                                            null,
+                                            null,
+                                            null,
+                                            null,
+                                            null,
+                                            It.IsAny<bool>()))
             .Returns(_startPage.LowerBody);
 
         _mockMarkdownWrapper

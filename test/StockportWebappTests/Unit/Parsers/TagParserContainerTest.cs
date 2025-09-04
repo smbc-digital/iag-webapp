@@ -1,6 +1,4 @@
-﻿using StockportWebapp.TagParsers;
-
-namespace StockportWebappTests_Unit.Unit.Parsers;
+﻿namespace StockportWebappTests_Unit.Unit.Parsers;
 
 public class TagParserContainerTests
 {
@@ -8,7 +6,6 @@ public class TagParserContainerTests
     private readonly Mock<ISimpleTagParser> _tagParser = new();
     private readonly Mock<ISimpleTagParser> _anotherTagParser = new();
     private readonly Mock<ISimpleTagParser> _anotherAnotherTagParser = new();
-    private readonly Mock<IViewRender> _viewRenderer = new();
     private readonly Mock<IDynamicTagParser<Alert>> _alertsTagParser = new();
     private readonly Mock<IDynamicTagParser<Document>> _documentTagParser = new();
     private readonly Mock<IDynamicTagParser<InlineQuote>> _quoteTagParser = new();

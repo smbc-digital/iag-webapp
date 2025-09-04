@@ -4,7 +4,6 @@ public class TopicControllerTest
 {
     private readonly TopicController _controller;
     private readonly Mock<ITopicRepository> _repository = new();
-    private const string BusinessId = "stockportgov";
     private readonly EventCalendarBanner _eventCalendarBanner;
     private readonly EventBanner _eventBanner;
     private readonly CallToActionBanner _callToAction;
@@ -12,9 +11,7 @@ public class TopicControllerTest
 
     public TopicControllerTest()
     {
-        Mock<IApplicationConfiguration> config = new();
-
-        _controller = new(_repository.Object, config.Object, new BusinessId(BusinessId), _stockportApiService.Object);
+        _controller = new(_repository.Object, _stockportApiService.Object);
 
         _eventCalendarBanner = new EventCalendarBanner()
         {

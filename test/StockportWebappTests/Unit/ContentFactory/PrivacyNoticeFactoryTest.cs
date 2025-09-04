@@ -25,12 +25,29 @@ public class PrivacyNoticeFactoryTest
     public void Build_ShouldConvertPrivacyNoticeToProcessedPrivacyNotice()
     {
         // Arrange
-        _markdownWrapper.Setup(_ => _.ConvertToHtml("test-type-of-data")).Returns("test-type-of-data-html");
-        _markdownWrapper.Setup(_ => _.ConvertToHtml("test-purpose")).Returns("test-purpose-html");
-        _markdownWrapper.Setup(_ => _.ConvertToHtml("test-externally-shared")).Returns("test-externally-shared-html");
-        _markdownWrapper.Setup(_ => _.ConvertToHtml("test-obtained")).Returns("test-obtained-html");
-        _markdownWrapper.Setup(_ => _.ConvertToHtml("test-retention")).Returns("test-retention-html");
-        _markdownWrapper.Setup(_ => _.ConvertToHtml("test-legislation")).Returns("test-legislation-html");
+        _markdownWrapper
+            .Setup(markdownWrapper => markdownWrapper.ConvertToHtml("test-type-of-data"))
+            .Returns("test-type-of-data-html");
+
+        _markdownWrapper
+            .Setup(markdownWrapper => markdownWrapper.ConvertToHtml("test-purpose"))
+            .Returns("test-purpose-html");
+
+        _markdownWrapper
+            .Setup(markdownWrapper => markdownWrapper.ConvertToHtml("test-externally-shared"))
+            .Returns("test-externally-shared-html");
+
+        _markdownWrapper
+            .Setup(markdownWrapper => markdownWrapper.ConvertToHtml("test-obtained"))
+            .Returns("test-obtained-html");
+
+        _markdownWrapper
+            .Setup(markdownWrapper => markdownWrapper.ConvertToHtml("test-retention"))
+            .Returns("test-retention-html");
+
+        _markdownWrapper
+            .Setup(markdownWrapper => markdownWrapper.ConvertToHtml("test-legislation"))
+            .Returns("test-legislation-html");
 
         PrivacyNotice privacyNotice = new()
         {

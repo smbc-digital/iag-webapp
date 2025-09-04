@@ -11,7 +11,6 @@ public class PaymentControllerTest
     private readonly Mock<ICivicaPayGateway> _civicaPayGateway = new();
     private readonly Mock<IOptions<CivicaPayConfiguration>> _configuration = new();
     private readonly Mock<IObjectModelValidator> _objectValidator = new();
-    private readonly Mock<IFeatureManager> _featureManager = new();
     private readonly Mock<ILogger<PaymentController>> _logger = new();
 
     private readonly ProcessedPayment _processedPayment = new("title",
@@ -199,7 +198,7 @@ public class PaymentControllerTest
         {
             Payment = _processedPayment,
             Amount = "12.00",
-            Reference = ""
+            Reference = string.Empty
         }) as ViewResult;
 
         // Assert

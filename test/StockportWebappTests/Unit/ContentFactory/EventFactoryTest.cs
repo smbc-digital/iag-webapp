@@ -7,56 +7,42 @@ public class EventFactoryTest
     private readonly Mock<ITagParserContainer> _tagParserContainer = new();
     private readonly Mock<IDynamicTagParser<Document>> _documentTagParser = new();
     private readonly Event _event;
-    private const string Title = "This is the event";
-    private const string Description = "The event";
-    private const string Slug = "event-of-the-century";
-    private const string Teaser = "Read more for the event";
-    private const string Image = "image.jpg";
-    private const string ThumbnailImage = "thumbnail.jpg";
-    private const string Fee = "Free";
-    private const string Location = "Bramall Hall, Carpark, SK7 6HG";
-    private const string SubmittedBy = "Friends of Stockport";
-    private const string StartTime = "10:00";
-    private const string EndTime = "17:00";
-    private readonly DateTime _eventDate = new(2016, 12, 30);
-    private readonly List<Crumb> _breadcrumbs = new();
-    private readonly string _bookingInformation = "Booking information";
     private readonly List<Alert> _alerts = new()
-        {
-            new Alert("title",
-                    "body",
-                    "severity",
-                    new DateTime(0001, 1, 1, 0, 0, 0, DateTimeKind.Utc),
-                    new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc),
-                    string.Empty,
-                    false,
-                    string.Empty)
-        };
+    {
+        new Alert("title",
+                "body",
+                "severity",
+                new DateTime(0001, 1, 1, 0, 0, 0, DateTimeKind.Utc),
+                new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc),
+                string.Empty,
+                false,
+                string.Empty)
+    };
 
     public EventFactoryTest()
     {
         _factory = new EventFactory(_tagParserContainer.Object, _markdownWrapper.Object);
         _event = new Event
         {
-            Title = Title,
-            Slug = Slug,
-            Teaser = Teaser,
-            ImageUrl = Image,
-            ThumbnailImageUrl = ThumbnailImage,
-            Description = Description,
-            Fee = Fee,
-            Location = Location,
-            SubmittedBy = SubmittedBy,
-            EventDate = _eventDate,
-            StartTime = StartTime,
-            EndTime = EndTime,
-            Breadcrumbs = _breadcrumbs,
-            BookingInformation = _bookingInformation,
+            Title = "This is the event",
+            Slug = "event-of-the-century",
+            Teaser = "Read more for the event",
+            ImageUrl = "image.jpg",
+            ThumbnailImageUrl = "thumbnail.jpg",
+            Description = "The event",
+            Fee = "Free",
+            Location = "Bramall Hall, Carpark, SK7 6HG",
+            SubmittedBy = "Friends of Stockport",
+            EventDate = new(2016, 12, 30),
+            StartTime = "10:00",
+            EndTime = "17:00",
+            Breadcrumbs = new(),
+            BookingInformation = "Booking information",
             Alerts = _alerts
         };
 
         _tagParserContainer
-            .Setup(parser => parser.ParseAll(Description,
+            .Setup(parser => parser.ParseAll("The event",
                 It.IsAny<string>(),
                 It.IsAny<bool>(),
                 null,
@@ -66,15 +52,15 @@ public class EventFactoryTest
                 null,
                 null,
                 It.IsAny<bool>()))
-            .Returns(Description);
+            .Returns("The event");
         
         _markdownWrapper
-            .Setup(parser => parser.ConvertToHtml(Description))
-            .Returns(Description);
+            .Setup(parser => parser.ConvertToHtml("The event"))
+            .Returns("The event");
         
         _documentTagParser
-            .Setup(parser => parser.Parse(Description, _event.Documents, It.IsAny<bool>()))
-            .Returns(Description);
+            .Setup(parser => parser.Parse("The event", _event.Documents, It.IsAny<bool>()))
+            .Returns("The event");
     }
 
     [Fact]
@@ -109,7 +95,7 @@ public class EventFactoryTest
         _factory.Build(_event);
 
         // Assert
-        _markdownWrapper.Verify(wrapper => wrapper.ConvertToHtml(Description), Times.Once);
+        _markdownWrapper.Verify(wrapper => wrapper.ConvertToHtml("The event"), Times.Once);
     }
 
     [Fact]
@@ -119,7 +105,7 @@ public class EventFactoryTest
         _factory.Build(_event);
 
         // Assert
-        _tagParserContainer.Verify(parser => parser.ParseAll(Description,
+        _tagParserContainer.Verify(parser => parser.ParseAll("The event",
                                                             _event.Title,
                                                             It.IsAny<bool>(),
                                                             null,
@@ -138,7 +124,7 @@ public class EventFactoryTest
         _factory.Build(_event);
 
         // Assert
-        _tagParserContainer.Verify(parser => parser.ParseAll(Description,
+        _tagParserContainer.Verify(parser => parser.ParseAll("The event",
                                                 _event.Title,
                                                 It.IsAny<bool>(),
                                                 null,

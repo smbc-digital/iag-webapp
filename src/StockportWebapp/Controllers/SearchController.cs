@@ -1,7 +1,6 @@
 namespace StockportWebapp.Controllers;
 
-public class SearchController(IApplicationConfiguration config,
-                            BusinessId businessId) : Controller
+public class SearchController(IApplicationConfiguration config, BusinessId businessId) : Controller
 {
     private readonly IApplicationConfiguration _config = config;
     private readonly BusinessId _businessId = businessId;

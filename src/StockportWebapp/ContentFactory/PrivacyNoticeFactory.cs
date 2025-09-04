@@ -4,29 +4,18 @@ public class PrivacyNoticeFactory(MarkdownWrapper markdownWrapper)
 {
     private readonly MarkdownWrapper _markdownWrapper = markdownWrapper;
 
-    public virtual ProcessedPrivacyNotice Build(PrivacyNotice privacyNotice)
-    {
-        string typeOfDataHtml = _markdownWrapper.ConvertToHtml(privacyNotice.TypeOfData);
-        string purposeHtml = _markdownWrapper.ConvertToHtml(privacyNotice.Purpose);
-        string externallySharedHtml = _markdownWrapper.ConvertToHtml(privacyNotice.ExternallyShared);
-        string obtainedHtml = _markdownWrapper.ConvertToHtml(privacyNotice.Obtained);
-        string retentionPeriodHtml = _markdownWrapper.ConvertToHtml(privacyNotice.RetentionPeriod);
-        string legistationHtml = _markdownWrapper.ConvertToHtml(privacyNotice.Legislation);
-
-        ProcessedPrivacyNotice processedPrivacyNotice = new(privacyNotice.Slug,
-                                                            privacyNotice.Title,
-                                                            privacyNotice.Category,
-                                                            purposeHtml,
-                                                            typeOfDataHtml,
-                                                            legistationHtml,
-                                                            obtainedHtml,
-                                                            externallySharedHtml,
-                                                            retentionPeriodHtml,
-                                                            privacyNotice.OutsideEu,
-                                                            privacyNotice.AutomatedDecision,
-                                                            privacyNotice.Breadcrumbs,
-                                                            privacyNotice.ParentTopic);
-
-        return processedPrivacyNotice;
-    }
+    public virtual ProcessedPrivacyNotice Build(PrivacyNotice privacyNotice) =>
+        new(privacyNotice.Slug,
+            privacyNotice.Title,
+            privacyNotice.Category,
+            _markdownWrapper.ConvertToHtml(privacyNotice.Purpose),
+            _markdownWrapper.ConvertToHtml(privacyNotice.TypeOfData),
+            _markdownWrapper.ConvertToHtml(privacyNotice.Legislation),
+            _markdownWrapper.ConvertToHtml(privacyNotice.Obtained),
+            _markdownWrapper.ConvertToHtml(privacyNotice.ExternallyShared),
+            _markdownWrapper.ConvertToHtml(privacyNotice.RetentionPeriod),
+            privacyNotice.OutsideEu,
+            privacyNotice.AutomatedDecision,
+            privacyNotice.Breadcrumbs,
+            privacyNotice.ParentTopic);
 }

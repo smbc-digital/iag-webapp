@@ -10,9 +10,6 @@ public class NewsControllerTest
     private readonly Mock<IRssFeedFactory> _mockRssFeedFactory = new();
     private readonly Mock<ILogger<NewsController>> _logger = new();
     private readonly Mock<IApplicationConfiguration> _config = new();
-    private const string BusinessId = "businessId";
-    private const string EmailAlertsTopicId = "test-id";
-    private const bool EmailAlertsOn = true;
     private readonly Mock<IFilteredUrl> _filteredUrl = new();
     private readonly Mock<IFeatureManager> _featureManager = new();
 
@@ -116,8 +113,8 @@ public class NewsControllerTest
                         null,
                         null,
                         new OrderedList<Alert>(),
-                        EmailAlertsOn,
-                        EmailAlertsTopicId,
+                        true,
+                        "test-id",
                         new List<string>(),
                         new List<DateTime>(),
                         new List<int>() { 2025, 2024, 2023, 2022, 2021, 2020, 2019, 2018, 2017, 2016 },
@@ -129,8 +126,8 @@ public class NewsControllerTest
                             null,
                             null,
                             new OrderedList<Alert>(),
-                            EmailAlertsOn,
-                            EmailAlertsTopicId,
+                            true,
+                            "test-id",
                             new List<string>(),
                             new List<DateTime>(),
                             new List<int>(),
@@ -157,11 +154,11 @@ public class NewsControllerTest
             .Returns("rss fun");
 
         _config
-            .Setup(conf => conf.GetRssEmail(BusinessId))
+            .Setup(conf => conf.GetRssEmail("businessId"))
             .Returns(AppSetting.GetAppSetting("rss-email"));
         
         _config
-            .Setup(conf => conf.GetEmailAlertsNewSubscriberUrl(BusinessId))
+            .Setup(conf => conf.GetEmailAlertsNewSubscriberUrl("businessId"))
             .Returns(AppSetting.GetAppSetting("email-alerts-url"));
 
         _featureManager
@@ -173,7 +170,7 @@ public class NewsControllerTest
                         _mockRssFeedFactory.Object,
                         _logger.Object,
                         _config.Object,
-                        new BusinessId(BusinessId),
+                        new BusinessId("businessId"),
                         _filteredUrl.Object,
                         _featureManager.Object);
     }
@@ -190,8 +187,8 @@ public class NewsControllerTest
         Assert.Equal(2, news.News.Count);
         Assert.Equal(NewsItemWithoutImages, news.News[0]);
         Assert.Equal(NewsItemWithImages, news.News[1]);
-        Assert.Equal(EmailAlertsTopicId, news.EmailAlertsTopicId);
-        Assert.Equal(EmailAlertsOn, news.EmailAlerts);
+        Assert.Equal("test-id", news.EmailAlertsTopicId);
+        Assert.True(news.EmailAlerts);
     }
 
     [Fact]
@@ -217,8 +214,8 @@ public class NewsControllerTest
         Assert.Equal(2, news.News.Count);
         Assert.Equal(NewsItemWithoutImages, news.News[0]);
         Assert.Equal(NewsItemWithImages, news.News[1]);
-        Assert.Equal(EmailAlertsOn, news.EmailAlerts);
-        Assert.Equal(EmailAlertsTopicId, news.EmailAlertsTopicId);
+        Assert.True(news.EmailAlerts);
+        Assert.Equal("test-id", news.EmailAlertsTopicId);
     }
 
     [Fact]
@@ -234,7 +231,7 @@ public class NewsControllerTest
                                         _mockRssFeedFactory.Object,
                                         _logger.Object,
                                         _config.Object,
-                                        new BusinessId(BusinessId),
+                                        new BusinessId("businessId"),
                                         _filteredUrl.Object,
                                         null);
 
@@ -284,7 +281,7 @@ public class NewsControllerTest
                                         _mockRssFeedFactory.Object,
                                         _logger.Object,
                                         _config.Object,
-                                        new BusinessId(BusinessId),
+                                        new BusinessId("businessId"),
                                         _filteredUrl.Object,
                                         null);
 
@@ -410,7 +407,7 @@ public class NewsControllerTest
                                         _processedContentRepository.Object,
                                         _mockRssFeedFactory.Object,
                                         _logger.Object, _config.Object,
-                                        new BusinessId(BusinessId),
+                                        new BusinessId("businessId"),
                                         _filteredUrl.Object,
                                         null);
 
@@ -451,7 +448,7 @@ public class NewsControllerTest
                                         _mockRssFeedFactory.Object,
                                         _logger.Object,
                                         _config.Object,
-                                        new BusinessId(BusinessId),
+                                        new BusinessId("businessId"),
                                         _filteredUrl.Object,
                                         null);
 
@@ -648,8 +645,8 @@ public class NewsControllerTest
                                 null,
                                 null,
                                 new OrderedList<Alert>(),
-                                EmailAlertsOn,
-                                EmailAlertsTopicId,
+                                true,
+                                "test-id",
                                 new List<string>(),
                                 new List<DateTime>(),
                                 new List<int>(),
@@ -664,7 +661,7 @@ public class NewsControllerTest
                 _mockRssFeedFactory.Object,
                 _logger.Object,
                 _config.Object,
-                new BusinessId(BusinessId),
+                new BusinessId("businessId"),
                 _filteredUrl.Object,
                 null);
     }

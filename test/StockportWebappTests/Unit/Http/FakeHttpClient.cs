@@ -35,7 +35,6 @@ public class FakeHttpClient : IHttpClient
         }
         catch (KeyNotFoundException)
         {
-            Console.WriteLine($"No response found for: {url}");
             throw new KeyNotFoundException($"No response found for: {url}");
         }
     }
@@ -52,7 +51,6 @@ public class FakeHttpClient : IHttpClient
         }
         catch (KeyNotFoundException)
         {
-            Console.WriteLine($"No response found for: {requestURI}");
             throw new KeyNotFoundException($"No response found for: {requestURI}");
         }
     }

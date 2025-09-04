@@ -1,4 +1,5 @@
-namespace StockportWebapp.Model;
+namespace StockportWebapp.Models;
+
 [ExcludeFromCodeCoverage]
 public class Filter
 {

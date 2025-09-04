@@ -1,7 +1,6 @@
 ﻿namespace StockportWebapp.ViewComponents;
 
-public class SemanticFooterViewComponent(IRepository repository,
-                                        ILogger<SemanticFooterViewComponent> logger) : ViewComponent
+public class SemanticFooterViewComponent(IRepository repository, ILogger<SemanticFooterViewComponent> logger) : ViewComponent
 {
     private readonly IRepository _repository = repository;
     private readonly ILogger<SemanticFooterViewComponent> _logger = logger;

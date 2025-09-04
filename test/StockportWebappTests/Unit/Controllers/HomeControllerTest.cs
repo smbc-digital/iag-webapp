@@ -8,10 +8,6 @@ public class HomeControllerTest
     private readonly Mock<IEventsService> _eventsService = new();
     private readonly Mock<IHomepageService> _homepageService = new();
     private readonly Mock<IStockportApiEventsService> _stockportApiService = new();
-    private const string EmailAlertsUrl = "email_alerts_url";
-    private const string BusinessId = "stockportgov";
-
-    #region Models
 
     private readonly List<SubItem> _featuredTasks = new()
     {
@@ -65,8 +61,6 @@ public class HomeControllerTest
                                                         "Campaign Image",
                                                         "Campaign Url",
                                                         new DateTime());
-    private readonly DateTime _sunrise = new(2015, 9, 10);
-    private readonly DateTime _sunset = new(2015, 9, 20);
 
     private readonly News _newsContent = new("title",
                                             "slug",
@@ -103,8 +97,6 @@ public class HomeControllerTest
 
     private readonly CallToActionBanner _callToActionBanner = new();
 
-    #endregion
-
     public HomeControllerTest()
     {
         ProcessedHomepage homePageContent = new("Title",
@@ -137,16 +129,16 @@ public class HomeControllerTest
             .Setup(service => service.GetLatestNewsItem())
             .ReturnsAsync(_newsContent);
 
-        AppSetting appSetting = AppSetting.GetAppSetting(EmailAlertsUrl);
+        AppSetting appSetting = AppSetting.GetAppSetting("email_alerts_url");
         _config
-            .Setup(conf => conf.GetEmailAlertsUrl(BusinessId))
+            .Setup(conf => conf.GetEmailAlertsUrl("stockportgov"))
             .Returns(appSetting);
         
         _config
-            .Setup(conf => conf.GetEmailAlertsNewSubscriberUrl(BusinessId))
+            .Setup(conf => conf.GetEmailAlertsNewSubscriberUrl("stockportgov"))
             .Returns(AppSetting.GetAppSetting("email_alerts_url"));
         
-        _controller = new HomeController(new BusinessId(BusinessId),
+        _controller = new HomeController(new BusinessId("stockportgov"),
                                         _config.Object,
                                         _newsService.Object,
                                         _eventsService.Object,
@@ -276,8 +268,8 @@ public class HomeControllerTest
         // Assert
         Assert.Equal("title", page.FeaturedNews.Title);
         Assert.Equal("slug", page.FeaturedNews.Slug);
-        Assert.Equal(_sunrise, page.FeaturedNews.SunriseDate);
-        Assert.Equal(_sunset, page.FeaturedNews.SunsetDate);
+        Assert.Equal(new(2015, 9, 10), page.FeaturedNews.SunriseDate);
+        Assert.Equal(new(2015, 9, 20), page.FeaturedNews.SunsetDate);
     }
 
     [Fact]
@@ -397,16 +389,13 @@ public class HomeControllerTest
     [Fact]
     public async Task EmailSubscribe_Should_RedirectToConfiguredUrlWithEmailAddress()
     {
-        // Arrange
-        const string emailAddress = "me@email.com";
-
         // Act
-        RedirectResult result = await _controller.EmailSubscribe(emailAddress, string.Empty, string.Empty) as RedirectResult;
+        RedirectResult result = await _controller.EmailSubscribe("me@email.com", string.Empty, string.Empty) as RedirectResult;
 
         // Assert
         Assert.IsType<RedirectResult>(result);
-        _config.Verify(conf => conf.GetEmailAlertsUrl(BusinessId), Times.Once);
-        Assert.Equal($"{EmailAlertsUrl}?email={emailAddress}", result.Url);
+        _config.Verify(conf => conf.GetEmailAlertsUrl("stockportgov"), Times.Once);
+        Assert.Equal("email_alerts_url?email=me@email.com", result.Url);
     }
 
     [Fact]
@@ -415,7 +404,7 @@ public class HomeControllerTest
         // Arrange
         AppSetting appSetting = AppSetting.GetAppSetting(null);
         _config
-            .Setup(conf => conf.GetEmailAlertsUrl(BusinessId))
+            .Setup(conf => conf.GetEmailAlertsUrl("stockportgov"))
             .Returns(appSetting);
 
         // Act
@@ -433,8 +422,8 @@ public class HomeControllerTest
 
         // Assert
         Assert.IsType<RedirectResult>(result);
-        Assert.Equal($"{EmailAlertsUrl}?topic_id=test@email.com", result.Url);
-        _config.Verify(conf => conf.GetEmailAlertsNewSubscriberUrl(BusinessId), Times.Once);
+        Assert.Equal("email_alerts_url?topic_id=test@email.com", result.Url);
+        _config.Verify(conf => conf.GetEmailAlertsNewSubscriberUrl("stockportgov"), Times.Once);
     }
 
     [Fact]
@@ -445,7 +434,7 @@ public class HomeControllerTest
 
         // Assert
         Assert.IsType<RedirectResult>(result);
-        Assert.Equal($"{EmailAlertsUrl}?topic_id=123", result.Url);
-        _config.Verify(conf => conf.GetEmailAlertsNewSubscriberUrl(BusinessId), Times.Once);
+        Assert.Equal("email_alerts_url?topic_id=123", result.Url);
+        _config.Verify(conf => conf.GetEmailAlertsNewSubscriberUrl("stockportgov"), Times.Once);
     }
 }

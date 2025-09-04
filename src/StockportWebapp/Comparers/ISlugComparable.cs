@@ -1,7 +1,6 @@
-﻿namespace StockportWebapp.Comparers
+﻿namespace StockportWebapp.Comparers;
+
+public interface ISlugComparable
 {
-    public interface ISlugComparable
-    {
-        string Slug { get; set; }
-    }
+    string Slug { get; set; }
 }

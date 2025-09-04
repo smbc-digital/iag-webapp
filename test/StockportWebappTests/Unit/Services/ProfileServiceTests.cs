@@ -32,19 +32,19 @@ public class ProfileServiceTests
     {
         // Arrange
         HttpResponse response = HttpResponse.Successful(200, new Profile
-            {
-                Body = "Test",
-                Slug = "test",
-                InlineAlerts = new List<Alert>(),
-                Alerts = new List<Alert>(),
-                Breadcrumbs = new List<Crumb>(),
-                TriviaSection = new List<Trivia>(),
-                Image = new MediaAsset(),
-                ImageCaption = "image caption",
-                Teaser = "test",
-                Title = "test",
-                Colour = EColourScheme.Blue
-            });
+        {
+            Body = "Test",
+            Slug = "test",
+            InlineAlerts = new List<Alert>(),
+            Alerts = new List<Alert>(),
+            Breadcrumbs = new List<Crumb>(),
+            TriviaSection = new List<Trivia>(),
+            Image = new MediaAsset(),
+            ImageCaption = "image caption",
+            Teaser = "test",
+            Title = "test",
+            Colour = EColourScheme.Blue
+        });
 
         _repository
             .Setup(repo => repo.Get<Profile>(It.IsAny<string>(), It.IsAny<List<Query>>()))

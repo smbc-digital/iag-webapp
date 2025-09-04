@@ -1,7 +1,6 @@
 ﻿namespace StockportWebapp.ContentFactory;
 
-public class TopicFactory(ITagParserContainer tagParserContainer,
-                        MarkdownWrapper markdownWrapper)
+public class TopicFactory(ITagParserContainer tagParserContainer, MarkdownWrapper markdownWrapper)
 {
     private readonly ITagParserContainer _tagParserContainer = tagParserContainer;
     private readonly MarkdownWrapper _markdownWrapper = markdownWrapper;

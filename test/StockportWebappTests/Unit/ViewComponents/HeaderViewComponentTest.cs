@@ -15,7 +15,9 @@ public class HeaderViewComponentTest
         // Arrange
         SiteHeader header = new("title", new List<SubItem>(), "logo.jpg");
 
-        _repository.Setup(repo => repo.Get<SiteHeader>(It.IsAny<string>(), It.IsAny<List<Query>>())).ReturnsAsync(HttpResponse.Successful(200, header));
+        _repository
+            .Setup(repo => repo.Get<SiteHeader>(It.IsAny<string>(), It.IsAny<List<Query>>()))
+            .ReturnsAsync(HttpResponse.Successful(200, header));
 
         // Act
         ViewViewComponentResult result = await _headerViewComponent.InvokeAsync() as ViewViewComponentResult;
@@ -30,7 +32,9 @@ public class HeaderViewComponentTest
     public void ShouldThrowException_IfViewNotFound()
     {
         // Arrange
-        _repository.Setup(repo => repo.Get<SiteHeader>(It.IsAny<string>(), It.IsAny<List<Query>>())).ReturnsAsync(HttpResponse.Successful(404, null));
+        _repository
+            .Setup(repo => repo.Get<SiteHeader>(It.IsAny<string>(), It.IsAny<List<Query>>()))
+            .ReturnsAsync(HttpResponse.Successful(404, null));
 
         // Act & Assert
         Task<FileNotFoundException> exception = Assert.ThrowsAsync<FileNotFoundException>(_headerViewComponent.InvokeAsync);

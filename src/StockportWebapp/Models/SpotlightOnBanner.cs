@@ -1,4 +1,5 @@
 ﻿namespace StockportWebapp.Models;
+
 [ExcludeFromCodeCoverage]
 public class SpotlightOnBanner(string title,
                             MediaAsset image,

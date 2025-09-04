@@ -1,4 +1,5 @@
 ﻿namespace StockportWebapp.Models.ProcessedModels;
+
 [ExcludeFromCodeCoverage]
 public class ProcessedStartPage(string slug,
                                 string title,

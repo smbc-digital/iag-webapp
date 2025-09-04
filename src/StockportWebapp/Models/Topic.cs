@@ -23,7 +23,6 @@ public class Topic(string title,
     public string Title { get; } = title;
     public string Slug { get; } = slug;
     public string NavigationLink { get; } = TypeRoutes.GetUrlFor("topic", slug);
-    private IEnumerable<SubItem> _topSubItems = Enumerable.Empty<SubItem>();
     public string BackgroundImage { get; } = backgroundImage;
     public TriviaSection TriviaSection { get; init; }
     public string Summary { get; } = summary;
@@ -36,26 +35,6 @@ public class Topic(string title,
     public IEnumerable<SubItem> FeaturedTasks { get; } = featuredTasks;
     public IEnumerable<SubItem> SubItems { get; } = subItems;
     public IEnumerable<SubItem> SecondaryItems { get; } = secondaryItems;
-    public IEnumerable<SubItem> TopSubItems
-    {
-        get
-        {
-            const int take = 6;
-            if (_topSubItems.Any()) return _topSubItems;
-
-            _topSubItems = ConcatSubItems(_topSubItems, SubItems, take);
-            _topSubItems = ConcatSubItems(_topSubItems, SecondaryItems, take);
-            _topSubItems = _topSubItems.Take(take);
-
-            return _topSubItems;
-        }
-    }
-
-    private static IEnumerable<SubItem> ConcatSubItems(IEnumerable<SubItem> primary, IEnumerable<SubItem> secondary, int take) => 
-        secondary is not null
-            ? primary.Concat(secondary.Take(take))
-            : primary;
-
     public IEnumerable<Crumb> Breadcrumbs { get; } = breadcrumbs;
     public IEnumerable<Alert> Alerts { get; } = alerts;
     public EventCalendarBanner EventBanner { get; } = eventBanner;

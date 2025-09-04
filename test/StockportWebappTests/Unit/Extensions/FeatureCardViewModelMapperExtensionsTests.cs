@@ -1,7 +1,4 @@
-﻿using StockportGovUK.NetStandard.Gateways.Models.RevsAndBens;
-using System.Linq;
-
-namespace StockportWebappTests_Unit.Unit.Extensions;
+﻿namespace StockportWebappTests_Unit.Unit.Extensions;
 
 public class FeatureCardViewModelMapperExtensionsTests
 {

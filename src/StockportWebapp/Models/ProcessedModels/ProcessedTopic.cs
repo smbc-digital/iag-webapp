@@ -1,4 +1,5 @@
 ﻿namespace StockportWebapp.Models.ProcessedModels;
+
 public class ProcessedTopic(string title,
                             string slug,
                             string summary,
@@ -24,7 +25,6 @@ public class ProcessedTopic(string title,
     public string Title { get; } = title;
     public string Slug { get; } = slug;
     public string NavigationLink { get; } = TypeRoutes.GetUrlFor("topic", slug);
-    private IEnumerable<SubItem> _topSubItems = Enumerable.Empty<SubItem>();
     public string BackgroundImage { get; } = backgroundImage;
     public TriviaSection TriviaSection { get; init; }
     public string Summary { get; } = summary;
@@ -37,7 +37,6 @@ public class ProcessedTopic(string title,
     public IEnumerable<SubItem> FeaturedTasks { get; } = featuredTasks;
     public IEnumerable<SubItem> SubItems { get; } = subItems;
     public IEnumerable<SubItem> SecondaryItems { get; } = secondaryItems;
-    public IEnumerable<SubItem> TopSubItems { get; }
     public IEnumerable<Crumb> Breadcrumbs { get; } = breadcrumbs;
     public IEnumerable<Alert> Alerts { get; } = alerts;
     public EventBanner EventBanner { get; } = eventBanner;

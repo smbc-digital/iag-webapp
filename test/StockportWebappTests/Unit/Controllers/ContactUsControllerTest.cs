@@ -7,15 +7,7 @@ public class ContactUsControllerTest
     private readonly Mock<ILogger<ContactUsController>> _mockLogger = new();
     private readonly Mock<IApplicationConfiguration> _configuration = new();
     private readonly BusinessId _businessId;
-    private readonly string _userEmail = "contactme@email.com";
     private readonly ContactUsDetails _validContactDetails;
-    private readonly string _userName = "name";
-    private readonly string _emailSubject = "Drugs and Alcohol";
-    private readonly string _emailBody = "A body";
-    private readonly string _serviceEmails = "service@email.com, another@email.com";
-    private const string Path = "/page-with-contact-us-form";
-    private readonly string _url = $"http://page.com{Path}";
-    private readonly string _title = "Title";
     private readonly Mock<IRepository> _repository = new();
     private readonly Mock<IFeatureManager> _featureManager = new();
     private readonly ContactUsId _contactUsId;
@@ -45,16 +37,16 @@ public class ContactUsControllerTest
                                             _businessId,
                                             _featureManager.Object);
         
-        _validContactDetails = new ContactUsDetails(_userName,
-                                                    _userEmail,
-                                                    _emailSubject,
-                                                    _emailBody,
-                                                    _serviceEmails,
-                                                    _title);
+        _validContactDetails = new ContactUsDetails("name",
+                                                    "contactme@email.com",
+                                                    "Drugs and Alcohol",
+                                                    "A body",
+                                                    "service@email.com, another@email.com",
+                                                    "Title");
 
         Mock<HttpRequest> request = new();
         Mock<HttpContext> context = new();
-        HeaderDictionary headerDictionary = new() { { "referer", _url } };
+        HeaderDictionary headerDictionary = new() { { "referer", "http://page.com/page-with-contact-us-form" } };
 
         request.Setup(req => req.Headers).Returns(headerDictionary);
         context.Setup(con => con.Request).Returns(request.Object);
@@ -93,11 +85,11 @@ public class ContactUsControllerTest
         // Arrange
         _mockEmailClient.Verify(client => client.SendEmailToService(It.Is<EmailMessage>(
             message => !string.IsNullOrEmpty(message.Subject)
-            && message.Body.Contains(_userName)
-            && message.Body.Contains(_userEmail)
-            && message.Body.Contains(_emailSubject)
-            && message.Body.Contains(_emailBody)
-            && message.Body.Contains(_url)
+            && message.Body.Contains("name")
+            && message.Body.Contains("contactme@email.com")
+            && message.Body.Contains("Drugs and Alcohol")
+            && message.Body.Contains("A body")
+            && message.Body.Contains("http://page.com/page-with-contact-us-form")
         )));
     }
 

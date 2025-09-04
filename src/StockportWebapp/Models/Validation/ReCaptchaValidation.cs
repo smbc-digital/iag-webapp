@@ -13,7 +13,8 @@ public class ValidateReCaptchaAttribute(IApplicationConfiguration config,
 
     public override async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
     {
-        if(await _featureManager.IsEnabledAsync("EnableReCaptchaValidation")){
+        if (await _featureManager.IsEnabledAsync("EnableReCaptchaValidation"))
+        {
             await DoReCaptchaValidation(context);
         }
 

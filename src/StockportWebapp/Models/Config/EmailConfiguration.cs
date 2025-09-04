@@ -5,8 +5,7 @@ public interface IEmailConfigurationBuilder
     AmazonSesClientConfiguration Build(string businessId);
 }
 
-public class EmailConfigurationBuilder(AmazonSESKeys amazonKeys,
-                                    IApplicationConfiguration config) : IEmailConfigurationBuilder
+public class EmailConfigurationBuilder(AmazonSESKeys amazonKeys, IApplicationConfiguration config) : IEmailConfigurationBuilder
 {
     private readonly AmazonSESKeys _amazonKeys = amazonKeys;
     private readonly IApplicationConfiguration _config = config;

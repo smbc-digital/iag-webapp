@@ -6,17 +6,6 @@ public class NewsFactoryTest
     private readonly Mock<MarkdownWrapper> _markdownWrapper = new();
     private readonly Mock<ITagParserContainer> _tagParserContainer = new();
     private readonly News _news;
-    private const string Title = "News 26th Aug";
-    private const string Slug = "news-26th-aug";
-    private const string Teaser = "teaser";
-    private const string Purpose = "purpose";
-    private const string Image = "image";
-    private const string ThumbnailImage = "image";
-    private const string Body = "body";
-    private readonly List<Crumb> _breadcrumbs = new();
-    private readonly DateTime _sunrise = new(2015, 9, 19);
-    private readonly DateTime _sunset = new(2015, 9, 25);
-    private readonly DateTime _updatedAt = new(2015, 9, 20);
     private readonly List<Alert> _alerts = new() 
     {
         new Alert("Alert",
@@ -36,20 +25,20 @@ public class NewsFactoryTest
     public NewsFactoryTest()
     {
         _factory = new NewsFactory(_tagParserContainer.Object, _markdownWrapper.Object);
-        _news = new News(Title,
-                        Slug,
-                        Teaser,
-                        Purpose,
+        _news = new News("News 26th Aug",
+                        "news-26th-aug",
+                        "teaser",
+                        "purpose",
                         "hero image",
-                        Image,
-                        ThumbnailImage,
+                        "image",
+                        "image",
                         "hero image caption",
-                        Body,
-                        _breadcrumbs,
-                        _sunrise,
+                        "body",
+                        new List<Crumb>(),
+                        new(2015, 9, 19),
                         "test",
-                        _sunset,
-                        _updatedAt,
+                        new(2015, 9, 25),
+                        new(2015, 9, 20),
                         _alerts,
                         _tags,
                         _documents,
@@ -63,7 +52,7 @@ public class NewsFactoryTest
                         null);
         
         _tagParserContainer
-            .Setup(parser => parser.ParseAll(Body,
+            .Setup(parser => parser.ParseAll("body",
                                             It.IsAny<string>(),
                                             It.IsAny<bool>(),
                                             null,
@@ -73,11 +62,11 @@ public class NewsFactoryTest
                                             It.IsAny<IEnumerable<Profile>>(),
                                             null,
                                             It.IsAny<bool>()))
-            .Returns(Body);
+            .Returns("body");
         
         _markdownWrapper
-            .Setup(markdown => markdown.ConvertToHtml(Body))
-            .Returns(Body);
+            .Setup(markdown => markdown.ConvertToHtml("body"))
+            .Returns("body");
     }
 
     [Fact]
@@ -87,15 +76,15 @@ public class NewsFactoryTest
         ProcessedNews result = _factory.Build(_news);
 
         // Assert
-        Assert.Equal(Title, result.Title);
-        Assert.Equal(Slug, result.Slug);
-        Assert.Equal(Teaser, result.Teaser);
-        Assert.Equal(Image, result.Image);
-        Assert.Equal(ThumbnailImage, result.ThumbnailImage);
-        Assert.Equal(_breadcrumbs, result.Breadcrumbs);
-        Assert.Equal(_sunrise, result.SunriseDate);
-        Assert.Equal(_sunset, result.SunsetDate);
-        Assert.Equal(_updatedAt, result.UpdatedAt);
+        Assert.Equal("News 26th Aug", result.Title);
+        Assert.Equal("news-26th-aug", result.Slug);
+        Assert.Equal("teaser", result.Teaser);
+        Assert.Equal("image", result.Image);
+        Assert.Equal("image", result.ThumbnailImage);
+        Assert.Equal(new List<Crumb>(), result.Breadcrumbs);
+        Assert.Equal(new(2015, 9, 19), result.SunriseDate);
+        Assert.Equal(new(2015, 9, 25), result.SunsetDate);
+        Assert.Equal(new(2015, 9, 20), result.UpdatedAt);
         Assert.Equal(_alerts, result.Alerts);
         Assert.Equal(_tags, result.Tags);
     }
@@ -105,7 +94,7 @@ public class NewsFactoryTest
     {
         // Act & Assert
         _factory.Build(_news);
-        _markdownWrapper.Verify(markdown => markdown.ConvertToHtml(Body), Times.Once);
+        _markdownWrapper.Verify(markdown => markdown.ConvertToHtml("body"), Times.Once);
     }
 
     [Fact]
@@ -113,7 +102,7 @@ public class NewsFactoryTest
     {
         // Act & Assert
         _factory.Build(_news);
-        _tagParserContainer.Verify(parser => parser.ParseAll(Body,
+        _tagParserContainer.Verify(parser => parser.ParseAll("body",
                                                             _news.Title,
                                                             It.IsAny<bool>(),
                                                             It.IsAny<IEnumerable<Alert>>(),

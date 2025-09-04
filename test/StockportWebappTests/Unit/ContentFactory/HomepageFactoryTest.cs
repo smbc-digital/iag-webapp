@@ -12,18 +12,13 @@ public class HomepageFactoryTest
     public void Build_ItBuildsAHomepageWithProcessedBody()
     {
         // Arrange
-        string freeText = "free text";
         _markdownWrapperMock
-            .Setup(markdownWrapper => markdownWrapper.ConvertToHtml(freeText))
-            .Returns(freeText);
+            .Setup(markdownWrapper => markdownWrapper.ConvertToHtml("free text"))
+            .Returns("free text");
 
-        string imageOverlayText = "image overlay text";
         _markdownWrapperMock
-            .Setup(markdownWrapper => markdownWrapper.ConvertToHtml(imageOverlayText))
-            .Returns(imageOverlayText);
-
-        string backgroundImage = "background image";
-        string foregroundImage = "foreground image";
+            .Setup(markdownWrapper => markdownWrapper.ConvertToHtml("image overlay text"))
+            .Returns("image overlay text");
 
         Homepage homepage = new("Test",
                                 string.Empty,
@@ -32,27 +27,27 @@ public class HomepageFactoryTest
                                 new List<SubItem>(),
                                 new List<Alert>(),
                                 new List<CarouselContent>(),
-                                backgroundImage,
-                                foregroundImage,
+                                "background image",
+                                "foreground image",
                                 string.Empty,
                                 string.Empty,
                                 string.Empty,
-                                freeText,
+                                "free text",
                                 string.Empty,
                                 string.Empty,
                                 new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty, new DateTime()),
                                 new CallToActionBanner(),
                                 new CallToActionBanner(),
                                 new List<SpotlightOnBanner>(),
-                                imageOverlayText);
+                                "image overlay text");
 
         // Act
         ProcessedHomepage result = _homepageFactory.Build(homepage);
 
         // Assert
-        Assert.Equal(freeText, result.FreeText);
-        Assert.Equal(backgroundImage, result.BackgroundImage);
-        _markdownWrapperMock.Verify(wrapper => wrapper.ConvertToHtml(freeText), Times.Once);
-        _markdownWrapperMock.Verify(wrapper => wrapper.ConvertToHtml(imageOverlayText), Times.Once);
+        Assert.Equal("free text", result.FreeText);
+        Assert.Equal("background image", result.BackgroundImage);
+        _markdownWrapperMock.Verify(wrapper => wrapper.ConvertToHtml("free text"), Times.Once);
+        _markdownWrapperMock.Verify(wrapper => wrapper.ConvertToHtml("image overlay text"), Times.Once);
     }
 }

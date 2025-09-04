@@ -1,6 +1,4 @@
-﻿using Org.BouncyCastle.Crypto.Modes;
-
-namespace StockportWebappTests_Unit.Unit.Models.ProcessedModels;
+﻿namespace StockportWebappTests_Unit.Unit.Models.ProcessedModels;
 
 public class ProcessedTopicTests
 {

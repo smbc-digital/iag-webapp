@@ -80,7 +80,6 @@ public class CookiesHelper(IHttpContextAccessor accessor) : ICookiesHelper
 
     private Dictionary<string, List<string>> GetCookiesAsObject(string cookieType)
     {
-
         string cookies = httpContextAccessor.HttpContext.Request.Cookies[cookieType];
         Dictionary<string, List<string>> alertDictionary = new();
         

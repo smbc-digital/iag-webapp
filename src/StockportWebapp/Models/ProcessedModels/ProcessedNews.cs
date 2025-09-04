@@ -1,4 +1,5 @@
 ﻿namespace StockportWebapp.Models.ProcessedModels;
+
 [ExcludeFromCodeCoverage]
 public class ProcessedNews(string title,
                         string slug,

@@ -1,4 +1,4 @@
-using Filter = StockportWebapp.Model.Filter;
+using Filter = StockportWebapp.Models.Filter;
 
 namespace StockportWebappTests_Unit.Unit.Controllers;
 
@@ -6,22 +6,26 @@ public class DirectoryControllerTest
 {
     private readonly DirectoryController _directoryController;
     private readonly Mock<IDirectoryService> _directoryService = new();
-    private readonly List<Filter> filtersList = new() {
-        new() {
+    private readonly List<Filter> filtersList = new()
+    {
+        new()
+        {
             Slug = "value1",
             Title = "title",
             DisplayName = "display name",
             Theme = "theme1",
             Highlight = false
         },
-        new() {
+        new()
+        {
             Slug = "value2",
             Title = "title",
             DisplayName = "display name",
             Theme = "theme2",
             Highlight = false
         },
-        new() {
+        new()
+        {
             Slug = "value3",
             Title = "title",
             DisplayName = "display name",
@@ -30,8 +34,10 @@ public class DirectoryControllerTest
         }
     };
 
-    private readonly List<FilterTheme> filterThemes = new(){
-        new(){
+    private readonly List<FilterTheme> filterThemes = new()
+    {
+        new()
+        {
             Title = "Theme title"
         }
     };
@@ -93,22 +99,23 @@ public class DirectoryControllerTest
         directory.PinnedEntries = new List<DirectoryEntry>() { directoryEntry };
         processedDirectoryWithSubdirectories.Entries = new List<DirectoryEntry>() { directoryEntry };
         processedDirectoryWithSubdirectories.SubDirectories = new List<Directory>() { directory };
-        processedDirectoryWithSubdirectories.SubItems = new List<SubItem>() {
+        processedDirectoryWithSubdirectories.SubItems = new List<SubItem>()
+        {
             new("slug", "title", "teaser", "teaser image", "icon", "type", "image", new List<SubItem>(), EColourScheme.Teal)
         };
         
         string[] filters = { "value1", "value2", "value3" };
 
         _directoryService
-            .Setup(_ => _.GetFilterThemes(new List<DirectoryEntry>()))
+            .Setup(directoryService => directoryService.GetFilterThemes(new List<DirectoryEntry>()))
             .Returns(filterThemes);
         
         _directoryService
-            .Setup(_ => _.GetFilters(filters, filterThemes))
+            .Setup(directoryService => directoryService.GetFilters(filters, filterThemes))
             .Returns(filtersList);
 
         _directoryService
-            .Setup(_ => _.GetOrderedEntries(new List<DirectoryEntry> { directoryEntry }, "Name A to Z"))
+            .Setup(directoryService => directoryService.GetOrderedEntries(new List<DirectoryEntry> { directoryEntry }, "Name A to Z"))
             .Returns(new List<DirectoryEntry> { directoryEntry, directoryEntry });
     }
 
@@ -117,7 +124,7 @@ public class DirectoryControllerTest
     {
         // Arrange
         _directoryService
-            .Setup(_ => _.Get<Directory>("not-slug"))
+            .Setup(directoryService => directoryService.Get<Directory>("not-slug"))
             .ReturnsAsync((Directory)null);
 
         // Act
@@ -137,7 +144,9 @@ public class DirectoryControllerTest
     [Fact]
     public async Task Directory_ShouldRedirectToResults_If_NoSubdirectories(){
         // Arrange
-        _directoryService.Setup(_ => _.Get<Directory>(It.IsAny<string>())).ReturnsAsync(directory);
+        _directoryService
+            .Setup(directoryService => directoryService.Get<Directory>(It.IsAny<string>()))
+            .ReturnsAsync(directory);
 
         // Act
         IActionResult result = await _directoryController.Directory("slug");
@@ -151,15 +160,17 @@ public class DirectoryControllerTest
     public async Task Directory_ShouldReturnCorrectView_WithPrimaryItems(){
         // Arrange
         _directoryService
-            .Setup(_ => _.Get<Directory>(It.IsAny<string>()))
+            .Setup(directoryService => directoryService.Get<Directory>(It.IsAny<string>()))
             .ReturnsAsync(processedDirectoryWithSubdirectories);
         
-        DirectoryViewModel expectedDirectoryViewModel = new() {
+        DirectoryViewModel expectedDirectoryViewModel = new()
+        {
             Breadcrumbs = new List<Crumb>(),
             Slug = "slug",
             PrimaryItems = new NavCardList()
             {
-                Items = new List<NavCard> { 
+                Items = new List<NavCard>
+                { 
                     new("title", "/slug", "teaser", "teaser image", "image", "icon", EColourScheme.Teal)
                 }
             }
@@ -190,7 +201,7 @@ public class DirectoryControllerTest
         // Arrange
         processedDirectoryWithSubdirectories.PinnedEntries = new List<DirectoryEntry>() { directoryEntry };
         _directoryService
-            .Setup(_ => _.Get<Directory>(It.IsAny<string>()))
+            .Setup(directoryService => directoryService.Get<Directory>(It.IsAny<string>()))
             .ReturnsAsync(processedDirectoryWithSubdirectories);
 
         // Act
@@ -215,7 +226,7 @@ public class DirectoryControllerTest
         // Arrange
         processedDirectoryWithSubdirectories.PinnedEntries = new List<DirectoryEntry>() { directoryEntry };
         _directoryService
-            .Setup(_ => _.Get<Directory>(It.IsAny<string>()))
+            .Setup(directoryService => directoryService.Get<Directory>(It.IsAny<string>()))
             .ReturnsAsync(processedDirectoryWithSubdirectories);
 
         // Act
@@ -231,7 +242,7 @@ public class DirectoryControllerTest
     public async Task DirectoryResults_ShouldReturnNotFoundStatusCode(){
         // Arrange
         _directoryService
-            .Setup(_ => _.Get<Directory>(It.IsAny<string>()))
+            .Setup(directoryService => directoryService.Get<Directory>(It.IsAny<string>()))
             .ReturnsAsync((Directory)null);
 
         // Act
@@ -245,7 +256,9 @@ public class DirectoryControllerTest
     public async Task DirectoryResults_ShouldReturnCorrectView_WithFilters(){
         // Arrange
         string[] filters = { "value1", "value2", "value3" };
-        _directoryService.Setup(_ => _.Get<Directory>(It.IsAny<string>())).ReturnsAsync(directory);
+        _directoryService
+            .Setup(directoryService => directoryService.Get<Directory>(It.IsAny<string>()))
+            .ReturnsAsync(directory);
 
         // Act
         ViewResult result = await _directoryController.DirectoryResults("slug", filters, string.Empty, string.Empty, 0, false) as ViewResult;
@@ -264,11 +277,11 @@ public class DirectoryControllerTest
     public async Task DirectoryEntry_ShouldReturnViewModel(){
         // Arrange
         _directoryService
-            .Setup(_ => _.Get<Directory>(It.IsAny<string>()))
+            .Setup(directoryService => directoryService.Get<Directory>(It.IsAny<string>()))
             .ReturnsAsync(directory);
 
         _directoryService
-            .Setup(_ => _.GetEntry<DirectoryEntry>(It.IsAny<string>()))
+            .Setup(directoryService => directoryService.GetEntry<DirectoryEntry>(It.IsAny<string>()))
             .ReturnsAsync(directoryEntry);
 
         // Act
@@ -285,7 +298,7 @@ public class DirectoryControllerTest
     public async Task DirectoryEntry_ShouldReturnNotFoundStatusCode()
     {
         _directoryService
-            .Setup(_ => _.GetEntry<DirectoryEntry>(It.IsAny<string>()))
+            .Setup(directoryService => directoryService.GetEntry<DirectoryEntry>(It.IsAny<string>()))
             .ReturnsAsync((DirectoryEntry)null);
 
         // Act
@@ -300,7 +313,7 @@ public class DirectoryControllerTest
     {
         // Arrange
         _directoryService
-            .Setup(_ => _.Get<Directory>(It.IsAny<string>()))
+            .Setup(directoryService => directoryService.Get<Directory>(It.IsAny<string>()))
             .ReturnsAsync(directory);
 
         // Act

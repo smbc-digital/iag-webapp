@@ -207,7 +207,11 @@ public class NewsController(IRepository repository,
     public async Task<IActionResult> Rss()
     {
         HttpResponse httpResponse = await _repository.Get<Newsroom>();
-        string host = Request is not null && Request.Host.HasValue ? string.Concat(Request.IsHttps ? "https://" : "http://", Request.Host.Value, "/news/") : string.Empty;
+        string host = Request is not null && Request.Host.HasValue
+            ? string.Concat(Request.IsHttps
+                ? "https://"
+                : "http://", Request.Host.Value, "/news/")
+            : string.Empty;
 
         if (!httpResponse.IsSuccessful())
         {

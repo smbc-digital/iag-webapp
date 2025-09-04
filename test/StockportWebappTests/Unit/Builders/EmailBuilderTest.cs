@@ -4,10 +4,8 @@ public class EmailBuilderTest
 {
     private readonly IEmailBuilder _emailBuilder;
 
-     public EmailBuilderTest()
-    {
+    public EmailBuilderTest() =>
         _emailBuilder = new EmailBuilder();
-    }
 
     [Fact]
     public void BuildMessageToStream_ShouldReturnMemoryStreamForEmailWithoutAttachments()

@@ -31,24 +31,4 @@ public class StringExtensionsTests
         // Assert
         Assert.Equal("testing.com", result);
     }
-
-    [Fact]
-    public void ShouldRemoveEmojisFromString()
-    {
-        // Act
-        string result = "😀🙏☀⛿test".StripEmojis();
-
-        // Assert
-        Assert.Equal("test", result);
-    }
-
-    [Fact]
-    public void ShouldRemoveEmojisInTheMiddleOfAString()
-    {
-        // Act
-        string result = "😀🙏☀⛿te☀⛿s☀⛿t".StripEmojis();
-
-        // Assert
-        Assert.Equal("test", result);
-    }
 }

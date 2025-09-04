@@ -3,8 +3,7 @@ using Profile = StockportWebapp.Models.Profile;
 namespace StockportWebapp.Controllers;
 
 [ResponseCache(Location = ResponseCacheLocation.Any, Duration = Cache.Short)]
-public class SitemapController(IRepository repository,
-                            ILogger<SitemapController> logger) : Controller
+public class SitemapController(IRepository repository, ILogger<SitemapController> logger) : Controller
 {
     private readonly IRepository _repository = repository;
     private readonly ILogger<SitemapController> _logger = logger;
@@ -201,7 +200,6 @@ public class SitemapController(IRepository repository,
                 break;
 
             default:
-
                 List<SitemapGoogleIndex> result = new()
                 {
                     new SitemapGoogleIndex { lastmod = now.ToString("yyyy-MM-ddTHH:mm:sszzz"), loc = $"{baseURL}/google-sitemap.xml?type=news" },
@@ -222,7 +220,7 @@ public class SitemapController(IRepository repository,
         return Content(xml, "text/xml");
     }
 
-    private string SerializeObject<T>(T dataToSerialize, bool indexPage = false)
+    private static string SerializeObject<T>(T dataToSerialize, bool indexPage = false)
     {
         string xml = string.Empty;
         string attribute = indexPage

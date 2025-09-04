@@ -40,11 +40,11 @@ public class CommsControllerTest
 
         // Arrange
         _mockRepository
-            .Setup(_ => _.GetLatest<List<News>>(It.IsAny<int>()))
+            .Setup(mockRepository => mockRepository.GetLatest<List<News>>(It.IsAny<int>()))
             .ReturnsAsync(HttpResponse.Successful(200, new List<News> { exampleNews }));
         
         _mockRepository
-            .Setup(_ => _.Get<CommsHomepage>(It.IsAny<string>(), It.IsAny<List<Query>>()))
+            .Setup(mockRepository => mockRepository.Get<CommsHomepage>(It.IsAny<string>(), It.IsAny<List<Query>>()))
             .ReturnsAsync(HttpResponse.Successful(200, new CommsHomepage()));
 
         // Act

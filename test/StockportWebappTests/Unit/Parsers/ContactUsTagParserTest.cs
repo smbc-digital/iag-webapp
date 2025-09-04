@@ -5,7 +5,6 @@ public class ContactUsTagParserTest
     private readonly ContactUsTagParser _contactUsTagParser;
     private readonly Mock<IViewRender> _viewRenderer = new();
     private readonly Mock<ILogger<ContactUsTagParser>> _mockLogger = new();
-    private readonly static string _contactUsMessageTag = "<!-- ##CONTACT_US_MESSAGE## -->";
 
     public ContactUsTagParserTest() =>
         _contactUsTagParser = new(_viewRenderer.Object, _mockLogger.Object);
@@ -38,7 +37,7 @@ public class ContactUsTagParserTest
         string parsedHtml = _contactUsTagParser.Parse("{{CONTACT-US: something}}", null);
 
         // Assert
-        Assert.Equal($"{_contactUsMessageTag}<form></form>", parsedHtml);
+        Assert.Equal("<!-- ##CONTACT_US_MESSAGE## --><form></form>", parsedHtml);
     }
 
     [Fact]

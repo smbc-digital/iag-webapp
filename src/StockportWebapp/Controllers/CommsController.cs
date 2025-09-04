@@ -1,8 +1,7 @@
 ﻿namespace StockportWebapp.Controllers;
 
 [ResponseCache(Location = ResponseCacheLocation.Any, Duration = Cache.Short)]
-public class CommsController(IRepository repository,
-                            ILogger<CommsController> logger) : Controller
+public class CommsController(IRepository repository, ILogger<CommsController> logger) : Controller
 {
     private readonly IRepository _repository = repository;
     private readonly ILogger<CommsController> _logger = logger;

@@ -5,9 +5,7 @@ public interface ISectionFactory
     ProcessedSection Build(Section section, string articleTitle);
 }
 
-public class SectionFactory(ITagParserContainer tagParserContainer,
-                            MarkdownWrapper markdownWrapper,
-                            IRepository repository) : ISectionFactory
+public class SectionFactory(ITagParserContainer tagParserContainer, MarkdownWrapper markdownWrapper, IRepository repository) : ISectionFactory
 {
     private readonly MarkdownWrapper _markdownWrapper = markdownWrapper;
     private readonly ITagParserContainer _tagParserContainer = tagParserContainer;
