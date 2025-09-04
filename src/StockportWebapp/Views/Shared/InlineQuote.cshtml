@@ -10,13 +10,13 @@
     <div class="profile-quote">
         @if (!string.IsNullOrEmpty(Model.Author) && !businessId.Equals("stockroom"))
         {
-            <h3>@Model.Author</h3>
+            <h2 class="h-m">@Model.Author</h2>
         }
 
         <div class="profile-quote__border @themeTag">
             @if (!string.IsNullOrEmpty(Model.Author) && businessId.Equals("stockroom"))
             {
-                <h3>@Model.Author</h3>
+                <h2 class="h-m">@Model.Author</h2>
             }
 
             <p class="profile-quote__text lead">
@@ -32,11 +32,11 @@ else
     <section class="section section--white">
         @if (!string.IsNullOrEmpty(Model.Author) && !businessId.Equals("stockroom"))
         {
-            <h3>@Model.Author</h3>
+            <h2 class="h-m">@Model.Author</h2>
         }
 
         <div class="profile-tag-parser @profileColour">
-            <img src="@Model.Image?w=360&q=89" srcset="@Model.Image?w=360&q=89&fm=webp" class="profile-tag-parser__image" loading="lazy" alt="@Model.ImageAltText" width="360" height="360">
+            <img src="@Model.Image?w=360&q=89" srcset="@Model.Image?w=360&q=89&fm=webp" class="profile-tag-parser__image profile-tag-parser__image--height" loading="lazy" alt="@Model.ImageAltText" width="360" height="360">
 
             <div class="profile-tag-parser-content">
                 @if (!string.IsNullOrEmpty(Model.Author) && businessId.Equals("stockroom"))

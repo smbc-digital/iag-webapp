@@ -5,9 +5,14 @@
     Layout = "../Shared/_Layout2023.cshtml";
 
     string marginTopCssClass = !Model.IsFirstPage ? "news-article__section--margin-top" : string.Empty;
+    string dataCy = Model.IsFromSearch()
+        ? (!string.IsNullOrEmpty(Model.Tag)
+            ? "newsroom-with-tag"
+            : "newsroom-with-category")
+        : "newsroom";
 }
 
-<div class="grid-container-full-width" data-cy="newsroom">
+<div class="grid-container-full-width" data-cy=@dataCy>
     <partial name="CondolenceAlerts" model='Model.Newsroom.CondolenceAlerts' />
     <partial name="GlobalAlerts" model='Model.Newsroom.Alerts' />
     <partial name="Breadcrumb2023" model='new List<Crumb> { new Crumb("News and media", "landing/news-media", "LandingPage") }' view-data="@(new ViewDataDictionary(ViewData) {{"landingBreadcrumb", "topic-breadcrumb-container"}})"/>

@@ -1,4 +1,6 @@
-﻿namespace StockportWebappTests_Unit.Unit.ViewModels;
+﻿using Newtonsoft.Json.Linq;
+
+namespace StockportWebappTests_Unit.Unit.ViewModels;
 
 public class ArticleViewModelTest
 {
@@ -383,7 +385,9 @@ public class ArticleViewModelTest
             It.IsAny<string>(),
             new DateTime(),
             new List<InlineQuote>(),
-            new List<Event>());
+            new List<Event>(),
+            string.Empty,
+            new JObject());
 
         ArticleViewModel articleViewModel = new(article);
 
@@ -463,7 +467,9 @@ public class ArticleViewModelTest
             It.IsAny<string>(),
             new DateTime(),
             new List<InlineQuote>(),
-            new List<Event>());
+            new List<Event>(),
+            string.Empty,
+            new JObject());
 
         ArticleViewModel articleViewModel = new(article);
 
@@ -489,7 +495,7 @@ public class ArticleViewModelTest
     public void ArticleViewModel_ShouldSetMetaDescription(string sectionMeta, string articleMeta, string expectedMeta)
     {
         // Arrange
-        ProcessedSection section = new(string.Empty, "test-slug", sectionMeta, string.Empty, null, null, null, null, string.Empty, new DateTime());
+        ProcessedSection section = new(string.Empty, "test-slug", sectionMeta, string.Empty, null, null, null, null, string.Empty, new DateTime(), null);
         ProcessedArticle article = new(string.Empty,
             string.Empty,
             string.Empty,
@@ -516,7 +522,9 @@ public class ArticleViewModelTest
             string.Empty,
             new DateTime(),
             new List<InlineQuote>(),
-            new List<Event>()
+            new List<Event>(),
+            string.Empty,
+            new JObject()
         );
 
         // Act
@@ -550,7 +558,9 @@ public class ArticleViewModelTest
             It.IsAny<string>(),
             new DateTime(),
             new List<InlineQuote>(),
-            new List<Event>());
+            new List<Event>(),
+            string.Empty,
+            new JObject());
 
     private static ProcessedSection BuildSection(string slug) => 
         new("title",
@@ -558,9 +568,10 @@ public class ArticleViewModelTest
             It.IsAny<string>(),
             It.IsAny<string>(),
             new List<Profile>(),
-            new List<StockportWebapp.Models.Document>(),
+            new List<Document>(),
             new List<Alert>(),
             new List<TrustedLogo>(),
             "logoAreaTitle",
-            new DateTime());
+            new DateTime(),
+            new List<InlineQuote>());
 }

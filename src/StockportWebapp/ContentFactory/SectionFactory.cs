@@ -25,7 +25,7 @@ public class SectionFactory(ITagParserContainer tagParserContainer,
                                                 true,
                                                 section.AlertsInline,
                                                 section.Documents,
-                                                null,
+                                                section.InlineQuotes,
                                                 section.PrivacyNotices,
                                                 section.Profiles,
                                                 null,
@@ -41,7 +41,8 @@ public class SectionFactory(ITagParserContainer tagParserContainer,
             section.AlertsInline,
             section.TrustedLogos,
             section.LogoAreaTitle,
-            section.UpdatedAt
+            section.UpdatedAt,
+            section.InlineQuotes
         );
     }
 

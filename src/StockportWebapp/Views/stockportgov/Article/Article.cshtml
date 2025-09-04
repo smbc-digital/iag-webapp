@@ -1,4 +1,5 @@
 ﻿@using StockportWebapp.Utils;
+@inject IApplicationConfiguration ApplicationConfiguration
 
 @model ArticleViewModel
 @{
@@ -10,16 +11,21 @@
     string articleMarginBottom = !Model.Article.TrustedLogos.Any() || Model.Article.TrustedLogos is null
         ? " section"
         : string.Empty;
+    
+    bool usePreview = bool.TryParse(ApplicationConfiguration.GetContentfulUsePreview(), out var preview) && preview;
+
+    JObject rawContentful = Model.Article.RawContentful ?? new JObject();
+    var rawContentfulJson = JsonConvert.SerializeObject(rawContentful);
 }
 
-<div class="grid-container-full-width" style="background-color:white;" data-cy="@dataCy">
+<div class="grid-container-full-width" style="background-color:white;" data-cy="@dataCy" data-contentful-entry-id="@Model.Article.ContentfulId" data-content-type-id="article">
     <partial name="GlobalAlerts" model='Model.Article.Alerts' />
     <partial name="Breadcrumb2023" model="Model.Article.Breadcrumbs" />
 
     <div class="grid-container">
         <div class="grid-100">
             <div class="article--70">
-                <h1 class="article__title">@Model.Article.Title</h1>
+                <h1 class="article__title" data-contentful-entry-id="@Model.Article.ContentfulId" data-contentful-field-id="title">@Model.Article.Title</h1>
 
                 @if (Model.ArticleWithSection && !Model.ArticleHasImage)
                 {
@@ -42,7 +48,9 @@
                                  class="article-hero__image"
                                  width="712"
                                  height="350"
-                                 alt="@Model.Article.AltText" />
+                                 alt="@Model.Article.AltText"
+                                 data-contentful-entry-id="@Model.Article.ContentfulId"
+                                 data-contentful-field-id="image" />
                         </div>
                     }
 
@@ -53,7 +61,7 @@
 
                     @if (Model.ArticleWithSection)
                     {
-                        <article class="article-body">
+                        <article class="article-body" data-contentful-entry-id="@Model.Article.ContentfulId" data-contentful-field-id="sections">
                             <h2 id="@Model.DisplayedSection.Slug">@Model.DisplayedSection.Title</h2>
                             @Html.Raw(Model.DisplayedSection.Body)
                         </article>
@@ -61,7 +69,7 @@
 
                     @if (!string.IsNullOrEmpty(Model.Article.Body))
                     {
-                        <article>
+                        <article data-contentful-entry-id="@Model.Article.ContentfulId" data-contentful-field-id="body">
                             @Html.Raw(StockportWebapp.Utils.HtmlHelper.AddImageAttributes(Model.Article.Body, "720", "511", "720", "937", "852"))
                         </article>
                     }
@@ -86,11 +94,19 @@
 
                     @if (Model.ArticleWithSection && Model.DisplayedSection.TrustedLogos.Any())
                     {
-                        <partial name="LogoArea" model='@Model.DisplayedSection.TrustedLogos' view-data='@(new ViewDataDictionary(ViewData) {{"logoAreaTitle", @Model.DisplayedSection.LogoAreaTitle}, {"articleWithSection", Model.ArticleWithSection}, {"logoAreaArticle", true}})' />
+                        <partial name="LogoArea" model='@Model.DisplayedSection.TrustedLogos'
+                                view-data='@(new ViewDataDictionary(ViewData) { { "logoAreaTitle", @Model.DisplayedSection.LogoAreaTitle },
+                                                                                { "articleWithSection", Model.ArticleWithSection },
+                                                                                { "logoAreaArticle", true },
+                                                                                { "dataContentfulEntryId", @Model.Article.ContentfulId } })' />
                     }
                     else
                     {
-                        <partial name="LogoArea" model='@Model.Article.TrustedLogos' view-data='@(new ViewDataDictionary(ViewData) {{"logoAreaTitle", @Model.Article.LogoAreaTitle}, {"articleWithSection", Model.ArticleWithSection}, {"logoAreaArticle", true}})' />
+                        <partial name="LogoArea" model='@Model.Article.TrustedLogos'
+                                view-data='@(new ViewDataDictionary(ViewData) { { "logoAreaTitle", @Model.Article.LogoAreaTitle },
+                                                                                { "articleWithSection", Model.ArticleWithSection },
+                                                                                { "logoAreaArticle", true },
+                                                                                { "dataContentfulEntryId", @Model.Article.ContentfulId } })' />
                     }
                 </div>
 
@@ -109,3 +125,8 @@
         </div>
     </div>
 </div>
+
+@if (usePreview)
+{
+    <partial name="ContentfulLivePreview" view-data='@(new ViewDataDictionary(ViewData) { { "RawContentfulJson", rawContentfulJson } })' />
+}

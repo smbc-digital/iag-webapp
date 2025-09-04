@@ -1,4 +1,5 @@
 ﻿namespace StockportWebapp.Models.ProcessedModels;
+
 [ExcludeFromCodeCoverage]
 public class ProcessedSection(string title,
                             string slug,
@@ -9,7 +10,8 @@ public class ProcessedSection(string title,
                             IEnumerable<Alert> alertsInline,
                             List<TrustedLogo> trustedLogos,
                             string logoAreaTitle,
-                            DateTime updatedAt) : IProcessedContentType
+                            DateTime updatedAt,
+                            List<InlineQuote> inlineQuotes) : IProcessedContentType
 {
     public readonly string Title = title;
     public string Slug = slug;
@@ -21,4 +23,5 @@ public class ProcessedSection(string title,
     public List<TrustedLogo> TrustedLogos = trustedLogos;
     public string LogoAreaTitle = logoAreaTitle;
     public DateTime UpdatedAt = updatedAt;
+    public List<InlineQuote> InlineQuotes = inlineQuotes;
 }

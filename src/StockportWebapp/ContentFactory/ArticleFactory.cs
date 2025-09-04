@@ -51,7 +51,9 @@ public class ArticleFactory(ITagParserContainer tagParserContainer,
                                     article.Photographer,
                                     article.PublishedOn,
                                     article.InlineQuotes,
-                                    article.Events);
+                                    article.Events,
+                                    article.ContentfulId,
+                                    article.RawContentful);
     }
 
     private async Task<IEnumerable<PrivacyNotice>> GetPrivacyNotices()

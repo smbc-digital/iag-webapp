@@ -7,7 +7,6 @@ public class SecureHeadersMiddleware
         SecureHeadersMiddlewareBuilder
             .CreateBuilder()
             .UseHsts()
-            .UseXFrameOptions()
             .UseXssProtection()
             .UseContentTypeOptions()
             .UseReferrerPolicy(OwaspHeaders.Core.Enums.ReferrerPolicyOptions.strictWhenCrossOrigin)

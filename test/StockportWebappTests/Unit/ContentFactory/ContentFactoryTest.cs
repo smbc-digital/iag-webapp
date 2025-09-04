@@ -1,4 +1,6 @@
-﻿namespace StockportWebappTests_Unit.Unit.ContentFactory;
+﻿using Newtonsoft.Json.Linq;
+
+namespace StockportWebappTests_Unit.Unit.ContentFactory;
 
 public class ContentFactoryTest
 {
@@ -38,7 +40,8 @@ public class ContentFactoryTest
                             new List<Alert>(),
                             new List<TrustedLogo>(),
                             "logoAreaTitle",
-                            new DateTime());
+                            new DateTime(),
+                            new List<InlineQuote>());
 
         // Act
         IProcessedContentType processedSection = _factory.Build(section);
@@ -76,7 +79,9 @@ public class ContentFactoryTest
                             new List<InlineQuote>(),
                             It.IsAny<string>(),
                             new List<CallToActionBanner>(),
-                            new List<Event>());
+                            new List<Event>(),
+                            It.IsAny<string>(),
+                            new JObject());
 
         // Act
         IProcessedContentType processedArticle = _factory.Build(article);

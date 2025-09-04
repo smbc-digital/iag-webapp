@@ -1,4 +1,6 @@
-﻿namespace StockportWebappTests_Unit.Unit.Parsers;
+﻿using Newtonsoft.Json.Linq;
+
+namespace StockportWebappTests_Unit.Unit.Parsers;
 
 public class ContactUsMessageTagParserTest
 {
@@ -49,7 +51,9 @@ public class ContactUsMessageTagParserTest
                                                 string.Empty,
                                                 new DateTime(),
                                                 new List<InlineQuote>(),
-                                                new List<Event>());
+                                                new List<Event>(),
+                                                string.Empty,
+                                                new JObject());
 
         // Act
         _tagParser.Parse(processedArticle, message, "this-is-a-slug");
@@ -88,7 +92,9 @@ public class ContactUsMessageTagParserTest
                                                 string.Empty,
                                                 new DateTime(),
                                                 new List<InlineQuote>(),
-                                                new List<Event>());
+                                                new List<Event>(),
+                                                string.Empty,
+                                                new JObject());
 
         // Act
         _tagParser.Parse(processedArticle, _message, string.Empty);
@@ -125,7 +131,9 @@ public class ContactUsMessageTagParserTest
                                                 string.Empty,
                                                 new DateTime(),
                                                 new List<InlineQuote>(),
-                                                new List<Event>());
+                                                new List<Event>(),
+                                                string.Empty,
+                                                new JObject());
 
         // Act
         _tagParser.Parse(processedArticle, _message, string.Empty);
@@ -164,7 +172,9 @@ public class ContactUsMessageTagParserTest
                                                 string.Empty,
                                                 new DateTime(),
                                                 new List<InlineQuote>(),
-                                                new List<Event>());
+                                                new List<Event>(),
+                                                string.Empty,
+                                                new JObject());
 
         // Act
         _tagParser.Parse(processedArticle, _message, "this-is-a-slug");
@@ -202,7 +212,9 @@ public class ContactUsMessageTagParserTest
                                                 string.Empty,
                                                 new DateTime(),
                                                 new List<InlineQuote>(),
-                                                new List<Event>());
+                                                new List<Event>(),
+                                                string.Empty,
+                                                new JObject());
 
         // Act
         _tagParser.Parse(processedArticle, _message,  "this-is-a-slug");
@@ -238,8 +250,10 @@ public class ContactUsMessageTagParserTest
                                                 string.Empty,
                                                 new DateTime(),
                                                 new List<InlineQuote>(),
-                                                new List<Event>());
-        
+                                                new List<Event>(),
+                                                string.Empty,
+                                                new JObject());
+
         // Act
         _tagParser.Parse(processedArticle, _message, "this-is-a-slug");
 
@@ -257,7 +271,8 @@ public class ContactUsMessageTagParserTest
                 new List<Alert>(),
                 new List<TrustedLogo>(),
                 "logoAreaTitle",
-                new DateTime());
+                new DateTime(),
+                null);
 
     private static Topic DefaultTopic() =>
         new("name",

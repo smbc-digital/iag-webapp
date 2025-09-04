@@ -29,6 +29,7 @@ public interface IApplicationConfiguration
     StylesheetsConfiguration GetStylesheetConfig();
     AnalyticsConfigurationModel GetAnalyticsConfig();
     AnalyticsConfigurationModel GetAnalyticsConfig(string businessId);
+    string GetContentfulUsePreview();
 }
 
 public class ApplicationConfiguration(IConfiguration appsettings) : IApplicationConfiguration
@@ -145,4 +146,7 @@ public class ApplicationConfiguration(IConfiguration appsettings) : IApplication
 
     public string GetDigitalStockportLink() =>
         _appsettings["stockportgov:DigitalStockportLink"];
+
+    public string GetContentfulUsePreview() =>
+        _appsettings["Contentful:UsePreviewAPI"];
 }

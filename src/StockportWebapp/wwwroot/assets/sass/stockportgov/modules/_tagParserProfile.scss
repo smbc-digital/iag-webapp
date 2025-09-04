@@ -21,11 +21,19 @@
         width: 40%;
         object-fit: cover;
         border-radius: 50px 3px;
-        height: 360px;
+        height: auto;
+
+        @media #{$non-mobile} {
+            height: 360px;
+        }
 
         @media #{$mobile} {
             width: 100%;
             border-radius: 30px 3px;
+        }
+
+        &--height {
+            height: 360px;
         }
     }
 

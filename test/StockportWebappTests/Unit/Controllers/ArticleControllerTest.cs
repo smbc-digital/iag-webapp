@@ -1,4 +1,6 @@
-﻿namespace StockportWebappTests_Unit.Unit.Controllers;
+﻿using Newtonsoft.Json.Linq;
+
+namespace StockportWebappTests_Unit.Unit.Controllers;
 
 public class ArticleControllerTest
 {
@@ -6,6 +8,7 @@ public class ArticleControllerTest
     private readonly Mock<IRepository> _repository = new();
     private readonly Mock<IProcessedContentRepository> _processedRepository = new();
     private readonly Mock<IContactUsMessageTagParser> _contactUsMessageParser = new();
+    private readonly Mock<IFeatureManager> _featureManager = new();
     private const string DefaultMessage = "A default message";
     private readonly ProcessedSection sectionOne = new("Overview",
                                                     "physical-activity-overview",
@@ -16,7 +19,8 @@ public class ArticleControllerTest
                                                     new List<Alert>(),
                                                     new List<TrustedLogo>(),
                                                     "logoAreaTitle",
-                                                    new DateTime());
+                                                    new DateTime(),
+                                                    new List<InlineQuote>());
     private readonly ProcessedSection sectionTwo = new("Types of Physical Activity",
                                                     It.IsAny<string>(),
                                                     It.IsAny<string>(),
@@ -26,12 +30,13 @@ public class ArticleControllerTest
                                                     new List<Alert>(),
                                                     new List<TrustedLogo>(),
                                                     "logoAreaTitle",
-                                                    new DateTime());
+                                                    new DateTime(),
+                                                    new List<InlineQuote>());
     private readonly ProcessedArticle article;
 
     public ArticleControllerTest()
     {
-        _controller = new(_repository.Object, _processedRepository.Object, _contactUsMessageParser.Object);
+        _controller = new(_repository.Object, _processedRepository.Object, _contactUsMessageParser.Object, _featureManager.Object);
         article = new ProcessedArticle(string.Empty,
                                     string.Empty,
                                     string.Empty,
@@ -55,7 +60,9 @@ public class ArticleControllerTest
                                     string.Empty,
                                     DateTime.Now,
                                     new List<InlineQuote>(),
-                                    new List<Event>());
+                                    new List<Event>(),
+                                    string.Empty,
+                                    new JObject());
 
         _processedRepository
             .Setup(_ => _.Get<Article>(It.IsAny<string>(), It.IsAny<List<Query>>()))
@@ -89,7 +96,9 @@ public class ArticleControllerTest
                                     string.Empty,
                                     new DateTime(),
                                     new List<InlineQuote>(),
-                                    new List<Event>());
+                                    new List<Event>(),
+                                    string.Empty,
+                                    new JObject());
 
         _processedRepository
             .Setup(_ => _.Get<Article>(It.IsAny<string>(), It.IsAny<List<Query>>()))
@@ -158,8 +167,9 @@ public class ArticleControllerTest
                                         new List<Alert>(),
                                         new List<TrustedLogo>(),
                                         "logoAreaTitle",
-                                        new DateTime());
-        
+                                        new DateTime(),
+                                        new List<InlineQuote>());
+
         ProcessedSection sectionTwo = new("Types of Physical Activity",
                                         "types-of-physical-activity",
                                         It.IsAny<string>(),
@@ -169,8 +179,9 @@ public class ArticleControllerTest
                                         new List<Alert>(),
                                         new List<TrustedLogo>(),
                                         "logoAreaTitle",
-                                        new DateTime());
-        
+                                        new DateTime(),
+                                        new List<InlineQuote>());
+
         ProcessedArticle article = new(string.Empty,
                                     string.Empty,
                                     string.Empty,
@@ -194,7 +205,9 @@ public class ArticleControllerTest
                                     string.Empty,
                                     new DateTime(),
                                     new List<InlineQuote>(),
-                                    new List<Event>());
+                                    new List<Event>(),
+                                    string.Empty,
+                                    new JObject());
 
         _processedRepository
             .Setup(_ => _.Get<Article>(It.IsAny<string>(), It.IsAny<List<Query>>()))
@@ -248,7 +261,9 @@ public class ArticleControllerTest
                                     string.Empty,
                                     new DateTime(),
                                     new List<InlineQuote>(),
-                                    new List<Event>());
+                                    new List<Event>(),
+                                    string.Empty,
+                                    new JObject());
 
         _processedRepository
             .Setup(_ => _.Get<Article>(It.IsAny<string>(), It.IsAny<List<Query>>()))
@@ -304,7 +319,9 @@ public class ArticleControllerTest
                                     string.Empty,
                                     new DateTime(),
                                     new List<InlineQuote>(),
-                                    new List<Event>());
+                                    new List<Event>(),
+                                    string.Empty,
+                                    new JObject());
 
         _processedRepository
             .Setup(_ => _.Get<Article>(It.IsAny<string>(), It.IsAny<List<Query>>()))
@@ -378,7 +395,8 @@ public class ArticleControllerTest
                                                 alertsInline,
                                                 new List<TrustedLogo>(),
                                                 "logoAreaTitle",
-                                                new DateTime());
+                                                new DateTime(),
+                                                new List<InlineQuote>());
 
         ProcessedArticle article = new(string.Empty,
                                     string.Empty,
@@ -403,7 +421,9 @@ public class ArticleControllerTest
                                     string.Empty,
                                     new DateTime(),
                                     new List<InlineQuote>(),
-                                    new List<Event>());
+                                    new List<Event>(),
+                                    string.Empty,
+                                    new JObject());
 
         _processedRepository
             .Setup(_ => _.Get<Article>(It.IsAny<string>(), It.IsAny<List<Query>>()))
@@ -448,8 +468,9 @@ public class ArticleControllerTest
                                     null,
                                     null,
                                     string.Empty,
-                                    new DateTime());
-        
+                                    new DateTime(),
+                                    new List<InlineQuote>());
+
         ProcessedArticle article = new(string.Empty,
                                     string.Empty,
                                     string.Empty,
@@ -473,7 +494,9 @@ public class ArticleControllerTest
                                     string.Empty,
                                     new DateTime(),
                                     new List<InlineQuote>(),
-                                    new List<Event>());
+                                    new List<Event>(),
+                                    string.Empty,
+                                    new JObject());
 
         _processedRepository
             .Setup(_ => _.Get<Article>(It.IsAny<string>(), It.IsAny<List<Query>>()))
@@ -501,8 +524,9 @@ public class ArticleControllerTest
                                         null,
                                         null,
                                         string.Empty,
-                                        new DateTime());
-        
+                                        new DateTime(),
+                                        new List<InlineQuote>());
+
         ProcessedSection section2 = new(string.Empty,
                                         string.Empty,
                                         "other string",
@@ -512,8 +536,9 @@ public class ArticleControllerTest
                                         null,
                                         null,
                                         string.Empty,
-                                        new DateTime());
-        
+                                        new DateTime(),
+                                        new List<InlineQuote>());
+
         ProcessedArticle article = new(string.Empty,
                                     string.Empty,
                                     string.Empty,
@@ -537,7 +562,9 @@ public class ArticleControllerTest
                                     string.Empty,
                                     new DateTime(),
                                     new List<InlineQuote>(),
-                                    new List<Event>());
+                                    new List<Event>(),
+                                    string.Empty,
+                                    new JObject());
 
         _processedRepository
             .Setup(_ => _.Get<Article>(It.IsAny<string>(), It.IsAny<List<Query>>()))
@@ -607,7 +634,9 @@ public class ArticleControllerTest
             It.IsAny<string>(),
             new DateTime(),
             new List<InlineQuote>(),
-            new List<Event>());
+            new List<Event>(),
+            string.Empty,
+            new JObject());
 
     private static ProcessedSection DummySection() => 
         new(It.IsAny<string>(),
@@ -619,5 +648,6 @@ public class ArticleControllerTest
             new List<Alert>(),
             new List<TrustedLogo>(),
             "logoAreaTitle",
-            new DateTime());
+            new DateTime(),
+            new List<InlineQuote>());
 }
