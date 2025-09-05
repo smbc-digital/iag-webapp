@@ -14,10 +14,14 @@
         <input type="hidden" asp-for="SearchTerm" id="persistedSearchTerm"/>
 
         <div class="grid-container">
-            <div class="grid-100">
+            <div class="grid-100 directory-sub-title">
                 <h1 class="list-title">Results in Stockport Historic Environment Database</h1>
-                <p>Showing @Model.FilteredEntries.Count() results</p>
+                <span>Showing <span class="bold">@Model.FilteredEntries.Count()</span> results in <span class="bold">Stockport Historic Environment Database</span> </span>
+            </div>
+        </div>
 
+        <div class="grid-container">
+            <div class="grid-100">
                 <div class="directory">
                     <div class="directory--30">
                         <partial name="ShedSearchResultFilters" />

@@ -11,6 +11,12 @@ public class ShedViewModel : ISlugComparable
         FilteredEntries = filteredEntries.Select(entry => new ShedEntryViewModel(entry));
     }
 
+    //public List<ShedItem> ShedItems { get; set; } = new();
+
+    public Pagination Pagination { get; set; } = new Pagination();
+
+    public QueryUrl CurrentUrl { get; set; }
+
     public List<string> Wards = new()
     {
         "Bramhall North",
@@ -44,6 +50,14 @@ public class ShedViewModel : ISlugComparable
         "Local"
     };
 
+    public IFilteredUrl FilteredUrl { get; private set; }
+
+    public void AddQueryUrl(QueryUrl queryUrl) =>
+        CurrentUrl = queryUrl;
+    
+    public void AddFilteredUrl(IFilteredUrl filteredUrl) =>
+        FilteredUrl = filteredUrl;
+    
     public List<string> AppliedFilters { get; set; } = new();
 
     // Core page details
@@ -72,6 +86,7 @@ public class ShedViewModel : ISlugComparable
     // Page layout properties
     public IEnumerable<ShedEntryViewModel> FilteredEntries { get; set; }
     public IEnumerable<ShedEntryViewModel> PaginatedEntries { get; set; }
+    public IEnumerable<ShedEntryViewModel> ShedItems { get; set; }
 
     public void Paginate(int page)
     {

@@ -48,4 +48,11 @@ public class ShedApiClient
         response.EnsureSuccessStatusCode();
         return await response.Content.ReadAsStringAsync();
     }
+
+    public async Task<string> GetAllSHEDData()
+    {
+        HttpResponseMessage response = await _httpClient.GetAsync("GetAllSHEDData");
+        response.EnsureSuccessStatusCode();
+        return await response.Content.ReadAsStringAsync();
+    }
 }

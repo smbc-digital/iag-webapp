@@ -33,4 +33,13 @@ public class ShedService(ShedApiClient shedApiClient)
 
         return assets ?? new List<ShedItem>();
     }
+
+    public async Task<List<ShedItem>> GetAllSHEDData()
+    {
+        string json = await _shedApiClient.GetAllSHEDData();
+
+        List<ShedItem> assets = JsonSerializer.Deserialize<List<ShedItem>>(json);
+
+        return assets ?? new List<ShedItem>();
+    }
 }

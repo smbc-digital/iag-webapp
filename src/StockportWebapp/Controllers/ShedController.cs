@@ -1,21 +1,40 @@
 namespace StockportWebapp.Controllers;
 
-public class ShedController(ShedService shedService) : Controller
+public class ShedController(ShedService shedService,
+                            IApplicationConfiguration config,
+                            BusinessId businessId,
+                            IFilteredUrl filteredUrl) : Controller
 {
     private readonly ShedService _shedService = shedService;
+    private readonly IApplicationConfiguration _config = config;
+    private readonly BusinessId _businessId = businessId;
+    private readonly IFilteredUrl _filteredUrl = filteredUrl;
 
     [HttpGet("shed")]
-    public async Task<IActionResult> Index(string ward, string listingType, string id, string searchTerm)
+    public async Task<IActionResult> Index(string ward,
+                                        string listingType,
+                                        string id,
+                                        string searchTerm,
+                                        [FromQuery] int page,
+                                        [FromQuery] int pageSize)
     {
-        List<ShedItem> result = new();
+        List<ShedItem> results = await _shedService.GetAllSHEDData();
+
         if (!string.IsNullOrEmpty(ward) || !string.IsNullOrEmpty(listingType))
-            result = await _shedService.GetShedData(ward, listingType);
+            results = await _shedService.GetShedData(ward, listingType);
         else if (!string.IsNullOrEmpty(id))
-            result = await _shedService.GetShedDataById(id);
+            results = await _shedService.GetShedDataById(id);
         else if (!string.IsNullOrEmpty(searchTerm))
-            result = await _shedService.GetShedDataByName(searchTerm);
-        
-        ShedViewModel viewModel = new(result);
+            results = await _shedService.GetShedDataByName(searchTerm);
+
+        ShedViewModel viewModel = new(results);
+
+        viewModel.AddQueryUrl(new QueryUrl(Url?.ActionContext.RouteData.Values, Request?.Query));
+        _filteredUrl.SetQueryUrl(viewModel.CurrentUrl);
+        viewModel.AddFilteredUrl(_filteredUrl);
+
+        DoPagination(results, page, viewModel, pageSize);
+
         viewModel.AppliedFilters = new List<string>()
         {
             !string.IsNullOrEmpty(ward) ? ward : string.Empty,
@@ -39,5 +58,30 @@ public class ShedController(ShedService shedService) : Controller
             return NotFound();
 
         return View(shed);
+    }
+    
+    private void DoPagination(List<ShedItem> items, int currentPageNumber, ShedViewModel model, int pageSize)
+    {
+        if (items != null && items.Any())
+        {
+            var entryViewModels = items.Select(item => new ShedEntryViewModel(item)).ToList();
+
+            PaginatedItems<ShedEntryViewModel> paginatedItems = PaginationHelper.GetPaginatedItemsForSpecifiedPage(
+                entryViewModels,
+                currentPageNumber,
+                "shed",
+                pageSize,
+                _config.GetEventsDefaultPageSize(_businessId.ToString().Equals("stockroom") ? "stockroom" : "stockportgov")
+            );
+
+            model.ShedItems = paginatedItems.Items;
+            model.Pagination = paginatedItems.Pagination;
+            model.Pagination.CurrentUrl = model.CurrentUrl;
+        }
+        else
+        {
+            model.Pagination = new Pagination();
+            model.ShedItems = new List<ShedEntryViewModel>();
+        }
     }
 }
