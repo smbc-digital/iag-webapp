@@ -1,19 +1,21 @@
 ﻿@model List<string>
 
-@if (Model is not null && Model.Any())
+@if (Model is not null && Model.Any() && !string.IsNullOrEmpty(Model.First()))
 {
     <div class="directory__filters @((string)ViewData["AdditionalWrapperCssClasses"] ?? string.Empty)">
         <div class="directory__wrapper navcard--white @((string)ViewData["AdditionalCssClasses"] ?? string.Empty)">
             <h2>Images</h2>
 
-            @foreach (var image in Model)
-            {
-                <img src="https://live-iag-static-assets.s3.eu-west-1.amazonaws.com/heritage/Photos/@image?w=350&q=89&fm=webp"
-                    class="directory__logo"
-                    alt=""
-                    width="350"
-                    height="150">
-            }
+            <div class="shed__wrapper">
+                @foreach (string image in Model)
+                {
+                    <img src="https://live-iag-static-assets.s3.eu-west-1.amazonaws.com/heritage/Photos/@image?w=350&q=89&fm=webp"
+                        class="shed__images"
+                        alt=""
+                        width="350"
+                        height="150">
+                }
+            </div>
         </div>
     </div>
 }

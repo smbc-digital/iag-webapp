@@ -11,8 +11,8 @@ public class ShedController(ShedService shedService,
     private readonly IFilteredUrl _filteredUrl = filteredUrl;
 
     [HttpGet("shed")]
-    public async Task<IActionResult> Index(string ward,
-                                        string listingType,
+    public async Task<IActionResult> Index(List<string> ward,
+                                        List<string> listingType,
                                         string id,
                                         string searchTerm,
                                         [FromQuery] int page,
@@ -20,8 +20,10 @@ public class ShedController(ShedService shedService,
     {
         List<ShedItem> results = await _shedService.GetAllSHEDData();
 
-        if (!string.IsNullOrEmpty(ward) || !string.IsNullOrEmpty(listingType))
-            results = await _shedService.GetShedData(ward, listingType);
+        if (ward is not null && ward.Any() && ward.Count > 1 || listingType is not null && listingType.Any() && listingType.Count > 1)
+            results = await _shedService.GetSHEDDataByWardsAndListingTypes(ward, listingType);
+        else if (!string.IsNullOrEmpty(ward.FirstOrDefault()) || !string.IsNullOrEmpty(listingType.FirstOrDefault()))
+            results = await _shedService.GetShedData(ward.FirstOrDefault(), listingType.FirstOrDefault());
         else if (!string.IsNullOrEmpty(id))
             results = await _shedService.GetShedDataById(id);
         else if (!string.IsNullOrEmpty(searchTerm))
@@ -35,11 +37,14 @@ public class ShedController(ShedService shedService,
 
         DoPagination(results, page, viewModel, pageSize);
 
-        viewModel.AppliedFilters = new List<string>()
-        {
-            !string.IsNullOrEmpty(ward) ? ward : string.Empty,
-            !string.IsNullOrEmpty(listingType) ? listingType : string.Empty
-        };
+        viewModel.AppliedFilters = new List<string>();
+        viewModel.SearchTerm = searchTerm;
+
+        if (ward is not null && ward.Any())
+            viewModel.AppliedFilters.AddRange(ward);
+
+        if (listingType is not null && listingType.Any())
+            viewModel.AppliedFilters.AddRange(listingType);
 
         return View(viewModel);
     }
@@ -69,7 +74,7 @@ public class ShedController(ShedService shedService,
             PaginatedItems<ShedEntryViewModel> paginatedItems = PaginationHelper.GetPaginatedItemsForSpecifiedPage(
                 entryViewModels,
                 currentPageNumber,
-                "shed",
+                "results",
                 pageSize,
                 _config.GetEventsDefaultPageSize(_businessId.ToString().Equals("stockroom") ? "stockroom" : "stockportgov")
             );

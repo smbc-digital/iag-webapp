@@ -9,7 +9,7 @@
         "cludo": "cludo-ae98e22c.min",
         "contactUs": "contactUs-e5b6f8a5.min",
         "directoriesMapInit": "directoriesMapInit-e9b7ff2c.min",
-        "directoryFilters": "directoryFilters-cefe3db0.min",
+        "directoryFilters": "directoryFilters-49ce117d.min",
         "events": "events-af550f37.min",
         "eventCategories": "eventCategories-e45a6772.min",
         "eventFilters": "eventFilters-0efc724b.min",

@@ -1,7 +1,8 @@
 @model ShedViewModel;
 @{
     Layout = "../Shared/_Layout2023.cshtml";
-    ViewData["Title"] = "Stockport Historic Environment Database";
+    ViewData["Title"] = Model.PageTitle;
+    ViewData["BreadcrumbTitle"] = Model.PageTitle;
     ViewData["og:title"] = "Stockport Historic Environment Database";
     ViewData["Description"] = "Stockport Historic Environment Database";
 }
@@ -15,8 +16,9 @@
 
         <div class="grid-container">
             <div class="grid-100 directory-sub-title">
-                <h1 class="list-title">Results in Stockport Historic Environment Database</h1>
-                <span>Showing <span class="bold">@Model.FilteredEntries.Count()</span> results in <span class="bold">Stockport Historic Environment Database</span> </span>
+                <h1 data-cy="list-title">@Model.DisplayTitle</h1>
+                <span>Showing <span class="bold">@Model.FilteredEntries.Count()</span> @(@Model.FilteredEntries.Count().Equals(1) ? " result" : " results")
+                    in <span class="bold">Stockport Historic Environment Database</span> @if (!string.IsNullOrEmpty(Model.SearchTerm)) { @("for ") <span class='bold'>"@Model.SearchTerm"</span> }</span>
             </div>
         </div>
 
@@ -35,3 +37,13 @@
         </div>
     </form>
 </div>
+
+<script>
+    require(['/assets/javascript/config-f8d6a257.min.js'], function () {
+        require(['directoryFilters'],
+            function (directoryFilters) {
+                directoryFilters.Init();
+            }
+        );
+    });
+</script>

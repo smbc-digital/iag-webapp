@@ -9,7 +9,7 @@ public class ShedItem
 
     [JsonPropertyName("name")]
     public string Name { get; set; }
-    
+
     public string Slug => Name.ToLower()?.Replace(" ", "-");
 
     [JsonPropertyName("address")]
@@ -50,4 +50,7 @@ public class ShedItem
 
     [JsonPropertyName("alt_ref")]
     public string AltRef { get; set; }
+
+    public ShedItem()
+    { }
 }

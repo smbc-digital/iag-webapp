@@ -1,0 +1,15 @@
+.shed {
+    &__wrapper {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 1rem;
+        padding: 1rem 0;
+    }
+
+    &__images {
+        width: 100%;
+        height: 300px;
+        object-fit: cover;
+        border-radius: 3px;
+    }
+}

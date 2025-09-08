@@ -18,25 +18,37 @@
 
                     @if (!string.IsNullOrEmpty(Model.Grade))
                     {
-                        <p>Grade: <span class="navcard__sub-title">@Model.Grade</span></p>
+                        <p class="navcard__teaser">Grade: <span class="navcard__sub-title">@Model.Grade</span></p>
                     }
 
                     @if (!string.IsNullOrEmpty(Model.DateListed))
                     {
-                        <p>Date listed: <span class="navcard__sub-title">@DateTime.Parse(Model.DateListed).ToString("D")</span></p>
+                        <p class="navcard__teaser">Date listed: <span class="navcard__sub-title">@DateTime.Parse(Model.DateListed).ToString("D")</span></p>
                     }
 
                     @if (!string.IsNullOrEmpty(Model.WardName))
                     {
-                        <p>Ward name: <span class="navcard__sub-title">@Model.WardName</span></p>
+                        <p class="navcard__teaser">Ward name: <span class="navcard__sub-title">@Model.WardName</span></p>
                     }
                 </div>
+                
                 <div class="directory-result__brand">
-                    <img src="https://live-iag-static-assets.s3.eu-west-1.amazonaws.com/heritage/Photos/@Model.Images.FirstOrDefault()?w=340&q=89&fm=webp"
+                    @if (!string.IsNullOrEmpty(Model.Images.FirstOrDefault()))
+                    {
+                        <img src="https://live-iag-static-assets.s3.eu-west-1.amazonaws.com/heritage/Photos/@Model.Images.FirstOrDefault()?w=340&q=89&fm=webp"
                             alt=""
                             width="300"
                             height="150"
                             loading="lazy">
+                    }
+                    else
+                    {
+                        <img src="/assets/images/content/stockport_heritage_assets.png?w=350&q=89&fm=webp"
+                            class="directory__logo"
+                            alt=""
+                            width="350"
+                            height="150">
+                    }
                 </div>
             </div>
         </a>

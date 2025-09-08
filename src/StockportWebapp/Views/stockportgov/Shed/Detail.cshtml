@@ -13,7 +13,7 @@
 }
 
 <div class="grid-container-full-width background-grey">
-    <partial name="Breadcrumb2023" model='new List<Crumb> { new Crumb("SHED", "shed?ward=offerton", "Shed") }' />
+    <partial name="Breadcrumb2023" model='new List<Crumb> { new Crumb("SHED", "shed", "Shed") }' />
 
     <div class="grid-container">
         <div class="grid-100">
@@ -28,7 +28,7 @@
                 <div class="directory--70 directory--border-top @borderTeal">
                     <partial name="ShedEntryDescription" model='Model.Description' view-data='@(new ViewDataDictionary(ViewData) { { "AdditionalCssClasses", @greyBorderCssClasses } })' />
                     <partial name="ShedEntryImages" model='Model.Images' view-data='@(new ViewDataDictionary(ViewData) { { "AdditionalWrapperCssClasses", @borderTeal }, { "AdditionalCssClasses", @greyBorderCssClasses } })' />
-                    <partial name="MapContent" model=@(new MapViewModel("title", "https://maps.stockport.gov.uk/historic-environment") ) />
+                    @* <partial name="MapContent" model=@(new MapViewModel("title", "https://maps.stockport.gov.uk/historic-environment") ) /> *@
                 </div>
             </section>
         </div>

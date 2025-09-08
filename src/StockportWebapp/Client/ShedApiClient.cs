@@ -55,4 +55,23 @@ public class ShedApiClient
         response.EnsureSuccessStatusCode();
         return await response.Content.ReadAsStringAsync();
     }
+
+    public async Task<string> GetSHEDDataByWardsAndListingTypes(List<string> ward, List<string> listingTypes)
+    {
+        var queryParams = new List<string>();
+
+        if (ward != null && ward.Any())
+            queryParams.AddRange(ward.Select(w => $"ward={Uri.EscapeDataString(w)}"));
+
+        if (listingTypes != null && listingTypes.Any())
+            queryParams.AddRange(listingTypes.Select(t => $"listingTypes={Uri.EscapeDataString(t)}"));
+
+        string url = "GetSHEDDataByWardsAndListingTypes";
+        if (queryParams.Any())
+            url += "?" + string.Join("&", queryParams);
+
+        HttpResponseMessage response = await _httpClient.GetAsync(url);
+        response.EnsureSuccessStatusCode();
+        return await response.Content.ReadAsStringAsync();
+    }
 }

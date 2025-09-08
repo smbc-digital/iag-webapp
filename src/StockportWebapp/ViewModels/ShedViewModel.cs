@@ -6,15 +6,12 @@ public class ShedViewModel : ISlugComparable
 {
     public ShedViewModel() { }
 
-    public ShedViewModel(IEnumerable<ShedItem> filteredEntries)
-    {
+    public ShedViewModel(IEnumerable<ShedItem> filteredEntries) =>
         FilteredEntries = filteredEntries.Select(entry => new ShedEntryViewModel(entry));
-    }
 
-    //public List<ShedItem> ShedItems { get; set; } = new();
-
+    public IEnumerable<ShedEntryViewModel> FilteredEntries { get; set; }
+    public IEnumerable<ShedEntryViewModel> ShedItems { get; set; }
     public Pagination Pagination { get; set; } = new Pagination();
-
     public QueryUrl CurrentUrl { get; set; }
 
     public List<string> Wards = new()
@@ -62,53 +59,23 @@ public class ShedViewModel : ISlugComparable
 
     // Core page details
     public string Slug { get; set; }
-    public string Title { get; set; }
 
     public string DisplayTitle =>
         string.IsNullOrEmpty(SearchTerm)
-            ? $"Results in {Title}"
+            ? "Results in Stockport Historic Environment Database"
             : $"Results for \"{SearchTerm}\"";
 
     public string PageTitle =>
         $"{DisplayTitle}{(ShowPagination
-            ? $" (page {PaginationInfo.CurrentPage} of {PaginationInfo.TotalPages})"
+            ? $" (page {Pagination.CurrentPageNumber} of {Pagination.TotalPages})"
             : string.Empty)}";
 
     // Search sorting and filtering options
     public string SearchTerm { get; set; }
     public string Order { get; set; } // not implemented in the UI yet, but can be used for sorting
-    public PaginationInfo PaginationInfo { get; set; } // not implemented in the UI yet, but can be used for pagination
+    
     public bool ShowPagination =>
-        PaginationInfo is not null && PaginationInfo.TotalEntries > PaginationInfo.PageSize;
-
+        Pagination is not null && Pagination.TotalItems > Pagination.MaxItemsPerPage;
+    
     public List<string> OrderBy = new() { "Name A to Z", "Name Z to A" };
-
-    // Page layout properties
-    public IEnumerable<ShedEntryViewModel> FilteredEntries { get; set; }
-    public IEnumerable<ShedEntryViewModel> PaginatedEntries { get; set; }
-    public IEnumerable<ShedEntryViewModel> ShedItems { get; set; }
-
-    public void Paginate(int page)
-    {
-        IEnumerable<ShedEntryViewModel> allEntries = FilteredEntries;
-
-        int totalPages = (int)Math.Ceiling((double)allEntries.Count() / 12);
-
-        page = Math.Max(1, Math.Min(page, totalPages));
-
-        int startIndex = (page - 1) * 12;
-
-        PaginatedEntries = allEntries
-            .Skip(startIndex)
-            .Take(12)
-            .ToList();
-
-        PaginationInfo = new PaginationInfo
-        {
-            CurrentPage = page,
-            TotalPages = totalPages,
-            TotalEntries = allEntries.Count(),
-            PageSize = 12
-        };
-    }
 }
