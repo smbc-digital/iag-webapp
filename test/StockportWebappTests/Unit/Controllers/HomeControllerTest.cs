@@ -77,7 +77,6 @@ public class HomeControllerTest
                                             "thumbnail",
                                             "hero image caption",
                                             "body",
-                                            new List<Crumb>(),
                                             new DateTime(2015, 9, 10),
                                             "test",
                                             new DateTime(2015, 9, 20),

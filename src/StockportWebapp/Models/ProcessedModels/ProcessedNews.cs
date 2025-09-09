@@ -9,7 +9,6 @@ public class ProcessedNews(string title,
                         string thumbnailImage,
                         string heroImageCaption,
                         string body,
-                        List<Crumb> breadcrumbs,
                         DateTime sunriseDate,
                         string publishingDate,
                         DateTime sunsetDate,
@@ -33,7 +32,6 @@ public class ProcessedNews(string title,
     public readonly string ThumbnailImage = thumbnailImage;
     public readonly string HeroImageCaption = heroImageCaption;
     public readonly string Body = body;
-    public readonly List<Crumb> Breadcrumbs = breadcrumbs;
     public readonly DateTime SunriseDate = sunriseDate;
     public readonly string PublishingDate = publishingDate;
     public readonly DateTime SunsetDate = sunsetDate;

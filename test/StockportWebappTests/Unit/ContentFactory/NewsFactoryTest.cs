@@ -13,7 +13,6 @@ public class NewsFactoryTest
     private const string Image = "image";
     private const string ThumbnailImage = "image";
     private const string Body = "body";
-    private readonly List<Crumb> _breadcrumbs = new();
     private readonly DateTime _sunrise = new(2015, 9, 19);
     private readonly DateTime _sunset = new(2015, 9, 25);
     private readonly DateTime _updatedAt = new(2015, 9, 20);
@@ -45,7 +44,6 @@ public class NewsFactoryTest
                         ThumbnailImage,
                         "hero image caption",
                         Body,
-                        _breadcrumbs,
                         _sunrise,
                         "test",
                         _sunset,
@@ -92,7 +90,6 @@ public class NewsFactoryTest
         Assert.Equal(Teaser, result.Teaser);
         Assert.Equal(Image, result.Image);
         Assert.Equal(ThumbnailImage, result.ThumbnailImage);
-        Assert.Equal(_breadcrumbs, result.Breadcrumbs);
         Assert.Equal(_sunrise, result.SunriseDate);
         Assert.Equal(_sunset, result.SunsetDate);
         Assert.Equal(_updatedAt, result.UpdatedAt);
