@@ -78,7 +78,7 @@ public class FeatureCardViewModelMapperExtensionsTests
         Assert.Equal(featuredNews.Image, result.Image);
         Assert.Equal("View more news", result.ButtonText);
         Assert.Equal($"/news/{featuredNews.Slug}", result.Slug);
-        Assert.Equal("Comms", result.ButtonTargetController);
+        Assert.Equal("LandingPage", result.ButtonTargetController);
         Assert.Equal("Latest news", result.HeaderText);      
     }
 }

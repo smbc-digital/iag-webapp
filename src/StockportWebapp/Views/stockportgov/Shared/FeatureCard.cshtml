@@ -35,5 +35,5 @@
         </div>
     </a>
     
-    <a href='@Url.Action("Index", Model.ButtonTargetController)' data-cy= "view-more-button" class="btn btn--full btn--pink btn--pink-outline btn--border-grey btn--bold btn--chevron-forward btn--chevron-bold">@Model.ButtonText</a>
+    <a href='@Url.Action("Index", Model.ButtonTargetController, new { slug = Model.ButtonSlug })' data-cy= "view-more-button" class="btn btn--full btn--pink btn--pink-outline btn--border-grey btn--bold btn--chevron-forward btn--chevron-bold">@Model.ButtonText</a>
 </div>
