@@ -11,5 +11,6 @@ public class FeatureCardViewModel
     public string Image { get; set; }
     public string Slug { get; set; }
     public string ButtonTargetController { get; set; }
+    public string ButtonSlug { get; set; }
     public string HeaderText { get; set; }
 }
