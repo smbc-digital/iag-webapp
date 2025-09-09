@@ -55,4 +55,13 @@ public class ShedService(ShedApiClient shedApiClient, MarkdownWrapper markdownWr
 
         return assets ?? new List<ShedItem>();
     }
+
+    public async Task<List<ShedItem>> GetSHEDDataByNameWardsAndListingTypes(string name, List<string> ward, List<string> listingTypes)
+    {
+        string json = await _shedApiClient.GetSHEDDataByNameWardsAndListingTypes(name, ward, listingTypes);
+
+        List<ShedItem> assets = JsonSerializer.Deserialize<List<ShedItem>>(json);
+
+        return assets ?? new List<ShedItem>();
+    }
 }

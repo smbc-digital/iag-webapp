@@ -9,10 +9,10 @@
 
 <div class="grid-container-full-width background-grey">
     <partial name="Breadcrumb2023" model='new List<Crumb> { }' />
-    <partial name="ShedSearch" model="new ShedSearchViewModel(){ SearchTerm = Model.SearchTerm }" />
+    <partial name="ShedSearch" model="new ShedSearchViewModel() { SearchTerm = Model.SearchTerm }" />
 
     <form asp-controller="Shed" asp-action="Index" method="get">
-        <input type="hidden" asp-for="SearchTerm" id="persistedSearchTerm"/>
+        <input type="hidden" asp-for="@Model.SearchTerm" id="persistedSearchTerm"/>
 
         <div class="grid-container">
             <div class="grid-100 directory-sub-title">
