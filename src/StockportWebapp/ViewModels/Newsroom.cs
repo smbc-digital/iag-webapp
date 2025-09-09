@@ -36,7 +36,7 @@ public class Newsroom(List<News> news,
             .Select(news =>
                 new NavCard(
                     news.Title,
-                    $"news-article/{news.Slug}",
+                    $"{news.Slug}",
                     news.Teaser,
                     news.ThumbnailImage,
                     news.Image,

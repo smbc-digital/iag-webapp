@@ -1,7 +1,4 @@
-﻿using StockportGovUK.NetStandard.Gateways.Models.RevsAndBens;
-using System.Linq;
-
-namespace StockportWebappTests_Unit.Unit.Extensions;
+﻿namespace StockportWebappTests_Unit.Unit.Extensions;
 
 public class FeatureCardViewModelMapperExtensionsTests
 {
@@ -48,7 +45,6 @@ public class FeatureCardViewModelMapperExtensionsTests
             "/NewsThumb.jpg",
             "hero image caption",
             "Test News Body",
-            new List<Crumb>(),
             DateTime.Today.AddDays(-2),
             "test",
             DateTime.Today.AddDays(2),
@@ -78,7 +74,7 @@ public class FeatureCardViewModelMapperExtensionsTests
         Assert.Equal(featuredNews.Image, result.Image);
         Assert.Equal("View more news", result.ButtonText);
         Assert.Equal($"/news/{featuredNews.Slug}", result.Slug);
-        Assert.Equal("Comms", result.ButtonTargetController);
+        Assert.Equal("LandingPage", result.ButtonTargetController);
         Assert.Equal("Latest news", result.HeaderText);      
     }
 }

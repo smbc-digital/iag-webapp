@@ -9,7 +9,6 @@ public class News(string title,
                 string thumbnailImage,
                 string heroImageCaption,
                 string body,
-                List<Crumb> breadcrumbs,
                 DateTime sunriseDate,
                 string publishingDate,
                 DateTime sunsetDate,
@@ -35,7 +34,6 @@ public class News(string title,
     public string ThumbnailImage { get; } = thumbnailImage;
     public string HeroImageCaption { get; } = heroImageCaption;
     public string Body { get; } = body;
-    public List<Crumb> Breadcrumbs { get; } = breadcrumbs;
     public DateTime SunriseDate { get; } = sunriseDate;
     public string PublishingDate { get; } = publishingDate;
     public DateTime SunsetDate { get; } = sunsetDate;

@@ -8,7 +8,8 @@
 }
 
 @section Breadcrumbs {
-    <partial name="Breadcrumb" model='Model.NewsItem.Breadcrumbs'/>
+    <partial name="Breadcrumb" model='new List<Crumb> { new Crumb("News", "news", "News") }' />
+
 }
 
 <div class="grid-container-full-width" data-cy="news-details">
