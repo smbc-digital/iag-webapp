@@ -1,7 +1,4 @@
-﻿using StockportGovUK.NetStandard.Gateways.Models.RevsAndBens;
-using System.Linq;
-
-namespace StockportWebappTests_Unit.Unit.Extensions;
+﻿namespace StockportWebappTests_Unit.Unit.Extensions;
 
 public class FeatureCardViewModelMapperExtensionsTests
 {
@@ -48,7 +45,6 @@ public class FeatureCardViewModelMapperExtensionsTests
             "/NewsThumb.jpg",
             "hero image caption",
             "Test News Body",
-            new List<Crumb>(),
             DateTime.Today.AddDays(-2),
             "test",
             DateTime.Today.AddDays(2),
