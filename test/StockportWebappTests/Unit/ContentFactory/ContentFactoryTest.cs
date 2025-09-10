@@ -108,7 +108,6 @@ public class ContentFactoryTest
                         new DateTime(),
                         new List<Alert>(),
                         new List<string>(),
-                        new List<Document>(),
                         new List<InlineQuote>(),
                         null,
                         It.IsAny<string>(),

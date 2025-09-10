@@ -26,7 +26,6 @@ public class CommsControllerTest
                             new DateTime(2019, 9, 2),
                             new List<Alert>(),
                             new List<string>(),
-                            new List<Document>(),
                             new List<InlineQuote>(),
                             null,
                             string.Empty,

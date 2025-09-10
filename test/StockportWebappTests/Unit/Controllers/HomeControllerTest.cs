@@ -82,7 +82,6 @@ public class HomeControllerTest
                                             new DateTime(2015, 9, 15),
                                             new List<Alert>(),
                                             new List<string>(),
-                                            new List<Document>(),
                                             new List<InlineQuote>(),
                                             null,
                                             string.Empty,
