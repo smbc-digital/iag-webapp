@@ -8,7 +8,6 @@ public class NewsServiceTests
     private readonly News News = new("News 2nd September",
                                     "news-2nd-september",
                                     "test",
-                                    "purpose",
                                     string.Empty,
                                     string.Empty,
                                     string.Empty,

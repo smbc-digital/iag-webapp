@@ -3,7 +3,6 @@
 public class News(string title,
                 string slug,
                 string teaser,
-                string purpose,
                 string heroImage,
                 string image,
                 string thumbnailImage,
@@ -28,7 +27,6 @@ public class News(string title,
     public string Title { get; } = title;
     public string Slug { get; } = slug;
     public string Teaser { get; } = teaser;
-    public string Purpose { get; set; } = purpose;
     public string HeroImage { get; } = heroImage;
     public string Image { get; } = image;
     public string ThumbnailImage { get; } = thumbnailImage;

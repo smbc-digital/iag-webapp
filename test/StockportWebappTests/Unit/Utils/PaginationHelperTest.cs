@@ -442,7 +442,6 @@ public class PaginationHelperTest
             News NewsItem = new("News Article " + i.ToString(),
                                 "another-news-article",
                                 "This is another news article",
-                                "purpose",
                                 "hero-image.png",
                                 "image.jpg",
                                 "thumbnail.jpg",

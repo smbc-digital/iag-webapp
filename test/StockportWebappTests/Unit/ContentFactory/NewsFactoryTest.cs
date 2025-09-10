@@ -9,7 +9,6 @@ public class NewsFactoryTest
     private const string Title = "News 26th Aug";
     private const string Slug = "news-26th-aug";
     private const string Teaser = "teaser";
-    private const string Purpose = "purpose";
     private const string Image = "image";
     private const string ThumbnailImage = "image";
     private const string Body = "body";
@@ -38,7 +37,6 @@ public class NewsFactoryTest
         _news = new News(Title,
                         Slug,
                         Teaser,
-                        Purpose,
                         "hero image",
                         Image,
                         ThumbnailImage,

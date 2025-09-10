@@ -71,7 +71,6 @@ public class HomeControllerTest
     private readonly News _newsContent = new("title",
                                             "slug",
                                             "teaser",
-                                            "purpose",
                                             "hero image",
                                             "image",
                                             "thumbnail",

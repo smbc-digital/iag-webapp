@@ -3,7 +3,6 @@
 public class ProcessedNews(string title,
                         string slug,
                         string teaser,
-                        string purpose,
                         string heroImage,
                         string image,
                         string thumbnailImage,
@@ -26,7 +25,6 @@ public class ProcessedNews(string title,
     public readonly string Title = title;
     public readonly string Slug = slug;
     public readonly string Teaser = teaser;
-    public readonly string Purpose = purpose;
     public readonly string HeroImage = heroImage;
     public readonly string Image = image;
     public readonly string ThumbnailImage = thumbnailImage;
