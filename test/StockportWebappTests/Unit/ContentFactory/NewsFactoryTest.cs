@@ -9,7 +9,6 @@ public class NewsFactoryTest
     private const string Title = "News 26th Aug";
     private const string Slug = "news-26th-aug";
     private const string Teaser = "teaser";
-    private const string Purpose = "purpose";
     private const string Image = "image";
     private const string ThumbnailImage = "image";
     private const string Body = "body";
@@ -30,7 +29,6 @@ public class NewsFactoryTest
     
     private readonly List<string> _tags = new() { "Events", "Bramall Hall" };
     private readonly List<Document> _documents = new();
-    private readonly List<Profile> _profiles = new();
 
     public NewsFactoryTest()
     {
@@ -38,8 +36,6 @@ public class NewsFactoryTest
         _news = new News(Title,
                         Slug,
                         Teaser,
-                        Purpose,
-                        "hero image",
                         Image,
                         ThumbnailImage,
                         "hero image caption",
@@ -50,8 +46,6 @@ public class NewsFactoryTest
                         _updatedAt,
                         _alerts,
                         _tags,
-                        _documents,
-                        _profiles,
                         new List<InlineQuote>(),
                         null,
                         "logoAreaTitle",
@@ -114,10 +108,10 @@ public class NewsFactoryTest
                                                             _news.Title,
                                                             It.IsAny<bool>(),
                                                             It.IsAny<IEnumerable<Alert>>(),
-                                                            _news.Documents,
+                                                            null,
                                                             It.IsAny<IEnumerable<InlineQuote>>(),
                                                             It.IsAny<IEnumerable<PrivacyNotice>>(),
-                                                            _news.Profiles,
+                                                            null,
                                                             null,
                                                             It.IsAny<bool>()),Times.Once);
     }

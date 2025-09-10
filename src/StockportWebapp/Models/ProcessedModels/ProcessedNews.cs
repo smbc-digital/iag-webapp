@@ -3,11 +3,9 @@
 public class ProcessedNews(string title,
                         string slug,
                         string teaser,
-                        string purpose,
-                        string heroImage,
                         string image,
                         string thumbnailImage,
-                        string heroImageCaption,
+                        string imageCaption,
                         string body,
                         DateTime sunriseDate,
                         string publishingDate,
@@ -26,11 +24,9 @@ public class ProcessedNews(string title,
     public readonly string Title = title;
     public readonly string Slug = slug;
     public readonly string Teaser = teaser;
-    public readonly string Purpose = purpose;
-    public readonly string HeroImage = heroImage;
     public readonly string Image = image;
     public readonly string ThumbnailImage = thumbnailImage;
-    public readonly string HeroImageCaption = heroImageCaption;
+    public readonly string ImageCaption = imageCaption;
     public readonly string Body = body;
     public readonly DateTime SunriseDate = sunriseDate;
     public readonly string PublishingDate = publishingDate;
