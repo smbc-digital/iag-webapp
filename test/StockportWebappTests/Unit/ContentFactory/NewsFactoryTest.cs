@@ -36,7 +36,6 @@ public class NewsFactoryTest
         _news = new News(Title,
                         Slug,
                         Teaser,
-                        "hero image",
                         Image,
                         ThumbnailImage,
                         "hero image caption",

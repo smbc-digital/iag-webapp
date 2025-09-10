@@ -18,7 +18,6 @@ public class CommsControllerTest
                             "purpose",
                             string.Empty,
                             string.Empty,
-                            string.Empty,
                             "test",
                             new DateTime(2019, 9, 2),
                             string.Empty,

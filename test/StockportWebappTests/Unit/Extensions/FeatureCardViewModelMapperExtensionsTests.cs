@@ -39,7 +39,6 @@ public class FeatureCardViewModelMapperExtensionsTests
             "TestNewsItem", 
             "TestNewItem", 
             "Test News Teaser", 
-            "heroImage.png",
             "/News.jpg",
             "/NewsThumb.jpg",
             "hero image caption",

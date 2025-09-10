@@ -101,7 +101,6 @@ public class ContentFactoryTest
                         It.IsAny<string>(),
                         It.IsAny<string>(),
                         It.IsAny<string>(),
-                        It.IsAny<string>(),
                         new DateTime(),
                         It.IsAny<string>(),
                         new DateTime(),
