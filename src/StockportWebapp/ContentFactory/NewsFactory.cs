@@ -10,7 +10,7 @@ public class NewsFactory(ITagParserContainer simpleTagParserContainer,
     {
         string body = _markdownWrapper.ConvertToHtml(news.Body ?? string.Empty);
 
-        body = _tagParserContainer.ParseAll(body, news.Title, true, null, news.Documents, news.InlineQuotes, null, news.Profiles, null, true);
+        body = _tagParserContainer.ParseAll(body, news.Title, true, null, news.Documents, news.InlineQuotes, null, null, null, true);
 
         return new ProcessedNews(news.Title,
                                 news.Slug,

@@ -15,7 +15,6 @@ public class News(string title,
                 List<Alert> alerts,
                 List<string> tags,
                 IEnumerable<Document> documents,
-                IEnumerable<Profile> profiles,
                 IEnumerable<InlineQuote> inlineQuotes,
                 CallToActionBanner callToAction,
                 string logoAreaTitle,
@@ -39,7 +38,6 @@ public class News(string title,
     public List<Alert> Alerts { get; } = alerts;
     public List<string> Tags { get; } = tags;
     public IEnumerable<Document> Documents { get; set; } = documents;
-    public IEnumerable<Profile> Profiles { get; set; } = profiles;
     public IEnumerable<InlineQuote> InlineQuotes { get; set; } = inlineQuotes;
     public CallToActionBanner CallToAction { get; set; } = callToAction;
     public string LogoAreaTitle { get; } = logoAreaTitle;

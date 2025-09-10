@@ -454,7 +454,6 @@ public class PaginationHelperTest
                                 new List<Alert>(),
                                 new List<string>(),
                                 new List<Document>(),
-                                new List<Profile>(),
                                 new List<InlineQuote>(),
                                 null,
                                 string.Empty,

@@ -29,7 +29,6 @@ public class NewsFactoryTest
     
     private readonly List<string> _tags = new() { "Events", "Bramall Hall" };
     private readonly List<Document> _documents = new();
-    private readonly List<Profile> _profiles = new();
 
     public NewsFactoryTest()
     {
@@ -49,7 +48,6 @@ public class NewsFactoryTest
                         _alerts,
                         _tags,
                         _documents,
-                        _profiles,
                         new List<InlineQuote>(),
                         null,
                         "logoAreaTitle",
@@ -115,7 +113,7 @@ public class NewsFactoryTest
                                                             _news.Documents,
                                                             It.IsAny<IEnumerable<InlineQuote>>(),
                                                             It.IsAny<IEnumerable<PrivacyNotice>>(),
-                                                            _news.Profiles,
+                                                            null,
                                                             null,
                                                             It.IsAny<bool>()),Times.Once);
     }

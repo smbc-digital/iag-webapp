@@ -109,7 +109,6 @@ public class ContentFactoryTest
                         new List<Alert>(),
                         new List<string>(),
                         new List<Document>(),
-                        new List<Profile>(),
                         new List<InlineQuote>(),
                         null,
                         It.IsAny<string>(),
