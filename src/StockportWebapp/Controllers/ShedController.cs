@@ -18,20 +18,7 @@ public class ShedController(ShedService shedService,
                                         [FromQuery] int page,
                                         [FromQuery] int pageSize)
     {
-        // List<ShedItem> results = await _shedService.GetAllSHEDData();
-
         List<ShedItem> results = await _shedService.GetSHEDDataByNameWardsAndListingTypes(searchTerm, ward, listingType);
-
-        // if (ward is not null && ward.Any() && ward.Count > 1 || listingType is not null && listingType.Any() && listingType.Count > 1 && string.IsNullOrEmpty(searchTerm))
-        //     results = await _shedService.GetSHEDDataByWardsAndListingTypes(ward, listingType);
-        // if ((ward is not null && ward.Any() && ward.Count > 1 || listingType is not null && listingType.Any()) && !string.IsNullOrEmpty(searchTerm))
-        //     results = await _shedService.GetSHEDDataByNameWardsAndListingTypes(searchTerm, ward, listingType);
-        // else if (!string.IsNullOrEmpty(ward.FirstOrDefault()) || !string.IsNullOrEmpty(listingType.FirstOrDefault()))
-        //     results = await _shedService.GetShedData(ward.FirstOrDefault(), listingType.FirstOrDefault());
-        // else if (!string.IsNullOrEmpty(id))
-        //     results = await _shedService.GetShedDataById(id);
-        // else if (!string.IsNullOrEmpty(searchTerm))
-        //     results = await _shedService.GetShedDataByName(searchTerm);
 
         ShedViewModel viewModel = new(results);
 

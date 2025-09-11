@@ -16,6 +16,93 @@
                         height="150">
                 }
             </div>
+
+            @* @await Html.PartialAsync("CarouselTagParserContent", Model.Select(src => ("https://live-iag-static-assets.s3.eu-west-1.amazonaws.com/heritage/Photos/" + src, string.Empty)).ToList()) *@
         </div>
     </div>
 }
+
+@* <style>
+    .shed__images {
+        cursor: pointer;
+        transition: transform 0.2s;
+    }
+
+    .shed__images:hover {
+        transform: scale(1.05);
+    }
+
+    .lightbox {
+        display: none;
+        position: fixed;
+        z-index: 9999;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: rgba(0,0,0,0.9);
+        text-align: center;
+    }
+
+    .lightbox img {
+        max-width: 90%;
+        max-height: 90%;
+        margin-top: 3%;
+        box-shadow: 0 0 20px #000;
+    }
+
+    .lightbox__close {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        font-size: 2rem;
+        background: none;
+        border: none;
+        color: white;
+        cursor: pointer;
+    }
+</style> *@
+
+@* <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const images = document.querySelectorAll('.shed__wrapper img');
+
+        const lightbox = document.createElement('div');
+        lightbox.className = 'lightbox';
+        lightbox.setAttribute('role', 'dialog');
+        lightbox.setAttribute('aria-modal', 'true');
+
+        const closeBtn = document.createElement('button');
+        closeBtn.className = 'lightbox__close';
+        closeBtn.setAttribute('aria-label', 'Close');
+        closeBtn.innerHTML = '&times;';
+
+        const modalImg = document.createElement('img');
+
+        lightbox.appendChild(closeBtn);
+        lightbox.appendChild(modalImg);
+        document.body.appendChild(lightbox);
+
+        images.forEach(img => {
+            img.addEventListener('click', () => {
+            modalImg.src = img.src.replace(/(\?|$)/, '?w=1200$1'); // swap size if needed
+            modalImg.alt = img.alt;
+            lightbox.style.display = 'block';
+            closeBtn.focus();
+            });
+        });
+
+        function closeLightbox() {
+            lightbox.style.display = 'none';
+        }
+        closeBtn.addEventListener('click', closeLightbox);
+
+        lightbox.addEventListener('click', e => {
+            if (e.target === lightbox) closeLightbox();
+        });
+
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape' && lightbox.style.display === 'block') {
+            closeLightbox();
+            }
+        });
+    });
+</script> *@
