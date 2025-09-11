@@ -71,7 +71,7 @@ public class Startup
         _logger.Information($"WEBAPP: STARTUP : ConfigureServices : Adding Cache");
         services.AddRedis(Configuration, _useRedisSession, Log.Logger);
         services.AddFeatureManagement();
-        services.AddHttpClient<ShedApiClient>();
+        services.AddHttpClient<IShedApiClient, ShedApiClient>();
     }
 
     public static void HandleFaviconRequests(IApplicationBuilder app)

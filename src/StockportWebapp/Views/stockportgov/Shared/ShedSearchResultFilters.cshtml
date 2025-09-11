@@ -20,7 +20,7 @@
                             string value = grade.Equals("II*") ? "IISTAR" : grade;
                             string id = grade.Replace(" ", "-").ToLower();
                             <div class="directory__checkbox-container">
-                                <input class="directory-filters__checkbox" type="checkbox" name="listingType" value="@value" id="@id"
+                                <input class="directory-filters__checkbox" type="checkbox" name="grade" value="@value" id="@id"
                                     @(Model.AppliedFilters.Any(appliedFilter => appliedFilter.Equals(value)) ? "checked" : string.Empty)>
 
                                 <label for="@id" class="directory-filters__label">@grade</label>

@@ -2,16 +2,15 @@
 
 namespace StockportWebapp.ViewModels;
 
+[ExcludeFromCodeCoverage]
 public class ShedEntryViewModel : ISlugComparable
 {
     public ShedEntryViewModel() { }
 
     public ShedItem ShedItem { get; set; }
 
-    public ShedEntryViewModel(ShedItem shedItem)
-    {
+    public ShedEntryViewModel(ShedItem shedItem) =>
         ShedItem = shedItem;
-    }
 
     public string Slug { get; set; }
     public IEnumerable<Crumb> Breadcrumbs { get; set; }

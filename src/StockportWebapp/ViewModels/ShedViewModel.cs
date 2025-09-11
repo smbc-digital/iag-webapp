@@ -2,14 +2,9 @@
 
 namespace StockportWebapp.ViewModels;
 
-public class ShedViewModel : ISlugComparable
+public class ShedViewModel(IEnumerable<ShedItem> filteredEntries) : ISlugComparable
 {
-    public ShedViewModel() { }
-
-    public ShedViewModel(IEnumerable<ShedItem> filteredEntries) =>
-        FilteredEntries = filteredEntries.Select(entry => new ShedEntryViewModel(entry));
-
-    public IEnumerable<ShedEntryViewModel> FilteredEntries { get; set; }
+    public IEnumerable<ShedEntryViewModel> FilteredEntries { get; set; } = filteredEntries.Select(entry => new ShedEntryViewModel(entry));
     public IEnumerable<ShedEntryViewModel> ShedItems { get; set; }
     public Pagination Pagination { get; set; } = new Pagination();
     public QueryUrl CurrentUrl { get; set; }
@@ -70,12 +65,8 @@ public class ShedViewModel : ISlugComparable
             ? $" (page {Pagination.CurrentPageNumber} of {Pagination.TotalPages})"
             : string.Empty)}";
 
-    // Search sorting and filtering options
     public string SearchTerm { get; set; }
-    public string Order { get; set; } // not implemented in the UI yet, but can be used for sorting
     
     public bool ShowPagination =>
         Pagination is not null && Pagination.TotalItems > Pagination.MaxItemsPerPage;
-    
-    public List<string> OrderBy = new() { "Name A to Z", "Name Z to A" };
 }

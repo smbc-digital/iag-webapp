@@ -1,26 +1,27 @@
 namespace StockportWebapp.Controllers;
 
-public class ShedController(ShedService shedService,
+public class ShedController(IShedService shedService,
                             IApplicationConfiguration config,
-                            BusinessId businessId,
                             IFilteredUrl filteredUrl) : Controller
 {
-    private readonly ShedService _shedService = shedService;
+    private readonly IShedService _shedService = shedService;
     private readonly IApplicationConfiguration _config = config;
-    private readonly BusinessId _businessId = businessId;
     private readonly IFilteredUrl _filteredUrl = filteredUrl;
 
     [HttpGet("shed")]
     public async Task<IActionResult> Index(List<string> ward,
-                                        List<string> listingType,
-                                        string id,
+                                        List<string> grade,
                                         string searchTerm,
                                         [FromQuery] int page,
                                         [FromQuery] int pageSize)
     {
-        List<ShedItem> results = await _shedService.GetSHEDDataByNameWardsAndListingTypes(searchTerm, ward, listingType);
+        List<ShedItem> results = await _shedService.GetSHEDDataByNameWardsAndListingTypes(searchTerm, ward, grade);
 
-        ShedViewModel viewModel = new(results);
+        ShedViewModel viewModel = new(results)
+        {
+            SearchTerm = searchTerm,
+            AppliedFilters = new List<string>()
+        };
 
         viewModel.AddQueryUrl(new QueryUrl(Url?.ActionContext.RouteData.Values, Request?.Query));
         _filteredUrl.SetQueryUrl(viewModel.CurrentUrl);
@@ -28,14 +29,8 @@ public class ShedController(ShedService shedService,
 
         DoPagination(results, page, viewModel, pageSize);
 
-        viewModel.AppliedFilters = new List<string>();
-        viewModel.SearchTerm = searchTerm;
-
-        if (ward is not null && ward.Any())
-            viewModel.AppliedFilters.AddRange(ward);
-
-        if (listingType is not null && listingType.Any())
-            viewModel.AppliedFilters.AddRange(listingType);
+        viewModel.AppliedFilters.AddRange(ward ?? Enumerable.Empty<string>());
+        viewModel.AppliedFilters.AddRange(grade ?? Enumerable.Empty<string>());
 
         return View(viewModel);
     }
@@ -43,17 +38,13 @@ public class ShedController(ShedService shedService,
     [HttpGet("shed/{slug}")]
     public async Task<IActionResult> Detail(string slug)
     {
-        string name = slug.Replace("-", " ").ToLower();
+        string name = slug.Replace("-", " ").ToLowerInvariant();
 
-        List<ShedItem> allSheds = await _shedService.GetShedDataByName(name);
+        List<ShedItem> results = await _shedService.GetShedDataByName(name); // I think we can change this to return just one item
 
-        ShedItem shed = allSheds.FirstOrDefault(s =>
-            s.Name?.ToLower() == name);
+        ShedItem shed = results.FirstOrDefault(shedItem => string.Equals(shedItem.Name, name, StringComparison.OrdinalIgnoreCase));
 
-        if (shed is null)
-            return NotFound();
-
-        return View(shed);
+        return shed is null ? NotFound() : View(shed);
     }
     
     private void DoPagination(List<ShedItem> items, int currentPageNumber, ShedViewModel model, int pageSize)
@@ -67,7 +58,7 @@ public class ShedController(ShedService shedService,
                 currentPageNumber,
                 "results",
                 pageSize,
-                _config.GetEventsDefaultPageSize(_businessId.ToString().Equals("stockroom") ? "stockroom" : "stockportgov")
+                _config.GetEventsDefaultPageSize("stockportgov")
             );
 
             model.ShedItems = paginatedItems.Items;
