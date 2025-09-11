@@ -62,6 +62,7 @@ global using System.ComponentModel.DataAnnotations;
 global using System.Diagnostics.CodeAnalysis;
 global using System.Globalization;
 global using System.Net;
+global using System.Net.Http.Headers;
 global using System.Reflection;
 global using System.Runtime.Serialization;
 global using System.Security.Cryptography;

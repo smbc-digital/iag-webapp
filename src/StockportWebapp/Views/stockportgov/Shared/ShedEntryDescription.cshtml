@@ -1,0 +1,15 @@
+﻿@model string
+
+<div class="directory__description">
+    <div class="directory__wrapper navcard--white @((string)ViewData["AdditionalCssClasses"] ?? string.Empty)">
+        <h2>Description</h2>
+        
+        @{  
+            string formattedDescription = Model
+            .Replace("\r\n", "<br>")
+            .Replace("\r", "<br>");
+        }
+
+        @Html.Raw(formattedDescription)
+    </div>
+</div>

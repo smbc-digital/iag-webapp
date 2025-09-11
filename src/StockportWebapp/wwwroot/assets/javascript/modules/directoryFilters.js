@@ -3,9 +3,18 @@ define(["jquery"], function ($) {
     var init = function () {
         $(document).ready(function () {
             $('.directory-results__collapsible').on('click', function() {
-                $(this).next(".directory-filters__content").toggle();
-                $(this).find("span").toggleClass("closed");
-                $(this).attr('aria-expanded', $(this).attr('aria-expanded') === 'true' ? false : true);
+                var $link = $(this);
+                var $content = $link.next(".directory-filters__content");
+                $content.toggle();
+                
+                var expanded = $link.attr('aria-expanded') === 'true';
+                $link.attr('aria-expanded', !expanded);
+
+                if ($link.attr('aria-expanded') === 'true') {
+                    $link.find("span").removeClass("closed");
+                } else {
+                    $link.find("span").addClass("closed");
+                }
             });
 
             $('.directory-filters__content').each(function(index, themeGroup) {
@@ -21,6 +30,15 @@ define(["jquery"], function ($) {
                 $('.directory-filters__content').first().show();
                 $('.directory-results__collapsible').first().attr('aria-expanded', 'true');
             }
+            
+            $('.directory-results__collapsible').each(function () {
+                var $link = $(this);
+                if ($link.attr('aria-expanded') === 'true') {
+                    $link.find("span").removeClass("closed");
+                } else {
+                    $link.find("span").addClass("closed");
+                }
+            });
 
             var toggleIcons = document.querySelectorAll('.directory-results__toggle');
             toggleIcons.forEach(function(icon) {

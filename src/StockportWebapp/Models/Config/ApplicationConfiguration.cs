@@ -22,6 +22,8 @@ public interface IApplicationConfiguration
     int GetNewsDefaultPageSize(string businessId);
     int GetEventsDefaultPageSize(string businessId);
     string GetContentApiAuthenticationKey();
+    string GetShedApiAuthToken();
+    string GetShedApiBaseUrl();
     string GetWebAppClientId();
     string GetDigitalStockportLink();
     StylesheetsConfiguration GetStylesheetConfig();
@@ -122,6 +124,7 @@ public class ApplicationConfiguration(IConfiguration appsettings) : IApplication
 
         return result;
     }
+
     public int GetEventsDefaultPageSize(string businessId)
     {
         int.TryParse(_appsettings[$"{businessId}:EventsDefaultPageSize"], out int result);
@@ -131,6 +134,12 @@ public class ApplicationConfiguration(IConfiguration appsettings) : IApplication
 
     public string GetContentApiAuthenticationKey() =>
         _appsettings["ContentApiAuthenticationKey"];
+
+    public string GetShedApiAuthToken() =>
+        _appsettings["ShedApi:AuthToken"];
+
+    public string GetShedApiBaseUrl() =>
+        _appsettings["ShedApi:BaseUrl"];
 
     public string GetWebAppClientId() =>
         _appsettings["WebAppClientId"];
