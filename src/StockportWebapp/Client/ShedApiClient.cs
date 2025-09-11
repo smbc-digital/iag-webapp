@@ -34,10 +34,10 @@ public class ShedApiClient : IShedApiClient
             queryParams.Add($"name={Uri.EscapeDataString(name)}");
 
         if (ward is not null && ward.Any())
-            queryParams.AddRange(ward.Select(w => $"ward={Uri.EscapeDataString(w)}"));
+            queryParams.AddRange(ward.Select(wardName => $"ward={Uri.EscapeDataString(wardName)}"));
 
         if (listingTypes is not null && listingTypes.Any())
-            queryParams.AddRange(listingTypes.Select(t => $"listingTypes={Uri.EscapeDataString(t)}"));
+            queryParams.AddRange(listingTypes.Select(listingType => $"listingTypes={Uri.EscapeDataString(listingType)}"));
 
         string url = "GetSHEDDataByNameWardsAndListingTypes";
         if (queryParams.Any())

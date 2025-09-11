@@ -10,7 +10,7 @@ public class ShedItem
     [JsonPropertyName("name")]
     public string Name { get; set; }
 
-    public string Slug => Name.ToLower()?.Replace(" ", "-");
+    public string Slug => Name.ToLowerInvariant()?.Replace(" ", "-");
 
     [JsonPropertyName("address")]
     public string Location { get; set; }
