@@ -19,7 +19,8 @@ public class NewsController(IRepository repository,
     private readonly IFilteredUrl _filteredUrl = filteredUrl;
     private readonly IFeatureManager _featureManager = featureManager;
 
-    [Route("/news")]
+    // this needs to be removed when the news redesign is live
+    [Route("/news-articles")]
     public async Task<IActionResult> Index(NewsroomViewModel model, [FromQuery] int page, [FromQuery] int pageSize)
     {
         ClearDateErrorsIfNoDates(model);
@@ -48,7 +49,7 @@ public class NewsController(IRepository repository,
     }
 
     [ExcludeFromCodeCoverage]
-    [Route("/news-articles")]
+    [Route("/news")]
     public async Task<IActionResult> NewsArticles(NewsroomViewModel model, [FromQuery] int page, [FromQuery] int pageSize)
     {
         if (!await _featureManager.IsEnabledAsync("NewsRedesign"))
@@ -107,7 +108,7 @@ public class NewsController(IRepository repository,
         return View(model);
     }
 
-    [Route("/news-archive")]
+    [Route("/news/archive")]
     public async Task<IActionResult> NewsArchive(NewsroomViewModel model, [FromQuery] int page, [FromQuery] int pageSize)
     {
         if (!await _featureManager.IsEnabledAsync("NewsRedesign"))
@@ -124,8 +125,8 @@ public class NewsController(IRepository repository,
             HttpResponse allNewsResponse = await _repository.Get<Newsroom>(slug: "/archive");
             if (allNewsResponse.IsSuccessful())
             {
-                var allNewsroom = allNewsResponse.Content as Newsroom;
-                var years = allNewsroom?.Years;
+                Newsroom allNewsroom = allNewsResponse.Content as Newsroom;
+                List<int> years = allNewsroom?.Years;
 
                 if (years?.Any() is true)
                 {
@@ -158,7 +159,8 @@ public class NewsController(IRepository repository,
         return View(model);
     }
 
-    [Route("/news/{slug}")]
+    // this needs to be removed when the news redesign is live
+    [Route("/news-article/{slug}")]
     public async Task<IActionResult> Detail(string slug)
     {
         HttpResponse initialResponse = await _processedContentRepository.Get<News>(slug);
@@ -179,7 +181,7 @@ public class NewsController(IRepository repository,
         return finalResult;
     }
 
-    [Route("/news-article/{slug}")]
+    [Route("/news/{slug}")]
     public async Task<IActionResult> NewsArticle(string slug)
     {
         if (!await _featureManager.IsEnabledAsync("NewsRedesign"))
@@ -257,7 +259,7 @@ public class NewsController(IRepository repository,
 
         return new(
             news.Title,
-            $"news-article/{news.Slug}",
+            $"news/{news.Slug}",
             news.Teaser,
             news.ThumbnailImage,
             news.Image,

@@ -78,11 +78,10 @@ public class ServicePayPaymentController(IProcessedContentRepository repository,
                 return View(paymentSubmission);
             }
 
-            _logger.LogError($"{nameof(PaymentController)}::{nameof(Detail)}: " +
-                $"{nameof(ICivicaPayGateway)} {nameof(ICivicaPayGateway.CreateImmediateBasketAsync)} " +
-                $"An unexpected error occurred creating immediate basket:: " +
-                $"CivicaPay response code: {responseCode} " +
-                $"CivicaPay error message : {civicaResponse.ResponseContent.ErrorMessage}");
+            _logger.LogInformation($"{nameof(PaymentController)}::{nameof(Detail)}: " +
+                $"CivicaPay returned invalid details when creating immediate basket. " +
+                $"Response code: {responseCode} " +
+                $"Error : {civicaResponse.ResponseContent.ErrorMessage}");
 
             return View("Error", response);
         }

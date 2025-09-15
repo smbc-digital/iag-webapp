@@ -20,7 +20,6 @@ public class NewsFactoryTest
     
     private readonly List<string> _tags = new() { "Events", "Bramall Hall" };
     private readonly List<Document> _documents = new();
-    private readonly List<Profile> _profiles = new();
 
     public NewsFactoryTest()
     {
@@ -28,21 +27,16 @@ public class NewsFactoryTest
         _news = new News("News 26th Aug",
                         "news-26th-aug",
                         "teaser",
-                        "purpose",
-                        "hero image",
                         "image",
                         "image",
                         "hero image caption",
                         "body",
-                        new List<Crumb>(),
                         new(2015, 9, 19),
                         "test",
                         new(2015, 9, 25),
                         new(2015, 9, 20),
                         _alerts,
                         _tags,
-                        _documents,
-                        _profiles,
                         new List<InlineQuote>(),
                         null,
                         "logoAreaTitle",
@@ -81,7 +75,6 @@ public class NewsFactoryTest
         Assert.Equal("teaser", result.Teaser);
         Assert.Equal("image", result.Image);
         Assert.Equal("image", result.ThumbnailImage);
-        Assert.Equal(new List<Crumb>(), result.Breadcrumbs);
         Assert.Equal(new(2015, 9, 19), result.SunriseDate);
         Assert.Equal(new(2015, 9, 25), result.SunsetDate);
         Assert.Equal(new(2015, 9, 20), result.UpdatedAt);
@@ -106,10 +99,10 @@ public class NewsFactoryTest
                                                             _news.Title,
                                                             It.IsAny<bool>(),
                                                             It.IsAny<IEnumerable<Alert>>(),
-                                                            _news.Documents,
+                                                            null,
                                                             It.IsAny<IEnumerable<InlineQuote>>(),
                                                             It.IsAny<IEnumerable<PrivacyNotice>>(),
-                                                            _news.Profiles,
+                                                            null,
                                                             null,
                                                             It.IsAny<bool>()),Times.Once);
     }

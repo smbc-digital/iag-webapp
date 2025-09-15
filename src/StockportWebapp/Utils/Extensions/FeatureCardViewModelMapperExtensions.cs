@@ -2,7 +2,7 @@
 
 public static class FeatureCardViewModelMapperExtensions
 {
-    public static FeatureCardViewModel MapToFeatureCard(this Event featuredEvent) => 
+    public static FeatureCardViewModel MapToFeatureCard(this Event featuredEvent) =>
         new()
         {
             Title = featuredEvent.Title,
@@ -19,14 +19,15 @@ public static class FeatureCardViewModelMapperExtensions
     public static FeatureCardViewModel MapToFeatureCard(this News featuredNews) =>
         new()
         {
-            Title = featuredNews.Title, 
-            Teaser = featuredNews.Teaser, 
-            Date = featuredNews.UpdatedAt, 
-            StartTime = string.Empty, 
-            Image = featuredNews.Image, 
+            Title = featuredNews.Title,
+            Teaser = featuredNews.Teaser,
+            Date = featuredNews.UpdatedAt,
+            StartTime = string.Empty,
+            Image = featuredNews.Image,
             ButtonText = "View more news",
             Slug = string.Concat("/news/", featuredNews.Slug),
-            ButtonTargetController = "Comms",
+            ButtonTargetController = "LandingPage",
+            ButtonSlug = "news-media",
             HeaderText = "Latest news"
         };
 }

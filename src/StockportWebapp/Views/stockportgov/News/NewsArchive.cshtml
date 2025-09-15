@@ -6,7 +6,7 @@
 }
 
 <div class="grid-container-full-width" data-cy="news-archive">
-    <partial name="Breadcrumb2023" model='new List<Crumb> { new Crumb("News and media", "landing/news-media", "LandingPage"), new Crumb("News articles", "news-articles", "News") }' view-data="@(new ViewDataDictionary(ViewData) {{"landingBreadcrumb", "topic-breadcrumb-container"}})"/>
+    <partial name="Breadcrumb2023" model='new List<Crumb> { new Crumb("News and media", "landing/news-media", "LandingPage"), new Crumb("News", "news", "News") }' view-data="@(new ViewDataDictionary(ViewData) {{"landingBreadcrumb", "topic-breadcrumb-container"}})"/>
 
     <section class="news-article" data-cy="title-and-summary">
         <div class="grid-container">
@@ -97,10 +97,10 @@
 
                 <partial name="Pagination2024" model='Model.Pagination' view-data='new ViewDataDictionary(ViewData) { { "PaginationMarginBottom", "pagination--margin-bottom-3" } }' />
                 
-                @if (Model.ArchiveCallToAction is not null)
+                @* @if (Model.ArchiveCallToAction is not null)
                 {
                     <partial name="NewsCallToAction" model='Model.ArchiveCallToAction' view-data='new ViewDataDictionary(ViewData) { { "AdditionalCssClass", "section--margin-top news-article__cta" } }' />
-                }
+                } *@
             </div>
         </div>
     </section>

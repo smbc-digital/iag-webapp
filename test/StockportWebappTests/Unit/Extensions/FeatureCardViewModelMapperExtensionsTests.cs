@@ -39,21 +39,16 @@ public class FeatureCardViewModelMapperExtensionsTests
             "TestNewsItem", 
             "TestNewItem", 
             "Test News Teaser", 
-            "Test",
-            "heroImage.png",
             "/News.jpg",
             "/NewsThumb.jpg",
             "hero image caption",
             "Test News Body",
-            new List<Crumb>(),
             DateTime.Today.AddDays(-2),
             "test",
             DateTime.Today.AddDays(2),
             DateTime.Today.AddDays(-1),
             new List<Alert>(),
             new List<string>(),
-            new List<StockportWebapp.Models.Document>(),
-            new List<Profile>(),
             new List<InlineQuote>(),
             null,
             "in partnership with",
@@ -75,7 +70,7 @@ public class FeatureCardViewModelMapperExtensionsTests
         Assert.Equal(featuredNews.Image, result.Image);
         Assert.Equal("View more news", result.ButtonText);
         Assert.Equal($"/news/{featuredNews.Slug}", result.Slug);
-        Assert.Equal("Comms", result.ButtonTargetController);
+        Assert.Equal("LandingPage", result.ButtonTargetController);
         Assert.Equal("Latest news", result.HeaderText);      
     }
 }
