@@ -31,7 +31,7 @@ else
     @if (!string.IsNullOrEmpty(Model.Grade))
     {
         <h3 class="h-m">Type</h3>
-        <div>Grade @Model.Grade</div>
+        <div>Grade @(Model.Grade.Equals("IISTAR") ? "II*" : Model.Grade)</div>
     }
 </div>
 

@@ -18,7 +18,7 @@
 
                     @if (!string.IsNullOrEmpty(Model.Grade))
                     {
-                        <p class="navcard__teaser">Grade: <span class="navcard__sub-title">@Model.Grade</span></p>
+                        <p class="navcard__teaser">Grade: <span class="navcard__sub-title">@(Model.Grade.Equals("IISTAR") ? "II*" : Model.Grade)</span></p>
                     }
 
                     @if (!string.IsNullOrEmpty(Model.DateListed))
