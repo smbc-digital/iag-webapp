@@ -4,4 +4,14 @@
             margin-inline: 5px;
         }
     }
+
+    &__card {
+        &-view-more, &-filler {
+            width: 25%;
+        }
+
+        &-title-container {
+            margin-inline-start: 0;
+        }
+    }
 }
