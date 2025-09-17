@@ -61,7 +61,7 @@
     text-align: center;
 
     @media #{$mobile, $tablet} {
-      border-bottom: 1px solid $blackOpaque1;
+      border-bottom: 1px solid rgba(0,0,0,0.1);
       padding-top: 10px;
       padding-bottom: 35px;
     }
@@ -584,7 +584,7 @@ ul.nav-card-events-list {
 
   select {
     background-color: $white;
-    border: 1px solid $greyLMOpaque8;
+    border: 1px solid rgba(177,177,177,0.8);
     border-radius: 3px;
     color: $greyDark;
     font-size: 1.5em;
@@ -644,7 +644,7 @@ ul.nav-card-events-list {
 
   .button-default {
     background-color: $white;
-    color: $black;
+    color: #000000;
     box-sizing: border-box;
     min-width: 100px;
     width: 100%;
@@ -666,7 +666,7 @@ ul.nav-card-events-list {
       box-shadow: none;
       -webkit-box-shadow: none;
       text-decoration: none;
-      color: $black;
+      color: #000000;
       font-size: 1.2em;
       font-weight: 800;
       text-align: left;

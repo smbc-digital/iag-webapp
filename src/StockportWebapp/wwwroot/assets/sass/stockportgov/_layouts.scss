@@ -12,10 +12,6 @@
   }
 }
 
-.l-page-content {
-  margin-bottom: 30px;
-}
-
 .visuallyhidden {
   position: absolute;
   width: 1px;
@@ -76,7 +72,7 @@
       padding: 20px 0;
       font-size: 50px;
       margin-bottom: 0;
-      color: $colorPrimary;
+      color: $linkDefault;
 
       @media #{$mobile} {
         font-size: 30px;
@@ -131,7 +127,7 @@
 
     h1.centered {
         text-align: center;
-        color: $colorPrimary;
+        color: $linkDefault;
         font-size: 50px;
     }
 

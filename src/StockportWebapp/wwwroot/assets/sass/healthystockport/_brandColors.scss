@@ -1,76 +1,76 @@
 /* Brand colors*/
 $colorBrand: $mediumDarkCyan;
-$brandSecondary: $tuscanyOrange;
+$brandSecondary: #cd5334;
 
 /* Text colors */
-$bodyText: $mineShaftGrey;
-$headingColor: $mineShaftGrey;
+$bodyText: #373737;
+$headingColor: #373737;
 
 /* Layout colors */
-$backgroundSite: $offWhite;
-$backgroundContent: $white;
-$borderDefault: $blackOpaque1;
-$borderLight: $greyLightMiddle;
+$backgroundSite: #ebebeb;
+$backgroundContent: #ffffff;
+$borderDefault: rgba(0,0,0,0.1);
+$borderLight: #b1b1b1;
 $footerBackground: $mediumDarkCyan;
 $footerIconBackground: $mediumDarkCyan;
 $footerBottomBackground: $darkCyan;
-$footerText: $white;
-$footerHeadingText: $white;
+$footerText: #ffffff;
+$footerHeadingText: #ffffff;
 $pageIconBackground: $colorPrimaryPalest;
-$completedSectionBackground: $grey875;
+$completedSectionBackground: #dfdfdf;
 
 /* Menu colors */
-$menuLightText: $white;
-$menuLightDetail: $whiteOpaque2;
-$menuLightActive: $blackOpaque1;
-$menuLightActiveDetail: $blackOpaque2;
-$menuLightHover: $whiteOpaque2;
+$menuLightText: #ffffff;
+$menuLightDetail: rgba(255,255,255,0.2);
+$menuLightActive: rgba(0,0,0,0.1);
+$menuLightActiveDetail: rgba(0,0,0,0.2);
+$menuLightHover: rgba(255,255,255,0.2);
 
 /* Input fields */
-$backgroundTextInputPrimary: $blackOpaque1;
+$backgroundTextInputPrimary: rgba(0,0,0,0.1);
 
 /* Link colors */
 $linkDefault: $mediumDarkCyan;
 
 /* Profile colors */
-$profileHeader: $galleryGrey;
-$profileHeaderText: $white;
-$profileBackgroundLight: $galleryGrey;
+$profileHeader: #eeeeee;
+$profileHeaderText: #ffffff;
+$profileBackgroundLight: #eeeeee;
 $profileSubtitle: $greyDark;
 
 /* Button colors */
-$buttonTextLight: $white;
+$buttonTextLight: #ffffff;
 $buttonDarkBackground: $greyDark;
-$buttonSidebarBackground: $fireBushOrange;
+$buttonSidebarBackground: #e39024;
 $buttonCallToActionBackground: $mediumDarkCyan;
 
 /* Banner Colors */
 $searchBarBanner: $colorPrimarySuperDark;
 
 /* Radio List Colors */
-$radioListtextColorSelected: $white;
-$radiolistBackground: $grey875;
-$radioListBackgroundSelected: $greyDarkest;
+$radioListtextColorSelected: #ffffff;
+$radiolistBackground: #dfdfdf;
+$radioListBackgroundSelected: #333333;
 $radioListinputBackgroundSelected: $colorBrand;
-$radioListinputBorder: $greyDarkest;
-$radioListinputBorderselected: $greyDarkest;
-$radioListinputBoxShadowSelected: $white;
+$radioListinputBorder: #333333;
+$radioListinputBorderselected: #333333;
+$radioListinputBoxShadowSelected: #ffffff;
 
 /* Alert Colors */
-$alertText: $white;
+$alertText: #ffffff;
 
 /*Error*/
 $alertErrorBackground: $tallPoppyRed;
-$alertErrorIconBackground: $brickRed;
-$alertErrorHeading: $white;
-$alertErrorIcon: $salmon;
+$alertErrorIconBackground: #a62d1e;
+$alertErrorHeading: #ffffff;
+$alertErrorIcon: #fa8072;
 
 /*Warning*/
-$alertWarningBackground: $orange;
-$alertWarningIconBackground: $tan3;
-$alertWarningHeading: $white;
-$alertWarningIcon: $navajoWhite;
+$alertWarningBackground: #ffa500;
+$alertWarningIconBackground: #cd853f;
+$alertWarningHeading: #ffffff;
+$alertWarningIcon: #0c0b0a;
 
 /*Information*/
-$alertInformationBackground: $steelBlue3;
-$alertInformationIconBackground: $softBlue;
+$alertInformationBackground: #4f94cd;
+$alertInformationIconBackground: #207eab;

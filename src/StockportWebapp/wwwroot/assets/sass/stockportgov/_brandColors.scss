@@ -1,48 +1,48 @@
 ﻿/* Brand colors*/
-$colorBrand: $colorPrimary;
-$brandSecondary: $carrotOrange;
-$brandBorder: $lightTeal;
+$colorBrand: #055c58;
+$brandSecondary: #ef8a17;
+$brandBorder: #00b79b;
 
 /* Text colors */
-$bodyText: $greyDarkest;
-$headingColor: $greyDarkest;
+$bodyText: #333333;
+$headingColor: #333333;
 
 /* Layout colors */
-$backgroundSite: $offWhite;
-$backgroundContent: $white;
-$borderDefault: $blackOpaque1;
+$backgroundSite: #ebebeb;
+$backgroundContent: #ffffff;
+$borderDefault: rgba(0,0,0,0.1);
 $borderLight: $greyLight;
-$footerBottomBackground: $colorPrimaryDarkest;
-$darkOverlayBackground: $blackOpaque2;
-$completedSectionBackground: $grey875;
+$footerBottomBackground: #092726;
+$darkOverlayBackground: rgba(0,0,0,0.2);
+$completedSectionBackground: #dfdfdf;
 
 /* Menu colors */
-$menuLightText: $white;
-$menuLightDetail: $whiteOpaque2;
-$menuLightActive: $blackOpaque1;
-$menuLightActiveDetail: $blackOpaque2;
-$menuLightHover: $whiteOpaque2;
+$menuLightText: #ffffff;
+$menuLightDetail: rgba(255,255,255,0.2);
+$menuLightActive: rgba(0,0,0,0.1);
+$menuLightActiveDetail: rgba(0,0,0,0.2);
+$menuLightHover: rgba(255,255,255,0.2);
 
 /* Link colors */
-$linkDefault: $colorPrimary;
-$linkInactive: $greyDarkest;
+$linkDefault: #055c58;
+$linkInactive: #333333;
 
 /* Profile colors */
-$profileBackgroundLight: $offWhite;
+$profileBackgroundLight: #ebebeb;
 
 /* Button colors */
 $buttonDarkBackground: $greyDark;
-$buttonSidebarBackground: $carrotOrange;
+$buttonSidebarBackground: #ef8a17;
 $button-primary: $tealDarker;
 
 /* Banner Colors */
-$bannerBackground: $colorPrimarySuperDark;
+$bannerBackground: #124a47;
 
 /* Alert Colors */
-$alertText: $white;
+$alertText: #ffffff;
 
 /*Warning*/
-$alertWarningHeading: $white;
+$alertWarningHeading: #ffffff;
 
 /*New site*/
 $stockport-green: #006666;

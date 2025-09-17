@@ -21,7 +21,7 @@ h6 {
 }
 
 a {
-    color: $colorPrimary;
+    color: $linkDefault;
     text-decoration: underline;
     text-decoration-thickness: 1px;
     text-underline-offset: .1em;
@@ -259,11 +259,11 @@ hr {
 .banner-header-warning, .banner-header-warning-unsupported {
     .banner-header {
         p, a {
-            color: $colorPrimaryDarkest;
+            color: $footerBottomBackground;
         }
     
         a:hover, a:active {
-            color: $colorPrimary;
+            color: $linkDefault;
         }
     }
 }

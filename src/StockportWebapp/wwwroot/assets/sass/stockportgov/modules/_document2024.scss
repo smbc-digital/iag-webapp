@@ -30,7 +30,7 @@
 		}
 
 		span {
-			color: $colorPrimary;
+			color: $linkDefault;
 			padding-left: 0px;
 			font-size: 3em;
 
@@ -73,7 +73,7 @@
 
 		// old style - should be removed after decommissioning old document pages
 		.document-detail-title {
-			color: $colorPrimary;
+			color: $linkDefault;
 			font-size: 1.25em;
 			line-height: normal;
 			font-weight: 600;

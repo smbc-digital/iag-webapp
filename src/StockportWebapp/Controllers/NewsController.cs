@@ -7,8 +7,7 @@ public class NewsController(IRepository repository,
                             ILogger<NewsController> logger,
                             IApplicationConfiguration config,
                             BusinessId businessId,
-                            IFilteredUrl filteredUrl,
-                            IFeatureManager featureManager) : Controller
+                            IFilteredUrl filteredUrl) : Controller
 {
     private readonly IRepository _repository = repository;
     private readonly IProcessedContentRepository _processedContentRepository = processedContentRepository;
@@ -17,44 +16,10 @@ public class NewsController(IRepository repository,
     private readonly IApplicationConfiguration _config = config;
     private readonly BusinessId _businessId = businessId;
     private readonly IFilteredUrl _filteredUrl = filteredUrl;
-    private readonly IFeatureManager _featureManager = featureManager;
 
-    // this needs to be removed when the news redesign is live
-    [Route("/news-articles")]
-    public async Task<IActionResult> Index(NewsroomViewModel model, [FromQuery] int page, [FromQuery] int pageSize)
-    {
-        ClearDateErrorsIfNoDates(model);
-
-        List<Query> queries = BuildQueries(model);
-
-        HttpResponse httpResponse = await _repository.Get<Newsroom>(queries: queries);
-
-        if (!httpResponse.IsSuccessful())
-            return httpResponse;
-
-        Newsroom newsRoom = httpResponse.Content as Newsroom;
-
-        AppSetting urlSetting = _config.GetEmailAlertsNewSubscriberUrl(_businessId.ToString());
-
-        model.AddQueryUrl(new QueryUrl(Url?.ActionContext.RouteData.Values, Request?.Query));
-        _filteredUrl.SetQueryUrl(model.CurrentUrl);
-        model.AddFilteredUrl(_filteredUrl);
-
-        DoPagination(newsRoom, model, page, pageSize);
-
-        model.AddNews(newsRoom);
-        model.AddUrlSetting(urlSetting, model.Newsroom.EmailAlertsTopicId);
-
-        return View(model);
-    }
-
-    [ExcludeFromCodeCoverage]
     [Route("/news")]
     public async Task<IActionResult> NewsArticles(NewsroomViewModel model, [FromQuery] int page, [FromQuery] int pageSize)
     {
-        if (!await _featureManager.IsEnabledAsync("NewsRedesign"))
-            return RedirectToAction("Index");
-
         ClearDateErrorsIfNoDates(model);
 
         List<Query> queries = BuildQueries(model);
@@ -111,9 +76,6 @@ public class NewsController(IRepository repository,
     [Route("/news/archive")]
     public async Task<IActionResult> NewsArchive(NewsroomViewModel model, [FromQuery] int page, [FromQuery] int pageSize)
     {
-        if (!await _featureManager.IsEnabledAsync("NewsRedesign"))
-            return RedirectToAction("Index");
-
         ClearDateErrorsIfNoDates(model);
 
         if (model.DateFrom.HasValue && !model.DateTo.HasValue)
@@ -159,34 +121,9 @@ public class NewsController(IRepository repository,
         return View(model);
     }
 
-    // this needs to be removed when the news redesign is live
-    [Route("/news-article/{slug}")]
-    public async Task<IActionResult> Detail(string slug)
-    {
-        HttpResponse initialResponse = await _processedContentRepository.Get<News>(slug);
-        IActionResult finalResult = initialResponse;
-
-        if (initialResponse.IsSuccessful())
-        {
-            ProcessedNews response = initialResponse.Content as ProcessedNews;
-            HttpResponse latestNewsResponse = await _repository.GetLatest<List<News>>(7);
-            List<News> latestNews = latestNewsResponse.Content as List<News>;
-            NewsViewModel newsViewModel = new(response, latestNews);
-
-            ViewBag.CurrentUrl = Request?.GetDisplayUrl();
-
-            finalResult = View(newsViewModel);
-        }
-
-        return finalResult;
-    }
-
     [Route("/news/{slug}")]
     public async Task<IActionResult> NewsArticle(string slug)
     {
-        if (!await _featureManager.IsEnabledAsync("NewsRedesign"))
-            return RedirectToAction("Detail", new { slug });
-
         HttpResponse initialResponse = await _processedContentRepository.Get<News>(slug);
         IActionResult finalResult = initialResponse;
 

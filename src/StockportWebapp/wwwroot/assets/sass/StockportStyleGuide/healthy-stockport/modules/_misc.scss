@@ -47,7 +47,7 @@
     }
 
     i {
-      color: $greyDarkest;
+      color: #333333;
     }
 
     a {
@@ -62,7 +62,7 @@
         margin-left: 13px;
 
         h2 {
-          color: $greyDarkest;
+          color: #333333;
           font-weight: 600;
           font-size: 16px;
           margin-bottom: 4px;
@@ -425,13 +425,13 @@ img.fullwidth {
         }
 
         .topic-block-content-divider {
-            border-top: solid 1px $grey875;
+            border-top: solid 1px #dfdfdf;
             margin: 10px -10px 10px -10px
         }
     }
 
     h4 {
-        color: $greyDarkest;
+        color: #333333;
         font-size: 1em;
         font-weight: 600;
 
@@ -463,7 +463,7 @@ img.fullwidth {
 
     .fa-angle-right {
         background-color: white;
-        color: $grey33;
+        color: #555555;
     }
 
     h4, p {
@@ -497,7 +497,7 @@ img.fullwidth {
         padding-bottom: 8px;
 
         i {
-            color: $blackOpaque5;
+            color: rgba(0,0,0,0.5);
         }
     }
 }
