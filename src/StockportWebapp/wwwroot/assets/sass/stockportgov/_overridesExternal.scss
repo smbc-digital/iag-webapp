@@ -4,7 +4,7 @@
 body {
     font: 1.1875em / 1.5 $fontStack;
     background-color: white;
-    color: $bodyText;
+    color: $stockport-black;
     -webkit-font-smoothing: antialiased;
 }
 
@@ -25,7 +25,7 @@ h6 {
 h2 {
     margin: 10px 0 20px 0;
     letter-spacing: 0.015em;
-    color: $headingColor;
+    color: $stockport-black;
   
     @media #{$mobile} {
       font-size: 1.5em;
@@ -45,7 +45,7 @@ address,dl,fieldset,figure,h1,h2,h4,h5,h6,hr,ol,p,pre,table,ul {
 }
 
 a {
-    color: #055c58;
+    color: $linkDefault;
     text-decoration: underline;
     text-decoration-thickness: 1px;
     text-underline-offset: .1em;
@@ -58,7 +58,7 @@ a {
 
 hr {
     margin: 2em 0;
-    border: solid #ccc;
+    border: solid $stockport-grey-lighter;
     border-width: 1px 0 0;
     clear: both;
     height: 0;
@@ -132,7 +132,7 @@ table {
   
     p {
       text-align: left;
-      color: $white;
+      color: #ffffff;
       font-family: $fontStack;
       font-size: 0.938em;
       font-weight: 400;
@@ -140,7 +140,7 @@ table {
     }
   
     a {
-      color: $white;
+      color: #ffffff;
       display: inline-block;
     }
 }
@@ -153,16 +153,16 @@ table {
 }
 
 .banner-header-container {
-    background-color: #124a47;
+    background-color: bannerBackground;
     width: 100%;
 }
   
 .banner-header-standard {
-    background-color: #124a47;
+    background-color: bannerBackground;
 }
   
 .banner-header-warning, .banner-header-warning-unsupported {
-    background-color: #ef8a17;
+    background-color: $brandSecondary;
 }
   
 .banner-header-warning, .banner-header-warning-unsupported {
@@ -172,7 +172,7 @@ table {
         }
     
         a:hover, a:active {
-            color: #055c58;
+            color: $linkDefault;
         }
     }
 }
@@ -283,7 +283,7 @@ table {
     }
 
     a.skip-main:focus, a.skip-main:active {
-        color: $white;
+        color: #ffffff;
         background-color: $goldenRod15;
         width: auto;
         height: auto;

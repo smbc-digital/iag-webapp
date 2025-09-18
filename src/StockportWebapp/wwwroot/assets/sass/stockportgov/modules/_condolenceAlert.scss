@@ -66,14 +66,14 @@
                 font-family: "FontAwesome";
                 font-style: normal;
                 font-size: 1.052em;
-                color: $white;
+                color: white;
                 text-align: center;
                 position: relative;
                 top: calc(50% - 1em);
             }
 
             &:hover {
-                background-color: rgba($white, .2);
+                background-color: rgba(white, .2);
             }
         }
     }

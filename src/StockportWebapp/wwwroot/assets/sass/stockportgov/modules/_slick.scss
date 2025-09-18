@@ -1,7 +1,7 @@
 ﻿@charset 'UTF-8';
 
 .slick-loading .slick-list {
-  background: $white url('./ajax-loader.gif') center center no-repeat;
+  background: #ffffff url('./ajax-loader.gif') center center no-repeat;
 }
 
 /* Arrows */
@@ -53,7 +53,7 @@
   font-size: 70px;
   line-height: 1;
   opacity: 1;
-  color: $white;
+  color: #ffffff;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   z-index: 500;
@@ -216,7 +216,7 @@
 }
 
 .stockport-carousel {
-  color: $white;
+  color: #ffffff;
   background-image: url("/assets/images/content/fader-council-chambers.jpg");
   background-repeat: no-repeat;
   background-position: center;
@@ -276,7 +276,7 @@
     }
 
     h2, p {
-      color: $white;
+      color: #ffffff;
     }
 
     h2 {

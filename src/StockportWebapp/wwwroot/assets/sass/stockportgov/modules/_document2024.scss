@@ -41,7 +41,7 @@
   	}
 
   	&-detail {
-		border-left: solid 2px #ccc;
+		border-left: solid 2px $stockport-grey-lighter;
 		vertical-align: top;
 		padding-inline: 1em;
 		border-top: none;
@@ -91,7 +91,7 @@ html[dir="rtl"] {
 		
 		&-detail {
 			border-left: none;
-			border-right: solid 2px #ccc;
+			border-right: solid 2px $stockport-grey-lighter;
 
 			@media #{$mobile} {
 				padding-inline: 0 !important;

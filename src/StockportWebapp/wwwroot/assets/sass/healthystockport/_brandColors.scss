@@ -1,5 +1,5 @@
 /* Brand colors*/
-$colorBrand: $mediumDarkCyan;
+$colorBrand: #00818a;
 $brandSecondary: #cd5334;
 
 /* Text colors */
@@ -11,12 +11,12 @@ $backgroundSite: #ebebeb;
 $backgroundContent: #ffffff;
 $borderDefault: rgba(0,0,0,0.1);
 $borderLight: #b1b1b1;
-$footerBackground: $mediumDarkCyan;
-$footerIconBackground: $mediumDarkCyan;
-$footerBottomBackground: $darkCyan;
+$footerBackground: #00818a;
+$footerIconBackground: #00818a;
+$footerBottomBackground: #09656c;
 $footerText: #ffffff;
 $footerHeadingText: #ffffff;
-$pageIconBackground: $colorPrimaryPalest;
+$pageIconBackground: #c7d6d5;
 $completedSectionBackground: #dfdfdf;
 
 /* Menu colors */
@@ -30,7 +30,7 @@ $menuLightHover: rgba(255,255,255,0.2);
 $backgroundTextInputPrimary: rgba(0,0,0,0.1);
 
 /* Link colors */
-$linkDefault: $mediumDarkCyan;
+$linkDefault: #00818a;
 
 /* Profile colors */
 $profileHeader: #eeeeee;
@@ -42,10 +42,10 @@ $profileSubtitle: $greyDark;
 $buttonTextLight: #ffffff;
 $buttonDarkBackground: $greyDark;
 $buttonSidebarBackground: #e39024;
-$buttonCallToActionBackground: $mediumDarkCyan;
+$buttonCallToActionBackground: #00818a;
 
 /* Banner Colors */
-$searchBarBanner: $colorPrimarySuperDark;
+$searchBarBanner: #124a47;
 
 /* Radio List Colors */
 $radioListtextColorSelected: #ffffff;
@@ -60,7 +60,7 @@ $radioListinputBoxShadowSelected: #ffffff;
 $alertText: #ffffff;
 
 /*Error*/
-$alertErrorBackground: $tallPoppyRed;
+$alertErrorBackground: #c83725;
 $alertErrorIconBackground: #a62d1e;
 $alertErrorHeading: #ffffff;
 $alertErrorIcon: #fa8072;

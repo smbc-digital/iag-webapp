@@ -8,14 +8,14 @@
     font-size: 13px;
     color: #333333;
     padding: 15px 60px 15px 15px;
-    background-color: $white;
+    background-color: #ffffff;
 
     @media #{$desktop} {
       font-size: 25px;
     }
 
     ::placeholder {
-      color: $greyDarker;
+      color: #505a5f;
       opacity: 1;
     }
   }
@@ -118,7 +118,7 @@
 .search-bar-links {
   padding-top: 10px;
   padding-left: 20px;
-  color: $white;
+  color: #ffffff;
   position: relative;
   z-index: 100;
 
@@ -127,16 +127,16 @@
   }
 
   a, strong {
-    color: $white;
+    color: #ffffff;
     margin-right: 10px;
   }
 }
 
 .show-search-button {
-  border: $white solid 1px;
+  border: #ffffff solid 1px;
   float: right;
   border-radius: 3px;
-  color: $white;
+  color: #ffffff;
   padding: 0px 12px;
   font-size: 24px;
   margin-right: 10px;
@@ -206,7 +206,7 @@
 
     .search-input {
       border: none;
-      background-color: $white;
+      background-color: #ffffff;
       color: #333333;
       padding: 15px 60px 15px 15px;
       height: unset;

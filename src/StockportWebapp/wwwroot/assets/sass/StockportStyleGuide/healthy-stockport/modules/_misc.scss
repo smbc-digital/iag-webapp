@@ -98,7 +98,7 @@
 
 .article-list-item-block {
   border: 2px solid $borderDefault;
-  border-top: 3px solid $goldenRod25;
+  border-top: 3px solid #f2af29;
   border-radius: 3px;
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
@@ -306,7 +306,7 @@ img.fullwidth {
 }
 
 .white-background {
-  background-color: $white;
+  background-color: #ffffff;
   padding: 20px;
 }
 
@@ -375,7 +375,7 @@ img.fullwidth {
         border-left: 2px solid $borderDefault;
         border-right: 2px solid $borderDefault;
         border-bottom: 2px solid $borderDefault;
-        border-top: 3px solid $goldenRod25;
+        border-top: 3px solid #f2af29;
         border-radius: 3px;
         border-top-left-radius: 5px;
         border-top-right-radius: 5px;
@@ -392,7 +392,7 @@ img.fullwidth {
         border-radius: 3px;
 
         @media #{$mobile} {
-            border: solid 1px $blackOpaque3;
+            border: solid 1px rgba(0,0,0,0.3);
             height: 56px;
 
             .h4 {
@@ -401,7 +401,7 @@ img.fullwidth {
         }
 
         .topic-block-icon-container {
-            background-color: $goldenRod25;
+            background-color: #f2af29;
             width: 61px;
             display: inline-table;
             margin-right: 12px;
@@ -410,12 +410,12 @@ img.fullwidth {
             vertical-align: middle;
 
             i {
-                color: $goldenRod25;
-                background-color: $white;
+                color: #f2af29;
+                background-color: #ffffff;
 
                 @media (max-width: 766px) {
-                    color: $white;
-                    background-color: $goldenRod25;
+                    color: #ffffff;
+                    background-color: #f2af29;
                     padding: 9px 10px 7px 10px;
                     display: table-cell;
                     margin-left: 0;
@@ -445,16 +445,16 @@ img.fullwidth {
     }
 
     i {
-        color: $goldenRod25;
+        color: #f2af29;
     }
 
     .article-chevron-i {
-        color: $goldenRod25;
-        background-color: $white;
+        color: #f2af29;
+        background-color: #ffffff;
 
         @media (max-width: 766px) {
-            color: $white;
-            background-color: $goldenRod25;
+            color: #ffffff;
+            background-color: #f2af29;
             padding: 13px 10px 7px 10px;
             display: inline-block;
             margin-left: 0;
@@ -572,7 +572,7 @@ footer a {
   @media #{$mobile} {
 
     a:not(:last-child) .icon-container {
-      border-right: 1px solid $whiteOpaque3;
+      border-right: 1px solid rgba(255,255,255,0.3);
     }
   }
 
@@ -597,29 +597,29 @@ footer a {
       width: 50%;
       height: auto;
       text-align: center;
-      color: $white;
+      color: #ffffff;
       float: left;
       border: none;
       border-radius: 0;
       margin: 0;
       padding: 16px 0 10px 0;
       box-sizing: border-box;
-      border-bottom: 1px solid $whiteOpaque3;
+      border-bottom: 1px solid rgba(255,255,255,0.3);
       background-color: $footerIconBackground;
 
       &.icon-twitter:hover {
-        background-color: $blueLightSky;
+        background-color: #69ace0;
 
         a {
-          color: $white;
+          color: #ffffff;
         }
       }
 
       &.icon-fb:hover {
-        background-color: $blueLightRoyal;
+        background-color: #3a589a;
 
         a {
-          color: $white;
+          color: #ffffff;
         }
       }
 
@@ -627,15 +627,15 @@ footer a {
         background-color: $dullRed;
 
         a {
-          color: $white;
+          color: #ffffff;
         }
       }
 
       &.icon-rss:hover {
-        background-color: $darkOrange2;
+        background-color: #ff6600;
 
         a {
-          color: $white;
+          color: #ffffff;
         }
       }
     }
@@ -664,7 +664,7 @@ footer a {
     text-decoration: none;
 
     .icon-bordered-fixed {
-      color: $white;
+      color: #ffffff;
     }
   }
 }

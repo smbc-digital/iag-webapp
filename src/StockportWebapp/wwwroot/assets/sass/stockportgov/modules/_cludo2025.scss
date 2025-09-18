@@ -237,10 +237,10 @@
 	border: none;
 
 	li {
-		border: 1px solid #ccc;
+		border: 1px solid $stockport-grey-lighter;
 		border-top: unset;
 		border-bottom: unset;
-		background-color: #f2f2f2;
+		background-color: $stockport-light-grey;
 	
 		div {
 			padding-top: 28.5px;
@@ -256,7 +256,7 @@
 	display: none;
 	border-top: 0.55em solid $stockport-teal-lighter;
 	border-radius: 2px;
-	background-color: #f2f2f2;
+	background-color: $stockport-light-grey;
 
 	h2 {
 		border-inline: 1px solid $stockport-grey-lighter;

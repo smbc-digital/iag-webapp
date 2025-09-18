@@ -162,7 +162,7 @@ ul.nav-card-events-list {
   margin-top: 15px;
   list-style-type: none;
   display: table;
-  background: $white;
+  background: #ffffff;
 
   @media #{$mobile} {
     margin-top: 0px;
@@ -365,7 +365,7 @@ ul.nav-card-events-list {
   text-align: center;
 
   .icon-bordered {
-    color: $green1467233;
+    color: #18914c;
     margin-bottom: 15px;
   }
 
@@ -490,7 +490,7 @@ ul.nav-card-events-list {
   }
 
   &:nth-child(odd) {
-    background-color: $white;
+    background-color: #ffffff;
   }
 
   .group-card {
@@ -498,19 +498,19 @@ ul.nav-card-events-list {
   }
 
   .white {
-    background-color: $white;
+    background-color: #ffffff;
     margin-top: 0;
     margin-bottom: 20px;
   }
 }
 
 #events-filter-bar {
-  color: $white;
+  color: #ffffff;
   margin-top: -20px;
   background-color: $colorPrimary;
 
   h2 {
-    color: $white;
+    color: #ffffff;
     font-size: 1.6em;
     margin: 0;
   }
@@ -530,7 +530,7 @@ ul.nav-card-events-list {
       border-color: $tealDarker;
 
       &:hover {
-        color: $white;
+        color: #ffffff;
         cursor: pointer;
         box-shadow: 0 5px 20px 0 $blackOpaque3;
         text-decoration: none;
@@ -583,7 +583,7 @@ ul.nav-card-events-list {
   }
 
   select {
-    background-color: $white;
+    background-color: #ffffff;
     border: 1px solid rgba(177,177,177,0.8);
     border-radius: 3px;
     color: $greyDark;
@@ -643,7 +643,7 @@ ul.nav-card-events-list {
   }
 
   .button-default {
-    background-color: $white;
+    background-color: #ffffff;
     color: #000000;
     box-sizing: border-box;
     min-width: 100px;
@@ -679,7 +679,7 @@ ul.nav-card-events-list {
 
   .directions-button {
     border-color: $greyMiddle;
-    background-color: $white;
+    background-color: #ffffff;
     color: $greyDark;
     font-weight: 600;
     margin-top: 10px;

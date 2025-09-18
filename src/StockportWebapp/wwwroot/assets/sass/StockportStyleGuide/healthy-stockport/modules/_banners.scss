@@ -21,7 +21,7 @@
 
   p {
     text-align: left;
-    color: $white;
+    color: #ffffff;
     font-family: $fontStack;
     font-size: 0.938em;
     font-weight: 400;
@@ -29,7 +29,7 @@
   }
 
   a {
-    color: $white;
+    color: #ffffff;
     display: inline-block;
   }
 }
@@ -50,13 +50,13 @@
 }
 
 .banner-header-warning-unsupported {
-  background-color: $carrotOrange;
+  background-color: #ef8a17;
 }
 
 .banner-header-warning, .banner-header-warning-unsupported {
   .banner-header {
     p, a {
-      color: $colorPrimaryDarkest;
+      color: #092726;
     }
 
     a:hover, a:active {

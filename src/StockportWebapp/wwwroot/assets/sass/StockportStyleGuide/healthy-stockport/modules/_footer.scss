@@ -3,13 +3,13 @@
 
   @media #{$mobile} {
     a:not(:last-child) .icon-container {
-      border-right: 1px solid $whiteOpaque3;
+      border-right: 1px solid rgba(255,255,255,0.3);
     }
   }
 
   .icon-container {
-    border-color: $white;
-    color: $white;
+    border-color: #ffffff;
+    color: #ffffff;
     width: 31px;
     height: 31px;
     margin-right: 0;
@@ -28,37 +28,37 @@
       width: 50%;
       height: auto;
       text-align: center;
-      color: $white;
+      color: #ffffff;
       float: left;
       border: none;
       border-radius: 0;
       margin: 0;
       padding: 16px 0 10px 0;
       box-sizing: border-box;
-      border-bottom: 1px solid $whiteOpaque3;
-      background-color: $mediumDarkCyan;
+      border-bottom: 1px solid rgba(255,255,255,0.3);
+      background-color: #00818a;
 
       &.icon-twitter:hover {
-        background-color: $blueLightSky;
+        background-color: #69ace0;
 
         a {
-          color: $white;
+          color: #ffffff;
         }
       }
 
       &.icon-fb:hover {
-        background-color: $blueLightRoyal;
+        background-color: #3a589a;
 
         a {
-          color: $white;
+          color: #ffffff;
         }
       }
 
       &.icon-facebook:hover {
-        background-color: $blueLightRoyal;
+        background-color: #3a589a;
 
         a {
-          color: $white;
+          color: #ffffff;
         }
       }
 
@@ -66,31 +66,31 @@
         background-color: $dullRed;
 
         a {
-          color: $white;
+          color: #ffffff;
         }
       }
 
       &.icon-rss:hover {
-        background-color: $darkOrange2;
+        background-color: #ff6600;
 
         a {
-          color: $white;
+          color: #ffffff;
         }
       }
 
       &.icon-flickr:hover {
-        background-color: $maroon;
+        background-color: #fc329b;
 
         a {
-          color: $white;
+          color: #ffffff;
         }
       }
 
       &.icon-instagram:hover {
-        background-color: $darkOrchid3;
+        background-color: #8a3ab9;
 
         a {
-          color: $white;
+          color: #ffffff;
         }
       }
     }
@@ -124,7 +124,7 @@
     text-decoration: none;
 
     .icon-bordered-fixed {
-      color: $white;
+      color: #ffffff;
     }
   }
 }

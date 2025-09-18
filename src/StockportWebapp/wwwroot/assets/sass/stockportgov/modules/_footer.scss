@@ -5,7 +5,7 @@
 	width: 100%;
     position: relative;
     z-index: 5;
-    color: $white;
+    color: white;
 
     ul {
         list-style: none;
@@ -17,7 +17,7 @@
 
 	a {
 		text-decoration: none;
-		color: $white;
+		color: white;
 	}
 
 	&_links {	
@@ -36,7 +36,7 @@
 
 		a {
 			text-decoration: underline;
-			color: $white;
+			color: white;
 
 			&:hover {
 				text-decoration-thickness: 3px;
@@ -87,13 +87,13 @@
 		@media #{$mobile} {
 	
 			a:not(:last-child) .icon-container {
-				border-right: 1px solid $whiteOpaque3;
+				border-right: 1px solid rgba(255,255,255,0.3);
 			}
 		}
 	
 		.icon-container {
-			border-color: $white;
-			color: $white;
+			border-color: white;
+			color: white;
 			width: 31px;
 			height: 31px;
 			margin-right: 0;
@@ -129,21 +129,21 @@
 				width: 25%;
 				height: auto;
 				text-align: center;
-				color: $white;
+				color: white;
 				float: left;
 				border: none;
 				border-radius: 0;
 				margin: 0;
 				padding: 16px 0 10px 0;
 				box-sizing: border-box;
-				border-bottom: 1px solid $whiteOpaque3;
+				border-bottom: 1px solid rgba(255,255,255,0.3);
 				background-color: $brandBorder;
 	
 				&.icon-twitter:hover {
 					background-color: $blueLightSky;
 	
 					a {
-						color: $white;
+						color: white;
 					}
 				}
 	
@@ -151,7 +151,7 @@
 					background-color: $blueLightSky;
 	
 					a {
-						color: $white;
+						color: white;
 					}
 				}
 	
@@ -159,7 +159,7 @@
 					background-color: $blueLightRoyal;
 	
 					a {
-						color: $white;
+						color: white;
 					}
 				}
 	
@@ -167,7 +167,7 @@
 					background-color: $blueLightRoyal;
 	
 					a {
-						color: $white;
+						color: white;
 					}
 				}
 	
@@ -175,7 +175,7 @@
 					background-color: $blueLightRoyal;
 	
 					a {
-						color: $white;
+						color: white;
 					}
 				}
 	
@@ -183,7 +183,7 @@
 					background-color: $blueLightRoyal;
 	
 					a {
-						color: $white;
+						color: white;
 					}
 				}
 	
@@ -191,7 +191,7 @@
 					background-color: $dullRed;
 	
 					a {
-						color: $white;
+						color: white;
 					}
 				}
 	
@@ -199,7 +199,7 @@
 					background-color: $dullRed;
 	
 					a {
-						color: $white;
+						color: white;
 					}
 				}
 	
@@ -207,7 +207,7 @@
 					background-color: $darkOrange2;
 	
 					a {
-						color: $white;
+						color: white;
 					}
 				}
 	
@@ -215,23 +215,23 @@
 					background-color: $darkOrange2;
 	
 					a {
-						color: $white;
+						color: white;
 					}
 				}
 	
 				&.icon-flickr:hover {
-					background-color: $maroon;
+					background-color: #fc329b;
 	
 					a {
-						color: $white;
+						color: white;
 					}
 				}
 	
 				&.icon-flickr:focus {
-					background-color: $maroon;
+					background-color: #fc329b;
 	
 					a {
-						color: $white;
+						color: white;
 					}
 				}
 	
@@ -239,7 +239,7 @@
 					background-color: $darkOrchid3;
 	
 					a {
-						color: $white;
+						color: white;
 					}
 				}
 	
@@ -247,7 +247,7 @@
 					background-color: $darkOrchid3;
 	
 					a {
-						color: $white;
+						color: white;
 					}
 				}
 			}
@@ -265,7 +265,7 @@
 			text-decoration: none;
 	
 			.icon-bordered-fixed {
-				color: $white;
+				color: white;
 			}
 		}
 	}

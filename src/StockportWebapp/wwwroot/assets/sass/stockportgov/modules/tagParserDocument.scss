@@ -10,7 +10,7 @@
         width: 65px;
 
         span {
-            color: #055c58;
+            color: $linkDefault;
             font-size: 3em;
             padding-left: 0;
         }
@@ -18,7 +18,7 @@
 
     &-detail {
         border-bottom: none;
-        border-left: 2px solid #ccc;
+        border-left: 2px solid $stockport-grey-lighter;
         border-top: none;
         padding-left: 20px;
         vertical-align: top;
