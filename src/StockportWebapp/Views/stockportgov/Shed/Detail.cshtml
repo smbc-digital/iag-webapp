@@ -3,7 +3,8 @@
     Layout = "../Shared/_Layout2023.cshtml";
     ViewData["Title"] = Model.Name;
     ViewData["og:title"] = Model.Name;
-    ViewData["Description"] = "Stockport Historic Environment Database";
+    string title = "Stockport's heritage assets";
+    ViewData["Description"] = title;
 
     string borderTeal = " navcard--border-top-10 navcard--theme-teal-lighter-top ";
     string borderGrey = " navcard-all navcard--theme-grey-accent-all";
@@ -13,7 +14,7 @@
 }
 
 <div class="grid-container-full-width background-grey">
-    <partial name="Breadcrumb2023" model='new List<Crumb> { new Crumb("SHED", "shed", "Shed") }' />
+    <partial name="Breadcrumb2023" model='new List<Crumb> { new Crumb(title, "heritage-assets", "Shed") }' />
 
     <div class="grid-container">
         <div class="grid-100">

@@ -3,8 +3,8 @@
     Layout = "../Shared/_Layout2023.cshtml";
     ViewData["Title"] = Model.PageTitle;
     ViewData["BreadcrumbTitle"] = Model.PageTitle;
-    ViewData["og:title"] = "Stockport Historic Environment Database";
-    ViewData["Description"] = "Stockport Historic Environment Database";
+    ViewData["og:title"] = "Stockport's heritage assets";
+    ViewData["Description"] = "Stockport's heritage assets";
 }
 
 <div class="grid-container-full-width background-grey">
@@ -18,7 +18,7 @@
             <div class="grid-100 directory-sub-title">
                 <h1 data-cy="list-title">@Model.DisplayTitle</h1>
                 <span>Showing <span class="bold">@Model.FilteredEntries.Count()</span> @(@Model.FilteredEntries.Count().Equals(1) ? " result" : " results")
-                    in <span class="bold">Stockport Historic Environment Database</span> @if (!string.IsNullOrEmpty(Model.SearchTerm)) { @("for ") <span class='bold'>"@Model.SearchTerm"</span> }</span>
+                    in <span class="bold">Stockport's heritage assets</span> @if (!string.IsNullOrEmpty(Model.SearchTerm)) { @("for ") <span class='bold'>"@Model.SearchTerm"</span> }</span>
             </div>
         </div>
 

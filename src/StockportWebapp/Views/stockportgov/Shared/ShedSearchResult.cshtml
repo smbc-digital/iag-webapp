@@ -8,7 +8,7 @@
             <div class="directory-result">
                 <div class="directory-result__content">
                     <h3 class="navcard__title navcard__title--large">
-                        @Model.Name
+                        @Model.Name.Replace("&", "and")
                     </h3>
 
                     @if (!string.IsNullOrEmpty(Model.Location))
@@ -28,7 +28,7 @@
 
                     @if (!string.IsNullOrEmpty(Model.WardName))
                     {
-                        <p class="navcard__teaser">Ward name: <span class="navcard__sub-title">@Model.WardName</span></p>
+                        <p class="navcard__teaser">Ward name: <span class="navcard__sub-title">@Model.WardName.Replace("&", "and")</span></p>
                     }
                 </div>
                 

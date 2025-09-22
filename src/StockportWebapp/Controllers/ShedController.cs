@@ -2,19 +2,24 @@ namespace StockportWebapp.Controllers;
 
 public class ShedController(IShedService shedService,
                             IApplicationConfiguration config,
-                            IFilteredUrl filteredUrl) : Controller
+                            IFilteredUrl filteredUrl,
+                            IFeatureManager featureManager) : Controller
 {
     private readonly IShedService _shedService = shedService;
     private readonly IApplicationConfiguration _config = config;
     private readonly IFilteredUrl _filteredUrl = filteredUrl;
+    private readonly IFeatureManager _featureManager = featureManager;
 
-    [HttpGet("shed")]
+    [HttpGet("heritage-assets")]
     public async Task<IActionResult> Index(List<string> ward,
                                         List<string> grade,
                                         string searchTerm,
                                         [FromQuery] int page,
                                         [FromQuery] int pageSize)
     {
+        if (!await _featureManager.IsEnabledAsync("ShedPage"))
+            return NotFound();
+
         List<ShedItem> results = await _shedService.GetSHEDDataByNameWardsAndListingTypes(searchTerm, ward, grade);
 
         ShedViewModel viewModel = new(results)
@@ -35,9 +40,12 @@ public class ShedController(IShedService shedService,
         return View(viewModel);
     }
 
-    [HttpGet("shed/{slug}")]
+    [HttpGet("heritage-assets/{slug}")]
     public async Task<IActionResult> Detail(string slug)
     {
+        if (!await _featureManager.IsEnabledAsync("ShedPage"))
+            return NotFound();
+
         string name = slug.Replace("-", " ").ToLowerInvariant();
 
         List<ShedItem> results = await _shedService.GetShedDataByName(name); // I think we can change this to return just one item

@@ -12,14 +12,14 @@ public class ShedViewModel(IEnumerable<ShedItem> filteredEntries) : ISlugCompara
     public List<string> Wards = new()
     {
         "Bramhall North",
-        "Bramhall South & Woodford",
-        "Bredbury & Woodley",
-        "Bredbury Green & Romiley",
-        "Brinnington & Stockport Central",
-        "Cheadle East & Cheadle Hulme North",
+        "Bramhall South and Woodford",
+        "Bredbury and Woodley",
+        "Bredbury Green and Romiley",
+        "Brinnington and Stockport Central",
+        "Cheadle East and Cheadle Hulme North",
         "Cheadle Hulme South",
-        "Cheadle West & Gatley",
-        "Davenport & Cale Green",
+        "Cheadle West and Gatley",
+        "Davenport and Cale Green",
         "Edgeley",
         "Hazel Grove",
         "Heald Green",
@@ -27,8 +27,8 @@ public class ShedViewModel(IEnumerable<ShedItem> filteredEntries) : ISlugCompara
         "Heatons South",
         "Manor",
         "Marple North",
-        "Marple South & High Lane",
-        "Norbury & Woodsmoor",
+        "Marple South and High Lane",
+        "Norbury and Woodsmoor",
         "Offerton",
         "Reddish North",
         "Reddish South"
@@ -57,7 +57,7 @@ public class ShedViewModel(IEnumerable<ShedItem> filteredEntries) : ISlugCompara
 
     public string DisplayTitle =>
         string.IsNullOrEmpty(SearchTerm)
-            ? "Results in Stockport Historic Environment Database"
+            ? "Results in Stockport's heritage assets"
             : $"Results for \"{SearchTerm}\"";
 
     public string PageTitle =>
