@@ -49,7 +49,7 @@ public class NewsController(IRepository repository,
     }
 
     [ExcludeFromCodeCoverage]
-    [Route("/news")]
+    [Route("/newsroom")]
     public async Task<IActionResult> NewsArticles(NewsroomViewModel model, [FromQuery] int page, [FromQuery] int pageSize)
     {
         if (!await _featureManager.IsEnabledAsync("NewsRedesign"))
