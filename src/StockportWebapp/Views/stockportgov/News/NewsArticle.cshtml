@@ -59,7 +59,7 @@
                         }
                     </p>
 
-                    @if (!Model.NewsItem.UpdatedAt.Date.Equals(Model.NewsItem.SunriseDate.Date))
+                    @if (!Model.NewsItem.UpdatedAt.Date.Equals(Model.NewsItem.SunriseDate.Date) && Model.NewsItem.UpdatedAt.Date > Model.NewsItem.SunriseDate.Date)
                     {
                         <p class="news-article__last-updated">
                             Last updated:
