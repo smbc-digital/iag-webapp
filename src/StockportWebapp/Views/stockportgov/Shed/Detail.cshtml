@@ -18,7 +18,15 @@
 
     <div class="grid-container">
         <div class="grid-100">
-            <h1 class="directory__title">@Model.Name</h1>
+            <section class="article">
+                <div class="article--70">
+                    <h1 class="directory__title">@Model.Name</h1>
+                </div>
+                <div class="article--30 article--30-center-align hide-on-tablet hide-on-mobile">
+                    <button class="btn btn--full btn--light-grey btn--border-grey btn--arrow-left btn--black-text" onclick="window.history.back()">Back to search results</button>
+                </div>
+            </section>
+
             <section class="directory">
                 <div class="directory--30 directory--border-top @borderTeal">
                     <div class="directory__wrapper navcard--white @greyBorderCssClasses">
@@ -30,6 +38,10 @@
                     <partial name="ShedEntryDescription" model='Model.Description' view-data='@(new ViewDataDictionary(ViewData) { { "AdditionalCssClasses", @greyBorderCssClasses } })' />
                     <partial name="ShedEntryImages" model='Model.Images' view-data='@(new ViewDataDictionary(ViewData) { { "AdditionalWrapperCssClasses", @borderTeal }, { "AdditionalCssClasses", @greyBorderCssClasses } })' />
                     @* <partial name="MapContent" model=@(new MapViewModel("title", "https://maps.stockport.gov.uk/historic-environment") ) /> *@
+
+                    <div class="article--30 article--30-center-align hide-on-desktop">
+                        <button class="btn btn--full btn--light-grey btn--border-grey btn--arrow-left btn--black-text" onclick="window.history.back()">Back to search results</button>
+                    </div>
                 </div>
             </section>
         </div>

@@ -4,6 +4,16 @@
         grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
         gap: 1rem;
         padding: 1rem 0;
+
+        @media #{$mobile} {
+            display: flex;
+            flex-direction: column;
+            column-gap: 1rem;
+        }
+
+        @media #{$large-mobile} {
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        }
     }
 
     &__images {

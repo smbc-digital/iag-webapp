@@ -10,6 +10,10 @@ public class ShedController(IShedService shedService,
     private readonly IFilteredUrl _filteredUrl = filteredUrl;
     private readonly IFeatureManager _featureManager = featureManager;
 
+    [HttpGet("shed")]
+    public IActionResult RedirectToHeritageAssets() =>
+        RedirectToActionPermanent("Index");
+    
     [HttpGet("heritage-assets")]
     public async Task<IActionResult> Index(List<string> ward,
                                         List<string> grade,
