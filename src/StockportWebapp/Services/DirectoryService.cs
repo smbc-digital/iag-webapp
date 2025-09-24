@@ -1,5 +1,5 @@
 using Directory = StockportWebapp.Models.Directory;
-using Filter = StockportWebapp.Model.Filter;
+using Filter = StockportWebapp.Models.Filter;
 namespace StockportWebapp.Services;
 
 public interface IDirectoryService

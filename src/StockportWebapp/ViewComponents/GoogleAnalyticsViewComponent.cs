@@ -1,7 +1,6 @@
 ﻿namespace StockportWebapp.ViewComponents;
 
-public class GoogleAnalyticsViewComponent(IApplicationConfiguration config,
-                                        BusinessId businessId) : ViewComponent
+public class GoogleAnalyticsViewComponent(IApplicationConfiguration config, BusinessId businessId) : ViewComponent
 {
     private readonly IApplicationConfiguration _config = config;
     private readonly BusinessId _businessId = businessId;

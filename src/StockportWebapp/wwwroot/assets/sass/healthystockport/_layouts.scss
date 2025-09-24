@@ -1,6 +1,6 @@
 ﻿.container-layout-mobile {
   @media #{$mobile} {
-    background-color: $white;
+    background-color: #ffffff;
   }
 }
 
@@ -11,7 +11,7 @@
     background-color: $colorBrand;
 
 
-    border-bottom: 0px solid $whiteOpaque2;
+    border-bottom: 0px solid rgba(255,255,255,0.2);
 
     #header {
         max-width: 1200px;
@@ -30,7 +30,7 @@
 }
 
 .l-body-section-filled {
-  background-color: $white;
+  background-color: #ffffff;
   padding-left: 0;
   padding-right: 0;
 }
@@ -168,22 +168,6 @@
   }
 }
 
-/*.l-body-section-filled {
-	position: relative;
-	z-index: 5;
-	background-color: $white;
-
-    @media #{$mobile} {
-        padding-left: 0;
-        padding-right: 0;
-    }
-}
-
-.l-body-section-filled > section {
-        padding-left:0;
-        padding-right:0;
-}*/
-
 .l-background-image-container {
   background-size: cover;
   background-position-x: center;
@@ -255,7 +239,7 @@
 .l-container-square {
   -webkit-border-radius: 10px;
   border-radius: 10px;
-  background-color: $white;
+  background-color: #ffffff;
   margin-bottom: 120px;
 
   @media #{$desktop} {
@@ -287,7 +271,7 @@
 }
 
 .current-article {
-  color: $black;
+  color: #000000;
 }
 
 .l-vertical-list-no-margin {
@@ -394,7 +378,7 @@ footer .l-dashed-list {
     }
 
     a.skip-main:focus, a.skip-main:active {
-        color: $white;
+        color: #ffffff;
         background-color: $goldenRod15;
         left: auto;
         top: auto;
@@ -450,7 +434,7 @@ footer .l-dashed-list {
 
 .l-short-page-content {
   border-radius: 10px;
-  background-color: $white;
+  background-color: #ffffff;
 
   @media #{$mobile} {
     border-radius: 10px 10px 0 0;
@@ -484,7 +468,7 @@ footer .l-dashed-list {
     padding-top: 115px;
 
     h2 {
-      color: $white;
+      color: #ffffff;
       font-size: 1.375em;
       margin: 0;
     }
@@ -526,7 +510,7 @@ footer .l-dashed-list {
     }
 
     h1, p {
-      color: $white;
+      color: #ffffff;
     }
 
     h1 {

@@ -23,7 +23,7 @@
         }
 
         &.input-validation-error {
-            border: 1px solid #c83725;
+            border: 1px solid $stockport-red-validation;
         }
 
         @media #{$mobile} {

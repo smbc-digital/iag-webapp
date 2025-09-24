@@ -5,8 +5,7 @@ public interface IEventFactory
     ProcessedEvents Build(Event eventItem);
 }
 
-public class EventFactory(ITagParserContainer simpleTagParserContainer,
-                        MarkdownWrapper markdownWrapper) : IEventFactory
+public class EventFactory(ITagParserContainer simpleTagParserContainer, MarkdownWrapper markdownWrapper) : IEventFactory
 {
     private readonly ITagParserContainer _tagParserContainer = simpleTagParserContainer;
     private readonly MarkdownWrapper _markdownWrapper = markdownWrapper;

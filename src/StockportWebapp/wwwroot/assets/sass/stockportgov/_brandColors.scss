@@ -1,48 +1,16 @@
 ﻿/* Brand colors*/
-$colorBrand: $colorPrimary;
-$brandSecondary: $carrotOrange;
-$brandBorder: $lightTeal;
-
-/* Text colors */
-$bodyText: $greyDarkest;
-$headingColor: $greyDarkest;
+$brandSecondary: #ef8a17;
+$brandBorder: #00b79b;
 
 /* Layout colors */
-$backgroundSite: $offWhite;
-$backgroundContent: $white;
-$borderDefault: $blackOpaque1;
-$borderLight: $greyLight;
-$footerBottomBackground: $colorPrimaryDarkest;
-$darkOverlayBackground: $blackOpaque2;
-$completedSectionBackground: $grey875;
-
-/* Menu colors */
-$menuLightText: $white;
-$menuLightDetail: $whiteOpaque2;
-$menuLightActive: $blackOpaque1;
-$menuLightActiveDetail: $blackOpaque2;
-$menuLightHover: $whiteOpaque2;
+$footerBottomBackground: #092726;
+$header-accent: rgba(255, 255, 255, 0.7);
 
 /* Link colors */
-$linkDefault: $colorPrimary;
-$linkInactive: $greyDarkest;
-
-/* Profile colors */
-$profileBackgroundLight: $offWhite;
-
-/* Button colors */
-$buttonDarkBackground: $greyDark;
-$buttonSidebarBackground: $carrotOrange;
-$button-primary: $tealDarker;
+$linkDefault: #055c58;
 
 /* Banner Colors */
-$bannerBackground: $colorPrimarySuperDark;
-
-/* Alert Colors */
-$alertText: $white;
-
-/*Warning*/
-$alertWarningHeading: $white;
+$bannerBackground: #124a47;
 
 /*New site*/
 $stockport-green: #006666;
@@ -53,13 +21,10 @@ $stockport-mid-grey: lighten($stockport-grey, 30%);
 $stockport-light-grey: #f2f2f2;
 $stockport-grey-accent: rgba($stockport-grey, 30%);
 $stockport-orange: #d67b03;
-
 $stockport-teal: #2aa294;
 $stockport-teal-lighter: rgba($stockport-teal, 70%);
 $stockport-teal-lightest: rgb(237,247,246);
-$stockport-teal-darker: #008080;
-
-// This is the accessible version of the teal that can be used with White.
+$stockport-teal-darker: #008080; // This is the accessible version of the teal that can be used with White.
 $stockport-pink: #b32384;
 $stockport-pink-darker: #991e70;
 $stockport-purple: #794795;
@@ -67,10 +32,7 @@ $stockport-blue: #3c65b0;
 $stockport-black: #333333;
 $stockport-alert-red: #B33A2D;
 $stockport-grey-lighter: #ccc;
-
 $stockport-red-validation: #c83725;
-
 $one-stockport-purple: #410099;
 $one-stockport-pink: rgb(250,133,143);
-
 $govuk-black: #0b0c0c;

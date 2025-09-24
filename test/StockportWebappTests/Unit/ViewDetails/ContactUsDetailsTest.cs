@@ -15,8 +15,8 @@ public class ContactUsDetailsTest
 
         // Assert
         Assert.False(valid);
-        ValidationResult failure = Assert.Single(result, x => x.ErrorMessage.Equals("Enter your name"));
-        Assert.Single(failure.MemberNames, x => x.Equals("Name"));
+        ValidationResult failure = Assert.Single(result, validationResult => validationResult.ErrorMessage.Equals("Enter your name"));
+        Assert.Single(failure.MemberNames, name => name.Equals("Name"));
     }
 
     [Fact]
@@ -32,8 +32,8 @@ public class ContactUsDetailsTest
 
         // Assert
         Assert.False(valid);
-        ValidationResult failure = Assert.Single(result, x => x.ErrorMessage.Equals("Enter the subject of your enquiry"));
-        Assert.Single(failure.MemberNames, x => x.Equals("Subject"));
+        ValidationResult failure = Assert.Single(result, validationResult => validationResult.ErrorMessage.Equals("Enter the subject of your enquiry"));
+        Assert.Single(failure.MemberNames, name => name.Equals("Subject"));
     }
 
     [Fact]
@@ -49,8 +49,8 @@ public class ContactUsDetailsTest
 
         // Assert
         Assert.False(valid);
-        ValidationResult failure = Assert.Single(result, x => x.ErrorMessage.Equals("Tell us about your enquiry"));
-        Assert.Single(failure.MemberNames, x => x.Equals("Message"));
+        ValidationResult failure = Assert.Single(result, validationResult => validationResult.ErrorMessage.Equals("Tell us about your enquiry"));
+        Assert.Single(failure.MemberNames, name => name.Equals("Message"));
     }
 
     [Fact]
@@ -73,8 +73,8 @@ public class ContactUsDetailsTest
 
         // Assert
         Assert.False(valid);
-        ValidationResult failure = Assert.Single(result, x => x.ErrorMessage.Equals("Enter a valid email address"));
-        Assert.Single(failure.MemberNames, x => x.Equals("Email"));
+        ValidationResult failure = Assert.Single(result, validationResult => validationResult.ErrorMessage.Equals("Enter a valid email address"));
+        Assert.Single(failure.MemberNames, name => name.Equals("Email"));
     }
 
     [Fact]

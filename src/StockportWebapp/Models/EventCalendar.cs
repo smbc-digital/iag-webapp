@@ -35,18 +35,16 @@ public class EventCalendar
     public EventHomepage Homepage { get; set; }
     public List<CarouselContent> CarouselContents { get; set; } = new();
     public bool ShouldScroll { get; set; } = false;
-    public EventCalendar() { }
-
     public bool FromSearch { get; set; }
     public string KeepTag { get; set; }
     public string Location { get; set; }
     public double Longitude { get; set; }
     public double Latitude { get; set; }
 
-    public EventCalendar(List<Event> events)
-    {
+    public EventCalendar() { }
+
+    public EventCalendar(List<Event> events) =>
         Events = events;
-    }
 
     public bool IsFromSearch() => FromSearch 
         || Free

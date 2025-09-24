@@ -18,15 +18,14 @@ public class HealthcheckService : IHealthcheckService
     private readonly string webAppClientId;
     public readonly BusinessId _businessId;
 
-    public HealthcheckService(
-        string appVersionPath, 
-        string shaPath, 
-        IFileWrapper fileWrapper,
-        IHttpClient httpMaker, 
-        IStubToUrlConverter urlGenerator, 
-        string environment, 
-        IApplicationConfiguration config, 
-        BusinessId businessId)
+    public HealthcheckService(string appVersionPath, 
+                            string shaPath, 
+                            IFileWrapper fileWrapper,
+                            IHttpClient httpMaker, 
+                            IStubToUrlConverter urlGenerator, 
+                            string environment, 
+                            IApplicationConfiguration config, 
+                            BusinessId businessId)
     {
         _fileWrapper = fileWrapper;
         _httpMaker = httpMaker;
@@ -66,13 +65,12 @@ public class HealthcheckService : IHealthcheckService
         else
             healthcheck = new UnavailableHealthcheck();
 
-        return new Healthcheck(
-            _appVersion, 
-            _businessId.ToString(),
-            _sha,
-            new Dictionary<string, Healthcheck>() { { "contentApi", healthcheck } },
-            _environment,
-            new List<RedisValueData>());
+        return new Healthcheck(_appVersion, 
+                            _businessId.ToString(),
+                            _sha,
+                            new Dictionary<string, Healthcheck>() { { "contentApi", healthcheck } },
+                            _environment,
+                            new List<RedisValueData>());
     }
 
     private static Healthcheck BuildDependencyHealthcheck(HttpResponse httpResponse)

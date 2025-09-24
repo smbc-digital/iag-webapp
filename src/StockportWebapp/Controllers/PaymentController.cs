@@ -55,9 +55,7 @@ public class PaymentController(IProcessedContentRepository repository,
             ModelState.AddModelError("Reference", $"Enter the {paymentSubmission.Payment.ReferenceLabel.ToLower()}");
 
         if (!ModelState.IsValid)
-        {
             return View("PaymentDetail", paymentSubmission);
-        }
 
         CreateImmediateBasketRequest civicaPayRequest = GetCreateImmediateBasketRequest(slug, paymentSubmission, paymentSubmission.Payment.PaymentType.Equals("ServicePayPayment") ? paymentSubmission.Reference : $"WEB {Guid.NewGuid()}");
 
@@ -105,8 +103,7 @@ public class PaymentController(IProcessedContentRepository repository,
 
         if (!responseCode.Equals(CIVICA_PAY_SUCCESS))
         {
-            paymentResult.PaymentResultType = responseCode.Equals(CIVICA_PAY_DECLINED)
-                || responseCode.Equals(CIVICA_PAY_DECLINED_OTHER)
+            paymentResult.PaymentResultType = responseCode.Equals(CIVICA_PAY_DECLINED) || responseCode.Equals(CIVICA_PAY_DECLINED_OTHER)
                 ? PaymentResultType.Declined
                 : PaymentResultType.Failure;
 

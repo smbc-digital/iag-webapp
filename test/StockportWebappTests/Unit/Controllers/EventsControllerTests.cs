@@ -6,9 +6,7 @@ public class EventsControllerTest
     private readonly Mock<IRepository> _repository = new();
     private readonly Mock<IProcessedContentRepository> _processedContentRepository = new();
     private readonly Event _eventsItem;
-    private readonly HttpResponse responseListing;
     private readonly HttpResponse _responseDetail;
-    private readonly Mock<IApplicationConfiguration> _applicationConfiguration = new();
     private readonly Mock<IRssFeedFactory> _mockRssFeedFactory = new();
     private readonly Mock<ILogger<EventsController>> _logger = new();
     private readonly Mock<IApplicationConfiguration> _config = new();
@@ -22,18 +20,6 @@ public class EventsControllerTest
     {
         new Alert("title",
                 "body",
-                "severity",
-                new DateTime(0001, 1, 1, 0, 0, 0, DateTimeKind.Utc),
-                new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc),
-                string.Empty,
-                false,
-                string.Empty)
-    };
-
-    private readonly List<Alert> _globalAlerts = new()
-    {
-        new Alert("global alert title",
-                "global alert body",
                 "severity",
                 new DateTime(0001, 1, 1, 0, 0, 0, DateTimeKind.Utc),
                 new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc),
@@ -67,7 +53,7 @@ public class EventsControllerTest
         Mock<ITimeProvider> mockTime = new();
         _datetimeCalculator = new DateCalculator(mockTime.Object);
 
-        EventResponse eventsCalendar = new(new List<Event> { _eventsItem }, new List<Event>());
+        EventResponse eventsCalendar = new(new List<Event> { _eventsItem });
         ProcessedEvents eventItem = new("title",
                                         "slug",
                                         "teaser",
@@ -105,18 +91,15 @@ public class EventsControllerTest
             Rows = new()
         };
 
-        responseListing = new HttpResponse(200, eventsCalendar, string.Empty);
         _responseDetail = new HttpResponse(200, eventItem, string.Empty);
-        HttpResponse responseHomepage = new(200, eventHomepage, string.Empty);
-        HttpResponse response404 = new(404, null, "not found");
 
         _repository
             .Setup(repo => repo.Get<EventHomepage>(It.IsAny<string>(), It.IsAny<List<Query>>()))
-            .ReturnsAsync(responseHomepage);
+            .ReturnsAsync(new HttpResponse(200, eventHomepage, string.Empty));
 
         _repository
             .Setup(repo => repo.Get<EventResponse>(It.IsAny<string>(), It.IsAny<List<Query>>()))
-            .ReturnsAsync(responseListing);
+            .ReturnsAsync(new HttpResponse(200, eventsCalendar, string.Empty));
 
         _processedContentRepository
             .Setup(processedContentRepo => processedContentRepo.Get<Event>("event-of-the-century", It.Is<List<Query>>(l => l.Count.Equals(0))))
@@ -124,7 +107,7 @@ public class EventsControllerTest
 
         _processedContentRepository
             .Setup(processedContentRepo => processedContentRepo.Get<Event>("404-event", It.Is<List<Query>>(l => l.Count.Equals(0))))
-            .ReturnsAsync(response404);
+            .ReturnsAsync(new HttpResponse(404, null, "not found"));
 
         _config
             .Setup(config => config.GetRssEmail(BusinessId))
@@ -134,17 +117,16 @@ public class EventsControllerTest
             .Setup(config => config.GetEmailAlertsNewSubscriberUrl(BusinessId))
             .Returns(AppSetting.GetAppSetting("email-alerts-url"));
 
-        _controller = new EventsController(
-            _repository.Object,
-            _processedContentRepository.Object,
-            _mockRssFeedFactory.Object,
-            _logger.Object,
-            _config.Object,
-            new BusinessId(BusinessId),
-            _filteredUrl.Object,
-            _calendarhelper,
-            _datetimeCalculator,
-            _stockportApiEventsService.Object);
+        _controller = new EventsController(_repository.Object,
+                                        _processedContentRepository.Object,
+                                        _mockRssFeedFactory.Object,
+                                        _logger.Object,
+                                        _config.Object,
+                                        new BusinessId(BusinessId),
+                                        _filteredUrl.Object,
+                                        _calendarhelper,
+                                        _datetimeCalculator,
+                                        _stockportApiEventsService.Object);
     }
 
     [Fact]
@@ -585,7 +567,7 @@ public class EventsControllerTest
     private EventsController SetUpController(int numItems)
     {
         List<Event> listOfEvents = BuildEventList(numItems);
-        EventResponse eventsCalendar = new(listOfEvents, new List<Event>());
+        EventResponse eventsCalendar = new(listOfEvents);
         HttpResponse eventListResponse = new(200, eventsCalendar, string.Empty);
 
         _repository

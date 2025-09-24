@@ -24,9 +24,6 @@ public class Directory
     public IEnumerable<ExternalLink> ExternalLinks { get; set; } = new List<ExternalLink>();
     public IEnumerable<DirectoryEntry> PinnedEntries { get; set; } = new List<DirectoryEntry>();
 
-    [JsonIgnore]
-    private IEnumerable<DirectoryEntry> _cummulativeEntries = null;
-
     /// <summary>
     /// Gets a list of entries relevant to this directory including those in sub directories, but exclusing pinned entries
     /// </summary>

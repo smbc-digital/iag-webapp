@@ -4,10 +4,10 @@
 */
 .btn {
     font-family: $fontStack;
-    background-color: lighten($stockport-green, 5%);
+    background-color: $stockport-green-95;
     border-radius: 3px;
     text-decoration: none;
-    color: $white;
+    color: white;
     text-align: center;
     padding: 1em;
     display: inline-block;
@@ -350,9 +350,9 @@ html[dir="rtl"] {
 }
 
 .clear-button, .clear-button:hover {
-    background-color: $white;
+    background-color: white;
     border: solid 1px $greyLighter;
-    color: $black;
+    color: #000000;
     font-weight: 600;
 }
 

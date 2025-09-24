@@ -1,6 +1,4 @@
-﻿using StockportWebapp.Model;
-
-namespace StockportWebappTests_Unit.Unit.ViewModels;
+﻿namespace StockportWebappTests_Unit.Unit.ViewModels;
 
 public class DirectoryViewModelTest
 {

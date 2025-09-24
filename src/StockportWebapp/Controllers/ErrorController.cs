@@ -1,8 +1,7 @@
 ﻿namespace StockportWebapp.Controllers;
 
 [ResponseCache(Location = ResponseCacheLocation.Any, Duration = Cache.Medium)]
-public class ErrorController(ILegacyRedirectsManager legacyRedirectsManager,
-                            ILogger<ErrorController> logger) : Controller
+public class ErrorController(ILegacyRedirectsManager legacyRedirectsManager, ILogger<ErrorController> logger) : Controller
 {
     private readonly ILegacyRedirectsManager _legacyRedirectsManager = legacyRedirectsManager;
     private readonly ILogger<ErrorController> _logger = logger;

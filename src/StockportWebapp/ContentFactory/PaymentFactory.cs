@@ -1,7 +1,6 @@
 ﻿namespace StockportWebapp.ContentFactory;
 
-public class PaymentFactory(ITagParserContainer simpleTagParserContainer,
-                            MarkdownWrapper markdownWrapper)
+public class PaymentFactory(ITagParserContainer simpleTagParserContainer, MarkdownWrapper markdownWrapper)
 {
     private readonly ITagParserContainer _tagParserContainer = simpleTagParserContainer;
     private readonly MarkdownWrapper _markdownWrapper = markdownWrapper;
@@ -17,7 +16,7 @@ public class PaymentFactory(ITagParserContainer simpleTagParserContainer,
             payment.Teaser,
             description,
             payment.PaymentType,
-            payment.PaymentDetailsText,
+            _markdownWrapper.ConvertToHtml(payment.PaymentDetailsText),
             payment.ReferenceLabel,
             payment.Fund,
             payment.GlCodeCostCentreNumber,

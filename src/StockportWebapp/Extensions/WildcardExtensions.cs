@@ -1,4 +1,5 @@
 namespace StockportWebapp.Extensions;
+
 public static class WildcardSlugExtensions
 {
     public static PageLocation ProcessAsWildcardSlug(this string slug)

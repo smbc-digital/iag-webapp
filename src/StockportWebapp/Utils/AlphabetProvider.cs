@@ -1,13 +1,12 @@
-﻿namespace StockportWebapp.Utils
+﻿namespace StockportWebapp.Utils;
+
+public static class AlphabetProvider
 {
-    public static class AlphabetProvider
+    public static IEnumerable<char> GetAlphabet()
     {
-        public static IEnumerable<char> GetAlphabet()
+        for (char letter = 'A'; letter <= 'Z'; letter++)
         {
-            for (char letter = 'A'; letter <= 'Z'; letter++)
-            {
-                yield return letter;
-            }
+            yield return letter;
         }
     }
 }

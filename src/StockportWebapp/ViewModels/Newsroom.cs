@@ -55,19 +55,4 @@ public class Newsroom(List<News> news,
 
         return parsedDate;
     }
-
-    public List<SelectListItem> CategoryOptions()
-    {
-        List<SelectListItem> result = new()
-        {
-            new SelectListItem { Text = "All categories", Value = string.Empty }
-        };
-
-        foreach (string cat in Categories)
-        {
-            result.Add(new SelectListItem { Text = cat, Value = cat });
-        }
-
-        return result;
-    }
 }

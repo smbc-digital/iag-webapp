@@ -6,7 +6,7 @@ public class StockportApiRepositoryTests
     private readonly Mock<IApplicationConfiguration> _applicationConfiguraiton = new();
     private readonly Mock<IUrlGeneratorSimple> _simpleUrlGenerator = new();
     private readonly Mock<ILogger<BaseRepository>> _logger = new();
-    private StockportApiRepository _stockportApiRepository;
+    private readonly StockportApiRepository _stockportApiRepository;
 
     public StockportApiRepositoryTests() =>
         _stockportApiRepository = new(_httpClient.Object, _applicationConfiguraiton.Object, _simpleUrlGenerator.Object, _logger.Object);

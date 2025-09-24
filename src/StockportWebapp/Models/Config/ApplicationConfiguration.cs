@@ -17,7 +17,6 @@ public interface IApplicationConfiguration
     AppSetting GetReCaptchaKey();
     int GetFooterCache(string businessId);
     int GetHeaderCache(string businessId);
-    string GetMyAccountUrl();
     string GetStaticAssetsRootUrl();
     int GetNewsDefaultPageSize(string businessId);
     int GetEventsDefaultPageSize(string businessId);
@@ -113,15 +112,13 @@ public class ApplicationConfiguration(IConfiguration appsettings) : IApplication
         return output;
     }
 
-    public string GetMyAccountUrl() =>
-        _appsettings["myAccountUrl"];
-
     public int GetNewsDefaultPageSize(string businessId)
     {
         int.TryParse(_appsettings[$"{businessId}:NewsDefaultPageSize"], out int result);
 
         return result;
     }
+    
     public int GetEventsDefaultPageSize(string businessId)
     {
         int.TryParse(_appsettings[$"{businessId}:EventsDefaultPageSize"], out int result);

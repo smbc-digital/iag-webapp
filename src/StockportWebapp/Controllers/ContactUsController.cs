@@ -104,7 +104,7 @@ public class ContactUsController(IRepository repository,
         return message.ToString();
     }
 
-    private bool IsSuccess(HttpStatusCode statusCode) =>
+    private static bool IsSuccess(HttpStatusCode statusCode) =>
         statusCode.Equals(HttpStatusCode.OK) || statusCode.Equals(HttpStatusCode.Created);
 
     private Task<HttpStatusCode> SendEmailMessage(ContactUsDetails contactUsDetails)

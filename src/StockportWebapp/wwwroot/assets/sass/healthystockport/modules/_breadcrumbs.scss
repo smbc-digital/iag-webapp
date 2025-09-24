@@ -7,7 +7,7 @@
     .breadcrumb {
         max-width: 1200px;
         margin-bottom: 0;
-        color: $white;
+        color: #ffffff;
         padding-bottom: 0px;
         padding-top: 3px;
 
@@ -28,7 +28,7 @@
             margin-left: 0;
 
             a {
-                color: $white;
+                color: #ffffff;
                 text-transform: none;
                 font-weight: normal;
 
@@ -39,7 +39,7 @@
 
             .chevron {
                 margin: 0 5px;
-                color: $white;
+                color: #ffffff;
             }
 
             current {
@@ -47,7 +47,7 @@
                     text-decoration: none;
 
                     &:hover {
-                        color: $white;
+                        color: #ffffff;
                     }
                 }
 

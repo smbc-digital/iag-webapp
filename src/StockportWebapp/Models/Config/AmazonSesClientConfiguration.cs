@@ -30,7 +30,4 @@ public class AmazonSesClientConfiguration
 
     public bool IsValid() =>
         _hostSetting.IsValid() && _regionSetting.IsValid() && _emailFromSetting.IsValid() && _awsKeys.IsValid();
-
-    public string ValidityToString() =>
-        $"Host: {_hostSetting.IsValid()}, Region: {_regionSetting.IsValid()}, EmailFrom: {_emailFromSetting.IsValid()}, AwsKeys: {_awsKeys.IsValid()}";
 }

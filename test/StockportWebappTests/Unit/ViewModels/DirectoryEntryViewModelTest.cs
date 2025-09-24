@@ -1,5 +1,4 @@
 ﻿using SharpKml.Dom;
-using StockportWebapp.Model;
 
 namespace StockportWebappTests_Unit.Unit.ViewModels;
 
@@ -50,7 +49,8 @@ public class DirectoryEntryViewModelTest
     public void HighlightedFilters_EmptyThemes_ReturnsEmptyList()
     {
         // Arrange
-        DirectoryEntryViewModel directoryViewModel = new("slug", new()){
+        DirectoryEntryViewModel directoryViewModel = new("slug", new())
+        {
             DirectoryEntry = new DirectoryEntry
             {
                 Themes = new List<FilterTheme>()
@@ -69,7 +69,8 @@ public class DirectoryEntryViewModelTest
     public void HighlightedFilters_NullThemes_ReturnsNull()
     {
         // Arrange
-        DirectoryEntryViewModel directoryViewModel = new("slug", new()){
+        DirectoryEntryViewModel directoryViewModel = new("slug", new())
+        {
             DirectoryEntry = new DirectoryEntry
             {
                 Themes = null
@@ -107,7 +108,8 @@ public class DirectoryEntryViewModelTest
             }
         };
 
-        DirectoryEntryViewModel directoryViewModel = new("slug", new()){
+        DirectoryEntryViewModel directoryViewModel = new("slug", new())
+        {
             DirectoryEntry = new DirectoryEntry
             {
                 Themes = themes

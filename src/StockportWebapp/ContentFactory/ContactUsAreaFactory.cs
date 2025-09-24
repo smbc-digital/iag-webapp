@@ -5,13 +5,13 @@ public class ContactUsAreaFactory(IContactUsCategoryFactory contactUsCategoryFac
     private readonly IContactUsCategoryFactory _contactUsCategoryFactory = contactUsCategoryFactory;
 
     public virtual ProcessedContactUsArea Build(ContactUsArea contactUsArea) =>
-        new ProcessedContactUsArea(
+        new(
             contactUsArea.Title,
             contactUsArea.Slug,
             contactUsArea.Breadcrumbs,
             contactUsArea.PrimaryItems,
             contactUsArea.Alerts,
-            new List<ProcessedContactUsCategory>(contactUsArea.ContactUsCategories.Select(_contactUsCategoryFactory.Build)),
+            contactUsArea.ContactUsCategories.Select(_contactUsCategoryFactory.Build),
             contactUsArea.InsetTextTitle,
             contactUsArea.InsetTextBody,
             contactUsArea.MetaDescription

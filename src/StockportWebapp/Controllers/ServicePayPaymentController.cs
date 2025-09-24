@@ -15,7 +15,6 @@ public class ServicePayPaymentController(IProcessedContentRepository repository,
     private readonly ICivicaPayGateway _civicaPayGateway = civicaPayGateway;
     private readonly CivicaPayConfiguration _civicaPayConfiguration = configuration.Value;
     private readonly ILogger<ServicePayPaymentController> _logger = logger;
-
     private const string CIVICA_PAY_INVALID_DETAILS = "00001";
 
     [Route("/service-pay-payment/{slug}")]
@@ -88,9 +87,9 @@ public class ServicePayPaymentController(IProcessedContentRepository repository,
         }
 
         return Redirect(_civicaPayGateway.GetPaymentUrl(
-            civicaResponse.ResponseContent.BasketReference, 
-            civicaResponse.ResponseContent.BasketToken, 
-            paymentSubmission.Reference));
+                        civicaResponse.ResponseContent.BasketReference, 
+                        civicaResponse.ResponseContent.BasketToken, 
+                        paymentSubmission.Reference));
     }
 
     private CreateImmediateBasketRequest GetCreateImmediateBasketRequest(string slug, ServicePayPaymentSubmissionViewModel paymentSubmission) =>

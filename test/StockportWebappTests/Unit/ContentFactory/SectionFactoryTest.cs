@@ -5,40 +5,30 @@ public class SectionFactoryTest
     private readonly SectionFactory _factory;
     private readonly Mock<MarkdownWrapper> _markdownWrapper = new();
     private readonly Mock<ITagParserContainer> _tagParserContainer = new();
-    private const string Title = "title";
-    private const string Slug = "slug";
-    private const string Body = "The new content of the body";
-    private const string MetaDescription = "Example meta description";
-    private readonly List<Profile> _profiles = new();
-    private readonly List<Document> _documents = new();
     private readonly Section _section;
-    private readonly string _articleTitle = "Article Title";
-    private readonly List<Alert> _emptyAlertsInline = new();
-    private readonly List<TrustedLogo> _trustedLogos = new();
-    private const string _logoAreaTitle = "logoAreaTitle";
-    private readonly DateTime _updatedAt = DateTime.Now;
-    private readonly List<InlineQuote> _inlineQuotes = new();
     private readonly Mock<IRepository> _repository = new();
 
     public SectionFactoryTest()
     {
         _factory = new SectionFactory(_tagParserContainer.Object, _markdownWrapper.Object, _repository.Object);
-        _section = new Section(Title,
-                            Slug,
-                            MetaDescription,
-                            Body,
-                            _profiles,
-                            _documents,
-                            _emptyAlertsInline,
-                            _trustedLogos,
-                            _logoAreaTitle,
-                            _updatedAt,
-                            _inlineQuotes);
+        _section = new Section("title",
+                            "slug",
+                            "Example meta description",
+                            "The new content of the body",
+                            new List<Profile>(),
+                            new List<Document>(),
+                            new List<Alert>(),
+                            new List<TrustedLogo>(),
+                            "logoAreaTitle",
+                            DateTime.Now,
+                            new List<InlineQuote>());
 
-        _markdownWrapper.Setup(wrapper => wrapper.ConvertToHtml(Body)).Returns(Body);
+        _markdownWrapper
+            .Setup(wrapper => wrapper.ConvertToHtml("The new content of the body"))
+            .Returns("The new content of the body");
 
         _tagParserContainer
-            .Setup(parser => parser.ParseAll(Body,
+            .Setup(parser => parser.ParseAll("The new content of the body",
                                             It.IsAny<string>(),
                                             It.IsAny<bool>(),
                                             It.IsAny<IEnumerable<Alert>>(),
@@ -48,7 +38,7 @@ public class SectionFactoryTest
                                             It.IsAny<IEnumerable<Profile>>(),
                                             It.IsAny<IEnumerable<CallToActionBanner>>(),
                                             It.IsAny<bool>()))
-            .Returns(Body);
+            .Returns("The new content of the body");
         
         _repository
             .Setup(repo => repo.Get<List<PrivacyNotice>>(It.IsAny<string>(), It.IsAny<List<Query>>()))
@@ -59,30 +49,30 @@ public class SectionFactoryTest
     public void ShouldSetTheCorrespondingFieldsForAProcessedSection()
     {
         // Act
-        ProcessedSection result = _factory.Build(_section, _articleTitle);
+        ProcessedSection result = _factory.Build(_section, "Article Title");
 
         // Assert
-        result.Profiles.Should().BeEquivalentTo(_profiles);
-        Assert.Equal(Body, result.Body);
-        Assert.Equal(Title, result.Title);
-        Assert.Equal(Slug, result.Slug);
-        Assert.Equal(_profiles, result.Profiles);
+        result.Profiles.Should().BeEquivalentTo(new List<Profile>());
+        Assert.Equal("The new content of the body", result.Body);
+        Assert.Equal("title", result.Title);
+        Assert.Equal("slug", result.Slug);
+        Assert.Equal(new List<Profile>(), result.Profiles);
     }
 
     [Fact]
     public void ShouldProcessBodyWithMarkdown()
     {
         // Act & Assert
-        _factory.Build(_section, _articleTitle);
-        _markdownWrapper.Verify(wrapper => wrapper.ConvertToHtml(Body), Times.Once);
+        _factory.Build(_section, "Article Title");
+        _markdownWrapper.Verify(wrapper => wrapper.ConvertToHtml("The new content of the body"), Times.Once);
     }
 
     [Fact]
     public void ShouldProcessBodyWithTagParsing()
     {
         // Act & Assert
-        _factory.Build(_section, _articleTitle);
-        _tagParserContainer.Verify(parser => parser.ParseAll(Body,
+        _factory.Build(_section, "Article Title");
+        _tagParserContainer.Verify(parser => parser.ParseAll("The new content of the body",
                                                             It.IsAny<string>(),
                                                             It.IsAny<bool>(),
                                                             It.IsAny<IEnumerable<Alert>>(),
@@ -98,9 +88,9 @@ public class SectionFactoryTest
     public void ShouldProcessBodyWithProfileTagParsing()
     {
         // Act & Assert
-        _factory.Build(_section, _articleTitle);
-        _tagParserContainer.Verify(parser => parser.ParseAll(Body,
-                                                            _articleTitle,
+        _factory.Build(_section, "Article Title");
+        _tagParserContainer.Verify(parser => parser.ParseAll("The new content of the body",
+                                                            "Article Title",
                                                             It.IsAny<bool>(),
                                                             It.IsAny<IEnumerable<Alert>>(),
                                                             It.IsAny<IEnumerable<Document>>(),
@@ -115,16 +105,16 @@ public class SectionFactoryTest
     public void ShouldPassTitleToParserWhenBuilding()
     {
         // Act & Assert
-        _factory.Build(_section, _articleTitle);
-        _tagParserContainer.Verify(parser => parser.ParseAll(Body,
-                                                _articleTitle,
-                                                It.IsAny<bool>(),
-                                                It.IsAny<IEnumerable<Alert>>(),
-                                                It.IsAny<IEnumerable<Document>>(),
-                                                It.IsAny<IEnumerable<InlineQuote>>(),
-                                                It.IsAny<IEnumerable<PrivacyNotice>>(),
-                                                It.IsAny<IEnumerable<Profile>>(),
-                                                It.IsAny<IEnumerable<CallToActionBanner>>(),
-                                                It.IsAny<bool>()), Times.Once); 
+        _factory.Build(_section, "Article Title");
+        _tagParserContainer.Verify(parser => parser.ParseAll("The new content of the body",
+                                                            "Article Title",
+                                                            It.IsAny<bool>(),
+                                                            It.IsAny<IEnumerable<Alert>>(),
+                                                            It.IsAny<IEnumerable<Document>>(),
+                                                            It.IsAny<IEnumerable<InlineQuote>>(),
+                                                            It.IsAny<IEnumerable<PrivacyNotice>>(),
+                                                            It.IsAny<IEnumerable<Profile>>(),
+                                                            It.IsAny<IEnumerable<CallToActionBanner>>(),
+                                                            It.IsAny<bool>()), Times.Once); 
     }
 }

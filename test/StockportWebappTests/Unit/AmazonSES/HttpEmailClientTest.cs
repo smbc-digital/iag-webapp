@@ -2,9 +2,9 @@
 
 public class HttpEmailClientTest
 {
-    private readonly Mock<ILogger<HttpEmailClient>> _mockLogger = new Mock<ILogger<HttpEmailClient>>();
-    private readonly Mock<IEmailBuilder> _emailBuilder = new Mock<IEmailBuilder>();
-    private readonly Mock<IAmazonSimpleEmailService> _amazonEmailService = new Mock<IAmazonSimpleEmailService>();
+    private readonly Mock<ILogger<HttpEmailClient>> _mockLogger = new();
+    private readonly Mock<IEmailBuilder> _emailBuilder = new();
+    private readonly Mock<IAmazonSimpleEmailService> _amazonEmailService = new();
 
     [Fact]
     public async Task ItShouldReturnA500AndLogItIfTheServiceEmailIsNullOrEmpty()
@@ -91,6 +91,6 @@ public class HttpEmailClientTest
 
         // Assert
         Assert.Equal(HttpStatusCode.OK, httpStatusCode);
-        _amazonEmailService.Verify(_ => _.SendRawEmailAsync(It.IsAny<SendRawEmailRequest>(), It.IsAny<CancellationToken>()), Times.Never);
+        _amazonEmailService.Verify(amazonEmailService => amazonEmailService.SendRawEmailAsync(It.IsAny<SendRawEmailRequest>(), It.IsAny<CancellationToken>()), Times.Never);
     }
 }

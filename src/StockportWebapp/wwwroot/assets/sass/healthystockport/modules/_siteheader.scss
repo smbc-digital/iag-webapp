@@ -39,7 +39,7 @@ ul.menu {
 
             display: table-cell;
             vertical-align: middle;
-            color: $white;
+            color: #ffffff;
 
             span {
                 color: $colorPrimaryPale;
@@ -49,7 +49,7 @@ ul.menu {
 
             &:hover {
                 span {
-                    color: $white;
+                    color: #ffffff;
                 }
             }
         }

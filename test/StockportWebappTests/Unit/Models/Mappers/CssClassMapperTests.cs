@@ -1,6 +1,4 @@
-﻿using StockportWebapp.Models.Mappers;
-
-namespace StockportWebappTests_Unit.Unit.Models.Mappers;
+﻿namespace StockportWebappTests_Unit.Unit.Models.Mappers;
 
 public class CssClassMapperTests
 {

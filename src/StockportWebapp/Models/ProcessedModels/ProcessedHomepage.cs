@@ -1,4 +1,5 @@
 ﻿namespace StockportWebapp.Models.ProcessedModels;
+
 public class ProcessedHomepage(string title,
                             string featuredTasksHeading,
                             string featuredTasksSummary,

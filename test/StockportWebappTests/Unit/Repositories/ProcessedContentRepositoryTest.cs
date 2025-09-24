@@ -7,7 +7,6 @@ public class ProcessedContentRepositoryTest
     private readonly Mock<IHttpClient> _mockHttpClient = new();
     private readonly Mock<IStubToUrlConverter> _mockUrlGenerator = new();
     private readonly Mock<IApplicationConfiguration> _appConfig = new();
-
     private readonly Mock<ITagParserContainer> _mockTagParserContainer = new();
     private readonly Mock<IHttpContextAccessor> _mockHttpContextAccessor = new();
     private readonly Mock<IRepository> _mockRepository = new();

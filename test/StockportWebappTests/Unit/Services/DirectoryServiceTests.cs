@@ -1,5 +1,3 @@
-using StockportWebapp.Model;
-
 namespace StockportWebappTests_Unit.Unit.Services;
 
 public class DirectoryServiceTests
@@ -11,9 +9,12 @@ public class DirectoryServiceTests
 
     private readonly string[] filters = { "value1", "value2", "value3", "value11" };
 
-    private readonly List<FilterTheme> filterThemes = new(){
-        new(){
-            Filters = new List<Filter>(){
+    private readonly List<FilterTheme> filterThemes = new()
+    {
+        new()
+        {
+            Filters = new List<Filter>()
+            {
                 new() {
                     Slug = "value10",
                     Title = "title",
@@ -40,24 +41,30 @@ public class DirectoryServiceTests
         }
     };
 
-    private readonly List<FilterTheme> filterThemes2 = new(){
-        new(){
-            Filters = new List<Filter>(){
-                new() {
+    private readonly List<FilterTheme> filterThemes2 = new()
+    {
+        new()
+        {
+            Filters = new List<Filter>()
+            {
+                new()
+                {
                     Slug = "value1",
                     Title = "title",
                     DisplayName = "display name",
                     Theme = "Theme title2",
                     Highlight = false
                 },
-                new() {
+                new()
+                {
                     Slug = "value2",
                     Title = "title",
                     DisplayName = "display name",
                     Theme = "Theme title2",
                     Highlight = false
                 },
-                new() {
+                new()
+                {
                     Slug = "value3",
                     Title = "title",
                     DisplayName = "display name",
@@ -67,23 +74,28 @@ public class DirectoryServiceTests
             },
             Title = "Theme title2"
         },
-        new(){
-            Filters = new List<Filter>(){
-                new() {
+        new()
+        {
+            Filters = new List<Filter>()
+            {
+                new()
+                {
                     Slug = "value11",
                     Title = "title",
                     DisplayName = "display name",
                     Theme = "Theme title1",
                     Highlight = false
                 },
-                new() {
+                new()
+                {
                     Slug = "value21",
                     Title = "title",
                     DisplayName = "display name",
                     Theme = "Theme title1",
                     Highlight = false
                 },
-                new() {
+                new()
+                {
                     Slug = "value31",
                     Title = "title",
                     DisplayName = "display name",
