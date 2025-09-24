@@ -23,7 +23,7 @@ public static class FeatureCardViewModelMapperExtensions
             Teaser = featuredNews.Teaser,
             Date = featuredNews.UpdatedAt,
             StartTime = string.Empty,
-            Image = featuredNews.Image,
+            Image = featuredNews.ThumbnailImage,
             ButtonText = "View more news",
             Slug = string.Concat("/news/", featuredNews.Slug),
             ButtonTargetController = "LandingPage",

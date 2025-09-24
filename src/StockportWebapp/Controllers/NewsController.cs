@@ -17,7 +17,7 @@ public class NewsController(IRepository repository,
     private readonly BusinessId _businessId = businessId;
     private readonly IFilteredUrl _filteredUrl = filteredUrl;
 
-    [Route("/news")]
+    [Route("/newsroom")]
     public async Task<IActionResult> NewsArticles(NewsroomViewModel model, [FromQuery] int page, [FromQuery] int pageSize)
     {
         ClearDateErrorsIfNoDates(model);
