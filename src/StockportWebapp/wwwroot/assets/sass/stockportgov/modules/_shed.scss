@@ -22,4 +22,10 @@
         object-fit: cover;
         border-radius: 3px;
     }
+
+    &__button {
+        &:hover, &:focus {
+            color: black;
+        }
+    }
 }

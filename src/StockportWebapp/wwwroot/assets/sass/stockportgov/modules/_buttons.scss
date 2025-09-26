@@ -200,25 +200,6 @@
         }
     }
 
-     &--light-grey {
-        background-color: $stockport-light-grey;
-        border: 1px solid $stockport-light-grey;
-
-        &:hover, &:focus {
-            color: $stockport-dark-grey;
-            background-color: darken($stockport-light-grey, 5%);
-        }
-
-        &-outline {
-            background: white;
-
-            &:hover, &:focus {
-                background-color: $stockport-light-grey;
-                color: white;
-            }
-        }
-    }
-
     &--green {
         color: $stockport-green;
         border: 1px solid $stockport-green;
@@ -285,6 +266,10 @@
         border-color: $stockport-mid-grey;
     }
 
+    &--border-grey-accent {
+        border-color: $stockport-grey-accent;
+    }
+
     &--chevron-forward {
         position: relative;
         padding-inline-end: 2em;
@@ -307,12 +292,12 @@
         }
     }
 
-    &--arrow-left {
+    &--chevron-back {
         position: relative;
         padding-inline-start: 2em;
 
         &:before {
-            content: "\f060";
+            content: "\f104";
             font: normal normal normal 14px/1 FontAwesome;
             font-size: inherit;
             height:20px;
@@ -366,6 +351,24 @@ html[dir="rtl"] {
                 height:20px;
                 position: absolute;
                 left: 15px;
+                top: 37.5%;
+                width: 20px;
+                display: inline-block;
+            }
+
+            &::after {
+                content: "";
+            }
+        }
+
+        &--chevron-back {
+            &:before {
+                content: "\f105";
+                font: normal normal normal 14px/1 FontAwesome;
+                font-size: inherit;
+                height:20px;
+                position: absolute;
+                right: 15px;
                 top: 37.5%;
                 width: 20px;
                 display: inline-block;

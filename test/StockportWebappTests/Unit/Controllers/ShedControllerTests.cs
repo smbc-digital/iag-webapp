@@ -6,18 +6,20 @@ public class ShedControllerTests
     private readonly Mock<IShedService> _mockShedService = new();
     private readonly Mock<IApplicationConfiguration> _mockConfig = new();
     private readonly Mock<IFilteredUrl> _mockFilteredUrl = new();
+    private readonly Mock<IFeatureManager> _featureManager = new();
 
     public ShedControllerTests() =>
         _controller = new ShedController(_mockShedService.Object,
                                         _mockConfig.Object,
-                                        _mockFilteredUrl.Object);
+                                        _mockFilteredUrl.Object,
+                                        _featureManager.Object);
 
     [Fact]
     public async Task Detail_ReturnsNotFound_WhenShedDoesNotExist()
     {
         // Arrange
         _mockShedService
-            .Setup(service => service.GetShedDataByName(It.IsAny<string>()))
+            .Setup(service => service.GetSHEDDataByHeRef(It.IsAny<string>()))
             .ReturnsAsync(new List<ShedItem>());
 
         // Act
@@ -33,7 +35,7 @@ public class ShedControllerTests
         // Arrange
         var shedItem = new ShedItem { Name = "Existing Shed" };
         _mockShedService
-            .Setup(service => service.GetShedDataByName(It.IsAny<string>()))
+            .Setup(service => service.GetSHEDDataByHeRef(It.IsAny<string>()))
             .ReturnsAsync(new List<ShedItem> { shedItem });
 
         // Act

@@ -10,7 +10,13 @@ public class ShedItem
     [JsonPropertyName("name")]
     public string Name { get; set; }
 
-    public string Slug => Name.ToLowerInvariant()?.Replace(" ", "-");
+    // public string Slug => Name.ToLowerInvariant()?.Replace(" ", "-");
+    
+    public string Slug =>
+        Regex.Replace(
+            Regex.Replace(Name.ToLowerInvariant(), @"\s+", " "),   // squash multiple spaces
+            @"\s*-\s*", "-"                                       // normalize spaces around dashes
+        ).Replace(" ", "-");                                      // replace remaining spaces
 
     [JsonPropertyName("address")]
     public string Location { get; set; }

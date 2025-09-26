@@ -50,11 +50,9 @@ public class ShedController(IShedService shedService,
         if (!await _featureManager.IsEnabledAsync("ShedPage"))
             return NotFound();
 
-        string name = slug.Replace("-", " ").ToLowerInvariant();
+        List<ShedItem> results = await _shedService.GetSHEDDataByHeRef(slug); // I think we can change this to return just one item
 
-        List<ShedItem> results = await _shedService.GetShedDataByName(name); // I think we can change this to return just one item
-
-        ShedItem shed = results.FirstOrDefault(shedItem => string.Equals(shedItem.Name, name, StringComparison.OrdinalIgnoreCase));
+        ShedItem shed = results.FirstOrDefault(shedItem => string.Equals(shedItem.HeRef, slug, StringComparison.OrdinalIgnoreCase));
 
         return shed is null ? NotFound() : View(shed);
     }

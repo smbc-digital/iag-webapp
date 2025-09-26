@@ -2,7 +2,7 @@ namespace StockportWebapp.Client;
 
 public interface IShedApiClient
 {
-    Task<string> GetSHEDDataByName(string name);
+    Task<string> GetSHEDDataByHeRef(string name);
     Task<string> GetSHEDDataByNameWardsAndListingTypes(string name, List<string> ward, List<string> listingTypes);
 }
 
@@ -18,9 +18,9 @@ public class ShedApiClient : IShedApiClient
         _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _config.GetShedApiAuthToken());
     }
 
-    public async Task<string> GetSHEDDataByName(string name)
+    public async Task<string> GetSHEDDataByHeRef(string name)
     {
-        HttpResponseMessage response = await _httpClient.GetAsync($"GetSHEDDataByName?id={Uri.EscapeDataString(name)}");
+        HttpResponseMessage response = await _httpClient.GetAsync($"GetSHEDDataByHeRef?id={Uri.EscapeDataString(name)}");
         response.EnsureSuccessStatusCode();
 
         return await response.Content.ReadAsStringAsync();
