@@ -24,8 +24,18 @@
     }
 
     &__button {
+        float: right;
+
         &:hover, &:focus {
             color: black;
+        }
+    }
+}
+
+html[dir="rtl"] {
+    .shed {
+        &__button {
+            float: left;
         }
     }
 }
