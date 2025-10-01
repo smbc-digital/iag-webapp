@@ -1,0 +1,61 @@
+﻿@model StockportWebapp.ViewModels.ShedViewModel
+
+<section class="navcard-wrapper">
+    <div class="navcard navcard--white navcard--width-100 navcard--border navcard--no-padding-right-rtl">
+        <div class="navcard-content navcard-all navcard--theme-grey-accent-all navcard--radius-all">
+            <div class="navcard-content--padding">
+                <h2 class="h-ml h--no-top-margin">Filter your results</h2>
+                <p>Choose one or more options to filter your results.</p>
+
+                <div class="directory-results__filters">
+                    <a href="javascript:void(0)" aria-expanded="true" class="directory-results__collapsible">
+                        <h3 id='directory-ward'>Grade</h3>
+                        <span class="directory-results__toggle"></span>
+                    </a>
+
+                    <div class="directory-filters__content" role="group" aria-labelledby='directory-ward'>
+                        @foreach (string grade in Model.Grades)
+                        {
+                            string value = grade.Equals("II*") ? "IISTAR" : grade;
+                            string id = grade.Replace(" ", "-").ToLower();
+                            <div class="directory__checkbox-container">
+                                <input class="directory-filters__checkbox" type="checkbox" name="grade" value="@value" id="@id"
+                                    @(Model.AppliedFilters.Any(appliedFilter => appliedFilter.Equals(value)) ? "checked" : string.Empty)>
+
+                                <label for="@id" class="directory-filters__label">@grade</label>
+                            </div>
+                        }
+                    </div>
+
+                    <hr>
+
+                    <a href="javascript:void(0)" aria-expanded="true" class="directory-results__collapsible">
+                        <h3 id='shed-ward'>Ward</h3>
+                        <span class="directory-results__toggle closed"></span>
+                    </a>
+
+                    <div class="directory-filters__content" role="group" aria-labelledby='shed-ward'>
+                        @foreach (string ward in Model.Wards)
+                        {
+                            string id = ward.Replace(" ", "-").ToLower();
+                            <div class="directory__checkbox-container">
+                                <input class="directory-filters__checkbox" type="checkbox" name="ward" value="@ward" id="@id"
+                                    @(Model.AppliedFilters.Any(appliedFilter => appliedFilter.Equals(ward)) ? "checked" : string.Empty)>
+
+                                <label for="@id" class="directory-filters__label">@ward</label>
+                            </div>
+                        }
+                    </div>
+
+                    <hr>
+                    
+                    <noscript>
+                        <button value="Apply filters" data-cy="apply-filters" class="btn btn--bold btn--full btn--margin-bottom" type="submit">Apply filters</button>
+                    </noscript>
+
+                    <a href="@Url.Action("Index", "Shed")" data-cy="clear-filters" class="btn btn--inverse btn--full btn--bold btn--black-text btn--border-grey" id="directory-clear-filters">Clear filters</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,10 @@
+﻿@model ShedViewModel
+
+<ul class="navcard-wrapper">
+    @foreach (ShedEntryViewModel entry in Model.ShedItems)
+    {
+        <partial name="ShedSearchResult" model=@entry.ShedItem />
+    }
+
+    <partial name="Pagination2024" model='Model.Pagination'/>
+</ul>

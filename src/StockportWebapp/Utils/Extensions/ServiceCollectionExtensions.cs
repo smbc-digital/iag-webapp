@@ -1,5 +1,4 @@
-﻿using StockportWebapp.Configuration;
-using ILogger = Serilog.ILogger;
+﻿using ILogger = Serilog.ILogger;
 using Profile = StockportWebapp.Models.Profile;
 
 namespace StockportWebapp.Utils.Extensions;
@@ -151,6 +150,7 @@ public static class ServiceCollectionExtensions
         services.AddTransient<IHomepageService>(p => new HomepageService(p.GetService<IProcessedContentRepository>()));
         services.AddTransient<IStockportApiEventsService>(p => new StockportApiEventsService(p.GetService<IStockportApiRepository>(), p.GetService<IEventFactory>()));
         services.AddTransient<IDirectoryService, DirectoryService>();
+        services.AddTransient<IShedService, ShedService>();
 
         services.AddTransient<IProfileService>(p => new
             ProfileService(
@@ -245,7 +245,7 @@ public static class ServiceCollectionExtensions
 
     private static string GetHostEntryForUrl(string host, ILogger logger)
     {
-        if(string.IsNullOrEmpty(host))
+        if (string.IsNullOrEmpty(host))
             throw new ArgumentNullException("WEBAPP : ServiceCollectionExtensions : GetHostEntryForUrl: host can not be null");
 
         logger.Information($"WEBAPP : ServiceCollectionExtensions : GetHostEntryForUrl: Attempting to resolve {host}");
@@ -254,7 +254,7 @@ public static class ServiceCollectionExtensions
 
         if (!addresses.Any())
             throw new Exception($"WEBAPP : ServiceCollectionExtensions : GetHostEntryForUrl: No redis instance could be found for host {host}");
-            
+
         if (addresses.Length > 1)
             logger.Warning($"WEBAPP : ServiceCollectionExtensions : GetHostEntryForUrl: Multple IP address for redis instance : {host} attempting to use first");
 

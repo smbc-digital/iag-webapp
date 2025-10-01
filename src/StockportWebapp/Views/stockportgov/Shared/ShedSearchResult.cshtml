@@ -1,0 +1,56 @@
+﻿@model ShedItem
+
+<li class="navcard navcard--white navcard--width-100 navcard--border-top-10 navcard--theme-teal-lighter-top navcard--no-padding-right-rtl">
+    <div class="navcard__content">
+        <a href="@Url.Action("Detail", "Shed", new { slug = @Model.HeRef })" data-cy="nav-card-link"
+           class="navcard__link navcard__link--border navcard--radius-bottom-left navcard--radius-bottom-right navcard--border-top-0 navcard-all navcard--theme-grey-accent-all">
+
+            <div class="directory-result">
+                <div class="directory-result__content">
+                    <h3 class="navcard__title navcard__title--large">
+                        @Model.Name.Replace("&", "and")
+                    </h3>
+
+                    @if (!string.IsNullOrEmpty(Model.Location))
+                    {
+                        <p class="navcard__sub-title">@Model.Location</p>
+                    }
+
+                    @if (!string.IsNullOrEmpty(Model.Grade))
+                    {
+                        <p class="navcard__teaser">Grade: <span class="navcard__sub-title">@(Model.Grade.Equals("IISTAR") ? "II*" : Model.Grade)</span></p>
+                    }
+
+                    @if (!string.IsNullOrEmpty(Model.DateListed))
+                    {
+                        <p class="navcard__teaser">Date listed: <span class="navcard__sub-title">@DateTime.Parse(Model.DateListed).ToString("D")</span></p>
+                    }
+
+                    @if (!string.IsNullOrEmpty(Model.WardName))
+                    {
+                        <p class="navcard__teaser">Ward name: <span class="navcard__sub-title">@Model.WardName.Replace("&", "and")</span></p>
+                    }
+                </div>
+                
+                <div class="directory-result__brand">
+                    @if (!string.IsNullOrEmpty(Model.Images.FirstOrDefault()))
+                    {
+                        <img src="https://live-iag-static-assets.s3.eu-west-1.amazonaws.com/heritage/Photos/@Model.Images.FirstOrDefault()?w=340&q=89&fm=webp"
+                            alt=""
+                            width="300"
+                            height="150"
+                            loading="lazy">
+                    }
+                    else
+                    {
+                        <img src="/assets/images/content/stockport_heritage_assets.png?w=350&q=89&fm=webp"
+                            class="directory__logo"
+                            alt=""
+                            width="350"
+                            height="150">
+                    }
+                </div>
+            </div>
+        </a>
+    </div>
+</li>

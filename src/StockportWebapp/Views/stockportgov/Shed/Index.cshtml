@@ -1,0 +1,49 @@
+@model ShedViewModel;
+@{
+    Layout = "../Shared/_Layout2023.cshtml";
+    ViewData["Title"] = Model.PageTitle;
+    ViewData["BreadcrumbTitle"] = Model.PageTitle;
+    ViewData["og:title"] = "Stockport's heritage assets";
+    ViewData["Description"] = "Stockport's heritage assets";
+}
+
+<div class="grid-container-full-width background-grey">
+    <partial name="Breadcrumb2023" model='new List<Crumb> { }' />
+    <partial name="ShedSearch" model="new ShedSearchViewModel() { SearchTerm = Model.SearchTerm }" />
+
+    <form asp-controller="Shed" asp-action="Index" method="get">
+        <input type="hidden" asp-for="@Model.SearchTerm" id="persistedSearchTerm"/>
+
+        <div class="grid-container">
+            <div class="grid-100 directory-sub-title">
+                <h1 data-cy="list-title">@Model.DisplayTitle</h1>
+                <span>Showing <span class="bold">@Model.FilteredEntries.Count()</span> @(@Model.FilteredEntries.Count().Equals(1) ? " result" : " results")
+                    in <span class="bold">Stockport's heritage assets</span> @if (!string.IsNullOrEmpty(Model.SearchTerm)) { @("for ") <span class='bold'>"@Model.SearchTerm"</span> }</span>
+            </div>
+        </div>
+
+        <div class="grid-container">
+            <div class="grid-100">
+                <div class="directory">
+                    <div class="directory--30">
+                        <partial name="ShedSearchResultFilters" />
+                    </div>
+
+                    <div class="directory--70">
+                        <partial name="ShedSearchResults" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script>
+    require(['/assets/javascript/config-eced22f0.min.js'], function () {
+        require(['directoryFilters'],
+            function (directoryFilters) {
+                directoryFilters.Init();
+            }
+        );
+    });
+</script>

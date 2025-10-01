@@ -266,6 +266,10 @@
         border-color: $stockport-mid-grey;
     }
 
+    &--border-grey-accent {
+        border-color: $stockport-grey-accent;
+    }
+
     &--chevron-forward {
         position: relative;
         padding-inline-end: 2em;
@@ -285,6 +289,23 @@
             @media #{$tablet} {
                 top: 33.5%;
             }
+        }
+    }
+
+    &--chevron-back {
+        position: relative;
+        padding-inline-start: 2em;
+
+        &:before {
+            content: "\f104";
+            font: normal normal normal 14px/1 FontAwesome;
+            font-size: inherit;
+            height:20px;
+            position: absolute;
+            left: 15px;
+            top: 37.5%;
+            width: 20px;
+            display: inline-block;
         }
     }
 
@@ -339,11 +360,29 @@ html[dir="rtl"] {
                 content: "";
             }
         }
+
+        &--chevron-back {
+            &:before {
+                content: "\f105";
+                font: normal normal normal 14px/1 FontAwesome;
+                font-size: inherit;
+                height:20px;
+                position: absolute;
+                right: 15px;
+                top: 37.5%;
+                width: 20px;
+                display: inline-block;
+            }
+
+            &::after {
+                content: "";
+            }
+        }
     }
 }
 
 /*
-    The following are legacys tles theat will hopefully be migrated to the above.
+    The following are legacy styles that will hopefully be migrated to the above.
 */
 .reCaptcha {
     display: inline-block

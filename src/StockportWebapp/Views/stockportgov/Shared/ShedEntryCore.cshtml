@@ -1,0 +1,60 @@
+﻿@model ShedItem
+
+@if (!string.IsNullOrEmpty(Model.Images.FirstOrDefault()))
+{
+    <img src="https://live-iag-static-assets.s3.eu-west-1.amazonaws.com/heritage/Photos/@Model.Images.FirstOrDefault()?w=350&q=89&fm=webp"
+        class="directory__logo"
+        alt=""
+        width="350"
+        height="150">
+}
+else
+{
+    <img src="/assets/images/content/stockport_heritage_assets.png?w=350&q=89&fm=webp"
+        class="directory__logo"
+        alt=""
+        width="350"
+        height="150">
+}
+
+<h2 class='@(!string.IsNullOrEmpty(Model.Images.FirstOrDefault()) ? "directory__profile-image" : "directory__profile")'>Details</h2>
+
+<div class="directory__address">
+    @if (!string.IsNullOrEmpty(Model.WardName))
+    {
+        <h3 class="h-m">Ward</h3>
+        <div>@Model.WardName</div>
+    }
+</div>
+
+<div class="directory__address">
+    @if (!string.IsNullOrEmpty(Model.Grade))
+    {
+        <h3 class="h-m">Type</h3>
+        <div>Grade @(Model.Grade.Equals("IISTAR") ? "II*" : Model.Grade)</div>
+    }
+</div>
+
+<div class="directory__address">
+    @if (!string.IsNullOrEmpty(Model.Location))
+    {
+        <h3 class="h-m">Address</h3>
+        <div>@Model.Location</div>
+    }
+</div>
+
+<div class="directory__address">
+    @if (!string.IsNullOrEmpty(Model.HeRef))
+    {
+        <h3 class="h-m">Historic England Reference</h3>
+        <div><a href="https://historicengland.org.uk/listing/the-list/list-entry/@Model.HeRef" target="_blank">@Model.HeRef</a></div>
+    }
+</div>
+
+<div class="directory__address">
+    @if (!string.IsNullOrEmpty(Model.DateListed))
+    {
+        <h3 class="h-m">Date listed</h3>
+        <div>@DateTime.Parse(Model.DateListed).ToString("D")</div>
+    }
+</div>
