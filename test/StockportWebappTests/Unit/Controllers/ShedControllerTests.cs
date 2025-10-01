@@ -8,11 +8,17 @@ public class ShedControllerTests
     private readonly Mock<IFilteredUrl> _mockFilteredUrl = new();
     private readonly Mock<IFeatureManager> _featureManager = new();
 
-    public ShedControllerTests() =>
+    public ShedControllerTests()
+    {
+        _featureManager
+            .Setup(manager => manager.IsEnabledAsync("ShedPage"))
+            .Returns(Task.FromResult(true));
+
         _controller = new ShedController(_mockShedService.Object,
                                         _mockConfig.Object,
                                         _mockFilteredUrl.Object,
                                         _featureManager.Object);
+    }
 
     [Fact]
     public async Task Detail_ReturnsNotFound_WhenShedDoesNotExist()
@@ -20,7 +26,7 @@ public class ShedControllerTests
         // Arrange
         _mockShedService
             .Setup(service => service.GetSHEDDataByHeRef(It.IsAny<string>()))
-            .ReturnsAsync(new List<ShedItem>());
+            .ReturnsAsync((ShedItem)null);
 
         // Act
         IActionResult result = await _controller.Detail("non-existent-shed");
@@ -33,10 +39,10 @@ public class ShedControllerTests
     public async Task Detail_ReturnsViewResult_WithShedItem()
     {
         // Arrange
-        var shedItem = new ShedItem { Name = "Existing Shed" };
+        ShedItem shedItem = new() { Name = "Existing Shed" };
         _mockShedService
             .Setup(service => service.GetSHEDDataByHeRef(It.IsAny<string>()))
-            .ReturnsAsync(new List<ShedItem> { shedItem });
+            .ReturnsAsync(shedItem);
 
         // Act
         IActionResult result = await _controller.Detail("existing-shed");

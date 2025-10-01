@@ -50,18 +50,18 @@ public class ShedController(IShedService shedService,
         if (!await _featureManager.IsEnabledAsync("ShedPage"))
             return NotFound();
 
-        List<ShedItem> results = await _shedService.GetSHEDDataByHeRef(slug); // I think we can change this to return just one item
+        ShedItem shedItem = await _shedService.GetSHEDDataByHeRef(slug);
 
-        ShedItem shed = results.FirstOrDefault(shedItem => string.Equals(shedItem.HeRef, slug, StringComparison.OrdinalIgnoreCase));
-
-        return shed is null ? NotFound() : View(shed);
+        return shedItem is null
+            ? NotFound()
+            : View(shedItem);
     }
     
     private void DoPagination(List<ShedItem> items, int currentPageNumber, ShedViewModel model, int pageSize)
     {
-        if (items != null && items.Any())
+        if (items is not null && items.Any())
         {
-            var entryViewModels = items.Select(item => new ShedEntryViewModel(item)).ToList();
+            List<ShedEntryViewModel> entryViewModels = items.Select(item => new ShedEntryViewModel(item)).ToList();
 
             PaginatedItems<ShedEntryViewModel> paginatedItems = PaginationHelper.GetPaginatedItemsForSpecifiedPage(
                 entryViewModels,

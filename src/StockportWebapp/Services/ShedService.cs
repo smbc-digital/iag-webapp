@@ -1,10 +1,9 @@
-
 namespace StockportWebapp.Services;
 
 public interface IShedService
 {
-    Task<List<ShedItem>> GetSHEDDataByHeRef(string name);
-    Task<List<ShedItem>> GetSHEDDataByNameWardsAndListingTypes(string name, List<string> ward, List<string> listingTypes);
+    Task<ShedItem> GetSHEDDataByHeRef(string heRef);
+    Task<List<ShedItem>> GetSHEDDataByNameWardsAndListingTypes(string heRef, List<string> ward, List<string> listingTypes);
 }
 
 public class ShedService(IShedApiClient shedApiClient, MarkdownWrapper markdownWrapper) : IShedService
@@ -12,18 +11,19 @@ public class ShedService(IShedApiClient shedApiClient, MarkdownWrapper markdownW
     private readonly IShedApiClient _shedApiClient = shedApiClient;
     private readonly MarkdownWrapper _markdownWrapper = markdownWrapper;
 
-    public async Task<List<ShedItem>> GetSHEDDataByHeRef(string name)
+    public async Task<ShedItem> GetSHEDDataByHeRef(string heRef)
     {
-        string json = await _shedApiClient.GetSHEDDataByHeRef(name);
+        string json = await _shedApiClient.GetSHEDDataByHeRef(heRef);
 
-        List<ShedItem> assets = System.Text.Json.JsonSerializer.Deserialize<List<ShedItem>>(json);
+        if (string.IsNullOrEmpty(json))
+            return null;
 
-        ShedItem shedItem = assets.FirstOrDefault();
+        ShedItem shedItem = System.Text.Json.JsonSerializer.Deserialize<ShedItem>(json);
 
         if (shedItem is not null)
             shedItem.Description = _markdownWrapper.ConvertToHtml(shedItem.Description ?? string.Empty);
 
-        return assets ?? new List<ShedItem>();
+        return shedItem ?? null;
     }
 
     public async Task<List<ShedItem>> GetSHEDDataByNameWardsAndListingTypes(string name, List<string> ward, List<string> listingTypes)

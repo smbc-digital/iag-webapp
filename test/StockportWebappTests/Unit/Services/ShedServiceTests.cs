@@ -13,7 +13,7 @@ public class ShedServiceTests
     public async Task GetSHEDDataByHeRef_ShouldReturnShedItems_WhenApiReturnsData()
     {
         // Arrange
-        string jsonResponse = "[{\"name\":\"Test Shed\",\"description\":\"Test Description\"}]";
+        string jsonResponse = "{\"name\":\"Test Shed\",\"description\":\"Test Description\"}";
         _mockShedApiClient
             .Setup(client => client.GetSHEDDataByHeRef(It.IsAny<string>()))
             .ReturnsAsync(jsonResponse);
@@ -23,28 +23,28 @@ public class ShedServiceTests
             .Returns<string>(input => $"<p>{input}</p>\n");
 
         // Act
-        List<ShedItem> result = await _service.GetSHEDDataByHeRef("test-shed");
+        ShedItem result = await _service.GetSHEDDataByHeRef("test-shed");
 
         // Assert
-        Assert.Single(result);
-        Assert.Equal("Test Shed", result[0].Name);
-        Assert.Equal("<p>Test Description</p>\n", result[0].Description);
+        Assert.NotNull(result);
+        Assert.Equal("Test Shed", result.Name);
+        Assert.Equal("<p>Test Description</p>\n", result.Description);
     }
 
     [Fact]
     public async Task GetSHEDDataByHeRef_ShouldReturnEmptyList_WhenApiReturnsNoData()
     {
         // Arrange
-        string jsonResponse = "[]";
+        string jsonResponse = "";
         _mockShedApiClient
             .Setup(client => client.GetSHEDDataByHeRef(It.IsAny<string>()))
             .ReturnsAsync(jsonResponse);
 
         // Act
-        List<ShedItem> result = await _service.GetSHEDDataByHeRef("non-existent-shed");
+            ShedItem result = await _service.GetSHEDDataByHeRef("non-existent-shed");
 
         // Assert
-        Assert.Empty(result);
+        Assert.Null(result);
     }
 
     [Fact]
