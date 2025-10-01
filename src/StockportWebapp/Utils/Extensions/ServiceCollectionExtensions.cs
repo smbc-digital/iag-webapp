@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.Options;
-using StockportWebapp.Configuration;
-using ILogger = Serilog.ILogger;
+﻿using ILogger = Serilog.ILogger;
 using Profile = StockportWebapp.Models.Profile;
 
 namespace StockportWebapp.Utils.Extensions;

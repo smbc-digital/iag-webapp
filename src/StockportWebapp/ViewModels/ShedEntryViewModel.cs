@@ -1,6 +1,4 @@
-﻿using StockportWebapp.Comparers;
-
-namespace StockportWebapp.ViewModels;
+﻿namespace StockportWebapp.ViewModels;
 
 [ExcludeFromCodeCoverage]
 public class ShedEntryViewModel : ISlugComparable
