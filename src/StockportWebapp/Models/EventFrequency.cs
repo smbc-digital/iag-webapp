@@ -1,6 +1,6 @@
 ﻿namespace StockportWebapp.Models;
 
-[JsonConverter(typeof(StringEnumConverter))]
+[System.Text.Json.Serialization.JsonConverter(typeof(StringEnumConverter))]
 public enum EventFrequency
 {
     [EnumMember(Value = "None")]

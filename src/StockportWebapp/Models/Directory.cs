@@ -1,4 +1,4 @@
-using StockportWebapp.Comparers;
+using JsonIgnoreAttribute = System.Text.Json.Serialization.JsonIgnoreAttribute;
 namespace StockportWebapp.Models;
 
 public class Directory
