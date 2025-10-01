@@ -2,8 +2,6 @@
 @inject BusinessId BusinessId
 
 <footer>
-    <partial name="AToZStockportGov" model='""' />
-
     <div class="l-container-footer">
         <div class="grid-container grid-parent">
             <div class="grid-100 grid-parent">
@@ -20,27 +18,6 @@
         </div>
     </div>
 
-    @if (BusinessId.ToString().Equals("stockportgov"))
-    {
-        <div class="grid-parent grid-container footer-logo-links">
-            <a href="https://www.gov.uk/" target="_blank" class="grid-20">
-                <img src="https://s3-eu-west-1.amazonaws.com/live-iag-static-assets/gov-uk-logo.png" alt="GOV UK" />
-            </a>
-
-            <a href="https://www.greatermanchester-ca.gov.uk/" target="_blank" class="grid-20">
-                <img src="https://s3-eu-west-1.amazonaws.com/live-iag-static-assets/GMCA-logo.png" alt="Greater Manchester Combined Authority" />
-            </a>
-
-            <a href="https://www.digitalstockport.info/digital-transformation-award/" target="_blank" class="grid-20">
-                <img src="https://s3-eu-west-1.amazonaws.com/live-iag-static-assets/mj-logo.png" alt="The MJ Achievement Awards 2019" />
-            </a>
-
-            <a href="https://idea.org.uk/" target="_blank" class="grid-20">
-                <img src="https://s3-eu-west-1.amazonaws.com/live-iag-static-assets/Pioneer-logo.png" alt="Pioneer" />
-            </a>
-        </div>
-    }
-    
     <div class="grid-100 footer-bottom">
         <p id="ami-trigger" >
             © @DateTime.Now.Year Stockport Metropolitan Borough Council

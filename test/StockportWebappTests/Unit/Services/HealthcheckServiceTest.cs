@@ -8,7 +8,6 @@ public class HealthcheckServiceTest
     private readonly Mock<IFileWrapper> _fileWrapperMock = new();
     private readonly Mock<IHttpClient> _mockHttpClient = new();
     private readonly Mock<IStubToUrlConverter> _mockUrlGenerator = new();
-    private const string healthcheckUrl = "http://localhost:5000/_healthcheck";
     private readonly Mock<IApplicationConfiguration> _configuration = new();
     private readonly BusinessId _businessId;
 
@@ -17,7 +16,7 @@ public class HealthcheckServiceTest
         _businessId = new BusinessId("businessId");
         _mockUrlGenerator
             .Setup(urlGenerator => urlGenerator.HealthcheckUrl())
-            .Returns(healthcheckUrl);
+            .Returns("http://localhost:5000/_healthcheck");
 
         _configuration
             .Setup(conf => conf.GetContentApiAuthenticationKey())
@@ -36,19 +35,19 @@ public class HealthcheckServiceTest
     private void SetUpFakeFileSystem()
     {
         _fileWrapperMock
-            .Setup(x => x.Exists(_appVersionPath))
+            .Setup(fileWrapperMock => fileWrapperMock.Exists(_appVersionPath))
             .Returns(true);
         
         _fileWrapperMock
-            .Setup(x => x.ReadAllLines(_appVersionPath))
+            .Setup(fileWrapperMock => fileWrapperMock.ReadAllLines(_appVersionPath))
             .Returns(["0.0.3"]);
         
         _fileWrapperMock
-            .Setup(x => x.Exists(_shaPath))
+            .Setup(fileWrapperMock => fileWrapperMock.Exists(_shaPath))
             .Returns(true);
         
         _fileWrapperMock
-            .Setup(x => x.ReadAllLines(_shaPath))
+            .Setup(fileWrapperMock => fileWrapperMock.ReadAllLines(_shaPath))
             .Returns(["d8213ee84c7d8c119c401b7ddd0adef923692188"]);
     }
 
@@ -83,7 +82,7 @@ public class HealthcheckServiceTest
     {
         // Arrange
         _fileWrapperMock
-            .Setup(x => x.Exists("notfound"))
+            .Setup(fileWrapperMock => fileWrapperMock.Exists("notfound"))
             .Returns(false);
 
         HealthcheckService healthCheckServiceWithNotFoundVersion = CreateHealthcheckServiceWithDefaultFeatureToggles("notfound", _shaPath);
@@ -100,12 +99,12 @@ public class HealthcheckServiceTest
     {
         // Arrange
         _fileWrapperMock
-            .Setup(x => x.Exists("newFile"))
+            .Setup(fileWrapperMock => fileWrapperMock.Exists("newFile"))
             .Returns(true);
         
         _fileWrapperMock
-            .Setup(x => x.ReadAllLines("newFile"))
-            .Returns([]);
+            .Setup(fileWrapperMock => fileWrapperMock.ReadAllLines("newFile"))
+            .Returns(Array.Empty<string>());
 
         HealthcheckService healthCheckServiceWithNotFoundVersion = CreateHealthcheckServiceWithDefaultFeatureToggles("newFile", _shaPath);
 
@@ -121,11 +120,11 @@ public class HealthcheckServiceTest
     {
         // Arrange
         _fileWrapperMock
-            .Setup(x => x.Exists("newFile"))
+            .Setup(fileWrapperMock => fileWrapperMock.Exists("newFile"))
             .Returns(true);
         
         _fileWrapperMock
-            .Setup(x => x.ReadAllLines("newFile"))
+            .Setup(fileWrapperMock => fileWrapperMock.ReadAllLines("newFile"))
             .Returns([string.Empty]);
 
         HealthcheckService healthCheckServiceWithNotFoundVersion = CreateHealthcheckServiceWithDefaultFeatureToggles("newFile", _shaPath);
@@ -142,7 +141,7 @@ public class HealthcheckServiceTest
     {
         // Arrange
         _fileWrapperMock
-            .Setup(x => x.Exists("notfound"))
+            .Setup(fileWrapperMock => fileWrapperMock.Exists("notfound"))
             .Returns(false);
 
         HealthcheckService healthCheckServiceWithNotFoundVersion = CreateHealthcheckServiceWithDefaultFeatureToggles(_appVersionPath, "notfound");

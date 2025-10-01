@@ -22,9 +22,9 @@ public class ButtonTagParser : ISimpleTagParser
         return $"<a class=\"{buttonClassStyle}\" href=\"{link}\">{title}</a>";
     }
 
-    public ButtonTagParser()
-        => _tagReplacer = new TagReplacer(GenerateHtml, TagRegex);
+    public ButtonTagParser() =>
+        _tagReplacer = new TagReplacer(GenerateHtml, TagRegex);
 
-    public string Parse(string body, string title = null) 
-        => _tagReplacer.ReplaceAllTags(body);
+    public string Parse(string body, string title = null) =>
+        _tagReplacer.ReplaceAllTags(body);
 }

@@ -4,12 +4,12 @@ public class ShortUrlRedirectsMiddlewareTests
 {
     private readonly Mock<ILogger<ShortUrlRedirectsMiddleware>> _logger = new();
     private readonly ShortUrlRedirectsMiddleware _middleware;
-    private readonly BusinessId _businessId = new BusinessId("unittest");
+    private readonly BusinessId _businessId = new("unittest");
     private readonly Mock<IRepository> _mockRepository = new();
+    private readonly Mock<RequestDelegate> _next = new();
 
     public ShortUrlRedirectsMiddlewareTests()
     {
-        Mock<RequestDelegate> next = new();
         BusinessIdRedirectDictionary shortItems = new() { { "unittest", new RedirectDictionary { { "/short-test", "short-redirect-url" } } } };
         BusinessIdRedirectDictionary legacyItems = new() { { "unittest", new RedirectDictionary { { "/legacy-test", "legacy-redirect-url" } } } };
         ShortUrlRedirects shortUrlRedirect = new(shortItems);
@@ -17,7 +17,7 @@ public class ShortUrlRedirectsMiddlewareTests
         LegacyUrlRedirects legacyUrlRedirects = new(legacyItems);
         legacyUrlRedirects.LastUpdated = DateTime.Now.Subtract(new TimeSpan(0, 5, 0));
 
-        _middleware = new(next.Object, shortUrlRedirect, legacyUrlRedirects, _logger.Object, _mockRepository.Object);
+        _middleware = new(_next.Object, shortUrlRedirect, legacyUrlRedirects, _logger.Object, _mockRepository.Object);
     }
 
     [Fact]
@@ -38,14 +38,13 @@ public class ShortUrlRedirectsMiddlewareTests
     public async Task Invoke_ShouldCallRepository_IfCachedRedirectsHaveExpired()
     {
         // Arrange
-        Mock<RequestDelegate> next = new();
         BusinessIdRedirectDictionary shortItems = new() { { "unittest", new RedirectDictionary { { "/short-test", "short-redirect-url" } } } };
         BusinessIdRedirectDictionary legacyItems = new() { { "unittest", new RedirectDictionary { { "/legacy-test", "legacy-redirect-url" } } } };
         ShortUrlRedirects shortUrlRedirect = new(shortItems);
         shortUrlRedirect.LastUpdated = DateTime.Now.Subtract(new TimeSpan(0, 50, 0));
         LegacyUrlRedirects legacyUrlRedirects = new(legacyItems);
         legacyUrlRedirects.LastUpdated = DateTime.Now.Subtract(new TimeSpan(0, 50, 0));
-        ShortUrlRedirectsMiddleware middleware = new(next.Object, shortUrlRedirect, legacyUrlRedirects, _logger.Object, _mockRepository.Object);
+        ShortUrlRedirectsMiddleware middleware = new(_next.Object, shortUrlRedirect, legacyUrlRedirects, _logger.Object, _mockRepository.Object);
 
         _mockRepository
             .Setup(repo => repo.GetRedirects())
@@ -126,8 +125,6 @@ public class ShortUrlRedirectsMiddlewareTests
     public async Task ItShouldReturn200ForBusinessIdNotInRedirects()
     {
         // Arrange
-        Mock<ILogger<ShortUrlRedirectsMiddleware>> logger = new();
-        Mock<RequestDelegate> next = new();
         BusinessIdRedirectDictionary shortItems = new() { { "unittest", new RedirectDictionary { { "/short-test", "short-redirect-url" } } } };
         BusinessIdRedirectDictionary legacyItems = new() { { "unittest", new RedirectDictionary { { "/legacy-test", "legacy-redirect-url" } } } };
         ShortUrlRedirects shortUrlRedirect = new(shortItems);
@@ -135,7 +132,7 @@ public class ShortUrlRedirectsMiddlewareTests
         LegacyUrlRedirects legacyUrlRedirects = new(legacyItems);
         legacyUrlRedirects.LastUpdated = DateTime.Now.Subtract(new TimeSpan(0, 3, 0));
         BusinessId businessId = new("not-in-redirects");
-        ShortUrlRedirectsMiddleware middleware = new(next.Object, shortUrlRedirect, legacyUrlRedirects, _logger.Object, _mockRepository.Object); ;
+        ShortUrlRedirectsMiddleware middleware = new(_next.Object, shortUrlRedirect, legacyUrlRedirects, _logger.Object, _mockRepository.Object); ;
         DefaultHttpContext httpContext = new();
         httpContext.Request.Path = "/short-test";
 

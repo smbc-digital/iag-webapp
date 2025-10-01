@@ -24,7 +24,6 @@ public class NewsroomViewModelTest
     {
         // Act
         NewsroomViewModel newsroomViewModel = new(BuildNewsRoom(emailAlertsTopicId: string.Empty), EmailAlertsUrl);
-        Newsroom newsroom = BuildNewsRoom(categories: new List<string> { "Zebras", "Asses", "Oxen" });
 
         // Assert
         Assert.Equal(EmailAlertsUrl, newsroomViewModel.EmailAlertsUrl);
@@ -35,7 +34,6 @@ public class NewsroomViewModelTest
     {
         // Act
         Newsroom newsroom = BuildNewsRoom(categories: new List<string> { "Zebras", "Asses", "Oxen" });
-
         NewsroomViewModel newsroomViewModel = new(newsroom, EmailAlertsUrl);
 
         // Assert

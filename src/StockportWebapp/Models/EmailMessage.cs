@@ -20,14 +20,4 @@ public class EmailMessage
         Attachments = attachments;
         FromEmail = fromEmail;
     }
-
-    public EmailMessage(string subject, string body, string fromEmail, string toEmail, List<IFormFile> attachments)
-    {
-        Subject = subject;
-        Body = body;
-        FromEmail = fromEmail;
-        ToEmail = toEmail;
-        Attachments = attachments;
-        FromEmail = fromEmail;
-    }
 }

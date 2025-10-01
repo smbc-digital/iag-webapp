@@ -6,22 +6,19 @@ public class EmailConfigurationBuilderTest
     public void ShouldBuildEmailConfiguration()
     {
         // Arrange
-        const string businessId = "businessId";
         AmazonSESKeys amazonSESKeys = new("accessKey", "secretKey");
         Mock<IApplicationConfiguration> appsettings = new();
 
-        appsettings.Setup(setting => setting.GetEmailHost(businessId)).Returns(AppSetting.GetAppSetting("host"));
-        appsettings.Setup(setting => setting.GetEmailRegion(businessId)).Returns(AppSetting.GetAppSetting("region"));
-        appsettings.Setup(setting => setting.GetEmailEmailFrom(businessId)).Returns(AppSetting.GetAppSetting("emailFrom"));
+        appsettings.Setup(setting => setting.GetEmailHost("businessId")).Returns(AppSetting.GetAppSetting("host"));
+        appsettings.Setup(setting => setting.GetEmailRegion("businessId")).Returns(AppSetting.GetAppSetting("region"));
+        appsettings.Setup(setting => setting.GetEmailEmailFrom("businessId")).Returns(AppSetting.GetAppSetting("emailFrom"));
 
         EmailConfigurationBuilder emailConfigurationBuilder = new(amazonSESKeys, appsettings.Object);
 
         // Act
-        AmazonSesClientConfiguration emailConfig = emailConfigurationBuilder.Build(businessId);
+        AmazonSesClientConfiguration emailConfig = emailConfigurationBuilder.Build("businessId");
 
         // Assert
-        emailConfig.EmailFrom.Should().Be(AppSetting.GetAppSetting("emailFrom").ToString());
-
         Assert.Equal(AppSetting.GetAppSetting("host").ToString(), emailConfig.Host);
         Assert.Equal(AppSetting.GetAppSetting("region").ToString(), emailConfig.Region);
         Assert.Equal("accessKey", emailConfig.AwsAccessKeyId);

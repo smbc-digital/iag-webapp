@@ -1,7 +1,7 @@
 ﻿using SharpKml.Base;
 using SharpKml.Dom;
 using SharpKml.Engine;
-using Filter = StockportWebapp.Model.Filter;
+using Filter = StockportWebapp.Models.Filter;
 
 namespace StockportWebapp.Extensions;
 public static class DirectoryExtensions
@@ -24,7 +24,7 @@ public static class DirectoryExtensions
             Id = "Default",
             Icon = new IconStyle
             {
-                Color = new Color32(0, 0,128, 128),
+                Color = new Color32(0, 0, 128, 128),
                 ColorMode = ColorMode.Normal,                
                 Scale = 1.3,
             }
@@ -78,7 +78,7 @@ public static class DirectoryExtensions
     /// <returns></returns>
     public static Dictionary<string, List<string>> GetFilterThemesFromFilters(this IEnumerable<Filter> filters)
     {
-        Dictionary<string, List<string>> appliedThemes = new Dictionary<string, List<string>>();
+        Dictionary<string, List<string>> appliedThemes = new();
 
         foreach (Filter filter in filters)
         {

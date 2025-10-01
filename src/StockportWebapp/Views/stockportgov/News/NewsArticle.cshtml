@@ -6,11 +6,12 @@
     List<News> latestNews = Model.GetLatestNews();
     ViewData["og:title"] = Model.NewsItem.Title;
     string dataCy = string.IsNullOrEmpty(Model.NewsItem.Image) ? "news-article-details" : "news-article-hero";
+    bool displayLastUpdated = !Model.NewsItem.UpdatedAt.Date.Equals(Model.NewsItem.SunriseDate.Date) && Model.NewsItem.UpdatedAt.Date > Model.NewsItem.SunriseDate.Date;
 }
 
 <div class="grid-container-full-width" data-cy="@dataCy">
     <partial name="GlobalAlerts" model='Model.NewsItem.Alerts' />
-    <partial name="Breadcrumb2023" model='new List<Crumb> { new Crumb("News and media", "landing/news-media", "LandingPage"), new Crumb("News", "news", "News") }' />
+    <partial name="Breadcrumb2023" model='new List<Crumb> { new Crumb("News and media", "landing/news-media", "LandingPage"), new Crumb("News", "newsroom", "News") }' />
 
     <div class="grid-container">
         <div class="grid-100">
@@ -44,7 +45,7 @@
                         </div>
                     }
 
-                    <p class="news-article__published @(Model.NewsItem.UpdatedAt.Date.Equals(Model.NewsItem.SunriseDate.Date) ? " news-article__published--margin" : string.Empty)">
+                    <p class="news-article__published @(!displayLastUpdated ? " news-article__published--margin" : string.Empty)">
                         Published:
                         @if (string.IsNullOrEmpty(Model.NewsItem.PublishingDate) || Model.NewsItem.PublishingDate.Equals(DateTime.MinValue.ToString("yyyy-MM-dd")))
                         {
@@ -59,7 +60,7 @@
                         }
                     </p>
 
-                    @if (!Model.NewsItem.UpdatedAt.Date.Equals(Model.NewsItem.SunriseDate.Date))
+                    @if (displayLastUpdated)
                     {
                         <p class="news-article__last-updated">
                             Last updated:

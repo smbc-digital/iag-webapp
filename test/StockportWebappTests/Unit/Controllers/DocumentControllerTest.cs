@@ -7,17 +7,14 @@ public class DocumentControllerTests
     private readonly DocumentController _controller;
 
     public DocumentControllerTests() =>
-        _controller = new DocumentController(
-            _mockRepository.Object,
-            _mockContactUsMessageParser.Object
-        );
+        _controller = new DocumentController(_mockRepository.Object, _mockContactUsMessageParser.Object);
 
     [Fact]
     public async Task Index_ReturnsUnsuccessfulResponse_WhenDocumentPageHttpResponseIsUnsuccessful()
     {
         // Arrange
         _mockRepository
-            .Setup(_ => _.Get(It.IsAny<string>()))
+            .Setup(mockRepository => mockRepository.Get(It.IsAny<string>()))
             .ReturnsAsync(new HttpResponse(500, "error", string.Empty));
 
         // Act
@@ -39,7 +36,7 @@ public class DocumentControllerTests
         };
 
         _mockRepository
-            .Setup(_ => _.Get(It.IsAny<string>()))
+            .Setup(mockRepository => mockRepository.Get(It.IsAny<string>()))
             .ReturnsAsync(new HttpResponse(200, documentPage, string.Empty));
 
         // Act

@@ -29,12 +29,16 @@ public class ServicePayPaymentFactoryTests
         _factory = new ServicePayPaymentFactory(_mockTagParser.Object, _mockMarkdownWrapper.Object);
 
         _mockTagParser
-            .Setup(_ => _.ParseAll(_payment.Description, It.IsAny<string>(), It.IsAny<bool>(), null, null, null, null, null, null, It.IsAny<bool>()))
+            .Setup(mockTagParser => mockTagParser.ParseAll(_payment.Description, It.IsAny<string>(), It.IsAny<bool>(), null, null, null, null, null, null, It.IsAny<bool>()))
             .Returns(_payment.Description);
 
         _mockMarkdownWrapper
-            .Setup(_ => _.ConvertToHtml(_payment.Description))
+            .Setup(mockMarkdownWrapper => mockMarkdownWrapper.ConvertToHtml(_payment.Description))
             .Returns(_payment.Description);
+
+        _mockMarkdownWrapper
+            .Setup(mockMarkdownWrapper => mockMarkdownWrapper.ConvertToHtml(_payment.PaymentDetailsText))
+            .Returns(_payment.PaymentDetailsText);
     }
 
     [Fact]

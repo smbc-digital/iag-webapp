@@ -27,12 +27,7 @@ public class SitemapControllerTests
         }
     });
 
-    private readonly List<ArticleSiteMap> _articlesSiteMap = new();
     private readonly List<SectionSiteMap> _sections = new() { new SectionSiteMap("slug", DateTime.Now, DateTime.Now)};
-    private readonly List<TopicSitemap> _topics = new();
-    private readonly List<Profile> _profiles = new();
-    private readonly List<Payment> _payments = new();
-    private readonly List<StartPage> _startPages = new();
 
     public SitemapControllerTests()
     {
@@ -45,7 +40,7 @@ public class SitemapControllerTests
             .Returns(headerDictionary);
 
         context
-            .Setup(c => c.Request)
+            .Setup(ctext => ctext.Request)
             .Returns(request.Object);
 
         _mockRepository
@@ -58,7 +53,7 @@ public class SitemapControllerTests
 
         _mockRepository
             .Setup(repository => repository.Get<List<ArticleSiteMap>>(string.Empty, It.IsAny<List<Query>>()))
-            .ReturnsAsync(new HttpResponse(200, _articlesSiteMap, string.Empty));
+            .ReturnsAsync(new HttpResponse(200, new List<ArticleSiteMap>(), string.Empty));
 
         _mockRepository
             .Setup(repository => repository.Get<List<SectionSiteMap>>(string.Empty, It.IsAny<List<Query>>()))
@@ -66,19 +61,19 @@ public class SitemapControllerTests
 
         _mockRepository
             .Setup(repository => repository.Get<List<TopicSitemap>>(string.Empty, It.IsAny<List<Query>>()))
-            .ReturnsAsync(new HttpResponse(200, _topics, string.Empty));
+            .ReturnsAsync(new HttpResponse(200, new List<TopicSitemap>(), string.Empty));
 
         _mockRepository
             .Setup(repository => repository.Get<List<Profile>>(string.Empty, It.IsAny<List<Query>>()))
-            .ReturnsAsync(new HttpResponse(200, _profiles, string.Empty));
+            .ReturnsAsync(new HttpResponse(200, new List<Profile>(), string.Empty));
 
         _mockRepository
             .Setup(repository => repository.Get<List<Payment>>(string.Empty, It.IsAny<List<Query>>()))
-            .ReturnsAsync(new HttpResponse(200, _payments, string.Empty));
+            .ReturnsAsync(new HttpResponse(200, new List<Payment>(), string.Empty));
 
         _mockRepository
             .Setup(repository => repository.Get<List<StartPage>>(string.Empty, It.IsAny<List<Query>>()))
-            .ReturnsAsync(new HttpResponse(200, _startPages, string.Empty));
+            .ReturnsAsync(new HttpResponse(200, new List<StartPage>(), string.Empty));
 
         _controller = new(_mockRepository.Object, _mockLogger.Object);
         _controller.ControllerContext = new(new ActionContext(context.Object, new RouteData(), new ControllerActionDescriptor()));

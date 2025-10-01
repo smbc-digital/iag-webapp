@@ -6,33 +6,25 @@ public class PaymentFactoryTest
     private readonly Mock<ITagParserContainer> _tagParserContainer = new();
     private readonly Payment _payment;
     private readonly PaymentFactory _factory;
-    private readonly string Title = "Pay your council Tax";
-    private readonly string Slug = "council-tax";
-    private readonly string Description = "Description";
-    private readonly string PaymentDetailsText = "Payment Details Text";
-    private readonly string GlCodeCostCentreNumber = "1234";
-    private readonly string Fund = "Fund";
-    private readonly string ReferenceLabel = "Reference label";
-    private readonly string MetaDescription = "Meta description";
 
     public PaymentFactoryTest()
     {
         _factory = new PaymentFactory(_tagParserContainer.Object, _markdownWrapper.Object);
         _payment = new Payment()
         {
-            Title = Title,
-            Slug = Slug,
-            Description = Description,
-            PaymentDetailsText = PaymentDetailsText,
-            Fund = Fund,
-            ReferenceLabel = ReferenceLabel,
-            GlCodeCostCentreNumber = GlCodeCostCentreNumber,
+            Title = "Pay your council Tax",
+            Slug = "council-tax",
+            Description = "Description",
+            PaymentDetailsText = "Payment Details Text",
+            Fund = "Fund",
+            ReferenceLabel = "Reference label",
+            GlCodeCostCentreNumber = "1234",
             BreadCrumbs = new List<Crumb>(),
-            MetaDescription = MetaDescription
+            MetaDescription = "Meta description"
         };
 
         _tagParserContainer
-            .Setup(parser => parser.ParseAll(Description,
+            .Setup(parser => parser.ParseAll("Description",
                                             It.IsAny<string>(),
                                             It.IsAny<bool>(),
                                             null,
@@ -42,11 +34,11 @@ public class PaymentFactoryTest
                                             null,
                                             null,
                                             It.IsAny<bool>()))
-            .Returns(Description);
+            .Returns("Description");
 
         _markdownWrapper
-            .Setup(wrapper => wrapper.ConvertToHtml(Description))
-            .Returns(Description);
+            .Setup(wrapper => wrapper.ConvertToHtml("Description"))
+            .Returns("Description");
     }
 
     [Fact]
@@ -69,7 +61,7 @@ public class PaymentFactoryTest
         _factory.Build(_payment);
         
         // Assert
-        _markdownWrapper.Verify(wrapper => wrapper.ConvertToHtml(Description), Times.Once);
+        _markdownWrapper.Verify(wrapper => wrapper.ConvertToHtml("Description"), Times.Once);
     }
 
     [Fact]
@@ -79,7 +71,7 @@ public class PaymentFactoryTest
         _factory.Build(_payment);
 
         // Assert
-        _tagParserContainer.Verify(parser => parser.ParseAll(Description,
+        _tagParserContainer.Verify(parser => parser.ParseAll("Description",
                                                             _payment.Title,
                                                             It.IsAny<bool>(),
                                                             null,

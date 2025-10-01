@@ -20,7 +20,7 @@
             width: 100%;
 
             @media #{$desktop} {
-                margin-left: 7em;
+                margin-inline-start: 7em;
             }
 
             @media #{$tablet} {
@@ -116,6 +116,10 @@ html[dir="rtl"] {
     .event-cards {
         @media #{$mobile} {
             padding: 0;
+        }
+
+        &-view-more {
+            text-align: left;
         }
     }
 }

@@ -65,7 +65,7 @@ public class ArticleControllerTest
                                     new JObject());
 
         _processedRepository
-            .Setup(_ => _.Get<Article>(It.IsAny<string>(), It.IsAny<List<Query>>()))
+            .Setup(processedRepository => processedRepository.Get<Article>(It.IsAny<string>(), It.IsAny<List<Query>>()))
             .ReturnsAsync(HttpResponse.Successful(200, article));
     }
 
@@ -101,7 +101,7 @@ public class ArticleControllerTest
                                     new JObject());
 
         _processedRepository
-            .Setup(_ => _.Get<Article>(It.IsAny<string>(), It.IsAny<List<Query>>()))
+            .Setup(processedRepository => processedRepository.Get<Article>(It.IsAny<string>(), It.IsAny<List<Query>>()))
             .ReturnsAsync(HttpResponse.Successful(200, article));
 
         // Act
@@ -210,7 +210,7 @@ public class ArticleControllerTest
                                     new JObject());
 
         _processedRepository
-            .Setup(_ => _.Get<Article>(It.IsAny<string>(), It.IsAny<List<Query>>()))
+            .Setup(processedRepository => processedRepository.Get<Article>(It.IsAny<string>(), It.IsAny<List<Query>>()))
             .ReturnsAsync(HttpResponse.Successful(200, article));
 
         // Act
@@ -238,6 +238,7 @@ public class ArticleControllerTest
                 false,
                 string.Empty)
         };
+
         ProcessedArticle article = new(string.Empty,
                                     string.Empty,
                                     string.Empty,
@@ -266,7 +267,7 @@ public class ArticleControllerTest
                                     new JObject());
 
         _processedRepository
-            .Setup(_ => _.Get<Article>(It.IsAny<string>(), It.IsAny<List<Query>>()))
+            .Setup(processedRepository => processedRepository.Get<Article>(It.IsAny<string>(), It.IsAny<List<Query>>()))
             .ReturnsAsync(HttpResponse.Successful(200, article));
 
         // Act
@@ -324,7 +325,7 @@ public class ArticleControllerTest
                                     new JObject());
 
         _processedRepository
-            .Setup(_ => _.Get<Article>(It.IsAny<string>(), It.IsAny<List<Query>>()))
+            .Setup(processedRepository => processedRepository.Get<Article>(It.IsAny<string>(), It.IsAny<List<Query>>()))
             .ReturnsAsync(HttpResponse.Successful(200, article));
 
         // Act
@@ -343,7 +344,7 @@ public class ArticleControllerTest
     {
         // Arrange
         _processedRepository
-            .Setup(_ => _.Get<Article>(It.IsAny<string>(), It.IsAny<List<Query>>()))
+            .Setup(processedRepository => processedRepository.Get<Article>(It.IsAny<string>(), It.IsAny<List<Query>>()))
             .ReturnsAsync(HttpResponse.Successful(200, DummyProcessedArticle()));
 
         // Act
@@ -360,14 +361,14 @@ public class ArticleControllerTest
         // Arrange
         ProcessedArticle processedArticle = DummyProcessedArticle();
         _processedRepository
-            .Setup(_ => _.Get<Article>(It.IsAny<string>(), It.IsAny<List<Query>>()))
+            .Setup(processedRepository => processedRepository.Get<Article>(It.IsAny<string>(), It.IsAny<List<Query>>()))
             .ReturnsAsync(HttpResponse.Successful(200, processedArticle));
 
         // Act
         await _controller.Article("healthy-living", DefaultMessage);
         
         // Assert
-        _contactUsMessageParser.Verify(_ => _.Parse(processedArticle, DefaultMessage, string.Empty), Times.Once);
+        _contactUsMessageParser.Verify(contactUsMessageParser => contactUsMessageParser.Parse(processedArticle, DefaultMessage, string.Empty), Times.Once);
     }
 
     [Fact]
@@ -426,7 +427,7 @@ public class ArticleControllerTest
                                     new JObject());
 
         _processedRepository
-            .Setup(_ => _.Get<Article>(It.IsAny<string>(), It.IsAny<List<Query>>()))
+            .Setup(processedRepository => processedRepository.Get<Article>(It.IsAny<string>(), It.IsAny<List<Query>>()))
             .ReturnsAsync(HttpResponse.Successful(200, article));
 
         // Act
@@ -445,7 +446,7 @@ public class ArticleControllerTest
     {
         // Arrange
         _processedRepository
-            .Setup(_ => _.Get<Article>(It.IsAny<string>(), It.IsAny<List<Query>>()))
+            .Setup(processedRepository => processedRepository.Get<Article>(It.IsAny<string>(), It.IsAny<List<Query>>()))
             .ReturnsAsync(new HttpResponse(404, "error", string.Empty));
 
         // Act
@@ -499,7 +500,7 @@ public class ArticleControllerTest
                                     new JObject());
 
         _processedRepository
-            .Setup(_ => _.Get<Article>(It.IsAny<string>(), It.IsAny<List<Query>>()))
+            .Setup(processedRepository => processedRepository.Get<Article>(It.IsAny<string>(), It.IsAny<List<Query>>()))
             .ReturnsAsync(HttpResponse.Successful(200, article));
 
         // Act
@@ -567,7 +568,7 @@ public class ArticleControllerTest
                                     new JObject());
 
         _processedRepository
-            .Setup(_ => _.Get<Article>(It.IsAny<string>(), It.IsAny<List<Query>>()))
+            .Setup(processedRepository => processedRepository.Get<Article>(It.IsAny<string>(), It.IsAny<List<Query>>()))
             .ReturnsAsync(HttpResponse.Successful(200, article));
 
         // Act
@@ -584,7 +585,7 @@ public class ArticleControllerTest
     {
         // Arrange
         _processedRepository
-            .Setup(_ => _.Get<Article>(It.IsAny<string>(), It.IsAny<List<Query>>()))
+            .Setup(processedRepository => processedRepository.Get<Article>(It.IsAny<string>(), It.IsAny<List<Query>>()))
             .ReturnsAsync(new HttpResponse(404, "error", string.Empty));
 
         // Act
@@ -600,14 +601,14 @@ public class ArticleControllerTest
         // Arrange
         ProcessedArticle processedArticle = DummyProcessedArticle();
         _processedRepository
-            .Setup(_ => _.Get<Article>(It.IsAny<string>(), It.IsAny<List<Query>>()))
+            .Setup(processedRepository => processedRepository.Get<Article>(It.IsAny<string>(), It.IsAny<List<Query>>()))
             .ReturnsAsync(new HttpResponse(200, processedArticle, string.Empty));
         
         // Act
         await _controller.ArticleWithSection("healthy-living", "test-section", DefaultMessage);
 
         // Assert
-        _contactUsMessageParser.Verify(_ => _.Parse(processedArticle, DefaultMessage, "test-section"), Times.Once);
+        _contactUsMessageParser.Verify(contactUsMessageParser => contactUsMessageParser.Parse(processedArticle, DefaultMessage, "test-section"), Times.Once);
     }
 
     private static ProcessedArticle DummyProcessedArticle() => 

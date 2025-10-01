@@ -1,18 +1,9 @@
 namespace StockportWebapp.ViewModels;
 
 [ExcludeFromCodeCoverage]
-public class MapViewModel
+public class MapViewModel(string tagData)
 {
     [Required]
-    public string TagData { get; set; }
+    public string TagData { get; set; } = tagData;
     public string Title { get; set; } = string.Empty;
-
-    public MapViewModel(string title, string tagData)
-    {
-        Title = title;
-        TagData = tagData;
-    }
-
-    public MapViewModel(string tagData) =>
-        TagData = tagData;
 }

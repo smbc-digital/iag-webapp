@@ -45,9 +45,9 @@ public class DocumentPageFactoryTest
         _documentFactory.Build(_documentPage);
 
         // Assert
-        _markdownWrapper.Verify(_ => _.ConvertToHtml(AboutTheDocument), Times.Once);
-        _markdownWrapper.Verify(_ => _.ConvertToHtml(AwsDocuments), Times.Once);
-        _markdownWrapper.Verify(_ => _.ConvertToHtml(RequestAnAccessibleFormatContactInformation), Times.Once);
-        _markdownWrapper.Verify(_ => _.ConvertToHtml(FurtherInformation), Times.Once);
+        _markdownWrapper.Verify(markdownWrapper => markdownWrapper.ConvertToHtml(AboutTheDocument), Times.Once);
+        _markdownWrapper.Verify(markdownWrapper => markdownWrapper.ConvertToHtml(AwsDocuments), Times.Once);
+        _markdownWrapper.Verify(markdownWrapper => markdownWrapper.ConvertToHtml(RequestAnAccessibleFormatContactInformation), Times.Once);
+        _markdownWrapper.Verify(markdownWrapper => markdownWrapper.ConvertToHtml(FurtherInformation), Times.Once);
     }
 }

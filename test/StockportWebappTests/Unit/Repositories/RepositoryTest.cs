@@ -6,7 +6,6 @@ public class RepositoryTest
     private readonly Mock<IHttpClient> _httpClientMock = new();
     private readonly UrlGenerator _urlGenerator;
     private readonly Mock<IUrlGeneratorSimple> _urlGeneratorSimple = new();
-    private readonly Mock<ILogger<Repository>> _mockLogger = new();
 
     private readonly PrivacyNotice _privacyNoticeModel = new()
     {

@@ -43,15 +43,15 @@ public class HomeController(BusinessId businessId,
         Task.WaitAll(tasks.ToArray());
 
         return View(new HomepageViewModel
-            {
-                HomepageContent = homepage,
-                FeaturedEvent = getEventsTask.Result,
-                FeaturedNews = getNewsTask.Result,
-                FeaturedEvents = getFeaturedEvents.Result,
-                EventsFromApi = eventsByCategoryTask is not null
-                    ? eventsByCategoryTask.Result?.Take(3).ToList()
-                    : new List<Event>()
-            });
+        {
+            HomepageContent = homepage,
+            FeaturedEvent = getEventsTask.Result,
+            FeaturedNews = getNewsTask.Result,
+            FeaturedEvents = getFeaturedEvents.Result,
+            EventsFromApi = eventsByCategoryTask is not null
+                ? eventsByCategoryTask.Result?.Take(3).ToList()
+                : new List<Event>()
+        });
     }
 
     [Route("/subscribe")]

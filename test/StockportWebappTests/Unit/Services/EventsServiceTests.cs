@@ -34,7 +34,7 @@ public class EventsServiceTests
     public async Task GetLatestEventsItem_ShouldReturnNull_WhenNoEventsExist()
     {
         // Arrange
-        EventResponse eventCalendar = new(new List<Event>(), new List<Event>());
+        EventResponse eventCalendar = new(new List<Event>());
 
         _mockEventsRepository.Setup(repo => repo.GetLatest<EventCalendar>(1))
             .ReturnsAsync(new HttpResponse(200, eventCalendar, null));

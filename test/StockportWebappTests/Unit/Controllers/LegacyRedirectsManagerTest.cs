@@ -3,9 +3,9 @@
 public class LegacyRedirectsManagerTest
 {
     private readonly LegacyRedirectsMapper _mapper;
-    private LegacyUrlRedirects _legacyUrlRedirects;
-    private ShortUrlRedirects _shortUrlRedirects = new(new BusinessIdRedirectDictionary());
-    private Mock<IRepository> _mockRepository = new();
+    private readonly LegacyUrlRedirects _legacyUrlRedirects;
+    private readonly ShortUrlRedirects _shortUrlRedirects = new(new BusinessIdRedirectDictionary());
+    private readonly Mock<IRepository> _mockRepository = new();
     private const string BusinessId = "businessId";
 
     public LegacyRedirectsManagerTest()
@@ -46,7 +46,7 @@ public class LegacyRedirectsManagerTest
     {
         // Arrange
         _mockRepository
-            .Setup(_ => _.GetRedirects())
+            .Setup(mockRepository => mockRepository.GetRedirects())
             .ReturnsAsync(new HttpResponse(200, new Redirects(new BusinessIdRedirectDictionary(), new BusinessIdRedirectDictionary()), string.Empty));
         
         _legacyUrlRedirects.LastUpdated = DateTime.Now.Subtract(new TimeSpan(0, 45, 0));

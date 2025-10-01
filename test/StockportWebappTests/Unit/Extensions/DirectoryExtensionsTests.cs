@@ -1,5 +1,5 @@
 using StockportWebapp.Extensions;
-using Filter = StockportWebapp.Model.Filter;
+using Filter = StockportWebapp.Models.Filter;
 
 namespace StockportWebappTests_Unit.Unit.Extensions;
 

@@ -1,4 +1,5 @@
 ﻿namespace StockportWebapp.Models;
+
 [ExcludeFromCodeCoverage]
 public class StartPage(string slug,
                     string title,

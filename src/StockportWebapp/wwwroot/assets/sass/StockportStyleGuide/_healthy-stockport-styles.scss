@@ -1,5 +1,5 @@
 ﻿.webcast {
-    color: $white;
+    color: #ffffff;
     background-image:url("/assets/images/content/runners.jpg");
     background-repeat: no-repeat;
     background-position: center;
@@ -25,7 +25,7 @@
     }
 
     .webcast-text {
-        border-left:solid $white 5px;
+        border-left:solid #ffffff 5px;
         line-height:0.6;
         padding: 10px;
         position: absolute;
@@ -34,7 +34,7 @@
         z-index: 20;      
 
         h2, p {
-              color:$white;
+              color: #ffffff;
         }
 
         h2 {

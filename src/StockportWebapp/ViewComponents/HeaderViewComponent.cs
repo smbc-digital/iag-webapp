@@ -1,7 +1,6 @@
 ﻿namespace StockportWebapp.ViewComponents;
 
-public class HeaderViewComponent(IRepository repository,
-                                ILogger<HeaderViewComponent> logger) : ViewComponent
+public class HeaderViewComponent(IRepository repository, ILogger<HeaderViewComponent> logger) : ViewComponent
 {
     private readonly IRepository _repository = repository;
     private readonly ILogger<HeaderViewComponent> _logger = logger;

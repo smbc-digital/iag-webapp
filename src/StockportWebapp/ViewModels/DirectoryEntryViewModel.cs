@@ -1,6 +1,6 @@
 ﻿using StockportWebapp.Comparers;
 using SharpKml.Base;
-using Filter = StockportWebapp.Model.Filter;
+using Filter = StockportWebapp.Models.Filter;
 using SharpKml.Dom;
 using System.Web;
 

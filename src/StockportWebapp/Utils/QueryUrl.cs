@@ -1,6 +1,4 @@
-﻿using System.Linq;
-
-namespace StockportWebapp.Utils;
+﻿namespace StockportWebapp.Utils;
 
 public class QueryUrl(RouteValueDictionary currentRouteData, IQueryCollection queries)
 {

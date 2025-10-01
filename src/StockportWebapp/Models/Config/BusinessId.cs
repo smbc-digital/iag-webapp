@@ -10,8 +10,3 @@ public class BusinessId(string businessId = "NOT SET")
     public void SetId(string id) =>
         value = id;
 }
-
-public class BusinessIdFromRequest
-{
-    public string BusinessId { get; set; }
-}

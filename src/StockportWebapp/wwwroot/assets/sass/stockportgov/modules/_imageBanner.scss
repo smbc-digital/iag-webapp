@@ -73,8 +73,8 @@
         max-width: 40%;
         border-radius: 3px;
         color: $stockport-black;
-        background: rgb(255, 255, 255);
-        background: rgba(255, 255, 255, 0.7);
+        background: white;
+        background: $header-accent;
 
         p {
             margin-block-end: 0;
@@ -123,7 +123,7 @@
             font-weight: 700;
             padding-inline: 0;
             padding-block: 1em;
-            border-bottom: 1px solid #ccc;
+            border-bottom: 1px solid $stockport-grey-lighter;
             border-radius: 0;
 
             @media #{$mobile} {
@@ -147,8 +147,8 @@
     }
 
     &--light {
-        background: rgb(255, 255, 255);
-        background: rgba(255, 255, 255, 0.7);
+        background: white;
+        background: $header-accent;
         color: $stockport-black;
 
         figcaption {
@@ -158,7 +158,7 @@
     }
 
     &--dark {
-        background: rgb(0, 0, 0);
+        background: black;
         background: rgba(0, 0, 0, 0.7);
         color: white;
 

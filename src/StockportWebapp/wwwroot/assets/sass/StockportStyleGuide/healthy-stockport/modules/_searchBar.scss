@@ -6,16 +6,16 @@
     border: medium none;
     width: 100%;
     font-size: 13px;
-    color: $greyDarkest;
+    color: #333333;
     padding: 15px 60px 15px 15px;
-    background-color: $white;
+    background-color: #ffffff;
 
     @media #{$desktop} {
       font-size: 25px;
     }
 
     ::placeholder {
-      color: $greyDarker;
+      color: #505a5f;
       opacity: 1;
     }
   }
@@ -23,7 +23,7 @@
   .search-button {
     font-size: 25px;
     padding: 5px;
-    color: $greyDarkest;
+    color: #333333;
     line-height: 1;
     width: 50px;
     height: 50px;
@@ -103,7 +103,7 @@
 }
 
 .search-bar {
-  box-shadow: 0 33px 120px $blackOpaque5;
+  box-shadow: 0 33px 120px rgba(0,0,0,0.5);
   z-index: 50;
 
   @media #{$desktop} {
@@ -118,7 +118,7 @@
 .search-bar-links {
   padding-top: 10px;
   padding-left: 20px;
-  color: $white;
+  color: #ffffff;
   position: relative;
   z-index: 100;
 
@@ -127,16 +127,16 @@
   }
 
   a, strong {
-    color: $white;
+    color: #ffffff;
     margin-right: 10px;
   }
 }
 
 .show-search-button {
-  border: $white solid 1px;
+  border: #ffffff solid 1px;
   float: right;
   border-radius: 3px;
-  color: $white;
+  color: #ffffff;
   padding: 0px 12px;
   font-size: 24px;
   margin-right: 10px;
@@ -206,8 +206,8 @@
 
     .search-input {
       border: none;
-      background-color: $white;
-      color: $greyDarkest;
+      background-color: #ffffff;
+      color: #333333;
       padding: 15px 60px 15px 15px;
       height: unset;
       line-height: 1.3;
@@ -222,7 +222,7 @@
 
     .search-button {
       background: 0 0;
-      color: $greyDarkest;
+      color: #333333;
       border: none;
       width: 60px;
       height: 60px;

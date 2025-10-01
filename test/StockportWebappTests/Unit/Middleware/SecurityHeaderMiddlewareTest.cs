@@ -3,13 +3,10 @@
 public class SecurityHeaderMiddlewareTest
 {
     private readonly SecurityHeaderMiddleware _middleware;
+    private readonly Mock<RequestDelegate> requestDelegate = new();
 
-    public SecurityHeaderMiddlewareTest()
-    {
-        Mock<RequestDelegate> requestDelegate = new();
-
+    public SecurityHeaderMiddlewareTest() =>
         _middleware = new(requestDelegate.Object);
-    }
 
     [Theory]
     [InlineData("int-iag.domain.com")]

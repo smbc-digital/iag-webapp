@@ -18,12 +18,14 @@
         <div class="grid-container">
             <div class="grid-100">
                 <div class="event-cards-title">
-                    <div class="event-cards-title-container">
+                    <div class="news-banner__card-filler"></div>
+
+                    <div class="event-cards-title-container news-banner__card-title-container">
                         <h2 class="content-block__title">@Model.Title</h2>
                         <hr />
                     </div>
 
-                    <a href=@viewMoreUrl class="event-cards-view-more hide-on-mobile hide-on-tablet" aria-label="View more @Model?.AssociatedTagCategory.Split(",").ToList().First() news" data-cy="view-more-news-link">View more</a>
+                    <a href=@viewMoreUrl class="event-cards-view-more news-banner__card-view-more hide-on-mobile hide-on-tablet" aria-label="View more @Model?.AssociatedTagCategory.Split(",").ToList().First() news" data-cy="view-more-news-link">View more news</a>
                 </div>
 
                 <div class="section__content">
@@ -35,7 +37,7 @@
                     </ul>
                     
                     <a href=@viewMoreUrl class="btn btn--width-30 btn--chevron-forward btn--bold btn--chevron-bold hide-on-desktop event-cards-button @Model.OutlineButtonColour" aria-label="View more @Model.AssociatedTagCategory.Split(",").ToList().First() news" data-cy="view-more-news-button">
-                        <span class="btn_text">View more</span>
+                        <span class="btn_text">View more news</span>
                     </a>
                 </div>
             </div>

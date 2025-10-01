@@ -1,4 +1,5 @@
 ﻿namespace StockportWebapp.Models.ProcessedModels;
+
 public class ProcessedEvents(string title,
                             string slug,
                             string teaser,

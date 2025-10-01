@@ -1,11 +1,9 @@
 ﻿namespace StockportWebapp.Middleware;
 
 [ExcludeFromCodeCoverage]
-public class RobotsMiddleware
+public class RobotsMiddleware(RequestDelegate next)
 {
-    private readonly RequestDelegate _next;
-
-    public RobotsMiddleware(RequestDelegate next) => _next = next;
+    private readonly RequestDelegate _next = next;
 
     public Task Invoke(HttpContext context, BusinessId businessId, IWebHostEnvironment env)
     {

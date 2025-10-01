@@ -6,16 +6,13 @@ public class ContactUsMessageTagParserTest
 {
     private readonly ContactUsMessageTagParser _tagParser;
     private readonly Mock<IViewRender> _viewRenderer = new();
-    private const string _message = "This is a message";
-    private const string _defaultBody = "default body";
-    private const string _metaDescription = "default meta description";
     private readonly string _bodyWithContactUsMessageTag = $"This is some content {ContactUsTagParser.ContactUsMessageTagRegex} <form></form>";
 
     public ContactUsMessageTagParserTest()
     {
         _viewRenderer
             .Setup(renderer => renderer.Render("ContactUsMessage", It.IsAny<string>()))
-            .Returns($"<p>{_message}</p>");
+            .Returns("<p>This is a message</p>");
 
         _tagParser = new(_viewRenderer.Object);
     }
@@ -30,7 +27,7 @@ public class ContactUsMessageTagParserTest
         ProcessedSection anotherSection = ProcessedSectionWithDefaultSlugAndBody("this-is-a-slug", _bodyWithContactUsMessageTag);
         ProcessedArticle processedArticle = new("title",
                                                 "slug",
-                                                _defaultBody,
+                                                "default body",
                                                 "teaser",
                                                 "meta description",
                                                 new List<ProcessedSection>() { section, anotherSection },
@@ -59,8 +56,8 @@ public class ContactUsMessageTagParserTest
         _tagParser.Parse(processedArticle, message, "this-is-a-slug");
 
         // Assert
-        Assert.Equal(_defaultBody, processedArticle.Body);
-        Assert.Equal(_defaultBody, section.Body);
+        Assert.Equal("default body", processedArticle.Body);
+        Assert.Equal("default body", section.Body);
         Assert.Equal(_bodyWithContactUsMessageTag, anotherSection.Body);
         _viewRenderer.Verify(renderer => renderer.Render(It.IsAny<string>(), It.IsAny<object>()), Times.Never);
     }
@@ -97,10 +94,10 @@ public class ContactUsMessageTagParserTest
                                                 new JObject());
 
         // Act
-        _tagParser.Parse(processedArticle, _message, string.Empty);
+        _tagParser.Parse(processedArticle, "This is a message", string.Empty);
 
         // Assert
-        processedArticle.Body.Should().Be($"This is some content <p>{_message}</p> <form></form>");
+        Assert.Equal("This is some content <p>This is a message</p> <form></form>", processedArticle.Body);
     }
 
     [Fact]
@@ -110,7 +107,7 @@ public class ContactUsMessageTagParserTest
         ProcessedSection section = ProcessedSectionWithDefaultSlugAndBody(body: _bodyWithContactUsMessageTag);
         ProcessedArticle processedArticle = new("title",
                                                 "slug",
-                                                _defaultBody,
+                                                "default body",
                                                 "teaser",
                                                 "meta description",
                                                 new List<ProcessedSection>() { section },
@@ -136,11 +133,11 @@ public class ContactUsMessageTagParserTest
                                                 new JObject());
 
         // Act
-        _tagParser.Parse(processedArticle, _message, string.Empty);
+        _tagParser.Parse(processedArticle, "This is a message", string.Empty);
 
         // Assert
-        Assert.Equal(_defaultBody, processedArticle.Body);
-        Assert.Equal($"This is some content <p>{_message}</p> <form></form>", section.Body);
+        Assert.Equal("default body", processedArticle.Body);
+        Assert.Equal("This is some content <p>This is a message</p> <form></form>", section.Body);
     }
 
     [Fact]
@@ -151,7 +148,7 @@ public class ContactUsMessageTagParserTest
         ProcessedSection anotherSection = ProcessedSectionWithDefaultSlugAndBody("this-is-a-slug", _bodyWithContactUsMessageTag);
         ProcessedArticle processedArticle = new("title",
                                                 "slug",
-                                                _defaultBody,
+                                                "default body",
                                                 "teaser",
                                                 "meta description",
                                                 new List<ProcessedSection>() { section, anotherSection },
@@ -177,12 +174,12 @@ public class ContactUsMessageTagParserTest
                                                 new JObject());
 
         // Act
-        _tagParser.Parse(processedArticle, _message, "this-is-a-slug");
+        _tagParser.Parse(processedArticle, "This is a message", "this-is-a-slug");
 
         // Assert
-        Assert.Equal(_defaultBody, processedArticle.Body);
-        Assert.Equal(_defaultBody, section.Body);
-        Assert.Equal($"This is some content <p>{_message}</p> <form></form>", anotherSection.Body);
+        Assert.Equal("default body", processedArticle.Body);
+        Assert.Equal("default body", section.Body);
+        Assert.Equal("This is some content <p>This is a message</p> <form></form>", anotherSection.Body);
     }
 
     [Fact]
@@ -191,7 +188,7 @@ public class ContactUsMessageTagParserTest
         // Arrange
         ProcessedArticle processedArticle = new("title",
                                                 "slug",
-                                                _defaultBody,
+                                                "default body",
                                                 "teaser",
                                                 "meta description",
                                                 new List<ProcessedSection>() { },
@@ -217,10 +214,10 @@ public class ContactUsMessageTagParserTest
                                                 new JObject());
 
         // Act
-        _tagParser.Parse(processedArticle, _message,  "this-is-a-slug");
+        _tagParser.Parse(processedArticle, "This is a message",  "this-is-a-slug");
 
         // Assert
-        Assert.Equal(_defaultBody, processedArticle.Body);
+        Assert.Equal("default body", processedArticle.Body);
     }
 
     [Fact]
@@ -229,7 +226,7 @@ public class ContactUsMessageTagParserTest
         // Arrabge
         ProcessedArticle processedArticle = new ("title",
                                                 "slug",
-                                                _defaultBody,
+                                                "default body",
                                                 "teaser",
                                                 "meta description",
                                                 new List<ProcessedSection>() { },
@@ -255,13 +252,13 @@ public class ContactUsMessageTagParserTest
                                                 new JObject());
 
         // Act
-        _tagParser.Parse(processedArticle, _message, "this-is-a-slug");
+        _tagParser.Parse(processedArticle, "This is a message", "this-is-a-slug");
 
         // Assert
-        _viewRenderer.Verify(renderer => renderer.Render("ContactUsMessage", _message), Times.Once);
+        _viewRenderer.Verify(renderer => renderer.Render("ContactUsMessage", "This is a message"), Times.Once);
     }
 
-    private static ProcessedSection ProcessedSectionWithDefaultSlugAndBody(string slug = "slug", string body = _defaultBody, string metaDescription = _metaDescription) 
+    private static ProcessedSection ProcessedSectionWithDefaultSlugAndBody(string slug = "slug", string body = "default body", string metaDescription = "default meta description") 
         => new("title",
                 slug,
                 metaDescription,
