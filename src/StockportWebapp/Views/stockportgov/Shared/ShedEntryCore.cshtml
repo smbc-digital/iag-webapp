@@ -23,7 +23,7 @@ else
     @if (!string.IsNullOrEmpty(Model.WardName))
     {
         <h3 class="h-m">Ward</h3>
-        <div>@Model.WardName</div>
+        <div>@Model.WardName.Replace("&", "and")</div>
     }
 </div>
 
