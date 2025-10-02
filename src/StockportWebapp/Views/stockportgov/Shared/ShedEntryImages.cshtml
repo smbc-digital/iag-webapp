@@ -9,11 +9,12 @@
             <div class="shed__wrapper">
                 @foreach (string image in Model)
                 {
-                    <img src="https://live-iag-static-assets.s3.eu-west-1.amazonaws.com/heritage/Photos/@image?w=350&q=89&fm=webp"
+                    <img src="https://live-iag-static-assets.s3.eu-west-1.amazonaws.com/heritage/Photos/@image"
                         class="shed__images"
                         alt=""
                         width="350"
-                        height="150">
+                        height="150"
+                        loading="lazy">
                 }
             </div>
 

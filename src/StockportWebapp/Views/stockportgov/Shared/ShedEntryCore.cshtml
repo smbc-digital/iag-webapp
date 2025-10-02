@@ -2,7 +2,7 @@
 
 @if (!string.IsNullOrEmpty(Model.Images.FirstOrDefault()))
 {
-    <img src="https://live-iag-static-assets.s3.eu-west-1.amazonaws.com/heritage/Photos/@Model.Images.FirstOrDefault()?w=350&q=89&fm=webp"
+    <img src="https://live-iag-static-assets.s3.eu-west-1.amazonaws.com/heritage/Photos/@Model.Images.FirstOrDefault()"
         class="directory__logo"
         alt=""
         width="350"
@@ -10,7 +10,7 @@
 }
 else
 {
-    <img src="/assets/images/content/stockport_heritage_assets.png?w=350&q=89&fm=webp"
+    <img src="/assets/images/content/stockport_heritage_assets.png"
         class="directory__logo"
         alt=""
         width="350"
@@ -44,7 +44,7 @@ else
 </div>
 
 <div class="directory__address">
-    @if (!string.IsNullOrEmpty(Model.HeRef))
+    @if (!string.IsNullOrEmpty(Model.HeRef) && !string.IsNullOrEmpty(Model.Grade) && Model.Grade.Equals("Local", StringComparison.OrdinalIgnoreCase))
     {
         <h3 class="h-m">Historic England Reference</h3>
         <div><a href="https://historicengland.org.uk/listing/the-list/list-entry/@Model.HeRef" target="_blank">@Model.HeRef</a></div>

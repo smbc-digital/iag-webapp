@@ -35,7 +35,7 @@
                 <div class="directory-result__brand">
                     @if (!string.IsNullOrEmpty(Model.Images.FirstOrDefault()))
                     {
-                        <img src="https://live-iag-static-assets.s3.eu-west-1.amazonaws.com/heritage/Photos/@Model.Images.FirstOrDefault()?w=340&q=89&fm=webp"
+                        <img src="https://live-iag-static-assets.s3.eu-west-1.amazonaws.com/heritage/Photos/@Model.Images.FirstOrDefault()"
                             alt=""
                             width="300"
                             height="150"
@@ -43,11 +43,12 @@
                     }
                     else
                     {
-                        <img src="/assets/images/content/stockport_heritage_assets.png?w=350&q=89&fm=webp"
+                        <img src="/assets/images/content/stockport_heritage_assets.png"
                             class="directory__logo"
                             alt=""
                             width="350"
-                            height="150">
+                            height="150"
+                            loading="lazy">
                     }
                 </div>
             </div>
