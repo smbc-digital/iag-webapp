@@ -128,6 +128,7 @@ public class ContentSecurityPolicyBuilder
             .AddSource("lh3.ggpht.com")
             .AddSource("cdn.jsdelivr.net", true)
             .AddSource("https://img.freepik.com/free-vector/")
+            .AddSource("live-iag-static-assets.s3.eu-west-1.amazonaws.com/")
             .Finish());
 
     private void BuildStyleSource() =>
