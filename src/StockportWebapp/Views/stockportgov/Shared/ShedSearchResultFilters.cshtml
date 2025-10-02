@@ -42,7 +42,7 @@
                                 <input class="directory-filters__checkbox" type="checkbox" name="ward" value="@ward" id="@id"
                                     @(Model.AppliedFilters.Any(appliedFilter => appliedFilter.Equals(ward)) ? "checked" : string.Empty)>
 
-                                <label for="@id" class="directory-filters__label">@ward</label>
+                                <label for="@id" class="directory-filters__label">@ward.Replace("&", "and")</label>
                             </div>
                         }
                     </div>
