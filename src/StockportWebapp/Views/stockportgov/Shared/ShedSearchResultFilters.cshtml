@@ -17,10 +17,11 @@
                         @foreach (string grade in Model.Grades)
                         {
                             string value = grade.Equals("II*") ? "IISTAR" : grade;
-                            string id = grade.Replace(" ", "-").ToLower();
+                            string id = grade.Replace(" ", "-").Replace("*", "-star").ToLower();
+
                             <div class="directory__checkbox-container">
                                 <input class="directory-filters__checkbox" type="checkbox" name="grade" value="@value" id="@id"
-                                    @(Model.AppliedFilters.Any(appliedFilter => appliedFilter.Equals(value)) ? "checked" : string.Empty)>
+                                    @(Model.AppliedFilters.Any(appliedFilter => appliedFilter.Equals(value)) ? "checked" : string.Empty) required="false" >
 
                                 <label for="@id" class="directory-filters__label">@grade</label>
                             </div>
