@@ -8,10 +8,6 @@
     string articleTitle = profile.Breadcrumbs.LastOrDefault() is not null
         ? $"{profile.Breadcrumbs.LastOrDefault().Title} - "
         : string.Empty;
-
-    string profileTextMarginBottom = (!string.IsNullOrEmpty(Model.Profile.TriviaSubheading) || Model.Profile.TriviaSection.Any())
-        ? "profile__text--margin-bottom"
-        : string.Empty;
 }
 
 <div class="grid-container-full-width" style="background-color:white;" data-cy="profile">
@@ -21,7 +17,7 @@
                 <h1 class="profile__title">@profile.Title</h1>
                 <h2 class="article__sub-title">@profile.Subtitle</h2>
 
-                @if(!string.IsNullOrEmpty(profile.Image.Url))
+                @if (!string.IsNullOrEmpty(profile.Image.Url))
                 {
                     <figure class="profile__figure">
                         <img src="@profile.Image.Url?w=730&q=89&fm=webp"
@@ -33,14 +29,14 @@
                                         (min-width: 1024px) 273px"
                                 alt="@profile.Image.Description" width="730" height="400" />
 
-                        @if(!string.IsNullOrEmpty(profile.ImageCaption))
+                        @if (!string.IsNullOrEmpty(profile.ImageCaption))
                         {
                             <figcaption>@profile.ImageCaption</figcaption>
                         }
                     </figure>
                 }
 
-                <div class="profile__text @profileTextMarginBottom"> 
+                <div class="profile__text"> 
                     @Html.Raw(StockportWebapp.Utils.HtmlHelper.AddImageAttributes(profile.Body, "691", "389", "691", "919", "1240"))
                 </div>
             </section>

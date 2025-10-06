@@ -44,7 +44,7 @@ else
 </div>
 
 <div class="directory__address">
-    @if (!string.IsNullOrEmpty(Model.HeRef) && !string.IsNullOrEmpty(Model.Grade) && Model.Grade.Equals("Local", StringComparison.OrdinalIgnoreCase))
+    @if (!string.IsNullOrEmpty(Model.HeRef) && !string.IsNullOrEmpty(Model.Grade) && !Model.Grade.Equals("Local", StringComparison.OrdinalIgnoreCase))
     {
         <h3 class="h-m">Historic England Reference</h3>
         <div><a href="https://historicengland.org.uk/listing/the-list/list-entry/@Model.HeRef" target="_blank">@Model.HeRef</a></div>
