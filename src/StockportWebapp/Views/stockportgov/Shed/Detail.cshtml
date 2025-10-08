@@ -49,7 +49,7 @@
 
     <section class="section section--white section--padded section--no-margin">
         <div class="grid-container">
-            <partial name="HistoricAssetsReportProblem" model='Html.UrlEncoder.Encode(Model.HeRef)' />
+            <partial name="HistoricAssetsReportProblem" model='Html.UrlEncoder.Encode(Model.Name + ":" + Model.HeRef)' />
         </div>
     </section>
 </div>
