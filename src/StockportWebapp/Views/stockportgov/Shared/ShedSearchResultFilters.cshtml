@@ -21,9 +21,18 @@
 
                             <div class="directory__checkbox-container">
                                 <input class="directory-filters__checkbox" type="checkbox" name="grade" value="@value" id="@id"
-                                    @(Model.AppliedFilters.Any(appliedFilter => appliedFilter.Equals(value)) ? "checked" : string.Empty) required="false" >
+                                    @(Model.AppliedFilters.Any(appliedFilter => appliedFilter.Equals(value)) ? "checked" : string.Empty) >
 
-                                <label for="@id" class="directory-filters__label">@grade</label>
+                                <label for="@id" class="directory-filters__label">
+                                    @if (grade.Equals("II*"))
+                                    {
+                                        @:Grade II<span class="visuallyhidden"> star</span><span aria-hidden="true">*</span>
+                                    }
+                                    else
+                                    {
+                                        @grade
+                                    }
+                                </label>
                             </div>
                         }
                     </div>
