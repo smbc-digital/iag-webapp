@@ -7,6 +7,9 @@
     ViewData["og:title"] = Model.NewsItem.Title;
     string dataCy = string.IsNullOrEmpty(Model.NewsItem.Image) ? "news-article-details" : "news-article-hero";
     bool displayLastUpdated = !Model.NewsItem.UpdatedAt.Date.Equals(Model.NewsItem.SunriseDate.Date) && Model.NewsItem.UpdatedAt.Date > Model.NewsItem.SunriseDate.Date;
+
+    var referrer = Context.Request.Headers["Referer"].ToString();
+    bool cameFromArchive = !string.IsNullOrEmpty(referrer) && referrer.Contains("/news/archive", StringComparison.OrdinalIgnoreCase);
 }
 
 <div class="grid-container-full-width" data-cy="@dataCy">
@@ -15,9 +18,18 @@
 
     <div class="grid-container">
         <div class="grid-100">
-            <div class="article--70 article--70-margin">
-                <h1>@Model.NewsItem.Title</h1>
-            </div>
+            <section class="article">
+                <div class="article--70 article--70-margin">
+                    <h1>@Model.NewsItem.Title</h1>
+                </div>
+                
+                @if (cameFromArchive)
+                {
+                    <div class="article--30 article--30-center-align hide-on-tablet hide-on-mobile js-only">
+                        <button class="btn btn--full btn--inverse btn--border-grey-accent btn--chevron-back btn--black-text btn--plain shed__button" onclick="window.history.back()">Back to search results</button>
+                    </div>
+                }
+            </section>
 
             <section class="article">
                 <div class="article--70 @(string.IsNullOrEmpty(Model.NewsItem.Image) ? "news-article__wrapper" : string.Empty)">
@@ -144,6 +156,13 @@
                     }
                     
                     <partial name="EmailSubscribe" view-data='@(new ViewDataDictionary(ViewData) { { "AdditionalCssClasses", "section--pink news-article__subscription-banner" }, { "ButtonAdditionalCssClasses", "btn--pink" }, { "isOnHomepage", false } })' />
+
+                    @if (cameFromArchive)
+                    {
+                        <div class="article--30 article--30-center-align hide-on-desktop js-only">
+                            <button class="btn btn--full btn--inverse btn--border-grey-accent btn--chevron-back btn--black-text btn--plain shed__button" onclick="window.history.back()">Back to search results</button>
+                        </div>
+                    }
                 </div>
             </section>
         </div>
