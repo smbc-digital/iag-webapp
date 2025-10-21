@@ -48,16 +48,16 @@ public class ShedServiceTests
     }
 
     [Fact]
-    public async Task GetSHEDDataByNameWardsAndListingTypes_ShouldReturnShedItems_WhenApiReturnsData()
+    public async Task GetSHEDDataByNameWardsTypeAndListingTypes_ShouldReturnShedItems_WhenApiReturnsData()
     {
         // Arrange
         string jsonResponse = "[{\"name\":\"Filtered Shed\",\"description\":\"Filtered Description\"}]";
         _mockShedApiClient
-            .Setup(client => client.GetSHEDDataByNameWardsAndListingTypes(It.IsAny<string>(), It.IsAny<List<string>>(), It.IsAny<List<string>>()))
+            .Setup(client => client.GetSHEDDataByNameWardsTypeAndListingTypes(It.IsAny<string>(), It.IsAny<List<string>>(), It.IsAny<List<string>>(), It.IsAny<List<string>>()))
             .ReturnsAsync(jsonResponse);
 
         // Act
-        List<ShedItem> result = await _service.GetSHEDDataByNameWardsAndListingTypes("filtered-shed", new List<string> { "Ward1" }, new List<string> { "Type1" });
+        List<ShedItem> result = await _service.GetSHEDDataByNameWardsTypeAndListingTypes("filtered-shed", new List<string> { "Ward1" },  new List<string> { "Type1" }, new List<string> { "ListingType1" });
 
         // Assert
         Assert.Single(result);
@@ -66,16 +66,16 @@ public class ShedServiceTests
     }
 
     [Fact]
-    public async Task GetSHEDDataByNameWardsAndListingTypes_ShouldReturnEmptyList_WhenApiReturnsNoData()
+    public async Task GetSHEDDataByNameWardsTypeAndListingTypes_ShouldReturnEmptyList_WhenApiReturnsNoData()
     {
         // Arrange
         string jsonResponse = "[]";
         _mockShedApiClient
-            .Setup(client => client.GetSHEDDataByNameWardsAndListingTypes(It.IsAny<string>(), It.IsAny<List<string>>(), It.IsAny<List<string>>()))
+            .Setup(client => client.GetSHEDDataByNameWardsTypeAndListingTypes(It.IsAny<string>(), It.IsAny<List<string>>(), It.IsAny<List<string>>(), It.IsAny<List<string>>()))
             .ReturnsAsync(jsonResponse);
 
         // Act
-        List<ShedItem> result = await _service.GetSHEDDataByNameWardsAndListingTypes("non-existent-shed", new List<string> { "Ward1" }, new List<string> { "Type1" });
+        List<ShedItem> result = await _service.GetSHEDDataByNameWardsTypeAndListingTypes("non-existent-shed", new List<string> { "Ward1" }, new List<string> { "Type1" }, new List<string> { "ListingType1" });
 
         // Assert
         Assert.Empty(result);

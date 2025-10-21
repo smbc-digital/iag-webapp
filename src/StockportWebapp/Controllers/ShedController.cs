@@ -17,6 +17,7 @@ public class ShedController(IShedService shedService,
     [HttpGet("heritage-assets")]
     public async Task<IActionResult> Index(List<string> ward,
                                         List<string> grade,
+                                        List<string> types,
                                         string searchTerm,
                                         [FromQuery] int page,
                                         [FromQuery] int pageSize)
@@ -24,7 +25,7 @@ public class ShedController(IShedService shedService,
         if (!await _featureManager.IsEnabledAsync("ShedPage"))
             return NotFound();
 
-        List<ShedItem> results = await _shedService.GetSHEDDataByNameWardsAndListingTypes(searchTerm, ward, grade);
+        List<ShedItem> results = await _shedService.GetSHEDDataByNameWardsTypeAndListingTypes(searchTerm, ward, types, grade);
 
         ShedViewModel viewModel = new(results)
         {
@@ -40,6 +41,7 @@ public class ShedController(IShedService shedService,
 
         viewModel.AppliedFilters.AddRange(ward ?? Enumerable.Empty<string>());
         viewModel.AppliedFilters.AddRange(grade ?? Enumerable.Empty<string>());
+        viewModel.AppliedFilters.AddRange(types ?? Enumerable.Empty<string>());
 
         return View(viewModel);
     }

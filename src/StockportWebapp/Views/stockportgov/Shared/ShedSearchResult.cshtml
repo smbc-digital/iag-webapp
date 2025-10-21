@@ -21,6 +21,11 @@
                         <p class="navcard__teaser">Grade: <span class="navcard__sub-title">@(Model.Grade.Equals("IISTAR") ? "II*" : Model.Grade)</span></p>
                     }
 
+                    @if (!string.IsNullOrEmpty(Model.Type))
+                    {
+                        <p class="navcard__teaser">Type: <span class="navcard__sub-title">@Model.Type</span></p>
+                    }
+
                     @if (!string.IsNullOrEmpty(Model.DateListed))
                     {
                         <p class="navcard__teaser">Date listed: <span class="navcard__sub-title">@DateTime.Parse(Model.DateListed).ToString("D")</span></p>

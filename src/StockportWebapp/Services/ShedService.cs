@@ -3,7 +3,7 @@ namespace StockportWebapp.Services;
 public interface IShedService
 {
     Task<ShedItem> GetSHEDDataByHeRef(string heRef);
-    Task<List<ShedItem>> GetSHEDDataByNameWardsAndListingTypes(string heRef, List<string> ward, List<string> listingTypes);
+    Task<List<ShedItem>> GetSHEDDataByNameWardsTypeAndListingTypes(string heRef, List<string> ward, List<string> types, List<string> listingTypes);
 }
 
 public class ShedService(IShedApiClient shedApiClient, MarkdownWrapper markdownWrapper) : IShedService
@@ -26,9 +26,9 @@ public class ShedService(IShedApiClient shedApiClient, MarkdownWrapper markdownW
         return shedItem ?? null;
     }
 
-    public async Task<List<ShedItem>> GetSHEDDataByNameWardsAndListingTypes(string name, List<string> ward, List<string> listingTypes)
+    public async Task<List<ShedItem>> GetSHEDDataByNameWardsTypeAndListingTypes(string name, List<string> ward, List<string> types, List<string> listingTypes)
     {
-        string json = await _shedApiClient.GetSHEDDataByNameWardsAndListingTypes(name, ward, listingTypes);
+        string json = await _shedApiClient.GetSHEDDataByNameWardsTypeAndListingTypes(name, ward, types, listingTypes);
 
         List<ShedItem> assets = System.Text.Json.JsonSerializer.Deserialize<List<ShedItem>>(json);
 

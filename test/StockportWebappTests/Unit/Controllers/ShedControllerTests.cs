@@ -63,11 +63,11 @@ public class ShedControllerTests
         };
 
         _mockShedService
-            .Setup(service => service.GetSHEDDataByNameWardsAndListingTypes(It.IsAny<string>(), It.IsAny<List<string>>(), It.IsAny<List<string>>()))
+            .Setup(service => service.GetSHEDDataByNameWardsTypeAndListingTypes(It.IsAny<string>(), It.IsAny<List<string>>(), It.IsAny<List<string>>(), It.IsAny<List<string>>()))
             .ReturnsAsync(shedItems);
 
         // Act
-        IActionResult result = await _controller.Index(new List<string>(), new List<string>(), "searchTerm", 1, 10);
+        IActionResult result = await _controller.Index(new List<string>(), new List<string>(), new List<string>(), "searchTerm", 1, 10);
 
         // Assert
         ViewResult viewResult = Assert.IsType<ViewResult>(result);
@@ -86,20 +86,22 @@ public class ShedControllerTests
         };
 
         _mockShedService
-            .Setup(service => service.GetSHEDDataByNameWardsAndListingTypes(It.IsAny<string>(), It.IsAny<List<string>>(), It.IsAny<List<string>>()))
+            .Setup(service => service.GetSHEDDataByNameWardsTypeAndListingTypes(It.IsAny<string>(), It.IsAny<List<string>>(), It.IsAny<List<string>>(), It.IsAny<List<string>>()))
             .ReturnsAsync(shedItems);
 
         List<string> wards = new() { "Ward1", "Ward2" };
-        List<string> listingTypes = new() { "Type1" };
+        List<string> listingTypes = new() { "ListingType1" };
+        List<string> types = new() { "Type1" };
 
         // Act
-        IActionResult result = await _controller.Index(wards, listingTypes, "searchTerm", 1, 10);
+        IActionResult result = await _controller.Index(wards, listingTypes, types, "searchTerm", 1, 10);
 
         // Assert
         ViewResult viewResult = Assert.IsType<ViewResult>(result);
         ShedViewModel model = Assert.IsType<ShedViewModel>(viewResult.Model);
         Assert.Contains("Ward1", model.AppliedFilters);
         Assert.Contains("Ward2", model.AppliedFilters);
+        Assert.Contains("ListingType1", model.AppliedFilters);
         Assert.Contains("Type1", model.AppliedFilters);
     }
 
@@ -110,13 +112,13 @@ public class ShedControllerTests
         List<ShedItem> shedItems = Enumerable.Range(1, 25).Select(i => new ShedItem { Name = $"Shed {i}" }).ToList();
 
         _mockShedService
-            .Setup(service => service.GetSHEDDataByNameWardsAndListingTypes(It.IsAny<string>(), It.IsAny<List<string>>(), It.IsAny<List<string>>()))
+            .Setup(service => service.GetSHEDDataByNameWardsTypeAndListingTypes(It.IsAny<string>(), It.IsAny<List<string>>(), It.IsAny<List<string>>(), It.IsAny<List<string>>()))
             .ReturnsAsync(shedItems);
 
         int pageSize = 10;
 
         // Act
-        IActionResult result = await _controller.Index(new List<string>(), new List<string>(), "searchTerm", 2, pageSize);
+        IActionResult result = await _controller.Index(new List<string>(), new List<string>(), new List<string>(), "searchTerm", 2, pageSize);
 
         // Assert
         ViewResult viewResult = Assert.IsType<ViewResult>(result);
@@ -131,11 +133,11 @@ public class ShedControllerTests
     {
         // Arrange
         _mockShedService
-            .Setup(service => service.GetSHEDDataByNameWardsAndListingTypes(It.IsAny<string>(), It.IsAny<List<string>>(), It.IsAny<List<string>>()))
+            .Setup(service => service.GetSHEDDataByNameWardsTypeAndListingTypes(It.IsAny<string>(), It.IsAny<List<string>>(), It.IsAny<List<string>>(), It.IsAny<List<string>>()))
             .ReturnsAsync(new List<ShedItem>());
 
         // Act
-        IActionResult result = await _controller.Index(new List<string>(), new List<string>(), "searchTerm", 1, 10);
+        IActionResult result = await _controller.Index(new List<string>(), new List<string>(), new List<string>(), "searchTerm", 1, 10);
 
         // Assert
         ViewResult viewResult = Assert.IsType<ViewResult>(result);
