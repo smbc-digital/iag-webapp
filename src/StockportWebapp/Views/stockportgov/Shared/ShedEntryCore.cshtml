@@ -31,11 +31,15 @@ else
     @if (!string.IsNullOrEmpty(Model.Grade) || !string.IsNullOrEmpty(Model.Type))
     {
         <h3 class="h-m">Type</h3>
-        @if (!string.IsNullOrEmpty(Model.Type))
+        @if (!string.IsNullOrEmpty(Model.Type) && string.IsNullOrEmpty(Model.Grade))
+        {
+            <div>@Model.Type</div>
+        }
+        else if (!string.IsNullOrEmpty(Model.Type) && !string.IsNullOrEmpty(Model.Grade))
         {
             <p>@Model.Type</p>
         }
-
+        
         @if (!string.IsNullOrEmpty(Model.Grade))
         {
             <div>Grade @(Model.Grade.Equals("IISTAR") ? "II*" : Model.Grade)</div>
