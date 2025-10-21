@@ -38,18 +38,17 @@ public class ShedViewModel(IEnumerable<ShedItem> filteredEntries) : ISlugCompara
     {
         "I",
         "II",
-        "II*",
-        "Local"
+        "II*"
     };
 
     public List<string> Types = new()
     {
-        "Statutory listed buildings",
-        "Locally listed buildings",
         "Article 4 directions",
         "Conservation areas",
+        "Locally listed buildings",
         "Registered parks and gardens",
-        "Scheduled monuments"
+        "Scheduled monuments",
+        "Statutory listed buildings"
     };
 
     public IFilteredUrl FilteredUrl { get; private set; }
