@@ -42,6 +42,16 @@ public class ShedViewModel(IEnumerable<ShedItem> filteredEntries) : ISlugCompara
         "Local"
     };
 
+    public List<string> Types = new()
+    {
+        "Statutory listed buildings",
+        "Locally listed buildings",
+        "Article 4 directions",
+        "Conservation areas",
+        "Registered parks and gardens",
+        "Scheduled monuments"
+    };
+
     public IFilteredUrl FilteredUrl { get; private set; }
 
     public void AddQueryUrl(QueryUrl queryUrl) =>

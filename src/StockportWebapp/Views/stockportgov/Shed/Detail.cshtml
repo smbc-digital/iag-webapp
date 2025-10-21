@@ -35,7 +35,7 @@
                     </div>
                 </div>
 
-                <div class="directory--70 directory--border-top @borderTeal">
+                <div class="directory--70 directory--border-top @(Model.Images.Any() || !string.IsNullOrEmpty(Model.Description) ? borderTeal : string.Empty)">
                     <partial name="ShedEntryDescription" model='Model.Description' view-data='@(new ViewDataDictionary(ViewData) { { "AdditionalCssClasses", @greyBorderCssClasses } })' />
                     <partial name="ShedEntryImages" model='Model.Images' view-data='@(new ViewDataDictionary(ViewData) { { "AdditionalWrapperCssClasses", @borderTeal }, { "AdditionalCssClasses", @greyBorderCssClasses } })' />
                     @* <partial name="MapContent" model=@(new MapViewModel("title", "https://maps.stockport.gov.uk/historic-environment") ) /> *@

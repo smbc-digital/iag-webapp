@@ -38,6 +38,26 @@
                     </div>
 
                     <hr>
+                    
+                    <a href="javascript:void(0)" aria-expanded="true" class="directory-results__collapsible">
+                        <h3 id='shed-type'>Type</h3>
+                        <span class="directory-results__toggle closed"></span>
+                    </a>
+
+                    <div class="directory-filters__content" role="group" aria-labelledby='shed-type'>
+                        @foreach (string type in Model.Types)
+                        {
+                            string id = type.Replace(" ", "-").ToLower();
+                            <div class="directory__checkbox-container">
+                                <input class="directory-filters__checkbox" type="checkbox" name="types" value="@type" id="@id"
+                                    @(Model.AppliedFilters.Any(appliedFilter => appliedFilter.Equals(type)) ? "checked" : string.Empty)>
+
+                                <label for="@id" class="directory-filters__label">@type.Replace("&", "and")</label>
+                            </div>
+                        }
+                    </div>
+
+                    <hr>
 
                     <a href="javascript:void(0)" aria-expanded="true" class="directory-results__collapsible">
                         <h3 id='shed-ward'>Ward</h3>

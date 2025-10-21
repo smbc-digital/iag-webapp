@@ -3,7 +3,7 @@ namespace StockportWebapp.Client;
 public interface IShedApiClient
 {
     Task<string> GetSHEDDataByHeRef(string name);
-    Task<string> GetSHEDDataByNameWardsAndListingTypes(string name, List<string> ward, List<string> listingTypes);
+    Task<string> GetSHEDDataByNameWardsTypeAndListingTypes(string name, List<string> ward, List<string> types, List<string> listingTypes);
 }
 
 [ExcludeFromCodeCoverage]
@@ -32,7 +32,7 @@ public class ShedApiClient : IShedApiClient
         return await response.Content.ReadAsStringAsync();
     }
 
-    public async Task<string> GetSHEDDataByNameWardsAndListingTypes(string name, List<string> ward, List<string> listingTypes)
+    public async Task<string> GetSHEDDataByNameWardsTypeAndListingTypes(string name, List<string> ward, List<string> types, List<string> listingTypes)
     {
         List<string> queryParams = new();
 
@@ -42,17 +42,20 @@ public class ShedApiClient : IShedApiClient
         if (ward is not null && ward.Any())
             queryParams.AddRange(ward.Select(wardName => $"ward={Uri.EscapeDataString(wardName)}"));
 
+        if (types is not null && types.Any())
+            queryParams.AddRange(types.Select(type => $"types={Uri.EscapeDataString(type)}"));
+
         if (listingTypes is not null && listingTypes.Any())
             queryParams.AddRange(listingTypes.Select(listingType => $"listingTypes={Uri.EscapeDataString(listingType)}"));
 
-        string url = "GetSHEDDataByNameWardsAndListingTypes";
+        string url = "GetSHEDDataByNameWardsTypeAndListingTypes";
         if (queryParams.Any())
             url += "?" + string.Join("&", queryParams);
 
         HttpResponseMessage response = await _httpClient.GetAsync(url);
 
         if (!response.IsSuccessStatusCode)
-            _logger.LogError($"{nameof(ShedApiClient)}::{nameof(GetSHEDDataByNameWardsAndListingTypes)}: An error occurred fetching the SHED data: {response.StatusCode} - {response.ReasonPhrase}");
+            _logger.LogError($"{nameof(ShedApiClient)}::{nameof(GetSHEDDataByNameWardsTypeAndListingTypes)}: An error occurred fetching the SHED data: {response.StatusCode} - {response.ReasonPhrase}");
 
         response.EnsureSuccessStatusCode();
 

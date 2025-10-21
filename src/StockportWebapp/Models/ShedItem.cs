@@ -14,6 +14,9 @@ public class ShedItem
     [JsonPropertyName("grade")]
     public string Grade { get; set; }
 
+    [JsonPropertyName("type")]
+    public string Type { get; set; }
+
     [JsonPropertyName("ward_name")]
     public string WardName { get; set; }
 
@@ -49,4 +52,8 @@ public class ShedItem
 
     public ShedItem()
     { }
+
+    public bool ShowHistoricEnglandReference =>
+        !string.IsNullOrEmpty(HeRef)
+        && Regex.IsMatch(HeRef, @"^\d+$");
 }

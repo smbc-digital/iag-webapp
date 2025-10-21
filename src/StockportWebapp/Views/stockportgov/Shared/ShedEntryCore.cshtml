@@ -28,10 +28,18 @@ else
 </div>
 
 <div class="directory__address">
-    @if (!string.IsNullOrEmpty(Model.Grade))
+    @if (!string.IsNullOrEmpty(Model.Grade) || !string.IsNullOrEmpty(Model.Type))
     {
         <h3 class="h-m">Type</h3>
-        <div>Grade @(Model.Grade.Equals("IISTAR") ? "II*" : Model.Grade)</div>
+        @if (!string.IsNullOrEmpty(Model.Type))
+        {
+            <p>@Model.Type</p>
+        }
+
+        @if (!string.IsNullOrEmpty(Model.Grade))
+        {
+            <div>Grade @(Model.Grade.Equals("IISTAR") ? "II*" : Model.Grade)</div>
+        }
     }
 </div>
 
@@ -44,7 +52,7 @@ else
 </div>
 
 <div class="directory__address">
-    @if (!string.IsNullOrEmpty(Model.HeRef) && !string.IsNullOrEmpty(Model.Grade) && !Model.Grade.Equals("Local", StringComparison.OrdinalIgnoreCase))
+    @if (Model.ShowHistoricEnglandReference)
     {
         <h3 class="h-m">Historic England Reference</h3>
         <div><a href="https://historicengland.org.uk/listing/the-list/list-entry/@Model.HeRef" target="_blank">@Model.HeRef</a></div>
