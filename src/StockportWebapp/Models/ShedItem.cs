@@ -50,6 +50,9 @@ public class ShedItem
     [JsonPropertyName("alt_ref")]
     public string AltRef { get; set; }
 
+    [JsonPropertyName("documents")]
+    public List<Document> Documents { get; set; }
+
     public ShedItem()
     { }
 
