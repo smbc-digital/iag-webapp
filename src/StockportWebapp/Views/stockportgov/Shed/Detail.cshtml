@@ -37,9 +37,10 @@
 
                 <div class="directory--70 directory--border-top @(Model.Images.Any() || !string.IsNullOrEmpty(Model.Description) ? borderTeal : string.Empty)">
                     <partial name="ShedEntryDescription" model='Model.Description' view-data='@(new ViewDataDictionary(ViewData) { { "AdditionalCssClasses", @greyBorderCssClasses } })' />
+                    <partial name="ShedEntryDocuments" model='Model.Documents' view-data='@(new ViewDataDictionary(ViewData) { { "AdditionalWrapperCssClasses", @borderTeal }, { "AdditionalCssClasses", @greyBorderCssClasses } })' />
                     <partial name="ShedEntryImages" model='Model.Images' view-data='@(new ViewDataDictionary(ViewData) { { "AdditionalWrapperCssClasses", @borderTeal }, { "AdditionalCssClasses", @greyBorderCssClasses } })' />
                     @* <partial name="MapContent" model=@(new MapViewModel("title", "https://maps.stockport.gov.uk/historic-environment") ) /> *@
-                    
+
                     <div class="article--30 article--30-center-align hide-on-desktop js-only">
                         <button class="btn btn--full btn--inverse btn--border-grey-accent btn--chevron-back btn--black-text btn--plain shed__button" onclick="window.history.back()">Back to search results</button>
                     </div>

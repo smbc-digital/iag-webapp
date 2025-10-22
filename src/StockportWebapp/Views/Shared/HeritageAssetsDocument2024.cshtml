@@ -1,0 +1,21 @@
+﻿@model Document
+
+<div class="document">
+    <div class="grid-100">
+        <div class="document-icon">
+            <span class="fa-solid fa-files" aria-hidden="true"></span>
+        </div>
+
+        <div class="grid-90 tablet-grid-90 mobile-grid-100 document-detail">
+            <a href="@Model.Url" target="_blank" class="document-detail__title" rel="nofollow"> @Model.Title</a>
+
+            <p>
+                @if (!string.IsNullOrEmpty(Model.SizeAndType))
+                {
+                    @Model.SizeAndType
+                }
+            </p>
+            <p class="document-detail__info">This file may not be suitable for users of assistive technology.</p>
+        </div>
+    </div>
+</div>
