@@ -119,9 +119,7 @@ public class PaymentController(IProcessedContentRepository repository,
             CallingAppIdentifier = _civicaPayConfiguration.CallingAppIdentifier,
             CustomerID = _civicaPayConfiguration.CustomerID,
             ApiPassword = _civicaPayConfiguration.ApiPassword,
-            ReturnURL = !string.IsNullOrEmpty(paymentSubmission.Payment.ReturnUrl)
-                ? paymentSubmission.Payment.ReturnUrl
-                : $"{Request.Scheme}://{Request.Host}/payment/{slug}/result",
+            ReturnURL = $"{Request.Scheme}://{Request.Host}/payment/{slug}/result",
             NotifyURL = string.Empty,
             CallingAppTranReference = transactionReference,
             PaymentItems = new List<PaymentItem>

@@ -15,7 +15,6 @@ public class ProcessedPayment : IProcessedContentType
     public readonly List<Crumb> Breadcrumbs;
     public readonly EPaymentReferenceValidation ReferenceValidation;
     public readonly string MetaDescription;
-    public readonly string ReturnUrl;
     public readonly string CatalogueId;
     public readonly string AccountReference;
     public readonly string PaymentDescription;
@@ -35,7 +34,6 @@ public class ProcessedPayment : IProcessedContentType
                             List<Crumb> breadcrumbs,
                             EPaymentReferenceValidation referenceValidation,
                             string metaDescription,
-                            string returnUrl,
                             string catalogueId,
                             string accountReference,
                             string paymentDescription,
@@ -53,7 +51,6 @@ public class ProcessedPayment : IProcessedContentType
         Breadcrumbs = breadcrumbs;
         ReferenceValidation = referenceValidation;
         MetaDescription = metaDescription;
-        ReturnUrl = returnUrl;
         CatalogueId = catalogueId;
         AccountReference = accountReference;
         PaymentDescription = paymentDescription;

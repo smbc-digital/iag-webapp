@@ -25,7 +25,6 @@ public class PaymentControllerTest
                                                             null,
                                                             EPaymentReferenceValidation.None,
                                                             "meta",
-                                                            "returnUrl",
                                                             "catId",
                                                             "accRef",
                                                             "payDesc",
