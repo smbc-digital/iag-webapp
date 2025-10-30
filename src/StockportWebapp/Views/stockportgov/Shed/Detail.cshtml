@@ -11,6 +11,9 @@
     string noBorder = " navcard--border-top-0";
     string borderRadius = " navcard--radius-bottom-left navcard--radius-bottom-right";
     string greyBorderCssClasses = $"{borderGrey} {noBorder} {borderRadius}";
+    
+    string referrer = Context.Request.Headers["Referer"].ToString();
+    bool cameFromResults = !string.IsNullOrEmpty(referrer) && referrer.Contains("/heritage-assets", StringComparison.OrdinalIgnoreCase);
 }
 
 <div class="grid-container-full-width background-grey">
@@ -22,10 +25,13 @@
                 <div class="article--70">
                     <h1 class="directory__title">@Model.Name</h1>
                 </div>
-
-                <div class="article--30 article--30-center-align hide-on-tablet hide-on-mobile js-only">
-                    <button class="btn btn--width-30 btn--inverse btn--border-grey-accent btn--chevron-back btn--black-text btn--plain shed__button" onclick="window.history.back()">Back to search results</button>
-                </div>
+                
+                @if (cameFromResults)
+                {
+                    <div class="article--30 article--30-center-align hide-on-tablet hide-on-mobile js-only">
+                        <button class="btn btn--width-30 btn--inverse btn--border-grey-accent btn--chevron-back btn--black-text btn--plain shed__button" onclick="window.history.back()">Back to search results</button>
+                    </div>
+                }
             </section>
 
             <section class="directory">
@@ -41,9 +47,12 @@
                     <partial name="ShedEntryImages" model='Model.Images' view-data='@(new ViewDataDictionary(ViewData) { { "AdditionalWrapperCssClasses", @borderTeal }, { "AdditionalCssClasses", @greyBorderCssClasses } })' />
                     @* <partial name="MapContent" model=@(new MapViewModel("title", "https://maps.stockport.gov.uk/historic-environment") ) /> *@
 
-                    <div class="article--30 article--30-center-align hide-on-desktop js-only">
-                        <button class="btn btn--full btn--inverse btn--border-grey-accent btn--chevron-back btn--black-text btn--plain shed__button" onclick="window.history.back()">Back to search results</button>
-                    </div>
+                    @if (cameFromResults)
+                    {
+                        <div class="article--30 article--30-center-align hide-on-desktop js-only">
+                            <button class="btn btn--full btn--inverse btn--border-grey-accent btn--chevron-back btn--black-text btn--plain shed__button" onclick="window.history.back()">Back to search results</button>
+                        </div>
+                    }
                 </div>
             </section>
         </div>

@@ -11,6 +11,9 @@
     string noBorder = " navcard--border-top-0";
     string borderRadius = " navcard--radius-bottom-left navcard--radius-bottom-right";
     string greyBorderCssClasses = $"{borderGrey} {noBorder} {borderRadius}";
+
+    string referrer = Context.Request.Headers["Referer"].ToString();
+    bool cameFromDirectories = !string.IsNullOrEmpty(referrer) && referrer.Contains("/directories/results", StringComparison.OrdinalIgnoreCase);
 }
 
 <div class="grid-container-full-width" data-cy="directory-entry">
@@ -23,10 +26,13 @@
                 <div class="article--70">
                     <h1 class="directory__title">@Model.DirectoryEntry.Name</h1>
                 </div>
-
-                <div class="article--30 article--30-center-align hide-on-tablet hide-on-mobile js-only">
-                    <button class="btn btn--width-30 btn--inverse btn--border-grey-accent btn--chevron-back btn--black-text btn--plain shed__button" onclick="window.history.back()">Back to search results</button>
-                </div>
+                
+                @if (cameFromDirectories)
+                {
+                    <div class="article--30 article--30-center-align hide-on-tablet hide-on-mobile js-only">
+                        <button class="btn btn--width-30 btn--inverse btn--border-grey-accent btn--chevron-back btn--black-text btn--plain shed__button" onclick="window.history.back()">Back to search results</button>
+                    </div>
+                }
             </section>
 
             <section class="directory">
@@ -41,10 +47,13 @@
                     <partial name="DirectoryEntryHighightedFilters" model='Model.HighlightedFilters' view-data='@(new ViewDataDictionary(ViewData) { { "AdditionalWrapperCssClasses", @borderTeal }, { "AdditionalCssClasses", @greyBorderCssClasses } })' />
                     <partial name="DirectoryEntryMap" model='Model.MapDetails' view-data='@(new ViewDataDictionary(ViewData) { { "AdditionalWrapperCssClasses", @borderTeal }, { "AdditionalCssClasses", @greyBorderCssClasses }, { "AddressWithoutTags", @Model.AddressWithoutTags }, { "DisplayMap", Model.DisplayMap }, { "EntryNameString", @Model.DirectoryEntry.Name } })' />
                     <partial name="DirectoryEntryBranding" model='Model.DirectoryEntry.TrustedLogos' view-data='@(new ViewDataDictionary(ViewData) { { "AdditionalWrapperCssClasses", @borderTeal }, { "AdditionalCssClasses", @greyBorderCssClasses } })' />
-                
-                    <div class="article--30 article--30-center-align hide-on-desktop js-only">
-                        <button class="btn btn--full btn--inverse btn--border-grey-accent btn--chevron-back btn--black-text btn--plain shed__button" onclick="window.history.back()">Back to search results</button>
-                    </div>
+
+                    @if (cameFromDirectories)
+                    {    
+                        <div class="article--30 article--30-center-align hide-on-desktop js-only">
+                            <button class="btn btn--full btn--inverse btn--border-grey-accent btn--chevron-back btn--black-text btn--plain shed__button" onclick="window.history.back()">Back to search results</button>
+                        </div>
+                    }
                 </div>
             </section>
         </div>
