@@ -11,7 +11,7 @@
     string borderTop = $"directory--border-top {borderTeal}";
     string eventWrapperCssClasses = "event-detail__wrapper navcard--white navcard-all navcard--theme-grey-accent-all navcard--border-top-0 navcard--radius-bottom-left navcard--radius-bottom-right";
 
-    var referrer = Context.Request.Headers["Referer"].ToString();
+    string referrer = Context.Request.Headers["Referer"].ToString();
     bool cameFromEvents = !string.IsNullOrEmpty(referrer) && referrer.Contains("/events", StringComparison.OrdinalIgnoreCase);
 }
 

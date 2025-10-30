@@ -12,7 +12,7 @@
     string borderRadius = " navcard--radius-bottom-left navcard--radius-bottom-right";
     string greyBorderCssClasses = $"{borderGrey} {noBorder} {borderRadius}";
     
-    var referrer = Context.Request.Headers["Referer"].ToString();
+    string referrer = Context.Request.Headers["Referer"].ToString();
     bool cameFromResults = !string.IsNullOrEmpty(referrer) && referrer.Contains("/heritage-assets", StringComparison.OrdinalIgnoreCase);
 }
 

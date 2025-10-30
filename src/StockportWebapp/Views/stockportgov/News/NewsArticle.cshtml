@@ -8,7 +8,7 @@
     string dataCy = string.IsNullOrEmpty(Model.NewsItem.Image) ? "news-article-details" : "news-article-hero";
     bool displayLastUpdated = !Model.NewsItem.UpdatedAt.Date.Equals(Model.NewsItem.SunriseDate.Date) && Model.NewsItem.UpdatedAt.Date > Model.NewsItem.SunriseDate.Date;
 
-    var referrer = Context.Request.Headers["Referer"].ToString();
+    string referrer = Context.Request.Headers["Referer"].ToString();
     bool cameFromArchive = !string.IsNullOrEmpty(referrer) && referrer.Contains("/news/archive", StringComparison.OrdinalIgnoreCase);
 }
 
