@@ -10,8 +10,6 @@ public class HomepageFactory(MarkdownWrapper markdownWrapper)
 
         string featuredTasksSummary = _markdownWrapper.ConvertToHtml(homepage.FeaturedTasksSummary);
 
-        string imageOverlayText = _markdownWrapper.ConvertToHtml(homepage.ImageOverlayText ?? string.Empty);
-
         return new ProcessedHomepage(homepage.Title,
             homepage.FeaturedTasksHeading,
             featuredTasksSummary,
@@ -31,7 +29,6 @@ public class HomepageFactory(MarkdownWrapper markdownWrapper)
             homepage.CampaignBanner,
             homepage.CallToAction,
             homepage.CallToActionPrimary,
-            homepage.SpotlightOnBanner,
-            imageOverlayText);
+            homepage.SpotlightOnBanner);
     }
 }

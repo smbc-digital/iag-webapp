@@ -47,7 +47,6 @@ public class UrlGenerator(IApplicationConfiguration config, BusinessId businessI
         {typeof(PrivacyNotice), "privacy-notices/"},
         {typeof(List<PrivacyNotice>), "privacy-notices/"},
         {typeof(ContactUsArea), "contactusarea"},
-        {typeof(CommsHomepage), "comms"},
         {typeof(DocumentPage), "document-page/"},
         {typeof(Directory), "directory/"},
         {typeof(DirectoryEntry), "directory-entry/"},

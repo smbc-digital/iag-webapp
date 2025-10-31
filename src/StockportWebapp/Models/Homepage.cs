@@ -19,8 +19,7 @@ public class Homepage(string title,
                     CarouselContent campaignBanner,
                     CallToActionBanner callToAction,
                     CallToActionBanner callToActionPrimary,
-                    IEnumerable<SpotlightOnBanner> spotlightOnBanner,
-                    string imageOverlayText)
+                    IEnumerable<SpotlightOnBanner> spotlightOnBanner)
 {
     public string Title { get; } = title;
     public string FeaturedTasksHeading { get; } = featuredTasksHeading;
@@ -30,7 +29,6 @@ public class Homepage(string title,
     public IEnumerable<Alert> Alerts { get; } = alerts;
     public IEnumerable<CarouselContent> CarouselContents { get; } = carouselContents;
     public string BackgroundImage { get; } = backgroundImage;
-    public string ImageOverlayText { get; } = imageOverlayText;
     public string ForegroundImage { get; } = foregroundImage;
     public string ForegroundImageLocation { get; } = foregroundImageLocation;
     public string ForegroundImageLink { get; } = foregroundImageLink;
