@@ -113,8 +113,7 @@ public class HomeControllerTest
                                                 _campaignBanner,
                                                 _callToActionBanner,
                                                 _callToActionBanner,
-                                                new List<SpotlightOnBanner>(),
-                                                "image overlay text");
+                                                new List<SpotlightOnBanner>());
 
         _homepageService
             .Setup(service => service.GetHomepage())
@@ -353,8 +352,7 @@ public class HomeControllerTest
                                                 _campaignBanner,
                                                 _callToActionBanner,
                                                 _callToActionBanner,
-                                                new List<SpotlightOnBanner>(),
-                                                "image overlay text");
+                                                new List<SpotlightOnBanner>());
 
         _homepageService
             .Setup(service => service.GetHomepage())

@@ -50,6 +50,10 @@ public class StartPageFactoryTests
             .Returns(_startPage.LowerBody);
 
         _mockMarkdownWrapper
+            .Setup(wrapper => wrapper.ConvertToHtml(_startPage.Summary))
+            .Returns(_startPage.Summary);
+        
+        _mockMarkdownWrapper
             .Setup(wrapper => wrapper.ConvertToHtml(_startPage.UpperBody))
             .Returns(_startPage.UpperBody);
 
@@ -59,7 +63,7 @@ public class StartPageFactoryTests
     }
 
     [Fact]
-    public void ShouldSetTheCorrespondingFieldsForAProcessedServicePayPayment()
+    public void ShouldSetTheCorrespondingFieldsForAProcessedStartPage()
     {
         // Act
         ProcessedStartPage result = _factory.Build(_startPage);
@@ -83,7 +87,7 @@ public class StartPageFactoryTests
     {
         // Act & Assert
         _factory.Build(_startPage);
-        _mockMarkdownWrapper.Verify(parser => parser.ConvertToHtml(It.IsAny<string>()), Times.Exactly(2));
+        _mockMarkdownWrapper.Verify(parser => parser.ConvertToHtml(It.IsAny<string>()), Times.Exactly(3));
     }
 
     [Fact]

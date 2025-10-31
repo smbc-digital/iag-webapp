@@ -23,7 +23,6 @@ public class PaymentFactory(ITagParserContainer simpleTagParserContainer, Markdo
             payment.BreadCrumbs,
             payment.ReferenceValidation,
             payment.MetaDescription,
-            payment.ReturnUrl,
             payment.CatalogueId,
             payment.AccountReference,
             payment.PaymentDescription,

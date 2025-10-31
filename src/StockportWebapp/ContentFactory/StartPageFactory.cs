@@ -13,7 +13,7 @@ public class StartPageFactory(ITagParserContainer tagParserContainer, MarkdownWr
         return new(startPage.Slug,
                 startPage.Title,
                 startPage.Teaser,
-                startPage.Summary,
+                _markdownWrapper.ConvertToHtml(startPage.Summary ?? string.Empty),
                 _markdownWrapper.ConvertToHtml(upperBody ?? string.Empty),
                 startPage.FormLink,
                 _markdownWrapper.ConvertToHtml(lowerBody ?? string.Empty),

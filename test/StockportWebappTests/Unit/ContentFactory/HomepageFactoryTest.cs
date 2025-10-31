@@ -38,8 +38,7 @@ public class HomepageFactoryTest
                                 new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty, new DateTime()),
                                 new CallToActionBanner(),
                                 new CallToActionBanner(),
-                                new List<SpotlightOnBanner>(),
-                                "image overlay text");
+                                new List<SpotlightOnBanner>());
 
         // Act
         ProcessedHomepage result = _homepageFactory.Build(homepage);
@@ -48,6 +47,5 @@ public class HomepageFactoryTest
         Assert.Equal("free text", result.FreeText);
         Assert.Equal("background image", result.BackgroundImage);
         _markdownWrapperMock.Verify(wrapper => wrapper.ConvertToHtml("free text"), Times.Once);
-        _markdownWrapperMock.Verify(wrapper => wrapper.ConvertToHtml("image overlay text"), Times.Once);
     }
 }

@@ -19,8 +19,7 @@ public class ProcessedHomepage(string title,
                             CarouselContent campaignBanner,
                             CallToActionBanner callToAction,
                             CallToActionBanner callToActionPrimary,
-                            IEnumerable<SpotlightOnBanner> spotlightOnBanner,
-                            string imageOverlayText) : IProcessedContentType
+                            IEnumerable<SpotlightOnBanner> spotlightOnBanner) : IProcessedContentType
 {
     public string Title = title;
     public readonly string FeaturedTasksHeading = featuredTasksHeading;
@@ -31,7 +30,6 @@ public class ProcessedHomepage(string title,
     public readonly IEnumerable<Alert> CondolenceAlerts = alerts.Where(_ => _.Severity.Equals(Severity.Condolence));
     public readonly IEnumerable<CarouselContent> CarouselContents = carouselContents;
     public readonly string BackgroundImage = backgroundImage;
-    public readonly string ImageOverlayText = imageOverlayText;
     public readonly string ForegroundImage = foregroundImage;
     public readonly string ForegroundImageLocation = foregroundImageLocation;
     public readonly string ForegroundImageLink = foregroundImageLink;
