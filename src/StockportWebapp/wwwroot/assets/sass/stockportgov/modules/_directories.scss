@@ -402,8 +402,12 @@
         }
     }
 
-    &-button {
-        margin-top: 1.2em;
+    &__button {
+        margin-bottom: 1.2em;
+
+        &--no-margin-top {
+            margin-top: 0;
+        }
     }
 
     &--no-margin {
