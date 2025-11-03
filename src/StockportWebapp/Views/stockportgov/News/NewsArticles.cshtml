@@ -3,7 +3,7 @@
     ViewData["og:title"] = $"News {Model.PageTitle}";
     ViewData["Title"] = $"News {Model.PageTitle}";
     Layout = "../Shared/_Layout2023.cshtml";
-
+    
     string marginTopCssClass = !Model.IsFirstPage ? "news-article__section--margin-top" : string.Empty;
     string dataCy = Model.IsFromSearch()
         ? (!string.IsNullOrEmpty(Model.Tag)
@@ -39,7 +39,7 @@
         </section>
     }
 
-    <section class="section section--grey section--no-margin section--margin-top @(Model.ShowFeaturedNews ? "section--padded-top" : "section--padded")" data-cy="all-news">
+    <section class="section section--grey section--no-margin @(!Model.IsFromSearch() ? "section--margin-top" : string.Empty) @(Model.ShowFeaturedNews ? "section--padded-top" : "section--padded")" data-cy="all-news">
         <div class="grid-container">
             <div class="grid-100">
                 <div class="section__content section--padded-bottom-1">
