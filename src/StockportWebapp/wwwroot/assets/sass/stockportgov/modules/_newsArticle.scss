@@ -14,7 +14,7 @@
         &--margin-top {
             margin-top: 2em;
 
-            @media #{$tablet-only} {
+            @media #{$tablet} {
                 margin-top: 1.6em;
             }
         }
@@ -27,6 +27,10 @@
             @media #{$mobile} {
                 margin-top: 0;
             }
+        }
+
+        &--no-margin-bottom {
+            margin-bottom: 0;
         }
     }
 

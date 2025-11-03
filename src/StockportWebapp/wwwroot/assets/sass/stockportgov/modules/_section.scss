@@ -36,6 +36,12 @@
         }
     }
 
+    &--padded-top {
+        @media #{$mobile} {
+            padding-block-start: 2em;
+        }
+    }
+
     &--padded-bottom {
         padding-bottom: 2em;
     }

@@ -38,11 +38,11 @@
                     <partial name="DirectoryEntryDescription" model='Model.DirectoryEntry.Description' view-data='@(new ViewDataDictionary(ViewData) { { "AdditionalCssClasses", @greyBorderCssClasses } })' />
                     <partial name="DirectoryEntryHighightedFilters" model='Model.HighlightedFilters' view-data='@(new ViewDataDictionary(ViewData) { { "AdditionalWrapperCssClasses", @borderTeal }, { "AdditionalCssClasses", @greyBorderCssClasses } })' />
                     <partial name="DirectoryEntryMap" model='Model.MapDetails' view-data='@(new ViewDataDictionary(ViewData) { { "AdditionalWrapperCssClasses", @borderTeal }, { "AdditionalCssClasses", @greyBorderCssClasses }, { "AddressWithoutTags", @Model.AddressWithoutTags }, { "DisplayMap", Model.DisplayMap }, { "EntryNameString", @Model.DirectoryEntry.Name } })' />
-                    <partial name="DirectoryEntryBranding" model='Model.DirectoryEntry.TrustedLogos' view-data='@(new ViewDataDictionary(ViewData) { { "AdditionalWrapperCssClasses", @borderTeal }, { "AdditionalCssClasses", @greyBorderCssClasses } })' />
+                    <partial name="DirectoryEntryBranding" model='Model.DirectoryEntry.TrustedLogos' view-data='@(new ViewDataDictionary(ViewData) { { "AdditionalWrapperCssClasses", @borderTeal + " directory--no-margin" }, { "AdditionalCssClasses", @greyBorderCssClasses + " directory--no-margin" } })' />
 
                     <div class="article--30 article--30-center-align hide-on-desktop js-only" id="back-button-mobile"></div>
 
-                    <partial name="BackButtonScript" view-data='new ViewDataDictionary(ViewData) { { "referrerValue", "/directories/results" } }' />
+                    <partial name="BackButtonScript" view-data='new ViewDataDictionary(ViewData) { { "referrerValue", "/directories/results" }, { "AdditionalCssClasses", "directory-button" } }' />
                 </div>
             </section>
         </div>
