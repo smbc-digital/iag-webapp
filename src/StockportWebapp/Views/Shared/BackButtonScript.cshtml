@@ -4,12 +4,8 @@
         const cameFromResults = referrer.includes("@((string)ViewData["referrerValue"] ?? string.Empty)");
 
         if (cameFromResults) {
-            const desktopButton = `
-                <button class="btn btn--width-30 btn--inverse btn--border-grey-accent btn--chevron-back btn--black-text btn--plain shed__button" onclick="window.history.back()">Back to search results</button>
-            `;
-            const mobileButton = `
-                <button class="btn btn--full btn--inverse btn--border-grey-accent btn--chevron-back btn--black-text btn--plain shed__button" onclick="window.history.back()">Back to search results</button>
-            `;
+            const desktopButton = `<button class="btn btn--width-30 btn--inverse btn--border-grey-accent btn--chevron-back btn--black-text btn--plain shed__button" onclick="window.history.back()">Back to search results</button>`;
+            const mobileButton = `<button class="btn btn--full btn--inverse btn--border-grey-accent btn--chevron-back btn--black-text btn--plain shed__button btn--margin-top @((string)ViewData["AdditionalCssClasses"] ?? string.Empty)" onclick="window.history.back()">Back to search results</button>`;
 
             document.getElementById("back-button-desktop").innerHTML = desktopButton;
             document.getElementById("back-button-mobile").innerHTML = mobileButton;
