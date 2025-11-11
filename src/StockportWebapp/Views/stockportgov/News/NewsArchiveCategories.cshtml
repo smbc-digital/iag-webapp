@@ -66,7 +66,7 @@
             <ul class="filters-list">
                 @foreach (int year in newsroom.Years.OrderByDescending(yr => yr))
                 {
-                    <li class="@(Model.DateRange == "customdate" && Model.DateFrom.Equals(year) ? "active" : string.Empty)">
+                    <li class="@(Model.DateRange == "year" && Model.DateFrom.Value.Year.Equals(year) ? "active" : string.Empty)">
                         <a href="@Url.RouteUrl(Model.FilteredUrl.AddYearFilter(year))" rel="nofollow">@year</a>
                     </li>
                 }
@@ -76,7 +76,7 @@
 </div>
 
 <script>
-    require(['/assets/javascript/config-eced22f0.min.js'], function() {
+    require(['/assets/javascript/config-7ac3d955.min.js'], function() {
         require(['filters'],
             function(filters) {
                 filters.Init();

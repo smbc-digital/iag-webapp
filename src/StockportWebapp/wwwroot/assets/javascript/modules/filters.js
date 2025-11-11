@@ -10,26 +10,21 @@
                 if (e.type === "click" || (e.type === "keypress" && e.which === 32)) {
                     $(this).siblings("ul").slideToggle(100, function () {
                         $(this).parent("li").toggleClass("is-collapsed");
-                    });    
+                    });
                 }
             });
 
-            if ($(window).width() <= utils.TabletWidth) {
-                $(".l-filters .collapsible:not(#custom-filter-li)").addClass("is-collapsed");
-                $(".filters-list li.active .field-validation-error").parents("li").removeClass("is-collapsed");
-            } else {
-                $(".l-filters .filter:not(#custom-filter-li):not(#date-filter):not(#category-filter):not(#news-archive).collapsible").addClass("is-collapsed");
-                $(".l-filters .filter:not(#custom-filter-li):not(#date-filter):not(#category-filter) .collapsible").addClass("is-collapsed");
+            $(".filters-list li.active").each(function () {
+                $(this).parents("li").addBack().removeClass("is-collapsed");
+                $(this).closest(".collapsible").removeClass("is-collapsed");
+            });
+
+            if ($("#news-archive .filters-list li.active").length > 0) {
+                $("#news-archive").removeClass("is-collapsed");
             }
 
             if ($("#custom-filter-li").hasClass("customdateactive")) {
                 $("#custom-filter-li").removeClass("is-collapsed");
-            }
-
-            if ($(window).width() > utils.TabletWidth) {
-                $(".filters-list li.active").each(function () {
-                    $(this).parents("li").removeClass("is-collapsed");
-                });
             }
         });
     };
