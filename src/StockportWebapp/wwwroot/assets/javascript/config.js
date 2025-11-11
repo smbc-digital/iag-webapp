@@ -13,7 +13,7 @@
         "events": "events-af550f37.min",
         "eventCategories": "eventCategories-e45a6772.min",
         "eventFilters": "eventFilters-0efc724b.min",
-        "filters": "filters-19472cec.min",
+        "filters": "filters-62f2ec08.min",
         "healthystockport": "healthystockport-e14985cb.min",
         "mapSetCookie": "mapSetCookie-75bedf74.min",
         "matchbox": "matchbox-1781b65a.min",
