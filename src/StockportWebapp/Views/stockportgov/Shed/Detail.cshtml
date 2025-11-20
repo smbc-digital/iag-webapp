@@ -37,7 +37,7 @@
                     <partial name="ShedEntryDescription" model='Model.Description' view-data='@(new ViewDataDictionary(ViewData) { { "AdditionalCssClasses", @greyBorderCssClasses } })' />
                     <partial name="ShedEntryDocuments" model='Model.Documents' view-data='@(new ViewDataDictionary(ViewData) { { "AdditionalWrapperCssClasses", @borderTeal }, { "AdditionalCssClasses", @greyBorderCssClasses } })' />
                     <partial name="ShedEntryImages" model='Model.Images' view-data='@(new ViewDataDictionary(ViewData) { { "AdditionalWrapperCssClasses", @borderTeal }, { "AdditionalCssClasses", @greyBorderCssClasses } })' />
-                    @* <partial name="MapContent" model=@(new MapViewModel("title", "https://maps.stockport.gov.uk/historic-environment") ) /> *@
+                    @* <partial name="MapContent" model=@(new MapViewModel("https://maps.stockport.gov.uk/historic-environment") ) /> *@
 
                     <div class="article--30 article--30-center-align hide-on-desktop js-only" id="back-button-mobile"></div>
                     <partial name="BackButtonScript" view-data='new ViewDataDictionary(ViewData) { { "referrerValue", "/heritage-assets" } }' />

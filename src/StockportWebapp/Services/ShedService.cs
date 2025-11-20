@@ -2,36 +2,36 @@ namespace StockportWebapp.Services;
 
 public interface IShedService
 {
-    Task<ShedItem> GetSHEDDataByHeRef(string heRef);
-    Task<List<ShedItem>> GetSHEDDataByNameWardsTypeAndListingTypes(string heRef, List<string> ward, List<string> types, List<string> listingTypes);
+	Task<ShedItem> GetSHEDDataByHeRef(string heRef);
+	Task<List<ShedItem>> GetSHEDDataByNameWardsTypeAndListingTypes(string heRef, List<string> ward, List<string> types, List<string> listingTypes);
 }
 
 public class ShedService(IShedApiClient shedApiClient, MarkdownWrapper markdownWrapper) : IShedService
 {
-    private readonly IShedApiClient _shedApiClient = shedApiClient;
-    private readonly MarkdownWrapper _markdownWrapper = markdownWrapper;
+	private readonly IShedApiClient _shedApiClient = shedApiClient;
+	private readonly MarkdownWrapper _markdownWrapper = markdownWrapper;
 
-    public async Task<ShedItem> GetSHEDDataByHeRef(string heRef)
-    {
-        string json = await _shedApiClient.GetSHEDDataByHeRef(heRef);
+	public async Task<ShedItem> GetSHEDDataByHeRef(string heRef)
+	{
+		string json = await _shedApiClient.GetSHEDDataByHeRef(heRef);
 
-        if (string.IsNullOrEmpty(json))
-            return null;
+		if (string.IsNullOrEmpty(json))
+			return null;
 
-        ShedItem shedItem = System.Text.Json.JsonSerializer.Deserialize<ShedItem>(json);
+		ShedItem shedItem = System.Text.Json.JsonSerializer.Deserialize<ShedItem>(json);
 
-        if (shedItem is not null)
-            shedItem.Description = _markdownWrapper.ConvertToHtml(shedItem.Description ?? string.Empty);
+		if (shedItem is not null)
+			shedItem.Description = _markdownWrapper.ConvertToHtml(shedItem.Description ?? string.Empty);
 
-        return shedItem ?? null;
-    }
+		return shedItem ?? null;
+	}
 
-    public async Task<List<ShedItem>> GetSHEDDataByNameWardsTypeAndListingTypes(string name, List<string> ward, List<string> types, List<string> listingTypes)
-    {
-        string json = await _shedApiClient.GetSHEDDataByNameWardsTypeAndListingTypes(name, ward, types, listingTypes);
+	public async Task<List<ShedItem>> GetSHEDDataByNameWardsTypeAndListingTypes(string name, List<string> ward, List<string> types, List<string> listingTypes)
+	{
+		string json = await _shedApiClient.GetSHEDDataByNameWardsTypeAndListingTypes(name, ward, types, listingTypes);
 
-        List<ShedItem> assets = System.Text.Json.JsonSerializer.Deserialize<List<ShedItem>>(json);
+		List<ShedItem> assets = System.Text.Json.JsonSerializer.Deserialize<List<ShedItem>>(json);
 
-        return assets ?? new List<ShedItem>();
-    }
+		return assets ?? new List<ShedItem>();
+	}
 }

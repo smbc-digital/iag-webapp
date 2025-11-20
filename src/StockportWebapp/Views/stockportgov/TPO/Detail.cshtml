@@ -1,0 +1,43 @@
+@model TPOItem;
+@{
+    Layout = "../Shared/_Layout2023.cshtml";
+    ViewData["Title"] = Model.Tpo_name;
+    ViewData["og:title"] = Model.Tpo_name;
+    string title = "Stockport's TPO";
+    ViewData["Description"] = title;
+
+    string borderTeal = " navcard--border-top-10 navcard--theme-teal-lighter-top ";
+    string borderGrey = " navcard-all navcard--theme-grey-accent-all";
+    string noBorder = " navcard--border-top-0";
+    string borderRadius = " navcard--radius-bottom-left navcard--radius-bottom-right";
+    string greyBorderCssClasses = $"{borderGrey} {noBorder} {borderRadius}";
+
+}
+
+
+
+
+<div class="grid-container-full-width background-grey">
+    <div class="grid-container">
+        <div class="grid-100">
+            <section class="article">
+                <div class="article--70">
+                    <h1 class="directory__title">@Model.Tpo_name @Model.Tpo_number</h1>
+                </div>
+
+                <div class="article--30 article--30-center-align hide-on-tablet hide-on-mobile js-only" id="back-button-desktop"></div>
+            </section>
+
+            <section class="directory">
+                <div class="directory--30 directory--border-top @borderTeal">
+                    <div class="directory__wrapper navcard--white @greyBorderCssClasses">
+                        <partial name="TPOEntryCore" />
+                    </div>
+                </div>
+                <div class="directory--70 directory--border-top @borderTeal">                    
+                    <partial name="TPOMapContent" model=@(new TPOMapViewModel { Lat = Model.Lat, Lng = Model.Lng }) />
+                </div>
+            </section>
+        </div>
+    </div>
+</div>

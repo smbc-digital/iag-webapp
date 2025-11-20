@@ -1,0 +1,25 @@
+﻿@model TPOItem
+
+<h2 class="directory__profile-image">TPO details</h2>
+
+<div class="directory__address">
+        <h3 class="h-m">Name</h3>
+        <div>@Model.Tpo_name.Replace("&", "and") : @Model.Tpo_number : @Model.OgcFid</div>
+</div>
+
+<div class="directory__address">
+        <h3 class="h-m">Status</h3>
+        <div>@Model.Status</div>
+</div>
+
+<div class="directory__address">
+        <h3 class="h-m">Tree species</h3>
+        <div>@Model.Tree_species</div>
+</div>
+
+<div class="directory__address">
+    <h3 class="h-m">Location</h3>
+    <div>Lat @(Model.Lat),  Lng @(Model.Lng)</div>
+
+</div>
+

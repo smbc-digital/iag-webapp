@@ -72,7 +72,8 @@ public class Startup
         services.AddRedis(Configuration, _useRedisSession, Log.Logger);
         services.AddFeatureManagement();
         services.AddHttpClient<IShedApiClient, ShedApiClient>();
-    }
+		services.AddHttpClient<ITPOApiClient, TPOApiClient>();
+	}
 
     public static void HandleFaviconRequests(IApplicationBuilder app)
     {
