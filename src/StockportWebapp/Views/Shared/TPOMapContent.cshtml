@@ -4,14 +4,13 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/gokertanrisever/leaflet-ruler@master/src/leaflet-ruler.css" />
     <script src="https://cdn.jsdelivr.net/gh/gokertanrisever/leaflet-ruler@master/src/leaflet-ruler.js"></script>
 
-    string url = $"https://maps.stockport.gov.uk/tree-preservation-orders/main-latest.js";
-    string url2 = $"https://maps.stockport.gov.uk/tree-preservation-orders/index.html?lat=53.33&lng=-2.165";
-    string url3 = $"https://maps.stockport.gov.uk/tree-preservation-orders/index.html?lat=" + @Model.Lat + "&lng=" + @Model.Lng + "";
+    string url = $"https://maps.stockport.gov.uk/tree-preservation-orders/index.html?lat=" + @Model.Lat + "&lng=" + @Model.Lng + "";
 }
 
 <div id='root'>
 
-<iframe src="@url3" style="width:100%; height:600px"></iframe>
+<iframe src="@url" style="width:100%; height:600px"></iframe>
+
 </div>
 <link rel=stylesheet href='https://kit.fontawesome.com/d14fbc06e0.css' crossorigin='anonymous'>
 
