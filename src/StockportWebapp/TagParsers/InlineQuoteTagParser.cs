@@ -19,7 +19,7 @@ public class InlineQuoteTagParser(IViewRender viewRenderer) : IDynamicTagParser<
 
             if (inlineQuote is not null)
             {
-                string renderedInlineQuote = _viewRenderer.Render("InlineQuote", inlineQuote);
+                string renderedInlineQuote = _viewRenderer.Render("InlineQuoteWrapped", inlineQuote);
                 body = TagRegex.Replace(body, renderedInlineQuote, 1);
             }
         }
