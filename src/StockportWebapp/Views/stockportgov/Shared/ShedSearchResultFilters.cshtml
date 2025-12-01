@@ -14,16 +14,19 @@
                     </a>
 
                     <div class="directory-filters__content" role="group" aria-labelledby='shed-type'>
-                        @foreach (string type in Model.Types)
-                        {
-                            string id = type.Replace(" ", "-").ToLower();
-                            <div class="directory__checkbox-container">
-                                <input class="directory-filters__checkbox" type="checkbox" name="types" value="@type" id="@id"
-                                    @(Model.AppliedFilters.Any(appliedFilter => appliedFilter.Equals(type)) ? "checked" : string.Empty)>
+                        <fieldset>
+                            <legend class="visuallyhidden" aria-hidden="true">Type</legend>
+                            @foreach (string type in Model.Types)
+                            {
+                                string id = type.Replace(" ", "-").ToLower();
+                                <div class="directory__checkbox-container">
+                                    <input class="directory-filters__checkbox" type="checkbox" name="types" value="@type" id="@id"
+                                        @(Model.AppliedFilters.Any(appliedFilter => appliedFilter.Equals(type)) ? "checked" : string.Empty)>
 
-                                <label for="@id" class="directory-filters__label">@type</label>
-                            </div>
-                        }
+                                    <label for="@id" class="directory-filters__label">@type</label>
+                                </div>
+                            }
+                        </fieldset>
                     </div>
 
                     <hr>
@@ -34,27 +37,30 @@
                     </a>
 
                     <div class="directory-filters__content" role="group" aria-labelledby='directory-ward'>
-                        @foreach (string grade in Model.Grades)
-                        {
-                            string value = grade.Equals("II*") ? "IISTAR" : grade;
-                            string id = grade.Replace(" ", "-").Replace("*", "-star").ToLower();
+                        <fieldset>
+                            <legend class="visuallyhidden" aria-hidden="true">Grade</legend>
+                            @foreach (string grade in Model.Grades)
+                            {
+                                string value = grade.Equals("II*") ? "IISTAR" : grade;
+                                string id = grade.Replace(" ", "-").Replace("*", "-star").ToLower();
 
-                            <div class="directory__checkbox-container">
-                                <input class="directory-filters__checkbox" type="checkbox" name="grade" value="@value" id="@id"
-                                    @(Model.AppliedFilters.Any(appliedFilter => appliedFilter.Equals(value)) ? "checked" : string.Empty) >
+                                <div class="directory__checkbox-container">
+                                    <input class="directory-filters__checkbox" type="checkbox" name="grade" value="@value" id="@id"
+                                        @(Model.AppliedFilters.Any(appliedFilter => appliedFilter.Equals(value)) ? "checked" : string.Empty) >
 
-                                <label for="@id" class="directory-filters__label">
-                                    @if (grade.Equals("II*"))
-                                    {
-                                        @:II<span class="visuallyhidden"> star</span><span aria-hidden="true">*</span>
-                                    }
-                                    else
-                                    {
-                                        @grade
-                                    }
-                                </label>
-                            </div>
-                        }
+                                    <label for="@id" class="directory-filters__label">
+                                        @if (grade.Equals("II*"))
+                                        {
+                                            @:II<span class="visuallyhidden"> star</span><span aria-hidden="true">*</span>
+                                        }
+                                        else
+                                        {
+                                            @grade
+                                        }
+                                    </label>
+                                </div>
+                            }
+                        </fieldset>
                     </div>
 
                     <hr>
@@ -65,16 +71,19 @@
                     </a>
 
                     <div class="directory-filters__content" role="group" aria-labelledby='shed-ward'>
-                        @foreach (string ward in Model.Wards)
-                        {
-                            string id = ward.Replace(" ", "-").ToLower();
-                            <div class="directory__checkbox-container">
-                                <input class="directory-filters__checkbox" type="checkbox" name="ward" value="@ward" id="@id"
-                                    @(Model.AppliedFilters.Any(appliedFilter => appliedFilter.Equals(ward)) ? "checked" : string.Empty)>
+                        <fieldset>
+                            <legend class="visuallyhidden" aria-hidden="true">Ward</legend>
+                            @foreach (string ward in Model.Wards)
+                            {
+                                string id = ward.Replace(" ", "-").ToLower();
+                                <div class="directory__checkbox-container">
+                                    <input class="directory-filters__checkbox" type="checkbox" name="ward" value="@ward" id="@id"
+                                        @(Model.AppliedFilters.Any(appliedFilter => appliedFilter.Equals(ward)) ? "checked" : string.Empty)>
 
-                                <label for="@id" class="directory-filters__label">@ward.Replace("&", "and")</label>
-                            </div>
-                        }
+                                    <label for="@id" class="directory-filters__label">@ward.Replace("&", "and")</label>
+                                </div>
+                            }
+                        </fieldset>
                     </div>
 
                     <hr>

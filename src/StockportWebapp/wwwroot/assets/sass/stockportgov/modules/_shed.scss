@@ -34,6 +34,12 @@
             color: black;
         }
     }
+
+    &__date-listed {
+        div {
+            margin-bottom: 0;
+        }
+    }
 }
 
 html[dir="rtl"] {

@@ -4,7 +4,7 @@
 {
     <div class="directory__filters @((string)ViewData["AdditionalWrapperCssClasses"] ?? string.Empty)">
         <div class="directory__wrapper navcard--white @((string)ViewData["AdditionalCssClasses"] ?? string.Empty)">
-            <h2>Images</h2>
+            <h2 aria-hidden="true">Images</h2>
 
             <div class="shed__wrapper">
                 @foreach (string image in Model)
