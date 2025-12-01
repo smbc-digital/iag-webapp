@@ -21,32 +21,35 @@
                             </a>
 
                             <div class="directory-filters__content" role="group" aria-labelledby='directory-@entry.Title.ToLower().Replace(" ", "-")'>
-                                @foreach (Filter filter in entry.Filters)
-                                {
-                                    <div class="directory__checkbox-container">
-                                        <input class="directory-filters__checkbox" type="checkbox" name="filters" value="@filter.Slug" id="@filter.Slug"
-                                            @(Model.AppliedFilters.Any(appliedFilter => appliedFilter.Slug.Equals(filter.Slug)) ? "checked" : string.Empty)>
+                                <fieldset>
+                                    <legend class="visuallyhidden" aria-hidden="true">@entry.Title</legend>
+                                    @foreach (Filter filter in entry.Filters)
+                                    {
+                                        <div class="directory__checkbox-container">
+                                            <input class="directory-filters__checkbox" type="checkbox" name="filters" value="@filter.Slug" id="@filter.Slug"
+                                                @(Model.AppliedFilters.Any(appliedFilter => appliedFilter.Slug.Equals(filter.Slug)) ? "checked" : string.Empty)>
 
-                                        <label for="@filter.Slug" class="directory-filters__label">@filter.DisplayName</label>
-                                        <span class="directory-filters__count" aria-hidden="true">(@Model.FilterCounts.GetValueOrDefault(filter.Slug, 0))</span>
+                                            <label for="@filter.Slug" class="directory-filters__label">@filter.DisplayName</label>
+                                            <span class="directory-filters__count" aria-hidden="true">(@Model.FilterCounts.GetValueOrDefault(filter.Slug, 0))</span>
 
-                                        <span class="visuallyhidden">
-                                            @{
-                                                int filterCount = Model.FilterCounts.GetValueOrDefault(filter.Slug, 0);
-                                                string countValueForSR = filterCount.Equals(1) ? $"{filterCount} result" : $"{filterCount} results";
-                                            }
-                                            @countValueForSR
-                                        </span>
+                                            <span class="visuallyhidden">
+                                                @{
+                                                    int filterCount = Model.FilterCounts.GetValueOrDefault(filter.Slug, 0);
+                                                    string countValueForSR = filterCount.Equals(1) ? $"{filterCount} result" : $"{filterCount} results";
+                                                }
+                                                @countValueForSR
+                                            </span>
 
-                                        <br>
-                                    </div>
-                                }
+                                            <br>
+                                        </div>
+                                    }
+                                </fieldset>
                             </div>
 
                             <hr>
                         }
 
-                         <noscript>
+                        <noscript>
                             <button value="Apply filters" data-cy="apply-filters" class="btn btn--bold btn--full btn--margin-bottom" type="submit">Apply filters</button>
                         </noscript>
                     }

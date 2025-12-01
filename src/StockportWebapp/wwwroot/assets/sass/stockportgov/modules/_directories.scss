@@ -366,6 +366,10 @@
             margin-bottom: 1.25rem;
         }
 
+        p {
+            margin-bottom: 0;
+        }
+
         @media #{$mobile} {
             margin-left: 5px;
             margin-right: 5px;
@@ -927,6 +931,14 @@ html[dir="rtl"] {
                 right: unset;
                 border-bottom-right-radius: 3px;
                 border-bottom-left-radius: 0;
+            }
+        }
+
+        @media #{$desktop} {
+            &-result {
+                &__brand {
+                    text-align: left;
+                }
             }
         }
     }
