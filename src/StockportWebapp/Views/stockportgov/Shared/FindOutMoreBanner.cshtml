@@ -11,13 +11,16 @@
     string buttonColour = !isDefaultColourScheme
         ? $"btn-{@CssClassMapper.GetBoldCssClass(Model.ColourScheme)} btn-{@CssClassMapper.GetBoldCssClass(Model.ColourScheme)}-outline" 
         : "find-out-more-banner__button";
+    
+    string additionalCssClass = ViewData["AdditionalCssClass"] as string ?? string.Empty;
+    string findOutMoreBannerOrderSwitch = ViewData["FindOutMoreBannerOrderSwitch"] as string ?? string.Empty;
 
-    <section class="content-block content-block--margin" data-cy="find-out-more-banner">
+    <section class="content-block content-block--margin @additionalCssClass" data-cy="find-out-more-banner">
         <div class="grid-container">
             <div class="grid-100">
                 @foreach (ContentBlock contentBlock in Model.SubItems.Where(cb => !string.IsNullOrEmpty(cb.Image)).Take(3))
                 {
-                    <div class="find-out-more-banner">
+                    <div class="find-out-more-banner @findOutMoreBannerOrderSwitch">
                         <div class="find-out-more-banner-content">
                             <h2 class="section__title find-out-more-banner__title section__title--margin-bottom @borderColourClass">@contentBlock.Title</h2>
                             <p class="find-out-more-banner__teaser">@contentBlock.Teaser</p>

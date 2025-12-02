@@ -53,6 +53,12 @@
         }
     }
 
+    @media #{$tablet} {
+        &--no-margin-top {
+            margin-top: 0;
+        }
+    }
+
     &--padding {
         padding: 4em 0;
 
@@ -83,6 +89,7 @@
             }
         }
     }
+
     /*overides for maps in content blocks*/
     #root {
         border: 1px solid $stockport-grey-accent;

@@ -1,0 +1,74 @@
+// ToDo: refactor this to keep only the classes needed for header highlights
+.header-highlight {
+    border-radius: 50px 3px 50px 3px;
+    padding: 1em;
+    color: white;
+
+    padding: 1.5em;
+    box-sizing: border-box;
+
+    &--30-width {
+        max-width: 450px;
+        position: absolute;
+        bottom: -55px;
+        width: 33%;
+        justify-self: right;
+
+        @media #{$tablet} {
+            width: 100%;
+            bottom: 75px;
+            position: relative;
+            max-width: unset;
+            justify-self: center;
+        }
+
+        @media #{$mobile} {
+            bottom: 50px;
+        }
+    }
+    
+    &--full-width {
+        bottom: 75px;
+        position: relative;
+    }
+
+    p:last-of-type {
+        margin-bottom: 0;
+    }
+
+    &__icon {
+        margin-inline-end: 0.2em;
+        margin-top: 0;
+        vertical-align: middle;
+    }
+
+    &__title {
+        color: white;
+        margin-top: 0;
+    }
+
+    &-container {
+        display: flex;
+        align-items: flex-start;
+        gap: 20px;
+
+        .trivia__icon {
+            margin-inline: 0;
+            margin-top: 10px;
+        }
+
+        &__body {
+            flex: 1;
+
+            h1, h2, h3, h4, h5, h6 {
+                color: white;
+            }
+        }
+    }
+}
+
+html[dir="rtl"] {
+    .header-highlight {
+        border-radius: 3px 50px 3px 50px;
+    }
+}

@@ -42,11 +42,26 @@
                     : null;
 
 
-                <partial name="CallToAction" model="@callToActionBanner" view-data='@(new ViewDataDictionary(ViewData) {{"AdditionalCssClass", "content-block content-block--margin"}})' />
+                <partial name="CallToAction" model="@callToActionBanner" view-data='@(new ViewDataDictionary(ViewData) { {"AdditionalCssClass", "content-block content-block--margin"} })' />
             }
-            else 
-            {   
-                <partial name="@pageSection.ContentType" model="@pageSection" />   
+            else if (!pageSection.ContentType.Equals("HeaderHighlight"))
+            {
+                // ToDo: refactor this if/else block before merging to avoid duplication
+                @if (pageSection.Equals(Model.LandingPage.PageSections.FirstOrDefault()) && pageSection.ContentType.Equals("FindOutMoreBanner") ||
+                    (pageSection.Equals(Model.LandingPage.PageSections.Skip(1).FirstOrDefault()) && pageSection.ContentType.Equals("FindOutMoreBanner") &&
+                    Model.LandingPage.PageSections.FirstOrDefault().ContentType.Equals("HeaderHighlight")))
+                {
+                    <partial name="@pageSection.ContentType" model="@pageSection" view-data='@(new ViewDataDictionary(ViewData) { {"AdditionalCssClass", "content-block--no-margin-top"}, {"FindOutMoreBannerOrderSwitch", "find-out-more-banner--image-order-switch"} })' />
+                }
+                else if (pageSection.Equals(Model.LandingPage.PageSections.FirstOrDefault())
+                    || (pageSection.Equals(Model.LandingPage.PageSections.Skip(1).FirstOrDefault()) && Model.LandingPage.PageSections.FirstOrDefault().ContentType.Equals("HeaderHighlight")))
+                {
+                    <partial name="@pageSection.ContentType" model="@pageSection" view-data='@(new ViewDataDictionary(ViewData) { {"AdditionalCssClass", "content-block--no-margin-top"} })' />   
+                }
+                else
+                {
+                    <partial name="@pageSection.ContentType" model="@pageSection" />   
+                }
             }
         }
     }

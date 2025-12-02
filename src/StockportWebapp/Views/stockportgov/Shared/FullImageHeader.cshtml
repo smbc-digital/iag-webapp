@@ -10,7 +10,34 @@
                     <h1 class="full-header__title">@Model.LandingPage.Title</h1>
                     <p class="full-header__subtitle">@Model.LandingPage.Subtitle</p>
                 </div>
+
+                @* ToDo: refactor this logic into a method to keep the view clean - in the LandingPageViewModel perhaps *@
+                @{
+                    ContentBlock secondComponentOnPage = Model.LandingPage.PageSections?.Skip(1).FirstOrDefault();
+                    string secondComponentOnPageType = secondComponentOnPage?.ContentType;
+                    string headerHighlightType = string.Empty;
+                    
+                    @if (secondComponentOnPage is not null && secondComponentOnPageType.Equals("ImageBannerScreenWidth")
+                        || secondComponentOnPageType.Equals("ImageDividerScreenWidth")
+                        || secondComponentOnPageType.Equals("StatementBannerScreenWidth")
+                        || secondComponentOnPageType.Equals("TriviaBanner"))
+                    {
+                        headerHighlightType = "header-highlight--full-width";
+                    }
+                    else
+                    {
+                        headerHighlightType = "header-highlight--30-width";
+                    }
+                }
+
+                <partial name="HeaderHighlight" model="Model.LandingPage.PageSections.FirstOrDefault()" view-data='@(new ViewDataDictionary(ViewData) { {"headerHighlightType", headerHighlightType }, {"hide-on-mobile", true} })' />
             </div>
         </div>
     </section>
+
+    <div class="grid-container">
+        <div class="grid-100">
+            <partial name="HeaderHighlight" model="Model.LandingPage.PageSections.FirstOrDefault()" view-data='@(new ViewDataDictionary(ViewData) { {"headerHighlightType", headerHighlightType }, {"hide-on-mobile", false} })' />
+        </div>
+    </div>
 }
