@@ -8,28 +8,35 @@
     box-sizing: border-box;
 
     &--30-width {
-        max-width: 450px;
-        position: absolute;
-        bottom: -55px;
-        width: 33%;
-        justify-self: right;
+        @media #{$desktop} {
+            max-width: 450px;
+            position: absolute;
+            bottom: -55px;
+            width: 33%;
+            justify-self: right;
+        }
 
-        @media #{$tablet} {
+        @media #{$tablet-only} {
             width: 100%;
-            bottom: 75px;
+            bottom: 57px;
             position: relative;
             max-width: unset;
             justify-self: center;
         }
 
         @media #{$mobile} {
-            bottom: 50px;
+            margin-block: 2em;
         }
     }
     
     &--full-width {
         bottom: 75px;
         position: relative;
+
+        @media #{$mobile} {
+            margin-block: 2em;
+            bottom: unset;
+        }
     }
 
     p:last-of-type {
