@@ -4,11 +4,9 @@
 {
     string containerColourClass = $"call-to-action-{@CssClassMapper.GetCssClass(Model.Colour)}";
     string buttonColourClass = $"btn-{@CssClassMapper.GetCssClass(Model.Colour)}";
-    string additionalCSS = string.IsNullOrEmpty((string)ViewData["AdditionalCssClass"]) 
-                        ? string.Empty 
-                        : (string)ViewData["AdditionalCssClass"];
+    string additionalCssClass = ViewData["AdditionalCssClass"] as string ?? string.Empty;
     
-    <section class="section section--white @additionalCSS">
+    <section class="section section--white @additionalCssClass">
         <div class="grid-container">
             <div class="grid-100">
                 <div class="call-to-action section__content" data-cy="call-to-action">

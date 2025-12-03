@@ -15,7 +15,9 @@
         ? Url.Action("NewsArticles", "News", new {tag = associatedTagCategoryLower}) 
         : Url.Action("NewsArticles", "News", new {category = associatedTagCategoryLower});
 
-    <section class="content-block content-block--margin news-banner" data-cy="news-banner">
+    string additionalCssClass = ViewData["AdditionalCssClass"] as string ?? string.Empty;
+
+    <section class="content-block content-block--margin news-banner @additionalCssClass" data-cy="news-banner">
         <div class="grid-container">
             <div class="grid-100">
                 <div class="content-block--margin-inline">

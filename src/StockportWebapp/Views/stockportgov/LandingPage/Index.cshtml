@@ -41,26 +41,29 @@
                         }
                     : null;
 
-
-                <partial name="CallToAction" model="@callToActionBanner" view-data='@(new ViewDataDictionary(ViewData) { {"AdditionalCssClass", "content-block content-block--margin"} })' />
+                // if HeaderHighlight exists as the first element and the CallToAction is the second element OR HeaderHighligh exists but is not the first element and CallToAction is the first element, then add extra margin to the CallToAction
+                if ((Model.LandingPage.PageSections.FirstOrDefault().ContentType.Equals("HeaderHighlight") && pageSection.Equals(Model.LandingPage.PageSections.Skip(1).FirstOrDefault()))
+                    || (!Model.LandingPage.PageSections.FirstOrDefault().ContentType.Equals("HeaderHighlight") && pageSection.Equals(Model.LandingPage.PageSections.FirstOrDefault()) && Model.LandingPage.PageSections.Any(ps => ps.ContentType.Equals("HeaderHighlight"))))
+                {
+                    <partial name="CallToAction" model="@callToActionBanner" view-data='@(new ViewDataDictionary(ViewData) { {"AdditionalCssClass", "content-block content-block--margin-extra"} })' />
+                }
+                else
+                {
+                    <partial name="CallToAction" model="@callToActionBanner" view-data='@(new ViewDataDictionary(ViewData) { {"AdditionalCssClass", "content-block content-block--margin"} })' />
+                }
             }
             else if (!pageSection.ContentType.Equals("HeaderHighlight"))
             {
                 // ToDo: refactor this if/else block before merging to avoid duplication
-                @if (pageSection.Equals(Model.LandingPage.PageSections.FirstOrDefault()) && pageSection.ContentType.Equals("FindOutMoreBanner") ||
-                    (pageSection.Equals(Model.LandingPage.PageSections.Skip(1).FirstOrDefault()) && pageSection.ContentType.Equals("FindOutMoreBanner") &&
-                    Model.LandingPage.PageSections.FirstOrDefault().ContentType.Equals("HeaderHighlight")))
-                {
-                    <partial name="@pageSection.ContentType" model="@pageSection" view-data='@(new ViewDataDictionary(ViewData) { {"AdditionalCssClass", "content-block--no-margin-top"}, {"FindOutMoreBannerOrderSwitch", "find-out-more-banner--image-order-switch"} })' />
-                }
-                else if (pageSection.Equals(Model.LandingPage.PageSections.FirstOrDefault())
+                @if (pageSection.Equals(Model.LandingPage.PageSections.FirstOrDefault())
                     || (pageSection.Equals(Model.LandingPage.PageSections.Skip(1).FirstOrDefault()) && Model.LandingPage.PageSections.FirstOrDefault().ContentType.Equals("HeaderHighlight")))
                 {
-                    <partial name="@pageSection.ContentType" model="@pageSection" view-data='@(new ViewDataDictionary(ViewData) { {"AdditionalCssClass", "content-block--no-margin-top"} })' />   
+                    <partial name="@pageSection.ContentType" model="@pageSection" view-data='@(new ViewDataDictionary(ViewData) { {"AdditionalCssClass", "content-block--margin-extra"}, {"FindOutMoreBannerOrderSwitch", "find-out-more-banner--image-order-switch"} })' />
+
                 }
                 else
                 {
-                    <partial name="@pageSection.ContentType" model="@pageSection" />   
+                    <partial name="@pageSection.ContentType" model="@pageSection" />
                 }
             }
         }

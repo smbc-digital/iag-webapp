@@ -5,9 +5,11 @@
         ? string.Empty
         : "statement-banner-content__text-no-button";
 
+    string additionalCssClass = ViewData["AdditionalCssClass"] as string ?? string.Empty;
+
     @if (!string.IsNullOrEmpty(Model.Title) && !string.IsNullOrEmpty(Model.Body))
     {
-        <section class="content-block content-block--margin" data-cy="statement-banner-content-width">
+        <section class="content-block content-block--margin @additionalCssClass" data-cy="statement-banner-content-width">
             <div class="grid-container">
                 <div class="grid-100">
                     <div class="statement-banner statement-banner__padding section__content bg-default-light border-default @Model.BackgroundColourClass @Model.BorderClass">

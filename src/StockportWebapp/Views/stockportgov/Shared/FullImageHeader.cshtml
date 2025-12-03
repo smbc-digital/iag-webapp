@@ -13,31 +13,57 @@
 
                 @* ToDo: refactor this logic into a method to keep the view clean - in the LandingPageViewModel perhaps *@
                 @{
-                    ContentBlock secondComponentOnPage = Model.LandingPage.PageSections?.Skip(1).FirstOrDefault();
-                    string secondComponentOnPageType = secondComponentOnPage?.ContentType;
                     string headerHighlightType = string.Empty;
-                    
-                    @if (secondComponentOnPage is not null && secondComponentOnPageType.Equals("ImageBannerScreenWidth")
-                        || secondComponentOnPageType.Equals("ImageDividerScreenWidth")
-                        || secondComponentOnPageType.Equals("StatementBannerScreenWidth")
-                        || secondComponentOnPageType.Equals("TriviaBanner"))
+                    // if the first component on the page is a HeaderHighlight, check the second component to determine the header highlight type
+                    @if (Model.LandingPage.PageSections is not null 
+                        && Model.LandingPage.PageSections.Any() 
+                        && Model.LandingPage.PageSections.FirstOrDefault().ContentType.Equals("HeaderHighlight"))
                     {
-                        headerHighlightType = "header-highlight--full-width";
+                        ContentBlock secondComponentOnPage = Model.LandingPage.PageSections?.Skip(1).FirstOrDefault();
+                        string secondComponentOnPageType = secondComponentOnPage?.ContentType;
+                        
+                        @if (secondComponentOnPage is not null && secondComponentOnPageType.Equals("ImageBannerScreenWidth")
+                            || secondComponentOnPageType.Equals("ImageDividerScreenWidth")
+                            || secondComponentOnPageType.Equals("StatementBannerScreenWidth")
+                            || secondComponentOnPageType.Equals("TriviaBanner"))
+                        {
+                            headerHighlightType = "header-highlight--full-width";
+                        }
+                        else
+                        {
+                            headerHighlightType = "header-highlight--30-width";
+                        }
                     }
-                    else
+                    // if the first component on the page is not a HeaderHighlight, but a HeaderHighlight exists, check the first component to determine the header highlight type
+                    else if (Model.LandingPage.PageSections is not null 
+                        && Model.LandingPage.PageSections.Any() 
+                        && Model.LandingPage.PageSections.Any(pageSection => pageSection.ContentType.Equals("HeaderHighlight")))
                     {
-                        headerHighlightType = "header-highlight--30-width";
+                        ContentBlock firstComponentOnPage = Model.LandingPage.PageSections?.FirstOrDefault();
+                        string firstComponentOnPageType = firstComponentOnPage?.ContentType;
+                        
+                        @if (firstComponentOnPage is not null && firstComponentOnPageType.Equals("ImageBannerScreenWidth")
+                            || firstComponentOnPageType.Equals("ImageDividerScreenWidth")
+                            || firstComponentOnPageType.Equals("StatementBannerScreenWidth")
+                            || firstComponentOnPageType.Equals("TriviaBanner"))
+                        {
+                            headerHighlightType = "header-highlight--full-width";
+                        }
+                        else
+                        {
+                            headerHighlightType = "header-highlight--30-width";
+                        }
                     }
                 }
-
-                <partial name="HeaderHighlight" model="Model.LandingPage.PageSections.FirstOrDefault()" view-data='@(new ViewDataDictionary(ViewData) { {"headerHighlightType", headerHighlightType }, {"hide-on-mobile", true} })' />
+                
+                <partial name="HeaderHighlight" model="@Model.LandingPage.PageSections.Where(pageSection => pageSection.ContentType.Equals("HeaderHighlight")).FirstOrDefault()" view-data='@(new ViewDataDictionary(ViewData) { {"headerHighlightType", headerHighlightType }, {"hide-on-mobile", true} })' />
             </div>
         </div>
     </section>
 
     <div class="grid-container">
         <div class="grid-100">
-            <partial name="HeaderHighlight" model="Model.LandingPage.PageSections.FirstOrDefault()" view-data='@(new ViewDataDictionary(ViewData) { {"headerHighlightType", headerHighlightType }, {"hide-on-mobile", false} })' />
+            <partial name="HeaderHighlight" model="@Model.LandingPage.PageSections.Where(pageSection => pageSection.ContentType.Equals("HeaderHighlight")).FirstOrDefault()" view-data='@(new ViewDataDictionary(ViewData) { {"headerHighlightType", headerHighlightType }, {"hide-on-mobile", false} })' />
         </div>
     </div>
 }

@@ -10,7 +10,9 @@
         ? "btn--teal"
         : $"btn-{CssClassMapper.GetBoldCssClass(Model.ColourScheme)}";
 
-    <section class="content-block content-block--margin" data-cy="subscription-banner">
+    string additionalCssClass = ViewData["AdditionalCssClass"] as string ?? string.Empty;
+
+    <section class="content-block content-block--margin @additionalCssClass" data-cy="subscription-banner">
         <div class="grid-container subscription-banner">
             <div class="grid-100 subscription-banner__container @backgroundColour" data-cy="subscription">
                 <div class="grid-70">
