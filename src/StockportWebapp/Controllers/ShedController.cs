@@ -14,7 +14,7 @@ public class ShedController(IShedService shedService,
     public IActionResult RedirectToHeritageAssets() =>
         RedirectToActionPermanent("Index");
     
-    [HttpGet("heritage-assets")]
+    [HttpGet("directories/results/heritage-assets")]
     public async Task<IActionResult> Index(List<string> ward,
                                         List<string> grade,
                                         List<string> types,
@@ -46,7 +46,7 @@ public class ShedController(IShedService shedService,
         return View(viewModel);
     }
 
-    [HttpGet("heritage-assets/{slug}")]
+    [HttpGet("directories/entry/heritage-assets/{slug}")]
     public async Task<IActionResult> Detail(string slug)
     {
         if (!await _featureManager.IsEnabledAsync("ShedPage"))
