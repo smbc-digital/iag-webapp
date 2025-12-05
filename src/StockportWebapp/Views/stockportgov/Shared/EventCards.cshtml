@@ -10,7 +10,9 @@
         ? string.Empty
         : Model.BorderColourClass;
 
-    <section class="content-block content-block--margin" data-cy="event-cards">
+    string additionalCssClass = ViewData["AdditionalCssClass"] as string ?? string.Empty;
+
+    <section class="content-block content-block--margin @additionalCssClass" data-cy="event-cards">
         <div class="grid-container">
             <div class="grid-100">
                 <div class="event-cards-title">

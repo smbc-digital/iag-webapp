@@ -1,7 +1,9 @@
 @model ContentBlock
 @if (Model is not null && !string.IsNullOrEmpty(Model.Image))
 {
-    <section class="content-block content-block--margin image-banner image-banner-content-width" data-cy="image-content-width">
+    string additionalCssClass = ViewData["AdditionalCssClass"] as string ?? string.Empty;
+
+    <section class="content-block content-block--margin image-banner image-banner-content-width @additionalCssClass" data-cy="image-content-width">
         <div class="grid-container">
             <div class="grid-100">
                 <figure>

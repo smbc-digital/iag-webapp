@@ -11,7 +11,9 @@
         ? "border-colour-teal"
         : Model.BorderColourClass;
 
-    <section class="content-block content-block--margin" data-cy="profile-banner">
+    string additionalCssClass = ViewData["AdditionalCssClass"] as string ?? string.Empty;
+
+    <section class="content-block content-block--margin @additionalCssClass" data-cy="profile-banner">
         <div class="grid-container">
             <div class="grid-100">
                 <h2 class="content-block__title">@Model.Title</h2>

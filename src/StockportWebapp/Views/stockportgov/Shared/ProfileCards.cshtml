@@ -5,7 +5,9 @@
         ? string.Empty
         : Model.BorderColourClass;
 
-    <section class="content-block content-block--margin" data-cy="profile-cards">
+    string additionalCssClass = ViewData["AdditionalCssClass"] as string ?? string.Empty;
+
+    <section class="content-block content-block--margin @additionalCssClass" data-cy="profile-cards">
         <div class="grid-container">
             <div class="grid-100">
                 @if (!string.IsNullOrEmpty(Model.Title))

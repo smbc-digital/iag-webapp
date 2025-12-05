@@ -14,7 +14,9 @@
         ? Url.Action("NewsArticles", "News")
         : viewMoreUrl;
 
-    <section class="content-block content-block--margin" data-cy="news-cards">
+    string additionalCssClass = ViewData["AdditionalCssClass"] as string ?? string.Empty;
+
+    <section class="content-block content-block--margin @additionalCssClass" data-cy="news-cards">
         <div class="grid-container">
             <div class="grid-100">
                 <div class="event-cards-title">
