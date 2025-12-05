@@ -1,5 +1,7 @@
 ﻿@model ContentBlock
-@{
+
+@if (Model is not null && Model.SubItems.Any() is true)
+{
     bool overrideToDefault = false;
     if (Model.ColourScheme.Equals(EColourScheme.None) ||
         Model.ColourScheme.Equals(EColourScheme.Multi) ||
@@ -14,13 +16,12 @@
     string borderColourClass = overrideToDefault
                                 ? string.Empty
                                 : Model.BorderColourClass;
-}
+                                
+    string additionalCssClass = ViewData["AdditionalCssClass"] as string ?? string.Empty;
 
-@if (Model is not null && Model.SubItems.Any() is true)
-{
     @if (Model.SubItems.Count.Equals(3))
     {
-        <section class="content-block content-block--padding content-block--screen @backgroundColourClass" data-cy="trivia-banner">
+        <section class="content-block content-block--padding content-block--screen @backgroundColourClass @additionalCssClass" data-cy="trivia-banner">
             <div class="trivia-banner__section">
                 <div class="grid-container">
                     <div class="grid-100">

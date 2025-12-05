@@ -23,9 +23,7 @@
                         string secondComponentOnPageType = secondComponentOnPage?.ContentType;
                         
                         @if (secondComponentOnPage is not null && secondComponentOnPageType.Equals("ImageBannerScreenWidth")
-                            || secondComponentOnPageType.Equals("ImageDividerScreenWidth")
-                            || secondComponentOnPageType.Equals("StatementBannerScreenWidth")
-                            || secondComponentOnPageType.Equals("TriviaBanner"))
+                            || secondComponentOnPageType.Equals("ImageDividerScreenWidth"))
                         {
                             headerHighlightType = "header-highlight--full-width";
                         }

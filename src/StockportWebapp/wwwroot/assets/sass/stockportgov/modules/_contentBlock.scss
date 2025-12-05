@@ -51,9 +51,11 @@
                 margin-inline: 5px;
             }
         }
-
-        &-extra {
-            margin-top: 6em;
+        
+        @media #{$desktop} {
+            &-extra {
+                margin-top: 6em;
+            }
         }
     }
 
@@ -68,6 +70,12 @@
 
         @media #{$mobile} {
             padding: 2em 0;
+        }
+
+        @media #{$desktop} {
+            &-extra {
+                padding-top: 6em;
+            }
         }
     }
 
