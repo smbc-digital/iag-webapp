@@ -32,6 +32,8 @@
                 </div>
                 <div class="directory--70 directory--border-top @borderTeal">                    
                     <partial name="TPOMapContent" model=@(new TPOMapViewModel { Lat = Model.Lat, Lng = Model.Lng }) />
+                    ddd
+                    <partial name="TPOEntryDocuments" model='Model.Documents' view-data='@(new ViewDataDictionary(ViewData) { { "AdditionalWrapperCssClasses", @borderTeal }, { "AdditionalCssClasses", @greyBorderCssClasses } })' />
                 </div>
             </section>
         </div>

@@ -22,4 +22,7 @@ public class TPOItem
 
     [JsonPropertyName("lng")]
     public string Lng { get; set; }
+
+	[JsonPropertyName("documents")]
+	public List<Document> Documents { get; set; }
 }
