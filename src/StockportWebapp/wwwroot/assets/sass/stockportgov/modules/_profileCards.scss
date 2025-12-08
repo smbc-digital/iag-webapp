@@ -3,6 +3,7 @@
 
     @media #{$mobile} {
         margin-bottom: 2em;
+        margin-inline: 5px !important;
     }
 
     &--no-decoration {

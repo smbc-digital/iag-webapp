@@ -15,4 +15,57 @@ public class LandingPage
     public MediaAsset HeaderImage { get; set; }
     public EColourScheme HeaderColourScheme { get; set; } = EColourScheme.Teal;
     public IEnumerable<ContentBlock> PageSections { get; set; }
+
+    public bool HeaderHighlightExists =>
+        PageSections?.Any(section => section.ContentType.Equals("HeaderHighlight")) is true;
+
+    public ContentBlock FirstSection =>
+        PageSections?.FirstOrDefault();
+
+    public ContentBlock SecondSection =>
+        PageSections?.Skip(1).FirstOrDefault();
+
+    public bool IsHeaderHighlightFirst =>
+        FirstSection?.ContentType.Equals("HeaderHighlight") is true;
+
+    public bool NeedsExtraPadding(ContentBlock section)
+    {
+        if (section is null || PageSections is null)
+            return false;
+
+        bool isTriviaOrStatementBanner =  section.ContentType.Equals("TriviaBanner") || section.ContentType.Equals("StatementBannerScreenWidth");
+
+        if (!isTriviaOrStatementBanner || !HeaderHighlightExists)
+            return false;
+
+        return (IsHeaderHighlightFirst && section.Equals(SecondSection)) ||
+               (!IsHeaderHighlightFirst && section.Equals(FirstSection));
+    }
+
+    public bool NeedsExtraMargin(ContentBlock section)
+    {
+        if (section is null || PageSections is null || !HeaderHighlightExists)
+            return false;
+
+        if ((section.Equals(FirstSection) && !IsHeaderHighlightFirst && HeaderHighlightExists) || (section.Equals(SecondSection) && IsHeaderHighlightFirst))
+            return true;
+
+        return false;
+    }
+
+    public string HeaderHighlightType
+    {
+        get
+        {
+            ContentBlock sectionToCheck = IsHeaderHighlightFirst
+                ? SecondSection
+                : FirstSection;
+
+            if (sectionToCheck is not null && (sectionToCheck.ContentType.Equals("ImageBannerScreenWidth") ||
+                    sectionToCheck.ContentType.Equals("ImageDividerScreenWidth")))
+                return "header-highlight--full-width";
+
+            return "header-highlight--30-width";
+        }
+    }
 }

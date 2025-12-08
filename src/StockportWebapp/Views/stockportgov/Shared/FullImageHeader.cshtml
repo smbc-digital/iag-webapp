@@ -10,7 +10,15 @@
                     <h1 class="full-header__title">@Model.LandingPage.Title</h1>
                     <p class="full-header__subtitle">@Model.LandingPage.Subtitle</p>
                 </div>
+
+                <partial name="HeaderHighlight" model="@Model.LandingPage.PageSections.Where(pageSection => pageSection.ContentType.Equals("HeaderHighlight")).FirstOrDefault()" view-data='@(new ViewDataDictionary(ViewData) { {"headerHighlightType", Model.LandingPage.HeaderHighlightType }, {"hide-on-mobile", true} })' />
             </div>
         </div>
     </section>
+
+    <div class="grid-container">
+        <div class="grid-100">
+            <partial name="HeaderHighlight" model="@Model.LandingPage.PageSections.Where(pageSection => pageSection.ContentType.Equals("HeaderHighlight")).FirstOrDefault()" view-data='@(new ViewDataDictionary(ViewData) { {"headerHighlightType", Model.LandingPage.HeaderHighlightType }, {"hide-on-mobile", false} })' />
+        </div>
+    </div>
 }

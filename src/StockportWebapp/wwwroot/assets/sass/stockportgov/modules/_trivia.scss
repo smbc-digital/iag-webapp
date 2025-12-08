@@ -157,6 +157,7 @@
         @media #{$mobile} {
             border-radius: 30px;
             margin-bottom: 1.5em;
+            margin-inline: 5px !important;
         }
 
         &:nth-child(n+1) {

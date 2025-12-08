@@ -3,7 +3,8 @@
 {
     @if (Model.SubItems.Count.Equals(3))
     {
-        <section class="content-block content-block--margin" data-cy="trivia-cards">
+        string additionalCssClass = ViewData["AdditionalCssClass"] as string ?? string.Empty;
+        <section class="content-block content-block--margin @additionalCssClass" data-cy="trivia-cards">
             <div class="grid-container">
                 <div class="grid-100">
                     @if (!string.IsNullOrEmpty(Model.Title))

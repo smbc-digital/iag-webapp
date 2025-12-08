@@ -41,12 +41,29 @@
                         }
                     : null;
 
-
-                <partial name="CallToAction" model="@callToActionBanner" view-data='@(new ViewDataDictionary(ViewData) {{"AdditionalCssClass", "content-block content-block--margin"}})' />
+                if (Model.LandingPage.NeedsExtraMargin(pageSection))
+                {
+                    <partial name="CallToAction" model="@callToActionBanner" view-data='@(new ViewDataDictionary(ViewData) { {"AdditionalCssClass", "content-block content-block--margin-extra"} })' />
+                }
+                else
+                {
+                    <partial name="CallToAction" model="@callToActionBanner" view-data='@(new ViewDataDictionary(ViewData) { {"AdditionalCssClass", "content-block content-block--margin"} })' />
+                }
             }
-            else 
-            {   
-                <partial name="@pageSection.ContentType" model="@pageSection" />   
+            else if (!pageSection.ContentType.Equals("HeaderHighlight"))
+            {
+                @if (Model.LandingPage.NeedsExtraPadding(pageSection))
+                {
+                    <partial name="@pageSection.ContentType" model="@pageSection" view-data='@(new ViewDataDictionary(ViewData) { {"AdditionalCssClass", "content-block--padding-extra"} })' />
+                }
+                else if (Model.LandingPage.NeedsExtraMargin(pageSection))
+                {
+                    <partial name="@pageSection.ContentType" model="@pageSection" view-data='@(new ViewDataDictionary(ViewData) { {"AdditionalCssClass", "content-block--margin-extra content-block--no-margin-top"}, {"FindOutMoreBannerOrderSwitch", "find-out-more-banner--image-order-switch"} })' />
+                }
+                else
+                {
+                    <partial name="@pageSection.ContentType" model="@pageSection" />
+                }
             }
         }
     }

@@ -4,7 +4,9 @@
 {
     MapViewModel mapViewModel = new(Model.Link);
 
-    <section class="content-block content-block--margin js-only" data-cy="map">
+    string additionalCssClass = ViewData["AdditionalCssClass"] as string ?? string.Empty;
+
+    <section class="content-block content-block--margin js-only @additionalCssClass" data-cy="map">
         <div class="grid-container">
             <div class="grid-100 content-block--margin-inline">
                 @if (!string.IsNullOrEmpty(Model.Title))
