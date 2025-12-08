@@ -11,46 +11,14 @@
                     <p class="full-header__subtitle">@Model.LandingPage.Subtitle</p>
                 </div>
 
-                @{
-                    string headerHighlightType = "header-highlight--30-width";
-
-                    @if (Model.LandingPage.PageSections?.Any() is true && Model.LandingPage.HeaderHighlightExists)
-                    {
-                        if (Model.LandingPage.IsHeaderHighlightFirst)
-                        {
-                            if (Model.LandingPage.SecondSection is not null && (Model.LandingPage.SecondSection.ContentType.Equals("ImageBannerScreenWidth")
-                                || Model.LandingPage.SecondSection.ContentType.Equals("ImageDividerScreenWidth")))
-                            {
-                                headerHighlightType = "header-highlight--full-width";
-                            }
-                            else
-                            {
-                                headerHighlightType = "header-highlight--30-width";
-                            }
-                        }
-                        else
-                        {
-                            if (Model.LandingPage.FirstSection is not null && (Model.LandingPage.FirstSection.ContentType.Equals("ImageBannerScreenWidth") 
-                                || Model.LandingPage.FirstSection.ContentType.Equals("ImageDividerScreenWidth")))
-                            {
-                                headerHighlightType = "header-highlight--full-width";
-                            }
-                            else
-                            {
-                                headerHighlightType = "header-highlight--30-width";
-                            }
-                        }
-                    }
-                }
-                
-                <partial name="HeaderHighlight" model="@Model.LandingPage.PageSections.Where(pageSection => pageSection.ContentType.Equals("HeaderHighlight")).FirstOrDefault()" view-data='@(new ViewDataDictionary(ViewData) { {"headerHighlightType", headerHighlightType }, {"hide-on-mobile", true} })' />
+                <partial name="HeaderHighlight" model="@Model.LandingPage.PageSections.Where(pageSection => pageSection.ContentType.Equals("HeaderHighlight")).FirstOrDefault()" view-data='@(new ViewDataDictionary(ViewData) { {"headerHighlightType", Model.LandingPage.HeaderHighlightType }, {"hide-on-mobile", true} })' />
             </div>
         </div>
     </section>
 
     <div class="grid-container">
         <div class="grid-100">
-            <partial name="HeaderHighlight" model="@Model.LandingPage.PageSections.Where(pageSection => pageSection.ContentType.Equals("HeaderHighlight")).FirstOrDefault()" view-data='@(new ViewDataDictionary(ViewData) { {"headerHighlightType", headerHighlightType }, {"hide-on-mobile", false} })' />
+            <partial name="HeaderHighlight" model="@Model.LandingPage.PageSections.Where(pageSection => pageSection.ContentType.Equals("HeaderHighlight")).FirstOrDefault()" view-data='@(new ViewDataDictionary(ViewData) { {"headerHighlightType", Model.LandingPage.HeaderHighlightType }, {"hide-on-mobile", false} })' />
         </div>
     </div>
 }

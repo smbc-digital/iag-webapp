@@ -52,4 +52,20 @@ public class LandingPage
 
         return false;
     }
+
+    public string HeaderHighlightType
+    {
+        get
+        {
+            ContentBlock sectionToCheck = IsHeaderHighlightFirst
+                ? SecondSection
+                : FirstSection;
+
+            if (sectionToCheck is not null && (sectionToCheck.ContentType.Equals("ImageBannerScreenWidth") ||
+                    sectionToCheck.ContentType.Equals("ImageDividerScreenWidth")))
+                return "header-highlight--full-width";
+
+            return "header-highlight--30-width";
+        }
+    }
 }
