@@ -1,3 +1,4 @@
+@inject IFeatureManager FeatureManager
 @model ShedItem;
 @{
     Layout = "../Shared/_Layout2023.cshtml";
@@ -14,7 +15,7 @@
 }
 
 <div class="grid-container-full-width background-grey">
-    <partial name="Breadcrumb2023" model='new List<Crumb> { new Crumb(title, "heritage-assets", "Shed") }' />
+    <partial name="Breadcrumb2023" model='new List<Crumb> { new Crumb(title, "directories/results/heritage-assets", "Shed") }' />
 
     <div class="grid-container">
         <div class="grid-100">
@@ -46,9 +47,12 @@
         </div>
     </div>
 
-    <section class="section section--white section--padded section--no-margin">
-        <div class="grid-container">
-            <partial name="HistoricAssetsReportProblem" model='Html.UrlEncoder.Encode(Model.Name + ":" + Model.HeRef)' />
-        </div>
-    </section>
+    @if (await FeatureManager.IsEnabledAsync("MakeASuggestionForm"))
+    {
+        <section class="section section--white section--padded section--no-margin">
+            <div class="grid-container">
+                <partial name="HistoricAssetsReportProblem" model='Html.UrlEncoder.Encode(Model.Name + ":" + Model.HeRef)' />
+            </div>
+        </section>
+    }
 </div>

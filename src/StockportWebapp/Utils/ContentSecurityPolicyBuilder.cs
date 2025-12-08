@@ -281,6 +281,7 @@ public class ContentSecurityPolicyBuilder
             .AddSource("ka-p.fontawesome.com/")
             .AddSource("lookinglocal.cdn.spotlightr.com/")
             .AddSource("https://api.conesso.io/v2/signup-forms/contact")
+            .AddSource("www.freeprivacypolicy.com")
             .Finish());
 
     private void BuildMediaSource() =>
