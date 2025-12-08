@@ -5,6 +5,10 @@
     padding: 0;
     margin: 0;
 
+    @media #{$mobile} {
+        margin-inline: 5px;
+    }
+
     &__container {
         display: flex;
         justify-content: center;

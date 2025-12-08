@@ -54,25 +54,13 @@
             }
             else if (!pageSection.ContentType.Equals("HeaderHighlight"))
             {
-                // ToDo: refactor this if/else block before merging to avoid duplication
-                @if (pageSection.Equals(Model.LandingPage.PageSections.Skip(1).FirstOrDefault()) 
-                    && Model.LandingPage.PageSections.FirstOrDefault().ContentType.Equals("HeaderHighlight")
-                    && (pageSection.ContentType.Equals("TriviaBanner") || pageSection.ContentType.Equals("StatementBannerScreenWidth")))
+                @if (Model.LandingPage.NeedsExtraPadding(pageSection))
                 {
                     <partial name="@pageSection.ContentType" model="@pageSection" view-data='@(new ViewDataDictionary(ViewData) { {"AdditionalCssClass", "content-block--padding-extra"} })' />
                 }
-                else if (pageSection.Equals(Model.LandingPage.PageSections.FirstOrDefault()) 
-                    && !Model.LandingPage.PageSections.FirstOrDefault().ContentType.Equals("HeaderHighlight")
-                    && Model.LandingPage.PageSections.Any(ps => ps.ContentType.Equals("HeaderHighlight"))
-                    && (pageSection.ContentType.Equals("TriviaBanner") || pageSection.ContentType.Equals("StatementBannerScreenWidth")))
-                {
-                    <partial name="@pageSection.ContentType" model="@pageSection" view-data='@(new ViewDataDictionary(ViewData) { {"AdditionalCssClass", "content-block--padding-extra"} })' />
-                }
-                else if (pageSection.Equals(Model.LandingPage.PageSections.FirstOrDefault())
-                    || (pageSection.Equals(Model.LandingPage.PageSections.Skip(1).FirstOrDefault()) && Model.LandingPage.PageSections.FirstOrDefault().ContentType.Equals("HeaderHighlight")))
+                else if (Model.LandingPage.NeedsExtraMargin(pageSection))
                 {
                     <partial name="@pageSection.ContentType" model="@pageSection" view-data='@(new ViewDataDictionary(ViewData) { {"AdditionalCssClass", "content-block--margin-extra content-block--no-margin-top"}, {"FindOutMoreBannerOrderSwitch", "find-out-more-banner--image-order-switch"} })' />
-
                 }
                 else
                 {

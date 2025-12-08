@@ -12,26 +12,18 @@
         @media #{$desktop} {
             max-width: 450px;
             position: absolute;
-            bottom: -55px;
+            bottom: -65px;
             width: 33%;
             justify-self: right;
         }
 
         @media #{$tablet-only} {
             width: 100%;
-            bottom: 70px;
+            bottom: 57px;
             position: relative;
             max-width: unset;
             justify-self: center;
         }
-
-        // @media #{$tablet-only} {
-        //     max-width: 450px;
-        //     position: absolute;
-        //     bottom: -55px;
-        //     width: 33%;
-        //     justify-self: right;
-        // }
 
         @media #{$mobile} {
             margin-block: 3em;
