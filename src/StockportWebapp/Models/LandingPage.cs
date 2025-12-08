@@ -47,7 +47,7 @@ public class LandingPage
         if (section is null || PageSections is null || !HeaderHighlightExists)
             return false;
 
-        if ((section.Equals(FirstSection) && !IsHeaderHighlightFirst) || (section.Equals(SecondSection) && IsHeaderHighlightFirst))
+        if ((section.Equals(FirstSection) && !IsHeaderHighlightFirst && HeaderHighlightExists) || (section.Equals(SecondSection) && IsHeaderHighlightFirst))
             return true;
 
         return false;

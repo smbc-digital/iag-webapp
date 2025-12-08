@@ -41,9 +41,7 @@
                         }
                     : null;
 
-                // if HeaderHighlight exists as the first element and the CallToAction is the second element OR HeaderHighligh exists but is not the first element and CallToAction is the first element, then add extra margin to the CallToAction
-                if ((Model.LandingPage.PageSections.FirstOrDefault().ContentType.Equals("HeaderHighlight") && pageSection.Equals(Model.LandingPage.PageSections.Skip(1).FirstOrDefault()))
-                    || (!Model.LandingPage.PageSections.FirstOrDefault().ContentType.Equals("HeaderHighlight") && pageSection.Equals(Model.LandingPage.PageSections.FirstOrDefault()) && Model.LandingPage.PageSections.Any(ps => ps.ContentType.Equals("HeaderHighlight"))))
+                if (Model.LandingPage.NeedsExtraMargin(pageSection))
                 {
                     <partial name="CallToAction" model="@callToActionBanner" view-data='@(new ViewDataDictionary(ViewData) { {"AdditionalCssClass", "content-block content-block--margin-extra"} })' />
                 }

@@ -11,45 +11,34 @@
                     <p class="full-header__subtitle">@Model.LandingPage.Subtitle</p>
                 </div>
 
-                @* ToDo: refactor this logic into a method to keep the view clean - in the LandingPageViewModel perhaps *@
                 @{
-                    string headerHighlightType = string.Empty;
-                    // if the first component on the page is a HeaderHighlight, check the second component to determine the header highlight type
-                    @if (Model.LandingPage.PageSections is not null 
-                        && Model.LandingPage.PageSections.Any() 
-                        && Model.LandingPage.PageSections.FirstOrDefault().ContentType.Equals("HeaderHighlight"))
+                    string headerHighlightType = "header-highlight--30-width";
+
+                    @if (Model.LandingPage.PageSections?.Any() is true && Model.LandingPage.HeaderHighlightExists)
                     {
-                        ContentBlock secondComponentOnPage = Model.LandingPage.PageSections?.Skip(1).FirstOrDefault();
-                        string secondComponentOnPageType = secondComponentOnPage?.ContentType;
-                        
-                        @if (secondComponentOnPage is not null && secondComponentOnPageType.Equals("ImageBannerScreenWidth")
-                            || secondComponentOnPageType.Equals("ImageDividerScreenWidth"))
+                        if (Model.LandingPage.IsHeaderHighlightFirst)
                         {
-                            headerHighlightType = "header-highlight--full-width";
+                            if (Model.LandingPage.SecondSection is not null && (Model.LandingPage.SecondSection.ContentType.Equals("ImageBannerScreenWidth")
+                                || Model.LandingPage.SecondSection.ContentType.Equals("ImageDividerScreenWidth")))
+                            {
+                                headerHighlightType = "header-highlight--full-width";
+                            }
+                            else
+                            {
+                                headerHighlightType = "header-highlight--30-width";
+                            }
                         }
                         else
                         {
-                            headerHighlightType = "header-highlight--30-width";
-                        }
-                    }
-                    // if the first component on the page is not a HeaderHighlight, but a HeaderHighlight exists, check the first component to determine the header highlight type
-                    else if (Model.LandingPage.PageSections is not null 
-                        && Model.LandingPage.PageSections.Any() 
-                        && Model.LandingPage.PageSections.Any(pageSection => pageSection.ContentType.Equals("HeaderHighlight")))
-                    {
-                        ContentBlock firstComponentOnPage = Model.LandingPage.PageSections?.FirstOrDefault();
-                        string firstComponentOnPageType = firstComponentOnPage?.ContentType;
-                        
-                        @if (firstComponentOnPage is not null && firstComponentOnPageType.Equals("ImageBannerScreenWidth")
-                            || firstComponentOnPageType.Equals("ImageDividerScreenWidth")
-                            || firstComponentOnPageType.Equals("StatementBannerScreenWidth")
-                            || firstComponentOnPageType.Equals("TriviaBanner"))
-                        {
-                            headerHighlightType = "header-highlight--full-width";
-                        }
-                        else
-                        {
-                            headerHighlightType = "header-highlight--30-width";
+                            if (Model.LandingPage.FirstSection is not null && (Model.LandingPage.FirstSection.ContentType.Equals("ImageBannerScreenWidth") 
+                                || Model.LandingPage.FirstSection.ContentType.Equals("ImageDividerScreenWidth")))
+                            {
+                                headerHighlightType = "header-highlight--full-width";
+                            }
+                            else
+                            {
+                                headerHighlightType = "header-highlight--30-width";
+                            }
                         }
                     }
                 }
