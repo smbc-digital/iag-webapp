@@ -17,7 +17,19 @@ public class TPOItem
     [JsonPropertyName("status")]
     public string Status { get; set; }
 
-    [JsonPropertyName("lat")]
+	[JsonPropertyName("date_Made")]
+	public string Date_Made { get; set; }
+
+	[JsonPropertyName("date_Confirmed")]
+	public string Date_Confirmed { get; set; }
+
+	[JsonPropertyName("date_Revoked")]
+	public string Date_Revoked { get; set; }
+
+	[JsonPropertyName("number_of_trees")]
+	public string Number_of_trees { get; set; }
+
+	[JsonPropertyName("lat")]
     public string Lat { get; set; }
 
     [JsonPropertyName("lng")]

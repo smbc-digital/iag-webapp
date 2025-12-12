@@ -3,23 +3,42 @@
 <h2 class="directory__profile-image">TPO details</h2>
 
 <div class="directory__address">
-        <h3 class="h-m">Name</h3>
-        <div>@Model.Tpo_name.Replace("&", "and") : @Model.Tpo_number : @Model.OgcFid</div>
+    <h3 class="h-m">Name</h3>
+    <div>@Model.Tpo_name.Replace("&", "and") <br/> @Model.Tpo_number <br/> @Model.OgcFid</div>
 </div>
 
 <div class="directory__address">
-        <h3 class="h-m">Status</h3>
-        <div>@Model.Status</div>
+    <h3 class="h-m">Status</h3>
+    <div>@Model.Status</div>
 </div>
 
 <div class="directory__address">
-        <h3 class="h-m">Tree species</h3>
-        <div>@Model.Tree_species</div>
+    <h3 class="h-m">Tree species</h3>
+    <div>@Model.Tree_species</div>
 </div>
 
 <div class="directory__address">
-    <h3 class="h-m">Location</h3>
-    <div>Lat @(Model.Lat),  Lng @(Model.Lng)</div>
-
+    <h3 class="h-m">Number of trees</h3>
+    <div>@(Model.Number_of_trees)</div>
 </div>
 
+<div class="directory__address">
+    <h3 class="h-m">Date made</h3>
+    <div>@(Model.Date_Made)</div>
+</div>
+
+@if (Model.Date_Confirmed != string.Empty)
+{
+    <div class="directory__address">
+        <h3 class="h-m">Date confirmed</h3>
+        <div>@(Model.Date_Confirmed)</div>
+    </div>
+}
+
+@if (Model.Date_Revoked != string.Empty)
+{
+    <div class="directory__address">
+        <h3 class="h-m">Date revoked</h3>
+        <div>@(Model.Date_Revoked)</div>
+    </div>
+}
