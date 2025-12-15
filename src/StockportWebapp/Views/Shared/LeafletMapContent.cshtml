@@ -1,0 +1,25 @@
+@model LeafletMapViewModel;
+
+@{
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/gokertanrisever/leaflet-ruler@master/src/leaflet-ruler.css"/>
+    <script src="https://cdn.jsdelivr.net/gh/gokertanrisever/leaflet-ruler@master/src/leaflet-ruler.js"></script>
+
+    //string url = $"{Model.MapName}" + @Model.Lat + "&amp;lng=" + @Model.Lng + "";
+    string url = $"{Model.MapName}?lat={Model.Lat}&lng={Model.Lng}";
+}
+
+<div id='root'>
+
+    <iframe src="@url" style="width:100%; height:600px"></iframe>
+
+</div>
+<link rel=stylesheet href='https://kit.fontawesome.com/d14fbc06e0.css' crossorigin='anonymous'>
+
+<style>
+    .custom-attribution {
+        color: red;
+        font-weight: bold;
+        font-style: italic;
+        display: none;
+    }
+</style>
