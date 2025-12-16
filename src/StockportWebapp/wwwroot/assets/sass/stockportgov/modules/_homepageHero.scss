@@ -11,12 +11,13 @@
         }
 
         @media #{$mobile} {
-            display: none;
+            position: static;
+            height: 300px;
         }
     }
 
     @media #{$mobile} {
-        margin-bottom: 1em;
+        margin-bottom: 2em;
     }
 
     .--text-center {
@@ -51,14 +52,25 @@
 
     &_wrapper {
         position: relative;
+        
+        @media #{$mobile} {
+            margin-top: 1.75em;
+        }
+        
+        &--mobile {
+            @media #{$mobile} {
+                background-color: $stockport-teal-darker;
+            }
+        }
     }
 
     &_content {
         h1 {
             @media #{$mobile} {
-                margin-top: 1em;
-                margin-left: 5px;
-                margin-right: 5px;
+                padding-top: 1em;
+                margin-inline: 5px;
+                color: white;
+                margin-top: 0;
             }
 
             @media #{$non-mobile} {
@@ -78,6 +90,16 @@
 
         @media #{$mobile} {
             padding: 0;
+            background: none;
+            margin-bottom: 0;
+        }
+    }
+
+    &_search {
+        @media #{$mobile} {
+            display: flex;
+            gap: 0.5em;
+            margin-inline: 5px;
         }
     }
 }
