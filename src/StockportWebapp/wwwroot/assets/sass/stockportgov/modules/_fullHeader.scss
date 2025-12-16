@@ -60,6 +60,13 @@
                 color: white;
             }
         }
+
+        &-wrapper {
+            @media #{$desktop} {
+                display: flex;
+                flex-direction: column;
+            }
+        }
     }
 
     &__title {
