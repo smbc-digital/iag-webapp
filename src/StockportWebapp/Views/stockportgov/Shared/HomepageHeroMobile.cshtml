@@ -8,7 +8,16 @@
     };
 }
 
-<section class="homepageHero hide-on-mobile" data-cy="search-and-top-tasks">
+<section class="homepageHero hide-on-tablet hide-on-desktop" data-cy="search-and-top-tasks">
+    <div class="grid-container homepageHero_wrapper--mobile">
+        <div class="grid-100">   
+            <div class="homepageHero_content">
+                <h1>Welcome to Stockport, creating opportunities for everyone</h1>
+                <partial name="Search2023" model='new Tuple<string, string, string, string, string>("cludo-search-hero-form", "Search on stockport.gov.uk", "cludo-search-bar", "website search", "homepageHero_search")' />
+            </div>
+        </div>
+    </div>
+    
     <div class="homepageHero_background" style="background-image: url(@Model.HomepageContent.BackgroundImage?fm=webp)"></div>
 
     <div class="grid-container homepageHero_wrapper">
@@ -29,11 +38,7 @@
                 }
             </div>
             
-            <div class="homepageHero_content">
-                <h1>Welcome to Stockport, creating opportunities for everyone</h1>
-                <partial name="Search2023" model='new Tuple<string, string, string, string, string>("cludo-search-hero-form", "Search on stockport.gov.uk", "cludo-search-bar", "website search", "homepageHero_search")' />
-                <partial name="HomepageTopTasks" model='Model.HomepageContent.FeaturedTasks' />
-            </div>
+            <partial name="HomepageTopTasks" model='Model.HomepageContent.FeaturedTasks' />
         </div>
     </div>
 </section>
