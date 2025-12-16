@@ -14,7 +14,7 @@
             position: absolute;
             bottom: -65px;
             width: 33%;
-            justify-self: right;
+            place-self: flex-end;
         }
 
         @media #{$tablet-only} {
