@@ -37,9 +37,11 @@
                 <div class="directory--70 directory--border-top @(Model.Images.Any() || !string.IsNullOrEmpty(Model.Description) ? borderTeal : string.Empty)">
                     <partial name="ShedEntryDescription" model='Model.Description' view-data='@(new ViewDataDictionary(ViewData) { { "AdditionalCssClasses", @greyBorderCssClasses } })' />
                     <partial name="ShedEntryDocuments" model='Model.Documents' view-data='@(new ViewDataDictionary(ViewData) { { "AdditionalWrapperCssClasses", @borderTeal }, { "AdditionalCssClasses", @greyBorderCssClasses } })' />
+                    @if (Model.Lat is not null)
+                    {
+                        <partial name="LeafletMapContent" model=@(new LeafletMapViewModel { MapName = "https://maps.stockport.gov.uk/historic-environment/index.html", Lat = Model.Lat, Lng = Model.Lng }) view-data='@(new ViewDataDictionary(ViewData) { { "AdditionalWrapperCssClasses", @borderTeal }, { "AdditionalCssClasses", @greyBorderCssClasses } })' />
+                    }
                     <partial name="ShedEntryImages" model='Model.Images' view-data='@(new ViewDataDictionary(ViewData) { { "AdditionalWrapperCssClasses", @borderTeal }, { "AdditionalCssClasses", @greyBorderCssClasses } })' />
-                    @* <partial name="MapContent" model=@(new MapViewModel("title", "https://maps.stockport.gov.uk/historic-environment") ) /> *@
-                    <partial name="LeafletMapContent" model=@(new LeafletMapViewModel { MapName = "https://maps.stockport.gov.uk/historic-environment/index.html", Lat = Model.Lat, Lng = Model.Lng }) />
                     <div class="article--30 article--30-center-align hide-on-desktop js-only" id="back-button-mobile"></div>
                     <partial name="BackButtonScript" view-data='new ViewDataDictionary(ViewData) { { "referrerValue", "/heritage-assets" }, { "AdditionalCssClasses", "directory__button--no-margin-top" } }' />
                 </div>
