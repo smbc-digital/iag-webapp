@@ -29,5 +29,11 @@ html[dir="rtl"] {
                 display: block;
             }
         }
+
+        @media #{$desktop} {
+            &__container--right {
+                float: right;
+            }
+        }
     }
 }

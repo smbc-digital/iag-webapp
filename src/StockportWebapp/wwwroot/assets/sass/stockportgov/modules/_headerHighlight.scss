@@ -47,7 +47,7 @@
     &__icon {
         margin-inline-end: 0.2em;
         margin-top: 0;
-        vertical-align: middle;
+        vertical-align: text-top;
         font-size: 2.5rem;
     }
 
@@ -60,5 +60,11 @@
 html[dir="rtl"] {
     .header-highlight {
         border-radius: 3px 50px 3px 50px;
+
+        &__icon {
+            @media #{$desktop} {
+                margin-bottom: 0.25em;
+            }
+        }
     }
 }
