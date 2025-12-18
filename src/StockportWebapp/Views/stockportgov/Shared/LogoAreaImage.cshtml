@@ -6,6 +6,8 @@
         ? (bool)ViewData["logoAreaTitleStylingBlank"]
         : false;
 
+    TrustedLogo featuredLogo = ViewData["featuredLogo"] as TrustedLogo;
+
     string dataContentfulEntryId = (string)ViewData["dataContentfulEntryId"] ?? string.Empty;
 
     string headingClass = string.Empty;
@@ -29,6 +31,20 @@
 
 <div class="section__content section__content--no-margin">
     <div class="logo-area" data-contentful-entry-id="@dataContentfulEntryId" data-contentful-field-id="trustedLogos">
+        @if (featuredLogo is not null)
+        {
+            <div class="logo-area__item hide-on-desktop">
+                <a href="@featuredLogo.Link">
+                    <img src="@featuredLogo.Image.Url?w=340&q=89&fm=webp"
+                        class="logo-area__image"
+                        alt="@(featuredLogo.Image.Description ?? string.Empty)"
+                        loading="lazy"
+                        width="200"
+                        height="125" />
+                </a>
+            </div>
+        }
+
         @foreach (TrustedLogo trustedLogo in Model)
         {
             <div class="logo-area__item">

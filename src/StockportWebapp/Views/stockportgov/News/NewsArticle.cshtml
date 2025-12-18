@@ -93,7 +93,11 @@
 
                     @if (Model.NewsItem.TrustedLogos is not null && Model.NewsItem.TrustedLogos.Any())
                     {
-                        <partial name="LogoArea" model='@Model.NewsItem.TrustedLogos' view-data='@(new ViewDataDictionary(ViewData) { { "logoAreaTitle", @Model.NewsItem.LogoAreaTitle }, { "logoAreaArticle", false }, { "displayInSection", false } })' />
+                        <partial name="LogoArea" model='@Model.NewsItem.TrustedLogos' view-data='@(new ViewDataDictionary(ViewData) {
+                            { "logoAreaTitle", @Model.NewsItem.LogoAreaTitle },
+                            { "logoAreaArticle", false },
+                            { "displayInSection", false },
+                            { "featuredLogo", @Model.NewsItem.FeaturedLogo } })' />
                     }
 
                     @{
