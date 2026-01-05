@@ -91,23 +91,12 @@
                         <partial name="NewsCallToAction" model='Model.NewsItem.CallToAction'/>
                     }
 
-                    @if (Model.NewsItem.TrustedLogos is not null && Model.NewsItem.TrustedLogos.Any())
-                    {
-                        <partial name="LogoArea" model='@Model.NewsItem.TrustedLogos' view-data='@(new ViewDataDictionary(ViewData) {
-                            { "logoAreaTitle", @Model.NewsItem.LogoAreaTitle },
-                            { "logoAreaArticle", false },
-                            { "displayInSection", false },
-                            { "featuredLogo", @Model.NewsItem.FeaturedLogo } })' />
-                    }
-                    else if (Model.NewsItem.TrustedLogos is not null && !Model.NewsItem.TrustedLogos.Any() && Model.NewsItem.FeaturedLogo is not null)
-                    {
-                        <partial name="LogoArea" model='new List<TrustedLogo>()' view-data='@(new ViewDataDictionary(ViewData) {
+                    <partial name="LogoArea" model='@Model.NewsItem.TrustedLogos' view-data='@(new ViewDataDictionary(ViewData) {
                             { "logoAreaTitle", @Model.NewsItem.LogoAreaTitle },
                             { "logoAreaArticle", false },
                             { "displayInSection", false },
                             { "displayFeaturedLogo", true },
                             { "featuredLogo", @Model.NewsItem.FeaturedLogo } })' />
-                    }
 
                     @{
                         string associatedTagCategoryLower = Model.NewsItem.EventsByTagOrCategory.Split(",").ToList().First()?.ToLower();

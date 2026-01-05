@@ -25,9 +25,18 @@
     }
 }
 
-<h2 class="@headingClass @eventDetailHeading @(featuredLogo is not null ? "hide-on-desktop" : string.Empty)" data-contentful-entry-id="@dataContentfulEntryId" data-contentful-field-id="logoAreaTitle">
-    @(!string.IsNullOrEmpty(logoAreaTitle) ? logoAreaTitle : "Our partners")
-</h2>
+@if(featuredLogo is not null && !Model.Any())
+{
+    <h2 class="@headingClass @eventDetailHeading hide-on-desktop" data-contentful-entry-id="@dataContentfulEntryId" data-contentful-field-id="logoAreaTitle">
+        @(!string.IsNullOrEmpty(logoAreaTitle) ? logoAreaTitle : "Our partners")
+    </h2>
+}
+else if (Model.Any())
+{
+    <h2 class="@headingClass @eventDetailHeading" data-contentful-entry-id="@dataContentfulEntryId" data-contentful-field-id="logoAreaTitle">
+        @(!string.IsNullOrEmpty(logoAreaTitle) ? logoAreaTitle : "Our partners")
+    </h2>
+}
 
 <div class="section__content section__content--no-margin">
     <div class="logo-area" data-contentful-entry-id="@dataContentfulEntryId" data-contentful-field-id="trustedLogos">
