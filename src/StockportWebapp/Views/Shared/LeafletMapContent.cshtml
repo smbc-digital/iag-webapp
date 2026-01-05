@@ -3,8 +3,6 @@
 @{
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/gokertanrisever/leaflet-ruler@master/src/leaflet-ruler.css" />
     <script src="https://cdn.jsdelivr.net/gh/gokertanrisever/leaflet-ruler@master/src/leaflet-ruler.js"></script>
-
-    //string url = $"{Model.MapName}" + @Model.Lat + "&amp;lng=" + @Model.Lng + "";
     string url = $"{Model.MapName}?lat={Model.Lat}&lng={Model.Lng}";
 }
 <div class="directory__filters @((string)ViewData["AdditionalWrapperCssClasses"] ?? string.Empty)">
@@ -12,7 +10,6 @@
         <h2 aria-hidden="true">Location</h2>
         <div id='root'>
             <iframe src="@url" style="width:100%; height:600px"></iframe>
-
         </div>
     </div>
 </div>

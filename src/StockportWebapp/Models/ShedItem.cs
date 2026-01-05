@@ -48,10 +48,10 @@ public class ShedItem
     public string Northing { get; set; }
 
     [JsonPropertyName("lat")]
-    public string Lat { get; set; } = "0";
+    public string Lat { get; set; }
 
     [JsonPropertyName("lng")]
-    public string Lng { get; set; } = "0";
+    public string Lng { get; set; }
 
 	[JsonPropertyName("alt_ref")]
     public string AltRef { get; set; }
