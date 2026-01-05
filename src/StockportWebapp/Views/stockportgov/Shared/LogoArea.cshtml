@@ -5,6 +5,10 @@
     bool displayInSection = ViewData["displayInSection"] is null 
         ? false 
         : (bool)ViewData["displayInSection"];
+
+    bool displayFeaturedLogo = ViewData["displayFeaturedLogo"] is null
+        ? false
+        : (bool)ViewData["displayFeaturedLogo"];
 }
 
 @if (displayInSection && Model.Any())
@@ -24,7 +28,7 @@
         }   
     </section>
 }
-else if (Model.Any())
+else if (Model.Any() || displayFeaturedLogo)
 {
     <partial name="LogoAreaImage" model='@Model' />
 }
