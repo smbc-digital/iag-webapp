@@ -4,12 +4,13 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/gokertanrisever/leaflet-ruler@master/src/leaflet-ruler.css" />
     <script src="https://cdn.jsdelivr.net/gh/gokertanrisever/leaflet-ruler@master/src/leaflet-ruler.js"></script>
     string url = $"{Model.MapName}?lat={Model.Lat}&lng={Model.Lng}";
+    string mapTitle = (string)ViewData["MapTitle"] ?? string.Empty;
 }
 <div class="directory__filters @((string)ViewData["AdditionalWrapperCssClasses"] ?? string.Empty)">
     <div class="directory__wrapper navcard--white @((string)ViewData["AdditionalCssClasses"] ?? string.Empty)">
         <h2 aria-hidden="true">Location</h2>
         <div id='root'>
-            <iframe src="@url" style="width:100%; height:600px"></iframe>
+            <iframe title="@mapTitle location" src="@url" style="width:100%; height:600px"></iframe>
         </div>
     </div>
 </div>
