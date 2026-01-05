@@ -151,8 +151,9 @@ public static class ServiceCollectionExtensions
         services.AddTransient<IStockportApiEventsService>(p => new StockportApiEventsService(p.GetService<IStockportApiRepository>(), p.GetService<IEventFactory>()));
         services.AddTransient<IDirectoryService, DirectoryService>();
         services.AddTransient<IShedService, ShedService>();
+		services.AddTransient<ITPOService, TPOService>();
 
-        services.AddTransient<IProfileService>(p => new
+		services.AddTransient<IProfileService>(p => new
             ProfileService(
                 p.GetService<IRepository>(),
                 p.GetService<ITagParserContainer>(),
