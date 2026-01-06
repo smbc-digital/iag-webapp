@@ -4,8 +4,16 @@
 
 <div class="directory__address">
     <h3 class="h-m">Name</h3>
-    <div>@Model.Tpo_name.Replace("&", "and") <br /> @Model.Tpo_number <br /> @Model.OgcFid</div>
+    <div>
+        @Model.Tpo_name.Replace("&", "and") <br />
+    </div>
 </div>
+
+<div class="directory__address">
+    <h3 class="h-m">TPO number</h3>
+    <div>@Model.Tpo_number</div>
+</div>
+
 
 <div class="directory__address">
     <h3 class="h-m">Status</h3>
