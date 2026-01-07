@@ -1,6 +1,6 @@
 ﻿@model TPOItem
 
-<h2 class="directory__profile-image">TPO details</h2>
+<h2 class="directory__profile-image">Tree Preservation Order</h2>
 
 <div class="directory__address">
     <h3 class="h-m">Name</h3>
@@ -30,10 +30,13 @@
     <div>@(Model.Number_of_trees)</div>
 </div>
 
-<div class="directory__address">
-    <h3 class="h-m">Date made</h3>
-    <div>@(Model.Date_Made)</div>
-</div>
+@if (Model.Date_Made != string.Empty)
+{
+    <div class="directory__address">
+        <h3 class="h-m">Date made</h3>
+        <div>@(Model.Date_Made)</div>
+    </div>
+}
 
 @if (Model.Date_Confirmed != string.Empty)
 {

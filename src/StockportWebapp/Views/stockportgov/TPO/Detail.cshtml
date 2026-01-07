@@ -33,7 +33,7 @@
                         <partial name="TPOEntryCore" />
                     </div>
                 </div>
-                <div class="directory--70 directory--border-top @borderTeal">
+                <div>
                     @if (Model.Lat is not null)
                     {
                         <partial name="LeafletMapContent" model=@(new LeafletMapViewModel { MapName = "https://maps.stockport.gov.uk/tree-preservation-orders/index.html", Lat = Model.Lat, Lng = Model.Lng }) view-data='@(new ViewDataDictionary(ViewData) { { "AdditionalWrapperCssClasses", @borderTeal }, { "AdditionalCssClasses", @greyBorderCssClasses }, { "MapTitle", Model.Tpo_name } })' />
