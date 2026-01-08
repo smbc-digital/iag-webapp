@@ -51,6 +51,7 @@ public class UrlGenerator(IApplicationConfiguration config, BusinessId businessI
         {typeof(Directory), "directory/"},
         {typeof(DirectoryEntry), "directory-entry/"},
         {typeof(LandingPage), "landing/"},
+        {typeof(PublicationsTemplate), "publications/"},
     };
 
     public string UrlFor<T>(string slug = "", List<Query> queries = null)

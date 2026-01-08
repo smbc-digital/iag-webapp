@@ -1,9 +1,9 @@
 ﻿@model ContentBlock
 @if (Model is not null && Model.SubItems?.Any() is true)
 {
-    string borderColour = Model.IsDefaultColourScheme
+  @*   string borderColour = Model.IsDefaultColourScheme
         ? string.Empty
-        : Model.BorderColourClass;
+        : Model.BorderColourClass; *@
 
     string additionalCssClass = ViewData["AdditionalCssClass"] as string ?? string.Empty;
 
@@ -19,7 +19,8 @@
                 <ul class="navcard-wrapper navcard-wrapper--no-margin">
                     @foreach (ContentBlock contentBlock in Model.SubItems)
                     {
-                        <partial name="ProfileCard" model="@contentBlock" view-data="@(new ViewDataDictionary(ViewData) {{"BorderColourClass", borderColour}})" />
+                        @* <partial name="ProfileCard" model="@contentBlock" view-data="@(new ViewDataDictionary(ViewData) {{"BorderColourClass", borderColour}})" /> *@
+                        <partial name="ProfileCard" model="@contentBlock" view-data="@(new ViewDataDictionary(ViewData) {{"BorderColourClass", "borderColour"}})" />
                     }
                 </ul>                
             </div>

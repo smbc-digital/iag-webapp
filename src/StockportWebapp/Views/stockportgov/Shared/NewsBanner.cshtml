@@ -11,10 +11,10 @@
     );
 
     string associatedTagCategoryLower = Model.AssociatedTagCategory.Split(",").ToList().First()?.ToLower();
-    string viewMoreUrl = Model.UseTag 
+   @*  string viewMoreUrl = Model.UseTag 
         ? Url.Action("NewsArticles", "News", new {tag = associatedTagCategoryLower}) 
         : Url.Action("NewsArticles", "News", new {category = associatedTagCategoryLower});
-
+ *@
     string additionalCssClass = ViewData["AdditionalCssClass"] as string ?? string.Empty;
 
     <section class="content-block content-block--margin news-banner @additionalCssClass" data-cy="news-banner">
@@ -30,7 +30,8 @@
                 </div>
 
                 <div class="news-banner-button">
-                    <a href="@viewMoreUrl" class="btn btn--center btn--width-30 btn--margin-25 btn--chevron-forward" data-cy="view-more-news">
+                    @* <a href="@viewMoreUrl" class="btn btn--center btn--width-30 btn--margin-25 btn--chevron-forward" data-cy="view-more-news"> *@
+                        <a class="btn btn--center btn--width-30 btn--margin-25 btn--chevron-forward" data-cy="view-more-news">
                         View more @associatedTagCategoryLower news
                     </a>
                 </div>

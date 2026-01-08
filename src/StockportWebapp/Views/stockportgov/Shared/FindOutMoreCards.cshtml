@@ -18,7 +18,8 @@
                     <ul class="navcard-wrapper navcard-wrapper--no-margin">
                         @foreach(ContentBlock contentBlock in Model.SubItems.Take(3))
                         {
-                            <partial name="FindOutMoreCard" model="@contentBlock" view-data="@(new ViewDataDictionary(ViewData) { {"TextColourClass", Model.TextColourClass} })" />
+                            @* <partial name="FindOutMoreCard" model="@contentBlock" view-data="@(new ViewDataDictionary(ViewData) { {"TextColourClass", Model.TextColourClass} })" /> *@
+                            <partial name="FindOutMoreCard" model="@contentBlock" view-data="@(new ViewDataDictionary(ViewData) { {"TextColourClass", ""} })" />
                         }
                     </ul>
                 </div>

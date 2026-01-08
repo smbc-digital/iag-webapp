@@ -1,16 +1,16 @@
 ﻿@model ContentBlock
 @if (Model?.SubItems?.Count >= 3 && Model.SubItems.Any(contentBlock => !string.IsNullOrEmpty(contentBlock.Image)))
 {
-    bool isDefaultColourScheme = Model.IsDefaultColourScheme 
+@*     bool isDefaultColourScheme = Model.IsDefaultColourScheme 
         || Model.ColourScheme.Equals(EColourScheme.None);
 
     string borderColourClass = Model.ColourScheme.Equals(EColourScheme.None) 
                                 ? string.Empty 
-                                : Model.BorderColourClass;
+                                : Model.BorderColourClass; *@
     
-    string buttonColour = !isDefaultColourScheme
+   @*  string buttonColour = !isDefaultColourScheme
         ? $"btn-{@CssClassMapper.GetBoldCssClass(Model.ColourScheme)} btn-{@CssClassMapper.GetBoldCssClass(Model.ColourScheme)}-outline" 
-        : "find-out-more-banner__button";
+        : "find-out-more-banner__button"; *@
     
     string additionalCssClass = ViewData["AdditionalCssClass"] as string ?? string.Empty;
     string findOutMoreBannerOrderSwitch = ViewData["FindOutMoreBannerOrderSwitch"] as string ?? string.Empty;
@@ -22,10 +22,12 @@
                 {
                     <div class="find-out-more-banner @findOutMoreBannerOrderSwitch">
                         <div class="find-out-more-banner-content">
-                            <h2 class="section__title find-out-more-banner__title section__title--margin-bottom @borderColourClass">@contentBlock.Title</h2>
+                            @* <h2 class="section__title find-out-more-banner__title section__title--margin-bottom @borderColourClass">@contentBlock.Title</h2> *@
+                            <h2 class="section__title find-out-more-banner__title section__title--margin-bottom ">@contentBlock.Title</h2>
                             <p class="find-out-more-banner__teaser">@contentBlock.Teaser</p>
-    
-                            <a href="@contentBlock.NavigationLink" class="btn btn--width-30 btn--chevron-forward btn--bold btn--chevron-bold @buttonColour" data-cy="find-out-more-link" aria-label="@contentBlock.Title">
+
+                            @* <a href="@contentBlock.NavigationLink" class="btn btn--width-30 btn--chevron-forward btn--bold btn--chevron-bold @buttonColour" data-cy="find-out-more-link" aria-label="@contentBlock.Title"> *@
+                                <a href="@contentBlock.NavigationLink" class="btn btn--width-30 btn--chevron-forward btn--bold btn--chevron-bold" data-cy="find-out-more-link" aria-label="@contentBlock.Title">
                                 <span class="btn_text">Find out more</span>
                             </a>
                         </div>

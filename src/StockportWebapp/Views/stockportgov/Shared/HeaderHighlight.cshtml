@@ -5,7 +5,8 @@
     string headerHighlightType = ViewData["headerHighlightType"] as string ?? string.Empty;
     bool hideOnMobile = ViewData["hide-on-mobile"] as bool? ?? false;
     
-    <div class="content-block--margin-inline header-highlight @Model.SolidBackgroundColourClass @headerHighlightType @(hideOnMobile ? "hide-on-mobile" : "hide-on-desktop hide-on-tablet")" data-cy="header-highlight">
+    @* <div class="content-block--margin-inline header-highlight @Model.SolidBackgroundColourClass @headerHighlightType @(hideOnMobile ? "hide-on-mobile" : "hide-on-desktop hide-on-tablet")" data-cy="header-highlight"> *@
+    <div class="content-block--margin-inline header-highlight @headerHighlightType @(hideOnMobile ? "hide-on-mobile" : "hide-on-desktop hide-on-tablet")" data-cy="header-highlight">
         <h2 class="header-highlight__title"><span class="@Model.Icon header-highlight__icon trivia__icon"></span>@Model.Title</h2>
 
         @Html.Raw(Model.Body)

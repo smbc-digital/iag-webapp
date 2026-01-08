@@ -1,4 +1,4 @@
-@model ContentBlock
+@* @model ContentBlock
 @if (Model is not null && !string.IsNullOrEmpty(Model.Image))
 {
     string overlayTheme = !string.IsNullOrEmpty(Model.ImageBannerOverlayTheme) 
@@ -11,6 +11,7 @@
             <div class="grid-100">
                 @if (!string.IsNullOrEmpty(Model.Href))
                 {
+                    <a class="image-banner__link image-banner__link-@Model.ImageBannerOverlayTheme" @Model.Href>
                     <a class="image-banner__link image-banner__link-@Model.ImageBannerOverlayTheme" @Model.Href>
                         <img class="image-banner__background"
                              src="@Model.Image?w=1240&q=89"
@@ -65,4 +66,4 @@
             </div>
         </div>
     </section>
-}
+} *@
