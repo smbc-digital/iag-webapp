@@ -1,4 +1,5 @@
 @using Microsoft.AspNetCore.Html
+@using System.Text.Json
 @model PublicationsTemplateViewModel
 @{
     PublicationsTemplate publicationsTemplate = Model.PublicationsTemplate;
@@ -9,20 +10,35 @@
 }
 
 <div class="grid-container-full-width" style="background-color:white;" data-cy="landing-page">
-    <h1>@Model.PublicationsTemplate.Title</h1>
+    @* <partial name="Breadcrumb2023" model="publicationsTemplate.Breadcrumbs" /> *@
+    <partial name="Breadcrumb2023" model='new List<Crumb> { new Crumb("About your council", "landing/about-our-website", "Article") }' />
 
-    @foreach (var node in publicationsTemplate.Body.GetProperty("content").EnumerateArray())
+    <div class="grid-container">
+        <div class="grid-100">
+            <div class="article--70 article-navigation" style="margin-bottom: 1.5em;">
+                <p class="lead">Stockport Council Plan 2024 to 2027</p>
+                <h1 class="article__title">@publicationsTemplate.Title</h1>
+                @* Published: <partial name="FormattedDate" model='@publicationsTemplate.UpdatedAt' /> *@
+                Published: 11 July 2024
+            </div>
+        </div>
+    </div>
+
+    @foreach (JsonElement node in publicationsTemplate.Body.GetProperty("content").EnumerateArray())
     {
-        var nodeType = node.GetProperty("nodeType").GetString();
+        object rendered = RichTextRenderer.Render(node);
 
-        if (nodeType == "embedded-entry-block")
+        if (rendered is EmbeddedPartial partial)
         {
-            var contentBlock = RichTextRenderer.GetEmbeddedContentBlock(node);
-            <partial name="@contentBlock.ContentType" model="@contentBlock" />
+            <partial name="@partial.PartialName" model="@partial.Model" view-data='@(new ViewDataDictionary(ViewData) { { "AllowTwo", true } })' />
         }
-        else
+        else if (rendered is string html)
         {
-            @Html.Raw(RichTextRenderer.RenderTextNode(node))
+            <div class="grid-container">
+                <div class="grid-100">
+                    @Html.Raw(html)
+                </div>
+            </div>
         }
     }
 </div>

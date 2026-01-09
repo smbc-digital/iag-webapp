@@ -34,8 +34,20 @@ public static class ContentBlockAdapter
         };
     }
 
-    private static string Get(JsonElement e, string name)
-        => e.TryGetProperty(name, out var p) ? p.GetString() ?? "" : "";
+    public static string Get(JsonElement e, string name)
+    {
+        if (!e.TryGetProperty(name, out var p))
+            return "";
+
+        return p.ValueKind switch
+        {
+            JsonValueKind.String => p.GetString() ?? "",
+            JsonValueKind.Number => p.GetRawText(), // convert numbers to string
+            JsonValueKind.True => "true",
+            JsonValueKind.False => "false",
+            _ => "" // for Object, Array, Null, Undefined
+        };
+    }
 
     private static List<ContentBlock> GetSubItems(JsonElement e)
     {
