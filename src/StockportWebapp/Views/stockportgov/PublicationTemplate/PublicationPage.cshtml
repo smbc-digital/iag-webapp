@@ -1,0 +1,48 @@
+@using Microsoft.AspNetCore.Html
+@using System.Text.Json
+@model PublicationPage
+@{
+    ViewData["Title"] = Model.Title;
+    ViewData["Description"] = Model.MetaDescription;
+    ViewData["og:title"] = Model.Title;
+}
+
+<div class="grid-container">
+    <div class="grid-100">
+        <h2 class="article__title">Publication page - @Model.Title</h2>
+    </div>
+</div>
+
+@if (Model.PublicationSections is not null && Model.PublicationSections.Any())
+{
+    @foreach (PublicationSection publicationSection in Model.PublicationSections)
+    {
+        <div class="grid-container">
+            <div class="grid-100">
+                <h2>Publication section - @publicationSection.Title</h2>
+            </div>
+        </div>
+
+        <partial name="PublicationSection" model="publicationSection" />
+    }
+}
+else
+{
+    @foreach (JsonElement node in Model.Body.GetProperty("content").EnumerateArray())
+    {
+        object rendered = RichTextRenderer.Render(node);
+
+        if (rendered is EmbeddedPartial partial)
+        {
+            <partial name="@partial.PartialName" model="@partial.Model" view-data='@(new ViewDataDictionary(ViewData) { { "AllowTwo", true } })' />
+        }
+        else if (rendered is string html)
+        {
+            <div class="grid-container">
+                <div class="grid-100">
+                    @Html.Raw(html)
+                </div>
+            </div>
+        }
+    }
+}

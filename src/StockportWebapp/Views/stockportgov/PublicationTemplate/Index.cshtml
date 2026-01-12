@@ -24,21 +24,8 @@
         </div>
     </div>
 
-    @foreach (JsonElement node in publicationTemplate.Body.GetProperty("content").EnumerateArray())
+    @foreach (PublicationPage publicationPage in publicationTemplate.PublicationPages)
     {
-        object rendered = RichTextRenderer.Render(node);
-
-        if (rendered is EmbeddedPartial partial)
-        {
-            <partial name="@partial.PartialName" model="@partial.Model" view-data='@(new ViewDataDictionary(ViewData) { { "AllowTwo", true } })' />
-        }
-        else if (rendered is string html)
-        {
-            <div class="grid-container">
-                <div class="grid-100">
-                    @Html.Raw(html)
-                </div>
-            </div>
-        }
+        <partial name="PublicationPage" model="publicationPage" />
     }
 </div>

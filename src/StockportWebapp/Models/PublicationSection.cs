@@ -3,10 +3,10 @@ using System.Text.Json;
 namespace StockportWebapp.Models;
 
 [ExcludeFromCodeCoverage]
-public class PublicationTemplate
+public class PublicationSection
 {
     public string Slug { get; set; }
     public string Title { get; set; }
     public string MetaDescription { get; set; }
-    public List<PublicationPage> PublicationPages { get; set; }
+    public JsonElement Body { get; set; }
 }
