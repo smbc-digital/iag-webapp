@@ -1,30 +1,30 @@
 @using Microsoft.AspNetCore.Html
 @using System.Text.Json
-@model PublicationsTemplateViewModel
+@model PublicationTemplateViewModel
 @{
-    PublicationsTemplate publicationsTemplate = Model.PublicationsTemplate;
-    ViewData["Title"] = publicationsTemplate.Title;
-    ViewData["Description"] = publicationsTemplate.MetaDescription;
-    ViewData["og:title"] = publicationsTemplate.Title;
+    PublicationTemplate publicationTemplate = Model.PublicationTemplate;
+    ViewData["Title"] = publicationTemplate.Title;
+    ViewData["Description"] = publicationTemplate.MetaDescription;
+    ViewData["og:title"] = publicationTemplate.Title;
     Layout = "../Shared/_Layout2023.cshtml";
 }
 
 <div class="grid-container-full-width" style="background-color:white;" data-cy="landing-page">
-    @* <partial name="Breadcrumb2023" model="publicationsTemplate.Breadcrumbs" /> *@
+    @* <partial name="Breadcrumb2023" model="publicationTemplate.Breadcrumbs" /> *@
     <partial name="Breadcrumb2023" model='new List<Crumb> { new Crumb("About your council", "landing/about-our-website", "Article") }' />
 
     <div class="grid-container">
         <div class="grid-100">
             <div class="article--70 article-navigation" style="margin-bottom: 1.5em;">
                 <p class="lead">Stockport Council Plan 2024 to 2027</p>
-                <h1 class="article__title">@publicationsTemplate.Title</h1>
-                @* Published: <partial name="FormattedDate" model='@publicationsTemplate.UpdatedAt' /> *@
+                <h1 class="article__title">@publicationTemplate.Title</h1>
+                @* Published: <partial name="FormattedDate" model='@publicationTemplate.UpdatedAt' /> *@
                 Published: 11 July 2024
             </div>
         </div>
     </div>
 
-    @foreach (JsonElement node in publicationsTemplate.Body.GetProperty("content").EnumerateArray())
+    @foreach (JsonElement node in publicationTemplate.Body.GetProperty("content").EnumerateArray())
     {
         object rendered = RichTextRenderer.Render(node);
 

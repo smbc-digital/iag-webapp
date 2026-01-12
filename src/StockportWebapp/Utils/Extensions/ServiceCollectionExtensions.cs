@@ -186,9 +186,9 @@ public static class ServiceCollectionExtensions
                 new DocumentPageRepository(p.GetService<UrlGenerator>(), p.GetService<IHttpClient>(),
                     p.GetService<DocumentPageFactory>(), p.GetService<IApplicationConfiguration>()));
         
-        services.AddTransient<IPublicationsTemplateRepository>(
+        services.AddTransient<IPublicationTemplateRepository>(
             p =>
-                new PublicationsTemplateRepository(p.GetService<UrlGenerator>(), p.GetService<IHttpClient>(),
+                new PublicationTemplateRepository(p.GetService<UrlGenerator>(), p.GetService<IHttpClient>(),
                     p.GetService<IApplicationConfiguration>()));
         
         services.AddSingleton<IEventFactory>(p => new EventFactory(p.GetService<ITagParserContainer>(), p.GetService<MarkdownWrapper>()));

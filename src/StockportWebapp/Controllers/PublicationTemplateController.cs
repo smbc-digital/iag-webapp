@@ -1,9 +1,9 @@
 namespace StockportWebapp.Controllers;
 
 [ResponseCache(Location = ResponseCacheLocation.Any, Duration = Cache.Medium)]
-public class PublicationsTemplateController(IPublicationsTemplateRepository repository) : Controller
+public class PublicationTemplateController(IPublicationTemplateRepository repository) : Controller
 {
-    private readonly IPublicationsTemplateRepository _repository = repository;
+    private readonly IPublicationTemplateRepository _repository = repository;
 
     [Route("/publications/{slug}")]
     public async Task<IActionResult> Index(string slug)
@@ -13,8 +13,8 @@ public class PublicationsTemplateController(IPublicationsTemplateRepository repo
         if (!response.IsSuccessful())
             return response;
 
-        PublicationsTemplate publicationsTemplate = response.Content as PublicationsTemplate;
+        PublicationTemplate publicationTemplate = response.Content as PublicationTemplate;
 
-        return View(new PublicationsTemplateViewModel(publicationsTemplate));
+        return View(new PublicationTemplateViewModel(publicationTemplate));
     }
 }
