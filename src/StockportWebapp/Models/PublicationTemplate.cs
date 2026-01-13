@@ -8,5 +8,7 @@ public class PublicationTemplate
     public string Slug { get; set; }
     public string Title { get; set; }
     public string MetaDescription { get; set; }
+    public string Subtitle { get; set; }
+    public MediaAsset HeroImage { get; set; }
     public List<PublicationPage> PublicationPages { get; set; }
 }

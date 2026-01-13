@@ -5,23 +5,20 @@
     ViewData["Title"] = Model.Title;
     ViewData["Description"] = Model.MetaDescription;
     ViewData["og:title"] = Model.Title;
+    PublicationSection currentSection = ViewData["currentSection"] as PublicationSection;
 }
 
-<div class="grid-container">
-    <div class="grid-100">
-        <h2 class="article__title">Publication page - @Model.Title</h2>
-    </div>
-</div>
+<h2 class="article__title">Publication page - @Model.Title</h2>
 
 @if (Model.PublicationSections is not null && Model.PublicationSections.Any())
 {
-    @foreach (PublicationSection publicationSection in Model.PublicationSections)
+    var sectionsToRender = currentSection is null
+        ? Model.PublicationSections
+        : Model.PublicationSections.Where(s => s.Slug == currentSection.Slug);
+
+    foreach (PublicationSection publicationSection in sectionsToRender)
     {
-        <div class="grid-container">
-            <div class="grid-100">
-                <h2>Publication section - @publicationSection.Title</h2>
-            </div>
-        </div>
+        <h2>Publication section - @publicationSection.Title</h2>
 
         <partial name="PublicationSection" model="publicationSection" />
     }
@@ -38,11 +35,7 @@ else
         }
         else if (rendered is string html)
         {
-            <div class="grid-container">
-                <div class="grid-100">
-                    @Html.Raw(html)
-                </div>
-            </div>
+            @Html.Raw(html)
         }
     }
 }

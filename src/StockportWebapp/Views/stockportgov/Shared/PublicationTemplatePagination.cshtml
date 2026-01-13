@@ -1,0 +1,33 @@
+﻿@model PublicationTemplateViewModel
+
+<nav class="article-pagination" aria-label="Pagination">
+    <div class="article-pagination__previous">
+        @if (Model.HasPrevious())
+        {
+            var prev = Model.GetPrevious();
+            <a href="@prev.Url">
+                <div class="article-pagination__chevron">
+                    <span class="fa fa-angle-left article-pagination__icon"></span>
+                </div>
+                <h3>Previous</h3>
+                <p>@prev.Title</p>
+            </a>
+        }
+    </div>
+
+    <div class="article-pagination__next">
+        @if (Model.HasNext())
+        {
+            var next = Model.GetNext();
+            <a href="@next.Url">
+                <h3>Next</h3>
+                <p>@next.Title</p>
+                <div class="article-pagination__chevron">
+                    <span class="fa fa-angle-right article-pagination__icon"></span>
+                </div>
+            </a>
+        }
+    </div>
+</nav>
+
+<hr class="article-hr" />

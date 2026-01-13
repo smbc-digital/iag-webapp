@@ -17,10 +17,6 @@
     }
     else if (rendered is string html)
     {
-        <div class="grid-container">
-            <div class="grid-100">
-                @Html.Raw(html)
-            </div>
-        </div>
+        @Html.Raw(html)
     }
 }
