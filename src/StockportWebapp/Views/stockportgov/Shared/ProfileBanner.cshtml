@@ -2,14 +2,14 @@
 @if (Model is not null && Model.Profile is not null && !string.IsNullOrEmpty(Model.Profile.Image.Url))
 {
     ProfileViewModel profileViewModel = new(Model.Profile);
-
-@*     string pseudoBorderColour = Model.IsDefaultColourScheme
+    
+    string pseudoBorderColour = Model.IsDefaultColourScheme
         ? "border-pseudo-colour-teal"
         : Model.PseudoBorderColourClass;
 
     string borderColour = Model.IsDefaultColourScheme
         ? "border-colour-teal"
-        : Model.BorderColourClass; *@
+        : Model.BorderColourClass;
 
     string additionalCssClass = ViewData["AdditionalCssClass"] as string ?? string.Empty;
 
@@ -21,8 +21,7 @@
 
                 <div class="featured-item-container">                        
                     <div class="featured-item section__content" data-cy="profile-featured-item">
-                        @* <partial name="ProfileFeaturedItem" model="@profileViewModel" view-data='@(new ViewDataDictionary(ViewData){ {"additionalClasses", "profile-banner"}, {"pseudoBorderColour", pseudoBorderColour}, {"borderColour", borderColour} })' /> *@
-                        <partial name="ProfileFeaturedItem" model="@profileViewModel" view-data='@(new ViewDataDictionary(ViewData){ {"additionalClasses", "profile-banner"}, {"pseudoBorderColour", "pseudoBorderColour"}, {"borderColour", "borderColour"} })' />
+                        <partial name="ProfileFeaturedItem" model="@profileViewModel" view-data='@(new ViewDataDictionary(ViewData){ {"additionalClasses", "profile-banner"}, {"pseudoBorderColour", pseudoBorderColour}, {"borderColour", borderColour} })' />
                     </div>
                 </div>
             </div>

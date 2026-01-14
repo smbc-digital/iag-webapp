@@ -79,3 +79,5 @@ global using Calendar = Ical.Net.Calendar;
 global using Event = StockportWebapp.Models.Event;
 global using HtmlString = Microsoft.AspNetCore.Html.HtmlString;
 global using HttpResponse = StockportWebapp.Client.HttpResponse;
+global using System.Text.Json;
+global using Microsoft.AspNetCore.Html;

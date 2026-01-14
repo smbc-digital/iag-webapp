@@ -12,9 +12,9 @@
 
 @if (Model.PublicationSections is not null && Model.PublicationSections.Any())
 {
-    var sectionsToRender = currentSection is null
+    IEnumerable<PublicationSection> sectionsToRender = currentSection is null
         ? Model.PublicationSections
-        : Model.PublicationSections.Where(s => s.Slug == currentSection.Slug);
+        : Model.PublicationSections.Where(publicationSection => publicationSection.Slug.Equals(currentSection.Slug));
 
     foreach (PublicationSection publicationSection in sectionsToRender)
     {
@@ -31,7 +31,26 @@ else
 
         if (rendered is EmbeddedPartial partial)
         {
-            <partial name="@partial.PartialName" model="@partial.Model" view-data='@(new ViewDataDictionary(ViewData) { { "AllowTwo", true } })' />
+            @if (partial.Model.ContentType.Equals("CallToAction"))
+            {
+                CallToActionBanner callToActionBanner = partial.Model is not null
+                    ? new() {
+                            Image = partial.Model.Image,
+                            AltText = partial.Model.Title,
+                            ButtonText = partial.Model.ButtonText,
+                            Colour = partial.Model.ColourScheme,
+                            Link = partial.Model.Link,
+                            Teaser = partial.Model.Teaser,
+                            Title = partial.Model.Title
+                        }
+                    : null;
+
+                <partial name="CallToAction" model="@callToActionBanner" view-data='@(new ViewDataDictionary(ViewData) { {"AdditionalCssClass", "content-block content-block--margin-extra"} })' />
+            }
+            else
+            {
+                <partial name="@partial.PartialName" model="@partial.Model" view-data='@(new ViewDataDictionary(ViewData) { { "AllowTwo", true } })' />
+            }
         }
         else if (rendered is string html)
         {

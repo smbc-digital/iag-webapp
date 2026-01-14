@@ -2,18 +2,18 @@
 @if (Model is not null & Model.News?.Any() is true)
 {
     string associatedTagCategoryLower = Model.AssociatedTagCategory.Split(",").ToList().First()?.ToLower();
-   @*  string borderColour = Model.IsDefaultColourScheme
+    string borderColour = Model.IsDefaultColourScheme
         ? string.Empty
-        : Model.BorderColourClass; *@
+        : Model.BorderColourClass;
 
-    @* string viewMoreUrl = Model.UseTag && !Model.IsLatest 
+    string viewMoreUrl = Model.UseTag && !Model.IsLatest 
         ? Url.Action("NewsArticles", "News", new {tag = associatedTagCategoryLower}) 
         : Url.Action("NewsArticles", "News", new {category = associatedTagCategoryLower});
 
     viewMoreUrl = Model.IsLatest
         ? Url.Action("NewsArticles", "News")
         : viewMoreUrl;
- *@
+
     string additionalCssClass = ViewData["AdditionalCssClass"] as string ?? string.Empty;
 
     <section class="content-block content-block--margin @additionalCssClass" data-cy="news-cards">
@@ -27,21 +27,18 @@
                         <hr />
                     </div>
 
-                    @* <a href=@viewMoreUrl class="event-cards-view-more news-banner__card-view-more hide-on-mobile hide-on-tablet" aria-label="View more @Model?.AssociatedTagCategory.Split(",").ToList().First() news" data-cy="view-more-news-link">View more news</a> *@
-                    <a class="event-cards-view-more news-banner__card-view-more hide-on-mobile hide-on-tablet" aria-label="View more @Model?.AssociatedTagCategory.Split(",").ToList().First() news" data-cy="view-more-news-link">View more news</a>
+                    <a href=@viewMoreUrl class="event-cards-view-more news-banner__card-view-more hide-on-mobile hide-on-tablet" aria-label="View more @Model?.AssociatedTagCategory.Split(",").ToList().First() news" data-cy="view-more-news-link">View more news</a>
                 </div>
 
                 <div class="section__content">
                     <ul class="navcard-wrapper navcard-wrapper--no-margin">
                         @foreach (News upcomingNews in Model.News)
                         {
-                            @* <partial name="NewsCard" model="@upcomingNews" view-data="@(new ViewDataDictionary(ViewData) {{"BorderColourClass", borderColour}})" /> *@
-                            <partial name="NewsCard" model="@upcomingNews" view-data="@(new ViewDataDictionary(ViewData) {{"BorderColourClass", "borderColour"}})" />
+                            <partial name="NewsCard" model="@upcomingNews" view-data="@(new ViewDataDictionary(ViewData) {{"BorderColourClass", borderColour}})" />
                         }
                     </ul>
 
-                    @* <a href=@viewMoreUrl class="btn btn--width-30 btn--chevron-forward btn--bold btn--chevron-bold hide-on-desktop event-cards-button @Model.OutlineButtonColour" aria-label="View more @Model.AssociatedTagCategory.Split(",").ToList().First() news" data-cy="view-more-news-button"> *@
-                        <a class="btn btn--width-30 btn--chevron-forward btn--bold btn--chevron-bold hide-on-desktop event-cards-button" aria-label="View more @Model.AssociatedTagCategory.Split(",").ToList().First() news" data-cy="view-more-news-button">
+                    <a href=@viewMoreUrl class="btn btn--width-30 btn--chevron-forward btn--bold btn--chevron-bold hide-on-desktop event-cards-button @Model.OutlineButtonColour" aria-label="View more @Model.AssociatedTagCategory.Split(",").ToList().First() news" data-cy="view-more-news-button">
                         <span class="btn_text">View more news</span>
                     </a>
                 </div>

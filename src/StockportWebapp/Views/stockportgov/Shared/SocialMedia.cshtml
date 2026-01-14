@@ -15,8 +15,7 @@
                 <ul class="social-media">
                     @foreach(ContentBlock contentBlock in Model.SubItems)
                     {
-                        @* <li class="social-media__container @Model.SolidBackgroundColourClass @Model.SolidBackgroundColourHoverClass"> *@
-                        <li class="social-media__container">
+                        <li class="social-media__container @Model.SolidBackgroundColourClass @Model.SolidBackgroundColourHoverClass">
                             @{
                                 bool isEmailOrPhone = contentBlock.Link.StartsWith("mailto:") || contentBlock.Link.StartsWith("tel:");
                                 string target = isEmailOrPhone ? string.Empty : "target=_blank";

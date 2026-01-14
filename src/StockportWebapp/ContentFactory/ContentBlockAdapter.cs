@@ -1,57 +1,54 @@
-using System.Text.Json;
 namespace StockportWebapp.ContentFactory;
 
 public static class ContentBlockAdapter
 {
     public static ContentBlock FromJson(JsonElement entry)
     {
-        return new ContentBlock()
-        {
-            Slug = Get(entry, "slug"),
-            Title = Get(entry, "title"),
-            Teaser = Get(entry, "teaser"),
-            Icon = Get(entry, "icon"),
-            Type = Get(entry, "type"),
-            ContentType = Get(entry, "contentType"),
-            Image = Get(entry, "image"),
-            MailingListId = Get(entry, "mailingListId"),
-            Body = Get(entry, "body"),
-            SubItems = GetSubItems(entry),
-            Link = Get(entry, "link"),
-            ButtonText = Get(entry, "buttonText"),
-            ColourScheme = ParseColour(entry),
-            Statistic = Get(entry, "statistic"),
-            StatisticSubheading = Get(entry, "statisticSubheading"),
-            VideoTitle = Get(entry, "videoTitle"),
-            VideoToken = Get(entry, "videoToken"),
-            VideoPlaceholderPhotoId = Get(entry, "videoPlaceholderPhotoId"),
-            AssociatedTagCategory = Get(entry, "associatedTagCategory"),
-            NewsArticle = null,
-            Events = new List<Event>(),
-            News = new List<News>(),
-            ScreenReader = Get(entry, "screenReader"),
-            AccountName = Get(entry, "accountName")
-        };
+        return new ContentBlock(
+            Get(entry, "slug"),
+            Get(entry, "title"),
+            Get(entry, "teaser"),
+            Get(entry, "icon"),
+            Get(entry, "type"),
+            Get(entry, "contentType"),
+            GetImage(entry),
+            Get(entry, "mailingListId"),
+            Get(entry, "body"),
+            GetSubItems(entry),
+            Get(entry, "link"),
+            Get(entry, "buttonText"),
+            ParseColour(entry),
+            Get(entry, "statistic"),
+            Get(entry, "statisticSubheading"),
+            Get(entry, "videoTitle"),
+            Get(entry, "videoToken"),
+            Get(entry, "videoPlaceholderPhotoId"),
+            Get(entry, "associatedTagCategory"),
+            null,
+            new List<Event>(),
+            new List<News>(),
+            Get(entry, "screenReader"),
+            Get(entry, "accountName"));
     }
 
-    public static string Get(JsonElement e, string name)
+    public static string Get(JsonElement element, string name)
     {
-        if (!e.TryGetProperty(name, out var p))
-            return "";
+        if (!element.TryGetProperty(name, out JsonElement property))
+            return string.Empty;
 
-        return p.ValueKind switch
+        return property.ValueKind switch
         {
-            JsonValueKind.String => p.GetString() ?? "",
-            JsonValueKind.Number => p.GetRawText(), // convert numbers to string
+            JsonValueKind.String => property.GetString() ?? string.Empty,
+            JsonValueKind.Number => property.GetRawText(),
             JsonValueKind.True => "true",
             JsonValueKind.False => "false",
-            _ => "" // for Object, Array, Null, Undefined
+            _ => string.Empty
         };
     }
 
-    private static List<ContentBlock> GetSubItems(JsonElement e)
+    private static List<ContentBlock> GetSubItems(JsonElement element)
     {
-        if (!e.TryGetProperty("subItems", out var items))
+        if (!element.TryGetProperty("subItems", out JsonElement items))
             return new();
 
         return items.EnumerateArray()
@@ -59,13 +56,25 @@ public static class ContentBlockAdapter
             .ToList();
     }
 
-    private static EColourScheme ParseColour(JsonElement e)
+    private static EColourScheme ParseColour(JsonElement element)
     {
-        if (!e.TryGetProperty("colourScheme", out var c))
+        if (!element.TryGetProperty("colourScheme", out JsonElement colour))
             return EColourScheme.None;
 
-        return Enum.TryParse<EColourScheme>(c.GetString(), true, out var scheme)
+        return Enum.TryParse<EColourScheme>(colour.GetString(), true, out var scheme)
             ? scheme
             : EColourScheme.None;
+    }
+
+    private static string GetImage(JsonElement element)
+    {
+        if (!element.TryGetProperty("image", out JsonElement img))
+            return string.Empty;
+
+        if (img.TryGetProperty("sys", out JsonElement sys) &&
+            sys.TryGetProperty("id", out JsonElement id))
+            return id.GetString();
+
+        return string.Empty;
     }
 }

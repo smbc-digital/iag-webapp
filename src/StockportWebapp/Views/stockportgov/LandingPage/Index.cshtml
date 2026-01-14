@@ -20,7 +20,7 @@
     }
     else
     {
-        <partial name="FullImageHeader" model="@Model" />
+        <partial name="FullImageHeader" model="@Model.PageHeader" />
     }
 
     @if (Model.LandingPage.PageSections is not null && Model.LandingPage.PageSections.Any())
@@ -54,15 +54,15 @@
             {
                 @if (Model.LandingPage.NeedsExtraPadding(pageSection))
                 {
-                    <partial name="@pageSection.ContentType" model="@pageSection" view-data='@(new ViewDataDictionary(ViewData) { {"AdditionalCssClass", "content-block--padding-extra"} })' />
+                    <partial name="@pageSection.ContentType" model="@pageSection" view-data='@(new ViewDataDictionary(ViewData) { {"AdditionalCssClass", "content-block--padding-extra"}, { "AllowTwo", false } })' />
                 }
                 else if (Model.LandingPage.NeedsExtraMargin(pageSection))
                 {
-                    <partial name="@pageSection.ContentType" model="@pageSection" view-data='@(new ViewDataDictionary(ViewData) { {"AdditionalCssClass", "content-block--margin-extra content-block--no-margin-top"}, {"FindOutMoreBannerOrderSwitch", "find-out-more-banner--image-order-switch"} })' />
+                    <partial name="@pageSection.ContentType" model="@pageSection" view-data='@(new ViewDataDictionary(ViewData) { {"AdditionalCssClass", "content-block--margin-extra content-block--no-margin-top"}, {"FindOutMoreBannerOrderSwitch", "find-out-more-banner--image-order-switch"}, { "AllowTwo", false } })' />
                 }
                 else
                 {
-                    <partial name="@pageSection.ContentType" model="@pageSection" />
+                    <partial name="@pageSection.ContentType" model="@pageSection" view-data='@(new ViewDataDictionary(ViewData) { { "AllowTwo", false } })' />
                 }
             }
         }

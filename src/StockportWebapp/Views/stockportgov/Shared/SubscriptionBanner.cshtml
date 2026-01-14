@@ -1,22 +1,21 @@
 @model ContentBlock
 @if (Model is not null && !string.IsNullOrEmpty(Model.MailingListId))
 {
-   @*  bool isDefaultColourScheme = Model.IsDefaultColourScheme;
+    bool isDefaultColourScheme = Model.IsDefaultColourScheme;
     string backgroundColour = isDefaultColourScheme
         ? "bg-solid-teal"
         : Model.SolidBackgroundColourClass;
-     *@
-@*     string buttonColour = isDefaultColourScheme
+    
+    string buttonColour = isDefaultColourScheme
         ? "btn--teal"
-        : $"btn-{CssClassMapper.GetBoldCssClass(Model.ColourScheme)}"; *@
+        : $"btn-{CssClassMapper.GetBoldCssClass(Model.ColourScheme)}";
 
     string additionalCssClass = ViewData["AdditionalCssClass"] as string ?? string.Empty;
 
     <section class="content-block content-block--margin @additionalCssClass" data-cy="subscription-banner">
         <div class="grid-container">
             <div class="subscription-banner">
-                @* <div class="grid-100 subscription-banner__container @backgroundColour" data-cy="subscription"> *@
-                    <div class="grid-100 subscription-banner__container" data-cy="subscription">
+                <div class="grid-100 subscription-banner__container @backgroundColour" data-cy="subscription">
                     <div class="grid-70 subscription-banner__container--right">
                         <h2 class="section__title section__title--white section__title--padded-bottom h-l">@Model.Title</h2>
                             @Html.Raw(Model.Body)
@@ -24,8 +23,7 @@
                     
                     <div class="grid-30">
                         <form method="post" action="/subscribe">
-                            @* <button type="submit" data-cy="subscribe-button" class="btn btn--inverse btn--bold btn--full btn--chevron-forward section__content--action @buttonColour"><span class="btn_text">Subscribe now</span></button> *@
-                            <button type="submit" data-cy="subscribe-button" class="btn btn--inverse btn--bold btn--full btn--chevron-forward section__content--action"><span class="btn_text">Subscribe now</span></button>
+                            <button type="submit" data-cy="subscribe-button" class="btn btn--inverse btn--bold btn--full btn--chevron-forward section__content--action @buttonColour"><span class="btn_text">Subscribe now</span></button>
                             @Html.HiddenFor(pageSection => pageSection.MailingListId)
                         </form>
                     </div>
