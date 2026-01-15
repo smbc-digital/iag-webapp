@@ -67,6 +67,14 @@ html[dir="rtl"] {
     .call-to-action {
         &-content {
             border-radius: 3px 0px 0px 50px;
+
+            @media #{$tablet} {
+                border-radius: 3px 50px;
+            }
+
+            @media #{$mobile} {
+                border-radius: 3px 30px;
+            }
         }
 
         &__image {
