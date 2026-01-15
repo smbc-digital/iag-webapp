@@ -14,14 +14,7 @@ public class InlineQuoteTagParserTests
         // Arrange
         List<InlineQuote> inlineQuotes = new()
         {
-            new()
-            {
-                Author = "Test",
-                Image = "testUrl",
-                ImageAltText = "Test Alt",
-                Quote = "This is a quote",
-                Slug = "slug1"
-            }
+            new("testUrl", "Test Alt", "This is a quote", "Test", "slug1", EColourScheme.Pink)
         };
 
         _viewRenderer
@@ -41,14 +34,7 @@ public class InlineQuoteTagParserTests
         // Arrange
         List<InlineQuote> inlineQuotes = new()
         {
-            new()
-            {
-                Author = "Test",
-                Image = "testUrl",
-                ImageAltText = "Test Alt",
-                Quote = "This is a quote",
-                Slug = "slug1"
-            }
+            new("testUrl", "Test Alt", "This is a quote", "Test", "slug1", EColourScheme.Blue)
         };
 
         _viewRenderer
@@ -68,14 +54,7 @@ public class InlineQuoteTagParserTests
         // Arrange
         List<InlineQuote> inlineQuotes = new()
             {
-                new()
-                {
-                    Author = "Test",
-                    Image = "testUrl",
-                    ImageAltText = "Test Alt",
-                    Quote = "This is a quote",
-                    Slug = "slug1"
-                }
+                new("TestUrl", "Test Alt", "This is a quote", "Test", "slug1", EColourScheme.Teal)
             };
 
         _viewRenderer
