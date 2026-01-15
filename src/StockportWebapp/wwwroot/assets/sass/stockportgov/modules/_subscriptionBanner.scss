@@ -11,11 +11,15 @@
 
     &__container {
         color: white;
-        border-radius: 3px;
+        border-radius: 50px 3px;
         padding: 2em 1em;
 
         @media #{$tablet} {
             margin: 0 10px;
+        }
+
+        @media #{$mobile} {
+            border-radius: 30px 3px;
         }
     }
 }
@@ -27,6 +31,14 @@ html[dir="rtl"] {
 
             @media #{$tablet} {
                 display: block;
+            }
+        }
+
+        &__container {
+            border-radius: 3px 50px;
+
+            @media #{$mobile} {
+                border-radius: 3px 30px;
             }
         }
 
