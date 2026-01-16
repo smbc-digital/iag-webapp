@@ -2,6 +2,12 @@
     display: flex;
     flex-direction: row;
 
+    &--directory-on-homepage {
+        @media #{$mobile} {
+            display: block;
+        }
+    }
+
     &__image {
         width: 40%;
         object-fit: cover;
@@ -9,7 +15,23 @@
         height: auto;
 
         @media #{$tablet} {
-            display: none;
+            &--hidden {
+                display: none;
+            }
+        }
+
+        &--directory-on-homepage {
+            background-color: $one-stockport-purple;
+
+            @media #{$tablet} {
+                width: 40%;
+                object-fit: contain;
+            }
+
+            @media #{$mobile} {
+                width: 100%;
+                border-radius: 30px 3px 0 0;
+            }
         }
     }
 
@@ -39,6 +61,29 @@
         &__teaser {
             margin-bottom: 2em;
             color: white;
+        }
+
+        &__button {
+            @media #{$mobile} {
+                &--directory-on-homepage {
+                    margin-inline: 1.5em;
+                    width: -webkit-fill-available;
+                }
+            }
+        }
+
+        &--directory-on-homepage {
+            align-content: center;
+
+            @media #{$tablet} {
+                border-radius: 0 3px 50px 0;
+            }
+
+            @media #{$mobile} {
+                border-radius: 0 0 30px 3px;
+                padding-inline: 0;
+                padding-top: 0;
+            }
         }
     }
 
@@ -75,10 +120,26 @@ html[dir="rtl"] {
             @media #{$mobile} {
                 border-radius: 3px 30px;
             }
+
+            &--directory-on-homepage {
+                @media #{$tablet} {
+                    border-radius: 3px 0 0 50px;
+                }
+
+                @media #{$mobile} {
+                    border-radius: 0 0 3px 30px;
+                }
+            }
         }
 
         &__image {
             border-radius: 0px 50px 3px 0px;
+
+            &--directory-on-homepage {
+                @media #{$mobile} {
+                    border-radius: 3px 30px 0 0;
+                }
+            }
         }
     }
 }

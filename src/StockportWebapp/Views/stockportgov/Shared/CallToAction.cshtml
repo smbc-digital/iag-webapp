@@ -5,19 +5,28 @@
     string containerColourClass = $"call-to-action-{@CssClassMapper.GetCssClass(Model.Colour)}";
     string buttonColourClass = $"btn-{@CssClassMapper.GetCssClass(Model.Colour)}";
     string additionalCssClass = ViewData["AdditionalCssClass"] as string ?? string.Empty;
-    string buttonCssClass = ViewData["ButtonCssClass"] as string ?? "btn--width-30";
+    bool isDirectoryOnHomepage = ViewData["IsDirectoryOnHomepage"] is null
+        ? false
+        : (bool)ViewData["IsDirectoryOnHomepage"];
     
     <section class="section section--white @additionalCssClass">
         <div class="grid-container">
             <div class="grid-100">
-                <div class="call-to-action section__content" data-cy="call-to-action">
-                    <img src="@Model.Image?w=500&q=89" srcset="@Model.Image?w=500&q=89&fm=webp" class="call-to-action__image" loading="lazy" alt="@Model.AltText" width="452" height="342">
+                <div class="call-to-action section__content @(isDirectoryOnHomepage ? "call-to-action--directory-on-homepage" : string.Empty)" data-cy="call-to-action">
+                    <img src="@Model.Image?w=500&q=89" srcset="@Model.Image?w=500&q=89&fm=webp" class="call-to-action__image @(!isDirectoryOnHomepage ? "call-to-action__image--hidden" : "call-to-action__image--directory-on-homepage")" loading="lazy" alt="@Model.AltText" width="452" height="342">
                     
-                    <div class="call-to-action-content @containerColourClass">
-                        <h2 class="call-to-action-content__title ">@Model.Title</h2>
-                        <p class="call-to-action-content__teaser">@Model.Teaser</p>
+                    <div class="call-to-action-content @containerColourClass @(isDirectoryOnHomepage ? "call-to-action-content--directory-on-homepage" : string.Empty)">
+                        @if (!string.IsNullOrEmpty(Model.Title))
+                        {
+                            <h2 class="call-to-action-content__title ">@Model.Title</h2>
+                        }
+
+                        @if (!string.IsNullOrEmpty(Model.Teaser))
+                        {
+                            <p class="call-to-action-content__teaser">@Model.Teaser</p>
+                        }
                         
-                        <a href="@Model.Link" class="btn btn--inverse btn--chevron-forward btn--bold btn--chevron-bold @buttonColourClass @buttonCssClass" data-cy="call-to-action-link">
+                        <a href="@Model.Link" class="btn btn--inverse btn--chevron-forward btn--bold btn--chevron-bold @buttonColourClass @(isDirectoryOnHomepage ? "btn--full-width call-to-action-content__button--directory-on-homepage" : "btn--width-30")" data-cy="call-to-action-link">
                             <span class="btn_text">@Model.ButtonText</span>
                         </a>
                     </div> 
