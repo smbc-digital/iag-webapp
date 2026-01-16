@@ -12,8 +12,9 @@
 <partial name="HomepageHeroMobile" />
 <partial name="CallToAction" model='Model.HomepageContent.CallToActionPrimary' />
 <partial name="HomepageOurServices" />
+<partial name="CallToAction" model='new CallToActionBanner() { Image = "/assets/images/logos/StockportLiveWellLogoTransparent.webp", ButtonText = "Find local groups, organisations and services", Colour = EColourScheme.One_Stockport_Purple }' view-data='new ViewDataDictionary(ViewData) { { "ButtonCssClass", "btn--full-width" } }' />
 <partial name="HomepageWhatsOn" />
-<partial name="CallToAction" model='Model.HomepageContent.CallToAction' view-data='new ViewDataDictionary(ViewData) { { "AdditionalCssClass", "section--increased-vertical-margin"  } }'  />
+<partial name="CallToAction" model='Model.HomepageContent.CallToAction' view-data='new ViewDataDictionary(ViewData) { { "AdditionalCssClass", "section--increased-vertical-margin" } }'  />
 <partial name="HomepageSpotlightOn" />
 <partial name="PreFooter" />
 <partial name="EmailSubscribe" view-data='@(new ViewDataDictionary(ViewData) { {"AdditionalCssClasses", "section--teal section--no-margin"}, { "isOnHomepage", true} })' />

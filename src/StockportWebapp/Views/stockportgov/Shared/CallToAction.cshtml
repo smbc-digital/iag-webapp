@@ -5,6 +5,7 @@
     string containerColourClass = $"call-to-action-{@CssClassMapper.GetCssClass(Model.Colour)}";
     string buttonColourClass = $"btn-{@CssClassMapper.GetCssClass(Model.Colour)}";
     string additionalCssClass = ViewData["AdditionalCssClass"] as string ?? string.Empty;
+    string buttonCssClass = ViewData["ButtonCssClass"] as string ?? "btn--width-30";
     
     <section class="section section--white @additionalCssClass">
         <div class="grid-container">
@@ -16,7 +17,7 @@
                         <h2 class="call-to-action-content__title ">@Model.Title</h2>
                         <p class="call-to-action-content__teaser">@Model.Teaser</p>
                         
-                        <a href="@Model.Link" class="btn btn--inverse btn--width-30 btn--chevron-forward btn--bold btn--chevron-bold @buttonColourClass" data-cy="call-to-action-link">
+                        <a href="@Model.Link" class="btn btn--inverse btn--chevron-forward btn--bold btn--chevron-bold @buttonColourClass @buttonCssClass" data-cy="call-to-action-link">
                             <span class="btn_text">@Model.ButtonText</span>
                         </a>
                     </div> 
