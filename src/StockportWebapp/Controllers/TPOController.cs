@@ -5,12 +5,7 @@ public class TPOController(ITPOService tPOService,
 {
 	private readonly ITPOService _tPOService = tPOService;
 	private readonly IFeatureManager _featureManager = featureManager;
-
-	[HttpGet("tpo")]
-	public IActionResult RedirectToTPO() =>
-		RedirectToActionPermanent("Index");
-
-
+	
 	[HttpGet("tpo/{slug}")]
 	public async Task<IActionResult> Detail(string slug)
 	{
