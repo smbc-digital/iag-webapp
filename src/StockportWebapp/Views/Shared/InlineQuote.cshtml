@@ -19,11 +19,11 @@
                 <h2 class="h-m">@Model.Author</h2>
             }
 
-            <p class="profile-quote__text lead">
+            <div class="profile-quote__text lead">
                 <span class="h-s fa fa-quote-left profile-quote__marks" aria-hidden="true"></span>
-                @Model.Quote
+                @Html.Raw(Model.Quote)
                 <span class="h-s fa fa-quote-right profile-quote__marks" aria-hidden="true"></span>
-            </p>
+            </div>
         </div>
     </div>
 }
@@ -51,7 +51,7 @@ else
                 }
                 
                 <span class="h-s fa fa-quote-left profile-quote__marks" aria-hidden="true"></span>
-                <p class="profile-tag-parser-content__teaser">@Model.Quote</p>
+                <div class="profile-tag-parser-content__teaser">@Html.Raw(Model.Quote)</div>
                 <span class="h-s fa fa-quote-right profile-quote__marks" aria-hidden="true"></span>
             </div>
         </div>
