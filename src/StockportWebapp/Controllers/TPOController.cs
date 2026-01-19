@@ -1,13 +1,9 @@
 namespace StockportWebapp.Controllers;
 
 public class TPOController(ITPOService tPOService,
-							//IApplicationConfiguration config,
-							//IFilteredUrl filteredUrl,
 							IFeatureManager featureManager) : Controller
 {
 	private readonly ITPOService _tPOService = tPOService;
-	//private readonly IApplicationConfiguration _config = config;
-	//private readonly IFilteredUrl _filteredUrl = filteredUrl;
 	private readonly IFeatureManager _featureManager = featureManager;
 
 	[HttpGet("tpo")]
