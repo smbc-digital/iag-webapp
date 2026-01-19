@@ -5,10 +5,9 @@ public interface ITPOService
 	Task<TPOItem> GetTPODataByID(string heRef);
 }
 
-public class TPOService(ITPOApiClient tPOApiClient, MarkdownWrapper markdownWrapper) : ITPOService
+public class TPOService(ITPOApiClient tPOApiClient) : ITPOService
 {
 	private readonly ITPOApiClient _tPOApiClient = tPOApiClient;
-	private readonly MarkdownWrapper _markdownWrapper = markdownWrapper;
 
 	public async Task<TPOItem> GetTPODataByID(string heRef)
 	{
