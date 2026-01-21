@@ -2,12 +2,13 @@
 
 public class PublicationTemplateViewModel
 {
-    public readonly PublicationSection DisplayedSection;
     public readonly PublicationTemplate PublicationTemplate;
+    public readonly PublicationSection DisplayedSection;
     public readonly PublicationPage CurrentPage;
     public readonly PublicationSection? CurrentSection;
     public PublicationSidebarViewModel Sidebar { get; }
     public string PublicationTemplateSlug { get; }
+
     public string MetaDescription =>
         string.IsNullOrEmpty(DisplayedSection?.MetaDescription)
             ? PublicationTemplate.MetaDescription
@@ -24,7 +25,7 @@ public class PublicationTemplateViewModel
         CurrentSection = currentSection;
 
         // Default to first section if page has sections
-        if (currentSection == null && currentPage?.PublicationSections?.Any() == true)
+        if (currentSection is null && currentPage?.PublicationSections?.Any() is true)
             CurrentSection = currentPage.PublicationSections.First();
         else
             CurrentSection = currentSection;
@@ -79,11 +80,11 @@ public class PublicationTemplateViewModel
     }
 
     public bool HasPrevious()
-        => GetPrevious() != null;
+        => GetPrevious() is not null;
 
     public PaginationTarget GetPrevious()
     {
-        if (CurrentPage.PublicationSections?.Any() == true && SectionIndex > 0)
+        if (CurrentPage.PublicationSections?.Any() is true && SectionIndex > 0)
         {
             return PaginationTarget.ForSection(
                 PublicationTemplateSlug,
@@ -93,11 +94,9 @@ public class PublicationTemplateViewModel
 
         if (PageIndex > 0)
         {
-            PublicationPage prevPage =
-                PublicationTemplate.PublicationPages[PageIndex - 1];
+            PublicationPage prevPage = PublicationTemplate.PublicationPages[PageIndex - 1];
 
-            PublicationSection prevSection =
-                prevPage.PublicationSections?.LastOrDefault();
+            PublicationSection prevSection = prevPage.PublicationSections?.LastOrDefault();
 
             return PaginationTarget.ForPage(PublicationTemplateSlug, prevPage, prevSection);
         }
@@ -109,58 +108,13 @@ public class PublicationTemplateViewModel
     {
         Title = PublicationTemplate.Title,
         Subtitle = PublicationTemplate.Subtitle,
-        UpdatedAt = new DateTime(2024, 7, 11), // PublicationTemplate.UpdatedAt,
+        DatePublished = PublicationTemplate.DatePublished,
+        UpdatedAt = PublicationTemplate.LastUpdated,
         HeaderImageUrl = PublicationTemplate.HeroImage?.Url,
         HeaderHighlight = null,
-        HeaderHighlightType = null
+        HeaderHighlightType = null,
+        DisplayLastUpdated = !PublicationTemplate.LastUpdated.Equals(DateTime.MaxValue),
+        DisplayDatePublished = !PublicationTemplate.DatePublished.Equals(DateTime.MinValue),
+        IsPublication = true
     };
-
-    private IEnumerable<PublicationSection> AllSections() =>
-        PublicationTemplate.PublicationPages
-            .SelectMany(page => page.PublicationSections);
-
-    private PublicationSection GetSectionOrThrow(string sectionSlug) =>
-        AllSections().FirstOrDefault(_ => _.Slug.Equals(sectionSlug))
-            ?? throw new SectionDoesNotExistException($"Section with slug: {sectionSlug} does not exist");
-
-    private static PublicationSection FirstOrNull(IEnumerable<PublicationSection> sections) =>
-        sections.FirstOrDefault();
-
-    private int IndexForDisplayedSection()
-    {
-        var sections = AllSections().ToList();
-        for (int i = 0; i < sections.Count; i++)
-        {
-            if (sections[i].Slug.Equals(DisplayedSection.Slug))
-            {
-                return i;
-            }
-        }
-
-        return 0;
-    }
-
-    public PublicationSection NextSection()
-    {
-        var sections = AllSections().ToList();
-        int nextSectionIndex = IndexForDisplayedSection() + 1;
-        return nextSectionIndex < sections.Count
-            ? sections.ElementAt(nextSectionIndex)
-            : null;
-    }
-
-    public PublicationSection PreviousSection()
-    {
-        var sections = AllSections().ToList();
-        int previousSectionIndex = IndexForDisplayedSection() - 1;
-        return previousSectionIndex >= 0
-            ? sections.ElementAt(previousSectionIndex)
-            : null;
-    }
-
-    public bool ShouldShowNextSectionButton() =>
-        NextSection() is not null;
-
-    public bool ShouldShowPreviousSectionButton() =>
-        PreviousSection() is not null;
 }

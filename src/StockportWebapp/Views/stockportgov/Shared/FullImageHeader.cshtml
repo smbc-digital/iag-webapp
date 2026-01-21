@@ -11,17 +11,25 @@
             <div class="grid-100 full-header__content-wrapper">
                 <div class="full-header__content">
                     <h1 class="full-header__title">@Model.Title</h1>
+
                     @if (!string.IsNullOrEmpty(Model.Subtitle))
                     {
-                        <p class="full-header__subtitle">@Model.Subtitle</p>
+                        <p class="@(Model.IsPublication ? "lead full-header__subtitle--publication" : "full-header__subtitle")">@Model.Subtitle</p>
                     }
-
-                    @if (Model.UpdatedAt.HasValue)
+                    
+                    @if(Model.DisplayDatePublished)
                     {
+                        <p class="full-header__date">
+                            Published: @Model.DatePublished.ToString("d MMMM yyyy")
+                        </p>
                     }
-                        Published:
-                    <partial name="FormattedDate" model='@Model.UpdatedAt' />
 
+                    @if(Model.DisplayLastUpdated)
+                    {
+                        <p class="full-header__date">
+                            Review date: @Model.UpdatedAt.ToString("d MMMM yyyy")
+                        </p>
+                    }
                 </div>
 
                 <partial name="HeaderHighlight" model="Model.HeaderHighlight"

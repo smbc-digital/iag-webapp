@@ -87,6 +87,14 @@
 
     &__subtitle {
         margin-bottom: 0;
+
+        &--publication {
+            font-weight: 800;
+        }
+    }
+
+    &__date {
+        margin-bottom: 0;
     }
 }
 
