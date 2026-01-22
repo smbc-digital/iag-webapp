@@ -13,4 +13,5 @@ public class PublicationTemplate
     public DateTime LastUpdated { get; set; }
     public MediaAsset HeroImage { get; set; }
     public List<PublicationPage> PublicationPages { get; set; }
+    public EColourScheme ColourScheme { get; set; } = EColourScheme.Teal;
 }

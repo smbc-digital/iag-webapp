@@ -18,17 +18,14 @@
 
     <div class="grid-container">
         <div class="grid-100">
-            <div class="article--70 article-navigation" style="margin-bottom: 1.5em;">
-            </div>
-
-            <section class="article">
-                <div class="article--70">
-                    <partial name="PublicationPage" model="Model.CurrentPage" view-data='@(new ViewDataDictionary(ViewData) { { "currentSection", Model.CurrentSection } })' />
-                    <partial name="PublicationTemplatePagination" />
+            <section class="directory directory--margin-top">
+                <div class="directory--30">
+                    <partial name="PublicationSidebarNavCardList" model="@Model.Sidebar" />
                 </div>
 
-                <div class="article--30 section">
-                    <partial name="PublicationSidebarNavCardList" model="@Model.Sidebar" />
+                <div class="directory--70 directory__border-top-publication-@CssClassMapper.GetCssClass(Model.PublicationTemplate.ColourScheme)">
+                    <partial name="PublicationPage" model="Model.CurrentPage" view-data='@(new ViewDataDictionary(ViewData) { { "currentSection", Model.CurrentSection } })' />
+                    <partial name="PublicationTemplatePagination" />
                 </div>
             </section>
         </div>

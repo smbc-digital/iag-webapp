@@ -32,6 +32,10 @@
         margin-bottom: 2em;
     }
 
+    &--margin-top {
+        margin-top: 2em;
+    }
+
     @media #{$tablet} {
         display: block;
     }
@@ -454,6 +458,14 @@
             width: 100%;
             margin-left: 0;
             padding: 0;
+        }
+    }
+
+    &__border-top-publication {
+        border-top: 0.17em solid $stockport-teal-lighter;
+
+        &--teal {
+            border-top: 0.17em solid $stockport-teal-lighter;
         }
     }
 
