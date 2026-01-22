@@ -42,7 +42,7 @@
         <div class="topic-banner--margin-top"> 
             @if(topic.CallToAction is not null)
             {
-                <partial name="CallToAction" model='topic.CallToAction'/>
+                <partial name="CallToAction" model='topic.CallToAction' />
             } else {
                 <partial name="EventBanner" model='topic.EventCalendarBanner'/>
             }
