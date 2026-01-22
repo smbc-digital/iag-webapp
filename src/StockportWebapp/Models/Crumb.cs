@@ -1,8 +1,18 @@
 ﻿namespace StockportWebapp.Models;
 
 [ExcludeFromCodeCoverage]
-public class Crumb(string title, string slug, string type)
+public class Crumb
 {
-    public string Title = title;
-    public string NavigationLink = TypeRoutes.GetUrlFor(type, slug.ToLower());
+    public string Title;
+    public string NavigationLink;
+
+    public Crumb()
+    {
+    }
+
+    public Crumb(string title, string slug, string type) : this()
+    {
+        Title = title;
+        NavigationLink = TypeRoutes.GetUrlFor(type, slug.ToLower());
+    }
 }

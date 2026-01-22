@@ -109,11 +109,11 @@ public class PublicationTemplateViewModel
         Title = PublicationTemplate.Title,
         Subtitle = PublicationTemplate.Subtitle,
         DatePublished = PublicationTemplate.DatePublished,
-        UpdatedAt = PublicationTemplate.LastUpdated,
-        HeaderImageUrl = PublicationTemplate.HeroImage?.Url,
+        UpdatedAt = PublicationTemplate.ReviewDate,
+        HeaderImageUrl = PublicationTemplate.HeaderImage?.Url,
         HeaderHighlight = null,
         HeaderHighlightType = null,
-        DisplayLastUpdated = !PublicationTemplate.LastUpdated.Equals(DateTime.MaxValue),
+        DisplayLastUpdated = !PublicationTemplate.ReviewDate.Equals(DateTime.MaxValue),
         DisplayDatePublished = !PublicationTemplate.DatePublished.Equals(DateTime.MinValue),
         IsPublication = true
     };

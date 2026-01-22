@@ -23,7 +23,7 @@
                     <partial name="PublicationSidebarNavCardList" model="@Model.Sidebar" />
                 </div>
 
-                <div class="directory--70 directory__border-top-publication-@CssClassMapper.GetCssClass(Model.PublicationTemplate.ColourScheme)">
+                <div class="directory--70 directory__border-top-publication--@Model.PublicationTemplate.PublicationTheme.ToLower()">
                     <partial name="PublicationPage" model="Model.CurrentPage" view-data='@(new ViewDataDictionary(ViewData) { { "currentSection", Model.CurrentSection } })' />
                     <partial name="PublicationTemplatePagination" />
                 </div>

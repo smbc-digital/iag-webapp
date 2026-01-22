@@ -464,8 +464,12 @@
     &__border-top-publication {
         border-top: 0.17em solid $stockport-teal-lighter;
 
-        &--teal {
+        &--stockport_council {
             border-top: 0.17em solid $stockport-teal-lighter;
+        }
+
+        &--one_stockport {
+            border-top: 0.17em solid $one-stockport-purple;
         }
     }
 
