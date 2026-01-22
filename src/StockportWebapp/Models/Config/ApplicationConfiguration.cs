@@ -23,7 +23,8 @@ public interface IApplicationConfiguration
     string GetContentApiAuthenticationKey();
     string GetShedApiAuthToken();
     string GetShedApiBaseUrl();
-    string GetWebAppClientId();
+	string GetTPOApiBaseUrl();
+	string GetWebAppClientId();
     string GetDigitalStockportLink();
     StylesheetsConfiguration GetStylesheetConfig();
     AnalyticsConfigurationModel GetAnalyticsConfig();
@@ -137,7 +138,10 @@ public class ApplicationConfiguration(IConfiguration appsettings) : IApplication
     public string GetShedApiBaseUrl() =>
         _appsettings["ShedApi:BaseUrl"];
 
-    public string GetWebAppClientId() =>
+	public string GetTPOApiBaseUrl() =>
+		_appsettings["TPOApi:BaseUrl"];
+
+	public string GetWebAppClientId() =>
         _appsettings["WebAppClientId"];
 
     public string GetDigitalStockportLink() =>

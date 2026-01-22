@@ -1,0 +1,55 @@
+﻿@model TPOItem
+
+<h2 class="directory__profile-image">Tree Preservation Order</h2>
+
+<div class="directory__address">
+    <h3 class="h-m">Name</h3>
+    <div>
+        @Model.Tpo_name.Replace("&", "and") <br />
+    </div>
+</div>
+
+<div class="directory__address">
+    <h3 class="h-m">TPO number</h3>
+    <div>@Model.Tpo_number</div>
+</div>
+
+
+<div class="directory__address">
+    <h3 class="h-m">Status</h3>
+    <div>@Model.Status</div>
+</div>
+
+<div class="directory__address">
+    <h3 class="h-m">Tree species</h3>
+    <div>@Model.Tree_species</div>
+</div>
+
+<div class="directory__address">
+    <h3 class="h-m">Number of trees</h3>
+    <div>@(Model.Number_of_trees)</div>
+</div>
+
+@if (!string.IsNullOrEmpty(Model.Date_Made))
+{
+    <div class="directory__address">
+        <h3 class="h-m">Date made</h3>
+        <div>@(Model.Date_Made)</div>
+    </div>
+}
+
+@if (!string.IsNullOrEmpty(Model.Date_Confirmed))
+{
+    <div class="directory__address">
+        <h3 class="h-m">Date confirmed</h3>
+        <div>@(Model.Date_Confirmed)</div>
+    </div>
+}
+
+@if (!string.IsNullOrEmpty(Model.Date_Revoked))
+{
+    <div class="directory__address">
+        <h3 class="h-m">Date revoked</h3>
+        <div>@(Model.Date_Revoked)</div>
+    </div>
+}

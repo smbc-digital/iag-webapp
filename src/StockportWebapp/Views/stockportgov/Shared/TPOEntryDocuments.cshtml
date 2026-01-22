@@ -1,0 +1,20 @@
+﻿@model List<Document>
+
+@if (Model.Any())
+{
+    <div class="directory__filters @((string)ViewData["AdditionalWrapperCssClasses"] ?? string.Empty)">
+        <div class="directory__wrapper navcard--white @((string)ViewData["AdditionalCssClasses"] ?? string.Empty)">
+            <h2>Documents</h2>
+
+            @foreach (Document document in Model)
+            {
+                <partial name="../Shared/HeritageAssetsDocument2024" model='document' />
+            }
+            <h3>Request an accessible format</h3>
+            <p>If you use assistive technology (such as a screen reader) and need a version of this document in a more accessible format, please tell us what format you need. You can:</p>
+            <ul>
+                <li>email us at: <a href="mailto:gis@stockport.gov.uk">gis@stockport.gov.uk</a></li>
+            </ul>
+        </div>
+    </div>
+}
