@@ -6,7 +6,7 @@
     string url = $"{Model.MapName}?lat={Model.Lat}&lng={Model.Lng}";
     string mapTitle = (string)ViewData["MapTitle"] ?? string.Empty;
 }
-<div class="directory__filters @((string)ViewData["AdditionalWrapperCssClasses"] ?? string.Empty)">
+<div class="directory__filters @((string)ViewData["AdditionalWrapperCssClasses"] ?? string.Empty) leaflet-map js-only">
     <div class="directory__wrapper navcard--white @((string)ViewData["AdditionalCssClasses"] ?? string.Empty)">
         <h2 aria-hidden="true">Location</h2>
         <div id='root'>
