@@ -23,6 +23,10 @@
         &--directory-on-homepage {
             background-color: $one-stockport-purple;
             padding-block: 20px;
+            
+            @media #{$desktop} {
+                width: 30%;
+            }
 
             @media #{$tablet} {
                 width: 40%;
@@ -75,6 +79,11 @@
 
         &--directory-on-homepage {
             align-content: center;
+            
+            @media #{$desktop} {
+                width: 70%;
+                text-align: center;
+            }
 
             @media #{$tablet} {
                 border-radius: 0 3px 50px 0;
