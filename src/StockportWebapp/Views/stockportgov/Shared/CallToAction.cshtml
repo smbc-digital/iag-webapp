@@ -9,7 +9,7 @@
         ? false
         : (bool)ViewData["IsDirectoryOnHomepage"];
     
-    <section class="section section--white @additionalCssClass">
+    <section class="section section--white @additionalCssClass @(isDirectoryOnHomepage ? "section--margin-bottom-3-desktop" : string.Empty)">
         <div class="grid-container">
             <div class="grid-100">
                 <div class="call-to-action section__content @(isDirectoryOnHomepage ? "call-to-action--directory-on-homepage" : string.Empty)" data-cy="call-to-action">
