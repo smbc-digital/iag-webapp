@@ -4,38 +4,63 @@ public static class ContentBlockAdapter
 {
     public static ContentBlock FromJson(JsonElement entry)
     {
-        return new ContentBlock(
-            Get(entry, "slug"),
-            Get(entry, "title"),
-            Get(entry, "teaser"),
-            Get(entry, "icon"),
-            Get(entry, "type"),
-            Get(entry, "contentType"),
-            GetImage(entry),
-            Get(entry, "mailingListId"),
-            Get(entry, "body"),
-            GetSubItems(entry),
-            Get(entry, "link"),
-            Get(entry, "buttonText"),
-            ParseColour(entry),
-            Get(entry, "statistic"),
-            Get(entry, "statisticSubheading"),
-            Get(entry, "videoTitle"),
-            Get(entry, "videoToken"),
-            Get(entry, "videoPlaceholderPhotoId"),
-            Get(entry, "associatedTagCategory"),
-            null,
-            new List<Event>(),
-            new List<News>(),
-            Get(entry, "screenReader"),
-            Get(entry, "accountName"));
+        return new ContentBlock
+        {
+            Slug = Get(entry, "slug"),
+            Title = Get(entry, "title"),
+            Teaser = Get(entry, "teaser"),
+            Icon = Get(entry, "icon"),
+            Type = Get(entry, "type"),
+            ContentType = Get(entry, "contentType"),
+            Image = GetImage(entry),
+            MailingListId = Get(entry, "mailingListId"),
+            Body = MarkdownWrapper.ToHtml(Get(entry, "body")),
+            SubItems = GetSubItems(entry),
+            Link = Get(entry, "link"),
+            ButtonText = Get(entry, "buttonText"),
+            ColourScheme = ParseColour(entry),
+            Statistic = Get(entry, "statistic"),
+            StatisticSubheading = Get(entry, "statisticSubheading"),
+            VideoTitle = Get(entry, "videoTitle"),
+            VideoToken = Get(entry, "videoToken"),
+            VideoPlaceholderPhotoId = Get(entry, "videoPlaceholderPhotoId"),
+            AssociatedTagCategory = Get(entry, "associatedTagCategory"),
+            NewsArticle = null,
+            Events = new List<Event>(),
+            News = new List<News>(),
+            ScreenReader = Get(entry, "screenReader"),
+            AccountName = Get(entry, "accountName")
+        };
     }
 
     public static string Get(JsonElement element, string name)
     {
-        if (!element.TryGetProperty(name, out JsonElement property))
-            return string.Empty;
+        // direct match
+        if (element.TryGetProperty(name, out JsonElement property))
+            return Extract(property);
 
+        // case-insensitive match
+        foreach (var prop in element.EnumerateObject())
+        {
+            if (string.Equals(prop.Name, name, StringComparison.OrdinalIgnoreCase))
+                return Extract(prop.Value);
+        }
+
+        // nested inside "fields"
+        if (element.TryGetProperty("fields", out JsonElement fields))
+        {
+            foreach (var prop in fields.EnumerateObject())
+            {
+                if (string.Equals(prop.Name, name, StringComparison.OrdinalIgnoreCase))
+                    return Extract(prop.Value);
+            }
+        }
+
+        return string.Empty;
+    }
+
+    private static string Extract(JsonElement property)
+    {
         return property.ValueKind switch
         {
             JsonValueKind.String => property.GetString() ?? string.Empty,
@@ -45,7 +70,6 @@ public static class ContentBlockAdapter
             _ => string.Empty
         };
     }
-
     private static List<ContentBlock> GetSubItems(JsonElement element)
     {
         if (!element.TryGetProperty("subItems", out JsonElement items))
@@ -55,11 +79,17 @@ public static class ContentBlockAdapter
             .Select(FromJson)
             .ToList();
     }
-
+    
     private static EColourScheme ParseColour(JsonElement element)
     {
         if (!element.TryGetProperty("colourScheme", out JsonElement colour))
             return EColourScheme.None;
+
+        if (element.TryGetProperty("colour", out JsonElement colour2))
+        {
+            if (Enum.TryParse<EColourScheme>(colour2.GetString(), true, out var scheme2))
+                return scheme2;
+        }
 
         return Enum.TryParse<EColourScheme>(colour.GetString(), true, out var scheme)
             ? scheme
