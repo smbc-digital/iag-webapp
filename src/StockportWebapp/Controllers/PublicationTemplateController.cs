@@ -2,15 +2,19 @@ namespace StockportWebapp.Controllers;
 
 [ResponseCache(Location = ResponseCacheLocation.Any, Duration = Cache.Medium)]
 [Route("publications/{publicationSlug}")]
-public class PublicationTemplateController(IPublicationTemplateRepository repository) : Controller
+public class PublicationTemplateController(IPublicationTemplateRepository repository, IFeatureManager featureManager) : Controller
 {
     private readonly IPublicationTemplateRepository _repository = repository;
+    private readonly IFeatureManager _featureManager = featureManager;
 
     [HttpGet("")]
     [HttpGet("{pageSlug}")]
     [HttpGet("{pageSlug}/{sectionSlug}")]
     public async Task<IActionResult> Index(string publicationSlug, string? pageSlug, string? sectionSlug)
     {
+        if (!await _featureManager.IsEnabledAsync("PublicationTemplate"))
+            return NotFound();
+        
         HttpResponse response = await _repository.Get(publicationSlug);
 
         if (!response.IsSuccessful())

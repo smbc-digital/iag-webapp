@@ -4,6 +4,7 @@ public class PublicationTemplateControllerTests
 {
     private readonly PublicationTemplateController _publicationTemplateController;
     private readonly Mock<IPublicationTemplateRepository> _repository = new();
+    private readonly Mock<IFeatureManager> _featureManager = new();
     
     private readonly PublicationTemplate publicationTemplate = new()
     {
@@ -30,7 +31,11 @@ public class PublicationTemplateControllerTests
             .Setup(repo => repo.Get(It.IsAny<string>()))
             .ReturnsAsync(HttpResponse.Successful(200, publicationTemplate));
 
-        _publicationTemplateController = new PublicationTemplateController(_repository.Object);
+         _featureManager
+            .Setup(manager => manager.IsEnabledAsync("PublicationTemplate"))
+            .Returns(Task.FromResult(true));
+
+        _publicationTemplateController = new PublicationTemplateController(_repository.Object, _featureManager.Object);
     }
 
     [Fact]
