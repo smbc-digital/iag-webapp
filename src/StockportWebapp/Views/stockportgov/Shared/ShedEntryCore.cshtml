@@ -64,9 +64,14 @@ else
 </div>
 
 <div class="directory__address shed__date-listed">
-    @if (!string.IsNullOrEmpty(Model.DateListed))
+    @if (!string.IsNullOrEmpty(Model.DateListed) && Model.Type is not "Conservation areas")
     {
         <h3 class="h-m">Date listed</h3>
+        <div>@DateTime.Parse(Model.DateListed).ToString("D")</div>
+    }
+    else
+    {
+        <h3 class="h-m">Designated</h3>
         <div>@DateTime.Parse(Model.DateListed).ToString("D")</div>
     }
 </div>
