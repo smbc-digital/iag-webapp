@@ -7,8 +7,7 @@ public class Crumb
     public string NavigationLink;
 
     public Crumb()
-    {
-    }
+    { }
 
     public Crumb(string title, string slug, string type) : this()
     {

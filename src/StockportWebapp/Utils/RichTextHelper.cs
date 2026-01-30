@@ -52,11 +52,9 @@ public static class RichTextRenderer
         string text = node.GetProperty("value").GetString() ?? string.Empty;
 
         if (!node.TryGetProperty("marks", out JsonElement marks) ||
-            marks.ValueKind != JsonValueKind.Array ||
-            !marks.EnumerateArray().Any())
-        {
+                marks.ValueKind != JsonValueKind.Array ||
+                !marks.EnumerateArray().Any())
             return text;
-        }
 
         foreach (JsonElement mark in marks.EnumerateArray())
         {

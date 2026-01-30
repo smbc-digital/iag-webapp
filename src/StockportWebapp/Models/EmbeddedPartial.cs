@@ -1,5 +1,6 @@
 namespace StockportWebapp.Models;
 
+[ExcludeFromCodeCoverage]
 public class EmbeddedPartial
 {
     public string PartialName { get; set; }
@@ -13,10 +14,4 @@ public class EmbeddedPartial
         PartialName = model.ContentType;
         Model = model;
     }
-}
-
-public class ParagraphBlock
-{
-    public List<object> Children { get; }
-    public ParagraphBlock(List<object> children) => Children = children;
 }
