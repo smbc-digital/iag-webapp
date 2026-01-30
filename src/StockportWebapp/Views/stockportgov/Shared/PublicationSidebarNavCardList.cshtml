@@ -1,41 +1,36 @@
 @model PublicationSidebarViewModel
 @{
-    string borderGrey = "navcard--border-left-1 navcard--border-right-1 navcard--theme-grey-accent-all";
-    string liClasses = "navcard navcard--grey navcard--no-margin navcard--no-padding-right-rtl navcard--width-100";
-    string paddingBottom = "navcard--border-bottom-1 navcard--radius-bottom-left navcard--radius-bottom-right";
+    string borderGrey = "navcard--border-left-1 navcard--border-right-1 navcard--border-bottom-1 navcard--theme-grey-accent-all";
+    @* string liClasses = "navcard navcard--grey navcard--no-margin navcard--no-padding-right-rtl navcard--width-100"; *@
+    string liClasses = "navcard--grey navcard--no-padding-right-rtl";
+    string paddingBottom = "navcard--radius-bottom-left navcard--radius-bottom-right";
 }
 
-<nav aria-labelledby="navcard__title">
-    <ul class="navcard navcard-wrapper--no-margin navcard--border-top-10 navcard--no-padding-right-rtl navcard--theme-teal-lighter-top navcard--width-100">
-        <li class="@liClasses">
-            <div class="@borderGrey">
-                <div class="navcard--padding navcard--padding-top navcard--grey">
-                    <h2 class="h-ml h--no-top-margin h--no-bottom-margin" id="navcard__title">
-                        Contents
-                    </h2>
-                </div>
-            </div>
-        </li>
-        
+<nav aria-labelledby="navcard__title" class="publication-sidebar navcard--border-top-10 navcard--theme-teal-lighter-top @borderGrey">
+    <div class="navcard--grey navcard--padding navcard--padding-top">
+        <h2 class="h-ml h--no-top-margin h--no-bottom-margin" id="navcard__title">Contents</h2>
+        <p class="publication-sidebar__subtitle">@Model.PublicationTitle</p>
+    </div>
+
+    <ul class="@liClasses">
         @foreach (PublicationSidebarPage pageP in Model.Items)
         {
             bool isLastItem = pageP.Equals(Model.Items.Last());
 
-            <li class="publication-page @liClasses @(pageP.IsActive ? "active" : string.Empty)">
-                <div class="@borderGrey @(isLastItem ? paddingBottom : string.Empty)">
-                    <a href="/publications/@ViewContext.RouteData.Values["publicationSlug"]/@pageP.Slug" class="navcard--padding navcard__link">
+            <li class="@(pageP.IsActive ? "active" : string.Empty)">
+                <div class="@(isLastItem ? paddingBottom : string.Empty)">
+                    <a href="/publications/@ViewContext.RouteData.Values["publicationSlug"]/@pageP.Slug" class="navcard--padding navcard__link publication-sidebar__link">
                         @pageP.Title
                     </a>
 
                     @if (pageP.Sections.Any())
                     {
-                        <ul class="publication-sections">
+                        <ul class="publication-sidebar__sections">
                             @foreach (PublicationSidebarSection sectionP in pageP.Sections)
                             {
                                 <li class="@(sectionP.IsActive ? "active" : string.Empty)">
                                     <a href="/publications/@ViewContext.RouteData.Values["publicationSlug"]/@pageP.Slug/@sectionP.Slug">
-                                        <h3 class="navcard__title navcard__title--no-margin
-                                            @(sectionP.IsActive ? "navcard__title--bold" : "navcard__title--normal-weight")">
+                                        <h3 class="navcard__title navcard__title--no-margin @(sectionP.IsActive ? "navcard__title--bold" : "navcard__title--normal-weight")">
                                             @sectionP.Title
                                         </h3>
                                     </a>

@@ -4,6 +4,7 @@ public class PublicationSidebarViewModel(PublicationTemplate publication,
                                         PublicationPage currentPage,
                                         PublicationSection currentSection)
 {
+    public string PublicationTitle { get; } = publication.Title;
     public IReadOnlyList<PublicationSidebarPage> Items { get; } = publication.PublicationPages
         .Select(page => new PublicationSidebarPage(
             page,
