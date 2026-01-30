@@ -171,13 +171,6 @@ public static class RichTextRenderer
             && urlProp.ValueKind == JsonValueKind.String)
             return urlProp.GetString() ?? "#";
 
-        // fallback to localized files
-        if (target.TryGetProperty("filesLocalized", out JsonElement filesLocalized)
-            && filesLocalized.TryGetProperty("en-GB", out JsonElement enGb)
-            && enGb.TryGetProperty("url", out JsonElement localizedUrl)
-            && localizedUrl.ValueKind == JsonValueKind.String)
-            return localizedUrl.GetString() ?? "#";
-
         return "#";
     }
 

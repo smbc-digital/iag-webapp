@@ -164,30 +164,6 @@ public class RichTextRendererTests
     }
 
     [Fact]
-    public void Render_EmbeddedAsset_FallsBackToFilesLocalized()
-    {
-        // Arrange
-        JsonElement json = JsonDocument.Parse(@"
-        {
-            ""nodeType"": ""embedded-asset-block"",
-            ""data"": {
-                ""target"": {
-                    ""filesLocalized"": {
-                        ""en-GB"": { ""url"": ""/localized.png"" }
-                    },
-                    ""description"": ""alt2""
-                }
-            }
-        }").RootElement;
-
-        // Act
-        object result = RichTextRenderer.Render(json);
-
-        // Assert
-        Assert.Equal("<img src='/localized.png' alt='alt2' />", result);
-    }
-
-    [Fact]
     public void Render_AssetHyperlink_ReturnsChildren_WhenNoTarget()
     {
         // Arrange
