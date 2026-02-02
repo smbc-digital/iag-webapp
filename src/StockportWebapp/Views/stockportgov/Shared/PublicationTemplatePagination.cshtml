@@ -4,7 +4,7 @@
     <div class="article-pagination__previous">
         @if (Model.HasPrevious())
         {
-            var prev = Model.GetPrevious();
+            PaginationTarget prev = Model.GetPrevious();
             <a href="@prev.Url">
                 <div class="article-pagination__chevron">
                     <span class="fa fa-angle-left article-pagination__icon"></span>
@@ -18,7 +18,7 @@
     <div class="article-pagination__next">
         @if (Model.HasNext())
         {
-            var next = Model.GetNext();
+            PaginationTarget next = Model.GetNext();
             <a href="@next.Url">
                 <h3>Next</h3>
                 <p>@next.Title</p>

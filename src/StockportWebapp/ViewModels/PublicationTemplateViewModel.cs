@@ -43,7 +43,7 @@ public class PublicationTemplateViewModel
         PublicationTemplate.PublicationPages.ToList().IndexOf(CurrentPage);
 
     private int SectionIndex =>
-        CurrentSection == null
+        CurrentSection is null
             ? -1
             : CurrentPage.PublicationSections.ToList().IndexOf(CurrentSection);
 
@@ -53,7 +53,7 @@ public class PublicationTemplateViewModel
     public PaginationTarget GetNext()
     {
         // Sections exist → move within sections
-        if (CurrentPage.PublicationSections?.Any() == true)
+        if (CurrentPage.PublicationSections?.Any() is true)
         {
             if (SectionIndex < CurrentPage.PublicationSections.Count - 1)
             {

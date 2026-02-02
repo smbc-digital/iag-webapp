@@ -29,6 +29,10 @@
     &__link {
         text-decoration: underline;
         padding-inline-start: 0;
+        
+        &--bold {
+            font-weight: 800;
+        }
 
         &:hover {
             text-decoration: underline;
