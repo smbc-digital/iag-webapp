@@ -7,7 +7,7 @@
         padding-bottom: 1.5em;
 
         &-item {
-            margin-inline-start: 0;
+            margin-inline-start: 20px;
             color: $linkDefault;
 
             &--no-padding-inline {
@@ -36,25 +36,4 @@
             text-decoration-skip-ink: none;
         }
     }
-}
-
-.publication-sidebar__list li a,
-.publication-sidebar__list--no-margin li a {
-    position: relative;
-    padding-left: 1.25rem;
-}
-
-.publication-sidebar__list li a::before,
-.publication-sidebar__list--no-margin li a::before {
-    content: "›";
-    position: absolute;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    color: $linkDefault;
-    font-size: 2rem;
-}
-
-ul {
-    list-style: none;
 }
