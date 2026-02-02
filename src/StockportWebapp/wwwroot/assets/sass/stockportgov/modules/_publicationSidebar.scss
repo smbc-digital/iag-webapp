@@ -1,7 +1,23 @@
 .publication-sidebar {
+    border-radius: 3px;
+
     &__list {
-        list-style: disc;
-        list-style-position: inside;
+        margin-bottom: 0;
+        padding-inline: .75em;
+        padding-bottom: 1.5em;
+
+        &-item {
+            margin-inline-start: 0;
+            color: $linkDefault;
+
+            &--no-padding-inline {
+                padding-inline: 0;
+            }
+        }
+
+        &--no-margin {
+            margin: 0;
+        }
     }
 
     &__subtitle {
@@ -12,6 +28,7 @@
 
     &__link {
         text-decoration: underline;
+        padding-inline-start: 0;
 
         &:hover {
             text-decoration: underline;
@@ -19,8 +36,25 @@
             text-decoration-skip-ink: none;
         }
     }
+}
 
-    &__sections {
-        margin-bottom: 0;
-    }
+.publication-sidebar__list li a,
+.publication-sidebar__list--no-margin li a {
+    position: relative;
+    padding-left: 1.25rem;
+}
+
+.publication-sidebar__list li a::before,
+.publication-sidebar__list--no-margin li a::before {
+    content: "›";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    color: $linkDefault;
+    font-size: 2rem;
+}
+
+ul {
+    list-style: none;
 }
