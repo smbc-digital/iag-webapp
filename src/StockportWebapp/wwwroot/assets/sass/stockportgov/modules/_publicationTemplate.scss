@@ -1,7 +1,13 @@
 .publication-template {
     padding-top: 2em;
-    
+
     &__subtitle {
         margin-top: 1.25rem;
+    }
+
+    &__pagination {
+        &--no-margin {
+            margin-bottom: 0 !important;
+        }
     }
 }

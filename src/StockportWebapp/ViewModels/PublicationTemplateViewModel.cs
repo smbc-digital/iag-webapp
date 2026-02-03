@@ -59,18 +59,16 @@ public class PublicationTemplateViewModel
                 return PaginationTarget.ForSection(
                     PublicationTemplateSlug,
                     CurrentPage,
-                    CurrentPage.PublicationSections[SectionIndex + 1]);
+                    CurrentPage.PublicationSections[SectionIndex + 1],
+                    true);
             }
         }
 
         // Move to next page
         if (PageIndex < PublicationTemplate.PublicationPages.Count - 1)
         {
-            PublicationPage nextPage =
-                PublicationTemplate.PublicationPages[PageIndex + 1];
-
-            PublicationSection nextSection =
-                nextPage.PublicationSections?.FirstOrDefault();
+            PublicationPage nextPage = PublicationTemplate.PublicationPages[PageIndex + 1];
+            PublicationSection nextSection = nextPage.PublicationSections?.FirstOrDefault();
 
             return PaginationTarget.ForPage(PublicationTemplateSlug, nextPage, nextSection);
         }
@@ -88,13 +86,13 @@ public class PublicationTemplateViewModel
             return PaginationTarget.ForSection(
                 PublicationTemplateSlug,
                 CurrentPage,
-                CurrentPage.PublicationSections[SectionIndex - 1]);
+                CurrentPage.PublicationSections[SectionIndex - 1],
+                true);
         }
 
         if (PageIndex > 0)
         {
             PublicationPage prevPage = PublicationTemplate.PublicationPages[PageIndex - 1];
-
             PublicationSection prevSection = prevPage.PublicationSections?.LastOrDefault();
 
             return PaginationTarget.ForPage(PublicationTemplateSlug, prevPage, prevSection);
