@@ -5,16 +5,16 @@
     ViewData["Description"] = landingPage.MetaDescription;
     ViewData["og:title"] = landingPage.Title;
     Layout = "../Shared/_Layout2023.cshtml";
-    string backgroundColour = Model.LandingPage.HeaderType.Equals("Framed Image")
+    string backgroundColour = landingPage.HeaderType.Equals("Framed Image")
         ? $"directories-breadcrumb-container-{CssClassMapper.GetCssClass(landingPage.HeaderColourScheme)}"
         : "topic-breadcrumb-container";
 }
 
 <div class="grid-container-full-width" style="background-color:white;" data-cy="landing-page">
-    <partial name="GlobalAlerts" model='Model.LandingPage.Alerts' />
-    <partial name="Breadcrumb2023" model='Model.LandingPage.Breadcrumbs' view-data='@(new ViewDataDictionary(ViewData) {{"backgroundColour", backgroundColour}, {"landingBreadcrumb", "landing-breadcrumb-container"}})'/>
+    <partial name="GlobalAlerts" model='landingPage.Alerts' />
+    <partial name="Breadcrumb2023" model='landingPage.Breadcrumbs' view-data='@(new ViewDataDictionary(ViewData) {{"backgroundColour", backgroundColour}, {"landingBreadcrumb", "landing-breadcrumb-container"}})'/>
 
-    @if (Model.LandingPage.HeaderType.Equals("Framed Image"))
+    @if (landingPage.HeaderType.Equals("Framed Image"))
     {
         <partial name="FramedImageHeader" model="@Model" />
     }
@@ -23,9 +23,9 @@
         <partial name="FullImageHeader" model="@Model.PageHeader" />
     }
 
-    @if (Model.LandingPage.PageSections is not null && Model.LandingPage.PageSections.Any())
+    @if (landingPage.PageSections is not null && landingPage.PageSections.Any())
     {
-        @foreach (ContentBlock pageSection in Model.LandingPage.PageSections)
+        @foreach (ContentBlock pageSection in landingPage.PageSections)
         {
             @if (pageSection.ContentType.Equals("CallToAction"))
             {
@@ -41,7 +41,7 @@
                         }
                     : null;
 
-                if (Model.LandingPage.NeedsExtraMargin(pageSection))
+                if (landingPage.NeedsExtraMargin(pageSection))
                 {
                     <partial name="CallToAction" model="@callToActionBanner" view-data='@(new ViewDataDictionary(ViewData) { {"AdditionalCssClass", "content-block content-block--margin-extra"} })' />
                 }
@@ -52,11 +52,11 @@
             }
             else if (!pageSection.ContentType.Equals("HeaderHighlight"))
             {
-                @if (Model.LandingPage.NeedsExtraPadding(pageSection))
+                @if (landingPage.NeedsExtraPadding(pageSection))
                 {
                     <partial name="@pageSection.ContentType" model="@pageSection" view-data='@(new ViewDataDictionary(ViewData) { {"AdditionalCssClass", "content-block--padding-extra"}, { "AllowTwo", false } })' />
                 }
-                else if (Model.LandingPage.NeedsExtraMargin(pageSection))
+                else if (landingPage.NeedsExtraMargin(pageSection))
                 {
                     <partial name="@pageSection.ContentType" model="@pageSection" view-data='@(new ViewDataDictionary(ViewData) { {"AdditionalCssClass", "content-block--margin-extra content-block--no-margin-top"}, {"FindOutMoreBannerOrderSwitch", "find-out-more-banner--image-order-switch"}, { "AllowTwo", false } })' />
                 }

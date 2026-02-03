@@ -14,7 +14,6 @@ public class PublicationTemplateViewModel
             ? PublicationTemplate.MetaDescription
             : DisplayedSection.MetaDescription;
 
-
     public PublicationTemplateViewModel(
             PublicationTemplate publication,
             PublicationPage currentPage,
@@ -47,8 +46,8 @@ public class PublicationTemplateViewModel
             ? -1
             : CurrentPage.PublicationSections.ToList().IndexOf(CurrentSection);
 
-    public bool HasNext()
-        => GetNext() != null;
+    public bool HasNext() =>
+        GetNext() is not null;
     
     public PaginationTarget GetNext()
     {
@@ -79,8 +78,8 @@ public class PublicationTemplateViewModel
         return null;
     }
 
-    public bool HasPrevious()
-        => GetPrevious() is not null;
+    public bool HasPrevious() =>
+        GetPrevious() is not null;
 
     public PaginationTarget GetPrevious()
     {

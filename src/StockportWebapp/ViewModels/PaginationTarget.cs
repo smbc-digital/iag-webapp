@@ -12,21 +12,13 @@ public class PaginationTarget
         Url = url;
     }
 
-    public static PaginationTarget ForSection(
-        string publicationTemplateSlug,
-        PublicationPage page,
-        PublicationSection section)
-        => new(
-            section.Title,
-            $"/publications/{publicationTemplateSlug}/{page.Slug}/{section.Slug}");
+    public static PaginationTarget ForSection(string publicationTemplateSlug, PublicationPage page, PublicationSection section) =>
+        new(section.Title, $"/publications/{publicationTemplateSlug}/{page.Slug}/{section.Slug}");
 
-    public static PaginationTarget ForPage(
-        string publicationTemplateSlug,
-        PublicationPage page,
-        PublicationSection section)
-        => section == null
-            ? new PaginationTarget(
-                page.Title,
-                $"/publications/{publicationTemplateSlug}/{page.Slug}")
-            : ForSection(publicationTemplateSlug, page, section);
+    public static PaginationTarget ForPage(string publicationTemplateSlug, PublicationPage page, PublicationSection section) =>
+        section is null
+        ? new PaginationTarget(
+            page.Title,
+            $"/publications/{publicationTemplateSlug}/{page.Slug}")
+        : ForSection(publicationTemplateSlug, page, section);
 }

@@ -473,6 +473,12 @@
         }
     }
 
+    &--margin-top-publication {
+        @media #{$tablet} {
+            margin-top: 2em;
+        }
+    }
+
     &__description, &__filters {
         @media #{$tablet} {
             width: 100%;
