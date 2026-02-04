@@ -45,6 +45,10 @@ else
 
                 <partial name="CallToAction" model="@callToActionBanner" view-data='@(new ViewDataDictionary(ViewData) { {"AdditionalCssClass", "content-block content-block--margin-extra"} })' />
             }
+            else if (partial.Model.ContentType.Equals("TriviaList"))
+            {
+                <partial name="PublicationTemplateTriviaList" model="@partial.Model" />
+            }
             else
             {
                 <partial name="@partial.PartialName" model="@partial.Model" view-data='@(new ViewDataDictionary(ViewData) { { "AllowTwo", true } })' />
