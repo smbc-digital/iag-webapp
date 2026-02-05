@@ -1,6 +1,12 @@
 .publication-template {
     padding-top: 2em;
 
+    &-title {
+        @media #{$mobile} {
+            margin-inline: 5px;
+        }
+    }
+
     &__subtitle {
         margin-top: 1.25rem;
     }

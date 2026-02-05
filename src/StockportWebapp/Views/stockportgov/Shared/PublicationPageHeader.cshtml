@@ -2,25 +2,27 @@
 
 @if (Model is not null)
 {
-    <div class="grid-container">
-        <div class="grid-100">
-            <p class="lead full-header__subtitle--publication publication-template__subtitle">@Model.PublicationTemplate.Title</p>
+    <section class="publication-template-title">
+        <div class="grid-container">
+            <div class="grid-100">
+                <p class="lead full-header__subtitle--publication publication-template__subtitle">@Model.PublicationTemplate.Title</p>
 
-            <h1 class="publication-template__title">@Model.CurrentPage.Title</h1>
-            
-            @if(!Model.PublicationTemplate.DatePublished.Equals(DateTime.MinValue))
-            {
-                <p class="full-header__date">
-                    Published: @Model.PublicationTemplate.DatePublished.ToString("d MMMM yyyy")
-                </p>
-            }
+                <h1 class="publication-template__title">@Model.CurrentPage.Title</h1>
+                
+                @if(!Model.PublicationTemplate.DatePublished.Equals(DateTime.MinValue))
+                {
+                    <p class="full-header__date">
+                        Published: @Model.PublicationTemplate.DatePublished.ToString("d MMMM yyyy")
+                    </p>
+                }
 
-            @if(!Model.PublicationTemplate.ReviewDate.Equals(DateTime.MaxValue))
-            {
-                <p class="full-header__date">
-                    Review date: @Model.PublicationTemplate.ReviewDate.ToString("d MMMM yyyy")
-                </p>
-            }
+                @if(!Model.PublicationTemplate.ReviewDate.Equals(DateTime.MaxValue))
+                {
+                    <p class="full-header__date">
+                        Review date: @Model.PublicationTemplate.ReviewDate.ToString("d MMMM yyyy")
+                    </p>
+                }
+            </div>
         </div>
-    </div>
+    </section>
 }
