@@ -13,7 +13,7 @@
     @if (Model.HasPrevious() is false)
     {
         <partial name="Breadcrumb2023" model='publicationTemplate.Breadcrumbs' view-data='@(new ViewDataDictionary(ViewData) {{"backgroundColour", "topic-breadcrumb-container"}, {"landingBreadcrumb", "landing-breadcrumb-container"}})' />
-        <partial name="FullImageHeader" model="Model.PageHeader" />
+        <partial name="FullImageHeader" model="Model.PageHeader" view-data='@(new ViewDataDictionary(ViewData) {{"additionalCssClass", "full-header__background--publication"}})' />
     }
     else
     {
