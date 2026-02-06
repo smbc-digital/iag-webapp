@@ -1,4 +1,5 @@
-﻿using HtmlAgilityPack;
+﻿using System.Web;
+using HtmlAgilityPack;
 
 namespace StockportWebapp.Utils;
 
@@ -17,9 +18,10 @@ public class HtmlHelper
         foreach (HtmlNode image in imageNodes)
         {
             string src = image.GetAttributeValue("src", string.Empty);
+
             if (string.IsNullOrEmpty(src)) 
                 continue;
-
+            
             SetSrcAttribute(src, image);
             SetSrcsetAndSizesAttribute(src, image, maxMobileWidth, maxTabletWidth, maxDesktopWidth);
 
@@ -31,9 +33,27 @@ public class HtmlHelper
         return document.DocumentNode.OuterHtml;
     }
 
-    private static void SetSrcAttribute(string src, HtmlNode image) =>
-        image.SetAttributeValue("src", src += "?q=89&fm=webp");
+    private static void SetSrcAttribute(string src, HtmlNode image) 
+    {
+        Uri uri = new Uri(src);
+        UriBuilder uriBuilder = new UriBuilder(uri);
+        var queryValues = HttpUtility.ParseQueryString(uriBuilder.Query);
 
+        if(!queryValues.AllKeys.Contains("q"))
+        {
+            queryValues.Add("q", "89");
+        }
+
+        if(!queryValues.AllKeys.Contains("fm"))
+        {
+            queryValues.Add("fm", "webp");
+        }
+        
+        uriBuilder.Query = queryValues.ToString();
+
+        image.SetAttributeValue("src",  uriBuilder.Uri.ToString());
+    }
+        
     private static void SetSrcsetAndSizesAttribute(string src, HtmlNode image, string maxMobileWidth, string maxTabletWidth, string maxDesktopWidth)
     {
         string baseUrl = src.Split('?')[0];
