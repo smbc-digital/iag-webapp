@@ -63,7 +63,7 @@
                     {
                         <article class="article-body" data-contentful-entry-id="@Model.Article.ContentfulId" data-contentful-field-id="sections">
                             <h2 id="@Model.DisplayedSection.Slug">@Model.DisplayedSection.Title</h2>
-                            @Html.Raw(Model.DisplayedSection.Body)
+                            @Html.Raw(StockportWebapp.Utils.HtmlHelper.AddImageAttributes(Model.DisplayedSection.Body, "720", "511", "720", "937", "852"))
                         </article>
                     }
 
