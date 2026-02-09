@@ -1,7 +1,7 @@
 ﻿@model PublicationTemplateViewModel
 
-<nav class="article-pagination article-pagination--margin" aria-label="Pagination">
-    <div class="article-pagination__previous">
+<nav class="article-pagination article-pagination--margin-top" aria-label="Pagination">
+    <div class="article-pagination__previous article-pagination__previous--publication">
         @if (Model.HasPrevious())
         {
             PaginationTarget prev = Model.GetPrevious();
@@ -29,7 +29,7 @@
         }
     </div>
 
-    <div class="article-pagination__next">
+    <div class="article-pagination__next article-pagination__next--publication">
         @if (Model.HasNext())
         {
             PaginationTarget next = Model.GetNext();

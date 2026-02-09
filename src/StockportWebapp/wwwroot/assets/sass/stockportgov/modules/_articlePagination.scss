@@ -49,6 +49,10 @@
         @media #{$mobile} {
             width: 100%;
         }
+
+        &--publication {
+            display: flex;
+        }
     }
 
     &__next a {
@@ -67,8 +71,8 @@
         }
     }
 
-    &--margin {
-        margin-block: 2em;
+    &--margin-top {
+        margin-top: 2em;
     }
 }
 
