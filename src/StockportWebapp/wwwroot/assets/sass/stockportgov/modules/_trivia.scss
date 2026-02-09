@@ -48,6 +48,12 @@
         }
 
         &--publication {
+            @media #{$desktop} {
+                li:nth-last-of-type(-n+2) {
+                    margin-bottom: 2em;
+                }
+            }
+
             @media #{$mobile} {
                 margin-inline: 0 !important;
             }
