@@ -16,7 +16,7 @@
 
     foreach (PublicationSection publicationSection in sectionsToRender)
     {
-        <h2>@publicationSection.Title</h2>
+        <h2 class="publication-template__page-title">@publicationSection.Title</h2>
 
         <partial name="PublicationSection" model="publicationSection" />
     }
