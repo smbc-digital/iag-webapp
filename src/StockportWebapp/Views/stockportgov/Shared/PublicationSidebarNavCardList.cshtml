@@ -1,0 +1,45 @@
+@model PublicationSidebarViewModel
+@{
+    string paddingBottom = "navcard--radius-bottom-left navcard--radius-bottom-right";
+    string borderRadius = " navcard--radius-bottom-left navcard--radius-bottom-right";
+    string publicationTheme = Model.PublicationTheme.ToLower().Equals("one_stockport")
+        ? "one-stockport-purple"
+        : "teal-lighter";
+}
+
+<nav aria-labelledby="navcard__title" class="publication-sidebar navcard--border-top-10 navcard--theme-@publicationTheme-top">
+    <div class="navcard--grey navcard--padding navcard--padding-top navcard--border-left-1 navcard--border-right-1 navcard--theme-grey-accent-all">
+        <h2 class="h-ml h--no-top-margin h--no-bottom-margin" id="navcard__title">Contents</h2>
+        <p class="publication-sidebar__subtitle">@Model.PublicationTitle</p>
+    </div>
+
+    <ul class="navcard--grey publication-sidebar__list navcard--border-left-1 navcard--border-right-1 navcard--border-bottom-1 navcard--theme-grey-accent-all @borderRadius">
+        @foreach (PublicationSidebarPage pageP in Model.Items)
+        {
+            bool isLastItem = pageP.Equals(Model.Items.Last());
+
+            <li class="@(pageP.IsActive ? "active" : string.Empty) publication-sidebar__list-item">
+                <div class="@(isLastItem ? paddingBottom : string.Empty)">
+                    <a href="/publications/@ViewContext.RouteData.Values["publicationSlug"]/@pageP.Slug" class="navcard--padding navcard__link publication-sidebar__link @(pageP.IsActive && (pageP.Sections is null || !pageP.Sections.Any()) ? "publication-sidebar__link--bold" : string.Empty)">
+                        @pageP.Title
+                    </a>
+
+                    @if (pageP.Sections.Any())
+                    {
+                        <ul class="publication-sidebar__list--no-margin">
+                            @foreach (PublicationSidebarSection sectionP in pageP.Sections)
+                            {
+                                <li class="@(sectionP.IsActive ? "active" : string.Empty)">
+                                    <a href="/publications/@ViewContext.RouteData.Values["publicationSlug"]/@pageP.Slug/@sectionP.Slug"
+                                        class="navcard--padding navcard__link publication-sidebar__link publication-sidebar__list-item--no-padding-inline @(sectionP.IsActive ? "publication-sidebar__link--bold" : string.Empty)">
+                                            @sectionP.Title
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                    }
+                </div>
+            </li>
+        }
+    </ul>
+</nav>

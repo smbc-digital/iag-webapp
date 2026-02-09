@@ -1,0 +1,19 @@
+.publication-template {
+    padding-top: 2em;
+
+    &-title {
+        @media #{$mobile} {
+            margin-inline: 5px;
+        }
+    }
+
+    &__subtitle {
+        margin-top: 1.25rem;
+    }
+
+    &__pagination {
+        &--no-margin {
+            margin-bottom: 0 !important;
+        }
+    }
+}

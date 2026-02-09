@@ -32,6 +32,10 @@
         margin-bottom: 2em;
     }
 
+    &--margin-top {
+        margin-top: 2em;
+    }
+
     @media #{$tablet} {
         display: block;
     }
@@ -454,6 +458,24 @@
             width: 100%;
             margin-left: 0;
             padding: 0;
+        }
+    }
+
+    &__border-top-publication {
+        border-top: 0.17em solid $stockport-teal-lighter;
+
+        &--stockport_council {
+            border-top: 0.17em solid $stockport-teal-lighter;
+        }
+
+        &--one_stockport {
+            border-top: 0.17em solid $one-stockport-purple;
+        }
+    }
+
+    &--margin-top-publication {
+        @media #{$tablet} {
+            margin-top: 2em;
         }
     }
 

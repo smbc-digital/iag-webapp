@@ -66,6 +66,10 @@
             display: none !important;
         }
     }
+
+    &--margin {
+        margin-block: 2em;
+    }
 }
 
 html[dir="rtl"] {

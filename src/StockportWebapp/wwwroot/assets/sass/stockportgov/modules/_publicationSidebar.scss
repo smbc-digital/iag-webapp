@@ -1,0 +1,43 @@
+.publication-sidebar {
+    border-radius: 3px;
+
+    &__list {
+        margin-bottom: 0;
+        padding-inline: .75em;
+        padding-bottom: 1.5em;
+
+        &-item {
+            margin-inline-start: 20px;
+            color: $linkDefault;
+
+            &--no-padding-inline {
+                padding-inline: 0;
+            }
+        }
+
+        &--no-margin {
+            margin: 0;
+        }
+    }
+
+    &__subtitle {
+        font-weight: 800;
+        margin-top: 1em;
+        margin-bottom: 0;
+    }
+
+    &__link {
+        text-decoration: underline;
+        padding-inline-start: 0;
+        
+        &--bold {
+            font-weight: 800;
+        }
+
+        &:hover {
+            text-decoration: underline;
+            text-decoration-thickness: 3px;
+            text-decoration-skip-ink: none;
+        }
+    }
+}

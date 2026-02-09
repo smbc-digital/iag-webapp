@@ -16,8 +16,9 @@
     string borderColourClass = overrideToDefault
                                 ? string.Empty
                                 : Model.BorderColourClass;
-                                
+
     string additionalCssClass = ViewData["AdditionalCssClass"] as string ?? string.Empty;
+    bool allowTwo = (bool)ViewData["AllowTwo"];
 
     @if (Model.SubItems.Count.Equals(3))
     {
@@ -28,7 +29,7 @@
                         @if (!string.IsNullOrEmpty(Model.Title))
                         {
                             <h2 class="content-block__title">@Model.Title</h2>
-                            <hr class="border-colour-default @borderColourClass"/>   
+                            <hr class="border-colour-default @borderColourClass" />
                         }
 
                         <ul class="navcard-wrapper navcard-wrapper--no-margin">
@@ -45,5 +46,22 @@
     else if (Model.SubItems.Count > 3)
     {
         <partial name="TriviaList" model="@Model" />
+    }
+    else if (allowTwo && Model.SubItems.Count.Equals(2))
+    {
+        <section class="content-block content-block--padding content-block--screen @additionalCssClass" data-cy="trivia-banner">
+            <div class="trivia-banner__section">
+                <div class="grid-container">
+                    <div class="grid-100">
+                        <ul class="navcard-wrapper navcard-wrapper--no-margin">
+                            @foreach (ContentBlock contentBlock in Model.SubItems)
+                            {
+                                <partial name="TriviaCard" model="@contentBlock" view-data="@(new ViewDataDictionary(ViewData) { {"BackgroundColourClass", "trivia-banner--background"}, {"BorderClass", string.Empty}, {"TextColourClass", $"text-default {Model.TextColourClass}"}, {"CardType", "trivia-banner"} })" />
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
     }
 }

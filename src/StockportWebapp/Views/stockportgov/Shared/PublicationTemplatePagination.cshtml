@@ -1,0 +1,61 @@
+﻿@model PublicationTemplateViewModel
+
+<nav class="article-pagination article-pagination--margin" aria-label="Pagination">
+    <div class="article-pagination__previous">
+        @if (Model.HasPrevious())
+        {
+            PaginationTarget prev = Model.GetPrevious();
+            <a href="@prev.Url">
+                <div class="article-pagination__chevron">
+                    <span class="fa fa-angle-left article-pagination__icon"></span>
+                </div>
+
+                <h3>Previous</h3>
+                
+                @if (prev.IsSection)
+                {
+                    if (!prev.SamePageAsCurrent)
+                    {
+                        <p class="publication-template__pagination--no-margin"><strong>@prev.PageTitle</strong></p>
+                    }
+
+                    <p>@prev.SectionTitle</p>
+                }
+                else
+                {
+                    <p>@prev.PageTitle</p>
+                }
+            </a>
+        }
+    </div>
+
+    <div class="article-pagination__next">
+        @if (Model.HasNext())
+        {
+            PaginationTarget next = Model.GetNext();
+            <a href="@next.Url">
+                <h3>Next</h3>
+                
+                @if (next.IsSection)
+                {
+                    if (!next.SamePageAsCurrent)
+                    {
+                        <p class="publication-template__pagination--no-margin"><strong>@next.PageTitle</strong></p>
+                    }
+
+                    <p>@next.SectionTitle</p>
+                }
+                else
+                {
+                    <p>@next.PageTitle</p>
+                }
+                
+                <div class="article-pagination__chevron">
+                    <span class="fa fa-angle-right article-pagination__icon"></span>
+                </div>
+            </a>
+        }
+    </div>
+</nav>
+
+<hr class="article-hr" />

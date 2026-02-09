@@ -1,0 +1,24 @@
+﻿@model ContentBlock
+@if (Model is not null && Model.SubItems?.Any() is true)
+{
+    string iconColour = Model.TextColourClass.Equals("text-teal") || Model.TextColourClass.Equals("text-one-stockport-purple")
+        ? Model.TextColourClass
+        : "text-teal";
+
+    <ul class="trivia__list trivia__list--publication">
+        @foreach(ContentBlock contentBlock in Model.SubItems)
+        {
+            <li class="trivia__container trivia__container--profile">
+                <div class="trivia__text" data-cy="trivia-list-text">
+                    <div>
+                        <span class="@contentBlock.Icon trivia__icon @iconColour"></span>
+                    </div>
+                    
+                    <div class="trivia__body">
+                        @Html.Raw(contentBlock.Body)
+                    </div>
+                </div>
+            </li>
+        }
+    </ul>
+}

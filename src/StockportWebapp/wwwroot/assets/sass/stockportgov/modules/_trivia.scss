@@ -47,6 +47,12 @@
             }
         }
 
+        &--publication {
+            @media #{$mobile} {
+                margin-inline: 0 !important;
+            }
+        }
+
         .trivia__container:nth-child(odd) {
             margin-inline-end: 25px;
             margin-inline-start: 0;

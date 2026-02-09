@@ -48,7 +48,7 @@ public static class ServiceCollectionExtensions
     {
         services.AddSingleton<IApplicationConfiguration>(_ => new ApplicationConfiguration(configuration));
         services.AddSingleton(configuration);
-        services.AddSingleton<IAnalyticsConfiguration>(_ => new Models.Config.AnalyticsConfiguration(_.GetService<IApplicationConfiguration>()));
+        services.AddSingleton<IAnalyticsConfiguration>(_ => new AnalyticsConfiguration(_.GetService<IApplicationConfiguration>()));
 
         return services;
     }
@@ -81,7 +81,7 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddMarkdown(this IServiceCollection services)
     {
         services.AddSingleton<MarkdownWrapper>();
-        services.AddTransient<MarkdownPipeline>(_ => new MarkdownPipelineBuilder().UsePipeTables().Build());
+        services.AddTransient(_ => new MarkdownPipelineBuilder().UsePipeTables().Build());
 
         return services;
     }
@@ -181,10 +181,17 @@ public static class ServiceCollectionExtensions
             p =>
                 new TopicRepository(p.GetService<TopicFactory>(), p.GetService<UrlGenerator>(), p.GetService<IHttpClient>(),
                     p.GetService<IApplicationConfiguration>()));
+        
         services.AddTransient<IDocumentPageRepository>(
             p =>
                 new DocumentPageRepository(p.GetService<UrlGenerator>(), p.GetService<IHttpClient>(),
                     p.GetService<DocumentPageFactory>(), p.GetService<IApplicationConfiguration>()));
+        
+        services.AddTransient<IPublicationTemplateRepository>(
+            p =>
+                new PublicationTemplateRepository(p.GetService<UrlGenerator>(), p.GetService<IHttpClient>(),
+                    p.GetService<IApplicationConfiguration>()));
+        
         services.AddSingleton<IEventFactory>(p => new EventFactory(p.GetService<ITagParserContainer>(), p.GetService<MarkdownWrapper>()));
             
         return services;

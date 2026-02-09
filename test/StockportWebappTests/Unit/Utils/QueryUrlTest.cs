@@ -1,6 +1,4 @@
-﻿using Org.BouncyCastle.Asn1.IsisMtt;
-
-namespace StockportWebappTests_Unit.Unit.Utils;
+﻿namespace StockportWebappTests_Unit.Unit.Utils;
 
 public class QueryUrlTest
 {

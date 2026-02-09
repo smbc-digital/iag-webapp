@@ -9,16 +9,26 @@
         background-position: center;
         background-size: cover;
         max-height: 35vw;
-
+        
         @media #{$tablet} {
             height: 50vw;
             max-height: 500px;
+
+            &--publication {
+                height: 60vw;
+            }
         }
 
         @media #{$mobile} {
             height: 100vw;
             max-height: 400px;
             min-height: 300px;
+        }
+
+        &--publication {
+            @media #{$desktop} {
+                min-height: 650px;
+            }
         }
     }
 
@@ -86,6 +96,14 @@
     }
 
     &__subtitle {
+        margin-bottom: 0;
+
+        &--publication {
+            font-weight: 800;
+        }
+    }
+
+    &__date {
         margin-bottom: 0;
     }
 }
