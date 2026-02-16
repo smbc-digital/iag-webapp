@@ -7,7 +7,8 @@
             PaginationTarget prev = Model.GetPrevious();
             <a href="@prev.Url">
                 <div class="article-pagination__chevron">
-                    <span class="fa fa-angle-left article-pagination__icon"></span>
+                    <span class="fa fa-angle-left article-pagination__icon article-pagination__icon--ltr" aria-hidden="true"></span>
+                    <span class="fa fa-angle-right article-pagination__icon article-pagination__icon--rtl" aria-hidden="true"></span>
                 </div>
 
                 <h3>Previous</h3>
@@ -49,9 +50,10 @@
                 {
                     <p>@next.PageTitle</p>
                 }
-                
+
                 <div class="article-pagination__chevron">
-                    <span class="fa fa-angle-right article-pagination__icon"></span>
+                    <span class="fa fa-angle-right article-pagination__icon article-pagination__icon--ltr" aria-hidden="true"></span>
+                    <span class="fa fa-angle-left article-pagination__icon article-pagination__icon--rtl" aria-hidden="true"></span>
                 </div>
             </a>
         }
