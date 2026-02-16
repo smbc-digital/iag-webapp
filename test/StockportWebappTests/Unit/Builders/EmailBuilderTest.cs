@@ -15,6 +15,7 @@ public class EmailBuilderTest
                                         "body",
                                         "from@mail.com",
                                         "serviceEmail@mail.com",
+                                        "bccEmail@mail.com",
                                         "userEmail@mail.com",
                                         new List<IFormFile>());
         // Act
@@ -47,6 +48,7 @@ public class EmailBuilderTest
                                         "body",
                                         "from@mail.com",
                                         "serviceEmail@mail.com",
+                                        "bccEmail@mail.com",
                                         "userEmail@mail.com",
                                         attachments);
 
@@ -85,6 +87,7 @@ public class EmailBuilderTest
                                         "body",
                                         "from@mail.com",
                                         "serviceEmail@mail.com",
+                                        "bccEmail@mail.com",
                                         "userEmail@mail.com",
                                         attachments);
 
@@ -110,6 +113,7 @@ public class EmailBuilderTest
                                         "body",
                                         "from@mail.com",
                                         "serviceEmail@mail.com, serviceEmail2@mail.com, serviceEmail3@mail.com",
+                                        "bccEmail@mail.com",
                                         "userEmail@mail.com",
                                         attachments);
 
