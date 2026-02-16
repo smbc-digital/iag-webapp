@@ -23,6 +23,7 @@ public class ContactUsController(IRepository repository,
 
         ContactUsId contactUsModel = await GetContactUsId(contactUsDetails.ServiceEmailId);
         contactUsDetails.ServiceEmail = contactUsModel.EmailAddress;
+        contactUsDetails.BccEmail = contactUsModel.BccAddress;
 
         string redirectUrl;
         
@@ -122,6 +123,7 @@ public class ContactUsController(IRepository repository,
                                             fromEmail,
                                             contactUsDetails.ServiceEmail,
                                             contactUsDetails.Email,
+                                            contactUsDetails.BccEmail,
                                             new List<IFormFile>()));
     }
 

@@ -24,7 +24,7 @@ public class ContactUsControllerTest
         
         _businessId = new BusinessId("businessid");
 
-        _contactUsId = new ContactUsId("name", "slug", "email", "test button text");
+        _contactUsId = new ContactUsId("name", "slug", "email", "test button text", "bcc@mail.com");
 
         _repository
             .Setup(repo => repo.Get<ContactUsId>(It.IsAny<string>(), It.IsAny<List<Query>>()))

@@ -4,6 +4,7 @@ public class ContactUsDetails
 {
     public string ServiceEmailId { get; set; }
     public string ServiceEmail { get; set; }
+    public string BccEmail { get; set; }
     private const string DefaultValue = "";
 
     [Required(ErrorMessage = "Enter your name")]
