@@ -20,7 +20,7 @@
         
         @if (!string.IsNullOrEmpty(Model.PageHeader.HeaderImageUrl))
         {
-            <partial name="FullImageHeader" model="Model.PageHeader" />
+            <partial name="FullImageHeader" model="Model.PageHeader" view-data='@(new ViewDataDictionary(ViewData) { {"backgroundColour", $"full-header-{backgroundColour}"} })' />
         }
         else
         {

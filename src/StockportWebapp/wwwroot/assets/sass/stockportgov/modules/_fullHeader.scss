@@ -34,6 +34,22 @@
         div {
             width: 100%;
         }
+
+        &--teal {
+            background-color: $stockport-teal-darker;
+
+            .full-header__content {
+                background-color: $stockport-teal-darker;
+            }
+        }
+
+        &--one-stockport-purple {
+            background-color: $one-stockport-purple;
+
+            .full-header__content {
+                background-color: $one-stockport-purple;
+            }
+        }
     }
 
     &__content {
