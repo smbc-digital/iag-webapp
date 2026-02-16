@@ -22,4 +22,24 @@
             margin-bottom: 0 !important;
         }
     }
+
+    &--teal {
+        color: white;
+        background-color: $stockport-teal-darker;
+        padding-bottom: 20px;
+
+        h1 {
+            color: white;
+        }
+    }
+
+    &--one-stockport-purple {
+        color: white;
+        background-color: $one-stockport-purple;
+        padding-bottom: 20px;
+
+        h1 {
+            color: white;
+        }
+    }
 }
