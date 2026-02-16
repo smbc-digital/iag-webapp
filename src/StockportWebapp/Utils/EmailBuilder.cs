@@ -27,6 +27,7 @@ public class EmailBuilder : IEmailBuilder
         }
 
         message.From.Add(new MailboxAddress(string.Empty, emailMessage.FromEmail));
+        message.Bcc.Add(new MailboxAddress(string.Empty, emailMessage.BccEmail));
 
         if (!string.IsNullOrEmpty(emailMessage.CcEmail))
             message.Cc.Add(new MailboxAddress(string.Empty, emailMessage.CcEmail));

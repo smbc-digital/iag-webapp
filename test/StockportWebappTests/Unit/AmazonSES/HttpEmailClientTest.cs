@@ -11,7 +11,7 @@ public class HttpEmailClientTest
     {
         // Arrange
         HttpEmailClient emailClient = new(_mockLogger.Object, _emailBuilder.Object, _amazonEmailService.Object, true);
-        EmailMessage emailMessage = new("subject", "body", string.Empty, string.Empty, "user@email.com", new List<IFormFile>());
+        EmailMessage emailMessage = new("subject", "body", string.Empty, string.Empty, "user@email.com", "bcc@email.com", new List<IFormFile>());
 
         // Act
         HttpStatusCode httpStatusCode = await emailClient.SendEmailToService(emailMessage);
@@ -30,7 +30,7 @@ public class HttpEmailClientTest
             .ReturnsAsync(new SendRawEmailResponse { HttpStatusCode = HttpStatusCode.OK, MessageId = "test", ResponseMetadata = new ResponseMetadata { RequestId = "test" } });
 
         HttpEmailClient emailClient = new(_mockLogger.Object, _emailBuilder.Object, _amazonEmailService.Object, true);
-        EmailMessage emailMessage = new("subject", "body", "from@mail.com", "service@mail.com", "user@email.com", new List<IFormFile>());
+        EmailMessage emailMessage = new("subject", "body", "from@mail.com", "service@mail.com", "user@email.com", "bcc@email.com", new List<IFormFile>());
 
         // Act
         HttpStatusCode httpStatusCode = await emailClient.SendEmailToService(emailMessage);
@@ -50,7 +50,7 @@ public class HttpEmailClientTest
             .ReturnsAsync(new SendRawEmailResponse { HttpStatusCode = HttpStatusCode.InternalServerError, MessageId = "test", ResponseMetadata = new ResponseMetadata { RequestId = "test" } });
 
         HttpEmailClient emailClient = new(_mockLogger.Object, _emailBuilder.Object, _amazonEmailService.Object, true);
-        EmailMessage emailMessage = new("subject", "body", "from@mail.com", "service@mail.com", "user@email.com", new List<IFormFile>());
+        EmailMessage emailMessage = new("subject", "body", "from@mail.com", "service@mail.com", "user@email.com", "bcc@emai.com", new List<IFormFile>());
 
         // Act
         HttpStatusCode httpStatusCode = await emailClient.SendEmailToService(emailMessage);
@@ -69,7 +69,7 @@ public class HttpEmailClientTest
             .ThrowsAsync(new Exception("There was an error"));
 
         HttpEmailClient emailClient = new(_mockLogger.Object, _emailBuilder.Object, _amazonEmailService.Object, true);
-        EmailMessage emailMessage = new("subject", "body", "from@mail.com", "service@mail.com", "user@email.com", new List<IFormFile>());
+        EmailMessage emailMessage = new("subject", "body", "from@mail.com", "service@mail.com", "user@email.com", "bcc@email.com", new List<IFormFile>());
 
         // Act
         HttpStatusCode httpStatusCode = await emailClient.SendEmailToService(emailMessage);
@@ -84,7 +84,7 @@ public class HttpEmailClientTest
     {
         // Arrange
         HttpEmailClient emailClient = new(_mockLogger.Object, _emailBuilder.Object, _amazonEmailService.Object, false);
-        EmailMessage emailMessage = new("subject", "body", "from@mail.com", "service@mail.com", "user@email.com", new List<IFormFile>());
+        EmailMessage emailMessage = new("subject", "body", "from@mail.com", "service@mail.com", "user@email.com", "bcc@email.com", new List<IFormFile>());
 
         // Act
         HttpStatusCode httpStatusCode = await emailClient.SendEmailToService(emailMessage);
