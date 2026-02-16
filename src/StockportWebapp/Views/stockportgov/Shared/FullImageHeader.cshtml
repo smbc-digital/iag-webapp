@@ -2,10 +2,8 @@
 
 @if (Model is not null && !string.IsNullOrEmpty(Model.HeaderImageUrl))
 {
-    string additionalCssClass = ViewData["additionalCssClass"] as string ?? string.Empty;
-
     <section class="full-header" data-cy="full-image-header">
-        <div class="full-header__background @additionalCssClass"
+        <div class="full-header__background"
              style="background-image: url(@Model.HeaderImageUrl?fm=webp)">
         </div>
 

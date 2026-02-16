@@ -7,13 +7,50 @@
     ViewData["Description"] = publicationTemplate.MetaDescription;
     ViewData["og:title"] = publicationTemplate.Title;
     Layout = "../Shared/_Layout2023.cshtml";
+
+    string backgroundColour = publicationTemplate.PublicationTheme.Equals("One_Stockport")
+        ? $"{CssClassMapper.GetCssClass(EColourScheme.One_Stockport_Purple)}"
+        : $"{CssClassMapper.GetCssClass(EColourScheme.Teal)}";
 }
 
 <div class="grid-container-full-width" style="background-color:white;" data-cy="landing-page">
     @if (Model.HasPrevious() is false)
     {
-        <partial name="Breadcrumb2023" model='publicationTemplate.Breadcrumbs' view-data='@(new ViewDataDictionary(ViewData) {{"backgroundColour", "topic-breadcrumb-container"}, {"landingBreadcrumb", "landing-breadcrumb-container"}})' />
-        <partial name="FullImageHeader" model="Model.PageHeader" view-data='@(new ViewDataDictionary(ViewData) {{"additionalCssClass", "full-header__background--publication"}})' />
+        <partial name="Breadcrumb2023" model='publicationTemplate.Breadcrumbs' view-data='@(new ViewDataDictionary(ViewData) {{"backgroundColour", $"directories-breadcrumb-container-{backgroundColour}"}, {"landingBreadcrumb", "landing-breadcrumb-container"}})' />
+        
+        @if (!string.IsNullOrEmpty(Model.PageHeader.HeaderImageUrl))
+        {
+            <partial name="FullImageHeader" model="Model.PageHeader" />
+        }
+        else
+        {
+            <section class="publication-template-@backgroundColour" data-cy="title-and-summary">
+                <div class="grid-container">
+                    <div class="grid-100">
+                        <h1>@publicationTemplate.Title</h1>
+                        
+                        @if (!string.IsNullOrEmpty(Model.PageHeader.Subtitle))
+                        {
+                            <p class="@(Model.PageHeader.IsPublication ? "lead full-header__subtitle--publication" : "full-header__subtitle")">@Model.PageHeader.Subtitle</p>
+                        }
+                        
+                        @if(Model.PageHeader.DisplayDatePublished)
+                        {
+                            <p class="full-header__date">
+                                Published: @Model.PageHeader.DatePublished.ToString("d MMMM yyyy")
+                            </p>
+                        }
+
+                        @if(Model.PageHeader.DisplayLastUpdated)
+                        {
+                            <p class="full-header__date">
+                                Review date: @Model.PageHeader.UpdatedAt.ToString("d MMMM yyyy")
+                            </p>
+                        }
+                    </div>
+                </div>
+            </section>
+        }
     }
     else
     {

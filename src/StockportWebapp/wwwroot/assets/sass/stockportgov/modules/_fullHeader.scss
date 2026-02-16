@@ -24,12 +24,6 @@
             max-height: 400px;
             min-height: 300px;
         }
-
-        &--publication {
-            @media #{$desktop} {
-                min-height: 650px;
-            }
-        }
     }
 
     @media #{$mobile} {
