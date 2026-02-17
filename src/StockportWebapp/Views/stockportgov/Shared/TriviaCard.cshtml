@@ -2,6 +2,7 @@
 @if (Model is not null)
 {
     string backgroundColourClass = (string)ViewData["BackgroundColourClass"] ?? string.Empty;
+    string noMarginInline = (string)ViewData["NoMarginInline"] ?? string.Empty;
     string textColourClass = (string)ViewData["TextColourClass"] ?? string.Empty;
     string borderClass = (string)ViewData["BorderClass"] ?? string.Empty;
     string cardType = (string)ViewData["CardType"] ?? string.Empty;
@@ -10,7 +11,7 @@
         ? "navcard-content--padding-trivia"
         : string.Empty;
 
-    <li class="navcard navcard--width-33 navcard--center @cardType @backgroundColourClass @borderClass">
+    <li class="navcard navcard--width-33 navcard--center @cardType @backgroundColourClass @borderClass @noMarginInline">
         @if (!string.IsNullOrEmpty(Model.Link) && cardType.Equals("trivia-card"))
         {
             <a href="@Model.Link" class="navcard__link">

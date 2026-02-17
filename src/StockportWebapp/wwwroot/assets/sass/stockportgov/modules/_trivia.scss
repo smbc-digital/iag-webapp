@@ -170,6 +170,10 @@
             border-radius: 30px;
             margin-bottom: 1.5em;
             margin-inline: 5px !important;
+
+            &--no-margin-inline {
+                margin-inline: 0 !important;
+            }
         }
 
         &:nth-child(n+1) {
