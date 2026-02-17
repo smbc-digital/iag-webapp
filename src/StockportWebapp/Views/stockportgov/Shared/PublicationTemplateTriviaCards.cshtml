@@ -1,0 +1,21 @@
+﻿@model ContentBlock
+@if (Model is not null && Model.SubItems.Any() is true)
+{
+    @if (Model.SubItems.Count.Equals(3))
+    {
+        string additionalCssClass = ViewData["AdditionalCssClass"] as string ?? string.Empty;
+        
+        <section class="content-block content-block--margin @additionalCssClass" data-cy="trivia-cards">
+            <ul class="navcard-wrapper navcard-wrapper--no-margin">
+                @foreach (ContentBlock contentBlock in Model.SubItems)
+                {
+                    <partial name="TriviaCard" model="@contentBlock" view-data="@(new ViewDataDictionary(ViewData) { {"BackgroundColourClass", Model.BackgroundColourClass}, {"BorderClass", Model.BorderClass}, {"TextColourClass", Model.TextColourClass},  {"CardType", "trivia-card"}, {"NoMarginInline", "trivia-card--no-margin-inline"} })" />
+                }
+            </ul>
+        </section>
+    }
+    else if (Model.SubItems.Count > 3)
+    {
+        <partial name="PublicationTemplateTriviaList" model="@Model" />
+    }
+}
