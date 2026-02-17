@@ -2,12 +2,17 @@ namespace StockportWebapp.Utils;
 
 public static class RichTextRenderer
 {
-    public static object Render(JsonElement node)
+    public static object Render(JsonElement parent, int index)
     {
+        JsonElement node = parent[index];
+
         if (!node.TryGetProperty("nodeType", out JsonElement nodeTypeProp))
             return string.Empty;
 
         string nodeType = nodeTypeProp.GetString() ?? string.Empty;
+
+        if (nodeType.Equals("paragraph") && IsCaptionParagraph(node))
+            return string.Empty;
 
         return nodeType switch
         {
@@ -22,7 +27,7 @@ public static class RichTextRenderer
             "text" => RenderText(node),
             "embedded-entry-block" => RenderEmbeddedEntry(node),
             "embedded-entry-inline" => RenderInlineEntry(node),
-            "embedded-asset-block" => RenderEmbeddedAsset(node),
+            "embedded-asset-block" => RenderEmbeddedAsset(parent, index),
             "asset-hyperlink" => RenderAssetHyperlink(node),
             "entry-hyperlink" => RenderEntryHyperlink(node),
             _ => string.Empty
@@ -31,13 +36,16 @@ public static class RichTextRenderer
 
     private static string RenderChildren(JsonElement node)
     {
-        if (!node.TryGetProperty("content", out JsonElement content) || content.ValueKind != JsonValueKind.Array)
+        if (!node.TryGetProperty("content", out JsonElement content) ||
+            content.ValueKind != JsonValueKind.Array)
             return string.Empty;
 
         StringBuilder sb = new();
-        foreach (JsonElement child in content.EnumerateArray())
+
+        for (int i = 0; i < content.GetArrayLength(); i++)
         {
-            object rendered = Render(child);
+            object rendered = Render(content, i);
+
             if (rendered is string s)
                 sb.Append(s);
             else if (rendered is IHtmlContent html)
@@ -45,6 +53,27 @@ public static class RichTextRenderer
         }
 
         return sb.ToString();
+    }
+
+    private static bool IsCaptionParagraph(JsonElement node)
+    {
+        if (!node.TryGetProperty("nodeType", out JsonElement typeProp) ||
+            !typeProp.GetString().Equals("paragraph"))
+            return false;
+
+        if (!node.TryGetProperty("content", out JsonElement content) ||
+            content.ValueKind != JsonValueKind.Array ||
+            content.GetArrayLength() == 0)
+            return false;
+
+        JsonElement firstChild = content[0];
+
+        if (!firstChild.TryGetProperty("value", out JsonElement valueProp))
+            return false;
+
+        string value = valueProp.GetString() ?? string.Empty;
+
+        return value.StartsWith("^^^");
     }
 
     private static string RenderText(JsonElement node)
@@ -123,18 +152,117 @@ public static class RichTextRenderer
         return $"<span class='inline-stat'>{iconHtml}<strong>{statistic}</strong> {body}</span>";
     }
 
-    private static string RenderEmbeddedAsset(JsonElement node)
+    private static string RenderEmbeddedAsset(JsonElement parent, int index)
     {
+        JsonElement node = parent[index];
         JsonElement target = node.GetProperty("data").GetProperty("target");
+
         string url = GetAssetUrl(target);
         string alt = target.TryGetProperty("description", out JsonElement desc)
             ? desc.GetString()
             : string.Empty;
-        
-        return $"<img src='{url}' alt='{alt}' />";
+
+        string floatClass =
+            GetFloatClass(parent, index - 1) ??
+            GetFloatClass(parent, index + 1);
+
+        string caption =
+            TryGetCaption(parent, index - 1) ??
+            TryGetCaption(parent, index + 1);
+
+        if (string.IsNullOrEmpty(floatClass) && string.IsNullOrEmpty(caption))
+            return $"<img src=\"{url}\" alt=\"{alt}\" />";
+
+        if (string.IsNullOrEmpty(caption))
+            return $@"
+                <figure class=""{floatClass}"">
+                <p><img src=""{url}"" alt=""{alt}"" /></p>
+                </figure>";
+
+        return $@"
+            <figure class=""{floatClass}"">
+            <p><img src=""{url}"" alt=""{alt}"" /></p>
+            <figcaption>{caption}</figcaption>
+            </figure>";
     }
 
-   private static string RenderAssetHyperlink(JsonElement node)
+    private static string GetFloatClass(JsonElement parent, int index)
+    {
+        if (index < 0 || index >= parent.GetArrayLength())
+            return null;
+
+        JsonElement node = parent[index];
+
+        if (!node.TryGetProperty("nodeType", out JsonElement typeProp) ||
+            typeProp.GetString() != "paragraph")
+            return null;
+
+        if (!node.TryGetProperty("content", out JsonElement content) ||
+            content.ValueKind != JsonValueKind.Array ||
+            content.GetArrayLength() == 0)
+            return null;
+
+        JsonElement firstChild = content[0];
+
+        if (!firstChild.TryGetProperty("value", out JsonElement valueProp))
+            return null;
+
+        string value = valueProp.GetString() ?? string.Empty;
+
+        if (value.StartsWith("^^^#left"))
+            return "image-left";
+
+        if (value.StartsWith("^^^#right"))
+            return "image-right";
+
+        return null;
+    }
+
+
+    private static string TryGetCaption(JsonElement parent, int index)
+    {
+        if (index < 0 || index >= parent.GetArrayLength())
+            return null;
+
+        JsonElement node = parent[index];
+
+        if (node.TryGetProperty("nodeType", out JsonElement typeProp) &&
+            typeProp.GetString() == "paragraph" &&
+            node.TryGetProperty("content", out JsonElement content) &&
+            content.ValueKind == JsonValueKind.Array &&
+            content.GetArrayLength() > 0)
+        {
+            JsonElement firstChild = content[0];
+
+            if (firstChild.TryGetProperty("value", out JsonElement valueElement))
+            {
+                string value = valueElement.GetString() ?? string.Empty;
+
+                if (!value.StartsWith("^^^"))
+                    return null;
+
+                if (value.Trim().Equals("^^^"))
+                    return null;
+
+                if (value.StartsWith("^^^#left") || value.StartsWith("^^^#right"))
+                    return null;
+
+                string caption = value.Substring(3).Trim();
+
+                if (caption.StartsWith("#left"))
+                    caption = caption.Substring(5).Trim();
+                else if (caption.StartsWith("#right"))
+                    caption = caption.Substring(6).Trim();
+
+                return string.IsNullOrWhiteSpace(caption) ? null : caption;
+            }
+        }
+
+        return null;
+    }
+
+
+    private static string RenderAssetHyperlink(JsonElement node)
     {
         if (!node.TryGetProperty("data", out JsonElement data) ||
             !data.TryGetProperty("target", out JsonElement target))

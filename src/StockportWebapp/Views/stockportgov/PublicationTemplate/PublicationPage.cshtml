@@ -23,9 +23,11 @@
 }
 else
 {
-    @foreach (JsonElement node in Model.Body.GetProperty("content").EnumerateArray())
+    var content = Model.Body.GetProperty("content");
+
+    @for (int i = 0; i < content.GetArrayLength(); i++)
     {
-        object rendered = RichTextRenderer.Render(node);
+        object rendered = RichTextRenderer.Render(content, i);
 
         if (rendered is EmbeddedPartial partial)
         {
