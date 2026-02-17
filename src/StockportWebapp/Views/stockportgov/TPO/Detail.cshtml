@@ -21,7 +21,7 @@
         <div class="grid-100">
             <section class="article">
                 <div class="article--70">
-                    <h1 class="directory__title">@Model.Tpo_name : @Model.Tpo_number </h1>
+                    <h1 class="directory__title">Tree Preservation Order : @Model.Tpo_number </h1>
                 </div>
 
                 <div class="article--30 article--30-center-align hide-on-tablet hide-on-mobile js-only" id="back-button-desktop"></div>
@@ -33,12 +33,14 @@
                         <partial name="TPOEntryCore" />
                     </div>
                 </div>
-                <div>
+                <div class="directory--70 directory--border-top">
                     @if (Model.Lat is not null)
                     {
                         <partial name="LeafletMapContent" model=@(new LeafletMapViewModel { MapName = "https://maps.stockport.gov.uk/tree-preservation-orders/index.html", Lat = Model.Lat, Lng = Model.Lng }) view-data='@(new ViewDataDictionary(ViewData) { { "AdditionalWrapperCssClasses", @borderTeal }, { "AdditionalCssClasses", @greyBorderCssClasses }, { "MapTitle", Model.Tpo_name } })' />
                     }
+
                     <partial name="TPOEntryDocuments" model='Model.Documents' view-data='@(new ViewDataDictionary(ViewData) { { "AdditionalWrapperCssClasses", @borderTeal }, { "AdditionalCssClasses", @greyBorderCssClasses } })' />
+
                 </div>
             </section>
         </div>

@@ -1,7 +1,7 @@
 ﻿@model TPOItem
 
-<h2 class="directory__profile-image">Tree Preservation Order</h2>
-
+<h2>Details</h2>
+ 
 <div class="directory__address">
     <h3 class="h-m">Name</h3>
     <div>
@@ -10,24 +10,13 @@
 </div>
 
 <div class="directory__address">
-    <h3 class="h-m">TPO number</h3>
+    <h3 class="h-m">TPO reference</h3>
     <div>@Model.Tpo_number</div>
 </div>
-
 
 <div class="directory__address">
     <h3 class="h-m">Status</h3>
     <div>@Model.Status</div>
-</div>
-
-<div class="directory__address">
-    <h3 class="h-m">Tree species</h3>
-    <div>@Model.Tree_species</div>
-</div>
-
-<div class="directory__address">
-    <h3 class="h-m">Number of trees</h3>
-    <div>@(Model.Number_of_trees)</div>
 </div>
 
 @if (!string.IsNullOrEmpty(Model.Date_Made))
