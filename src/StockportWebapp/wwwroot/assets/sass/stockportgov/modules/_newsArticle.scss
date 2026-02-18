@@ -217,6 +217,10 @@
     &__wrapper {
         padding-top: 2em;
         border-top: 0.17em solid #2aa294b3;
+
+        .video-wrapper {
+            margin-bottom: 2em;
+        }
     }
 
     &__image {
