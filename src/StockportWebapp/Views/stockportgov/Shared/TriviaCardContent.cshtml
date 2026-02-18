@@ -4,13 +4,14 @@
     string textColourClass = (string)ViewData["TextColourClass"] ?? string.Empty;
     string cardType = (string)ViewData["CardType"] ?? string.Empty;
     string subTitleIsLink = (string)ViewData["subTitleIsLink"] ?? string.Empty;
+    bool isPublication = (bool)ViewData["IsPublication"] ? true : false;
 
     string navcardPadding = !string.IsNullOrEmpty(cardType) && cardType.Equals("trivia-banner")
         ? "navcard-content--padding-trivia"
         : string.Empty;
 
     <div class="navcard__content">
-        <div class="navcard__icon @(cardType)__icon @(cardType)__icon--padding @textColourClass">
+        <div class="navcard__icon @(cardType)__icon @(cardType)__icon--padding @textColourClass @(isPublication ? "trivia-card__icon--publication" : string.Empty)">
             @if (!string.IsNullOrEmpty(Model.Statistic))
             {
                 <span class="trivia__statistic" aria-hidden="true">@Model.Statistic</span>
