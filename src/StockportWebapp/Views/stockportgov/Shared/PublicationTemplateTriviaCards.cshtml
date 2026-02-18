@@ -9,7 +9,7 @@
             <ul class="navcard-wrapper navcard-wrapper--no-margin">
                 @foreach (ContentBlock contentBlock in Model.SubItems)
                 {
-                    <partial name="TriviaCard" model="@contentBlock" view-data="@(new ViewDataDictionary(ViewData) { {"BackgroundColourClass", Model.BackgroundColourClass}, {"BorderClass", Model.BorderClass}, {"TextColourClass", Model.TextColourClass},  {"CardType", "trivia-card"}, {"NoMarginInline", "trivia-card--no-margin-inline"} })" />
+                    <partial name="TriviaCard" model="@contentBlock" view-data="@(new ViewDataDictionary(ViewData) { {"BackgroundColourClass", Model.BackgroundColourClass}, {"BorderClass", Model.BorderClass}, {"TextColourClass", Model.TextColourClass},  {"CardType", "trivia-card"}, {"NoMarginInline", "trivia-card--no-margin-inline"}, {"IsFromPublicationPage", true} })" />
                 }
             </ul>
         </section>
