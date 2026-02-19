@@ -29,12 +29,17 @@ public class HtmlHelper
             image.SetAttributeValue("height", image.GetAttributeValue("height", height));
             image.SetAttributeValue("loading", image.GetAttributeValue("loading", "lazy"));
         }
+       
 
         return document.DocumentNode.OuterHtml;
     }
 
     private static void SetSrcAttribute(string src, HtmlNode image) 
     {
+        // Hack - issue with reference being lative not being understood bu URLs full - need to make this an absolute URL
+        if(src.StartsWith("//"))
+            src = $"https:{src}";
+
         Uri uri = new Uri(src);
         UriBuilder uriBuilder = new UriBuilder(uri);
         var queryValues = HttpUtility.ParseQueryString(uriBuilder.Query);
@@ -51,7 +56,9 @@ public class HtmlHelper
         
         uriBuilder.Query = queryValues.ToString();
 
-        image.SetAttributeValue("src",  uriBuilder.Uri.ToString());
+        string noScheme = uri.GetComponents(UriComponents.AbsoluteUri & ~UriComponents.Scheme, UriFormat.SafeUnescaped);
+        
+        image.SetAttributeValue("src", $"//{noScheme}");
     }
         
     private static void SetSrcsetAndSizesAttribute(string src, HtmlNode image, string maxMobileWidth, string maxTabletWidth, string maxDesktopWidth)
