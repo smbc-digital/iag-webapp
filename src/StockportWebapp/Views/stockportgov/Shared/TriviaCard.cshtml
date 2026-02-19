@@ -6,7 +6,7 @@
     string textColourClass = (string)ViewData["TextColourClass"] ?? string.Empty;
     string borderClass = (string)ViewData["BorderClass"] ?? string.Empty;
     string cardType = (string)ViewData["CardType"] ?? string.Empty;
-    bool isFromPublicationPage = (bool)ViewData["IsFromPublicationPage"] ? true : false;
+    bool isFromPublicationPage = ViewData["IsFromPublicationPage"] as bool? ?? false;
 
     string navcardPadding = !string.IsNullOrEmpty(cardType) && cardType.Equals("trivia-banner")
         ? "navcard-content--padding-trivia"
