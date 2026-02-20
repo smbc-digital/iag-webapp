@@ -18,9 +18,9 @@
                         loading="lazy"
                         alt="">
 
-                        @if(!string.IsNullOrEmpty(Model.Body))
+                        @if(!string.IsNullOrEmpty(Model.BodyHtml))
                         {
-                            <figcaption>@Html.Raw(Model.Body)</figcaption>
+                            <figcaption>@Html.Raw(Model.BodyHtml)</figcaption>
                         }
                 </figure>
             </div>

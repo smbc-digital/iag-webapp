@@ -3,7 +3,7 @@
     string borderColourClass = (string)ViewData["BorderColourClass"] ?? string.Empty;
 }
 
-@if (!string.IsNullOrEmpty(Model.Body))
+@if (!string.IsNullOrEmpty(Model.BodyHtml))
 {
     <li class="navcard navcard--width-33 navcard--center navcard profile-card @borderColourClass">
         <a href="@Url.Action("Index", "Profile", new { slug = Model.Slug })" class="navcard__link profile-card__link" data-cy="profile-card-link">
