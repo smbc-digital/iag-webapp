@@ -18,7 +18,7 @@
 
     string additionalCssClass = ViewData["AdditionalCssClass"] as string ?? string.Empty;
 
-    @if (!string.IsNullOrEmpty(Model.Title) && !string.IsNullOrEmpty(Model.Body))
+    @if (!string.IsNullOrEmpty(Model.Title) && !string.IsNullOrEmpty(Model.BodyHtml))
     {
         <section class="content-block content-block--padding content-block--screen @backgroundColourClass @additionalCssClass" data-cy="statement-banner-screen-width">
             <div class="grid-container">
@@ -31,7 +31,7 @@
                     
                         <div class="statement-banner-content-screen-width statement-banner-content">
                             <h2 class="statement-banner-content__title text-default @Model.TextColourClass">@Model.Title</h2>
-                            <div class="statement-banner-content__text @contentTextClass">@Html.Raw(Model.Body)</div>
+                            <div class="statement-banner-content__text @contentTextClass">@Html.Raw(Model.BodyHtml)</div>
 
                             @if(Model.SubItems.Any() || !string.IsNullOrEmpty(Model.Link))
                             {
