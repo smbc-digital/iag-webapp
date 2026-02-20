@@ -88,15 +88,6 @@ public static class RichTextRenderer
         return $"<a href='{uri}'>{RenderChildren(node)}</a>";
     }
 
-    private static object RenderEmbeddedEntry(JsonElement node)
-    {
-        ContentBlock contentBlock = GetEmbeddedContentBlock(node);
-        if (contentBlock is null || string.IsNullOrEmpty(contentBlock.ContentType))
-            return string.Empty;
-
-        return new EmbeddedPartial(contentBlock);
-    }
-
     private static string RenderInlineEntry(JsonElement node)
     {
         if (!node.TryGetProperty("data", out JsonElement data) ||
@@ -186,5 +177,51 @@ public static class RichTextRenderer
             return null;
 
         return ContentBlockAdapter.FromJson(obj);
+    }
+
+    private static object RenderEmbeddedEntry(JsonElement node)
+    {
+        var entry = GetEmbeddedEntry(node);
+        if (entry == null)
+            return string.Empty;
+
+        if (entry.IsContentBlock)
+            return new EmbeddedPartial(entry.ContentBlock!);
+
+        if (entry.IsImageBlock)
+            return new EmbeddedImagePartial(entry.ImageBlock!);
+
+        return string.Empty;
+    }
+
+    public static EmbeddedEntry? GetEmbeddedEntry(JsonElement node)
+    {
+        if (!node.TryGetProperty("data", out JsonElement data) ||
+            !data.TryGetProperty("target", out JsonElement target) ||
+            !target.TryGetProperty("jObject", out JsonElement obj))
+            return null;
+
+        if (!obj.TryGetProperty("sys", out JsonElement sys) ||
+            !sys.TryGetProperty("contentType", out JsonElement contentType) ||
+            !contentType.TryGetProperty("sys", out JsonElement contentTypeSys) ||
+            !contentTypeSys.TryGetProperty("id", out JsonElement idProp))
+            return null;
+
+        string type = idProp.GetString() ?? string.Empty;
+
+        return type switch
+        {
+            "contentBlock" => new EmbeddedEntry
+            {
+                ContentBlock = ContentBlockAdapter.FromJson(obj)
+            },
+
+            "imageBlock" => new EmbeddedEntry
+            {
+                ImageBlock = ImageBlockAdapter.FromJson(obj)
+            },
+
+            _ => null
+        };
     }
 }
