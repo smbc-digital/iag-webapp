@@ -2,8 +2,18 @@ using Microsoft.AspNetCore.Html;
 
 namespace StockportWebappTests_Unit.Unit.Utils;
 
-public class RichTextRendererTests
+public class RichTextHelperTests
 {
+    private readonly Mock<IViewRender> _mockViewRenderer;
+
+    private readonly RichTextHelper _helper;
+
+    public RichTextHelperTests()
+    {
+        _mockViewRenderer = new Mock<IViewRender>();
+        _helper = new RichTextHelper(_mockViewRenderer.Object);
+    }
+
     [Fact]
     public void Render_ReturnsEmpty_ForNodeWithoutNodeType()
     {
@@ -11,7 +21,7 @@ public class RichTextRendererTests
         JsonElement json = JsonDocument.Parse("{\"foo\":\"bar\"}").RootElement;
         
         // Act
-        object result = RichTextRenderer.Render(json);
+        object result = _helper.Render(json);
 
         // Assert
         Assert.Equal(string.Empty, result);
@@ -30,7 +40,7 @@ public class RichTextRendererTests
         }").RootElement;
 
         // Act
-        object result = RichTextRenderer.Render(json);
+        object result = _helper.Render(json);
 
         // Assert
         Assert.Equal("<p>hello</p>", result);
@@ -50,7 +60,7 @@ public class RichTextRendererTests
         }}").RootElement;
 
         // Act
-        object result = RichTextRenderer.Render(json);
+        object result = _helper.Render(json);
 
         // Assert
         Assert.Equal(expected, result);
@@ -74,7 +84,7 @@ public class RichTextRendererTests
         }").RootElement;
 
         // Act
-        object result = RichTextRenderer.Render(json);
+        object result = _helper.Render(json);
 
         // Assert
         Assert.Equal("<ul><li><p>item</p></li></ul>", result);
@@ -92,7 +102,7 @@ public class RichTextRendererTests
         }").RootElement;
 
         // Act
-        object result = RichTextRenderer.Render(json);
+        object result = _helper.Render(json);
 
         // Assert
         Assert.Equal("<u><em><strong>text</strong></em></u>", result);
@@ -110,7 +120,7 @@ public class RichTextRendererTests
         }").RootElement;
 
         // Act
-        object result = RichTextRenderer.Render(json);
+        object result = _helper.Render(json);
 
         // Assert
         Assert.Equal("<a href='/go'>click</a>", result);
@@ -135,7 +145,7 @@ public class RichTextRendererTests
         }").RootElement;
 
         // Act
-        object result = RichTextRenderer.Render(json);
+        object result = _helper.Render(json);
 
         // Assert
         Assert.Equal("<span class='inline-stat'><i class='fa-icon'></i><strong>99</strong> people</span>", result);
@@ -157,7 +167,7 @@ public class RichTextRendererTests
         }").RootElement;
 
         // Act
-        object result = RichTextRenderer.Render(json);
+        object result = _helper.Render(json);
 
         // Assert
         Assert.Equal("<img src='/img.png' alt='alt text' />", result);
@@ -174,7 +184,7 @@ public class RichTextRendererTests
         }").RootElement;
 
         // Act
-        object result = RichTextRenderer.Render(json);
+        object result = _helper.Render(json);
 
         // Assert
         Assert.Equal("inner", result);
@@ -192,7 +202,7 @@ public class RichTextRendererTests
         }").RootElement;
 
         // Act
-        object result = RichTextRenderer.Render(json);
+        object result = _helper.Render(json);
 
         // Assert
         Assert.Equal("<a href='/f.png'>linktext</a>", result);
@@ -201,142 +211,142 @@ public class RichTextRendererTests
     [Fact]
     public void GetEmbeddedContentBlock_ReturnsNull_WhenMissingData()
     {
-        // Arrange
-        JsonElement node = JsonDocument.Parse(@"{ ""nodeType"": ""embedded-entry-block"" }").RootElement;
+       // Arrange
+       JsonElement node = JsonDocument.Parse(@"{ ""nodeType"": ""embedded-entry-block"" }").RootElement;
 
-        // Act & Assert
-        Assert.Null(RichTextRenderer.GetEmbeddedContentBlock(node));
+       // Act & Assert
+       Assert.Null(_helper.GetEmbeddedContentBlock(node));
     }
 
     [Fact]
     public void GetEmbeddedContentBlock_ReturnsNull_WhenMissingTargetOrJObject()
     {
-        // Arrange
-        JsonElement node = JsonDocument.Parse(@"{ ""nodeType"": ""embedded-entry-block"", ""data"": {} }").RootElement;
+       // Arrange
+       JsonElement node = JsonDocument.Parse(@"{ ""nodeType"": ""embedded-entry-block"", ""data"": {} }").RootElement;
         
-        // Act & Assert
-        Assert.Null(RichTextRenderer.GetEmbeddedContentBlock(node));
+       // Act & Assert
+       Assert.Null(_helper.GetEmbeddedContentBlock(node));
     }
 
     [Fact]
     public void GetEmbeddedContentBlock_ReturnsNull_WhenMissingJObject()
     {
-        // Arrange
-        JsonElement node = JsonDocument.Parse(@"{ ""nodeType"": ""embedded-entry-block"", ""data"": { ""target"": {} } }").RootElement;
+       // Arrange
+       JsonElement node = JsonDocument.Parse(@"{ ""nodeType"": ""embedded-entry-block"", ""data"": { ""target"": {} } }").RootElement;
 
-        // Act & Assert
-        Assert.Null(RichTextRenderer.GetEmbeddedContentBlock(node));
+       // Act & Assert
+       Assert.Null(_helper.GetEmbeddedContentBlock(node));
     }
 
     [Fact]
     public void GetEmbeddedContentBlock_ReturnsContentBlock_WhenJObjectPresent()
     {
-        // Arrange
-        JsonElement node = JsonDocument.Parse(@"
-        {
-            ""nodeType"": ""embedded-entry-block"",
-            ""data"": {
-                ""target"": {
-                    ""jObject"": {
-                        ""slug"": ""the-slug"",
-                        ""contentType"": ""ct""
-                    }
-                }
-            }
-        }").RootElement;
+       // Arrange
+       JsonElement node = JsonDocument.Parse(@"
+       {
+           ""nodeType"": ""embedded-entry-block"",
+           ""data"": {
+               ""target"": {
+                   ""jObject"": {
+                       ""slug"": ""the-slug"",
+                       ""contentType"": ""ct""
+                   }
+               }
+           }
+       }").RootElement;
 
-        // Act
-        ContentBlock content = RichTextRenderer.GetEmbeddedContentBlock(node);
+       // Act
+       ContentBlock content = _helper.GetEmbeddedContentBlock(node);
 
-        // Assert
-        Assert.NotNull(content);
-        Assert.Equal("the-slug", content.Slug);
+       // Assert
+       Assert.NotNull(content);
+       Assert.Equal("the-slug", content.Slug);
     }
 
     [Fact]
     public void Render_EntryHyperlink_RendersChildren_WhenContentBlockMissing()
     {
-        // Arrange
-        JsonElement node = JsonDocument.Parse(@"
-        {
-            ""nodeType"": ""entry-hyperlink"",
-            ""data"": {},
-            ""content"": [ { ""nodeType"": ""text"", ""value"": ""x"" } ]
-        }").RootElement;
+       // Arrange
+       JsonElement node = JsonDocument.Parse(@"
+       {
+           ""nodeType"": ""entry-hyperlink"",
+           ""data"": {},
+           ""content"": [ { ""nodeType"": ""text"", ""value"": ""x"" } ]
+       }").RootElement;
 
-        // Act
-        object result = RichTextRenderer.Render(node);
+       // Act
+       object result = _helper.Render(node);
         
-        // Assert
-        Assert.Equal("x", result);
+       // Assert
+       Assert.Equal("x", result);
     }
 
     [Fact]
     public void Render_EntryHyperlink_RendersAnchor_WhenContentBlockPresent()
     {
-        // Arrange
-        JsonElement node = JsonDocument.Parse(@"
-        {
-            ""nodeType"": ""entry-hyperlink"",
-            ""data"": {
-                ""target"": {
-                    ""jObject"": { ""slug"": ""entry-slug"" }
-                }
-            },
-            ""content"": [ { ""nodeType"": ""text"", ""value"": ""entry text"" } ]
-        }").RootElement;
+       // Arrange
+       JsonElement node = JsonDocument.Parse(@"
+       {
+           ""nodeType"": ""entry-hyperlink"",
+           ""data"": {
+               ""target"": {
+                   ""jObject"": { ""slug"": ""entry-slug"" }
+               }
+           },
+           ""content"": [ { ""nodeType"": ""text"", ""value"": ""entry text"" } ]
+       }").RootElement;
 
-        // Act
-        object result = RichTextRenderer.Render(node);
+       // Act
+       object result = _helper.Render(node);
 
-        // Assert
-        Assert.Equal("<a href='/entry-slug'>entry text</a>", result);
+       // Assert
+       Assert.Equal("<a href='/entry-slug'>entry text</a>", result);
     }
 
     [Fact]
     public void Render_EmbeddedEntry_ReturnsEmpty_WhenContentTypeEmpty()
     {
-        // Arrange
-        JsonElement node = JsonDocument.Parse(@"
-        {
-            ""nodeType"": ""embedded-entry-block"",
-            ""data"": {
-                ""target"": {
-                    ""jObject"": { ""slug"": ""s"", ""contentType"": """" }
-                }
-            }
-        }").RootElement;
+       // Arrange
+       JsonElement node = JsonDocument.Parse(@"
+       {
+           ""nodeType"": ""embedded-entry-block"",
+           ""data"": {
+               ""target"": {
+                   ""jObject"": { ""slug"": ""s"", ""contentType"": """" }
+               }
+           }
+       }").RootElement;
 
-        // Act
-        object result = RichTextRenderer.Render(node);
+       // Act
+       object result = _helper.Render(node);
 
-        // Assert
-        Assert.Equal(string.Empty, result);
+       // Assert
+       Assert.Equal(string.Empty, result);
     }
 
     [Fact]
     public void Render_EmbeddedEntry_ReturnsPartialObject_WhenContentTypePresent()
     {
-        // Arrange
-        JsonElement node = JsonDocument.Parse(@"
-        {
-            ""nodeType"": ""embedded-entry-block"",
-            ""data"": {
-                ""target"": {
-                    ""jObject"": { ""slug"": ""s"", ""contentType"": ""ct"" }
-                }
-            }
-        }").RootElement;
+       // Arrange
+       JsonElement node = JsonDocument.Parse(@"
+       {
+           ""nodeType"": ""embedded-entry-block"",
+           ""data"": {
+               ""target"": {
+                   ""jObject"": { ""slug"": ""s"", ""contentType"": ""ct"" }
+               }
+           }
+       }").RootElement;
 
-        // Act
-        object result = RichTextRenderer.Render(node);
+       // Act
+       object result = _helper.Render(node);
 
-        // Assert
-        Assert.NotNull(result);
-        Assert.IsType<EmbeddedPartial>(result);
-        Assert.IsNotType<string>(result);
+       // Assert
+       Assert.NotNull(result);
+       Assert.IsType<EmbeddedPartial>(result);
+       Assert.IsNotType<string>(result);
 
-        if (result is IHtmlContent html)
-            Assert.False(string.IsNullOrEmpty(html.ToString()));
+       if (result is IHtmlContent html)
+           Assert.False(string.IsNullOrEmpty(html.ToString()));
     }
 }

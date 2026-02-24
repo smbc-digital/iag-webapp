@@ -1,8 +1,15 @@
 namespace StockportWebapp.Utils;
 
-public static class RichTextRenderer
+public interface IRichTextHelper
 {
-    public static object Render(JsonElement node)
+    object Render(JsonElement node);
+}
+
+public class RichTextHelper(IViewRender viewRenderer) : IRichTextHelper
+{
+    private IViewRender _viewRenderer = viewRenderer;
+
+    public object Render(JsonElement node)
     {
         if (!node.TryGetProperty("nodeType", out JsonElement nodeTypeProp))
             return string.Empty;
@@ -29,7 +36,7 @@ public static class RichTextRenderer
         };
     }
 
-    private static string RenderChildren(JsonElement node)
+    private string RenderChildren(JsonElement node)
     {
         if (!node.TryGetProperty("content", out JsonElement content) || content.ValueKind != JsonValueKind.Array)
             return string.Empty;
@@ -47,7 +54,7 @@ public static class RichTextRenderer
         return sb.ToString();
     }
 
-    private static string RenderText(JsonElement node)
+    private string RenderText(JsonElement node)
     {
         string text = node.GetProperty("value").GetString() ?? string.Empty;
 
@@ -75,29 +82,83 @@ public static class RichTextRenderer
         return text;
     }
 
-    private static string RenderList(JsonElement node, string tag) =>
+    private string RenderList(JsonElement node, string tag) =>
         $"<{tag}>{RenderChildren(node)}</{tag}>";
 
-    private static string RenderListItem(JsonElement node) =>
+    private string RenderListItem(JsonElement node) =>
         $"<li>{RenderChildren(node)}</li>";
 
-    private static string RenderHyperlink(JsonElement node)
+    private string RenderHyperlink(JsonElement node)
     {
         string uri = node.GetProperty("data").GetProperty("uri").GetString() ?? "#";
 
         return $"<a href='{uri}'>{RenderChildren(node)}</a>";
     }
 
-    private static object RenderEmbeddedEntry(JsonElement node)
+    private object RenderEmbeddedEntry(JsonElement node)
     {
-        ContentBlock contentBlock = GetEmbeddedContentBlock(node);
-        if (contentBlock is null || string.IsNullOrEmpty(contentBlock.ContentType))
+        if (!node.TryGetProperty("data", out var data) ||
+            !data.TryGetProperty("target", out var target) ||
+            !target.TryGetProperty("jObject", out var obj))
             return string.Empty;
 
-        return new EmbeddedPartial(contentBlock);
+        if (obj.TryGetProperty("sys", out var sys) &&
+            sys.TryGetProperty("contentType", out var ct) &&
+            ct.TryGetProperty("sys", out var ctSys) &&
+            ctSys.TryGetProperty("id", out var idProp) &&
+            idProp.GetString()?.Equals("alert", StringComparison.OrdinalIgnoreCase) == true)
+        {
+            return RenderAlert(obj);
+        }
+
+        var block = ContentBlockAdapter.FromJson(obj);
+        return new EmbeddedPartial(block);
     }
 
-    private static string RenderInlineEntry(JsonElement node)
+    private string RenderAlert(JsonElement obj)
+    {
+        string title = obj.TryGetProperty("title", out var titleProp)
+            ? titleProp.GetString() ?? string.Empty
+            : string.Empty;
+
+        string body = obj.TryGetProperty("body", out var bodyProp)
+            ? bodyProp.GetString() ?? string.Empty
+            : string.Empty;
+
+        string severity = obj.TryGetProperty("severity", out var sevProp)
+            ? sevProp.GetString() ?? Severity.Information
+            : Severity.Information;
+
+        DateTime sunrise = obj.TryGetProperty("sunriseDate", out var sunriseProp) &&
+                        sunriseProp.TryGetDateTime(out var sunriseDt)
+            ? sunriseDt
+            : DateTime.MinValue;
+
+        DateTime sunset = obj.TryGetProperty("sunsetDate", out var sunsetProp) &&
+                        sunsetProp.TryGetDateTime(out var sunsetDt)
+            ? sunsetDt
+            : DateTime.MaxValue;
+
+        string slug = obj.TryGetProperty("slug", out var slugProp)
+            ? slugProp.GetString() ?? string.Empty
+            : string.Empty;
+
+        bool isStatic = obj.TryGetProperty("isStatic", out var staticProp) &&
+                        staticProp.ValueKind == JsonValueKind.True;
+
+        string imageUrl = obj.TryGetProperty("imageUrl", out var imgProp)
+            ? imgProp.GetString() ?? string.Empty
+            : string.Empty;
+
+        var alert = new Alert(title, body, severity, sunrise, sunset, slug, isStatic, imageUrl);
+
+        if (severity.Equals(Severity.Warning) || severity.Equals(Severity.Error))
+            return _viewRenderer.Render("AlertsInlineWarning", alert);
+
+        return _viewRenderer.Render("AlertsInline", alert);
+    }
+
+    private string RenderInlineEntry(JsonElement node)
     {
         if (!node.TryGetProperty("data", out JsonElement data) ||
             !data.TryGetProperty("target", out JsonElement target) ||
@@ -123,7 +184,7 @@ public static class RichTextRenderer
         return $"<span class='inline-stat'>{iconHtml}<strong>{statistic}</strong> {body}</span>";
     }
 
-    private static string RenderEmbeddedAsset(JsonElement node)
+    private string RenderEmbeddedAsset(JsonElement node)
     {
         JsonElement target = node.GetProperty("data").GetProperty("target");
         string url = GetAssetUrl(target);
@@ -134,7 +195,7 @@ public static class RichTextRenderer
         return $"<img src='{url}' alt='{alt}' />";
     }
 
-   private static string RenderAssetHyperlink(JsonElement node)
+   private string RenderAssetHyperlink(JsonElement node)
     {
         if (!node.TryGetProperty("data", out JsonElement data) ||
             !data.TryGetProperty("target", out JsonElement target))
@@ -153,7 +214,7 @@ public static class RichTextRenderer
         return $"<a href='{url}'>{innerText}</a>";
     }
 
-    private static string RenderEntryHyperlink(JsonElement node)
+    private string RenderEntryHyperlink(JsonElement node)
     {
         ContentBlock contentBlock = GetEmbeddedContentBlock(node);
         if (contentBlock is null)
@@ -164,7 +225,7 @@ public static class RichTextRenderer
         return $"<a href='/{contentBlock.Slug}'>{text}</a>";
     }
 
-    private static string GetAssetUrl(JsonElement target)
+    private string GetAssetUrl(JsonElement target)
     {
         if (target.TryGetProperty("file", out JsonElement file)
             && file.TryGetProperty("url", out JsonElement urlProp)
@@ -174,7 +235,7 @@ public static class RichTextRenderer
         return "#";
     }
 
-    public static ContentBlock GetEmbeddedContentBlock(JsonElement node)
+    public ContentBlock GetEmbeddedContentBlock(JsonElement node)
     {
         if (!node.TryGetProperty("data", out JsonElement data))
             return null;

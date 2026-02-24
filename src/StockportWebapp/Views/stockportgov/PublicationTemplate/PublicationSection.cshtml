@@ -1,3 +1,4 @@
+@inject IRichTextHelper RichTextHelper
 @using Microsoft.AspNetCore.Html
 @using System.Text.Json
 @model PublicationSection
@@ -9,7 +10,7 @@
 
 @foreach (JsonElement node in Model.Body.GetProperty("content").EnumerateArray())
 {
-    object rendered = RichTextRenderer.Render(node);
+    object rendered = RichTextHelper.Render(node);
 
     if (rendered is EmbeddedPartial partial)
     {
