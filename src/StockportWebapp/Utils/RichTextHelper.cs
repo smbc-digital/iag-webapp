@@ -1,7 +1,11 @@
 namespace StockportWebapp.Utils;
 
-public static class RichTextRenderer
+public static class RichTextHelper
 {
+    public static IViewRender ViewRenderer { get; set; }
+    public static IEnumerable<Alert> InlineAlerts { get; set; }
+    public static IEnumerable<InlineQuote> InlineQuotes { get; set; }
+
     public static object Render(JsonElement node)
     {
         if (!node.TryGetProperty("nodeType", out JsonElement nodeTypeProp))
@@ -51,9 +55,15 @@ public static class RichTextRenderer
     {
         string text = node.GetProperty("value").GetString() ?? string.Empty;
 
+        if (text.StartsWith("{{Alerts-Inline:", StringComparison.OrdinalIgnoreCase))
+            return RenderInlineAlert(text);
+
+        if (text.StartsWith("{{QUOTE:", StringComparison.OrdinalIgnoreCase))
+            return RenderInlineQuote(text);
+
         if (!node.TryGetProperty("marks", out JsonElement marks) ||
-                marks.ValueKind != JsonValueKind.Array ||
-                !marks.EnumerateArray().Any())
+            marks.ValueKind != JsonValueKind.Array ||
+            !marks.EnumerateArray().Any())
             return text;
 
         foreach (JsonElement mark in marks.EnumerateArray())
@@ -73,6 +83,47 @@ public static class RichTextRenderer
         }
 
         return text;
+    }
+
+    private static string RenderInlineAlert(string token)
+    {
+        string key = token
+            .Replace("{{Alerts-Inline:", string.Empty, StringComparison.OrdinalIgnoreCase)
+            .Replace("}}", string.Empty)
+            .Trim();
+
+        if (InlineAlerts is null || ViewRenderer is null)
+            return string.Empty;
+
+        Alert alert = InlineAlerts.FirstOrDefault(inlineAlert =>
+            inlineAlert.Title.Equals(key, StringComparison.OrdinalIgnoreCase));
+
+        if (alert is null)
+            return string.Empty;
+
+        if (alert.Severity.Equals(Severity.Warning) || alert.Severity.Equals(Severity.Error))
+            return ViewRenderer.Render("AlertsInlineWarning", alert);
+
+        return ViewRenderer.Render("AlertsInline", alert);
+    }
+
+    private static string RenderInlineQuote(string token)
+    {
+        string key = token
+            .Replace("{{QUOTE:", string.Empty, StringComparison.OrdinalIgnoreCase)
+            .Replace("}}", string.Empty)
+            .Trim();
+
+        if (InlineQuotes is null || ViewRenderer is null)
+            return string.Empty;
+
+        InlineQuote quote = InlineQuotes.FirstOrDefault(inlineQuote =>
+            inlineQuote.Slug.Equals(key, StringComparison.OrdinalIgnoreCase));
+
+        if (quote is null)
+            return string.Empty;
+
+        return ViewRenderer.Render("InlineQuote", quote);
     }
 
     private static string RenderList(JsonElement node, string tag) =>

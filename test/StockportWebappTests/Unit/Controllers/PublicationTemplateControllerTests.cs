@@ -5,7 +5,8 @@ public class PublicationTemplateControllerTests
     private readonly PublicationTemplateController _publicationTemplateController;
     private readonly Mock<IPublicationTemplateRepository> _repository = new();
     private readonly Mock<IFeatureManager> _featureManager = new();
-    
+    private readonly Mock<IViewRender> _viewRenderer = new();
+
     private readonly PublicationTemplate publicationTemplate = new()
     {
         Slug = "slug",
@@ -35,7 +36,7 @@ public class PublicationTemplateControllerTests
             .Setup(manager => manager.IsEnabledAsync("PublicationTemplate"))
             .Returns(Task.FromResult(true));
 
-        _publicationTemplateController = new PublicationTemplateController(_repository.Object, _featureManager.Object);
+        _publicationTemplateController = new PublicationTemplateController(_repository.Object, _featureManager.Object, _viewRenderer.Object);
     }
 
     [Fact]

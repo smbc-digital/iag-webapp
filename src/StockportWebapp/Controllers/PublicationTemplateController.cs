@@ -2,9 +2,10 @@ namespace StockportWebapp.Controllers;
 
 [ResponseCache(Location = ResponseCacheLocation.Any, Duration = Cache.Medium)]
 [Route("publications/{publicationSlug}")]
-public class PublicationTemplateController(IPublicationTemplateRepository repository, IFeatureManager featureManager) : Controller
+public class PublicationTemplateController(IPublicationTemplateRepository repository, IFeatureManager featureManager, IViewRender viewRenderer) : Controller
 {
     private readonly IPublicationTemplateRepository _repository = repository;
+    private readonly IViewRender _viewRenderer = viewRenderer;
     private readonly IFeatureManager _featureManager = featureManager;
 
     [HttpGet("")]
@@ -29,6 +30,10 @@ public class PublicationTemplateController(IPublicationTemplateRepository reposi
 
         if (publicationPage is null)
             return NotFound();
+
+        RichTextHelper.InlineAlerts = publicationPage.InlineAlerts;
+        RichTextHelper.InlineQuotes = publicationPage.InlineQuotes;
+        RichTextHelper.ViewRenderer = _viewRenderer;
 
         PublicationSection? publicationSection = sectionSlug is null
             ? publicationPage.PublicationSections?.FirstOrDefault()

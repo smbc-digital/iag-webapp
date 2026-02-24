@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Html;
 
 namespace StockportWebappTests_Unit.Unit.Utils;
 
-public class RichTextRendererTests
+public class RichTextHelperTests
 {
     [Fact]
     public void Render_ReturnsEmpty_ForNodeWithoutNodeType()
@@ -11,7 +11,7 @@ public class RichTextRendererTests
         JsonElement json = JsonDocument.Parse("{\"foo\":\"bar\"}").RootElement;
         
         // Act
-        object result = RichTextRenderer.Render(json);
+        object result = RichTextHelper.Render(json);
 
         // Assert
         Assert.Equal(string.Empty, result);
@@ -30,7 +30,7 @@ public class RichTextRendererTests
         }").RootElement;
 
         // Act
-        object result = RichTextRenderer.Render(json);
+        object result = RichTextHelper.Render(json);
 
         // Assert
         Assert.Equal("<p>hello</p>", result);
@@ -50,7 +50,7 @@ public class RichTextRendererTests
         }}").RootElement;
 
         // Act
-        object result = RichTextRenderer.Render(json);
+        object result = RichTextHelper.Render(json);
 
         // Assert
         Assert.Equal(expected, result);
@@ -74,7 +74,7 @@ public class RichTextRendererTests
         }").RootElement;
 
         // Act
-        object result = RichTextRenderer.Render(json);
+        object result = RichTextHelper.Render(json);
 
         // Assert
         Assert.Equal("<ul><li><p>item</p></li></ul>", result);
@@ -92,7 +92,7 @@ public class RichTextRendererTests
         }").RootElement;
 
         // Act
-        object result = RichTextRenderer.Render(json);
+        object result = RichTextHelper.Render(json);
 
         // Assert
         Assert.Equal("<u><em><strong>text</strong></em></u>", result);
@@ -110,7 +110,7 @@ public class RichTextRendererTests
         }").RootElement;
 
         // Act
-        object result = RichTextRenderer.Render(json);
+        object result = RichTextHelper.Render(json);
 
         // Assert
         Assert.Equal("<a href='/go'>click</a>", result);
@@ -135,7 +135,7 @@ public class RichTextRendererTests
         }").RootElement;
 
         // Act
-        object result = RichTextRenderer.Render(json);
+        object result = RichTextHelper.Render(json);
 
         // Assert
         Assert.Equal("<span class='inline-stat'><i class='fa-icon'></i><strong>99</strong> people</span>", result);
@@ -157,7 +157,7 @@ public class RichTextRendererTests
         }").RootElement;
 
         // Act
-        object result = RichTextRenderer.Render(json);
+        object result = RichTextHelper.Render(json);
 
         // Assert
         Assert.Equal("<img src='/img.png' alt='alt text' />", result);
@@ -174,7 +174,7 @@ public class RichTextRendererTests
         }").RootElement;
 
         // Act
-        object result = RichTextRenderer.Render(json);
+        object result = RichTextHelper.Render(json);
 
         // Assert
         Assert.Equal("inner", result);
@@ -192,7 +192,7 @@ public class RichTextRendererTests
         }").RootElement;
 
         // Act
-        object result = RichTextRenderer.Render(json);
+        object result = RichTextHelper.Render(json);
 
         // Assert
         Assert.Equal("<a href='/f.png'>linktext</a>", result);
@@ -205,7 +205,7 @@ public class RichTextRendererTests
         JsonElement node = JsonDocument.Parse(@"{ ""nodeType"": ""embedded-entry-block"" }").RootElement;
 
         // Act & Assert
-        Assert.Null(RichTextRenderer.GetEmbeddedContentBlock(node));
+        Assert.Null(RichTextHelper.GetEmbeddedContentBlock(node));
     }
 
     [Fact]
@@ -215,7 +215,7 @@ public class RichTextRendererTests
         JsonElement node = JsonDocument.Parse(@"{ ""nodeType"": ""embedded-entry-block"", ""data"": {} }").RootElement;
         
         // Act & Assert
-        Assert.Null(RichTextRenderer.GetEmbeddedContentBlock(node));
+        Assert.Null(RichTextHelper.GetEmbeddedContentBlock(node));
     }
 
     [Fact]
@@ -225,7 +225,7 @@ public class RichTextRendererTests
         JsonElement node = JsonDocument.Parse(@"{ ""nodeType"": ""embedded-entry-block"", ""data"": { ""target"": {} } }").RootElement;
 
         // Act & Assert
-        Assert.Null(RichTextRenderer.GetEmbeddedContentBlock(node));
+        Assert.Null(RichTextHelper.GetEmbeddedContentBlock(node));
     }
 
     [Fact]
@@ -246,7 +246,7 @@ public class RichTextRendererTests
         }").RootElement;
 
         // Act
-        ContentBlock content = RichTextRenderer.GetEmbeddedContentBlock(node);
+        ContentBlock content = RichTextHelper.GetEmbeddedContentBlock(node);
 
         // Assert
         Assert.NotNull(content);
@@ -265,7 +265,7 @@ public class RichTextRendererTests
         }").RootElement;
 
         // Act
-        object result = RichTextRenderer.Render(node);
+        object result = RichTextHelper.Render(node);
         
         // Assert
         Assert.Equal("x", result);
@@ -287,7 +287,7 @@ public class RichTextRendererTests
         }").RootElement;
 
         // Act
-        object result = RichTextRenderer.Render(node);
+        object result = RichTextHelper.Render(node);
 
         // Assert
         Assert.Equal("<a href='/entry-slug'>entry text</a>", result);
@@ -308,7 +308,7 @@ public class RichTextRendererTests
         }").RootElement;
 
         // Act
-        object result = RichTextRenderer.Render(node);
+        object result = RichTextHelper.Render(node);
 
         // Assert
         Assert.Equal(string.Empty, result);
@@ -329,7 +329,7 @@ public class RichTextRendererTests
         }").RootElement;
 
         // Act
-        object result = RichTextRenderer.Render(node);
+        object result = RichTextHelper.Render(node);
 
         // Assert
         Assert.NotNull(result);
