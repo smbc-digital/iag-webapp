@@ -102,18 +102,68 @@ public class RichTextHelper(IViewRender viewRenderer) : IRichTextHelper
             !target.TryGetProperty("jObject", out var obj))
             return string.Empty;
 
-        if (obj.TryGetProperty("sys", out var sys) &&
-            sys.TryGetProperty("contentType", out var ct) &&
-            ct.TryGetProperty("sys", out var ctSys) &&
-            ctSys.TryGetProperty("id", out var idProp) &&
-            idProp.GetString()?.Equals("alert", StringComparison.OrdinalIgnoreCase) == true)
-        {
+        if (IsContentType(obj, "alert"))
             return RenderAlert(obj);
-        }
+
+        if (IsContentType(obj, "quote"))
+            return RenderQuote(obj);
 
         var block = ContentBlockAdapter.FromJson(obj);
         return new EmbeddedPartial(block);
     }
+
+    private string GetNestedString(JsonElement obj, params string[] path)
+    {
+        JsonElement current = obj;
+
+        foreach (var segment in path)
+        {
+            if (!current.TryGetProperty(segment, out current))
+                return string.Empty;
+        }
+
+        return current.ValueKind == JsonValueKind.String
+            ? current.GetString() ?? string.Empty
+            : string.Empty;
+    }
+
+    private string RenderQuote(JsonElement obj)
+    {
+        string image = GetNestedString(obj, "image", "fields", "file", "url");
+        string imageAlt = GetSafeString(obj, "imageAltText");
+        string quote = GetSafeString(obj, "quote");
+        string author = GetSafeString(obj, "author");
+        string slug = GetSafeString(obj, "slug");
+
+        EColourScheme theme = EColourScheme.Teal;
+        if (obj.TryGetProperty("theme", out var themeProp) &&
+            themeProp.ValueKind == JsonValueKind.String)
+        {
+            Enum.TryParse(themeProp.GetString(), true, out theme);
+        }
+
+        InlineQuote model = new(image, imageAlt, quote, author, slug, theme);
+
+        return _viewRenderer.Render("InlineQuote", model);
+    }
+
+    private string GetSafeString(JsonElement obj, string propertyName)
+    {
+        if (obj.TryGetProperty(propertyName, out var prop) &&
+            prop.ValueKind == JsonValueKind.String)
+        {
+            return prop.GetString() ?? string.Empty;
+        }
+
+        return string.Empty;
+    }
+
+    private bool IsContentType(JsonElement obj, string type) =>
+        obj.TryGetProperty("sys", out var sys) &&
+        sys.TryGetProperty("contentType", out var ct) &&
+        ct.TryGetProperty("sys", out var ctSys) &&
+        ctSys.TryGetProperty("id", out var idProp) &&
+        idProp.GetString()?.Equals(type, StringComparison.OrdinalIgnoreCase) == true;
 
     private string RenderAlert(JsonElement obj)
     {
