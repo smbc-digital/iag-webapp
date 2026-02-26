@@ -23,11 +23,11 @@
                              loading="lazy"
                              alt="">
 
-                        @if (!string.IsNullOrEmpty(Model.Body))
+                        @if (!string.IsNullOrEmpty(Model.BodyHtml))
                         {
                             <div class="image-banner__content @overlayTheme hide-on-mobile">
                                 <h2 class="image-banner__title">@Model.Title</h2>
-                                @Html.Raw(Model.Body)
+                                @Html.Raw(Model.BodyHtml)
                             </div>
                             <figure class="@overlayTheme hide-on-desktop hide-on-tablet">
                                 <figcaption>
@@ -54,11 +54,11 @@
                          loading="lazy"
                          alt="">
 
-                    @if (!string.IsNullOrEmpty(Model.Body))
+                    @if (!string.IsNullOrEmpty(Model.BodyHtml))
                     {
                         <div class="image-banner__content @overlayTheme">
                             <h2 class="image-banner__title image-banner__title-no-link">@Model.Title</h2>
-                            @Html.Raw(Model.Body)
+                            @Html.Raw(Model.BodyHtml)
                         </div>
                     }
                 }

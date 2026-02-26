@@ -5,6 +5,10 @@
         @media #{$mobile} {
             margin-inline: 5px;
         }
+
+        &--no-margin-top {
+            margin-top: 0;
+        }
     }
 
     &__page {

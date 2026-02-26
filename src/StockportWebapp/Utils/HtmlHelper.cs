@@ -1,4 +1,5 @@
-﻿using System.Web;
+﻿using System.Collections.Specialized;
+using System.Web;
 using HtmlAgilityPack;
 
 namespace StockportWebapp.Utils;
@@ -35,23 +36,33 @@ public class HtmlHelper
 
     private static void SetSrcAttribute(string src, HtmlNode image) 
     {
+        // Normalize protocol-relative URLs
+        if (src.StartsWith("//"))
+            src = $"https:{src}";
+
         Uri uri = new Uri(src);
-        UriBuilder uriBuilder = new UriBuilder(uri);
-        var queryValues = HttpUtility.ParseQueryString(uriBuilder.Query);
+        var queryValues = HttpUtility.ParseQueryString(uri.Query);
 
-        if(!queryValues.AllKeys.Contains("q"))
-        {
-            queryValues.Add("q", "89");
-        }
-
-        if(!queryValues.AllKeys.Contains("fm"))
-        {
-            queryValues.Add("fm", "webp");
-        }
+        // Set default image optimization parameters
+        SetQueryParameterIfMissing(queryValues, "q", "89");
+        SetQueryParameterIfMissing(queryValues, "fm", "webp");
         
-        uriBuilder.Query = queryValues.ToString();
+        var protocolRelativeUrl = BuildProtocolRelativeUrl(uri, queryValues);
+        image.SetAttributeValue("src", $"//{protocolRelativeUrl}");
+    }
 
-        image.SetAttributeValue("src",  uriBuilder.Uri.ToString());
+    private static string BuildProtocolRelativeUrl(Uri uri, NameValueCollection queryValues)
+    {
+        var uriBuilder = new UriBuilder(uri) { Query = queryValues.ToString() };
+        return uriBuilder.Uri.GetComponents(
+            UriComponents.AbsoluteUri & ~UriComponents.Scheme, 
+            UriFormat.SafeUnescaped);
+    }
+
+    private static void SetQueryParameterIfMissing(NameValueCollection queryValues, string key, string value)
+    {
+        if (!queryValues.AllKeys.Contains(key))
+            queryValues.Add(key, value);
     }
         
     private static void SetSrcsetAndSizesAttribute(string src, HtmlNode image, string maxMobileWidth, string maxTabletWidth, string maxDesktopWidth)

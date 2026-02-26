@@ -13,6 +13,7 @@ public class ContentBlock
     public string Image { get; init; } = string.Empty;
     public string MailingListId { get; init; } = string.Empty;
     public string Body { get; init; } = string.Empty;
+    public string BodyHtml => MarkdownWrapper.ToHtml(Body);
     public EColourScheme ColourScheme { get; init; }
     public string Link { get; init; } = string.Empty;
     public string ButtonText { get; init; } = string.Empty;

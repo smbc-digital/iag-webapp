@@ -10,13 +10,13 @@
         {
             <a class="image-banner__link @overlayTheme" @Model.Href>
                 <div class="image-banner__background image-banner__background" style="background-image: url(@Model.Image?fm=webp)"></div>
-                @if (!string.IsNullOrEmpty(Model.Body))
+                @if (!string.IsNullOrEmpty(Model.BodyHtml))
                 {
                     <div class="grid-container hide-on-mobile">
                         <div class="grid-100">
                             <div class="image-banner__content @overlayTheme">
                                 <h2 class="image-banner__title">@Model.Title</h2>
-                                @Html.Raw(Model.Body)
+                                @Html.Raw(Model.BodyHtml)
                             </div>
                         </div>
                     </div>
@@ -36,13 +36,13 @@
         else
         {
             <div class="image-banner__background image-banner__background" style="background-image: url(@Model.Image?fm=webp)"></div>
-            @if (!string.IsNullOrEmpty(Model.Body))
+            @if (!string.IsNullOrEmpty(Model.BodyHtml))
             {
                 <div class="grid-container hide-on-mobile">
                     <div class="grid-100">
                         <div class="image-banner__content @overlayTheme">
                             <h2 class="image-banner__title image-banner__title-no-link">@Model.Title</h2>
-                            @Html.Raw(Model.Body)
+                            @Html.Raw(Model.BodyHtml)
                         </div>
                     </div>
                 </div>
