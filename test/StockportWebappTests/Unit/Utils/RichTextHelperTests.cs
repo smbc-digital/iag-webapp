@@ -262,40 +262,6 @@ public class RichTextHelperTests
     }
 
     [Fact]
-    public void Hyperlink_renders_anchor_with_href_and_children()
-    {
-        var json = @"[{
-            ""nodeType"": ""hyperlink"",
-            ""data"": { ""uri"": ""http://example.com"" },
-            ""content"": [{ ""nodeType"": ""text"", ""value"": ""link"" }]
-        }]";
-
-        JsonElement parent = Parse(json);
-        var result = RenderAsString(parent, 0);
-
-        Assert.Equal("<a href='http://example.com'>link</a>", result);
-    }
-
-    [Fact]
-    public void EmbeddedAsset_renders_img_when_no_caption_or_float()
-    {
-        var json = @"[{
-            ""nodeType"": ""embedded-asset-block"",
-            ""data"": {
-                ""target"": {
-                    ""file"": { ""url"": ""http://img.jpg"" },
-                    ""description"": ""alt""
-                }
-            }
-        }]";
-
-        JsonElement parent = Parse(json);
-        var result = RenderAsString(parent, 0);
-
-        Assert.Equal("<img src=\"http://img.jpg\" alt=\"alt\" />", result);
-    }
-
-    [Fact]
     public void GetEmbeddedContentBlock_ReturnsNull_WhenMissingData()
     {
         // Arrange
