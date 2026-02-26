@@ -193,7 +193,9 @@ public static class ServiceCollectionExtensions
                     p.GetService<IApplicationConfiguration>()));
         
         services.AddSingleton<IEventFactory>(p => new EventFactory(p.GetService<ITagParserContainer>(), p.GetService<MarkdownWrapper>()));
-            
+        
+        services.AddScoped<IRichTextHelper, RichTextHelper>();
+
         return services;
     }
 

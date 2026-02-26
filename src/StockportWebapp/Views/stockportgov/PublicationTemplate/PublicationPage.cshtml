@@ -1,14 +1,17 @@
+@inject IRichTextHelper RichTextHelper
 @using Microsoft.AspNetCore.Html
 @using System.Text.Json
 @model PublicationPage
+
 @{
     ViewData["Title"] = Model.Title;
     ViewData["Description"] = Model.MetaDescription;
     ViewData["og:title"] = Model.Title;
+
     PublicationSection currentSection = ViewData["currentSection"] as PublicationSection;
 }
 
-@if (Model.PublicationSections is not null && Model.PublicationSections.Any())
+@if (Model.PublicationSections?.Any() is true)
 {
     IEnumerable<PublicationSection> sectionsToRender = currentSection is null
         ? Model.PublicationSections
@@ -23,46 +26,60 @@
 }
 else
 {
-    var content = Model.Body.GetProperty("content");
+    JsonElement content = Model.Body.GetProperty("content");
 
     @for (int i = 0; i < content.GetArrayLength(); i++)
     {
-        object rendered = RichTextRenderer.Render(content, i);
+        object rendered = RichTextHelper.RenderNode(content, i);
 
         if (rendered is EmbeddedPartial partial)
         {
-            @if (partial.Model.ContentType.Equals("CallToAction"))
-            {
-                CallToActionBanner callToActionBanner = partial.Model is not null
-                    ? new() {
-                            Image = partial.Model.Image,
-                            AltText = partial.Model.Title,
-                            ButtonText = partial.Model.ButtonText,
-                            Colour = partial.Model.ColourScheme,
-                            Link = partial.Model.Link,
-                            Teaser = partial.Model.Teaser,
-                            Title = partial.Model.Title
-                        }
-                    : null;
-
-                <partial name="CallToAction" model="@callToActionBanner" view-data='@(new ViewDataDictionary(ViewData) { {"AdditionalCssClass", "content-block content-block--margin-extra"} })' />
-            }
-            else if (partial.Model.ContentType.Equals("TriviaList"))
-            {
-                <partial name="PublicationTemplateTriviaList" model="@partial.Model" />
-            }
-            else if (partial.Model.ContentType.Equals("TriviaCards"))
-            {
-                <partial name="PublicationTemplateTriviaCards" model="@partial.Model" />
-            }
-            else
-            {
-                <partial name="@partial.PartialName" model="@partial.Model" view-data='@(new ViewDataDictionary(ViewData) { { "AllowTwo", true } })' />
-            }
+            @await RenderEmbeddedPartialAsync(partial)
         }
         else if (rendered is string html)
         {
             @Html.Raw(html)
         }
+    }
+}
+
+@functions {
+    private async Task<IHtmlContent> RenderEmbeddedPartialAsync(EmbeddedPartial partial)
+    {
+        string contentType = partial.Model?.ContentType;
+
+        switch (contentType)
+        {
+            case "CallToAction":
+                return await RenderCallToActionAsync(partial.Model);
+            case "TriviaList":
+                return await Html.PartialAsync("PublicationTemplateTriviaList", partial.Model);
+            case "TriviaCards":
+                return await Html.PartialAsync("PublicationTemplateTriviaCards", partial.Model);
+            default:
+                return await Html.PartialAsync(partial.PartialName, partial.Model, new ViewDataDictionary(ViewData) { { "AllowTwo", true } });
+        }
+    }
+
+    private async Task<IHtmlContent> RenderCallToActionAsync(dynamic model)
+    {
+        if (model is null)
+            return HtmlString.Empty;
+
+        CallToActionBanner banner = new()
+        {
+            Image = model.Image,
+            AltText = model.Title,
+            ButtonText = model.ButtonText,
+            Colour = model.ColourScheme,
+            Link = model.Link,
+            Teaser = model.Teaser,
+            Title = model.Title
+        };
+        
+        return await Html.PartialAsync("CallToAction", banner, new ViewDataDictionary(ViewData)
+        {
+            { "AdditionalCssClass", "content-block content-block--margin-extra" }
+        });
     }
 }
