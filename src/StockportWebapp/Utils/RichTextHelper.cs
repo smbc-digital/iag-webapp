@@ -170,14 +170,21 @@ public class RichTextHelper : IRichTextHelper
         
         bool hasCaption = !string.IsNullOrEmpty(caption);
         string imgClass = hasCaption ? string.Empty : "class=\"image-rounded\"";
+        string srcset = $"{url}?w=722&q=89&fm=webp 722w, " +
+                    $"{url}?w=969&q=89&fm=webp 969w, " +
+                    $"{url}?w=852&q=89&fm=webp 852w";
+
+        string sizes = $"(max-width: 767px) 722px, " +
+                    $"(min-width: 768px) and (max-width: 1023px) 969px, " +
+                    $"(min-width: 1024px) 852px";
 
         if (string.IsNullOrEmpty(floatClass) && string.IsNullOrEmpty(caption))
-            return $"<img src=\"{url}\" alt=\"{alt}\" {imgClass} />";
+            return $"<img src=\"{url}?q=89&fm=webp\" alt=\"{alt}\" {imgClass} srcset=\"{srcset}\" sizes=\"{sizes}\" />";
 
         StringBuilder stringBuilder = new();
 
         stringBuilder.Append($@"<figure class=""{floatClass}"">");
-        stringBuilder.Append($@"<p><img src=""{url}"" alt=""{alt}"" {imgClass} /></p>");
+        stringBuilder.Append($@"<p><img src=""{url}?q=89&fm=webp"" alt=""{alt}"" {imgClass} srcset=""{srcset}"" sizes=""{sizes}"" /></p>");
 
         if (!string.IsNullOrEmpty(caption))
             stringBuilder.Append($"<figcaption>{caption}</figcaption>");
