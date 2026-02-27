@@ -239,7 +239,14 @@ public class RichTextHelperTests
         object result = _helper.RenderNode(json, 0);
         
         // Assert
-        Assert.Equal("<img src=\"/img.png\" alt=\"alt\" class=\"image-rounded\" />", result);
+        string html = result.ToString();
+
+        Assert.StartsWith("<img", html);
+        Assert.Contains("src=\"/img.png?q=89&fm=webp\"", html);
+        Assert.Contains("alt=\"alt\"", html);
+        Assert.Contains("class=\"image-rounded\"", html);
+        Assert.Contains("srcset=", html);
+        Assert.Contains("sizes=", html);
     }
 
     [Fact]
@@ -456,8 +463,8 @@ public class RichTextHelperTests
         object result = _helper.RenderNode(json, 1);
         
         // Assert
-        Assert.Contains("figure class=\"image-left\"", result.ToString());
-        Assert.Contains("img src=\"/img.png\"", result.ToString());
+        Assert.Contains("<figure class=\"image-left\"><p><img src=\"/img.png?q=89&fm=webp\" alt=\"alt\" class=\"image-rounded\" srcset=\"/img.png?w=722&q=89&fm=webp 722w, /img.png?w=969&q=89&fm=webp 969w, /img.png?w=852&q=89&fm=webp 852w\" sizes=\"(max-width: 767px) 722px, (min-width: 768px) and (max-width: 1023px) 969px, (min-width: 1024px) 852px\" /></p></figure>", result.ToString());
+        Assert.Contains("img src=\"/img.png?q=89&fm=webp\"", result.ToString());
     }
 
     [Fact]
@@ -478,10 +485,13 @@ public class RichTextHelperTests
 
         // Act
         object result = _helper.RenderNode(json, 1);
-        
+
         // Assert
-        Assert.Contains("figure class=\"image-right\"", result.ToString());
-        Assert.Contains("img src=\"/img.png\"", result.ToString());
+        string html = result.ToString();
+
+        Assert.Contains("figure class=\"image-right\"", html);
+        Assert.Contains("src=\"/img.png", html);
+        Assert.Contains("image-rounded", html);
     }
 
     [Fact]
