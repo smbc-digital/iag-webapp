@@ -167,14 +167,17 @@ public class RichTextHelper : IRichTextHelper
         string alt = target.GetStringOrDefault("description");
         string floatClass = GetFloatClass(parent, index - 1) ?? GetFloatClass(parent, index + 1);
         string caption = TryGetCaption(parent, index - 1) ?? TryGetCaption(parent, index + 1);
+        
+        bool hasCaption = !string.IsNullOrEmpty(caption);
+        string imgClass = hasCaption ? string.Empty : "class=\"image-rounded\"";
 
         if (string.IsNullOrEmpty(floatClass) && string.IsNullOrEmpty(caption))
-            return $"<img src=\"{url}\" alt=\"{alt}\" />";
+            return $"<img src=\"{url}\" alt=\"{alt}\" {imgClass} />";
 
         StringBuilder stringBuilder = new();
 
         stringBuilder.Append($@"<figure class=""{floatClass}"">");
-        stringBuilder.Append($@"<p><img src=""{url}"" alt=""{alt}"" /></p>");
+        stringBuilder.Append($@"<p><img src=""{url}"" alt=""{alt}"" {imgClass} /></p>");
 
         if (!string.IsNullOrEmpty(caption))
             stringBuilder.Append($"<figcaption>{caption}</figcaption>");

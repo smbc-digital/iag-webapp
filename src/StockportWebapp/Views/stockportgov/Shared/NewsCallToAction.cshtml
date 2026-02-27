@@ -9,7 +9,7 @@
                         : (string)ViewData["AdditionalCssClass"];
     
     <div class="section call-to-action @additionalCSS" data-cy="call-to-action">
-        <img src="@Model.Image?w=500&q=89" srcset="@Model.Image?w=500&q=89&fm=webp" class="call-to-action__image" loading="lazy" alt="@Model.AltText" width="452" height="342">
+        <img src="@Model.Image?w=500&q=89" srcset="@Model.Image?w=500&q=89&fm=webp" class="call-to-action__image call-to-action__image--hidden" loading="lazy" alt="@Model.AltText" width="452" height="342">
         
         <div class="call-to-action-content @containerColourClass">
             <h2 class="call-to-action-content__title ">@Model.Title</h2>

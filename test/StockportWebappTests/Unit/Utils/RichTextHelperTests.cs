@@ -239,7 +239,7 @@ public class RichTextHelperTests
         object result = _helper.RenderNode(json, 0);
         
         // Assert
-        Assert.Equal("<img src=\"/img.png\" alt=\"alt\" />", result);
+        Assert.Equal("<img src=\"/img.png\" alt=\"alt\" class=\"image-rounded\" />", result);
     }
 
     [Fact]
