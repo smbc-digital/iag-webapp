@@ -14,8 +14,8 @@
         $(".site-header_mobile-search-button").click(function () {
             $("#siteHeaderMobileSearchInput").slideToggle(220);
             
-            var isMobile = window.matchMedia("(max-width: 1024px)").matches;
-            if (isMobile) {
+            var isNotDesktop = window.matchMedia("(max-width: 1024px)").matches;
+            if (isNotDesktop) {
                 var expanded = $(this).attr("aria-expanded") === "true" || false;
 
                 $(this).attr("aria-expanded", !expanded);
