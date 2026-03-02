@@ -13,6 +13,14 @@
         /*This is the behaviour for the new header search - potentially for the "mege menu" */
         $(".site-header_mobile-search-button").click(function () {
             $("#siteHeaderMobileSearchInput").slideToggle(220);
+            
+            var isNotDesktop = window.matchMedia("(max-width: 1024px)").matches;
+            if (isNotDesktop) {
+                var expanded = $(this).attr("aria-expanded") === "true" || false;
+
+                $(this).attr("aria-expanded", !expanded);
+                $(this).attr("aria-label", expanded ? "Open search" : "Close search");
+            }
         });
         
         if (isIE()) {
