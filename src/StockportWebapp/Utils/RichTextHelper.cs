@@ -179,12 +179,12 @@ public class RichTextHelper : IRichTextHelper
                     $"(min-width: 1024px) 852px";
 
         if (string.IsNullOrEmpty(floatClass) && string.IsNullOrEmpty(caption))
-            return $"<img src=\"{url}?q=89&fm=webp\" alt=\"{alt}\" {imgClass} srcset=\"{srcset}\" sizes=\"{sizes}\" />";
+            return $"<img src=\"{url}?q=89&fm=webp\" alt=\"{alt}\" {imgClass} srcset=\"{srcset}\" sizes=\"{sizes}\" loading=\"lazy\" />";
 
         StringBuilder stringBuilder = new();
 
         stringBuilder.Append($@"<figure class=""{floatClass}"">");
-        stringBuilder.Append($@"<p><img src=""{url}?q=89&fm=webp"" alt=""{alt}"" {imgClass} srcset=""{srcset}"" sizes=""{sizes}"" /></p>");
+        stringBuilder.Append($@"<p><img src=""{url}?q=89&fm=webp"" alt=""{alt}"" {imgClass} srcset=""{srcset}"" sizes=""{sizes}"" loading=""lazy"" /></p>");
 
         if (!string.IsNullOrEmpty(caption))
             stringBuilder.Append($"<figcaption>{caption}</figcaption>");

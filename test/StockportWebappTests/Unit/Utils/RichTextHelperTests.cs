@@ -463,7 +463,7 @@ public class RichTextHelperTests
         object result = _helper.RenderNode(json, 1);
         
         // Assert
-        Assert.Contains("<figure class=\"image-left\"><p><img src=\"/img.png?q=89&fm=webp\" alt=\"alt\" class=\"image-rounded\" srcset=\"/img.png?w=722&q=89&fm=webp 722w, /img.png?w=969&q=89&fm=webp 969w, /img.png?w=852&q=89&fm=webp 852w\" sizes=\"(max-width: 767px) 722px, (min-width: 768px) and (max-width: 1023px) 969px, (min-width: 1024px) 852px\" /></p></figure>", result.ToString());
+        Assert.Contains("<figure class=\"image-left\"><p><img src=\"/img.png?q=89&fm=webp\" alt=\"alt\" class=\"image-rounded\" srcset=\"/img.png?w=722&q=89&fm=webp 722w, /img.png?w=969&q=89&fm=webp 969w, /img.png?w=852&q=89&fm=webp 852w\" sizes=\"(max-width: 767px) 722px, (min-width: 768px) and (max-width: 1023px) 969px, (min-width: 1024px) 852px\" loading=\"lazy\" /></p></figure>", result.ToString());
         Assert.Contains("img src=\"/img.png?q=89&fm=webp\"", result.ToString());
     }
 
