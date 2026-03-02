@@ -84,6 +84,11 @@ figcaption {
         }
     }
 
+    .image-rounded {
+        border-bottom-left-radius: 3px !important;
+        border-bottom-right-radius: 3px !important;
+    }
+
     figcaption {
         background-color: $stockport-black;
         border-radius: 0 0 3px 3px;
@@ -127,6 +132,12 @@ figcaption {
 html[dir="rtl"] {
     img[src*='#right'], .image-right {
         float: left;
+    }
+
+    .image-right, .image-left {
+        @media #{$mobile} {
+            float: unset !important;
+        }
     }
 
     img[src*='#left'], .image-left {
