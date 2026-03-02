@@ -45,7 +45,6 @@
     var onlySubmitFormIfValid = function () {
         $("form")
             .submit(function (e) {
-                console.log("form submission triggered");
                 var chars = $(".chars-remaining");
                 if (chars.length > 0) {
                     $input = chars.siblings(".form-control-deep");
