@@ -8,8 +8,6 @@ public class PublicationPage
     public string MetaDescription { get; set; }
     public List<PublicationSection> PublicationSections { get; set; }
     public JsonElement Body { get; set; }
-    public IEnumerable<Alert> AlertsInline { get; set; }
-    public List<InlineQuote> InlineQuotes { get; set; }
     public string LogoAreaTitle { get; set; }
     public List<TrustedLogo> TrustedLogos { get; set; }
 }

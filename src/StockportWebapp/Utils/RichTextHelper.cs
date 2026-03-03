@@ -5,15 +5,15 @@ public interface IRichTextHelper
     object RenderNode(JsonElement parent, int index);
 }
 
-public class RichTextHelper : IRichTextHelper
+public class RichTextHelper(IViewRender viewRenderer) : IRichTextHelper
 {
+    private IViewRender _viewRenderer = viewRenderer;
+
     public object RenderNode(JsonElement parent, int index)
     {
-        if (parent.ValueKind != JsonValueKind.Array ||
-            index < 0 ||
-            index >= parent.GetArrayLength())
+        if (!IsValidIndex(parent, index))
             return string.Empty;
-
+        
         JsonElement node = parent[index];
         string nodeType = node.GetProperty("nodeType").GetString() ?? string.Empty;
 
@@ -42,6 +42,11 @@ public class RichTextHelper : IRichTextHelper
         };
     }
 
+    private static bool IsValidIndex(JsonElement parent, int index) =>
+        parent.ValueKind == JsonValueKind.Array &&
+        index >= 0 &&
+        index < parent.GetArrayLength();
+
     private string RenderChildren(JsonElement node)
     {
         if (!node.TryGetProperty("content", out JsonElement content) ||
@@ -61,20 +66,19 @@ public class RichTextHelper : IRichTextHelper
     private static string Wrap(string tag, string content)
         => $"<{tag}>{content}</{tag}>";
     
-    #region Text rendering
+    #region Text
 
-    private string RenderText(JsonElement node)
+    private static string RenderText(JsonElement node)
     {
-        string text = node.GetProperty("value").GetString() ?? string.Empty;
+        string text = node.GetStringOrDefault("value");
+        JsonElement marks = node.GetPropertyOrDefault("marks");
 
-        if (!node.TryGetProperty("marks", out JsonElement marks) ||
-                marks.ValueKind != JsonValueKind.Array ||
-                !marks.EnumerateArray().Any())
+        if (marks.ValueKind != JsonValueKind.Array || marks.GetArrayLength() == 0)
             return text;
 
         foreach (JsonElement mark in marks.EnumerateArray())
         {
-            string type = mark.GetProperty("type").GetString() ?? string.Empty;
+            string type = mark.GetStringOrDefault("type");
 
             text = type switch
             {
@@ -94,7 +98,7 @@ public class RichTextHelper : IRichTextHelper
 
     private string RenderHyperlink(JsonElement node)
     {
-        string uri = node.GetProperty("data").GetProperty("uri").GetString() ?? "#";
+        string uri = node.GetPropertyOrDefault("data").GetStringOrDefault("uri", "#");
 
         return $"<a href='{uri}'>{RenderChildren(node)}</a>";
     }
@@ -122,6 +126,20 @@ public class RichTextHelper : IRichTextHelper
 
     private object RenderEmbeddedEntry(JsonElement node)
     {
+        JsonElement obj = node
+            .GetPropertyOrDefault("data")
+            .GetPropertyOrDefault("target")
+            .GetPropertyOrDefault("jObject");
+
+        if (obj.ValueKind == JsonValueKind.Undefined)
+            return string.Empty;
+
+        if (IsContentType(obj, "alert"))
+            return RenderAlert(obj);
+
+        if (IsContentType(obj, "quote"))
+            return RenderQuote(obj);
+        
         ContentBlock contentBlock = GetEmbeddedContentBlock(node);
         if (contentBlock is null || string.IsNullOrEmpty(contentBlock.ContentType))
             return string.Empty;
@@ -129,7 +147,7 @@ public class RichTextHelper : IRichTextHelper
         return new EmbeddedPartial(contentBlock);
     }
 
-    private string RenderInlineEntry(JsonElement node)
+    private static string RenderInlineEntry(JsonElement node)
     {
         JsonElement obj = node.GetPropertyOrDefault("data")
             .GetPropertyOrDefault("target")
@@ -148,22 +166,92 @@ public class RichTextHelper : IRichTextHelper
             .GetPropertyOrDefault("target")
             .GetPropertyOrDefault("jObject");
 
-         if (obj.ValueKind == JsonValueKind.Undefined)
-             return null;
-
-         return ContentBlockAdapter.FromJson(obj);
+        return obj.ValueKind == JsonValueKind.Undefined
+            ? null
+            : ContentBlockAdapter.FromJson(obj);
     }
 
+    private static bool IsContentType(JsonElement obj, string type) =>
+        obj.GetPropertyOrDefault("sys")
+           .GetPropertyOrDefault("contentType")
+           .GetPropertyOrDefault("sys")
+           .GetStringOrDefault("id")
+           .Equals(type, StringComparison.OrdinalIgnoreCase);
+
+    private string RenderAlert(JsonElement obj)
+    {
+        string title = obj.GetStringOrDefault("title");
+        string body = obj.GetStringOrDefault("body");
+        string severity = obj.GetStringOrDefault("severity", Severity.Information);
+        
+        DateTime sunrise = obj.TryGetProperty("sunriseDate", out JsonElement sunriseProp) &&
+                        sunriseProp.TryGetDateTime(out DateTime sunriseDt)
+            ? sunriseDt
+            : DateTime.MinValue;
+
+        DateTime sunset = obj.TryGetProperty("sunsetDate", out JsonElement sunsetProp) &&
+                        sunsetProp.TryGetDateTime(out DateTime sunsetDt)
+            ? sunsetDt
+            : DateTime.MaxValue;
+
+        string slug  = obj.GetStringOrDefault("slug");
+
+        bool isStatic = obj.TryGetProperty("isStatic", out JsonElement staticProp) &&
+                        staticProp.ValueKind == JsonValueKind.True;
+
+        string imageUrl = obj.GetStringOrDefault("imageUrl");
+
+        Alert alert = new(title, body, severity, sunrise, sunset, slug, isStatic, imageUrl);
+
+        if (severity.Equals(Severity.Warning) || severity.Equals(Severity.Error))
+            return _viewRenderer.Render("AlertsInlineWarning", alert);
+
+        return _viewRenderer.Render("AlertsInline", alert);
+    }
+
+    private string RenderQuote(JsonElement obj)
+    {
+        string image = GetNestedString(obj, "image", "fields", "file", "url");
+        string imageAlt = obj.GetStringOrDefault("imageAltText");
+        string quote = obj.GetStringOrDefault("quote");
+        string author = obj.GetStringOrDefault("author");
+        string slug = obj.GetStringOrDefault("slug");
+
+        EColourScheme theme = EColourScheme.Teal;
+        if (obj.TryGetProperty("theme", out JsonElement themeProp) &&
+            themeProp.ValueKind == JsonValueKind.String)
+            Enum.TryParse(themeProp.GetString(), true, out theme);
+
+        InlineQuote model = new(image, imageAlt, quote, author, slug, theme);
+
+        return _viewRenderer.Render("InlineQuote", model);
+    }
+
+    private static string GetNestedString(JsonElement obj, params string[] path)
+    {
+        JsonElement current = obj;
+
+        foreach (string segment in path)
+        {
+            if (!current.TryGetProperty(segment, out current))
+                return string.Empty;
+        }
+
+        return current.ValueKind == JsonValueKind.String
+            ? current.GetString() ?? string.Empty
+            : string.Empty;
+    }
+    
     #endregion
 
     #region Assets
 
-    private string RenderEmbeddedAsset(JsonElement parent, int index)
+    private static string RenderEmbeddedAsset(JsonElement parent, int index)
     {
         JsonElement node = parent[index];
         JsonElement target = node.GetPropertyOrDefault("data").GetPropertyOrDefault("target");
 
-        string url = GetAssetUrl(target);
+        string url = target.GetPropertyOrDefault("file").GetStringOrDefault("url", "#");
         string alt = target.GetStringOrDefault("description");
         string floatClass = GetFloatClass(parent, index - 1) ?? GetFloatClass(parent, index + 1);
         string caption = TryGetCaption(parent, index - 1) ?? TryGetCaption(parent, index + 1);
@@ -194,9 +282,6 @@ public class RichTextHelper : IRichTextHelper
         return stringBuilder.ToString();
     }
 
-    private static string GetAssetUrl(JsonElement target) =>
-        target.GetPropertyOrDefault("file").GetStringOrDefault("url", "#");
-
     #endregion
 
     #region Caption / float parsing
@@ -219,7 +304,7 @@ public class RichTextHelper : IRichTextHelper
             return null;
 
         JsonElement node = parent[index];
-        if (!node.GetString("nodeType").Equals("paragraph"))
+        if (!node.GetStringOrDefault("nodeType").Equals("paragraph"))
             return null;
 
         JsonElement content = node.GetPropertyOrDefault("content");
@@ -243,7 +328,7 @@ public class RichTextHelper : IRichTextHelper
             return null;
         
         JsonElement node = parent[index];
-        if (!node.GetString("nodeType").Equals("paragraph"))
+        if (!node.GetStringOrDefault("nodeType").Equals("paragraph"))
             return null;
         
         JsonElement content = node.GetPropertyOrDefault("content");
@@ -262,12 +347,7 @@ public class RichTextHelper : IRichTextHelper
         return string.IsNullOrWhiteSpace(caption)
             ? null
             : caption;
-    }
-
-    private static bool IsValidIndex(JsonElement parent, int index) =>
-        parent.ValueKind == JsonValueKind.Array &&
-        index >= 0 &&
-        index < parent.GetArrayLength();
+    }    
 
     #endregion
 }
@@ -277,7 +357,7 @@ internal static class JsonExtensions
     public static JsonElement GetPropertyOrDefault(this JsonElement element, string name)
     {
         if (element.ValueKind == JsonValueKind.Object &&
-            element.TryGetProperty(name, out var value))
+            element.TryGetProperty(name, out JsonElement value))
             return value;
 
         return default;
@@ -286,13 +366,10 @@ internal static class JsonExtensions
     public static string GetStringOrDefault(this JsonElement element, string propertyName, string defaultValue = "")
     {
         if (element.ValueKind == JsonValueKind.Object &&
-            element.TryGetProperty(propertyName, out var value) &&
+            element.TryGetProperty(propertyName, out JsonElement value) &&
             value.ValueKind == JsonValueKind.String)
             return value.GetString() ?? defaultValue;
 
         return defaultValue;
     }
-
-    public static string GetString(this JsonElement element, string propertyName)
-        => element.GetStringOrDefault(propertyName, string.Empty);
 }

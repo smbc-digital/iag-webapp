@@ -82,6 +82,11 @@
         color: white;
     }
 
+    &--flex {
+        display: flex;
+        flex-direction: column;
+    }
+
     &__content {
         margin: 0px;
 
