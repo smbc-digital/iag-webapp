@@ -1,5 +1,3 @@
-using Microsoft.AspNetCore.Html;
-
 namespace StockportWebappTests_Unit.Unit.Utils;
 
 public class RichTextHelperTests

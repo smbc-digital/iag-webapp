@@ -11,11 +11,9 @@ public class RichTextHelper(IViewRender viewRenderer) : IRichTextHelper
 
     public object RenderNode(JsonElement parent, int index)
     {
-        if (parent.ValueKind != JsonValueKind.Array ||
-            index < 0 ||
-            index >= parent.GetArrayLength())
+        if (!IsValidIndex(parent, index))
             return string.Empty;
-
+        
         JsonElement node = parent[index];
         string nodeType = node.GetProperty("nodeType").GetString() ?? string.Empty;
 
@@ -44,6 +42,11 @@ public class RichTextHelper(IViewRender viewRenderer) : IRichTextHelper
         };
     }
 
+    private static bool IsValidIndex(JsonElement parent, int index) =>
+        parent.ValueKind == JsonValueKind.Array &&
+        index >= 0 &&
+        index < parent.GetArrayLength();
+
     private string RenderChildren(JsonElement node)
     {
         if (!node.TryGetProperty("content", out JsonElement content) ||
@@ -63,20 +66,19 @@ public class RichTextHelper(IViewRender viewRenderer) : IRichTextHelper
     private static string Wrap(string tag, string content)
         => $"<{tag}>{content}</{tag}>";
     
-    #region Text rendering
+    #region Text
 
     private string RenderText(JsonElement node)
     {
-        string text = node.GetProperty("value").GetString() ?? string.Empty;
+        string text = node.GetStringOrDefault("value");
+        JsonElement marks = node.GetPropertyOrDefault("marks");
 
-        if (!node.TryGetProperty("marks", out JsonElement marks) ||
-                marks.ValueKind != JsonValueKind.Array ||
-                !marks.EnumerateArray().Any())
+        if (marks.ValueKind != JsonValueKind.Array || marks.GetArrayLength() == 0)
             return text;
 
         foreach (JsonElement mark in marks.EnumerateArray())
         {
-            string type = mark.GetProperty("type").GetString() ?? string.Empty;
+            string type = mark.GetStringOrDefault("type");
 
             text = type switch
             {
@@ -96,7 +98,7 @@ public class RichTextHelper(IViewRender viewRenderer) : IRichTextHelper
 
     private string RenderHyperlink(JsonElement node)
     {
-        string uri = node.GetProperty("data").GetProperty("uri").GetString() ?? "#";
+        string uri = node.GetPropertyOrDefault("data").GetStringOrDefault("uri", "#");
 
         return $"<a href='{uri}'>{RenderChildren(node)}</a>";
     }
@@ -124,9 +126,12 @@ public class RichTextHelper(IViewRender viewRenderer) : IRichTextHelper
 
     private object RenderEmbeddedEntry(JsonElement node)
     {
-        if (!node.TryGetProperty("data", out var data) ||
-            !data.TryGetProperty("target", out var target) ||
-            !target.TryGetProperty("jObject", out var obj))
+        JsonElement obj = node
+            .GetPropertyOrDefault("data")
+            .GetPropertyOrDefault("target")
+            .GetPropertyOrDefault("jObject");
+
+        if (obj.ValueKind == JsonValueKind.Undefined)
             return string.Empty;
 
         if (IsContentType(obj, "alert"))
@@ -161,53 +166,40 @@ public class RichTextHelper(IViewRender viewRenderer) : IRichTextHelper
             .GetPropertyOrDefault("target")
             .GetPropertyOrDefault("jObject");
 
-         if (obj.ValueKind == JsonValueKind.Undefined)
-             return null;
-
-         return ContentBlockAdapter.FromJson(obj);
+        return obj.ValueKind == JsonValueKind.Undefined
+            ? null
+            : ContentBlockAdapter.FromJson(obj);
     }
 
-    private bool IsContentType(JsonElement obj, string type) =>
-        obj.TryGetProperty("sys", out var sys) &&
-        sys.TryGetProperty("contentType", out var ct) &&
-        ct.TryGetProperty("sys", out var ctSys) &&
-        ctSys.TryGetProperty("id", out var idProp) &&
-        idProp.GetString()?.Equals(type, StringComparison.OrdinalIgnoreCase) == true;
+    private static bool IsContentType(JsonElement obj, string type) =>
+        obj.GetPropertyOrDefault("sys")
+           .GetPropertyOrDefault("contentType")
+           .GetPropertyOrDefault("sys")
+           .GetStringOrDefault("id")
+           .Equals(type, StringComparison.OrdinalIgnoreCase);
 
     private string RenderAlert(JsonElement obj)
     {
-        string title = obj.TryGetProperty("title", out var titleProp)
-            ? titleProp.GetString() ?? string.Empty
-            : string.Empty;
-
-        string body = obj.TryGetProperty("body", out var bodyProp)
-            ? bodyProp.GetString() ?? string.Empty
-            : string.Empty;
-
-        string severity = obj.TryGetProperty("severity", out var sevProp)
-            ? sevProp.GetString() ?? Severity.Information
-            : Severity.Information;
-
-        DateTime sunrise = obj.TryGetProperty("sunriseDate", out var sunriseProp) &&
-                        sunriseProp.TryGetDateTime(out var sunriseDt)
+        string title = obj.GetStringOrDefault("title");
+        string body = obj.GetStringOrDefault("body");
+        string severity = obj.GetStringOrDefault("severity", Severity.Information);
+        
+        DateTime sunrise = obj.TryGetProperty("sunriseDate", out JsonElement sunriseProp) &&
+                        sunriseProp.TryGetDateTime(out DateTime sunriseDt)
             ? sunriseDt
             : DateTime.MinValue;
 
-        DateTime sunset = obj.TryGetProperty("sunsetDate", out var sunsetProp) &&
-                        sunsetProp.TryGetDateTime(out var sunsetDt)
+        DateTime sunset = obj.TryGetProperty("sunsetDate", out JsonElement sunsetProp) &&
+                        sunsetProp.TryGetDateTime(out DateTime sunsetDt)
             ? sunsetDt
             : DateTime.MaxValue;
 
-        string slug = obj.TryGetProperty("slug", out var slugProp)
-            ? slugProp.GetString() ?? string.Empty
-            : string.Empty;
+        string slug  = obj.GetStringOrDefault("slug");
 
-        bool isStatic = obj.TryGetProperty("isStatic", out var staticProp) &&
+        bool isStatic = obj.TryGetProperty("isStatic", out JsonElement staticProp) &&
                         staticProp.ValueKind == JsonValueKind.True;
 
-        string imageUrl = obj.TryGetProperty("imageUrl", out var imgProp)
-            ? imgProp.GetString() ?? string.Empty
-            : string.Empty;
+        string imageUrl = obj.GetStringOrDefault("imageUrl");
 
         Alert alert = new(title, body, severity, sunrise, sunset, slug, isStatic, imageUrl);
 
@@ -220,13 +212,13 @@ public class RichTextHelper(IViewRender viewRenderer) : IRichTextHelper
     private string RenderQuote(JsonElement obj)
     {
         string image = GetNestedString(obj, "image", "fields", "file", "url");
-        string imageAlt = GetSafeString(obj, "imageAltText");
-        string quote = GetSafeString(obj, "quote");
-        string author = GetSafeString(obj, "author");
-        string slug = GetSafeString(obj, "slug");
+        string imageAlt = obj.GetStringOrDefault("imageAltText");
+        string quote = obj.GetStringOrDefault("quote");
+        string author = obj.GetStringOrDefault("author");
+        string slug = obj.GetStringOrDefault("slug");
 
         EColourScheme theme = EColourScheme.Teal;
-        if (obj.TryGetProperty("theme", out var themeProp) &&
+        if (obj.TryGetProperty("theme", out JsonElement themeProp) &&
             themeProp.ValueKind == JsonValueKind.String)
             Enum.TryParse(themeProp.GetString(), true, out theme);
 
@@ -235,20 +227,11 @@ public class RichTextHelper(IViewRender viewRenderer) : IRichTextHelper
         return _viewRenderer.Render("InlineQuote", model);
     }
 
-    private string GetSafeString(JsonElement obj, string propertyName)
-    {
-        if (obj.TryGetProperty(propertyName, out var prop) &&
-            prop.ValueKind == JsonValueKind.String)
-            return prop.GetString() ?? string.Empty;
-
-        return string.Empty;
-    }
-
     private string GetNestedString(JsonElement obj, params string[] path)
     {
         JsonElement current = obj;
 
-        foreach (var segment in path)
+        foreach (string segment in path)
         {
             if (!current.TryGetProperty(segment, out current))
                 return string.Empty;
@@ -268,7 +251,7 @@ public class RichTextHelper(IViewRender viewRenderer) : IRichTextHelper
         JsonElement node = parent[index];
         JsonElement target = node.GetPropertyOrDefault("data").GetPropertyOrDefault("target");
 
-        string url = GetAssetUrl(target);
+        string url = target.GetPropertyOrDefault("file").GetStringOrDefault("url", "#");
         string alt = target.GetStringOrDefault("description");
         string floatClass = GetFloatClass(parent, index - 1) ?? GetFloatClass(parent, index + 1);
         string caption = TryGetCaption(parent, index - 1) ?? TryGetCaption(parent, index + 1);
@@ -299,9 +282,6 @@ public class RichTextHelper(IViewRender viewRenderer) : IRichTextHelper
         return stringBuilder.ToString();
     }
 
-    private static string GetAssetUrl(JsonElement target) =>
-        target.GetPropertyOrDefault("file").GetStringOrDefault("url", "#");
-
     #endregion
 
     #region Caption / float parsing
@@ -324,7 +304,7 @@ public class RichTextHelper(IViewRender viewRenderer) : IRichTextHelper
             return null;
 
         JsonElement node = parent[index];
-        if (!node.GetString("nodeType").Equals("paragraph"))
+        if (!node.GetStringOrDefault("nodeType").Equals("paragraph"))
             return null;
 
         JsonElement content = node.GetPropertyOrDefault("content");
@@ -348,7 +328,7 @@ public class RichTextHelper(IViewRender viewRenderer) : IRichTextHelper
             return null;
         
         JsonElement node = parent[index];
-        if (!node.GetString("nodeType").Equals("paragraph"))
+        if (!node.GetStringOrDefault("nodeType").Equals("paragraph"))
             return null;
         
         JsonElement content = node.GetPropertyOrDefault("content");
@@ -367,12 +347,7 @@ public class RichTextHelper(IViewRender viewRenderer) : IRichTextHelper
         return string.IsNullOrWhiteSpace(caption)
             ? null
             : caption;
-    }
-
-    private static bool IsValidIndex(JsonElement parent, int index) =>
-        parent.ValueKind == JsonValueKind.Array &&
-        index >= 0 &&
-        index < parent.GetArrayLength();
+    }    
 
     #endregion
 }
@@ -382,7 +357,7 @@ internal static class JsonExtensions
     public static JsonElement GetPropertyOrDefault(this JsonElement element, string name)
     {
         if (element.ValueKind == JsonValueKind.Object &&
-            element.TryGetProperty(name, out var value))
+            element.TryGetProperty(name, out JsonElement value))
             return value;
 
         return default;
@@ -391,13 +366,10 @@ internal static class JsonExtensions
     public static string GetStringOrDefault(this JsonElement element, string propertyName, string defaultValue = "")
     {
         if (element.ValueKind == JsonValueKind.Object &&
-            element.TryGetProperty(propertyName, out var value) &&
+            element.TryGetProperty(propertyName, out JsonElement value) &&
             value.ValueKind == JsonValueKind.String)
             return value.GetString() ?? defaultValue;
 
         return defaultValue;
     }
-
-    public static string GetString(this JsonElement element, string propertyName)
-        => element.GetStringOrDefault(propertyName, string.Empty);
 }
