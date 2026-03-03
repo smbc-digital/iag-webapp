@@ -5,8 +5,10 @@ public interface IRichTextHelper
     object RenderNode(JsonElement parent, int index);
 }
 
-public class RichTextHelper : IRichTextHelper
+public class RichTextHelper(IViewRender viewRenderer) : IRichTextHelper
 {
+    private IViewRender _viewRenderer = viewRenderer;
+
     public object RenderNode(JsonElement parent, int index)
     {
         if (parent.ValueKind != JsonValueKind.Array ||
@@ -122,6 +124,17 @@ public class RichTextHelper : IRichTextHelper
 
     private object RenderEmbeddedEntry(JsonElement node)
     {
+        if (!node.TryGetProperty("data", out var data) ||
+            !data.TryGetProperty("target", out var target) ||
+            !target.TryGetProperty("jObject", out var obj))
+            return string.Empty;
+
+        if (IsContentType(obj, "alert"))
+            return RenderAlert(obj);
+
+        if (IsContentType(obj, "quote"))
+            return RenderQuote(obj);
+        
         ContentBlock contentBlock = GetEmbeddedContentBlock(node);
         if (contentBlock is null || string.IsNullOrEmpty(contentBlock.ContentType))
             return string.Empty;
@@ -154,6 +167,98 @@ public class RichTextHelper : IRichTextHelper
          return ContentBlockAdapter.FromJson(obj);
     }
 
+    private bool IsContentType(JsonElement obj, string type) =>
+        obj.TryGetProperty("sys", out var sys) &&
+        sys.TryGetProperty("contentType", out var ct) &&
+        ct.TryGetProperty("sys", out var ctSys) &&
+        ctSys.TryGetProperty("id", out var idProp) &&
+        idProp.GetString()?.Equals(type, StringComparison.OrdinalIgnoreCase) == true;
+
+    private string RenderAlert(JsonElement obj)
+    {
+        string title = obj.TryGetProperty("title", out var titleProp)
+            ? titleProp.GetString() ?? string.Empty
+            : string.Empty;
+
+        string body = obj.TryGetProperty("body", out var bodyProp)
+            ? bodyProp.GetString() ?? string.Empty
+            : string.Empty;
+
+        string severity = obj.TryGetProperty("severity", out var sevProp)
+            ? sevProp.GetString() ?? Severity.Information
+            : Severity.Information;
+
+        DateTime sunrise = obj.TryGetProperty("sunriseDate", out var sunriseProp) &&
+                        sunriseProp.TryGetDateTime(out var sunriseDt)
+            ? sunriseDt
+            : DateTime.MinValue;
+
+        DateTime sunset = obj.TryGetProperty("sunsetDate", out var sunsetProp) &&
+                        sunsetProp.TryGetDateTime(out var sunsetDt)
+            ? sunsetDt
+            : DateTime.MaxValue;
+
+        string slug = obj.TryGetProperty("slug", out var slugProp)
+            ? slugProp.GetString() ?? string.Empty
+            : string.Empty;
+
+        bool isStatic = obj.TryGetProperty("isStatic", out var staticProp) &&
+                        staticProp.ValueKind == JsonValueKind.True;
+
+        string imageUrl = obj.TryGetProperty("imageUrl", out var imgProp)
+            ? imgProp.GetString() ?? string.Empty
+            : string.Empty;
+
+        Alert alert = new(title, body, severity, sunrise, sunset, slug, isStatic, imageUrl);
+
+        if (severity.Equals(Severity.Warning) || severity.Equals(Severity.Error))
+            return _viewRenderer.Render("AlertsInlineWarning", alert);
+
+        return _viewRenderer.Render("AlertsInline", alert);
+    }
+
+    private string RenderQuote(JsonElement obj)
+    {
+        string image = GetNestedString(obj, "image", "fields", "file", "url");
+        string imageAlt = GetSafeString(obj, "imageAltText");
+        string quote = GetSafeString(obj, "quote");
+        string author = GetSafeString(obj, "author");
+        string slug = GetSafeString(obj, "slug");
+
+        EColourScheme theme = EColourScheme.Teal;
+        if (obj.TryGetProperty("theme", out var themeProp) &&
+            themeProp.ValueKind == JsonValueKind.String)
+            Enum.TryParse(themeProp.GetString(), true, out theme);
+
+        InlineQuote model = new(image, imageAlt, quote, author, slug, theme);
+
+        return _viewRenderer.Render("InlineQuote", model);
+    }
+
+    private string GetSafeString(JsonElement obj, string propertyName)
+    {
+        if (obj.TryGetProperty(propertyName, out var prop) &&
+            prop.ValueKind == JsonValueKind.String)
+            return prop.GetString() ?? string.Empty;
+
+        return string.Empty;
+    }
+
+    private string GetNestedString(JsonElement obj, params string[] path)
+    {
+        JsonElement current = obj;
+
+        foreach (var segment in path)
+        {
+            if (!current.TryGetProperty(segment, out current))
+                return string.Empty;
+        }
+
+        return current.ValueKind == JsonValueKind.String
+            ? current.GetString() ?? string.Empty
+            : string.Empty;
+    }
+    
     #endregion
 
     #region Assets

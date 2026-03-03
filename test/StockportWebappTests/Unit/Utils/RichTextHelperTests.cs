@@ -4,13 +4,13 @@ namespace StockportWebappTests_Unit.Unit.Utils;
 
 public class RichTextHelperTests
 {
-    private readonly RichTextHelper _helper = new();
+    private readonly Mock<IViewRender> _viewRenderer = new();
+    private readonly RichTextHelper _helper;
 
-    private static JsonElement Parse(string json)
-        => JsonDocument.Parse(json).RootElement;
-
-    private static string RenderAsString(JsonElement parent, int index)
-        => new RichTextHelper().RenderNode(parent, index) as string ?? string.Empty;
+    public RichTextHelperTests()
+    {
+        _helper = new RichTextHelper(_viewRenderer.Object);
+    }
 
     [Fact]
     public void RenderNode_ReturnsEmpty_WhenParentIsNotArray()
