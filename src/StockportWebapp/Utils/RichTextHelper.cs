@@ -68,7 +68,7 @@ public class RichTextHelper(IViewRender viewRenderer) : IRichTextHelper
     
     #region Text
 
-    private string RenderText(JsonElement node)
+    private static string RenderText(JsonElement node)
     {
         string text = node.GetStringOrDefault("value");
         JsonElement marks = node.GetPropertyOrDefault("marks");
@@ -147,7 +147,7 @@ public class RichTextHelper(IViewRender viewRenderer) : IRichTextHelper
         return new EmbeddedPartial(contentBlock);
     }
 
-    private string RenderInlineEntry(JsonElement node)
+    private static string RenderInlineEntry(JsonElement node)
     {
         JsonElement obj = node.GetPropertyOrDefault("data")
             .GetPropertyOrDefault("target")
@@ -227,7 +227,7 @@ public class RichTextHelper(IViewRender viewRenderer) : IRichTextHelper
         return _viewRenderer.Render("InlineQuote", model);
     }
 
-    private string GetNestedString(JsonElement obj, params string[] path)
+    private static string GetNestedString(JsonElement obj, params string[] path)
     {
         JsonElement current = obj;
 
@@ -246,7 +246,7 @@ public class RichTextHelper(IViewRender viewRenderer) : IRichTextHelper
 
     #region Assets
 
-    private string RenderEmbeddedAsset(JsonElement parent, int index)
+    private static string RenderEmbeddedAsset(JsonElement parent, int index)
     {
         JsonElement node = parent[index];
         JsonElement target = node.GetPropertyOrDefault("data").GetPropertyOrDefault("target");

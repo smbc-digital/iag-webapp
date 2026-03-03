@@ -350,6 +350,88 @@ public class RichTextHelperTests
     }
 
     [Fact]
+    public void RenderNode_EmbeddedEntry_RendersAlert_WhenContentTypeIsAlert()
+    {
+        // Arrange
+        JsonElement json = JsonDocument.Parse(@"
+        [
+            {
+                ""nodeType"": ""embedded-entry-block"",
+                ""data"": {
+                    ""target"": {
+                        ""jObject"": {
+                            ""sys"": {
+                                ""contentType"": { ""sys"": { ""id"": ""alert"" } }
+                            },
+                            ""title"": ""Test Alert"",
+                            ""body"": ""<p>Alert body</p>"",
+                            ""severity"": ""Warning"",
+                            ""slug"": ""test-alert""
+                        }
+                    }
+                }
+            }
+        ]").RootElement;
+
+        _viewRenderer
+            .Setup(view => view.Render("AlertsInlineWarning", It.IsAny<Alert>()))
+            .Returns("<div class=\"grid-100 alert-inline alert-inline--warning\">" +
+                        "<h2><span class=\"fa-solid fa-circle-exclamation alert-inline-icon\"></span> Test Alert</h2>" +
+                        "<p>Alert body</p>" +
+                    "</div>");
+
+        // Act
+        object result = _helper.RenderNode(json, 0);
+
+        // Assert
+        string html = result.ToString();
+        Assert.Contains("alert-inline--warning", html);
+        Assert.Contains("Test Alert", html);
+        Assert.Contains("<p>Alert body</p>", html);
+    }
+
+    [Fact]
+    public void RenderNode_EmbeddedEntry_RendersQuote_WhenContentTypeIsQuote()
+    {
+        // Arrange
+        JsonElement json = JsonDocument.Parse(@"
+        [
+            {
+                ""nodeType"": ""embedded-entry-block"",
+                ""data"": {
+                    ""target"": {
+                        ""jObject"": {
+                            ""sys"": {
+                                ""contentType"": {
+                                    ""sys"": { ""id"": ""quote"" }
+                                }
+                            },
+                            ""quote"": ""To be or not to be"",
+                            ""author"": ""Shakespeare"",
+                            ""slug"": ""quote-1"",
+                            ""theme"": ""Teal""
+                        }
+                    }
+                }
+            }
+        ]").RootElement;
+
+        _viewRenderer
+            .Setup(view => view.Render("InlineQuote", It.IsAny<InlineQuote>()))
+            .Returns(@"<div class=""profile-quote""><h2 class=""h-m"">Shakespeare</h2><div class=""profile-quote__border profile-quote__border-teal""><div class=""profile-quote__text lead""><span class=""h-s fa fa-quote-left profile-quote__marks""></span>To be or not to be<span class=""h-s fa fa-quote-right profile-quote__marks""></span></div></div></div>");
+
+        // Act
+        object result = _helper.RenderNode(json, 0);
+
+        // Assert
+        string html = result.ToString();
+        Assert.Contains("profile-quote", html);
+        Assert.Contains("Shakespeare", html);
+        Assert.Contains("To be or not to be", html);
+        Assert.Contains("profile-quote__border-teal", html);
+    }
+
+    [Fact]
     public void GetEmbeddedContentBlock_ReturnsNull_WhenNoJObject()
     {
         // Arrange
