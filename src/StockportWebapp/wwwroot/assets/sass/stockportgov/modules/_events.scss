@@ -253,6 +253,10 @@
             text-align: -webkit-left;
             text-align: -moz-left;
             margin: 0;
+
+            .content-block__title {
+                text-align: left;
+            }
         }
 
         &-view-more {
