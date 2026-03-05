@@ -133,7 +133,9 @@ public class RichTextHelper(IViewRender viewRenderer) : IRichTextHelper
             JsonElement cell = cells[i];
             string nodeType = cell.GetStringOrDefault("nodeType");
 
-            string tag = nodeType == "table-header-cell" ? "th" : "td";
+            string tag = nodeType.Equals("table-header-cell")
+                ? "th"
+                : "td";
 
             sb.Append(RenderTableCell(cell, tag, i, isHeader));
         }
@@ -147,7 +149,6 @@ public class RichTextHelper(IViewRender viewRenderer) : IRichTextHelper
     {
         string content = RenderChildren(node);
 
-        // Remove wrapping <p> tags inside table cells
         content = StripParagraphWrapper(content);
 
         if (isHeader)
@@ -155,17 +156,17 @@ public class RichTextHelper(IViewRender viewRenderer) : IRichTextHelper
             if (content.Contains(">>"))
             {
                 _columnAlignments[columnIndex] = "text-right";
-                content = content.Replace(">>", "");
+                content = content.Replace(">>", string.Empty);
             }
             else if (content.Contains("<<"))
             {
                 _columnAlignments[columnIndex] = "text-left";
-                content = content.Replace("<<", "");
+                content = content.Replace("<<", string.Empty);
             }
             else if (content.Contains("=="))
             {
                 _columnAlignments[columnIndex] = "text-center";
-                content = content.Replace("==", "");
+                content = content.Replace("==", string.Empty);
             }
         }
 
