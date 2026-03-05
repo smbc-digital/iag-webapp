@@ -668,6 +668,31 @@ public class RichTextHelperTests
     }
 
     [Fact]
+    public void RenderNode_WhenNodeTypeIsHr_RendersHorizontalRule()
+    {
+        // Arrange
+        string json = """
+        [
+            {
+                "nodeType": "hr",
+                "content": [],
+                "data": {
+                    "target": null
+                }
+            }
+        ]
+        """;
+
+        JsonElement element = JsonDocument.Parse(json).RootElement;
+
+        // Act
+        object result = _helper.RenderNode(element, 0);
+
+        // Assert
+        Assert.Equal("<hr />", result);
+    }
+
+    [Fact]
     public void GetEmbeddedContentBlock_ReturnsNull_WhenNoJObject()
     {
         // Arrange

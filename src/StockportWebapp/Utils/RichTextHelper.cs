@@ -32,6 +32,7 @@ public class RichTextHelper(IViewRender viewRenderer) : IRichTextHelper
             "unordered-list" => Wrap("ul", RenderChildren(node)),
             "ordered-list" => Wrap("ol", RenderChildren(node)),
             "list-item" => Wrap("li", RenderChildren(node)),
+            "hr" => RenderHorizontalRule(),
             "table" => RenderTable(node),
             "text" => RenderText(node),
             "hyperlink" => RenderHyperlink(node),
@@ -68,6 +69,9 @@ public class RichTextHelper(IViewRender viewRenderer) : IRichTextHelper
     private static string Wrap(string tag, string content)
         => $"<{tag}>{content}</{tag}>";
     
+    private static string RenderHorizontalRule() =>
+        "<hr />";
+
     #region Tables
     
     private string RenderTable(JsonElement node)
@@ -83,6 +87,7 @@ public class RichTextHelper(IViewRender viewRenderer) : IRichTextHelper
         sb.Append("<div class=\"table\"><table>");
 
         bool headerProcessed = false;
+        bool tbodyOpened = false;
 
         for (int i = 0; i < rows.GetArrayLength(); i++)
         {
@@ -92,16 +97,24 @@ public class RichTextHelper(IViewRender viewRenderer) : IRichTextHelper
             {
                 sb.Append("<thead>");
                 sb.Append(RenderTableRow(row, true));
-                sb.Append("</thead><tbody>");
+                sb.Append("</thead>");
                 headerProcessed = true;
+                continue;
             }
-            else
+
+            if (!tbodyOpened)
             {
-                sb.Append(RenderTableRow(row, false));
+                sb.Append("<tbody>");
+                tbodyOpened = true;
             }
+
+            sb.Append(RenderTableRow(row, false));
         }
 
-        sb.Append("</tbody></table></div>");
+        if (tbodyOpened)
+            sb.Append("</tbody>");
+
+        sb.Append("</table></div>");
 
         return sb.ToString();
     }
