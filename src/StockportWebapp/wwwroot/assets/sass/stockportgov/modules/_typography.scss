@@ -132,3 +132,15 @@ $fontStack: 'Lexend', 'Noto Sans', sans-serif;
 .h-xs {
     @include h-xs;
 }
+
+.text-right {
+    text-align:right;
+}
+
+.text-left {
+    text-align:left;
+}
+
+.text-center {
+    text-align:center;
+}
