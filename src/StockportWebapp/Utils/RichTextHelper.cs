@@ -8,6 +8,7 @@ public interface IRichTextHelper
 public class RichTextHelper(IViewRender viewRenderer) : IRichTextHelper
 {
     private IViewRender _viewRenderer = viewRenderer;
+    private Dictionary<int, string> _columnAlignments = new();
 
     public object RenderNode(JsonElement parent, int index)
     {
@@ -31,6 +32,8 @@ public class RichTextHelper(IViewRender viewRenderer) : IRichTextHelper
             "unordered-list" => Wrap("ul", RenderChildren(node)),
             "ordered-list" => Wrap("ol", RenderChildren(node)),
             "list-item" => Wrap("li", RenderChildren(node)),
+            "hr" => RenderHorizontalRule(),
+            "table" => RenderTable(node),
             "text" => RenderText(node),
             "hyperlink" => RenderHyperlink(node),
             "embedded-entry-block" => RenderEmbeddedEntry(node),
@@ -66,6 +69,146 @@ public class RichTextHelper(IViewRender viewRenderer) : IRichTextHelper
     private static string Wrap(string tag, string content)
         => $"<{tag}>{content}</{tag}>";
     
+    private static string RenderHorizontalRule() =>
+        "<hr />";
+
+    #region Tables
+    
+    private string RenderTable(JsonElement node)
+    {
+        _columnAlignments.Clear();
+
+        if (!node.TryGetProperty("content", out JsonElement rows) ||
+            rows.ValueKind != JsonValueKind.Array)
+            return string.Empty;
+
+        StringBuilder sb = new();
+
+        sb.Append("<div class=\"table\"><table>");
+
+        bool headerProcessed = false;
+        bool tbodyOpened = false;
+
+        for (int i = 0; i < rows.GetArrayLength(); i++)
+        {
+            JsonElement row = rows[i];
+
+            if (!headerProcessed && IsHeaderRow(row))
+            {
+                sb.Append("<thead>");
+                sb.Append(RenderTableRow(row, true));
+                sb.Append("</thead>");
+                headerProcessed = true;
+                continue;
+            }
+
+            if (!tbodyOpened)
+            {
+                sb.Append("<tbody>");
+                tbodyOpened = true;
+            }
+
+            sb.Append(RenderTableRow(row, false));
+        }
+
+        if (tbodyOpened)
+            sb.Append("</tbody>");
+
+        sb.Append("</table></div>");
+
+        return sb.ToString();
+    }
+
+    private string RenderTableRow(JsonElement node, bool isHeader)
+    {
+        if (!node.TryGetProperty("content", out JsonElement cells))
+            return "<tr></tr>";
+
+        StringBuilder sb = new();
+
+        sb.Append("<tr>");
+
+        for (int i = 0; i < cells.GetArrayLength(); i++)
+        {
+            JsonElement cell = cells[i];
+            string nodeType = cell.GetStringOrDefault("nodeType");
+
+            string tag = nodeType.Equals("table-header-cell")
+                ? "th"
+                : "td";
+
+            sb.Append(RenderTableCell(cell, tag, i, isHeader));
+        }
+
+        sb.Append("</tr>");
+
+        return sb.ToString();
+    }
+
+    private string RenderTableCell(JsonElement node, string tag, int columnIndex, bool isHeader)
+    {
+        string content = RenderChildren(node);
+
+        content = StripParagraphWrapper(content);
+
+        if (isHeader)
+        {
+            if (content.Contains(">>"))
+            {
+                _columnAlignments[columnIndex] = "text-right";
+                content = content.Replace(">>", string.Empty);
+            }
+            else if (content.Contains("<<"))
+            {
+                _columnAlignments[columnIndex] = "text-left";
+                content = content.Replace("<<", string.Empty);
+            }
+            else if (content.Contains("=="))
+            {
+                _columnAlignments[columnIndex] = "text-center";
+                content = content.Replace("==", string.Empty);
+            }
+        }
+
+        string alignmentClass = _columnAlignments.ContainsKey(columnIndex)
+            ? $" class=\"{_columnAlignments[columnIndex]}\""
+            : string.Empty;
+
+        return $"<{tag}{alignmentClass}>{content}</{tag}>";
+    }
+
+    private static string StripParagraphWrapper(string html)
+    {
+        if (string.IsNullOrWhiteSpace(html))
+            return string.Empty;
+
+        html = html.Trim();
+
+        if (html.StartsWith("<p>") && html.EndsWith("</p>"))
+            return html.Substring(3, html.Length - 7);
+
+        return html;
+    }
+
+    private static bool IsHeaderRow(JsonElement row)
+    {
+        if (!row.TryGetProperty("content", out JsonElement cells) ||
+            cells.ValueKind != JsonValueKind.Array)
+            return false;
+
+        foreach (JsonElement cell in cells.EnumerateArray())
+        {
+            string type = cell.GetStringOrDefault("nodeType");
+
+            if (!type.Equals("table-header-cell"))
+                return false;
+        }
+
+        return true;
+    }
+
+    #endregion
+
     #region Text
 
     private static string RenderText(JsonElement node)

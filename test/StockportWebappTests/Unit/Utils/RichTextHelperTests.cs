@@ -432,6 +432,267 @@ public class RichTextHelperTests
     }
 
     [Fact]
+    public void RenderNode_Table_WithHeaderRow_RendersThead()
+    {
+        // Arrange
+        JsonElement json = JsonDocument.Parse(@"
+        [
+            {
+                ""nodeType"": ""table"",
+                ""content"": [
+                    {
+                        ""nodeType"": ""table-row"",
+                        ""content"": [
+                            { ""nodeType"": ""table-header-cell"", ""content"": [
+                                { ""nodeType"": ""paragraph"", ""content"": [
+                                    { ""nodeType"": ""text"", ""value"": ""Header"" }
+                                ]}
+                            ]}
+                        ]
+                    },
+                    {
+                        ""nodeType"": ""table-row"",
+                        ""content"": [
+                            { ""nodeType"": ""table-cell"", ""content"": [
+                                { ""nodeType"": ""paragraph"", ""content"": [
+                                    { ""nodeType"": ""text"", ""value"": ""Row"" }
+                                ]}
+                            ]}
+                        ]
+                    }
+                ]
+            }
+        ]").RootElement;
+
+        // Act
+        object result = _helper.RenderNode(json, 0);
+
+        // Assert
+        string html = result.ToString();
+
+        Assert.Contains("<thead>", html);
+        Assert.Contains("</thead><tbody>", html);
+        Assert.Contains("<th>Header</th>", html);
+        Assert.Contains("<td>Row</td>", html);
+    }
+
+    [Fact]
+    public void RenderNode_Table_NoHeaderRow_RendersOnlyBody()
+    {
+        // Arrange
+        JsonElement json = JsonDocument.Parse(@"
+        [
+            {
+                ""nodeType"": ""table"",
+                ""content"": [
+                    {
+                        ""nodeType"": ""table-row"",
+                        ""content"": [
+                            { ""nodeType"": ""table-cell"", ""content"": [
+                                { ""nodeType"": ""paragraph"", ""content"": [
+                                    { ""nodeType"": ""text"", ""value"": ""A"" }
+                                ]}
+                            ]}
+                        ]
+                    }
+                ]
+            }
+        ]").RootElement;
+
+        // Act
+        object result = _helper.RenderNode(json, 0);
+
+        // Assert
+        string html = result.ToString();
+
+        Assert.DoesNotContain("<thead>", html);
+        Assert.Contains("<tbody>", html);
+    }
+
+    [Fact]
+    public void RenderNode_TableCell_RemovesParagraphWrapper()
+    {
+        // Arrange
+        JsonElement json = JsonDocument.Parse(@"
+        [
+            {
+                ""nodeType"": ""table"",
+                ""content"": [
+                    {
+                        ""nodeType"": ""table-row"",
+                        ""content"": [
+                            { ""nodeType"": ""table-cell"", ""content"": [
+                                { ""nodeType"": ""paragraph"", ""content"": [
+                                    { ""nodeType"": ""text"", ""value"": ""Cell"" }
+                                ]}
+                            ]}
+                        ]
+                    }
+                ]
+            }
+        ]").RootElement;
+
+        // Act
+        object result = _helper.RenderNode(json, 0);
+
+        // Assert
+        Assert.Contains("<td>Cell</td>", result.ToString());
+    }
+
+    [Fact]
+    public void RenderNode_TableHeader_WithRightAlignmentMarker_AppliesClass()
+    {
+        // Arrange
+        JsonElement json = JsonDocument.Parse(@"
+        [
+            {
+                ""nodeType"": ""table"",
+                ""content"": [
+                    {
+                        ""nodeType"": ""table-row"",
+                        ""content"": [
+                            { ""nodeType"": ""table-header-cell"", ""content"": [
+                                { ""nodeType"": ""paragraph"", ""content"": [
+                                    { ""nodeType"": ""text"", ""value"": "">>Number"" }
+                                ]}
+                            ]}
+                        ]
+                    },
+                    {
+                        ""nodeType"": ""table-row"",
+                        ""content"": [
+                            { ""nodeType"": ""table-cell"", ""content"": [
+                                { ""nodeType"": ""paragraph"", ""content"": [
+                                    { ""nodeType"": ""text"", ""value"": ""123"" }
+                                ]}
+                            ]}
+                        ]
+                    }
+                ]
+            }
+        ]").RootElement;
+
+        // Act
+        object result = _helper.RenderNode(json, 0);
+
+        // Assert
+        string html = result.ToString();
+
+        Assert.Contains("<th class=\"text-right\">Number</th>", html);
+        Assert.Contains("<td class=\"text-right\">123</td>", html);
+    }
+
+    [Fact]
+    public void RenderNode_TableHeader_WithCenterAlignmentMarker_AppliesClass()
+    {
+        // Arrange
+        JsonElement json = JsonDocument.Parse(@"
+        [
+            {
+                ""nodeType"": ""table"",
+                ""content"": [
+                    {
+                        ""nodeType"": ""table-row"",
+                        ""content"": [
+                            { ""nodeType"": ""table-header-cell"", ""content"": [
+                                { ""nodeType"": ""paragraph"", ""content"": [
+                                    { ""nodeType"": ""text"", ""value"": ""==Center"" }
+                                ]}
+                            ]}
+                        ]
+                    }
+                ]
+            }
+        ]").RootElement;
+
+        // Act
+        object result = _helper.RenderNode(json, 0);
+
+        // Assert
+        Assert.Contains("class=\"text-center\"", result.ToString());
+    }
+
+    [Fact]
+    public void RenderNode_Table_MultipleColumnAlignments_WorkCorrectly()
+    {
+        // Arrange
+        JsonElement json = JsonDocument.Parse(@"
+        [
+            {
+                ""nodeType"": ""table"",
+                ""content"": [
+                    {
+                        ""nodeType"": ""table-row"",
+                        ""content"": [
+                            { ""nodeType"": ""table-header-cell"", ""content"": [
+                                { ""nodeType"": ""paragraph"", ""content"": [
+                                    { ""nodeType"": ""text"", ""value"": "">>A"" }
+                                ]}
+                            ]},
+                            { ""nodeType"": ""table-header-cell"", ""content"": [
+                                { ""nodeType"": ""paragraph"", ""content"": [
+                                    { ""nodeType"": ""text"", ""value"": ""<<B"" }
+                                ]}
+                            ]}
+                        ]
+                    },
+                    {
+                        ""nodeType"": ""table-row"",
+                        ""content"": [
+                            { ""nodeType"": ""table-cell"", ""content"": [
+                                { ""nodeType"": ""paragraph"", ""content"": [
+                                    { ""nodeType"": ""text"", ""value"": ""1"" }
+                                ]}
+                            ]},
+                            { ""nodeType"": ""table-cell"", ""content"": [
+                                { ""nodeType"": ""paragraph"", ""content"": [
+                                    { ""nodeType"": ""text"", ""value"": ""2"" }
+                                ]}
+                            ]}
+                        ]
+                    }
+                ]
+            }
+        ]").RootElement;
+
+        // Act
+        object result = _helper.RenderNode(json, 0);
+
+        // Assert
+        string html = result.ToString();
+
+        Assert.Contains("<th class=\"text-right\">A</th>", html);
+        Assert.Contains("<th class=\"text-left\">B</th>", html);
+        Assert.Contains("<td class=\"text-right\">1</td>", html);
+        Assert.Contains("<td class=\"text-left\">2</td>", html);
+    }
+
+    [Fact]
+    public void RenderNode_WhenNodeTypeIsHr_RendersHorizontalRule()
+    {
+        // Arrange
+        string json = """
+        [
+            {
+                "nodeType": "hr",
+                "content": [],
+                "data": {
+                    "target": null
+                }
+            }
+        ]
+        """;
+
+        JsonElement element = JsonDocument.Parse(json).RootElement;
+
+        // Act
+        object result = _helper.RenderNode(element, 0);
+
+        // Assert
+        Assert.Equal("<hr />", result);
+    }
+
+    [Fact]
     public void GetEmbeddedContentBlock_ReturnsNull_WhenNoJObject()
     {
         // Arrange
