@@ -11,9 +11,17 @@
     string backgroundColour = publicationTemplate.PublicationTheme.Equals("One_Stockport")
         ? $"{CssClassMapper.GetCssClass(EColourScheme.One_Stockport_Purple)}"
         : $"{CssClassMapper.GetCssClass(EColourScheme.Teal)}";
+
+    string dataCy = Model.HasPrevious() is false
+        ? (string.IsNullOrEmpty(Model.PageHeader.HeaderImageUrl)
+            ? "publication-template-no-image"
+            : "publication-template-with-image")
+        : (Model.CurrentSection is not null 
+            ? "publication-section" 
+            : "publication-page");
 }
 
-<div class="grid-container-full-width" style="background-color:white;" data-cy="landing-page">
+<div class="grid-container-full-width" style="background-color:white;" data-cy=@dataCy>
     @if (Model.HasPrevious() is false)
     {
         <partial name="Breadcrumb2023" model='publicationTemplate.Breadcrumbs' view-data='@(new ViewDataDictionary(ViewData) {{"backgroundColour", $"directories-breadcrumb-container-{backgroundColour}"}, {"landingBreadcrumb", "landing-breadcrumb-container"}})' />
