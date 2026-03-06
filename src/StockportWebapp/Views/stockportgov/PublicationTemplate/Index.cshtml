@@ -73,7 +73,7 @@
                     <partial name="PublicationSidebarNavCardList" model="@Model.Sidebar" />
                 </div>
 
-                <div class="directory--70 directory--margin-top-publication directory__border-top-publication--@Model.PublicationTemplate.PublicationTheme.ToLower() publication-template">
+                <div class="directory--70 directory--margin-top-publication directory__border-top-publication--@Model.PublicationTemplate.PublicationTheme.ToLower() publication-template" id="page-content">
                     <partial name="PublicationPage" model="Model.CurrentPage" view-data='@(new ViewDataDictionary(ViewData) { { "currentSection", Model.CurrentSection } })' />
                     
                     @if (Model.HasNext() || Model.HasPrevious())

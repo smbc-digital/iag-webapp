@@ -56,6 +56,36 @@
     }
 }
 
+
+.skip-to-page-content {
+    display: block;
+    background: white;
+
+    a.skip-page {
+        position: absolute;
+        left: auto;
+        top: auto;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        z-index: -999;
+        background: white; 
+        display: inline-block;
+        margin: -10px 30px 30px 0.75em;
+        padding: 5px;
+    }
+
+    a.skip-page:focus, a.skip-page:active {
+        color: #ffffff;
+        background-color: $goldenRod15;
+        width: auto;
+        height: auto;
+        text-align: center;
+        z-index: 999;
+        color: $dark;
+    }
+}
+
 .grid-container-full-width {
   	max-width: none;
 
