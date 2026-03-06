@@ -472,8 +472,8 @@ public class RichTextHelperTests
 
         Assert.Contains("<thead>", html);
         Assert.Contains("</thead><tbody>", html);
-        Assert.Contains("<th>Header</th>", html);
-        Assert.Contains("<td>Row</td>", html);
+        Assert.Contains("<th class=\"text-left\">Header</th>", html);
+        Assert.Contains("<td class=\"text-left\">Row</td>", html);
     }
 
     [Fact]
@@ -536,7 +536,11 @@ public class RichTextHelperTests
         object result = _helper.RenderNode(json, 0);
 
         // Assert
-        Assert.Contains("<td>Cell</td>", result.ToString());
+        string html = result.ToString();
+
+        Assert.Contains("<td", html);
+        Assert.Contains(">Cell</td>", html);
+        Assert.DoesNotContain("<p>", html);
     }
 
     [Fact]
