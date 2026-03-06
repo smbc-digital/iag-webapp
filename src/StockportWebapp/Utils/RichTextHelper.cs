@@ -171,10 +171,10 @@ public class RichTextHelper(IViewRender viewRenderer) : IRichTextHelper
         }
 
         string alignmentClass = _columnAlignments.ContainsKey(columnIndex)
-            ? $" class=\"{_columnAlignments[columnIndex]}\""
-            : string.Empty;
+            ? _columnAlignments[columnIndex]
+            : "text-left";
 
-        return $"<{tag}{alignmentClass}>{content}</{tag}>";
+        return $"<{tag} class=\"{alignmentClass}\">{content}</{tag}>";
     }
 
     private static string StripParagraphWrapper(string html)
