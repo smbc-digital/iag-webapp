@@ -144,3 +144,14 @@ $fontStack: 'Lexend', 'Noto Sans', sans-serif;
 .text-center {
     text-align: center;
 }
+
+
+html[dir="rtl"] {
+    .text-right {
+        text-align: left;
+    }
+
+    .text-left {
+        text-align: right;
+    }
+}
