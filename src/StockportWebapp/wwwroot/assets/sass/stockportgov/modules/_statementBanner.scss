@@ -35,6 +35,10 @@
             margin-bottom: 0.75em;
             margin-top: 0;
             text-align: center;
+
+            &--publication-template {
+                @include h-xl;
+            }
         }
 
         &__text {
