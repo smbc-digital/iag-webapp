@@ -1,0 +1,15 @@
+﻿@model ContentBlock
+@if (Model is not null)
+{
+    @if (!string.IsNullOrEmpty(Model.Title) && !string.IsNullOrEmpty(Model.BodyHtml))
+    {
+        <section class="content-block content-block--margin" data-cy="statement-banner-content-width">
+            <div class="statement-banner statement-banner__padding bg-default-light border-default @Model.BackgroundColourClass @Model.BorderClass">
+                <div class="statement-banner-content">
+                    <h2 class="statement-banner-content__title statement-banner-content__title--publication-template text-default @Model.TextColourClass">@Model.Title</h2>
+                    <div class="text-center statement-banner-content__text-no-button">@Html.Raw(Model.BodyHtml)</div>
+                </div>
+            </div>
+        </section>
+    }
+}
