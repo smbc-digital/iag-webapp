@@ -71,7 +71,7 @@
         z-index: -999;
         background: white; 
         display: inline-block;
-        margin: -10px 30px 30px 0.75em;
+        margin: 0px 5px 10px 2px;
         padding: 5px;
     }
 
@@ -83,6 +83,7 @@
         text-align: center;
         z-index: 999;
         color: $dark;
+        position: unset;
     }
 }
 
