@@ -221,4 +221,126 @@ public class ContentBlockAdapterTests
         Assert.Equal("sr", block.ScreenReader);
         Assert.Equal("account", block.AccountName);
     }
+
+    [Fact]
+    public void GetBool_ReturnsTrue_WhenBooleanTrue()
+    {
+        // Arrange
+        JsonElement json = JsonDocument.Parse(@"{ ""hasBackgroundColour"": true }").RootElement;
+
+        // Act
+        bool result = ContentBlockAdapter.GetBool(json, "hasBackgroundColour");
+
+        // Assert
+        Assert.True(result);
+    }
+
+    [Fact]
+    public void GetBool_ReturnsFalse_WhenBooleanFalse()
+    {
+        // Arrange
+        JsonElement json = JsonDocument.Parse(@"{ ""hasBackgroundColour"": false }").RootElement;
+
+        // Act
+        bool result = ContentBlockAdapter.GetBool(json, "hasBackgroundColour");
+
+        // Assert
+        Assert.False(result);
+    }
+
+    [Fact]
+    public void GetBool_ParsesTrue_FromString()
+    {
+        // Arrange
+        JsonElement json = JsonDocument.Parse(@"{ ""hasBackgroundColour"": ""true"" }").RootElement;
+
+        // Act
+        bool result = ContentBlockAdapter.GetBool(json, "hasBackgroundColour");
+
+        // Assert
+        Assert.True(result);
+    }
+
+    [Fact]
+    public void GetBool_ReturnsFalse_ForInvalidString()
+    {
+        // Arrange
+        JsonElement json = JsonDocument.Parse(@"{ ""hasBackgroundColour"": ""notabool"" }").RootElement;
+
+        // Act
+        bool result = ContentBlockAdapter.GetBool(json, "hasBackgroundColour");
+
+        // Assert
+        Assert.False(result);
+    }
+
+    [Fact]
+    public void GetBool_ReturnsTrue_WhenNumberIsNonZero()
+    {
+        // Arrange
+        JsonElement json = JsonDocument.Parse(@"{ ""hasBackgroundColour"": 1 }").RootElement;
+
+        // Act
+        bool result = ContentBlockAdapter.GetBool(json, "hasBackgroundColour");
+
+        // Assert
+        Assert.True(result);
+    }
+
+    [Fact]
+    public void GetBool_ReturnsFalse_WhenNumberIsZero()
+    {
+        // Arrange
+        JsonElement json = JsonDocument.Parse(@"{ ""hasBackgroundColour"": 0 }").RootElement;
+
+        // Act
+        bool result = ContentBlockAdapter.GetBool(json, "hasBackgroundColour");
+
+        // Assert
+        Assert.False(result);
+    }
+
+    [Fact]
+    public void GetBool_FindsValueInsideFields()
+    {
+        // Arrange
+        JsonElement json = JsonDocument.Parse(@"
+        {
+            ""fields"": {
+                ""hasBackgroundColour"": true
+            }
+        }").RootElement;
+
+        // Act
+        bool result = ContentBlockAdapter.GetBool(json, "hasBackgroundColour");
+
+        // Assert
+        Assert.True(result);
+    }
+
+    [Fact]
+    public void GetBool_IsCaseInsensitive()
+    {
+        // Arrange
+        JsonElement json = JsonDocument.Parse(@"{ ""HasBackgroundColour"": true }").RootElement;
+
+        // Act
+        bool result = ContentBlockAdapter.GetBool(json, "hasBackgroundColour");
+
+        // Assert
+        Assert.True(result);
+    }
+
+    [Fact]
+    public void GetBool_ReturnsFalse_WhenPropertyMissing()
+    {
+        // Arrange
+        JsonElement json = JsonDocument.Parse(@"{ ""something"": ""else"" }").RootElement;
+
+        // Act
+        bool result = ContentBlockAdapter.GetBool(json, "hasBackgroundColour");
+
+        // Assert
+        Assert.False(result);
+    }
 }
