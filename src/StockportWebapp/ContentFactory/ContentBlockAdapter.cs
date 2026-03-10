@@ -18,6 +18,7 @@ public static class ContentBlockAdapter
             Link = Get(entry, "link"),
             ButtonText = Get(entry, "buttonText"),
             ColourScheme = ParseColour(entry),
+            HasBackgroundColour = GetBool(entry, "hasBackgroundColour"),
             Statistic = Get(entry, "statistic"),
             StatisticSubheading = Get(entry, "statisticSubheading"),
             VideoTitle = Get(entry, "videoTitle"),
@@ -53,7 +54,7 @@ public static class ContentBlockAdapter
 
         return string.Empty;
     }
-
+        
     private static string Extract(JsonElement property) =>
         property.ValueKind switch
         {
@@ -80,10 +81,10 @@ public static class ContentBlockAdapter
             return EColourScheme.None;
 
         if (element.TryGetProperty("colour", out JsonElement colour2))
-            if (Enum.TryParse<EColourScheme>(colour2.GetString(), true, out var scheme2))
+            if (Enum.TryParse<EColourScheme>(colour2.GetString(), true, out EColourScheme scheme2))
                 return scheme2;
 
-        return Enum.TryParse<EColourScheme>(colour.GetString(), true, out var scheme)
+        return Enum.TryParse<EColourScheme>(colour.GetString(), true, out EColourScheme scheme)
             ? scheme
             : EColourScheme.None;
     }
@@ -99,4 +100,37 @@ public static class ContentBlockAdapter
 
         return string.Empty;
     }
+
+    public static bool GetBool(JsonElement element, string name)
+    {
+        if (element.TryGetProperty(name, out JsonElement property))
+            return ExtractBool(property);
+
+        foreach (System.Text.Json.JsonProperty prop in element.EnumerateObject())
+        {
+            if (string.Equals(prop.Name, name, StringComparison.OrdinalIgnoreCase))
+                return ExtractBool(prop.Value);
+        }
+
+        if (element.TryGetProperty("fields", out JsonElement fields))
+        {
+            foreach (System.Text.Json.JsonProperty prop in fields.EnumerateObject())
+            {
+                if (string.Equals(prop.Name, name, StringComparison.OrdinalIgnoreCase))
+                    return ExtractBool(prop.Value);
+            }
+        }
+
+        return false;
+    }
+
+    private static bool ExtractBool(JsonElement property) =>
+        property.ValueKind switch
+        {
+            JsonValueKind.True => true,
+            JsonValueKind.False => false,
+            JsonValueKind.String => bool.TryParse(property.GetString(), out bool result) && result,
+            JsonValueKind.Number => property.GetInt32() != 0,
+            _ => false
+        };
 }

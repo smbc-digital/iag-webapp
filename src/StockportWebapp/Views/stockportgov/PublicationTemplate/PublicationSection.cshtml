@@ -34,12 +34,16 @@
         {
             case "CallToAction":
                 return await RenderCallToActionAsync(partial.Model);
+            case "TriviaBanner":
+                return await Html.PartialAsync("PublicationTemplateTriviaBanner", partial.Model);
             case "TriviaList":
                 return await Html.PartialAsync("PublicationTemplateTriviaList", partial.Model);
             case "TriviaCards":
                 return await Html.PartialAsync("PublicationTemplateTriviaCards", partial.Model);
+            case "StatementBannerContentWidth":
+                return await Html.PartialAsync("PublicationTemplateStatementBannerContentWidth", partial.Model);
             default:
-                return await Html.PartialAsync(partial.PartialName, partial.Model, new ViewDataDictionary(ViewData) { { "AllowTwo", true } });
+                return await Html.PartialAsync(partial.PartialName, partial.Model);
         }
     }
 
