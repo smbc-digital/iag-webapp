@@ -6,14 +6,19 @@
     string textColourClass = (string)ViewData["TextColourClass"] ?? string.Empty;
     string borderClass = (string)ViewData["BorderClass"] ?? string.Empty;
     string cardType = (string)ViewData["CardType"] ?? string.Empty;
+    string cardSize = (string)ViewData["CardSize"] ?? string.Empty;
     bool isFromPublicationPage = ViewData["IsFromPublicationPage"] as bool? ?? false;
 
     string navcardPadding = !string.IsNullOrEmpty(cardType) && cardType.Equals("trivia-banner")
         ? "navcard-content--padding-trivia"
         : string.Empty;
 
-    <li class="navcard navcard--width-33 navcard--center @cardType @backgroundColourClass @borderClass @noMarginInline" data-cy="trivia-card">
-        @if (!string.IsNullOrEmpty(Model.Link) && cardType.Equals("trivia-card"))
+    string navcardWidthClass = !string.IsNullOrEmpty(cardSize) && cardSize.Equals("two-figures")
+        ? "navcard--width-50"
+        : "navcard--width-33";
+
+    <li class="navcard @navcardWidthClass navcard--center @cardType @backgroundColourClass @borderClass @noMarginInline" data-cy="trivia-card">
+        @if (!string.IsNullOrEmpty(Model.Link) && cardType.Equals("trivia-card") && !isFromPublicationPage)
         {
             <a href="@Model.Link" class="navcard__link">
                 <partial name="TriviaCardContent" model="Model" view-data="@(new ViewDataDictionary(ViewData) { {"subTitleIsLink", "trivia-card__subtitle-link"}, {"IsPublication", isFromPublicationPage} })" />

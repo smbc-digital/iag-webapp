@@ -15,6 +15,7 @@ public class ContentBlock
     public string Body { get; init; } = string.Empty;
     public string BodyHtml => MarkdownWrapper.ToHtml(Body);
     public EColourScheme ColourScheme { get; init; }
+    public bool HasBackgroundColour { get; init; } = true;
     public string Link { get; init; } = string.Empty;
     public string ButtonText { get; init; } = string.Empty;
     public List<ContentBlock> SubItems { get; init; } = new();

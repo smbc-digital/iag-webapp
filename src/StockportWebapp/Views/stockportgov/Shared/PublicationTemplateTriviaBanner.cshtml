@@ -1,0 +1,60 @@
+﻿@model ContentBlock
+
+@if (Model is not null && Model.SubItems.Any() is true)
+{
+    bool overrideToDefault = false;
+    if (Model.ColourScheme.Equals(EColourScheme.None) ||
+        Model.ColourScheme.Equals(EColourScheme.Multi) ||
+        Model.ColourScheme.Equals(EColourScheme.Dark_Overlay) ||
+        Model.ColourScheme.Equals(EColourScheme.Light_Overlay))
+        overrideToDefault = true;
+
+    string backgroundColourClass = overrideToDefault
+                                ? "bg-default-light"
+                                : Model.BackgroundColourClass;
+
+    string borderColourClass = overrideToDefault
+                                ? string.Empty
+                                : Model.BorderColourClass;
+
+    bool allItemsHaveStatistic = Model.SubItems.All(contentBlock => !string.IsNullOrWhiteSpace(contentBlock.Statistic));
+
+    @if (Model.SubItems.Count.Equals(3))
+    {
+        <section class="content-block content-block--padding content-block--screen @(Model.HasBackgroundColour ? Model.BackgroundColourClass : string.Empty)" data-cy="trivia-banner">
+            <div class="trivia-banner__section">
+                <div class="grid-container">
+                    <div class="grid-100">
+                        <ul class="navcard-wrapper navcard-wrapper--no-margin">
+                            @foreach (ContentBlock contentBlock in Model.SubItems)
+                            {
+                                <partial name="TriviaCard" model="@contentBlock" view-data="@(new ViewDataDictionary(ViewData) { { "BackgroundColourClass", "trivia-banner--background" }, { "BorderClass", string.Empty }, { "TextColourClass", $"text-default {Model.TextColourClass}" }, { "CardType", "trivia-banner" }, { "IsFromPublicationPage", allItemsHaveStatistic } })" />
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    }
+    else if (Model.SubItems.Count > 3)
+    {
+        <partial name="PublicationTemplateTriviaList" model="@Model" />
+    }
+    else if (Model.SubItems.Count.Equals(2))
+    {
+        <section class="content-block content-block--padding content-block--screen @(Model.HasBackgroundColour ? Model.BackgroundColourClass : string.Empty)" data-cy="trivia-banner-two-figures">
+            <div class="trivia-banner__section">
+                <div class="grid-container">
+                    <div class="grid-100">
+                        <ul class="navcard-wrapper navcard-wrapper--no-margin">
+                            @foreach (ContentBlock contentBlock in Model.SubItems)
+                            {
+                                <partial name="TriviaCard" model="@contentBlock" view-data="@(new ViewDataDictionary(ViewData) { {"BackgroundColourClass", "trivia-banner--background"}, {"BorderClass", string.Empty}, {"TextColourClass", $"text-default {Model.TextColourClass}"}, {"CardType", "trivia-banner"}, { "CardSize", "two-figures" }, { "IsFromPublicationPage", false } })" />
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    }
+}

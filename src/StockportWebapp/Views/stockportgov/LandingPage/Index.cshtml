@@ -54,15 +54,15 @@
             {
                 @if (landingPage.NeedsExtraPadding(pageSection))
                 {
-                    <partial name="@pageSection.ContentType" model="@pageSection" view-data='@(new ViewDataDictionary(ViewData) { {"AdditionalCssClass", "content-block--padding-extra"}, { "AllowTwo", false } })' />
+                    <partial name="@pageSection.ContentType" model="@pageSection" view-data='@(new ViewDataDictionary(ViewData) { {"AdditionalCssClass", "content-block--padding-extra"} })' />
                 }
                 else if (landingPage.NeedsExtraMargin(pageSection))
                 {
-                    <partial name="@pageSection.ContentType" model="@pageSection" view-data='@(new ViewDataDictionary(ViewData) { {"AdditionalCssClass", "content-block--margin-extra content-block--no-margin-top"}, {"FindOutMoreBannerOrderSwitch", "find-out-more-banner--image-order-switch"}, { "AllowTwo", false } })' />
+                    <partial name="@pageSection.ContentType" model="@pageSection" view-data='@(new ViewDataDictionary(ViewData) { {"AdditionalCssClass", "content-block--margin-extra content-block--no-margin-top"}, {"FindOutMoreBannerOrderSwitch", "find-out-more-banner--image-order-switch"} })' />
                 }
                 else
                 {
-                    <partial name="@pageSection.ContentType" model="@pageSection" view-data='@(new ViewDataDictionary(ViewData) { { "AllowTwo", false } })' />
+                    <partial name="@pageSection.ContentType" model="@pageSection" />
                 }
             }
         }
