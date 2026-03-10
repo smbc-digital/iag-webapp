@@ -17,7 +17,11 @@
                                 ? string.Empty
                                 : Model.BorderColourClass;
 
-    bool allItemsHaveStatistic = Model.SubItems.All(contentBlock => !string.IsNullOrWhiteSpace(contentBlock.Statistic));
+    bool anyStatistic = Model.SubItems.Any(contentBlock => !string.IsNullOrWhiteSpace(contentBlock.Statistic));
+    bool anyWithoutStatistic = Model.SubItems.Any(contentBlock => string.IsNullOrWhiteSpace(contentBlock.Statistic));
+
+    bool allItemsHaveStatistic = anyStatistic && !anyWithoutStatistic;
+    bool hasMixedStatistics = anyStatistic && anyWithoutStatistic;
 
     @if (Model.SubItems.Count.Equals(3))
     {
@@ -28,7 +32,7 @@
                         <ul class="navcard-wrapper navcard-wrapper--no-margin">
                             @foreach (ContentBlock contentBlock in Model.SubItems)
                             {
-                                <partial name="TriviaCard" model="@contentBlock" view-data="@(new ViewDataDictionary(ViewData) { { "BackgroundColourClass", "trivia-banner--background" }, { "BorderClass", string.Empty }, { "TextColourClass", $"text-default {Model.TextColourClass}" }, { "CardType", "trivia-banner" }, { "IsFromPublicationPage", allItemsHaveStatistic } })" />
+                                <partial name="TriviaCard" model="@contentBlock" view-data="@(new ViewDataDictionary(ViewData) { { "BackgroundColourClass", "trivia-banner--background" }, { "BorderClass", string.Empty }, { "TextColourClass", $"text-default {Model.TextColourClass}" }, { "CardType", "trivia-banner" }, { "IsFromPublicationPage", allItemsHaveStatistic ? true : hasMixedStatistics } })" />
                             }
                         </ul>
                     </div>
