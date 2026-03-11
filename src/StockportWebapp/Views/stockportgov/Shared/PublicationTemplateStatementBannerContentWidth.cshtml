@@ -5,9 +5,9 @@
     {
         <section class="content-block content-block--margin" data-cy="statement-banner-content-width">
             <div class="statement-banner statement-banner__padding bg-default-light border-default @Model.BackgroundColourClass @Model.BorderClass">
-                <div class="statement-banner-content">
+                <div class="statement-banner-content statement-banner-content--publication-template">
                     <h2 class="statement-banner-content__title statement-banner-content__title--publication-template text-default @Model.TextColourClass">@Model.Title</h2>
-                    <div class="text-center statement-banner-content__text-no-button">@Html.Raw(Model.BodyHtml)</div>
+                    <div class="text-left statement-banner-content__text-no-button">@Html.Raw(Model.BodyHtml)</div>
                 </div>
             </div>
         </section>
