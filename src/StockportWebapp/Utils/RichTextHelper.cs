@@ -478,7 +478,16 @@ public class RichTextHelper(IViewRender viewRenderer) : IRichTextHelper
         if (content.GetArrayLength().Equals(0))
             return null;
 
-        string value = content[0].GetStringOrDefault("value");
+        StringBuilder textBuilder = new();
+
+        foreach (JsonElement item in content.EnumerateArray())
+        {
+            if (item.GetStringOrDefault("nodeType").Equals("text"))
+                textBuilder.Append(item.GetStringOrDefault("value"));
+        }
+
+        string value = textBuilder.ToString();
+
         if (!value.StartsWith("^^^"))
             return null;
         
@@ -490,7 +499,7 @@ public class RichTextHelper(IViewRender viewRenderer) : IRichTextHelper
         return string.IsNullOrWhiteSpace(caption)
             ? null
             : caption;
-    }    
+    }
 
     #endregion
 }

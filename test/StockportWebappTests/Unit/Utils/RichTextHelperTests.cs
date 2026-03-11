@@ -61,6 +61,73 @@ public class RichTextHelperTests
         Assert.Equal(string.Empty, result);
     }
 
+    [Fact]
+    public void RenderEmbeddedAsset_WithFormattedCaption_RendersFigcaption()
+    {
+        // Arrange
+        JsonElement json = JsonDocument.Parse(@"
+        [
+            {
+                ""nodeType"": ""paragraph"",
+                ""content"": [
+                    { ""nodeType"": ""text"", ""value"": ""^^^This is "" },
+                    { ""nodeType"": ""text"", ""value"": ""a"", ""marks"": [{ ""type"": ""bold"" }] },
+                    { ""nodeType"": ""text"", ""value"": "" caption"" }
+                ]
+            },
+            {
+                ""nodeType"": ""embedded-asset-block"",
+                ""data"": { ""target"": { ""file"": { ""url"": ""/img.png"" }, ""description"": ""alt"" } }
+            }
+        ]").RootElement;
+
+        // Act
+        object result = _helper.RenderNode(json, 1);
+
+        // Assert
+        Assert.Contains("<figcaption>This is a caption</figcaption>", result.ToString());
+    }
+
+    [Fact]
+    public void RenderEmbeddedAsset_WithNormalParagraph_DoesNotRenderCaption()
+    {
+        JsonElement json = JsonDocument.Parse(@"
+        [
+            {
+                ""nodeType"": ""paragraph"",
+                ""content"": [ { ""nodeType"": ""text"", ""value"": ""This is not a caption"" } ]
+            },
+            {
+                ""nodeType"": ""embedded-asset-block"",
+                ""data"": { ""target"": { ""file"": { ""url"": ""/img.png"" } } }
+            }
+        ]").RootElement;
+
+        object result = _helper.RenderNode(json, 1);
+
+        Assert.DoesNotContain("<figcaption>", result.ToString());
+    }
+
+    [Fact]
+    public void RenderEmbeddedAsset_WithEmptyCaption_DoesNotRenderCaption()
+    {
+        JsonElement json = JsonDocument.Parse(@"
+        [
+            {
+                ""nodeType"": ""paragraph"",
+                ""content"": [ { ""nodeType"": ""text"", ""value"": ""^^^   "" } ]
+            },
+            {
+                ""nodeType"": ""embedded-asset-block"",
+                ""data"": { ""target"": { ""file"": { ""url"": ""/img.png"" } } }
+            }
+        ]").RootElement;
+
+        object result = _helper.RenderNode(json, 1);
+
+        Assert.DoesNotContain("<figcaption>", result.ToString());
+    }
+
     [Theory]
     [InlineData("heading-2", "<h2>Hi</h2>")]
     [InlineData("heading-3", "<h3>Hi</h3>")]
