@@ -34,6 +34,8 @@ public class TypeRoutes
                         : $"/directories/{slug}";
             case "landingPage":
                 return $"/landing/{slug}";
+            case "publicationTemplate":
+                return $"/publications/{slug}";
             default:
                 return $"/{slug}";
         }
