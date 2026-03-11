@@ -39,6 +39,7 @@
             &--publication-template {
                 @include h-xl;
                 font-size: 4rem;
+                margin-bottom: 20px;
 
                 @media #{$mobile} {
                     font-size: 3rem;
@@ -60,6 +61,17 @@
         &-screen-width {
             padding-inline: 0;
         }
+
+        &--publication-template {
+            h3 {
+                margin-bottom: 20px;
+                text-align: center;
+
+                @media #{$mobile} {
+                    text-align: left;
+                }
+            }
+        }
     }
 
     &-screen-width {
@@ -72,6 +84,14 @@ html[dir="rtl"] {
         &-content {   
             &__text {
                 text-align: right;
+            }
+
+            &--publication-template {
+                h3 {
+                    @media #{$mobile} {
+                        text-align: right;
+                    }
+                }
             }
         }
     }
