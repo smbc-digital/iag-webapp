@@ -91,6 +91,7 @@ public class RichTextHelperTests
     [Fact]
     public void RenderEmbeddedAsset_WithNormalParagraph_DoesNotRenderCaption()
     {
+        // Arrange
         JsonElement json = JsonDocument.Parse(@"
         [
             {
@@ -103,14 +104,17 @@ public class RichTextHelperTests
             }
         ]").RootElement;
 
+        // Act
         object result = _helper.RenderNode(json, 1);
 
+        // Assert
         Assert.DoesNotContain("<figcaption>", result.ToString());
     }
 
     [Fact]
     public void RenderEmbeddedAsset_WithEmptyCaption_DoesNotRenderCaption()
     {
+        // Arrange
         JsonElement json = JsonDocument.Parse(@"
         [
             {
@@ -123,8 +127,10 @@ public class RichTextHelperTests
             }
         ]").RootElement;
 
+        // Act
         object result = _helper.RenderNode(json, 1);
 
+        // Assert
         Assert.DoesNotContain("<figcaption>", result.ToString());
     }
 
