@@ -38,6 +38,11 @@
 
             &--publication-template {
                 @include h-xl;
+                font-size: 4rem;
+
+                @media #{$mobile} {
+                    font-size: 3rem;
+                }
             }
         }
 
