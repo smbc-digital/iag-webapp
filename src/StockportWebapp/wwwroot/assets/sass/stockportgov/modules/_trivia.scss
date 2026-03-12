@@ -270,8 +270,46 @@
             }
         }
 
+        &-two-figures {
+            .trivia-banner__icon {
+                @media #{$mobile} {
+                    font-size: 3rem;
+                }
+            }
+        }
+
         &--background {
             background-color: transparent !important;
+        }
+    }
+
+    &-statement {
+        &-container {
+            padding: 1.5em;
+
+            &__title {
+                color: white;
+                margin-bottom: 10px;
+                @include h-xl;
+                
+                @media #{$mobile} {
+                    font-size: 2rem;
+                }
+
+                &--large {
+                    font-size: 4rem;
+                    margin-bottom: 20px;
+
+                    @media #{$mobile} {
+                        font-size: 3rem;
+                    }
+                }
+            }
+
+            &__body {
+                color: white;
+                margin-bottom: 10px;
+            }
         }
     }
 }

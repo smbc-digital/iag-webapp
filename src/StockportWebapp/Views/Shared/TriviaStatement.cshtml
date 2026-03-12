@@ -1,0 +1,19 @@
+﻿@model Trivia
+
+<section class="content-block content-block--margin content-block--screen trivia-statement" data-cy="trivia-statement">
+    <div class="grid-container">
+        <div class="grid-100">
+            <div class="trivia-statement-container">
+                @if (!string.IsNullOrEmpty(Model.Statistic))
+                {
+                    <h2 class="trivia-statement-container__title trivia-statement-container__title--large text-center">@Model.Statistic</h2>
+                    <div class="trivia-statement-container__body text-center">@Html.Raw(Model.Body)</div>
+                }
+                else
+                {
+                    <h2 class="trivia-statement-container__title text-center">@Model.Body</h2>
+                }
+            </div>
+        </div>
+    </div>
+</section>

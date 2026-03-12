@@ -505,6 +505,45 @@ public class RichTextHelperTests
     }
 
     [Fact]
+    public void RenderNode_EmbeddedEntry_RendersTriviaStatement_WhenContentTypeIsTrivia()
+    {
+        // Arrange
+        JsonElement json = JsonDocument.Parse(@"
+        [
+            {
+                ""nodeType"": ""embedded-entry-block"",
+                ""data"": {
+                    ""target"": {
+                        ""jObject"": {
+                            ""sys"": {
+                                ""contentType"": {
+                                    ""sys"": { ""id"": ""trivia"" }
+                                }
+                            },
+                            ""title"": ""Trivia title"",
+                            ""icon"": ""star"",
+                            ""body"": ""Some trivia text"",
+                            ""statistic"": ""42""
+                        }
+                    }
+                }
+            }
+        ]").RootElement;
+
+
+        _viewRenderer
+            .Setup(view => view.Render("TriviaStatement", It.IsAny<Trivia>()))
+            .Returns(@"<section class=""content-block content-block--margin content-block--screen trivia-statement"" data-cy=""trivia-statement"">");
+
+        // Act
+        object result = _helper.RenderNode(json, 0);
+
+        // Assert
+        string html = result.ToString();
+        Assert.Contains("trivia-statement", html);
+    }
+
+    [Fact]
     public void RenderNode_Table_WithHeaderRow_RendersThead()
     {
         // Arrange

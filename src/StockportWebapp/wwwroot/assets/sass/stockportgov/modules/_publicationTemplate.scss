@@ -27,6 +27,20 @@
         }
     }
 
+    &-wrapper {
+        &--teal {
+            .trivia-statement {
+                background-color: $stockport-teal-darker;
+            }
+        }
+
+        &--one-stockport-purple {
+            .trivia-statement {
+                background-color: $one-stockport-purple;
+            }
+        }
+    }
+
     &--teal {
         color: white;
         background-color: $stockport-teal-darker;
