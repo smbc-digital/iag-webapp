@@ -282,6 +282,9 @@ public class RichTextHelper(IViewRender viewRenderer) : IRichTextHelper
 
         if (IsContentType(obj, "quote"))
             return RenderQuote(obj);
+
+        if (IsContentType(obj, "trivia"))
+            return RenderTrivia(obj);
         
         ContentBlock contentBlock = GetEmbeddedContentBlock(node);
         if (contentBlock is null || string.IsNullOrEmpty(contentBlock.ContentType))
@@ -368,6 +371,20 @@ public class RichTextHelper(IViewRender viewRenderer) : IRichTextHelper
         InlineQuote model = new(image, imageAlt, quote, author, slug, theme);
 
         return _viewRenderer.Render("InlineQuote", model);
+    }
+
+    private string RenderTrivia(JsonElement obj)
+    {
+        string title = obj.GetStringOrDefault("title");
+        string icon = obj.GetStringOrDefault("icon");
+        string body = obj.GetStringOrDefault("body");
+        string link = obj.GetStringOrDefault("link");
+        string statistic = obj.GetStringOrDefault("statistic");
+        string statisticSubheading = obj.GetStringOrDefault("statisticSubheading");
+
+        Trivia trivia = new(title, icon, body, link, statistic, statisticSubheading);
+
+        return _viewRenderer.Render("TriviaStatement", trivia);
     }
 
     private static string GetNestedString(JsonElement obj, params string[] path)

@@ -9,11 +9,13 @@ public class TriviaFactory(MarkdownWrapper markdownWrapper) : ITriviaFactory
 {
     private readonly MarkdownWrapper _markdownWrapper = markdownWrapper;
 
-    public List<Trivia> Build(List<Trivia> triviaSection) => 
+    public List<Trivia> Build(List<Trivia> triviaSection) =>
         triviaSection?.Select(item => new Trivia (
             item.Title,
             item.Icon,
             _markdownWrapper.ConvertToHtml(item.Body),
-            item.Link
+            item.Link,
+            item.Statistic,
+            item.StatisticSubheading
         )).ToList();
 }
