@@ -13,5 +13,10 @@ public enum EColourScheme
     Orange,
     Pink,
     Purple,
-    Teal
+    Teal,
+    OS_Lilac,
+    OS_Pink,
+    OS_Purple,
+    OS_Teal,
+    OS_Yellow
 }

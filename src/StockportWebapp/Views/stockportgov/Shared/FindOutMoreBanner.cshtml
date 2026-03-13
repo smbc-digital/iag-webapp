@@ -9,7 +9,7 @@
                                 : Model.BorderColourClass;
     
     string buttonColour = !isDefaultColourScheme
-        ? $"btn-{@CssClassMapper.GetBoldCssClass(Model.ColourScheme)} btn-{@CssClassMapper.GetBoldCssClass(Model.ColourScheme)}-outline" 
+        ? $"btn-{@CssClassMapper.GetCssClass(Model.ColourScheme)} btn-{@CssClassMapper.GetCssClass(Model.ColourScheme)}-outline" 
         : "find-out-more-banner__button";
     
     string additionalCssClass = ViewData["AdditionalCssClass"] as string ?? string.Empty;
