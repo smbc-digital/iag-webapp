@@ -7,7 +7,7 @@
                 @if (!string.IsNullOrEmpty(Model.Statistic))
                 {
                     <h2 class="trivia-statement-container__title trivia-statement-container__title--large text-center">@Model.Statistic</h2>
-                    <div class="trivia-statement-container__body text-center">@Html.Raw(Model.Body)</div>
+                    <div class="trivia-statement-container__body text-center lead">@Html.Raw(Model.Body)</div>
                 }
                 else
                 {
