@@ -114,8 +114,25 @@
         border-inline-start: 0.55em solid $stockport-teal;
     }
 
-    &--one-stockport-purple {
+    &--one-stockport-purple,
+    &--os-purple {
         border-inline-start: 0.55em solid $one-stockport-purple;
+    }
+
+    &--os-lilac {
+        border-inline-start: 0.55em solid $one-stockport-lilac;
+    }
+
+    &--os-pink {
+        border-inline-start: 0.55em solid $one-stockport-pink;
+    }
+
+    &--os-teal {
+        border-inline-start: 0.55em solid $one-stockport-teal;
+    }
+
+    &--os-yellow {
+        border-inline-start: 0.55em solid $one-stockport-yellow;
     }
 
     @media #{$tablet-only, $desktop} {

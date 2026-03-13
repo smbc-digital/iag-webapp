@@ -8,7 +8,7 @@
     
     string buttonColour = isDefaultColourScheme
         ? "btn--teal"
-        : $"btn-{CssClassMapper.GetBoldCssClass(Model.ColourScheme)}";
+        : $"btn-{CssClassMapper.GetCssClass(Model.ColourScheme)}";
 
     string additionalCssClass = ViewData["AdditionalCssClass"] as string ?? string.Empty;
 

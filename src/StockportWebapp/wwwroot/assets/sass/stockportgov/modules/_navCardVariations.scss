@@ -238,12 +238,29 @@
         @include theme($theme: $stockport-teal);
     }
 
-    &--theme-one-stockport-purple {
+    &--theme-one-stockport-purple,
+    &--theme-os-purple {
         @include theme($theme: $one-stockport-purple);
     }
 
     &--theme-orange {
         @include theme($theme: $stockport-orange);
+    }
+
+    &--theme-os-lilac {
+        @include theme($theme: $one-stockport-lilac);
+    }
+
+    &--theme-os-pink {
+        @include theme($theme: $one-stockport-pink);
+    }
+
+    &--theme-os-teal {
+        @include theme($theme: $one-stockport-teal);
+    }
+
+    &--theme-os-yellow {
+        @include theme($theme: $one-stockport-yellow)
     }
 }
 

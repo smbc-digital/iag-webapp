@@ -41,25 +41,25 @@ public class ContentBlock
         TypeRoutes.GetUrlFor(Type, $"{additionalUrlContent}/{Slug}");
 
     public string SolidBackgroundColourClass =>
-        $"bg-solid{CssClassMapper.GetBoldCssClass(ColourScheme)}";
+        $"bg-solid{CssClassMapper.GetCssClass(ColourScheme)}";
 
     public string SolidBackgroundColourHoverClass =>
-        $"bg-solid{CssClassMapper.GetBoldCssClass(ColourScheme)}-hover";
+        $"bg-solid{CssClassMapper.GetCssClass(ColourScheme)}-hover";
 
     public string BackgroundColourClass =>
         $"bg{CssClassMapper.GetCssClass(ColourScheme)}";
 
     public string TextColourClass =>
-        $"text{CssClassMapper.GetBoldCssClass(ColourScheme)}";
+        $"text{CssClassMapper.GetCssClass(ColourScheme)}";
 
     public string BorderClass =>
-        $"border{CssClassMapper.GetBoldCssClass(ColourScheme)}";
+        $"border{CssClassMapper.GetCssClass(ColourScheme)}";
 
     public string BorderColourClass =>
-        $"border-colour{CssClassMapper.GetBoldCssClass(ColourScheme)}";
+        $"border-colour{CssClassMapper.GetCssClass(ColourScheme)}";
 
     public string PseudoBorderColourClass =>
-        $"border-pseudo-colour{CssClassMapper.GetBoldCssClass(ColourScheme)}";
+        $"border-pseudo-colour{CssClassMapper.GetCssClass(ColourScheme)}";
 
     public bool IsDefaultColourScheme =>
         ColourScheme is EColourScheme.None
@@ -70,7 +70,7 @@ public class ContentBlock
     public string OutlineButtonColour =>
         IsDefaultColourScheme
             ? "btn--teal btn--teal-outline"
-            : $"btn-{CssClassMapper.GetBoldCssClass(ColourScheme)} btn-{CssClassMapper.GetBoldCssClass(ColourScheme)}-outline";
+            : $"btn-{CssClassMapper.GetCssClass(ColourScheme)} btn-{CssClassMapper.GetCssClass(ColourScheme)}-outline";
 
     public string ImageBannerOverlayTheme =>
         ColourScheme is EColourScheme.Dark_Overlay or EColourScheme.Light_Overlay

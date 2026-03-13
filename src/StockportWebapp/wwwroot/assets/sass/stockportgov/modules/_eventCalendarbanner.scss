@@ -117,9 +117,26 @@
 		background-color: $stockport-blue;
 	}
 
-	&--one-stockport-purple {
-		background-color: $one-stockport-purple;
-	}
+	&--one-stockport-purple,
+    &--os-purple {
+        background-color: $one-stockport-purple;
+    }
+
+    &--os-lilac {
+        background-color: $one-stockport-lilac;
+    }
+
+    &--os-pink {
+        background-color: $one-stockport-pink;
+    }
+
+    &--os-teal {
+        background-color: $one-stockport-teal;
+    }
+
+    &--os-yellow {
+        background-color: $one-stockport-yellow;
+    }
 }
 
 html[dir="rtl"] {

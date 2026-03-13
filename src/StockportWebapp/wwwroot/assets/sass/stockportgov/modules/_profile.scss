@@ -67,10 +67,31 @@
                 border-color: rgba($stockport-blue, 0.8);
             }
 
+            &--one-stockport-purple,
+            &--os-purple {
+                border-color: rgba($one-stockport-purple, 0.8);
+            }
+
+            &--one-stockport-lilac {
+                border-color: rgba($one-stockport-lilac, 0.8);
+            }
+
+            &--one-stockport-pink {
+                border-color: rgba($one-stockport-pink, 0.8);
+            }
+
             &--one-stockport-purple {
                 border-color: rgba($one-stockport-purple, 0.8);
             }
-        } 
+
+            &--one-stockport-teal {
+                border-color: rgba($one-stockport-teal, 0.8);
+            }
+
+            &--one-stockport-yellow {
+                border-color: rgba($one-stockport-yellow, 0.8);
+            }
+        }
 
         &__text {
             padding-inline-start: 1em;
