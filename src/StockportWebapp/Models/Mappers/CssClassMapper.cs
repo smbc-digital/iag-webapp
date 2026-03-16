@@ -19,6 +19,7 @@ public static class CssClassMapper
         EColourScheme.OS_Lilac => "-os-lilac",
         EColourScheme.OS_Pink => "-os-pink",
         EColourScheme.OS_Purple => "-os-purple",
+        EColourScheme.OS_Multi => "-os-multi",
         EColourScheme.OS_Teal => "-os-teal",
         EColourScheme.OS_Yellow => "-os-yellow",
         _ => "-teal"

@@ -17,6 +17,7 @@ public enum EColourScheme
     OS_Lilac,
     OS_Pink,
     OS_Purple,
+    OS_Multi,
     OS_Teal,
     OS_Yellow
 }
