@@ -154,6 +154,26 @@
         &:nth-child(5n) .trivia__icon--publication {
             color: $stockport-orange;
         }
+
+        &:nth-child(5n+1) .trivia__icon--publication-os-multi {
+            color: $one-stockport-purple;
+        }
+
+        &:nth-child(5n+2) .trivia__icon--publication-os-multi {
+            color: $one-stockport-teal;
+        }
+
+        &:nth-child(5n+3) .trivia__icon--publication-os-multi {
+            color: $one-stockport-pink;
+        }
+
+        &:nth-child(5n+4) .trivia__icon--publication-os-multi {
+            color: $one-stockport-lilac;
+        }
+
+        &:nth-child(5n) .trivia__icon--publication-os-multi {
+            color: $one-stockport-yellow;
+        }
     }
 
     &__icon {
