@@ -174,7 +174,11 @@ public class RichTextHelper(IViewRender viewRenderer) : IRichTextHelper
             ? _columnAlignments[columnIndex]
             : "text-left";
 
-        return $"<{tag} class=\"{alignmentClass}\">{content}</{tag}>";
+        string scope = isHeader && tag.Equals("th")
+            ? " scope=\"col\""
+            : string.Empty;
+
+        return $"<{tag}{scope} class=\"{alignmentClass}\">{content}</{tag}>";
     }
 
     private static string StripParagraphWrapper(string html)

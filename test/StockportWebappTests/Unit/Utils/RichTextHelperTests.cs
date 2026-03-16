@@ -584,7 +584,7 @@ public class RichTextHelperTests
 
         Assert.Contains("<thead>", html);
         Assert.Contains("</thead><tbody>", html);
-        Assert.Contains("<th class=\"text-left\">Header</th>", html);
+        Assert.Contains("<th scope=\"col\" class=\"text-left\">Header</th>", html);
         Assert.Contains("<td class=\"text-left\">Row</td>", html);
     }
 
@@ -694,7 +694,7 @@ public class RichTextHelperTests
         // Assert
         string html = result.ToString();
 
-        Assert.Contains("<th class=\"text-right\">Number</th>", html);
+        Assert.Contains("<th scope=\"col\" class=\"text-right\">Number</th>", html);
         Assert.Contains("<td class=\"text-right\">123</td>", html);
     }
 
@@ -777,8 +777,8 @@ public class RichTextHelperTests
         // Assert
         string html = result.ToString();
 
-        Assert.Contains("<th class=\"text-right\">A</th>", html);
-        Assert.Contains("<th class=\"text-left\">B</th>", html);
+        Assert.Contains("<th scope=\"col\" class=\"text-right\">A</th>", html);
+        Assert.Contains("<th scope=\"col\" class=\"text-left\">B</th>", html);
         Assert.Contains("<td class=\"text-right\">1</td>", html);
         Assert.Contains("<td class=\"text-left\">2</td>", html);
     }
