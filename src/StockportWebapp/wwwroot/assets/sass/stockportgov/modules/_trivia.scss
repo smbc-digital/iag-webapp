@@ -264,6 +264,39 @@
             }
         }
 
+        &--publication-os-multi {
+            &:nth-child(n+1) {
+                background-color: $one-stockport-pink;
+
+                .trivia-card__icon,
+                .trivia-card__subtitle {
+                    color: $one-stockport-pink;
+                }
+            }
+
+            &:nth-child(n+2) {
+                background-color: $one-stockport-yellow;
+
+                .trivia-card__icon,
+                .trivia-card__subtitle {
+                    color: $one-stockport-yellow;
+                }
+            }
+
+            &:nth-child(n+3) {
+                background-color: $one-stockport-lilac;
+
+                .trivia-card__icon,
+                .trivia-card__subtitle {
+                    color: $one-stockport-lilac;
+                }
+
+                @media #{$mobile} {
+                    margin-bottom: 0;
+                }
+            }
+        }
+
         &__icon {
             font-size: 4rem;
 

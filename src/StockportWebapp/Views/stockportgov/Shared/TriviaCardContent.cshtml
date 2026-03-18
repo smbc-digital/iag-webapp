@@ -10,7 +10,9 @@
         ? "navcard-content--padding-trivia"
         : string.Empty;
 
-    <div class="navcard__content">
+    string bodyTextClass = (string)ViewData["ContentBodyTextClass"] ?? string.Empty;
+
+    <div class="navcard__content @bodyTextClass">
         <div class="navcard__icon @(cardType)__icon @(cardType)__icon--padding @textColourClass @(isPublication ? $"{cardType}__icon--publication" : string.Empty)">
             @if (!string.IsNullOrEmpty(Model.Statistic))
             {
@@ -37,7 +39,7 @@
                 <h3 class="navcard__title @(cardType)__subtitle @subTitleIsLink @textColourClass">@Model.Title</h3>
             }
 
-            <div class="@(cardType)__body">
+            <div class="@(cardType)__body @textColourClass">
                 @Html.Raw(Model.BodyHtml)
             </div>
         </div>
