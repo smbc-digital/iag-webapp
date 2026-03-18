@@ -7,11 +7,11 @@
 .text-grey { color: $stockport-grey !important; }
 .text-one-stockport-purple,
 .text-os-purple { color: $one-stockport-purple !important; }
-.text-os-lilac { color: $one-stockport-lilac !important; }
-.text-os-pink { color: $one-stockport-pink !important; }
+.text-os-lilac { color: $one-stockport-lilac-darker !important; }
+.text-os-pink { color: $one-stockport-pink-darker !important; }
 .text-os-multi { color: $one-stockport-purple !important; }
-.text-os-teal { color: $one-stockport-teal !important; }
-.text-os-yellow { color: $one-stockport-yellow !important; }
+.text-os-teal { color: $one-stockport-teal-darker !important; }
+.text-os-yellow { color: $one-stockport-yellow-darker !important; }
 .text-white { color: white !important; }
 
 .bg-default-light { background-color: rgba($stockport-teal-darker, 0.08) !important; }
@@ -23,11 +23,11 @@
 .bg-grey { background-color: rgba($stockport-grey, 0.08) !important; }
 .bg-one-stockport-purple,
 .bg-os-purple { background-color: rgba($one-stockport-purple, 0.08) !important; }
-.bg-os-lilac { background-color: rgba($one-stockport-lilac, 0.08) !important; }
-.bg-os-pink { background-color: rgba($one-stockport-pink, 0.08) !important; }
+.bg-os-lilac { background-color: rgba($one-stockport-lilac-darker, 0.08) !important; }
+.bg-os-pink { background-color: rgba($one-stockport-pink-darker, 0.08) !important; }
 .bg-os-multi { background-color: rgba($one-stockport-purple, 0.08) !important; }
-.bg-os-teal { background-color: rgba($one-stockport-teal, 0.08) !important; }
-.bg-os-yellow { background-color: rgba($one-stockport-yellow, 0.08) !important; }
+.bg-os-teal { background-color: rgba($one-stockport-teal-darker, 0.08) !important; }
+.bg-os-yellow { background-color: rgba($one-stockport-yellow-darker, 0.08) !important; }
 
 .bg-solid-teal { background-color: $stockport-teal-darker !important; }
 .bg-solid-green { background-color: $stockport-green !important; }
@@ -65,11 +65,11 @@
 .border-grey { border: 4px solid $stockport-grey !important; }
 .border-one-stockport-purple,
 .border-os-purple { border: 4px solid $one-stockport-purple !important; }
-.border-os-lilac { border: 4px solid $one-stockport-lilac !important; }
-.border-os-pink { border: 4px solid $one-stockport-pink !important; }
+.border-os-lilac { border: 4px solid $one-stockport-lilac-darker !important; }
+.border-os-pink { border: 4px solid $one-stockport-pink-darker !important; }
 .border-os-multi { border: 4px solid $one-stockport-purple !important; }
-.border-os-teal { border: 4px solid $one-stockport-teal !important; }
-.border-os-yellow { border: 4px solid $one-stockport-yellow !important; }
+.border-os-teal { border: 4px solid $one-stockport-teal-darker !important; }
+.border-os-yellow { border: 4px solid $one-stockport-yellow-darker !important; }
 
 .border-colour-none,
 .border-pseudo-colour-none:after {
