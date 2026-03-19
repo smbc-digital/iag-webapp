@@ -65,6 +65,18 @@
         &-top {
             margin-top: 2em;
         }
+
+        @media #{$tablet-only}, #{$desktop} {
+            &-bottom-non-mobile {
+                margin-bottom: 2em;
+            }
+        }
+
+        @media #{$tablet} {
+            &-bottom-non-desktop {
+                margin-bottom: 2em;
+            }
+        }
     }
 
     @media #{$tablet} {
@@ -78,6 +90,12 @@
 
         @media #{$mobile} {
             padding: 2em 0;
+
+            &-top-mobile {
+                .trivia-banner__section {
+                    padding-top: 2em;
+                }
+            }
         }
 
         @media #{$desktop} {
@@ -88,6 +106,12 @@
 
         &-medium {
             padding: 2em 0;
+        }
+    }
+
+    @media #{$mobile} {
+        &--no-padding-bottom-mobile {
+            padding-bottom: 0;
         }
     }
 
