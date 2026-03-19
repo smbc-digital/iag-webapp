@@ -5,17 +5,20 @@
     {
         string additionalCssClass = ViewData["AdditionalCssClass"] as string ?? string.Empty;
 
+        EColourScheme effectiveColourScheme = Model.ColourScheme == EColourScheme.OS_Multi
+            ? EColourScheme.OS_Purple
+            : Model.ColourScheme;
+
         string backgroundColourClass = Model.BackgroundColourClass.Contains("os-")
-            ? Model.SolidBackgroundColourClass + " trivia-card--publication"
+            ? Model.SolidBackgroundColourClass + " trivia-card--publication-os"
             : Model.BackgroundColourClass;
+
+        if (Model.ColourScheme.Equals(EColourScheme.OS_Multi) || Model.ColourScheme.Equals(EColourScheme.OS_Purple) || Model.ColourScheme.Equals(EColourScheme.One_Stockport_Purple))
+            backgroundColourClass = $"bg-solid{CssClassMapper.GetCssClass(EColourScheme.OS_Purple)} trivia-card--publication-os trivia-card--publication-os-multi";
+
+        string textColourClass = Model.TextColourClass;
         
-
-        if (Model.ColourScheme.Equals(EColourScheme.OS_Multi))
-            backgroundColourClass = "trivia-card--publication-os-multi trivia-card--publication";
-
-        string textColourClass;
-         
-        if (Model.TextColourClass is "text-os-purple" or "text-one-stockport-purple")
+        if (Model.TextColourClass is "text-os-purple" or "text-one-stockport-purple" || effectiveColourScheme.Equals(EColourScheme.OS_Purple))
         {
             textColourClass = "text-white";
         }
@@ -23,16 +26,12 @@
         {
             textColourClass = $"text{CssClassMapper.GetCssClass(EColourScheme.One_Stockport_Purple)}";
         }
-        else
-        {
-            textColourClass = Model.TextColourClass;
-        }
 
         string bodyTextClass = textColourClass.Equals("text-white")
             ? textColourClass
             : string.Empty;
 
-        <section class="content-block content-block--margin @additionalCssClass" data-cy="trivia-cards">
+        <section class="content-block content-block--margin-medium @additionalCssClass" data-cy="trivia-cards">
             <ul class="navcard-wrapper navcard-wrapper--no-margin">
                 @foreach (ContentBlock contentBlock in Model.SubItems)
                 {

@@ -1,0 +1,53 @@
+﻿@model ContentBlock
+@{
+    bool anyStatistic = Model.SubItems.Any(contentBlock => !string.IsNullOrWhiteSpace(contentBlock.Statistic));
+    bool anyWithoutStatistic = Model.SubItems.Any(contentBlock => string.IsNullOrWhiteSpace(contentBlock.Statistic));
+
+    bool allItemsHaveStatistic = anyStatistic && !anyWithoutStatistic;
+    bool hasMixedStatistics = anyStatistic && anyWithoutStatistic;
+    
+    EColourScheme effectiveColourScheme = Model.ColourScheme == EColourScheme.OS_Multi
+        ? EColourScheme.OS_Purple
+        : Model.ColourScheme;
+
+    string backgroundColourClass = Model.BackgroundColourClass.Contains("os-")
+        ? Model.SolidBackgroundColourClass + " trivia-banner--publication-os"
+        : Model.BackgroundColourClass;
+    
+    if (Model.ColourScheme.Equals(EColourScheme.OS_Multi) || Model.ColourScheme.Equals(EColourScheme.OS_Purple) || Model.ColourScheme.Equals(EColourScheme.One_Stockport_Purple))
+        backgroundColourClass = "trivia-banner--publication-os-multi";
+    
+    string textColourClass = Model.TextColourClass;
+         
+    if (Model.TextColourClass is "text-os-purple" or "text-one-stockport-purple" || effectiveColourScheme.Equals(EColourScheme.OS_Purple))
+    {
+        textColourClass = "text-white";
+    }
+    else if (Model.TextColourClass.Contains("os-"))
+    {
+        textColourClass = $"text-default text{CssClassMapper.GetCssClass(EColourScheme.One_Stockport_Purple)}";
+    }
+}
+
+<section class="content-block content-block--padding content-block--margin-medium content-block--screen @backgroundColourClass" data-cy="trivia-banner">
+    <div class="trivia-banner__section">
+        <div class="grid-container">
+            <div class="grid-100">
+                <ul class="navcard-wrapper navcard-wrapper--no-margin">
+                    @foreach (ContentBlock contentBlock in Model.SubItems)
+                    {
+                        <partial name="TriviaCard"model="@contentBlock"
+                                view-data="@(new ViewDataDictionary(ViewData)
+                                {
+                                    { "BackgroundColourClass", "trivia-banner--background" },
+                                    { "BorderClass", string.Empty },
+                                    { "TextColourClass", $"{textColourClass}" },
+                                    { "CardType", "trivia-banner" },
+                                    { "IsFromPublicationPage", allItemsHaveStatistic ? true : hasMixedStatistics }
+                                })" />
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>

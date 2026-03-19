@@ -57,6 +57,14 @@
                 margin-top: 6em;
             }
         }
+
+        &-medium {
+            margin: 2em 0;
+        }
+
+        &-top {
+            margin-top: 2em;
+        }
     }
 
     @media #{$tablet} {
@@ -76,6 +84,10 @@
             &-extra {
                 padding-top: 6em;
             }
+        }
+
+        &-medium {
+            padding: 2em 0;
         }
     }
 

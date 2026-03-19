@@ -1,0 +1,48 @@
+﻿@model ContentBlock
+@{
+    EColourScheme effectiveColourScheme = Model.ColourScheme == EColourScheme.OS_Multi
+        ? EColourScheme.OS_Purple
+        : Model.ColourScheme;
+    
+    string backgroundColourClass = Model.BackgroundColourClass.Contains("os-")
+        ? Model.SolidBackgroundColourClass + " trivia-banner--publication-os"
+        : Model.BackgroundColourClass;
+
+    if (Model.ColourScheme.Equals(EColourScheme.OS_Multi) || Model.ColourScheme.Equals(EColourScheme.OS_Purple) || Model.ColourScheme.Equals(EColourScheme.One_Stockport_Purple))
+        backgroundColourClass = "trivia-banner--publication-os-multi";
+
+    string textColourClass = Model.TextColourClass;
+         
+    if (Model.TextColourClass is "text-os-purple" or "text-one-stockport-purple" || effectiveColourScheme.Equals(EColourScheme.OS_Purple))
+    {
+        textColourClass = "text-white";
+    }
+    else if (Model.TextColourClass.Contains("os-"))
+    {
+        textColourClass = $"text-default text{CssClassMapper.GetCssClass(EColourScheme.One_Stockport_Purple)}";
+    }
+}
+
+<section class="content-block content-block--padding content-block--screen content-block--margin-medium trivia-banner-two-figures @backgroundColourClass" data-cy="trivia-banner-two-figures">
+    <div class="trivia-banner__section">
+        <div class="grid-container">
+            <div class="grid-100">
+                <ul class="navcard-wrapper navcard-wrapper--no-margin">
+                    @foreach (ContentBlock contentBlock in Model.SubItems)
+                    {
+                        <partial name="TriviaCard" model="@contentBlock"
+                                view-data="@(new ViewDataDictionary(ViewData)
+                                {
+                                    { "BackgroundColourClass", "trivia-banner--background" },
+                                    { "BorderClass", string.Empty },
+                                    { "TextColourClass", $"{textColourClass}" },
+                                    { "CardType", "trivia-banner" },
+                                    { "CardSize", "two-figures" },
+                                    { "IsFromPublicationPage", false }
+                                })" />
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>

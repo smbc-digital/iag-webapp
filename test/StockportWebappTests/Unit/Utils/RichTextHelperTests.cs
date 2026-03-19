@@ -533,7 +533,7 @@ public class RichTextHelperTests
 
         _viewRenderer
             .Setup(view => view.Render("TriviaStatement", It.IsAny<Trivia>()))
-            .Returns(@"<section class=""content-block content-block--margin content-block--screen trivia-statement"" data-cy=""trivia-statement"">");
+            .Returns(@"<section class=""content-block content-block--margin-medium content-block--screen trivia-statement"" data-cy=""trivia-statement"">");
 
         // Act
         object result = _helper.RenderNode(json, 0);

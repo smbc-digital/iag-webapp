@@ -39,7 +39,7 @@
                 <h3 class="navcard__title @(cardType)__subtitle @subTitleIsLink @textColourClass">@Model.Title</h3>
             }
 
-            <div class="@(cardType)__body @(isPublication ? textColourClass : string.Empty)">
+            <div class="@(cardType)__body ">
                 @Html.Raw(Model.BodyHtml)
             </div>
         </div>

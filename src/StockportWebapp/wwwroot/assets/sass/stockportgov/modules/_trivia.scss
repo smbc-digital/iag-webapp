@@ -48,6 +48,8 @@
         }
 
         &--publication {
+            margin-top: 2em;
+
             @media #{$desktop} {
                 li:nth-last-of-type(-n+2) {
                     margin-bottom: 2em;
@@ -264,6 +266,12 @@
             }
         }
 
+        &--publication-os {
+            .trivia-card__body  {
+                color: $one-stockport-purple;
+            }
+        }
+
         &--publication-os-multi {
             &:nth-child(n+1) {
                 background-color: $one-stockport-pink;
@@ -294,6 +302,10 @@
                 @media #{$mobile} {
                     margin-bottom: 0;
                 }
+            }
+
+            .trivia-card__body {
+                color: white;
             }
         }
 
@@ -367,6 +379,20 @@
 
         &--background {
             background-color: transparent !important;
+        }
+
+        &--publication-os {
+            .trivia-banner__body  {
+                color: $one-stockport-purple;
+            }
+        }
+
+        &--publication-os-multi {
+            background-color: $one-stockport-purple;
+
+            .trivia-banner__body {
+                color: white;
+            }
         }
     }
 

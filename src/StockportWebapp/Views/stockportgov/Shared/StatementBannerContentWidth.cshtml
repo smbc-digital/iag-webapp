@@ -9,22 +9,38 @@
 
     @if (!string.IsNullOrEmpty(Model.Title) && !string.IsNullOrEmpty(Model.BodyHtml))
     {
+        string backgroundColour = Model.ColourScheme.Equals(EColourScheme.OS_Pink) || Model.ColourScheme.Equals(EColourScheme.OS_Yellow)
+            ? $"bg{CssClassMapper.GetCssClass(EColourScheme.OS_Purple)}"
+            : Model.BackgroundColourClass;
+
+        string borderColour = Model.ColourScheme.Equals(EColourScheme.OS_Pink) || Model.ColourScheme.Equals(EColourScheme.OS_Yellow)
+            ? $"border{CssClassMapper.GetCssClass(EColourScheme.OS_Purple)}"
+            : Model.BorderClass;
+
+        string textColour = Model.ColourScheme.Equals(EColourScheme.OS_Pink) || Model.ColourScheme.Equals(EColourScheme.OS_Yellow)
+            ? $"text{CssClassMapper.GetCssClass(EColourScheme.OS_Purple)}"
+            : Model.TextColourClass;
+        
+        string buttonOutlineColour = Model.ColourScheme.Equals(EColourScheme.OS_Pink) || Model.ColourScheme.Equals(EColourScheme.OS_Yellow)
+            ? $"btn-{CssClassMapper.GetCssClass(EColourScheme.OS_Purple)} btn-{CssClassMapper.GetCssClass(EColourScheme.OS_Purple)}-outline"
+            : Model.OutlineButtonColour;
+
         <section class="content-block content-block--margin @additionalCssClass" data-cy="statement-banner-content-width">
             <div class="grid-container">
                 <div class="grid-100">
-                    <div class="statement-banner statement-banner__padding section__content bg-default-light border-default @Model.BackgroundColourClass @Model.BorderClass">
+                    <div class="statement-banner statement-banner__padding section__content bg-default-light border-default @backgroundColour @borderColour">
                         @if(!string.IsNullOrEmpty(Model.Icon) && !Model.Icon.Equals("si-default"))
                         {
-                            <span class="@Model.Icon statement-banner__icon text-default @Model.TextColourClass"></span>
+                            <span class="@Model.Icon statement-banner__icon text-default @textColour"></span>
                         }
                         
                         <div class="statement-banner-content">
-                            <h2 class="statement-banner-content__title text-default @Model.TextColourClass">@Model.Title</h2>
+                            <h2 class="statement-banner-content__title text-default @textColour">@Model.Title</h2>
                             <div class="statement-banner-content__text @contentTextClass">@Html.Raw(Model.BodyHtml)</div>
 
                             @if(Model.SubItems.Any() || !string.IsNullOrEmpty(Model.Link))
                             {
-                                <a @Model.Href class="btn btn--inverse btn--width-30 btn--chevron-forward btn--bold btn--chevron-bold btn--outline @Model.OutlineButtonColour" data-cy="statement-banner-content-width-link">
+                                <a @Model.Href class="btn btn--inverse btn--width-30 btn--chevron-forward btn--bold btn--chevron-bold btn--outline @buttonOutlineColour" data-cy="statement-banner-content-width-link">
                                     <span class="btn_text">@(!string.IsNullOrEmpty(Model.ButtonText) ? Model.ButtonText : "Find out more")</span>
                                     
                                     @if(string.IsNullOrEmpty(Model.ButtonText))
