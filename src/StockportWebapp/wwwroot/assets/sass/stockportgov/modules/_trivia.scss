@@ -274,6 +274,12 @@
             .trivia-card__body  {
                 color: $one-stockport-purple;
             }
+
+            &-white-text {
+                .trivia-card__body {
+                    color: white;
+                }
+            }
         }
 
         &--publication-os-multi {
@@ -309,7 +315,7 @@
             }
 
             .trivia-card__body {
-                color: white;
+                color: $one-stockport-purple;
             }
         }
 
@@ -353,6 +359,10 @@
 
         &__subtitle {
             text-decoration: none;
+
+            &--larger {
+                font-size: 1.5rem;
+            }
         }
 
         &__body {

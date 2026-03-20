@@ -5,20 +5,18 @@
     {
         string additionalCssClass = ViewData["AdditionalCssClass"] as string ?? string.Empty;
 
-        EColourScheme effectiveColourScheme = Model.ColourScheme == EColourScheme.OS_Multi
-            ? EColourScheme.OS_Purple
-            : Model.ColourScheme;
-
         string backgroundColourClass = Model.BackgroundColourClass.Contains("os-")
             ? Model.SolidBackgroundColourClass + " trivia-card--publication-os"
             : Model.BackgroundColourClass;
 
-        if (Model.ColourScheme.Equals(EColourScheme.OS_Multi) || Model.ColourScheme.Equals(EColourScheme.OS_Purple) || Model.ColourScheme.Equals(EColourScheme.One_Stockport_Purple))
-            backgroundColourClass = $"bg-solid{CssClassMapper.GetCssClass(EColourScheme.OS_Purple)} trivia-card--publication-os trivia-card--publication-os-multi";
+        if (Model.ColourScheme.Equals(EColourScheme.OS_Purple) || Model.ColourScheme.Equals(EColourScheme.One_Stockport_Purple))
+            backgroundColourClass = $"bg-solid{CssClassMapper.GetCssClass(EColourScheme.OS_Purple)} trivia-card--publication-os trivia-card--publication-os-white-text";
+        else if (Model.ColourScheme.Equals(EColourScheme.OS_Multi))
+            backgroundColourClass = $"trivia-card--publication-os trivia-card--publication-os-multi";
 
         string textColourClass = Model.TextColourClass;
         
-        if (Model.TextColourClass is "text-os-purple" or "text-one-stockport-purple" || effectiveColourScheme.Equals(EColourScheme.OS_Purple))
+        if (Model.TextColourClass is "text-os-purple" or "text-one-stockport-purple")
         {
             textColourClass = "text-white";
         }
