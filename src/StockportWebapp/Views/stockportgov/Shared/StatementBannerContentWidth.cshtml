@@ -25,17 +25,20 @@
             ? $"btn-{CssClassMapper.GetCssClass(EColourScheme.OS_Purple)} btn-{CssClassMapper.GetCssClass(EColourScheme.OS_Purple)}-outline"
             : Model.OutlineButtonColour;
 
+        bool isOSTheme = Model.ColourScheme.Equals(EColourScheme.OS_Lilac) || Model.ColourScheme.Equals(EColourScheme.OS_Multi) || Model.ColourScheme.Equals(EColourScheme.OS_Pink) ||
+            Model.ColourScheme.Equals(EColourScheme.OS_Purple) || Model.ColourScheme.Equals(EColourScheme.OS_Teal) || Model.ColourScheme.Equals(EColourScheme.OS_Yellow) || Model.ColourScheme.Equals(EColourScheme.One_Stockport_Purple);
+
         <section class="content-block content-block--margin @additionalCssClass" data-cy="statement-banner-content-width">
             <div class="grid-container">
                 <div class="grid-100">
-                    <div class="statement-banner statement-banner__padding section__content bg-default-light border-default @backgroundColour @borderColour">
+                    <div class="statement-banner statement-banner__padding section__content @(!isOSTheme ? "bg-default-light border-default" : "bg-os-default-light border-os-default") @backgroundColour @borderColour">
                         @if(!string.IsNullOrEmpty(Model.Icon) && !Model.Icon.Equals("si-default"))
                         {
-                            <span class="@Model.Icon statement-banner__icon text-default @textColour"></span>
+                            <span class="@Model.Icon statement-banner__icon @(!isOSTheme ? "text-default" : "text-os-default") @textColour"></span>
                         }
                         
                         <div class="statement-banner-content">
-                            <h2 class="statement-banner-content__title text-default @textColour">@Model.Title</h2>
+                            <h2 class="statement-banner-content__title @(!isOSTheme ? "text-default" : "text-os-default") @textColour">@Model.Title</h2>
                             <div class="statement-banner-content__text @contentTextClass">@Html.Raw(Model.BodyHtml)</div>
 
                             @if(Model.SubItems.Any() || !string.IsNullOrEmpty(Model.Link))

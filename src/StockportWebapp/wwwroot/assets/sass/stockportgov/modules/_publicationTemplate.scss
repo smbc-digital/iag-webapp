@@ -32,21 +32,11 @@
             .trivia-statement {
                 background-color: $stockport-teal-darker;
             }
-            
-            .trivia-card--publication-os {
-                border: unset !important;
-                border-radius: 0 !important;
-            }
         }
 
         &--one-stockport-purple {
             .trivia-statement {
                 background-color: $one-stockport-purple;
-            }
-
-            .trivia-card--publication-os {
-                border: unset !important;
-                border-radius: 0 !important;
             }
         }
     }

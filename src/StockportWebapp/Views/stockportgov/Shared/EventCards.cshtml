@@ -28,7 +28,7 @@
                     <ul class="navcard-wrapper navcard-wrapper--no-margin">
                         @foreach (Event upcomingEvent in Model.Events)
                         {
-                            <partial name="EventCard" model="@upcomingEvent" view-data="@(new ViewDataDictionary(ViewData) {{"BorderColourClass", borderColour}})" />
+                            <partial name="EventCard" model="@upcomingEvent" view-data="@(new ViewDataDictionary(ViewData) { {"BorderColourClass", borderColour}, {"IsOSThemeMulti", Model.ColourScheme.Equals(EColourScheme.OS_Multi)} })" />
                         }
                     </ul>
 

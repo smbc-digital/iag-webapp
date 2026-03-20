@@ -118,6 +118,61 @@
                 text-decoration: none;
             }
         }
+
+        &-os {
+            &:nth-child(5n + 1) {
+                background-color: $one-stockport-purple !important;
+                a {
+                    color: white !important;
+                }
+
+                &:hover, &:focus {
+                    box-shadow: none;
+                    background-color: darken($one-stockport-purple, 5%) !important;
+                    text-decoration: none;
+                }
+            }
+
+            &:nth-child(5n + 2) {
+                background-color: $one-stockport-teal !important;
+
+                &:hover, &:focus {
+                    box-shadow: none;
+                    background-color: darken($one-stockport-teal, 5%) !important;
+                    text-decoration: none;
+                }
+            }
+
+            &:nth-child(5n + 3) {
+                background-color: $one-stockport-pink !important;
+
+                &:hover, &:focus {
+                    box-shadow: none;
+                    background-color: darken($one-stockport-pink, 5%) !important;
+                    text-decoration: none;
+                }
+            }
+
+            &:nth-child(5n + 4) {
+                background-color: $one-stockport-lilac !important;
+
+                &:hover, &:focus {
+                    box-shadow: none;
+                    background-color: darken($one-stockport-lilac, 5%) !important;
+                    text-decoration: none;
+                }
+            }
+
+            &:nth-child(5n + 5) {
+                background-color: $one-stockport-yellow !important;
+
+                &:hover, &:focus {
+                    box-shadow: none;
+                    background-color: darken($one-stockport-yellow, 5%) !important;
+                    text-decoration: none;
+                }
+            }
+        }
     }
 
     &__icon {

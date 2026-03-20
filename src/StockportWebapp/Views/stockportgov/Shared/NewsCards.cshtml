@@ -34,7 +34,7 @@
                     <ul class="navcard-wrapper navcard-wrapper--no-margin">
                         @foreach (News upcomingNews in Model.News)
                         {
-                            <partial name="NewsCard" model="@upcomingNews" view-data="@(new ViewDataDictionary(ViewData) {{"BorderColourClass", borderColour}})" />
+                            <partial name="NewsCard" model="@upcomingNews" view-data="@(new ViewDataDictionary(ViewData) {{"BorderColourClass", borderColour}, {"IsOSThemeMulti", Model.ColourScheme.Equals(EColourScheme.OS_Multi)}})" />
                         }
                     </ul>
 

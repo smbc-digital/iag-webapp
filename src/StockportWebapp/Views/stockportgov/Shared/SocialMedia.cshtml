@@ -3,6 +3,11 @@
 {
     string additionalCssClass = ViewData["AdditionalCssClass"] as string ?? string.Empty;
 
+    bool isOSTheme = Model.ColourScheme.Equals(EColourScheme.OS_Lilac) || Model.ColourScheme.Equals(EColourScheme.OS_Multi) || Model.ColourScheme.Equals(EColourScheme.OS_Pink) ||
+        Model.ColourScheme.Equals(EColourScheme.OS_Teal) || Model.ColourScheme.Equals(EColourScheme.OS_Yellow);
+
+    string textColourClass = isOSTheme ? $"text{CssClassMapper.GetCssClass(EColourScheme.OS_Purple)}" : string.Empty;
+
     <section class="content-block content-block--margin @additionalCssClass" data-cy="social-media">
         <div class="grid-container">
             <div class="grid-100">
@@ -15,12 +20,12 @@
                 <ul class="social-media">
                     @foreach(ContentBlock contentBlock in Model.SubItems)
                     {
-                        <li class="social-media__container @Model.SolidBackgroundColourClass @Model.SolidBackgroundColourHoverClass">
+                        <li class="social-media__container @(!Model.ColourScheme.Equals(EColourScheme.OS_Multi) ? Model.SolidBackgroundColourClass + " " + Model.SolidBackgroundColourHoverClass : string.Empty) @(Model.ColourScheme.Equals(EColourScheme.OS_Multi) ? "social-media__container-os" : string.Empty)">
                             @{
                                 bool isEmailOrPhone = contentBlock.Link.StartsWith("mailto:") || contentBlock.Link.StartsWith("tel:");
                                 string target = isEmailOrPhone ? string.Empty : "target=_blank";
                             }
-                            <a href="@contentBlock.Link" aria-label="@contentBlock.ScreenReader" @target data-cy="social-media-link">
+                            <a href="@contentBlock.Link" aria-label="@contentBlock.ScreenReader" class="@textColourClass" @target data-cy="social-media-link">
                                 @if (!string.IsNullOrEmpty(contentBlock.Icon))
                                 {
                                     <div class="social-media__icon">

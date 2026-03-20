@@ -4,7 +4,29 @@
     @if (Model.SubItems.Count.Equals(3))
     {
         string additionalCssClass = ViewData["AdditionalCssClass"] as string ?? string.Empty;
+        bool isOSTheme = Model.ColourScheme.Equals(EColourScheme.OS_Lilac) || Model.ColourScheme.Equals(EColourScheme.OS_Multi) || Model.ColourScheme.Equals(EColourScheme.OS_Pink) ||
+            Model.ColourScheme.Equals(EColourScheme.OS_Purple) || Model.ColourScheme.Equals(EColourScheme.OS_Teal) || Model.ColourScheme.Equals(EColourScheme.OS_Yellow) || Model.ColourScheme.Equals(EColourScheme.One_Stockport_Purple);
+
+        string backgroundColourClass = Model.BackgroundColourClass.Contains("os-")
+            ? Model.SolidBackgroundColourClass + " trivia-card--publication-os"
+            : Model.BackgroundColourClass;
         
+        if (Model.ColourScheme.Equals(EColourScheme.OS_Purple) || Model.ColourScheme.Equals(EColourScheme.One_Stockport_Purple))
+            backgroundColourClass = $"bg-solid{CssClassMapper.GetCssClass(EColourScheme.OS_Purple)} trivia-card--publication-os trivia-card--publication-os-white-text";
+        else if (Model.ColourScheme.Equals(EColourScheme.OS_Multi))
+            backgroundColourClass = $"trivia-card--publication-os trivia-card--publication-os-multi";
+
+        string textColourClass = Model.TextColourClass;
+        
+        if (Model.TextColourClass is "text-os-purple" or "text-one-stockport-purple")
+        {
+            textColourClass = "text-white";
+        }
+        else if (Model.TextColourClass.Contains("os-"))
+        {
+            textColourClass = $"text{CssClassMapper.GetCssClass(EColourScheme.One_Stockport_Purple)}";
+        }
+
         <section class="content-block content-block--margin @additionalCssClass" data-cy="trivia-cards">
             <div class="grid-container">
                 <div class="grid-100">
@@ -19,7 +41,14 @@
                     <ul class="navcard-wrapper navcard-wrapper--no-margin">
                         @foreach (ContentBlock contentBlock in Model.SubItems)
                         {
-                            <partial name="TriviaCard" model="@contentBlock" view-data="@(new ViewDataDictionary(ViewData) { {"BackgroundColourClass", Model.BackgroundColourClass}, {"BorderClass", Model.BorderClass}, {"TextColourClass", Model.TextColourClass}, {"CardType", "trivia-card"} })" />
+                            <partial name="TriviaCard" model="@contentBlock"
+                                view-data="@(new ViewDataDictionary(ViewData)
+                                {
+                                    { "BackgroundColourClass", !isOSTheme ? Model.BackgroundColourClass : backgroundColourClass },
+                                    { "BorderClass", !isOSTheme ? Model.BorderClass : string.Empty },
+                                    { "TextColourClass", !isOSTheme ? Model.TextColourClass : textColourClass },
+                                    { "CardType", "trivia-card" }
+                                })" />
                         }
                     </ul>
                 </div>
