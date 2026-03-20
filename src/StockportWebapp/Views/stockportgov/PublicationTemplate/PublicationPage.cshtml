@@ -62,6 +62,8 @@ else
                 return await Html.PartialAsync("PublicationTemplateStatementBannerContentWidth", partial.Model);
             case "StatementList":
                 return await Html.PartialAsync("PublicationTemplateStatementList", partial.Model);
+            case "Video":
+                return await Html.PartialAsync("PublicationTemplateVideo", partial.Model);
             default:
                 return await Html.PartialAsync(partial.PartialName, partial.Model);
         }

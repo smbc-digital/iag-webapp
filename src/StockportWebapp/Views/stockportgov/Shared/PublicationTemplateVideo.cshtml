@@ -1,0 +1,14 @@
+﻿@model ContentBlock
+
+@if (Model is not null && !string.IsNullOrEmpty(Model.VideoToken) && !string.IsNullOrEmpty(Model.VideoPlaceholderPhotoId))
+{
+    VideoViewModel videoViewModel = new(string.IsNullOrEmpty(Model.VideoTitle) ? Model.Title : Model.VideoTitle, Model.VideoToken, Model.VideoPlaceholderPhotoId);
+
+    string additionalCssClass = ViewData["AdditionalCssClass"] as string ?? string.Empty;
+
+    <section class="content-block content-block--margin-medium js-only @additionalCssClass" data-cy="video">
+        <div class="video-wrapper">
+            <partial name="VideoIFrame" model="@videoViewModel" />
+        </div>
+    </section>
+}
