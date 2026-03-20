@@ -7,7 +7,6 @@
     ViewData["Description"] = publicationTemplate.MetaDescription;
     ViewData["og:title"] = publicationTemplate.Title;
     Layout = "../Shared/_Layout2023.cshtml";
-    ViewData["CanonicalUrl"] = $"/publications/{Model.PublicationTemplate.Slug}";
 
     string backgroundColour = publicationTemplate.PublicationTheme.Equals("One_Stockport")
         ? $"{CssClassMapper.GetCssClass(EColourScheme.One_Stockport_Purple)}"

@@ -186,4 +186,111 @@ public class PublicationTemplateControllerTests
         // Assert
         Assert.Null(model.PublicationTemplate.PublicationPages.FirstOrDefault().PublicationSections.FirstOrDefault());
     }
+
+    [Fact]
+    public async Task Index_ShouldSetCanonical_ToRoot_WhenFirstPage()
+    {
+        // Arrange
+        PublicationPage firstPage = new()
+        {
+            Slug = "page-1",
+            Title = "Page 1",
+            PublicationSections = new List<PublicationSection>(),
+            Body = new JsonElement()
+        };
+
+        PublicationPage secondPage = new()
+        {
+            Slug = "page-2",
+            Title = "Page 2",
+            Body = new JsonElement()
+        };
+
+        publicationTemplate.PublicationPages = new List<PublicationPage> { firstPage, secondPage };
+
+        // Act
+        await _publicationTemplateController.Index("slug", "page-1", null);
+
+        // Assert
+        Assert.Equal("/publications/slug", _publicationTemplateController.ViewData["CanonicalUrl"]);
+    }
+
+    [Fact]
+    public async Task Index_ShouldSetCanonical_ToPage_WhenFirstSection()
+    {
+        // Arrange
+        PublicationSection section1 = new() { Slug = "section-1" };
+        PublicationSection section2 = new() { Slug = "section-2" };
+
+        PublicationPage page = new()
+        {
+            Slug = "page-2",
+            PublicationSections = new List<PublicationSection> { section1, section2 },
+            Body = new JsonElement()
+        };
+
+        publicationTemplate.PublicationPages = new List<PublicationPage>
+        {
+            new() { Slug = "page-1", Body = new JsonElement() },
+            page
+        };
+
+        // Act
+        await _publicationTemplateController.Index("slug", "page-2", "section-1");
+
+        // Assert
+        Assert.Equal("/publications/slug/page-2", _publicationTemplateController.ViewData["CanonicalUrl"]);
+    }
+
+    [Fact]
+    public async Task Index_ShouldNotSetCanonical_WhenNotFirstSection()
+    {
+        // Arrange
+        PublicationSection section1 = new() { Slug = "section-1" };
+        PublicationSection section2 = new() { Slug = "section-2" };
+
+        PublicationPage page = new()
+        {
+            Slug = "page-2",
+            PublicationSections = new List<PublicationSection> { section1, section2 },
+            Body = new JsonElement()
+        };
+
+        publicationTemplate.PublicationPages = new List<PublicationPage>
+        {
+            new() { Slug = "page-1", Body = new JsonElement() },
+            page
+        };
+
+        // Act
+        await _publicationTemplateController.Index("slug", "page-2", "section-2");
+
+        // Assert
+        Assert.Null(_publicationTemplateController.ViewData["CanonicalUrl"]);
+    }
+
+    [Fact]
+    public async Task Index_ShouldNotSetCanonical_WhenNotFirstPage_AndNoSection()
+    {
+        // Arrange
+        PublicationPage firstPage = new()
+        {
+            Slug = "page-1",
+            Body = new JsonElement()
+        };
+
+        PublicationPage secondPage = new()
+        {
+            Slug = "page-2",
+            Body = new JsonElement()
+        };
+
+        publicationTemplate.PublicationPages = new List<PublicationPage> { firstPage, secondPage };
+
+        // Act
+        await _publicationTemplateController.Index("slug", "page-2", null);
+
+        // Assert
+        Assert.Null(_publicationTemplateController.ViewData["CanonicalUrl"]);
+    }
 }

@@ -30,10 +30,37 @@ public class PublicationTemplateController(IPublicationTemplateRepository reposi
         if (publicationPage is null)
             return NotFound();
 
+        SetPublicationCanonicalUrl(publicationSlug, pageSlug, sectionSlug, publicationTemplate);
+
         PublicationSection? publicationSection = sectionSlug is null
             ? publicationPage.PublicationSections?.FirstOrDefault()
             : publicationPage.PublicationSections?.FirstOrDefault(section => section.Slug.Equals(sectionSlug, StringComparison.OrdinalIgnoreCase));
 
         return View("Index", new PublicationTemplateViewModel(publicationTemplate, publicationPage, publicationSection));
+    }
+
+    private void SetPublicationCanonicalUrl(string publicationSlug, string? pageSlug, string? sectionSlug, PublicationTemplate template)
+    {
+        if (!template.PublicationPages.Any() || string.IsNullOrEmpty(pageSlug))
+            return;
+
+        PublicationPage currentPage = template.PublicationPages.FirstOrDefault(page => page.Slug.Equals(pageSlug, StringComparison.OrdinalIgnoreCase));
+
+        if (currentPage is null)
+            return;
+
+        PublicationPage firstPage = template.PublicationPages.First();
+        if (firstPage.Slug.Equals(pageSlug, StringComparison.OrdinalIgnoreCase))
+        {
+            ViewData["CanonicalUrl"] = $"/publications/{publicationSlug}";
+            return;
+        }
+
+        if (!string.IsNullOrEmpty(sectionSlug) &&
+            currentPage.PublicationSections?.Any() is true &&
+            currentPage.PublicationSections.First().Slug.Equals(sectionSlug, StringComparison.OrdinalIgnoreCase))
+        {
+            ViewData["CanonicalUrl"] = $"/publications/{publicationSlug}/{pageSlug}";
+        }
     }
 }
