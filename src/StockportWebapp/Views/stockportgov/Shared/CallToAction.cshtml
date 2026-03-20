@@ -2,8 +2,12 @@
 
 @if (Model is not null)
 {
-    string containerColourClass = $"call-to-action-{@CssClassMapper.GetCssClass(Model.Colour)}";
-    string buttonColourClass = $"btn-{@CssClassMapper.GetCssClass(Model.Colour)}";
+    EColourScheme defaultColour = Model.Colour.Equals(EColourScheme.OS_Pink) || Model.Colour.Equals(EColourScheme.OS_Yellow)
+        ? EColourScheme.OS_Purple
+        : Model.Colour;
+
+    string containerColourClass = $"call-to-action-{@CssClassMapper.GetCssClass(defaultColour)}";
+    string buttonColourClass = $"btn-{@CssClassMapper.GetCssClass(defaultColour)}";
     string additionalCssClass = ViewData["AdditionalCssClass"] as string ?? string.Empty;
     bool isDirectoryOnHomepage = ViewData["IsDirectoryOnHomepage"] is null
         ? false

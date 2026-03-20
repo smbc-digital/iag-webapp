@@ -97,6 +97,32 @@
         }
     }
 
+    &-os {
+        &:nth-child(3n+1) {
+            .event-cards__link {
+                border-color: $one-stockport-pink-darker !important;
+            }
+        }
+
+        &:nth-child(3n+2) {
+            .event-cards__link {
+                border-color: $one-stockport-yellow-darker !important;
+            }
+        }
+
+        &:nth-child(3n+3) {
+            .event-cards {
+                @media #{$mobile} {
+                    margin-bottom: 2em;
+                }
+            }
+
+            .event-cards__link {
+                border-color: $one-stockport-lilac-darker !important;
+            }
+        }
+    }
+
     p {
         margin-top: 0.5em;
     }

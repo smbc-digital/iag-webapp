@@ -19,22 +19,51 @@
 
     string additionalCssClass = ViewData["AdditionalCssClass"] as string ?? string.Empty;
 
+    bool isOSTheme = Model.ColourScheme.Equals(EColourScheme.OS_Lilac) || Model.ColourScheme.Equals(EColourScheme.OS_Multi) || Model.ColourScheme.Equals(EColourScheme.OS_Pink) ||
+        Model.ColourScheme.Equals(EColourScheme.OS_Purple) || Model.ColourScheme.Equals(EColourScheme.OS_Teal) || Model.ColourScheme.Equals(EColourScheme.OS_Yellow) || Model.ColourScheme.Equals(EColourScheme.One_Stockport_Purple);
+
+    EColourScheme effectiveColourScheme = Model.ColourScheme == EColourScheme.OS_Multi
+        ? EColourScheme.OS_Purple
+        : Model.ColourScheme;
+    
+    string backgroundColourClassOS = Model.BackgroundColourClass.Contains("os-")
+        ? Model.SolidBackgroundColourClass + " trivia-banner--publication-os"
+        : Model.BackgroundColourClass;
+
+    if (Model.ColourScheme.Equals(EColourScheme.OS_Multi) || Model.ColourScheme.Equals(EColourScheme.OS_Purple) || Model.ColourScheme.Equals(EColourScheme.One_Stockport_Purple))
+        backgroundColourClassOS = "trivia-banner--publication-os-multi";
+
+    string textColourClass = Model.TextColourClass;
+         
+    if (Model.TextColourClass is "text-os-purple" or "text-one-stockport-purple" || effectiveColourScheme.Equals(EColourScheme.OS_Purple))
+    {
+        textColourClass = "text-white";
+    }
+    else if (Model.TextColourClass.Contains("os-"))
+    {
+        textColourClass = $"text-default text{CssClassMapper.GetCssClass(EColourScheme.One_Stockport_Purple)}";
+    }
+
+    string borderColourClassOS = Model.ColourScheme.Equals(EColourScheme.OS_Multi) || Model.ColourScheme.Equals(EColourScheme.OS_Purple) || Model.ColourScheme.Equals(EColourScheme.One_Stockport_Purple)
+        ? "border-colour-white"
+        : $"border-colour{CssClassMapper.GetCssClass(EColourScheme.OS_Purple)}";
+
     @if (Model.SubItems.Count.Equals(3))
     {
-        <section class="content-block content-block--padding content-block--screen @backgroundColourClass @additionalCssClass" data-cy="trivia-banner">
+        <section class="content-block content-block--padding content-block--screen @(!isOSTheme ? backgroundColourClass : backgroundColourClassOS) @additionalCssClass" data-cy="trivia-banner">
             <div class="trivia-banner__section">
                 <div class="grid-container">
                     <div class="grid-100">
                         @if (!string.IsNullOrEmpty(Model.Title))
                         {
-                            <h2 class="content-block__title">@Model.Title</h2>
-                            <hr class="border-colour-default @borderColourClass" />
+                            <h2 class="content-block__title @(!isOSTheme ? string.Empty : textColourClass)">@Model.Title</h2>
+                            <hr class="border-colour-default @(!isOSTheme ? borderColourClass : borderColourClassOS)" />
                         }
 
                         <ul class="navcard-wrapper navcard-wrapper--no-margin">
                             @foreach (ContentBlock contentBlock in Model.SubItems)
                             {
-                                <partial name="TriviaCard" model="@contentBlock" view-data="@(new ViewDataDictionary(ViewData) { {"BackgroundColourClass", "trivia-banner--background"}, {"BorderClass", string.Empty}, {"TextColourClass", $"text-default {Model.TextColourClass}"}, {"CardType", "trivia-banner"} })" />
+                                <partial name="TriviaCard" model="@contentBlock" view-data="@(new ViewDataDictionary(ViewData) { {"BackgroundColourClass", "trivia-banner--background"}, {"BorderClass", string.Empty}, {"TextColourClass", !isOSTheme ? $"text-default {Model.TextColourClass}" : textColourClass }, {"CardType", "trivia-banner"} })" />
                             }
                         </ul>
                     </div>

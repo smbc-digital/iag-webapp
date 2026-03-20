@@ -6,8 +6,9 @@
     string borderColourClass = (string)ViewData["BorderColourClass"] ?? string.Empty;
     string backgroundColourClass = (string)ViewData["BackgroundColourClass"] ?? string.Empty;
     string borderRadius = " navcard--radius-bottom-left navcard--radius-bottom-right";
+    bool isOSThemeMulti = ViewData["IsOSThemeMulti"] as bool? ?? false;
 
-    <li class="navcard navcard--width-33 navcard event-cards event-cards--margin-bottom">
+    <li class="navcard navcard--width-33 navcard event-cards @(isOSThemeMulti ? "event-cards-os" : string.Empty) event-cards--margin-bottom">
         <a href="@(Url.Action("Detail", "Events", new {slug = Model.Slug, date = Model.EventDate.ToString("yyyy-MM-dd")}))" class="navcard__link event-cards__link @backgroundColourClass @borderColourClass @borderRadius" data-cy="event-card-link">
             <div class="navcard__content">
                 <partial name="NavCardImage" model="@Model.ImageUrl" view-data='@(new ViewDataDictionary(ViewData) { {"imageAdditionalClasses", "event-cards__image"}})'/>

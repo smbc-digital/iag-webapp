@@ -12,18 +12,29 @@
 
     string additionalCssClass = ViewData["AdditionalCssClass"] as string ?? string.Empty;
 
+    bool isOSTheme = Model.ColourScheme.Equals(EColourScheme.OS_Lilac) || Model.ColourScheme.Equals(EColourScheme.OS_Pink) ||
+        Model.ColourScheme.Equals(EColourScheme.OS_Teal) || Model.ColourScheme.Equals(EColourScheme.OS_Yellow);
+
+    string textColour = isOSTheme
+        ? $"text{CssClassMapper.GetCssClass(EColourScheme.OS_Purple)}"
+        : "section__title--white";
+
+    string buttonColourClass = isOSTheme
+        ? $"btn-{CssClassMapper.GetCssClass(EColourScheme.OS_Purple)}"
+        : buttonColour;
+
     <section class="content-block content-block--margin @additionalCssClass" data-cy="subscription-banner">
         <div class="grid-container">
             <div class="subscription-banner">
-                <div class="grid-100 subscription-banner__container @backgroundColour" data-cy="subscription">
+                <div class="grid-100 subscription-banner__container @backgroundColour @(isOSTheme ? $"text{CssClassMapper.GetCssClass(EColourScheme.OS_Purple)}" : string.Empty)" data-cy="subscription">
                     <div class="grid-70 subscription-banner__container--right">
-                        <h2 class="section__title section__title--white section__title--padded-bottom h-l">@Model.Title</h2>
+                        <h2 class="section__title section__title--padded-bottom h-l @textColour">@Model.Title</h2>
                             @Html.Raw(Model.BodyHtml)
                     </div>
                     
                     <div class="grid-30">
                         <form method="post" action="/subscribe">
-                            <button type="submit" data-cy="subscribe-button" class="btn btn--inverse btn--bold btn--full btn--chevron-forward section__content--action @buttonColour"><span class="btn_text">Subscribe now</span></button>
+                            <button type="submit" data-cy="subscribe-button" class="btn btn--inverse btn--bold btn--full btn--chevron-forward section__content--action @buttonColourClass"><span class="btn_text">Subscribe now</span></button>
                             @Html.HiddenFor(pageSection => pageSection.MailingListId)
                         </form>
                     </div>

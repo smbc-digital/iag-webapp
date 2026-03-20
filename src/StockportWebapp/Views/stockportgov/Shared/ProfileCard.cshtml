@@ -1,11 +1,12 @@
 @model ContentBlock
 @{
     string borderColourClass = (string)ViewData["BorderColourClass"] ?? string.Empty;
+    bool isOSThemeMulti = ViewData["IsOSThemeMulti"] as bool? ?? false;
 }
 
 @if (!string.IsNullOrEmpty(Model.BodyHtml))
 {
-    <li class="navcard navcard--width-33 navcard--center navcard profile-card @borderColourClass">
+    <li class="navcard navcard--width-33 navcard--center navcard profile-card @(isOSThemeMulti ? "profile-card-os" : string.Empty) @borderColourClass">
         <a href="@Url.Action("Index", "Profile", new { slug = Model.Slug })" class="navcard__link profile-card__link" data-cy="profile-card-link">
             <div class="navcard__content">
                 <partial name="NavCardImage" model="@Model.Image" view-data='@(new ViewDataDictionary(ViewData) { {"imageAdditionalClasses", "profile-card__image"} })'/>
@@ -22,7 +23,7 @@
 }
 else
 {
-    <li class="navcard navcard--width-33 navcard--center navcard profile-card @borderColourClass">
+    <li class="navcard navcard--width-33 navcard--center navcard profile-card @(isOSThemeMulti ? "profile-card-os" : string.Empty) @borderColourClass">
         <div class="navcard__content">
             <partial name="NavCardImage" model="@Model.Image" view-data='@(new ViewDataDictionary(ViewData) { {"imageAdditionalClasses", "profile-card__image"} })'/>
 

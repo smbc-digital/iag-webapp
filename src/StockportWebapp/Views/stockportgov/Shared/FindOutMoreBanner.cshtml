@@ -2,7 +2,8 @@
 @if (Model?.SubItems?.Count >= 3 && Model.SubItems.Any(contentBlock => !string.IsNullOrEmpty(contentBlock.Image)))
 {
     bool isDefaultColourScheme = Model.IsDefaultColourScheme 
-        || Model.ColourScheme.Equals(EColourScheme.None);
+        || Model.ColourScheme.Equals(EColourScheme.None)
+        || Model.ColourScheme.Equals(EColourScheme.OS_Multi);
 
     string borderColourClass = Model.ColourScheme.Equals(EColourScheme.None) 
                                 ? string.Empty 
@@ -15,12 +16,14 @@
     string additionalCssClass = ViewData["AdditionalCssClass"] as string ?? string.Empty;
     string findOutMoreBannerOrderSwitch = ViewData["FindOutMoreBannerOrderSwitch"] as string ?? string.Empty;
 
+    bool isOSThemeMulti = Model.ColourScheme.Equals(EColourScheme.OS_Multi);
+
     <section class="content-block content-block--margin @additionalCssClass" data-cy="find-out-more-banner">
         <div class="grid-container">
             <div class="grid-100">
                 @foreach (ContentBlock contentBlock in Model.SubItems.Where(cb => !string.IsNullOrEmpty(cb.Image)).Take(3))
                 {
-                    <div class="find-out-more-banner @findOutMoreBannerOrderSwitch">
+                    <div class="find-out-more-banner @(Model.ColourScheme.Equals(EColourScheme.OS_Multi) ? "find-out-more-banner-os" : string.Empty) @findOutMoreBannerOrderSwitch">
                         <div class="find-out-more-banner-content">
                             <h2 class="section__title find-out-more-banner__title section__title--margin-bottom @borderColourClass">@contentBlock.Title</h2>
                             <p class="find-out-more-banner__teaser">@contentBlock.Teaser</p>
