@@ -276,4 +276,165 @@ public class PublicationTemplateViewModelTests
         Assert.True(header.DisplayDatePublished);
         Assert.True(header.IsPublication);
     }
+
+    [Fact]
+    public void Logos_ReturnsSectionLogos_WhenSectionHasLogos()
+    {
+        // Arrange
+        List<TrustedLogo> logos = new()
+        {
+            new("title", "text", new MediaAsset(), "link")
+        };
+
+        PublicationSection section = new()
+        {
+            TrustedLogos = logos,
+            LogoAreaTitle = "Section Title"
+        };
+        
+        PublicationPage page = new()
+        {
+            TrustedLogos = new List<TrustedLogo>(),
+            Body = new JsonElement()
+        };
+        
+        PublicationTemplate publication = BuildPublicationTemplate();
+
+        // Act
+        PublicationTemplateViewModel viewModel = new(publication, page, section);
+
+        // Assert
+        Assert.Equal(logos, viewModel.Logos);
+        Assert.Equal("Section Title", viewModel.LogoAreaTitle);
+    }
+
+    [Fact]
+    public void Logos_ReturnsPageLogos_WhenSectionHasNone()
+    {
+        // Arrange
+        List<TrustedLogo> logos = new()
+        {
+            new("title", "text", new MediaAsset(), "link")
+        };
+
+        PublicationSection section = new()
+        {
+            TrustedLogos = new List<TrustedLogo>()
+        };
+        
+        PublicationPage page = new()
+        {
+            TrustedLogos = logos,
+            LogoAreaTitle = "Page Title",
+            Body = new JsonElement()
+        };
+
+        PublicationTemplate publication = BuildPublicationTemplate();
+
+        // Act
+        PublicationTemplateViewModel viewModel = new(publication, page, section);
+
+        // Assert
+        Assert.Equal(logos, viewModel.Logos);
+        Assert.Equal("Page Title", viewModel.LogoAreaTitle);
+    }
+
+    [Fact]
+    public void Logos_ReturnsTemplateLogos_WhenSectionAndPageHaveNone()
+    {
+        // Arrange
+        List<TrustedLogo> logos = new()
+        {
+            new("title", "text", new MediaAsset(), "link")
+        };
+        PublicationSection section = new()
+        {
+            TrustedLogos = new List<TrustedLogo>()
+        };
+        
+        PublicationPage page = new()
+        {
+            TrustedLogos = new List<TrustedLogo>(),
+            Body = new JsonElement()
+        };
+
+        PublicationTemplate publication = BuildPublicationTemplate();
+        publication.TrustedLogos = logos;
+        publication.LogoAreaTitle = "Template Title";
+
+        // Act
+        PublicationTemplateViewModel viewModel = new(publication, page, section);
+
+        // Assert
+        Assert.Equal(logos, viewModel.Logos);
+        Assert.Equal("Template Title", viewModel.LogoAreaTitle);
+    }
+
+    [Fact]
+    public void Logos_ReturnsNull_WhenNoLogosExist()
+    {
+        // Arrange
+        PublicationSection section = new()
+        {
+            TrustedLogos = new List<TrustedLogo>()
+        };
+        
+        PublicationPage page = new()
+        {
+            TrustedLogos = new List<TrustedLogo>(),
+            Body = new JsonElement()
+        };
+        
+        PublicationTemplate publication = BuildPublicationTemplate();
+
+        // Act
+        PublicationTemplateViewModel viewModel = new(publication, page, section);
+
+        // Assert
+        Assert.Null(viewModel.Logos);
+    }
+
+    [Fact]
+    public void HasLogos_ReturnsFalse_WhenLogosAreEmpty()
+    {
+        // Arrange
+        PublicationSection section = new()
+        {
+            TrustedLogos = new List<TrustedLogo>()
+        };
+        
+        PublicationPage page = new() { Body = new JsonElement() };
+        PublicationTemplate publication = BuildPublicationTemplate();
+
+        // Act
+        PublicationTemplateViewModel viewModel = new(publication, page, section);
+
+        // Assert
+        Assert.False(viewModel.HasLogos);
+    }
+
+    [Fact]
+    public void Logos_IgnoresEmptyPageLogos_AndUsesTemplate()
+    {
+        // Arrange
+        List<TrustedLogo> templateLogos = new()
+        {
+            new("title", "text", new MediaAsset(), "link")
+        };
+
+        PublicationPage page = new()
+        {
+            TrustedLogos = new List<TrustedLogo>(),
+            Body = new JsonElement()
+        };
+
+        PublicationTemplate publication = BuildPublicationTemplate();
+        publication.TrustedLogos = templateLogos;
+
+        // Act
+        PublicationTemplateViewModel viewModel = new(publication, page, null);
+
+        // Assert
+        Assert.Equal(templateLogos, viewModel.Logos);
+    }
 }

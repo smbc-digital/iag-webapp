@@ -81,4 +81,10 @@
             margin-bottom: 30px;
         }
     }
+
+    @media #{$mobile} {
+        .logo-area--no-margin {
+            margin-inline: 0;
+        }
+    }
 }
