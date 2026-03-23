@@ -3,16 +3,15 @@
 public class PublicationTemplateViewModel
 {
     public readonly PublicationTemplate PublicationTemplate;
-    public readonly PublicationSection DisplayedSection;
     public readonly PublicationPage CurrentPage;
     public readonly PublicationSection? CurrentSection;
     public PublicationSidebarViewModel Sidebar { get; }
     public string PublicationTemplateSlug { get; }
 
     public string MetaDescription =>
-        string.IsNullOrEmpty(DisplayedSection?.MetaDescription)
+        string.IsNullOrEmpty(CurrentSection?.MetaDescription)
             ? PublicationTemplate.MetaDescription
-            : DisplayedSection.MetaDescription;
+            : CurrentSection.MetaDescription;
 
     public PublicationTemplateViewModel(
             PublicationTemplate publication,
@@ -114,4 +113,38 @@ public class PublicationTemplateViewModel
         DisplayDatePublished = !PublicationTemplate.DatePublished.Equals(DateTime.MinValue),
         IsPublication = true
     };
+
+    public List<TrustedLogo>? Logos
+    {
+        get
+        {
+            if (CurrentSection?.TrustedLogos?.Any() is true)
+                return CurrentSection?.TrustedLogos;
+            
+            if (CurrentPage?.TrustedLogos?.Any() is true)
+                return CurrentPage?.TrustedLogos;
+            
+            if (PublicationTemplate?.TrustedLogos?.Any() is true)
+                return PublicationTemplate?.TrustedLogos;
+
+            return null;
+        }
+    }
+
+    public string LogoAreaTitle
+    {
+        get
+        {
+            if (CurrentSection?.TrustedLogos?.Any() is true)
+                return CurrentSection.LogoAreaTitle;
+
+            if (CurrentPage?.TrustedLogos?.Any() is true)
+                return CurrentPage.LogoAreaTitle;
+
+            return PublicationTemplate.LogoAreaTitle;
+        }
+    }
+
+    public bool HasLogos =>
+        Logos?.Any() is true;
 }

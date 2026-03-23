@@ -239,7 +239,8 @@
     }
 
     &--one-stockport-purple,
-    &--os-purple {
+    &--os-purple,
+    &--os-multi {
         color: $one-stockport-purple;
         border: 1px solid $one-stockport-purple;
 
@@ -290,7 +291,45 @@
             background: white;
 
             &:hover, &:focus {
-                background-color: $one-stockport-pink;
+                background-color: $one-stockport-pink-darker;
+                color: white;
+            }
+        }
+    }
+
+    &--os-teal {
+        color: $one-stockport-teal-darker;
+        border: 1px solid $one-stockport-teal-darker;
+
+        &:hover, &:focus {
+            color: darken($one-stockport-teal-darker, 5%);
+            background-color: rgba(white, 0.9);
+        }
+
+        &-outline {
+            background: white;
+
+            &:hover, &:focus {
+                background-color: $one-stockport-teal-darker;
+                color: white;
+            }
+        }
+    }
+
+    &--os-yellow {
+        color: $one-stockport-yellow-darker;
+        border: 1px solid $one-stockport-yellow-darker;
+
+        &:hover, &:focus {
+            color: darken($one-stockport-yellow-darker, 5%);
+            background-color: rgba(white, 0.9);
+        }
+
+        &-outline {
+            background: white;
+
+            &:hover, &:focus {
+                background-color: $one-stockport-yellow-darker;
                 color: white;
             }
         }

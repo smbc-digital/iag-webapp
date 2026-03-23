@@ -162,6 +162,104 @@
             }
         }
 
+        &-os {
+            &:nth-child(n+1) {
+                flex-direction: row-reverse;
+
+                @media #{$tablet} {
+                    flex-direction: column-reverse;
+                }
+
+                .find-out-more-banner-content {
+                    @media #{$desktop} {
+                        padding-inline-start: 3em;
+                        padding-inline-end: 0;
+                    }
+                    
+                    @media #{$tablet} {
+                        padding: 0;
+                    }
+                }
+
+                .find-out-more-banner__button {
+                    color: $one-stockport-pink-darker !important;
+                    border: 1px solid $one-stockport-pink-darker !important;
+
+                    &:hover, &:focus {
+                        background-color: $one-stockport-pink-darker !important;
+                        color: white !important;
+                    }
+                }
+
+                .find-out-more-banner__title {
+                    border-color: $one-stockport-pink-darker !important;
+                }
+            }
+
+            &:nth-child(n+2) {
+                flex-direction: row;
+
+                @media #{$tablet} {
+                    flex-direction: column-reverse;
+                    margin-bottom: 0;
+                }
+
+                @media #{$desktop} {
+                    .find-out-more-banner-content {
+                        padding-inline-start: 0;
+                        padding-inline-end: 3em;
+                    }
+                }
+
+                .find-out-more-banner__button {
+                    color: $one-stockport-yellow-darker !important;
+                    border: 1px solid $one-stockport-yellow-darker !important;
+
+                    &:hover, &:focus {
+                        background-color: $one-stockport-yellow-darker !important;
+                        color: white !important;
+                    }
+                }
+
+                .find-out-more-banner__title {
+                    border-color: $one-stockport-yellow-darker !important;
+                }
+            }
+
+            &:nth-child(n+3) {
+                flex-direction: row-reverse;
+
+                @media #{$tablet} {
+                    flex-direction: column-reverse;
+                }
+
+                .find-out-more-banner-content {
+                    @media #{$desktop} {
+                        padding-inline-start: 3em;
+                        padding-inline-end: 0;
+                    }
+                    
+                    @media #{$tablet} {
+                        padding: 0;
+                    }
+                }
+
+                .find-out-more-banner__button {
+                    color: $one-stockport-lilac-darker !important;
+                    border: 1px solid $one-stockport-lilac-darker !important;
+
+                    &:hover, &:focus {
+                        background-color: $one-stockport-lilac-darker !important;
+                        color: white !important;
+                    }
+                }
+
+                .find-out-more-banner__title {
+                    border-color: $one-stockport-lilac-darker !important;
+                }
+            }
+        }
+
         &:last-of-type {
             margin-bottom: 0;
         }
@@ -191,6 +289,27 @@
         &:nth-child(n+3) {
             .find-out-more-card__icon {
                 color: $stockport-purple;
+            }
+        }
+
+        &-os {
+            &:nth-child(n+1) {
+                .find-out-more-card__icon {
+                    color: $one-stockport-purple !important;
+                }
+            }
+
+            &:nth-child(n+2) {
+
+                .find-out-more-card__icon {
+                    color: $one-stockport-teal-darker !important;
+                }
+            }
+
+            &:nth-child(n+3) {
+                .find-out-more-card__icon {
+                    color: $one-stockport-lilac-darker !important;
+                }
             }
         }
 

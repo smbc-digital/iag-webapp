@@ -80,6 +80,16 @@
                     {
                         <partial name="PublicationTemplatePagination" />
                     }
+
+                    @if (Model.HasLogos)
+                    {
+                        <partial name="LogoArea" model="Model.Logos"
+                            view-data='@(new ViewDataDictionary(ViewData) {
+                                { "logoAreaTitle", Model.LogoAreaTitle },
+                                { "articleWithSection", true },
+                                { "logoAreaArticle", true }
+                            })'/>
+                    }
                 </div>
             </section>
         </div>

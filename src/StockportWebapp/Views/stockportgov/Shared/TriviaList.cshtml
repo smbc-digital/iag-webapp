@@ -2,7 +2,10 @@
 @if (Model is not null && Model.SubItems?.Any() is true)
 {
     string additionalCssClass = ViewData["AdditionalCssClass"] as string ?? string.Empty;
-
+    string triviaIconClass = Model.ColourScheme.Equals(EColourScheme.OS_Multi)
+        ? "trivia__icon--publication-os-multi"
+        : Model.TextColourClass;
+    
     <section class="content-block content-block--margin @additionalCssClass" data-cy="trivia-list">
         <div class="grid-container">
             <div class="grid-100">
@@ -22,7 +25,7 @@
                             {
                                 <a href="@contentBlock.Link" class="trivia__link" data-cy="trivia-list-link">
                                     <div>
-                                        <span class="@contentBlock.Icon trivia__icon @Model.TextColourClass"></span>
+                                        <span class="@contentBlock.Icon trivia__icon @triviaIconClass"></span>
                                     </div>
 
                                     <div class="trivia__body" data-cy="trivia-list-body">
@@ -34,7 +37,7 @@
                             {
                                 <div class="trivia__text" data-cy="trivia-list-text">
                                     <div>
-                                        <span class="@contentBlock.Icon trivia__icon @Model.TextColourClass"></span>
+                                        <span class="@contentBlock.Icon trivia__icon @triviaIconClass"></span>
                                     </div>
                                     
                                     <div class="trivia__body" data-cy="trivia-list-body">

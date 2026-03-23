@@ -6,7 +6,7 @@
         : Model.BorderColourClass;
 
     string additionalCssClass = ViewData["AdditionalCssClass"] as string ?? string.Empty;
-
+    
     <section class="content-block content-block--margin @additionalCssClass" data-cy="profile-cards">
         <div class="grid-container">
             <div class="grid-100">
@@ -19,7 +19,7 @@
                 <ul class="navcard-wrapper navcard-wrapper--no-margin">
                     @foreach (ContentBlock contentBlock in Model.SubItems)
                     {
-                        <partial name="ProfileCard" model="@contentBlock" view-data="@(new ViewDataDictionary(ViewData) {{"BorderColourClass", borderColour}})" />
+                        <partial name="ProfileCard" model="@contentBlock" view-data="@(new ViewDataDictionary(ViewData) {{"BorderColourClass", borderColour}, {"IsOSThemeMulti", Model.ColourScheme.Equals(EColourScheme.OS_Multi)}})" />
                     }
                 </ul>                
             </div>

@@ -33,12 +33,12 @@
 }
 else if (Model.Any())
 {
-    <h2 class="@headingClass @eventDetailHeading" data-contentful-entry-id="@dataContentfulEntryId" data-contentful-field-id="logoAreaTitle">
+    <h2 class="@headingClass @eventDetailHeading logo-area--no-margin" data-contentful-entry-id="@dataContentfulEntryId" data-contentful-field-id="logoAreaTitle">
         @(!string.IsNullOrEmpty(logoAreaTitle) ? logoAreaTitle : "Our partners")
     </h2>
 }
 
-<div class="section__content section__content--no-margin">
+<div class="section__content section__content--no-margin logo-area--no-margin">
     <div class="logo-area" data-contentful-entry-id="@dataContentfulEntryId" data-contentful-field-id="trustedLogos">
         @if (featuredLogo is not null)
         {

@@ -68,6 +68,20 @@
         }
     }
 
+    &-os {
+        &:nth-child(3n+1) {
+            border-color: $one-stockport-pink-darker !important;
+        }
+
+        &:nth-child(3n+2) {
+            border-color: $one-stockport-yellow-darker !important;
+        }
+
+        &:nth-child(3n+3) {
+            border-color: $one-stockport-lilac-darker !important;
+        }
+    }
+
     @media #{$mobile} {
         margin-bottom: 2em;
 

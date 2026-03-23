@@ -2,8 +2,9 @@
 @if (Model is not null)
 {
     string textColourClass = (string)ViewData["TextColourClass"] ?? string.Empty;
+    bool isOSThemeMulti = ViewData["IsOSThemeMulti"] as bool? ?? false;
 
-    <li class="navcard navcard--width-33 navcard--center navcard find-out-more-card">
+    <li class="navcard navcard--width-33 navcard--center navcard find-out-more-card @(isOSThemeMulti ? "find-out-more-card-os" : string.Empty )">
         <a href="@Model.NavigationLink" class="navcard__link" data-cy="find-out-more-card-link">
             <div class="navcard__content">
                 @if (!string.IsNullOrEmpty(Model.Icon))
