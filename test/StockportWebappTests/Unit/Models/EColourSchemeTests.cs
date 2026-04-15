@@ -1,4 +1,7 @@
+using StockportWebapp.Models.Enums;
+
 namespace StockportWebappTests_Unit.Unit.Models;
+
 
 public class EColourSchemeTests
 {

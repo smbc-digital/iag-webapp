@@ -24,7 +24,7 @@ public enum EColourScheme
     OS_Yellow
 }
 
-static class EColourSchemeExtensions
+public static class EColourSchemeExtensions
 {
     public static bool IsOSStyle(this EColourScheme eColourScheme)
     {
