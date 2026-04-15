@@ -1,4 +1,5 @@
 ﻿@model ContentBlock
+
 @if (Model?.SubItems?.Count >= 3)
 {
     string additionalCssClass = ViewData["AdditionalCssClass"] as string ?? string.Empty;
@@ -18,11 +19,11 @@
                     <ul class="navcard-wrapper navcard-wrapper--no-margin">
                         @foreach(ContentBlock contentBlock in Model.SubItems.Take(3))
                         {
-                            <partial name="FindOutMoreCard" model="@contentBlock" view-data="@(new ViewDataDictionary(ViewData) { {"TextColourClass", Model.TextColourClass}, {"IsOSThemeMulti", Model.ColourScheme.Equals(EColourScheme.OS_Multi)} })" />
+                            <partial name="FindOutMoreCard" model="@contentBlock" view-data="@(new ViewDataDictionary(ViewData) { {"TextColourClass", Model.TextColourClass}, {"IsOSThemeMulti", Model.ColourScheme.IsOSStyle()} })" />
                         }
                     </ul>
                 </div>
-                
+                    
                 @if (Model?.SubItems?.Count > 3)
                 {
                     <partial name="ContentBlockViewMore" />
