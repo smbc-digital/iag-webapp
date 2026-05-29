@@ -33,10 +33,7 @@
                     </div>
                     
                     <div class="grid-30">
-                        <form method="post" action="/subscribe">
-                            <button type="submit" data-cy="subscribe-button" class="btn btn--inverse btn--bold btn--full btn--chevron-forward section__content--action @buttonColourClass"><span class="btn_text">Subscribe now</span></button>
-                            @Html.HiddenFor(pageSection => pageSection.MailingListId)
-                        </form>
+                        <a href="https://pages.comms.stockport.gov.uk/p/@Model.Link" data-cy="subscribe-button" class="btn btn--inverse btn--bold btn--full btn--chevron-forward section__content--action @buttonColourClass"><span class="btn_text">Subscribe now</span></a>
                     </div>
                 </div>
             </div>
