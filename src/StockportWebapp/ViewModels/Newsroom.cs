@@ -7,8 +7,8 @@ public class Newsroom(List<News> news,
                     NavCardList latestNews,
                     NavCardList newsItems,
                     List<Alert> alerts,
-                    bool emailAlerts,
-                    string emailAlertsTopicId,
+         
+               
                     List<string> categories,
                     List<DateTime> dates,
                     List<int> years,
@@ -22,8 +22,7 @@ public class Newsroom(List<News> news,
     public NavCardList NewsItems { get; set; } = newsItems;
     public List<Alert> Alerts = alerts.Where(alert => !alert.Severity.Equals(Severity.Condolence)).ToList();
     public List<Alert> CondolenceAlerts = alerts.Where(alert => alert.Severity.Equals(Severity.Condolence)).ToList();
-    public bool EmailAlerts { get; } = emailAlerts;
-    public string EmailAlertsTopicId { get; } = emailAlertsTopicId;
+
     public List<string> Categories { get; } = categories;
     public List<DateTime> Dates { get; } = dates;
     public List<int> Years { get; } = years;
