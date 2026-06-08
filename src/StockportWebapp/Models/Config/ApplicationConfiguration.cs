@@ -2,7 +2,6 @@
 
 public interface IApplicationConfiguration
 {
-    AppSetting GetEmailAlertsUrl(string businessId);
     AppSetting GetPostcodeSearchUrl(string businessId);
     AppSetting GetGoogleAnalyticsCode(string buisnessId);
     AppSetting GetRssEmail(string businessId);
@@ -13,7 +12,6 @@ public interface IApplicationConfiguration
     AppSetting GetEmailHost(string businessId);
     AppSetting GetEmailRegion(string businessId);
     AppSetting GetEmailEmailFrom(string businessId);
-    AppSetting GetEmailAlertsNewSubscriberUrl(string businessId);
     AppSetting GetReCaptchaKey();
     int GetFooterCache(string businessId);
     int GetHeaderCache(string businessId);
@@ -35,12 +33,6 @@ public interface IApplicationConfiguration
 public class ApplicationConfiguration(IConfiguration appsettings) : IApplicationConfiguration
 {
     private readonly IConfiguration _appsettings = appsettings;
-
-    public AppSetting GetEmailAlertsUrl(string businessid) =>
-        AppSetting.GetAppSetting(_appsettings[$"{businessid}:EmailAlerts"]);
-
-    public AppSetting GetEmailAlertsNewSubscriberUrl(string businessid) =>
-        AppSetting.GetAppSetting(_appsettings[$"{businessid}:EmailAlertsNewSubscriber"]);
 
     public string GetStaticAssetsRootUrl() =>
         _appsettings["StaticAssetsRootUrl"];

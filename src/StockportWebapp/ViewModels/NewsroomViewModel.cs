@@ -3,7 +3,6 @@
 public class NewsroomViewModel
 {
     // data
-    public string EmailAlertsUrl { get; private set; }
     public Newsroom Newsroom { get; private set; }
 
     public List<string> Categories =>
@@ -42,25 +41,15 @@ public class NewsroomViewModel
 
     public NewsroomViewModel() { }
 
-    public NewsroomViewModel(Newsroom newsroom, string emailAlertsUrl)
+    public NewsroomViewModel(Newsroom newsroom)
     {
         Newsroom = newsroom;
-        EmailAlertsUrl = SetEmailAlertsUrlWithTopicId(newsroom, emailAlertsUrl);
     }
-
-    private static string SetEmailAlertsUrlWithTopicId(Newsroom newsroom, string url) =>
-        !string.IsNullOrEmpty(newsroom.EmailAlertsTopicId)
-            ? string.Concat(url, "?topic_id=", newsroom.EmailAlertsTopicId)
-            : url;
 
     internal void AddNews(Newsroom newsRoom) =>
         Newsroom = newsRoom;
 
-    internal void AddUrlSetting(AppSetting urlSetting, string topicId) =>
-        EmailAlertsUrl = !string.IsNullOrEmpty(topicId)
-            ? string.Concat(urlSetting.ToString(), "?topic_id=", topicId)
-            : urlSetting.ToString();
-
+    
     public string GetActiveDateFilter()
     {
         if (!DateFrom.HasValue || !DateTo.HasValue)

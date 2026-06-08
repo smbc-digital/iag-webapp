@@ -31,8 +31,6 @@ public class NewsController(IRepository repository,
 
         Newsroom newsRoom = httpResponse.Content as Newsroom;
 
-        AppSetting urlSetting = _config.GetEmailAlertsNewSubscriberUrl(_businessId.ToString());
-
         model.AddQueryUrl(new QueryUrl(Url?.ActionContext.RouteData.Values, Request?.Query));
         _filteredUrl.SetQueryUrl(model.CurrentUrl);
         model.AddFilteredUrl(_filteredUrl);
@@ -68,7 +66,6 @@ public class NewsController(IRepository repository,
             : null;
 
         model.AddNews(newsRoom);
-        model.AddUrlSetting(urlSetting, model.Newsroom.EmailAlertsTopicId);
 
         return View(model);
     }
@@ -107,8 +104,6 @@ public class NewsController(IRepository repository,
 
         Newsroom newsRoom = httpResponse.Content as Newsroom;
 
-        AppSetting urlSetting = _config.GetEmailAlertsNewSubscriberUrl(_businessId.ToString());
-
         model.AddQueryUrl(new QueryUrl(Url?.ActionContext.RouteData.Values, Request?.Query));
         _filteredUrl.SetQueryUrl(model.CurrentUrl);
         model.AddFilteredUrl(_filteredUrl);
@@ -116,7 +111,6 @@ public class NewsController(IRepository repository,
         DoPagination(newsRoom, model, page, pageSize);
 
         model.AddNews(newsRoom);
-        model.AddUrlSetting(urlSetting, model.Newsroom.EmailAlertsTopicId);
 
         return View(model);
     }
