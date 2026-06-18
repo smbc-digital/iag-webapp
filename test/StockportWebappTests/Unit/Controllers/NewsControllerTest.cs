@@ -97,8 +97,6 @@ public class NewsControllerTest
                         null,
                         null,
                         new OrderedList<Alert>(),
-                        true,
-                        "test-id",
                         new List<string>(),
                         new List<DateTime>(),
                         new List<int>() { 2025, 2024, 2023, 2022, 2021, 2020, 2019, 2018, 2017, 2016 },
@@ -110,8 +108,6 @@ public class NewsControllerTest
                             null,
                             null,
                             new OrderedList<Alert>(),
-                            true,
-                            "test-id",
                             new List<string>(),
                             new List<DateTime>(),
                             new List<int>(),
@@ -141,9 +137,7 @@ public class NewsControllerTest
             .Setup(conf => conf.GetRssEmail("businessId"))
             .Returns(AppSetting.GetAppSetting("rss-email"));
         
-        _config
-            .Setup(conf => conf.GetEmailAlertsNewSubscriberUrl("businessId"))
-            .Returns(AppSetting.GetAppSetting("email-alerts-url"));
+
 
         _controller = new(_repository.Object,
                         _processedContentRepository.Object,
@@ -166,8 +160,7 @@ public class NewsControllerTest
         Assert.Equal(2, news.News.Count);
         Assert.Equal(NewsItemWithoutImages, news.News[0]);
         Assert.Equal(NewsItemWithImages, news.News[1]);
-        Assert.Equal("test-id", news.EmailAlertsTopicId);
-        Assert.True(news.EmailAlerts);
+
     }
 
     [Fact]
@@ -193,8 +186,6 @@ public class NewsControllerTest
         Assert.Equal(2, news.News.Count);
         Assert.Equal(NewsItemWithoutImages, news.News[0]);
         Assert.Equal(NewsItemWithImages, news.News[1]);
-        Assert.True(news.EmailAlerts);
-        Assert.Equal("test-id", news.EmailAlertsTopicId);
     }
 
     [Fact]
@@ -620,8 +611,6 @@ public class NewsControllerTest
                                 null,
                                 null,
                                 new OrderedList<Alert>(),
-                                true,
-                                "test-id",
                                 new List<string>(),
                                 new List<DateTime>(),
                                 new List<int>(),

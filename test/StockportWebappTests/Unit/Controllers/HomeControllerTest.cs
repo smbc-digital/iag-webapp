@@ -123,14 +123,6 @@ public class HomeControllerTest
             .Setup(service => service.GetLatestNewsItem())
             .ReturnsAsync(_newsContent);
 
-        AppSetting appSetting = AppSetting.GetAppSetting("email_alerts_url");
-        _config
-            .Setup(conf => conf.GetEmailAlertsUrl("stockportgov"))
-            .Returns(appSetting);
-        
-        _config
-            .Setup(conf => conf.GetEmailAlertsNewSubscriberUrl("stockportgov"))
-            .Returns(AppSetting.GetAppSetting("email_alerts_url"));
         
         _controller = new HomeController(new BusinessId("stockportgov"),
                                         _config.Object,
@@ -377,57 +369,5 @@ public class HomeControllerTest
 
         // Assert
         _stockportApiService.Verify(service => service.GetEventsByCategory(It.IsAny<string>(), It.IsAny<bool>()), Times.Never);
-    }
-
-    [Fact]
-    public async Task EmailSubscribe_Should_RedirectToConfiguredUrlWithEmailAddress()
-    {
-        // Act
-        RedirectResult result = await _controller.EmailSubscribe("me@email.com", string.Empty, string.Empty) as RedirectResult;
-
-        // Assert
-        Assert.IsType<RedirectResult>(result);
-        _config.Verify(conf => conf.GetEmailAlertsUrl("stockportgov"), Times.Once);
-        Assert.Equal("email_alerts_url?email=me@email.com", result.Url);
-    }
-
-    [Fact]
-    public async Task EmailSubscribe_Should_ReturnNotFound_IfEmailConfigurationIsMissing()
-    {
-        // Arrange
-        AppSetting appSetting = AppSetting.GetAppSetting(null);
-        _config
-            .Setup(conf => conf.GetEmailAlertsUrl("stockportgov"))
-            .Returns(appSetting);
-
-        // Act
-        StatusCodeResult response = await _controller.EmailSubscribe("me@email.com", string.Empty, string.Empty) as StatusCodeResult; ;
-
-        // Assert
-        Assert.Equal((int)HttpStatusCode.NotFound, response.StatusCode);
-    }
-
-    [Fact]
-    public async Task EmailSubscribe_Should_RedirectToConfiguredUrlWithEmailAlertsTopicId()
-    {
-        // Act
-        RedirectResult result = await _controller.EmailSubscribe(string.Empty, "test@email.com", string.Empty) as RedirectResult;
-
-        // Assert
-        Assert.IsType<RedirectResult>(result);
-        Assert.Equal("email_alerts_url?topic_id=test@email.com", result.Url);
-        _config.Verify(conf => conf.GetEmailAlertsNewSubscriberUrl("stockportgov"), Times.Once);
-    }
-
-    [Fact]
-    public async Task EmailSubscribe_Should_RedirectToConfiguredUrlWithMailingListId()
-    {
-        // Act
-        RedirectResult result = await _controller.EmailSubscribe(string.Empty, string.Empty, "123") as RedirectResult;
-
-        // Assert
-        Assert.IsType<RedirectResult>(result);
-        Assert.Equal("email_alerts_url?topic_id=123", result.Url);
-        _config.Verify(conf => conf.GetEmailAlertsNewSubscriberUrl("stockportgov"), Times.Once);
     }
 }

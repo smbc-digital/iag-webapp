@@ -12,8 +12,6 @@ public class SitemapControllerTests
                                             null,
                                             null,
                                             new List<Alert>(),
-                                            false,
-                                            string.Empty,
                                             new List<string>(),
                                             new List<DateTime>(),
                                             new List<int>(),
