@@ -14,7 +14,7 @@ public class PublicationTemplateViewModelTests
         {
             Slug = slug,
             Title = title,
-            MetaDescription = metaDescription,
+            MetaDescription = metaDescription,      
             DatePublished = datePublished ?? DateTime.MinValue,
             ReviewDate = reviewDate ?? DateTime.MaxValue,
             HeaderImage = headerImageUrl is null ? null : new MediaAsset { Url = headerImageUrl },

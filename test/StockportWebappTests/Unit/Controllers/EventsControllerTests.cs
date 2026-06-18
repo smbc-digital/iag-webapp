@@ -112,10 +112,7 @@ public class EventsControllerTest
         _config
             .Setup(config => config.GetRssEmail(BusinessId))
             .Returns(AppSetting.GetAppSetting("rss-email"));
-        
-        _config
-            .Setup(config => config.GetEmailAlertsNewSubscriberUrl(BusinessId))
-            .Returns(AppSetting.GetAppSetting("email-alerts-url"));
+    
 
         _controller = new EventsController(_repository.Object,
                                         _processedContentRepository.Object,

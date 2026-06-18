@@ -6,9 +6,7 @@ public class Newsroom(List<News> news,
                     NavCardList latestArticle,
                     NavCardList latestNews,
                     NavCardList newsItems,
-                    List<Alert> alerts,
-         
-               
+                    List<Alert> alerts,              
                     List<string> categories,
                     List<DateTime> dates,
                     List<int> years,

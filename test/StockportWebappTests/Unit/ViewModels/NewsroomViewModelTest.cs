@@ -7,34 +7,17 @@ public class NewsroomViewModelTest
     private readonly Newsroom _newsroom;
 
     public NewsroomViewModelTest() =>
-        _newsroom = BuildNewsRoom(emailAlertsTopicId: "tag-id");
+        _newsroom = BuildNewsRoom();
 
-    [Fact]
-    public void ShouldSetEmailAlertsUrlWithTopicId()
-    {
-        // Act
-        NewsroomViewModel newsroomViewModel = new(BuildNewsRoom(emailAlertsTopicId: "tag-id"), EmailAlertsUrl);
 
-        // Assert
-        Assert.Equal(string.Concat(EmailAlertsUrl, "?topic_id=", _newsroom.EmailAlertsTopicId), newsroomViewModel.EmailAlertsUrl);
-    }
 
-    [Fact]
-    public void ShouldSetEmailAlertsUrlWithoutTopicId()
-    {
-        // Act
-        NewsroomViewModel newsroomViewModel = new(BuildNewsRoom(emailAlertsTopicId: string.Empty), EmailAlertsUrl);
-
-        // Assert
-        Assert.Equal(EmailAlertsUrl, newsroomViewModel.EmailAlertsUrl);
-    }
 
     [Fact]
     public void ShouldGiveCategoriesInAlphabeticalOrder()
     {
         // Act
         Newsroom newsroom = BuildNewsRoom(categories: new List<string> { "Zebras", "Asses", "Oxen" });
-        NewsroomViewModel newsroomViewModel = new(newsroom, EmailAlertsUrl);
+        NewsroomViewModel newsroomViewModel = new(newsroom);
 
         // Assert
         List<string> expectedOrder = new() { "Asses", "Oxen", "Zebras" };
@@ -99,7 +82,7 @@ public class NewsroomViewModelTest
     {
         // Arrange
         Newsroom newsroom = BuildNewsRoom(categories: new List<string> { "Zebras", "Asses", "Oxen" });
-        NewsroomViewModel newsroomViewModel = new(newsroom, EmailAlertsUrl);
+        NewsroomViewModel newsroomViewModel = new(newsroom);
         
         // Act
         bool result = newsroomViewModel.HasActiveFilter();
@@ -113,7 +96,7 @@ public class NewsroomViewModelTest
     {
         // Arrange
         Newsroom newsroom = BuildNewsRoom(categories: new List<string> { "Zebras", "Asses", "Oxen" });
-        NewsroomViewModel newsroomViewModel = new(newsroom, EmailAlertsUrl);
+        NewsroomViewModel newsroomViewModel = new(newsroom);
         newsroomViewModel.Category = "Zebras";
         newsroomViewModel.Tag = "Tag";
         newsroomViewModel.DateFrom = DateTime.Now.AddDays(-5);
@@ -131,7 +114,7 @@ public class NewsroomViewModelTest
     {
         // Arrange
         Newsroom newsroom = BuildNewsRoom(categories: new List<string> { "Zebras", "Asses", "Oxen" });
-        NewsroomViewModel newsroomViewModel = new(newsroom, EmailAlertsUrl);
+        NewsroomViewModel newsroomViewModel = new(newsroom);
         newsroomViewModel.DateFrom = DateTime.Now;
         newsroomViewModel.DateTo = DateTime.Now.AddDays(-5);
 
@@ -382,7 +365,7 @@ public class NewsroomViewModelTest
     public void HasLatestArticle_ShouldReturnFalse_WhenLatestArticleHasNoItems()
     {
         // Arrange
-        NewsroomViewModel newsroomViewModel = new(BuildNewsRoom(emailAlertsTopicId: string.Empty), EmailAlertsUrl);
+        NewsroomViewModel newsroomViewModel = new(BuildNewsRoom());
 
         // Act
         bool result = newsroomViewModel.HasLatestArticle;
@@ -411,7 +394,7 @@ public class NewsroomViewModelTest
             }
         };
 
-        NewsroomViewModel newsroomViewModel = new(BuildNewsRoom(null, emailAlertsTopicId: string.Empty, latestArticle), string.Empty);
+        NewsroomViewModel newsroomViewModel = new(BuildNewsRoom(null, latestArticle));
 
         // Act
         bool result = newsroomViewModel.HasLatestArticle;
@@ -440,7 +423,7 @@ public class NewsroomViewModelTest
             }
         };
 
-        NewsroomViewModel newsroomViewModel = new(BuildNewsRoom(null, emailAlertsTopicId: string.Empty, null, latestNews), string.Empty);
+        NewsroomViewModel newsroomViewModel = new(BuildNewsRoom(null, null, latestNews));
 
         // Act
         bool result = newsroomViewModel.HasLatestNews;
@@ -453,7 +436,7 @@ public class NewsroomViewModelTest
     public void HasLatestNews_ShouldReturnFalse_WhenLatestNewsHasNoItems()
     {
         // Arrange
-        NewsroomViewModel newsroomViewModel = new(BuildNewsRoom(), string.Empty);
+        NewsroomViewModel newsroomViewModel = new(BuildNewsRoom());
 
         // Act
         bool result = newsroomViewModel.HasLatestNews;
@@ -482,7 +465,7 @@ public class NewsroomViewModelTest
             }
         };
 
-        NewsroomViewModel newsroomViewModel = new(BuildNewsRoom(null, emailAlertsTopicId: string.Empty, null, null, newsItems), string.Empty);
+        NewsroomViewModel newsroomViewModel = new(BuildNewsRoom(null, null, null, newsItems));
 
         // Act
         bool result = newsroomViewModel.HasNewsItems;
@@ -495,7 +478,7 @@ public class NewsroomViewModelTest
     public void HasNewsItems_ShouldReturnFalse_WhenNewsItemsHasNoItems()
     {
         // Arrange
-        NewsroomViewModel newsroomViewModel = new(BuildNewsRoom(), string.Empty);
+        NewsroomViewModel newsroomViewModel = new(BuildNewsRoom());
 
         // Act
         bool result = newsroomViewModel.HasNewsItems;
@@ -517,7 +500,7 @@ public class NewsroomViewModelTest
             Image = "Image"
         };
 
-        NewsroomViewModel newsroomViewModel = new(BuildNewsRoom(callToAction: callToAction), string.Empty);
+        NewsroomViewModel newsroomViewModel = new(BuildNewsRoom(callToAction: callToAction));
 
         // Act
         bool result = newsroomViewModel.HasCallToAction;
@@ -530,7 +513,7 @@ public class NewsroomViewModelTest
     public void HasCallToAction_ShouldReturnFalse_WhenCallToActionIsNull()
     {
         // Arrange
-        NewsroomViewModel newsroomViewModel = new(BuildNewsRoom(), string.Empty);
+        NewsroomViewModel newsroomViewModel = new(BuildNewsRoom());
 
         // Act
         bool result = newsroomViewModel.HasCallToAction;
@@ -559,7 +542,7 @@ public class NewsroomViewModelTest
             }
         };
 
-        NewsroomViewModel newsroomViewModel = new(BuildNewsRoom(latestArticle: latestArticle), string.Empty)
+        NewsroomViewModel newsroomViewModel = new(BuildNewsRoom(latestArticle: latestArticle))
         {
             Pagination = new Pagination
             {
@@ -578,7 +561,7 @@ public class NewsroomViewModelTest
     public void ShowFeaturedNews_ShouldReturnFalse_WhenNotFirstPageOrHasNoLatestArticle()
     {
         // Arrange
-        NewsroomViewModel newsroomViewModel = new(BuildNewsRoom(), string.Empty)
+        NewsroomViewModel newsroomViewModel = new(BuildNewsRoom())
         {
             Pagination = new Pagination
             {
@@ -613,7 +596,7 @@ public class NewsroomViewModelTest
             }
         };
 
-        NewsroomViewModel newsroomViewModel = new(BuildNewsRoom(latestNews: latestNews), string.Empty)
+        NewsroomViewModel newsroomViewModel = new(BuildNewsRoom(latestNews: latestNews))
         {
             Pagination = new Pagination
             {
@@ -632,7 +615,7 @@ public class NewsroomViewModelTest
     public void ShowLatestNews_ShouldReturnFalse_WhenNotFirstPageOrHasNoLatestNews()
     {
         // Arrange
-        NewsroomViewModel newsroomViewModel = new(BuildNewsRoom(), string.Empty)
+        NewsroomViewModel newsroomViewModel = new(BuildNewsRoom())
         {
             Pagination = new Pagination
             {
@@ -651,7 +634,7 @@ public class NewsroomViewModelTest
     public void PageTitle_ShouldReturnCorrectTitle_WhenTotalItemsExceedMaxItemsPerPage()
     {
         // Arrange
-        NewsroomViewModel newsroomViewModel = new(BuildNewsRoom(), string.Empty)
+        NewsroomViewModel newsroomViewModel = new(BuildNewsRoom())
         {
             Pagination = new Pagination
             {
@@ -673,7 +656,7 @@ public class NewsroomViewModelTest
     public void PageTitle_ShouldReturnEmptyString_WhenPaginationIsNull()
     {
         // Arrange
-        NewsroomViewModel newsroomViewModel = new(BuildNewsRoom(), string.Empty)
+        NewsroomViewModel newsroomViewModel = new(BuildNewsRoom())
         {
             Pagination = null
         };
@@ -689,7 +672,7 @@ public class NewsroomViewModelTest
     public void PageTitle_ShouldReturnCorrectTitle_WhenOnPageOneWithPagination()
     {
         // Arrange
-        NewsroomViewModel newsroomViewModel = new(BuildNewsRoom(), string.Empty)
+        NewsroomViewModel newsroomViewModel = new(BuildNewsRoom())
         {
             Pagination = new Pagination
             {
@@ -711,7 +694,7 @@ public class NewsroomViewModelTest
     public void PageTitle_ShouldReturnEmtpyString_WhenPaginationHasNoTotalItems()
     {
         // Arrange
-        NewsroomViewModel newsroomViewModel = new(BuildNewsRoom(), string.Empty)
+        NewsroomViewModel newsroomViewModel = new(BuildNewsRoom())
         {
             Pagination = new Pagination
             {
@@ -733,7 +716,7 @@ public class NewsroomViewModelTest
     public void IsFromSearch_ShouldReturnFalse_WhenNoCategoryOrTagIsPresent()
     {
         // Arrange
-        NewsroomViewModel newsroomViewModel = new(BuildNewsRoom(), string.Empty);
+        NewsroomViewModel newsroomViewModel = new(BuildNewsRoom());
 
         // Act
         bool result = newsroomViewModel.IsFromSearch();
@@ -746,7 +729,7 @@ public class NewsroomViewModelTest
     public void IsFromSearch_ShouldReturnTrue_WhenCategoryIsPresent()
     {
         // Arrange
-        NewsroomViewModel newsroomViewModel = new(BuildNewsRoom(), string.Empty)
+        NewsroomViewModel newsroomViewModel = new(BuildNewsRoom())
         {
             Category = "Zebras"
         };
@@ -762,7 +745,7 @@ public class NewsroomViewModelTest
     public void IsFromSearch_ShouldReturnTrue_WhenTagIsPresent()
     {
         // Arrange
-        NewsroomViewModel newsroomViewModel = new(BuildNewsRoom(), string.Empty)
+        NewsroomViewModel newsroomViewModel = new(BuildNewsRoom())
         {
             Tag = "Tag"
         };
@@ -775,7 +758,6 @@ public class NewsroomViewModelTest
     }
 
     private static Newsroom BuildNewsRoom(List<string> categories = null,
-                                        string emailAlertsTopicId = "",
                                         NavCardList latestArticle = null,
                                         NavCardList latestNews = null,
                                         NavCardList newsItems = null,
@@ -786,8 +768,6 @@ public class NewsroomViewModelTest
             latestNews,
             newsItems,
             new List<Alert>(),
-            true,
-            emailAlertsTopicId,
             categories ?? emptyList,
             new List<DateTime>(),
             new List<int>(),

@@ -24,6 +24,8 @@
         ? $"btn-{CssClassMapper.GetCssClass(EColourScheme.OS_Purple)}"
         : buttonColour;
 
+    string link = string.IsNullOrEmpty(Model.Link) ? "https://pages.comms.stockport.gov.uk/p/subscribe" : Model.Link;
+
     <section class="content-block content-block--margin @additionalCssClass" data-cy="subscription-banner">
         <div class="grid-container">
             <div class="subscription-banner">
@@ -34,7 +36,7 @@
                     </div>
                     
                     <div class="grid-30">
-                        <a href="@Model.Link" data-cy="subscribe-button" class="btn btn--inverse btn--bold btn--full btn--chevron-forward section__content--action @buttonColourClass"><span class="btn_text">Subscribe now</span></a>
+                        <a href="@link" data-cy="subscribe-button" class="btn btn--inverse btn--bold btn--full btn--chevron-forward section__content--action @buttonColourClass"><span class="btn_text">Subscribe now</span></a>
                     </div>
                 </div>
             </div>
