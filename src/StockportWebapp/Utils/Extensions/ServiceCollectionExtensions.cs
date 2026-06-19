@@ -16,6 +16,7 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddConfigurationOptions(this IServiceCollection services, IConfiguration configuration)
     {
         services.Configure<CivicaPayConfiguration>(configuration.GetSection(CivicaPayConfiguration.ConfigValue));
+        services.Configure<EShotConfiguration>(configuration.GetSection(EShotConfiguration.ConfigValue));
         return services;
     }
 
@@ -195,7 +196,6 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IEventFactory>(p => new EventFactory(p.GetService<ITagParserContainer>(), p.GetService<MarkdownWrapper>()));
         
         services.AddScoped<IRichTextHelper, RichTextHelper>();
-
         return services;
     }
 
