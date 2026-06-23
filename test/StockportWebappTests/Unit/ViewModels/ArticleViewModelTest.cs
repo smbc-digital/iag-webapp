@@ -21,6 +21,28 @@ public class ArticleViewModelTest
             null,
             EColourScheme.Teal)
     };
+
+    private readonly List<SubItem> multipleSubItems = new()
+    {
+        new("slug",
+            "title",
+            "teaser",
+            "teaser image",
+            "icon",
+            "type",
+            "image",
+            null,
+            EColourScheme.Teal),
+        new("slug",
+            "title",
+            "teaser",
+            "teaser image",
+            "icon",
+            "type",
+            "image",
+            null,
+            EColourScheme.Teal)
+    };
     
     private readonly Topic parentTopic = new("Name",
                                             "slug",
@@ -42,6 +64,7 @@ public class ArticleViewModelTest
                                             null,
                                             string.Empty);
     private readonly Topic parentTopicWithSubItems;
+    private readonly Topic parentTopicWithMultipleSubItems;
     
     public ArticleViewModelTest()
     {
@@ -60,6 +83,26 @@ public class ArticleViewModelTest
                                     null,
                                     subItems,
                                     subItems,
+                                    new List<Crumb>(),
+                                    null,
+                                    null,
+                                    true,
+                                    new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty, new DateTime()),
+                                    string.Empty,
+                                    null,
+                                    string.Empty);
+
+        parentTopicWithMultipleSubItems = new("Name",
+                                    "slug",
+                                    "Summary",
+                                    "Teaser",
+                                    "metaDescription",
+                                    "Icon",
+                                    "Image",
+                                    "Image",
+                                    null,
+                                    multipleSubItems,
+                                    multipleSubItems,
                                     new List<Crumb>(),
                                     null,
                                     null,
@@ -195,7 +238,7 @@ public class ArticleViewModelTest
     public void HasParentTopicWithSubItems_ReturnsTrue_If_SubItemsHasMoreThan1Items()
     {
         // Arrange
-        ProcessedArticle article = BuildArticle("Article title", new List<ProcessedSection> { _sectionOne, _sectionOne }, parentTopicWithSubItems);
+        ProcessedArticle article = BuildArticle("Article title", new List<ProcessedSection> { _sectionOne }, parentTopicWithMultipleSubItems);
         ArticleViewModel viewModel = new(article);
 
         // Act & Assert
