@@ -192,14 +192,25 @@ public class ArticleViewModelTest
     }
 
     [Fact]
-    public void HasParentTopicWithSubItems_ReturnsTrue_If_SubItemsHasItems()
+    public void HasParentTopicWithSubItems_ReturnsTrue_If_SubItemsHasMoreThan1Items()
+    {
+        // Arrange
+        ProcessedArticle article = BuildArticle("Article title", new List<ProcessedSection> { _sectionOne, _sectionOne }, parentTopicWithSubItems);
+        ArticleViewModel viewModel = new(article);
+
+        // Act & Assert
+        Assert.True(viewModel.HasParentTopicWithSubItems());
+    }
+
+    [Fact]
+    public void HasParentTopicWithSubItems_ReturnsFalse_If_SubItemsHas1Item()
     {
         // Arrange
         ProcessedArticle article = BuildArticle("Article title", new List<ProcessedSection> { _sectionOne }, parentTopicWithSubItems);
         ArticleViewModel viewModel = new(article);
 
         // Act & Assert
-        Assert.True(viewModel.HasParentTopicWithSubItems());
+        Assert.False(viewModel.HasParentTopicWithSubItems());
     }
 
     [Fact]
