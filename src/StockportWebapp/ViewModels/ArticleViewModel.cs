@@ -76,11 +76,11 @@ public class ArticleViewModel
         PreviousSection() is not null;
 
     public bool HasParentTopicWithSubItems() =>
-        Article.ParentTopic is not null && Article.ParentTopic.SubItems.Any();
+        Article.ParentTopic is not null && Article.ParentTopic.SubItems.Count() > 1;
 
     public bool HasRelatedContentWithSubItems() =>
         Article.RelatedContent is not null && Article.RelatedContent.Any();
-
+        
     public bool HasSecondarySubItems() => 
         Article.ParentTopic.SecondaryItems.Any();
 

@@ -18,7 +18,7 @@ public class ProfileViewModel
     }
 
     public bool HasParentTopicWithSubItems() =>
-        Profile.ParentTopic is not null && Profile.ParentTopic.SubItems.Any();
+        Profile.ParentTopic is not null && Profile.ParentTopic.SubItems.Count() > 1;
 
     public IEnumerable<SubItem> SidebarSubItems(out bool hasMoreButton)
     {

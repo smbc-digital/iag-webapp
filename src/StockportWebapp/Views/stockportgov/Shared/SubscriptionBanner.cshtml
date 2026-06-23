@@ -1,6 +1,8 @@
-@model ContentBlock
+@using Microsoft.Extensions.Options
+@model ContentBlock;
+@inject IOptions<EShotConfiguration> newsletterConfiguration;
 
-@if (Model is not null && !string.IsNullOrEmpty(Model.MailingListId))
+@if (Model is not null && !string.IsNullOrEmpty(Model.Link))
 {
     bool isDefaultColourScheme = Model.IsDefaultColourScheme;
     string backgroundColour = isDefaultColourScheme
@@ -24,7 +26,7 @@
         ? $"btn-{CssClassMapper.GetCssClass(EColourScheme.OS_Purple)}"
         : buttonColour;
 
-    string link = string.IsNullOrEmpty(Model.Link) ? "https://pages.comms.stockport.gov.uk/p/subscribe" : Model.Link;
+    string link = string.IsNullOrEmpty(Model.Link) ? newsletterConfiguration.Value.DefaultEndpoint : Model.Link;
 
     <section class="content-block content-block--margin @additionalCssClass" data-cy="subscription-banner">
         <div class="grid-container">

@@ -1,4 +1,6 @@
-﻿@{
+﻿@using Microsoft.Extensions.Options
+@inject IOptions<EShotConfiguration> newsletterConfiguration;
+@{
     string additionalCssClasses = (string)ViewData["AdditionalCssClasses"] ?? string.Empty;
     string buttonAdditionalCssClasses = (string)ViewData["ButtonAdditionalCssClasses"] ?? string.Empty;
     bool isOnHomepage = (bool)ViewData["isOnHomepage"];
@@ -16,7 +18,7 @@
             
             <div class="@(isOnHomepage ? "grid-30" : string.Empty)">
                 <div class="section__content">
-                    <a data-cy="subscribe-button" href="https://pages.comms.stockport.gov.uk/p/subscribe" class="btn btn--inverse @buttonAdditionalCssClasses btn--bold btn--full btn--chevron-forward section__content--action">
+                    <a data-cy="subscribe-button" href=@newsletterConfiguration.Value.DefaultEndpoint class="btn btn--inverse @buttonAdditionalCssClasses btn--bold btn--full btn--chevron-forward section__content--action">
                         <span class="btn_text">Subscribe now</span>
                     </a>
                 </div>
