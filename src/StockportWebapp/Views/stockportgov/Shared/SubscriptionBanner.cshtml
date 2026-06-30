@@ -2,7 +2,7 @@
 @model ContentBlock;
 @inject IOptions<EShotConfiguration> newsletterConfiguration;
 
-@if (Model is not null && !string.IsNullOrEmpty(Model.Link))
+@if (Model is not null)
 {
     bool isDefaultColourScheme = Model.IsDefaultColourScheme;
     string backgroundColour = isDefaultColourScheme
