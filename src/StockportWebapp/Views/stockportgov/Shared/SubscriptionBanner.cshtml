@@ -26,7 +26,8 @@
         ? $"btn-{CssClassMapper.GetCssClass(EColourScheme.OS_Purple)}"
         : buttonColour;
 
-    string link = string.IsNullOrEmpty(Model.Link) ? newsletterConfiguration.Value.DefaultEndpoint : Model.Link;
+    
+        string link = string.IsNullOrEmpty(Model.Link) ? newsletterConfiguration.Value.DefaultEndpoint : Model.Link;
 
     <section class="content-block content-block--margin @additionalCssClass" data-cy="subscription-banner">
         <div class="grid-container">
