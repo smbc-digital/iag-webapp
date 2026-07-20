@@ -15,6 +15,7 @@ public class HomeController(BusinessId businessId,
     private readonly IStockportApiEventsService _stockportApiEventsService = stockportApiService;
 
     [Route("/")]
+    [Route("/")]
     public async Task<IActionResult> Index()
     {
         ProcessedHomepage homepage = await _homepageService.GetHomepage();
