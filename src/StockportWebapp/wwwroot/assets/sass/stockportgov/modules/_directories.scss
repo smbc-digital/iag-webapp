@@ -805,6 +805,8 @@
     &__controls {
         margin-block-end: 1em;
         display: flex;
+        flex-wrap: wrap;
+        gap: 0.5em;
 
         @media #{$mobile} {
             display: block;
@@ -816,8 +818,8 @@
         border-radius: 3px;
         position: relative;
         display: flex;
-        width: 40%;
-        margin-inline-end: 0.5em;
+        width: fit-content;
+        max-width: 100%;
 
         label {
             padding: 0.55em 0 0.55em 0.75em;
@@ -841,6 +843,7 @@
             background-repeat: no-repeat;
             background-size: 1em;
             border: none;
+            padding-inline-end: 6.75em;
 
             @media #{$small-mobile} {
                 background-image: none;
