@@ -818,14 +818,13 @@
         border-radius: 3px;
         position: relative;
         display: flex;
-        width: fit-content;
-        max-width: 100%;
+        flex-shrink: 1;
+        min-width: 0;
 
         label {
             padding: 0.55em 0 0.55em 0.75em;
             place-self: center;
-            max-width: fit-content;
-            min-width: fit-content;
+            white-space: nowrap;
         }
 
         select {
@@ -834,20 +833,21 @@
             -webkit-appearance: none;
             -moz-appearance: none;
             padding: 1em;
+            padding-inline-end: 6.75em;
             width: 100%;
             text-align: left;
-            width: -webkit-fill-available;
+            text-overflow: ellipsis;
             background-color: #fff;
             background-image: url(/assets/images/ui-images/chevron-down-black.svg);
             background-position: right 1.35em center;
             background-repeat: no-repeat;
             background-size: 1em;
             border: none;
-            padding-inline-end: 6.75em;
+            min-width: 0;
 
-            @media #{$small-mobile} {
+            @media #{$mobile} {
                 background-image: none;
-                padding-inline-end: 1em;
+                padding-inline-end: 0;
             }
         }
 
