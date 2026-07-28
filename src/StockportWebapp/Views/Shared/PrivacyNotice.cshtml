@@ -4,6 +4,6 @@
 @foreach (PrivacyNotice privacyNotice in Model)
 {
     <div>
-        <a href="/privacy-notices/@privacyNotice.Slug">@privacyNotice.Category</a>
+        <a href="/privacy-notices/@privacyNotice.Slug">@privacyNotice.Category<span class="visuallyhidden">privacy notice</span></a>
     </div>
 }
