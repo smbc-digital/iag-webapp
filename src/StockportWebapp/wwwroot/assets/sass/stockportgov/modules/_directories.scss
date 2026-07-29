@@ -846,8 +846,7 @@
             min-width: 0;
 
             @media #{$mobile} {
-                background-image: none;
-                padding-inline-end: 0;
+                padding-inline-end: 2.75em;
             }
         }
 
