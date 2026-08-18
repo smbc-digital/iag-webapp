@@ -1,6 +1,17 @@
 ﻿.site-header {
     background-color: $stockport-green;
 
+    @media #{$mobile} {
+        background-color: $stockport-green;
+    }
+
+    #header {
+        @media #{$mobile} {
+            display: flex;
+            flex-wrap: wrap;
+        }
+    }
+
     #search_autocomplete {
         top: 4.21em !important;
         border-top: 1px solid $stockport-grey;
@@ -10,8 +21,12 @@
         height: 50px;
         margin: 0;
         padding-top: 1rem;
-        padding-bottom: 1rem;
+        padding-bottom: 0;
         width: auto;
+
+        @media #{$mobile} {
+            padding-bottom: 1rem;
+        }
     }
 
     &_search-input-wrapper {
@@ -22,7 +37,7 @@
         color: $stockport-grey;
         font-size: 1.2rem !important;
         padding: 15px 60px 15px 15px;
-        border-radius: 3px 0 0 3px !important;
+        border-radius: 3px !important;
         border: 0px;
         width: 100%;
         max-width: 100%;
@@ -47,6 +62,109 @@
         cursor: pointer;
     }
 
+    &_mobile-logo-wrapper {
+        @media #{$mobile} {
+            padding: 0.5rem;
+        }
+    }
+
+    &_mobile-menu {
+        display: none;
+
+        &.is-open {
+            display: block;
+        }
+
+        &-area {
+            @media #{$mobile} {
+                order: 2;
+            }
+        }
+
+        &-toggle {
+            color: #fff;
+            float: right;
+            margin: 20px 0 10px 10px;
+            padding: 0;
+            padding-bottom: 2px;
+            background: transparent;
+            cursor: pointer;
+            text-decoration: none;
+            border-bottom: 2px solid #2AA294;
+            display: none;
+
+            @media #{$mobile} {
+                display: inline-block;
+            }
+
+            .fa {
+                margin-right: 0.3em;
+            }
+
+            &:hover,
+            &:focus {
+                color: #fff;
+                text-decoration: none;
+            }
+
+            &[aria-expanded="true"] {
+                border-bottom-color: #FFFFFF;
+            }
+        }
+
+        &-heading {
+            color: #fff;
+            margin: 0 0 0.5em;
+        }
+
+        &-content {
+            background-color: $stockport-teal-darker;
+            padding: 1em;
+            color: #fff;
+
+            h2, h3, p, a {
+                color: #fff;
+            }
+
+            p {
+                margin-bottom: 1em;
+            }
+        }
+
+        &-links {
+            list-style: none;
+            margin: 0;
+            padding: 0 0 1em 0;
+
+            li {
+                margin-bottom: 0;
+                margin-inline-start: 0;
+                padding-left: 0;
+                padding-bottom: 0.5em;
+            }
+
+            a {
+                color: #fff;
+                text-decoration: underline;
+                font-size: 1rem;
+
+                &:hover,
+                &:focus {
+                    text-decoration-thickness: 3px;
+                }
+            }
+        }
+
+        &-search {
+            form {
+                position: relative;
+                margin: 0;
+                display: flex;
+                box-sizing: border-box;
+            }
+        }
+    }
+
     &_mobile-search {
         display: none;
     }
@@ -54,6 +172,7 @@
     #cludo-search-form, #cludo-mobile-form {
         position: relative;
         margin: 0;
+        margin-top: 0.5em;
         display: flex;
         box-sizing: border-box;
         z-index: 9999;
@@ -62,9 +181,11 @@
 
         .site-header_search-button {
             width: 3.15em;
+            margin-left: 0.5em;
             border: none;
+            border-radius: 3px;
             padding: 0;
-            color: $stockport-grey;
+            color: $stockport-teal-darker;
             font-size: 1.3rem;
             background: white;
             text-align: center;
@@ -86,10 +207,27 @@
         text-shadow: none;
     }
 
+    &_menu-wrapper {
+        @media #{$mobile} {
+            border-bottom: 1px solid #2AA294;
+        }
+    }
+
     &_menu {
         margin: 0px;
         border-top: solid 1px $stockport-teal-darker;
         padding: 0.5rem;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+
+        @media #{$tablet} {
+            justify-content: flex-start;
+        }
+
+        @media #{$mobile} {
+            justify-content: flex-end;
+        }
 
         @media #{$desktop} {
             text-align: right;
@@ -101,6 +239,7 @@
         li {
             margin: 0;
             margin-left: 5px;
+            margin-top: 0.5em;
             margin-bottom: 0.5rem;
             padding: 0;
             text-indent: 0;
@@ -109,13 +248,18 @@
             display: inline-block;
 
             @media #{$mobile, $tablet} {
-                margin-right: 2em;
+                margin-right: 1em;
             }
 
-
             @media #{$desktop} {
+                margin: 0;
                 margin-left: 1rem;
-                margin-bottom: 0em;
+            }
+
+            &:last-child {
+                @media #{$mobile, $tablet} {
+                    margin-right: 0;
+                }
             }
 
             a {
@@ -128,7 +272,7 @@
                 }
 
                 span {
-                    color: $header-accent;
+                    color: white;
                     padding-right: 10px;
                 }
             }

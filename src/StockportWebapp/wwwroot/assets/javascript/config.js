@@ -19,14 +19,14 @@
         "matchbox": "matchbox-1781b65a.min",
         "multiSelect": "multiSelect-6f2004f5.min",
         "reciteMe": "reciteMe-70c3df4d.min",
-        "searchResults": "searchResults-72f65d65.min",
-        "startup": "startUp-6675cf8a.min",
+        "searchResults": "searchResults-6e10bd9c.min",
+        "startup": "startUp-a360fb99.min",
         "utils": "utils-e9b96aa5.min",
         "viewMoreSlider": "viewMoreSlider-18c0a669.min",
 
         // VENDOR
         "jquery": "../vendor/jquery-v3.6.0.min",
-        "jquery.steps": "../vendor/jquery.steps-e3d787b4.min",
+        "jquery.steps": "../venodor/jquery.steps-e3d787b4.min",
         "jquery.cookie": "../vendor/jquery.cookie-481af348.min",
         "validate": "../vendor/jquery.validate-v1.9.0.min",
         "unobtrusive": "../vendor/jquery.validate.unobtrusive-v1.0.0.min",

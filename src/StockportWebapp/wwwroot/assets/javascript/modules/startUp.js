@@ -22,7 +22,33 @@
                 $(this).attr("aria-label", expanded ? "Open search" : "Close search");
             }
         });
+
+        var mobileMenuToggle = document.getElementById('mobileMenuToggle');
         
+        if (mobileMenuToggle) {
+            mobileMenuToggle.addEventListener('click', function (e) {
+                e.preventDefault();
+                var menuContent = document.getElementById('siteHeaderMobileMenuContent');
+                var heroWrapper = document.querySelector('.homepageHero_wrapper--mobile');
+                var expanded = this.getAttribute('aria-expanded') === 'true';
+
+                if (expanded) {
+                    if (menuContent) { menuContent.setAttribute('hidden', ''); menuContent.style.display = 'none'; }
+                    this.querySelector('.fa').className = 'fa fa-bars';
+                    this.lastChild.textContent = 'Menu';
+                    if (heroWrapper) heroWrapper.style.display = '';
+                } else {
+                    if (menuContent) { menuContent.removeAttribute('hidden'); menuContent.style.display = 'block'; }
+                    this.querySelector('.fa').className = 'fa fa-times';
+                    this.lastChild.textContent = 'Close';
+                    if (heroWrapper) heroWrapper.style.display = 'none';
+                }
+
+                this.setAttribute('aria-expanded', !expanded);
+                this.setAttribute('aria-label', expanded ? 'Menu' : 'Close menu');
+            });
+        }
+
         if (isIE()) {
             $("#browser-check").removeClass("hidden");
 

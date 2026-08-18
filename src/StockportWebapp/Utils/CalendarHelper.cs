@@ -47,6 +47,6 @@ public class CalendarHelper
     {
         DateTime.TryParse(time, out DateTime dateAndTime);
 
-        return eventDate.AddTicks(dateAndTime.TimeOfDay.Ticks);
+        return DateTime.SpecifyKind(eventDate.AddTicks(dateAndTime.TimeOfDay.Ticks), DateTimeKind.Utc);
     }
 }

@@ -11,7 +11,6 @@ public class SecureHeadersMiddleware
             .UseContentTypeOptions()
             .UseReferrerPolicy(OwaspHeaders.Core.Enums.ReferrerPolicyOptions.strictWhenCrossOrigin)
             .UseCacheControl()
-            .RemovePoweredByHeader()
             .UsePermittedCrossDomainPolicies()
             .Build();
 }

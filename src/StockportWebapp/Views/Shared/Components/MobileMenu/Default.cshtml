@@ -1,0 +1,30 @@
+@model IEnumerable<SubItem>
+
+<section class="site-header_search-input-wrapper hide-on-desktop">
+    <form method="get" id="cludo-mobile-form">
+        <label class="visuallyhidden" for="mobile-search-bar">
+            Search stockport.gov.uk
+        </label>
+        <input class="site-header_search-input" id="mobile-search-bar" data-cy="search-bar" type="text" name="query" placeholder="Search on stockport.gov.uk" autocomplete="off">
+        <button value="Submit search" class="site-header_search-button" data-cy="search-submit" type="submit">
+            <span class="fa fa-search" aria-hidden="true"></span><span class="visuallyhidden"> Submit search</span>
+        </button>
+    </form>
+</section>
+
+@if (Model.Any())
+{
+    <nav aria-label="Popular services">
+        <h2 class="site-header_mobile-menu-heading">Popular services</h2>
+        <ul class="site-header_mobile-menu-links">
+            @foreach (var service in Model)
+            {
+                <li class="site-header_mobile-menu-link-item">
+                    <a data-cy="mobile-menu-link" href="@service.NavigationLink">@service.Title</a>
+                </li>
+            }
+        </ul>
+        <h2>Can't find the service that you are looking for?</h2>
+        <p>Find all our council service areas on <a href="@Url.Action("Index", "Topic", new { topicSlug = "our-council-services" })">our services page</a>.</p>
+    </nav>
+}
