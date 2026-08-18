@@ -46,8 +46,7 @@ public class CalendarHelper
     public DateTime GetCombinedDateAndTime(DateTime eventDate, string time)
     {
         DateTime.TryParse(time, out DateTime dateAndTime);
-        DateTime combined = eventDate.AddTicks(dateAndTime.TimeOfDay.Ticks);
 
-        return DateTime.SpecifyKind(combined, DateTimeKind.Utc);
+        return DateTime.SpecifyKind(eventDate.AddTicks(dateAndTime.TimeOfDay.Ticks), DateTimeKind.Utc);
     }
 }
