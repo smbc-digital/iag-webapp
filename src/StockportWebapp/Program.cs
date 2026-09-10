@@ -1,4 +1,6 @@
-﻿[ExcludeFromCodeCoverage]
+﻿using StockportGovUK.NetStandard.Logging.Opensearch.Aws;
+
+[ExcludeFromCodeCoverage]
 internal class Program
 {
     private static void Main(string[] args)
@@ -35,11 +37,19 @@ internal class Program
                 Log.Logger.Information($"WEBAPP : INITIALISE SECRETS {builder.Environment.EnvironmentName}: Load JSON Secrets from file system, {location}");
             }
 
+            Log.Logger = new LoggerConfiguration()
+                .ReadFrom.Configuration(builder.Configuration)
+                .WriteToOpenSearchAws(builder.Configuration)
+                .CreateLogger();
+
+            builder.Logging.ClearProviders();
+            builder.Services.AddSerilog(Log.Logger);
+
             builder.Host.UseSerilog((context, services, configuration) => configuration
                 .ReadFrom.Configuration(context.Configuration)
-                .WriteToElasticsearchAws(builder.Configuration));
+                .WriteToOpenSearchAws(builder.Configuration));
 
-            Log.Logger.Information($"WEBAPP : CONFIGURE APPLICATION START");
+            Log.Logger.Error($"WEBAPP : CONFIGURE APPLICATION START");
 
             ConfigureServices(builder.Services, builder.Configuration, builder.Environment);
 
