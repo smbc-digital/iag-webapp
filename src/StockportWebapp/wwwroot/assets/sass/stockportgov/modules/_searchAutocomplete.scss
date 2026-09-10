@@ -32,6 +32,7 @@
         padding-left: 1em;
         border-bottom: 1px solid $stockport-grey;
         background-color: $stockport-light-grey;
+        color: $stockport-black;
     }
 
     li {
@@ -40,6 +41,7 @@
         padding-left: 1em;
         list-style: none;
         padding: 0.5em;
+        color: $stockport-black;
 
         &:hover {
             transition: none;
