@@ -1,4 +1,5 @@
 ﻿using Amazon.SecretsManager.Model;
+using Kralizek.Extensions.Configuration;
 using StockportWebapp.Configuration;
 
 namespace StockportWebapp.Utils.Extensions;
@@ -40,11 +41,11 @@ public static class SecretsConfigurationBuilderExtensions
 
         List<string> allowedPrefixes = GetSecretPrefixes(secretConfig, hostingContext.HostingEnvironment.EnvironmentName);
 
-        configurationBuilder.AddSecretsManager(configurator: opts =>
+        configurationBuilder.AddSecretsManagerDiscovery(opts =>
         {
             opts.SecretFilter = entry => HasPrefix(allowedPrefixes, entry);
-            opts.KeyGenerator = (entry, key) => GenerateKey(allowedPrefixes, key);
-            opts.PollingInterval = TimeSpan.FromMinutes(30);
+            opts.KeyGenerator = context => GenerateKey(allowedPrefixes, context);
+            opts.ReloadInterval = TimeSpan.FromMinutes(30);
         });
 
         return configurationBuilder;
@@ -91,14 +92,14 @@ public static class SecretsConfigurationBuilderExtensions
     }
 
     // Strip the prefix and replace '__' with ':'
-    private static string GenerateKey(IEnumerable<string> prefixes, string secretValue)
+    private static string GenerateKey(IEnumerable<string> prefixes, SecretKeyGeneratorContext context)
     {
         // We know one of the prefixes matches, this assumes there's only one match,
         // So don't use '/' in your environment or secretgroup names!
-        string prefix = prefixes.First(secretValue.StartsWith);
+        string prefix = prefixes.First(context.RawKey.StartsWith);
 
         // Strip the prefix, and replace "__" with ":"
-        string key = secretValue
+        string key = context.RawKey
             .Substring(prefix.Length)
             .Replace("__", ":");
 
