@@ -227,17 +227,17 @@ public static class ServiceCollectionExtensions
 
     public static IServiceCollection AddRedis(this IServiceCollection services, IConfiguration configuration, bool useRedisSession, ILogger logger)
     {
-        logger.Information($"WEBAPP : ServiceCollectionsExtensions : AddRedis : Configure redis for session management - TokenStoreUrl: {configuration["TokenStoreUrl"]} Enabled: {useRedisSession}");
+        logger.Information($"WEBAPP : ServiceCollectionsExtensions : AddRedis : Configure redis for session management - ValkeyUrl: {configuration["ValkeyUrl"]} Enabled: {useRedisSession}");
 
         if (useRedisSession)
         {
-            string redisUrl = configuration.GetValue<string>("TokenStoreUrl");
-            logger.Information($"WEBAPP : ServiceCollectionsExtensions : AddRedis : Using Redis URL {redisUrl}");
+            string redisUrl = configuration.GetValue<string>("ValkeyUrl");
+            logger.Warning($"WEBAPP : ServiceCollectionsExtensions : AddRedis : Using Redis URL {redisUrl}");
 
             try
             {
                 string redisIp = GetHostEntryForUrl(redisUrl, logger);
-                logger.Information($"WEBAPP : ServiceCollectionExtensions : AddRedis : Using Redis for session management - url {redisUrl}, ip {redisIp}");
+                logger.Warning($"WEBAPP : ServiceCollectionExtensions : AddRedis : Using Redis for session management - url {redisUrl}, ip {redisIp}");
                 services.AddDataProtection().PersistKeysToRedis(redisIp);
             }
             catch(Exception ex)
