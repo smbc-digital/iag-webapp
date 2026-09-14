@@ -49,17 +49,17 @@ public class RedisXmlRepository : IXmlRepository, IDisposable
     /// <summary>
     /// Initializes a new instance of the <see cref="RedisXmlRepository"/> class.
     /// </summary>
-    /// <param name="connectionString">
-    /// The Redis connection string.
+    /// <param name="options">
+    /// The Redis connection ConfigurationOptions.
     /// </param>
     /// <param name="logger">
     /// The <see cref="ILogger{T}"/> used to log diagnostic messages.
     /// </param>
     /// <exception cref="System.ArgumentNullException">
-    /// Thrown if <paramref name="connectionString" /> or <paramref name="logger" /> is <see langword="null" />.
+    /// Thrown if <paramref name="options" /> or <paramref name="logger" /> is <see langword="null" />.
     /// </exception>
-    public RedisXmlRepository(string connectionString, ILogger<RedisXmlRepository> logger)
-        : this(ConnectionMultiplexer.Connect(connectionString), logger)
+    public RedisXmlRepository(ConfigurationOptions options, ILogger<RedisXmlRepository> logger)
+        : this(ConnectionMultiplexer.Connect(options), logger)
     {
     }
 

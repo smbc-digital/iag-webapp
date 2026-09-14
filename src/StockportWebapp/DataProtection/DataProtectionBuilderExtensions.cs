@@ -1,4 +1,6 @@
-﻿namespace StockportWebapp.DataProtection;
+﻿using System.Security.Authentication;
+
+namespace StockportWebapp.DataProtection;
 
 /// <summary>
 /// Extension methods for <see cref="IDataProtectionBuilder"/> for configuring
@@ -37,7 +39,25 @@ public static class DataProtectionBuilderExtensions
             throw new ArgumentException("Redis connection string may not be empty.", nameof(redisConnectionString));
         }
 
-        return builder.Use(ServiceDescriptor.Singleton<IXmlRepository>(services => new RedisXmlRepository(redisConnectionString, services.GetRequiredService<ILogger<RedisXmlRepository>>())));
+        var options = new ConfigurationOptions
+        {
+            EndPoints = {
+                { redisConnectionString, 6379 }
+            },
+            Ssl = true,
+            SslProtocols = SslProtocols.Tls12,
+            AbortOnConnectFail = false
+        };
+
+        options.CertificateValidation += (sender, cert, chain, errors) =>
+        {
+            if (cert is not null)
+                return cert.Subject.Contains(".cache.amazonaws.com") || cert.Issuer.Contains("Amazon");
+
+            return false;
+        };
+
+        return builder.Use(ServiceDescriptor.Singleton<IXmlRepository>(services => new RedisXmlRepository(options, services.GetRequiredService<ILogger<RedisXmlRepository>>())));
     }
 
     /// <summary>
