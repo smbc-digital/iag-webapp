@@ -15,7 +15,7 @@ public class ContentSecurityPolicyBuilder
         BuildConnectSource();
         BuildMediaSource();
         BuildObjectSource();
-        //BuildManifestSource();
+        BuildManifestSource();
         BuildFrameSource();
         //BuildFormAction();
 
