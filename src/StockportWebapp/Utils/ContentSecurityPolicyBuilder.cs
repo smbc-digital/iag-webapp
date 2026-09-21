@@ -324,11 +324,11 @@ public class ContentSecurityPolicyBuilder
             .AddSource("http://www.youtube.com")
             .Finish());
 
-    //private void BuildManifestSource() =>
-    //    _stringBuilder.Append(
-    //        new ContentSecurityPolicyElement("manifest-src")
-    //        .AddSource("http://localhost:5000/assets/images/ui-images/sg/manifest.json")
-    //        .Finish());
+    private void BuildManifestSource() =>
+        _stringBuilder.Append(
+            new ContentSecurityPolicyElement("manifest-src")
+            .AddSource("https://www.stockport.gov.uk/assets/images/ui-images/sg/manifest.json")
+            .Finish());
 
     private void BuildFormAction() =>
         _stringBuilder.Append(
