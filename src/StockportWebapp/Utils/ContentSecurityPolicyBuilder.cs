@@ -78,6 +78,7 @@ public class ContentSecurityPolicyBuilder
     private void BuildImageSource() =>
         _stringBuilder.Append(
             new ContentSecurityPolicyElement("img-src")
+            .AddSource("https://*.stockport.gov.uk")
             .AddSource("khms0.googleapis.com")
             .AddSource("khms1.googleapis.com")
             .AddSource("geo0.ggpht.com")
@@ -135,7 +136,7 @@ public class ContentSecurityPolicyBuilder
         _stringBuilder.Append(
             new ContentSecurityPolicyElement("style-src")
             .AddSource("'unsafe-inline'")
-            .AddSource("stockport.gov.uk")
+            .AddSource("https://*.stockport.gov.uk")
             .AddSource("cludo.com/css/")
             .AddSource("customer.cludo.com/css/")
             .AddSource("stockportgov-design-system.s3-eu-west-1.amazonaws.com/")
@@ -169,7 +170,7 @@ public class ContentSecurityPolicyBuilder
             new ContentSecurityPolicyElement("script-src")
             .AddSource("'unsafe-inline'")
             .AddSource("'unsafe-eval'")
-            .AddSource("stockport.gov.uk")
+            .AddSource("https://*.stockport.gov.uk")
             .AddSource("https://ajax.googleapis.com/ajax/libs/jquery/")
             .AddSource("maps.googleapis.com")
             .AddSource("apis.google.com")
@@ -239,6 +240,7 @@ public class ContentSecurityPolicyBuilder
     private void BuildConnectSource() =>
         _stringBuilder.Append(
             new ContentSecurityPolicyElement("connect-src")
+            .AddSource("https://*.stockport.gov.uk")
             .AddSource("https://api.cludo.com/")
             .AddSource("buto-ping-middleman.buto.tv/")
             .AddSource("http://kinesis-ping-middleman.buto.tv")
@@ -253,7 +255,6 @@ public class ContentSecurityPolicyBuilder
             .AddSource("wss://chat.meetami.ai/", false, true)
             .AddSource("wss://chat.meetami.ai/socket.io/", false, true)
             .AddSource("http://localhost/sitereplier/chats/enabled/")
-            .AddSource("*.stockport.gov.uk")
             .AddSource("*.smbcdigital.net")
             .AddSource("api.mapbox.com/")
             .AddSource("events.mapbox.com/")
@@ -289,9 +290,8 @@ public class ContentSecurityPolicyBuilder
     private void BuildMediaSource() =>
         _stringBuilder.Append(
             new ContentSecurityPolicyElement("media-src")
-            
             .AddSource("blob:", true, true)
-
+            .AddSource("https://*.stockport.gov.uk")
             .AddSource("https://www.youtube.com/")
             .AddSource("*.cloudfront.net/butotv/live/", false, true)
             .AddSource("http://wpc.196c.planetstream.net/00196C/audio/")
@@ -319,6 +319,7 @@ public class ContentSecurityPolicyBuilder
     private void BuildObjectSource() =>
         _stringBuilder.Append(
             new ContentSecurityPolicyElement("object-src")
+            .AddSource("https://*.stockport.gov.uk")
             .AddSource("https://www.youtube.com")
             .AddSource("http://www.youtube.com")
             .Finish());
