@@ -327,6 +327,7 @@ public class ContentSecurityPolicyBuilder
     private void BuildManifestSource() =>
         _stringBuilder.Append(
             new ContentSecurityPolicyElement("manifest-src")
+            .AddSource("https:")
             .AddSource("https://www.stockport.gov.uk/assets/images/ui-images/sg/manifest.json")
             .Finish());
 
