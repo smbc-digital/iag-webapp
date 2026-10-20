@@ -26,6 +26,7 @@ public class NewsControllerTest
         new List<string>(),
         new List<InlineQuote>(),
         null,
+        null,
         "in partnership with",
         new List<TrustedLogo>(),
         null,
@@ -48,6 +49,7 @@ public class NewsControllerTest
         new List<Alert>(),
         new List<string>(),
         new List<InlineQuote>(),
+        null,
         null,
         string.Empty,
         new List<TrustedLogo>(),
@@ -79,7 +81,7 @@ public class NewsControllerTest
         new List<Event>()
     );
 
-    private readonly List<News> _listOfNewsItems = new() 
+    private readonly List<News> _listOfNewsItems = new()
     {
         NewsItemWithoutImages,
         NewsItemWithImages
@@ -88,7 +90,7 @@ public class NewsControllerTest
     private readonly Newsroom _newsRoom;
     private readonly Newsroom _emptyNewsRoom;
     public const int MaxNumberOfItemsPerPage = 15;
-    
+
     public NewsControllerTest()
     {
         _newsRoom = new(_listOfNewsItems,
@@ -101,7 +103,7 @@ public class NewsControllerTest
                         new List<DateTime>(),
                         new List<int>() { 2025, 2024, 2023, 2022, 2021, 2020, 2019, 2018, 2017, 2016 },
                         null);
-        
+
         _emptyNewsRoom = new(new List<News>(),
                             null,
                             null,
@@ -136,7 +138,7 @@ public class NewsControllerTest
         _config
             .Setup(conf => conf.GetRssEmail("businessId"))
             .Returns(AppSetting.GetAppSetting("rss-email"));
-        
+
 
 
         _controller = new(_repository.Object,
@@ -168,15 +170,15 @@ public class NewsControllerTest
     {
         // Arrange
         _repository
-            .Setup(repo=> repo.Get<Newsroom>(string.Empty, It.Is<List<Query>>(l => l.Contains(new Query("tag", "Events")) && l.Contains(new Query("Category", "A Category")))))
+            .Setup(repo => repo.Get<Newsroom>(string.Empty, It.Is<List<Query>>(l => l.Contains(new Query("tag", "Events")) && l.Contains(new Query("Category", "A Category")))))
             .ReturnsAsync(HttpResponse.Successful((int)HttpStatusCode.OK, _newsRoom));
 
         // Act
         ViewResult actionResponse = await _controller.NewsArticles(new NewsroomViewModel
-            {
-                Tag = "Events",
-                Category = "A Category"
-            },
+        {
+            Tag = "Events",
+            Category = "A Category"
+        },
             1, MaxNumberOfItemsPerPage) as ViewResult;
 
         NewsroomViewModel viewModel = actionResponse.ViewData.Model as NewsroomViewModel;
@@ -195,7 +197,7 @@ public class NewsControllerTest
         _repository
             .Setup(repo => repo.Get<Newsroom>(string.Empty, It.IsAny<List<Query>>()))
             .ReturnsAsync(new HttpResponse(404, null, "not found"));
-        
+
         NewsController controller = new(_repository.Object,
                                         _processedContentRepository.Object,
                                         _mockRssFeedFactory.Object,
@@ -234,7 +236,7 @@ public class NewsControllerTest
         // Assert
         Assert.Equal(_newsRoom, news);
     }
-    
+
     [Fact]
     public async Task Index_ShouldReturnEmptyPaginationForNoNewsItems()
     {
@@ -370,7 +372,7 @@ public class NewsControllerTest
         _repository
             .Setup(repo => repo.GetLatest<List<News>>(7))
             .ReturnsAsync(new HttpResponse(404, null, "not found"));
-        
+
         NewsController controller = new(_repository.Object,
                                         _processedContentRepository.Object,
                                         _mockRssFeedFactory.Object,
@@ -485,7 +487,7 @@ public class NewsControllerTest
         Assert.Equal(DateTime.Now.Date, viewModel.DateTo);
     }
 
-     [Fact]
+    [Fact]
     public async Task NewsArchive_ShouldSetDateFrom_ToEarliestYear_WhenOnlyDateToIsProvided()
     {
         // Arrange
@@ -521,7 +523,7 @@ public class NewsControllerTest
         Assert.Equal(404, result.StatusCode);
     }
 
-     [Fact]
+    [Fact]
     public async Task NewsArticle_ShouldReturnView_WithNewsViewModel_WhenSuccessful()
     {
         // Act
@@ -557,7 +559,7 @@ public class NewsControllerTest
         // Assert
         Assert.Equal(404, response.StatusCode);
     }
-    
+
     [Fact]
     public async Task NewsArticles_ShouldReturnView_WithCorrectModel_WhenSuccessful()
     {
@@ -600,7 +602,7 @@ public class NewsControllerTest
         // Assert
         Assert.Equal(_newsRoom, news);
     }
-    
+
     private NewsController SetUpController(int numNewsItems)
     {
         List<News> listOfNewsItems = BuildNewsList(numNewsItems);
@@ -649,6 +651,7 @@ public class NewsControllerTest
                                 new List<Alert>(),
                                 new List<string>(),
                                 new List<InlineQuote>(),
+                                null,
                                 null,
                                 "in partnership with",
                                 new List<TrustedLogo>(),

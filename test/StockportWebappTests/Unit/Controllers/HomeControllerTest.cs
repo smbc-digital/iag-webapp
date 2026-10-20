@@ -21,7 +21,7 @@ public class HomeControllerTest
                     new List<SubItem>(),
                     EColourScheme.Teal)
     };
-    
+
     private readonly List<SubItem> _featuredTopics = new()
     {
         new SubItem("Council Tax",
@@ -77,6 +77,7 @@ public class HomeControllerTest
                                             new List<string>(),
                                             new List<InlineQuote>(),
                                             null,
+                                            null,
                                             string.Empty,
                                             new List<TrustedLogo>(),
                                             null,
@@ -123,7 +124,7 @@ public class HomeControllerTest
             .Setup(service => service.GetLatestNewsItem())
             .ReturnsAsync(_newsContent);
 
-        
+
         _controller = new HomeController(new BusinessId("stockportgov"),
                                         _config.Object,
                                         _newsService.Object,
@@ -349,7 +350,7 @@ public class HomeControllerTest
         _homepageService
             .Setup(service => service.GetHomepage())
             .ReturnsAsync(homePageContent);
-        
+
         _stockportApiService
             .Setup(service => service.GetEventsByCategory("unittest", true))
             .ReturnsAsync(new List<Event> { new EventBuilder().Build() });

@@ -20,14 +20,17 @@ public class NewsServiceTests
                                     new List<string>(),
                                     new List<InlineQuote>(),
                                     null,
+                                    null,
                                     string.Empty,
                                     new List<TrustedLogo>(),
                                     null,
                                     string.Empty,
                                     null);
 
-    public NewsServiceTests() =>
+    public NewsServiceTests()
+    {
         _service = new(_repository.Object);
+    }
 
     [Fact]
     public async Task GetNewsByLimit_ShouldReturnListOfNews()
