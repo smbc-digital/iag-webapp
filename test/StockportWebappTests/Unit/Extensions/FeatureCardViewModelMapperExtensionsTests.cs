@@ -6,18 +6,19 @@ public class FeatureCardViewModelMapperExtensionsTests
     public void ShouldMapEventToFeaturedItemCorrectly()
     {
         // Arrange
-        Event featuredEvent = new() {
-                Title = "TestEvent",
-                Teaser = "EventTeaser",
-                EventDate = DateTime.Today,
-                StartTime = "9am",
-                ImageUrl = "/image.jpg",
-                Slug = "MyTestEvent"
+        Event featuredEvent = new()
+        {
+            Title = "TestEvent",
+            Teaser = "EventTeaser",
+            EventDate = DateTime.Today,
+            StartTime = "9am",
+            ImageUrl = "/image.jpg",
+            Slug = "MyTestEvent"
         };
 
         // Act
         FeatureCardViewModel result = featuredEvent.MapToFeatureCard();
-        
+
         // Assert
         Assert.IsType<FeatureCardViewModel>(result);
         Assert.Equal(featuredEvent.Title, result.Title);
@@ -28,17 +29,17 @@ public class FeatureCardViewModelMapperExtensionsTests
         Assert.Equal("View more events", result.ButtonText);
         Assert.Equal($"/events/{featuredEvent.Slug}", result.Slug);
         Assert.Equal("Events", result.ButtonTargetController);
-        Assert.Equal("Upcoming event", result.HeaderText);                
+        Assert.Equal("Upcoming event", result.HeaderText);
     }
 
-        [Fact]
+    [Fact]
     public void ShouldMapNewsToFeaturedItemCorrectly()
     {
         // Arrange
         News featuredNews = new(
-            "TestNewsItem", 
-            "TestNewItem", 
-            "Test News Teaser", 
+            "TestNewsItem",
+            "TestNewItem",
+            "Test News Teaser",
             "/News.jpg",
             "/NewsThumb.jpg",
             "hero image caption",
@@ -51,6 +52,7 @@ public class FeatureCardViewModelMapperExtensionsTests
             new List<string>(),
             new List<InlineQuote>(),
             null,
+            null,
             "in partnership with",
             new List<TrustedLogo>(),
             null,
@@ -60,7 +62,7 @@ public class FeatureCardViewModelMapperExtensionsTests
 
         // Act
         FeatureCardViewModel result = featuredNews.MapToFeatureCard();
-        
+
         // Assert
         Assert.IsType<FeatureCardViewModel>(result);
         Assert.Equal(featuredNews.Title, result.Title);
@@ -71,6 +73,6 @@ public class FeatureCardViewModelMapperExtensionsTests
         Assert.Equal("View more news", result.ButtonText);
         Assert.Equal($"/news/{featuredNews.Slug}", result.Slug);
         Assert.Equal("LandingPage", result.ButtonTargetController);
-        Assert.Equal("Latest news", result.HeaderText);      
+        Assert.Equal("Latest news", result.HeaderText);
     }
 }

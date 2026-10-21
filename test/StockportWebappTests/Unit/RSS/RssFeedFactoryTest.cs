@@ -4,8 +4,10 @@ public class RssFeedFactoryTest
 {
     private readonly RssFeedFactory _rssFeedFactory;
 
-    public RssFeedFactoryTest() =>
+    public RssFeedFactoryTest()
+    {
         _rssFeedFactory = new RssFeedFactory();
+    }
 
     [Fact]
     public void CreatesChannelOnRss()
@@ -44,6 +46,7 @@ public class RssFeedFactoryTest
                 new List<string>(),
                 new List<InlineQuote>(),
                 null,
+                null,
                 string.Empty,
                 new List<TrustedLogo>(),
                 null,
@@ -64,6 +67,7 @@ public class RssFeedFactoryTest
                 new List<Alert>(),
                 new List<string>(),
                 new List<InlineQuote>(),
+                null,
                 null,
                 string.Empty,
                 new List<TrustedLogo>(),
@@ -86,6 +90,7 @@ public class RssFeedFactoryTest
                 new List<string>(),
                 new List<InlineQuote>(),
                 null,
+                null,
                 string.Empty,
                 new List<TrustedLogo>(),
                 null,
@@ -106,6 +111,7 @@ public class RssFeedFactoryTest
                 new List<Alert>(),
                 new List<string>(),
                 new List<InlineQuote>(),
+                null,
                 null,
                 string.Empty,
                 new List<TrustedLogo>(),

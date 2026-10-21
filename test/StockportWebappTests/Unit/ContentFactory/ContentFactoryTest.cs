@@ -109,6 +109,7 @@ public class ContentFactoryTest
                         new List<string>(),
                         new List<InlineQuote>(),
                         null,
+                        null,
                         It.IsAny<string>(),
                         new List<TrustedLogo>(),
                         null,
@@ -116,7 +117,7 @@ public class ContentFactoryTest
                         null);
 
         // Act
-        IProcessedContentType processedNews= _factory.Build(news);
+        IProcessedContentType processedNews = _factory.Build(news);
 
         // Assert
         Assert.IsType<ProcessedNews>(processedNews);

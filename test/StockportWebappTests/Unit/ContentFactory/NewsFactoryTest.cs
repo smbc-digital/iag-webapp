@@ -6,7 +6,7 @@ public class NewsFactoryTest
     private readonly Mock<MarkdownWrapper> _markdownWrapper = new();
     private readonly Mock<ITagParserContainer> _tagParserContainer = new();
     private readonly News _news;
-    private readonly List<Alert> _alerts = new() 
+    private readonly List<Alert> _alerts = new()
     {
         new Alert("Alert",
                 "The Body",
@@ -17,7 +17,7 @@ public class NewsFactoryTest
                 false,
                 string.Empty)
     };
-    
+
     private readonly List<string> _tags = new() { "Events", "Bramall Hall" };
     private readonly List<Document> _documents = new();
 
@@ -39,12 +39,13 @@ public class NewsFactoryTest
                         _tags,
                         new List<InlineQuote>(),
                         null,
+                        null,
                         "logoAreaTitle",
                         new List<TrustedLogo>(),
                         null,
                         string.Empty,
                         null);
-        
+
         _tagParserContainer
             .Setup(parser => parser.ParseAll("body",
                                             It.IsAny<string>(),
@@ -57,7 +58,7 @@ public class NewsFactoryTest
                                             null,
                                             It.IsAny<bool>()))
             .Returns("body");
-        
+
         _markdownWrapper
             .Setup(markdown => markdown.ConvertToHtml("body"))
             .Returns("body");
@@ -104,6 +105,6 @@ public class NewsFactoryTest
                                                             It.IsAny<IEnumerable<PrivacyNotice>>(),
                                                             null,
                                                             null,
-                                                            It.IsAny<bool>()),Times.Once);
+                                                            It.IsAny<bool>()), Times.Once);
     }
 }

@@ -406,32 +406,24 @@ public class PaginationHelperTest
     }
 
     [Fact]
-    public void PreviousLinkIsShownWhenPageNumberIsGreaterThanOne()
-    {
+    public void PreviousLinkIsShownWhenPageNumberIsGreaterThanOne() =>
         // Act & Assert
         Assert.True(PaginationHelper.ShowPreviousLink(5));
-    }
 
     [Fact]
-    public void PreviousLinkIsNotShownWhenPageNumberIsEqualToOne()
-    {
+    public void PreviousLinkIsNotShownWhenPageNumberIsEqualToOne() =>
         // Act & Assert
         Assert.False(PaginationHelper.ShowPreviousLink(1));
-    }
 
     [Fact]
-    public void NextLinkIsNotShownWhenPageNumberIsEqualToTotalPages()
-    {
+    public void NextLinkIsNotShownWhenPageNumberIsEqualToTotalPages() =>
         // Act & Assert
         Assert.False(PaginationHelper.ShowNextLink(10, 10));
-    }
 
     [Fact]
-    public void NextLinkIsShownWhenPageNumberIsLessThanTotalPages()
-    {
+    public void NextLinkIsShownWhenPageNumberIsLessThanTotalPages() =>
         // Act & Assert
         Assert.True(PaginationHelper.ShowNextLink(9, 10));
-    }
 
     private List<News> BuildListofNewsItems(int numberOfItems)
     {
@@ -453,6 +445,7 @@ public class PaginationHelperTest
                                 new List<Alert>(),
                                 new List<string>(),
                                 new List<InlineQuote>(),
+                                null,
                                 null,
                                 string.Empty,
                                 new List<TrustedLogo>(),
