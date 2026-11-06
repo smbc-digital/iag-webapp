@@ -14,9 +14,9 @@ public static class ApplicationBuilderExtensions
                 string url = string.Concat("robots-", businessId, isLive ? "-live" : string.Empty, ".txt");
 
                 if (context.File.Name.Equals(url))
-                    context.Context.Response.Headers.Append("Cache-Control", "max-age=0");
+                    context.Context.Response.Headers["Cache-Control"] = "max-age=0";
                 else
-                    context.Context.Response.Headers.Append("Cache-Control", "public, max-age=31536000, immutable");
+                    context.Context.Response.Headers["Cache-Control"] = "public, max-age=31536000, immutable";
             }
         });
 
