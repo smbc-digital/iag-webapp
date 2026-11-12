@@ -101,6 +101,8 @@ public class PaymentReferenceValidationTests
     [InlineData(EPaymentReferenceValidation.PlanningApplication, "enq/112366")]
     [InlineData(EPaymentReferenceValidation.PlanningApplication, "PLA/000456")]
     [InlineData(EPaymentReferenceValidation.PlanningApplication, "pla/112366")]
+    [InlineData(EPaymentReferenceValidation.StockportEstatesInvoices, "T12123")]
+    [InlineData(EPaymentReferenceValidation.StockportEstatesInvoices, "T0011")]
     [InlineData(EPaymentReferenceValidation.EnvProtectHousingStandards, "00/00000/A")]
     [InlineData(EPaymentReferenceValidation.EnvProtectHousingStandards, "12/12345/ABC")]
     [InlineData(EPaymentReferenceValidation.EnvProtectHousingStandards, "22/54321/ENV123")]
