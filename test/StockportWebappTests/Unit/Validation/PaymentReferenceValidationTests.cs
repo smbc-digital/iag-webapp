@@ -173,6 +173,11 @@ public class PaymentReferenceValidationTests
     [InlineData(EPaymentReferenceValidation.PlanningApplication, "PLA/112366")]
     [InlineData(EPaymentReferenceValidation.StockportEstatesInvoices, "T12123")]
     [InlineData(EPaymentReferenceValidation.StockportEstatesInvoices, "T1234")]
+    [InlineData(EPaymentReferenceValidation.EnvProtectHousingStandards, "00/00000/A")]
+    [InlineData(EPaymentReferenceValidation.EnvProtectHousingStandards, "12/12345/ABC")]
+    [InlineData(EPaymentReferenceValidation.EnvProtectHousingStandards, "22/54321/AB12")]
+    [InlineData(EPaymentReferenceValidation.EnvProtectHousingStandards, "45/67890/A1B2C3")]
+    [InlineData(EPaymentReferenceValidation.EnvProtectHousingStandards, "99/99999/A1B2C3D")]
     public void Should_ReturnSuccess_ForValidReference_ForServicePayPayment(EPaymentReferenceValidation referenceValidation, string reference)
     {
         // Arrange
