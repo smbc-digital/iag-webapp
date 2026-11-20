@@ -108,6 +108,12 @@ public class PaymentReferenceValidationTests
     [InlineData(EPaymentReferenceValidation.EnvProtectHousingStandards, "22/54321/ENV123")]
     [InlineData(EPaymentReferenceValidation.EnvProtectHousingStandards, "45/67890/A1B2C")]
     [InlineData(EPaymentReferenceValidation.EnvProtectHousingStandards, "99/99999/A1B2C3D")]
+    [InlineData(EPaymentReferenceValidation.MovingTraffic, "SM71234567")]
+    [InlineData(EPaymentReferenceValidation.MovingTraffic, "SM7123456A")]
+    [InlineData(EPaymentReferenceValidation.MovingTraffic, "sm7123456a")]
+    [InlineData(EPaymentReferenceValidation.MovingTraffic, "Sm70000000")]
+    [InlineData(EPaymentReferenceValidation.MovingTraffic, "sM7999999A")]
+    [InlineData(EPaymentReferenceValidation.MovingTraffic, "sm7333333a")]
     public void Should_ReturnSuccess_ForValidReference(EPaymentReferenceValidation referenceValidation, string reference)
     {
         // Arrange
@@ -178,6 +184,12 @@ public class PaymentReferenceValidationTests
     [InlineData(EPaymentReferenceValidation.EnvProtectHousingStandards, "22/54321/AB12")]
     [InlineData(EPaymentReferenceValidation.EnvProtectHousingStandards, "45/67890/A1B2C3")]
     [InlineData(EPaymentReferenceValidation.EnvProtectHousingStandards, "99/99999/A1B2C3D")]
+    [InlineData(EPaymentReferenceValidation.MovingTraffic, "SM71234567")]
+    [InlineData(EPaymentReferenceValidation.MovingTraffic, "SM7123456A")]
+    [InlineData(EPaymentReferenceValidation.MovingTraffic, "sm7123456a")]
+    [InlineData(EPaymentReferenceValidation.MovingTraffic, "Sm70000000")]
+    [InlineData(EPaymentReferenceValidation.MovingTraffic, "sM7999999A")]
+    [InlineData(EPaymentReferenceValidation.MovingTraffic, "sm7333333a")]
     public void Should_ReturnSuccess_ForValidReference_ForServicePayPayment(EPaymentReferenceValidation referenceValidation, string reference)
     {
         // Arrange
@@ -254,6 +266,13 @@ public class PaymentReferenceValidationTests
     [InlineData(EPaymentReferenceValidation.EnvProtectHousingStandards, "12/12345/ABCDEFGH")]
     [InlineData(EPaymentReferenceValidation.EnvProtectHousingStandards, "12/12345/ABC-123")]
     [InlineData(EPaymentReferenceValidation.EnvProtectHousingStandards, "AA/12345/ABC")]
+    [InlineData(EPaymentReferenceValidation.MovingTraffic, "SM81234567")]
+    [InlineData(EPaymentReferenceValidation.MovingTraffic, "SM712345678")]
+    [InlineData(EPaymentReferenceValidation.MovingTraffic, "SM712345")]
+    [InlineData(EPaymentReferenceValidation.MovingTraffic, "SM7123456B")]
+    [InlineData(EPaymentReferenceValidation.MovingTraffic, "AB71234567")]
+    [InlineData(EPaymentReferenceValidation.MovingTraffic, "SM7A234567")]
+    [InlineData(EPaymentReferenceValidation.MovingTraffic, "SM7123456AA")]
     public void Should_ReturnFalse_ForInvalidReference(EPaymentReferenceValidation referenceValidation, string reference)
     {
         // Arrange
@@ -330,6 +349,13 @@ public class PaymentReferenceValidationTests
     [InlineData(EPaymentReferenceValidation.EnvProtectHousingStandards, "12/12345/ABCDEFGH")]
     [InlineData(EPaymentReferenceValidation.EnvProtectHousingStandards, "12/12345/ABC-123")]
     [InlineData(EPaymentReferenceValidation.EnvProtectHousingStandards, "AA/12345/ABC")]
+    [InlineData(EPaymentReferenceValidation.MovingTraffic, "SM81234567")]
+    [InlineData(EPaymentReferenceValidation.MovingTraffic, "SM712345678")]
+    [InlineData(EPaymentReferenceValidation.MovingTraffic, "SM712345")]
+    [InlineData(EPaymentReferenceValidation.MovingTraffic, "SM7123456B")]
+    [InlineData(EPaymentReferenceValidation.MovingTraffic, "AB71234567")]
+    [InlineData(EPaymentReferenceValidation.MovingTraffic, "SM7A234567")]
+    [InlineData(EPaymentReferenceValidation.MovingTraffic, "SM7123456AA")]
     public void Should_ReturnFalse_ForInvalidReference_ForServicePayPayment(EPaymentReferenceValidation referenceValidation, string reference)
     {
         // Arrange

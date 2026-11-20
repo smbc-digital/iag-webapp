@@ -17,7 +17,8 @@ public class PaymentReferenceValidation(EPaymentSubmissionType paymentSubmission
         { EPaymentReferenceValidation.StockportBereavementInvoice, @"^(?i)sb\d{4,5}$" },
         { EPaymentReferenceValidation.PlanningApplication, @"^(?i)(dc\/\d{6}|enq\/\d{6}|pla\/\d{6}|ps\/[\w\s]{1,10})$" },
         { EPaymentReferenceValidation.StockportEstatesInvoices, @"^T\d{4,5}$" },
-        { EPaymentReferenceValidation.EnvProtectHousingStandards, @"^\d{2}\/\d{5}\/[A-Za-z0-9]{1,7}$" }
+        { EPaymentReferenceValidation.EnvProtectHousingStandards, @"^\d{2}\/\d{5}\/[A-Za-z0-9]{1,7}$" },
+        { EPaymentReferenceValidation.MovingTraffic, @"^([Ss]{1}[Mm]{1}[7]{1}[0-9]{6}[0-9|Aa]{1})$" }
     };
 
     protected override ValidationResult IsValid(object value, ValidationContext validationContext) =>
