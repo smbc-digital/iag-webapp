@@ -14,5 +14,6 @@ public enum EPaymentReferenceValidation
     StockportBereavementInvoice,
     PlanningApplication,
     StockportEstatesInvoices,
-    EnvProtectHousingStandards
+    EnvProtectHousingStandards,
+    MovingTraffic
 }
