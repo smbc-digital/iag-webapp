@@ -20,7 +20,6 @@ public class NewsController(IRepository repository,
     [Route("/newsroom")]
     public async Task<IActionResult> NewsArticles(NewsroomViewModel model, [FromQuery] int page, [FromQuery] int pageSize)
     {
-        _logger.LogError("Test newsroom log");
         ClearDateErrorsIfNoDates(model);
 
         List<Query> queries = BuildQueries(model);
